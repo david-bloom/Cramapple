@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Interpreting a Poll Interval for a Ballot Measure",
+   "calculator": "permitted",
+   "stimulus": "A polling organization selected a random sample of 400 registered voters from a state with about 6 million registered voters. Of the voters sampled, 224 said they support a proposed ballot measure. All conditions for inference were met, and the organization reported a 95% confidence interval for the proportion of all the state's registered voters who support the measure: (0.511, 0.609).",
+   "parts": [
+    {
+     "prompt": "Interpret the 95% confidence interval in context.",
+     "criteria": [
+      {
+       "text": "States that we are 95% confident that the interval from 0.511 to 0.609 captures the proportion of all registered voters in the state who support the ballot measure.",
+       "evidence": "Response says \"95% confident\" that the interval (0.511, 0.609) contains the true (population) proportion and identifies the population (all the state's registered voters) and the response (support for the measure).",
+       "fix": "Name the parameter fully: the proportion of all registered voters in this state who support the measure, not the 400 sampled voters.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the 95% confidence level in context.",
+     "criteria": [
+      {
+       "text": "Explains that if many random samples of 400 registered voters were taken from this state and a 95% confidence interval were calculated from each, about 95% of those intervals would capture the proportion of all the state's registered voters who support the measure.",
+       "evidence": "Response refers to repeated random samples of the same size and states that about 95% of the resulting intervals capture the population proportion, in context.",
+       "fix": "Describe the long-run capture rate: in many repeated random samples of 400 voters, about 95% of the intervals would contain the true proportion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Supporters of the measure claim that a majority of the state's registered voters support it. The measure's sponsor claims that 65% of the state's registered voters support it. Does the interval support each claim? Explain.",
+     "criteria": [
+      {
+       "text": "States that the interval supports the majority claim (provides convincing evidence for it) because every value in the interval from 0.511 to 0.609 is greater than 0.50.",
+       "evidence": "Response notes that all plausible values in the interval are above 0.50, so the claim that a majority support the measure is supported.",
+       "fix": "Check where 0.50 lies relative to the whole interval; if every plausible value is above it, the majority claim is supported.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the interval does not support the 65% claim because 0.65 is not in the interval; every plausible value is less than 0.65.",
+       "evidence": "Response observes that 0.65 is greater than the upper limit 0.609, so 0.65 is not a plausible value of the population proportion.",
+       "fix": "Check whether the claimed value lies inside the interval; a value outside the interval is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Answer each question about how the interval would change. First, if the organization had used a 99% confidence level with the same sample, would the margin of error be larger, smaller, or the same? Explain. Second, if the organization had instead used a random sample of 1,600 registered voters and obtained the same sample proportion, about how would the width of the 95% confidence interval compare with the width of (0.511, 0.609)?",
+     "criteria": [
+      {
+       "text": "States that the margin of error would be larger because a 99% confidence level uses a larger critical value (z* ≈ 2.576 instead of 1.96).",
+       "evidence": "Response answers larger and attributes the change to the larger critical value required for a higher confidence level.",
+       "fix": "Recall that raising the confidence level raises the critical value z*, which increases the margin of error for the same sample.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the width would be about half as large (about 0.049 instead of 0.098), because the width is approximately proportional to 1/√n and √(1,600/400) = 2.",
+       "evidence": "Response states that the interval would be about half as wide and links this to the sample size being 4 times as large (width proportional to 1/√n).",
+       "fix": "Use width ∝ 1/√n: multiplying the sample size by 4 divides the width by √4 = 2.",
+       "accepted_variants": [
+        "half as wide",
+        "about 0.049"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.511 to 0.609 captures the true proportion of all registered voters in the state who support the proposed ballot measure.\n\n(b) If the organization took many random samples of 400 registered voters from this state and calculated a 95% confidence interval from each sample, about 95% of those intervals would capture the true proportion of all the state's registered voters who support the measure.\n\n(c) Majority claim: supported. Every value in the interval, from 0.511 to 0.609, is greater than 0.50, so the interval gives convincing evidence that a majority of the state's registered voters support the measure.\n65% claim: not supported. The value 0.65 is greater than the upper limit 0.609, so 0.65 is not a plausible value for the proportion of all registered voters who support the measure; all plausible values are less than 0.65.\n\n(d) The margin of error would be larger. A 99% confidence level requires a larger critical value (z* ≈ 2.576 instead of z* ≈ 1.96), and the margin of error is the critical value times the standard error, which stays the same for the same sample.\nWith 1,600 voters the interval would be about half as wide. The width is approximately proportional to 1/√n, and √(1,600/400) = √4 = 2, so the width would be about 0.098/2 ≈ 0.049 instead of 0.609 − 0.511 = 0.098.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nn=400;x=224;ph=x/n\nassert ph==0.56\nz=NormalDist().inv_cdf(0.975)\nassert abs(z-1.96)<0.001\nse=sqrt(ph*(1-ph)/n)\nlo=ph-1.96*se;hi=ph+1.96*se\nassert abs(lo-0.511)<0.0005 and abs(hi-0.609)<0.0005\nassert lo>0.5 and hi<0.65\nz99=NormalDist().inv_cdf(0.995)\nassert abs(z99-2.576)<0.0005 and z99>z\nw=0.609-0.511\nassert abs(w-0.098)<1e-9\nw2=2*1.96*sqrt(ph*(1-ph)/1600)\nassert abs(w2-0.049)<0.0005\nassert sqrt(1600/400)==2\nassert abs(w/2-0.049)<1e-9\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.880732Z"
+ }
 }

@@ -11,16 +11,18 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 2,
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:57:09.394Z",
    "item": {
     "title": "Matching Carbon Monoxide Absorptions to Molecular Transitions",
     "calculator": "permitted",
-    "stimulus": "A sample of carbon monoxide gas, CO(g), is placed in a sealed cell. The cell is exposed in turn to three radiation sources. Each source emits one wavelength, and CO absorbs strongly at each wavelength. The data are shown below.\n\nSource | Wavelength of radiation absorbed by CO(g)\nA | 2.60 mm\nB | 4.67 \u03bcm\nC | 155 nm\n\nUseful information: h = 6.626 \u00d7 10\u207b\u00b3\u2074 J\u00b7s; c = 2.998 \u00d7 10\u2078 m/s; N_A = 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9. The bond enthalpy of the carbon\u2013oxygen triple bond in CO is 1072 kJ/mol.",
-    "model_answer": "(a) Source A, 2.60 mm = 2.60 \u00d7 10\u207b\u00b3 m, is microwave radiation. Absorbing it causes CO to change to a higher rotational energy level. Source B, 4.67 \u03bcm = 4.67 \u00d7 10\u207b\u2076 m, is infrared radiation. Absorbing it causes CO to change to a higher vibrational energy level.\n\n(b) E = hc/\u03bb = (6.626 \u00d7 10\u207b\u00b3\u2074 J\u00b7s)(2.998 \u00d7 10\u2078 m/s)/(4.67 \u00d7 10\u207b\u2076 m) = 4.25 \u00d7 10\u207b\u00b2\u2070 J.\n\n(c) Source C (155 nm) is ultraviolet radiation and causes an electronic transition, promoting an electron in CO to a higher electronic energy level. Because E = hc/\u03bb, the shortest wavelength gives the greatest photon energy: E_C = (6.626 \u00d7 10\u207b\u00b3\u2074)(2.998 \u00d7 10\u2078)/(155 \u00d7 10\u207b\u2079 m) = 1.28 \u00d7 10\u207b\u00b9\u2078 J, compared with 4.25 \u00d7 10\u207b\u00b2\u2070 J for B and 7.64 \u00d7 10\u207b\u00b2\u00b3 J for A. Electronic energy levels are spaced much farther apart than vibrational or rotational levels, so only the highest-energy photons from source C can cause an electronic transition.\n\n(d) I disagree. Energy of one source A photon: E = (6.626 \u00d7 10\u207b\u00b3\u2074)(2.998 \u00d7 10\u2078)/(2.60 \u00d7 10\u207b\u00b3 m) = 7.64 \u00d7 10\u207b\u00b2\u00b3 J. Energy to break one C\u2261O bond: (1072 \u00d7 10\u00b3 J/mol)/(6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9) = 1.78 \u00d7 10\u207b\u00b9\u2078 J. The photon energy is about 2.33 \u00d7 10\u2074 times smaller than the energy needed to break the bond, so absorbing a microwave photon only raises the rotational energy of CO; the bond does not break.",
+    "stimulus": "A sample of carbon monoxide gas, CO(g), is placed in a sealed cell. The cell is exposed in turn to three radiation sources. Each source emits one wavelength, and CO absorbs strongly at each wavelength. The data are shown below.\n\nSource | Wavelength of radiation absorbed by CO(g)\nA | 2.60 mm\nB | 4.67 μm\nC | 155 nm\n\nUseful information: h = 6.626 × 10⁻³⁴ J·s; c = 2.998 × 10⁸ m/s; N_A = 6.022 × 10²³ mol⁻¹. The bond enthalpy of the carbon–oxygen triple bond in CO is 1072 kJ/mol.",
+    "model_answer": "(a) Source A, 2.60 mm = 2.60 × 10⁻³ m, is microwave radiation. Absorbing it causes CO to change to a higher rotational energy level. Source B, 4.67 μm = 4.67 × 10⁻⁶ m, is infrared radiation. Absorbing it causes CO to change to a higher vibrational energy level.\n\n(b) E = hc/λ = (6.626 × 10⁻³⁴ J·s)(2.998 × 10⁸ m/s)/(4.67 × 10⁻⁶ m) = 4.25 × 10⁻²⁰ J.\n\n(c) Source C (155 nm) is ultraviolet radiation and causes an electronic transition, promoting an electron in CO to a higher electronic energy level. Because E = hc/λ, the shortest wavelength gives the greatest photon energy: E_C = (6.626 × 10⁻³⁴)(2.998 × 10⁸)/(155 × 10⁻⁹ m) = 1.28 × 10⁻¹⁸ J, compared with 4.25 × 10⁻²⁰ J for B and 7.64 × 10⁻²³ J for A. Electronic energy levels are spaced much farther apart than vibrational or rotational levels, so only the highest-energy photons from source C can cause an electronic transition.\n\n(d) I disagree. Energy of one source A photon: E = (6.626 × 10⁻³⁴)(2.998 × 10⁸)/(2.60 × 10⁻³ m) = 7.64 × 10⁻²³ J. Energy to break one C≡O bond: (1072 × 10³ J/mol)/(6.022 × 10²³ mol⁻¹) = 1.78 × 10⁻¹⁸ J. The photon energy is about 2.33 × 10⁴ times smaller than the energy needed to break the bond, so absorbing a microwave photon only raises the rotational energy of CO; the bond does not break.",
     "verification_python": "import math\nh=6.626e-34\nc=2.998e8\nNA=6.022e23\nEA=h*c/2.60e-3\nEB=h*c/4.67e-6\nEC=h*c/155e-9\nbond=1072e3/NA\nassert abs(EB-4.25e-20)/4.25e-20<0.002\nassert abs(EA-7.64e-23)/7.64e-23<0.002\nassert abs(EC-1.28e-18)/1.28e-18<0.003\nassert abs(bond-1.78e-18)/1.78e-18<0.002\nratio=bond/EA\nassert abs(ratio-2.33e4)/2.33e4<0.003\nassert abs(EA*NA-46.0)<0.1\nassert EC>EB>EA\nassert EC<bond\nprint('ALL_CHECKS_PASSED')",
     "parts": [
      {
@@ -36,9 +38,9 @@
         ]
        },
        {
-        "text": "Source B (4.67 \u03bcm) is infrared radiation, and its absorption causes a transition between vibrational energy levels of CO.",
+        "text": "Source B (4.67 μm) is infrared radiation, and its absorption causes a transition between vibrational energy levels of CO.",
         "evidence": "States that source B is infrared and that absorbing it changes the vibrational energy level (bond stretching) of the CO molecule.",
-        "fix": "Convert micrometers to meters, place 10\u207b\u2076 m in the infrared region, then pair infrared with vibrational transitions.",
+        "fix": "Convert micrometers to meters, place 10⁻⁶ m in the infrared region, then pair infrared with vibrational transitions.",
         "accepted_variants": [
          "IR, vibrational transition",
          "vibrational energy levels"
@@ -50,12 +52,12 @@
       "prompt": "Calculate the energy, in joules, of one photon emitted by source B.",
       "criteria": [
        {
-        "text": "E = hc/\u03bb = (6.626 \u00d7 10\u207b\u00b3\u2074 J\u00b7s)(2.998 \u00d7 10\u2078 m/s)/(4.67 \u00d7 10\u207b\u2076 m) = 4.25 \u00d7 10\u207b\u00b2\u2070 J",
-        "evidence": "Shows the setup using E = hc/\u03bb (or c = \u03bb\u03bd and E = h\u03bd) with the wavelength converted to 4.67 \u00d7 10\u207b\u2076 m, and reports 4.25 \u00d7 10\u207b\u00b2\u2070 J with units.",
-        "fix": "Convert the wavelength to meters first, then substitute into E = hc/\u03bb and report three significant figures with units.",
+        "text": "E = hc/λ = (6.626 × 10⁻³⁴ J·s)(2.998 × 10⁸ m/s)/(4.67 × 10⁻⁶ m) = 4.25 × 10⁻²⁰ J",
+        "evidence": "Shows the setup using E = hc/λ (or c = λν and E = hν) with the wavelength converted to 4.67 × 10⁻⁶ m, and reports 4.25 × 10⁻²⁰ J with units.",
+        "fix": "Convert the wavelength to meters first, then substitute into E = hc/λ and report three significant figures with units.",
         "accepted_variants": [
          "4.25e-20 J",
-         "4.25 \u00d7 10\u207b\u00b2\u2070 J per photon"
+         "4.25 × 10⁻²⁰ J per photon"
         ]
        }
       ]
@@ -65,8 +67,8 @@
       "criteria": [
        {
         "text": "Source C (155 nm, ultraviolet) causes an electronic transition; it has the shortest wavelength and therefore the highest photon energy, matching the larger energy spacing between electronic levels compared with vibrational or rotational levels.",
-        "evidence": "Identifies an electronic transition (electron promoted to a higher energy level) and justifies it by stating that the shortest wavelength gives the greatest photon energy (E = hc/\u03bb), which is needed for the larger electronic energy gaps.",
-        "fix": "Rank photon energies by wavelength using E = hc/\u03bb, then link the highest-energy photons to electronic transitions, which have the largest spacing.",
+        "evidence": "Identifies an electronic transition (electron promoted to a higher energy level) and justifies it by stating that the shortest wavelength gives the greatest photon energy (E = hc/λ), which is needed for the larger electronic energy gaps.",
+        "fix": "Rank photon energies by wavelength using E = hc/λ, then link the highest-energy photons to electronic transitions, which have the largest spacing.",
         "accepted_variants": [
          "electronic energy level transition",
          "promotes an electron to a higher energy level"
@@ -75,14 +77,14 @@
       ]
      },
      {
-      "prompt": "A student claims that when CO absorbs photons from source A, the carbon\u2013oxygen bond breaks. Do you agree or disagree? Justify your answer with a calculation comparing the energy of one source A photon with the energy needed to break one C\u2261O bond.",
+      "prompt": "A student claims that when CO absorbs photons from source A, the carbon–oxygen bond breaks. Do you agree or disagree? Justify your answer with a calculation comparing the energy of one source A photon with the energy needed to break one C≡O bond.",
       "criteria": [
        {
-        "text": "Disagrees: one source A photon has E = hc/\u03bb = 7.64 \u00d7 10\u207b\u00b2\u00b3 J, far less than the 1.78 \u00d7 10\u207b\u00b9\u2078 J needed to break one C\u2261O bond (1072 kJ/mol \u00f7 N_A), so absorption only changes the rotational energy level.",
-        "evidence": "Disagrees with the claim and supports it with both calculated values (about 7.64 \u00d7 10\u207b\u00b2\u00b3 J per photon and about 1.78 \u00d7 10\u207b\u00b9\u2078 J per bond) or an equivalent per-mole comparison, concluding the photon energy is much too small to break the bond.",
+        "text": "Disagrees: one source A photon has E = hc/λ = 7.64 × 10⁻²³ J, far less than the 1.78 × 10⁻¹⁸ J needed to break one C≡O bond (1072 kJ/mol ÷ N_A), so absorption only changes the rotational energy level.",
+        "evidence": "Disagrees with the claim and supports it with both calculated values (about 7.64 × 10⁻²³ J per photon and about 1.78 × 10⁻¹⁸ J per bond) or an equivalent per-mole comparison, concluding the photon energy is much too small to break the bond.",
         "fix": "Convert bond enthalpy to joules per molecule by dividing by Avogadro's number, then compare it directly with the energy of one photon.",
         "accepted_variants": [
-         "photon energy is about 2.33 \u00d7 10\u2074 times too small",
+         "photon energy is about 2.33 × 10⁴ times too small",
          "46.0 J/mol of photons versus 1072 kJ/mol"
         ]
        }
@@ -116,5 +118,65 @@
    "stage": "topic_vote"
   }
  ],
- "removed_gateway_credit_failures": 2
+ "given": {
+  "item": {
+   "title": "Matching Absorption Regions to Transitions in Carbon Monoxide",
+   "calculator": "not_applicable",
+   "stimulus": "A gaseous sample of carbon monoxide, CO, is studied with three different spectrometers. Each absorption the sample shows is listed below with the region of the electromagnetic spectrum in which it occurs.\n\nAbsorption | Region | Wavelength\n1 | microwave | 2.60 mm\n2 | infrared | 4.67 μm\n3 | ultraviolet | 155 nm\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Identify the type of transition in a CO molecule that is associated with absorption 1.",
+     "criteria": [
+      {
+       "text": "Identifies a transition between rotational energy levels of the molecule.",
+       "evidence": "Response states that the microwave absorption corresponds to a change in the molecule's rotational energy level (the molecule rotating faster).",
+       "fix": "Memorize the pairings: microwave with rotational levels, infrared with vibrational levels, ultraviolet or visible with electronic energy levels.",
+       "accepted_variants": [
+        "rotational transition"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the type of transition in a CO molecule that is associated with absorption 2.",
+     "criteria": [
+      {
+       "text": "Identifies a transition between vibrational energy levels of the molecule.",
+       "evidence": "Response states that the infrared absorption corresponds to a change in the vibrational energy level of the C–O bond (the bond vibrating more energetically).",
+       "fix": "Link infrared radiation to bond vibrations: an absorbed infrared photon moves the molecule to a higher vibrational energy level.",
+       "accepted_variants": [
+        "vibrational transition"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student claims that absorption 3 makes the C–O bond vibrate more energetically. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States that the claim is incorrect because ultraviolet absorption corresponds to an electronic transition, in which an electron moves to a higher electronic energy level, not a vibrational transition.",
+       "evidence": "Response rejects the claim and identifies absorption 3 as an electronic transition (an electron promoted to a higher energy level).",
+       "fix": "Match the claim's spectral region to its transition before agreeing; ultraviolet radiation changes electronic energy levels, while vibrations are changed by infrared.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A sample of argon gas, which consists of separate argon atoms, absorbs no microwave or infrared radiation. Explain this observation.",
+     "criteria": [
+      {
+       "text": "Explains that argon atoms are not bonded to other atoms, so there are no molecular rotational or vibrational transitions available to absorb microwave or infrared radiation.",
+       "evidence": "Response states that a single atom has no bond to vibrate and no molecular rotation, and connects this to the absence of microwave (rotational) and infrared (vibrational) absorption.",
+       "fix": "Ask what each region changes: rotation and vibration transitions need a molecule with bonded atoms, which a separate argon atom lacks.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Absorption 1 is in the microwave region, which is associated with transitions between rotational energy levels. Absorbing the photon moves the CO molecule to a higher rotational energy level.\n\n(b) Absorption 2 is in the infrared region, which is associated with transitions between vibrational energy levels. Absorbing the photon moves the molecule to a higher vibrational energy level, so the C–O bond vibrates more energetically.\n\n(c) The claim is incorrect. Absorption 3 is in the ultraviolet region, which is associated with electronic transitions: the photon promotes an electron in the molecule to a higher electronic energy level. Changes in bond vibration are associated with infrared radiation, not ultraviolet radiation.\n\n(d) Microwave absorption requires transitions between molecular rotational levels, and infrared absorption requires transitions between molecular vibrational levels. Argon exists as separate atoms with no chemical bonds, so there is no bond to vibrate and no molecular rotation to change. With no such transitions available, argon does not absorb microwave or infrared radiation; it can absorb only at energies that cause electronic transitions.",
+   "verification_python": "regions={1:'microwave',2:'infrared',3:'ultraviolet'}\ntrans={'microwave':'rotational','infrared':'vibrational','ultraviolet':'electronic'}\nassert trans[regions[1]]=='rotational'\nassert trans[regions[2]]=='vibrational'\nassert trans[regions[3]]=='electronic'\nlam={1:2.60e-3,2:4.67e-6,3:155e-9}\nassert lam[1]>lam[2]>lam[3]\nassert len(regions)==3\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.849427Z"
+ }
 }

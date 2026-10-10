@@ -1,0 +1,806 @@
+[
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.1",
+  "item": {
+   "title": "Counting Caffeine Molecules and Atoms by Mass",
+   "calculator": "permitted",
+   "stimulus": "A tablet of a caffeine supplement contains 0.200 g of caffeine, C₈H₁₀N₄O₂. The molar mass of caffeine is 194.19 g/mol, and Avogadro's number is 6.022 × 10²³ mol⁻¹.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+   "parts": [
+    {
+     "prompt": "Calculate the number of moles of caffeine in the tablet.",
+     "criteria": [
+      {
+       "text": "Calculates 1.03 × 10⁻³ mol of caffeine.",
+       "evidence": "Response converts the 0.200 g mass to moles using the molar mass 194.19 g/mol and reports 1.03 × 10⁻³ mol.",
+       "fix": "Use n = m/M: divide the mass in grams by the molar mass in g/mol, keeping three significant digits from 0.200 g.",
+       "accepted_variants": [
+        "0.00103 mol",
+        "1.03 mmol"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the number of caffeine molecules in the tablet.",
+     "criteria": [
+      {
+       "text": "Calculates 6.20 × 10²⁰ caffeine molecules.",
+       "evidence": "Response converts the amount of caffeine to a number of molecules with Avogadro's number (for example 1.03 × 10⁻³ mol × 6.022 × 10²³ mol⁻¹) and reports 6.20 × 10²⁰ molecules, or a value consistent with the student's answer to the previous part.",
+       "fix": "Multiply the amount in moles by Avogadro's number, 6.022 × 10²³ per mole, to turn moles into a count of molecules.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the number of nitrogen atoms in the caffeine in the tablet.",
+     "criteria": [
+      {
+       "text": "Calculates 2.48 × 10²¹ nitrogen atoms, using 4 nitrogen atoms per caffeine molecule.",
+       "evidence": "Response uses the subscript 4 for N in C₈H₁₀N₄O₂ and reports 2.48 × 10²¹ nitrogen atoms, or 4 times the student's number of molecules from the previous part.",
+       "fix": "Read the element's subscript in the formula and multiply the number of molecules by that subscript to count its atoms.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average mass of one caffeine molecule is 194.19 amu. Calculate the average mass of one caffeine molecule in grams.",
+     "criteria": [
+      {
+       "text": "Calculates 3.225 × 10⁻²² g for the mass of one caffeine molecule.",
+       "evidence": "Response shows a valid conversion, such as dividing 194.19 g/mol by 6.022 × 10²³ molecules/mol, and reports 3.225 × 10⁻²² g; a difference in the last digit caused by a rounded conversion factor is acceptable.",
+       "fix": "The amu mass of one molecule equals the grams in one mole, so divide the molar mass by Avogadro's number to get grams per molecule.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) n = m/M = 0.200 g ÷ 194.19 g/mol = 1.03 × 10⁻³ mol of caffeine.\n\n(b) Number of molecules = 1.03 × 10⁻³ mol × 6.022 × 10²³ molecules/mol = 6.20 × 10²⁰ caffeine molecules.\n\n(c) Each caffeine molecule, C₈H₁₀N₄O₂, contains 4 nitrogen atoms. Number of N atoms = 4 × 6.20 × 10²⁰ = 2.48 × 10²¹ nitrogen atoms.\n\n(d) Because the average mass of one molecule in amu is numerically equal to the molar mass in grams, 1 mol of caffeine (6.022 × 10²³ molecules) has a mass of 194.19 g. Mass of one molecule = 194.19 g/mol ÷ 6.022 × 10²³ molecules/mol = 3.225 × 10⁻²² g.",
+   "verification_python": "import math\nNA=6.022e23\nM=194.19\nm=0.200\n# molar mass check from atomic masses (given value is standard)\nassert abs((8*12.011+10*1.008+4*14.007+2*15.999)-M)<0.02\nn=m/M\nassert abs(n-1.03e-3)<0.005e-3\nN=n*NA\nassert abs(N-6.20e20)<0.005e20\nassert abs(1.03e-3*NA-6.20e20)<0.005e20\nNN=4*N\nassert abs(NN-2.48e21)<0.005e21\nassert abs(4*6.20e20-2.48e21)<1e17\nmm=M/NA\nassert abs(mm-3.225e-22)<0.0005e-22\nassert abs(194.19*1.66054e-24-3.225e-22)<0.001e-22\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.2",
+  "item": {
+   "title": "Identifying an Element from a Two-Isotope Mass Spectrum",
+   "calculator": "permitted",
+   "stimulus": "A pure sample of an unknown element X is analyzed in a mass spectrometer. Every peak in the spectrum comes from singly charged ions of single atoms of X. The mass of each isotope and the relative intensity of its peak are listed below.\n\nIsotope mass (amu) | Relative intensity\n62.93 | 100.0\n64.93 | 44.61\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent abundance of the isotope with mass 62.93 amu.",
+     "criteria": [
+      {
+       "text": "Calculates a percent abundance of 69.15% for the isotope with mass 62.93 amu.",
+       "evidence": "Response divides the intensity of the 62.93 amu peak by the total intensity of both peaks (100.0 ÷ 144.61) and reports 69.15%.",
+       "fix": "Add all the peak intensities, then divide the chosen peak's intensity by that total and multiply by 100.",
+       "accepted_variants": [
+        "69.15 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the average atomic mass of element X.",
+     "criteria": [
+      {
+       "text": "Calculates an average atomic mass of 63.55 amu.",
+       "evidence": "Response computes a weighted average of the two isotope masses using their relative abundances or intensities, for example 0.6915 × 62.93 amu + 0.3085 × 64.93 amu, and reports 63.55 amu.",
+       "fix": "Weight each isotope mass by its fractional abundance, add the products, and report the result in amu.",
+       "accepted_variants": [
+        "63.55 u"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify element X. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Identifies X as copper (Cu) because the calculated average atomic mass, 63.55 amu, matches the atomic mass of copper on the periodic table.",
+       "evidence": "Response names copper and links the average atomic mass from the previous part to the atomic mass listed for Cu.",
+       "fix": "Compare your calculated average atomic mass with the periodic table and name the element whose atomic mass matches it.",
+       "accepted_variants": [
+        "Cu"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Atoms of the two isotopes of X have different masses. Explain this difference in terms of the numbers of protons and neutrons in the atoms.",
+     "criteria": [
+      {
+       "text": "Explains that atoms of both isotopes have the same number of protons (29) but atoms of the heavier isotope have 2 more neutrons.",
+       "evidence": "Response states that the number of protons is the same in both isotopes (they are the same element) and that the 64.93 amu isotope has more neutrons (two more); it does not attribute the mass difference to protons or electrons.",
+       "fix": "Isotopes of one element always share the same number of protons; explain any mass difference by a different number of neutrons.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Total intensity = 100.0 + 44.61 = 144.61. Percent abundance of the 62.93 amu isotope = (100.0 ÷ 144.61) × 100% = 69.15%.\n\n(b) The 64.93 amu isotope has an abundance of 100% − 69.15% = 30.85%. Average atomic mass = 0.6915 × 62.93 amu + 0.3085 × 64.93 amu = 43.52 amu + 20.03 amu = 63.55 amu.\n\n(c) X is copper (Cu). The average atomic mass of 63.55 amu matches the atomic mass of copper on the periodic table.\n\n(d) Both isotopes are copper, so every atom of each isotope has 29 protons. The isotope with mass 64.93 amu has two more neutrons (36) than the isotope with mass 62.93 amu (34), and the extra neutrons account for its greater mass.",
+   "verification_python": "I1,I2=100.0,44.61\nm1,m2=62.93,64.93\ntot=I1+I2\nassert abs(tot-144.61)<1e-9\np1=I1/tot*100\nassert abs(p1-69.15)<0.005\np2=100-p1\nassert abs(p2-30.85)<0.006\navg=(m1*I1+m2*I2)/tot\nassert abs(avg-63.55)<0.005\nassert abs(0.6915*m1-43.52)<0.005 and abs(0.3085*m2-20.03)<0.005\nassert abs(0.6915*m1+0.3085*m2-63.55)<0.005\nCu=63.546\nassert abs(avg-Cu)<0.01\nZ=29\nassert 63-Z==34 and 65-Z==36 and (65-Z)-(63-Z)==2\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.3",
+  "item": {
+   "title": "Composition and Empirical Formulas of Two Sulfur Oxides",
+   "calculator": "permitted",
+   "stimulus": "A chemist analyzes three samples. Each sample is a pure compound that contains only sulfur and oxygen. The masses of sulfur and oxygen in each sample are listed below. Use the molar masses S = 32.06 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sulfur (g) | Mass of oxygen (g)\n1 | 1.603 | 1.600\n2 | 0.6412 | 0.6400\n3 | 0.8015 | 1.200\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of sulfur in sample 1.",
+     "criteria": [
+      {
+       "text": "Calculates 50.05% sulfur by mass in sample 1.",
+       "evidence": "Response divides the mass of sulfur by the total mass of sample 1 (1.603 g ÷ 3.203 g) and reports 50.05%.",
+       "fix": "Add the masses of all the elements to get the sample mass, divide the element's mass by it, and multiply by 100.",
+       "accepted_variants": [
+        "50.05 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the empirical formula of the compound in sample 1. Show the work that supports your answer.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₂ from a 1 : 2 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response converts the masses to amounts (0.05000 mol S and 0.1000 mol O) or uses an equivalent ratio calculation, shows that the S : O atom ratio is 1 : 2, and writes SO₂.",
+       "fix": "Convert each element's mass to moles with its molar mass, then express the mole ratio as the lowest whole numbers.",
+       "accepted_variants": [
+        "SO2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Do the data support the claim that sample 2 is the same compound as sample 1? Justify your answer using the law of definite proportions.",
+     "criteria": [
+      {
+       "text": "Answers yes: sample 2 has the same composition as sample 1 (50.05% S by mass, or 0.9981 g O per 1 g S, or a 1 : 2 S : O atom ratio), which is what the law of definite proportions requires for samples of one compound.",
+       "evidence": "Response calculates a composition value for sample 2 that matches the corresponding value for sample 1 and states that a pure compound always has the same mass ratio of its elements, so the data are consistent with the same compound.",
+       "fix": "Compute the same composition value for both samples; matching mass ratios are what the law of definite proportions predicts for one compound.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sample 3 is a different pure compound of sulfur and oxygen. Determine its empirical formula.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₃ from a 1 : 3 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response finds 0.02500 mol S and 0.07500 mol O (or an equivalent ratio calculation) and writes SO₃.",
+       "fix": "Find the moles of each element, compare them as an atom ratio, and write that ratio as the lowest whole-number subscripts.",
+       "accepted_variants": [
+        "SO3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Mass of sample 1 = 1.603 g + 1.600 g = 3.203 g. Percent S = (1.603 g ÷ 3.203 g) × 100% = 50.05% S.\n\n(b) Moles of S = 1.603 g ÷ 32.06 g/mol = 0.05000 mol. Moles of O = 1.600 g ÷ 16.00 g/mol = 0.1000 mol. The ratio S : O = 0.05000 : 0.1000 = 1 : 2, so the empirical formula is SO₂.\n\n(c) Yes. Percent S in sample 2 = 0.6412 g ÷ (0.6412 g + 0.6400 g) × 100% = 50.05%, the same as sample 1 (equivalently, both samples contain 0.9981 g O per 1 g S). According to the law of definite proportions, every pure sample of a given compound has the same mass ratio of its elements, so the data are consistent with sample 2 being the same compound as sample 1.\n\n(d) Moles of S = 0.8015 g ÷ 32.06 g/mol = 0.02500 mol. Moles of O = 1.200 g ÷ 16.00 g/mol = 0.07500 mol. The ratio S : O = 1 : 3, so the empirical formula is SO₃.",
+   "verification_python": "from fractions import Fraction\nS,O=32.06,16.00\ns1,o1=1.603,1.600\ns2,o2=0.6412,0.6400\ns3,o3=0.8015,1.200\nassert abs(s1+o1-3.203)<1e-9\npS1=s1/(s1+o1)*100\nassert abs(pS1-50.05)<0.005\npS2=s2/(s2+o2)*100\nassert abs(pS2-50.05)<0.005\nassert abs(o1/s1-0.9981)<0.00005 and abs(o2/s2-0.9981)<0.00005\nnS1,nO1=s1/S,o1/O\nassert abs(nS1-0.05000)<1e-6 and abs(nO1-0.1000)<1e-6\nassert Fraction(nO1/nS1).limit_denominator(10)==2\nnS3,nO3=s3/S,o3/O\nassert abs(nS3-0.02500)<1e-6 and abs(nO3-0.07500)<1e-6\nassert Fraction(nO3/nS3).limit_denominator(10)==3\nassert abs((s2/S)/(o2/O)-0.5)<1e-6\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.4",
+  "item": {
+   "title": "Purity of a Limestone Sample from Its Calcium Content",
+   "calculator": "permitted",
+   "stimulus": "A geologist analyzes a 2.000 g sample of powdered limestone. The sample is a mixture of only calcium carbonate, CaCO₃, and silicon dioxide, SiO₂. Silicon dioxide contains no calcium. Elemental analysis shows that the sample contains 0.7208 g of calcium. Use the molar masses below.\n\nSubstance | Molar mass (g/mol)\nCa | 40.08\nCaCO₃ | 100.09\nSiO₂ | 60.09\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of calcium in pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Calculates 40.04% calcium by mass in pure CaCO₃.",
+       "evidence": "Response divides the molar mass of Ca by the molar mass of CaCO₃ (40.08 ÷ 100.09) and reports 40.04%.",
+       "fix": "For a pure compound, divide the mass of the element in one mole by the compound's molar mass, then multiply by 100.",
+       "accepted_variants": [
+        "40.04 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how the elemental analysis data show that the limestone sample is not pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Shows that the sample's calcium content (36.04% Ca, or 0.7208 g Ca in 2.000 g) is less than that of pure CaCO₃ (40.04% Ca, or 0.8009 g Ca in 2.000 g), so the sample cannot be pure CaCO₃.",
+       "evidence": "Response compares a calcium composition value obtained from the data with the corresponding value for pure CaCO₃, notes that they differ, and concludes that the sample contains another substance.",
+       "fix": "Calculate the measured percent of the element and compare it with the fixed percent in the pure compound; a mismatch means a mixture.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the mass of CaCO₃ in the 2.000 g sample.",
+     "criteria": [
+      {
+       "text": "Calculates 1.800 g of CaCO₃ in the sample.",
+       "evidence": "Response attributes all of the calcium to CaCO₃ (for example 0.7208 g Ca ÷ 40.08 g/mol × 100.09 g/mol, or 0.7208 g ÷ 0.4004) and reports 1.800 g.",
+       "fix": "All the calcium is in CaCO₃, so convert the calcium mass to moles of Ca, equal to moles of CaCO₃, then to grams.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the ratio of the number of calcium atoms to the number of silicon atoms in the sample.",
+     "criteria": [
+      {
+       "text": "Calculates a Ca : Si atom ratio of 5.40 : 1.",
+       "evidence": "Response finds the mass of SiO₂ (2.000 g − 1.800 g = 0.200 g), converts calcium and SiO₂ to amounts (0.01798 mol Ca and 3.33 × 10⁻³ mol Si), and reports 5.40 Ca atoms per Si atom, or a ratio consistent with the student's earlier answers.",
+       "fix": "Find the other component's mass by subtraction, convert each element to moles, then divide, because mole ratios equal atom ratios.",
+       "accepted_variants": [
+        "5.40",
+        "5.40 to 1"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Percent Ca in CaCO₃ = (40.08 g/mol ÷ 100.09 g/mol) × 100% = 40.04%.\n\n(b) Percent Ca in the sample = (0.7208 g ÷ 2.000 g) × 100% = 36.04%. Pure CaCO₃ always contains 40.04% Ca by mass, so 2.000 g of pure CaCO₃ would contain 0.8009 g of Ca. The measured value, 36.04%, is lower, so the sample cannot be pure CaCO₃; it must contain another substance (here SiO₂) mixed with the CaCO₃.\n\n(c) Moles of Ca = 0.7208 g ÷ 40.08 g/mol = 0.01798 mol. Each formula unit of CaCO₃ contains one Ca atom, so there are 0.01798 mol of CaCO₃. Mass of CaCO₃ = 0.01798 mol × 100.09 g/mol = 1.800 g.\n\n(d) Mass of SiO₂ = 2.000 g − 1.800 g = 0.200 g. Moles of SiO₂ = 0.200 g ÷ 60.09 g/mol = 3.33 × 10⁻³ mol, so there are 3.33 × 10⁻³ mol of Si atoms. Ratio Ca : Si = 0.01798 mol ÷ 3.33 × 10⁻³ mol = 5.40, so there are 5.40 calcium atoms for every silicon atom.",
+   "verification_python": "Ca,CaCO3,SiO2=40.08,100.09,60.09\nassert abs(40.08+12.01+3*16.00-CaCO3)<1e-9\nassert abs(28.09+2*16.00-SiO2)<1e-9\npct=Ca/CaCO3*100\nassert abs(pct-40.04)<0.005\nmCa,ms=0.7208,2.000\nassert abs(mCa/ms*100-36.04)<0.005\nassert abs(ms*Ca/CaCO3-0.8009)<0.00005\nnCa=mCa/Ca\nassert abs(nCa-0.01798)<0.000005\nmCaCO3=nCa*CaCO3\nassert abs(mCaCO3-1.800)<0.0005\nassert abs(mCa/0.4004-1.800)<0.0005\nmSiO2=ms-1.800\nassert abs(mSiO2-0.200)<1e-9\nnSi=mSiO2/SiO2\nassert abs(nSi-3.33e-3)<0.005e-3\nr=nCa/nSi\nassert abs(r-5.40)<0.005\nassert abs(0.01798/3.33e-3-5.40)<0.005\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.5",
+  "item": {
+   "title": "Electron Configurations of Sulfur and the Sulfide Ion",
+   "calculator": "not_applicable",
+   "stimulus": "Sulfur has atomic number 16. In many compounds sulfur is present as the sulfide ion, S²⁻. Answer the following about a ground-state sulfur atom and a ground-state sulfide ion.",
+   "parts": [
+    {
+     "prompt": "Write the complete ground-state electron configuration of a sulfur atom.",
+     "criteria": [
+      {
+       "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁴ for the sulfur atom.",
+       "evidence": "Response gives the full configuration with 16 electrons placed in Aufbau order: 1s² 2s² 2p⁶ 3s² 3p⁴.",
+       "fix": "Fill subshells in Aufbau order (1s, 2s, 2p, 3s, 3p) until the total number of electrons equals the atomic number.",
+       "accepted_variants": [
+        "1s2 2s2 2p6 3s2 3p4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write the complete ground-state electron configuration of the sulfide ion, S²⁻.",
+     "criteria": [
+      {
+       "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁶ for the sulfide ion (18 electrons).",
+       "evidence": "Response adds two electrons to the configuration of the sulfur atom, placing them in the 3p subshell, to give 1s² 2s² 2p⁶ 3s² 3p⁶.",
+       "fix": "For an anion, add as many electrons as the negative charge to the next available spaces in the neutral atom's configuration.",
+       "accepted_variants": [
+        "1s2 2s2 2p6 3s2 3p6"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the number of valence electrons and the number of core electrons in a sulfur atom.",
+     "criteria": [
+      {
+       "text": "States that a sulfur atom has 6 valence electrons (3s² 3p⁴).",
+       "evidence": "Response gives 6 valence electrons, the electrons in the outermost shell (n = 3).",
+       "fix": "Count only the electrons in the highest-numbered shell of the configuration; for sulfur that is shell 3, holding 3s² 3p⁴.",
+       "accepted_variants": [
+        "six"
+       ]
+      },
+      {
+       "text": "States that a sulfur atom has 10 core electrons (1s² 2s² 2p⁶).",
+       "evidence": "Response gives 10 core electrons, the electrons in the inner shells (n = 1 and n = 2).",
+       "fix": "Core electrons are all the electrons in shells below the outermost shell; add the electrons in shells 1 and 2.",
+       "accepted_variants": [
+        "ten"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
+     "criteria": [
+      {
+       "text": "Explains that 2p electrons are, on average, closer to the nucleus than 3p electrons (and are shielded by fewer inner electrons), so by Coulomb's law they are attracted more strongly to the nucleus and need more energy to remove.",
+       "evidence": "Response states that 2p electrons are in shell 2, closer to the nucleus than 3p electrons in shell 3, and links the smaller distance (F ∝ q₁q₂/r²) to a stronger attraction and a greater energy requirement; mentioning less shielding is also acceptable support.",
+       "fix": "Name the shell of each electron, compare its distance from the nucleus, then use F ∝ q₁q₂/r² to compare the attractions.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) 1s² 2s² 2p⁶ 3s² 3p⁴\n\n(b) S²⁻ has 16 + 2 = 18 electrons. The two added electrons go into the 3p subshell: 1s² 2s² 2p⁶ 3s² 3p⁶.\n\n(c) The valence electrons are those in the outermost shell, n = 3 (3s² 3p⁴), so a sulfur atom has 6 valence electrons. The core electrons are those in shells 1 and 2 (1s² 2s² 2p⁶), so it has 10 core electrons.\n\n(d) By Coulomb's law, F ∝ q₁q₂/r², so the attraction between an electron and the nucleus increases as their distance decreases. The 2p electrons are in the second shell, much closer to the nucleus than the 3p electrons in the third shell, and they are shielded only by the two 1s electrons rather than by the ten electrons in shells 1 and 2. The 2p electrons therefore experience a much stronger attraction to the nucleus, so more energy is needed to remove one of them.",
+   "verification_python": "caps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\ndef conf(n):\n    out={}\n    for s,c in caps:\n        k=min(c,n); out[s]=k; n-=k\n    return out\nS=conf(16)\nassert S=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nS2=conf(18)\nassert S2=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':6}\nval=S['3s']+S['3p']\ncore=S['1s']+S['2s']+S['2p']\nassert val==6 and core==10 and val+core==16\n# Coulomb: smaller r gives larger force for same charges\nassert 1/2**2>1/3**2\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "1.8",
+  "item": {
+   "title": "Predicting Ionic Formulas from Periodic Table Position",
+   "calculator": "not_applicable",
+   "stimulus": "Magnesium and chlorine form the ionic compound MgCl₂. Sodium and oxygen form the ionic compound Na₂O. Use these formulas and the periodic table to answer the following.",
+   "parts": [
+    {
+     "prompt": "Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table.",
+     "criteria": [
+      {
+       "text": "Predicts BaBr₂ because barium is in the same group as magnesium and bromine is in the same group as chlorine, so they form a compound analogous to MgCl₂.",
+       "evidence": "Response gives BaBr₂ and justifies it by group membership (Ba with Mg in group 2, Br with Cl in group 17), or by the typical charges Ba²⁺ and Br⁻ that follow from those positions.",
+       "fix": "Locate each element's column; elements in the same columns as those in a known compound form a compound with an analogous formula.",
+       "accepted_variants": [
+        "BaBr2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts K₂S because potassium is in the same group as sodium and sulfur is in the same group as oxygen, so the compound is analogous to Na₂O.",
+       "evidence": "Response gives K₂S and justifies it by group membership (K with Na in group 1, S with O in group 16), or by the typical charges K⁺ and S²⁻.",
+       "fix": "Match potassium to sodium and sulfur to oxygen by column, then use the same subscripts as the known compound Na₂O.",
+       "accepted_variants": [
+        "K2S"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom.",
+     "criteria": [
+      {
+       "text": "Predicts Al₂O₃ because aluminum (3 valence electrons) forms Al³⁺ and oxygen (6 valence electrons) forms O²⁻, and 2(+3) + 3(−2) = 0.",
+       "evidence": "Response gives Al₂O₃, states the charges +3 and −2 based on losing 3 or gaining 2 valence electrons, and shows that the charges balance.",
+       "fix": "Get each ion's charge from the valence electrons lost or gained to reach a noble-gas configuration, then choose subscripts giving zero total charge.",
+       "accepted_variants": [
+        "Al2O3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom.",
+     "criteria": [
+      {
+       "text": "Explains that potassium's valence electron is in a higher shell (n = 4 rather than n = 3), farther from the nucleus and more shielded, so it is attracted less strongly and is lost more easily when potassium forms an ionic compound.",
+       "evidence": "Response states that the K valence electron is farther from the nucleus (or in a higher shell) than the Na valence electron and links this to a weaker Coulombic attraction, making it easier to remove.",
+       "fix": "Compare the shell that holds each valence electron; a farther, more shielded electron feels weaker attraction and is lost more easily.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) BaBr₂. Barium is in group 2 with magnesium, and bromine is in group 17 with chlorine. Elements in the same column form analogous compounds, so barium and bromine form BaBr₂, just as magnesium and chlorine form MgCl₂ (Ba²⁺ and Br⁻ ions).\n\n(b) K₂S. Potassium is in group 1 with sodium, and sulfur is in group 16 with oxygen, so the compound is analogous to Na₂O, with K⁺ and S²⁻ ions.\n\n(c) Al₂O₃. An aluminum atom has 3 valence electrons and loses them to form Al³⁺. An oxygen atom has 6 valence electrons and gains 2 to form O²⁻. Two Al³⁺ ions (+6) balance three O²⁻ ions (−6), giving Al₂O₃.\n\n(d) The valence electron of potassium is in the fourth shell, while that of sodium is in the third shell. The potassium valence electron is farther from the nucleus and is shielded by more inner electrons, so by Coulomb's law it is attracted less strongly to the nucleus. It is therefore removed more easily, so potassium forms K⁺ and reacts with chlorine more readily than sodium does.",
+   "verification_python": "group={'Mg':2,'Ba':2,'Na':1,'K':1,'Cl':17,'Br':17,'O':16,'S':16,'Al':13}\nassert group['Ba']==group['Mg'] and group['Br']==group['Cl']\nassert group['K']==group['Na'] and group['S']==group['O']\nval={'Al':3,'O':6}\nqAl=val['Al']; qO=-(8-val['O'])\nassert qAl==3 and qO==-2\nassert 2*qAl+3*qO==0\nassert 1*2+2*(-1)==0  # BaBr2\nassert 2*1+1*(-2)==0  # K2S\nshell={'Na':3,'K':4}\nassert shell['K']>shell['Na']\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "2.1",
+  "item": {
+   "title": "Bond Polarity from Electronegativity Values",
+   "calculator": "permitted",
+   "stimulus": "The table lists Pauling electronegativity values for several elements.\n\nElement | Electronegativity\nH | 2.20\nC | 2.55\nN | 3.04\nO | 3.44\nF | 3.98\nCl | 3.16\n\nAnswer the following about covalent bonds between these elements.",
+   "parts": [
+    {
+     "prompt": "Classify the C–H bond as nonpolar covalent or polar covalent. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Classifies the C–H bond as nonpolar covalent (effectively nonpolar) because carbon and hydrogen have similar electronegativities (difference 0.35), so the electrons are shared nearly equally.",
+       "evidence": "Response states nonpolar covalent and cites the small electronegativity difference, 0.35, or nearly equal sharing of the bonding electrons.",
+       "fix": "Subtract the two electronegativities; a small difference, as in C–H, means nearly equal sharing, so treat the bond as nonpolar covalent.",
+       "accepted_variants": [
+        "effectively nonpolar"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In an N–H bond, identify the atom that carries the partial negative charge. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Identifies nitrogen as the atom with the partial negative charge because N is more electronegative than H (3.04 versus 2.20).",
+       "evidence": "Response names nitrogen and justifies it by nitrogen's higher electronegativity, which pulls the shared electrons toward the N atom.",
+       "fix": "Compare the two electronegativities; the more electronegative atom pulls the shared electrons toward itself and carries the partial negative charge.",
+       "accepted_variants": [
+        "N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "C–O and C–F are both single bonds. Identify which of these two bonds has the larger bond dipole. Justify your answer using the data.",
+     "criteria": [
+      {
+       "text": "Identifies C–F as having the larger bond dipole because its electronegativity difference (1.43) is greater than that of C–O (0.89).",
+       "evidence": "Response names C–F and supports the choice with the two differences, 1.43 and 0.89, or with the statement that F is more electronegative than O so the C–F difference is larger.",
+       "fix": "Calculate the electronegativity difference for each single bond; the bond with the larger difference has the larger bond dipole.",
+       "accepted_variants": [
+        "the C–F bond"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Fluorine has a greater electronegativity than chlorine. Explain this difference using the shell model and Coulomb's law.",
+     "criteria": [
+      {
+       "text": "Explains that fluorine's valence electrons are in shell 2 and chlorine's are in shell 3, so shared electrons in a bond are closer to the fluorine nucleus and experience a stronger Coulombic attraction.",
+       "evidence": "Response states that bonding electrons are at a smaller distance from the F nucleus than from the Cl nucleus (fewer occupied shells) and links the smaller distance to a stronger attraction for shared electrons.",
+       "fix": "Compare the number of occupied shells; fewer shells put bonding electrons closer to the nucleus, giving stronger attraction by Coulomb's law.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Nonpolar covalent. The electronegativity difference is 2.55 − 2.20 = 0.35, which is small, so carbon and hydrogen share the bonding electrons nearly equally and the C–H bond is effectively nonpolar.\n\n(b) Nitrogen carries the partial negative charge. Nitrogen (3.04) is more electronegative than hydrogen (2.20), so the shared electrons are pulled closer to the N atom.\n\n(c) C–F has the larger bond dipole. The electronegativity difference for C–F is 3.98 − 2.55 = 1.43, while for C–O it is 3.44 − 2.55 = 0.89. For single bonds, a greater electronegativity difference gives a greater bond dipole.\n\n(d) The valence electrons of fluorine are in the second shell, while those of chlorine are in the third shell. Both atoms have the same core charge (+7) acting on their valence shell, but the shared electrons in a bond to fluorine are much closer to its nucleus. By Coulomb's law, the smaller distance gives a stronger attraction, so fluorine attracts shared electrons more strongly and has the greater electronegativity.",
+   "verification_python": "EN={'H':2.20,'C':2.55,'N':3.04,'O':3.44,'F':3.98,'Cl':3.16}\nd=lambda a,b: round(abs(EN[a]-EN[b]),2)\nassert d('C','H')==0.35\nassert EN['N']>EN['H']\nassert d('C','F')==1.43 and d('C','O')==0.89\nassert d('C','F')>d('C','O')\nassert EN['F']>EN['Cl']\nshells={'F':2,'Cl':3}\ncore={'F':9-2,'Cl':17-10}\nassert core['F']==core['Cl']==7 and shells['F']<shells['Cl']\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "2.4",
+  "item": {
+   "title": "Classifying Alloys of Copper, Silver, and Iron by Atomic Radius",
+   "calculator": "not_applicable",
+   "stimulus": "Approximate atomic radii of five elements are listed below.\n\nElement | Atomic radius (pm)\nCu | 128\nNi | 124\nAg | 144\nFe | 126\nN | 71\n\nCupronickel, used in some coins, is an alloy of copper and nickel. Nitrided iron is an alloy of iron that contains a small amount of nitrogen. Sterling silver is an alloy of silver and copper. Answer the following.",
+   "parts": [
+    {
+     "prompt": "Describe a particle-level model of pure solid copper that shows the essential features of metallic bonding.",
+     "criteria": [
+      {
+       "text": "Describes an array of positive copper ions surrounded by delocalized valence electrons (a sea of electrons) that are not associated with any single ion.",
+       "evidence": "Response states that solid copper consists of copper cations arranged in a regular array and that the valence electrons are delocalized throughout the solid rather than bound to individual atoms.",
+       "fix": "Describe two features: copper cations held in a regular array, and valence electrons spread through the whole solid rather than belonging to one atom.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Classify cupronickel as a substitutional alloy or an interstitial alloy, and describe where the nickel atoms are located. Justify your answer using the data.",
+     "criteria": [
+      {
+       "text": "Classifies cupronickel as a substitutional alloy in which nickel atoms take the place of copper atoms at positions in the lattice, because Cu (128 pm) and Ni (124 pm) have comparable radii.",
+       "evidence": "Response states substitutional, says that Ni atoms replace (substitute for) Cu atoms in the lattice, and supports this by noting that the two radii are similar.",
+       "fix": "Compare the two radii; atoms of similar size can replace one another at lattice positions, which defines a substitutional alloy.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Classify nitrided iron as a substitutional alloy or an interstitial alloy, and describe where the nitrogen atoms are located. Justify your answer using the data.",
+     "criteria": [
+      {
+       "text": "Classifies nitrided iron as an interstitial alloy in which nitrogen atoms occupy the spaces between iron atoms, because N (71 pm) is much smaller than Fe (126 pm).",
+       "evidence": "Response states interstitial, says the N atoms fill spaces (interstices) between Fe atoms in the lattice, and supports this by noting that the N radius is much smaller than the Fe radius.",
+       "fix": "When one atom is much smaller, it fits into the gaps between the larger atoms; name this an interstitial alloy and cite the radii.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A student claims that sterling silver must be an interstitial alloy because copper atoms are smaller than silver atoms. Evaluate the student's claim using the data.",
+     "criteria": [
+      {
+       "text": "States that the claim is incorrect: Cu (128 pm) is only slightly smaller than Ag (144 pm), so the radii are comparable and copper substitutes for silver, making sterling silver a substitutional alloy; interstitial alloys require a much smaller atom, as with N (71 pm) in Fe (126 pm).",
+       "evidence": "Response rejects the claim and explains that the Ag and Cu radii are comparable (differing by only about 11%), so sterling silver is substitutional; being merely smaller is not enough for an interstitial alloy.",
+       "fix": "Judge how large the size difference is, not just which atom is smaller; only a much smaller atom fits between atoms of the host metal.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Solid copper is a regular three-dimensional array of positive copper ions. The valence electrons are not attached to any one ion; they are delocalized and move freely throughout the whole solid as a sea of electrons that holds the cations together.\n\n(b) Cupronickel is a substitutional alloy. The radii of Cu (128 pm) and Ni (124 pm) are very similar, so nickel atoms can take the place of copper atoms at positions in the copper lattice.\n\n(c) Nitrided iron is an interstitial alloy. A nitrogen atom (71 pm) is much smaller than an iron atom (126 pm), so the nitrogen atoms fit into the spaces between the iron atoms while the iron atoms keep their lattice positions.\n\n(d) The claim is incorrect. Copper atoms (128 pm) are only about 11% smaller than silver atoms (144 pm), so the radii are comparable. Copper atoms therefore replace silver atoms at lattice positions, and sterling silver is a substitutional alloy. An interstitial alloy forms only when one atom is much smaller than the other, as with N (71 pm) in Fe (126 pm).",
+   "verification_python": "r={'Cu':128,'Ni':124,'Ag':144,'Fe':126,'N':71}\nassert abs(r['Ni']/r['Cu']-1)<0.05\nassert r['N']/r['Fe']<0.6\ndiff=(r['Ag']-r['Cu'])/r['Ag']\nassert abs(diff-0.11)<0.005\nassert r['Cu']<r['Ag']\nassert r['Cu']/r['Ag']>0.85\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "3.11",
+  "item": {
+   "title": "Matching Absorption Regions to Transitions in Carbon Monoxide",
+   "calculator": "not_applicable",
+   "stimulus": "A gaseous sample of carbon monoxide, CO, is studied with three different spectrometers. Each absorption the sample shows is listed below with the region of the electromagnetic spectrum in which it occurs.\n\nAbsorption | Region | Wavelength\n1 | microwave | 2.60 mm\n2 | infrared | 4.67 μm\n3 | ultraviolet | 155 nm\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Identify the type of transition in a CO molecule that is associated with absorption 1.",
+     "criteria": [
+      {
+       "text": "Identifies a transition between rotational energy levels of the molecule.",
+       "evidence": "Response states that the microwave absorption corresponds to a change in the molecule's rotational energy level (the molecule rotating faster).",
+       "fix": "Memorize the pairings: microwave with rotational levels, infrared with vibrational levels, ultraviolet or visible with electronic energy levels.",
+       "accepted_variants": [
+        "rotational transition"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the type of transition in a CO molecule that is associated with absorption 2.",
+     "criteria": [
+      {
+       "text": "Identifies a transition between vibrational energy levels of the molecule.",
+       "evidence": "Response states that the infrared absorption corresponds to a change in the vibrational energy level of the C–O bond (the bond vibrating more energetically).",
+       "fix": "Link infrared radiation to bond vibrations: an absorbed infrared photon moves the molecule to a higher vibrational energy level.",
+       "accepted_variants": [
+        "vibrational transition"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student claims that absorption 3 makes the C–O bond vibrate more energetically. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States that the claim is incorrect because ultraviolet absorption corresponds to an electronic transition, in which an electron moves to a higher electronic energy level, not a vibrational transition.",
+       "evidence": "Response rejects the claim and identifies absorption 3 as an electronic transition (an electron promoted to a higher energy level).",
+       "fix": "Match the claim's spectral region to its transition before agreeing; ultraviolet radiation changes electronic energy levels, while vibrations are changed by infrared.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A sample of argon gas, which consists of separate argon atoms, absorbs no microwave or infrared radiation. Explain this observation.",
+     "criteria": [
+      {
+       "text": "Explains that argon atoms are not bonded to other atoms, so there are no molecular rotational or vibrational transitions available to absorb microwave or infrared radiation.",
+       "evidence": "Response states that a single atom has no bond to vibrate and no molecular rotation, and connects this to the absence of microwave (rotational) and infrared (vibrational) absorption.",
+       "fix": "Ask what each region changes: rotation and vibration transitions need a molecule with bonded atoms, which a separate argon atom lacks.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Absorption 1 is in the microwave region, which is associated with transitions between rotational energy levels. Absorbing the photon moves the CO molecule to a higher rotational energy level.\n\n(b) Absorption 2 is in the infrared region, which is associated with transitions between vibrational energy levels. Absorbing the photon moves the molecule to a higher vibrational energy level, so the C–O bond vibrates more energetically.\n\n(c) The claim is incorrect. Absorption 3 is in the ultraviolet region, which is associated with electronic transitions: the photon promotes an electron in the molecule to a higher electronic energy level. Changes in bond vibration are associated with infrared radiation, not ultraviolet radiation.\n\n(d) Microwave absorption requires transitions between molecular rotational levels, and infrared absorption requires transitions between molecular vibrational levels. Argon exists as separate atoms with no chemical bonds, so there is no bond to vibrate and no molecular rotation to change. With no such transitions available, argon does not absorb microwave or infrared radiation; it can absorb only at energies that cause electronic transitions.",
+   "verification_python": "regions={1:'microwave',2:'infrared',3:'ultraviolet'}\ntrans={'microwave':'rotational','infrared':'vibrational','ultraviolet':'electronic'}\nassert trans[regions[1]]=='rotational'\nassert trans[regions[2]]=='vibrational'\nassert trans[regions[3]]=='electronic'\nlam={1:2.60e-3,2:4.67e-6,3:155e-9}\nassert lam[1]>lam[2]>lam[3]\nassert len(regions)==3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "3.12",
+  "item": {
+   "title": "Energy of Photons Emitted by a Mercury Lamp",
+   "calculator": "permitted",
+   "stimulus": "A mercury vapor lamp emits ultraviolet light of wavelength 253.7 nm and violet light of wavelength 435.8 nm. Each photon is emitted when a mercury atom changes from a higher electronic energy level to a lower one. Use c = 2.998 × 10⁸ m/s, h = 6.626 × 10⁻³⁴ J·s, and 1 nm = 1 × 10⁻⁹ m.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+   "parts": [
+    {
+     "prompt": "Calculate the frequency of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a frequency of 1.182 × 10¹⁵ s⁻¹.",
+       "evidence": "Response converts 253.7 nm to 2.537 × 10⁻⁷ m, uses c = λν, and reports 1.182 × 10¹⁵ s⁻¹.",
+       "fix": "Convert the wavelength to meters first, then divide the speed of light by the wavelength: ν = c/λ.",
+       "accepted_variants": [
+        "1.182 × 10¹⁵ Hz"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the energy of one photon of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a photon energy of 7.830 × 10⁻¹⁹ J.",
+       "evidence": "Response uses E = hν with the frequency from the previous part (or E = hc/λ) and reports 7.830 × 10⁻¹⁹ J per photon; a last-digit difference caused by using a rounded frequency is acceptable.",
+       "fix": "Multiply Planck's constant by the frequency, E = hν, and check that J·s × s⁻¹ leaves joules.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "When a mercury atom emits one photon of the 253.7 nm light, does the energy of the atom increase or decrease, and by how much?",
+     "criteria": [
+      {
+       "text": "States that the energy of the atom decreases by 7.830 × 10⁻¹⁹ J, the energy of the emitted photon.",
+       "evidence": "Response says the atom's energy decreases and gives the amount of the decrease as equal to the photon energy found in the previous part.",
+       "fix": "In emission the atom loses exactly the photon's energy; say the energy decreases and give the photon energy as the amount.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Is the energy of one photon of the 435.8 nm light greater than, less than, or equal to the energy of one photon of the 253.7 nm light? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the 435.8 nm photon has less energy because its longer wavelength corresponds to a lower frequency (c = λν), and photon energy is proportional to frequency (E = hν).",
+       "evidence": "Response answers less than and justifies it either by reasoning that a longer wavelength means a lower frequency and therefore a lower energy, or by calculating 4.558 × 10⁻¹⁹ J and comparing it with the 253.7 nm photon energy.",
+       "fix": "Combine c = λν and E = hν: photon energy is inversely proportional to wavelength, so a longer wavelength means less energy.",
+       "accepted_variants": [
+        "less than"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) λ = 253.7 nm × (1 × 10⁻⁹ m/nm) = 2.537 × 10⁻⁷ m. ν = c/λ = (2.998 × 10⁸ m/s) ÷ (2.537 × 10⁻⁷ m) = 1.182 × 10¹⁵ s⁻¹.\n\n(b) E = hν = (6.626 × 10⁻³⁴ J·s)(1.1817 × 10¹⁵ s⁻¹) = 7.830 × 10⁻¹⁹ J per photon.\n\n(c) The energy of the mercury atom decreases. When the atom emits the photon, its energy decreases by an amount equal to the energy of the photon, 7.830 × 10⁻¹⁹ J.\n\n(d) Less than. The 435.8 nm light has a longer wavelength than the 253.7 nm light. Because c = λν, a longer wavelength corresponds to a lower frequency, and because E = hν, a lower frequency means a lower photon energy. (Calculation check: E = hc/λ = 4.558 × 10⁻¹⁹ J, which is less than 7.830 × 10⁻¹⁹ J.)",
+   "verification_python": "c=2.998e8\nh=6.626e-34\nlam1=253.7e-9\nlam2=435.8e-9\nnu=c/lam1\nassert abs(nu-1.182e15)<0.0005e15\nassert abs(nu-1.1817e15)<0.00005e15\nE=h*nu\nassert abs(E-7.830e-19)<0.0005e-19\nassert abs(h*1.182e15-7.832e-19)<0.0005e-19\nE2=h*c/lam2\nassert abs(E2-4.558e-19)<0.0005e-19\nassert E2<E and lam2>lam1\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "3.3",
+  "item": {
+   "title": "Molar Volumes of Argon in the Solid, Liquid, and Gas Phases",
+   "calculator": "permitted",
+   "stimulus": "Argon (molar mass 39.95 g/mol) can exist as a solid, a liquid, or a gas. The table gives the density of argon in each condensed phase at the temperature shown.\n\nPhase | Temperature (K) | Density (g/cm³)\nsolid | 84 | 1.62\nliquid | 87 | 1.40\n\nAt 273 K and 1.00 atm, the molar volume of argon gas is 2.24 × 10⁴ cm³/mol.\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the molar volume of liquid argon, in cm³/mol.",
+     "criteria": [
+      {
+       "text": "Calculates a molar volume of 28.5 cm³/mol for liquid argon.",
+       "evidence": "Response divides the molar mass by the density (39.95 g/mol ÷ 1.40 g/cm³) or uses an equivalent conversion and reports 28.5 cm³/mol.",
+       "fix": "Molar volume equals molar mass divided by density; check that grams cancel and leave cm³ per mole.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The molar volume of solid argon at 84 K is 24.7 cm³/mol. Explain, in terms of the arrangement of the particles, why the molar volumes of solid argon and liquid argon are similar.",
+     "criteria": [
+      {
+       "text": "Explains that in both the solid and the liquid the argon atoms are in close contact with one another, so one mole occupies a similar volume in each phase.",
+       "evidence": "Response states that the atoms touch (are closely packed) in both the solid and the liquid and links this to the similar molar volumes.",
+       "fix": "Describe particle spacing in each phase; in both solids and liquids the particles touch, so their molar volumes are close.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain, in terms of the particles, why the molar volume of argon gas at 273 K and 1.00 atm is roughly 800 times the molar volume of liquid argon.",
+     "criteria": [
+      {
+       "text": "Explains that in the gas the argon atoms are far apart compared with their own size, so most of the volume of the gas is empty space, unlike the liquid, in which the atoms are in contact.",
+       "evidence": "Response states that the average distance between atoms in the gas is much larger than the size of the atoms (mostly empty space) and contrasts this with the close contact in the liquid.",
+       "fix": "State that gas particles are separated by distances much larger than their own size, so most of a gas's volume is empty space.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe one difference between the motion of the atoms in solid argon and the motion of the atoms in liquid argon.",
+     "criteria": [
+      {
+       "text": "States that atoms in the solid vibrate about fixed positions and do not move past one another, whereas atoms in the liquid move past one another while staying in contact.",
+       "evidence": "Response contrasts limited motion about fixed positions (no overall translation) in the solid with atoms moving past one another (translation) in the liquid.",
+       "fix": "Contrast vibrating in place in the solid with sliding past neighbors while still touching in the liquid, and name both phases.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Molar volume = molar mass ÷ density = (39.95 g/mol) ÷ (1.40 g/cm³) = 28.5 cm³/mol.\n\n(b) In both solid and liquid argon, the argon atoms are in close contact with their neighbors at all times. Because the atoms are packed nearly as closely in the liquid as in the solid, one mole occupies a similar volume in both phases (24.7 cm³/mol and 28.5 cm³/mol).\n\n(c) In the gas, the argon atoms are in constant motion and are separated by distances that are very large compared with the size of the atoms, so nearly all of the volume of the gas is empty space. In the liquid the atoms touch one another. Therefore the same number of atoms takes up a far larger volume as a gas, about 2.24 × 10⁴ ÷ 28.5 ≈ 790 times the liquid volume.\n\n(d) In solid argon, each atom vibrates about a fixed position and the atoms do not move past one another. In liquid argon, the atoms remain in contact but continually move past one another, so they change positions relative to their neighbors.",
+   "verification_python": "M=39.95\nVl=M/1.40\nassert abs(Vl-28.5)<0.05\nVs=M/1.62\nassert abs(Vs-24.7)<0.05\nratio=2.24e4/28.5\nassert abs(ratio-790)<5\nassert 700<ratio<900\nassert abs(2.24e4/Vl-785)<5\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "3.5",
+  "item": {
+   "title": "Kinetic Energy and Speed of Helium and Argon Atoms",
+   "calculator": "permitted",
+   "stimulus": "Two rigid containers of equal volume are both at 300 K. Container A holds helium gas (molar mass 4.00 g/mol), and container B holds argon gas (molar mass 39.95 g/mol). Both gases behave ideally.\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Compare the average kinetic energy of the helium atoms with the average kinetic energy of the argon atoms at 300 K. Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the average kinetic energies are equal because average kinetic energy is proportional to Kelvin temperature and both gases are at 300 K.",
+       "evidence": "Response says the average kinetic energies are the same and justifies this by the equal Kelvin temperatures of the two gases.",
+       "fix": "Average kinetic energy depends only on Kelvin temperature, not on particle mass; equal temperatures mean equal average kinetic energies.",
+       "accepted_variants": [
+        "equal"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the relationship KE = ½mv², calculate the ratio of the average speed of the helium atoms to the average speed of the argon atoms at 300 K.",
+     "criteria": [
+      {
+       "text": "Calculates a ratio of 3.16 (helium atoms move on average 3.16 times as fast as argon atoms).",
+       "evidence": "Response sets the average kinetic energies equal, ½m(He)v(He)² = ½m(Ar)v(Ar)², and finds v(He)/v(Ar) = √(39.95/4.00) = 3.16.",
+       "fix": "Set the two kinetic energies equal, solve for v(He)/v(Ar) = √(m(Ar)/m(He)), and use the molar mass ratio for the mass ratio.",
+       "accepted_variants": [
+        "3.16 : 1",
+        "3.16 to 1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The argon in container B is heated from 300 K to 600 K at constant volume. By what factor does the average kinetic energy of the argon atoms change?",
+     "criteria": [
+      {
+       "text": "States that the average kinetic energy doubles (increases by a factor of 2).",
+       "evidence": "Response gives a factor of 2 and bases it on average kinetic energy being proportional to Kelvin temperature (600 K ÷ 300 K = 2).",
+       "fix": "Take the ratio of the Kelvin temperatures; the average kinetic energy changes by that same factor.",
+       "accepted_variants": [
+        "factor of 2",
+        "doubles"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe how the fraction of argon atoms with speeds greater than 600 m/s changes when the argon is heated from 300 K to 600 K. Justify your answer using the Maxwell-Boltzmann distribution.",
+     "criteria": [
+      {
+       "text": "States that the fraction increases because at the higher temperature the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds, so more of the atoms have speeds above 600 m/s.",
+       "evidence": "Response says the fraction increases and justifies it by the distribution moving to higher speeds (its peak at a higher speed and more atoms in the high-speed region) at 600 K.",
+       "fix": "Describe how the speed distribution changes with temperature: at higher temperature it shifts to higher speeds, so more atoms exceed a given speed.",
+       "accepted_variants": [
+        "increases"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The average kinetic energies are equal. The average kinetic energy of the particles in a gas is proportional to its Kelvin temperature, and both gases are at 300 K.\n\n(b) Because the average kinetic energies are equal, ½m(He)v(He)² = ½m(Ar)v(Ar)². Then v(He)/v(Ar) = √(m(Ar)/m(He)) = √(39.95/4.00) = √9.99 = 3.16. Helium atoms move on average 3.16 times as fast as argon atoms.\n\n(c) Average kinetic energy is proportional to Kelvin temperature. 600 K ÷ 300 K = 2, so the average kinetic energy of the argon atoms doubles (increases by a factor of 2).\n\n(d) The fraction increases. At 600 K the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds: its peak moves to a higher speed and the distribution spreads out, so a larger fraction of the argon atoms have speeds greater than 600 m/s.",
+   "verification_python": "import math\nmHe,mAr=4.00,39.95\nr=math.sqrt(mAr/mHe)\nassert abs(r-3.16)<0.005\nassert abs(mAr/mHe-9.99)<0.005\nf=600/300\nassert f==2\nR=8.314\ndef frac_above(v,T,M):\n    # Maxwell-Boltzmann speed distribution, numeric integration\n    a=M/(2*R*T)\n    def p(x): return 4*math.pi*(a/math.pi)**1.5*x*x*math.exp(-a*x*x)\n    n=20000; hi=5000.0; dx=(hi-v)/n\n    return sum(p(v+(i+0.5)*dx) for i in range(n))*dx\nM=0.03995\nf300=frac_above(600,300,M); f600=frac_above(600,600,M)\nassert f600>f300\nvp300=math.sqrt(2*R*300/M); vp600=math.sqrt(2*R*600/M)\nassert vp600>vp300\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_chemistry",
+  "topic_code": "3.8",
+  "item": {
+   "title": "Particle Models of Sodium Chloride and Calcium Chloride Solutions",
+   "calculator": "permitted",
+   "stimulus": "A student builds particle-level models of two aqueous solutions. Each model shows the dissolved ions in the same small volume of solution, and the water molecules are not described. In both models every ion is separate from the other ions.\n\nModel | Solution | Dissolved ions shown\nP | 0.30 M NaCl | 6 Na⁺ ions and 6 Cl⁻ ions\nQ | CaCl₂ of unknown concentration | 4 Ca²⁺ ions and 8 Cl⁻ ions\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Using the two models, determine the concentration of CaCl₂ in solution Q.",
+     "criteria": [
+      {
+       "text": "Determines a CaCl₂ concentration of 0.20 M in solution Q.",
+       "evidence": "Response uses the equal model volumes: 6 NaCl formula units represent 0.30 M, so the 4 CaCl₂ formula units (4 Ca²⁺ ions) represent (4/6)(0.30 M) = 0.20 M.",
+       "fix": "Find the concentration that one formula unit represents in model P, then multiply by the number of CaCl₂ units in model Q.",
+       "accepted_variants": [
+        "0.20 mol/L"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the two models, determine the concentration of Cl⁻ ions in solution Q.",
+     "criteria": [
+      {
+       "text": "Determines a Cl⁻ concentration of 0.40 M in solution Q.",
+       "evidence": "Response scales the 8 Cl⁻ ions in model Q against the 6 Cl⁻ ions (0.30 M) in model P, or doubles the CaCl₂ concentration, to obtain 0.40 M.",
+       "fix": "Count the chloride ions in each equal-volume model and scale, or multiply the CaCl₂ concentration by two chloride ions per formula unit.",
+       "accepted_variants": [
+        "0.40 mol/L"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The student wants to add water molecules to model P to show the interactions between the ions and water. Describe how the water molecules nearest a Na⁺ ion should be oriented, and how the water molecules nearest a Cl⁻ ion should be oriented.",
+     "criteria": [
+      {
+       "text": "States that water molecules next to a Na⁺ ion have their oxygen atoms (the partially negative ends) pointed toward the ion.",
+       "evidence": "Response describes the oxygen side of each nearby water molecule facing the Na⁺ ion, citing attraction between the positive ion and the partial negative charge on oxygen.",
+       "fix": "Opposite charges attract: turn the partially negative oxygen end of each nearby water molecule toward a cation.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that water molecules next to a Cl⁻ ion have their hydrogen atoms (the partially positive ends) pointed toward the ion.",
+       "evidence": "Response describes a hydrogen atom of each nearby water molecule facing the Cl⁻ ion, citing attraction between the negative ion and the partial positive charge on hydrogen.",
+       "fix": "Opposite charges attract: turn a partially positive hydrogen atom of each nearby water molecule toward an anion.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The models show equal volumes, so the number of formula units shown is proportional to concentration. In model P, 6 NaCl formula units represent 0.30 M, so each formula unit represents 0.30 M ÷ 6 = 0.050 M. Model Q shows 4 Ca²⁺ ions, which is 4 CaCl₂ formula units, so [CaCl₂] = 4 × 0.050 M = 0.20 M.\n\n(b) Model Q shows 8 Cl⁻ ions in the same volume in which 6 Cl⁻ ions represent 0.30 M, so [Cl⁻] = (8/6)(0.30 M) = 0.40 M. This agrees with 2 Cl⁻ per CaCl₂: 2 × 0.20 M = 0.40 M.\n\n(c) Water molecules next to a Na⁺ ion should be oriented with their oxygen atoms, the partially negative end of the polar water molecule, toward the positive ion. Water molecules next to a Cl⁻ ion should be oriented with a hydrogen atom, a partially positive end of the water molecule, toward the negative ion.",
+   "verification_python": "from fractions import Fraction as F\ncP=F(30,100)\nper=cP/6\nassert per==F(5,100)\ncCaCl2=4*per\nassert cCaCl2==F(20,100)\ncCl=F(8,6)*cP\nassert cCl==F(40,100)\nassert 2*cCaCl2==cCl\n# charge balance in model Q\nassert 4*2+8*(-1)==0 and 6*1+6*(-1)==0\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

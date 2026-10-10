@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Zeros and Sign of a Rational Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let r be the rational function defined by r(x) = (x² − x − 6)/(x² − 4x − 5).",
+   "parts": [
+    {
+     "prompt": "Find all real zeros of r. Explain why each value you give is a zero of r.",
+     "criteria": [
+      {
+       "text": "Factors the numerator as (x − 3)(x + 2), giving the numerator zeros x = 3 and x = −2.",
+       "evidence": "Response sets x² − x − 6 = 0, factors (or uses the quadratic formula), and finds x = 3 and x = −2.",
+       "fix": "Find the real zeros of the numerator first; those are the only possible zeros of a rational function.",
+       "accepted_variants": [
+        "x = −2 and x = 3"
+       ]
+      },
+      {
+       "text": "Confirms that x = −2 and x = 3 are in the domain of r because the denominator is not zero there, so both are zeros of r.",
+       "evidence": "Response checks the denominator: (−2)² − 4(−2) − 5 = 7 and 3² − 4(3) − 5 = −8 (or notes the denominator zeros are 5 and −1), so r(−2) = 0 and r(3) = 0.",
+       "fix": "After finding numerator zeros, substitute each into the denominator to confirm it is nonzero before calling it a zero.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The real zeros of the numerator and the real zeros of the denominator of r divide the real number line into intervals. List these values in increasing order, and determine whether r(x) is positive or negative on each interval.",
+     "criteria": [
+      {
+       "text": "Lists the values −2, −1, 3 and 5, where −1 and 5 come from factoring the denominator as (x − 5)(x + 1).",
+       "evidence": "Response factors the denominator, finds x = 5 and x = −1, and lists −2, −1, 3, 5 in order.",
+       "fix": "Factor both numerator and denominator and collect every real zero of each as a dividing point.",
+       "accepted_variants": [
+        "−2, −1, 3, 5"
+       ]
+      },
+      {
+       "text": "Gives the signs: r(x) > 0 for x < −2, r(x) < 0 for −2 < x < −1, r(x) > 0 for −1 < x < 3, r(x) < 0 for 3 < x < 5, r(x) > 0 for x > 5.",
+       "evidence": "Response gives the correct sign on all five intervals, supported by factor signs or a test value in each interval.",
+       "fix": "Test one value in each interval in the factored form, counting negative factors to get the sign of r.",
+       "accepted_variants": [
+        "positive, negative, positive, negative, positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Solve the inequality r(x) ≥ 0. Give your answer as a union of intervals, and explain which of the values from the previous part are included.",
+     "criteria": [
+      {
+       "text": "The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+       "evidence": "Response gives exactly this union of intervals, or the equivalent inequalities x ≤ −2 or −1 < x ≤ 3 or x > 5.",
+       "fix": "Combine the intervals where r is positive with the zeros of r, then write the union with correct brackets.",
+       "accepted_variants": [
+        "x ≤ −2 or −1 < x ≤ 3 or x > 5"
+       ]
+      },
+      {
+       "text": "Explains that −2 and 3 are included because r equals 0 there, which satisfies r(x) ≥ 0, while −1 and 5 are excluded because r is undefined there.",
+       "evidence": "Response justifies including the zeros of r and excluding the zeros of the denominator.",
+       "fix": "Include zeros of the numerator for a ≥ inequality; always exclude inputs that make the denominator zero.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The numerator factors as x² − x − 6 = (x − 3)(x + 2), which is 0 at x = 3 and x = −2. The denominator factors as x² − 4x − 5 = (x − 5)(x + 1), which is 0 only at x = 5 and x = −1, so it is not zero at x = −2 (value 7) or at x = 3 (value −8). Both values are in the domain of r and make the numerator 0, so the real zeros of r are x = −2 and x = 3.\n\n(b) r(x) = (x − 3)(x + 2)/((x − 5)(x + 1)). The dividing values are −2, −1, 3, 5.\nx < −2: factors (−)(−)/((−)(−)), so r(x) > 0.\n−2 < x < −1: (−)(+)/((−)(−)), so r(x) < 0.\n−1 < x < 3: (−)(+)/((−)(+)), so r(x) > 0.\n3 < x < 5: (+)(+)/((−)(+)), so r(x) < 0.\nx > 5: all factors positive, so r(x) > 0.\n\n(c) r(x) > 0 on x < −2, −1 < x < 3 and x > 5. The values x = −2 and x = 3 are included because r(x) = 0 there, which satisfies r(x) ≥ 0. The values x = −1 and x = 5 are excluded because the denominator is 0 there, so r is undefined. The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nN=x**2-x-6; D=x**2-4*x-5\nassert sp.factor(N)==(x-3)*(x+2)\nassert sp.factor(D)==(x-5)*(x+1)\nassert sorted(sp.solve(N,x))==[-2,3] and sorted(sp.solve(D,x))==[-1,5]\nassert D.subs(x,-2)==7 and D.subs(x,3)==-8\nassert sp.gcd(N,D)==1\nr=N/D\nsigns=[sp.sign(r.subs(x,v)) for v in (-3,sp.Rational(-3,2),0,4,6)]\nassert signs==[1,-1,1,-1,1]\nsol=sp.solve_univariate_inequality(r>=0,x,relational=False)\nexpected=sp.Union(sp.Interval(-sp.oo,-2),sp.Interval(-1,3,True,False),sp.Interval(5,sp.oo,True,True))\nassert sol==expected\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875743Z"
+ }
 }

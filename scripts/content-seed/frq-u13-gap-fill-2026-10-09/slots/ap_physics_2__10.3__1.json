@@ -11,7 +11,81 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Net Electric Field of Two Positive Point Charges on a Line",
+   "calculator": "permitted",
+   "stimulus": "Point charge q₁ = +8.0 × 10⁻⁹ C is fixed at x = 0 on the x-axis, and point charge q₂ = +2.0 × 10⁻⁹ C is fixed at x = 0.30 m. Point P is on the x-axis at x = 0.10 m. The +x direction points from q₁ toward q₂.\n\nUse k = 9.0 × 10⁹ N·m²/C² and e = 1.6 × 10⁻¹⁹ C.",
+   "parts": [
+    {
+     "prompt": "Calculate the magnitude and direction of the net electric field at point P.",
+     "criteria": [
+      {
+       "text": "Finds the field at P due to q₁ as 7.2 × 10³ N/C in the +x direction and the field due to q₂ as 4.5 × 10² N/C in the −x direction.",
+       "evidence": "Response uses E = k|q|/r² with r = 0.10 m for q₁ and r = 0.20 m for q₂, and gives each field's direction as away from its positive charge.",
+       "fix": "Compute each charge's field separately with its own distance to P, and point each away from a positive charge.",
+       "accepted_variants": [
+        "7200 N/C and 450 N/C"
+       ]
+      },
+      {
+       "text": "Finds the net field at P as 6.75 × 10³ N/C in the +x direction.",
+       "evidence": "Response combines the two fields as vectors (subtracting because they point in opposite directions) to get about 6.8 × 10³ N/C, directed in +x.",
+       "fix": "Add fields as vectors: when they point in opposite directions, subtract magnitudes and take the direction of the larger one.",
+       "accepted_variants": [
+        "6750 N/C",
+        "6.8 × 10³ N/C",
+        "6.75 × 10³ N/C"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "There is one point between the two charges where the net electric field is zero. Determine the x-coordinate of that point.",
+     "criteria": [
+      {
+       "text": "Finds x = 0.20 m, the point between the charges where the field magnitudes from q₁ and q₂ are equal.",
+       "evidence": "Response shows the two field magnitudes are equal there (for example by solving k q₁/x² = k q₂/(0.30 m − x)²) and obtains x = 0.20 m.",
+       "fix": "Between two like charges the fields point opposite ways; set the magnitudes equal and solve, taking the root between the charges.",
+       "accepted_variants": [
+        "0.2 m",
+        "20 cm"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "An electron is placed at point P. Calculate the magnitude of the electric force on the electron and state its direction.",
+     "criteria": [
+      {
+       "text": "Calculates the force magnitude as about 1.1 × 10⁻¹⁵ N using F = qE.",
+       "evidence": "Response multiplies e = 1.6 × 10⁻¹⁹ C by the net field from the first part (6.75 × 10³ N/C) to get about 1.08 × 10⁻¹⁵ N.",
+       "fix": "Use F = |q|E with the net field at that point, not either individual field.",
+       "accepted_variants": [
+        "1.08 × 10⁻¹⁵ N",
+        "1.1 × 10⁻¹⁵ N"
+       ]
+      },
+      {
+       "text": "States that the force on the electron is in the −x direction, opposite the field, because the electron is negatively charged.",
+       "evidence": "Response gives the direction as −x (toward q₁) and explains that the force on a negative charge is opposite the electric field.",
+       "fix": "The field direction is the force direction on a positive charge; reverse it for an electron.",
+       "accepted_variants": [
+        "−x direction",
+        "toward q₁"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Field from q₁ at P (r = 0.10 m): E₁ = k q₁/r² = (9.0 × 10⁹)(8.0 × 10⁻⁹)/(0.10)² = 7.2 × 10³ N/C, pointing away from q₁, in the +x direction.\nField from q₂ at P (r = 0.30 − 0.10 = 0.20 m): E₂ = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.20)² = 4.5 × 10² N/C, pointing away from q₂, in the −x direction.\nNet field: E = 7.2 × 10³ − 4.5 × 10² = 6.75 × 10³ N/C, in the +x direction.\n\n(b) Between the charges the two fields point in opposite directions, so the net field is zero where their magnitudes are equal:\nk(8.0 × 10⁻⁹)/x² = k(2.0 × 10⁻⁹)/(0.30 − x)²\n(0.30 − x)²/x² = 1/4, so (0.30 − x)/x = 1/2 (taking the positive root, since 0 < x < 0.30 m).\n0.60 − 2x = x, so x = 0.20 m.\n\n(c) |F| = eE = (1.6 × 10⁻¹⁹ C)(6.75 × 10³ N/C) ≈ 1.08 × 10⁻¹⁵ N.\nThe electron is negative, so the force on it is opposite the field: in the −x direction (toward q₁).",
+   "verification_python": "import sympy as sp\nk=9.0e9; q1=8.0e-9; q2=2.0e-9; e=1.6e-19\nE1=k*q1/0.10**2\nE2=k*q2/0.20**2\nassert abs(E1-7200)<1e-6\nassert abs(E2-450)<1e-6\nEnet=E1-E2\nassert abs(Enet-6750)<1e-6\nx=sp.symbols('x',positive=True)\nsols=[s for s in sp.solve(sp.Eq(8*(sp.Rational(3,10)-x)**2,2*x**2),x) if 0<s<sp.Rational(3,10)]\nassert sols==[sp.Rational(1,5)]\nF=e*Enet\nassert abs(F-1.08e-15)<1e-18\n# direction: Enet positive (+x), electron negative so force -x\nassert Enet>0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.866436Z"
+ }
 }

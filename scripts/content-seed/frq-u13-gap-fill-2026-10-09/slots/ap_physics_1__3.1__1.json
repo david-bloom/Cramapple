@@ -11,7 +11,74 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Kinetic Energy of a Car Measured by Different Observers",
+   "calculator": "permitted",
+   "stimulus": "A car of mass 1200 kg travels east along a straight, level road at 15 m/s, as measured by an observer standing beside the road. Take east as the positive direction.",
+   "parts": [
+    {
+     "prompt": "Calculate the car's translational kinetic energy as measured by the roadside observer.",
+     "criteria": [
+      {
+       "text": "K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = 135,000 J.",
+       "evidence": "Response substitutes m = 1200 kg and v = 15 m/s into K = (1/2)mv² and obtains 135,000 J.",
+       "fix": "Square the speed before multiplying: K = (1/2)mv², with v² = 225 m²/s² here.",
+       "accepted_variants": [
+        "1.35 × 10⁵ J",
+        "135 kJ"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A truck with twice the mass of the car travels at half the car's speed, as measured by the roadside observer. Determine the ratio of the truck's kinetic energy to the car's kinetic energy.",
+     "criteria": [
+      {
+       "text": "K_truck/K_car = (1/2)(2m)(v/2)² ÷ (1/2)mv² = 2 × 1/4 = 1/2.",
+       "evidence": "Response shows that doubling the mass doubles K while halving the speed divides K by 4, giving a ratio of 1/2.",
+       "fix": "Use K ∝ mv²: multiply the mass factor by the square of the speed factor.",
+       "accepted_variants": [
+        "0.5",
+        "1:2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A second car, identical to the first, travels west at 15 m/s. A student says this car has negative kinetic energy because its velocity is negative. Explain whether the student is correct.",
+     "criteria": [
+      {
+       "text": "The student is incorrect: kinetic energy is a scalar that depends on v², which is positive for either direction, so the westbound car's kinetic energy is also +135,000 J.",
+       "evidence": "Response states the student is wrong because kinetic energy is a scalar (no direction) and squaring the velocity removes the sign, so the second car has the same 135,000 J.",
+       "fix": "Remember kinetic energy is a scalar: squaring velocity gives a positive value, so direction never affects K.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "An observer riding in a van that moves west at 5.0 m/s, as measured by the roadside observer, measures the motion of the first car. Calculate the first car's translational kinetic energy as measured by the observer in the van.",
+     "criteria": [
+      {
+       "text": "Car's velocity relative to the van = (+15 m/s) − (−5.0 m/s) = +20 m/s, so K = (1/2)(1200 kg)(20 m/s)² = 240,000 J.",
+       "evidence": "Response finds the car's speed relative to the van as 20 m/s and obtains 240,000 J, recognizing that kinetic energy depends on the observer's reference frame.",
+       "fix": "Find the object's velocity relative to the observer first (subtract the observer's signed velocity), then compute K with that speed.",
+       "accepted_variants": [
+        "2.4 × 10⁵ J",
+        "240 kJ"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = (600)(225) = 135,000 J.\n\n(b) K_truck = (1/2)(2m)(v/2)² = (1/2)(2m)(v²/4) = (1/2)·(1/2)mv². So K_truck/K_car = 1/2. Doubling the mass doubles K, but halving the speed divides K by 4.\n\n(c) The student is not correct. Kinetic energy is a scalar, K = (1/2)mv², and v² is positive whether the velocity is +15 m/s or −15 m/s. The westbound car has the same kinetic energy, 135,000 J, not a negative value.\n\n(d) Relative to the van, the car's velocity is (+15 m/s) − (−5.0 m/s) = +20 m/s. The van observer measures K = (1/2)(1200 kg)(20 m/s)² = (600)(400) = 240,000 J. Kinetic energy depends on the observer's reference frame.",
+   "verification_python": "from fractions import Fraction as F\nm=1200;v=15\nK=F(1,2)*m*v**2\nassert K==135000\nKt=F(1,2)*(2*m)*(F(v,2))**2\nassert Kt/K==F(1,2)\nK2=F(1,2)*m*(-15)**2\nassert K2==135000\nvvan=-5\nvrel=15-vvan\nassert vrel==20\nKv=F(1,2)*m*vrel**2\nassert Kv==240000\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.854056Z"
+ }
 }

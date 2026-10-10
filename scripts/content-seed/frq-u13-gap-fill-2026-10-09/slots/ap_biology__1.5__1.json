@@ -11,8 +11,699 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:27:10.021Z",
+   "item": {
+    "title": "Fatty Acid Saturation and the Physical State of Fats",
+    "calculator": "not_applicable",
+    "stimulus": "A food science class extracted fats (triglycerides) from three sources. Each fat molecule contains three fatty acid tails. The students used a lab analysis service to find the percentage of fatty acid tails in each sample that fall into three categories. The results are shown below. Each row totals 100 percent.\n\nSample | Saturated tails (%) | Tails with one C=C double bond (%) | Tails with two or more C=C double bonds (%)\nX | 52 | 42 | 6\nY | 14 | 73 | 13\nZ | 10 | 20 | 70\n\nAll three samples were kept at room temperature (20 °C) before testing.",
+    "model_answer": "(a) A saturated fatty acid tail has only single bonds between its carbon atoms, so the chain is straight. An unsaturated tail has at least one carbon-to-carbon double bond, and each double bond puts a kink (bend) in the carbon chain.\n\n(b) Sample X is most likely solid at room temperature. It has 52% saturated tails, compared with 14% for Y and 10% for Z, so only 48% of its tails are unsaturated, the least of the three samples. Saturated tails are straight and can pack closely together, while the kinks caused by double bonds keep unsaturated tails from packing tightly. The more unsaturated a fat is, the more liquid it is at room temperature, so the least unsaturated fat, X, is the one most likely to be solid.\n\n(c) The fatty acid tails of the fat are long hydrocarbon chains that are nonpolar, so the fat is hydrophobic. Water is polar, and its molecules form hydrogen bonds with one another. The nonpolar fat cannot form hydrogen bonds with water, so the water molecules stay attracted to each other and exclude the fat, which collects as a separate layer.\n\n(d) First, the fat is an energy store: the seal can break it down for energy when food is scarce. Second, the layer of fat under the skin insulates the body, reducing heat loss so the seal stays warm in cold water.",
+    "verification_python": "rows = {'X': (52, 42, 6), 'Y': (14, 73, 13), 'Z': (10, 20, 70)}\nfor k, v in rows.items():\n    assert sum(v) == 100\nunsat = {k: 100 - v[0] for k, v in rows.items()}\nassert unsat['X'] == 48\nassert unsat['Y'] == 86\nassert unsat['Z'] == 90\nmost_sat = max(rows, key=lambda k: rows[k][0])\nassert most_sat == 'X'\nassert min(unsat, key=unsat.get) == 'X'\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe the difference in carbon-to-carbon bonding between a saturated fatty acid tail and an unsaturated fatty acid tail, and describe how this difference affects the shape of the tail.",
+      "criteria": [
+       {
+        "text": "Saturated tails have only single C–C bonds; unsaturated tails have at least one C=C double bond that causes a kink in the chain.",
+        "evidence": "Response states that saturated tails contain only single bonds between carbons and unsaturated tails contain one or more double bonds, and that the double bond kinks (bends) the chain.",
+        "fix": "State both bond types (only single bonds versus at least one double bond) and say that a double bond puts a kink in the carbon chain.",
+        "accepted_variants": [
+         "unsaturated tails are bent at each double bond while saturated tails are straight",
+         "saturated: no C=C double bonds, straight; unsaturated: one or more C=C double bonds, kinked"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the sample most likely to be solid at room temperature. Justify your identification using the data and the structure of fatty acid tails.",
+      "criteria": [
+       {
+        "text": "Identifies Sample X, citing that it has the highest percentage of saturated tails (52%) or the lowest percentage of unsaturated tails (48%).",
+        "evidence": "Response names Sample X and supports it with a specific value or comparison from the table, such as 52% saturated versus 14% and 10%.",
+        "fix": "Name one sample and quote the table value that supports it, such as the saturated-tail percentage compared across all three samples.",
+        "accepted_variants": [
+         "Sample X, because 52% of its tails are saturated, more than Y (14%) or Z (10%)",
+         "Sample X, because only 48% of its tails are unsaturated, the least of the three"
+        ]
+       },
+       {
+        "text": "Justifies with structure: straight saturated tails pack closely together, while kinked unsaturated tails cannot, so fats with fewer double bonds are less liquid (more solid) at room temperature.",
+        "evidence": "Response connects the low level of unsaturation to the physical state, either by explaining that straight tails pack tightly and kinked tails do not, or by stating that the more unsaturated a fat is, the more liquid it is at room temperature.",
+        "fix": "Link tail shape to physical state: explain that kinks from double bonds prevent tight packing, so more unsaturated fats are more liquid.",
+        "accepted_variants": [
+         "the more unsaturated a lipid is, the more liquid it is at room temperature, and X is the least unsaturated",
+         "few kinks let X's tails pack tightly, so it stays solid"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "When a student shook Sample Z with water and let the mixture stand, the oil formed a separate layer instead of dissolving. Explain this observation in terms of the polarity of the fat molecules and of water.",
+      "criteria": [
+       {
+        "text": "Fats are nonpolar (hydrophobic), so they cannot form hydrogen bonds or other favorable attractions with polar water molecules; water molecules hydrogen bond with each other instead, and the fat separates.",
+        "evidence": "Response states that the fat (its hydrocarbon tails) is nonpolar or hydrophobic and connects this to its inability to interact with or hydrogen bond with polar water.",
+        "fix": "Say the fatty acid tails are nonpolar, then explain they cannot hydrogen bond with polar water, so water excludes them.",
+        "accepted_variants": [
+         "fat is hydrophobic and nonpolar, water is polar, so they do not mix",
+         "nonpolar hydrocarbon tails cannot form hydrogen bonds with water"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Animals such as seals store large amounts of fat under their skin. Describe two functions this stored fat provides for the animal.",
+      "criteria": [
+       {
+        "text": "Stored fat provides energy storage and insulation that helps keep the mammal warm.",
+        "evidence": "Response describes both energy storage (a reserve that can be broken down for energy) and insulation (reduces heat loss, keeps the body warm).",
+        "fix": "List two distinct fat functions for mammals: storing energy for later use and insulating the body against heat loss.",
+        "accepted_variants": [
+         "long-term energy reserve and thermal insulation",
+         "stores energy; keeps the seal warm in cold water"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words",
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:29:04.017Z",
+   "item": {
+    "title": "Fatty Acid Double Bonds and Melting Points",
+    "calculator": "not_applicable",
+    "stimulus": "Students compare four fatty acids. Each has an 18-carbon chain, but they differ in the number of carbon-carbon double bonds in the chain. The students look up the approximate melting point of each fatty acid. Room temperature in the laboratory is 25°C.\n\nFatty acid | Carbon atoms | C=C double bonds | Approximate melting point (°C)\nStearic acid | 18 | 0 | 69\nOleic acid | 18 | 1 | 13\nLinoleic acid | 18 | 2 | −5\nLinolenic acid | 18 | 3 | −11",
+    "model_answer": "(a) Stearic acid is the saturated fatty acid. Its carbon chain has only single bonds between carbon atoms, with 0 C=C double bonds.\n\n(b) As the number of double bonds increases, the melting point decreases. With 0 double bonds, stearic acid melts at 69°C. Oleic acid (1 double bond) melts at 13°C, linoleic acid (2) at −5°C, and linolenic acid (3) at −11°C.\n\n(c) Oleic acid has one double bond, which puts a kink in its carbon chain. The kinked chains cannot pack closely together, so less heat is needed to separate them, and the melting point is only 13°C. Room temperature (25°C) is above that, so oleic acid is a liquid. Stearic acid has only single bonds, so its chains are straight and pack tightly. Its melting point of 69°C is well above 25°C, so it is a solid.\n\n(d) I predict the fish's stored fat is made mostly of fatty acids with two or more double bonds. At 4°C, stearic acid (melting point 69°C) and oleic acid (13°C) would both be solid. Only linoleic acid (−5°C) and linolenic acid (−11°C) have melting points below 4°C and would stay liquid. Since the fat remains liquid at 4°C, it must be rich in these more unsaturated fatty acids.",
+    "verification_python": "data = {'stearic': (0, 69), 'oleic': (1, 13), 'linoleic': (2, -5), 'linolenic': (3, -11)}\nordered = sorted(data.values())\nmps = [mp for db, mp in ordered]\nassert all(mps[i] > mps[i+1] for i in range(len(mps)-1))\nsat = [k for k, v in data.items() if v[0] == 0]\nassert sat == ['stearic']\nroom = 25\nassert data['stearic'][1] > room\nassert data['oleic'][1] < room\nfish = 4\nliquid_at_4 = sorted(k for k, v in data.items() if v[1] < fish)\nassert liquid_at_4 == ['linoleic', 'linolenic']\nassert all(data[k][0] >= 2 for k in liquid_at_4)\nassert data['oleic'][1] > fish and data['stearic'][1] > fish\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the fatty acid in the table that is saturated, and describe the feature of its carbon chain that makes it saturated.",
+      "criteria": [
+       {
+        "text": "Identifies stearic acid as saturated because its carbon chain has only single bonds between carbon atoms (0 C=C double bonds).",
+        "evidence": "Names stearic acid and states that its chain has only single carbon-carbon bonds or no carbon-carbon double bonds.",
+        "fix": "Check the double-bond column. A saturated fatty acid has zero C=C double bonds, meaning only single bonds link its carbons.",
+        "accepted_variants": [
+         "stearic acid has no double bonds between carbons",
+         "stearic acid, all C–C bonds are single bonds"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the number of carbon-carbon double bonds and the melting point of the fatty acids in the table.",
+      "criteria": [
+       {
+        "text": "States that as the number of double bonds increases, melting point decreases (from 69°C with 0 double bonds to −11°C with 3 double bonds).",
+        "evidence": "Describes an inverse relationship, with more double bonds giving a lower melting point, and cites data or the direction across all four fatty acids.",
+        "fix": "Read the table from 0 to 3 double bonds and state how melting point changes, quoting the first and last values.",
+        "accepted_variants": [
+         "more unsaturated fatty acids have lower melting points",
+         "melting point drops from 69°C to −11°C as double bonds go from 0 to 3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why oleic acid is a liquid at room temperature while stearic acid is a solid.",
+      "criteria": [
+       {
+        "text": "Explains that the double bond in oleic acid kinks the carbon chain, so the molecules cannot pack closely together. This lowers the melting point to 13°C, below 25°C, so oleic acid is liquid. Stearic acid has straight chains that pack tightly, and its melting point of 69°C is above 25°C, so it is solid.",
+        "evidence": "Links the double bond to a kink in the chain, links the kink to looser packing or a lower melting point, and connects this to oleic acid being liquid at 25°C.",
+        "fix": "Connect structure to state: double bond causes a kink, kinks prevent tight packing, and a lower melting point means liquid at room temperature.",
+        "accepted_variants": [
+         "the kink keeps oleic acid chains from stacking tightly, so it melts below room temperature",
+         "stearic acid's straight chains pack tightly, but oleic acid's bent chain cannot"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A fish lives in water that stays at 4°C, and the fat it stores remains liquid at that temperature. Predict whether this fat is made mostly of saturated fatty acids or of fatty acids with two or more double bonds. Justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "Predicts that the fish's stored fat is made mostly of fatty acids with two or more double bonds (highly unsaturated fatty acids).",
+        "evidence": "States that the fat contains mostly fatty acids with two or more double bonds, such as linoleic or linolenic acid, rather than saturated fatty acids.",
+        "fix": "Ask which fatty acids stay liquid at the fish's body temperature, then predict that type of fatty acid.",
+        "accepted_variants": [
+         "mostly polyunsaturated fatty acids",
+         "fatty acids like linoleic and linolenic acid"
+        ]
+       },
+       {
+        "text": "Justifies with data: only linoleic acid (−5°C) and linolenic acid (−11°C) have melting points below 4°C. Stearic acid (69°C) and oleic acid (13°C) would be solid at 4°C.",
+        "evidence": "Compares the melting points in the table to 4°C and shows that only fatty acids with 2 or 3 double bonds melt below 4°C.",
+        "fix": "Compare each melting point in the table to 4°C and state which fatty acids would be liquid or solid at that temperature.",
+        "accepted_variants": [
+         "fatty acids with 2 or 3 double bonds melt below 4°C, while those with 0 or 1 melt above 4°C"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: Accepted variants are not equivalent complete explanations. In particular, contrasting straight-chain packing with bent-chain packing does not connect melting points to room temperature or explicitly explain the resulting physical states. Part (d), criterion d2: Requiring comparisons for all four fatty acids rejects sufficient data-based justifications. The requested prediction can be justified by showing that the listed fatty acids with two or more double bonds melt below 4°C, without separately discussing oleic acid.",
+       "solution: The independent solution agrees with the rubric's biological conclusions and numerical comparisons. However, its sufficient justification in part (d) does not explicitly compare oleic acid's melting point with 4°C, so d2's unnecessarily exhaustive evidence requirement could deny credit. In part (c), some accepted variants provide less explanation than the independent solution and omit the temperature-to-state connection."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: Accepted variants are not equivalent complete explanations. In particular, contrasting straight-chain packing with bent-chain packing does not connect melting points to room temperature or explicitly explain the resulting physical states. Part (d), criterion d2: Requiring comparisons for all four fatty acids rejects sufficient data-based justifications. The requested prediction can be justified by showing that the listed fatty acids with two or more double bonds melt below 4°C, without separately discussing oleic acid."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's biological conclusions and numerical comparisons. However, its sufficient justification in part (d) does not explicitly compare oleic acid's melting point with 4°C, so d2's unnecessarily exhaustive evidence requirement could deny credit. In part (c), some accepted variants provide less explanation than the independent solution and omit the temperature-to-state connection.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: The evidence does not require explaining why stearic acid is solid. The accepted variant about straight versus bent chains also omits the connection to melting points and physical states at 25°C. These are incomplete answers to the requested comparison, not equivalent forms of the complete explanation.",
+       "solution: The independent solution agrees with the rubric’s scientific conclusions and numerical comparisons. However, c1 accepts explanations less complete than the independent solution: its evidence can omit why stearic acid is solid, and its packing-only accepted variant does not explain the physical states at 25°C. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The evidence does not require explaining why stearic acid is solid. The accepted variant about straight versus bent chains also omits the connection to melting points and physical states at 25°C. These are incomplete answers to the requested comparison, not equivalent forms of the complete explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric’s scientific conclusions and numerical comparisons. However, c1 accepts explanations less complete than the independent solution: its evidence can omit why stearic acid is solid, and its packing-only accepted variant does not explain the physical states at 25°C. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: Part (c), criterion c1: the evidence omits the stearic acid aspect required by the criterion. The criterion requires explaining that stearic acid has straight chains, packs tightly, and has a melting point above 25°C, but the evidence covers only oleic acid's kink and liquid state."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: the evidence omits the stearic acid aspect required by the criterion. The criterion requires explaining that stearic acid has straight chains, packs tightly, and has a melting point above 25°C, but the evidence covers only oleic acid's kink and liquid state."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "ced_scope: Part (c) criterion c1 requires students to explain that double-bond kinks prevent close packing of fatty acid chains, but the CED Topic 1.5 text does not include this packing mechanism; full credit depends on a concept outside the official Essential Knowledge.",
+       "rubric_points: Criteria a1 and c1 each award a single point for multiple distinct elements: a1 requires naming stearic acid and stating the single-bond feature; c1 requires kink, loose packing, lower melting point, oleic liquid, and stearic solid. Each point should target one observable element."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5 Lipids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": false,
+         "issue": "Part (c) criterion c1 requires students to explain that double-bond kinks prevent close packing of fatty acid chains, but the CED Topic 1.5 text does not include this packing mechanism; full credit depends on a concept outside the official Essential Knowledge."
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and c1 each award a single point for multiple distinct elements: a1 requires naming stearic acid and stating the single-bond feature; c1 requires kink, loose packing, lower melting point, oleic liquid, and stearic solid. Each point should target one observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:33:41.471Z",
+   "item": {
+    "title": "Fatty Acid Double Bonds and Melting Point",
+    "calculator": "not_applicable",
+    "stimulus": "A student compares four fatty acids. Each has an 18-carbon chain, but they differ in the number of carbon-carbon double bonds in the chain. The student looks up the melting point of each fatty acid. A substance is liquid at a given temperature if that temperature is above its melting point.\n\nFatty acid | Carbon atoms | C=C double bonds | Melting point (°C)\nStearic acid | 18 | 0 | 69.3\nOleic acid | 18 | 1 | 13.4\nLinoleic acid | 18 | 2 | −5\nAlpha-linolenic acid | 18 | 3 | −11\n\nThe student then studies a fish species that lives in water at 4 °C. The fish's body temperature matches the water temperature, and its stored fat remains liquid at this body temperature.",
+    "model_answer": "(a) As the number of carbon-carbon double bonds increases, the melting point decreases. Stearic acid, with 0 double bonds, melts at 69.3 °C, oleic acid (1) at 13.4 °C, linoleic acid (2) at −5 °C, and alpha-linolenic acid (3) at −11 °C.\n\n(b) Stearic acid is saturated, with only single bonds between carbons, so its chain is straight. Each double bond in an unsaturated fatty acid causes a kink in the carbon chain. The kinked chains cannot pack tightly against one another, so attractions between neighboring molecules are weaker and fewer. Less energy is needed to separate them, so the unsaturated fatty acid melts at a lower temperature.\n\n(c) Oleic acid, linoleic acid and alpha-linolenic acid are liquid at 22 °C, because 22 °C is above their melting points. Stearic acid (melting point 69.3 °C) is solid.\n\n(d) The fish's fat should be made mainly of fatty acids with two or more double bonds. At 4 °C, stearic acid (69.3 °C) and oleic acid (13.4 °C) would be solid because 4 °C is below their melting points. Linoleic acid (−5 °C) and alpha-linolenic acid (−11 °C) melt below 4 °C, so only these more unsaturated fatty acids would keep the stored fat liquid at the fish's body temperature.",
+    "verification_python": "data = {'stearic': (0, 69.3), 'oleic': (1, 13.4), 'linoleic': (2, -5.0), 'linolenic': (3, -11.0)}\nitems = sorted(data.values())\nfor i in range(len(items) - 1):\n    assert items[i][1] > items[i + 1][1]\nliquid_room = sorted(k for k, v in data.items() if 22 > v[1])\nassert liquid_room == sorted(['oleic', 'linoleic', 'linolenic'])\nliquid_fish = sorted(k for k, v in data.items() if 4 > v[1])\nassert liquid_fish == sorted(['linoleic', 'linolenic'])\nassert all(data[k][0] >= 2 for k in liquid_fish)\nassert all(data[k][0] < 2 for k in data if k not in liquid_fish)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe the relationship between the number of carbon-carbon double bonds in the fatty acids and their melting points, using the data.",
+      "criteria": [
+       {
+        "text": "States that melting point decreases as the number of double bonds increases, citing data (from 69.3 °C with 0 double bonds to −11 °C with 3 double bonds).",
+        "evidence": "Response states an inverse relationship (more double bonds, lower melting point) and supports it with at least one pair of values from the table.",
+        "fix": "State the direction of the trend in words, then quote the melting points at the lowest and highest numbers of double bonds as support.",
+        "accepted_variants": [
+         "more double bonds give a lower melting point",
+         "fewer double bonds give a higher melting point",
+         "melting point falls as unsaturation increases"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the structure of an unsaturated fatty acid chain accounts for its lower melting point compared with stearic acid.",
+      "criteria": [
+       {
+        "text": "States that a carbon-carbon double bond causes a kink (bend) in the fatty acid carbon chain, whereas the saturated stearic acid chain has only single bonds and is straight.",
+        "evidence": "Response links the double bond to a kink or bend in the carbon chain.",
+        "fix": "Name the structural change a carbon-carbon double bond produces in the chain: a kink, unlike the straight chain of a saturated fatty acid.",
+        "accepted_variants": [
+         "double bonds bend the tail",
+         "cis double bond creates a bend in the chain"
+        ]
+       },
+       {
+        "text": "Explains that kinked chains cannot pack closely together, so there are weaker or fewer attractions between molecules and less energy (lower temperature) is needed to melt them.",
+        "evidence": "Response connects the kink to looser packing between neighboring molecules and to reduced intermolecular attraction, resulting in a lower melting point.",
+        "fix": "Connect the kink to how closely neighboring chains can pack, then to the strength of attractions holding the solid together.",
+        "accepted_variants": [
+         "kinks keep molecules farther apart so they are held together less tightly",
+         "straight saturated chains pack tightly and need more heat to separate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify which of the four fatty acids are liquid at a room temperature of 22 °C.",
+      "criteria": [
+       {
+        "text": "Identifies oleic acid, linoleic acid and alpha-linolenic acid as liquid at 22 °C (stearic acid is solid).",
+        "evidence": "Response names exactly the three unsaturated fatty acids as liquid and does not list stearic acid as liquid.",
+        "fix": "Compare 22 °C with each melting point; a fatty acid is liquid only when 22 °C is above its melting point.",
+        "accepted_variants": [
+         "all except stearic acid",
+         "the three unsaturated fatty acids"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict whether the stored fat of the fish would be made mainly of fatty acids with zero, one, or two or more double bonds. Justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "Predicts fatty acids with two or more double bonds, justified because only linoleic (−5 °C) and alpha-linolenic (−11 °C) acids have melting points below 4 °C, while oleic (13.4 °C) and stearic (69.3 °C) acids would be solid at 4 °C.",
+        "evidence": "Response predicts two or more double bonds (polyunsaturated) and justifies by comparing 4 °C with the melting points in the table.",
+        "fix": "Compare the fish's 4 °C body temperature with each melting point and choose the fatty acids that stay liquid at that temperature.",
+        "accepted_variants": [
+         "polyunsaturated fatty acids such as linoleic and alpha-linolenic acid",
+         "mostly highly unsaturated fatty acids because they remain liquid below 4 °C"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "ced_scope: Part (b), criterion b2, requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which states the relationship between unsaturation and liquidity but not this explanation.",
+       "well_posed: Part (d) assumes that melting points of pure, free fatty acids determine the phase and predominant fatty-acid composition of stored fat. Stored fats contain esterified fatty acids in mixtures, whose melting behavior need not match these values. The required prediction needs an explicit simplifying assumption.",
+       "rubric_points: Criterion a1's accepted variants provide only a trend, omitting the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete scored elements.",
+       "accurate: Criterion d1 treats the pure fatty acids' melting points as sufficient grounds for assigning the predominant composition of liquid stored fat. That inference is not generally valid for esterified fatty acids in mixed stored fats.",
+       "solution: The supplied independent solution agrees with the rubric on (a)–(c). Its answer to (d) is the intended, plausible prediction, but it depends on treating stored fat's melting behavior as matching that of its constituent free fatty acids. Without that simplifying assumption, the data do not uniquely establish that the stored fat consists mainly of fatty acids with two or more double bonds."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": false,
+         "issue": "Part (b), criterion b2, requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which states the relationship between unsaturation and liquidity but not this explanation."
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) assumes that melting points of pure, free fatty acids determine the phase and predominant fatty-acid composition of stored fat. Stored fats contain esterified fatty acids in mixtures, whose melting behavior need not match these values. The required prediction needs an explicit simplifying assumption."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's accepted variants provide only a trend, omitting the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete scored elements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d1 treats the pure fatty acids' melting points as sufficient grounds for assigning the predominant composition of liquid stored fat. That inference is not generally valid for esterified fatty acids in mixed stored fats."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The supplied independent solution agrees with the rubric on (a)–(c). Its answer to (d) is the intended, plausible prediction, but it depends on treating stored fat's melting behavior as matching that of its constituent free fatty acids. Without that simplifying assumption, the data do not uniquely establish that the stored fat consists mainly of fatty acids with two or more double bonds.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "ced_scope: Part (b), criterion b2 requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which specifies kinks and the relationship between unsaturation and liquidity.",
+       "well_posed: Part (d) does not establish that stored fat has the melting behavior of its constituent free fatty acids. Stored fats are mixtures, typically of triglycerides; their liquidity at 4 °C does not uniquely establish that most constituent fatty acids have two or more double bonds.",
+       "rubric_points: Criterion a1's accepted variants permit a trend without the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete elements required by their evidence statements.",
+       "accurate: Part (d), criterion d1 treats the melting points of isolated fatty acids as sufficient to determine the predominant fatty acids in liquid stored fat. Although its comparisons with 4 °C are correct for the isolated acids, that inference about stored fat is not scientifically established.",
+       "solution: Parts (a)–(c) agree with the rubric. For (d), two or more double bonds is the intended prediction under a simplified model, but the table alone cannot establish the predominant fatty acids in the fish's stored fat. The question would need to state that the isolated-fatty-acid melting points may be used as a proxy for stored-fat behavior."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which specifies kinks and the relationship between unsaturation and liquidity."
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not establish that stored fat has the melting behavior of its constituent free fatty acids. Stored fats are mixtures, typically of triglycerides; their liquidity at 4 °C does not uniquely establish that most constituent fatty acids have two or more double bonds."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's accepted variants permit a trend without the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete elements required by their evidence statements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 treats the melting points of isolated fatty acids as sufficient to determine the predominant fatty acids in liquid stored fat. Although its comparisons with 4 °C are correct for the isolated acids, that inference about stored fat is not scientifically established."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric. For (d), two or more double bonds is the intended prediction under a simplified model, but the table alone cannot establish the predominant fatty acids in the fish's stored fat. The question would need to state that the isolated-fatty-acid melting points may be used as a proxy for stored-fat behavior.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:21:21.631Z",
@@ -891,694 +1582,65 @@
    "stage": "checkers"
   }
  ],
- "history_before_rule_calibration": [
-  {
-   "round": 1,
-   "at": "2026-10-10T00:27:10.021Z",
-   "item": {
-    "title": "Fatty Acid Saturation and the Physical State of Fats",
-    "calculator": "not_applicable",
-    "stimulus": "A food science class extracted fats (triglycerides) from three sources. Each fat molecule contains three fatty acid tails. The students used a lab analysis service to find the percentage of fatty acid tails in each sample that fall into three categories. The results are shown below. Each row totals 100 percent.\n\nSample | Saturated tails (%) | Tails with one C=C double bond (%) | Tails with two or more C=C double bonds (%)\nX | 52 | 42 | 6\nY | 14 | 73 | 13\nZ | 10 | 20 | 70\n\nAll three samples were kept at room temperature (20 °C) before testing.",
-    "model_answer": "(a) A saturated fatty acid tail has only single bonds between its carbon atoms, so the chain is straight. An unsaturated tail has at least one carbon-to-carbon double bond, and each double bond puts a kink (bend) in the carbon chain.\n\n(b) Sample X is most likely solid at room temperature. It has 52% saturated tails, compared with 14% for Y and 10% for Z, so only 48% of its tails are unsaturated, the least of the three samples. Saturated tails are straight and can pack closely together, while the kinks caused by double bonds keep unsaturated tails from packing tightly. The more unsaturated a fat is, the more liquid it is at room temperature, so the least unsaturated fat, X, is the one most likely to be solid.\n\n(c) The fatty acid tails of the fat are long hydrocarbon chains that are nonpolar, so the fat is hydrophobic. Water is polar, and its molecules form hydrogen bonds with one another. The nonpolar fat cannot form hydrogen bonds with water, so the water molecules stay attracted to each other and exclude the fat, which collects as a separate layer.\n\n(d) First, the fat is an energy store: the seal can break it down for energy when food is scarce. Second, the layer of fat under the skin insulates the body, reducing heat loss so the seal stays warm in cold water.",
-    "verification_python": "rows = {'X': (52, 42, 6), 'Y': (14, 73, 13), 'Z': (10, 20, 70)}\nfor k, v in rows.items():\n    assert sum(v) == 100\nunsat = {k: 100 - v[0] for k, v in rows.items()}\nassert unsat['X'] == 48\nassert unsat['Y'] == 86\nassert unsat['Z'] == 90\nmost_sat = max(rows, key=lambda k: rows[k][0])\nassert most_sat == 'X'\nassert min(unsat, key=unsat.get) == 'X'\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Describe the difference in carbon-to-carbon bonding between a saturated fatty acid tail and an unsaturated fatty acid tail, and describe how this difference affects the shape of the tail.",
-      "criteria": [
-       {
-        "text": "Saturated tails have only single C–C bonds; unsaturated tails have at least one C=C double bond that causes a kink in the chain.",
-        "evidence": "Response states that saturated tails contain only single bonds between carbons and unsaturated tails contain one or more double bonds, and that the double bond kinks (bends) the chain.",
-        "fix": "State both bond types (only single bonds versus at least one double bond) and say that a double bond puts a kink in the carbon chain.",
-        "accepted_variants": [
-         "unsaturated tails are bent at each double bond while saturated tails are straight",
-         "saturated: no C=C double bonds, straight; unsaturated: one or more C=C double bonds, kinked"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Identify the sample most likely to be solid at room temperature. Justify your identification using the data and the structure of fatty acid tails.",
-      "criteria": [
-       {
-        "text": "Identifies Sample X, citing that it has the highest percentage of saturated tails (52%) or the lowest percentage of unsaturated tails (48%).",
-        "evidence": "Response names Sample X and supports it with a specific value or comparison from the table, such as 52% saturated versus 14% and 10%.",
-        "fix": "Name one sample and quote the table value that supports it, such as the saturated-tail percentage compared across all three samples.",
-        "accepted_variants": [
-         "Sample X, because 52% of its tails are saturated, more than Y (14%) or Z (10%)",
-         "Sample X, because only 48% of its tails are unsaturated, the least of the three"
-        ]
-       },
-       {
-        "text": "Justifies with structure: straight saturated tails pack closely together, while kinked unsaturated tails cannot, so fats with fewer double bonds are less liquid (more solid) at room temperature.",
-        "evidence": "Response connects the low level of unsaturation to the physical state, either by explaining that straight tails pack tightly and kinked tails do not, or by stating that the more unsaturated a fat is, the more liquid it is at room temperature.",
-        "fix": "Link tail shape to physical state: explain that kinks from double bonds prevent tight packing, so more unsaturated fats are more liquid.",
-        "accepted_variants": [
-         "the more unsaturated a lipid is, the more liquid it is at room temperature, and X is the least unsaturated",
-         "few kinks let X's tails pack tightly, so it stays solid"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "When a student shook Sample Z with water and let the mixture stand, the oil formed a separate layer instead of dissolving. Explain this observation in terms of the polarity of the fat molecules and of water.",
-      "criteria": [
-       {
-        "text": "Fats are nonpolar (hydrophobic), so they cannot form hydrogen bonds or other favorable attractions with polar water molecules; water molecules hydrogen bond with each other instead, and the fat separates.",
-        "evidence": "Response states that the fat (its hydrocarbon tails) is nonpolar or hydrophobic and connects this to its inability to interact with or hydrogen bond with polar water.",
-        "fix": "Say the fatty acid tails are nonpolar, then explain they cannot hydrogen bond with polar water, so water excludes them.",
-        "accepted_variants": [
-         "fat is hydrophobic and nonpolar, water is polar, so they do not mix",
-         "nonpolar hydrocarbon tails cannot form hydrogen bonds with water"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Animals such as seals store large amounts of fat under their skin. Describe two functions this stored fat provides for the animal.",
-      "criteria": [
-       {
-        "text": "Stored fat provides energy storage and insulation that helps keep the mammal warm.",
-        "evidence": "Response describes both energy storage (a reserve that can be broken down for energy) and insulation (reduces heat loss, keeps the body warm).",
-        "fix": "List two distinct fat functions for mammals: storing energy for later use and insulating the body against heat loss.",
-        "accepted_variants": [
-         "long-term energy reserve and thermal insulation",
-         "stores energy; keeps the seal warm in cold water"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [
-    "fix length 26 words",
-    "refers to a figure/graph/diagram"
+ "given": {
+  "item": {
+   "title": "Double Bonds and the Physical State of Fatty Acids",
+   "calculator": "not_applicable",
+   "stimulus": "A student compares four fatty acids. Each has a chain of 18 carbon atoms, and they differ only in the number of carbon–carbon double bonds (C=C) in the chain. A fatty acid is liquid at temperatures above its melting point and solid at temperatures below it.\n\nFatty acid | Number of C=C double bonds | Approximate melting point (°C)\nW | 0 | 69\nX | 1 | 13\nY | 2 | −5\nZ | 3 | −11",
+   "parts": [
+    {
+     "prompt": "Identify the fatty acid in the table that is saturated.",
+     "criteria": [
+      {
+       "text": "Identifies fatty acid W, the fatty acid with zero carbon–carbon double bonds.",
+       "evidence": "Response names W.",
+       "fix": "A saturated fatty acid has only single bonds between carbons; pick the one with zero C=C double bonds.",
+       "accepted_variants": [
+        "W"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the relationship between the number of carbon–carbon double bonds and the melting point shown in the data.",
+     "criteria": [
+      {
+       "text": "As the number of carbon–carbon double bonds increases, the melting point decreases (from 69 °C with 0 double bonds to −11 °C with 3).",
+       "evidence": "Response states that more double bonds is associated with a lower melting point across the four fatty acids.",
+       "fix": "Describe the trend across all rows in one sentence: as the first variable increases, the second variable decreases.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "At a room temperature of 20 °C, fatty acid W is solid and fatty acid Y is liquid. Explain this difference in terms of the structure of the carbon chains of W and Y.",
+     "criteria": [
+      {
+       "text": "Explains that Y's two double bonds put kinks in its carbon chain, making Y unsaturated, and that unsaturated fatty acids are more liquid at room temperature than saturated ones such as W, whose chain has only single bonds.",
+       "evidence": "Response states that the double bonds in Y cause kinks in the carbon chain and links being unsaturated (kinked) to being liquid at room temperature, in contrast to saturated W.",
+       "fix": "Connect each double bond to a kink in the carbon chain, then state that more unsaturated lipids are more liquid at room temperature.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Seals live in very cold ocean water and have a thick layer of fat beneath the skin. Other than serving as a store of energy, explain how this fat layer helps a seal maintain its body temperature in this environment.",
+     "criteria": [
+      {
+       "text": "Explains that the fat layer provides insulation, reducing the loss of heat from the seal's body to the cold water and helping keep the seal warm.",
+       "evidence": "Response identifies insulation (reduced heat loss to the surroundings) as the function of the fat layer.",
+       "fix": "Recall that besides energy storage, fats can insulate mammals, slowing heat loss to a cold environment.",
+       "accepted_variants": [
+        "insulation"
+       ]
+      }
+     ]
+    }
    ],
-   "stage": "lint"
+   "model_answer": "(a) Fatty acid W is saturated. It has no carbon–carbon double bonds, so its chain contains only single bonds between carbon atoms.\n\n(b) As the number of carbon–carbon double bonds increases, the melting point decreases: 69 °C with 0 double bonds, 13 °C with 1, −5 °C with 2, and −11 °C with 3.\n\n(c) Fatty acid W is saturated: its carbon chain has only single bonds. Fatty acid Y is unsaturated: it has two double bonds, and each double bond causes a kink in the carbon chain. The more unsaturated a lipid is, the more liquid it is at room temperature, so Y is liquid at 20 °C (above its melting point of −5 °C) while W is solid (below its melting point of 69 °C).\n\n(d) Fat provides insulation. The thick fat layer beneath the skin slows the loss of heat from the seal's body to the cold water, helping the seal stay warm.",
+   "verification_python": "data=[('W',0,69),('X',1,13),('Y',2,-5),('Z',3,-11)]\nsat=[n for n,d,mp in data if d==0]\nassert sat==['W']\nmps=[mp for n,d,mp in data]\nassert all(mps[i]>mps[i+1] for i in range(3))\nassert all(data[i][1]<data[i+1][1] for i in range(3))\nroom=20\nassert 69>room\nassert -5<room\nprint('ALL_CHECKS_PASSED')"
   },
-  {
-   "round": 2,
-   "at": "2026-10-10T00:29:04.017Z",
-   "item": {
-    "title": "Fatty Acid Double Bonds and Melting Points",
-    "calculator": "not_applicable",
-    "stimulus": "Students compare four fatty acids. Each has an 18-carbon chain, but they differ in the number of carbon-carbon double bonds in the chain. The students look up the approximate melting point of each fatty acid. Room temperature in the laboratory is 25°C.\n\nFatty acid | Carbon atoms | C=C double bonds | Approximate melting point (°C)\nStearic acid | 18 | 0 | 69\nOleic acid | 18 | 1 | 13\nLinoleic acid | 18 | 2 | −5\nLinolenic acid | 18 | 3 | −11",
-    "model_answer": "(a) Stearic acid is the saturated fatty acid. Its carbon chain has only single bonds between carbon atoms, with 0 C=C double bonds.\n\n(b) As the number of double bonds increases, the melting point decreases. With 0 double bonds, stearic acid melts at 69°C. Oleic acid (1 double bond) melts at 13°C, linoleic acid (2) at −5°C, and linolenic acid (3) at −11°C.\n\n(c) Oleic acid has one double bond, which puts a kink in its carbon chain. The kinked chains cannot pack closely together, so less heat is needed to separate them, and the melting point is only 13°C. Room temperature (25°C) is above that, so oleic acid is a liquid. Stearic acid has only single bonds, so its chains are straight and pack tightly. Its melting point of 69°C is well above 25°C, so it is a solid.\n\n(d) I predict the fish's stored fat is made mostly of fatty acids with two or more double bonds. At 4°C, stearic acid (melting point 69°C) and oleic acid (13°C) would both be solid. Only linoleic acid (−5°C) and linolenic acid (−11°C) have melting points below 4°C and would stay liquid. Since the fat remains liquid at 4°C, it must be rich in these more unsaturated fatty acids.",
-    "verification_python": "data = {'stearic': (0, 69), 'oleic': (1, 13), 'linoleic': (2, -5), 'linolenic': (3, -11)}\nordered = sorted(data.values())\nmps = [mp for db, mp in ordered]\nassert all(mps[i] > mps[i+1] for i in range(len(mps)-1))\nsat = [k for k, v in data.items() if v[0] == 0]\nassert sat == ['stearic']\nroom = 25\nassert data['stearic'][1] > room\nassert data['oleic'][1] < room\nfish = 4\nliquid_at_4 = sorted(k for k, v in data.items() if v[1] < fish)\nassert liquid_at_4 == ['linoleic', 'linolenic']\nassert all(data[k][0] >= 2 for k in liquid_at_4)\nassert data['oleic'][1] > fish and data['stearic'][1] > fish\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Identify the fatty acid in the table that is saturated, and describe the feature of its carbon chain that makes it saturated.",
-      "criteria": [
-       {
-        "text": "Identifies stearic acid as saturated because its carbon chain has only single bonds between carbon atoms (0 C=C double bonds).",
-        "evidence": "Names stearic acid and states that its chain has only single carbon-carbon bonds or no carbon-carbon double bonds.",
-        "fix": "Check the double-bond column. A saturated fatty acid has zero C=C double bonds, meaning only single bonds link its carbons.",
-        "accepted_variants": [
-         "stearic acid has no double bonds between carbons",
-         "stearic acid, all C–C bonds are single bonds"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Describe the relationship between the number of carbon-carbon double bonds and the melting point of the fatty acids in the table.",
-      "criteria": [
-       {
-        "text": "States that as the number of double bonds increases, melting point decreases (from 69°C with 0 double bonds to −11°C with 3 double bonds).",
-        "evidence": "Describes an inverse relationship, with more double bonds giving a lower melting point, and cites data or the direction across all four fatty acids.",
-        "fix": "Read the table from 0 to 3 double bonds and state how melting point changes, quoting the first and last values.",
-        "accepted_variants": [
-         "more unsaturated fatty acids have lower melting points",
-         "melting point drops from 69°C to −11°C as double bonds go from 0 to 3"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Explain why oleic acid is a liquid at room temperature while stearic acid is a solid.",
-      "criteria": [
-       {
-        "text": "Explains that the double bond in oleic acid kinks the carbon chain, so the molecules cannot pack closely together. This lowers the melting point to 13°C, below 25°C, so oleic acid is liquid. Stearic acid has straight chains that pack tightly, and its melting point of 69°C is above 25°C, so it is solid.",
-        "evidence": "Links the double bond to a kink in the chain, links the kink to looser packing or a lower melting point, and connects this to oleic acid being liquid at 25°C.",
-        "fix": "Connect structure to state: double bond causes a kink, kinks prevent tight packing, and a lower melting point means liquid at room temperature.",
-        "accepted_variants": [
-         "the kink keeps oleic acid chains from stacking tightly, so it melts below room temperature",
-         "stearic acid's straight chains pack tightly, but oleic acid's bent chain cannot"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "A fish lives in water that stays at 4°C, and the fat it stores remains liquid at that temperature. Predict whether this fat is made mostly of saturated fatty acids or of fatty acids with two or more double bonds. Justify your prediction using the data.",
-      "criteria": [
-       {
-        "text": "Predicts that the fish's stored fat is made mostly of fatty acids with two or more double bonds (highly unsaturated fatty acids).",
-        "evidence": "States that the fat contains mostly fatty acids with two or more double bonds, such as linoleic or linolenic acid, rather than saturated fatty acids.",
-        "fix": "Ask which fatty acids stay liquid at the fish's body temperature, then predict that type of fatty acid.",
-        "accepted_variants": [
-         "mostly polyunsaturated fatty acids",
-         "fatty acids like linoleic and linolenic acid"
-        ]
-       },
-       {
-        "text": "Justifies with data: only linoleic acid (−5°C) and linolenic acid (−11°C) have melting points below 4°C. Stearic acid (69°C) and oleic acid (13°C) would be solid at 4°C.",
-        "evidence": "Compares the melting points in the table to 4°C and shows that only fatty acids with 2 or 3 double bonds melt below 4°C.",
-        "fix": "Compare each melting point in the table to 4°C and state which fatty acids would be liquid or solid at that temperature.",
-        "accepted_variants": [
-         "fatty acids with 2 or 3 double bonds melt below 4°C, while those with 0 or 1 melt above 4°C"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": true,
-    "votes": {
-     "1.5": 6
-    },
-    "onTarget": 6,
-    "n": 6,
-    "required_units": [
-     1
-    ],
-    "unitCount": {
-     "1": 6
-    }
-   },
-   "checks": [
-    {
-     "model": "openai/gpt-6.1-sol",
-     "pass": false,
-     "difficulty": "Easy",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "rubric_points: Part (c), criterion c1: Accepted variants are not equivalent complete explanations. In particular, contrasting straight-chain packing with bent-chain packing does not connect melting points to room temperature or explicitly explain the resulting physical states. Part (d), criterion d2: Requiring comparisons for all four fatty acids rejects sufficient data-based justifications. The requested prediction can be justified by showing that the listed fatty acids with two or more double bonds melt below 4°C, without separately discussing oleic acid.",
-       "solution: The independent solution agrees with the rubric's biological conclusions and numerical comparisons. However, its sufficient justification in part (d) does not explicitly compare oleic acid's melting point with 4°C, so d2's unnecessarily exhaustive evidence requirement could deny credit. In part (c), some accepted variants provide less explanation than the independent solution and omit the temperature-to-state connection."
-      ],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Part (c), criterion c1: Accepted variants are not equivalent complete explanations. In particular, contrasting straight-chain packing with bent-chain packing does not connect melting points to room temperature or explicitly explain the resulting physical states. Part (d), criterion d2: Requiring comparisons for all four fatty acids rejects sufficient data-based justifications. The requested prediction can be justified by showing that the listed fatty acids with two or more double bonds melt below 4°C, without separately discussing oleic acid."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "The independent solution agrees with the rubric's biological conclusions and numerical comparisons. However, its sufficient justification in part (d) does not explicitly compare oleic acid's melting point with 4°C, so d2's unnecessarily exhaustive evidence requirement could deny credit. In part (c), some accepted variants provide less explanation than the independent solution and omit the temperature-to-state connection.",
-       "difficulty": "Easy"
-      }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "rubric_points: Part (c), criterion c1: The evidence does not require explaining why stearic acid is solid. The accepted variant about straight versus bent chains also omits the connection to melting points and physical states at 25°C. These are incomplete answers to the requested comparison, not equivalent forms of the complete explanation.",
-       "solution: The independent solution agrees with the rubric’s scientific conclusions and numerical comparisons. However, c1 accepts explanations less complete than the independent solution: its evidence can omit why stearic acid is solid, and its packing-only accepted variant does not explain the physical states at 25°C. No model answer was provided for comparison."
-      ],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Part (c), criterion c1: The evidence does not require explaining why stearic acid is solid. The accepted variant about straight versus bent chains also omits the connection to melting points and physical states at 25°C. These are incomplete answers to the requested comparison, not equivalent forms of the complete explanation."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "The independent solution agrees with the rubric’s scientific conclusions and numerical comparisons. However, c1 accepts explanations less complete than the independent solution: its evidence can omit why stearic acid is solid, and its packing-only accepted variant does not explain the physical states at 25°C. No model answer was provided for comparison.",
-       "difficulty": "Easy"
-      }
-     }
-    },
-    {
-     "model": "deepseek/deepseek-v4-pro",
-     "pass": false,
-     "difficulty": "Medium",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "rubric_evidence: Part (c), criterion c1: the evidence omits the stearic acid aspect required by the criterion. The criterion requires explaining that stearic acid has straight chains, packs tightly, and has a melting point above 25°C, but the evidence covers only oleic acid's kink and liquid state."
-      ],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_evidence": {
-         "pass": false,
-         "issue": "Part (c), criterion c1: the evidence omits the stearic acid aspect required by the criterion. The criterion requires explaining that stearic acid has straight chains, packs tightly, and has a melting point above 25°C, but the evidence covers only oleic acid's kink and liquid state."
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "model_answer": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Easy"
-      }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "ced_scope: Part (c) criterion c1 requires students to explain that double-bond kinks prevent close packing of fatty acid chains, but the CED Topic 1.5 text does not include this packing mechanism; full credit depends on a concept outside the official Essential Knowledge.",
-       "rubric_points: Criteria a1 and c1 each award a single point for multiple distinct elements: a1 requires naming stearic acid and stating the single-bond feature; c1 requires kink, loose packing, lower melting point, oleic liquid, and stearic solid. Each point should target one observable element."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5 Lipids",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": false,
-         "issue": "Part (c) criterion c1 requires students to explain that double-bond kinks prevent close packing of fatty acid chains, but the CED Topic 1.5 text does not include this packing mechanism; full credit depends on a concept outside the official Essential Knowledge."
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criteria a1 and c1 each award a single point for multiple distinct elements: a1 requires naming stearic acid and stating the single-bond feature; c1 requires kink, loose packing, lower melting point, oleic liquid, and stearic solid. Each point should target one observable element."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "model_answer": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Medium"
-      }
-     }
-    }
-   ],
-   "stage": "checkers"
-  },
-  {
-   "round": 3,
-   "at": "2026-10-10T00:33:41.471Z",
-   "item": {
-    "title": "Fatty Acid Double Bonds and Melting Point",
-    "calculator": "not_applicable",
-    "stimulus": "A student compares four fatty acids. Each has an 18-carbon chain, but they differ in the number of carbon-carbon double bonds in the chain. The student looks up the melting point of each fatty acid. A substance is liquid at a given temperature if that temperature is above its melting point.\n\nFatty acid | Carbon atoms | C=C double bonds | Melting point (°C)\nStearic acid | 18 | 0 | 69.3\nOleic acid | 18 | 1 | 13.4\nLinoleic acid | 18 | 2 | −5\nAlpha-linolenic acid | 18 | 3 | −11\n\nThe student then studies a fish species that lives in water at 4 °C. The fish's body temperature matches the water temperature, and its stored fat remains liquid at this body temperature.",
-    "model_answer": "(a) As the number of carbon-carbon double bonds increases, the melting point decreases. Stearic acid, with 0 double bonds, melts at 69.3 °C, oleic acid (1) at 13.4 °C, linoleic acid (2) at −5 °C, and alpha-linolenic acid (3) at −11 °C.\n\n(b) Stearic acid is saturated, with only single bonds between carbons, so its chain is straight. Each double bond in an unsaturated fatty acid causes a kink in the carbon chain. The kinked chains cannot pack tightly against one another, so attractions between neighboring molecules are weaker and fewer. Less energy is needed to separate them, so the unsaturated fatty acid melts at a lower temperature.\n\n(c) Oleic acid, linoleic acid and alpha-linolenic acid are liquid at 22 °C, because 22 °C is above their melting points. Stearic acid (melting point 69.3 °C) is solid.\n\n(d) The fish's fat should be made mainly of fatty acids with two or more double bonds. At 4 °C, stearic acid (69.3 °C) and oleic acid (13.4 °C) would be solid because 4 °C is below their melting points. Linoleic acid (−5 °C) and alpha-linolenic acid (−11 °C) melt below 4 °C, so only these more unsaturated fatty acids would keep the stored fat liquid at the fish's body temperature.",
-    "verification_python": "data = {'stearic': (0, 69.3), 'oleic': (1, 13.4), 'linoleic': (2, -5.0), 'linolenic': (3, -11.0)}\nitems = sorted(data.values())\nfor i in range(len(items) - 1):\n    assert items[i][1] > items[i + 1][1]\nliquid_room = sorted(k for k, v in data.items() if 22 > v[1])\nassert liquid_room == sorted(['oleic', 'linoleic', 'linolenic'])\nliquid_fish = sorted(k for k, v in data.items() if 4 > v[1])\nassert liquid_fish == sorted(['linoleic', 'linolenic'])\nassert all(data[k][0] >= 2 for k in liquid_fish)\nassert all(data[k][0] < 2 for k in data if k not in liquid_fish)\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Describe the relationship between the number of carbon-carbon double bonds in the fatty acids and their melting points, using the data.",
-      "criteria": [
-       {
-        "text": "States that melting point decreases as the number of double bonds increases, citing data (from 69.3 °C with 0 double bonds to −11 °C with 3 double bonds).",
-        "evidence": "Response states an inverse relationship (more double bonds, lower melting point) and supports it with at least one pair of values from the table.",
-        "fix": "State the direction of the trend in words, then quote the melting points at the lowest and highest numbers of double bonds as support.",
-        "accepted_variants": [
-         "more double bonds give a lower melting point",
-         "fewer double bonds give a higher melting point",
-         "melting point falls as unsaturation increases"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Explain how the structure of an unsaturated fatty acid chain accounts for its lower melting point compared with stearic acid.",
-      "criteria": [
-       {
-        "text": "States that a carbon-carbon double bond causes a kink (bend) in the fatty acid carbon chain, whereas the saturated stearic acid chain has only single bonds and is straight.",
-        "evidence": "Response links the double bond to a kink or bend in the carbon chain.",
-        "fix": "Name the structural change a carbon-carbon double bond produces in the chain: a kink, unlike the straight chain of a saturated fatty acid.",
-        "accepted_variants": [
-         "double bonds bend the tail",
-         "cis double bond creates a bend in the chain"
-        ]
-       },
-       {
-        "text": "Explains that kinked chains cannot pack closely together, so there are weaker or fewer attractions between molecules and less energy (lower temperature) is needed to melt them.",
-        "evidence": "Response connects the kink to looser packing between neighboring molecules and to reduced intermolecular attraction, resulting in a lower melting point.",
-        "fix": "Connect the kink to how closely neighboring chains can pack, then to the strength of attractions holding the solid together.",
-        "accepted_variants": [
-         "kinks keep molecules farther apart so they are held together less tightly",
-         "straight saturated chains pack tightly and need more heat to separate"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Identify which of the four fatty acids are liquid at a room temperature of 22 °C.",
-      "criteria": [
-       {
-        "text": "Identifies oleic acid, linoleic acid and alpha-linolenic acid as liquid at 22 °C (stearic acid is solid).",
-        "evidence": "Response names exactly the three unsaturated fatty acids as liquid and does not list stearic acid as liquid.",
-        "fix": "Compare 22 °C with each melting point; a fatty acid is liquid only when 22 °C is above its melting point.",
-        "accepted_variants": [
-         "all except stearic acid",
-         "the three unsaturated fatty acids"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Predict whether the stored fat of the fish would be made mainly of fatty acids with zero, one, or two or more double bonds. Justify your prediction using the data.",
-      "criteria": [
-       {
-        "text": "Predicts fatty acids with two or more double bonds, justified because only linoleic (−5 °C) and alpha-linolenic (−11 °C) acids have melting points below 4 °C, while oleic (13.4 °C) and stearic (69.3 °C) acids would be solid at 4 °C.",
-        "evidence": "Response predicts two or more double bonds (polyunsaturated) and justifies by comparing 4 °C with the melting points in the table.",
-        "fix": "Compare the fish's 4 °C body temperature with each melting point and choose the fatty acids that stay liquid at that temperature.",
-        "accepted_variants": [
-         "polyunsaturated fatty acids such as linoleic and alpha-linolenic acid",
-         "mostly highly unsaturated fatty acids because they remain liquid below 4 °C"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": true,
-    "votes": {
-     "1.5": 6
-    },
-    "onTarget": 6,
-    "n": 6,
-    "required_units": [
-     1
-    ],
-    "unitCount": {
-     "1": 6
-    }
-   },
-   "checks": [
-    {
-     "model": "openai/gpt-6.1-sol",
-     "pass": false,
-     "difficulty": "Easy",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "ced_scope: Part (b), criterion b2, requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which states the relationship between unsaturation and liquidity but not this explanation.",
-       "well_posed: Part (d) assumes that melting points of pure, free fatty acids determine the phase and predominant fatty-acid composition of stored fat. Stored fats contain esterified fatty acids in mixtures, whose melting behavior need not match these values. The required prediction needs an explicit simplifying assumption.",
-       "rubric_points: Criterion a1's accepted variants provide only a trend, omitting the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete scored elements.",
-       "accurate: Criterion d1 treats the pure fatty acids' melting points as sufficient grounds for assigning the predominant composition of liquid stored fat. That inference is not generally valid for esterified fatty acids in mixed stored fats.",
-       "solution: The supplied independent solution agrees with the rubric on (a)–(c). Its answer to (d) is the intended, plausible prediction, but it depends on treating stored fat's melting behavior as matching that of its constituent free fatty acids. Without that simplifying assumption, the data do not uniquely establish that the stored fat consists mainly of fatty acids with two or more double bonds."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": false,
-         "issue": "Part (b), criterion b2, requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which states the relationship between unsaturation and liquidity but not this explanation."
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Part (d) assumes that melting points of pure, free fatty acids determine the phase and predominant fatty-acid composition of stored fat. Stored fats contain esterified fatty acids in mixtures, whose melting behavior need not match these values. The required prediction needs an explicit simplifying assumption."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion a1's accepted variants provide only a trend, omitting the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete scored elements."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Criterion d1 treats the pure fatty acids' melting points as sufficient grounds for assigning the predominant composition of liquid stored fat. That inference is not generally valid for esterified fatty acids in mixed stored fats."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "The supplied independent solution agrees with the rubric on (a)–(c). Its answer to (d) is the intended, plausible prediction, but it depends on treating stored fat's melting behavior as matching that of its constituent free fatty acids. Without that simplifying assumption, the data do not uniquely establish that the stored fat consists mainly of fatty acids with two or more double bonds.",
-       "difficulty": "Medium"
-      }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "ced_scope: Part (b), criterion b2 requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which specifies kinks and the relationship between unsaturation and liquidity.",
-       "well_posed: Part (d) does not establish that stored fat has the melting behavior of its constituent free fatty acids. Stored fats are mixtures, typically of triglycerides; their liquidity at 4 °C does not uniquely establish that most constituent fatty acids have two or more double bonds.",
-       "rubric_points: Criterion a1's accepted variants permit a trend without the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete elements required by their evidence statements.",
-       "accurate: Part (d), criterion d1 treats the melting points of isolated fatty acids as sufficient to determine the predominant fatty acids in liquid stored fat. Although its comparisons with 4 °C are correct for the isolated acids, that inference about stored fat is not scientifically established.",
-       "solution: Parts (a)–(c) agree with the rubric. For (d), two or more double bonds is the intended prediction under a simplified model, but the table alone cannot establish the predominant fatty acids in the fish's stored fat. The question would need to state that the isolated-fatty-acid melting points may be used as a proxy for stored-fat behavior."
-      ],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": false,
-         "issue": "Part (b), criterion b2 requires explaining melting through molecular packing and reduced intermolecular attractions. These required mechanisms are not included in the supplied CED content, which specifies kinks and the relationship between unsaturation and liquidity."
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Part (d) does not establish that stored fat has the melting behavior of its constituent free fatty acids. Stored fats are mixtures, typically of triglycerides; their liquidity at 4 °C does not uniquely establish that most constituent fatty acids have two or more double bonds."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion a1's accepted variants permit a trend without the requested supporting data. Criterion d1 accepts 'polyunsaturated fatty acids such as linoleic and alpha-linolenic acid' without the requested justification. These variants are not equivalent to the complete elements required by their evidence statements."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Part (d), criterion d1 treats the melting points of isolated fatty acids as sufficient to determine the predominant fatty acids in liquid stored fat. Although its comparisons with 4 °C are correct for the isolated acids, that inference about stored fat is not scientifically established."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "Parts (a)–(c) agree with the rubric. For (d), two or more double bonds is the intended prediction under a simplified model, but the table alone cannot establish the predominant fatty acids in the fish's stored fat. The question would need to state that the isolated-fatty-acid melting points may be used as a proxy for stored-fat behavior.",
-       "difficulty": "Easy"
-      }
-     }
-    },
-    {
-     "model": "deepseek/deepseek-v4-pro",
-     "pass": true,
-     "difficulty": "Easy",
-     "first": {
-      "ok": true,
-      "flagged": false,
-      "failed": [],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.5",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "model_answer": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Easy"
-      }
-     }
-    }
-   ],
-   "stage": "checkers"
-  }
- ]
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.858136Z"
+ }
 }

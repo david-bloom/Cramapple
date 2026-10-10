@@ -11,7 +11,84 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Exact Positions of Runners on a Circular Track",
+   "calculator": "not_permitted",
+   "stimulus": "A circular running track has radius 8 meters. A coordinate system, with distances in meters, is placed so that the center of the track is at the origin. Three runners each start at the point (8, 0) and run along the track. Each runner's final position is on the terminal ray of an angle θ in standard position, measured in radians.\n\nRunner A moves counterclockwise through an angle of 5π/6.\nRunner B moves clockwise through an angle of 3π/4.\nRunner C moves counterclockwise through an angle of 4π/3.\n\nGive all answers as exact values.",
+   "parts": [
+    {
+     "prompt": "Find the exact coordinates of runner A's final position. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "x-coordinate of A is 8cos(5π/6) = 8(−√3/2) = −4√3.",
+       "evidence": "Response uses x = 8cos(5π/6) with cos(5π/6) = −√3/2 (negative in quadrant II) to get −4√3.",
+       "fix": "Use (r cos θ, r sin θ); find the reference angle, π/6 here, then make cosine negative for a quadrant II angle.",
+       "accepted_variants": [
+        "−4√3"
+       ]
+      },
+      {
+       "text": "y-coordinate of A is 8 sin(5π/6) = 8(1/2) = 4.",
+       "evidence": "Response uses y = 8 sin(5π/6) with sin(5π/6) = 1/2 to get 4.",
+       "fix": "Multiply the radius by the sine of the angle; the sine of a quadrant II angle is positive, so use sin(π/6) = 1/2.",
+       "accepted_variants": [
+        "4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the exact coordinates of runner B's final position. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "x-coordinate of B is 8cos(−3π/4) = 8(−√2/2) = −4√2, using the angle −3π/4 for the clockwise rotation.",
+       "evidence": "Response represents the clockwise rotation by θ = −3π/4 (or the coterminal 5π/4) and gets x = −4√2.",
+       "fix": "Write a clockwise rotation as a negative angle, locate its quadrant (III here), then compute r cos θ with the correct sign.",
+       "accepted_variants": [
+        "−4√2"
+       ]
+      },
+      {
+       "text": "y-coordinate of B is 8 sin(−3π/4) = 8(−√2/2) = −4√2.",
+       "evidence": "Response gets y = −4√2, with sin(−3π/4) = −√2/2 because the terminal ray is in quadrant III.",
+       "fix": "Below the x-axis the sine is negative; use sin(π/4) = √2/2 from the isosceles right triangle, then attach the sign.",
+       "accepted_variants": [
+        "−4√2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is runner C or runner A farther from the x-axis at their final positions? Justify your answer using exact values.",
+     "criteria": [
+      {
+       "text": "y-coordinate of C is 8 sin(4π/3) = 8(−√3/2) = −4√3, so C is 4√3 meters from the x-axis.",
+       "evidence": "Response finds C's y-coordinate −4√3 (C's position is (−4, −4√3)) and gives its distance from the x-axis as 4√3.",
+       "fix": "Distance from the x-axis is the absolute value of the y-coordinate r sin θ; for 4π/3 use the reference angle π/3.",
+       "accepted_variants": [
+        "4√3"
+       ]
+      },
+      {
+       "text": "Runner C is farther, because 4√3 > 4, where 4 is runner A's distance from the x-axis.",
+       "evidence": "Response compares 4√3 with A's distance 4 (from part (a)) and concludes runner C is farther from the x-axis.",
+       "fix": "Compare absolute values of the y-coordinates, not the signed values, when asked about distance from the x-axis.",
+       "accepted_variants": [
+        "runner C"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) A point on a circle of radius 8 at angle θ has coordinates (8cos θ, 8 sin θ). The angle 5π/6 is in quadrant II with reference angle π/6, so cos(5π/6) = −√3/2 and sin(5π/6) = 1/2.\nA = (8(−√3/2), 8(1/2)) = (−4√3, 4).\n\n(b) A clockwise rotation of 3π/4 is the angle θ = −3π/4, whose terminal ray is in quadrant III with reference angle π/4. So cos(−3π/4) = −√2/2 and sin(−3π/4) = −√2/2.\nB = (8(−√2/2), 8(−√2/2)) = (−4√2, −4√2).\n\n(c) The angle 4π/3 is in quadrant III with reference angle π/3, so sin(4π/3) = −√3/2 and cos(4π/3) = −1/2. C = (8(−1/2), 8(−√3/2)) = (−4, −4√3).\nDistance from the x-axis is the absolute value of the y-coordinate. Runner C is 4√3 meters from the x-axis and runner A is 4 meters from it. Since √3 > 1, 4√3 > 4, so runner C is farther from the x-axis.",
+   "verification_python": "import sympy as sp\nr = 8\nA = (r*sp.cos(5*sp.pi/6), r*sp.sin(5*sp.pi/6))\nassert sp.simplify(A[0] + 4*sp.sqrt(3)) == 0 and sp.simplify(A[1] - 4) == 0\nB = (r*sp.cos(-3*sp.pi/4), r*sp.sin(-3*sp.pi/4))\nassert sp.simplify(B[0] + 4*sp.sqrt(2)) == 0 and sp.simplify(B[1] + 4*sp.sqrt(2)) == 0\nB2 = (r*sp.cos(5*sp.pi/4), r*sp.sin(5*sp.pi/4))\nassert sp.simplify(B2[0] - B[0]) == 0 and sp.simplify(B2[1] - B[1]) == 0\nCp = (r*sp.cos(4*sp.pi/3), r*sp.sin(4*sp.pi/3))\nassert sp.simplify(Cp[0] + 4) == 0 and sp.simplify(Cp[1] + 4*sp.sqrt(3)) == 0\nassert sp.Abs(Cp[1]) == 4*sp.sqrt(3) and sp.Abs(A[1]) == 4\nassert 4*sp.sqrt(3) > 4\nfor P in (A, B, Cp):\n    assert sp.simplify(P[0]**2 + P[1]**2 - 64) == 0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.877850Z"
+ }
 }

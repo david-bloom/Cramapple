@@ -11,7 +11,68 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Center of Mass of a Rod with Increasing Density",
+   "calculator": "permitted",
+   "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+   "parts": [
+    {
+     "prompt": "Calculate the total mass of the rod.",
+     "criteria": [
+      {
+       "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+       "evidence": "Response integrates λ(x) over the rod's length from 0 to 4.0 m and obtains 8.0 kg.",
+       "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length instead of multiplying one density value by the length.",
+       "accepted_variants": [
+        "8 kg"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the x-coordinate of the rod's center of mass.",
+     "criteria": [
+      {
+       "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+       "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (its own value from part (a)).",
+       "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+       "accepted_variants": []
+      },
+      {
+       "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+       "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m, consistent with its own setup.",
+       "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+       "accepted_variants": [
+        "7/3 m",
+        "2.3 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+     "criteria": [
+      {
+       "text": "Treats the rod as a single 8.0 kg object at x = 7/3 m: x_cm = (8.0 × 2.33 + 4.0 × 0)/(8.0 + 4.0) ≈ 1.56 m (14/9 m).",
+       "evidence": "Response combines the rod, located at its own center of mass, with the block using Σmᵢxᵢ/Σmᵢ and gets about 1.6 m (or a value consistent with its earlier answers).",
+       "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+       "accepted_variants": [
+        "14/9 m",
+        "1.6 m"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.870063Z"
+ }
 }

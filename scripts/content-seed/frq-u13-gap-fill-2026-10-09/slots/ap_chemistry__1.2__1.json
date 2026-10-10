@@ -11,8 +11,9 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:44:35.657Z",
@@ -688,5 +689,68 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "given": {
+  "item": {
+   "title": "Identifying an Element from a Two-Isotope Mass Spectrum",
+   "calculator": "permitted",
+   "stimulus": "A pure sample of an unknown element X is analyzed in a mass spectrometer. Every peak in the spectrum comes from singly charged ions of single atoms of X. The mass of each isotope and the relative intensity of its peak are listed below.\n\nIsotope mass (amu) | Relative intensity\n62.93 | 100.0\n64.93 | 44.61\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent abundance of the isotope with mass 62.93 amu.",
+     "criteria": [
+      {
+       "text": "Calculates a percent abundance of 69.15% for the isotope with mass 62.93 amu.",
+       "evidence": "Response divides the intensity of the 62.93 amu peak by the total intensity of both peaks (100.0 ÷ 144.61) and reports 69.15%.",
+       "fix": "Add all the peak intensities, then divide the chosen peak's intensity by that total and multiply by 100.",
+       "accepted_variants": [
+        "69.15 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the average atomic mass of element X.",
+     "criteria": [
+      {
+       "text": "Calculates an average atomic mass of 63.55 amu.",
+       "evidence": "Response computes a weighted average of the two isotope masses using their relative abundances or intensities, for example 0.6915 × 62.93 amu + 0.3085 × 64.93 amu, and reports 63.55 amu.",
+       "fix": "Weight each isotope mass by its fractional abundance, add the products, and report the result in amu.",
+       "accepted_variants": [
+        "63.55 u"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify element X. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Identifies X as copper (Cu) because the calculated average atomic mass, 63.55 amu, matches the atomic mass of copper on the periodic table.",
+       "evidence": "Response names copper and links the average atomic mass from the previous part to the atomic mass listed for Cu.",
+       "fix": "Compare your calculated average atomic mass with the periodic table and name the element whose atomic mass matches it.",
+       "accepted_variants": [
+        "Cu"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Atoms of the two isotopes of X have different masses. Explain this difference in terms of the numbers of protons and neutrons in the atoms.",
+     "criteria": [
+      {
+       "text": "Explains that atoms of both isotopes have the same number of protons (29) but atoms of the heavier isotope have 2 more neutrons.",
+       "evidence": "Response states that the number of protons is the same in both isotopes (they are the same element) and that the 64.93 amu isotope has more neutrons (two more); it does not attribute the mass difference to protons or electrons.",
+       "fix": "Isotopes of one element always share the same number of protons; explain any mass difference by a different number of neutrons.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Total intensity = 100.0 + 44.61 = 144.61. Percent abundance of the 62.93 amu isotope = (100.0 ÷ 144.61) × 100% = 69.15%.\n\n(b) The 64.93 amu isotope has an abundance of 100% − 69.15% = 30.85%. Average atomic mass = 0.6915 × 62.93 amu + 0.3085 × 64.93 amu = 43.52 amu + 20.03 amu = 63.55 amu.\n\n(c) X is copper (Cu). The average atomic mass of 63.55 amu matches the atomic mass of copper on the periodic table.\n\n(d) Both isotopes are copper, so every atom of each isotope has 29 protons. The isotope with mass 64.93 amu has two more neutrons (36) than the isotope with mass 62.93 amu (34), and the extra neutrons account for its greater mass.",
+   "verification_python": "I1,I2=100.0,44.61\nm1,m2=62.93,64.93\ntot=I1+I2\nassert abs(tot-144.61)<1e-9\np1=I1/tot*100\nassert abs(p1-69.15)<0.005\np2=100-p1\nassert abs(p2-30.85)<0.006\navg=(m1*I1+m2*I2)/tot\nassert abs(avg-63.55)<0.005\nassert abs(0.6915*m1-43.52)<0.005 and abs(0.3085*m2-20.03)<0.005\nassert abs(0.6915*m1+0.3085*m2-63.55)<0.005\nCu=63.546\nassert abs(avg-Cu)<0.01\nZ=29\nassert 63-Z==34 and 65-Z==36 and (65-Z)-(63-Z)==2\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.843826Z"
+ }
 }

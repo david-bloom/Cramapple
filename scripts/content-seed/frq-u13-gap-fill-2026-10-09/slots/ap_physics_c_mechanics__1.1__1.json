@@ -11,7 +11,79 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Adding Two Drone Displacements in Unit-Vector Form",
+   "calculator": "permitted",
+   "stimulus": "A survey drone flies in a horizontal plane. Use a coordinate system with the +x-axis pointing east (unit vector î) and the +y-axis pointing north (unit vector ĵ).\n\nOn the first leg of its flight, the drone's displacement is A = (120 î + 50 ĵ) m.\nOn the second leg, the drone flies in a straight line for 80 m in a direction 60° south of west.\n\nEach leg is a straight line.",
+   "parts": [
+    {
+     "prompt": "Express the displacement B of the second leg in unit-vector notation.",
+     "criteria": [
+      {
+       "text": "B = (−40 î − 69.3 ĵ) m: the x-component is −80 cos 60° = −40 m (west) and the y-component is −80 sin 60° ≈ −69.3 m (south).",
+       "evidence": "Response gives both components with correct magnitudes and negative signs for west and south, written as B = (−40 î − 69.3 ĵ) m or an equivalent form.",
+       "fix": "Resolve the vector with cos and sin of the angle from the west axis, then give westward and southward components negative signs.",
+       "accepted_variants": [
+        "(−40 î − 40√3 ĵ) m",
+        "B_x = −40 m, B_y = −69.3 m",
+        "(−40 î − 69 ĵ) m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the drone's resultant displacement R = A + B for the two legs. Give R in unit-vector notation, and give its magnitude and its direction as an angle measured from east toward north or south.",
+     "criteria": [
+      {
+       "text": "R = (80 î − 19.3 ĵ) m, found by adding the x-components (120 − 40 = 80 m) and the y-components (50 − 69.3 = −19.3 m) separately.",
+       "evidence": "Response adds like components to obtain R_x = 80 m and R_y ≈ −19.3 m (or values consistent with its own B from part (a)).",
+       "fix": "Add the î components together and the ĵ components together separately; never add the two leg lengths 130 m and 80 m.",
+       "accepted_variants": [
+        "(80 î − 19 ĵ) m",
+        "R_x = 80 m, R_y = −19.3 m"
+       ]
+      },
+      {
+       "text": "|R| ≈ 82.3 m directed about 13.6° south of east, from |R| = √(80² + 19.3²) and tan θ = 19.3/80.",
+       "evidence": "Response computes a magnitude of about 82 m and a direction of about 14° south of east, consistent with its own components.",
+       "fix": "Use the Pythagorean theorem on the components for the magnitude, then inverse tangent of |R_y|/|R_x|, naming the compass direction from the signs.",
+       "accepted_variants": [
+        "82 m",
+        "14° south of east",
+        "346° counterclockwise from east"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the total distance the drone traveled during the two legs and the magnitude of its displacement. Explain why these two values differ, stating which quantity is a scalar and which is a vector.",
+     "criteria": [
+      {
+       "text": "Total distance = 130 m + 80 m = 210 m, using |A| = √(120² + 50²) = 130 m, compared with a displacement magnitude of about 82 m.",
+       "evidence": "Response finds |A| = 130 m, adds the two leg lengths to get 210 m, and states the displacement magnitude is about 82 m.",
+       "fix": "For distance, add the length of every leg as a positive number; get each leg's length from its components with the Pythagorean theorem.",
+       "accepted_variants": [
+        "210 m"
+       ]
+      },
+      {
+       "text": "Explains that distance is a scalar (magnitude only, the total path length) while displacement is a vector, so legs pointing in different directions partly cancel when added.",
+       "evidence": "Response identifies distance as a scalar and displacement as a vector and attributes the smaller displacement magnitude to the legs' different directions.",
+       "fix": "When comparing them, say displacement adds legs as vectors so non-parallel legs partly cancel, while distance adds lengths and never cancels.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The second leg points 60° south of west, so its x-component points west (negative) and its y-component points south (negative).\nB_x = −80 cos 60° = −40 m\nB_y = −80 sin 60° = −69.3 m\nB = (−40 î − 69.3 ĵ) m\n\n(b) R_x = 120 m + (−40 m) = 80 m\nR_y = 50 m + (−69.3 m) = −19.3 m\nR = (80 î − 19.3 ĵ) m\n|R| = √(80² + 19.3²) = √6772 ≈ 82.3 m\nθ = tan⁻¹(19.3/80) ≈ 13.6°. Because R_x is positive and R_y is negative, R points 13.6° south of east.\n\n(c) |A| = √(120² + 50²) = 130 m, and the second leg is 80 m long, so the total distance is 130 m + 80 m = 210 m. The magnitude of the displacement is 82.3 m, from part (b).\nDistance is a scalar: it adds the lengths of the path segments with no regard to direction, so it never cancels. Displacement is a vector: the two legs point in different directions, so when they are added as vectors their components partly cancel (for example, the 50 m north and the 69.3 m south), giving a magnitude much smaller than the distance.",
+   "verification_python": "import math\nBx = -80*math.cos(math.radians(60))\nBy = -80*math.sin(math.radians(60))\nassert abs(Bx + 40) < 1e-9\nassert abs(By + 69.3) < 0.05\nassert abs(40*math.sqrt(3) - 69.3) < 0.05\nRx = 120 + Bx\nRy = 50 + By\nassert abs(Rx - 80) < 1e-9\nassert abs(Ry + 19.3) < 0.02\nassert abs(120 - 40 - 80) < 1e-12\nR = math.hypot(Rx, Ry)\nassert abs(R - 82.3) < 0.05\nassert abs(80**2 + 19.3**2 - 6772) < 1\nth = math.degrees(math.atan(abs(Ry)/Rx))\nassert abs(th - 13.6) < 0.06\nassert abs((360 - th) - 346) < 1\nA = math.hypot(120, 50)\nassert abs(A - 130) < 1e-9\nassert abs(A + 80 - 210) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.869599Z"
+ }
 }

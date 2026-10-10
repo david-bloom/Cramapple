@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Net Coulomb Force on a Charge on a Line",
+   "calculator": "permitted",
+   "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+     "criteria": [
+      {
+       "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+       "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+       "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+       "accepted_variants": [
+        "0.1 N"
+       ]
+      },
+      {
+       "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+       "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+       "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+       "accepted_variants": [
+        "0.2 N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+     "criteria": [
+      {
+       "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+       "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction, consistent with its own part (a) values.",
+       "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+     "criteria": [
+      {
+       "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+       "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+       "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+       "accepted_variants": [
+        "1.0 m",
+        "1.024 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+     "criteria": [
+      {
+       "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+       "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres to conclude gravity is negligible.",
+       "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+       "accepted_variants": [
+        "7.41 × 10⁻¹⁶ N"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) F_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+   "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873403Z"
+ }
 }

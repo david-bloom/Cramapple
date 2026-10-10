@@ -11,8 +11,9 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:34:33.977Z",
@@ -342,5 +343,85 @@
    },
    "stage": "topic_vote"
   }
- ]
+ ],
+ "given": {
+  "item": {
+   "title": "A Drone's Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+   "parts": [
+    {
+     "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+     "criteria": [
+      {
+       "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+       "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+       "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows the average velocity on [3, 3.01]: [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01 = −13.0099 ft/s.",
+       "evidence": "Response shows A(3.01) = 196.869901 and A(3) = 197, divides their difference by a change in time of 0.01, and obtains −13.0099.",
+       "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+       "accepted_variants": [
+        "−13.0099"
+       ]
+      },
+      {
+       "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+       "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3.",
+       "fix": "State one value with units, read from where the averages on both sides are heading.",
+       "accepted_variants": [
+        "−13 ft/s",
+        "−13 feet per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+       "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+       "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+       "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second.",
+       "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+       "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+       "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+   "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+  },
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.835681Z"
+ }
 }

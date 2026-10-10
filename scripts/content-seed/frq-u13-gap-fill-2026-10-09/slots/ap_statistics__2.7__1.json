@@ -11,7 +11,82 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Pastry Orders and Mobile App Payments",
+   "calculator": "permitted",
+   "stimulus": "A coffee shop recorded 800 transactions during one week. Each transaction was classified by whether the customer ordered a pastry and whether the customer paid with the shop's mobile app.\n\nOrder | Paid with app | Did not pay with app | Total\nOrdered a pastry | 120 | 120 | 240\nNo pastry | 240 | 320 | 560\nTotal | 360 | 440 | 800\n\nOne of these 800 transactions is selected at random. Let A be the event that the customer ordered a pastry, and let M be the event that the customer paid with the mobile app.",
+   "parts": [
+    {
+     "prompt": "Find P(A ∪ M), the probability that the selected customer ordered a pastry or paid with the app (or both). Show your work.",
+     "criteria": [
+      {
+       "text": "Finds P(A ∪ M) = 0.60, shown either as P(A) + P(M) − P(A ∩ M) = 0.30 + 0.45 − 0.15 or as (120 + 120 + 240)/800 = 480/800.",
+       "evidence": "Response shows a correct calculation that counts transactions with both a pastry and an app payment only once, and obtains 0.60.",
+       "fix": "When adding P(A) and P(M), subtract P(A ∩ M) so that transactions with both a pastry and an app payment are counted once.",
+       "accepted_variants": [
+        "0.6",
+        "480/800",
+        "60%",
+        "3/5"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Are events A and M independent? Justify your answer using probabilities.",
+     "criteria": [
+      {
+       "text": "Computes a pair of probabilities that would be equal if the events were independent, such as P(A | M) = 120/360 ≈ 0.333 and P(A) = 240/800 = 0.30, or P(A ∩ M) = 0.15 and P(A)·P(M) = 0.30 × 0.45 = 0.135.",
+       "evidence": "Response computes both values of a valid independence check from the table (a conditional versus an unconditional probability, or a joint probability versus a product).",
+       "fix": "Write the independence check first, for example P(A | M) = P(A), then compute both sides from the table.",
+       "accepted_variants": [
+        "1/3 and 0.30",
+        "0.15 and 0.135"
+       ]
+      },
+      {
+       "text": "Concludes that A and M are not independent because the compared probabilities are not equal (0.333 ≠ 0.30, or 0.15 ≠ 0.135).",
+       "evidence": "Response states that the events are not independent and links this conclusion to the computed probabilities being unequal.",
+       "fix": "After computing both sides of the independence check, state explicitly that unequal values mean the events are not independent.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "At a new location, the manager models ordering a pastry and paying with the app as independent events, with probability 0.35 that a customer orders a pastry and probability 0.50 that a customer pays with the app. Under this model, find the probability that a randomly selected customer orders a pastry and pays with the app, and the probability that the customer orders a pastry or pays with the app (or both).",
+     "criteria": [
+      {
+       "text": "P(pastry and app) = 0.35 × 0.50 = 0.175.",
+       "evidence": "Response multiplies the two probabilities, using the stated independence, to get 0.175.",
+       "fix": "For independent events, multiply the two individual probabilities to find the probability that both events occur.",
+       "accepted_variants": [
+        "0.175",
+        "17.5%",
+        "7/40"
+       ]
+      },
+      {
+       "text": "P(pastry or app) = 0.35 + 0.50 − 0.175 = 0.675.",
+       "evidence": "Response obtains 0.675 by subtracting the joint probability from the sum of the two probabilities (or equivalently 1 − (0.65)(0.50) = 0.675).",
+       "fix": "Add the two probabilities, then subtract the probability that both occur, which for independent events is their product.",
+       "accepted_variants": [
+        "0.675",
+        "67.5%",
+        "27/40"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P(A) = 240/800 = 0.30, P(M) = 360/800 = 0.45, and P(A ∩ M) = 120/800 = 0.15.\nP(A ∪ M) = P(A) + P(M) − P(A ∩ M) = 0.30 + 0.45 − 0.15 = 0.60.\n\n(b) P(A | M) = 120/360 ≈ 0.333, while P(A) = 0.30. (Equivalently, P(A ∩ M) = 0.15 but P(A)·P(M) = 0.30 × 0.45 = 0.135.) Because P(A | M) ≠ P(A), knowing that a customer paid with the app changes the probability that the customer ordered a pastry, so A and M are not independent.\n\n(c) Because the events are modeled as independent, P(pastry and app) = 0.35 × 0.50 = 0.175.\nP(pastry or app) = 0.35 + 0.50 − 0.175 = 0.675.",
+   "verification_python": "from fractions import Fraction as F\nT=800\nPP=F(240,T);PM=F(360,T);PPM=F(120,T)\nassert 120+120==240 and 240+320==560 and 120+240==360 and 120+320==440 and 240+560==800\nassert PP==F(3,10) and PM==F(9,20) and PPM==F(3,20)\nU=PP+PM-PPM\nassert U==F(3,5) and F(120+120+240,T)==U\ncond=F(120,360)\nassert cond==F(1,3) and abs(float(cond)-0.333)<0.001\nassert cond!=PP and PPM!=PP*PM and PP*PM==F(135,1000)\na=F(35,100);b=F(50,100)\nboth=a*b\nassert both==F(175,1000)\nassert a+b-both==F(675,1000)\nassert 1-(1-a)*(1-b)==F(675,1000)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.880396Z"
+ }
 }

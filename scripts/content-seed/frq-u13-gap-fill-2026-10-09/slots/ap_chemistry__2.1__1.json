@@ -11,42 +11,44 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 2,
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:52:09.411Z",
    "item": {
     "title": "Electronegativity, Bond Polarity and Bond Type from Properties",
     "calculator": "not_permitted",
-    "stimulus": "A student studies how the type of chemical bond depends on the atoms involved. The student first looks up the Pauling electronegativity values for several elements, shown below.\n\nElement | Electronegativity\nH | 2.20\nF | 3.98\nCl | 3.16\nBr | 2.96\n\nThe student then tests two unknown solid samples, P and Q. Each is a pure substance made of elements from the third period. The results are shown below.\n\nProperty | Sample P | Sample Q\nMelting point | 714 \u00b0C | 650 \u00b0C\nConducts electricity as a solid? | No | Yes\nConducts electricity as a liquid? | Yes | Yes\nBehavior when struck with a hammer | Shatters | Flattens without breaking",
-    "model_answer": "(a) H\u2013F: 3.98 \u2212 2.20 = 1.78. H\u2013Cl: 3.16 \u2212 2.20 = 0.96. H\u2013Br: 2.96 \u2212 2.20 = 0.76. In single bonds a larger electronegativity difference gives a larger bond dipole, so the ranking is H\u2013F > H\u2013Cl > H\u2013Br.\n\n(b) The Cl atom carries the partial negative charge. Cl has a higher electronegativity (3.16) than H (2.20), so the shared bonding electrons are pulled closer to Cl, giving Cl \u03b4\u2212 and H \u03b4+.\n\n(c) Cl and Br are in the same group, but the valence electrons of Cl are in the n = 3 shell while those of Br are in the n = 4 shell. The effective nuclear charge felt by the valence electrons is about the same, but the bonding electrons in Cl are closer to the nucleus. By Coulomb's law, F \u221d q\u2081q\u2082/r\u00b2, a smaller distance gives a stronger attraction, so Cl attracts shared electrons more strongly and is more electronegative.\n\n(d) Sample P is ionic. In the solid, the cations and anions are held in fixed positions in the lattice and cannot move, so the solid does not conduct. When melted, the ions are free to move and carry charge, so the liquid conducts. Its brittleness also fits an ionic lattice. Sample Q is metallic. Its valence electrons are delocalized, a sea of electrons not associated with any individual atom, so they can move through the solid and conduct electricity in both the solid and the liquid. Its malleability also fits metallic bonding.",
+    "stimulus": "A student studies how the type of chemical bond depends on the atoms involved. The student first looks up the Pauling electronegativity values for several elements, shown below.\n\nElement | Electronegativity\nH | 2.20\nF | 3.98\nCl | 3.16\nBr | 2.96\n\nThe student then tests two unknown solid samples, P and Q. Each is a pure substance made of elements from the third period. The results are shown below.\n\nProperty | Sample P | Sample Q\nMelting point | 714 °C | 650 °C\nConducts electricity as a solid? | No | Yes\nConducts electricity as a liquid? | Yes | Yes\nBehavior when struck with a hammer | Shatters | Flattens without breaking",
+    "model_answer": "(a) H–F: 3.98 − 2.20 = 1.78. H–Cl: 3.16 − 2.20 = 0.96. H–Br: 2.96 − 2.20 = 0.76. In single bonds a larger electronegativity difference gives a larger bond dipole, so the ranking is H–F > H–Cl > H–Br.\n\n(b) The Cl atom carries the partial negative charge. Cl has a higher electronegativity (3.16) than H (2.20), so the shared bonding electrons are pulled closer to Cl, giving Cl δ− and H δ+.\n\n(c) Cl and Br are in the same group, but the valence electrons of Cl are in the n = 3 shell while those of Br are in the n = 4 shell. The effective nuclear charge felt by the valence electrons is about the same, but the bonding electrons in Cl are closer to the nucleus. By Coulomb's law, F ∝ q₁q₂/r², a smaller distance gives a stronger attraction, so Cl attracts shared electrons more strongly and is more electronegative.\n\n(d) Sample P is ionic. In the solid, the cations and anions are held in fixed positions in the lattice and cannot move, so the solid does not conduct. When melted, the ions are free to move and carry charge, so the liquid conducts. Its brittleness also fits an ionic lattice. Sample Q is metallic. Its valence electrons are delocalized, a sea of electrons not associated with any individual atom, so they can move through the solid and conduct electricity in both the solid and the liquid. Its malleability also fits metallic bonding.",
     "verification_python": "from fractions import Fraction as F\nH=F('2.20');Fl=F('3.98');Cl=F('3.16');Br=F('2.96')\nd1=Fl-H;d2=Cl-H;d3=Br-H\nassert d1==F('1.78')\nassert d2==F('0.96')\nassert d3==F('0.76')\nassert d1>d2>d3\nassert Cl>H\nassert Cl>Br\nprint('ALL_CHECKS_PASSED')",
     "parts": [
      {
-      "prompt": "Calculate the electronegativity difference for each of the single bonds H\u2013F, H\u2013Cl and H\u2013Br. Then rank the three bonds from largest bond dipole to smallest.",
+      "prompt": "Calculate the electronegativity difference for each of the single bonds H–F, H–Cl and H–Br. Then rank the three bonds from largest bond dipole to smallest.",
       "criteria": [
        {
-        "text": "Correct differences (H\u2013F 1.78, H\u2013Cl 0.96, H\u2013Br 0.76) and ranking H\u2013F > H\u2013Cl > H\u2013Br",
-        "evidence": "Response shows all three subtractions with correct values and ranks bond dipoles H\u2013F largest, then H\u2013Cl, then H\u2013Br, consistent with larger difference giving larger dipole.",
+        "text": "Correct differences (H–F 1.78, H–Cl 0.96, H–Br 0.76) and ranking H–F > H–Cl > H–Br",
+        "evidence": "Response shows all three subtractions with correct values and ranks bond dipoles H–F largest, then H–Cl, then H–Br, consistent with larger difference giving larger dipole.",
         "fix": "Subtract the smaller electronegativity from the larger for each bond, then rank: in single bonds a larger difference means a larger bond dipole.",
         "accepted_variants": [
          "1.78, 0.96, 0.76",
-         "H\u2013F > H\u2013Cl > H\u2013Br"
+         "H–F > H–Cl > H–Br"
         ]
        }
       ]
      },
      {
-      "prompt": "In the H\u2013Cl bond, identify which atom carries a partial negative charge and justify your answer.",
+      "prompt": "In the H–Cl bond, identify which atom carries a partial negative charge and justify your answer.",
       "criteria": [
        {
         "text": "Cl carries the partial negative charge because Cl is more electronegative than H (3.16 vs 2.20)",
         "evidence": "Response names Cl as the partially negative atom and justifies it by Cl having the higher electronegativity, so the shared electrons are pulled closer to Cl.",
-        "fix": "The more electronegative atom attracts the shared electrons more strongly; compare the two values and assign \u03b4\u2212 to the higher one.",
+        "fix": "The more electronegative atom attracts the shared electrons more strongly; compare the two values and assign δ− to the higher one.",
         "accepted_variants": [
          "chlorine",
-         "\u03b4\u2212 on Cl"
+         "δ− on Cl"
         ]
        }
       ]
@@ -231,7 +233,7 @@
       "ok": true,
       "flagged": true,
       "failed": [
-       "rubric_points: Part (a), criterion a1 bundles two distinct observable elements \u2014 the three calculated electronegativity differences and the bond-dipole ranking \u2014 into one point; each criterion should award one specific element."
+       "rubric_points: Part (a), criterion a1 bundles two distinct observable elements — the three calculated electronegativity differences and the bond-dipole ranking — into one point; each criterion should award one specific element."
       ],
       "difficulty": "Easy",
       "solve_issues": "",
@@ -256,7 +258,7 @@
         },
         "rubric_points": {
          "pass": false,
-         "issue": "Part (a), criterion a1 bundles two distinct observable elements \u2014 the three calculated electronegativity differences and the bond-dipole ranking \u2014 into one point; each criterion should award one specific element."
+         "issue": "Part (a), criterion a1 bundles two distinct observable elements — the three calculated electronegativity differences and the bond-dipole ranking — into one point; each criterion should award one specific element."
         },
         "rubric_evidence": {
          "pass": true,
@@ -344,5 +346,67 @@
    "stage": "checkers"
   }
  ],
- "removed_gateway_credit_failures": 2
+ "given": {
+  "item": {
+   "title": "Bond Polarity from Electronegativity Values",
+   "calculator": "permitted",
+   "stimulus": "The table lists Pauling electronegativity values for several elements.\n\nElement | Electronegativity\nH | 2.20\nC | 2.55\nN | 3.04\nO | 3.44\nF | 3.98\nCl | 3.16\n\nAnswer the following about covalent bonds between these elements.",
+   "parts": [
+    {
+     "prompt": "Classify the C–H bond as nonpolar covalent or polar covalent. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Classifies the C–H bond as nonpolar covalent (effectively nonpolar) because carbon and hydrogen have similar electronegativities (difference 0.35), so the electrons are shared nearly equally.",
+       "evidence": "Response states nonpolar covalent and cites the small electronegativity difference, 0.35, or nearly equal sharing of the bonding electrons.",
+       "fix": "Subtract the two electronegativities; a small difference, as in C–H, means nearly equal sharing, so treat the bond as nonpolar covalent.",
+       "accepted_variants": [
+        "effectively nonpolar"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In an N–H bond, identify the atom that carries the partial negative charge. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Identifies nitrogen as the atom with the partial negative charge because N is more electronegative than H (3.04 versus 2.20).",
+       "evidence": "Response names nitrogen and justifies it by nitrogen's higher electronegativity, which pulls the shared electrons toward the N atom.",
+       "fix": "Compare the two electronegativities; the more electronegative atom pulls the shared electrons toward itself and carries the partial negative charge.",
+       "accepted_variants": [
+        "N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "C–O and C–F are both single bonds. Identify which of these two bonds has the larger bond dipole. Justify your answer using the data.",
+     "criteria": [
+      {
+       "text": "Identifies C–F as having the larger bond dipole because its electronegativity difference (1.43) is greater than that of C–O (0.89).",
+       "evidence": "Response names C–F and supports the choice with the two differences, 1.43 and 0.89, or with the statement that F is more electronegative than O so the C–F difference is larger.",
+       "fix": "Calculate the electronegativity difference for each single bond; the bond with the larger difference has the larger bond dipole.",
+       "accepted_variants": [
+        "the C–F bond"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Fluorine has a greater electronegativity than chlorine. Explain this difference using the shell model and Coulomb's law.",
+     "criteria": [
+      {
+       "text": "Explains that fluorine's valence electrons are in shell 2 and chlorine's are in shell 3, so shared electrons in a bond are closer to the fluorine nucleus and experience a stronger Coulombic attraction.",
+       "evidence": "Response states that bonding electrons are at a smaller distance from the F nucleus than from the Cl nucleus (fewer occupied shells) and links the smaller distance to a stronger attraction for shared electrons.",
+       "fix": "Compare the number of occupied shells; fewer shells put bonding electrons closer to the nucleus, giving stronger attraction by Coulomb's law.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Nonpolar covalent. The electronegativity difference is 2.55 − 2.20 = 0.35, which is small, so carbon and hydrogen share the bonding electrons nearly equally and the C–H bond is effectively nonpolar.\n\n(b) Nitrogen carries the partial negative charge. Nitrogen (3.04) is more electronegative than hydrogen (2.20), so the shared electrons are pulled closer to the N atom.\n\n(c) C–F has the larger bond dipole. The electronegativity difference for C–F is 3.98 − 2.55 = 1.43, while for C–O it is 3.44 − 2.55 = 0.89. For single bonds, a greater electronegativity difference gives a greater bond dipole.\n\n(d) The valence electrons of fluorine are in the second shell, while those of chlorine are in the third shell. Both atoms have the same core charge (+7) acting on their valence shell, but the shared electrons in a bond to fluorine are much closer to its nucleus. By Coulomb's law, the smaller distance gives a stronger attraction, so fluorine attracts shared electrons more strongly and has the greater electronegativity.",
+   "verification_python": "EN={'H':2.20,'C':2.55,'N':3.04,'O':3.44,'F':3.98,'Cl':3.16}\nd=lambda a,b: round(abs(EN[a]-EN[b]),2)\nassert d('C','H')==0.35\nassert EN['N']>EN['H']\nassert d('C','F')==1.43 and d('C','O')==0.89\nassert d('C','F')>d('C','O')\nassert EN['F']>EN['Cl']\nshells={'F':2,'Cl':3}\ncore={'F':9-2,'Cl':17-10}\nassert core['F']==core['Cl']==7 and shells['F']<shells['Cl']\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.848144Z"
+ }
 }

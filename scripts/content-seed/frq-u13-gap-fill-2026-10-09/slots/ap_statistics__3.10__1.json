@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Confidence Interval for Beetle Damage in Two Forest Sections",
+   "calculator": "permitted",
+   "stimulus": "A forestry agency wants to estimate the difference between the proportions of trees with beetle damage in the northern and southern sections of a large state forest. Each section contains more than 50,000 trees. The agency selected a random sample of 200 trees from the northern section and, independently, a random sample of 250 trees from the southern section. Of the 200 northern trees, 46 had beetle damage; of the 250 southern trees, 35 had beetle damage.",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate confidence interval procedure, and define the parameter of interest in context.",
+     "criteria": [
+      {
+       "text": "Names a two-sample z-interval for a difference between two population proportions.",
+       "evidence": "Response identifies a two-sample z-interval for p₁ − p₂ (a difference of population proportions); a one-sample interval or an interval for means does not earn the point.",
+       "fix": "With two independent samples and a yes-or-no response, name the procedure as a two-sample z-interval for a difference in population proportions.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Defines the parameter as p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.",
+       "evidence": "Response defines a difference of population proportions and identifies both populations (all northern-section trees, all southern-section trees) and the response (beetle damage).",
+       "fix": "Define each proportion with the response and its whole population, then state that the parameter is their difference in a stated order.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for this procedure.",
+     "criteria": [
+      {
+       "text": "States that the data come from two independent random samples and that each sample is at most 10% of its section: 200 and 250 are both less than 0.10(50,000) = 5,000.",
+       "evidence": "Response cites the two independent random samples and compares each sample size with 10% of the number of trees in its section.",
+       "fix": "Name the random selection for each sample, then compare each sample size with 10% of its own population size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the numbers of observed successes and failures, 46, 154, 35 and 215, are all at least 10.",
+       "evidence": "Response lists all four observed counts (damaged and undamaged in each sample), or n₁p̂₁, n₁(1 − p̂₁), n₂p̂₂, n₂(1 − p̂₂), and states that each is at least 10.",
+       "fix": "For an interval, check all four observed counts, successes and failures in each sample, against 10.",
+       "accepted_variants": [
+        "46, 154, 35, 215"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the point estimate, its standard error, and a 95% confidence interval for the parameter you defined.",
+     "criteria": [
+      {
+       "text": "Point estimate p̂₁ − p̂₂ = 46/200 − 35/250 = 0.23 − 0.14 = 0.09, and standard error √(0.23(0.77)/200 + 0.14(0.86)/250) ≈ 0.0370.",
+       "evidence": "Response shows the point estimate 0.09 and a standard error of about 0.037 using each sample's own proportion.",
+       "fix": "Compute each sample proportion first, subtract them for the point estimate, and use each sample's own p̂ in the standard error.",
+       "accepted_variants": [
+        "0.09 and 0.037"
+       ]
+      },
+      {
+       "text": "95% confidence interval: 0.09 ± 1.96(0.0370) ≈ 0.09 ± 0.0725, giving about (0.018, 0.162).",
+       "evidence": "Response uses the critical value z* ≈ 1.96 with the standard error to get an interval of about (0.018, 0.162).",
+       "fix": "Build the interval as point estimate ± z* × standard error, using z* = 1.96 for 95% confidence.",
+       "accepted_variants": [
+        "(0.0175, 0.1625)",
+        "(0.017, 0.162)",
+        "(0.018, 0.162)"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate procedure is a two-sample z-interval for a difference between two population proportions. The parameter is p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.\n\n(b) Randomization: the agency took two independent random samples, one from each section.\n10% condition: 200 ≤ 0.10(50,000) = 5,000 and 250 ≤ 5,000, and each section has more than 50,000 trees, so each sample is less than 10% of its section.\nNormality: observed successes and failures are 46 and 200 − 46 = 154 in the northern sample and 35 and 250 − 35 = 215 in the southern sample. All four are at least 10.\n\n(c) p̂₁ = 46/200 = 0.23 and p̂₂ = 35/250 = 0.14, so the point estimate is 0.23 − 0.14 = 0.09.\nSE = √(0.23(0.77)/200 + 0.14(0.86)/250) = √(0.000886 + 0.000482) = √0.001367 ≈ 0.0370.\n95% interval: 0.09 ± 1.96(0.0370) = 0.09 ± 0.0725, which is about (0.018, 0.162).",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=46,200,35,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.23)<1e-12 and abs(p2-0.14)<1e-12\nd=p1-p2\nassert abs(d-0.09)<1e-12\nassert n1<=0.10*50000 and n2<=0.10*50000 and abs(0.10*50000-5000)<1e-9\nfor c,e in zip([x1,n1-x1,x2,n2-x2],[46,154,35,215]): assert c==e and c>=10\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.000886)<5e-7 and abs(v2-0.000482)<5e-7 and abs(v1+v2-0.001367)<5e-7\nse=sqrt(v1+v2)\nassert abs(se-0.0370)<0.00005\nz=NormalDist().inv_cdf(0.975)\nassert abs(z-1.96)<0.001\nme=1.96*se\nassert abs(me-0.0725)<0.00005\nlo,hi=d-me,d+me\nassert abs(lo-0.0175)<0.0001 and abs(hi-0.1625)<0.0001\nassert abs(round(lo,3)-0.018)<0.0006 and abs(round(hi,3)-0.162)<1e-9\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.881908Z"
+ }
 }

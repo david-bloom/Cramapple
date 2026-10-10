@@ -11,7 +11,81 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Heating Water, Conduction Through a Window, and Specific Heat",
+   "calculator": "permitted",
+   "stimulus": "Specific heats: water 4190 J/(kg·°C), aluminum 900 J/(kg·°C), copper 385 J/(kg·°C).\n\nA glass window pane has area 1.2 m², thickness 4.0 × 10⁻³ m, and thermal conductivity 0.80 W/(m·K). The inner surface of the glass is at 15 °C and the outer surface is at 5 °C, and these temperatures stay constant. Specific heats are independent of temperature.",
+   "parts": [
+    {
+     "prompt": "Calculate the energy that must be transferred to 0.50 kg of water to raise its temperature from 20 °C to 80 °C.",
+     "criteria": [
+      {
+       "text": "Calculates Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(60 °C) ≈ 1.26 × 10⁵ J.",
+       "evidence": "Response uses ΔT = 60 °C and obtains 125,700 J (about 1.26 × 10⁵ J).",
+       "fix": "Use the temperature change, not a single temperature, in Q = mcΔT, and check the units of c.",
+       "accepted_variants": [
+        "125700 J",
+        "1.26 × 10⁵ J",
+        "1.3 × 10⁵ J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the rate at which energy is conducted through the window pane.",
+     "criteria": [
+      {
+       "text": "Calculates Q/Δt = kAΔT/L = (0.80)(1.2)(10)/(4.0 × 10⁻³) = 2400 W.",
+       "evidence": "Response uses ΔT = 10 K (or 10 °C) and L = 4.0 × 10⁻³ m to obtain 2400 W (2.4 × 10³ W).",
+       "fix": "In Q/Δt = kAΔT/L use the temperature difference across the material and its thickness in meters.",
+       "accepted_variants": [
+        "2400 W",
+        "2.4 × 10³ W",
+        "2.4 kW"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The pane is replaced by a pane of the same glass and area but twice the thickness, and the temperature difference across it becomes 20 °C. Determine the new rate of energy conduction.",
+     "criteria": [
+      {
+       "text": "Finds the rate is unchanged at 2400 W, because doubling ΔT doubles the rate while doubling L halves it.",
+       "evidence": "Response applies the proportional dependence on ΔT and on 1/L (factor 2 × 1/2 = 1) and gives 2400 W.",
+       "fix": "Apply each change as a factor: the rate is proportional to ΔT and inversely proportional to thickness.",
+       "accepted_variants": [
+        "2400 W",
+        "unchanged",
+        "same rate"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Equal masses of aluminum and copper each absorb the same amount of energy. Which block has the larger temperature increase? Determine the ratio of the copper block's temperature increase to the aluminum block's temperature increase.",
+     "criteria": [
+      {
+       "text": "States that copper has the larger temperature increase, with ΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+       "evidence": "Response uses ΔT = Q/(mc) with equal Q and m to show ΔT is inversely proportional to c, identifies copper, and gives a ratio of about 2.3.",
+       "fix": "With the same energy and mass, ΔT = Q/(mc), so the material with the smaller specific heat warms more.",
+       "accepted_variants": [
+        "2.34",
+        "2.3",
+        "copper"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(80 °C − 20 °C) = (0.50)(4190)(60) = 125,700 J ≈ 1.26 × 10⁵ J.\n\n(b) ΔT = 15 °C − 5 °C = 10 °C, which is a difference of 10 K.\nQ/Δt = kAΔT/L = (0.80 W/(m·K))(1.2 m²)(10 K)/(4.0 × 10⁻³ m) = 2400 W.\n\n(c) The rate is proportional to ΔT and inversely proportional to L. ΔT doubles (10 °C to 20 °C), multiplying the rate by 2, and L doubles, multiplying the rate by 1/2. The net factor is 1, so the rate is unchanged: 2400 W.\n\n(d) ΔT = Q/(mc). With the same Q and m, ΔT is inversely proportional to c. Copper has the smaller specific heat, so copper has the larger temperature increase.\nΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+   "verification_python": "Q=0.50*4190*(80-20)\nassert abs(Q-125700)<1e-9\nassert abs(Q-1.26e5)<0.01e5\nrate=0.80*1.2*10/4.0e-3\nassert abs(rate-2400)<1e-9\nrate2=0.80*1.2*20/(2*4.0e-3)\nassert abs(rate2-2400)<1e-9\nratio=900/385\nassert abs(ratio-2.34)<0.005\nassert round(ratio,1)==2.3\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.868732Z"
+ }
 }

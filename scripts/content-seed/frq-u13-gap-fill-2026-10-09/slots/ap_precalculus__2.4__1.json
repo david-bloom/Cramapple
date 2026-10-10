@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Rewriting Exponential Expressions",
+   "calculator": "not_permitted",
+   "stimulus": "Let f, g and h be the functions defined by\nf(x) = 2^(x + 3)\ng(x) = 16^(3x/4)\nh(x) = 3·4^(1/2 − x)",
+   "parts": [
+    {
+     "prompt": "Rewrite f(x) in the form a·2ˣ, where a is a constant. Then describe the horizontal translation of y = 2ˣ that gives the graph of f, and the vertical dilation of y = 2ˣ that gives the same graph.",
+     "criteria": [
+      {
+       "text": "f(x) = 2ˣ·2³ = 8·2ˣ, using the product property of exponents.",
+       "evidence": "Response rewrites 2^(x + 3) as 2ˣ·2³ and gives f(x) = 8·2ˣ.",
+       "fix": "Split a sum in the exponent into a product of powers with the same base: b^(m + n) = bᵐ·bⁿ.",
+       "accepted_variants": [
+        "8(2ˣ)"
+       ]
+      },
+      {
+       "text": "The graph of f is the graph of y = 2ˣ translated 3 units to the left, which is the same as a vertical dilation of y = 2ˣ by a factor of 8.",
+       "evidence": "Response states both: horizontal translation 3 units left, and vertical dilation by a factor of 8.",
+       "fix": "Read x + 3 inside the exponent as a shift left 3, and read the constant 8 in front as a vertical dilation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Rewrite g(x) in the form bˣ, where b is a positive constant. Show how the value of b is found.",
+     "criteria": [
+      {
+       "text": "Rewrites g(x) as a constant base raised to the power x, such as (16^(3/4))ˣ or (2³)ˣ, using the power property of exponents.",
+       "evidence": "Response shows a valid power-property step, for example 16^(3x/4) = (16^(3/4))ˣ or 16^(3x/4) = (2⁴)^(3x/4) = 2^(3x) = (2³)ˣ.",
+       "fix": "Use (bᵐ)ⁿ = b^(mn) to move the factor multiplying x out of the exponent and into the base.",
+       "accepted_variants": []
+      },
+      {
+       "text": "b = 8, so g(x) = 8ˣ.",
+       "evidence": "Response evaluates 16^(3/4) = (fourth root of 16)³ = 2³ = 8, or 2³ = 8, and writes g(x) = 8ˣ.",
+       "fix": "Evaluate a fractional exponent by taking the root first, here the fourth root of 16, then raising to the power.",
+       "accepted_variants": [
+        "8ˣ"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Rewrite h(x) in the form a·bˣ, where a and b are positive constants. Show the properties of exponents you use.",
+     "criteria": [
+      {
+       "text": "Finds a = 6, from h(x) = 3·4^(1/2)·4^(−x) and 4^(1/2) = 2.",
+       "evidence": "Response separates 4^(1/2 − x) into 4^(1/2)·4^(−x) and evaluates 4^(1/2) as the square root of 4, which is 2, giving the constant 3·2 = 6.",
+       "fix": "Separate the constant part of the exponent with the product property, then evaluate 4^(1/2) as a square root.",
+       "accepted_variants": [
+        "6"
+       ]
+      },
+      {
+       "text": "Rewrites 4^(−x) as (1/4)ˣ, giving h(x) = 6(1/4)ˣ.",
+       "evidence": "Response uses the negative exponent property, 4^(−x) = 1/4ˣ = (1/4)ˣ, and writes h(x) = 6(1/4)ˣ or 6(0.25)ˣ.",
+       "fix": "Use b^(−n) = 1/bⁿ to turn a negative exponent into a base between 0 and 1.",
+       "accepted_variants": [
+        "6(0.25)ˣ"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) f(x) = 2^(x + 3) = 2ˣ·2³ = 8·2ˣ by the product property.\nThe graph of f is the graph of y = 2ˣ translated 3 units to the left. Because f(x) = 8·2ˣ, the same graph is also the graph of y = 2ˣ vertically dilated by a factor of 8.\n\n(b) By the power property, g(x) = 16^(3x/4) = (16^(3/4))ˣ.\n16^(3/4) = (fourth root of 16)³ = 2³ = 8.\nSo g(x) = 8ˣ, with b = 8.\n\n(c) By the product property, h(x) = 3·4^(1/2)·4^(−x).\n4^(1/2) is the square root of 4, which is 2, so 3·4^(1/2) = 6.\nBy the negative exponent property, 4^(−x) = 1/4ˣ = (1/4)ˣ.\nSo h(x) = 6(1/4)ˣ, with a = 6 and b = 1/4.",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nf=2**(x+3); g=sp.Integer(16)**(sp.Rational(3,4)*x); h=3*sp.Integer(4)**(sp.Rational(1,2)-x)\nassert 2**3==8\nassert sp.Integer(16)**sp.Rational(3,4)==8\nassert sp.Integer(4)**sp.Rational(1,2)==2\nfor v in [-3,-1,0,sp.Rational(1,2),2,5]:\n    assert sp.simplify(f.subs(x,v)-8*2**v)==0\n    assert sp.simplify(g.subs(x,v)-sp.Integer(8)**v)==0\n    assert sp.simplify(h.subs(x,v)-6*sp.Rational(1,4)**v)==0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.876275Z"
+ }
 }

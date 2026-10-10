@@ -11,7 +11,70 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Elastic and Gravitational Potential Energy and the Choice of Zero",
+   "calculator": "permitted",
+   "stimulus": "System 1: A block on a horizontal surface rests against an ideal spring with spring constant 400 N/m. The block is pushed so that the spring is compressed 0.15 m from its equilibrium length, and the block is held at rest.\n\nSystem 2: A 2.0 kg book and Earth form a system. The book is moved from a shelf 1.50 m above the floor to a tabletop 0.80 m above the floor. Use g = 10 N/kg. Student A chooses the floor as the zero of gravitational potential energy, and Student B chooses the tabletop as the zero.",
+   "parts": [
+    {
+     "prompt": "Calculate the elastic potential energy of the block–spring system when the spring is compressed 0.15 m.",
+     "criteria": [
+      {
+       "text": "U_s = (1/2)k(Δx)² = (1/2)(400 N/m)(0.15 m)² = 4.5 J.",
+       "evidence": "Response substitutes k = 400 N/m and Δx = 0.15 m into U_s = (1/2)k(Δx)² and obtains 4.5 J.",
+       "fix": "Square the compression before multiplying: U_s = (1/2)k(Δx)², with Δx measured from the spring's equilibrium length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The spring is instead compressed 0.30 m from its equilibrium length. Determine the factor by which the elastic potential energy of the system changes compared with the 0.15 m compression.",
+     "criteria": [
+      {
+       "text": "The elastic potential energy increases by a factor of 4 (to 18 J), because U_s is proportional to (Δx)² and the compression doubles.",
+       "evidence": "Response states a factor of 4 (or computes 18 J ÷ 4.5 J = 4) using the squared dependence on compression.",
+       "fix": "Use U_s ∝ (Δx)²: the energy factor is the square of the compression factor, so doubling Δx gives four times.",
+       "accepted_variants": [
+        "quadruples",
+        "4 times"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the change in gravitational potential energy of the book–Earth system as the book moves from the shelf to the tabletop, according to Student A and according to Student B.",
+     "criteria": [
+      {
+       "text": "Both students find ΔU_g = mgΔy = (2.0 kg)(10 N/kg)(0.80 m − 1.50 m) = −14 J (Student A: 16 J − 30 J; Student B: 0 J − 14 J).",
+       "evidence": "Response obtains −14 J (a decrease of 14 J) for both Student A and Student B, by direct use of mgΔy or by subtracting each student's values.",
+       "fix": "Compute ΔU as final minus initial; with Δy negative here, the potential energy decreases.",
+       "accepted_variants": [
+        "a decrease of 14 J for both students"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the two students assign different values to the gravitational potential energy of the system when the book is on the shelf but agree on the change in potential energy.",
+     "criteria": [
+      {
+       "text": "Explains that the location of zero potential energy is a choice made by the observer; changing it shifts every potential energy value by the same constant (here 16 J), so individual values differ but the difference between two positions is unchanged.",
+       "evidence": "Response states the zero of potential energy is arbitrary (chosen by the observer) and that this choice adds the same constant to both values, which cancels when finding the change.",
+       "fix": "Remember only changes in potential energy are fixed by physics; the zero level is a choice that shifts all values equally.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) U_s = (1/2)k(Δx)² = (1/2)(400 N/m)(0.15 m)² = (200)(0.0225) = 4.5 J.\n\n(b) U_s is proportional to (Δx)². Doubling the compression from 0.15 m to 0.30 m multiplies U_s by 2² = 4. Check: (1/2)(400)(0.30)² = 18 J, and 18 J/4.5 J = 4.\n\n(c) Student A (zero at floor): U_shelf = (2.0)(10)(1.50) = 30 J and U_table = (2.0)(10)(0.80) = 16 J, so ΔU_g = 16 J − 30 J = −14 J.\nStudent B (zero at tabletop): U_shelf = (2.0)(10)(0.70) = 14 J and U_table = 0 J, so ΔU_g = 0 J − 14 J = −14 J.\nBoth find ΔU_g = −14 J; the potential energy of the system decreases by 14 J.\n\n(d) The position of zero potential energy is a choice made by the observer. Measuring heights from the tabletop instead of the floor lowers every potential energy value by the same amount, mg(0.80 m) = 16 J. The values at a single position differ (30 J versus 14 J at the shelf), but when one value is subtracted from another the shared 16 J cancels, so the change in potential energy is the same for both students.",
+   "verification_python": "from fractions import Fraction as F\nk=400;x1=F(15,100);x2=F(30,100)\nU1=F(1,2)*k*x1**2\nassert U1==F(9,2)\nU2=F(1,2)*k*x2**2\nassert U2==18 and U2/U1==4\nm=2;g=10;hs=F(150,100);ht=F(80,100)\nUA_s=m*g*hs;UA_t=m*g*ht\nassert UA_s==30 and UA_t==16\nUB_s=m*g*(hs-ht);UB_t=0\nassert UB_s==14\ndA=UA_t-UA_s;dB=UB_t-UB_s\nassert dA==-14 and dB==-14\nassert UA_s-UB_s==m*g*ht==16\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.854357Z"
+ }
 }

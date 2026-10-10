@@ -57,3 +57,19 @@ Inputs: `prepare_inputs.py` (read-only Production queries). Pilot (11 topics, al
 ## Pilot lessons applied to the rubric before the batch
 Hard limits stated to the author; fix lines counted to 25 words; accepted variants may not accept a bare value where work
 is required; criteria may not prescribe an unrequired method; magnitudes stated as magnitudes; no figure or diagram words.
+
+## Change of method, 2026-10-10 (Product Owner direction)
+David Bloom: "I cannot afford to spend another $45 to get 20 questions. That is too expensive and too slow. Where there
+are edge cases, you should arbitrate and correct ambiguities. Don't use Opus as primary author - that is your job."
+- **Author:** Claude in the working session (parallel sub-sessions, one per subject group, briefs in `briefs/`), not a
+  paid gateway model. The gateway is used only for the checks (six-vote topic probe; GPT-6.1 Sol + DeepSeek V4 Pro),
+  about $0.10 per item. `frq_pipeline.mjs run ... --no-author` never calls an author model.
+- **Arbitration:** Claude decides edge cases (topic overlap, scope, ambiguity) and corrects flagged items directly
+  instead of escalating. A corrected item is a new draft and goes through every gate again. Each correction is recorded
+  in the slot file (`arbitration` entries).
+- **Rulings so far:** Calculus 1.1 vs 2.1 overlap: a 1.1 FRQ uses only average rates over shrinking intervals,
+  the zero-length interval point and interpretation (no limit notation or derivative); 2.1 covers difference quotients
+  and the limit of a difference quotient without derivative rules or table estimation (2.3). AB 1.1 and AB 2.1 are the
+  Product Owner's own drafts, rewritten to those rulings.
+- **Spend before this change:** $47.09 for 20 accepted FRQs (see the session discussion: $8.81 lost to checker
+  calibration, about $5 to an over-broad lint rule, the rest to a 1-in-8 acceptance rate with a paid author).

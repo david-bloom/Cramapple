@@ -11,7 +11,85 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Period, Asymptotes and Behavior of a Transformed Tangent Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let g be the function given by g(θ) = −2 tan(2θ) + 3.",
+   "parts": [
+    {
+     "prompt": "Find the period of g. Then find the equations of all vertical asymptotes of the graph of g.",
+     "criteria": [
+      {
+       "text": "The period of g is π/2, because a function of the form a·tan(bθ) + d has period π/|b|, and b = 2.",
+       "evidence": "Response gives the period π/2, from π divided by 2 (the horizontal dilation factor).",
+       "fix": "For a·tan(b(θ + c)) + d the period is π/|b|; tangent's base period is π, not 2π.",
+       "accepted_variants": [
+        "π/2"
+       ]
+      },
+      {
+       "text": "The vertical asymptotes are θ = π/4 + kπ/2 for every integer k, where 2θ = π/2 + kπ (where cos(2θ) = 0).",
+       "evidence": "Response sets 2θ = π/2 + kπ and solves to get θ = π/4 + kπ/2, for all integers k.",
+       "fix": "Set the argument of tangent equal to π/2 + kπ, where cosine of the argument is zero, and solve for θ.",
+       "accepted_variants": [
+        "θ = π/4 + kπ/2",
+        "θ = (2k + 1)π/4",
+        "θ = π/4 + k(π/2)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The interval −π/4 < θ < π/4 lies between two consecutive vertical asymptotes of the graph of g. On this interval, determine whether g is increasing or decreasing, and describe the concavity of the graph of g. Give a reason for each answer.",
+     "criteria": [
+      {
+       "text": "g is decreasing on −π/4 < θ < π/4, because tan(2θ) is increasing between consecutive asymptotes and the factor −2 is negative, which involves a reflection over the x-axis and reverses the direction.",
+       "evidence": "Response states g is decreasing and attributes this to the negative vertical dilation factor −2 applied to an increasing tangent function.",
+       "fix": "Tangent increases between consecutive asymptotes; a negative coefficient a reflects the graph, so the transformed function decreases there.",
+       "accepted_variants": [
+        "decreasing"
+       ]
+      },
+      {
+       "text": "The graph of g is concave up on −π/4 < θ < 0 and concave down on 0 < θ < π/4, changing at the point of inflection (0, 3); this reverses tangent's change from concave down to concave up because a = −2 < 0.",
+       "evidence": "Response states concave up then concave down, with the change at θ = 0 (the point (0, 3)), and links this to the reflection by the negative factor.",
+       "fix": "Tangent goes from concave down to concave up between asymptotes; reflect this order when a is negative, switching at the center point.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the exact value of g(π/6). Then find the value of θ, with π/2 < θ < π, for which g(θ) = g(π/6), and explain how the period of g gives your answer.",
+     "criteria": [
+      {
+       "text": "g(π/6) = −2 tan(π/3) + 3 = 3 − 2√3, using tan(π/3) = sin(π/3)/cos(π/3) = √3.",
+       "evidence": "Response evaluates tan(π/3) = √3 and obtains g(π/6) = 3 − 2√3.",
+       "fix": "Substitute the input into 2θ first, then use tan = sin/cos with exact unit-circle values before multiplying by −2 and adding 3.",
+       "accepted_variants": [
+        "3 − 2√3",
+        "−2√3 + 3"
+       ]
+      },
+      {
+       "text": "θ = π/6 + π/2 = 2π/3, because g repeats every π/2, and 2π/3 is the only such value in π/2 < θ < π.",
+       "evidence": "Response adds the period π/2 to π/6 to get 2π/3 and notes that it lies in the interval π/2 < θ < π.",
+       "fix": "Add whole multiples of the period to a known input to find other inputs with the same output, then keep the one in the interval.",
+       "accepted_variants": [
+        "2π/3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(θ) = −2 tan(2θ) + 3 has the form a·tan(bθ) + d with b = 2, so its period is π/|b| = π/2.\nThe graph of tan u has vertical asymptotes where cos u = 0, that is u = π/2 + kπ for integers k. Setting 2θ = π/2 + kπ gives θ = π/4 + kπ/2. The vertical asymptotes are θ = π/4 + kπ/2 for every integer k.\n\n(b) Between consecutive asymptotes, tan(2θ) is increasing. Multiplying by −2 is a vertical dilation by a negative factor, which involves a reflection over the x-axis, so g is decreasing on −π/4 < θ < π/4.\nBetween consecutive asymptotes, the graph of tan(2θ) changes from concave down to concave up at θ = 0. The reflection reverses this, so the graph of g is concave up on −π/4 < θ < 0 and concave down on 0 < θ < π/4, with a point of inflection at (0, 3), since g(0) = −2·0 + 3 = 3.\n\n(c) g(π/6) = −2 tan(π/3) + 3. tan(π/3) = sin(π/3)/cos(π/3) = (√3/2)/(1/2) = √3, so g(π/6) = 3 − 2√3.\nBecause the period of g is π/2, g(π/6 + π/2) = g(π/6). π/6 + π/2 = 2π/3, which is between π/2 and π. (Check: g(2π/3) = −2 tan(4π/3) + 3 = 3 − 2√3.) The next value with the same output, 7π/6, is greater than π, so θ = 2π/3.",
+   "verification_python": "import sympy as sp\nt = sp.symbols('t', real=True)\ng = -2*sp.tan(2*t) + 3\nassert sp.periodicity(g, t) == sp.pi/2\n# asymptotes: cos(2t) = 0\nfor k in range(-3, 4):\n    a = sp.pi/4 + k*sp.pi/2\n    assert sp.simplify(sp.cos(2*a)) == 0\n# decreasing and concavity on (-pi/4, pi/4) checked numerically\nimport math\ngf = lambda x: -2*math.tan(2*x) + 3\nxs = [-math.pi/4 + (math.pi/2)*k/400 for k in range(1, 400)]\nassert all(gf(xs[i+1]) < gf(xs[i]) for i in range(len(xs)-1))\ndef second_diff(x, h=1e-4):\n    return gf(x + h) - 2*gf(x) + gf(x - h)\nassert all(second_diff(x) > 0 for x in xs if x < -0.01)\nassert all(second_diff(x) < 0 for x in xs if x > 0.01)\nassert g.subs(t, 0) == 3\n# (c)\nv = sp.simplify(g.subs(t, sp.pi/6))\nassert sp.simplify(v - (3 - 2*sp.sqrt(3))) == 0\nw = sp.simplify(g.subs(t, 2*sp.pi/3))\nassert sp.simplify(w - v) == 0\nassert sp.pi/2 < 2*sp.pi/3 < sp.pi\nassert sp.pi/6 + sp.pi/2 == 2*sp.pi/3 and sp.pi/6 + sp.pi > sp.pi\n# uniqueness on (pi/2, pi): solutions are pi/6 + k*pi/2\nsols = [sp.pi/6 + k*sp.pi/2 for k in range(-4, 5)]\ninside = [s for s in sols if sp.pi/2 < s < sp.pi]\nassert inside == [2*sp.pi/3]\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.878462Z"
+ }
 }

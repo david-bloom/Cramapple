@@ -11,7 +11,79 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Kinetic Energy of a Train Passenger in Two Frames",
+   "calculator": "permitted",
+   "stimulus": "A train moves due east along a straight, level track at a constant speed of 20.0 m/s relative to the ground. A passenger of mass 70.0 kg walks along the aisle at a constant speed of 1.50 m/s relative to the train. Observer T sits on the train, and observer G stands on the ground beside the track. Both observers' frames are inertial.",
+   "parts": [
+    {
+     "prompt": "The passenger walks toward the front (east end) of the train. Calculate the passenger's translational kinetic energy as measured by observer T and as measured by observer G.",
+     "criteria": [
+      {
+       "text": "K_T = ½(70.0 kg)(1.50 m/s)² ≈ 78.8 J.",
+       "evidence": "Response uses the passenger's speed relative to the train, 1.50 m/s, in K = ½mv² and obtains about 79 J.",
+       "fix": "Use the speed measured in the observer's own frame; for observer T, that is the walking speed relative to the train.",
+       "accepted_variants": [
+        "78.75 J",
+        "79 J"
+       ]
+      },
+      {
+       "text": "Observer G measures a speed of 20.0 + 1.50 = 21.5 m/s, so K_G = ½(70.0 kg)(21.5 m/s)² ≈ 1.62 × 10⁴ J.",
+       "evidence": "Response adds the velocities to get 21.5 m/s and computes about 16,200 J.",
+       "fix": "Convert to the ground frame first by adding the train's and the walking velocities, then square that speed in ½mv².",
+       "accepted_variants": [
+        "16179 J",
+        "16,200 J",
+        "16.2 kJ"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The passenger turns around and walks toward the back (west end) of the train at 1.50 m/s relative to the train. Determine the passenger's kinetic energy as measured by observer T, and explain whether it differs from your value for observer T in part (a).",
+     "criteria": [
+      {
+       "text": "K_T is still about 78.8 J, because kinetic energy is a scalar that depends on the square of the speed, not on the direction of the velocity.",
+       "evidence": "Response gives the same value as its part (a) answer for observer T and explains that kinetic energy is a scalar that depends only on speed.",
+       "fix": "Kinetic energy has no direction; reversing a velocity while keeping the same speed leaves ½mv² unchanged.",
+       "accepted_variants": [
+        "79 J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For the passenger walking toward the back, calculate the kinetic energy measured by observer G. Then use your results to explain why the two observers can disagree about the passenger's kinetic energy.",
+     "criteria": [
+      {
+       "text": "Observer G measures 20.0 − 1.50 = 18.5 m/s east, so K_G = ½(70.0 kg)(18.5 m/s)² ≈ 1.20 × 10⁴ J.",
+       "evidence": "Response subtracts the walking speed from the train's speed to get 18.5 m/s and computes about 12,000 J.",
+       "fix": "When the passenger walks opposite the train's motion, subtract the walking speed from the train's speed before squaring.",
+       "accepted_variants": [
+        "11979 J",
+        "12,000 J",
+        "12.0 kJ"
+       ]
+      },
+      {
+       "text": "Explains that the observers measure different speeds for the passenger because speed depends on the reference frame, so K = ½mv² also depends on the observer's frame.",
+       "evidence": "Response attributes the disagreement to the frame dependence of the measured speed, which makes kinetic energy frame dependent.",
+       "fix": "Link the disagreement to speed: each frame measures its own speed, and kinetic energy is computed from that frame's speed.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Observer T measures the passenger's speed as 1.50 m/s:\nK_T = ½(70.0 kg)(1.50 m/s)² = 78.8 J.\nObserver G measures the passenger's velocity as the train's velocity plus the passenger's velocity relative to the train, both east: 20.0 m/s + 1.50 m/s = 21.5 m/s.\nK_G = ½(70.0 kg)(21.5 m/s)² = 1.62 × 10⁴ J.\n\n(b) Observer T still measures K_T = ½(70.0 kg)(1.50 m/s)² = 78.8 J. Kinetic energy is a scalar that depends on the square of the speed, not on the direction of motion, and the walking speed relative to the train is still 1.50 m/s, so the value does not change.\n\n(c) Now the passenger's velocity relative to the ground is 20.0 m/s − 1.50 m/s = 18.5 m/s east.\nK_G = ½(70.0 kg)(18.5 m/s)² = 1.20 × 10⁴ J.\nThe observers disagree because they measure different speeds for the passenger: speed depends on the observer's reference frame, and since K = ½mv², kinetic energy also depends on the frame. Observer T's value is 78.8 J for both walking directions, while observer G's value changes from 1.62 × 10⁴ J to 1.20 × 10⁴ J.",
+   "verification_python": "m = 70.0\nKT = 0.5*m*1.50**2\nassert abs(KT - 78.75) < 1e-9\nassert abs(KT - 78.8) < 0.06\nvf = 20.0 + 1.50\nassert abs(vf - 21.5) < 1e-12\nKGf = 0.5*m*vf**2\nassert abs(KGf - 16178.75) < 1e-6\nassert abs(KGf - 1.62e4) < 30\nvb = 20.0 - 1.50\nassert abs(vb - 18.5) < 1e-12\nKGb = 0.5*m*vb**2\nassert abs(KGb - 11978.75) < 1e-6\nassert abs(KGb - 1.20e4) < 30\nKTb = 0.5*m*(-1.50)**2\nassert abs(KTb - KT) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873073Z"
+ }
 }

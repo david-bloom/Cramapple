@@ -11,8 +11,32 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:31:09.002Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from a Limit Definition and Tangent Line"
+  },
+  {
+   "at": "2026-10-10T01:31:54.341Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from the Limit Definition and Tangent Lines"
+  },
+  {
+   "at": "2026-10-10T01:32:37.080Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from the Limit Definition and Tangent Lines"
+  }
+ ],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:43:55.210Z",
@@ -965,27 +989,89 @@
    "stage": "checkers"
   }
  ],
- "lint_false_positive_dropped": [
-  {
-   "at": "2026-10-10T01:31:09.002Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
+ "given": {
+  "item": {
+   "title": "Derivative from the Definition, Notation and Tangent Lines",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = 3x² − 4x + 1.\n\nA function g satisfies g(3) = 4 and\nlim h→0 [g(3 + h) − g(3)] / h = −2.",
+   "parts": [
+    {
+     "prompt": "Use the definition of the derivative to find f′(x). Show the algebra that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Writes the definition with f substituted: f′(x) = lim h→0 [3(x + h)² − 4(x + h) + 1 − (3x² − 4x + 1)] / h.",
+       "evidence": "Response writes the limit as h → 0 of [f(x + h) − f(x)] / h with both f(x + h) and f(x) replaced by their expressions. The equivalent form lim z→x [f(z) − f(x)] / (z − x), with f substituted, also earns this point.",
+       "fix": "Start by writing lim h→0 [f(x + h) − f(x)] / h, then substitute the formula for f into both terms.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Simplifies the difference quotient, for h ≠ 0, to 6x + 3h − 4 before taking the limit.",
+       "evidence": "Response shows correct algebra that removes h from the denominator and reaches 6x + 3h − 4 or an equivalent expression; any correct order of expanding, cancelling or factoring earns the point. In the z-form, the equivalent simplified quotient is 3z + 3x − 4.",
+       "fix": "Expand f(x + h), cancel the terms that do not contain h, then divide each remaining term by h.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes f′(x) = 6x − 4.",
+       "evidence": "Response lets h → 0 (or z → x) in the simplified quotient and states f′(x) = 6x − 4.",
+       "fix": "Substitute h = 0 only after h is gone from every denominator, then write the result as f′(x).",
+       "accepted_variants": [
+        "6x − 4",
+        "2(3x − 2)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find an equation of the line tangent to the curve y = f(x) at the point where x = 2.",
+     "criteria": [
+      {
+       "text": "Uses the slope f′(2) = 8.",
+       "evidence": "Response states that the slope of the tangent line is f′(2) = 6(2) − 4 = 8.",
+       "fix": "Substitute x = 2 into f′(x), not into f(x), to get the slope of the tangent line.",
+       "accepted_variants": [
+        "8"
+       ]
+      },
+      {
+       "text": "Writes the tangent line y − 5 = 8(x − 2), using the point (2, f(2)) = (2, 5).",
+       "evidence": "Response computes f(2) = 3(4) − 4(2) + 1 = 5 and writes an equation of the line through (2, 5) with its slope from f′(2), such as y − 5 = 8(x − 2) or y = 8x − 11.",
+       "fix": "Find the point by evaluating f(2), not f′(2), then use point-slope form y − f(a) = f′(a)(x − a).",
+       "accepted_variants": [
+        "y − 5 = 8(x − 2)",
+        "y = 8x − 11"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write the limit given for g using derivative notation, and state its value. Then find an equation of the line tangent to the curve y = g(x) at x = 3.",
+     "criteria": [
+      {
+       "text": "Identifies the limit as the derivative of g at x = 3: g′(3) = −2.",
+       "evidence": "Response writes g′(3) = −2 (or, with y = g(x), dy/dx = −2 at x = 3, or y′ = −2 at x = 3).",
+       "fix": "The limit lim h→0 [g(a + h) − g(a)] / h is g′(a); here a = 3.",
+       "accepted_variants": [
+        "g′(3) = −2",
+        "dy/dx = −2 at x = 3",
+        "y′(3) = −2"
+       ]
+      },
+      {
+       "text": "Writes the tangent line y − 4 = −2(x − 3).",
+       "evidence": "Response uses the point (3, g(3)) = (3, 4) and the slope g′(3) = −2 to write y − 4 = −2(x − 3) or y = −2x + 10.",
+       "fix": "Use the given function value for the point and the derivative value for the slope in point-slope form.",
+       "accepted_variants": [
+        "y − 4 = −2(x − 3)",
+        "y = −2x + 10"
+       ]
+      }
+     ]
+    }
    ],
-   "title": "Derivative from a Limit Definition and Tangent Line"
+   "model_answer": "(a) f′(x) = lim h→0 [f(x + h) − f(x)] / h = lim h→0 [3(x + h)² − 4(x + h) + 1 − (3x² − 4x + 1)] / h.\nThe numerator is 3x² + 6xh + 3h² − 4x − 4h + 1 − 3x² + 4x − 1 = 6xh + 3h² − 4h = h(6x + 3h − 4).\nFor h ≠ 0, the difference quotient equals 6x + 3h − 4, so f′(x) = lim h→0 (6x + 3h − 4) = 6x − 4.\n\n(b) The slope of the tangent line at x = 2 is f′(2) = 6(2) − 4 = 8, and f(2) = 3(4) − 4(2) + 1 = 5. The tangent line is y − 5 = 8(x − 2), or y = 8x − 11.\n\n(c) The limit is the derivative of g at x = 3, so g′(3) = −2 (equivalently, dy/dx = −2 at x = 3 when y = g(x)). The tangent line passes through (3, g(3)) = (3, 4) with slope −2: y − 4 = −2(x − 3), or y = −2x + 10.",
+   "verification_python": "import sympy as sp\nx, h, z = sp.symbols('x h z')\nf = lambda t: 3*t**2 - 4*t + 1\nnum = sp.expand(f(x + h) - f(x))\nassert num == sp.expand(6*x*h + 3*h**2 - 4*h)\nassert sp.expand(sp.factor(num) - h*(6*x + 3*h - 4)) == 0\nq = sp.cancel(num / h)\nassert sp.expand(q - (6*x + 3*h - 4)) == 0\nfp = sp.limit(q, h, 0)\nassert sp.expand(fp - (6*x - 4)) == 0\nassert sp.expand(sp.cancel((f(z) - f(x)) / (z - x)) - (3*z + 3*x - 4)) == 0\nassert sp.expand(2*(3*x - 2) - fp) == 0\nassert fp.subs(x, 2) == 8 and f(2) == 5\nassert 3*4 - 4*2 + 1 == 5\nassert sp.expand(5 + 8*(x - 2) - (8*x - 11)) == 0\ng3, gp3 = 4, -2\nassert sp.expand(g3 + gp3*(x - 3) - (-2*x + 10)) == 0\nprint('ALL_CHECKS_PASSED')\n"
   },
-  {
-   "at": "2026-10-10T01:31:54.341Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
-   ],
-   "title": "Derivative from the Limit Definition and Tangent Lines"
-  },
-  {
-   "at": "2026-10-10T01:32:37.080Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
-   ],
-   "title": "Derivative from the Limit Definition and Tangent Lines"
-  }
- ]
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.831185Z"
+ }
 }

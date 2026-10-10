@@ -11,8 +11,9 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:41:02.485Z",
@@ -441,5 +442,67 @@
    ],
    "stage": "lint"
   }
- ]
+ ],
+ "given": {
+  "item": {
+   "title": "Purity of a Limestone Sample from Its Calcium Content",
+   "calculator": "permitted",
+   "stimulus": "A geologist analyzes a 2.000 g sample of powdered limestone. The sample is a mixture of only calcium carbonate, CaCO₃, and silicon dioxide, SiO₂. Silicon dioxide contains no calcium. Elemental analysis shows that the sample contains 0.7208 g of calcium. Use the molar masses below.\n\nSubstance | Molar mass (g/mol)\nCa | 40.08\nCaCO₃ | 100.09\nSiO₂ | 60.09\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of calcium in pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Calculates 40.04% calcium by mass in pure CaCO₃.",
+       "evidence": "Response divides the molar mass of Ca by the molar mass of CaCO₃ (40.08 ÷ 100.09) and reports 40.04%.",
+       "fix": "For a pure compound, divide the mass of the element in one mole by the compound's molar mass, then multiply by 100.",
+       "accepted_variants": [
+        "40.04 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how the elemental analysis data show that the limestone sample is not pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Shows that the sample's calcium content (36.04% Ca, or 0.7208 g Ca in 2.000 g) is less than that of pure CaCO₃ (40.04% Ca, or 0.8009 g Ca in 2.000 g), so the sample cannot be pure CaCO₃.",
+       "evidence": "Response compares a calcium composition value obtained from the data with the corresponding value for pure CaCO₃, notes that they differ, and concludes that the sample contains another substance.",
+       "fix": "Calculate the measured percent of the element and compare it with the fixed percent in the pure compound; a mismatch means a mixture.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the mass of CaCO₃ in the 2.000 g sample.",
+     "criteria": [
+      {
+       "text": "Calculates 1.800 g of CaCO₃ in the sample.",
+       "evidence": "Response attributes all of the calcium to CaCO₃ (for example 0.7208 g Ca ÷ 40.08 g/mol × 100.09 g/mol, or 0.7208 g ÷ 0.4004) and reports 1.800 g.",
+       "fix": "All the calcium is in CaCO₃, so convert the calcium mass to moles of Ca, equal to moles of CaCO₃, then to grams.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the ratio of the number of calcium atoms to the number of silicon atoms in the sample.",
+     "criteria": [
+      {
+       "text": "Calculates a Ca : Si atom ratio of 5.40 : 1.",
+       "evidence": "Response finds the mass of SiO₂ (2.000 g − 1.800 g = 0.200 g), converts calcium and SiO₂ to amounts (0.01798 mol Ca and 3.33 × 10⁻³ mol Si), and reports 5.40 Ca atoms per Si atom, or a ratio consistent with the student's earlier answers.",
+       "fix": "Find the other component's mass by subtraction, convert each element to moles, then divide, because mole ratios equal atom ratios.",
+       "accepted_variants": [
+        "5.40",
+        "5.40 to 1"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Percent Ca in CaCO₃ = (40.08 g/mol ÷ 100.09 g/mol) × 100% = 40.04%.\n\n(b) Percent Ca in the sample = (0.7208 g ÷ 2.000 g) × 100% = 36.04%. Pure CaCO₃ always contains 40.04% Ca by mass, so 2.000 g of pure CaCO₃ would contain 0.8009 g of Ca. The measured value, 36.04%, is lower, so the sample cannot be pure CaCO₃; it must contain another substance (here SiO₂) mixed with the CaCO₃.\n\n(c) Moles of Ca = 0.7208 g ÷ 40.08 g/mol = 0.01798 mol. Each formula unit of CaCO₃ contains one Ca atom, so there are 0.01798 mol of CaCO₃. Mass of CaCO₃ = 0.01798 mol × 100.09 g/mol = 1.800 g.\n\n(d) Mass of SiO₂ = 2.000 g − 1.800 g = 0.200 g. Moles of SiO₂ = 0.200 g ÷ 60.09 g/mol = 3.33 × 10⁻³ mol, so there are 3.33 × 10⁻³ mol of Si atoms. Ratio Ca : Si = 0.01798 mol ÷ 3.33 × 10⁻³ mol = 5.40, so there are 5.40 calcium atoms for every silicon atom.",
+   "verification_python": "Ca,CaCO3,SiO2=40.08,100.09,60.09\nassert abs(40.08+12.01+3*16.00-CaCO3)<1e-9\nassert abs(28.09+2*16.00-SiO2)<1e-9\npct=Ca/CaCO3*100\nassert abs(pct-40.04)<0.005\nmCa,ms=0.7208,2.000\nassert abs(mCa/ms*100-36.04)<0.005\nassert abs(ms*Ca/CaCO3-0.8009)<0.00005\nnCa=mCa/Ca\nassert abs(nCa-0.01798)<0.000005\nmCaCO3=nCa*CaCO3\nassert abs(mCaCO3-1.800)<0.0005\nassert abs(mCa/0.4004-1.800)<0.0005\nmSiO2=ms-1.800\nassert abs(mSiO2-0.200)<1e-9\nnSi=mSiO2/SiO2\nassert abs(nSi-3.33e-3)<0.005e-3\nr=nCa/nSi\nassert abs(r-5.40)<0.005\nassert abs(0.01798/3.33e-3-5.40)<0.005\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.845920Z"
+ }
 }

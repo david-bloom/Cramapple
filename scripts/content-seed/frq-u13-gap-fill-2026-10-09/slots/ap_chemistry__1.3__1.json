@@ -11,8 +11,9 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:47:05.310Z",
@@ -660,5 +661,68 @@
    },
    "stage": "topic_vote"
   }
- ]
+ ],
+ "given": {
+  "item": {
+   "title": "Composition and Empirical Formulas of Two Sulfur Oxides",
+   "calculator": "permitted",
+   "stimulus": "A chemist analyzes three samples. Each sample is a pure compound that contains only sulfur and oxygen. The masses of sulfur and oxygen in each sample are listed below. Use the molar masses S = 32.06 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sulfur (g) | Mass of oxygen (g)\n1 | 1.603 | 1.600\n2 | 0.6412 | 0.6400\n3 | 0.8015 | 1.200\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of sulfur in sample 1.",
+     "criteria": [
+      {
+       "text": "Calculates 50.05% sulfur by mass in sample 1.",
+       "evidence": "Response divides the mass of sulfur by the total mass of sample 1 (1.603 g ÷ 3.203 g) and reports 50.05%.",
+       "fix": "Add the masses of all the elements to get the sample mass, divide the element's mass by it, and multiply by 100.",
+       "accepted_variants": [
+        "50.05 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the empirical formula of the compound in sample 1. Show the work that supports your answer.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₂ from a 1 : 2 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response converts the masses to amounts (0.05000 mol S and 0.1000 mol O) or uses an equivalent ratio calculation, shows that the S : O atom ratio is 1 : 2, and writes SO₂.",
+       "fix": "Convert each element's mass to moles with its molar mass, then express the mole ratio as the lowest whole numbers.",
+       "accepted_variants": [
+        "SO2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Do the data support the claim that sample 2 is the same compound as sample 1? Justify your answer using the law of definite proportions.",
+     "criteria": [
+      {
+       "text": "Answers yes: sample 2 has the same composition as sample 1 (50.05% S by mass, or 0.9981 g O per 1 g S, or a 1 : 2 S : O atom ratio), which is what the law of definite proportions requires for samples of one compound.",
+       "evidence": "Response calculates a composition value for sample 2 that matches the corresponding value for sample 1 and states that a pure compound always has the same mass ratio of its elements, so the data are consistent with the same compound.",
+       "fix": "Compute the same composition value for both samples; matching mass ratios are what the law of definite proportions predicts for one compound.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sample 3 is a different pure compound of sulfur and oxygen. Determine its empirical formula.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₃ from a 1 : 3 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response finds 0.02500 mol S and 0.07500 mol O (or an equivalent ratio calculation) and writes SO₃.",
+       "fix": "Find the moles of each element, compare them as an atom ratio, and write that ratio as the lowest whole-number subscripts.",
+       "accepted_variants": [
+        "SO3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Mass of sample 1 = 1.603 g + 1.600 g = 3.203 g. Percent S = (1.603 g ÷ 3.203 g) × 100% = 50.05% S.\n\n(b) Moles of S = 1.603 g ÷ 32.06 g/mol = 0.05000 mol. Moles of O = 1.600 g ÷ 16.00 g/mol = 0.1000 mol. The ratio S : O = 0.05000 : 0.1000 = 1 : 2, so the empirical formula is SO₂.\n\n(c) Yes. Percent S in sample 2 = 0.6412 g ÷ (0.6412 g + 0.6400 g) × 100% = 50.05%, the same as sample 1 (equivalently, both samples contain 0.9981 g O per 1 g S). According to the law of definite proportions, every pure sample of a given compound has the same mass ratio of its elements, so the data are consistent with sample 2 being the same compound as sample 1.\n\n(d) Moles of S = 0.8015 g ÷ 32.06 g/mol = 0.02500 mol. Moles of O = 1.200 g ÷ 16.00 g/mol = 0.07500 mol. The ratio S : O = 1 : 3, so the empirical formula is SO₃.",
+   "verification_python": "from fractions import Fraction\nS,O=32.06,16.00\ns1,o1=1.603,1.600\ns2,o2=0.6412,0.6400\ns3,o3=0.8015,1.200\nassert abs(s1+o1-3.203)<1e-9\npS1=s1/(s1+o1)*100\nassert abs(pS1-50.05)<0.005\npS2=s2/(s2+o2)*100\nassert abs(pS2-50.05)<0.005\nassert abs(o1/s1-0.9981)<0.00005 and abs(o2/s2-0.9981)<0.00005\nnS1,nO1=s1/S,o1/O\nassert abs(nS1-0.05000)<1e-6 and abs(nO1-0.1000)<1e-6\nassert Fraction(nO1/nS1).limit_denominator(10)==2\nnS3,nO3=s3/S,o3/O\nassert abs(nS3-0.02500)<1e-6 and abs(nO3-0.07500)<1e-6\nassert Fraction(nO3/nS3).limit_denominator(10)==3\nassert abs((s2/S)/(o2/O)-0.5)<1e-6\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.844851Z"
+ }
 }

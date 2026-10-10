@@ -11,7 +11,64 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Particle Models of Sodium Chloride and Calcium Chloride Solutions",
+   "calculator": "permitted",
+   "stimulus": "A student builds particle-level models of two aqueous solutions. Each model shows the dissolved ions in the same small volume of solution, and the water molecules are not described. In both models every ion is separate from the other ions.\n\nModel | Solution | Dissolved ions shown\nP | 0.30 M NaCl | 6 Na⁺ ions and 6 Cl⁻ ions\nQ | CaCl₂ of unknown concentration | 4 Ca²⁺ ions and 8 Cl⁻ ions\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Using the two models, determine the concentration of CaCl₂ in solution Q.",
+     "criteria": [
+      {
+       "text": "Determines a CaCl₂ concentration of 0.20 M in solution Q.",
+       "evidence": "Response uses the equal model volumes: 6 NaCl formula units represent 0.30 M, so the 4 CaCl₂ formula units (4 Ca²⁺ ions) represent (4/6)(0.30 M) = 0.20 M.",
+       "fix": "Find the concentration that one formula unit represents in model P, then multiply by the number of CaCl₂ units in model Q.",
+       "accepted_variants": [
+        "0.20 mol/L"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the two models, determine the concentration of Cl⁻ ions in solution Q.",
+     "criteria": [
+      {
+       "text": "Determines a Cl⁻ concentration of 0.40 M in solution Q.",
+       "evidence": "Response scales the 8 Cl⁻ ions in model Q against the 6 Cl⁻ ions (0.30 M) in model P, or doubles the CaCl₂ concentration, to obtain 0.40 M.",
+       "fix": "Count the chloride ions in each equal-volume model and scale, or multiply the CaCl₂ concentration by two chloride ions per formula unit.",
+       "accepted_variants": [
+        "0.40 mol/L"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The student wants to add water molecules to model P to show the interactions between the ions and water. Describe how the water molecules nearest a Na⁺ ion should be oriented, and how the water molecules nearest a Cl⁻ ion should be oriented.",
+     "criteria": [
+      {
+       "text": "States that water molecules next to a Na⁺ ion have their oxygen atoms (the partially negative ends) pointed toward the ion.",
+       "evidence": "Response describes the oxygen side of each nearby water molecule facing the Na⁺ ion, citing attraction between the positive ion and the partial negative charge on oxygen.",
+       "fix": "Opposite charges attract: turn the partially negative oxygen end of each nearby water molecule toward a cation.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that water molecules next to a Cl⁻ ion have their hydrogen atoms (the partially positive ends) pointed toward the ion.",
+       "evidence": "Response describes a hydrogen atom of each nearby water molecule facing the Cl⁻ ion, citing attraction between the negative ion and the partial positive charge on hydrogen.",
+       "fix": "Opposite charges attract: turn a partially positive hydrogen atom of each nearby water molecule toward an anion.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The models show equal volumes, so the number of formula units shown is proportional to concentration. In model P, 6 NaCl formula units represent 0.30 M, so each formula unit represents 0.30 M ÷ 6 = 0.050 M. Model Q shows 4 Ca²⁺ ions, which is 4 CaCl₂ formula units, so [CaCl₂] = 4 × 0.050 M = 0.20 M.\n\n(b) Model Q shows 8 Cl⁻ ions in the same volume in which 6 Cl⁻ ions represent 0.30 M, so [Cl⁻] = (8/6)(0.30 M) = 0.40 M. This agrees with 2 Cl⁻ per CaCl₂: 2 × 0.20 M = 0.40 M.\n\n(c) Water molecules next to a Na⁺ ion should be oriented with their oxygen atoms, the partially negative end of the polar water molecule, toward the positive ion. Water molecules next to a Cl⁻ ion should be oriented with a hydrogen atom, a partially positive end of the water molecule, toward the negative ion.",
+   "verification_python": "from fractions import Fraction as F\ncP=F(30,100)\nper=cP/6\nassert per==F(5,100)\ncCaCl2=4*per\nassert cCaCl2==F(20,100)\ncCl=F(8,6)*cP\nassert cCl==F(40,100)\nassert 2*cCaCl2==cCl\n# charge balance in model Q\nassert 4*2+8*(-1)==0 and 6*1+6*(-1)==0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.851221Z"
+ }
 }

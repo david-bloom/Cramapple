@@ -11,8 +11,32 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:35:39.803Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "End Behavior, Horizontal Asymptotes, and Relative Growth"
+  },
+  {
+   "at": "2026-10-10T01:36:26.057Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Limits at Infinity, Horizontal Asymptotes, and Growth Comparison"
+  },
+  {
+   "at": "2026-10-10T01:37:10.933Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "End Behavior and Horizontal Asymptotes of Rational Functions"
+  }
+ ],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:43:55.211Z",
@@ -676,27 +700,94 @@
    "stage": "checkers"
   }
  ],
- "lint_false_positive_dropped": [
-  {
-   "at": "2026-10-10T01:35:39.803Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
+ "given": {
+  "item": {
+   "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+   "parts": [
+    {
+     "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+       "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→∞ f(x) = 2.",
+       "evidence": "Response gives the value 2 for the limit as x → ∞.",
+       "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+       "accepted_variants": [
+        "2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → −∞ that uses √(x²) = −x for x < 0, giving f(x) = −√(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response uses √(x²) = |x| = −x for x < 0 when dividing by x (or explains that for large negative x, √(16x² + 9) behaves like 4|x| = −4x while 2x + 5 behaves like 2x), so that a negative sign appears.",
+       "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→−∞ f(x) = −2.",
+       "evidence": "Response gives the value −2 for the limit as x → −∞.",
+       "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+       "accepted_variants": [
+        "−2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+     "criteria": [
+      {
+       "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+       "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞).",
+       "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+       "accepted_variants": [
+        "y = 2 and y = −2",
+        "y = ±2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+     "criteria": [
+      {
+       "text": "Shows valid work, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or noting that the denominator has the higher degree.",
+       "evidence": "Response divides by n³, the highest power in the denominator, or compares the degrees (3 for b(n) and 2 for a(n)) to support the value of the limit.",
+       "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim n→∞ a(n)/b(n) = 0.",
+       "evidence": "Response gives the value 0.",
+       "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+       "accepted_variants": [
+        "0"
+       ]
+      },
+      {
+       "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+       "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+       "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+       "accepted_variants": []
+      }
+     ]
+    }
    ],
-   "title": "End Behavior, Horizontal Asymptotes, and Relative Growth"
+   "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
   },
-  {
-   "at": "2026-10-10T01:36:26.057Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
-   ],
-   "title": "Limits at Infinity, Horizontal Asymptotes, and Growth Comparison"
-  },
-  {
-   "at": "2026-10-10T01:37:10.933Z",
-   "lint": [
-    "refers to a figure/graph/diagram"
-   ],
-   "title": "End Behavior and Horizontal Asymptotes of Rational Functions"
-  }
- ]
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.834713Z"
+ }
 }

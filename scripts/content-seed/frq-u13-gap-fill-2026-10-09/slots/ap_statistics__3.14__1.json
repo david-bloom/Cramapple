@@ -11,7 +11,77 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Setting Up a Chi-Square Test for Main News Sources",
+   "calculator": "permitted",
+   "stimulus": "A media researcher wants to know whether the distribution of adults' main news source differs among three large cities. The researcher selected independent random samples of 150 adults from each city (each city has more than 500,000 adults) and recorded each adult's main news source. The observed counts are shown in the table, with the expected counts (calculated assuming the distribution of main news source is the same in the three cities) in parentheses.\n\nCity | Television | Online | Other | Total\nCity A | 60 (53.0) | 70 (77.7) | 20 (19.3) | 150\nCity B | 45 (53.0) | 85 (77.7) | 20 (19.3) | 150\nCity C | 54 (53.0) | 78 (77.7) | 18 (19.3) | 150\nTotal | 159 | 233 | 58 | 450",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate chi-square test, and explain why it is appropriate for this study.",
+     "criteria": [
+      {
+       "text": "Identifies a chi-square test for homogeneity, because the researcher took separate (independent) random samples from three populations (the adults of the three cities) and compares the distribution of one categorical variable, main news source, across those populations.",
+       "evidence": "Response names the chi-square test for homogeneity and justifies it with the three separate samples from three populations and one categorical variable being compared.",
+       "fix": "Use homogeneity when separate samples come from several populations and one categorical variable is compared; use independence for one sample and two variables.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses in context.",
+     "criteria": [
+      {
+       "text": "H₀: The distribution of main news source (television, online, other) is the same for adults in all three cities. Hₐ: The distribution of main news source is not the same for adults in all three cities (it differs for at least one city).",
+       "evidence": "Response states a null hypothesis of no difference in the distributions of main news source across the three cities' adult populations and an alternative of a difference, both in context.",
+       "fix": "Write homogeneity hypotheses about distributions of the categorical variable across populations, naming the variable and the populations, not about sample counts.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for the test.",
+     "criteria": [
+      {
+       "text": "States that the data come from independent random samples from the three cities and that each sample of 150 is at most 10% of its city's adults (150 ≤ 0.10(500,000) = 50,000).",
+       "evidence": "Response cites the independent random samples and checks the 10% condition for the cities with numbers or a clear comparison.",
+       "fix": "For homogeneity, cite independent random samples, then compare each sample size with 10% of the population it was drawn from.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that all expected counts are greater than 5 (the smallest is 19.3).",
+       "evidence": "Response refers to the expected counts (not the observed counts) and states that all of them, including the smallest, 19.3, are greater than 5.",
+       "fix": "Check the expected counts, not the observed counts, and confirm every expected count is greater than 5 by naming the smallest one.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "If the null hypothesis is true, the test statistic has a chi-square distribution with 4 degrees of freedom. Describe the shape of this distribution and how it compares with the shape of a chi-square distribution with 10 degrees of freedom. Then explain what a large value of the chi-square statistic would indicate about the observed counts compared with the expected counts.",
+     "criteria": [
+      {
+       "text": "States that the chi-square distribution with 4 degrees of freedom takes only positive values and is skewed right, and that the distribution with 10 degrees of freedom is less skewed (its skew is less pronounced).",
+       "evidence": "Response describes the 4-degree-of-freedom distribution as positive-valued and skewed right, and says the 10-degree-of-freedom distribution is less strongly skewed.",
+       "fix": "Recall that chi-square distributions take positive values, are skewed right, and become less skewed as the degrees of freedom increase.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Explains that the chi-square statistic measures the distance between observed and expected counts relative to the expected counts, so a large value indicates that the observed counts are far from the counts expected if the distributions were the same.",
+       "evidence": "Response states that a large chi-square value means the observed counts differ greatly from the expected counts (relative to the expected counts).",
+       "fix": "Link the statistic to its formula: each term compares an observed count with its expected count, so large values mean large departures.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate test is a chi-square test for homogeneity. The researcher took three separate, independent random samples from three populations (the adults of City A, City B and City C) and wants to compare the distribution of one categorical variable, main news source, across those populations.\n\n(b) H₀: The distribution of main news source (television, online, other) is the same for adults in City A, City B and City C.\nHₐ: The distribution of main news source is not the same for adults in all three cities.\n\n(c) Randomization: the data come from independent random samples of adults from the three cities.\n10% condition: each sample of 150 adults is less than 10% of its city's adults, because 0.10(500,000) = 50,000 and 150 ≤ 50,000.\nExpected counts: all nine expected counts (53.0, 77.7 and 19.3 for each city) are greater than 5; the smallest is 19.3.\n\n(d) The chi-square distribution with 4 degrees of freedom takes only positive values and is skewed right. A chi-square distribution with 10 degrees of freedom is also skewed right, but its skew is less pronounced.\nThe chi-square statistic adds up (observed − expected)²/expected over all the cells, so it measures how far the observed counts are from the expected counts relative to the expected counts. A large value would indicate that the observed counts are far from the counts expected if the distribution of main news source were the same in all three cities.",
+   "verification_python": "obs=[[60,70,20],[45,85,20],[54,78,18]]\nfor r in obs: assert sum(r)==150\ncols=[sum(r[j] for r in obs) for j in range(3)]\nassert cols==[159,233,58] and sum(cols)==450\nexp=[150*c/450 for c in cols]\nassert abs(exp[0]-53.0)<1e-9 and abs(exp[1]-77.7)<0.05 and abs(exp[2]-19.3)<0.05\nassert min(exp)>5 and abs(min(exp)-19.3)<0.05\nassert 150<=0.10*500000 and abs(0.10*500000-50000)<1e-9\ndf=(3-1)*(3-1)\nassert df==4\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.882830Z"
+ }
 }

@@ -11,7 +11,65 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Molar Volumes of Argon in the Solid, Liquid, and Gas Phases",
+   "calculator": "permitted",
+   "stimulus": "Argon (molar mass 39.95 g/mol) can exist as a solid, a liquid, or a gas. The table gives the density of argon in each condensed phase at the temperature shown.\n\nPhase | Temperature (K) | Density (g/cm³)\nsolid | 84 | 1.62\nliquid | 87 | 1.40\n\nAt 273 K and 1.00 atm, the molar volume of argon gas is 2.24 × 10⁴ cm³/mol.\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the molar volume of liquid argon, in cm³/mol.",
+     "criteria": [
+      {
+       "text": "Calculates a molar volume of 28.5 cm³/mol for liquid argon.",
+       "evidence": "Response divides the molar mass by the density (39.95 g/mol ÷ 1.40 g/cm³) or uses an equivalent conversion and reports 28.5 cm³/mol.",
+       "fix": "Molar volume equals molar mass divided by density; check that grams cancel and leave cm³ per mole.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The molar volume of solid argon at 84 K is 24.7 cm³/mol. Explain, in terms of the arrangement of the particles, why the molar volumes of solid argon and liquid argon are similar.",
+     "criteria": [
+      {
+       "text": "Explains that in both the solid and the liquid the argon atoms are in close contact with one another, so one mole occupies a similar volume in each phase.",
+       "evidence": "Response states that the atoms touch (are closely packed) in both the solid and the liquid and links this to the similar molar volumes.",
+       "fix": "Describe particle spacing in each phase; in both solids and liquids the particles touch, so their molar volumes are close.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain, in terms of the particles, why the molar volume of argon gas at 273 K and 1.00 atm is roughly 800 times the molar volume of liquid argon.",
+     "criteria": [
+      {
+       "text": "Explains that in the gas the argon atoms are far apart compared with their own size, so most of the volume of the gas is empty space, unlike the liquid, in which the atoms are in contact.",
+       "evidence": "Response states that the average distance between atoms in the gas is much larger than the size of the atoms (mostly empty space) and contrasts this with the close contact in the liquid.",
+       "fix": "State that gas particles are separated by distances much larger than their own size, so most of a gas's volume is empty space.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe one difference between the motion of the atoms in solid argon and the motion of the atoms in liquid argon.",
+     "criteria": [
+      {
+       "text": "States that atoms in the solid vibrate about fixed positions and do not move past one another, whereas atoms in the liquid move past one another while staying in contact.",
+       "evidence": "Response contrasts limited motion about fixed positions (no overall translation) in the solid with atoms moving past one another (translation) in the liquid.",
+       "fix": "Contrast vibrating in place in the solid with sliding past neighbors while still touching in the liquid, and name both phases.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Molar volume = molar mass ÷ density = (39.95 g/mol) ÷ (1.40 g/cm³) = 28.5 cm³/mol.\n\n(b) In both solid and liquid argon, the argon atoms are in close contact with their neighbors at all times. Because the atoms are packed nearly as closely in the liquid as in the solid, one mole occupies a similar volume in both phases (24.7 cm³/mol and 28.5 cm³/mol).\n\n(c) In the gas, the argon atoms are in constant motion and are separated by distances that are very large compared with the size of the atoms, so nearly all of the volume of the gas is empty space. In the liquid the atoms touch one another. Therefore the same number of atoms takes up a far larger volume as a gas, about 2.24 × 10⁴ ÷ 28.5 ≈ 790 times the liquid volume.\n\n(d) In solid argon, each atom vibrates about a fixed position and the atoms do not move past one another. In liquid argon, the atoms remain in contact but continually move past one another, so they change positions relative to their neighbors.",
+   "verification_python": "M=39.95\nVl=M/1.40\nassert abs(Vl-28.5)<0.05\nVs=M/1.62\nassert abs(Vs-24.7)<0.05\nratio=2.24e4/28.5\nassert abs(ratio-790)<5\nassert 700<ratio<900\nassert abs(2.24e4/Vl-785)<5\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.850343Z"
+ }
 }

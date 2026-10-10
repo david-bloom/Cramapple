@@ -11,8 +11,615 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:29:04.016Z",
+   "item": {
+    "title": "Hydrolysis of Linear and Branched Glucose Polymers",
+    "calculator": "not_permitted",
+    "stimulus": "A researcher studies two polysaccharides isolated from different organisms. Each molecule of either polysaccharide contains exactly 1,200 monomers. Polymer L is a single unbranched (linear) chain. Polymer B is highly branched. When either polymer is completely broken down, the only product is glucose.\n\nThe researcher also has enzyme X. Enzyme X removes one glucose monomer at a time, and it can act only at the free end of a chain. Each molecule of polymer L has 1 chain end that enzyme X can act on. Each molecule of polymer B has 40 chain ends that enzyme X can act on.\n\nThe researcher prepares two test tubes. Each tube contains the same mass of polysaccharide, the same amount of enzyme X, and the same buffer at the same temperature. Tube 1 contains polymer L. Tube 2 contains polymer B. The amount of free glucose in each tube is measured after 5 minutes.",
+    "model_answer": "(a) Both polymers are made of glucose, a monosaccharide (simple sugar). The glucose monomers are joined to each other by covalent bonds, which form during dehydration synthesis.\n\n(b) Polymer L is a linear chain of 1,200 glucose monomers, so it contains 1,200 − 1 = 1,199 covalent bonds between monomers. Hydrolysis breaks each bond by adding one water molecule (H to one monomer, OH to the other). Complete hydrolysis therefore requires 1,199 water molecules.\n\n(c) Tube 2, which contains the branched polymer B, will contain more free glucose after 5 minutes.\n\n(d) Enzyme X can only remove glucose from a free chain end. Because polymer B is branched, each molecule has 40 chain ends, compared with only 1 for polymer L. With many more ends available, many enzyme X molecules can remove glucose from polymer B at the same time, so glucose is released faster in Tube 2 than in Tube 1.",
+    "verification_python": "monomers = 1200\nbonds_L = monomers - 1\nassert bonds_L == 1199\nwater_needed = bonds_L * 1\nassert water_needed == 1199\nends_L = 1\nends_B = 40\nassert ends_B > ends_L\nassert ends_B // ends_L == 40\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the monomer that makes up polymers L and B, and identify the type of chemical bond that joins these monomers together.",
+      "criteria": [
+       {
+        "text": "Identifies the monomer as glucose (a monosaccharide) AND the bond as a covalent bond.",
+        "evidence": "Response names glucose or monosaccharide (simple sugar) as the monomer and states the monomers are joined by covalent bonds. Both elements are required. Naming hydrogen or ionic bonds does not earn the point.",
+        "fix": "State both the monomer (glucose, a monosaccharide) and that monomers in polysaccharides are linked by covalent bonds.",
+        "accepted_variants": [
+         "simple sugar joined by covalent bonds",
+         "monosaccharide units linked covalently",
+         "glucose joined by glycosidic (covalent) bonds"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of water molecules required to completely hydrolyze one molecule of polymer L into free glucose. Show your reasoning.",
+      "criteria": [
+       {
+        "text": "Calculates 1,199 water molecules, reasoning that a linear chain of 1,200 monomers has 1,200 − 1 = 1,199 covalent bonds and hydrolysis uses one water molecule per bond broken.",
+        "evidence": "Response gives 1,199 and shows that the number of bonds in a linear chain is one fewer than the number of monomers and that each bond broken by hydrolysis consumes one water molecule. A bare value of 1,199 without reasoning does not earn the point.",
+        "fix": "Count bonds as monomers minus one in a linear chain, then use one water molecule for each bond hydrolysis breaks.",
+        "accepted_variants": [
+         "1199",
+         "1,200 − 1 = 1,199 water molecules"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict which tube, Tube 1 (polymer L) or Tube 2 (polymer B), will contain more free glucose after 5 minutes. Justify your prediction based on the structure of the polymers.",
+      "criteria": [
+       {
+        "text": "Predicts that Tube 2 (polymer B) will contain more free glucose after 5 minutes.",
+        "evidence": "Response clearly states that Tube 2, the branched polymer B, will have more glucose released.",
+        "fix": "Compare how many places enzyme X can act on each polymer, then choose the tube with more access sites.",
+        "accepted_variants": [
+         "Tube 2",
+         "polymer B releases more glucose",
+         "the branched polymer"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Justify your prediction in the previous part.",
+      "criteria": [
+       {
+        "text": "Justifies the prediction: branching gives polymer B many more chain ends (40 versus 1 per molecule), so more enzyme X molecules can remove glucose at the same time, releasing glucose faster.",
+        "evidence": "Response links branching to a larger number of chain ends and explains that more ends provide more sites where enzyme X can act simultaneously, increasing the rate of glucose release. Simply restating that B is branched without connecting it to more ends or more enzyme sites does not earn the point.",
+        "fix": "Connect structure to rate: more branches mean more chain ends, so more enzymes work at once and release glucose faster.",
+        "accepted_variants": [
+         "more free ends means more sites for enzyme X",
+         "40 ends allow many enzymes to act simultaneously"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6,
+     "3": 2
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d): More accessible ends do not guarantee more glucose after 5 minutes. The question does not establish that chain-end availability limits the reaction or that hydrolysis remains incomplete. Both tubes could produce equal amounts.",
+       "rubric_points: Criterion a1 combines two independently requested identifications into one point and accepts 'monosaccharide' or 'simple sugar' without identifying glucose. Criterion b1 explicitly accepts a bare value despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats that same justification request rather than assessing a distinct element.",
+       "accurate: Criteria c1 and d1 treat greater glucose release from Tube 2 as established by branching alone. Additional chain ends can increase enzyme access, but do not necessarily increase glucose release when the same enzyme amount is already fully occupied in both tubes or both polymers have been completely hydrolyzed.",
+       "solution: For (a), the specific monomer is glucose; merely naming its broader class does not fully answer the identification request. For (b), 1,199 water molecules is correct, but the accepted bare-value variants omit the requested reasoning. For (c) and (d), Tube 2 is a conditional prediction, not a guaranteed result: greater end availability must limit enzyme action, and hydrolysis must remain incomplete. Equal glucose amounts are also consistent with the stated conditions. Part (d) duplicates the justification already requested in (c)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) is underdetermined as a strict comparison of glucose amounts after 5 minutes. More chain ends can increase hydrolysis rate, but the problem does not specify whether accessible ends are limiting, whether enzyme X is saturated in either tube, whether it acts equally efficiently on both polymers, or whether hydrolysis is already complete by 5 minutes. Equal enzyme amounts could therefore yield equal glucose amounts despite the different numbers of ends. Tube 2 is the conventional prediction under an explicit end-limited, incomplete-hydrolysis assumption. Part (d) duplicates the justification already requested in part (c).",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d): More accessible ends do not guarantee more glucose after 5 minutes. The question does not establish that chain-end availability limits the reaction or that hydrolysis remains incomplete. Both tubes could produce equal amounts."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines two independently requested identifications into one point and accepts 'monosaccharide' or 'simple sugar' without identifying glucose. Criterion b1 explicitly accepts a bare value despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats that same justification request rather than assessing a distinct element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criteria c1 and d1 treat greater glucose release from Tube 2 as established by branching alone. Additional chain ends can increase enzyme access, but do not necessarily increase glucose release when the same enzyme amount is already fully occupied in both tubes or both polymers have been completely hydrolyzed."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "For (a), the specific monomer is glucose; merely naming its broader class does not fully answer the identification request. For (b), 1,199 water molecules is correct, but the accepted bare-value variants omit the requested reasoning. For (c) and (d), Tube 2 is a conditional prediction, not a guaranteed result: greater end availability must limit enzyme action, and hydrolysis must remain incomplete. Equal glucose amounts are also consistent with the stated conditions. Part (d) duplicates the justification already requested in (c).",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d) assume that accessible chain ends limit hydrolysis and that neither reaction is complete after 5 minutes. Neither condition is stated. Equal enzyme amounts could produce equal glucose amounts if enzymes are saturated in both tubes, or if both polymers are completely hydrolyzed.",
+       "rubric_points: Criterion a1 bundles two independently requested elements—monomer identity and bond type—into one point, and accepts 'monosaccharide' without identifying glucose. Criterion b1 lists a bare value as acceptable despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats the same justification request. Criterion d1 accepts 'more free ends means more sites for enzyme X' without the required connection to simultaneous enzyme action and faster glucose release.",
+       "accurate: Criteria c1 and d1 present greater glucose release from Tube 2 as an unconditional consequence of branching. More accessible ends can increase glucose-release rate when end availability is limiting, but do not establish a greater rate or glucose amount under the stated conditions.",
+       "solution: The glucose identity, covalent linkage, and calculation of 1,199 water molecules agree with the rubric. However, a1 accepts a generic monomer class rather than the requested glucose identity, and b1's accepted variants include answers lacking the required reasoning. For (c) and (d), Tube 2 is only a conditional prediction: accessible ends must limit the reaction, and complete hydrolysis must not already have occurred. The rubric incorrectly requires this prediction without those conditions. No model answer was provided or evaluated."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) does not provide enough kinetic information to guarantee that Tube 2 contains more glucose after 5 minutes. If accessible ends are limiting, Tube 2 is the expected answer. However, if enzyme X is already substrate-saturated in both tubes and has the same catalytic rate on both polymers, glucose-release rates could be equal. Both tubes could also have reached complete hydrolysis by 5 minutes. The prompt does not specify enzyme concentration relative to accessible ends, relevant kinetics, or whether branch linkages affect enzyme activity. Part (d) repeats the justification already requested in part (c).",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d) assume that accessible chain ends limit hydrolysis and that neither reaction is complete after 5 minutes. Neither condition is stated. Equal enzyme amounts could produce equal glucose amounts if enzymes are saturated in both tubes, or if both polymers are completely hydrolyzed."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently requested elements—monomer identity and bond type—into one point, and accepts 'monosaccharide' without identifying glucose. Criterion b1 lists a bare value as acceptable despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats the same justification request. Criterion d1 accepts 'more free ends means more sites for enzyme X' without the required connection to simultaneous enzyme action and faster glucose release."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criteria c1 and d1 present greater glucose release from Tube 2 as an unconditional consequence of branching. More accessible ends can increase glucose-release rate when end availability is limiting, but do not establish a greater rate or glucose amount under the stated conditions."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The glucose identity, covalent linkage, and calculation of 1,199 water molecules agree with the rubric. However, a1 accepts a generic monomer class rather than the requested glucose identity, and b1's accepted variants include answers lacking the required reasoning. For (c) and (d), Tube 2 is only a conditional prediction: accessible ends must limit the reaction, and complete hydrolysis must not already have occurred. The rubric incorrectly requires this prediction without those conditions. No model answer was provided or evaluated.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d): part (c) instructs the student to 'Predict...' and 'Justify your prediction...', then part (d) asks the student to justify the same prediction again, so the same justification is demanded twice and a full answer to (c) already answers (d). In addition, the prediction that Tube 2 contains more free glucose is not uniquely determined by the setup: the tubes have equal enzyme amount, but if that amount is low enough that all enzyme molecules are already bound to the one chain end per molecule in Tube 1, both tubes release glucose at the same rate; the question never states that enzyme is in excess over Tube 1's chain ends.",
+       "rubric_points: Criterion c1 awards only the prediction for part (c), even though part (c)'s wording also requires a justification; criterion d1 then awards the justification for part (d). This splits one task across two parts and makes d1 double-count the justification already requested in (c), so the rubric does not match the part wording.",
+       "accurate: The model answer and rubric assert as fact that Tube 2 (polymer B) will contain more free glucose after 5 minutes and justify this by saying more chain ends allow more enzyme molecules to act simultaneously. With the fixed amount of enzyme specified, if enzyme is limiting and Tube 1's chain ends already occupy all enzyme active sites, the glucose release rate can be equal; therefore the unqualified 'will contain more' claim is not always factually correct.",
+       "model_answer: Part (c) of the question asks for a prediction and a justification, but the model answer for (c) gives only the prediction and defers all justification to (d); as written, a response that fully addresses part (c) would need the justification there. The model answer also repeats the unqualified claim that glucose is released faster in Tube 2 without stating the needed enzyme-amount condition."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4 Carbohydrates",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d): part (c) instructs the student to 'Predict...' and 'Justify your prediction...', then part (d) asks the student to justify the same prediction again, so the same justification is demanded twice and a full answer to (c) already answers (d). In addition, the prediction that Tube 2 contains more free glucose is not uniquely determined by the setup: the tubes have equal enzyme amount, but if that amount is low enough that all enzyme molecules are already bound to the one chain end per molecule in Tube 1, both tubes release glucose at the same rate; the question never states that enzyme is in excess over Tube 1's chain ends."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 awards only the prediction for part (c), even though part (c)'s wording also requires a justification; criterion d1 then awards the justification for part (d). This splits one task across two parts and makes d1 double-count the justification already requested in (c), so the rubric does not match the part wording."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The model answer and rubric assert as fact that Tube 2 (polymer B) will contain more free glucose after 5 minutes and justify this by saying more chain ends allow more enzyme molecules to act simultaneously. With the fixed amount of enzyme specified, if enzyme is limiting and Tube 1's chain ends already occupy all enzyme active sites, the glucose release rate can be equal; therefore the unqualified 'will contain more' claim is not always factually correct."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c) of the question asks for a prediction and a justification, but the model answer for (c) gives only the prediction and defers all justification to (d); as written, a response that fully addresses part (c) would need the justification there. The model answer also repeats the unqualified claim that glucose is released faster in Tube 2 without stating the needed enzyme-amount condition."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c) asks for both a prediction and a justification, and part (d) then repeats the justification request. This overlap leaves it ambiguous whether the justification should appear in (c), (d), or both; a student who follows (c) exactly could fail the rubric's allocation of the justification to (d).",
+       "rubric_points: Criterion c1 awards only the prediction, even though part (c) explicitly asks for a justification; criterion d1 is assigned to the redundant part (d). This misaligns the rubric with the parts and could penalize a valid response that gives the required justification in (c).",
+       "model_answer: Part (c) requires a justification, but the model answer for (c) gives only the prediction and moves the justification to (d). A strong student answering (c) as written would include the justification there, so the model answer does not fully answer part (c)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c) asks for both a prediction and a justification, and part (d) then repeats the justification request. This overlap leaves it ambiguous whether the justification should appear in (c), (d), or both; a student who follows (c) exactly could fail the rubric's allocation of the justification to (d)."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 awards only the prediction, even though part (c) explicitly asks for a justification; criterion d1 is assigned to the redundant part (d). This misaligns the rubric with the parts and could penalize a valid response that gives the required justification in (c)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c) requires a justification, but the model answer for (c) gives only the prediction and moves the justification to (d). A strong student answering (c) as written would include the justification there, so the model answer does not fully answer part (c)."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:35:22.566Z",
+   "item": {
+    "title": "Branching and Glucose Release from Two Polysaccharides",
+    "calculator": "not_permitted",
+    "stimulus": "A student compares two polysaccharides, L and B. Both are polymers built only from glucose monomers. Polymer L is an unbranched (linear) chain. Polymer B is highly branched, so it has many more chain ends than polymer L. The student adds the same enzyme to 1.0 mg samples of each polymer under identical conditions. The enzyme acts only at chain ends, removing one glucose monomer at a time from the end of a chain. The student measures the initial rate of glucose release.\n\nPolymer | Relative number of chain ends (per mg) | Initial rate of glucose release (µmol/min)\nL (linear) | 1 | 12\nB (branched) | 5 | 60",
+    "model_answer": "(a) The enzyme catalyzes hydrolysis. A water molecule is added across the covalent bond that links the last glucose monomer to the chain, breaking the bond and releasing a free glucose monomer.\n\n(b) Rate for B ÷ rate for L = 60 µmol/min ÷ 12 µmol/min = 5. Polymer B releases glucose 5 times faster than polymer L.\n\n(c) Because polymer B is branched, each milligram has many more chain ends, and the enzyme can act only at chain ends. More ends means more enzyme molecules can remove glucose at the same time. The data support this: polymer B has 5 times as many chain ends as polymer L and releases glucose 5 times as fast.\n\n(d) The total amount of glucose will be the same. Both polymers are made only of glucose monomers, and both samples have the same mass (1.0 mg), so they contain the same number of glucose units. Branching changes only how the monomers are arranged and connected, which changes how quickly glucose can be removed, not how much glucose is present.",
+    "verification_python": "from fractions import Fraction\nrate_L = 12\nrate_B = 60\nends_L = 1\nends_B = 5\nratio = Fraction(rate_B, rate_L)\nassert ratio == 5\nassert Fraction(ends_B, ends_L) == ratio\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe the type of chemical reaction the enzyme catalyzes when it releases a glucose monomer from the end of a polysaccharide chain.",
+      "criteria": [
+       {
+        "text": "The enzyme catalyzes hydrolysis: a covalent bond between two glucose monomers is broken by adding a water molecule.",
+        "evidence": "Names hydrolysis (or describes it) and states that water is added/consumed to break the covalent bond linking monomers.",
+        "fix": "Remember that breaking a bond between monomers is hydrolysis, which uses a water molecule; dehydration synthesis is the reverse that releases water.",
+        "accepted_variants": [
+         "hydrolysis reaction that uses water to break the bond between glucose units",
+         "water is added to split the covalent linkage, releasing a glucose monomer"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate how many times greater the initial rate of glucose release is for polymer B than for polymer L. Show your work.",
+      "criteria": [
+       {
+        "text": "Rate for B is 5 times the rate for L, from 60 ÷ 12 = 5.",
+        "evidence": "Shows the division 60 µmol/min ÷ 12 µmol/min and reports 5 (times greater).",
+        "fix": "Divide the larger rate by the smaller rate from the table and show the division before stating the ratio.",
+        "accepted_variants": [
+         "60/12 = 5",
+         "5-fold, with 60 ÷ 12 shown"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain why polymer B releases glucose faster than polymer L.",
+      "criteria": [
+       {
+        "text": "Branching gives polymer B more chain ends, so more enzyme molecules can remove glucose at the same time; the data show rate rises in proportion to chain ends (5 times the ends, 5 times the rate).",
+        "evidence": "Links branching to more chain ends, links more ends to more sites where the enzyme can act simultaneously, and cites the data (5 times the ends matches 5 times the rate).",
+        "fix": "Connect structure to function: state that branching creates more chain ends, more ends allow more simultaneous enzyme action, and cite the matching 5-fold values.",
+        "accepted_variants": [
+         "more ends means more places for the enzyme to work at once, matching the fivefold increase in both ends and rate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Suppose both 1.0 mg samples are completely hydrolyzed into free glucose. Predict whether the total amount of glucose produced from polymer B will be greater than, less than, or the same as that from polymer L. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the total amount of glucose will be the same for both samples.",
+        "evidence": "States that the two equal-mass samples yield the same (or approximately the same) total amount of glucose.",
+        "fix": "Separate rate from total amount: branching changes how fast glucose is released, not how much glucose an equal mass contains.",
+        "accepted_variants": [
+         "about the same",
+         "equal amounts of glucose"
+        ]
+       },
+       {
+        "text": "Justification: both polymers are made only of glucose monomers and the samples have equal mass, so they contain the same number of glucose units; branching changes only the arrangement of the covalent bonds, which affects rate, not total yield.",
+        "evidence": "Explains that equal masses of polymers built from the same monomer contain the same number of glucose units, and that branching affects arrangement or rate rather than the number of monomers.",
+        "fix": "Justify using monomer composition: same monomer and same mass means same number of monomers, regardless of linear or branched arrangement.",
+        "accepted_variants": [
+         "same monomer and same mass means same number of glucose units; branching only affects speed of release"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6,
+     "3": 3
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not establish exact equality of glucose yields. Equal polymer masses contain exactly equal numbers of glucose units only if their average degrees of polymerization are equal. Specify this condition or explicitly ask for an approximate prediction for large polymers.",
+       "rubric_points: Criterion d2 requires the unsupported claim that equal masses necessarily contain the same number of glucose units. It should accept a qualified approximate-yield justification rather than require exact monomer-count equality.",
+       "accurate: Criterion d2 and its fix incorrectly assert that identical monomer composition and equal polymer mass guarantee identical monomer counts. Polymer mass also depends on water lost during polymerization; different average chain lengths can produce slightly different glucose yields after complete hydrolysis.",
+       "solution: Parts (a)–(c) agree with the rubric. In part (d), the independent solution explicitly qualifies equal yield as relying on the usual equal-monomer-content assumption. Criterion d2 instead presents that assumption as a necessary consequence of equal mass. Approximately equal yields are reasonable for large glucose polymers, but exact equality is not established by the setup."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not establish exact equality of glucose yields. Equal polymer masses contain exactly equal numbers of glucose units only if their average degrees of polymerization are equal. Specify this condition or explicitly ask for an approximate prediction for large polymers."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d2 requires the unsupported claim that equal masses necessarily contain the same number of glucose units. It should accept a qualified approximate-yield justification rather than require exact monomer-count equality."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 and its fix incorrectly assert that identical monomer composition and equal polymer mass guarantee identical monomer counts. Polymer mass also depends on water lost during polymerization; different average chain lengths can produce slightly different glucose yields after complete hydrolysis."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric. In part (d), the independent solution explicitly qualifies equal yield as relying on the usual equal-monomer-content assumption. Criterion d2 instead presents that assumption as a necessary consequence of equal mass. Approximately equal yields are reasonable for large glucose polymers, but exact equality is not established by the setup.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not establish exactly equal glucose yields. Equal polymer masses need not contain exactly equal numbers of glucose units if their average chain lengths differ. State that end-group mass differences are negligible, or specify equal numbers of glucose units.",
+       "rubric_points: Criterion d2 requires the unsupported assertion that equal masses contain the same number of glucose units. A correct justification of approximately equal yields that acknowledges end-group differences need not satisfy this requirement.",
+       "accurate: Criterion d2 and its evidence, fix, and accepted variants incorrectly treat equal mass and identical monomer composition as guaranteeing equal monomer counts. Polymerization removes water, so glucose content per unit mass also depends slightly on chain length. Criterion d1's acceptance of approximately equal yields does not correct d2's exact assertion.",
+       "solution: Parts (a)–(c) agree with the rubric: hydrolysis consumes water, 60 ÷ 12 = 5, and additional chain ends provide additional sites for simultaneous enzyme action. In part (d), the supplied independent solution repeats d2's unsupported exact-equality claim. Approximately equal yields are reasonable for large polysaccharides, but exact equality requires additional information about chain lengths or glucose-unit counts."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not establish exactly equal glucose yields. Equal polymer masses need not contain exactly equal numbers of glucose units if their average chain lengths differ. State that end-group mass differences are negligible, or specify equal numbers of glucose units."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d2 requires the unsupported assertion that equal masses contain the same number of glucose units. A correct justification of approximately equal yields that acknowledges end-group differences need not satisfy this requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 and its evidence, fix, and accepted variants incorrectly treat equal mass and identical monomer composition as guaranteeing equal monomer counts. Polymerization removes water, so glucose content per unit mass also depends slightly on chain length. Criterion d1's acceptance of approximately equal yields does not correct d2's exact assertion."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric: hydrolysis consumes water, 60 ÷ 12 = 5, and additional chain ends provide additional sites for simultaneous enzyme action. In part (d), the supplied independent solution repeats d2's unsupported exact-equality claim. Approximately equal yields are reasonable for large polysaccharides, but exact equality requires additional information about chain lengths or glucose-unit counts.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "history_before_session_authoring": [
   {
    "round": 1,
    "at": "2026-10-10T01:21:21.630Z",
@@ -940,610 +1547,75 @@
    "stage": "checkers"
   }
  ],
- "history_before_rule_calibration": [
-  {
-   "round": 1,
-   "at": "2026-10-10T00:29:04.016Z",
-   "item": {
-    "title": "Hydrolysis of Linear and Branched Glucose Polymers",
-    "calculator": "not_permitted",
-    "stimulus": "A researcher studies two polysaccharides isolated from different organisms. Each molecule of either polysaccharide contains exactly 1,200 monomers. Polymer L is a single unbranched (linear) chain. Polymer B is highly branched. When either polymer is completely broken down, the only product is glucose.\n\nThe researcher also has enzyme X. Enzyme X removes one glucose monomer at a time, and it can act only at the free end of a chain. Each molecule of polymer L has 1 chain end that enzyme X can act on. Each molecule of polymer B has 40 chain ends that enzyme X can act on.\n\nThe researcher prepares two test tubes. Each tube contains the same mass of polysaccharide, the same amount of enzyme X, and the same buffer at the same temperature. Tube 1 contains polymer L. Tube 2 contains polymer B. The amount of free glucose in each tube is measured after 5 minutes.",
-    "model_answer": "(a) Both polymers are made of glucose, a monosaccharide (simple sugar). The glucose monomers are joined to each other by covalent bonds, which form during dehydration synthesis.\n\n(b) Polymer L is a linear chain of 1,200 glucose monomers, so it contains 1,200 − 1 = 1,199 covalent bonds between monomers. Hydrolysis breaks each bond by adding one water molecule (H to one monomer, OH to the other). Complete hydrolysis therefore requires 1,199 water molecules.\n\n(c) Tube 2, which contains the branched polymer B, will contain more free glucose after 5 minutes.\n\n(d) Enzyme X can only remove glucose from a free chain end. Because polymer B is branched, each molecule has 40 chain ends, compared with only 1 for polymer L. With many more ends available, many enzyme X molecules can remove glucose from polymer B at the same time, so glucose is released faster in Tube 2 than in Tube 1.",
-    "verification_python": "monomers = 1200\nbonds_L = monomers - 1\nassert bonds_L == 1199\nwater_needed = bonds_L * 1\nassert water_needed == 1199\nends_L = 1\nends_B = 40\nassert ends_B > ends_L\nassert ends_B // ends_L == 40\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Identify the monomer that makes up polymers L and B, and identify the type of chemical bond that joins these monomers together.",
-      "criteria": [
-       {
-        "text": "Identifies the monomer as glucose (a monosaccharide) AND the bond as a covalent bond.",
-        "evidence": "Response names glucose or monosaccharide (simple sugar) as the monomer and states the monomers are joined by covalent bonds. Both elements are required. Naming hydrogen or ionic bonds does not earn the point.",
-        "fix": "State both the monomer (glucose, a monosaccharide) and that monomers in polysaccharides are linked by covalent bonds.",
-        "accepted_variants": [
-         "simple sugar joined by covalent bonds",
-         "monosaccharide units linked covalently",
-         "glucose joined by glycosidic (covalent) bonds"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Calculate the number of water molecules required to completely hydrolyze one molecule of polymer L into free glucose. Show your reasoning.",
-      "criteria": [
-       {
-        "text": "Calculates 1,199 water molecules, reasoning that a linear chain of 1,200 monomers has 1,200 − 1 = 1,199 covalent bonds and hydrolysis uses one water molecule per bond broken.",
-        "evidence": "Response gives 1,199 and shows that the number of bonds in a linear chain is one fewer than the number of monomers and that each bond broken by hydrolysis consumes one water molecule. A bare value of 1,199 without reasoning does not earn the point.",
-        "fix": "Count bonds as monomers minus one in a linear chain, then use one water molecule for each bond hydrolysis breaks.",
-        "accepted_variants": [
-         "1199",
-         "1,200 − 1 = 1,199 water molecules"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Predict which tube, Tube 1 (polymer L) or Tube 2 (polymer B), will contain more free glucose after 5 minutes. Justify your prediction based on the structure of the polymers.",
-      "criteria": [
-       {
-        "text": "Predicts that Tube 2 (polymer B) will contain more free glucose after 5 minutes.",
-        "evidence": "Response clearly states that Tube 2, the branched polymer B, will have more glucose released.",
-        "fix": "Compare how many places enzyme X can act on each polymer, then choose the tube with more access sites.",
-        "accepted_variants": [
-         "Tube 2",
-         "polymer B releases more glucose",
-         "the branched polymer"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Justify your prediction in the previous part.",
-      "criteria": [
-       {
-        "text": "Justifies the prediction: branching gives polymer B many more chain ends (40 versus 1 per molecule), so more enzyme X molecules can remove glucose at the same time, releasing glucose faster.",
-        "evidence": "Response links branching to a larger number of chain ends and explains that more ends provide more sites where enzyme X can act simultaneously, increasing the rate of glucose release. Simply restating that B is branched without connecting it to more ends or more enzyme sites does not earn the point.",
-        "fix": "Connect structure to rate: more branches mean more chain ends, so more enzymes work at once and release glucose faster.",
-        "accepted_variants": [
-         "more free ends means more sites for enzyme X",
-         "40 ends allow many enzymes to act simultaneously"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": true,
-    "votes": {
-     "1.4": 6
-    },
-    "onTarget": 6,
-    "n": 6,
-    "required_units": [
-     1
-    ],
-    "unitCount": {
-     "1": 6,
-     "3": 2
-    }
-   },
-   "checks": [
+ "given": {
+  "item": {
+   "title": "Linear and Branched Storage Polysaccharides",
+   "calculator": "permitted",
+   "stimulus": "Two storage polysaccharides were purified. Every molecule of each polysaccharide is built from exactly 1,200 glucose monomers.\n\nPolysaccharide L: one unbranched (linear) chain.\nPolysaccharide B: highly branched; it consists of 100 chains joined to one another.\n\nCells break these polysaccharides down by removing glucose monomers one at a time, and a monomer can be removed only from the free end of a chain. Each chain, in either polysaccharide, has exactly one free end from which monomers can be removed. In a test, glucose was removed from every free end at the same rate, 10 glucose monomers per second per free end.",
+   "parts": [
     {
-     "model": "openai/gpt-6.1-sol",
-     "pass": false,
-     "difficulty": "Medium",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Parts (c) and (d): More accessible ends do not guarantee more glucose after 5 minutes. The question does not establish that chain-end availability limits the reaction or that hydrolysis remains incomplete. Both tubes could produce equal amounts.",
-       "rubric_points: Criterion a1 combines two independently requested identifications into one point and accepts 'monosaccharide' or 'simple sugar' without identifying glucose. Criterion b1 explicitly accepts a bare value despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats that same justification request rather than assessing a distinct element.",
-       "accurate: Criteria c1 and d1 treat greater glucose release from Tube 2 as established by branching alone. Additional chain ends can increase enzyme access, but do not necessarily increase glucose release when the same enzyme amount is already fully occupied in both tubes or both polymers have been completely hydrolyzed.",
-       "solution: For (a), the specific monomer is glucose; merely naming its broader class does not fully answer the identification request. For (b), 1,199 water molecules is correct, but the accepted bare-value variants omit the requested reasoning. For (c) and (d), Tube 2 is a conditional prediction, not a guaranteed result: greater end availability must limit enzyme action, and hydrolysis must remain incomplete. Equal glucose amounts are also consistent with the stated conditions. Part (d) duplicates the justification already requested in (c)."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "Part (c) is underdetermined as a strict comparison of glucose amounts after 5 minutes. More chain ends can increase hydrolysis rate, but the problem does not specify whether accessible ends are limiting, whether enzyme X is saturated in either tube, whether it acts equally efficiently on both polymers, or whether hydrolysis is already complete by 5 minutes. Equal enzyme amounts could therefore yield equal glucose amounts despite the different numbers of ends. Tube 2 is the conventional prediction under an explicit end-limited, incomplete-hydrolysis assumption. Part (d) duplicates the justification already requested in part (c).",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Parts (c) and (d): More accessible ends do not guarantee more glucose after 5 minutes. The question does not establish that chain-end availability limits the reaction or that hydrolysis remains incomplete. Both tubes could produce equal amounts."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion a1 combines two independently requested identifications into one point and accepts 'monosaccharide' or 'simple sugar' without identifying glucose. Criterion b1 explicitly accepts a bare value despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats that same justification request rather than assessing a distinct element."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Criteria c1 and d1 treat greater glucose release from Tube 2 as established by branching alone. Additional chain ends can increase enzyme access, but do not necessarily increase glucose release when the same enzyme amount is already fully occupied in both tubes or both polymers have been completely hydrolyzed."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "For (a), the specific monomer is glucose; merely naming its broader class does not fully answer the identification request. For (b), 1,199 water molecules is correct, but the accepted bare-value variants omit the requested reasoning. For (c) and (d), Tube 2 is a conditional prediction, not a guaranteed result: greater end availability must limit enzyme action, and hydrolysis must remain incomplete. Equal glucose amounts are also consistent with the stated conditions. Part (d) duplicates the justification already requested in (c).",
-       "difficulty": "Medium"
+     "prompt": "Identify the type of bond that links the glucose monomers together in both polysaccharides.",
+     "criteria": [
+      {
+       "text": "Identifies the bonds between monomers as covalent bonds.",
+       "evidence": "Response states that the glucose monomers are joined by covalent bonds.",
+       "fix": "Remember monosaccharide monomers are joined into polysaccharides by covalent bonds, not hydrogen or ionic bonds.",
+       "accepted_variants": [
+        "covalent"
+       ]
       }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Parts (c) and (d) assume that accessible chain ends limit hydrolysis and that neither reaction is complete after 5 minutes. Neither condition is stated. Equal enzyme amounts could produce equal glucose amounts if enzymes are saturated in both tubes, or if both polymers are completely hydrolyzed.",
-       "rubric_points: Criterion a1 bundles two independently requested elements—monomer identity and bond type—into one point, and accepts 'monosaccharide' without identifying glucose. Criterion b1 lists a bare value as acceptable despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats the same justification request. Criterion d1 accepts 'more free ends means more sites for enzyme X' without the required connection to simultaneous enzyme action and faster glucose release.",
-       "accurate: Criteria c1 and d1 present greater glucose release from Tube 2 as an unconditional consequence of branching. More accessible ends can increase glucose-release rate when end availability is limiting, but do not establish a greater rate or glucose amount under the stated conditions.",
-       "solution: The glucose identity, covalent linkage, and calculation of 1,199 water molecules agree with the rubric. However, a1 accepts a generic monomer class rather than the requested glucose identity, and b1's accepted variants include answers lacking the required reasoning. For (c) and (d), Tube 2 is only a conditional prediction: accessible ends must limit the reaction, and complete hydrolysis must not already have occurred. The rubric incorrectly requires this prediction without those conditions. No model answer was provided or evaluated."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "Part (c) does not provide enough kinetic information to guarantee that Tube 2 contains more glucose after 5 minutes. If accessible ends are limiting, Tube 2 is the expected answer. However, if enzyme X is already substrate-saturated in both tubes and has the same catalytic rate on both polymers, glucose-release rates could be equal. Both tubes could also have reached complete hydrolysis by 5 minutes. The prompt does not specify enzyme concentration relative to accessible ends, relevant kinetics, or whether branch linkages affect enzyme activity. Part (d) repeats the justification already requested in part (c).",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Parts (c) and (d) assume that accessible chain ends limit hydrolysis and that neither reaction is complete after 5 minutes. Neither condition is stated. Equal enzyme amounts could produce equal glucose amounts if enzymes are saturated in both tubes, or if both polymers are completely hydrolyzed."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion a1 bundles two independently requested elements—monomer identity and bond type—into one point, and accepts 'monosaccharide' without identifying glucose. Criterion b1 lists a bare value as acceptable despite requiring reasoning. Part (c) requests justification, but c1 awards only the prediction; part (d) repeats the same justification request. Criterion d1 accepts 'more free ends means more sites for enzyme X' without the required connection to simultaneous enzyme action and faster glucose release."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Criteria c1 and d1 present greater glucose release from Tube 2 as an unconditional consequence of branching. More accessible ends can increase glucose-release rate when end availability is limiting, but do not establish a greater rate or glucose amount under the stated conditions."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "The glucose identity, covalent linkage, and calculation of 1,199 water molecules agree with the rubric. However, a1 accepts a generic monomer class rather than the requested glucose identity, and b1's accepted variants include answers lacking the required reasoning. For (c) and (d), Tube 2 is only a conditional prediction: accessible ends must limit the reaction, and complete hydrolysis must not already have occurred. The rubric incorrectly requires this prediction without those conditions. No model answer was provided or evaluated.",
-       "difficulty": "Medium"
-      }
-     }
+     ]
     },
     {
-     "model": "deepseek/deepseek-v4-pro",
-     "pass": false,
-     "difficulty": "Medium",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Parts (c) and (d): part (c) instructs the student to 'Predict...' and 'Justify your prediction...', then part (d) asks the student to justify the same prediction again, so the same justification is demanded twice and a full answer to (c) already answers (d). In addition, the prediction that Tube 2 contains more free glucose is not uniquely determined by the setup: the tubes have equal enzyme amount, but if that amount is low enough that all enzyme molecules are already bound to the one chain end per molecule in Tube 1, both tubes release glucose at the same rate; the question never states that enzyme is in excess over Tube 1's chain ends.",
-       "rubric_points: Criterion c1 awards only the prediction for part (c), even though part (c)'s wording also requires a justification; criterion d1 then awards the justification for part (d). This splits one task across two parts and makes d1 double-count the justification already requested in (c), so the rubric does not match the part wording.",
-       "accurate: The model answer and rubric assert as fact that Tube 2 (polymer B) will contain more free glucose after 5 minutes and justify this by saying more chain ends allow more enzyme molecules to act simultaneously. With the fixed amount of enzyme specified, if enzyme is limiting and Tube 1's chain ends already occupy all enzyme active sites, the glucose release rate can be equal; therefore the unqualified 'will contain more' claim is not always factually correct.",
-       "model_answer: Part (c) of the question asks for a prediction and a justification, but the model answer for (c) gives only the prediction and defers all justification to (d); as written, a response that fully addresses part (c) would need the justification there. The model answer also repeats the unqualified claim that glucose is released faster in Tube 2 without stating the needed enzyme-amount condition."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.4 Carbohydrates",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Parts (c) and (d): part (c) instructs the student to 'Predict...' and 'Justify your prediction...', then part (d) asks the student to justify the same prediction again, so the same justification is demanded twice and a full answer to (c) already answers (d). In addition, the prediction that Tube 2 contains more free glucose is not uniquely determined by the setup: the tubes have equal enzyme amount, but if that amount is low enough that all enzyme molecules are already bound to the one chain end per molecule in Tube 1, both tubes release glucose at the same rate; the question never states that enzyme is in excess over Tube 1's chain ends."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion c1 awards only the prediction for part (c), even though part (c)'s wording also requires a justification; criterion d1 then awards the justification for part (d). This splits one task across two parts and makes d1 double-count the justification already requested in (c), so the rubric does not match the part wording."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "The model answer and rubric assert as fact that Tube 2 (polymer B) will contain more free glucose after 5 minutes and justify this by saying more chain ends allow more enzyme molecules to act simultaneously. With the fixed amount of enzyme specified, if enzyme is limiting and Tube 1's chain ends already occupy all enzyme active sites, the glucose release rate can be equal; therefore the unqualified 'will contain more' claim is not always factually correct."
-        },
-        "model_answer": {
-         "pass": false,
-         "issue": "Part (c) of the question asks for a prediction and a justification, but the model answer for (c) gives only the prediction and defers all justification to (d); as written, a response that fully addresses part (c) would need the justification there. The model answer also repeats the unqualified claim that glucose is released faster in Tube 2 without stating the needed enzyme-amount condition."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Medium"
+     "prompt": "For one molecule of each polysaccharide, calculate how many times faster glucose is released from Polysaccharide B than from Polysaccharide L at the start of the test.",
+     "criteria": [
+      {
+       "text": "Calculates that B releases glucose 100 times faster: L has 1 free end (10 monomers per second) and B has 100 free ends (1,000 monomers per second); 1,000 ÷ 10 = 100.",
+       "evidence": "Response compares the number of free ends (100 versus 1), or the release rates (1,000 versus 10 monomers per second), and obtains a factor of 100.",
+       "fix": "Count free ends in each molecule, multiply by the rate per end, then divide the two release rates.",
+       "accepted_variants": [
+        "100 times faster",
+        "100-fold"
+       ]
       }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Part (c) asks for both a prediction and a justification, and part (d) then repeats the justification request. This overlap leaves it ambiguous whether the justification should appear in (c), (d), or both; a student who follows (c) exactly could fail the rubric's allocation of the justification to (d).",
-       "rubric_points: Criterion c1 awards only the prediction, even though part (c) explicitly asks for a justification; criterion d1 is assigned to the redundant part (d). This misaligns the rubric with the parts and could penalize a valid response that gives the required justification in (c).",
-       "model_answer: Part (c) requires a justification, but the model answer for (c) gives only the prediction and moves the justification to (d). A strong student answering (c) as written would include the justification there, so the model answer does not fully answer part (c)."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Part (c) asks for both a prediction and a justification, and part (d) then repeats the justification request. This overlap leaves it ambiguous whether the justification should appear in (c), (d), or both; a student who follows (c) exactly could fail the rubric's allocation of the justification to (d)."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion c1 awards only the prediction, even though part (c) explicitly asks for a justification; criterion d1 is assigned to the redundant part (d). This misaligns the rubric with the parts and could penalize a valid response that gives the required justification in (c)."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "model_answer": {
-         "pass": false,
-         "issue": "Part (c) requires a justification, but the model answer for (c) gives only the prediction and moves the justification to (d). A strong student answering (c) as written would include the justification there, so the model answer does not fully answer part (c)."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Medium"
+     ]
+    },
+    {
+     "prompt": "Animals store glucose in glycogen, a highly branched polysaccharide, in cells such as muscle cells that may need glucose very quickly. Using the results of the test, explain how a branched structure suits this function.",
+     "criteria": [
+      {
+       "text": "Explains that branching produces many chains and therefore many free ends, so glucose can be removed from many ends at the same time, releasing glucose quickly when the cell needs it.",
+       "evidence": "Response connects the many free chain ends of a branched polymer to simultaneous removal of monomers and faster glucose release, using the test result.",
+       "fix": "Link structure to function: more branches mean more free ends, and more ends mean more monomers released at once.",
+       "accepted_variants": []
       }
-     }
+     ]
+    },
+    {
+     "prompt": "One molecule of L and one molecule of B are each completely broken down into glucose. Predict whether the two molecules release the same or different numbers of glucose monomers, and justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that both molecules release the same number of glucose monomers, 1,200 each.",
+       "evidence": "Response states that the numbers are the same (1,200 glucose monomers from each molecule).",
+       "fix": "Compare total monomer counts, not rates; complete breakdown of a polymer releases every monomer it contains.",
+       "accepted_variants": [
+        "the same number",
+        "1,200 each"
+       ]
+      },
+      {
+       "text": "Justifies that both are polymers of 1,200 glucose monomers; branching changes how the monomers are connected (and how fast they can be removed), not how many monomers the polymer contains.",
+       "evidence": "Response explains that complete breakdown releases every monomer in each polymer and that branched versus linear arrangement does not change the number of monomers.",
+       "fix": "Separate structure from composition: linear or branched describes how monomers are joined, while the monomer count sets total glucose released.",
+       "accepted_variants": []
+      }
+     ]
     }
    ],
-   "stage": "checkers"
+   "model_answer": "(a) The glucose monomers (monosaccharides) are linked by covalent bonds to form the polysaccharide polymers.\n\n(b) Polysaccharide L has one chain and therefore 1 free end: 1 × 10 = 10 glucose monomers per second.\nPolysaccharide B has 100 chains and therefore 100 free ends: 100 × 10 = 1,000 glucose monomers per second.\n1,000 ÷ 10 = 100, so B releases glucose 100 times faster than L at the start.\n\n(c) Glucose can be removed only from free chain ends. A highly branched polysaccharide such as glycogen contains many chains and so has many free ends, so glucose can be removed from all of these ends at the same time. As the test shows, this releases glucose much faster than from a linear chain, which suits muscle cells that may need glucose quickly.\n\n(d) Both molecules release the same number of glucose monomers, 1,200 each. Both are polymers built from 1,200 glucose monomers, and complete breakdown releases every monomer. Being linear or branched changes how the monomers are connected and how fast they can be removed, not how many monomers the molecule contains.",
+   "verification_python": "rate=10\nends_L=1\nends_B=100\nrL=ends_L*rate\nrB=ends_B*rate\nassert rL==10 and rB==1000\nassert rB//rL==100 and rB%rL==0\nn=1200\nassert n/ends_B==12\nassert n==1200\nprint('ALL_CHECKS_PASSED')"
   },
-  {
-   "round": 2,
-   "at": "2026-10-10T00:35:22.566Z",
-   "item": {
-    "title": "Branching and Glucose Release from Two Polysaccharides",
-    "calculator": "not_permitted",
-    "stimulus": "A student compares two polysaccharides, L and B. Both are polymers built only from glucose monomers. Polymer L is an unbranched (linear) chain. Polymer B is highly branched, so it has many more chain ends than polymer L. The student adds the same enzyme to 1.0 mg samples of each polymer under identical conditions. The enzyme acts only at chain ends, removing one glucose monomer at a time from the end of a chain. The student measures the initial rate of glucose release.\n\nPolymer | Relative number of chain ends (per mg) | Initial rate of glucose release (µmol/min)\nL (linear) | 1 | 12\nB (branched) | 5 | 60",
-    "model_answer": "(a) The enzyme catalyzes hydrolysis. A water molecule is added across the covalent bond that links the last glucose monomer to the chain, breaking the bond and releasing a free glucose monomer.\n\n(b) Rate for B ÷ rate for L = 60 µmol/min ÷ 12 µmol/min = 5. Polymer B releases glucose 5 times faster than polymer L.\n\n(c) Because polymer B is branched, each milligram has many more chain ends, and the enzyme can act only at chain ends. More ends means more enzyme molecules can remove glucose at the same time. The data support this: polymer B has 5 times as many chain ends as polymer L and releases glucose 5 times as fast.\n\n(d) The total amount of glucose will be the same. Both polymers are made only of glucose monomers, and both samples have the same mass (1.0 mg), so they contain the same number of glucose units. Branching changes only how the monomers are arranged and connected, which changes how quickly glucose can be removed, not how much glucose is present.",
-    "verification_python": "from fractions import Fraction\nrate_L = 12\nrate_B = 60\nends_L = 1\nends_B = 5\nratio = Fraction(rate_B, rate_L)\nassert ratio == 5\nassert Fraction(ends_B, ends_L) == ratio\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Describe the type of chemical reaction the enzyme catalyzes when it releases a glucose monomer from the end of a polysaccharide chain.",
-      "criteria": [
-       {
-        "text": "The enzyme catalyzes hydrolysis: a covalent bond between two glucose monomers is broken by adding a water molecule.",
-        "evidence": "Names hydrolysis (or describes it) and states that water is added/consumed to break the covalent bond linking monomers.",
-        "fix": "Remember that breaking a bond between monomers is hydrolysis, which uses a water molecule; dehydration synthesis is the reverse that releases water.",
-        "accepted_variants": [
-         "hydrolysis reaction that uses water to break the bond between glucose units",
-         "water is added to split the covalent linkage, releasing a glucose monomer"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Calculate how many times greater the initial rate of glucose release is for polymer B than for polymer L. Show your work.",
-      "criteria": [
-       {
-        "text": "Rate for B is 5 times the rate for L, from 60 ÷ 12 = 5.",
-        "evidence": "Shows the division 60 µmol/min ÷ 12 µmol/min and reports 5 (times greater).",
-        "fix": "Divide the larger rate by the smaller rate from the table and show the division before stating the ratio.",
-        "accepted_variants": [
-         "60/12 = 5",
-         "5-fold, with 60 ÷ 12 shown"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Using the data, explain why polymer B releases glucose faster than polymer L.",
-      "criteria": [
-       {
-        "text": "Branching gives polymer B more chain ends, so more enzyme molecules can remove glucose at the same time; the data show rate rises in proportion to chain ends (5 times the ends, 5 times the rate).",
-        "evidence": "Links branching to more chain ends, links more ends to more sites where the enzyme can act simultaneously, and cites the data (5 times the ends matches 5 times the rate).",
-        "fix": "Connect structure to function: state that branching creates more chain ends, more ends allow more simultaneous enzyme action, and cite the matching 5-fold values.",
-        "accepted_variants": [
-         "more ends means more places for the enzyme to work at once, matching the fivefold increase in both ends and rate"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Suppose both 1.0 mg samples are completely hydrolyzed into free glucose. Predict whether the total amount of glucose produced from polymer B will be greater than, less than, or the same as that from polymer L. Justify your prediction.",
-      "criteria": [
-       {
-        "text": "Prediction: the total amount of glucose will be the same for both samples.",
-        "evidence": "States that the two equal-mass samples yield the same (or approximately the same) total amount of glucose.",
-        "fix": "Separate rate from total amount: branching changes how fast glucose is released, not how much glucose an equal mass contains.",
-        "accepted_variants": [
-         "about the same",
-         "equal amounts of glucose"
-        ]
-       },
-       {
-        "text": "Justification: both polymers are made only of glucose monomers and the samples have equal mass, so they contain the same number of glucose units; branching changes only the arrangement of the covalent bonds, which affects rate, not total yield.",
-        "evidence": "Explains that equal masses of polymers built from the same monomer contain the same number of glucose units, and that branching affects arrangement or rate rather than the number of monomers.",
-        "fix": "Justify using monomer composition: same monomer and same mass means same number of monomers, regardless of linear or branched arrangement.",
-        "accepted_variants": [
-         "same monomer and same mass means same number of glucose units; branching only affects speed of release"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": true,
-    "votes": {
-     "1.4": 6
-    },
-    "onTarget": 6,
-    "n": 6,
-    "required_units": [
-     1
-    ],
-    "unitCount": {
-     "1": 6,
-     "3": 3
-    }
-   },
-   "checks": [
-    {
-     "model": "openai/gpt-6.1-sol",
-     "pass": false,
-     "difficulty": "Easy",
-     "first": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Part (d) does not establish exact equality of glucose yields. Equal polymer masses contain exactly equal numbers of glucose units only if their average degrees of polymerization are equal. Specify this condition or explicitly ask for an approximate prediction for large polymers.",
-       "rubric_points: Criterion d2 requires the unsupported claim that equal masses necessarily contain the same number of glucose units. It should accept a qualified approximate-yield justification rather than require exact monomer-count equality.",
-       "accurate: Criterion d2 and its fix incorrectly assert that identical monomer composition and equal polymer mass guarantee identical monomer counts. Polymer mass also depends on water lost during polymerization; different average chain lengths can produce slightly different glucose yields after complete hydrolysis.",
-       "solution: Parts (a)–(c) agree with the rubric. In part (d), the independent solution explicitly qualifies equal yield as relying on the usual equal-monomer-content assumption. Criterion d2 instead presents that assumption as a necessary consequence of equal mass. Approximately equal yields are reasonable for large glucose polymers, but exact equality is not established by the setup."
-      ],
-      "difficulty": "Medium",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Part (d) does not establish exact equality of glucose yields. Equal polymer masses contain exactly equal numbers of glucose units only if their average degrees of polymerization are equal. Specify this condition or explicitly ask for an approximate prediction for large polymers."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion d2 requires the unsupported claim that equal masses necessarily contain the same number of glucose units. It should accept a qualified approximate-yield justification rather than require exact monomer-count equality."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Criterion d2 and its fix incorrectly assert that identical monomer composition and equal polymer mass guarantee identical monomer counts. Polymer mass also depends on water lost during polymerization; different average chain lengths can produce slightly different glucose yields after complete hydrolysis."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "Parts (a)–(c) agree with the rubric. In part (d), the independent solution explicitly qualifies equal yield as relying on the usual equal-monomer-content assumption. Criterion d2 instead presents that assumption as a necessary consequence of equal mass. Approximately equal yields are reasonable for large glucose polymers, but exact equality is not established by the setup.",
-       "difficulty": "Medium"
-      }
-     },
-     "second": {
-      "ok": true,
-      "flagged": true,
-      "failed": [
-       "well_posed: Part (d) does not establish exactly equal glucose yields. Equal polymer masses need not contain exactly equal numbers of glucose units if their average chain lengths differ. State that end-group mass differences are negligible, or specify equal numbers of glucose units.",
-       "rubric_points: Criterion d2 requires the unsupported assertion that equal masses contain the same number of glucose units. A correct justification of approximately equal yields that acknowledges end-group differences need not satisfy this requirement.",
-       "accurate: Criterion d2 and its evidence, fix, and accepted variants incorrectly treat equal mass and identical monomer composition as guaranteeing equal monomer counts. Polymerization removes water, so glucose content per unit mass also depends slightly on chain length. Criterion d1's acceptance of approximately equal yields does not correct d2's exact assertion.",
-       "solution: Parts (a)–(c) agree with the rubric: hydrolysis consumes water, 60 ÷ 12 = 5, and additional chain ends provide additional sites for simultaneous enzyme action. In part (d), the supplied independent solution repeats d2's unsupported exact-equality claim. Approximately equal yields are reasonable for large polysaccharides, but exact equality requires additional information about chain lengths or glucose-unit counts."
-      ],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": false,
-         "issue": "Part (d) does not establish exactly equal glucose yields. Equal polymer masses need not contain exactly equal numbers of glucose units if their average chain lengths differ. State that end-group mass differences are negligible, or specify equal numbers of glucose units."
-        },
-        "rubric_points": {
-         "pass": false,
-         "issue": "Criterion d2 requires the unsupported assertion that equal masses contain the same number of glucose units. A correct justification of approximately equal yields that acknowledges end-group differences need not satisfy this requirement."
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": false,
-         "issue": "Criterion d2 and its evidence, fix, and accepted variants incorrectly treat equal mass and identical monomer composition as guaranteeing equal monomer counts. Polymerization removes water, so glucose content per unit mass also depends slightly on chain length. Criterion d1's acceptance of approximately equal yields does not correct d2's exact assertion."
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "Parts (a)–(c) agree with the rubric: hydrolysis consumes water, 60 ÷ 12 = 5, and additional chain ends provide additional sites for simultaneous enzyme action. In part (d), the supplied independent solution repeats d2's unsupported exact-equality claim. Approximately equal yields are reasonable for large polysaccharides, but exact equality requires additional information about chain lengths or glucose-unit counts.",
-       "difficulty": "Easy"
-      }
-     }
-    },
-    {
-     "model": "deepseek/deepseek-v4-pro",
-     "pass": true,
-     "difficulty": "Easy",
-     "first": {
-      "ok": true,
-      "flagged": false,
-      "failed": [],
-      "difficulty": "Easy",
-      "solve_issues": "",
-      "audit": {
-       "primary_topic_code": "1.4",
-       "rules": {
-        "on_topic": {
-         "pass": true,
-         "issue": ""
-        },
-        "ced_scope": {
-         "pass": true,
-         "issue": ""
-        },
-        "self_contained_typed": {
-         "pass": true,
-         "issue": ""
-        },
-        "well_posed": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_points": {
-         "pass": true,
-         "issue": ""
-        },
-        "rubric_evidence": {
-         "pass": true,
-         "issue": ""
-        },
-        "accurate": {
-         "pass": true,
-         "issue": ""
-        },
-        "model_answer": {
-         "pass": true,
-         "issue": ""
-        },
-        "style": {
-         "pass": true,
-         "issue": ""
-        },
-        "distinct": {
-         "pass": true,
-         "issue": ""
-        }
-       },
-       "solution_disagreements": "",
-       "difficulty": "Easy"
-      }
-     }
-    }
-   ],
-   "stage": "checkers"
-  }
- ]
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.856495Z"
+ }
 }

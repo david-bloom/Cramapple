@@ -11,7 +11,76 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Open, Closed, and Short Circuits in a Three-Bulb Circuit",
+   "calculator": "not_applicable",
+   "stimulus": "An ideal battery has a positive terminal P and a negative terminal N. The circuit is connected as follows.\n- Bulb 1 connects terminal P to junction B.\n- Bulb 2 connects junction B to junction C.\n- Switch S also connects junction B directly to junction C, giving a second path from B to C that contains nothing except the switch.\n- A wire connects junction C to terminal N.\n- Bulb 3 connects terminal P to point D, and switch T connects point D to terminal N.\n\nAll wires and closed switches have negligible resistance. A bulb is lit only when charge flows through it.",
+   "parts": [
+    {
+     "prompt": "Both switches are open. State which bulbs are lit and which are unlit. Justify your answer in terms of closed and open circuits.",
+     "criteria": [
+      {
+       "text": "States that bulbs 1 and 2 are lit because the path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery.",
+       "evidence": "Response identifies bulbs 1 and 2 as lit and describes the closed path from the battery through bulb 1 and bulb 2 back to the battery.",
+       "fix": "Trace each bulb's path from one battery terminal to the other; a bulb lights only if that path forms a complete loop.",
+       "accepted_variants": [
+        "bulbs 1 and 2 lit"
+       ]
+      },
+      {
+       "text": "States that bulb 3 is unlit because open switch T breaks its only path back to the battery, so it is in an open circuit.",
+       "evidence": "Response identifies bulb 3 as unlit and explains that charge cannot flow through it because switch T is open.",
+       "fix": "Check every switch along a bulb's path; one open switch makes that path an open circuit with no charge flow.",
+       "accepted_variants": [
+        "bulb 3 unlit",
+        "bulb 3 is off"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Switch S is closed while switch T stays open. State whether bulb 2 is lit, and explain using the idea of a short circuit.",
+     "criteria": [
+      {
+       "text": "States that bulb 2 is unlit because closed switch S lets charge flow from B to C with no change in electric potential (a short circuit), so the potential difference across bulb 2 is zero and no charge flows through it.",
+       "evidence": "Response says bulb 2 goes out and explains that the switch path from B to C has no potential difference, so bulb 2, connected between the same two points, has none either.",
+       "fix": "When a wire or closed switch joins a bulb's two ends, the bulb has zero potential difference across it; say so explicitly.",
+       "accepted_variants": [
+        "bulb 2 is unlit",
+        "bulb 2 goes out"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Both switches are now closed. State whether bulb 3 is lit. Then identify two different closed loops that both contain the battery, listing the circuit elements each loop passes through.",
+     "criteria": [
+      {
+       "text": "States that bulb 3 is lit because closing T completes the closed loop P → bulb 3 → D → switch T → N.",
+       "evidence": "Response says bulb 3 is lit and identifies the now-complete path through bulb 3 and switch T back to the battery.",
+       "fix": "After a switch closes, retrace the bulb's path to the battery and confirm it now forms a complete loop.",
+       "accepted_variants": [
+        "bulb 3 lit"
+       ]
+      },
+      {
+       "text": "Identifies two valid closed loops containing the battery, chosen from: battery–bulb 1–switch S; battery–bulb 3–switch T; battery–bulb 1–bulb 2.",
+       "evidence": "Response lists two of these three loops by their elements, each starting and ending at the battery, showing the battery belongs to more than one loop.",
+       "fix": "Start at a battery terminal, follow connected elements without retracing, and stop when you return to the other terminal; repeat along a different route.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Bulbs 1 and 2 are lit. The path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery, so charge can flow through both bulbs. Switch S is open, so the only path from B to C is through bulb 2.\nBulb 3 is unlit. Its only path back to the battery goes through switch T, which is open, so that path is an open circuit and no charge can flow through bulb 3.\n\n(b) Bulb 2 is unlit. Closing S gives charge a path from B to C through the switch alone, with no change in electric potential; this is a short circuit across bulb 2. Because bulb 2 is connected between the same points B and C, the potential difference across it is zero, so no charge flows through it and it does not light.\n\n(c) Bulb 3 is lit, because closing T completes the closed loop P → bulb 3 → D → switch T → N.\nTwo closed loops that contain the battery:\nLoop 1: battery (P) → bulb 1 → B → switch S → C → battery (N).\nLoop 2: battery (P) → bulb 3 → D → switch T → battery (N).\nThe battery is part of both loops.",
+   "verification_python": "# Enumerate simple loops through the battery with both switches closed\nedges={'bulb1':('P','B'),'bulb2':('B','C'),'S':('B','C'),'wireCN':('C','N'),'bulb3':('P','D'),'T':('D','N')}\ndef paths(start,end,used,node):\n    if node==end:\n        yield list(used); return\n    for name,(a,b) in edges.items():\n        if name in used: continue\n        if node in (a,b):\n            nxt=b if node==a else a\n            visited=set()\n            for u in used:\n                visited.update(edges[u])\n            if nxt in visited and not nxt==end: continue\n            yield from paths(start,end,used+[name],nxt)\nloops=[frozenset(p) for p in paths('P','N',[],'P')]\nnamed={frozenset(l)-{'wireCN'} for l in loops}\nassert named=={frozenset({'bulb1','S'}),frozenset({'bulb3','T'}),frozenset({'bulb1','bulb2'})}\nassert len(named)==3\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.867201Z"
+ }
 }

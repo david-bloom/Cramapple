@@ -11,7 +11,82 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Extrema and Inflection of a Polynomial on a Restricted Domain",
+   "calculator": "not_permitted",
+   "stimulus": "Let p be the polynomial function defined by p(x) = −3x⁴ + 44x³ − 144x² + 200, with its domain restricted to 0 ≤ x ≤ 10. The following information about p is known.\n• p is decreasing for 0 < x < 3, increasing for 3 < x < 8, and decreasing for 8 < x < 10.\n• The rate of change of p is decreasing for 0 < x < 4/3, increasing for 4/3 < x < 6, and decreasing for 6 < x < 10.\nThe table gives selected values of p.\nx | 0 | 3 | 8 | 10\np(x) | 200 | −151 | 1224 | −200",
+   "parts": [
+    {
+     "prompt": "On the domain 0 ≤ x ≤ 10, identify every input value at which p has a local maximum and every input value at which p has a local minimum. Give a reason for each.",
+     "criteria": [
+      {
+       "text": "Local maximums at x = 0 (an included endpoint, with p decreasing immediately after it) and at x = 8 (p switches from increasing to decreasing).",
+       "evidence": "Response lists both x = 0 and x = 8 as local maximum locations with a correct reason for each.",
+       "fix": "Check included endpoints as well as inputs where p switches between increasing and decreasing.",
+       "accepted_variants": [
+        "x = 0 and x = 8"
+       ]
+      },
+      {
+       "text": "Local minimums at x = 3 (p switches from decreasing to increasing) and at x = 10 (an included endpoint, with p decreasing just before it).",
+       "evidence": "Response lists both x = 3 and x = 10 as local minimum locations with a correct reason for each.",
+       "fix": "At a right endpoint, a function that is decreasing up to that endpoint has a local minimum there.",
+       "accepted_variants": [
+        "x = 3 and x = 10"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the global maximum value and the global minimum value of p on its domain. Explain why p(3) is not the global minimum value of p.",
+     "criteria": [
+      {
+       "text": "The global maximum value is 1224, at x = 8, because it is greater than the only other local maximum value, p(0) = 200.",
+       "evidence": "Response gives 1224 (at x = 8) and compares it with p(0) = 200.",
+       "fix": "Compare the output values at every local maximum, including endpoints; the largest one is the global maximum.",
+       "accepted_variants": [
+        "1224"
+       ]
+      },
+      {
+       "text": "The global minimum value is −200, at x = 10; p(3) = −151 is not the global minimum because p(10) = −200 is less than −151.",
+       "evidence": "Response gives −200 (at x = 10) and explains that the local minimum −151 is greater than the endpoint value −200.",
+       "fix": "Compare the output values at every local minimum, including endpoints; a local minimum is global only if it is the least.",
+       "accepted_variants": [
+        "−200"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the input values at which the graph of p has a point of inflection. Then state whether the graph of p is concave up or concave down for 6 < x < 10. Give a reason for each answer based on the rate of change of p.",
+     "criteria": [
+      {
+       "text": "Points of inflection at x = 4/3 and x = 6, because the rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6.",
+       "evidence": "Response gives both x = 4/3 and x = 6 and states that the rate of change of p changes between increasing and decreasing at each.",
+       "fix": "Look for inputs where the rate of change switches between increasing and decreasing; those are the points of inflection.",
+       "accepted_variants": [
+        "x = 4/3 and x = 6"
+       ]
+      },
+      {
+       "text": "Concave down for 6 < x < 10, because the rate of change of p is decreasing there.",
+       "evidence": "Response states concave down on 6 < x < 10 and cites the decreasing rate of change.",
+       "fix": "A decreasing rate of change means concave down; an increasing rate of change means concave up.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Local maximums: at x = 0, because x = 0 is an included endpoint and p is decreasing for 0 < x < 3, so p(0) is greater than nearby outputs; and at x = 8, because p switches from increasing to decreasing there.\nLocal minimums: at x = 3, because p switches from decreasing to increasing there; and at x = 10, because x = 10 is an included endpoint and p is decreasing for 8 < x < 10, so p(10) is less than nearby outputs.\n\n(b) The local maximum values are p(0) = 200 and p(8) = 1224. Since 1224 > 200, the global maximum value is 1224, at x = 8.\nThe local minimum values are p(3) = −151 and p(10) = −200. Since −200 < −151, the global minimum value is −200, at x = 10. So p(3) = −151 is only a local minimum, because p(10) = −200 is smaller.\n\n(c) The rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6, so the graph of p has points of inflection at x = 4/3 and x = 6.\nFor 6 < x < 10, the rate of change of p is decreasing, so the graph of p is concave down there.",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x')\np=-3*x**4+44*x**3-144*x**2+200\nassert [p.subs(x,v) for v in (0,3,8,10)]==[200,-151,1224,-200]\nd1=sp.diff(p,x); d2=sp.diff(p,x,2)\nassert sorted(sp.solve(d1,x))==[0,3,8]\nassert sorted(sp.solve(d2,x))==[sp.Rational(4,3),6]\n# monotonic behavior on stated intervals (checker only)\nassert d1.subs(x,1)<0 and d1.subs(x,5)>0 and d1.subs(x,9)<0\nassert d2.subs(x,1)<0 and d2.subs(x,3)>0 and d2.subs(x,7)<0\nassert max(200,1224)==1224 and min(-151,-200)==-200\n# global extrema on [0,10] over a fine grid\nvals=[p.subs(x,sp.Rational(k,100)) for k in range(0,1001)]\nassert max(vals)==1224 and min(vals)==-200\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875554Z"
+ }
 }

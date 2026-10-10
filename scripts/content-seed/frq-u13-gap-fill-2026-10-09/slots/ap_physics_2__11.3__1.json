@@ -11,7 +11,82 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Resistance of a Nichrome Wire and a Non-Ohmic Filament",
+   "calculator": "permitted",
+   "stimulus": "A uniform nichrome wire has length 2.0 m, cross-sectional area 5.0 × 10⁻⁷ m², and resistivity 1.1 × 10⁻⁶ Ω·m. Treat the wire as ohmic.\n\nSeparately, a student measures the current in a lightbulb filament for several potential differences across it. The filament is not assumed to be ohmic. The data are:\nΔV (V) | I (A)\n1.0 | 0.20\n2.0 | 0.36\n4.0 | 0.60\n8.0 | 0.90",
+   "parts": [
+    {
+     "prompt": "Calculate the resistance of the nichrome wire.",
+     "criteria": [
+      {
+       "text": "Calculates R = ρℓ/A = 4.4 Ω.",
+       "evidence": "Response substitutes ρ = 1.1 × 10⁻⁶ Ω·m, ℓ = 2.0 m and A = 5.0 × 10⁻⁷ m² into R = ρℓ/A and obtains 4.4 Ω.",
+       "fix": "Multiply resistivity by length, then divide by cross-sectional area, tracking powers of ten.",
+       "accepted_variants": [
+        "4.4 Ω",
+        "4.4 ohms"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The ends of the nichrome wire are connected across a potential difference of 6.6 V. Calculate the current in the wire.",
+     "criteria": [
+      {
+       "text": "Calculates I = ΔV/R = 6.6 V / 4.4 Ω = 1.5 A.",
+       "evidence": "Response applies Ohm's law with the resistance from the first part to get 1.5 A.",
+       "fix": "Use I = ΔV/R with the resistance you found, and check that volts divided by ohms gives amperes.",
+       "accepted_variants": [
+        "1.5 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A second wire is made of the same nichrome but has twice the length and twice the diameter of the first wire. Determine the resistance of the second wire.",
+     "criteria": [
+      {
+       "text": "Finds 2.2 Ω, because doubling the length doubles R while doubling the diameter makes the area four times larger, so R is multiplied by 2/4 = 1/2.",
+       "evidence": "Response recognizes that area scales with diameter squared (factor 4), combines this with the length factor 2, and gives 2.2 Ω.",
+       "fix": "Area depends on diameter squared; find the factors for length and area separately, then combine them in R = ρℓ/A.",
+       "accepted_variants": [
+        "2.2 Ω",
+        "half the original resistance"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the filament data, determine whether the filament is ohmic. Then give a physical explanation for the trend in its resistance.",
+     "criteria": [
+      {
+       "text": "States that the filament is not ohmic because ΔV/I is not constant: it rises from 5.0 Ω at 1.0 V to about 8.9 Ω at 8.0 V.",
+       "evidence": "Response calculates ΔV/I for at least two rows (for example 5.0 Ω and 8.9 Ω) and concludes the resistance is not constant, so the filament is not ohmic.",
+       "fix": "Compute ΔV/I for several rows; an ohmic element gives the same resistance every time.",
+       "accepted_variants": [
+        "not ohmic",
+        "non-ohmic"
+       ]
+      },
+      {
+       "text": "Explains that resistance increases as current increases because the filament converts more electrical energy to thermal energy and gets hotter, and the resistivity of a conductor typically increases with temperature.",
+       "evidence": "Response links larger current to higher filament temperature and states that resistivity (and so resistance) increases with temperature.",
+       "fix": "Connect the change in resistance to temperature: more current heats the filament, and hotter conductors have greater resistivity.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) R = ρℓ/A = (1.1 × 10⁻⁶ Ω·m)(2.0 m)/(5.0 × 10⁻⁷ m²) = 4.4 Ω.\n\n(b) I = ΔV/R = 6.6 V / 4.4 Ω = 1.5 A.\n\n(c) R = ρℓ/A. The length doubles, which doubles R. The diameter doubles, so the cross-sectional area (proportional to diameter squared) becomes 4 times larger, which divides R by 4. The new resistance is 4.4 Ω × 2/4 = 2.2 Ω.\n\n(d) ΔV/I for each row: 1.0/0.20 = 5.0 Ω, 2.0/0.36 ≈ 5.6 Ω, 4.0/0.60 ≈ 6.7 Ω, 8.0/0.90 ≈ 8.9 Ω. The resistance is not constant, so the filament is not ohmic.\nAs the current increases, the filament converts electrical energy to thermal energy at a greater rate and its temperature rises. The resistivity of a conductor typically increases with temperature, so the filament's resistance increases as the current increases.",
+   "verification_python": "from fractions import Fraction as Fr\nrho=1.1e-6; L=2.0; A=5.0e-7\nR=rho*L/A\nassert abs(R-4.4)<1e-9\nI=6.6/R\nassert abs(I-1.5)<1e-9\nR2=rho*(2*L)/(4*A)\nassert abs(R2-2.2)<1e-9\nassert abs(R2/R-0.5)<1e-12\ndata=[(1.0,0.20),(2.0,0.36),(4.0,0.60),(8.0,0.90)]\nrs=[v/i for v,i in data]\nassert abs(rs[0]-5.0)<1e-9\nassert round(rs[1],1)==5.6\nassert round(rs[2],1)==6.7\nassert round(rs[3],1)==8.9\nassert all(rs[j]<rs[j+1] for j in range(3))\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.867362Z"
+ }
 }

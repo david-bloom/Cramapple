@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Electric Flux Through a Square in Two Field Regions",
+   "calculator": "permitted",
+   "stimulus": "Region 1 contains a uniform electric field E = (300 î + 400 ĵ) N/C. A flat square surface with sides 0.20 m long is placed in this region in different orientations.\n\nRegion 2, which contains no charge, has a nonuniform electric field E = α[(x² − y²) î − 2xy ĵ], where α = 5.0 × 10⁴ N/(C·m²) and x and y are coordinates in meters.",
+   "parts": [
+    {
+     "prompt": "In Region 1, the square lies in the yz-plane with its area vector pointing in the +x direction. Calculate the electric flux through the square.",
+     "criteria": [
+      {
+       "text": "Φ = E·A = (300 N/C)(0.040 m²) = 12 N·m²/C, since only the x-component of E is along the area vector.",
+       "evidence": "Response uses the dot product with an area of 0.040 m² in the +x direction and obtains 12 N·m²/C.",
+       "fix": "Use Φ = E·A: multiply the area by only the field component that lies along the area vector.",
+       "accepted_variants": [
+        "12 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, and explain the sign of your answer.",
+     "criteria": [
+      {
+       "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector, making the dot product negative.",
+       "evidence": "Response gives −16 N·m²/C and attributes the negative sign to the dot product of E with an oppositely directed area vector.",
+       "fix": "Keep the area vector's direction in the dot product; a field component opposite to the area vector gives negative flux.",
+       "accepted_variants": [
+        "−16 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Region 1, describe the orientation of the square that gives the greatest magnitude of flux through it, and calculate that magnitude.",
+     "criteria": [
+      {
+       "text": "The area vector is parallel (or antiparallel) to E, so |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C, using |E| = √(300² + 400²) = 500 N/C.",
+       "evidence": "Response states that the area vector must point along E (the square perpendicular to the field) and obtains 500 N/C and 20 N·m²/C.",
+       "fix": "Flux magnitude is largest when cos θ = 1, so align the area vector with the field and use the field's full magnitude.",
+       "accepted_variants": [
+        "20 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square.",
+     "criteria": [
+      {
+       "text": "Sets up the surface integral Φ = ∫E·dA with E_x = −αy² on the plane x = 0, for example Φ = ∫ from 0 to 0.20 of (−αy²)(0.20 m) dy.",
+       "evidence": "Response finds E_x = −αy² on the square and writes an integral of it over the square's area (single integral with strips of width 0.20 m or a double integral over y and z).",
+       "fix": "When the field varies across a surface, find the field component along the area vector at each point and integrate it over the area.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Φ = −(0.20)(5.0 × 10⁴)(0.20)³/3 ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+       "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign.",
+       "fix": "Evaluate y³/3 between the limits, multiply by α and the 0.20 m strip width, and keep the sign of E_x.",
+       "accepted_variants": [
+        "−26.7 N·m²/C",
+        "−80/3 N·m²/C"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component points in the +y direction, opposite to the area vector, so the dot product is negative.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, that is, when the square is perpendicular to the field. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+   "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873812Z"
+ }
 }

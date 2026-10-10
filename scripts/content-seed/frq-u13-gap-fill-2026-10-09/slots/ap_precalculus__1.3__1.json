@@ -11,7 +11,82 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Average Rates of Change of a Quadratic Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let q be the quadratic function defined by q(x) = −3x² + 24x + 5.",
+   "parts": [
+    {
+     "prompt": "Find the average rates of change of q over the intervals 0 ≤ x ≤ 1, 1 ≤ x ≤ 2 and 2 ≤ x ≤ 3. By how much does each of these average rates of change differ from the one before it?",
+     "criteria": [
+      {
+       "text": "Average rates of change are 21, 15 and 9, from q(0) = 5, q(1) = 26, q(2) = 41 and q(3) = 50.",
+       "evidence": "Response evaluates q at 0, 1, 2 and 3 and computes the three average rates of change as 21, 15 and 9.",
+       "fix": "Evaluate q at each endpoint first, then divide each change in q by the interval length.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Each average rate of change is 6 less than the one before it (a constant change of −6).",
+       "evidence": "Response computes 15 − 21 = −6 and 9 − 15 = −6 and states the average rates change by the same amount, −6, each time.",
+       "fix": "Subtract consecutive average rates of change; for a quadratic, these differences are equal.",
+       "accepted_variants": [
+        "−6",
+        "decrease by 6"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For each whole number n, let A(n) be the average rate of change of q over the interval n ≤ x ≤ n + 1. Write A(n) as a linear function of n. Then use the behavior of A to decide whether the graph of q is concave up or concave down.",
+     "criteria": [
+      {
+       "text": "A(n) = 21 − 6n.",
+       "evidence": "Response computes q(n + 1) − q(n) and simplifies to 21 − 6n (or −6n + 21).",
+       "fix": "Write q(n + 1) − q(n), expand (n + 1)², and collect like terms carefully.",
+       "accepted_variants": [
+        "−6n + 21"
+       ]
+      },
+      {
+       "text": "Concave down, because the average rates of change over consecutive equal-length intervals are decreasing (A decreases by 6 each step).",
+       "evidence": "Response states concave down and justifies it by the decreasing average rates of change over consecutive equal-length intervals.",
+       "fix": "Decreasing average rates over consecutive equal-length intervals mean concave down; increasing ones mean concave up.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the slope of the secant line of the graph of q between the points where x = 1 and x = 5, and write an equation of this secant line.",
+     "criteria": [
+      {
+       "text": "Slope is (q(5) − q(1))/(5 − 1) = (50 − 26)/4 = 6.",
+       "evidence": "Response finds q(5) = 50 and q(1) = 26 and computes the slope 6 as the average rate of change over 1 ≤ x ≤ 5.",
+       "fix": "The secant slope is the average rate of change: (q(b) − q(a))/(b − a) using the two given inputs.",
+       "accepted_variants": [
+        "6"
+       ]
+      },
+      {
+       "text": "An equation of the secant line is y = 6x + 20.",
+       "evidence": "Response gives y = 6x + 20 or an equivalent form such as y − 26 = 6(x − 1) or y − 50 = 6(x − 5).",
+       "fix": "Use point-slope form with the slope and either endpoint, such as (1, 26), then simplify if you wish.",
+       "accepted_variants": [
+        "y − 26 = 6(x − 1)",
+        "y − 50 = 6(x − 5)"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) q(0) = 5, q(1) = −3 + 24 + 5 = 26, q(2) = −12 + 48 + 5 = 41, q(3) = −27 + 72 + 5 = 50.\nAverage rates of change: over 0 ≤ x ≤ 1, (26 − 5)/1 = 21; over 1 ≤ x ≤ 2, (41 − 26)/1 = 15; over 2 ≤ x ≤ 3, (50 − 41)/1 = 9.\n15 − 21 = −6 and 9 − 15 = −6, so each average rate of change is 6 less than the one before it.\n\n(b) A(n) = q(n + 1) − q(n) = [−3(n + 1)² + 24(n + 1) + 5] − [−3n² + 24n + 5] = −3(2n + 1) + 24 = 21 − 6n.\nA is a decreasing linear function, so the average rates of change of q over consecutive equal-length intervals are decreasing. Therefore the graph of q is concave down. (The same holds for any equal length h: the average rate over x ≤ t ≤ x + h is 24 − 3h − 6x, which decreases as x increases.)\n\n(c) q(5) = −75 + 120 + 5 = 50 and q(1) = 26. Slope = (50 − 26)/(5 − 1) = 24/4 = 6.\nSecant line: y − 26 = 6(x − 1), which is y = 6x + 20.",
+   "verification_python": "import sympy as sp\nx,n,h=sp.symbols('x n h')\nq=-3*x**2+24*x+5\nvals=[q.subs(x,i) for i in range(4)]\nassert vals==[5,26,41,50]\nar=[vals[i+1]-vals[i] for i in range(3)]\nassert ar==[21,15,9]\nassert [ar[1]-ar[0],ar[2]-ar[1]]==[-6,-6]\nA=sp.expand(q.subs(x,n+1)-q.subs(x,n))\nassert sp.simplify(A-(21-6*n))==0\ngen=sp.expand((q.subs(x,x+h)-q)/h)\nassert sp.simplify(gen-(24-3*h-6*x))==0\nassert q.subs(x,5)==50\nm=sp.Rational(q.subs(x,5)-q.subs(x,1),4)\nassert m==6\nline=6*x+20\nassert line.subs(x,1)==26 and line.subs(x,5)==50\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875299Z"
+ }
 }

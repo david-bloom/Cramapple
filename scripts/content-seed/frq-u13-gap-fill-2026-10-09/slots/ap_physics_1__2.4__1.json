@@ -11,7 +11,68 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Balanced and Unbalanced Forces in Three Situations",
+   "calculator": "permitted",
+   "stimulus": "Situation 1: A child pulls a sled across level snow with a rope. The rope is at 37° above the horizontal and the tension in the rope is 50 N. The sled moves east in a straight line at a constant speed of 1.5 m/s. The gravitational force exerted on the sled by Earth is 300 N. The snow exerts a normal force and a horizontal friction force on the sled. Use sin 37° = 0.60 and cos 37° = 0.80.\n\nSituation 2: A hockey puck slides east at 3.0 m/s across frictionless, level ice. Starting at time t = 0, a steady wind exerts a constant horizontal force on the puck directed north. The vertical forces on the puck remain balanced.\n\nSituation 3: A bus on a straight, level road is speeding up while moving east. A small block of ice is placed on the floor of the bus, and friction between the ice and the floor is negligible. A passenger in the bus sees the block slide toward the back of the bus, even though no horizontal force is exerted on the block.",
+   "parts": [
+    {
+     "prompt": "For Situation 1, calculate the magnitude of the friction force and the magnitude of the normal force that the snow exerts on the sled.",
+     "criteria": [
+      {
+       "text": "Friction force magnitude = 50 N × cos 37° = 50 × 0.80 = 40 N, because the sled's velocity is constant, so the net force is zero and the horizontal forces balance.",
+       "evidence": "Response sets the horizontal net force to zero (constant velocity) and finds friction = 40 N from the rope's horizontal component.",
+       "fix": "Constant velocity means zero net force; balance the rope's horizontal component, T cos θ, against friction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Normal force magnitude = 300 N − 50 N × sin 37° = 300 − 30 = 270 N, from balancing the vertical forces.",
+       "evidence": "Response sets the vertical net force to zero, including the rope's upward component of 30 N, and finds the normal force = 270 N.",
+       "fix": "Include the rope's upward component when balancing vertical forces; the normal force equals 300 N minus T sin θ, not 300 N.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For Situation 2, describe what happens after t = 0 to the east component and to the north component of the puck's velocity. Justify your answer.",
+     "criteria": [
+      {
+       "text": "The east component of velocity stays constant at 3.0 m/s, because there is no east–west force on the puck, so the forces are balanced in that direction.",
+       "evidence": "Response states the east component remains 3.0 m/s (unchanged) and justifies it with zero net force in the east–west direction.",
+       "fix": "Treat each direction separately: if forces along a direction are balanced, the velocity component along that direction stays constant.",
+       "accepted_variants": [
+        "east component unchanged at 3.0 m/s"
+       ]
+      },
+      {
+       "text": "The north component of velocity changes, increasing from zero in the northward direction, because the wind's force makes the net force northward, unbalanced in that direction.",
+       "evidence": "Response states the north component of velocity changes (grows from zero, directed north) and justifies it with the unbalanced northward force.",
+       "fix": "Velocity changes only in the direction of the unbalanced force; identify that direction and state that component changes.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For Situation 3, is the bus an inertial reference frame? Justify your answer using Newton's first law.",
+     "criteria": [
+      {
+       "text": "No: in the bus's frame the ice block's velocity changes (it starts moving toward the back) even though the net force on it is zero, so an observer in the bus would not verify Newton's first law, and the bus is not an inertial frame.",
+       "evidence": "Response says the bus is not inertial and justifies it by noting the block accelerates relative to the bus while the net force on it is zero, contradicting Newton's first law.",
+       "fix": "Test a frame by asking whether objects with zero net force keep constant velocity there; if not, the frame is noninertial.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The sled moves at constant velocity, so by Newton's first law the net force on it is zero.\nHorizontal: the rope's horizontal component is 50 N × 0.80 = 40 N east, so the friction force has magnitude 40 N (directed west).\nVertical: the rope's vertical component is 50 N × 0.60 = 30 N up. F_N + 30 N − 300 N = 0, so the normal force has magnitude 270 N.\n\n(b) After t = 0 there is still no force on the puck in the east–west direction, so the forces in that direction are balanced and the east component of velocity stays constant at 3.0 m/s. The wind's force makes the net force point north, so the forces are unbalanced in that direction and the north component of velocity changes: it increases from zero, directed north.\n\n(c) No. The net force on the ice block is zero: the vertical forces balance and no horizontal force is exerted on it. Yet an observer in the bus sees the block's velocity change as it starts sliding toward the back. Newton's first law says an object with zero net force keeps a constant velocity, so this observer would not verify the first law. The speeding-up bus is therefore not an inertial reference frame.",
+   "verification_python": "import math\nT=50;W=300;s=0.60;c=0.80\nassert abs(s**2+c**2-1)<1e-12\nassert abs(math.sin(math.radians(37))-s)<0.01\nassert abs(math.cos(math.radians(37))-c)<0.01\nfric=T*c\nassert abs(fric-40)<1e-9\nup=T*s\nassert abs(up-30)<1e-9\nN=W-up\nassert abs(N-270)<1e-9\nassert abs(N+up-W)<1e-9\nv_east=3.0\nF_east=0\nassert F_east==0 and v_east==3.0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.853270Z"
+ }
 }

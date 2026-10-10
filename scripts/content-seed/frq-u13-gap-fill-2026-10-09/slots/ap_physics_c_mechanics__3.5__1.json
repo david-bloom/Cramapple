@@ -11,7 +11,65 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Instantaneous and Average Power of a Constant Force",
+   "calculator": "permitted",
+   "stimulus": "A 2.0 kg block is at rest on a horizontal, frictionless surface at time t = 0. Starting at t = 0, a constant horizontal force of 6.0 N is exerted on the block. No other horizontal forces are exerted on the block.",
+   "parts": [
+    {
+     "prompt": "Derive an expression for the instantaneous power delivered to the block by the 6.0 N force as a function of time t.",
+     "criteria": [
+      {
+       "text": "The block's speed is v = (F/m)t = 3.0t, so P = Fv = (6.0)(3.0t) = 18t, in watts with t in seconds.",
+       "evidence": "Response finds v(t) = 3.0t m/s and multiplies by 6.0 N, or differentiates the work W(t) = 9.0t², to obtain P = 18t W.",
+       "fix": "For a force parallel to the velocity, instantaneous power is force times current speed; first find the speed as a function of time.",
+       "accepted_variants": [
+        "P = 18t W",
+        "P(t) = 18t"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the work done on the block by the force from t = 0 to t = 4.0 s, and the average power delivered by the force during that interval.",
+     "criteria": [
+      {
+       "text": "W = 144 J, from ΔK = ½(2.0 kg)(12 m/s)² or from Fd = (6.0 N)(24 m).",
+       "evidence": "Response obtains 144 J using the work–energy theorem with v(4.0 s) = 12 m/s, or force times the 24 m displacement, or the integral of P(t).",
+       "fix": "Find the speed or the displacement at t = 4.0 s, then use ΔK = ½mv² or W = Fd for the work done.",
+       "accepted_variants": [
+        "1.4 × 10² J"
+       ]
+      },
+      {
+       "text": "P_avg = W/Δt = (144 J)/(4.0 s) = 36 W.",
+       "evidence": "Response divides its total work by 4.0 s to obtain 36 W, consistent with its own work value.",
+       "fix": "Average power is the total work divided by the time interval, not the instantaneous power at the end of the interval.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the instantaneous power at t = 4.0 s, and explain why it differs from the average power you found in part (b).",
+     "criteria": [
+      {
+       "text": "P(4.0 s) = 18(4.0) = 72 W, greater than 36 W because the speed, and so the power Fv, increases steadily with time, so the value at the end of the interval exceeds the average over it.",
+       "evidence": "Response gives 72 W and explains that the power grows as the block speeds up, so the end-of-interval value is larger than the average.",
+       "fix": "Evaluate P = Fv at the requested instant, then compare: when speed rises during the interval, the final power exceeds the average.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) a = F/m = (6.0 N)/(2.0 kg) = 3.0 m/s², so, starting from rest, v(t) = 3.0t (in m/s). The force is parallel to the velocity, so\nP(t) = Fv = (6.0 N)(3.0t) = 18t, in watts with t in seconds.\n(Equivalently, W(t) = ΔK = ½(2.0)(3.0t)² = 9.0t² J, and P = dW/dt = 18t W.)\n\n(b) At t = 4.0 s, v = 3.0(4.0) = 12 m/s, so W = ΔK = ½(2.0 kg)(12 m/s)² − 0 = 144 J.\n(Check: d = ½(3.0 m/s²)(4.0 s)² = 24 m, and Fd = (6.0 N)(24 m) = 144 J.)\nP_avg = W/Δt = (144 J)/(4.0 s) = 36 W.\n\n(c) P(4.0 s) = 18(4.0) = 72 W. This is greater than the average power of 36 W because the block speeds up steadily, so the power P = Fv grows in proportion to time, from 0 at t = 0 to 72 W at t = 4.0 s. The average over the interval is therefore smaller than the final value; because P increases linearly, the average is exactly half of 72 W.",
+   "verification_python": "import sympy as sp\nt = sp.symbols('t', nonnegative=True)\nF, m = 6, 2\na = sp.Rational(F, m)\nassert a == 3\nv = a*t\nP = F*v\nassert sp.simplify(P - 18*t) == 0\nWt = sp.Rational(1,2)*m*v**2\nassert sp.simplify(Wt - 9*t**2) == 0\nassert sp.simplify(sp.diff(Wt, t) - P) == 0\nv4 = v.subs(t, 4)\nassert v4 == 12\nW = sp.Rational(1,2)*m*v4**2\nassert W == 144\nd = sp.Rational(1,2)*a*4**2\nassert d == 24 and F*d == 144\nassert sp.integrate(P, (t, 0, 4)) == 144\nPavg = W/4\nassert Pavg == 36\nP4 = P.subs(t, 4)\nassert P4 == 72\nassert P4 == 2*Pavg\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873213Z"
+ }
 }

@@ -11,7 +11,87 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Amplitude, Midline, Period and Symmetry of Sinusoidal Functions",
+   "calculator": "not_permitted",
+   "stimulus": "Let h be a sinusoidal function of x. The graph of h has a maximum value of 14 at x = 3, and the next maximum after x = 3 occurs at x = 11. The minimum value of h is 2.\n\nSeparately, let a be a real number such that sin a = 0.6 and cos a = 0.8.",
+   "parts": [
+    {
+     "prompt": "Find the amplitude of h and the equation of the midline of the graph of h. Show the work that leads to your answers.",
+     "criteria": [
+      {
+       "text": "Amplitude = (14 − 2)/2 = 6, half the difference between the maximum and minimum values.",
+       "evidence": "Response computes half of the difference between 14 and 2 to get an amplitude of 6.",
+       "fix": "Amplitude is half of (maximum − minimum); do not use the maximum value itself as the amplitude.",
+       "accepted_variants": [
+        "6"
+       ]
+      },
+      {
+       "text": "Midline y = (14 + 2)/2 = 8, the average of the maximum and minimum values.",
+       "evidence": "Response averages 14 and 2 to get the midline y = 8.",
+       "fix": "Find the midline as the average of the maximum and minimum values and write it as an equation y = constant.",
+       "accepted_variants": [
+        "y = 8"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the period and the frequency of h. Explain how the frequency is related to the period.",
+     "criteria": [
+      {
+       "text": "Period = 11 − 3 = 8, the horizontal distance between consecutive maximum points, where the pattern of h repeats.",
+       "evidence": "Response gives a period of 8, computed as the distance between the consecutive maxima at x = 3 and x = 11.",
+       "fix": "Measure the period as the horizontal distance from one maximum to the next maximum, not from a maximum to a minimum.",
+       "accepted_variants": [
+        "8"
+       ]
+      },
+      {
+       "text": "Frequency = 1/8, because the period and frequency of a sinusoidal function are reciprocals.",
+       "evidence": "Response gives frequency 1/8 and states that frequency is the reciprocal of the period (one-eighth of a cycle per unit of x).",
+       "fix": "Take the reciprocal of the period to get the frequency, the number of cycles completed per unit of input.",
+       "accepted_variants": [
+        "1/8",
+        "0.125"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the values of sin(−a) and cos(−a). Justify each answer using the symmetry of the graphs of y = sin θ and y = cos θ.",
+     "criteria": [
+      {
+       "text": "sin(−a) = −0.6, because the graph of y = sin θ has rotational symmetry about the origin (sine is odd), so sin(−a) = −sin a.",
+       "evidence": "Response gives sin(−a) = −0.6 and cites that sine is an odd function or that its graph is symmetric about the origin.",
+       "fix": "Use the odd symmetry of sine, sin(−θ) = −sin θ, which comes from the graph's rotational symmetry about the origin.",
+       "accepted_variants": [
+        "−0.6",
+        "−3/5"
+       ]
+      },
+      {
+       "text": "cos(−a) = 0.8, because the graph of y = cos θ has reflective symmetry over the y-axis (cosine is even), so cos(−a) = cos a.",
+       "evidence": "Response gives cos(−a) = 0.8 and cites that cosine is an even function or that its graph is symmetric over the y-axis.",
+       "fix": "Use the even symmetry of cosine, cos(−θ) = cos θ, which comes from the graph's reflection symmetry over the y-axis.",
+       "accepted_variants": [
+        "0.8",
+        "4/5"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The amplitude is half the difference between the maximum and minimum values: (14 − 2)/2 = 6.\nThe midline is the average of the maximum and minimum values: (14 + 2)/2 = 8, so the midline is y = 8.\n\n(b) Consecutive maxima occur at x = 3 and x = 11, and the pattern of h repeats from one maximum to the next, so the period is 11 − 3 = 8.\nThe period and frequency of a sinusoidal function are reciprocals, so the frequency is 1/8: h completes one-eighth of a cycle per unit of x.\n\n(c) The graph of y = sin θ has rotational symmetry about the origin, so sine is an odd function: sin(−a) = −sin a = −0.6.\nThe graph of y = cos θ has reflective symmetry over the y-axis, so cosine is an even function: cos(−a) = cos a = 0.8.",
+   "verification_python": "import math\nfrom fractions import Fraction as F\nmx, mn = 14, 2\namp = F(mx - mn, 2); mid = F(mx + mn, 2)\nassert amp == 6 and mid == 8\nperiod = 11 - 3\nassert period == 8 and F(1, period) == F(1, 8) and float(F(1, 8)) == 0.125\n# a concrete sinusoid with these features exists\nh = lambda x: 6*math.cos(2*math.pi/8*(x - 3)) + 8\nassert abs(h(3) - 14) < 1e-12 and abs(h(11) - 14) < 1e-12 and abs(h(7) - 2) < 1e-12\nassert all(h(3 + k/100) < 14 for k in range(1, 800))\n# (c)\nassert abs(0.6**2 + 0.8**2 - 1) < 1e-12\na = math.atan2(0.6, 0.8)\nassert abs(math.sin(a) - 0.6) < 1e-12 and abs(math.cos(a) - 0.8) < 1e-12\nassert abs(math.sin(-a) + 0.6) < 1e-12 and abs(math.cos(-a) - 0.8) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.878307Z"
+ }
 }

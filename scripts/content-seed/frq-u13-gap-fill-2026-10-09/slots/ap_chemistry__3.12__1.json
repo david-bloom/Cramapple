@@ -11,7 +11,69 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Energy of Photons Emitted by a Mercury Lamp",
+   "calculator": "permitted",
+   "stimulus": "A mercury vapor lamp emits ultraviolet light of wavelength 253.7 nm and violet light of wavelength 435.8 nm. Each photon is emitted when a mercury atom changes from a higher electronic energy level to a lower one. Use c = 2.998 × 10⁸ m/s, h = 6.626 × 10⁻³⁴ J·s, and 1 nm = 1 × 10⁻⁹ m.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+   "parts": [
+    {
+     "prompt": "Calculate the frequency of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a frequency of 1.182 × 10¹⁵ s⁻¹.",
+       "evidence": "Response converts 253.7 nm to 2.537 × 10⁻⁷ m, uses c = λν, and reports 1.182 × 10¹⁵ s⁻¹.",
+       "fix": "Convert the wavelength to meters first, then divide the speed of light by the wavelength: ν = c/λ.",
+       "accepted_variants": [
+        "1.182 × 10¹⁵ Hz"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the energy of one photon of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a photon energy of 7.830 × 10⁻¹⁹ J.",
+       "evidence": "Response uses E = hν with the frequency from the previous part (or E = hc/λ) and reports 7.830 × 10⁻¹⁹ J per photon; a last-digit difference caused by using a rounded frequency is acceptable.",
+       "fix": "Multiply Planck's constant by the frequency, E = hν, and check that J·s × s⁻¹ leaves joules.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "When a mercury atom emits one photon of the 253.7 nm light, does the energy of the atom increase or decrease, and by how much?",
+     "criteria": [
+      {
+       "text": "States that the energy of the atom decreases by 7.830 × 10⁻¹⁹ J, the energy of the emitted photon.",
+       "evidence": "Response says the atom's energy decreases and gives the amount of the decrease as equal to the photon energy found in the previous part.",
+       "fix": "In emission the atom loses exactly the photon's energy; say the energy decreases and give the photon energy as the amount.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Is the energy of one photon of the 435.8 nm light greater than, less than, or equal to the energy of one photon of the 253.7 nm light? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the 435.8 nm photon has less energy because its longer wavelength corresponds to a lower frequency (c = λν), and photon energy is proportional to frequency (E = hν).",
+       "evidence": "Response answers less than and justifies it either by reasoning that a longer wavelength means a lower frequency and therefore a lower energy, or by calculating 4.558 × 10⁻¹⁹ J and comparing it with the 253.7 nm photon energy.",
+       "fix": "Combine c = λν and E = hν: photon energy is inversely proportional to wavelength, so a longer wavelength means less energy.",
+       "accepted_variants": [
+        "less than"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) λ = 253.7 nm × (1 × 10⁻⁹ m/nm) = 2.537 × 10⁻⁷ m. ν = c/λ = (2.998 × 10⁸ m/s) ÷ (2.537 × 10⁻⁷ m) = 1.182 × 10¹⁵ s⁻¹.\n\n(b) E = hν = (6.626 × 10⁻³⁴ J·s)(1.1817 × 10¹⁵ s⁻¹) = 7.830 × 10⁻¹⁹ J per photon.\n\n(c) The energy of the mercury atom decreases. When the atom emits the photon, its energy decreases by an amount equal to the energy of the photon, 7.830 × 10⁻¹⁹ J.\n\n(d) Less than. The 435.8 nm light has a longer wavelength than the 253.7 nm light. Because c = λν, a longer wavelength corresponds to a lower frequency, and because E = hν, a lower frequency means a lower photon energy. (Calculation check: E = hc/λ = 4.558 × 10⁻¹⁹ J, which is less than 7.830 × 10⁻¹⁹ J.)",
+   "verification_python": "c=2.998e8\nh=6.626e-34\nlam1=253.7e-9\nlam2=435.8e-9\nnu=c/lam1\nassert abs(nu-1.182e15)<0.0005e15\nassert abs(nu-1.1817e15)<0.00005e15\nE=h*nu\nassert abs(E-7.830e-19)<0.0005e-19\nassert abs(h*1.182e15-7.832e-19)<0.0005e-19\nE2=h*c/lam2\nassert abs(E2-4.558e-19)<0.0005e-19\nassert E2<E and lam2>lam1\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.849951Z"
+ }
 }

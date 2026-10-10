@@ -11,7 +11,80 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Charging by Friction, Then by Induction with Grounding",
+   "calculator": "permitted",
+   "stimulus": "A rubber rod and a piece of wool are both initially electrically neutral. The rod is rubbed with the wool, and afterward the rod has a net charge of −4.8 × 10⁻⁹ C. Assume charge was transferred only between the rod and the wool. The elementary charge is e = 1.6 × 10⁻¹⁹ C.\n\nSeparately, an initially neutral metal sphere sits on an insulating stand. A thin wire with a switch connects the sphere to Earth (ground). The switch is initially open.",
+   "parts": [
+    {
+     "prompt": "Determine the number of electrons transferred during rubbing and state whether they moved from the wool to the rod or from the rod to the wool. Then determine the net charge on the wool.",
+     "criteria": [
+      {
+       "text": "Finds that 3.0 × 10¹⁰ electrons were transferred from the wool to the rod.",
+       "evidence": "Response divides 4.8 × 10⁻⁹ C by 1.6 × 10⁻¹⁹ C to get 3.0 × 10¹⁰ electrons and states the electrons moved from the wool to the rod (the rod gained negative charge).",
+       "fix": "Divide the charge magnitude by e, then note that a negative object has gained electrons from the other object.",
+       "accepted_variants": [
+        "3 × 10¹⁰ electrons",
+        "30 billion electrons"
+       ]
+      },
+      {
+       "text": "States that the wool's net charge is +4.8 × 10⁻⁹ C because charge is conserved: the wool lost exactly the electrons the rod gained.",
+       "evidence": "Response gives +4.8 × 10⁻⁹ C for the wool and justifies it with conservation of charge (total charge of rod plus wool stays zero).",
+       "fix": "Apply conservation of charge: two objects that start neutral and only exchange charge end with equal and opposite charges.",
+       "accepted_variants": [
+        "+4.8 nC",
+        "4.8 × 10⁻⁹ C positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "With the switch open, the negatively charged rod is brought near the left side of the metal sphere without touching it. Describe how charge is distributed on the sphere, and state the sphere's net charge.",
+     "criteria": [
+      {
+       "text": "States that electrons in the sphere are repelled toward the right side, leaving the left side (near the rod) positive and the right side negative, while the net charge remains zero because no charge was transferred.",
+       "evidence": "Response identifies positive charge on the side nearest the rod, negative charge on the far side, and a net charge of zero.",
+       "fix": "For induction without contact, describe both sides of the object and remember its net charge stays the same unless charge is transferred.",
+       "accepted_variants": [
+        "near side positive, far side negative, net zero"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "With the rod still held near the sphere, the switch is closed. Next the switch is opened, and only after that is the rod taken away. State the direction in which electrons move through the wire while the switch is closed, and state the sign of the sphere's final net charge. Justify your answers.",
+     "criteria": [
+      {
+       "text": "States that electrons move from the sphere through the wire to Earth, because they are repelled by the negatively charged rod.",
+       "evidence": "Response gives the direction as sphere to Earth (out of the sphere) and attributes it to repulsion by the negative rod.",
+       "fix": "Ask which way the nearby charge pushes electrons; grounding gives them a path to move in that direction.",
+       "accepted_variants": [
+        "from the sphere to the ground",
+        "out of the sphere"
+       ]
+      },
+      {
+       "text": "States that the sphere's final net charge is positive, because it lost electrons and opening the switch before removing the rod prevents any charge from returning.",
+       "evidence": "Response answers positive and explains that the sphere has fewer electrons than protons and that, once the switch is open, its net charge cannot change.",
+       "fix": "Track electrons that left the system: losing electrons makes an object positive, and its net charge stays fixed once the ground path is broken.",
+       "accepted_variants": [
+        "positive",
+        "+"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Number of electrons = |q|/e = (4.8 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 3.0 × 10¹⁰ electrons. The rod became negative, so it gained electrons: the electrons moved from the wool to the rod.\nCharge is conserved and was transferred only between the rod and the wool, which started neutral, so the wool's net charge is +4.8 × 10⁻⁹ C.\n\n(b) The negative rod repels electrons in the metal sphere, so electrons shift to the right side, away from the rod. The left side (nearest the rod) is left with positive charge and the right side has negative charge. No charge has been transferred to or from the sphere, so its net charge is still zero; it is only polarized.\n\n(c) With the switch closed, electrons are repelled by the negative rod and move from the sphere through the wire into Earth.\nThe sphere has lost electrons, so it has more protons than electrons. Because the switch is opened while the rod is still nearby, those electrons cannot return, and the net charge of the sphere stays constant after that. The sphere's final net charge is positive.",
+   "verification_python": "from fractions import Fraction\nq_rod=Fraction(-48,10)*Fraction(1,10**9)\ne=Fraction(16,10)*Fraction(1,10**19)\nn=abs(q_rod)/e\nassert n==3*10**10\nq_wool=-q_rod\nassert q_wool+q_rod==0\nassert q_wool==Fraction(48,10)/10**9\n# sphere: starts neutral, loses electrons -> positive\nelectrons_lost=1\nfinal_sign=+1 if electrons_lost>0 else 0\nassert final_sign==1\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.866269Z"
+ }
 }

@@ -11,7 +11,76 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Current, Charge Carriers, and Conventional Current Direction",
+   "calculator": "permitted",
+   "stimulus": "A copper wire is part of a closed circuit that contains a battery and a heating element. While the circuit is closed, charge passes through a cross section of the wire at a steady rate, and a total of 360 C passes through that cross section in 4.0 minutes. The conventional current in this wire is directed from end X of the wire toward end Y. The elementary charge is e = 1.6 × 10⁻¹⁹ C.",
+   "parts": [
+    {
+     "prompt": "Calculate the current in the wire.",
+     "criteria": [
+      {
+       "text": "Calculates I = Δq/Δt = 360 C / 240 s = 1.5 A.",
+       "evidence": "Response converts 4.0 minutes to 240 s and divides the charge by the time to obtain 1.5 A.",
+       "fix": "Convert time to seconds before dividing charge by time, since 1 A means 1 C per second.",
+       "accepted_variants": [
+        "1.5 A",
+        "1.5 C/s"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the number of electrons that pass through a cross section of the wire each second.",
+     "criteria": [
+      {
+       "text": "Finds about 9.4 × 10¹⁸ electrons per second.",
+       "evidence": "Response divides the charge per second (1.5 C/s) by e = 1.6 × 10⁻¹⁹ C to obtain about 9.4 × 10¹⁸ electrons each second.",
+       "fix": "The current gives coulombs per second; divide by the charge of one electron to count electrons per second.",
+       "accepted_variants": [
+        "9.375 × 10¹⁸",
+        "9.4 × 10¹⁸"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the direction in which the electrons in the wire actually move, and explain how this is related to the direction of the conventional current.",
+     "criteria": [
+      {
+       "text": "States that electrons move from Y toward X, opposite the conventional current, because conventional current is the direction positive charge would move and electrons are negative.",
+       "evidence": "Response gives the electron motion as from end Y to end X and explains that conventional current is defined by positive charge motion, so negative carriers move the opposite way.",
+       "fix": "Remember conventional current follows positive charge; in metal wires the moving carriers are electrons, so reverse the stated direction.",
+       "accepted_variants": [
+        "from Y to X"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The circuit is then opened, and the current in the wire becomes zero. A student claims that every electron in the wire is now at rest. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect: zero current means zero net motion of charge carriers through a cross section, but individual electrons still move with nonzero speeds in random directions.",
+       "evidence": "Response rejects the claim and distinguishes zero net (average) motion of electrons from individual electrons having zero speed.",
+       "fix": "Separate net flow from individual motion: zero current only means equal numbers of carriers cross a section each way.",
+       "accepted_variants": [
+        "incorrect",
+        "the claim is wrong"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Δt = 4.0 min × 60 s/min = 240 s. I = Δq/Δt = 360 C / 240 s = 1.5 A.\n\n(b) Each second 1.5 C passes a cross section. Number of electrons per second = (1.5 C/s)/(1.6 × 10⁻¹⁹ C) ≈ 9.4 × 10¹⁸ electrons per second.\n\n(c) The electrons move from Y toward X. Conventional current is defined as the direction in which positive charge would move. Electrons are negative, so they actually move opposite to the conventional current, which points from X to Y.\n\n(d) The claim is incorrect. Zero current means that the net motion of the charge carriers through any cross section is zero, so there is no net flow of charge. Individual electrons still move with nonzero speeds in random directions; their motions simply produce no net transfer of charge.",
+   "verification_python": "from fractions import Fraction\nq=360; t=4.0*60\nI=q/t\nassert t==240\nassert abs(I-1.5)<1e-12\nn=I/1.6e-19\nassert abs(n-9.375e18)<1e12\nassert round(n/1e18,1)==9.4\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.866902Z"
+ }
 }

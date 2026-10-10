@@ -291,6 +291,7 @@ async function runSlot(IN, batch, slot, n, checkers, rounds, siblings) {
     st.candidates.push(c); st.status = ok ? 'accepted' : 'given_flagged'; if (ok) st.accepted_round = c.round; writeJson(f, st); return st;
   }
   if (st.status !== 'open') return st;
+  if (flag('no-author')) return st; // Product Owner 2026-10-10: Claude in session authors; never pay a gateway model to author
   while (st.candidates.length < rounds) {
     const r = st.candidates.length + 1; const tag = `${id}:r${r}`;
     const c = { round: r, at: new Date().toISOString() };

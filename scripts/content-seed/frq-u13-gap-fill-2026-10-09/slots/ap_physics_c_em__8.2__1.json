@@ -11,7 +11,60 @@
   "need": 1
  },
  "n": 1,
- "status": "open",
+ "status": "pending_checks",
  "candidates": [],
- "removed_gateway_credit_failures": 3
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Tracking Charge When a Rod Is Rubbed and Touched to a Sphere",
+   "calculator": "permitted",
+   "stimulus": "A plastic rod and a wool cloth are both initially electrically neutral. The rod is rubbed with the cloth, and afterward the rod has a net charge of −8.0 nC. The elementary charge is e = 1.6 × 10⁻¹⁹ C. Assume that no charge is transferred to or from the air or the person's hands.",
+   "parts": [
+    {
+     "prompt": "Determine the net charge on the wool cloth after rubbing. Then calculate the number of electrons transferred, and state the direction in which they moved.",
+     "criteria": [
+      {
+       "text": "The cloth has +8.0 nC, because charge is conserved: the rod–cloth system started neutral, so its total charge remains zero.",
+       "evidence": "Response gives +8.0 nC for the cloth and justifies it by conservation of charge for the isolated rod–cloth system.",
+       "fix": "Treat the rod and cloth as one isolated system; their charges must add up to the system's starting charge, here zero.",
+       "accepted_variants": []
+      },
+      {
+       "text": "N = (8.0 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 5.0 × 10¹⁰ electrons, which moved from the cloth to the rod.",
+       "evidence": "Response obtains 5.0 × 10¹⁰ electrons and states that they moved from the wool cloth to the rod.",
+       "fix": "Divide the charge magnitude by e, and assign the direction by noting that the negatively charged object gained electrons.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The charged rod is brought close to, but does not touch, a neutral metal sphere on an insulating stand. Describe the distribution of charge on the sphere, and state the sphere's net charge, while the rod is nearby.",
+     "criteria": [
+      {
+       "text": "Free electrons in the sphere are repelled by the negative rod, so the side nearest the rod becomes positive and the far side negative (induced charge separation), while the net charge stays zero because no charge is transferred.",
+       "evidence": "Response states that the near side is positive and the far side negative, and that the sphere's net charge remains zero because no charge enters or leaves it.",
+       "fix": "When a charged object only comes near a conductor, describe electrons shifting within it; the net charge changes only if charge is transferred.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The rod is then touched to the metal sphere and removed. Afterward, the rod has a net charge of −5.0 nC. Assuming the rod and sphere exchange charge only with each other, determine the net charge on the sphere.",
+     "criteria": [
+      {
+       "text": "Sphere charge = −8.0 nC − (−5.0 nC) = −3.0 nC, because the rod–sphere system's total charge of −8.0 nC is conserved during contact.",
+       "evidence": "Response gives −3.0 nC for the sphere using conservation of charge for the rod–sphere system.",
+       "fix": "Total charge before contact equals total charge after; subtract the rod's final charge from the system's initial total to get the sphere's.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The rod and cloth together form an isolated system that started with zero net charge. Charge is conserved, so after rubbing the cloth must carry +8.0 nC, keeping the total at zero.\nNumber of electrons: N = (8.0 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 5.0 × 10¹⁰ electrons. The rod became negative, so these electrons moved from the wool cloth to the rod.\n\n(b) The metal sphere contains free electrons. The negative rod repels them, so they shift toward the side of the sphere far from the rod. The side near the rod becomes positively charged and the far side becomes negatively charged; this is induced charge separation (polarization). No charge is transferred to or from the sphere, so its net charge remains zero.\n\n(c) The total charge of the rod–sphere system before contact is −8.0 nC + 0 = −8.0 nC. Charge is conserved, so after contact the sphere's charge is −8.0 nC − (−5.0 nC) = −3.0 nC. Electrons carrying 3.0 nC of negative charge moved from the rod to the sphere.",
+   "verification_python": "from fractions import Fraction as Fr\nrod = Fr(-8)\ncloth = 0 - rod\nassert cloth == 8\nN = 8.0e-9/1.6e-19\nassert abs(N - 5.0e10) < 1e3\nsphere_b = 0\nassert sphere_b == 0\nsphere_c = (rod + 0) - Fr(-5)\nassert sphere_c == -3\nassert rod + 0 == -8\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873633Z"
+ }
 }
