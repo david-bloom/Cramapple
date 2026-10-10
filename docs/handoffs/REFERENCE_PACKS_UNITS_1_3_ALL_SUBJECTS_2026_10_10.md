@@ -1,8 +1,9 @@
 # Reference Packs, Units 1-3, All Ten Subjects — Session Record
 
 **STATUS:** Development complete for 25 new unit batches. Production untouched and still a Hard Gate.
-After a Product-Owner-directed correction pass, 39 of the 50 escalations are corrected and loaded, 7 are
-rejected as inadmissible, and 4 plus one Calculus BC decision remain open. See section 11.
+All 50 escalations are dispositioned: 43 corrected and loaded, 7 rejected as having no LO/EK basis (sections 11
+and 12). Only the Calculus BC decision remains open. Development is shared and another session loaded into it
+mid-run; see section 13 for what is this session's and what is not.
 
 **DATE:** 2026-10-10 (America/New_York)
 
@@ -379,3 +380,51 @@ distinguishable in the database from a stateless re-extraction.
 ### Cost
 
 The correction pass added 153 checker calls and $1.22, taking the session total to 4,165 calls and **$39.02**.
+
+## 12. Product Owner ruling on the last four escalations (David, 2026-10-10)
+
+David ruled: **keep 1.3, 2.7 and 1.3 as owners, and 10.7 for Physics 2.** All four were loaded with
+`load.py --po-accept`, so each row's `source_note` carries the override and its reason.
+
+| Candidate | Entry | Loaded as |
+|---|---|---|
+| `ap_physics_1-u1-r3-001` | Kinematic equation v = v0 + at | owner **1.3**, topic_codes 1.3 / 1.1 / 1.5 |
+| `ap_physics_1-u2-r3-005` | Normal force | owner **2.7**, topic_codes 2.7 / 2.6 / 2.9 |
+| `ap_precalculus-u1-r3-001` | Concavity from changing average rates of change | owner **1.3**, topic_codes 1.3 / 1.4 |
+| `ap_physics_2-u10-r4-003` | Change in the electric potential energy of the object-field system | owner **10.7**, topic_codes 10.7 |
+
+This settles the ownership principle for later batches: **the topic whose objective requires the entry owns
+it**, not the earliest topic that mentions the idea. That is now ruled three times (`DECISION-0107` rule 2, the
+AP Chemistry Unit 1 periodic-trends call, and this one), and it is worth promoting into
+`MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md` so the next session does not re-escalate it.
+
+For Physics 2 the 10.5 reuse code was dropped rather than kept, because `topic_codes` means the owner plus
+*later* topics that reuse an entry, and 10.5 precedes 10.7. Checked for a serving gap before loading: topic 10.5
+already carries its own `Electric potential difference` entry (10.5.A.3, codes 10.5 / 10.7) and returns 11
+reference entries, so a student on 10.5 still gets the relationship.
+
+**All 50 escalations are now dispositioned: 43 corrected and loaded, 7 rejected as having no LO/EK basis.**
+
+## 13. Development is a shared database, and another session loaded into it mid-run
+
+The entry counts in sections 1 and 11 were accurate when measured, but Development has since moved for reasons
+unrelated to this session. Checked by `created_at` and the `batch=` tag in `source_note`:
+
+| Loaded | Rows | Batch | Whose |
+|---|---:|---|---|
+| 2026-10-09 00:55 | 102 | `task0067-reference-pilot-2026-10-09` | earlier pilot |
+| 2026-10-10 03:23 | 26 | `task0067-chem-u1-2026-10-09` | PR #399's branch, **including the 2 escalations this session reported as not yet applied** |
+| 2026-10-10 04:33-05:32 | 829 | the nine `ap-*-reference-*-2026-10-10` batches | **this session** |
+| 2026-10-10 11:49 | 119 | `task0067-chem-u5-u9-2026-10-10` | another session, Chemistry units 5-9 |
+
+So Development holds **1,076 published entries and 13 hooks**, of which **829 entries are this session's work**
+(786 initial + 39 corrected + 4 ruled). The AP Chemistry Unit 1 escalations were applied by whoever owns that
+batch directory, which this session did not touch. The Chemistry units 5-9 batch does not exist in this
+session's working tree at all.
+
+Two consequences worth acting on:
+
+1. **Any Production approval must name batches, not a row count.** A count measured in a shared Development
+   database is not reproducible, and the 1,076 figure includes 247 rows from batches outside this branch.
+2. All 8 QA checks still pass across the whole table, so the concurrent batch has not broken the invariants
+   this session's guard protects. That is a check, not an endorsement: those 119 rows have not been reviewed here.

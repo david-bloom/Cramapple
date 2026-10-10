@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Last Four Reference-Row Escalations Ruled and Loaded; Development Found to Be Shared Mid-Run (2026-10-10): David ruled owners 1.3, 2.7, 1.3 and 10.7, loaded via `load.py --po-accept`, so all 50 escalations are now dispositioned (43 corrected and loaded, 7 rejected for having no LO/EK basis). The ownership principle is now ruled three times and should be written into the production protocol. Separately, Development is shared: another session loaded PR #399's 2 Chemistry Unit 1 escalations and a new Chemistry units 5-9 batch (119 rows) during this run, so Development's 1,076 entries include 247 rows from outside this branch and only 829 are this session's. A Production approval must therefore name batches, not a row count. All 8 QA checks still pass. Production untouched.
 - Escalation Correction Pass: 39 of 50 Escalated Reference Rows Corrected, Re-Checked and Loaded (2026-10-10): David directed the session to correct the escalations itself rather than regenerate them (a recorded deviation from the protocol's no-hand-edit rule, under his authority over escalations). Each correction restored the CED wording the checker had identified as missing and was re-checked by both independent checkers plus the reject-only veto; 39 passed and loaded, 7 were rejected as having no LO/EK basis (boundary statements, a suggested skill, exam-prep guidance), and 4 remain open — three are one ownership question David has already ruled on twice, and one is a genuine deadlock between the two checker families. Development: 951 entries, 11 hooks; all 8 QA checks ok. The earlier count of 45 escalations was wrong and is corrected to 50. Production untouched.
 - Reference Packs Built for Units 1-3 of Nine Subjects: 786 Entries + 6 Hooks Loaded to Development, Controls 150/150, $37.80 (2026-10-10): David scoped units 1-3 for all subjects, Development only, and supplied the four missing Physics CEDs that had blocked Physics 1 / 2 / C Mechanics / C E&M; 25 unit batches run through the two-checker plus reject-only Haiku veto pipeline with six CED-verified controls each (6/6 every batch). Development now holds 912 entries and 10 hooks; all 8 QA checks ok and RPC probes correct. `load.py` gained a schema guard after one bad `topic_codes` row silently voided a whole batch load; `extract.py` now requires a caution on mnemonic hooks. Calculus BC units 1-3 left to a Product Owner call (identical taxonomy and CED to AB, re-key SQL generated not applied); 45 escalations open, grouped into three patterns. Production untouched.
 - Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented; Lovable Not Sent (2026-10-09): AP Chemistry's 91-topic inventory now carries the repeatable vocabulary/equation/memory-hook workflow, checker and control gates, Notes-vs-question projection rules, and BYOQ boundary; the compact three-pane template and `2/5`-only header are recorded in a session-close handoff. Docs and local rendering only; no app, database, Lovable, or Production change.
@@ -407,6 +408,34 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Last Four Escalations Ruled; Development Found to Be Shared Mid-Run — 2026-10-10
+
+**Ruling.** David: keep **1.3, 2.7 and 1.3** as owners, and **10.7** for Physics 2. All four loaded with
+`load.py --po-accept`, so each row's `source_note` carries the override and its reason. With these, **all 50
+escalations are dispositioned: 43 corrected and loaded, 7 rejected as having no learning-objective or
+essential-knowledge basis.**
+
+**The ownership principle is now settled and should be written down.** Three rulings now agree that the topic
+whose objective *requires* the entry owns it, not the earliest topic that merely mentions the idea
+(`DECISION-0107` rule 2, the AP Chemistry Unit 1 periodic-trends call, and this one). The checkers systematically
+prefer earliest mention, so until the protocol says otherwise every batch will keep escalating the same question.
+
+For Physics 2 the 10.5 reuse code was dropped, because `topic_codes` means the owner plus *later* reuse topics and
+10.5 precedes 10.7. Checked for a serving gap first: topic 10.5 carries its own `Electric potential difference`
+entry and still returns 11 reference entries.
+
+**Development is a shared database and moved mid-run.** While this session ran its correction pass, another
+session loaded into the same Development project: PR #399's 2 Chemistry Unit 1 escalations at 11:37 UTC (the ones
+this session had reported as not yet applied) and a new `task0067-chem-u5-u9-2026-10-10` batch of 119 rows at
+11:49-11:53 UTC, a batch directory that does not exist in this session's working tree. Attribution by `created_at`
+and the `batch=` tag: Development holds **1,076 entries and 13 hooks**, of which **829 entries are this session's**
+(786 initial + 39 corrected + 4 ruled) and 247 belong to other batches.
+
+Two consequences: a Production approval must **name batches rather than a row count**, because a count taken in a
+shared Development database is not reproducible; and the earlier 912/951 figures in this log were accurate when
+measured but are not comparable to the current total. All 8 QA checks still pass across the whole table, which
+says the concurrent batch has not broken the invariants, not that its content has been reviewed here.
+
 ## Escalation Correction Pass — 2026-10-10
 
 **Instruction.** David: correct the escalated rows in this session rather than regenerate them through the API
