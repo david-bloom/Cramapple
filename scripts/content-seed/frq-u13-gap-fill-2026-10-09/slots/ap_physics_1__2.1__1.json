@@ -11,8 +11,202 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.300Z",
+   "source": "given",
+   "item": {
+    "title": "Center of Mass of a Loaded Rectangular Frame",
+    "calculator": "permitted",
+    "stimulus": "Four small objects are fixed to the corners of a light, rigid rectangular frame of negligible mass. The frame lies flat in a horizontal plane. Positions are measured from corner A, with the x-axis along the 0.60 m side and the y-axis along the 0.40 m side. Treat each object as a particle.\n\nCorner | x (m) | y (m)\nA | 0 | 0\nB | 0.60 | 0\nC | 0.60 | 0.40\nD | 0 | 0.40\n\nArrangement 1: a 1.0 kg object is fixed at each of the four corners.\nArrangement 2: the object at corner C is replaced by a 5.0 kg object; corners A, B, and D still hold 1.0 kg objects.",
+    "parts": [
+     {
+      "prompt": "Without using the center-of-mass equation, determine the location (x, y) of the center of mass of Arrangement 1. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Locates the center of mass at (0.30 m, 0.20 m), justified because the four equal masses form a symmetric distribution, so the center of mass lies on both lines of symmetry, x = 0.30 m and y = 0.20 m, at their intersection.",
+        "evidence": "Response gives (0.30 m, 0.20 m), the center of the rectangle, and justifies it with symmetry of the equal masses (the center of mass lies on the lines of symmetry).",
+        "fix": "For equal masses placed symmetrically, find the lines of symmetry; the center of mass lies on each one, so it is where they cross.",
+        "accepted_variants": [
+         "(0.3 m, 0.2 m)",
+         "the center of the rectangle"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the x-coordinate and the y-coordinate of the center of mass of Arrangement 2.",
+      "criteria": [
+       {
+        "text": "x_cm = (1.0·0 + 1.0·0.60 + 5.0·0.60 + 1.0·0)/8.0 = 3.6/8.0 = 0.45 m.",
+        "evidence": "Response obtains 0.45 m by any valid method, for example the weighted average Σm·x/Σm over all 8.0 kg, or combining the original 4.0 kg center of mass with the added 4.0 kg mass.",
+        "fix": "Multiply each mass by its x-coordinate, add the products, then divide by the total mass of all four objects.",
+        "accepted_variants": []
+       },
+       {
+        "text": "y_cm = (1.0·0 + 1.0·0 + 5.0·0.40 + 1.0·0.40)/8.0 = 2.4/8.0 = 0.30 m.",
+        "evidence": "Response obtains 0.30 m by any valid method, for example the weighted average Σm·y/Σm over all 8.0 kg, or combining the original 4.0 kg center of mass with the added 4.0 kg mass.",
+        "fix": "Repeat the weighted average for y separately; objects on the x-axis contribute zero to the sum but still count in total mass.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The loaded frame in Arrangement 2 slides across a frictionless horizontal table without rotating. A student wants to describe how the frame moves as a whole without tracking the four objects separately. Describe how the student can model the system, including the mass of the model object and where it is located.",
+      "criteria": [
+       {
+        "text": "Models the frame and its four objects as a single object (particle) of mass 8.0 kg located at the system's center of mass, (0.45 m, 0.30 m).",
+        "evidence": "Response states the system can be treated as one object (particle) with the total mass 8.0 kg, placed at the system's center of mass (the location found in the previous part, including a consistent follow-through value).",
+        "fix": "To describe a system's overall motion, replace it with one object carrying the total mass and place it at the center of mass.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The four objects have equal masses and sit at the corners of a rectangle, so the mass distribution is symmetric about the line x = 0.30 m and about the line y = 0.20 m. The center of mass lies on every line of symmetry, so it is at their intersection: (0.30 m, 0.20 m), the center of the rectangle.\n\n(b) Total mass = 1.0 + 1.0 + 5.0 + 1.0 = 8.0 kg.\nx_cm = (1.0·0 + 1.0·0.60 + 5.0·0.60 + 1.0·0)/8.0 = 3.6/8.0 = 0.45 m.\ny_cm = (1.0·0 + 1.0·0 + 5.0·0.40 + 1.0·0.40)/8.0 = 2.4/8.0 = 0.30 m.\nThe center of mass is at (0.45 m, 0.30 m), shifted toward the heavy object at corner C.\n\n(c) The four objects are rigidly attached and move together, so their individual properties do not matter for the motion of the whole system. The student can model the system as a single object of mass 8.0 kg located at the system's center of mass, (0.45 m, 0.30 m), and describe the motion of that one object.",
+    "verification_python": "from fractions import Fraction as F\npts={'A':(F(0),F(0)),'B':(F(6,10),F(0)),'C':(F(6,10),F(4,10)),'D':(F(0),F(4,10))}\nm1={'A':F(1),'B':F(1),'C':F(1),'D':F(1)}\nM1=sum(m1.values())\nx1=sum(m1[k]*pts[k][0] for k in pts)/M1\ny1=sum(m1[k]*pts[k][1] for k in pts)/M1\nassert x1==F(3,10) and y1==F(2,10)\nm2={'A':F(1),'B':F(1),'C':F(5),'D':F(1)}\nM2=sum(m2.values())\nassert M2==8\nsx=sum(m2[k]*pts[k][0] for k in pts)\nsy=sum(m2[k]*pts[k][1] for k in pts)\nassert sx==F(36,10) and sy==F(24,10)\nassert sx/M2==F(45,100)\nassert sy/M2==F(30,100)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -326,5 +520,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

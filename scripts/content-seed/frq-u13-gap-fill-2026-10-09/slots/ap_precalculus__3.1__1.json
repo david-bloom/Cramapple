@@ -11,8 +11,227 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:59:18.413Z",
+   "source": "given",
+   "item": {
+    "title": "Periodic Water Level in a Storage Tank",
+    "calculator": "not_permitted",
+    "stimulus": "The height of the water in a storage tank follows a repeating schedule. Let h(t) be the height of the water, in centimeters, at time t minutes, for t ≥ 0.\n\nThe schedule starting at t = 0 is as follows.\nFrom t = 0 to t = 4, water is pumped in and the height increases at a constant rate from 20 centimeters to 60 centimeters.\nFrom t = 4 to t = 6, the height stays at 60 centimeters.\nFrom t = 6 to t = 10, water drains out and the height decreases at a constant rate from 60 centimeters to 20 centimeters.\n\nAfter this, the same pattern of filling, holding and draining repeats exactly, over and over, for all t ≥ 0.",
+    "parts": [
+     {
+      "prompt": "Find the period of h. A student claims that the period of h is 20 because h(t + 20) = h(t) for all t ≥ 0. Explain why the student's claim is incorrect.",
+      "criteria": [
+       {
+        "text": "States that the period of h is 10 minutes because the pattern of filling, holding and draining takes 10 minutes and then repeats, so h(t + 10) = h(t) for all t ≥ 0.",
+        "evidence": "Response gives 10 minutes as the period and connects it to one complete cycle of the schedule or to h(t + 10) = h(t).",
+        "fix": "Find where the output pattern starts repeating; the length of one complete cycle is the period.",
+        "accepted_variants": [
+         "10",
+         "10 minutes"
+        ]
+       },
+       {
+        "text": "Explains that the period is the smallest positive value k with h(t + k) = h(t) for all t, and 10 is such a value smaller than 20, so 20 is not the period.",
+        "evidence": "Response states that the period must be the smallest positive repeat length (smallest k) and notes that h(t + 10) = h(t) with 10 < 20.",
+        "fix": "Check whether a smaller positive k also gives h(t + k) = h(t); the period is the smallest such k, not a multiple of it.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For 20 ≤ t ≤ 30, give the interval on which h is increasing and the interval on which h is decreasing. Explain how the periodic behavior of h gives your answer.",
+      "criteria": [
+       {
+        "text": "h is increasing on 20 < t < 24, because this is the filling stage 0 < t < 4 shifted by two periods (20 minutes).",
+        "evidence": "Response gives 20 to 24 as the interval of increase (open or closed endpoints both accepted) and links it to the interval 0 to 4 shifted by 20, or to the characteristics repeating every period.",
+        "fix": "Shift each interval of increase in the first cycle by a whole number of periods to find the matching interval in a later cycle.",
+        "accepted_variants": [
+         "(20, 24)",
+         "[20, 24]",
+         "20 ≤ t ≤ 24"
+        ]
+       },
+       {
+        "text": "h is decreasing on 26 < t < 30, because this is the draining stage 6 < t < 10 shifted by two periods (20 minutes).",
+        "evidence": "Response gives 26 to 30 as the interval of decrease (open or closed endpoints both accepted) and links it to the interval 6 to 10 shifted by 20, or to the characteristics repeating every period.",
+        "fix": "Add the same multiple of the period to both endpoints of the draining interval, 6 and 10, to locate it in the later cycle.",
+        "accepted_variants": [
+         "(26, 30)",
+         "[26, 30]",
+         "26 ≤ t ≤ 30"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find all times t, for 0 ≤ t ≤ 30, at which the height of the water is 40 centimeters. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Finds the two times in the first cycle: t = 2 while filling (20 + 10t = 40) and t = 8 while draining (60 − 10(t − 6) = 40), using the constant rate of 10 centimeters per minute.",
+        "evidence": "Response finds t = 2 and t = 8 for 0 ≤ t ≤ 10 with valid supporting work, such as the rate of 10 centimeters per minute, or noting that 40 is midway between 20 and 60 so it is reached halfway through each 4-minute stage.",
+        "fix": "Find each stage's constant rate, 40 centimeters over 4 minutes, then solve for when the height equals 40 within the first cycle.",
+        "accepted_variants": [
+         "t = 2 and t = 8"
+        ]
+       },
+       {
+        "text": "Uses the period 10 to list all six times: t = 2, 8, 12, 18, 22 and 28 minutes.",
+        "evidence": "Response lists exactly 2, 8, 12, 18, 22 and 28, either by adding 10 and 20 to the first-cycle times or by solving within each 10-minute cycle.",
+        "fix": "After solving within one period, add each whole multiple of the period that keeps the time inside the given interval.",
+        "accepted_variants": [
+         "2, 8, 12, 18, 22, 28"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) In one cycle the height rises from 20 to 60 centimeters for 0 ≤ t ≤ 4, stays at 60 for 4 ≤ t ≤ 6, and falls back to 20 for 6 ≤ t ≤ 10; then the same pattern starts again. So h(t + 10) = h(t) for all t ≥ 0. No shorter length works, because within a cycle the height is 20 only at the start and at the end. The period of h is 10 minutes.\nThe student's claim is incorrect. The period is the smallest positive value k for which h(t + k) = h(t) for all t. It is true that h(t + 20) = h(t), but h(t + 10) = h(t) is also true and 10 < 20, so 20 is a multiple of the period, not the period.\n\n(b) Every characteristic of a periodic function in one period appears in every period. In the first cycle h is increasing on 0 < t < 4 and decreasing on 6 < t < 10. The interval 20 ≤ t ≤ 30 is the first cycle shifted by 20 = 2·10 minutes. So h is increasing on 20 < t < 24 and decreasing on 26 < t < 30 (h is constant at 60 on 24 < t < 26).\n\n(c) While filling, the height rises 40 centimeters in 4 minutes, which is 10 centimeters per minute: 20 + 10t = 40 gives t = 2. While draining, it falls 10 centimeters per minute: 60 − 10(t − 6) = 40 gives t − 6 = 2, so t = 8. Because the period is 10, h(t) = 40 also at 2 + 10 = 12, 8 + 10 = 18, 2 + 20 = 22 and 8 + 20 = 28. The times are t = 2, 8, 12, 18, 22 and 28 minutes.",
+    "verification_python": "from fractions import Fraction as F\ndef h(t):\n    t = F(t) % 10\n    if t < 4:\n        return 20 + 10*t\n    if t < 6:\n        return F(60)\n    return 60 - 10*(t - 6)\nassert h(0) == 20 and h(4) == 60 and h(6) == 60 and h(10) == 20\nassert (60 - 20) / F(4) == 10\n# period 10: h(t+10) == h(t) on a fine grid\ngrid = [F(k, 8) for k in range(0, 8*40)]\nassert all(h(t + 10) == h(t) for t in grid)\nassert all(h(t + 20) == h(t) for t in grid)\n# no smaller period: h(k) differs from h(0) for 0 < k < 10\nassert all(not (h(F(k, 8)) == h(0)) for k in range(1, 80))\n# (b) increasing on 20..24, constant 24..26, decreasing 26..30\ninc = [F(20) + F(k, 4) for k in range(0, 17)]\nassert all(h(inc[i+1]) > h(inc[i]) for i in range(len(inc)-1))\ndec = [F(26) + F(k, 4) for k in range(0, 16)]\nassert all(h(dec[i+1]) < h(dec[i]) for i in range(len(dec)-1))\nassert h(24) == 60 and h(F(25)) == 60\n# (c) solutions of h = 40 on [0, 30]\nsols = [t for t in [F(k, 8) for k in range(0, 8*30 + 1)] if h(t) == 40]\nassert sols == [2, 8, 12, 18, 22, 28]\nassert 20 + 10*2 == 40 and 60 - 10*(8 - 6) == 40\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "1": 2,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) has a terminology ambiguity: 20 minutes is indeed a period because h(t + 20) = h(t). The student's claim is incorrect only if “the period” means the fundamental (least positive) period, which is 10 minutes. The question should explicitly ask for the fundamental period.",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -391,5 +610,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

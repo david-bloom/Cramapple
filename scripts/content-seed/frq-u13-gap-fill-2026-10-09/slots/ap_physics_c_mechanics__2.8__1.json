@@ -11,8 +11,265 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:55:38.752Z",
+   "source": "given",
+   "item": {
+    "title": "Springs in Series and in Parallel Supporting a Block",
+    "calculator": "permitted",
+    "stimulus": "Two ideal springs have spring constants k₁ = 200 N/m and k₂ = 300 N/m. Use g = 10 m/s².\n\nArrangement 1: Spring 1 hangs from a fixed ceiling hook, spring 2 hangs from the bottom of spring 1, and a 3.0 kg block hangs from the bottom of spring 2. The block hangs at rest.\n\nArrangement 2: Both springs hang side by side from the ceiling, and their lower ends are attached to a light horizontal bar from which the same 3.0 kg block hangs. The bar stays horizontal, so both springs stretch by the same amount, and the block hangs at rest.",
+    "parts": [
+     {
+      "prompt": "For Arrangement 1, calculate the equivalent spring constant of the two springs and the total stretch of the two-spring combination.",
+      "criteria": [
+       {
+        "text": "1/k_eq = 1/200 + 1/300, so k_eq = 120 N/m.",
+        "evidence": "Response obtains 120 N/m by any valid method, for example adding reciprocals of the spring constants, or dividing the 30 N load by the total stretch.",
+        "fix": "For springs connected end to end, add the reciprocals of the spring constants, then take the reciprocal of that sum.",
+        "accepted_variants": [
+         "120 N/m"
+        ]
+       },
+       {
+        "text": "Total stretch = mg/k_eq = (30 N)/(120 N/m) = 0.25 m (equivalently 0.15 m + 0.10 m for the two springs).",
+        "evidence": "Response obtains 0.25 m by any valid method, for example dividing 30 N by its own k_eq or adding the two springs' individual stretches.",
+        "fix": "At rest, the spring force equals the weight; divide that force by the equivalent spring constant to find the total stretch.",
+        "accepted_variants": [
+         "25 cm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For Arrangement 1, explain why spring 1 and spring 2 exert forces of the same magnitude.",
+      "criteria": [
+       {
+        "text": "Spring 2 is ideal (massless), so the net force on it must be zero: spring 1 pulls up on spring 2 with the same force the block pulls down on it, so both springs exert 30 N.",
+        "evidence": "Response explains that because a massless spring must have zero net force, the forces at its two ends are equal, so both springs exert the same force.",
+        "fix": "Apply ΣF = 0 to a massless spring: the forces pulling its two ends must be equal in magnitude.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For Arrangement 2, calculate the equivalent spring constant and the distance each spring stretches.",
+      "criteria": [
+       {
+        "text": "k_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.",
+        "evidence": "Response obtains 500 N/m by any valid method, for example adding the spring constants, or from k₁x + k₂x = mg with the load divided by the common stretch.",
+        "fix": "For springs side by side that stretch by the same amount, add the spring constants directly.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Each spring stretches (30 N)/(500 N/m) = 0.060 m.",
+        "evidence": "Response obtains 0.060 m by any valid method, for example dividing 30 N by its own parallel k_eq, or solving k₁x + k₂x = 30 N.",
+        "fix": "Divide the total load by the parallel equivalent spring constant; each spring then stretches by that same amount.",
+        "accepted_variants": [
+         "6.0 cm",
+         "0.06 m"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Springs connected end to end are in series:\n1/k_eq = 1/k₁ + 1/k₂ = 1/200 + 1/300 = 5/600, so k_eq = 120 N/m.\nAt rest, the spring force on the block balances its weight, mg = (3.0 kg)(10 m/s²) = 30 N.\nTotal stretch = (30 N)/(120 N/m) = 0.25 m.\n\n(b) Spring 2 pulls up on the block with 30 N, so the block pulls down on spring 2 with 30 N. Spring 2 is ideal and has no mass, so the net force on it must be zero: spring 1 must pull up on spring 2 with the same 30 N. Both springs therefore exert forces of magnitude 30 N.\n(Check: spring 1 stretches (30 N)/(200 N/m) = 0.15 m and spring 2 stretches (30 N)/(300 N/m) = 0.10 m, which add to the 0.25 m found in part (a).)\n\n(c) Side by side and stretching equally, the springs are in parallel:\nk_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.\nEach spring stretches Δx = (30 N)/(500 N/m) = 0.060 m.\nCheck: spring 1 exerts (200)(0.060) = 12 N and spring 2 exerts (300)(0.060) = 18 N, which total 30 N.",
+    "verification_python": "from fractions import Fraction as Fr\nk1, k2 = Fr(200), Fr(300)\nW = Fr(3)*Fr(10)\nassert W == 30\ninv = 1/k1 + 1/k2\nassert inv == Fr(5,600)\nkser = 1/inv\nassert kser == 120\nassert kser < min(k1, k2)\nx_tot = W/kser\nassert x_tot == Fr(1,4)\nx1, x2 = W/k1, W/k2\nassert x1 == Fr(15,100) and x2 == Fr(10,100)\nassert x1 + x2 == x_tot\nkpar = k1 + k2\nassert kpar == 500\nxp = W/kpar\nassert xp == Fr(6,100)\nassert k1*xp == 12 and k2*xp == 18 and k1*xp + k2*xp == W\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires applying zero net force specifically to a massless spring, excluding valid alternatives such as equilibrium of the massless connection or separately showing that each spring supports the same 30 N load. Criteria a2 and c2 require the exact correct stretches despite referring to the student's own equivalent spring constant; they should explicitly permit consistent follow-through from an incorrect upstream value, as required by the supplied scoring conventions.",
+       "solution: The numerical results agree: (a) 120 N/m and 0.25 m; (b) both springs exert 30 N; (c) 500 N/m and 0.060 m per spring. However, the independent solution's valid equilibrium argument at the massless connection does not explicitly supply b1's narrowly specified massless-spring argument. No model answer was supplied or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires applying zero net force specifically to a massless spring, excluding valid alternatives such as equilibrium of the massless connection or separately showing that each spring supports the same 30 N load. Criteria a2 and c2 require the exact correct stretches despite referring to the student's own equivalent spring constant; they should explicitly permit consistent follow-through from an incorrect upstream value, as required by the supplied scoring conventions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results agree: (a) 120 N/m and 0.25 m; (b) both springs exert 30 N; (c) 500 N/m and 0.060 m per spring. However, the independent solution's valid equilibrium argument at the massless connection does not explicitly supply b1's narrowly specified massless-spring argument. No model answer was supplied or assessed.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -420,5 +677,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

@@ -73,3 +73,21 @@ are edge cases, you should arbitrate and correct ambiguities. Don't use Opus as 
   Product Owner's own drafts, rewritten to those rulings.
 - **Spend before this change:** $47.09 for 20 accepted FRQs (see the session discussion: $8.81 lost to checker
   calibration, about $5 to an over-broad lint rule, the rest to a 1-in-8 acceptance rate with a paid author).
+
+## Outcome, 2026-10-10
+- **126 of 126** zero-FRQ topics in Units 1-3 have an accepted FRQ: 20 from the paid-author run, 2 Product Owner drafts
+  (Calculus AB 1.1 and 2.1, rewritten to their CED topics), 104 authored in session.
+- **Checks:** every item passed lint, the exact recompute, the six-vote topic probe (or a recorded CED-text topic
+  ruling) and both checkers, except 3 accepted by recorded arbitration after every objection was rejected (Physics 1
+  2.2, Precalculus 3.3 and 1.4). Three arbitration rounds; each ruling is in the slot file's `arbitration.log`.
+- **Model answers:** 126/126 earn full credit when graded criterion by criterion by a third family
+  (`answer_grades.json`, gemini-3.8-flash). The production grader's QA path cannot verify them (published AP Biology only).
+- **Rulings worth knowing:** follow-through credit is used for Calculus and Physics (documented in their CED fact packs),
+  not for Biology, Chemistry, Precalculus or Statistics. One checker accuracy claim was rejected after recomputation
+  (Chemistry 3.12). Topic rulings by CED text: Biology 2.5, Physics 2 11.2, Calculus AB/BC 1.1, Physics 1 2.2, Physics C
+  E&M 8.2, Precalculus 1.1, 1.3, 1.4, 3.3, 3.4, Statistics 1.1, 3.4, 3.11.
+- **Spend:** $47.09 before the change of method (20 FRQs); $21.24 after it (106 FRQs, checks only, about $0.20 each).
+- **Development:** all 126 loaded and published as a content-only copy (`load_dev_content.py`; packs created for the 8
+  subjects Development lacked; no unit labels or difficulty, which Development's schema does not have). Verified 126/126.
+- **Production:** not written. Preflight shows every target topic still empty; a full rollback rehearsal passes in all
+  10 subjects. Publishing needs the Product Owner's Hard-Gate approval.

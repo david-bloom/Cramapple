@@ -11,8 +11,213 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:51:27.682Z",
+   "source": "given",
+   "item": {
+    "title": "Hot Block in Cool Water: Direction of Transfer and Equilibrium",
+    "calculator": "not_applicable",
+    "stimulus": "A metal block at 80 °C is placed into water at 20 °C inside a closed, well-insulated container, so energy exchange with the surroundings is negligible. The block is fully submerged. One thermometer is embedded in the block and another is in the water, and both are read over time.",
+    "parts": [
+     {
+      "prompt": "Immediately after the block is placed in the water, state the direction of the net energy transfer by thermal processes, and identify which system is being heated and which is being cooled. Then name the thermal process by which energy is transferred from the surface of the block into the water in contact with it.",
+      "criteria": [
+       {
+        "text": "States that the net energy transfer is from the block to the water, so the water is heated and the block is cooled.",
+        "evidence": "Response gives the direction block → water and identifies the water as heated and the block as cooled.",
+        "fix": "Energy flows spontaneously from higher to lower temperature; name the higher-temperature system as cooled and the other as heated.",
+        "accepted_variants": [
+         "from the block to the water"
+        ]
+       },
+       {
+        "text": "Names conduction as the process transferring energy from the block's surface into the water touching it.",
+        "evidence": "Response identifies conduction (energy transfer through direct contact and collisions) at the block–water surface; mentioning convection within the water as well does not lose the point.",
+        "fix": "Match each process to its mechanism: direct contact is conduction, bulk fluid motion is convection, and electromagnetic waves are radiation.",
+        "accepted_variants": [
+         "conduction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of collisions between particles, why the net energy transfer is in the direction you stated.",
+      "criteria": [
+       {
+        "text": "Explains that the block's atoms have a higher average kinetic energy, and in collisions between particles of the two systems energy is most likely transferred from the higher-energy particles to the lower-energy ones.",
+        "evidence": "Response connects higher temperature to higher average kinetic energy of the block's atoms and states that collisions tend to transfer energy from higher-energy to lower-energy particles.",
+        "fix": "Describe temperature as average particle kinetic energy, then state which particle usually gains energy when a fast one hits a slow one.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "After a long time, both thermometers read the same temperature, and the reading no longer changes. Name the condition the block and water have reached and describe the net energy transfer between them. Do individual collisions between particles of the block and particles of the water still transfer energy? Explain.",
+      "criteria": [
+       {
+        "text": "Names thermal equilibrium and states that there is no net energy transfer by thermal processes between the block and the water.",
+        "evidence": "Response identifies thermal equilibrium and says the net energy transfer between the two systems is zero.",
+        "fix": "Define thermal equilibrium by net energy transfer, not by particles stopping: equal temperatures mean zero net transfer.",
+        "accepted_variants": [
+         "thermal equilibrium"
+        ]
+       },
+       {
+        "text": "States that individual collisions still transfer energy in both directions, but on average the transfers balance, so the net transfer is zero.",
+        "evidence": "Response says particles keep colliding and exchanging energy, with transfers from block to water balanced by transfers from water to block.",
+        "fix": "Distinguish individual exchanges from the net result: particles keep colliding at equilibrium, but energy moves equally in both directions.",
+        "accepted_variants": [
+         "yes, but they balance"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The net energy transfer is from the block to the water, because energy is transferred spontaneously from the higher-temperature system (the block at 80 °C) to the lower-temperature system (the water at 20 °C). The water is being heated and the block is being cooled.\nEnergy passes from the block's surface into the water touching it by conduction. (Convection then carries warmed water away within the container.)\n\n(b) The block's higher temperature means its atoms have a higher average kinetic energy than the water molecules. When a particle of the block collides with a water molecule, energy is most likely transferred from the higher-energy particle to the lower-energy one. Over many collisions this produces a net transfer of energy from the block to the water.\n\n(c) The block and water have reached thermal equilibrium. There is no net energy transfer by thermal processes between them, which is why the temperatures stay equal and constant.\nYes, individual collisions still transfer energy. Particles keep moving and colliding, and in some collisions energy goes from block to water while in others it goes from water to block. These transfers balance on average, so the net transfer is zero.",
+    "verification_python": "T_block=80; T_water=20\nassert T_block>T_water\ndirection='block_to_water' if T_block>T_water else 'water_to_block'\nassert direction=='block_to_water'\ncriteria_counts=[2,1,2]\nassert sum(criteria_counts)==5\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "9.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     9
+    ],
+    "unitCount": {
+     "9": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -420,5 +625,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

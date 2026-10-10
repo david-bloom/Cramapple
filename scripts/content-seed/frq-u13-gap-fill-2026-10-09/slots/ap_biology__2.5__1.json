@@ -11,8 +11,220 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:41.589Z",
+   "source": "given",
+   "item": {
+    "title": "Passive, Active, and Bulk Transport in an Amoeba",
+    "calculator": "not_applicable",
+    "stimulus": "A freshwater amoeba is a single-celled eukaryote. Researchers measured the concentrations of two small solutes, G and K, inside the amoeba and in the surrounding water. Both solutes show net movement into the cell.\n\nTable 1\nSolute | Concentration inside cell (mM) | Concentration in surrounding water (mM) | Direction of net movement\nG | 0.8 | 6.0 | into cell\nK | 25.0 | 1.5 | into cell\n\nThe researchers also added tiny plastic beads to the water. Each bead is far too large to pass through the plasma membrane. After 20 minutes, beads were found inside small membrane-bound vesicles in the amoeba's cytoplasm. The researchers then repeated the measurements on amoebas treated with a chemical that blocks the cell's supply of metabolic energy.\n\nTable 2\nMeasurement | Untreated amoebas | Energy-blocked amoebas\nUptake rate of G (relative units) | 100 | 98\nUptake rate of K (relative units) | 100 | 3\nBeads taken in per cell in 20 minutes | 40 | 0",
+    "parts": [
+     {
+      "prompt": "Using Table 1, explain why solute K must be moved into the cell by active transport.",
+      "criteria": [
+       {
+        "text": "Explains that K moves from a lower concentration outside (1.5 mM) to a higher concentration inside (25.0 mM), against its concentration gradient, and moving a substance from low to high concentration requires the direct input of energy (active transport).",
+        "evidence": "Response cites K's concentrations (or states K moves from low to high concentration) and states that this movement requires an input of energy.",
+        "fix": "Compare outside and inside concentrations; net movement from low to high concentration cannot be passive and requires energy input.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using Table 2, describe the evidence that solute G enters the cell by passive transport.",
+      "criteria": [
+       {
+        "text": "Describes that G's uptake rate is almost unchanged when the energy supply is blocked (100 versus 98), showing that G's net movement into the cell, from 6.0 mM outside to 0.8 mM inside, does not require a direct input of metabolic energy.",
+        "evidence": "Response cites G's nearly unchanged uptake rate under the energy block (100 versus 98) as evidence that no direct energy input is needed.",
+        "fix": "Compare each solute's rate with and without energy; a rate that barely changes shows the movement does not depend on metabolic energy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the plasma membrane brings the beads into the cell.",
+      "criteria": [
+       {
+        "text": "Describes endocytosis: the plasma membrane folds inward around the beads and pinches off, forming a new small vesicle that encloses them inside the cell.",
+        "evidence": "Response describes the membrane folding in (or surrounding the beads) and forming a vesicle containing the beads; naming endocytosis or phagocytosis without describing the membrane movement is not enough.",
+        "fix": "Describe the membrane's movement step by step: it folds in around the material, then closes off as a vesicle inside the cell.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Inside the amoeba, undigested material is enclosed in vesicles that normally fuse with the plasma membrane to release the material outside the cell. Predict the effect of the energy-blocking chemical on the release of this material, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that release of the undigested material will stop or greatly decrease in energy-blocked amoebas.",
+        "evidence": "Response states that the energy-blocked amoebas will release little or none of the material.",
+        "fix": "State the direction of the change clearly: release stops, decreases, or stays the same.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Justifies that release by vesicle fusion is exocytosis, which requires energy (consistent with bead uptake by endocytosis falling from 40 to 0 when energy was blocked).",
+        "evidence": "Response identifies the release as exocytosis (vesicle fusing with the membrane) and states that this process requires energy, optionally citing the bead data.",
+        "fix": "Remember both endocytosis and exocytosis move large amounts of material in vesicles and both require an input of energy.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Solute K is 1.5 mM in the surrounding water but 25.0 mM inside the cell, yet its net movement is into the cell. K is therefore moving from a region of low concentration to a region of high concentration, against its concentration gradient. Passive transport only produces net movement from high to low concentration, so moving K inward requires the direct input of energy: active transport.\n\n(b) When the cell's supply of metabolic energy is blocked, the uptake rate of G stays almost the same (98 compared with 100), while the uptake of K drops to 3. G's movement into the cell therefore does not depend on a direct input of metabolic energy. This fits passive transport: G moves from high concentration outside (6.0 mM) to low concentration inside (0.8 mM).\n\n(c) The beads enter by endocytosis. The plasma membrane folds inward around the beads, and the folded region closes and pinches off as a new small vesicle that contains the beads inside the cell.\n\n(d) Release of the undigested material will stop (or nearly stop) in the energy-blocked amoebas. The material is released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. The bead data show the same dependence for vesicle transport in the other direction: endocytosis fell from 40 beads to 0 when energy was blocked.",
+    "verification_python": "G_in,G_out=0.8,6.0\nK_in,K_out=25.0,1.5\nassert G_out>G_in\nassert K_in>K_out\nassert 100-98==2\nassert 100-3==97\nbeads=(40,0)\nassert beads[1]==0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.8": 5,
+     "2.5": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "2.5",
+     "required_units": [
+      2
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "CED 2.5.A.1-3 (passive vs active by concentration gradient) and 2.5.B (endocytosis/exocytosis) are exactly what the item tests; 2.8 is membrane proteins, ATP and the Na+/K+ pump, none of which appear. Vote misled by \"energy-blocking chemical\"."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) has a qualification: concentration data alone do not establish that an unspecified solute must undergo active transport. If K is an ion, an electrical gradient could drive passive inward movement despite the opposing concentration gradient. The intended answer assumes that K is uncharged or that the electrical gradient is insufficient to drive inward transport. Table 2 strongly supports energy-dependent uptake of K, but Table 1 alone lacks information about charge and membrane potential.",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -784,5 +996,6 @@
    },
    "stage": "topic_vote"
   }
- ]
+ ],
+ "accepted_round": 1
 }

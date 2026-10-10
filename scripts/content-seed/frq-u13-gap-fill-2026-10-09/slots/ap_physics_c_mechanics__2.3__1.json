@@ -11,8 +11,212 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:55:09.244Z",
+   "source": "given",
+   "item": {
+    "title": "Third-Law Force Pairs Between Two Skaters",
+    "calculator": "permitted",
+    "stimulus": "Two ice skaters stand at rest facing each other on a horizontal, frictionless ice rink. Skater A has a mass of 75 kg and skater B has a mass of 50 kg. Skater A pushes on skater B with a horizontal force of 120 N directed east, and the skaters move apart. During the push, the only horizontal forces exerted on the skaters are the forces they exert on each other.",
+    "parts": [
+     {
+      "prompt": "Determine the magnitude and direction of the horizontal force that skater B exerts on skater A during the push. Justify your answer.",
+      "criteria": [
+       {
+        "text": "120 N directed west, because by Newton's third law the force B exerts on A is equal in magnitude and opposite in direction to the force A exerts on B, regardless of the skaters' masses.",
+        "evidence": "Response gives 120 N west and cites Newton's third law (equal magnitude, opposite direction) rather than an argument based on the masses.",
+        "fix": "Identify the two interacting objects, then reverse the given force's direction while keeping its magnitude unchanged, whatever the masses.",
+        "accepted_variants": [
+         "120 N to the west"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student says that the gravitational force Earth exerts on skater A and the upward normal force the ice exerts on skater A form a Newton's third law pair. Explain whether the student is correct, and identify the actual third-law partner of the gravitational force Earth exerts on skater A.",
+      "criteria": [
+       {
+        "text": "The student is incorrect: both forces act on skater A, whereas the two forces of a third-law pair act on two different objects in a single interaction.",
+        "evidence": "Response says the student is wrong and states that third-law pair forces act on different objects, while both of these forces act on skater A.",
+        "fix": "Check that the two forces in a claimed pair act on different objects and describe one interaction: A on B and B on A.",
+        "accepted_variants": []
+       },
+       {
+        "text": "The partner is the gravitational force skater A exerts on Earth, equal in magnitude and directed upward, toward the skater.",
+        "evidence": "Response identifies the gravitational pull of skater A on Earth, directed upward toward the skater, as the partner force.",
+        "fix": "To find a partner force, swap the two objects' roles: Earth pulls the skater down, so the skater pulls Earth up.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Consider the two skaters together as one system. Explain what effect the push has on the horizontal motion of the system's center of mass.",
+      "criteria": [
+       {
+        "text": "No effect: the pushes are internal forces forming a third-law pair, so they add to zero for the system; with no external horizontal force, the center of mass stays at rest.",
+        "evidence": "Response states the center of mass remains at rest (its horizontal velocity is unchanged) because the push forces are internal to the system and cancel in pairs.",
+        "fix": "Classify each force as internal or external to the chosen system; internal third-law pairs cancel and cannot change the center of mass's motion.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Later, the skaters hold opposite ends of a light rope that does not stretch. Skater A pulls on her end of the rope with a force of 80 N. Determine the magnitude of the force that the rope exerts on skater B, and justify your answer.",
+      "criteria": [
+       {
+        "text": "80 N, because the rope is an ideal string (negligible mass, does not stretch), so the tension is the same at every point and the rope pulls on skater B with 80 N.",
+        "evidence": "Response gives 80 N and justifies it by the uniform tension in a light, non-stretching rope.",
+        "fix": "For a massless rope that does not stretch, use the same tension at both ends; tension differs along a rope only when its mass matters.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The force skater B exerts on skater A is 120 N directed west. By Newton's third law, the force A exerts on B and the force B exerts on A are the two forces of one interaction, so they are equal in magnitude and opposite in direction. The different masses of the skaters do not change this.\n\n(b) The student is not correct. A third-law pair consists of the two forces of a single interaction, and those two forces act on different objects. The gravitational force and the normal force here both act on skater A, and they come from two different interactions (skater with Earth, and skater with ice). The third-law partner of the gravitational force Earth exerts on skater A is the gravitational force skater A exerts on Earth, which has the same magnitude and is directed upward, toward the skater.\n\n(c) The push forces are internal to the two-skater system. They form a third-law pair, so they are equal and opposite and add to zero when summed over the system. Since there is no external horizontal force on the system, the horizontal motion of the center of mass does not change: the center of mass stays at rest even though the skaters move apart.\n\n(d) The rope exerts a force of 80 N on skater B. The rope is light and does not stretch, so it is an ideal string and the tension is the same at every point along it. Skater A's 80 N pull sets the tension at 80 N, so the rope pulls on skater B with 80 N, directed toward skater A.",
+    "verification_python": "F_AB = 120.0\nF_BA = -F_AB\nassert abs(F_BA) == 120.0\nassert F_AB + F_BA == 0\nmA, mB = 75.0, 50.0\n# internal forces sum to zero, so the center of mass acceleration is zero\na_cm = (F_AB + F_BA)/(mA + mB)\nassert a_cm == 0\nT = 80.0\nassert T == 80.0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3 Newton's Third Law",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -354,5 +558,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

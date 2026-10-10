@@ -11,8 +11,220 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:51:48.317Z",
+   "source": "given",
+   "item": {
+    "title": "Charging by Friction, Then by Induction with Grounding",
+    "calculator": "permitted",
+    "stimulus": "A rubber rod and a piece of wool are both initially electrically neutral. The rod is rubbed with the wool, and afterward the rod has a net charge of −4.8 × 10⁻⁹ C. Assume charge was transferred only between the rod and the wool.\n\nSeparately, an initially neutral metal sphere sits on an insulating stand. A thin wire with a switch connects the sphere to Earth (ground). The switch is initially open.",
+    "parts": [
+     {
+      "prompt": "Use conservation of charge to determine the net charge on the wool.",
+      "criteria": [
+       {
+        "text": "Uses conservation of charge to find the wool's net charge as +4.8 × 10⁻⁹ C: the wool lost exactly the electrons the rod gained.",
+        "evidence": "Response gives +4.8 × 10⁻⁹ C for the wool and justifies it with conservation of charge (total charge of rod plus wool stays zero).",
+        "fix": "Apply conservation of charge: two objects that start neutral and only exchange charge end with equal and opposite charges.",
+        "accepted_variants": [
+         "+4.8 nC",
+         "4.8 × 10⁻⁹ C positive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "With the switch open, the negatively charged rod is brought near the left side of the metal sphere without touching it. Describe how charge is distributed on the sphere, and state the sphere's net charge.",
+      "criteria": [
+       {
+        "text": "States that electrons in the sphere are repelled toward the right side, leaving the left side (near the rod) positive and the right side negative.",
+        "evidence": "Response identifies positive charge on the side nearest the rod and negative charge on the far side.",
+        "fix": "For induction without contact, describe both sides: electrons are pushed away from a negative rod, leaving the near side positive.",
+        "accepted_variants": [
+         "near side positive, far side negative"
+        ]
+       },
+       {
+        "text": "States that the sphere's net charge remains zero, because no charge is transferred to or from it.",
+        "evidence": "Response states that the sphere's net charge is zero (it is polarized but still neutral).",
+        "fix": "An object's net charge changes only when charge is transferred to or from it; polarization alone leaves it neutral.",
+        "accepted_variants": [
+         "zero",
+         "neutral",
+         "0 C"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "With the rod still held near the sphere, the switch is closed. Next the switch is opened, and only after that is the rod taken away. State the direction in which electrons move through the wire while the switch is closed, and state the sign of the sphere's final net charge. Justify your answers.",
+      "criteria": [
+       {
+        "text": "States that electrons move from the sphere through the wire to Earth, because they are repelled by the negatively charged rod.",
+        "evidence": "Response gives the direction as sphere to Earth (out of the sphere) and attributes it to repulsion by the negative rod.",
+        "fix": "Ask which way the nearby charge pushes electrons; grounding gives them a path to move in that direction.",
+        "accepted_variants": [
+         "from the sphere to the ground",
+         "out of the sphere"
+        ]
+       },
+       {
+        "text": "States that the sphere's final net charge is positive, because it lost electrons and opening the switch before removing the rod prevents any charge from returning.",
+        "evidence": "Response answers positive and explains that the sphere has fewer electrons than protons and that, once the switch is open, its net charge cannot change.",
+        "fix": "Track electrons that left the system: losing electrons makes an object positive, and its net charge stays fixed once the ground path is broken.",
+        "accepted_variants": [
+         "positive",
+         "+"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The rod became negative, so it gained electrons: the electrons moved from the wool to the rod.\nCharge is conserved. The rod and wool started neutral and charge moved only between them, so their total charge is still zero. The wool's net charge is therefore +4.8 × 10⁻⁹ C.\n\n(b) The negative rod repels electrons in the metal sphere, so electrons shift to the right side, away from the rod. The left side (nearest the rod) is left with positive charge and the right side has negative charge. No charge has been transferred to or from the sphere, so its net charge is still zero; it is only polarized.\n\n(c) With the switch closed, electrons are repelled by the negative rod and move from the sphere through the wire into Earth.\nThe sphere has lost electrons, so it has more protons than electrons. Because the switch is opened while the rod is still nearby, those electrons cannot return, and the net charge of the sphere stays constant after that. The sphere's final net charge is positive.",
+    "verification_python": "from fractions import Fraction\nq_rod=Fraction(-48,10)/10**9\nassert q_rod<0  # rod gained electrons, so electrons moved wool -> rod\nq_wool=-q_rod\nassert q_wool+q_rod==0\nassert q_wool==Fraction(48,10)/10**9 and q_wool>0\n# induction with switch open: no transfer, net charge stays 0\nsphere_net_b=0\nassert sphere_net_b==0\n# grounding: sphere loses electrons -> positive\nelectrons_lost=1\nfinal_sign=1 if electrons_lost>0 else 0\nassert final_sign==1\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     10
+    ],
+    "unitCount": {
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -369,5 +581,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

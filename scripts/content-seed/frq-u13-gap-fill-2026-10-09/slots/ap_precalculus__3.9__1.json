@@ -11,8 +11,223 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:01:28.636Z",
+   "source": "given",
+   "item": {
+    "title": "Inverse Trigonometric Values on Restricted Domains",
+    "calculator": "not_permitted",
+    "stimulus": "The functions arcsin x, arccos x and arctan x are the inverse functions of sine, cosine and tangent, defined using the usual restricted domains of those functions. Give exact values.",
+    "parts": [
+     {
+      "prompt": "Find the exact values of arccos(−1/2) and arctan(−√3). For each, explain why your value is the correct output.",
+      "criteria": [
+       {
+        "text": "arccos(−1/2) = 2π/3, because cos(2π/3) = −1/2 and 2π/3 is in [0, π], the restricted domain of cosine.",
+        "evidence": "Response gives 2π/3, shows cos(2π/3) = −1/2, and states that 2π/3 lies in [0, π].",
+        "fix": "Look for the angle in [0, π] with the given cosine; arccos never outputs a negative angle.",
+        "accepted_variants": [
+         "2π/3"
+        ]
+       },
+       {
+        "text": "arctan(−√3) = −π/3, because tan(−π/3) = −√3 and −π/3 is in (−π/2, π/2), the restricted domain of tangent.",
+        "evidence": "Response gives −π/3, shows tan(−π/3) = −√3, and states that −π/3 lies in (−π/2, π/2).",
+        "fix": "Look for the angle strictly between −π/2 and π/2 with the given tangent; negative inputs give negative angles.",
+        "accepted_variants": [
+         "−π/3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the exact value of arcsin(sin(5π/6)). Explain why the answer is not 5π/6.",
+      "criteria": [
+       {
+        "text": "Evaluates the inner expression: sin(5π/6) = 1/2 (equivalently, sin(5π/6) = sin(π/6)).",
+        "evidence": "Response evaluates sin(5π/6) as 1/2, or shows that sin(5π/6) = sin(π/6) using the reference angle π/6, so the composition equals arcsin(sin(π/6)).",
+        "fix": "Evaluate the inner function first using the reference angle π/6, with sine positive in quadrant II.",
+        "accepted_variants": [
+         "1/2",
+         "0.5"
+        ]
+       },
+       {
+        "text": "arcsin(1/2) = π/6, because arcsin outputs only angles in [−π/2, π/2]; 5π/6 is outside this interval, and π/6 is the angle in it whose sine is 1/2.",
+        "evidence": "Response gives π/6 and explains that the output of arcsin must lie in [−π/2, π/2], which excludes 5π/6.",
+        "fix": "Check that the final angle lies in the restricted domain of sine, [−π/2, π/2]; if not, find the angle there with that sine.",
+        "accepted_variants": [
+         "π/6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State the domain and the range of y = arctan x. Then explain why arctan x is defined for every real number x, but arcsin x is defined only for −1 ≤ x ≤ 1.",
+      "criteria": [
+       {
+        "text": "The domain of arctan x is all real numbers, and its range is −π/2 < y < π/2.",
+        "evidence": "Response gives the domain as all real numbers and the range as the open interval (−π/2, π/2).",
+        "fix": "Swap inputs and outputs: the range of arctan is the restricted domain of tangent, (−π/2, π/2), with endpoints excluded.",
+        "accepted_variants": [
+         "(−π/2, π/2)",
+         "(−∞, ∞)"
+        ]
+       },
+       {
+        "text": "Explains that the inputs of an inverse function are the outputs of the original function: on (−π/2, π/2) tangent takes every real value, while sine takes only values from −1 to 1, so arcsin x needs −1 ≤ x ≤ 1.",
+        "evidence": "Response connects the domain of each inverse function to the range of the corresponding restricted function (tangent outputs all reals; sine outputs only [−1, 1]).",
+        "fix": "The domain of an inverse function is the range of the original; compare the output ranges of restricted tangent and sine.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) arccos(−1/2) = 2π/3. The output of arccos must be an angle in [0, π], the restricted domain of cosine, and cos(2π/3) = −1/2 with 2π/3 in [0, π]. Cosine is one-to-one on [0, π], so this is the only such angle.\narctan(−√3) = −π/3. The output of arctan must be in (−π/2, π/2), and tan(−π/3) = sin(−π/3)/cos(−π/3) = (−√3/2)/(1/2) = −√3, with −π/3 in (−π/2, π/2).\n\n(b) sin(5π/6) = 1/2, so arcsin(sin(5π/6)) = arcsin(1/2). The output of arcsin must be in [−π/2, π/2], the restricted domain of sine. 5π/6 is greater than π/2, so it cannot be the output. The angle in [−π/2, π/2] whose sine is 1/2 is π/6, so arcsin(sin(5π/6)) = π/6.\n\n(c) The domain of y = arctan x is all real numbers, and the range is −π/2 < y < π/2.\nFor an inverse function, the input and output values are switched, so the domain of the inverse is the range of the restricted original function. On (−π/2, π/2), tan θ takes every real value, so arctan x is defined for every real x. On [−π/2, π/2], sin θ takes only values from −1 to 1, so arcsin x is defined only for −1 ≤ x ≤ 1.",
+    "verification_python": "import sympy as sp\nassert sp.acos(sp.Rational(-1, 2)) == 2*sp.pi/3\nassert sp.cos(2*sp.pi/3) == sp.Rational(-1, 2) and 0 < 2*sp.pi/3 < sp.pi\nassert sp.atan(-sp.sqrt(3)) == -sp.pi/3\nassert sp.simplify(sp.tan(-sp.pi/3) + sp.sqrt(3)) == 0 and -sp.pi/2 < -sp.pi/3 < sp.pi/2\nassert sp.sin(5*sp.pi/6) == sp.Rational(1, 2)\nassert sp.asin(sp.sin(5*sp.pi/6)) == sp.pi/6\nassert 5*sp.pi/6 > sp.pi/2\nassert sp.limit(sp.atan(sp.Symbol('x')), sp.Symbol('x'), sp.oo) == sp.pi/2\nimport math\nassert all(abs(math.tan(math.atan(v)) - v) < 1e-9*max(1, abs(v)) for v in [-1e6, -3.0, 0.0, 2.5, 1e6])\nassert sp.sin(5*sp.pi/6) == sp.sin(sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -376,5 +591,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

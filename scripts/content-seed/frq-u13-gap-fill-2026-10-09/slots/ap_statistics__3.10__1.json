@@ -11,8 +11,222 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:02:25.568Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for Beetle Damage in Two Forest Sections",
+    "calculator": "permitted",
+    "stimulus": "A forestry agency wants to estimate the difference between the proportions of trees with beetle damage in the northern and southern sections of a large state forest. Each section contains more than 50,000 trees. The agency selected a random sample of 200 trees from the northern section and, independently, a random sample of 250 trees from the southern section. Of the 200 northern trees, 46 had beetle damage; of the 250 southern trees, 35 had beetle damage.",
+    "parts": [
+     {
+      "prompt": "Identify the appropriate confidence interval procedure, and define the parameter of interest in context.",
+      "criteria": [
+       {
+        "text": "Names a two-sample z-interval for a difference between two population proportions.",
+        "evidence": "Response identifies a two-sample z-interval for p₁ − p₂ (a difference of population proportions); a one-sample interval or an interval for means does not earn the point.",
+        "fix": "With two independent samples and a yes-or-no response, name the procedure as a two-sample z-interval for a difference in population proportions.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Defines the parameter as p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.",
+        "evidence": "Response defines a difference of population proportions and identifies both populations (all northern-section trees, all southern-section trees) and the response (beetle damage). Either order of subtraction earns the point if stated.",
+        "fix": "Define each proportion with the response and its whole population, then state that the parameter is their difference in a stated order.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The two samples were selected randomly and independently. Verify the 10% condition and the normality condition for this procedure.",
+      "criteria": [
+       {
+        "text": "States that each sample is at most 10% of its section: 200 and 250 are both less than 0.10(50,000) = 5,000.",
+        "evidence": "Response compares each sample size with 10% of the number of trees in its section (or says each section has more than 10 times its sample size) and states that the condition is met.",
+        "fix": "Compare each sample size with 10% of its own population size, using the stated number of trees in each section.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the numbers of observed successes and failures, 46, 154, 35 and 215, are all at least 10.",
+        "evidence": "Response lists all four observed counts (damaged and undamaged in each sample), or n₁p̂₁, n₁(1 − p̂₁), n₂p̂₂, n₂(1 − p̂₂), and states that each is at least 10.",
+        "fix": "For an interval, check all four observed counts, successes and failures in each sample, against 10.",
+        "accepted_variants": [
+         "46, 154, 35, 215"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the standard error of the difference in sample proportions and a 95% confidence interval for the parameter you defined. Show your work.",
+      "criteria": [
+       {
+        "text": "Standard error √(0.23(0.77)/200 + 0.14(0.86)/250) ≈ 0.0370.",
+        "evidence": "Response computes each sample proportion (0.23 and 0.14) and uses each sample's own proportion in the standard error to get about 0.037; the value is the same for either order of subtraction.",
+        "fix": "Compute each sample proportion first, then use each sample's own p̂ in √(p̂₁(1 − p̂₁)/n₁ + p̂₂(1 − p̂₂)/n₂).",
+        "accepted_variants": [
+         "0.037",
+         "0.0370"
+        ]
+       },
+       {
+        "text": "95% confidence interval: 0.09 ± 1.96(0.0370) ≈ 0.09 ± 0.0725, giving about (0.018, 0.162) for northern minus southern.",
+        "evidence": "Response shows point estimate ± z* × SE with point estimate 0.23 − 0.14 = 0.09 and z* ≈ 1.96, giving about (0.018, 0.162); a stated southern-minus-northern parameter with −0.09 and about (−0.162, −0.018) also earns the point.",
+        "fix": "Build the interval as point estimate ± z* × standard error, using z* = 1.96 for 95% confidence and your parameter's order.",
+        "accepted_variants": [
+         "(0.0175, 0.1625)",
+         "(0.017, 0.162)",
+         "(0.018, 0.162)"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The appropriate procedure is a two-sample z-interval for a difference between two population proportions. The parameter is p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.\n\n(b) 10% condition: 200 ≤ 0.10(50,000) = 5,000 and 250 ≤ 5,000, and each section has more than 50,000 trees, so each sample is less than 10% of its section.\nNormality: observed successes and failures are 46 and 200 − 46 = 154 in the northern sample and 35 and 250 − 35 = 215 in the southern sample. All four are at least 10.\n\n(c) p̂₁ = 46/200 = 0.23 and p̂₂ = 35/250 = 0.14, so the point estimate is 0.23 − 0.14 = 0.09.\nSE = √(0.23(0.77)/200 + 0.14(0.86)/250) = √(0.000886 + 0.000482) = √0.001367 ≈ 0.0370.\n95% interval: 0.09 ± 1.96(0.0370) = 0.09 ± 0.0725, which is about (0.018, 0.162).",
+    "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=46,200,35,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.23)<1e-12 and abs(p2-0.14)<1e-12\nd=p1-p2\nassert abs(d-0.09)<1e-12\nassert n1<=0.10*50000 and n2<=0.10*50000 and abs(0.10*50000-5000)<1e-9\nfor c,e in zip([x1,n1-x1,x2,n2-x2],[46,154,35,215]): assert c==e and c>=10\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.000886)<5e-7 and abs(v2-0.000482)<5e-7 and abs(v1+v2-0.001367)<5e-7\nse=sqrt(v1+v2)\nassert abs(se-0.0370)<0.00005\nz=NormalDist().inv_cdf(0.975)\nassert abs(z-1.96)<0.001\nme=1.96*se\nassert abs(me-0.0725)<0.00005\nlo,hi=d-me,d+me\nassert abs(lo-0.0175)<0.0001 and abs(hi-0.1625)<0.0001\nassert abs(round(lo,3)-0.018)<0.0006 and abs(round(hi,3)-0.162)<1e-9\nd2=p2-p1\nassert abs(d2+0.09)<1e-12 and abs(sqrt(p2*(1-p2)/n2+p1*(1-p1)/n1)-se)<1e-15\nassert abs((d2-me)+0.1625)<0.0001 and abs((d2+me)+0.0175)<0.0001\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.10": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "1": 1,
+     "2": 2,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -436,5 +650,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

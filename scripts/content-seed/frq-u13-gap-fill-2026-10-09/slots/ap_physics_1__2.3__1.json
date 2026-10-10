@@ -11,8 +11,209 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.388Z",
+   "source": "given",
+   "item": {
+    "title": "Paired Forces Between a Tow Truck, a Cable, and a Car",
+    "calculator": "not_applicable",
+    "stimulus": "A tow truck pulls a car east along a straight, level road using a horizontal cable. The truck is east of the car. Treat the cable as ideal: its mass is negligible and it does not stretch. At one instant, the cable exerts a force of 1500 N directed east on the car.",
+    "parts": [
+     {
+      "prompt": "Determine the magnitude and direction of the force that the car exerts on the cable at this instant. Justify your answer.",
+      "criteria": [
+       {
+        "text": "The car exerts a force of 1500 N directed west on the cable, by Newton's third law: the force of the car on the cable is equal in magnitude and opposite in direction to the force of the cable on the car.",
+        "evidence": "Response gives 1500 N, west, and justifies it with Newton's third law (paired forces equal in magnitude and opposite in direction).",
+        "fix": "For a force of A on B, the third-law partner is B on A: same magnitude, opposite direction, exerted on the other object.",
+        "accepted_variants": [
+         "1500 N west",
+         "−1500 N with east positive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the magnitude and direction of the force that the cable exerts on the truck at this instant. Justify your answer using a property of the cable.",
+      "criteria": [
+       {
+        "text": "The cable exerts a force of 1500 N directed west on the truck, justified by a property of the ideal cable: its tension is the same at all points, or its negligible mass means the forces on it balance.",
+        "evidence": "Response gives 1500 N, west, and justifies the magnitude either by uniform tension in an ideal cable or by the cable's negligible mass requiring zero net force on it, with the third-law partner on the truck.",
+        "fix": "In an ideal string or cable, tension is equal at every point; each end pulls on its attached object along the cable, toward the middle.",
+        "accepted_variants": [
+         "1500 N west"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student says: \"The car pulls back on the cable with a force equal in size and opposite in direction to the cable's pull on the car, so these two forces cancel and the car cannot speed up.\" Explain the error in the student's reasoning.",
+      "criteria": [
+       {
+        "text": "Explains that the two forces in a third-law pair are exerted on different objects (one on the car, one on the cable), so they cannot cancel; only forces exerted on the car itself combine to determine the car's motion.",
+        "evidence": "Response states that the paired forces act on different objects and therefore do not add together or cancel in describing the car's motion.",
+        "fix": "Check which object each force is exerted on; third-law partners are always on different objects, so never cancel them against each other.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Consider the system made up of the truck, the cable, and the car. Explain whether the forces that the cable exerts on the truck and on the car can change the velocity of this system's center of mass.",
+      "criteria": [
+       {
+        "text": "They cannot: the cable's forces on the truck and car are interactions between objects inside the chosen system (internal forces), and internal forces do not influence the motion of the system's center of mass.",
+        "evidence": "Response identifies the cable forces as internal to the truck–cable–car system and states that internal forces do not change the motion of the system's center of mass.",
+        "fix": "First decide whether both interacting objects are inside the system; if so, the forces are internal and cannot change the center-of-mass motion.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By Newton's third law, the force the car exerts on the cable is equal in magnitude and opposite in direction to the force the cable exerts on the car: F(car on cable) = −F(cable on car). So the car exerts 1500 N directed west on the cable.\n\n(b) The cable is ideal, so the tension is the same at all points along it. The cable pulls on each attached object along the cable toward the other object. It pulls the car east with 1500 N, so it pulls the truck with 1500 N directed west, toward the car.\n\n(c) The two forces the student describes form a third-law pair, and they are exerted on different objects: one is exerted on the car and the other on the cable. Forces exerted on different objects cannot cancel each other. Only forces exerted on the car itself determine whether the car speeds up, so the student's conclusion does not follow.\n\n(d) No. The cable, truck, and car are all inside the chosen system, so the forces the cable exerts on the truck and on the car are internal forces. Internal forces do not influence the motion of a system's center of mass, so they cannot change the velocity of the center of mass of the truck–cable–car system.",
+    "verification_python": "F_cable_on_car=1500\nF_car_on_cable=-F_cable_on_car\nassert F_car_on_cable==-1500\nT=abs(F_car_on_cable)\nF_cable_on_truck=-T\nassert F_cable_on_truck==-1500\nassert abs(F_cable_on_truck)==abs(F_cable_on_car)\nassert F_cable_on_car+F_cable_on_truck==0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -353,5 +554,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

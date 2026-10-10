@@ -11,8 +11,224 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:52:06.264Z",
+   "source": "given",
+   "item": {
+    "title": "Assembling a Three-Charge System: Work and Potential Energy",
+    "calculator": "permitted",
+    "stimulus": "Three point charges are placed in a plane:\nq₁ = +3.0 μC at the origin, (0, 0)\nq₂ = −2.0 μC at (0.40 m, 0)\nq₃ = +1.0 μC at (0, 0.30 m)\n\nThe electric potential energy of a pair of point charges is zero when they are infinitely far apart. Use k = 9.0 × 10⁹ N·m²/C².",
+    "parts": [
+     {
+      "prompt": "Before q₃ is brought in, only q₁ and q₂ are in place. Calculate the electric potential energy of the system of q₁ and q₂.",
+      "criteria": [
+       {
+        "text": "Calculates U₁₂ = −0.135 J.",
+        "evidence": "Response substitutes into U = k q₁q₂/r with r = 0.40 m, keeping the signs of the charges, and obtains −0.135 J.",
+        "fix": "Keep the signs of both charges in U = kq₁q₂/r; opposite charges give a negative potential energy.",
+        "accepted_variants": [
+         "−0.14 J",
+         "−1.35 × 10⁻¹ J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Charge q₃ is then moved slowly from very far away to its position while q₁ and q₂ are held fixed, so that q₃ is at rest at the start and the end. Calculate the work done by the external force on q₃.",
+      "criteria": [
+       {
+        "text": "Accounts for both new interactions: U₁₃ = +0.090 J (r = 0.30 m) and U₂₃ = −0.036 J (r = 0.50 m), separately or in one combined expression.",
+        "evidence": "Response finds the q₂–q₃ distance as 0.50 m and includes the interaction of q₃ with q₁ (+0.090 J) and with q₂ (−0.036 J) with correct signs, as separate pair energies or correctly substituted terms of a combined expression such as kq₃(q₁/r₁₃ + q₂/r₂₃).",
+        "fix": "List every new pair the arriving charge forms, find each distance, and compute each pair energy with its sign.",
+        "accepted_variants": [
+         "0.09 J and −0.036 J"
+        ]
+       },
+       {
+        "text": "States the external work is W = U₁₃ + U₂₃ = +0.054 J, because the work equals the increase in the system's electric potential energy when kinetic energy does not change.",
+        "evidence": "Response sums the two new pair energies to get +0.054 J and identifies this as the external work.",
+        "fix": "With no change in kinetic energy, the external work equals the change in electric potential energy, the sum of the new pair terms.",
+        "accepted_variants": [
+         "0.054 J",
+         "5.4 × 10⁻² J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the total electric potential energy of the three-charge system.",
+      "criteria": [
+       {
+        "text": "Calculates U_total = −0.135 J + 0.090 J − 0.036 J = −0.081 J.",
+        "evidence": "Response sums the potential energies of all three pairs and obtains −0.081 J.",
+        "fix": "Add the energy of every pair exactly once: three charges form three pairs.",
+        "accepted_variants": [
+         "−8.1 × 10⁻² J",
+         "−0.08 J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "All three charges are then moved, starting and ending at rest, until each is very far from the other two. Is the total work done by external forces positive, negative, or zero? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States the total external work is positive (+0.081 J) because the system's potential energy must increase from −0.081 J to zero with no change in kinetic energy.",
+        "evidence": "Response answers positive and supports it with the change in potential energy from the negative total in the previous part to zero at large separation.",
+        "fix": "Compare the final potential energy (zero when far apart) with the starting value; external work equals that change.",
+        "accepted_variants": [
+         "positive",
+         "+0.081 J"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) U₁₂ = k q₁q₂/r₁₂ = (9.0 × 10⁹)(3.0 × 10⁻⁶)(−2.0 × 10⁻⁶)/(0.40) = −0.135 J.\n\n(b) Distances from q₃: r₁₃ = 0.30 m, and r₂₃ = √(0.40² + 0.30²) = 0.50 m.\nU₁₃ = (9.0 × 10⁹)(3.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30) = +0.090 J.\nU₂₃ = (9.0 × 10⁹)(−2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.50) = −0.036 J.\nq₃ starts and ends at rest, so the external work equals the change in electric potential energy of the system: W = U₁₃ + U₂₃ = 0.090 − 0.036 = +0.054 J.\n\n(c) U_total = U₁₂ + U₁₃ + U₂₃ = −0.135 + 0.090 − 0.036 = −0.081 J.\n\n(d) Positive. When the charges are all very far apart, the system's electric potential energy is zero. It starts at −0.081 J, so it must increase by 0.081 J. The charges start and end at rest, so the total external work equals this increase: W = +0.081 J, which is positive.",
+    "verification_python": "import math\nk=9.0e9\nq1=3.0e-6; q2=-2.0e-6; q3=1.0e-6\nr12=0.40; r13=0.30; r23=math.hypot(0.40,0.30)\nassert abs(r23-0.50)<1e-12\nU12=k*q1*q2/r12; U13=k*q1*q3/r13; U23=k*q2*q3/r23\nassert abs(U12-(-0.135))<1e-12\nassert abs(U13-0.090)<1e-12\nassert abs(U23-(-0.036))<1e-12\nW3=U13+U23\nassert abs(W3-0.054)<1e-12\nUt=U12+U13+U23\nassert abs(Ut-(-0.081))<1e-12\nWsep=0-Ut\nassert abs(Wsep-0.081)<1e-12 and Wsep>0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     10
+    ],
+    "unitCount": {
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.4 Electric Potential Energy",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -378,5 +594,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

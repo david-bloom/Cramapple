@@ -11,8 +11,282 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:18.863Z",
+   "source": "given",
+   "item": {
+    "title": "Average Rates of Change of a Quadratic Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let q be the quadratic function defined by q(x) = −3x² + 24x + 5.",
+    "parts": [
+     {
+      "prompt": "Find the average rates of change of q over the intervals 0 ≤ x ≤ 1, 1 ≤ x ≤ 2 and 2 ≤ x ≤ 3. By how much does each of these average rates of change differ from the one before it?",
+      "criteria": [
+       {
+        "text": "Average rates of change are 21, 15 and 9 (q(0) = 5, q(1) = 26, q(2) = 41, q(3) = 50).",
+        "evidence": "Response gives the average rates of change 21, 15 and 9 by any valid method, such as evaluating q at 0, 1, 2 and 3 or using an algebraic average-rate formula.",
+        "fix": "Divide the change in q by the interval length for each interval, for example (q(1) − q(0))/(1 − 0).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Each average rate of change is 6 less than the one before it (a constant change of −6).",
+        "evidence": "Response computes 15 − 21 = −6 and 9 − 15 = −6 and states the average rates change by the same amount, −6, each time.",
+        "fix": "Subtract consecutive average rates of change; for a quadratic, these differences are equal.",
+        "accepted_variants": [
+         "−6",
+         "decrease by 6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For each whole number n, let A(n) be the average rate of change of q over the interval n ≤ x ≤ n + 1. Write A(n) as a linear function of n. Then use the behavior of A to decide whether the graph of q is concave up or concave down.",
+      "criteria": [
+       {
+        "text": "A(n) = 21 − 6n.",
+        "evidence": "Response gives A(n) = 21 − 6n (or −6n + 21) by any valid method, such as expanding q(n + 1) − q(n), or using A(0) = 21 and the constant change −6 found earlier.",
+        "fix": "Write q(n + 1) − q(n), expand (n + 1)², and collect like terms carefully.",
+        "accepted_variants": [
+         "−6n + 21"
+        ]
+       },
+       {
+        "text": "Concave down, because the average rates of change over consecutive equal-length intervals are decreasing (A decreases by 6 each step).",
+        "evidence": "Response states concave down and justifies it by the decreasing average rates of change over consecutive equal-length intervals.",
+        "fix": "Decreasing average rates over consecutive equal-length intervals mean concave down; increasing ones mean concave up.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the slope of the secant line of the graph of q between the points where x = 1 and x = 5, and write an equation of this secant line.",
+      "criteria": [
+       {
+        "text": "Slope is 6, the average rate of change of q over 1 ≤ x ≤ 5: (q(5) − q(1))/(5 − 1) = (50 − 26)/4 = 6.",
+        "evidence": "Response gives the slope 6 by any valid method, such as (q(5) − q(1))/(5 − 1) with q(5) = 50 and q(1) = 26, or a simplified average-rate formula for q.",
+        "fix": "The secant slope is the average rate of change: (q(b) − q(a))/(b − a) using the two given inputs.",
+        "accepted_variants": [
+         "6"
+        ]
+       },
+       {
+        "text": "An equation of the secant line is y = 6x + 20.",
+        "evidence": "Response gives y = 6x + 20 or an equivalent form such as y − 26 = 6(x − 1) or y − 50 = 6(x − 5).",
+        "fix": "Use point-slope form with the slope and either endpoint, such as (1, 26), then simplify if you wish.",
+        "accepted_variants": [
+         "y − 26 = 6(x − 1)",
+         "y − 50 = 6(x − 5)"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) q(0) = 5, q(1) = −3 + 24 + 5 = 26, q(2) = −12 + 48 + 5 = 41, q(3) = −27 + 72 + 5 = 50.\nAverage rates of change: over 0 ≤ x ≤ 1, (26 − 5)/1 = 21; over 1 ≤ x ≤ 2, (41 − 26)/1 = 15; over 2 ≤ x ≤ 3, (50 − 41)/1 = 9.\n15 − 21 = −6 and 9 − 15 = −6, so each average rate of change is 6 less than the one before it.\n\n(b) A(n) = q(n + 1) − q(n) = [−3(n + 1)² + 24(n + 1) + 5] − [−3n² + 24n + 5] = −3(2n + 1) + 24 = 21 − 6n.\nA is a decreasing linear function, so the average rates of change of q over consecutive equal-length intervals are decreasing. Therefore the graph of q is concave down. (The same holds for any equal length h: the average rate over x ≤ t ≤ x + h is 24 − 3h − 6x, which decreases as x increases.)\n\n(c) q(5) = −75 + 120 + 5 = 50 and q(1) = 26. Slope = (50 − 26)/(5 − 1) = 24/4 = 6.\nSecant line: y − 26 = 6(x − 1), which is y = 6x + 20.",
+    "verification_python": "import sympy as sp\nx,n,h=sp.symbols('x n h')\nq=-3*x**2+24*x+5\nvals=[q.subs(x,i) for i in range(4)]\nassert vals==[5,26,41,50]\nar=[vals[i+1]-vals[i] for i in range(3)]\nassert ar==[21,15,9]\nassert [ar[1]-ar[0],ar[2]-ar[1]]==[-6,-6]\nA=sp.expand(q.subs(x,n+1)-q.subs(x,n))\nassert sp.simplify(A-(21-6*n))==0\ngen=sp.expand((q.subs(x,x+h)-q)/h)\nassert sp.simplify(gen-(24-3*h-6*x))==0\nassert q.subs(x,5)==50\nm=sp.Rational(q.subs(x,5)-q.subs(x,1),4)\nassert m==6\nline=6*x+20\nassert line.subs(x,1)==26 and line.subs(x,5)==50\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "1.3",
+     "required_units": [
+      1
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "All six points assess 1.3.A.2, 1.3.A.3, 1.3.B.2 and 1.3.B.3 (the CED topic is Rates of Change in Linear and Quadratic Functions). Nothing from 1.4 or later is needed. Only Unit 1 is needed."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires both specific subtraction computations, 15 − 21 and 9 − 15. This prescribes a method the part does not require and excludes valid alternatives, such as establishing the constant difference algebraically. Accept any valid demonstration that each successive average rate decreases by 6."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires both specific subtraction computations, 15 − 21 and 9 − 15. This prescribes a method the part does not require and excludes valid alternatives, such as establishing the constant difference algebraically. Accept any valid demonstration that each successive average rate decreases by 6."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -25,9 +299,9 @@
      "prompt": "Find the average rates of change of q over the intervals 0 ≤ x ≤ 1, 1 ≤ x ≤ 2 and 2 ≤ x ≤ 3. By how much does each of these average rates of change differ from the one before it?",
      "criteria": [
       {
-       "text": "Average rates of change are 21, 15 and 9, from q(0) = 5, q(1) = 26, q(2) = 41 and q(3) = 50.",
-       "evidence": "Response evaluates q at 0, 1, 2 and 3 and computes the three average rates of change as 21, 15 and 9.",
-       "fix": "Evaluate q at each endpoint first, then divide each change in q by the interval length.",
+       "text": "Average rates of change are 21, 15 and 9 (q(0) = 5, q(1) = 26, q(2) = 41, q(3) = 50).",
+       "evidence": "Response gives the average rates of change 21, 15 and 9 by any valid method, such as evaluating q at 0, 1, 2 and 3 or using an algebraic average-rate formula.",
+       "fix": "Divide the change in q by the interval length for each interval, for example (q(1) − q(0))/(1 − 0).",
        "accepted_variants": []
       },
       {
@@ -46,7 +320,7 @@
      "criteria": [
       {
        "text": "A(n) = 21 − 6n.",
-       "evidence": "Response computes q(n + 1) − q(n) and simplifies to 21 − 6n (or −6n + 21).",
+       "evidence": "Response gives A(n) = 21 − 6n (or −6n + 21) by any valid method, such as expanding q(n + 1) − q(n), or using A(0) = 21 and the constant change −6 found earlier.",
        "fix": "Write q(n + 1) − q(n), expand (n + 1)², and collect like terms carefully.",
        "accepted_variants": [
         "−6n + 21"
@@ -64,8 +338,8 @@
      "prompt": "Find the slope of the secant line of the graph of q between the points where x = 1 and x = 5, and write an equation of this secant line.",
      "criteria": [
       {
-       "text": "Slope is (q(5) − q(1))/(5 − 1) = (50 − 26)/4 = 6.",
-       "evidence": "Response finds q(5) = 50 and q(1) = 26 and computes the slope 6 as the average rate of change over 1 ≤ x ≤ 5.",
+       "text": "Slope is 6, the average rate of change of q over 1 ≤ x ≤ 5: (q(5) − q(1))/(5 − 1) = (50 − 26)/4 = 6.",
+       "evidence": "Response gives the slope 6 by any valid method, such as (q(5) − q(1))/(5 − 1) with q(5) = 50 and q(1) = 26, or a simplified average-rate formula for q.",
        "fix": "The secant slope is the average rate of change: (q(b) − q(a))/(b − a) using the two given inputs.",
        "accepted_variants": [
         "6"
@@ -103,6 +377,20 @@
       "reason": "The item tests the 1.3 CED text directly: average rates of a quadratic over consecutive equal-length intervals (1.3.A.2), their constant change (1.3.B.2), concavity from decreasing average rates (1.3.B.3) and the secant slope (1.3.A.3). It has no extrema, inflection points or higher-degree polynomial work (1.4)."
      }
     ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criteria a1, b1, and c1 prescribe particular methods rather than accepting all valid supporting work. For example, b1 requires expanding q(n + 1)",
+      "ruling": "accept",
+      "reason": "Valid: no part prescribes a method. a1, b1 and c1 evidence now accept any valid method (endpoint values, an algebraic average-rate formula, or A(0) = 21 with constant change −6, which is valid because A is stated to be linear)."
+     }
+    ],
+    "accept_as_is": false
    }
   ],
   "topic_ruling": {
@@ -209,6 +497,281 @@
     }
    },
    "stage": "topic_vote"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:57:45.386Z",
+   "source": "given",
+   "item": {
+    "title": "Average Rates of Change of a Quadratic Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let q be the quadratic function defined by q(x) = −3x² + 24x + 5.",
+    "parts": [
+     {
+      "prompt": "Find the average rates of change of q over the intervals 0 ≤ x ≤ 1, 1 ≤ x ≤ 2 and 2 ≤ x ≤ 3. By how much does each of these average rates of change differ from the one before it?",
+      "criteria": [
+       {
+        "text": "Average rates of change are 21, 15 and 9, from q(0) = 5, q(1) = 26, q(2) = 41 and q(3) = 50.",
+        "evidence": "Response evaluates q at 0, 1, 2 and 3 and computes the three average rates of change as 21, 15 and 9.",
+        "fix": "Evaluate q at each endpoint first, then divide each change in q by the interval length.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Each average rate of change is 6 less than the one before it (a constant change of −6).",
+        "evidence": "Response computes 15 − 21 = −6 and 9 − 15 = −6 and states the average rates change by the same amount, −6, each time.",
+        "fix": "Subtract consecutive average rates of change; for a quadratic, these differences are equal.",
+        "accepted_variants": [
+         "−6",
+         "decrease by 6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For each whole number n, let A(n) be the average rate of change of q over the interval n ≤ x ≤ n + 1. Write A(n) as a linear function of n. Then use the behavior of A to decide whether the graph of q is concave up or concave down.",
+      "criteria": [
+       {
+        "text": "A(n) = 21 − 6n.",
+        "evidence": "Response computes q(n + 1) − q(n) and simplifies to 21 − 6n (or −6n + 21).",
+        "fix": "Write q(n + 1) − q(n), expand (n + 1)², and collect like terms carefully.",
+        "accepted_variants": [
+         "−6n + 21"
+        ]
+       },
+       {
+        "text": "Concave down, because the average rates of change over consecutive equal-length intervals are decreasing (A decreases by 6 each step).",
+        "evidence": "Response states concave down and justifies it by the decreasing average rates of change over consecutive equal-length intervals.",
+        "fix": "Decreasing average rates over consecutive equal-length intervals mean concave down; increasing ones mean concave up.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the slope of the secant line of the graph of q between the points where x = 1 and x = 5, and write an equation of this secant line.",
+      "criteria": [
+       {
+        "text": "Slope is (q(5) − q(1))/(5 − 1) = (50 − 26)/4 = 6.",
+        "evidence": "Response finds q(5) = 50 and q(1) = 26 and computes the slope 6 as the average rate of change over 1 ≤ x ≤ 5.",
+        "fix": "The secant slope is the average rate of change: (q(b) − q(a))/(b − a) using the two given inputs.",
+        "accepted_variants": [
+         "6"
+        ]
+       },
+       {
+        "text": "An equation of the secant line is y = 6x + 20.",
+        "evidence": "Response gives y = 6x + 20 or an equivalent form such as y − 26 = 6(x − 1) or y − 50 = 6(x − 5).",
+        "fix": "Use point-slope form with the slope and either endpoint, such as (1, 26), then simplify if you wish.",
+        "accepted_variants": [
+         "y − 26 = 6(x − 1)",
+         "y − 50 = 6(x − 5)"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) q(0) = 5, q(1) = −3 + 24 + 5 = 26, q(2) = −12 + 48 + 5 = 41, q(3) = −27 + 72 + 5 = 50.\nAverage rates of change: over 0 ≤ x ≤ 1, (26 − 5)/1 = 21; over 1 ≤ x ≤ 2, (41 − 26)/1 = 15; over 2 ≤ x ≤ 3, (50 − 41)/1 = 9.\n15 − 21 = −6 and 9 − 15 = −6, so each average rate of change is 6 less than the one before it.\n\n(b) A(n) = q(n + 1) − q(n) = [−3(n + 1)² + 24(n + 1) + 5] − [−3n² + 24n + 5] = −3(2n + 1) + 24 = 21 − 6n.\nA is a decreasing linear function, so the average rates of change of q over consecutive equal-length intervals are decreasing. Therefore the graph of q is concave down. (The same holds for any equal length h: the average rate over x ≤ t ≤ x + h is 24 − 3h − 6x, which decreases as x increases.)\n\n(c) q(5) = −75 + 120 + 5 = 50 and q(1) = 26. Slope = (50 − 26)/(5 − 1) = 24/4 = 6.\nSecant line: y − 26 = 6(x − 1), which is y = 6x + 20.",
+    "verification_python": "import sympy as sp\nx,n,h=sp.symbols('x n h')\nq=-3*x**2+24*x+5\nvals=[q.subs(x,i) for i in range(4)]\nassert vals==[5,26,41,50]\nar=[vals[i+1]-vals[i] for i in range(3)]\nassert ar==[21,15,9]\nassert [ar[1]-ar[0],ar[2]-ar[1]]==[-6,-6]\nA=sp.expand(q.subs(x,n+1)-q.subs(x,n))\nassert sp.simplify(A-(21-6*n))==0\ngen=sp.expand((q.subs(x,x+h)-q)/h)\nassert sp.simplify(gen-(24-3*h-6*x))==0\nassert q.subs(x,5)==50\nm=sp.Rational(q.subs(x,5)-q.subs(x,1),4)\nassert m==6\nline=6*x+20\nassert line.subs(x,1)==26 and line.subs(x,5)==50\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "1.3",
+     "required_units": [
+      1
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "All six points assess 1.3.A.2, 1.3.A.3, 1.3.B.2 and 1.3.B.3 (the CED topic is Rates of Change in Linear and Quadratic Functions). Nothing from 1.4 or later is needed. Only Unit 1 is needed."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, b1, and c1 prescribe methods not required by their parts. a1 requires evaluating all four endpoints; b1 requires computing and simplifying q(n + 1) − q(n), although the linear expression can validly be obtained from the quadratic's constant change in consecutive average rates and the values in part (a); c1 requires endpoint evaluations, although algebraically simplifying the secant-slope expression directly gives 24 − 3(1 + 5) = 6. Accept supporting work using any valid method rather than requiring these particular computations."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, b1, and c1 prescribe methods not required by their parts. a1 requires evaluating all four endpoints; b1 requires computing and simplifying q(n + 1) − q(n), although the linear expression can validly be obtained from the quadratic's constant change in consecutive average rates and the values in part (a); c1 requires endpoint evaluations, although algebraically simplifying the secant-slope expression directly gives 24 − 3(1 + 5) = 6. Accept supporting work using any valid method rather than requiring these particular computations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, b1, and c1 prescribe particular methods rather than accepting all valid supporting work. For example, b1 requires expanding q(n + 1) − q(n), but A(n) = 21 − 6n can validly be obtained from part (a), using A(0) = 21 and the constant change −6 for a quadratic. Likewise, a1 and c1 require explicit endpoint evaluations even when a correct algebraic average-rate formula supplies the requested values."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, b1, and c1 prescribe particular methods rather than accepting all valid supporting work. For example, b1 requires expanding q(n + 1) − q(n), but A(n) = 21 − 6n can validly be obtained from part (a), using A(0) = 21 and the constant change −6 for a quadratic. Likewise, a1 and c1 require explicit endpoint evaluations even when a correct algebraic average-rate formula supplies the requested values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

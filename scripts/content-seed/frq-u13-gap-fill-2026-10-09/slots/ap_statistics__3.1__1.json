@@ -11,8 +11,222 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:18:39.904Z",
+   "source": "given",
+   "item": {
+    "title": "Comparing Two Estimators of a Germination Proportion",
+    "calculator": "permitted",
+    "stimulus": "A seed company wants to estimate p, the proportion of all seeds in a large bin that germinate. Two estimators are proposed, each based on a random sample of 10 seeds, where X is the number of sampled seeds that germinate.\n\nEstimator A: X/10 (the sample proportion)\nEstimator B: (X + 2)/14\n\nTo study the estimators, a statistics class used a computer to simulate 1,000 random samples of 10 seeds from a large bin in which exactly 40% of the seeds germinate. For each simulated sample, the class calculated the value of both estimators. The results are summarized in the table.\n\nEstimator | Mean of the 1,000 simulated values\nA | 0.401\nB | 0.429",
+    "parts": [
+     {
+      "prompt": "Based on the simulation, which estimator appears to be unbiased and which appears to be biased? Justify your answers.",
+      "criteria": [
+       {
+        "text": "Identifies Estimator A as appearing unbiased because the mean of its simulated values, 0.401, is approximately equal to the true proportion, 0.40.",
+        "evidence": "Response compares the mean of A's simulated values (0.401) with p = 0.40, states that they are approximately equal, and so A does not tend to overestimate or underestimate p.",
+        "fix": "Judge bias by comparing the center (mean) of the estimator's simulated values with the true parameter used in the simulation, here 0.40.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Identifies Estimator B as biased because the mean of its simulated values, 0.429, is greater than 0.40, so on average B overestimates the true proportion.",
+        "evidence": "Response states that B is biased and explains that its simulated values are centered above 0.40, so it tends to overestimate p.",
+        "fix": "When simulated values center above or below the true parameter, call the estimator biased and name the direction: overestimates or underestimates.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The company then selects a random sample of 10 seeds from a new bin whose germination proportion is unknown, and 7 of the 10 seeds germinate. Calculate the value of each estimator for this sample, and identify which value the company should report as an unbiased point estimate of the proportion of all seeds in the new bin that germinate.",
+      "criteria": [
+       {
+        "text": "Calculates Estimator A = 7/10 = 0.70.",
+        "evidence": "Response substitutes X = 7 into X/10 to get 0.70.",
+        "fix": "Substitute the observed count X into each estimator's formula exactly as written, then simplify.",
+        "accepted_variants": [
+         "0.7",
+         "7/10",
+         "70%"
+        ]
+       },
+       {
+        "text": "Calculates Estimator B = (7 + 2)/14 = 9/14 ≈ 0.643.",
+        "evidence": "Response substitutes X = 7 into (X + 2)/14 to get 9/14, about 0.643.",
+        "fix": "Add 2 to the observed count before dividing by 14; do not divide by the sample size 10.",
+        "accepted_variants": [
+         "9/14",
+         "0.643",
+         "0.64"
+        ]
+       },
+       {
+        "text": "Identifies 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate to report.",
+        "evidence": "Response identifies 0.70, the value of Estimator A, as the unbiased point estimate to report. No justification is required.",
+        "fix": "Report the value from the estimator the simulation showed to be unbiased, here the sample proportion X/10.",
+        "accepted_variants": [
+         "0.7",
+         "7/10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student says, \"Because Estimator A is unbiased, its value from any single sample will be closer to the true proportion than the value of Estimator B.\" Explain why the student's statement is incorrect.",
+      "criteria": [
+       {
+        "text": "Explains that unbiased describes the average of the estimator's values over many random samples, so in a particular sample the value of Estimator A can be farther from the true proportion than the value of Estimator B.",
+        "evidence": "Response states that unbiasedness refers to the estimator's values on average across repeated samples, not to the accuracy of one sample's value, so A can miss p by more than B in a given sample.",
+        "fix": "Remember unbiased means correct on average across many samples; state that the value from one sample can still miss the parameter by more.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Estimator A appears to be unbiased. In the simulation the true proportion was 0.40, and the mean of A's 1,000 simulated values is 0.401, which is approximately 0.40, so on average A neither overestimates nor underestimates p.\nEstimator B appears to be biased. The mean of its simulated values is 0.429, which is clearly greater than 0.40, so on average B overestimates the true proportion of seeds that germinate.\n\n(b) Estimator A: 7/10 = 0.70. Estimator B: (7 + 2)/14 = 9/14 ≈ 0.643.\nThe company should report 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate of the proportion of all seeds in the new bin that germinate.\n\n(c) Unbiased means that the values of Estimator A are centered at the true proportion on average over many random samples. It does not mean that the value from a single sample is close to p, or closer than B's value. For example, if p = 0.40 and a sample has X = 7, Estimator A gives 0.70 (0.30 away from 0.40) while Estimator B gives about 0.643 (about 0.243 away), so in that sample A is farther from the true proportion.",
+    "verification_python": "from fractions import Fraction as F\np=F(2,5);n=10\nEA=p\nEB=(n*p+2)/14\nassert EA==F(2,5)\nassert EB==F(3,7) and abs(float(EB)-0.429)<0.001\nmA=0.401\nmB=(10*mA+2)/14\nassert round(mB,3)==0.429\nassert abs(mA-0.40)<0.005 and 0.429>0.40\nA=F(7,10);B=F(7+2,14)\nassert A==F(7,10) and B==F(9,14) and abs(float(B)-0.643)<0.0005\nassert abs(A-p)==F(3,10)\nassert abs(float(abs(B-p))-0.243)<0.0005\nassert abs(A-p)>abs(B-p)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -63,7 +277,7 @@
       },
       {
        "text": "Identifies 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate to report.",
-       "evidence": "Response names the value of Estimator A as the unbiased point estimate, because A was the estimator shown to be unbiased.",
+       "evidence": "Response identifies 0.70, the value of Estimator A, as the unbiased point estimate to report. No justification is required.",
        "fix": "Report the value from the estimator the simulation showed to be unbiased, here the sample proportion X/10.",
        "accepted_variants": [
         "0.7",
@@ -122,6 +336,20 @@
       "reason": "Agrees with the intended answers; its only defect is the inconsistent simulated means, fixed above."
      }
     ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b3 requires a justification ('because A was the estimator shown to be unbiased'), although the question only asks students to",
+      "ruling": "accept",
+      "reason": "Valid: part (b) asks only to identify which value to report. b3 evidence no longer requires a justification; the identification of 0.70 earns the point."
+     }
+    ],
+    "accept_as_is": false
    }
   ]
  },
@@ -435,6 +663,273 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T04:02:11.435Z",
+   "source": "given",
+   "item": {
+    "title": "Comparing Two Estimators of a Germination Proportion",
+    "calculator": "permitted",
+    "stimulus": "A seed company wants to estimate p, the proportion of all seeds in a large bin that germinate. Two estimators are proposed, each based on a random sample of 10 seeds, where X is the number of sampled seeds that germinate.\n\nEstimator A: X/10 (the sample proportion)\nEstimator B: (X + 2)/14\n\nTo study the estimators, a statistics class used a computer to simulate 1,000 random samples of 10 seeds from a large bin in which exactly 40% of the seeds germinate. For each simulated sample, the class calculated the value of both estimators. The results are summarized in the table.\n\nEstimator | Mean of the 1,000 simulated values\nA | 0.401\nB | 0.429",
+    "parts": [
+     {
+      "prompt": "Based on the simulation, which estimator appears to be unbiased and which appears to be biased? Justify your answers.",
+      "criteria": [
+       {
+        "text": "Identifies Estimator A as appearing unbiased because the mean of its simulated values, 0.401, is approximately equal to the true proportion, 0.40.",
+        "evidence": "Response compares the mean of A's simulated values (0.401) with p = 0.40, states that they are approximately equal, and so A does not tend to overestimate or underestimate p.",
+        "fix": "Judge bias by comparing the center (mean) of the estimator's simulated values with the true parameter used in the simulation, here 0.40.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Identifies Estimator B as biased because the mean of its simulated values, 0.429, is greater than 0.40, so on average B overestimates the true proportion.",
+        "evidence": "Response states that B is biased and explains that its simulated values are centered above 0.40, so it tends to overestimate p.",
+        "fix": "When simulated values center above or below the true parameter, call the estimator biased and name the direction: overestimates or underestimates.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The company then selects a random sample of 10 seeds from a new bin whose germination proportion is unknown, and 7 of the 10 seeds germinate. Calculate the value of each estimator for this sample, and identify which value the company should report as an unbiased point estimate of the proportion of all seeds in the new bin that germinate.",
+      "criteria": [
+       {
+        "text": "Calculates Estimator A = 7/10 = 0.70.",
+        "evidence": "Response substitutes X = 7 into X/10 to get 0.70.",
+        "fix": "Substitute the observed count X into each estimator's formula exactly as written, then simplify.",
+        "accepted_variants": [
+         "0.7",
+         "7/10",
+         "70%"
+        ]
+       },
+       {
+        "text": "Calculates Estimator B = (7 + 2)/14 = 9/14 ≈ 0.643.",
+        "evidence": "Response substitutes X = 7 into (X + 2)/14 to get 9/14, about 0.643.",
+        "fix": "Add 2 to the observed count before dividing by 14; do not divide by the sample size 10.",
+        "accepted_variants": [
+         "9/14",
+         "0.643",
+         "0.64"
+        ]
+       },
+       {
+        "text": "Identifies 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate to report.",
+        "evidence": "Response names the value of Estimator A as the unbiased point estimate, because A was the estimator shown to be unbiased.",
+        "fix": "Report the value from the estimator the simulation showed to be unbiased, here the sample proportion X/10.",
+        "accepted_variants": [
+         "0.7",
+         "7/10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student says, \"Because Estimator A is unbiased, its value from any single sample will be closer to the true proportion than the value of Estimator B.\" Explain why the student's statement is incorrect.",
+      "criteria": [
+       {
+        "text": "Explains that unbiased describes the average of the estimator's values over many random samples, so in a particular sample the value of Estimator A can be farther from the true proportion than the value of Estimator B.",
+        "evidence": "Response states that unbiasedness refers to the estimator's values on average across repeated samples, not to the accuracy of one sample's value, so A can miss p by more than B in a given sample.",
+        "fix": "Remember unbiased means correct on average across many samples; state that the value from one sample can still miss the parameter by more.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Estimator A appears to be unbiased. In the simulation the true proportion was 0.40, and the mean of A's 1,000 simulated values is 0.401, which is approximately 0.40, so on average A neither overestimates nor underestimates p.\nEstimator B appears to be biased. The mean of its simulated values is 0.429, which is clearly greater than 0.40, so on average B overestimates the true proportion of seeds that germinate.\n\n(b) Estimator A: 7/10 = 0.70. Estimator B: (7 + 2)/14 = 9/14 ≈ 0.643.\nThe company should report 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate of the proportion of all seeds in the new bin that germinate.\n\n(c) Unbiased means that the values of Estimator A are centered at the true proportion on average over many random samples. It does not mean that the value from a single sample is close to p, or closer than B's value. For example, if p = 0.40 and a sample has X = 7, Estimator A gives 0.70 (0.30 away from 0.40) while Estimator B gives about 0.643 (about 0.243 away), so in that sample A is farther from the true proportion.",
+    "verification_python": "from fractions import Fraction as F\np=F(2,5);n=10\nEA=p\nEB=(n*p+2)/14\nassert EA==F(2,5)\nassert EB==F(3,7) and abs(float(EB)-0.429)<0.001\nmA=0.401\nmB=(10*mA+2)/14\nassert round(mB,3)==0.429\nassert abs(mA-0.40)<0.005 and 0.429>0.40\nA=F(7,10);B=F(7+2,14)\nassert A==F(7,10) and B==F(9,14) and abs(float(B)-0.643)<0.0005\nassert abs(A-p)==F(3,10)\nassert abs(float(abs(B-p))-0.243)<0.0005\nassert abs(A-p)>abs(B-p)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b3 requires a justification ('because A was the estimator shown to be unbiased'), although the part only asks students to identify the value to report. Award this point for identifying 0.70 from Estimator A without requiring an explanation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b3 requires a justification ('because A was the estimator shown to be unbiased'), although the part only asks students to identify the value to report. Award this point for identifying 0.70 from Estimator A without requiring an explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b3 requires a justification ('because A was the estimator shown to be unbiased'), although the question only asks students to identify which value to report. A correct identification of Estimator A's value, 0.70, must earn this point without an explanation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b3 requires a justification ('because A was the estimator shown to be unbiased'), although the question only asks students to identify which value to report. A correct identification of Estimator A's value, 0.70, must earn this point without an explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

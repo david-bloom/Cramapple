@@ -11,8 +11,119 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:00:53.152Z",
+   "source": "given",
+   "item": {
+    "title": "Exact Positions of Runners on a Circular Track",
+    "calculator": "not_permitted",
+    "stimulus": "A circular running track has radius 8 meters. A coordinate system, with distances in meters, is placed so that the center of the track is at the origin. Three runners each start at the point (8, 0) and run along the track. Each runner's final position is on the terminal ray of an angle θ in standard position, measured in radians.\n\nRunner A moves counterclockwise through an angle of 5π/6.\nRunner B moves clockwise through an angle of 3π/4.\nRunner C moves counterclockwise through an angle of 4π/3.\n\nGive all answers as exact values.",
+    "parts": [
+     {
+      "prompt": "Find the exact coordinates of runner A's final position. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "x-coordinate of A is 8cos(5π/6) = 8(−√3/2) = −4√3.",
+        "evidence": "Response gets −4√3 with valid work, such as x = 8cos(5π/6) with cos(5π/6) = −√3/2, or a reference triangle with angle π/6 and hypotenuse 8 and a negative sign for quadrant II.",
+        "fix": "Use (r cos θ, r sin θ); find the reference angle, π/6 here, then make cosine negative for a quadrant II angle.",
+        "accepted_variants": [
+         "−4√3"
+        ]
+       },
+       {
+        "text": "y-coordinate of A is 8 sin(5π/6) = 8(1/2) = 4.",
+        "evidence": "Response gets 4 with valid work, such as y = 8 sin(5π/6) with sin(5π/6) = 1/2, or the side opposite π/6 in a reference triangle with hypotenuse 8.",
+        "fix": "Multiply the radius by the sine of the angle; the sine of a quadrant II angle is positive, so use sin(π/6) = 1/2.",
+        "accepted_variants": [
+         "4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the exact coordinates of runner B's final position. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "x-coordinate of B is −4√2: the clockwise rotation of 3π/4 ends in quadrant III with reference angle π/4, so x = 8cos(−3π/4) = 8(−√2/2) = −4√2.",
+        "evidence": "Response locates B's terminal ray in quadrant III (for example with the angle −3π/4, the coterminal 5π/4, or a reference angle of π/4 below the negative x-axis) and gets x = −4√2.",
+        "fix": "Write a clockwise rotation as a negative angle, locate its quadrant (III here), then compute r cos θ with the correct sign.",
+        "accepted_variants": [
+         "−4√2"
+        ]
+       },
+       {
+        "text": "y-coordinate of B is 8 sin(−3π/4) = 8(−√2/2) = −4√2.",
+        "evidence": "Response gets y = −4√2 with valid work, such as sin(−3π/4) = −√2/2, or an isosceles right reference triangle with hypotenuse 8 and a negative sign below the x-axis.",
+        "fix": "Below the x-axis the sine is negative; use sin(π/4) = √2/2 from the isosceles right triangle, then attach the sign.",
+        "accepted_variants": [
+         "−4√2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is runner C or runner A farther from the x-axis at their final positions? Justify your answer using exact values.",
+      "criteria": [
+       {
+        "text": "Runner C is 4√3 meters from the x-axis: |8 sin(4π/3)| = 8 sin(π/3) = 4√3 (C's position is (−4, −4√3)).",
+        "evidence": "Response finds C's distance from the x-axis as 4√3 with valid work, such as |8 sin(4π/3)|, or 8 sin(π/3) from the reference angle π/3.",
+        "fix": "Distance from the x-axis is the absolute value of the y-coordinate r sin θ; for 4π/3 use the reference angle π/3.",
+        "accepted_variants": [
+         "4√3"
+        ]
+       },
+       {
+        "text": "Runner C is farther, because 4√3 > 4, where 4 is runner A's distance from the x-axis.",
+        "evidence": "Response compares 4√3 with A's distance 4 (from part (a)) and concludes runner C is farther from the x-axis.",
+        "fix": "Compare absolute values of the y-coordinates, not the signed values, when asked about distance from the x-axis.",
+        "accepted_variants": [
+         "runner C"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) A point on a circle of radius 8 at angle θ has coordinates (8cos θ, 8 sin θ). The angle 5π/6 is in quadrant II with reference angle π/6, so cos(5π/6) = −√3/2 and sin(5π/6) = 1/2.\nA = (8(−√3/2), 8(1/2)) = (−4√3, 4).\n\n(b) A clockwise rotation of 3π/4 is the angle θ = −3π/4, whose terminal ray is in quadrant III with reference angle π/4. So cos(−3π/4) = −√2/2 and sin(−3π/4) = −√2/2.\nB = (8(−√2/2), 8(−√2/2)) = (−4√2, −4√2).\n\n(c) The angle 4π/3 is in quadrant III with reference angle π/3, so sin(4π/3) = −√3/2 and cos(4π/3) = −1/2. C = (8(−1/2), 8(−√3/2)) = (−4, −4√3).\nDistance from the x-axis is the absolute value of the y-coordinate. Runner C is 4√3 meters from the x-axis and runner A is 4 meters from it. Since √3 > 1, 4√3 > 4, so runner C is farther from the x-axis.",
+    "verification_python": "import sympy as sp\nr = 8\nA = (r*sp.cos(5*sp.pi/6), r*sp.sin(5*sp.pi/6))\nassert sp.simplify(A[0] + 4*sp.sqrt(3)) == 0 and sp.simplify(A[1] - 4) == 0\nB = (r*sp.cos(-3*sp.pi/4), r*sp.sin(-3*sp.pi/4))\nassert sp.simplify(B[0] + 4*sp.sqrt(2)) == 0 and sp.simplify(B[1] + 4*sp.sqrt(2)) == 0\nB2 = (r*sp.cos(5*sp.pi/4), r*sp.sin(5*sp.pi/4))\nassert sp.simplify(B2[0] - B[0]) == 0 and sp.simplify(B2[1] - B[1]) == 0\nCp = (r*sp.cos(4*sp.pi/3), r*sp.sin(4*sp.pi/3))\nassert sp.simplify(Cp[0] + 4) == 0 and sp.simplify(Cp[1] + 4*sp.sqrt(3)) == 0\nassert sp.Abs(Cp[1]) == 4*sp.sqrt(3) and sp.Abs(A[1]) == 4\nassert 4*sp.sqrt(3) > 4\nfor P in (A, B, Cp):\n    assert sp.simplify(P[0]**2 + P[1]**2 - 64) == 0\nassert sp.simplify(8*sp.sin(sp.pi/3) - 4*sp.sqrt(3)) == 0\nassert sp.simplify(8*sp.cos(sp.pi/6) - 4*sp.sqrt(3)) == 0 and 8*sp.sin(sp.pi/6) == 4\nassert sp.simplify(8*sp.cos(sp.pi/4) - 4*sp.sqrt(2)) == 0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.3": 4,
+     "3.2": 1,
+     "3.13": 1
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "3.3",
+     "required_units": [
+      3
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "Matches CED 3.3.A.1 (coordinates (r cos θ, r sin θ) on a circle of radius r centered at the origin) and 3.3.A.2 (exact values from isosceles right and equilateral triangle geometry with quadrant signs). Unit 3 only."
+    }
+   },
+   "stage": "accepted",
+   "difficulty": "Medium",
+   "accepted_by_arbitration": true
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -105,8 +216,30 @@
       "reason": "Valid: CED 3.3.A.2 itself names isosceles-right and equilateral-triangle geometry with quadrant signs as a method, so a1, a2, b1 and b2 now accept reference-triangle work, and b1 accepts locating B in quadrant III without writing a negative angle. Part (c) asks for a distance comparison, so c1 now requires the distance 4√3, not C's signed y-coordinate."
      }
     ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "six-vote topic classifier",
+      "objection": "topic votes {'3.3': 4, '3.2': 1, '3.13': 1}, required units [3]",
+      "ruling": "reject",
+      "reason": "The 4-of-6 majority (3.3) is correct. Every part finds coordinates (r cos θ, r sin θ) of points on a radius-8 circle centered at the origin (3.3.A.1) using reference-triangle exact values with quadrant signs (3.3.A.2). No part needs polar coordinates (3.13) or only unit-circle definitions (3.2)."
+     }
+    ],
+    "accept_as_is": true
    }
-  ]
+  ],
+  "topic_ruling": {
+   "topic": "3.3",
+   "required_units": [
+    3
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "Matches CED 3.3.A.1 (coordinates (r cos θ, r sin θ) on a circle of radius r centered at the origin) and 3.3.A.2 (exact values from isosceles right and equilateral triangle geometry with quadrant signs). Unit 3 only."
+  }
  },
  "history_flagged": [
   {
@@ -377,5 +510,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

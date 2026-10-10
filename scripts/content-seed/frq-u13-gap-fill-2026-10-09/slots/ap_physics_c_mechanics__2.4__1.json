@@ -11,8 +11,214 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:18.832Z",
+   "source": "given",
+   "item": {
+    "title": "Balanced Forces on a Hanging Sign and a Sliding Puck",
+    "calculator": "permitted",
+    "stimulus": "A sign of mass 20 kg hangs at rest from two light cables. Cable 1 pulls on the sign up and to the left at 30° above the horizontal, with tension T₁. Cable 2 pulls on the sign up and to the right at 60° above the horizontal, with tension T₂. Use g = 10 m/s².",
+    "parts": [
+     {
+      "prompt": "Write the equations that express the condition for the sign to remain at rest, one for the horizontal direction and one for the vertical direction, in terms of T₁ and T₂.",
+      "criteria": [
+       {
+        "text": "Horizontal: T₁ cos 30° = T₂ cos 60°, from setting the net horizontal force equal to zero.",
+        "evidence": "Response sets the sum of the horizontal force components equal to zero, giving T₁ cos 30° = T₂ cos 60° or an equivalent form.",
+        "fix": "For an object at rest, write ΣFx = 0, resolving each tension with cosine of its angle from the horizontal.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Vertical: T₁ sin 30° + T₂ sin 60° = mg = 200 N, from setting the net vertical force equal to zero.",
+        "evidence": "Response sets the sum of the vertical force components equal to zero, with the weight written as mg or 200 N.",
+        "fix": "For an object at rest, write ΣFy = 0: the upward tension components together must equal the weight mg.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate T₁.",
+      "criteria": [
+       {
+        "text": "T₁ = 100 N, for example by solving the two equilibrium equations from part (a).",
+        "evidence": "Response obtains T₁ = 100 N by any valid equilibrium calculation (solving the part (a) equations, a closed force triangle, or another valid method), or the value that follows correctly from its own part (a) equations.",
+        "fix": "Solve the horizontal equation for T₂ in terms of T₁, substitute into the vertical equation, then check both equations with your values.",
+        "accepted_variants": [
+         "1.0 × 10² N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Separately, a hockey puck slides due north at constant velocity across horizontal, frictionless ice. As it passes a player, the player's stick gives the puck a brief push directed due east. Describe what happens to the north component of the puck's velocity during the push. Justify your answer.",
+      "criteria": [
+       {
+        "text": "The north component stays constant because the forces in the north–south direction remain balanced (the push has no north–south component).",
+        "evidence": "Response states the north velocity component is unchanged and links this to zero net force in the north–south direction.",
+        "fix": "Analyze each direction separately: a velocity component changes only along a direction in which the forces are unbalanced.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A passenger in a car that is braking places a water bottle on the car's flat, frictionless floor. The forces on the bottle (gravity and the normal force from the floor) are balanced, yet the passenger sees the bottle start to slide forward. Explain whether the braking car is an inertial reference frame.",
+      "criteria": [
+       {
+        "text": "The braking car is not an inertial frame: in that frame an object with zero net force changes its velocity, so Newton's first law is not verified there.",
+        "evidence": "Response says the car is not an inertial frame because, in it, the bottle's velocity changes although the net force on the bottle is zero.",
+        "fix": "Define an inertial frame as one where objects with zero net force keep a constant velocity, then test the observed motion against that.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The sign is at rest, so the net force on it is zero in each direction. Take right and up as positive. The weight is mg = (20 kg)(10 m/s²) = 200 N.\nHorizontal: T₂ cos 60° − T₁ cos 30° = 0, so T₁ cos 30° = T₂ cos 60°.\nVertical: T₁ sin 30° + T₂ sin 60° − 200 N = 0.\n\n(b) From the horizontal equation, T₂ = T₁ cos 30°/cos 60° = √3 T₁ ≈ 1.732T₁.\nSubstituting into the vertical equation: 0.5T₁ + (1.732T₁)(0.866) = 200 N, so 0.5T₁ + 1.5T₁ = 2.0T₁ = 200 N.\nT₁ = 100 N (and T₂ = 100√3 N ≈ 173 N).\nCheck: the horizontal components are (100 N)(0.866) = 86.6 N and (173.2 N)(0.5) = 86.6 N.\n\n(c) The north component of the puck's velocity stays constant during the push, because no force acts on the puck in the north–south direction, so the forces in that direction stay balanced. (Gravity and the normal force from the ice balance vertically.) The push changes the velocity only in the east–west direction, where the force is unbalanced.\n\n(d) The braking car is not an inertial reference frame. The net force on the bottle is zero, so by Newton's first law its velocity should stay constant; in the car's frame it was at rest and should stay at rest. Instead, the passenger sees it start moving forward. Newton's first law is not verified in the car's frame, so that frame is not inertial.",
+    "verification_python": "import math\nm, g = 20.0, 10.0\nW = m*g\nassert W == 200.0\nc30, c60 = math.cos(math.radians(30)), math.cos(math.radians(60))\ns30, s60 = math.sin(math.radians(30)), math.sin(math.radians(60))\nratio = c30/c60\nassert abs(ratio - math.sqrt(3)) < 1e-12\nassert abs(ratio - 1.732) < 0.001\nT1 = W/(s30 + ratio*s60)\nT2 = ratio*T1\nassert abs(s30 + ratio*s60 - 2.0) < 1e-12\nassert abs(ratio*s60 - 1.5) < 1e-12\nassert abs(T1 - 100) < 1e-9\nassert abs(T2 - 100*math.sqrt(3)) < 1e-9\nassert abs(T2 - 173) < 0.5\nassert abs(T1*c30 - T2*c60) < 1e-9\nassert abs(T1*c30 - 86.6) < 0.01\nassert abs(173.2*0.5 - 86.6) < 1e-9\nassert abs(T2 - 173.2) < 0.01\nassert abs(T1*s30 + T2*s60 - W) < 1e-9\nassert abs(s60 - 0.866) < 0.001\n# force triangle: angle between cables is 90 degrees, so T1 = W sin 30 deg\nassert abs(W*math.sin(math.radians(30)) - T1) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -42,8 +248,8 @@
      "prompt": "Calculate T₁.",
      "criteria": [
       {
-       "text": "Solving the two equilibrium equations gives T₁ = 100 N.",
-       "evidence": "Response solves the two equations to get T₁ = 100 N, or a value consistent with its own equations from part (a).",
+       "text": "T₁ = 100 N, for example by solving the two equilibrium equations from part (a).",
+       "evidence": "Response obtains T₁ = 100 N by any valid equilibrium calculation (solving the part (a) equations, a closed force triangle, or another valid method), or the value that follows correctly from its own part (a) equations.",
        "fix": "Solve the horizontal equation for T₂ in terms of T₁, substitute into the vertical equation, then check both equations with your values.",
        "accepted_variants": [
         "1.0 × 10² N"
@@ -75,7 +281,7 @@
     }
    ],
    "model_answer": "(a) The sign is at rest, so the net force on it is zero in each direction. Take right and up as positive. The weight is mg = (20 kg)(10 m/s²) = 200 N.\nHorizontal: T₂ cos 60° − T₁ cos 30° = 0, so T₁ cos 30° = T₂ cos 60°.\nVertical: T₁ sin 30° + T₂ sin 60° − 200 N = 0.\n\n(b) From the horizontal equation, T₂ = T₁ cos 30°/cos 60° = √3 T₁ ≈ 1.732T₁.\nSubstituting into the vertical equation: 0.5T₁ + (1.732T₁)(0.866) = 200 N, so 0.5T₁ + 1.5T₁ = 2.0T₁ = 200 N.\nT₁ = 100 N (and T₂ = 100√3 N ≈ 173 N).\nCheck: the horizontal components are (100 N)(0.866) = 86.6 N and (173.2 N)(0.5) = 86.6 N.\n\n(c) The north component of the puck's velocity stays constant during the push, because no force acts on the puck in the north–south direction, so the forces in that direction stay balanced. (Gravity and the normal force from the ice balance vertically.) The push changes the velocity only in the east–west direction, where the force is unbalanced.\n\n(d) The braking car is not an inertial reference frame. The net force on the bottle is zero, so by Newton's first law its velocity should stay constant; in the car's frame it was at rest and should stay at rest. Instead, the passenger sees it start moving forward. Newton's first law is not verified in the car's frame, so that frame is not inertial.",
-   "verification_python": "import math\nm, g = 20.0, 10.0\nW = m*g\nassert W == 200.0\nc30, c60 = math.cos(math.radians(30)), math.cos(math.radians(60))\ns30, s60 = math.sin(math.radians(30)), math.sin(math.radians(60))\nratio = c30/c60\nassert abs(ratio - math.sqrt(3)) < 1e-12\nassert abs(ratio - 1.732) < 0.001\nT1 = W/(s30 + ratio*s60)\nT2 = ratio*T1\nassert abs(s30 + ratio*s60 - 2.0) < 1e-12\nassert abs(ratio*s60 - 1.5) < 1e-12\nassert abs(T1 - 100) < 1e-9\nassert abs(T2 - 100*math.sqrt(3)) < 1e-9\nassert abs(T2 - 173) < 0.5\nassert abs(T1*c30 - T2*c60) < 1e-9\nassert abs(T1*c30 - 86.6) < 0.01\nassert abs(173.2*0.5 - 86.6) < 1e-9\nassert abs(T2 - 173.2) < 0.01\nassert abs(T1*s30 + T2*s60 - W) < 1e-9\nassert abs(s60 - 0.866) < 0.001\nprint('ALL_CHECKS_PASSED')"
+   "verification_python": "import math\nm, g = 20.0, 10.0\nW = m*g\nassert W == 200.0\nc30, c60 = math.cos(math.radians(30)), math.cos(math.radians(60))\ns30, s60 = math.sin(math.radians(30)), math.sin(math.radians(60))\nratio = c30/c60\nassert abs(ratio - math.sqrt(3)) < 1e-12\nassert abs(ratio - 1.732) < 0.001\nT1 = W/(s30 + ratio*s60)\nT2 = ratio*T1\nassert abs(s30 + ratio*s60 - 2.0) < 1e-12\nassert abs(ratio*s60 - 1.5) < 1e-12\nassert abs(T1 - 100) < 1e-9\nassert abs(T2 - 100*math.sqrt(3)) < 1e-9\nassert abs(T2 - 173) < 0.5\nassert abs(T1*c30 - T2*c60) < 1e-9\nassert abs(T1*c30 - 86.6) < 0.01\nassert abs(173.2*0.5 - 86.6) < 1e-9\nassert abs(T2 - 173.2) < 0.01\nassert abs(T1*s30 + T2*s60 - W) < 1e-9\nassert abs(s60 - 0.866) < 0.001\n# force triangle: angle between cables is 90 degrees, so T1 = W sin 30 deg\nassert abs(W*math.sin(math.radians(30)) - T1) < 1e-9\nprint('ALL_CHECKS_PASSED')"
   },
   "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.870894Z"
@@ -94,6 +300,20 @@
       "reason": "All three bundles are real, but splitting all would give 7 points (maximum 5). a1 is split into the horizontal and vertical equations; part (b) is narrowed to T₁ and part (c) to the north component, so each remaining criterion awards one element."
      }
     ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires the response to solve the two equations, although the part only asks students to calculate T₁. This method-specif",
+      "ruling": "accept",
+      "reason": "Real: part (b) asks only for T₁. Re-derived with a force triangle (cables 90° apart, T₁ = W sin 30° = 100 N), a valid route b1 rejected. b1 now accepts any valid equilibrium calculation, or the value that follows from the response's own part (a) equations."
+     }
+    ],
+    "accept_as_is": false
    }
   ]
  },
@@ -351,6 +571,265 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:55:20.971Z",
+   "source": "given",
+   "item": {
+    "title": "Balanced Forces on a Hanging Sign and a Sliding Puck",
+    "calculator": "permitted",
+    "stimulus": "A sign of mass 20 kg hangs at rest from two light cables. Cable 1 pulls on the sign up and to the left at 30° above the horizontal, with tension T₁. Cable 2 pulls on the sign up and to the right at 60° above the horizontal, with tension T₂. Use g = 10 m/s².",
+    "parts": [
+     {
+      "prompt": "Write the equations that express the condition for the sign to remain at rest, one for the horizontal direction and one for the vertical direction, in terms of T₁ and T₂.",
+      "criteria": [
+       {
+        "text": "Horizontal: T₁ cos 30° = T₂ cos 60°, from setting the net horizontal force equal to zero.",
+        "evidence": "Response sets the sum of the horizontal force components equal to zero, giving T₁ cos 30° = T₂ cos 60° or an equivalent form.",
+        "fix": "For an object at rest, write ΣFx = 0, resolving each tension with cosine of its angle from the horizontal.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Vertical: T₁ sin 30° + T₂ sin 60° = mg = 200 N, from setting the net vertical force equal to zero.",
+        "evidence": "Response sets the sum of the vertical force components equal to zero, with the weight written as mg or 200 N.",
+        "fix": "For an object at rest, write ΣFy = 0: the upward tension components together must equal the weight mg.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate T₁.",
+      "criteria": [
+       {
+        "text": "Solving the two equilibrium equations gives T₁ = 100 N.",
+        "evidence": "Response solves the two equations to get T₁ = 100 N, or a value consistent with its own equations from part (a).",
+        "fix": "Solve the horizontal equation for T₂ in terms of T₁, substitute into the vertical equation, then check both equations with your values.",
+        "accepted_variants": [
+         "1.0 × 10² N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Separately, a hockey puck slides due north at constant velocity across horizontal, frictionless ice. As it passes a player, the player's stick gives the puck a brief push directed due east. Describe what happens to the north component of the puck's velocity during the push. Justify your answer.",
+      "criteria": [
+       {
+        "text": "The north component stays constant because the forces in the north–south direction remain balanced (the push has no north–south component).",
+        "evidence": "Response states the north velocity component is unchanged and links this to zero net force in the north–south direction.",
+        "fix": "Analyze each direction separately: a velocity component changes only along a direction in which the forces are unbalanced.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A passenger in a car that is braking places a water bottle on the car's flat, frictionless floor. The forces on the bottle (gravity and the normal force from the floor) are balanced, yet the passenger sees the bottle start to slide forward. Explain whether the braking car is an inertial reference frame.",
+      "criteria": [
+       {
+        "text": "The braking car is not an inertial frame: in that frame an object with zero net force changes its velocity, so Newton's first law is not verified there.",
+        "evidence": "Response says the car is not an inertial frame because, in it, the bottle's velocity changes although the net force on the bottle is zero.",
+        "fix": "Define an inertial frame as one where objects with zero net force keep a constant velocity, then test the observed motion against that.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The sign is at rest, so the net force on it is zero in each direction. Take right and up as positive. The weight is mg = (20 kg)(10 m/s²) = 200 N.\nHorizontal: T₂ cos 60° − T₁ cos 30° = 0, so T₁ cos 30° = T₂ cos 60°.\nVertical: T₁ sin 30° + T₂ sin 60° − 200 N = 0.\n\n(b) From the horizontal equation, T₂ = T₁ cos 30°/cos 60° = √3 T₁ ≈ 1.732T₁.\nSubstituting into the vertical equation: 0.5T₁ + (1.732T₁)(0.866) = 200 N, so 0.5T₁ + 1.5T₁ = 2.0T₁ = 200 N.\nT₁ = 100 N (and T₂ = 100√3 N ≈ 173 N).\nCheck: the horizontal components are (100 N)(0.866) = 86.6 N and (173.2 N)(0.5) = 86.6 N.\n\n(c) The north component of the puck's velocity stays constant during the push, because no force acts on the puck in the north–south direction, so the forces in that direction stay balanced. (Gravity and the normal force from the ice balance vertically.) The push changes the velocity only in the east–west direction, where the force is unbalanced.\n\n(d) The braking car is not an inertial reference frame. The net force on the bottle is zero, so by Newton's first law its velocity should stay constant; in the car's frame it was at rest and should stay at rest. Instead, the passenger sees it start moving forward. Newton's first law is not verified in the car's frame, so that frame is not inertial.",
+    "verification_python": "import math\nm, g = 20.0, 10.0\nW = m*g\nassert W == 200.0\nc30, c60 = math.cos(math.radians(30)), math.cos(math.radians(60))\ns30, s60 = math.sin(math.radians(30)), math.sin(math.radians(60))\nratio = c30/c60\nassert abs(ratio - math.sqrt(3)) < 1e-12\nassert abs(ratio - 1.732) < 0.001\nT1 = W/(s30 + ratio*s60)\nT2 = ratio*T1\nassert abs(s30 + ratio*s60 - 2.0) < 1e-12\nassert abs(ratio*s60 - 1.5) < 1e-12\nassert abs(T1 - 100) < 1e-9\nassert abs(T2 - 100*math.sqrt(3)) < 1e-9\nassert abs(T2 - 173) < 0.5\nassert abs(T1*c30 - T2*c60) < 1e-9\nassert abs(T1*c30 - 86.6) < 0.01\nassert abs(173.2*0.5 - 86.6) < 1e-9\nassert abs(T2 - 173.2) < 0.01\nassert abs(T1*s30 + T2*s60 - W) < 1e-9\nassert abs(s60 - 0.866) < 0.001\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires solving the two equations, although the prompt only asks students to calculate T₁. A valid force-triangle or other equivalent equilibrium calculation should also earn credit. Require a valid calculation yielding T₁ = 100 N, rather than a particular solution method."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires solving the two equations, although the prompt only asks students to calculate T₁. A valid force-triangle or other equivalent equilibrium calculation should also earn credit. Require a valid calculation yielding T₁ = 100 N, rather than a particular solution method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires the response to solve the two equations, although the part only asks students to calculate T₁. This method-specific evidence requirement could reject a valid vector-triangle or other equilibrium calculation. Require a valid equilibrium calculation yielding T₁ = 100 N, with consistent follow-through from part (a), rather than a particular solution method."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires the response to solve the two equations, although the part only asks students to calculate T₁. This method-specific evidence requirement could reject a valid vector-triangle or other equilibrium calculation. Require a valid equilibrium calculation yielding T₁ = 100 N, with consistent follow-through from part (a), rather than a particular solution method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

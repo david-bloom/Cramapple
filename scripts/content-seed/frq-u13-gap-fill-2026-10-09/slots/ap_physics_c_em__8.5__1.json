@@ -11,8 +11,219 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:16.968Z",
+   "source": "given",
+   "item": {
+    "title": "Electric Flux Through a Square in Two Field Regions",
+    "calculator": "permitted",
+    "stimulus": "Region 1 contains a uniform electric field E = (300 î + 400 ĵ) N/C. A flat square surface with sides 0.20 m long is placed in this region in different orientations.\n\nRegion 2, which contains no charge, has a nonuniform electric field E = α[(x² − y²) î − 2xy ĵ], where α = 5.0 × 10⁴ N/(C·m²) and x and y are coordinates in meters.",
+    "parts": [
+     {
+      "prompt": "In Region 1, the square lies in the yz-plane with its area vector pointing in the +x direction. Calculate the electric flux through the square.",
+      "criteria": [
+       {
+        "text": "Φ = E·A = (300 N/C)(0.040 m²) = 12 N·m²/C, since only the x-component of E is along the area vector.",
+        "evidence": "Response uses the dot product with an area of 0.040 m² in the +x direction and obtains 12 N·m²/C.",
+        "fix": "Use Φ = E·A: multiply the area by only the field component that lies along the area vector.",
+        "accepted_variants": [
+         "12 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, including its sign.",
+      "criteria": [
+       {
+        "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector.",
+        "evidence": "Response gives −16 N·m²/C, including the negative sign.",
+        "fix": "Keep the area vector's direction in the dot product; a field component opposite to the area vector gives negative flux.",
+        "accepted_variants": [
+         "−16 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Region 1, the square can be turned to any orientation. Calculate the greatest possible magnitude of the electric flux through the square.",
+      "criteria": [
+       {
+        "text": "The flux magnitude is greatest when the area vector is parallel or antiparallel to E: |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C.",
+        "evidence": "Response obtains a maximum flux magnitude of 20 N·m²/C by any valid calculation, for example |E|A or √(12² + 16²) using the flux components.",
+        "fix": "Flux magnitude is largest when cos θ = 1, so align the area vector with the field and use the field's full magnitude.",
+        "accepted_variants": [
+         "20 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square, showing the integral you set up.",
+      "criteria": [
+       {
+        "text": "Sets up the surface integral Φ = ∫E·dA with E_x = −αy² on the plane x = 0, for example Φ = ∫ from 0 to 0.20 of (−αy²)(0.20 m) dy.",
+        "evidence": "Response finds E_x = −αy² on the square and writes an integral of it over the square's area (single integral with strips of width 0.20 m or a double integral over y and z).",
+        "fix": "When the field varies across a surface, find the field component along the area vector at each point and integrate it over the area.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Φ = −(0.20)(5.0 × 10⁴)(0.20)³/3 ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+        "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign, or obtains the value that follows correctly from evaluating its own integral.",
+        "fix": "Evaluate y³/3 between the limits, multiply by α and the 0.20 m strip width, and keep the sign of E_x.",
+        "accepted_variants": [
+         "−26.7 N·m²/C",
+         "−80/3 N·m²/C"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component is opposite to the area vector.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, so that cos θ = 1. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+    "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nassert sp.sqrt(12**2 + 16**2) == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -35,11 +246,11 @@
      ]
     },
     {
-     "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, and explain the sign of your answer.",
+     "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, including its sign.",
      "criteria": [
       {
-       "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector, making the dot product negative.",
-       "evidence": "Response gives −16 N·m²/C and attributes the negative sign to the dot product of E with an oppositely directed area vector.",
+       "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector.",
+       "evidence": "Response gives −16 N·m²/C, including the negative sign.",
        "fix": "Keep the area vector's direction in the dot product; a field component opposite to the area vector gives negative flux.",
        "accepted_variants": [
         "−16 V·m"
@@ -48,11 +259,11 @@
      ]
     },
     {
-     "prompt": "In Region 1, describe the orientation of the square that gives the greatest magnitude of flux through it, and calculate that magnitude.",
+     "prompt": "In Region 1, the square can be turned to any orientation. Calculate the greatest possible magnitude of the electric flux through the square.",
      "criteria": [
       {
-       "text": "The area vector is parallel (or antiparallel) to E, so |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C, using |E| = √(300² + 400²) = 500 N/C.",
-       "evidence": "Response states that the area vector is parallel or antiparallel to E (the square perpendicular to the field) and obtains 500 N/C and a flux magnitude of 20 N·m²/C.",
+       "text": "The flux magnitude is greatest when the area vector is parallel or antiparallel to E: |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C.",
+       "evidence": "Response obtains a maximum flux magnitude of 20 N·m²/C by any valid calculation, for example |E|A or √(12² + 16²) using the flux components.",
        "fix": "Flux magnitude is largest when cos θ = 1, so align the area vector with the field and use the field's full magnitude.",
        "accepted_variants": [
         "20 V·m"
@@ -61,7 +272,7 @@
      ]
     },
     {
-     "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square.",
+     "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square, showing the integral you set up.",
      "criteria": [
       {
        "text": "Sets up the surface integral Φ = ∫E·dA with E_x = −αy² on the plane x = 0, for example Φ = ∫ from 0 to 0.20 of (−αy²)(0.20 m) dy.",
@@ -71,7 +282,7 @@
       },
       {
        "text": "Φ = −(0.20)(5.0 × 10⁴)(0.20)³/3 ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
-       "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign.",
+       "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign, or obtains the value that follows correctly from evaluating its own integral.",
        "fix": "Evaluate y³/3 between the limits, multiply by α and the 0.20 m strip width, and keep the sign of E_x.",
        "accepted_variants": [
         "−26.7 N·m²/C",
@@ -81,8 +292,8 @@
      ]
     }
    ],
-   "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component points in the +y direction, opposite to the area vector, so the dot product is negative.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, that is, when the square is perpendicular to the field. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
-   "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component is opposite to the area vector.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, so that cos θ = 1. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+   "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nassert sp.sqrt(12**2 + 16**2) == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
   },
   "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.873812Z"
@@ -107,6 +318,20 @@
       "reason": "Numbers confirmed (re-derived: 12, −16, 20, −80/3 N·m²/C). The c1 evidence inconsistency it notes is fixed by accepting either orientation."
      }
     ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion b1 bundles two independently observable elements: the calculated flux and the explanation of its sign. Criterion c1 similarly bundles t",
+      "ruling": "accept",
+      "reason": "All three are real. The item is at the 5-point maximum, so splits are blocked: part (b) now asks only for the flux including its sign (b1 scores −16 N·m²/C), and part (c) asks only for the greatest flux magnitude, accepting any valid calculation without requiring the intermediate 500 N/C (re-derived: √(12² + 16²) = 20). d2 now gives follow-through for correctly evaluating the response's own integral; part (d) now asks for the integral, which d1 scores."
+     }
+    ],
+    "accept_as_is": false
    }
   ]
  },
@@ -431,6 +656,270 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:54:12.332Z",
+   "source": "given",
+   "item": {
+    "title": "Electric Flux Through a Square in Two Field Regions",
+    "calculator": "permitted",
+    "stimulus": "Region 1 contains a uniform electric field E = (300 î + 400 ĵ) N/C. A flat square surface with sides 0.20 m long is placed in this region in different orientations.\n\nRegion 2, which contains no charge, has a nonuniform electric field E = α[(x² − y²) î − 2xy ĵ], where α = 5.0 × 10⁴ N/(C·m²) and x and y are coordinates in meters.",
+    "parts": [
+     {
+      "prompt": "In Region 1, the square lies in the yz-plane with its area vector pointing in the +x direction. Calculate the electric flux through the square.",
+      "criteria": [
+       {
+        "text": "Φ = E·A = (300 N/C)(0.040 m²) = 12 N·m²/C, since only the x-component of E is along the area vector.",
+        "evidence": "Response uses the dot product with an area of 0.040 m² in the +x direction and obtains 12 N·m²/C.",
+        "fix": "Use Φ = E·A: multiply the area by only the field component that lies along the area vector.",
+        "accepted_variants": [
+         "12 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, and explain the sign of your answer.",
+      "criteria": [
+       {
+        "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector, making the dot product negative.",
+        "evidence": "Response gives −16 N·m²/C and attributes the negative sign to the dot product of E with an oppositely directed area vector.",
+        "fix": "Keep the area vector's direction in the dot product; a field component opposite to the area vector gives negative flux.",
+        "accepted_variants": [
+         "−16 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Region 1, describe the orientation of the square that gives the greatest magnitude of flux through it, and calculate that magnitude.",
+      "criteria": [
+       {
+        "text": "The area vector is parallel (or antiparallel) to E, so |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C, using |E| = √(300² + 400²) = 500 N/C.",
+        "evidence": "Response states that the area vector is parallel or antiparallel to E (the square perpendicular to the field) and obtains 500 N/C and a flux magnitude of 20 N·m²/C.",
+        "fix": "Flux magnitude is largest when cos θ = 1, so align the area vector with the field and use the field's full magnitude.",
+        "accepted_variants": [
+         "20 V·m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square.",
+      "criteria": [
+       {
+        "text": "Sets up the surface integral Φ = ∫E·dA with E_x = −αy² on the plane x = 0, for example Φ = ∫ from 0 to 0.20 of (−αy²)(0.20 m) dy.",
+        "evidence": "Response finds E_x = −αy² on the square and writes an integral of it over the square's area (single integral with strips of width 0.20 m or a double integral over y and z).",
+        "fix": "When the field varies across a surface, find the field component along the area vector at each point and integrate it over the area.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Φ = −(0.20)(5.0 × 10⁴)(0.20)³/3 ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+        "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign.",
+        "fix": "Evaluate y³/3 between the limits, multiply by α and the 0.20 m strip width, and keep the sign of E_x.",
+        "accepted_variants": [
+         "−26.7 N·m²/C",
+         "−80/3 N·m²/C"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component points in the +y direction, opposite to the area vector, so the dot product is negative.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, that is, when the square is perpendicular to the field. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+    "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles the calculated flux and its sign explanation into one point; criterion c1 likewise bundles the orientation and maximum magnitude. These are independently observable answer elements. Criterion c1 also requires explicitly obtaining 500 N/C, rejecting a valid calculation using E·A with the maximizing unit normal without separately stating the field magnitude. Criterion d2 requires the correct numerical result rather than allowing consistent evaluation of an incorrect setup from d1, contrary to the stated follow-through convention."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles the calculated flux and its sign explanation into one point; criterion c1 likewise bundles the orientation and maximum magnitude. These are independently observable answer elements. Criterion c1 also requires explicitly obtaining 500 N/C, rejecting a valid calculation using E·A with the maximizing unit normal without separately stating the field magnitude. Criterion d2 requires the correct numerical result rather than allowing consistent evaluation of an incorrect setup from d1, contrary to the stated follow-through convention."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles two independently observable elements: the calculated flux and the explanation of its sign. Criterion c1 similarly bundles the maximizing orientation and the flux magnitude, and additionally requires obtaining 500 N/C, an intermediate value that a valid alternative calculation need not explicitly report. Split the independently requested elements into separate one-point criteria and accept equivalent calculations. Criterion d2 requires the correct final value without allowing consistent evaluation of an incorrect integral from d1, contrary to the fact pack's follow-through scoring convention."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles two independently observable elements: the calculated flux and the explanation of its sign. Criterion c1 similarly bundles the maximizing orientation and the flux magnitude, and additionally requires obtaining 500 N/C, an intermediate value that a valid alternative calculation need not explicitly report. Split the independently requested elements into separate one-point criteria and accept equivalent calculations. Criterion d2 requires the correct final value without allowing consistent evaluation of an incorrect integral from d1, contrary to the fact pack's follow-through scoring convention."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

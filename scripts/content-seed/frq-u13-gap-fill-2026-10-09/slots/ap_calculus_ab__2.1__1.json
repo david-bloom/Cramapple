@@ -11,8 +11,242 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:41.768Z",
+   "source": "given",
+   "item": {
+    "title": "Average and Instantaneous Heating Rates of a Metal Rod",
+    "calculator": "not_permitted",
+    "stimulus": "The temperature of a metal rod, in degrees Celsius (°C), is given by a differentiable function H(t), where t is the number of hours since heating began. Selected values of H(t) are given in the table.\n\nt (hours) | 0 | 2 | 5 | 8 | 12\nH(t) (°C) | 20 | 35 | 60 | 85 | 100",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of H(t) over the interval [2, 8]. Show the difference quotient you use and include units.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient [H(8) − H(2)] / (8 − 2) = (85 − 35) / 6.",
+        "evidence": "Response writes the change in H over the change in t using H(8) = 85, H(2) = 35 and a time change of 6 hours.",
+        "fix": "Write H(b) − H(a) over b − a with the interval's endpoints before simplifying.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Gives the value 25/3, about 8.333, degrees Celsius per hour.",
+        "evidence": "Response states 25/3 (or 8.333) with units of degrees Celsius per hour.",
+        "fix": "Simplify 50/6 and attach the units of H over the units of t.",
+        "accepted_variants": [
+         "25/3",
+         "8.333",
+         "8.33"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average rate of change of H(t) over [8, 12]. Over which interval, [2, 8] or [8, 12], was the rod heating faster on average? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Gives the average rate 15/4 = 3.75 °C per hour on [8, 12].",
+        "evidence": "Response computes (100 − 85)/(12 − 8) = 15/4 = 3.75, with units of degrees Celsius per hour.",
+        "fix": "Divide the change in temperature by the change in time for that interval only.",
+        "accepted_variants": [
+         "15/4",
+         "3.75"
+        ]
+       },
+       {
+        "text": "Concludes the rod heated faster on average over [2, 8], because 25/3 ≈ 8.333 > 3.75.",
+        "evidence": "Response names [2, 8] as the faster interval and justifies it by comparing the two average rates.",
+        "fix": "Compare the two average rates directly and name the interval with the larger one.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Write a limit expression, in terms of H, that represents the instantaneous rate of change of the rod's temperature at t = 5 hours. Then explain why the table alone cannot give the exact value of this limit.",
+      "criteria": [
+       {
+        "text": "Writes lim h→0 [H(5 + h) − H(5)] / h, or lim t→5 [H(t) − H(5)] / (t − 5).",
+        "evidence": "Response gives a limit of a difference quotient centred at t = 5 with h approaching 0 (or t approaching 5).",
+        "fix": "Put the average rate over a shrinking interval at t = 5 inside a limit.",
+        "accepted_variants": [
+         "lim h→0 (H(5+h) − H(5))/h",
+         "lim t→5 (H(t) − H(5))/(t − 5)"
+        ]
+       },
+       {
+        "text": "Explains that the table gives H only at t = 2 and t = 8 near t = 5, so the interval cannot be made arbitrarily small.",
+        "evidence": "Response states that the limit needs values of H at times arbitrarily close to 5, which the table does not provide.",
+        "fix": "Ask what values the limit needs as h shrinks, and whether the table has them.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A second rod’s temperature is G(t) = 15t + 20 °C. Use the limit of a difference quotient to find the instantaneous rate of change of G at t = 5. Show the algebra that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Sets up a limit of a difference quotient for G at t = 5 with the function values substituted.",
+        "evidence": "Response writes lim h→0 [15(5 + h) + 20 − 95]/h, or lim t→5 [(15t + 20) − 95]/(t − 5), using G(5) = 95.",
+        "fix": "Write the difference quotient at t = 5 inside the limit, then substitute G’s formula and G(5) = 95.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Simplifies the difference quotient and evaluates the limit to obtain 15 °C per hour.",
+        "evidence": "Response simplifies to 15h/h (or 15(t − 5)/(t − 5)), cancels, and gives the limit 15 with units of degrees Celsius per hour.",
+        "fix": "Simplify the numerator and cancel the common factor before letting h approach 0.",
+        "accepted_variants": [
+         "15"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) [H(8) − H(2)] / (8 − 2) = (85 − 35) / 6 = 50/6 = 25/3 ≈ 8.333 degrees Celsius per hour.\n\n(b) Over [8, 12]: (100 − 85)/(12 − 8) = 15/4 = 3.75 °C per hour. The rod heated faster on average over [2, 8], because 25/3 ≈ 8.333 °C per hour is greater than 3.75 °C per hour.\n\n(c) The instantaneous rate of change at t = 5 is lim h→0 [H(5 + h) − H(5)] / h. The table gives H only at t = 2 and t = 8 near t = 5, so we cannot compute average rates over intervals that shrink to t = 5; the table can only approximate this limit, not give its exact value.\n\n(d) G(5) = 15(5) + 20 = 95. lim h→0 [G(5 + h) − G(5)]/h = lim h→0 [15(5 + h) + 20 − 95]/h = lim h→0 15h/h = 15. The instantaneous rate of change of G at t = 5 is 15 °C per hour.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nH = {0: 20, 2: 35, 5: 60, 8: 85, 12: 100}\nr = lambda a, b: F(H[b] - H[a], b - a)\nassert r(2, 8) == F(25, 3) and abs(float(r(2, 8)) - 8.333) < 1e-3\nassert r(8, 12) == F(15, 4) and r(2, 8) > r(8, 12)\nh = sp.symbols('h')\nG = lambda t: 15*t + 20\nassert G(5) == 95\nassert sp.simplify(G(5 + h) - G(5)) == 15*h\nassert sp.limit((G(5 + h) - G(5)) / h, h, 0) == 15\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_escalated_before_po_rewrite": [
   {
    "round": 1,
@@ -1313,5 +1547,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

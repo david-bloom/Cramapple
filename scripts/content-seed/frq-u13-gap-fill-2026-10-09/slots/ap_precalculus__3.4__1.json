@@ -11,8 +11,229 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:25:30.458Z",
+   "source": "given",
+   "item": {
+    "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
+    "calculator": "not_permitted",
+    "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
+    "parts": [
+     {
+      "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
+      "criteria": [
+       {
+        "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
+        "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
+        "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
+        "accepted_variants": [
+         "sin θ decreasing"
+        ]
+       },
+       {
+        "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
+        "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
+        "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
+        "accepted_variants": [
+         "cos θ decreasing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
+      "criteria": [
+       {
+        "text": "sin θ = 0.7 has a solution because sin θ takes the value 0.7: sine oscillates between −1 and 1 and takes every value in between (for example, the y-coordinate of P goes through every value from 0 to 1 as θ goes from 0 to π/2).",
+        "evidence": "Response gives a valid reason that sine attains 0.7, such as: sine takes every value from −1 to 1, or the y-coordinate of P takes every value from 0 to 1 as θ increases from 0 to π/2.",
+        "fix": "Show the target value lies among the y-coordinates P passes through, for example every value from −1 to 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
+        "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
+        "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
+      "criteria": [
+       {
+        "text": "Gives the interval π < θ < 3π/2.",
+        "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
+        "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
+        "accepted_variants": [
+         "(π, 3π/2)",
+         "[π, 3π/2]",
+         "π ≤ θ ≤ 3π/2"
+        ]
+       },
+       {
+        "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
+        "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails. Any valid explanation earns the point, including identifying Quadrant III and describing P moving down and to the right there; an explicit argument that every other angle fails is not required.",
+        "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
+    "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.2": 4,
+     "3.4": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "3.4",
+     "required_units": [
+      3
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "On topic for 3.4 (Sine and Cosine Function Graphs): all six points assess 3.4.A.1-3.4.A.4 (function behavior and range of sine and cosine via the unit circle); only Unit 3 is needed."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -46,9 +267,9 @@
      "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
      "criteria": [
       {
-       "text": "sin θ = 0.7 has a solution because, as θ increases, sin θ oscillates between −1 and 1 and takes every value in between, and 0.7 is between −1 and 1.",
-       "evidence": "Response states that sine takes on every value from −1 to 1 (the y-coordinate of P takes every such value) and that 0.7 is in this range.",
-       "fix": "State the output range of sine, −1 to 1, and that sine takes every value in it, then check the target value.",
+       "text": "sin θ = 0.7 has a solution because sin θ takes the value 0.7: sine oscillates between −1 and 1 and takes every value in between (for example, the y-coordinate of P goes through every value from 0 to 1 as θ goes from 0 to π/2).",
+       "evidence": "Response gives a valid reason that sine attains 0.7, such as: sine takes every value from −1 to 1, or the y-coordinate of P takes every value from 0 to 1 as θ increases from 0 to π/2.",
+       "fix": "Show the target value lies among the y-coordinates P passes through, for example every value from −1 to 1.",
        "accepted_variants": []
       },
       {
@@ -74,7 +295,7 @@
       },
       {
        "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
-       "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
+       "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails. Any valid explanation earns the point, including identifying Quadrant III and describing P moving down and to the right there; an explicit argument that every other angle fails is not required.",
        "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
        "accepted_variants": []
       }
@@ -99,6 +320,38 @@
       "objection": "topic votes {'3.2': 4, '3.4': 2}, required units [3]",
       "ruling": "reject",
       "reason": "The item matches 3.4's CED text: every part treats f(θ) = sin θ and g(θ) = cos θ as functions of θ built from the unit circle (3.4.A.1, 3.4.A.3), asks how outputs change as inputs increase (increasing/decreasing intervals), and uses that outputs oscillate between −1 and 1 taking every value in between (3.4.A.2, 3.4.A.4). The unit-circle language that drew the 3.2 votes is how 3.4.A defines these functions; no part asks for a single angle's sine or cosine value."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires stating that sine takes every value from −1 to 1, rejecting valid alternative explanations. Showing that the y-co",
+      "ruling": "accept",
+      "reason": "Valid: showing that the y-coordinate of P passes through every value from 0 to 1 for 0 ≤ θ ≤ π/2 also establishes a solution. b1 evidence now accepts any valid reason that sine attains 0.7."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "solution: The mathematical conclusions agree with the rubric. However, the independent solution to (b) correctly establishes existence using continuous motion w",
+      "ruling": "accept",
+      "reason": "Same defect as the rubric_points objection; fixed there (b1 accepts the 0-to-1 continuous-motion argument). The model answer remains a valid full-credit answer."
+     }
+    ],
+    "accept_as_is": false
+   },
+   {
+    "at": "2026-10-10T04:25:30.141729Z",
+    "round": 4,
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "c2 requires explicit exclusion of other angles",
+      "ruling": "accept",
+      "reason": "A motion-based identification of Quadrant III is a complete explanation; the exclusion statement is not asked for."
      }
     ]
    }
@@ -206,6 +459,557 @@
     }
    },
    "stage": "topic_vote"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T04:01:20.359Z",
+   "source": "given",
+   "item": {
+    "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
+    "calculator": "not_permitted",
+    "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
+    "parts": [
+     {
+      "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
+      "criteria": [
+       {
+        "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
+        "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
+        "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
+        "accepted_variants": [
+         "sin θ decreasing"
+        ]
+       },
+       {
+        "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
+        "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
+        "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
+        "accepted_variants": [
+         "cos θ decreasing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
+      "criteria": [
+       {
+        "text": "sin θ = 0.7 has a solution because, as θ increases, sin θ oscillates between −1 and 1 and takes every value in between, and 0.7 is between −1 and 1.",
+        "evidence": "Response states that sine takes on every value from −1 to 1 (the y-coordinate of P takes every such value) and that 0.7 is in this range.",
+        "fix": "State the output range of sine, −1 to 1, and that sine takes every value in it, then check the target value.",
+        "accepted_variants": []
+       },
+       {
+        "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
+        "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
+        "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
+      "criteria": [
+       {
+        "text": "Gives the interval π < θ < 3π/2.",
+        "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
+        "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
+        "accepted_variants": [
+         "(π, 3π/2)",
+         "[π, 3π/2]",
+         "π ≤ θ ≤ 3π/2"
+        ]
+       },
+       {
+        "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
+        "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
+        "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
+    "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.2": 4,
+     "3.4": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "3.4",
+     "required_units": [
+      3
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "On topic for 3.4 (Sine and Cosine Function Graphs): all six points assess 3.4.A.1-3.4.A.4 (function behavior and range of sine and cosine via the unit circle); only Unit 3 is needed."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires stating that sine takes every value from −1 to 1, rejecting valid alternative justifications. Showing that the y-coordinate takes every value from 0 to 1 as θ increases from 0 to π/2 also fully proves the requested existence. Accept any valid unit-circle argument establishing that sine attains 0.7.",
+       "solution: The mathematical conclusions agree with the rubric in all parts. However, the independent solution to (b) proves existence using sine’s values from 0 to 1 on 0 ≤ θ ≤ π/2, rather than its full range from −1 to 1. This complete, correct justification does not satisfy b1’s unnecessarily restrictive evidence requirement. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires stating that sine takes every value from −1 to 1, rejecting valid alternative justifications. Showing that the y-coordinate takes every value from 0 to 1 as θ increases from 0 to π/2 also fully proves the requested existence. Accept any valid unit-circle argument establishing that sine attains 0.7."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The mathematical conclusions agree with the rubric in all parts. However, the independent solution to (b) proves existence using sine’s values from 0 to 1 on 0 ≤ θ ≤ π/2, rather than its full range from −1 to 1. This complete, correct justification does not satisfy b1’s unnecessarily restrictive evidence requirement. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires stating that sine takes every value from −1 to 1, rejecting valid alternative explanations. Showing that the y-coordinate continuously takes every value from 0 to 1 as θ increases from 0 to π/2 also establishes that sin θ = 0.7 has a solution. Accept an explanation establishing attainment of 0.7 without requiring the entire sine range.",
+       "solution: The mathematical conclusions agree with the rubric. However, the independent solution to (b) correctly establishes existence using continuous motion with y-coordinate ranging from 0 to 1, rather than stating the entire range −1 to 1. Criterion b1's evidence requirement would improperly deny credit for that valid explanation. No model answer was supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires stating that sine takes every value from −1 to 1, rejecting valid alternative explanations. Showing that the y-coordinate continuously takes every value from 0 to 1 as θ increases from 0 to π/2 also establishes that sin θ = 0.7 has a solution. Accept an explanation establishing attainment of 0.7 without requiring the entire sine range."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The mathematical conclusions agree with the rubric. However, the independent solution to (b) correctly establishes existence using continuous motion with y-coordinate ranging from 0 to 1, rather than stating the entire range −1 to 1. Criterion b1's evidence requirement would improperly deny credit for that valid explanation. No model answer was supplied.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T04:18:27.648Z",
+   "source": "given",
+   "item": {
+    "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
+    "calculator": "not_permitted",
+    "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
+    "parts": [
+     {
+      "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
+      "criteria": [
+       {
+        "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
+        "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
+        "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
+        "accepted_variants": [
+         "sin θ decreasing"
+        ]
+       },
+       {
+        "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
+        "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
+        "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
+        "accepted_variants": [
+         "cos θ decreasing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
+      "criteria": [
+       {
+        "text": "sin θ = 0.7 has a solution because sin θ takes the value 0.7: sine oscillates between −1 and 1 and takes every value in between (for example, the y-coordinate of P goes through every value from 0 to 1 as θ goes from 0 to π/2).",
+        "evidence": "Response gives a valid reason that sine attains 0.7, such as: sine takes every value from −1 to 1, or the y-coordinate of P takes every value from 0 to 1 as θ increases from 0 to π/2.",
+        "fix": "Show the target value lies among the y-coordinates P passes through, for example every value from −1 to 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
+        "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
+        "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
+      "criteria": [
+       {
+        "text": "Gives the interval π < θ < 3π/2.",
+        "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
+        "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
+        "accepted_variants": [
+         "(π, 3π/2)",
+         "[π, 3π/2]",
+         "π ≤ θ ≤ 3π/2"
+        ]
+       },
+       {
+        "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
+        "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
+        "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
+    "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.2": 5,
+     "3.4": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "3.4",
+     "required_units": [
+      3
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "On topic for 3.4 (Sine and Cosine Function Graphs): all six points assess 3.4.A.1-3.4.A.4 (function behavior and range of sine and cosine via the unit circle); only Unit 3 is needed."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 requires an explicit statement that outside the interval at least one condition fails. Part (c) does not explicitly request this additional exclusion argument. Correctly identifying the interval and explaining that P moves downward and rightward there is sufficient reasoning. Accept that explanation without requiring a separate discussion of other angles.",
+       "solution: The independent solution agrees with every mathematical result in the rubric, including the accepted endpoint conventions in part (c). However, its correct motion-based explanation for part (c) would not satisfy c2's additional demand to explicitly rule out angles outside the interval. That evidence requirement is unnecessarily restrictive. No model answer was evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 requires an explicit statement that outside the interval at least one condition fails. Part (c) does not explicitly request this additional exclusion argument. Correctly identifying the interval and explaining that P moves downward and rightward there is sufficient reasoning. Accept that explanation without requiring a separate discussion of other angles."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with every mathematical result in the rubric, including the accepted endpoint conventions in part (c). However, its correct motion-based explanation for part (c) would not satisfy c2's additional demand to explicitly rule out angles outside the interval. That evidence requirement is unnecessarily restrictive. No model answer was evaluated.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 requires an explicit statement that outside the interval at least one monotonicity condition fails. This rejects a valid explanation identifying Quadrant III and describing P moving downward and rightward there. Accept that explanation without requiring a separate exclusion of all other angles.",
+       "solution: The independent solution agrees with all mathematical answers, including the accepted closed interval [π, 3π/2] in part (c). However, its correct motion-based explanation would not satisfy c2's additional requirement to explicitly explain why angles outside that interval fail."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 requires an explicit statement that outside the interval at least one monotonicity condition fails. This rejects a valid explanation identifying Quadrant III and describing P moving downward and rightward there. Accept that explanation without requiring a separate exclusion of all other angles."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all mathematical answers, including the accepted closed interval [π, 3π/2] in part (c). However, its correct motion-based explanation would not satisfy c2's additional requirement to explicitly explain why angles outside that interval fail.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }

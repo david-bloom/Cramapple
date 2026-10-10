@@ -11,8 +11,215 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:51:10.485Z",
+   "source": "given",
+   "item": {
+    "title": "Rigid-Container Gas Data: Zero-Pressure Temperature and Moles",
+    "calculator": "permitted",
+    "stimulus": "A fixed amount of an ideal gas is sealed in a rigid container of volume 4.0 × 10⁻³ m³. A student measures the gas pressure at several temperatures:\nT (°C) | P (kPa)\n20 | 120.0\n50 | 132.3\n80 | 144.6\n110 | 156.9\n\nUse R = 8.31 J/(mol·K) and T(K) = T(°C) + 273.",
+    "parts": [
+     {
+      "prompt": "Using the data, determine the temperature, in degrees Celsius, at which the pressure of the gas would be zero if the trend in the data continued.",
+      "criteria": [
+       {
+        "text": "Finds about −273 °C by extending the linear trend (slope 0.41 kPa per °C) to zero pressure.",
+        "evidence": "Response finds the pressure rises by 12.3 kPa per 30 °C (0.41 kPa/°C) and extrapolates from a data point to P = 0, getting a value between −276 °C and −270 °C.",
+        "fix": "Find the constant change in P per degree, then work backward from a data point until the pressure reaches zero.",
+        "accepted_variants": [
+         "−273 °C",
+         "−272.7 °C",
+         "about −270 °C"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of moles of gas in the container.",
+      "criteria": [
+       {
+        "text": "Calculates n = PV/(RT) ≈ 0.197 mol, using the absolute temperature 293 K.",
+        "evidence": "Response substitutes into PV = nRT with consistent units (pascals, m³ and R = 8.31 J/(mol·K), or kPa, L and R = 8.31 kPa·L/(mol·K)) and T in kelvins, obtaining about 0.197 mol (or uses another row consistently).",
+        "fix": "Match units to R: with R = 8.31 J/(mol·K) use pascals and cubic meters, and always use absolute temperature in kelvins.",
+        "accepted_variants": [
+         "0.197 mol",
+         "0.20 mol",
+         "0.2 mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "All of the gas is moved into a different container with half the volume, and it is heated until its absolute temperature is twice its absolute temperature at 20 °C. No gas escapes. Determine the new pressure of the gas.",
+      "criteria": [
+       {
+        "text": "Finds the pressure increases by a factor of 4, to 480 kPa, because P = nRT/V with n constant, T doubled, and V halved.",
+        "evidence": "Response uses the ideal gas law with n fixed to combine a factor of 2 from temperature and a factor of 2 from volume, giving 4 × 120.0 kPa = 480 kPa.",
+        "fix": "Write P = nRT/V and apply each change as a factor: doubling T doubles P, and halving V doubles P again.",
+        "accepted_variants": [
+         "480 kPa",
+         "4.8 × 10⁵ Pa"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The ideal-gas model becomes less accurate when a gas is compressed into a very small volume. Identify one assumption of the ideal-gas model that fails under these conditions and explain why it fails.",
+      "criteria": [
+       {
+        "text": "Identifies a relevant assumption and explains its failure: the atoms' own volume is no longer negligible compared with the container volume, or the atoms are close enough that forces between them other than during collisions become appreciable.",
+        "evidence": "Response names one of these two assumptions and connects its failure to the atoms being packed closely together in a small volume.",
+        "fix": "Recall the model's assumptions (negligible atomic volume, forces only during collisions) and ask which depend on atoms being far apart.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Each 30 °C increase raises the pressure by 12.3 kPa, so the pressure is linear in temperature with slope 12.3/30 = 0.41 kPa/°C. Starting at 20 °C and 120.0 kPa, the pressure reaches zero after a decrease of 120.0/0.41 ≈ 293 °C, at T ≈ 20 − 293 ≈ −273 °C.\n\n(b) P = 120.0 kPa = 1.200 × 10⁵ Pa, T = 20 + 273 = 293 K.\nn = PV/(RT) = (1.200 × 10⁵ Pa)(4.0 × 10⁻³ m³)/[(8.31 J/(mol·K))(293 K)] = 480/2435 ≈ 0.197 mol.\n\n(c) From PV = nRT, P = nRT/V. The amount of gas n is constant. T doubles, which doubles P, and V is halved, which doubles P again. P_new = 2 × 2 × 120.0 kPa = 480 kPa.\n\n(d) The model assumes the volume of the atoms is negligible compared with the volume occupied by the gas. When the gas is squeezed into a very small volume, the atoms take up a significant fraction of that volume, so this assumption fails. (Also acceptable: the model assumes the only appreciable forces act during collisions, but when atoms are packed close together the forces between them at other times are no longer negligible.)",
+    "verification_python": "data=[(20,120.0),(50,132.3),(80,144.6),(110,156.9)]\nslopes=[(data[i+1][1]-data[i][1])/(data[i+1][0]-data[i][0]) for i in range(3)]\nfor s in slopes:\n    assert abs(s-0.41)<1e-9\nT0=20-120.0/0.41\nassert abs(T0-(-272.68))<0.01\nassert -276<T0<-270\nassert abs(120.0/0.41-292.68)<0.01\nP=1.200e5; V=4.0e-3; R=8.31; T=293\nn=P*V/(R*T)\nassert abs(P*V-480)<1e-9\nassert abs(R*T-2434.83)<0.01\nassert abs(n-0.197)<0.0005\nPnew=120.0*2/0.5\nassert abs(Pnew-480)<1e-9\nassert abs(120.0*4.0/(8.31*293)-n)<1e-12\nfor tc,pk in data:\n    assert abs(pk*1e3*V/(R*(tc+273))-0.197)<0.001\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "9.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     9
+    ],
+    "unitCount": {
+     "9": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -417,5 +624,6 @@
    ],
    "stage": "checkers"
   }
- ]
+ ],
+ "accepted_round": 1
 }
