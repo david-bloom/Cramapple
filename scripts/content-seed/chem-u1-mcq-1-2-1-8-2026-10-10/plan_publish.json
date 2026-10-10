@@ -1,0 +1,376 @@
+{
+ "subject_key": "ap-chemistry",
+ "source": "chem-u1-mcq-1-2-1-8-2026-10-10",
+ "run_note": "AP Chemistry Unit 1 topics 1.2/1.8 practice MCQ fill (generate-and-select, DECISION-0099/0101/0102)",
+ "items": [
+  {
+   "seed_key": "apchem-mcq-080",
+   "unit": 1,
+   "topic": "1.2",
+   "title": "Mass Spectra of Elements",
+   "skill": "5.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-080",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__1.2__C__seed#r1-openai",
+   "stem": "Two samples of element X contain the same two isotopes. Their mass spectra contain only peaks from singly charged monatomic ions.\n\nIsotope mass (amu) | Abundance in sample 1 | Abundance in sample 2\n50.0 | 30% | 70%\n54.0 | 70% | 30%\n\nCompared with sample 1, how do the average atomic mass and the isotope peak positions change in sample 2?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The average atomic mass increases, and the isotope peak positions remain unchanged.",
+     "is_correct": false,
+     "rationale": "Reversed weighting: This treats increased abundance of the lighter isotope as increasing the average mass. Giving more weight to 50.0 amu and less to 54.0 amu lowers the average instead. Fix: Identify which isotope gains abundance and move the average toward its mass."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The average atomic mass remains unchanged, and the isotope peak positions remain unchanged.",
+     "is_correct": false,
+     "rationale": "Unweighted-average trap: This uses only the isotope masses and ignores their abundances. Although the isotope masses remain fixed, their unequal contributions to the average change between samples. Fix: Compare each isotope’s fractional abundance before deciding whether the weighted average changes."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The average atomic mass decreases, and the isotope peak positions remain unchanged.",
+     "is_correct": true,
+     "rationale": "The weighted average decreases because more of the sample consists of the lighter isotope. Changing isotope abundances changes relative peak sizes, not peak positions, which depend on the individual isotope masses."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The average atomic mass decreases, and both isotope peak positions move to lower masses.",
+     "is_correct": false,
+     "rationale": "Peak-position–average confusion: This treats each isotope peak as representing the sample’s average mass. Each peak instead represents an individual isotope whose mass does not change when its abundance changes. Fix: Separate peak position, which indicates isotope mass, from peak size, which indicates abundance."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 5.C 3, 5.F 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Hard 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-081",
+   "unit": 1,
+   "topic": "1.2",
+   "title": "Mass Spectra of Elements",
+   "skill": "5.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-081",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__1.2__D__seed#r2-openai",
+   "stem": "A sample of element X contains only two isotopes. Its mass spectrum contains only peaks from singly charged monatomic ions.\n\nIsotope | Mass (amu)\nLighter isotope | 35.0\nHeavier isotope | 37.0\n\nThe sample’s average atomic mass is 35.5 amu. Let f represent the fractional abundance of the heavier isotope. Which equation should be used to determine f?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "35.0f + 37.0(1 − f) = 35.5",
+     "is_correct": false,
+     "rationale": "Reversed-abundance trap: This assigns f to the lighter isotope, although the stem defines f as the heavier isotope’s fraction. Fix: Match each abundance variable to its specified isotope before multiplying."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "35.0 + 37.0f = 35.5",
+     "is_correct": false,
+     "rationale": "Missing-weight trap: This includes the lighter isotope’s full mass rather than its weighted contribution. Its mass must be multiplied by its fraction, 1 − f. Fix: Multiply every isotope mass by that isotope’s fractional abundance."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "35.0(100 − f) + 37.0f = 35.5",
+     "is_correct": false,
+     "rationale": "Percent–fraction confusion: This uses 100 as the total abundance even though f is a fraction, not a percentage. Fractional abundances must sum to 1. Fix: Check whether abundances are fractions or percentages before writing their total."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "35.0(1 − f) + 37.0f = 35.5",
+     "is_correct": true,
+     "rationale": "Average atomic mass is the sum of each isotope’s mass multiplied by its fractional abundance. The heavier isotope has fraction f, so the lighter isotope has fraction 1 − f because the two fractions must sum to 1."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 5.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Easy 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-081",
+   "unit": 1,
+   "topic": "1.2",
+   "title": "Mass Spectra of Elements",
+   "skill": "5.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-081-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__1.2__D__v1#r1-openai",
+   "stem": "A laboratory uses mass spectrometry to analyze a purified batch of boron. The spectrum shows two peaks, both produced by singly charged monatomic ions. Use the following rounded isotope masses: lighter isotope, 10.0 amu; heavier isotope, 11.0 amu. The batch has an average atomic mass of 10.7 amu. If p denotes the fractional abundance of the lighter isotope, which equation correctly relates p to the average atomic mass?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "10.0(1 − p) + 11.0p = 10.7",
+     "is_correct": false,
+     "rationale": "Reversed-abundance trap: This pairs p with the heavier isotope instead of the lighter isotope specified in the question. Fix: Label each isotope with its assigned fraction before forming the weighted sum."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "10.0p + 11.0 = 10.7",
+     "is_correct": false,
+     "rationale": "Missing-weight trap: This counts the heavier isotope’s full mass rather than weighting it by its abundance. Its contribution must include the factor 1 − p. Fix: Check that every isotope mass is multiplied by its own fractional abundance."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "10.0p + 11.0(1 − p) = 10.7",
+     "is_correct": true,
+     "rationale": "Each isotope contributes its mass multiplied by its fractional abundance to the weighted average. The lighter isotope’s fraction is p, leaving 1 − p for the heavier isotope because the fractions total 1."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "10.0p + 11.0(100 − p) = 10.7",
+     "is_correct": false,
+     "rationale": "Percent–fraction confusion: This treats the total fractional abundance as 100. Since p is a fraction, the other isotope’s fraction is 1 − p, not 100 − p. Fix: Identify the abundance format, then check that fractions sum to 1."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-081 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-081 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-082",
+   "unit": 1,
+   "topic": "1.2",
+   "title": "Mass Spectra of Elements",
+   "skill": "5.F",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-082",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__1.2__E__seed#r1-anthropic",
+   "stem": "A mass spectrum of a pure sample of a single element contains only peaks from singly charged monatomic ions. The peak heights are reported relative to the tallest peak, which is assigned a value of 100.\n\nIsotope mass (u) | Relative peak height\n24.0 | 100\n25.0 | 12.5\n26.0 | 12.5\n\nBased on the spectrum, what is the average atomic mass of the element?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "30.4 u",
+     "is_correct": false,
+     "rationale": "This treats the relative heights as percentages and divides by 100. The tallest peak was only scaled to 100, so the heights total 125, and the result is impossibly larger than every isotope mass. Fix: Divide each peak height by the sum of all heights before multiplying by its mass."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "24.3 u",
+     "is_correct": true,
+     "rationale": "The peak heights total 125, so the fractional abundances are 100/125 = 0.800, 12.5/125 = 0.100 and 0.100. The weighted average is 24.0(0.800) + 25.0(0.100) + 26.0(0.100) = 24.3 u."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "25.0 u",
+     "is_correct": false,
+     "rationale": "This is the unweighted mean of the three isotope masses, which ignores relative abundance. The 24.0 u isotope is far more abundant, so the average must lie much closer to 24.0 u. Fix: Multiply each isotope mass by its fractional abundance, then add the products."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "24.0 u",
+     "is_correct": false,
+     "rationale": "This reports only the mass of the tallest peak, as if the most abundant isotope alone determines the atomic mass. The 25.0 u and 26.0 u isotopes make up 20% of the atoms and raise the average. Fix: Include every peak in the weighted sum, not only the largest one."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 5.F 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-082",
+   "unit": 1,
+   "topic": "1.2",
+   "title": "Mass Spectra of Elements",
+   "skill": "5.F",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-082-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__1.2__E__v1#r1-anthropic",
+   "stem": "A chemist records the mass spectrum of a pure sample of element X. Every peak comes from a singly charged monatomic ion, and each peak height is scaled so that the largest peak equals 100. The data are: isotope mass 28.0 u, relative height 100; isotope mass 29.0 u, relative height 15.0; isotope mass 30.0 u, relative height 10.0. What average atomic mass of X do these data give?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "35.4 u",
+     "is_correct": false,
+     "rationale": "This treats the relative heights as percentages and divides the summed products by 100. The heights total 125, not 100, so the result exceeds every isotope mass, which no weighted average can do. Fix: Divide each peak height by the sum of all heights before multiplying by its mass."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "28.3 u",
+     "is_correct": true,
+     "rationale": "The heights sum to 125, so the fractional abundances are 100/125 = 0.800, 15.0/125 = 0.120 and 10.0/125 = 0.080. The weighted average is 28.0(0.800) + 29.0(0.120) + 30.0(0.080) = 22.4 + 3.48 + 2.40 = 28.28, which rounds to 28.3 u."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "29.0 u",
+     "is_correct": false,
+     "rationale": "This is the simple mean of the three isotope masses, ignoring how abundant each isotope is. The 28.0 u isotope makes up 80% of the atoms, so the average must lie close to 28.0 u. Fix: Multiply each isotope mass by its fractional abundance, then add the products."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "28.0 u",
+     "is_correct": false,
+     "rationale": "This reports only the mass of the tallest peak, as if the most abundant isotope alone sets the atomic mass. The 29.0 u and 30.0 u isotopes make up 20% of the atoms and pull the average upward. Fix: Include every peak in the weighted sum, not only the largest one."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-082 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-082 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-083",
+   "unit": 1,
+   "topic": "1.8",
+   "title": "Valence Electrons and Ionic Compounds",
+   "skill": "4.B",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-083",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__1.8__B__seed#r1-openai",
+   "stem": "Sodium and potassium are both group 1 elements. A student models the potassium compound analogous to Na₂O by replacing each Na⁺ ion with one K⁺ ion while leaving the O²⁻ ions unchanged. The model therefore contains two K⁺ ions for every O²⁻ ion. Is this model consistent with typical ionic bonding, and why?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Yes; potassium and sodium have the same typical ionic charge, so the replacement preserves electrical neutrality.",
+     "is_correct": true,
+     "rationale": "Both elements have one valence electron and typically lose it to form ions with a +1 charge. Replacing Na⁺ with K⁺ preserves the charge balance: 2(+1) + (−2) = 0."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "No; the subscript 2 in the analogous formula K₂O means that each potassium ion should be K²⁺.",
+     "is_correct": false,
+     "rationale": "Subscript–charge confusion: a formula subscript counts ions; it does not specify their charge. Potassium typically forms K⁺, not K²⁺, because it has one valence electron to lose. Fix: Determine ionic charges from group position before interpreting formula subscripts."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "No; potassium typically gains one electron to form K⁻, so the replacement produces only negatively charged ions.",
+     "is_correct": false,
+     "rationale": "Electron-transfer direction reversal: group 1 potassium typically loses its single valence electron rather than gaining one. Losing an electron produces K⁺ because the ion has one more proton than electrons. Fix: Compare electron loss and gain to identify the nearest noble-gas configuration."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "No; electrical neutrality requires equal numbers of potassium ions and oxide ions.",
+     "is_correct": false,
+     "rationale": "Equal-count neutrality misconception: neutrality requires equal total positive and negative charge, not equal numbers of ions. One K⁺ and one O²⁻ would have a net charge of −1. Fix: Multiply each ion’s charge by its count, then add the charges."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Easy 2, Medium 2. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-083",
+   "unit": 1,
+   "topic": "1.8",
+   "title": "Valence Electrons and Ionic Compounds",
+   "skill": "4.B",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-sv-083-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__1.8__B__v1#r1-openai",
+   "stem": "Fluorine and chlorine belong to group 17. To represent calcium chloride using a particle model of CaF₂, a student substitutes one Cl⁻ ion for each F⁻ ion and keeps the Ca²⁺ ions. The resulting representation has one Ca²⁺ ion for every two Cl⁻ ions. Does this representation agree with typical ionic bonding?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "No; the subscript 2 in CaCl₂ requires each chloride ion to have a −2 charge.",
+     "is_correct": false,
+     "rationale": "Subscript–charge confusion: the subscript counts chloride ions rather than specifying their charge. Chlorine typically gains one electron, forming Cl⁻ rather than Cl²⁻. Fix: Use the element’s group to determine ionic charge before interpreting subscripts."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "No; chlorine typically loses one electron to form Cl⁺, making all the modeled ions positively charged.",
+     "is_correct": false,
+     "rationale": "Electron-transfer direction reversal: chlorine typically gains one electron to complete its valence shell rather than losing one. Gaining that electron produces Cl⁻, not Cl⁺. Fix: Compare electron gain and loss to find the nearest noble-gas configuration."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Yes; fluorine and chlorine typically form ions with identical charges, so the substitution maintains electrical neutrality.",
+     "is_correct": true,
+     "rationale": "Each element has seven valence electrons and typically gains one electron to form an ion with a −1 charge. Substituting Cl⁻ for F⁻ maintains charge balance: (+2) + 2(−1) = 0."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "No; an electrically neutral model must contain equal numbers of calcium ions and chloride ions.",
+     "is_correct": false,
+     "rationale": "Equal-count neutrality misconception: electrical neutrality depends on total charge, not equal ion counts. One Ca²⁺ ion paired with one Cl⁻ ion would have a net charge of +1. Fix: Multiply each ionic charge by its ion count and sum the charges."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-083 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-083 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-084",
+   "unit": 1,
+   "topic": "1.8",
+   "title": "Valence Electrons and Ionic Compounds",
+   "skill": "4.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-084",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__1.8__C__seed#r1-openai",
+   "stem": "Aluminum is a Group 13 metal with three valence electrons. Which prediction best explains the formation of its typical monatomic ion?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Al³⁻ forms when an aluminum atom loses three valence electrons.",
+     "is_correct": false,
+     "rationale": "Charge-sign reversal: Losing negatively charged electrons makes an atom more positive, not more negative. Losing three electrons produces a 3+ charge. Fix: Track how removing each negative electron changes the atom’s net charge."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Al³⁺ forms when an aluminum atom loses three valence electrons.",
+     "is_correct": true,
+     "rationale": "Aluminum typically loses its three valence electrons to reach a noble-gas electron configuration. Removing three negatively charged electrons leaves the ion with a 3+ charge."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Al⁵⁻ forms when an aluminum atom gains five electrons.",
+     "is_correct": false,
+     "rationale": "Wrong-direction octet trap: This reaches eight valence electrons but incorrectly predicts electron gain for aluminum. This metal typically loses its three valence electrons, exposing a filled inner shell. Fix: Identify whether the element is a metal before choosing electron loss or gain."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Al⁺ forms when an aluminum atom loses one valence electron.",
+     "is_correct": false,
+     "rationale": "All-metals-are-1+ trap: Metals do not all form singly charged ions. Losing only one electron leaves aluminum with two electrons in its outer shell rather than a noble-gas configuration. Fix: Count how many valence electrons must be removed to expose a filled shell."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.A 4",
+   "difficulty_note": "Four non-author model families voted; tally Easy 2, Medium 2. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-084",
+   "unit": 1,
+   "topic": "1.8",
+   "title": "Valence Electrons and Ionic Compounds",
+   "skill": "4.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-sv-084-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__1.8__C__v1#r1-anthropic",
+   "stem": "A fireworks designer uses a strontium salt to produce a red flame. Strontium is a Group 2 metal with two valence electrons. Which statement best predicts the charge of the monatomic ion strontium forms in its salts and explains how that charge arises?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Sr²⁻ forms when a strontium atom loses its two valence electrons.",
+     "is_correct": false,
+     "rationale": "Charge-sign reversal: the electron count is right, but the sign is backward. Removing negative electrons makes the atom more positive, so losing two gives 2+, not 2−. Fix: Track how each removed electron changes the net charge before writing the sign."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Sr²⁺ forms when a strontium atom loses its two valence electrons.",
+     "is_correct": true,
+     "rationale": "As a Group 2 metal, strontium loses both valence electrons, leaving the noble-gas configuration of krypton. Removing two negatively charged electrons from a neutral atom leaves two more protons than electrons, so the ion carries a 2+ charge."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Sr⁶⁻ forms when a strontium atom gains six electrons.",
+     "is_correct": false,
+     "rationale": "Wrong-direction octet trap: counting up to eight outer electrons seems to satisfy the octet, but metals lose electrons rather than gain them. Losing two electrons is far easier and exposes a filled inner shell. Fix: Ask whether the element is a metal before choosing electron loss or gain."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Sr⁺ forms when a strontium atom loses one valence electron.",
+     "is_correct": false,
+     "rationale": "All-metals-are-1+ trap: metals do not all form singly charged ions. Losing only one electron leaves strontium with one valence electron, not a noble-gas configuration. Fix: Count how many valence electrons the group number gives, then remove all of them."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-084 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-084 (DECISION-0096)."
+  }
+ ]
+}
