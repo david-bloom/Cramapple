@@ -2,7 +2,7 @@
 
 **Scope:** AP Chemistry Unit 1 (topics 1.1–1.8), following the Reference Pack build protocol in
 `docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md`. **Environment:** Development, then **Production on 2026-10-10 (APPROVAL-0147)**: the same SQL file, the same
-QA checks and the same probe counts. The two escalations below are not loaded in either environment.
+QA checks and the same probe counts. The two escalations below were later accepted (DECISION-0112) and loaded to both environments: Unit 1 = 26 entries + 1 hook.
 
 ## Roster (smoke-tested 3/3 each, 2026-10-09)
 
@@ -54,7 +54,7 @@ Kinds loaded: vocabulary 11, convention 5, formula 4, list_sequence 2, diagram 2
 | 2.1 (empty) | 0 | 0, briefs unchanged |
 | 4.9 (regression) | 4 | 1, unchanged from the pilot |
 
-## Escalations (not loaded): Product Owner call needed
+## Escalations: accepted by the Product Owner 2026-10-10 (DECISION-0112), loaded to Dev + Prod
 
 1. **`ap_chemistry-u1-r2-003` "Bond likelihood from valence electrons and nuclei" (1.8).** Rejected by
    GPT-6 Sol in both rounds. CED 1.8.A.1 says *"The likelihood that two elements will form a chemical bond is
