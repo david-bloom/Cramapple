@@ -11,8 +11,327 @@
   "need": 1
  },
  "n": 1,
- "status": "escalated",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:36:20.633Z",
+   "item": {
+    "title": "Shrinking Intervals and Instantaneous Velocity of a Cart",
+    "calculator": "not_permitted",
+    "stimulus": "A cart moves along a straight track. Its position, in meters, at time t seconds is s(t) = t² + 3t for 0 ≤ t ≤ 5.\n\nThe average velocity of the cart over a time interval is the change in position divided by the change in time over that interval.",
+    "model_answer": "(a) s(2) = 4 + 6 = 10, s(3) = 9 + 9 = 18, s(1.9) = 3.61 + 5.7 = 9.31, s(2.1) = 4.41 + 6.3 = 10.71.\nOver [2, 3]: (18 − 10)/(3 − 2) = 8 m/s.\nOver [1.9, 2]: (10 − 9.31)/(2 − 1.9) = 0.69/0.1 = 6.9 m/s.\nOver [2, 2.1]: (10.71 − 10)/(2.1 − 2) = 0.71/0.1 = 7.1 m/s.\n\n(b) s(2 + h) = (2 + h)² + 3(2 + h) = 4 + 4h + h² + 6 + 3h = 10 + 7h + h².\nAverage velocity = (s(2 + h) − s(2))/((2 + h) − 2) = (10 + 7h + h² − 10)/h = h(7 + h)/h = 7 + h, for h ≠ 0. (The same quotient applies when h < 0, since (s(2) − s(2 + h))/(2 − (2 + h)) is the same value.)\nWhen h = 0 the change in time is 0, so the average velocity would divide by zero; the quotient becomes 0/0 and is undefined. An average rate of change needs a nonzero change in the independent variable.\n\n(c) The instantaneous velocity at t = 2 is the limit of the average velocities as the interval shrinks: lim h→0 (s(2 + h) − s(2))/h = lim h→0 (7 + h) = 7 m/s.\nThis agrees with part (a): over [2, 3] the average is 8, while over the shorter intervals [1.9, 2] and [2, 2.1] the averages are 6.9 and 7.1, which lie on either side of 7 and are closer to it. As the intervals containing t = 2 get shorter, the average velocities approach 7 m/s.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\ns=lambda t: t**2+3*t\nassert s(F(2))==10 and s(F(3))==18\nassert s(F(19,10))==F(931,100) and s(F(21,10))==F(1071,100)\nassert (s(F(3))-s(F(2)))/1==8\nassert (s(F(2))-s(F(19,10)))/F(1,10)==F(69,10)\nassert (s(F(21,10))-s(F(2)))/F(1,10)==F(71,10)\nh=sp.symbols('h')\nassert sp.expand(s(2+h))==10+7*h+h**2\nq=sp.simplify((s(2+h)-s(2))/h)\nassert sp.simplify(q-(7+h))==0\nassert sp.limit((s(2+h)-s(2))/h,h,0)==7\nassert F(69,10)<7<F(71,10)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average velocity of the cart over each of the time intervals [2, 3], [1.9, 2] and [2, 2.1]. Show the computations that lead to your answers and include units.",
+      "criteria": [
+       {
+        "text": "Average velocity over [2, 3] is 8 meters per second, computed as (s(3) − s(2))/(3 − 2) = (18 − 10)/1.",
+        "evidence": "Shows s(3) = 18 and s(2) = 10 (or an equivalent difference quotient) and obtains 8 m/s.",
+        "fix": "Evaluate s at both endpoints, subtract, then divide by the length of the time interval.",
+        "accepted_variants": [
+         "8 m/s",
+         "8 meters per second",
+         "(18 − 10)/1 = 8"
+        ]
+       },
+       {
+        "text": "Average velocities over [1.9, 2] and [2, 2.1] are 6.9 m/s and 7.1 m/s respectively, from s(1.9) = 9.31 and s(2.1) = 10.71.",
+        "evidence": "Shows (10 − 9.31)/0.1 = 6.9 and (10.71 − 10)/0.1 = 7.1, both values correct.",
+        "fix": "Compute s(1.9) and s(2.1) carefully, then divide each change in position by 0.1, keeping the later time first.",
+        "accepted_variants": [
+         "0.69/0.1 = 6.9 and 0.71/0.1 = 7.1",
+         "69/10 and 71/10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For a nonzero number h (h may be positive or negative), show that the average velocity of the cart over the time interval with endpoints t = 2 and t = 2 + h equals 7 + h. Then explain why this average velocity cannot be computed directly when h = 0.",
+      "criteria": [
+       {
+        "text": "Shows (s(2 + h) − s(2))/h = (10 + 7h + h² − 10)/h = 7 + h for h ≠ 0.",
+        "evidence": "Expands s(2 + h) = (2 + h)² + 3(2 + h) = 10 + 7h + h², subtracts s(2) = 10, and divides by h to reach 7 + h.",
+        "fix": "Expand (2 + h)² + 3(2 + h) fully, subtract s(2), then factor h from the numerator before dividing.",
+        "accepted_variants": [
+         "(7h + h²)/h = h(7 + h)/h = 7 + h"
+        ]
+       },
+       {
+        "text": "Explains that when h = 0 the change in time is zero, so the average velocity would require division by zero (the quotient becomes 0/0) and is undefined.",
+        "evidence": "States that the denominator, the change in the independent variable (time), would be zero, so the average rate of change is undefined at h = 0.",
+        "fix": "Point out that an average rate divides by the change in time, and that change is zero when h = 0.",
+        "accepted_variants": [
+         "the interval has zero length so the quotient is 0/0",
+         "division by zero when h = 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the limit concept to determine the instantaneous velocity of the cart at t = 2, including units. Explain how the average velocities you found in part (a) are consistent with your answer.",
+      "criteria": [
+       {
+        "text": "Instantaneous velocity at t = 2 is lim h→0 (7 + h) = 7 meters per second.",
+        "evidence": "Writes a limit as h approaches 0 of the average velocity (or of 7 + h) and obtains 7 m/s.",
+        "fix": "Take the limit as h→0 of the simplified average velocity 7 + h rather than substituting h = 0 into the unsimplified quotient.",
+        "accepted_variants": [
+         "7 m/s",
+         "lim h→0 (s(2 + h) − s(2))/h = 7"
+        ]
+       },
+       {
+        "text": "Connects the part (a) values to the limit: average velocities over shorter intervals containing t = 2 approach 7 from both sides (6.9 below, 7.1 above, 8 farther away).",
+        "evidence": "Notes that as the interval around t = 2 shrinks the average velocities get closer to 7, with 6.9 and 7.1 on either side of 7.",
+        "fix": "Compare the average velocities over shrinking intervals on both sides of t = 2 and state which value they approach.",
+        "accepted_variants": [
+         "6.9 < 7 < 7.1 and these values get closer to 7 as h shrinks",
+         "average velocity 7 + h is within |h| of 7"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:37:00.109Z",
+   "item": {
+    "title": "Drone Altitude: From Average to Instantaneous Rate",
+    "calculator": "not_permitted",
+    "stimulus": "A drone rises vertically from a platform. Its altitude above the ground, in meters, t seconds after launch is modeled by A(t) = 2t² + 3t for 0 ≤ t ≤ 10.",
+    "model_answer": "(a) A(5) = 2(25) + 15 = 65, A(5.1) = 2(26.01) + 15.3 = 67.32, A(4.9) = 2(24.01) + 14.7 = 62.72.\nOver [5, 5.1]: (67.32 − 65)/(5.1 − 5) = 2.32/0.1 = 23.2 meters per second.\nOver [4.9, 5]: (65 − 62.72)/(5 − 4.9) = 2.28/0.1 = 22.8 meters per second.\n\n(b) A(5 + h) = 2(25 + 10h + h²) + 15 + 3h = 65 + 23h + 2h².\nSo (A(5 + h) − A(5))/h = (65 + 23h + 2h² − 65)/h = (23h + 2h²)/h = 23 + 2h for h ≠ 0.\nAt h = 0 the change in t is zero, so the quotient would be 0/0. An average rate of change divides by the change in the independent variable, and division by zero is undefined, so the expression cannot be evaluated at h = 0.\n\n(c) The instantaneous rate of change at t = 5 is the limit of the average rates of change as the interval shrinks to t = 5:\nlim h→0 (A(5 + h) − A(5))/h = lim h→0 (23 + 2h) = 23 meters per second.\nThis is consistent with part (a): 22.8 < 23 < 23.2. The averages 23.2 and 22.8 are 23 + 2h with h = 0.1 and h = −0.1, so they lie on either side of 23 and approach 23 as h → 0.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nA=lambda t: 2*t**2+3*t\nassert A(F(5))==65\nassert A(F(51,10))==F(6732,100)\nassert A(F(49,10))==F(6272,100)\nr1=(A(F(51,10))-A(F(5)))/F(1,10)\nr2=(A(F(5))-A(F(49,10)))/F(1,10)\nassert r1==F(232,10)\nassert r2==F(228,10)\nh=sp.symbols('h')\nt=sp.symbols('t')\nAs=2*t**2+3*t\nassert sp.expand(As.subs(t,5+h))==65+23*h+2*h**2\nq=sp.simplify((As.subs(t,5+h)-As.subs(t,5))/h)\nassert sp.simplify(q-(23+2*h))==0\nL=sp.limit((As.subs(t,5+h)-As.subs(t,5))/h,h,0)\nassert L==23\nassert r2<23<r1\nassert r1==23+2*F(1,10) and r2==23+2*F(-1,10)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of A over the interval 5 ≤ t ≤ 5.1 and over the interval 4.9 ≤ t ≤ 5. Show the computations that lead to your answers.",
+      "criteria": [
+       {
+        "text": "Average rate of change over [5, 5.1] is 23.2 meters per second, with supporting work",
+        "evidence": "Shows (A(5.1) − A(5))/(5.1 − 5) = (67.32 − 65)/0.1, or an equivalent setup, leading to 23.2.",
+        "fix": "Evaluate A at both endpoints, subtract, and divide by the change in t, 0.1, writing the quotient before simplifying.",
+        "accepted_variants": [
+         "116/5",
+         "23.2 m/s"
+        ]
+       },
+       {
+        "text": "Average rate of change over [4.9, 5] is 22.8 meters per second, with supporting work",
+        "evidence": "Shows (A(5) − A(4.9))/(5 − 4.9) = (65 − 62.72)/0.1, or an equivalent setup, leading to 22.8.",
+        "fix": "Compute A(4.9) = 62.72 carefully, then divide A(5) − A(4.9) by 0.1.",
+        "accepted_variants": [
+         "114/5",
+         "22.8 m/s"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, the average rate of change of A over the interval with endpoints 5 and 5 + h is (A(5 + h) − A(5))/h. Show that this expression equals 23 + 2h. Then explain why the expression (A(5 + h) − A(5))/h cannot be evaluated at h = 0.",
+      "criteria": [
+       {
+        "text": "Shows (A(5 + h) − A(5))/h simplifies to 23 + 2h",
+        "evidence": "Expands A(5 + h) = 2(5 + h)² + 3(5 + h) = 65 + 23h + 2h², subtracts A(5) = 65, and divides (23h + 2h²) by h to get 23 + 2h.",
+        "fix": "Expand 2(5 + h)² + 3(5 + h) fully, subtract 65, then factor h from the numerator before dividing.",
+        "accepted_variants": [
+         "(23h + 2h²)/h = 23 + 2h"
+        ]
+       },
+       {
+        "text": "Explains that at h = 0 the change in t is zero, so the quotient requires division by zero and is undefined",
+        "evidence": "States that h = 0 makes the denominator (the change in the independent variable t) zero, giving 0/0, so the average rate of change is undefined there.",
+        "fix": "Point out that h is the change in t; an average rate divides by that change, and dividing by zero is undefined.",
+        "accepted_variants": [
+         "the interval has length zero, so the quotient is 0/0",
+         "denominator h equals 0, undefined"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use your result from part (b) and a limit to find the instantaneous rate of change of the drone's altitude at t = 5. Then explain how your answer is consistent with the two values found in part (a).",
+      "criteria": [
+       {
+        "text": "Expresses the instantaneous rate at t = 5 as the limit of average rates of change as h → 0",
+        "evidence": "Writes lim h→0 (A(5 + h) − A(5))/h, or lim h→0 (23 + 2h), as the instantaneous rate of change at t = 5.",
+        "fix": "Define the instantaneous rate as the limit, as h approaches 0, of the average rates of change over intervals containing t = 5.",
+        "accepted_variants": [
+         "lim h→0 (23 + 2h)"
+        ]
+       },
+       {
+        "text": "Instantaneous rate of change at t = 5 is 23 meters per second",
+        "evidence": "Evaluates lim h→0 (23 + 2h) = 23.",
+        "fix": "After simplifying to 23 + 2h, let h approach 0; the term 2h approaches 0, leaving 23.",
+        "accepted_variants": [
+         "23 m/s"
+        ]
+       },
+       {
+        "text": "Notes that 23 lies between the average rates 22.8 and 23.2 over intervals containing t = 5",
+        "evidence": "States that 22.8 < 23 < 23.2 (or that each average differs from 23 by 0.2, matching 2h with h = ±0.1), so the instantaneous rate is consistent with average rates over small intervals on either side of t = 5.",
+        "fix": "Compare the instantaneous rate with the part (a) averages and state that it lies between the averages from the left and right intervals.",
+        "accepted_variants": [
+         "each average equals 23 + 2h with h = 0.1 and h = −0.1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:37:55.089Z",
+   "item": {
+    "title": "Average Velocities Approaching an Instant for a Rolling Ball",
+    "calculator": "not_permitted",
+    "stimulus": "A ball rolls down a ramp. Its distance from the top of the ramp, in feet, t seconds after it is released is d(t) = 3t² + 2t for 0 ≤ t ≤ 4.",
+    "model_answer": "(a) d(2) = 3(4) + 4 = 16, d(2.1) = 3(4.41) + 4.2 = 17.43, d(1.9) = 3(3.61) + 3.8 = 14.63.\nOn 2 ≤ t ≤ 2.1: (17.43 − 16)/(2.1 − 2) = 1.43/0.1 = 14.3 feet per second.\nOn 1.9 ≤ t ≤ 2: (16 − 14.63)/(2 − 1.9) = 1.37/0.1 = 13.7 feet per second.\n\n(b) d(2 + h) − d(2) = 3(4 + 4h + h²) + 4 + 2h − 16 = 12 + 12h + 3h² + 4 + 2h − 16 = 14h + 3h².\nSo for h ≠ 0, (d(2 + h) − d(2))/h = (14h + 3h²)/h = 14 + 3h.\nIf h = 0, the time interval has length zero, so the quotient becomes 0/0, which involves division by zero. An average velocity divides the change in distance by the change in time, so it is undefined when the change in time is zero.\n\n(c) Instantaneous velocity at t = 2 = lim h→0 (d(2 + h) − d(2))/h = lim h→0 (14 + 3h) = 14 feet per second.\nThe instantaneous velocity is the limit of the average velocities over intervals containing t = 2 as the length of the interval approaches 0. The average velocities from part (a), 13.7 and 14.3 ft/s, come from short intervals on either side of t = 2; they bracket 14 (13.7 < 14 < 14.3) and correspond to 14 + 3h with h = −0.1 and h = 0.1.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nd=lambda t: 3*t**2+2*t\nassert d(F(2))==16\nassert d(F(21,10))==F(1743,100)\nassert d(F(19,10))==F(1463,100)\na1=(d(F(21,10))-d(F(2)))/F(1,10)\na2=(d(F(2))-d(F(19,10)))/F(1,10)\nassert a1==F(143,10)\nassert a2==F(137,10)\nassert d(F(21,10))-d(F(2))==F(143,100)\nassert d(F(2))-d(F(19,10))==F(137,100)\nh=sp.symbols('h')\nnum=sp.expand(3*(2+h)**2+2*(2+h)-16)\nassert sp.simplify(num-(14*h+3*h**2))==0\nq=sp.simplify(num/h)\nassert sp.simplify(q-(14+3*h))==0\nassert sp.limit(num/h,h,0)==14\nassert q.subs(h,sp.Rational(1,10))==sp.Rational(143,10)\nassert q.subs(h,-sp.Rational(1,10))==sp.Rational(137,10)\nassert a2<14<a1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average velocity of the ball over the time interval 2 ≤ t ≤ 2.1 and over the time interval 1.9 ≤ t ≤ 2. Show the computations that lead to your answers and include units.",
+      "criteria": [
+       {
+        "text": "Average velocity on 2 ≤ t ≤ 2.1 is 14.3 feet per second, from (d(2.1) − d(2))/(2.1 − 2) = (17.43 − 16)/0.1.",
+        "evidence": "A difference quotient using d(2.1) = 17.43 and d(2) = 16 divided by 0.1, giving 14.3.",
+        "fix": "Compute the average rate of change as (d(b) − d(a))/(b − a), evaluating d carefully at both endpoints of the interval.",
+        "accepted_variants": [
+         "14.3 ft/s",
+         "143/10"
+        ]
+       },
+       {
+        "text": "Average velocity on 1.9 ≤ t ≤ 2 is 13.7 feet per second, from (d(2) − d(1.9))/(2 − 1.9) = (16 − 14.63)/0.1.",
+        "evidence": "A difference quotient using d(1.9) = 14.63 and d(2) = 16 divided by 0.1, giving 13.7.",
+        "fix": "For an interval ending at t = 2, subtract the earlier distance from the later one and divide by the elapsed time 0.1.",
+        "accepted_variants": [
+         "13.7 ft/s",
+         "137/10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, the average velocity of the ball over the time interval between t = 2 and t = 2 + h is (d(2 + h) − d(2))/h. Show that this expression simplifies to a linear expression in h, and explain why the value h = 0 cannot be substituted directly into (d(2 + h) − d(2))/h.",
+      "criteria": [
+       {
+        "text": "Simplifies the average velocity to 14 + 3h, with supporting algebra (3(2 + h)² + 2(2 + h) − 16 = 14h + 3h², then divide by h).",
+        "evidence": "Expansion of d(2 + h) − d(2) to 14h + 3h² (or equivalent) and the result 14 + 3h.",
+        "fix": "Expand 3(2 + h)² + 2(2 + h), subtract d(2) = 16, factor h from every remaining term, then cancel it since h ≠ 0.",
+        "accepted_variants": [
+         "3h + 14"
+        ]
+       },
+       {
+        "text": "Explains that substituting h = 0 makes the change in time zero, so the quotient has a zero denominator (0/0) and the average velocity is undefined.",
+        "evidence": "A statement that h = 0 means no elapsed time, giving division by zero, so the average rate of change is undefined there.",
+        "fix": "State that an average rate divides by the change in the independent variable, which is zero when h = 0, so it is undefined.",
+        "accepted_variants": [
+         "0/0 is undefined",
+         "division by zero when the time interval has length zero"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a limit to find the instantaneous velocity of the ball at t = 2, including units. Then explain how this value is related to the two average velocities you found in part (a).",
+      "criteria": [
+       {
+        "text": "Instantaneous velocity at t = 2 is lim h→0 (14 + 3h) = 14 feet per second.",
+        "evidence": "A limit as h→0 of the simplified average velocity (or of the original difference quotient) evaluated to 14 with units of feet per second.",
+        "fix": "Write lim h→0 of the simplified average velocity, then substitute h = 0 into 14 + 3h, which is now allowed, and attach units.",
+        "accepted_variants": [
+         "14 ft/s",
+         "lim h→0 (d(2 + h) − d(2))/h = 14"
+        ]
+       },
+       {
+        "text": "Explains that 14 is the value the average velocities over intervals containing t = 2 approach as the interval length shrinks to 0, and that 13.7 and 14.3 lie on either side of 14.",
+        "evidence": "Mentions that average velocities approach 14 as the interval around t = 2 gets shorter, and notes 13.7 < 14 < 14.3 or both values are within 0.3 of 14.",
+        "fix": "Describe the instantaneous rate as the limit of average rates over shrinking intervals at that instant, and compare your part (a) values to it.",
+        "accepted_variants": [
+         "13.7 and 14.3 are estimates that bracket 14",
+         "14 is the limit of the average velocities as h→0"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "history_escalated_before_po_rewrite": [
   {
    "round": 1,
    "at": "2026-10-10T01:23:54.595Z",
@@ -336,322 +655,84 @@
    "stage": "topic_vote"
   }
  ],
- "history_before_rule_calibration": [
-  {
-   "round": 1,
-   "at": "2026-10-10T00:36:20.633Z",
-   "item": {
-    "title": "Shrinking Intervals and Instantaneous Velocity of a Cart",
-    "calculator": "not_permitted",
-    "stimulus": "A cart moves along a straight track. Its position, in meters, at time t seconds is s(t) = t² + 3t for 0 ≤ t ≤ 5.\n\nThe average velocity of the cart over a time interval is the change in position divided by the change in time over that interval.",
-    "model_answer": "(a) s(2) = 4 + 6 = 10, s(3) = 9 + 9 = 18, s(1.9) = 3.61 + 5.7 = 9.31, s(2.1) = 4.41 + 6.3 = 10.71.\nOver [2, 3]: (18 − 10)/(3 − 2) = 8 m/s.\nOver [1.9, 2]: (10 − 9.31)/(2 − 1.9) = 0.69/0.1 = 6.9 m/s.\nOver [2, 2.1]: (10.71 − 10)/(2.1 − 2) = 0.71/0.1 = 7.1 m/s.\n\n(b) s(2 + h) = (2 + h)² + 3(2 + h) = 4 + 4h + h² + 6 + 3h = 10 + 7h + h².\nAverage velocity = (s(2 + h) − s(2))/((2 + h) − 2) = (10 + 7h + h² − 10)/h = h(7 + h)/h = 7 + h, for h ≠ 0. (The same quotient applies when h < 0, since (s(2) − s(2 + h))/(2 − (2 + h)) is the same value.)\nWhen h = 0 the change in time is 0, so the average velocity would divide by zero; the quotient becomes 0/0 and is undefined. An average rate of change needs a nonzero change in the independent variable.\n\n(c) The instantaneous velocity at t = 2 is the limit of the average velocities as the interval shrinks: lim h→0 (s(2 + h) − s(2))/h = lim h→0 (7 + h) = 7 m/s.\nThis agrees with part (a): over [2, 3] the average is 8, while over the shorter intervals [1.9, 2] and [2, 2.1] the averages are 6.9 and 7.1, which lie on either side of 7 and are closer to it. As the intervals containing t = 2 get shorter, the average velocities approach 7 m/s.",
-    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\ns=lambda t: t**2+3*t\nassert s(F(2))==10 and s(F(3))==18\nassert s(F(19,10))==F(931,100) and s(F(21,10))==F(1071,100)\nassert (s(F(3))-s(F(2)))/1==8\nassert (s(F(2))-s(F(19,10)))/F(1,10)==F(69,10)\nassert (s(F(21,10))-s(F(2)))/F(1,10)==F(71,10)\nh=sp.symbols('h')\nassert sp.expand(s(2+h))==10+7*h+h**2\nq=sp.simplify((s(2+h)-s(2))/h)\nassert sp.simplify(q-(7+h))==0\nassert sp.limit((s(2+h)-s(2))/h,h,0)==7\nassert F(69,10)<7<F(71,10)\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Find the average velocity of the cart over each of the time intervals [2, 3], [1.9, 2] and [2, 2.1]. Show the computations that lead to your answers and include units.",
-      "criteria": [
-       {
-        "text": "Average velocity over [2, 3] is 8 meters per second, computed as (s(3) − s(2))/(3 − 2) = (18 − 10)/1.",
-        "evidence": "Shows s(3) = 18 and s(2) = 10 (or an equivalent difference quotient) and obtains 8 m/s.",
-        "fix": "Evaluate s at both endpoints, subtract, then divide by the length of the time interval.",
-        "accepted_variants": [
-         "8 m/s",
-         "8 meters per second",
-         "(18 − 10)/1 = 8"
-        ]
-       },
-       {
-        "text": "Average velocities over [1.9, 2] and [2, 2.1] are 6.9 m/s and 7.1 m/s respectively, from s(1.9) = 9.31 and s(2.1) = 10.71.",
-        "evidence": "Shows (10 − 9.31)/0.1 = 6.9 and (10.71 − 10)/0.1 = 7.1, both values correct.",
-        "fix": "Compute s(1.9) and s(2.1) carefully, then divide each change in position by 0.1, keeping the later time first.",
-        "accepted_variants": [
-         "0.69/0.1 = 6.9 and 0.71/0.1 = 7.1",
-         "69/10 and 71/10"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "For a nonzero number h (h may be positive or negative), show that the average velocity of the cart over the time interval with endpoints t = 2 and t = 2 + h equals 7 + h. Then explain why this average velocity cannot be computed directly when h = 0.",
-      "criteria": [
-       {
-        "text": "Shows (s(2 + h) − s(2))/h = (10 + 7h + h² − 10)/h = 7 + h for h ≠ 0.",
-        "evidence": "Expands s(2 + h) = (2 + h)² + 3(2 + h) = 10 + 7h + h², subtracts s(2) = 10, and divides by h to reach 7 + h.",
-        "fix": "Expand (2 + h)² + 3(2 + h) fully, subtract s(2), then factor h from the numerator before dividing.",
-        "accepted_variants": [
-         "(7h + h²)/h = h(7 + h)/h = 7 + h"
-        ]
-       },
-       {
-        "text": "Explains that when h = 0 the change in time is zero, so the average velocity would require division by zero (the quotient becomes 0/0) and is undefined.",
-        "evidence": "States that the denominator, the change in the independent variable (time), would be zero, so the average rate of change is undefined at h = 0.",
-        "fix": "Point out that an average rate divides by the change in time, and that change is zero when h = 0.",
-        "accepted_variants": [
-         "the interval has zero length so the quotient is 0/0",
-         "division by zero when h = 0"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Use the limit concept to determine the instantaneous velocity of the cart at t = 2, including units. Explain how the average velocities you found in part (a) are consistent with your answer.",
-      "criteria": [
-       {
-        "text": "Instantaneous velocity at t = 2 is lim h→0 (7 + h) = 7 meters per second.",
-        "evidence": "Writes a limit as h approaches 0 of the average velocity (or of 7 + h) and obtains 7 m/s.",
-        "fix": "Take the limit as h→0 of the simplified average velocity 7 + h rather than substituting h = 0 into the unsimplified quotient.",
-        "accepted_variants": [
-         "7 m/s",
-         "lim h→0 (s(2 + h) − s(2))/h = 7"
-        ]
-       },
-       {
-        "text": "Connects the part (a) values to the limit: average velocities over shorter intervals containing t = 2 approach 7 from both sides (6.9 below, 7.1 above, 8 farther away).",
-        "evidence": "Notes that as the interval around t = 2 shrinks the average velocities get closer to 7, with 6.9 and 7.1 on either side of 7.",
-        "fix": "Compare the average velocities over shrinking intervals on both sides of t = 2 and state which value they approach.",
-        "accepted_variants": [
-         "6.9 < 7 < 7.1 and these values get closer to 7 as h shrinks",
-         "average velocity 7 + h is within |h| of 7"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": false,
-    "votes": {
-     "2.1": 6
+ "given": {
+  "item": {
+   "title": "Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "The position of a particle moving along a straight line is s(t) = t³ − 4t + 2, where s(t) is measured in meters and t is measured in seconds, for 0 ≤ t ≤ 5.",
+   "parts": [
+    {
+     "prompt": "A student says: \"To find the particle's velocity at exactly t = 1, I will use the average velocity formula [s(b) − s(a)] / (b − a) on the interval from t = 1 to t = 1.\" Explain why this does not work.",
+     "criteria": [
+      {
+       "text": "Explains that the interval has length 0, so b − a = 0 and the formula divides by zero, which is undefined.",
+       "evidence": "Response states that the change in time is 0 (b − a = 0) and that dividing by 0 makes the average velocity undefined.",
+       "fix": "Check the denominator: an average rate needs two different times, so b − a cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
     },
-    "onTarget": 0,
-    "n": 6,
-    "required_units": [
-     1,
-     2
-    ],
-    "unitCount": {
-     "1": 6,
-     "2": 6
+    {
+     "prompt": "Find the average velocity of the particle on each of these intervals: [0.9, 1], [0.99, 1], [0.999, 1], [1, 1.1], [1, 1.01] and [1, 1.001]. Show the calculation for the interval [1, 1.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows the average velocity on [1, 1.01]: [s(1.01) − s(1)] / (1.01 − 1) = (−1.009699 − (−1)) / 0.01 = −0.9699 m/s.",
+       "evidence": "Response shows s(1.01) = −1.009699 and s(1) = −1, the difference quotient over a change in time of 0.01, and the value −0.9699.",
+       "fix": "Write s(b) − s(a) over b − a with both position values before dividing.",
+       "accepted_variants": [
+        "-0.9699"
+       ]
+      },
+      {
+       "text": "Gives all six average velocities correctly: −1.2900, −1.0299, −1.0030, −0.6900, −0.9699 and −0.9970 m/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute s at each endpoint and keep s(1) = −1 the same in every quotient.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the particle at the instant t = 1. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 1 as −1 m/s.",
+       "evidence": "Response states a single estimate of −1 meter per second for the velocity at t = 1.",
+       "fix": "State one value with units, read from where the averages are heading.",
+       "accepted_variants": [
+        "-1 m/s",
+        "-1 meter per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 1 from both sides, the average velocities approach −1.",
+       "evidence": "Response notes that the left-interval values (−1.29, −1.0299, −1.0030) and the right-interval values (−0.69, −0.9699, −0.9970) both close in on −1 as the intervals get smaller.",
+       "fix": "Describe what the averages do as the intervals shrink, from the left and from the right.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the particle over the interval [1, 4] is 17 meters per second. Explain what your answer to part (c) tells you about the particle's motion at the instant t = 1 that the average velocity over [1, 4] does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 1 the particle is moving in the negative direction (backward) at about 1 meter per second.",
+       "evidence": "Response interprets the negative velocity at t = 1 as motion in the negative direction with speed about 1 meter per second.",
+       "fix": "Interpret the sign of a velocity as a direction of motion.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 m/s average, which describes the overall change in position over the 3 seconds and hides the backward motion at t = 1.",
+       "evidence": "Response explains that the average over [1, 4] reflects only the net change in position over the whole interval, so it does not show the direction or speed at the instant t = 1.",
+       "fix": "Contrast one instant with a whole interval, in the context of the particle.",
+       "accepted_variants": []
+      }
+     ]
     }
-   },
-   "stage": "topic_vote"
+   ],
+   "model_answer": "(a) On the interval from t = 1 to t = 1, b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) s(1) = −1 and s(1.01) = −1.009699, so the average velocity on [1, 1.01] is (−1.009699 − (−1)) / 0.01 = −0.009699 / 0.01 = −0.9699 m/s.\nAverage velocities: [0.9, 1]: −1.2900 m/s; [0.99, 1]: −1.0299 m/s; [0.999, 1]: −1.0030 m/s; [1, 1.1]: −0.6900 m/s; [1, 1.01]: −0.9699 m/s; [1, 1.001]: −0.9970 m/s.\n\n(c) The velocity at t = 1 is about −1 m/s. As the intervals shrink toward t = 1, the averages from the left (−1.29, −1.0299, −1.0030) and from the right (−0.69, −0.9699, −0.9970) close in on −1 from both sides.\n\n(d) At t = 1 the particle is moving backward, in the negative direction, at about 1 meter per second. The average velocity of 17 m/s over [1, 4] only describes the net change in position from t = 1 to t = 4; it suggests steady forward motion and hides that the particle is moving backward at t = 1.",
+   "verification_python": "from fractions import Fraction as F\ns = lambda t: t**3 - 4*t + 2\ndef avg(a, b): return (s(F(b)) - s(F(a))) / (F(b) - F(a))\nassert s(1) == -1 and s(F(101, 100)) == F(-1009699, 1000000) and s(4) == 50\nexpected = [((F(9,10),1), -1.29), ((F(99,100),1), -1.0299), ((F(999,1000),1), -1.0030), ((1,F(11,10)), -0.69), ((1,F(101,100)), -0.9699), ((1,F(1001,1000)), -0.9970)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(1, 4) == 17\nassert 3*1**2 - 4 == -1\nprint('ALL_CHECKS_PASSED')\n"
   },
-  {
-   "round": 2,
-   "at": "2026-10-10T00:37:00.109Z",
-   "item": {
-    "title": "Drone Altitude: From Average to Instantaneous Rate",
-    "calculator": "not_permitted",
-    "stimulus": "A drone rises vertically from a platform. Its altitude above the ground, in meters, t seconds after launch is modeled by A(t) = 2t² + 3t for 0 ≤ t ≤ 10.",
-    "model_answer": "(a) A(5) = 2(25) + 15 = 65, A(5.1) = 2(26.01) + 15.3 = 67.32, A(4.9) = 2(24.01) + 14.7 = 62.72.\nOver [5, 5.1]: (67.32 − 65)/(5.1 − 5) = 2.32/0.1 = 23.2 meters per second.\nOver [4.9, 5]: (65 − 62.72)/(5 − 4.9) = 2.28/0.1 = 22.8 meters per second.\n\n(b) A(5 + h) = 2(25 + 10h + h²) + 15 + 3h = 65 + 23h + 2h².\nSo (A(5 + h) − A(5))/h = (65 + 23h + 2h² − 65)/h = (23h + 2h²)/h = 23 + 2h for h ≠ 0.\nAt h = 0 the change in t is zero, so the quotient would be 0/0. An average rate of change divides by the change in the independent variable, and division by zero is undefined, so the expression cannot be evaluated at h = 0.\n\n(c) The instantaneous rate of change at t = 5 is the limit of the average rates of change as the interval shrinks to t = 5:\nlim h→0 (A(5 + h) − A(5))/h = lim h→0 (23 + 2h) = 23 meters per second.\nThis is consistent with part (a): 22.8 < 23 < 23.2. The averages 23.2 and 22.8 are 23 + 2h with h = 0.1 and h = −0.1, so they lie on either side of 23 and approach 23 as h → 0.",
-    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nA=lambda t: 2*t**2+3*t\nassert A(F(5))==65\nassert A(F(51,10))==F(6732,100)\nassert A(F(49,10))==F(6272,100)\nr1=(A(F(51,10))-A(F(5)))/F(1,10)\nr2=(A(F(5))-A(F(49,10)))/F(1,10)\nassert r1==F(232,10)\nassert r2==F(228,10)\nh=sp.symbols('h')\nt=sp.symbols('t')\nAs=2*t**2+3*t\nassert sp.expand(As.subs(t,5+h))==65+23*h+2*h**2\nq=sp.simplify((As.subs(t,5+h)-As.subs(t,5))/h)\nassert sp.simplify(q-(23+2*h))==0\nL=sp.limit((As.subs(t,5+h)-As.subs(t,5))/h,h,0)\nassert L==23\nassert r2<23<r1\nassert r1==23+2*F(1,10) and r2==23+2*F(-1,10)\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Find the average rate of change of A over the interval 5 ≤ t ≤ 5.1 and over the interval 4.9 ≤ t ≤ 5. Show the computations that lead to your answers.",
-      "criteria": [
-       {
-        "text": "Average rate of change over [5, 5.1] is 23.2 meters per second, with supporting work",
-        "evidence": "Shows (A(5.1) − A(5))/(5.1 − 5) = (67.32 − 65)/0.1, or an equivalent setup, leading to 23.2.",
-        "fix": "Evaluate A at both endpoints, subtract, and divide by the change in t, 0.1, writing the quotient before simplifying.",
-        "accepted_variants": [
-         "116/5",
-         "23.2 m/s"
-        ]
-       },
-       {
-        "text": "Average rate of change over [4.9, 5] is 22.8 meters per second, with supporting work",
-        "evidence": "Shows (A(5) − A(4.9))/(5 − 4.9) = (65 − 62.72)/0.1, or an equivalent setup, leading to 22.8.",
-        "fix": "Compute A(4.9) = 62.72 carefully, then divide A(5) − A(4.9) by 0.1.",
-        "accepted_variants": [
-         "114/5",
-         "22.8 m/s"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "For h ≠ 0, the average rate of change of A over the interval with endpoints 5 and 5 + h is (A(5 + h) − A(5))/h. Show that this expression equals 23 + 2h. Then explain why the expression (A(5 + h) − A(5))/h cannot be evaluated at h = 0.",
-      "criteria": [
-       {
-        "text": "Shows (A(5 + h) − A(5))/h simplifies to 23 + 2h",
-        "evidence": "Expands A(5 + h) = 2(5 + h)² + 3(5 + h) = 65 + 23h + 2h², subtracts A(5) = 65, and divides (23h + 2h²) by h to get 23 + 2h.",
-        "fix": "Expand 2(5 + h)² + 3(5 + h) fully, subtract 65, then factor h from the numerator before dividing.",
-        "accepted_variants": [
-         "(23h + 2h²)/h = 23 + 2h"
-        ]
-       },
-       {
-        "text": "Explains that at h = 0 the change in t is zero, so the quotient requires division by zero and is undefined",
-        "evidence": "States that h = 0 makes the denominator (the change in the independent variable t) zero, giving 0/0, so the average rate of change is undefined there.",
-        "fix": "Point out that h is the change in t; an average rate divides by that change, and dividing by zero is undefined.",
-        "accepted_variants": [
-         "the interval has length zero, so the quotient is 0/0",
-         "denominator h equals 0, undefined"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Use your result from part (b) and a limit to find the instantaneous rate of change of the drone's altitude at t = 5. Then explain how your answer is consistent with the two values found in part (a).",
-      "criteria": [
-       {
-        "text": "Expresses the instantaneous rate at t = 5 as the limit of average rates of change as h → 0",
-        "evidence": "Writes lim h→0 (A(5 + h) − A(5))/h, or lim h→0 (23 + 2h), as the instantaneous rate of change at t = 5.",
-        "fix": "Define the instantaneous rate as the limit, as h approaches 0, of the average rates of change over intervals containing t = 5.",
-        "accepted_variants": [
-         "lim h→0 (23 + 2h)"
-        ]
-       },
-       {
-        "text": "Instantaneous rate of change at t = 5 is 23 meters per second",
-        "evidence": "Evaluates lim h→0 (23 + 2h) = 23.",
-        "fix": "After simplifying to 23 + 2h, let h approach 0; the term 2h approaches 0, leaving 23.",
-        "accepted_variants": [
-         "23 m/s"
-        ]
-       },
-       {
-        "text": "Notes that 23 lies between the average rates 22.8 and 23.2 over intervals containing t = 5",
-        "evidence": "States that 22.8 < 23 < 23.2 (or that each average differs from 23 by 0.2, matching 2h with h = ±0.1), so the instantaneous rate is consistent with average rates over small intervals on either side of t = 5.",
-        "fix": "Compare the instantaneous rate with the part (a) averages and state that it lies between the averages from the left and right intervals.",
-        "accepted_variants": [
-         "each average equals 23 + 2h with h = 0.1 and h = −0.1"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": false,
-    "votes": {
-     "2.1": 6
-    },
-    "onTarget": 0,
-    "n": 6,
-    "required_units": [
-     1,
-     2
-    ],
-    "unitCount": {
-     "1": 6,
-     "2": 6
-    }
-   },
-   "stage": "topic_vote"
-  },
-  {
-   "round": 3,
-   "at": "2026-10-10T00:37:55.089Z",
-   "item": {
-    "title": "Average Velocities Approaching an Instant for a Rolling Ball",
-    "calculator": "not_permitted",
-    "stimulus": "A ball rolls down a ramp. Its distance from the top of the ramp, in feet, t seconds after it is released is d(t) = 3t² + 2t for 0 ≤ t ≤ 4.",
-    "model_answer": "(a) d(2) = 3(4) + 4 = 16, d(2.1) = 3(4.41) + 4.2 = 17.43, d(1.9) = 3(3.61) + 3.8 = 14.63.\nOn 2 ≤ t ≤ 2.1: (17.43 − 16)/(2.1 − 2) = 1.43/0.1 = 14.3 feet per second.\nOn 1.9 ≤ t ≤ 2: (16 − 14.63)/(2 − 1.9) = 1.37/0.1 = 13.7 feet per second.\n\n(b) d(2 + h) − d(2) = 3(4 + 4h + h²) + 4 + 2h − 16 = 12 + 12h + 3h² + 4 + 2h − 16 = 14h + 3h².\nSo for h ≠ 0, (d(2 + h) − d(2))/h = (14h + 3h²)/h = 14 + 3h.\nIf h = 0, the time interval has length zero, so the quotient becomes 0/0, which involves division by zero. An average velocity divides the change in distance by the change in time, so it is undefined when the change in time is zero.\n\n(c) Instantaneous velocity at t = 2 = lim h→0 (d(2 + h) − d(2))/h = lim h→0 (14 + 3h) = 14 feet per second.\nThe instantaneous velocity is the limit of the average velocities over intervals containing t = 2 as the length of the interval approaches 0. The average velocities from part (a), 13.7 and 14.3 ft/s, come from short intervals on either side of t = 2; they bracket 14 (13.7 < 14 < 14.3) and correspond to 14 + 3h with h = −0.1 and h = 0.1.",
-    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nd=lambda t: 3*t**2+2*t\nassert d(F(2))==16\nassert d(F(21,10))==F(1743,100)\nassert d(F(19,10))==F(1463,100)\na1=(d(F(21,10))-d(F(2)))/F(1,10)\na2=(d(F(2))-d(F(19,10)))/F(1,10)\nassert a1==F(143,10)\nassert a2==F(137,10)\nassert d(F(21,10))-d(F(2))==F(143,100)\nassert d(F(2))-d(F(19,10))==F(137,100)\nh=sp.symbols('h')\nnum=sp.expand(3*(2+h)**2+2*(2+h)-16)\nassert sp.simplify(num-(14*h+3*h**2))==0\nq=sp.simplify(num/h)\nassert sp.simplify(q-(14+3*h))==0\nassert sp.limit(num/h,h,0)==14\nassert q.subs(h,sp.Rational(1,10))==sp.Rational(143,10)\nassert q.subs(h,-sp.Rational(1,10))==sp.Rational(137,10)\nassert a2<14<a1\nprint('ALL_CHECKS_PASSED')",
-    "parts": [
-     {
-      "prompt": "Find the average velocity of the ball over the time interval 2 ≤ t ≤ 2.1 and over the time interval 1.9 ≤ t ≤ 2. Show the computations that lead to your answers and include units.",
-      "criteria": [
-       {
-        "text": "Average velocity on 2 ≤ t ≤ 2.1 is 14.3 feet per second, from (d(2.1) − d(2))/(2.1 − 2) = (17.43 − 16)/0.1.",
-        "evidence": "A difference quotient using d(2.1) = 17.43 and d(2) = 16 divided by 0.1, giving 14.3.",
-        "fix": "Compute the average rate of change as (d(b) − d(a))/(b − a), evaluating d carefully at both endpoints of the interval.",
-        "accepted_variants": [
-         "14.3 ft/s",
-         "143/10"
-        ]
-       },
-       {
-        "text": "Average velocity on 1.9 ≤ t ≤ 2 is 13.7 feet per second, from (d(2) − d(1.9))/(2 − 1.9) = (16 − 14.63)/0.1.",
-        "evidence": "A difference quotient using d(1.9) = 14.63 and d(2) = 16 divided by 0.1, giving 13.7.",
-        "fix": "For an interval ending at t = 2, subtract the earlier distance from the later one and divide by the elapsed time 0.1.",
-        "accepted_variants": [
-         "13.7 ft/s",
-         "137/10"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "For h ≠ 0, the average velocity of the ball over the time interval between t = 2 and t = 2 + h is (d(2 + h) − d(2))/h. Show that this expression simplifies to a linear expression in h, and explain why the value h = 0 cannot be substituted directly into (d(2 + h) − d(2))/h.",
-      "criteria": [
-       {
-        "text": "Simplifies the average velocity to 14 + 3h, with supporting algebra (3(2 + h)² + 2(2 + h) − 16 = 14h + 3h², then divide by h).",
-        "evidence": "Expansion of d(2 + h) − d(2) to 14h + 3h² (or equivalent) and the result 14 + 3h.",
-        "fix": "Expand 3(2 + h)² + 2(2 + h), subtract d(2) = 16, factor h from every remaining term, then cancel it since h ≠ 0.",
-        "accepted_variants": [
-         "3h + 14"
-        ]
-       },
-       {
-        "text": "Explains that substituting h = 0 makes the change in time zero, so the quotient has a zero denominator (0/0) and the average velocity is undefined.",
-        "evidence": "A statement that h = 0 means no elapsed time, giving division by zero, so the average rate of change is undefined there.",
-        "fix": "State that an average rate divides by the change in the independent variable, which is zero when h = 0, so it is undefined.",
-        "accepted_variants": [
-         "0/0 is undefined",
-         "division by zero when the time interval has length zero"
-        ]
-       }
-      ]
-     },
-     {
-      "prompt": "Use a limit to find the instantaneous velocity of the ball at t = 2, including units. Then explain how this value is related to the two average velocities you found in part (a).",
-      "criteria": [
-       {
-        "text": "Instantaneous velocity at t = 2 is lim h→0 (14 + 3h) = 14 feet per second.",
-        "evidence": "A limit as h→0 of the simplified average velocity (or of the original difference quotient) evaluated to 14 with units of feet per second.",
-        "fix": "Write lim h→0 of the simplified average velocity, then substitute h = 0 into 14 + 3h, which is now allowed, and attach units.",
-        "accepted_variants": [
-         "14 ft/s",
-         "lim h→0 (d(2 + h) − d(2))/h = 14"
-        ]
-       },
-       {
-        "text": "Explains that 14 is the value the average velocities over intervals containing t = 2 approach as the interval length shrinks to 0, and that 13.7 and 14.3 lie on either side of 14.",
-        "evidence": "Mentions that average velocities approach 14 as the interval around t = 2 gets shorter, and notes 13.7 < 14 < 14.3 or both values are within 0.3 of 14.",
-        "fix": "Describe the instantaneous rate as the limit of average rates over shrinking intervals at that instant, and compare your part (a) values to it.",
-        "accepted_variants": [
-         "13.7 and 14.3 are estimates that bracket 14",
-         "14 is the limit of the average velocities as h→0"
-        ]
-       }
-      ]
-     }
-    ]
-   },
-   "lint": [],
-   "py": {
-    "ok": true,
-    "out": "ALL_CHECKS_PASSED\n"
-   },
-   "probe": {
-    "pass": false,
-    "votes": {
-     "2.1": 6
-    },
-    "onTarget": 0,
-    "n": 6,
-    "required_units": [
-     1,
-     2
-    ],
-    "unitCount": {
-     "1": 6,
-     "2": 6
-    }
-   },
-   "stage": "topic_vote"
-  }
- ]
+  "source": "Product Owner draft (David Bloom, 2026-10-10), rewritten by Claude in session to target CED 1.1 only; PO directed: \"add it to the batch as the Calc AB 1.1 FRQ\"",
+  "at": "2026-10-10T02:35:23.837781Z"
+ }
 }
