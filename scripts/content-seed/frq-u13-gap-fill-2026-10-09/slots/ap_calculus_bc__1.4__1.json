@@ -1,0 +1,227 @@
+{
+ "id": "ap_calculus_bc__1.4__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.4",
+  "topic_title": "Estimating Limit Values from Tables",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:37:05.284Z",
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions g and h are defined for all real numbers. Selected values of each function are given in the tables below. Assume each function's values continue the pattern shown as x gets closer to the indicated point.\n\nTable 1: values of g(x) near x = 2\nx: 1.9 | 1.99 | 1.999 | 2 | 2.001 | 2.01 | 2.1\ng(x): 4.61 | 4.9601 | 4.996001 | 3 | 1.002001 | 1.0201 | 1.21\n\nTable 2: values of h(x) near x = 0\nx: -0.1 | -0.01 | -0.001 | 0 | 0.001 | 0.01 | 0.1\nh(x): 2.985 | 2.99985 | 2.9999985 | 7 | 2.9999985 | 2.99985 | 2.985",
+    "model_answer": "(a) As x approaches 2 from the left, g(1.9) = 4.61, g(1.99) = 4.9601, g(1.999) = 4.996001. These values are getting closer to 5, so lim x→2⁻ g(x) ≈ 5. As x approaches 2 from the right, g(2.1) = 1.21, g(2.01) = 1.0201, g(2.001) = 1.002001. These values are getting closer to 1, so lim x→2⁺ g(x) ≈ 1.\n\n(b) The limit lim x→2 g(x) does not exist. A two-sided limit exists only if the left-hand and right-hand limits are equal, but the estimates are 5 from the left and 1 from the right, and 5 ≠ 1.\n\n(c) From the left, h(-0.1) = 2.985, h(-0.01) = 2.99985, h(-0.001) = 2.9999985, and the right side gives the same values, so h(x) approaches 3 from both sides. Therefore lim x→0 h(x) ≈ 3. The value h(0) = 7 does not change this estimate, because the limit as x→0 depends only on the values of h(x) for x close to 0 but not equal to 0. The value at x = 0 itself plays no role, so the estimate is still 3.",
+    "verification_python": "from fractions import Fraction as F\nleft_g=[F(19,10),F(199,100),F(1999,1000)]\nright_g=[F(21,10),F(201,100),F(2001,1000)]\ng_left=lambda x:x**2+1\ng_right=lambda x:(x-1)**2\nassert [g_left(x) for x in left_g]==[F('4.61'),F('4.9601'),F('4.996001')]\nassert [g_right(x) for x in right_g]==[F('1.21'),F('1.0201'),F('1.002001')]\nassert g_left(F(2))==5 and g_right(F(2))==1\nassert 5!=1\nh=lambda x:3-F(3,2)*x**2\nxs=[F(-1,10),F(-1,100),F(-1,1000)]\nassert [h(x) for x in xs]==[F('2.985'),F('2.99985'),F('2.9999985')]\nassert [h(-x) for x in xs]==[h(x) for x in xs]\nassert h(F(0))==3\nd=[abs(g_left(x)-5) for x in left_g]\nassert d[0]>d[1]>d[2]\nd=[abs(g_right(x)-1) for x in right_g]\nassert d[0]>d[1]>d[2]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use Table 1 to estimate lim x→2⁻ g(x) and lim x→2⁺ g(x). Explain how the table supports each estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2⁻ g(x) = 5, supported by the left-side values.",
+        "evidence": "States the left-hand limit is 5 and refers to the values 4.61, 4.9601, 4.996001 approaching 5 as x approaches 2 from values less than 2.",
+        "fix": "Read only the x-values less than 2, moving toward 2, and state the number their g-values approach.",
+        "accepted_variants": [
+         "approximately 5"
+        ]
+       },
+       {
+        "text": "Estimates lim x→2⁺ g(x) = 1, supported by the right-side values.",
+        "evidence": "States the right-hand limit is 1 and refers to the values 1.21, 1.0201, 1.002001 approaching 1 as x approaches 2 from values greater than 2.",
+        "fix": "Read only the x-values greater than 2, moving toward 2, and state the number their g-values approach.",
+        "accepted_variants": [
+         "approximately 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your estimates in part (a), does lim x→2 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes that lim x→2 g(x) does not exist.",
+        "evidence": "Explicitly states the two-sided limit of g at x = 2 does not exist.",
+        "fix": "After finding both one-sided limits, state a clear conclusion about whether the two-sided limit exists.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       },
+       {
+        "text": "Justifies by noting the one-sided limits are not equal (5 ≠ 1).",
+        "evidence": "Cites that the left-hand estimate 5 and right-hand estimate 1 differ, and that a two-sided limit requires equal one-sided limits.",
+        "fix": "Justify existence of a limit by comparing the left-hand and right-hand limits; they must be equal.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use Table 2 to estimate lim x→0 h(x). The table gives h(0) = 7. Explain whether the value h(0) = 7 affects your estimate of the limit.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→0 h(x) = 3 using values from both sides of 0.",
+        "evidence": "States the limit is 3 and notes that h(x) approaches 3 as x approaches 0 from both the left (2.985, 2.99985, 2.9999985) and the right.",
+        "fix": "Check that the values on both sides of 0 approach the same number before stating the two-sided limit.",
+        "accepted_variants": [
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Explains that h(0) = 7 does not affect the limit because the limit depends only on values of h near 0, not at 0.",
+        "evidence": "States the estimate remains 3 and that a limit as x→0 describes h(x) for x close to but not equal to 0.",
+        "fix": "Remember a limit describes values as x gets close to a point; ignore the function value at the point itself.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

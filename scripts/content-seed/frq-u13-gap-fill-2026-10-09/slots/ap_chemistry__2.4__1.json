@@ -1,0 +1,429 @@
+{
+ "id": "ap_chemistry__2.4__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 2,
+  "unit_title": "Compound Structure and Properties",
+  "topic_code": "2.4",
+  "topic_title": "Structure of Metals and Alloys",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:54:16.263Z",
+   "item": {
+    "title": "Atom Ratios and Structure Types in Steel and Cupronickel",
+    "calculator": "permitted",
+    "stimulus": "A metallurgy student studies two alloys and pure nickel.\n\nAlloy 1 is a carbon steel. Analysis of a 100.00 g sample shows that it contains 0.90 g of carbon and 99.10 g of iron, with no other elements present.\n\nAlloy 2 is cupronickel, a coin metal made of copper and nickel atoms mixed throughout the solid.\n\nThe student looks up the following atomic radii.\n\nElement | Atomic radius (pm)\nFe | 126\nC | 77\nCu | 128\nNi | 124\n\nMolar masses: C = 12.01 g/mol, Fe = 55.85 g/mol.",
+    "model_answer": "(a) Moles of C = 0.90 g ÷ 12.01 g/mol = 0.0749 mol. Moles of Fe = 99.10 g ÷ 55.85 g/mol = 1.774 mol. The ratio of C atoms to Fe atoms is 0.0749 ÷ 1.774 = 0.0422 C atoms per Fe atom. Scaling to 100 Fe atoms gives 0.0422 × 100 = 4.2 C atoms per 100 Fe atoms. The answer has 2 significant figures because the mass of carbon, 0.90 g, has 2 significant figures.\n\n(b) Alloy 1 is an interstitial alloy. The carbon atom (77 pm) is much smaller than the iron atom (126 pm), only about 61% of its radius. The small C atoms therefore fit into the empty spaces (interstices) between the Fe atoms in the iron lattice instead of replacing Fe atoms.\n\n(c) Alloy 2 is a substitutional alloy. Copper (128 pm) and nickel (124 pm) have comparable radii, differing by only about 3%. A Ni atom can therefore take the place of a Cu atom at a lattice position without greatly disturbing the lattice.\n\n(d) Solid nickel consists of positive Ni ions (cations) arranged in a regular, repeating three-dimensional array. The valence electrons are delocalized: they are not tied to any one nucleus and move freely throughout the whole solid, forming a sea of electrons. The Coulombic attraction between the positive Ni ions and the surrounding delocalized electrons holds the metal together.",
+    "verification_python": "import math\nmC = 0.90\nmFe = 99.10\nMC = 12.01\nMFe = 55.85\nnC = mC / MC\nnFe = mFe / MFe\nassert abs(nC - 0.0749) < 0.0001\nassert abs(nFe - 1.774) < 0.001\nratio = nC / nFe\nassert abs(ratio - 0.0422) < 0.0001\nper100 = ratio * 100\nassert round(per100, 1) == 4.2\nassert abs(round(ratio, 3) - 0.042) < 1e-9\nassert abs(mC + mFe - 100.00) < 1e-9\nfrac = 77 / 126\nassert abs(frac - 0.61) < 0.01\ndiff = (128 - 124) / 128\nassert abs(diff - 0.03) < 0.005\nassert 128 - 124 == 4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the number of carbon atoms present per 100 iron atoms in Alloy 1. Show your work and report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Calculates 4.2 C atoms per 100 Fe atoms, using mole conversions for both elements (2 significant figures).",
+        "evidence": "Converts 0.90 g C to about 0.0749 mol and 99.10 g Fe to about 1.774 mol. Takes the mole (atom) ratio and scales it to 100 Fe atoms, giving 4.2 reported to 2 significant figures.",
+        "fix": "Convert each element's mass to moles using its molar mass, divide the moles, then round to the fewest significant figures in the data.",
+        "accepted_variants": [
+         "4.2",
+         "0.042 C atoms per Fe atom",
+         "4.2 C : 100 Fe"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify Alloy 1 as an interstitial alloy or a substitutional alloy. Justify your answer using the atomic radii in the table.",
+      "criteria": [
+       {
+        "text": "Identifies steel as an interstitial alloy because the C atom (77 pm) is much smaller than the Fe atom (126 pm), so C atoms fit into the spaces between Fe atoms.",
+        "evidence": "States interstitial. Compares the radii, noting that C is significantly smaller than Fe. States that the C atoms occupy the gaps (interstices) between the Fe atoms in the lattice rather than replacing them.",
+        "fix": "Compare the two radii; when one atom is much smaller, state that it fills the spaces between the larger atoms, making the alloy interstitial.",
+        "accepted_variants": [
+         "interstitial"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify Alloy 2 as an interstitial alloy or a substitutional alloy. Justify your answer using the atomic radii in the table.",
+      "criteria": [
+       {
+        "text": "Identifies cupronickel as a substitutional alloy because Cu (128 pm) and Ni (124 pm) have comparable radii, so Ni atoms replace Cu atoms at lattice positions.",
+        "evidence": "States substitutional. Notes that the Cu and Ni radii are similar (differ by only about 4 pm, about 3%). States that one kind of atom takes the place of the other in the lattice.",
+        "fix": "When two metal atoms have nearly equal radii, explain that one atom replaces the other at lattice sites, which makes the alloy substitutional.",
+        "accepted_variants": [
+         "substitutional"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe in words a particle-level model of solid pure nickel. Identify the particles present and the attractive interaction that holds the solid together.",
+      "criteria": [
+       {
+        "text": "Describes solid nickel as an orderly array of positive Ni ions surrounded by delocalized valence electrons (a sea of electrons), held together by attraction between the cations and the electrons.",
+        "evidence": "Identifies positive nickel ions (cations) arranged in a regular array. States that the valence electrons are delocalized, meaning they are not tied to individual atoms and move throughout the solid. States that the attraction between the positive ions and the delocalized electrons holds the solid together.",
+        "fix": "Name both components of metallic bonding: positive metal ions in a lattice and mobile shared valence electrons, plus the attraction between them.",
+        "accepted_variants": [
+         "sea of electrons",
+         "electron sea model"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 requires separate mole conversions for both elements, although the question does not prescribe that method. A valid solution could calculate atom counts using each element’s mass per atom. Require a correct mass-to-atom-ratio calculation and the two-significant-figure result, accepting any valid computational pathway."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 requires separate mole conversions for both elements, although the question does not prescribe that method. A valid solution could calculate atom counts using each element’s mass per atom. Require a correct mass-to-atom-ratio calculation and the two-significant-figure result, accepting any valid computational pathway."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 requires mole conversions with explicit intermediate mole quantities, although the question does not prescribe that method. A valid direct calculation, (0.90/99.10) × (55.85/12.01) × 100 = 4.2, shows sufficient work without separately reporting those quantities. Accept any equivalent, correctly shown atom-ratio calculation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 requires mole conversions with explicit intermediate mole quantities, although the question does not prescribe that method. A valid direct calculation, (0.90/99.10) × (55.85/12.01) × 100 = 4.2, shows sufficient work without separately reporting those quantities. Accept any equivalent, correctly shown atom-ratio calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:58:35.292Z",
+   "item": {
+    "title": "Metallic Bonding and Classifying Brass and Steel Alloys",
+    "calculator": "permitted",
+    "stimulus": "Copper and iron are metals. Each is also the main component of a common alloy. Brass is an alloy of copper and zinc. Carbon steel is an alloy of iron and carbon. The table lists approximate atomic radii and molar masses for the four elements.\n\nElement | Atomic radius (pm) | Molar mass (g/mol)\nCu | 128 | 63.55\nZn | 134 | 65.38\nFe | 126 | 55.85\nC | 77 | 12.01\n\nA 1.000 kg sample of a carbon steel contains 4.0 g of carbon. The remaining 996.0 g is iron.",
+    "model_answer": "(a) Solid copper consists of a regular array of positive copper ions at the lattice positions. The valence electrons are not tied to any single atom; they are delocalized throughout the solid as a sea of electrons. The solid is held together by the attraction between the positive Cu ions and this sea of delocalized electrons.\n\n(b) Brass is a substitutional alloy. The atomic radius of Cu (128 pm) is comparable to that of Zn (134 pm). Because the two atoms are similar in size, Zn atoms can replace Cu atoms at lattice positions.\n\n(c) Carbon steel is an interstitial alloy. Iron atoms occupy the main lattice positions. A carbon atom (77 pm) is much smaller than an iron atom (126 pm), so the C atoms fit into the interstitial spaces between the Fe atoms instead of replacing them.\n\n(d) Moles of Fe = 996.0 g ÷ 55.85 g/mol = 17.83 mol.\nMoles of C = 4.0 g ÷ 12.01 g/mol = 0.333 mol.\nFe atoms per C atom = 17.83 mol ÷ 0.333 mol = 53.5.\nLimited by the 2 significant figures in 4.0 g, the answer is about 54 Fe atoms per C atom.",
+    "verification_python": "import math\nm_fe=996.0; m_c=4.0\nM_fe=55.85; M_c=12.01\nn_fe=m_fe/M_fe; n_c=m_c/M_c\nassert abs(n_fe-17.83)<0.01\nassert abs(n_c-0.333)<0.001\nratio=n_fe/n_c\nassert abs(ratio-53.5)<0.1\nassert round(ratio)==54\nassert abs(1000.0-(m_fe+m_c))<1e-9\nr={'Cu':128,'Zn':134,'Fe':126,'C':77}\nassert abs(r['Zn']-r['Cu'])/r['Cu']<0.15\nassert (r['Fe']-r['C'])/r['Fe']>0.3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the model of metallic bonding, describe the particles that occupy the lattice positions in solid copper and the interaction that holds the solid together.",
+      "criteria": [
+       {
+        "text": "Describes solid copper as an array of positive copper ions (cations) surrounded by delocalized valence electrons (a sea of electrons), with the attraction between the cations and the delocalized electrons holding the solid together.",
+        "evidence": "Response identifies positive Cu ions at the lattice positions, states that the valence electrons are delocalized or not bound to individual atoms, and names the attraction between the cations and those electrons as the bonding.",
+        "fix": "Describe metallic bonding as positive metal ions in a fixed array attracted to valence electrons that are delocalized throughout the whole solid.",
+        "accepted_variants": [
+         "sea of electrons",
+         "electron sea",
+         "mobile valence electrons",
+         "Cu⁺ or Cu²⁺ cations in a lattice"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Classify brass as an interstitial alloy or a substitutional alloy. Justify your answer using data from the table.",
+      "criteria": [
+       {
+        "text": "Classifies brass as a substitutional alloy, because Cu (128 pm) and Zn (134 pm) have comparable radii, so Zn atoms can replace Cu atoms at lattice positions.",
+        "evidence": "Response states substitutional and cites the similar radii of Cu and Zn, using the table values or an explicit comparison, as the reason Zn atoms take the place of Cu atoms in the lattice.",
+        "fix": "Compare the two atomic radii: similar sizes mean one atom replaces the other at lattice sites, which makes the alloy substitutional.",
+        "accepted_variants": [
+         "substitutional",
+         "Zn substitutes for Cu"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Classify carbon steel as an interstitial alloy or a substitutional alloy. Identify which type of atom occupies the main lattice positions, and justify your answer using data from the table.",
+      "criteria": [
+       {
+        "text": "Classifies carbon steel as an interstitial alloy. Fe atoms occupy the main lattice positions, and the much smaller C atoms (77 pm compared with 126 pm) fill the interstitial spaces between the Fe atoms.",
+        "evidence": "Response states interstitial, identifies iron as the atom at the lattice positions, and justifies the classification by citing the significantly smaller radius of carbon, so that C fits in the spaces between Fe atoms.",
+        "fix": "When one atom is much smaller than the host metal atom, state that it fills the gaps between host atoms, which makes the alloy interstitial.",
+        "accepted_variants": [
+         "interstitial",
+         "C occupies the interstices in the Fe lattice"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For the 1.000 kg steel sample described above, calculate the number of iron atoms present for each carbon atom. Report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Calculates about 54 Fe atoms per C atom: 996.0 g ÷ 55.85 g/mol = 17.83 mol Fe and 4.0 g ÷ 12.01 g/mol = 0.33 mol C, giving 17.83 ÷ 0.333 = 54, reported to 2 significant figures.",
+        "evidence": "Response converts both masses to moles using the molar masses, takes the ratio of moles of Fe to moles of C, and reports about 54 with two significant figures. The value 53.5 is accepted only if the work is shown.",
+        "fix": "Convert each mass to moles with its molar mass, then divide moles Fe by moles C; let the 2 significant figures of 4.0 g limit the answer.",
+        "accepted_variants": [
+         "54",
+         "54 Fe atoms per C atom",
+         "5.4 × 10¹"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 27 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:59:09.827Z",
+   "item": {
+    "title": "Steel and Brass: Classifying Alloys and Their Structure",
+    "calculator": "permitted",
+    "stimulus": "Two common alloys are steel, made mostly of iron with a small amount of carbon, and brass, made of copper and zinc. A student looks up the atomic radii and molar masses of the elements in these alloys. The values are listed in the table below.\n\nElement | Atomic radius (pm) | Molar mass (g/mol)\nFe | 126 | 55.85\nC | 77 | 12.01\nCu | 128 | 63.55\nZn | 134 | 65.38\n\nThe student prepares a brass sample by melting together 19.06 g of Cu and 6.54 g of Zn and letting the mixture cool into a uniform solid.",
+    "model_answer": "(a) Steel is an interstitial alloy. A C atom (77 pm) is much smaller than an Fe atom (126 pm); its radius is only about 61% of the Fe radius. The small C atoms therefore fit into the spaces (interstices) between the larger Fe atoms in the iron lattice instead of replacing Fe atoms.\n\n(b) Brass is a substitutional alloy. Cu (128 pm) and Zn (134 pm) have comparable radii, differing by only about 5%. A Zn atom is too large to fit between Cu atoms, but it is similar enough in size to take the place of a Cu atom at a lattice site.\n\n(c) moles Zn = 6.54 g ÷ 65.38 g/mol = 0.1000 mol\nmoles Cu = 19.06 g ÷ 63.55 g/mol = 0.2999 mol\ntotal moles of atoms = 0.1000 + 0.2999 = 0.3999 mol\nfraction of sites occupied by Zn = 0.1000 ÷ 0.3999 = 0.250 (three significant figures, limited by 6.54 g)\n\n(d) The lattice sites in brass are occupied by positive metal ions, both Cu cations and Zn cations, with Zn ions substituting for some Cu ions. The valence electrons from all the atoms are delocalized and move freely throughout the solid as a sea of electrons rather than belonging to any one atom. The electrostatic attraction between the positive ions and the surrounding delocalized electrons holds the solid together (metallic bonding).",
+    "verification_python": "import math\nr_Fe, r_C, r_Cu, r_Zn = 126, 77, 128, 134\nratio_steel = r_C / r_Fe\nassert abs(ratio_steel - 0.611) < 0.001\nratio_brass = r_Zn / r_Cu\nassert abs((ratio_brass - 1) * 100 - 4.7) < 0.1\nn_Zn = 6.54 / 65.38\nn_Cu = 19.06 / 63.55\nassert abs(n_Zn - 0.1000) < 0.00005\nassert abs(n_Cu - 0.2999) < 0.00005\ntotal = n_Zn + n_Cu\nassert abs(total - 0.3999) < 0.00005\nfrac = n_Zn / total\nassert abs(frac - 0.250) < 0.0005\nassert round(frac, 3) == 0.250\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Classify steel as an interstitial alloy or a substitutional alloy. Justify your answer using the atomic radii in the table.",
+      "criteria": [
+       {
+        "text": "Classifies steel as an interstitial alloy, justified by C (77 pm) being significantly smaller than Fe (126 pm), so C atoms fit in the spaces between Fe atoms.",
+        "evidence": "Response states interstitial and compares the radii, noting C is much smaller than Fe (about 61% of its radius), so C occupies interstices in the Fe lattice.",
+        "fix": "Compare the two radii: a much smaller atom fits in the gaps between larger atoms, which defines an interstitial alloy.",
+        "accepted_variants": [
+         "interstitial alloy",
+         "interstitial"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Classify brass as an interstitial alloy or a substitutional alloy. Justify your answer using the atomic radii in the table.",
+      "criteria": [
+       {
+        "text": "Classifies brass as a substitutional alloy, justified by Cu (128 pm) and Zn (134 pm) having comparable radii, so Zn atoms replace Cu atoms at lattice sites.",
+        "evidence": "Response states substitutional and notes the radii are similar (differ by about 5%), so Zn substitutes for Cu in the lattice rather than fitting between atoms.",
+        "fix": "When two atoms have similar radii, one replaces the other at lattice sites; state that and cite both radii as evidence.",
+        "accepted_variants": [
+         "substitutional alloy",
+         "substitutional"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Assume every Cu and Zn atom in the student's brass sample occupies a lattice site. Calculate the fraction of the lattice sites in the sample that are occupied by Zn atoms. Show your work and report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Calculates the fraction of lattice sites occupied by Zn as 0.250, using moles Zn = 6.54/65.38 = 0.1000 mol and moles Cu = 19.06/63.55 = 0.2999 mol.",
+        "evidence": "Response converts both masses to moles, divides moles of Zn by total moles of metal atoms, and reports 0.250 (three significant figures).",
+        "fix": "Convert each mass to moles with n = m/M, then divide moles of Zn by total moles of atoms; keep three significant figures.",
+        "accepted_variants": [
+         "0.250",
+         "25.0%",
+         "1/4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the particle-level model of the bonding in the brass sample. Identify the particles located at the lattice sites and explain what holds them together.",
+      "criteria": [
+       {
+        "text": "Describes brass as an array of positive Cu and Zn ions (cations) surrounded by a sea of delocalized valence electrons, held together by attraction between the cations and the delocalized electrons.",
+        "evidence": "Response identifies positive metal ions (both Cu and Zn) at lattice sites, states the valence electrons are delocalized (not bound to one atom), and names the cation-electron attraction as the bonding.",
+        "fix": "State three things: positive metal ions at lattice sites, delocalized valence electrons shared by all ions, and attraction between them as the bond.",
+        "accepted_variants": [
+         "sea of electrons",
+         "metallic bonding with delocalized valence electrons"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": false,
+    "out": "Traceback (most recent call last):\n  File \"/private/var/folders/1n/bv661kx91xd43mjnk_vmtsp80000gq/T/frqpy-IMpN9g/check.py\", line 12, in <module>\n    assert abs(total - 0.3999) < 0.00005\nAssertionError\n"
+   },
+   "stage": "recompute"
+  }
+ ]
+}

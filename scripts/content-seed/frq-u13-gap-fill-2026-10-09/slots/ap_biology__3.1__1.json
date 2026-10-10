@@ -1,0 +1,1364 @@
+{
+ "id": "ap_biology__3.1__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 3,
+  "unit_title": "Cellular Energetics",
+  "topic_code": "3.1",
+  "topic_title": "Enzymes",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.635Z",
+   "item": {
+    "title": "Invertase Substrate Specificity and Reaction Rate",
+    "calculator": "not_permitted",
+    "stimulus": "Invertase is an enzyme produced by yeast. It catalyzes the hydrolysis of the disaccharide sucrose into glucose and fructose. A student wants to know whether invertase can also hydrolyze two other glucose-containing disaccharides, lactose and maltose. Hydrolysis of any of these three disaccharides releases glucose, so the student uses glucose production as a measure of enzyme activity.\n\nThe student sets up four tubes. Each tube contains 5 mL of pH 4.5 buffer and 10 mmol/L of one disaccharide. Invertase solution (1 mL) is added to Tubes 1, 3 and 4. Tube 2 receives 1 mL of buffer instead of enzyme. All tubes are kept at 37 °C. No tube contains glucose at the start. After 10 minutes, the amount of glucose in each tube is measured.\n\nTube | Disaccharide | Invertase added | Glucose after 10 min (µmol)\n1 | Sucrose | Yes | 24.0\n2 | Sucrose | No | 0.2\n3 | Lactose | Yes | 0.2\n4 | Maltose | Yes | 0.3",
+    "model_answer": "(a) The independent variable is the type of disaccharide used as substrate (sucrose, lactose or maltose). The dependent variable is the amount of glucose produced after 10 minutes.\n\n(b) Tube 2 is a negative control containing sucrose but no invertase. It produced only 0.2 µmol of glucose, showing that sucrose breaks down very little on its own under these conditions. Therefore the 24.0 µmol of glucose in Tube 1 can be attributed to invertase activity rather than to spontaneous breakdown of sucrose.\n\n(c) Tube 1 rate = 24.0 µmol ÷ 10 min = 2.4 µmol/min. Tube 2 rate = 0.2 µmol ÷ 10 min = 0.02 µmol/min. 2.4 ÷ 0.02 = 120, so the reaction with invertase is 120 times faster. Invertase is a protein catalyst that lowers the activation energy of sucrose hydrolysis. With a lower energy barrier, many more sucrose molecules react per minute, so glucose is produced much faster in Tube 1 than in Tube 2, where the reaction must overcome the higher uncatalyzed activation energy.\n\n(d) Invertase does not hydrolyze lactose or maltose. Tubes 3 and 4 produced only 0.2 and 0.3 µmol of glucose, about the same as the no-enzyme control and far less than the 24.0 µmol from sucrose. According to the enzyme-substrate complex model, a substrate's shape and charge must be compatible with the enzyme's active site. Lactose and maltose differ in shape from sucrose, so they do not fit invertase's active site, no enzyme-substrate complex forms, and the activation energy for their hydrolysis is not lowered.",
+    "verification_python": "from fractions import Fraction as F\nt1=F(240,10); t2=F(2,10); t3=F(2,10); t4=F(3,10); time=10\nr1=t1/time; r2=t2/time\nassert r1==F(24,10)\nassert r2==F(2,100)\nassert r1/r2==120\nassert t1/t2==120\nassert t3<F(1,2) and t4<F(1,2)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the independent variable and the dependent variable in the comparison of Tubes 1, 3 and 4.",
+      "criteria": [
+       {
+        "text": "Independent variable is the type of disaccharide (substrate); dependent variable is the amount of glucose produced in 10 minutes.",
+        "evidence": "Response names the substrate or disaccharide type (sucrose, lactose, maltose) as the independent variable AND the glucose produced (or enzyme activity measured as glucose produced) as the dependent variable.",
+        "fix": "Name the one factor the student deliberately changed between tubes as independent, and the quantity measured at the end as dependent.",
+        "accepted_variants": [
+         "type of sugar",
+         "substrate identity",
+         "amount of glucose",
+         "glucose produced (µmol)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Justify the inclusion of Tube 2 in this experiment.",
+      "criteria": [
+       {
+        "text": "Tube 2 is a no-enzyme control showing that sucrose produces almost no glucose without invertase, so the glucose in Tube 1 results from invertase activity.",
+        "evidence": "Response states that Tube 2 lacks enzyme and explains that its result (about 0.2 µmol) shows uncatalyzed breakdown of sucrose is negligible, so the glucose in Tube 1 can be attributed to the enzyme.",
+        "fix": "State what the control tube lacks, then explain what its result rules out as an alternative cause of the experimental tube's result.",
+        "accepted_variants": [
+         "negative control",
+         "no-enzyme control"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the average rate of glucose production in Tube 1 over the 10 minutes, and calculate how many times greater this rate is than the rate in Tube 2. Explain, in terms of activation energy, why the rates differ.",
+      "criteria": [
+       {
+        "text": "Rate in Tube 1 = 24.0 µmol ÷ 10 min = 2.4 µmol/min; this is 120 times the Tube 2 rate of 0.02 µmol/min.",
+        "evidence": "Response shows the division 24.0 ÷ 10 = 2.4 µmol/min and the comparison 2.4 ÷ 0.02 (or 24.0 ÷ 0.2) = 120, with units on the rate.",
+        "fix": "Divide product amount by time for each tube, include units, then divide the larger rate by the smaller to get the fold difference.",
+        "accepted_variants": [
+         "2.4 µmol per minute",
+         "120-fold",
+         "120×"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "",
+      "criteria": [
+       {
+        "text": "Invertase, a biological catalyst, lowers the activation energy of sucrose hydrolysis, so the reaction proceeds much faster than without the enzyme.",
+        "evidence": "Response states that the enzyme lowers the activation energy required for the reaction, linking this to the faster rate (more sucrose molecules hydrolyzed per minute) in Tube 1 than in Tube 2.",
+        "fix": "Connect the faster rate directly to the enzyme lowering the energy barrier the reaction must overcome; avoid saying enzymes add energy.",
+        "accepted_variants": [
+         "lowers the energy barrier",
+         "reduces activation energy"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data from Tubes 3 and 4, make a claim about whether invertase can hydrolyze lactose and maltose, and explain your claim using the enzyme-substrate complex model.",
+      "criteria": [
+       {
+        "text": "Invertase does not hydrolyze lactose or maltose because their shape and charge are not compatible with invertase's active site, so no enzyme-substrate complex forms.",
+        "evidence": "Response claims invertase does not (or negligibly) hydrolyze lactose and maltose, citing the near-zero glucose in Tubes 3 and 4 (0.2 and 0.3 µmol, similar to the no-enzyme control), AND explains that these substrates do not fit the active site in shape and/or charge, so an enzyme-substrate complex cannot form.",
+        "fix": "Cite the data supporting the claim, then explain specificity: substrate shape and charge must match the active site to form an enzyme-substrate complex.",
+        "accepted_variants": [
+         "substrate does not fit the active site",
+         "not complementary to the active site"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "5 parts (allowed 3-4)"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:22:11.864Z",
+   "item": {
+    "title": "Substrate Specificity of a Yeast Sucrase Enzyme",
+    "calculator": "not_permitted",
+    "stimulus": "Yeast cells produce sucrase, an enzyme that catalyzes the hydrolysis of the disaccharide sucrose into glucose and fructose. Sucrase is a protein. Other disaccharides, such as maltose (glucose + glucose) and lactose (glucose + galactose), also release glucose if hydrolyzed.\n\nA student set up four test tubes. Each tube held 5 mL of a 2% disaccharide solution in buffer at pH 7 and was kept at 25 °C. Then 1 mL of purified sucrase solution or 1 mL of buffer alone was added. After 10 minutes, the student measured the mass of free glucose in each tube.\n\nTube | Disaccharide | Addition | Glucose after 10 min (mg)\n1 | Sucrose | Sucrase | 4.8\n2 | Maltose | Sucrase | 0.1\n3 | Lactose | Sucrase | 0.1\n4 | Sucrose | Buffer only | 0.1",
+    "model_answer": "(a) The independent variable is the type of disaccharide (substrate) given to sucrase: sucrose, maltose or lactose. The dependent variable is the mass of glucose produced after 10 minutes.\n\n(b) Tube 4 is a negative control. It contains sucrose but no enzyme. Only 0.1 mg of glucose appeared in Tube 4, which shows that sucrose does not break down appreciably on its own in 10 minutes and that little glucose was present to begin with. Therefore the much larger amount of glucose in Tube 1 (4.8 mg) can be attributed to the activity of sucrase.\n\n(c) Glucose due to the enzyme = 4.8 mg − 0.1 mg = 4.7 mg. Rate = 4.7 mg ÷ 10 min = 0.47 mg glucose per minute.\n\n(d) For an enzyme-catalyzed reaction to occur, the shape and charge of the substrate must be compatible with the enzyme's active site. Sucrose fits the active site of sucrase and forms an enzyme-substrate complex, so it is hydrolyzed into glucose and fructose. Maltose and lactose have different shapes and charge distributions that are not compatible with the active site. They do not form an enzyme-substrate complex, are not hydrolyzed, and produce no more glucose than the no-enzyme control. Sucrase increases the rate of sucrose hydrolysis because, as a biological catalyst, it lowers the activation energy of the reaction, so more substrate molecules react per unit time.",
+    "verification_python": "from fractions import Fraction\nt1 = Fraction(48, 10)\nt4 = Fraction(1, 10)\ntime = 10\nnet = t1 - t4\nassert net == Fraction(47, 10)\nrate = net / time\nassert abs(float(rate) - 0.47) < 1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the independent variable and the dependent variable in Tubes 1 through 3 of this experiment.",
+      "criteria": [
+       {
+        "text": "Independent variable: the type of disaccharide (substrate) offered to the enzyme. Dependent variable: the mass of glucose produced after 10 minutes.",
+        "evidence": "Response names the disaccharide type (sucrose, maltose or lactose) as the independent variable and the amount of glucose produced as the dependent variable. Both must be correct for the point.",
+        "fix": "Name the factor the experimenter deliberately changed as the independent variable and the quantity measured in response as the dependent variable.",
+        "accepted_variants": [
+         "type of substrate",
+         "glucose produced",
+         "rate of glucose production"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain the purpose of including Tube 4 in the experiment.",
+      "criteria": [
+       {
+        "text": "Tube 4 is a negative control showing how much glucose appears from sucrose without the enzyme. This shows that the large amount of glucose in Tube 1 is due to sucrase.",
+        "evidence": "Response states that Tube 4 tests sucrose without enzyme. It must also connect this to the conclusion: sucrose does not break down appreciably on its own (or glucose is not already present), so the glucose in Tube 1 is caused by the enzyme.",
+        "fix": "When explaining a control, state which variable it removes and how comparing it to the experimental tube supports attributing the result to that variable.",
+        "accepted_variants": [
+         "negative control",
+         "no-enzyme control"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using Tube 4 to correct for glucose produced without the enzyme, calculate the rate of glucose production in Tube 1 that is due to sucrase, in mg of glucose per minute.",
+      "criteria": [
+       {
+        "text": "Rate due to enzyme = (4.8 mg − 0.1 mg) ÷ 10 min = 0.47 mg glucose per minute",
+        "evidence": "Response subtracts the Tube 4 value from the Tube 1 value and divides by 10 minutes. It must give 0.47 mg/min with work shown.",
+        "fix": "Subtract the control value from the experimental value first, then divide by the elapsed time, and include units.",
+        "accepted_variants": [
+         "0.47 mg/min",
+         "0.47 mg glucose/min",
+         "4.7 mg per 10 min"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why sucrase greatly increased glucose production with sucrose but not with maltose or lactose. In your answer, describe how sucrase increases the rate of the reaction it catalyzes.",
+      "criteria": [
+       {
+        "text": "Only sucrose has a shape and charge compatible with sucrase's active site, so only sucrose forms an enzyme-substrate complex. Maltose and lactose do not fit, so they are not hydrolyzed.",
+        "evidence": "Response links the result to the shape and/or charge compatibility between the substrate and the active site, or to formation of an enzyme-substrate complex. It must state that maltose and lactose are not compatible with the active site.",
+        "fix": "Explain specificity by stating that the substrate's shape and charge must match the active site to form an enzyme-substrate complex.",
+        "accepted_variants": [
+         "substrate fits the active site",
+         "enzyme specificity"
+        ]
+       },
+       {
+        "text": "Sucrase is a catalyst that lowers the activation energy of sucrose hydrolysis, so the reaction proceeds faster.",
+        "evidence": "Response states that the enzyme lowers the activation energy (the energy needed to start the reaction), increasing the reaction rate.",
+        "fix": "State explicitly that enzymes speed reactions by lowering the activation energy required, not by adding energy or changing the products.",
+        "accepted_variants": [
+         "reduces activation energy",
+         "lowers the energy barrier"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "1": 1,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two separately observable answers—the independent variable and dependent variable—into one point requiring both, contrary to the one-element-per-criterion rule. Criterion c1 lists '4.7 mg per 10 min' as an accepted variant even though part (c) explicitly requests mg per minute and its evidence requires 0.47 mg/min; the accepted variant must use the requested units."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two separately observable answers—the independent variable and dependent variable—into one point requiring both, contrary to the one-element-per-criterion rule. Criterion c1 lists '4.7 mg per 10 min' as an accepted variant even though part (c) explicitly requests mg per minute and its evidence requires 0.47 mg/min; the accepted variant must use the requested units."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 combines two separately observable elements—identifying the independent variable and identifying the dependent variable—into one all-or-nothing point. Split these into separate 1-point criteria, or ask for only one variable."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 combines two separately observable elements—identifying the independent variable and identifying the dependent variable—into one all-or-nothing point. Split these into separate 1-point criteria, or ask for only one variable."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Only part (d) criteria (d1) and (d2) assess the 3.1 learning objective/essential knowledge (3.1.A.1 and 3.1.A.2). Parts (a), (b), and (c) assess experimental variables, controls, and calculation, so only 2 of 5 scoring points (40%) are on-topic; the rule requires at least half."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Only part (d) criteria (d1) and (d2) assess the 3.1 learning objective/essential knowledge (3.1.A.1 and 3.1.A.2). Parts (a), (b), and (c) assess experimental variables, controls, and calculation, so only 2 of 5 scoring points (40%) are on-topic; the rule requires at least half."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1 Enzymes",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:28:01.717Z",
+   "item": {
+    "title": "Active-Site Charge and the Rate of an Enzyme Reaction",
+    "calculator": "permitted",
+    "stimulus": "A bacterial enzyme, phosphatase P, removes a phosphate group from its substrate. The substrate carries a negative charge near the bond that is broken. In the wild-type enzyme, a lysine amino acid with a positively charged R group lines the active site. Researchers made a mutant version of the enzyme in which this lysine is replaced by glutamate, an amino acid with a negatively charged R group. Structural studies show that the mutant enzyme folds into the same overall three-dimensional shape as the wild-type enzyme.\n\nThe researchers set up three tubes. Each tube contained the same volume of buffer at pH 7 and the same substrate concentration, and all tubes were kept at 37 °C. Tube 1 received wild-type enzyme, tube 2 received an equal amount of mutant enzyme, and tube 3 received an equal volume of buffer with no enzyme. The amount of product formed in 10 minutes was measured.\n\nTube | Contents | Product formed in 10 min (µmol)\n1 | Wild-type enzyme + substrate | 48.0\n2 | Mutant enzyme + substrate | 6.0\n3 | No enzyme + substrate | 0.2",
+    "model_answer": "(a) Phosphatase P is a protein that acts as a biological catalyst. It binds the substrate in its active site and lowers the activation energy of the reaction, so the reaction proceeds much faster than it would without the enzyme.\n\n(b) The independent variable is the version of enzyme added to each tube (wild-type enzyme, mutant enzyme, or no enzyme). Tube 3 is a negative control: it shows how much product forms from the substrate on its own, without any enzyme (only 0.2 µmol). This baseline shows that the much larger amounts of product in tubes 1 and 2 are caused by enzyme activity rather than by spontaneous breakdown of the substrate.\n\n(c) Wild-type rate = 48.0 µmol ÷ 10 min = 4.8 µmol/min. Mutant rate = 6.0 µmol ÷ 10 min = 0.6 µmol/min. Percent decrease = (4.8 − 0.6) ÷ 4.8 × 100 = 87.5%.\n\n(d) For a reaction to occur, the shape and charge of the substrate must be compatible with the active site so an enzyme-substrate complex can form. In the wild type, the positively charged lysine R group attracts the negatively charged substrate and holds it in the active site. In the mutant, the negatively charged glutamate R group repels the negatively charged substrate. Even though the overall shape is unchanged, the charge mismatch means the substrate binds less often, so fewer enzyme-substrate complexes form and less product is made per minute.",
+    "verification_python": "from fractions import Fraction\nwt = Fraction(480,10)/10\nmut = Fraction(60,10)/10\nnone = Fraction(2,10)/10\nassert wt == Fraction(48,10)\nassert mut == Fraction(6,10)\nassert none == Fraction(2,100)\npd = (wt-mut)/wt*100\nassert pd == Fraction(875,10)\nassert abs(float(pd)-87.5) < 1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how phosphatase P increases the rate of the reaction it catalyzes.",
+      "criteria": [
+       {
+        "text": "The enzyme lowers the activation energy of the reaction.",
+        "evidence": "States that the enzyme (a biological catalyst) increases the reaction rate by lowering the activation energy needed for the reaction to occur.",
+        "fix": "State that enzymes speed reactions by lowering activation energy, not by adding energy or changing the products.",
+        "accepted_variants": [
+         "reduces the activation energy",
+         "decreases the energy barrier of the reaction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the independent variable in this experiment, and justify the inclusion of tube 3 as a control.",
+      "criteria": [
+       {
+        "text": "The independent variable is the version of enzyme added (wild-type, mutant, or none).",
+        "evidence": "Identifies the type of enzyme in the tube (wild-type versus mutant versus no enzyme) as the independent variable; naming product formed earns no credit.",
+        "fix": "Name the factor the researchers deliberately changed between tubes; product formed is what was measured, the dependent variable.",
+        "accepted_variants": [
+         "type of enzyme",
+         "enzyme version",
+         "presence and type of enzyme",
+         "active-site amino acid (lysine vs. glutamate)"
+        ]
+       },
+       {
+        "text": "Tube 3 shows how much product forms without enzyme, so product in tubes 1 and 2 above this baseline can be attributed to enzyme activity.",
+        "evidence": "Explains that tube 3 measures the uncatalyzed (spontaneous) reaction rate, providing a baseline so that differences in tubes 1 and 2 can be attributed to the enzymes.",
+        "fix": "Explain what a no-enzyme control measures and how comparing to it shows that product formation is caused by the enzyme.",
+        "accepted_variants": [
+         "baseline for the uncatalyzed reaction",
+         "negative control showing spontaneous product formation"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the rate of product formation, in µmol per minute, for the wild-type and mutant enzymes, and calculate the percent decrease in rate of the mutant enzyme compared with the wild-type enzyme.",
+      "criteria": [
+       {
+        "text": "Rates are 4.8 µmol/min (wild-type) and 0.6 µmol/min (mutant); percent decrease is 87.5%.",
+        "evidence": "Shows 48.0/10 = 4.8 µmol/min and 6.0/10 = 0.6 µmol/min, and (4.8 − 0.6)/4.8 × 100 = 87.5%.",
+        "fix": "Divide product by time for each rate, then compute (original − new) ÷ original × 100 for percent decrease.",
+        "accepted_variants": [
+         "87.5 %",
+         "about 88%",
+         "0.875 decrease"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, using the enzyme-substrate complex model, why the mutant enzyme produces product at a lower rate than the wild-type enzyme.",
+      "criteria": [
+       {
+        "text": "The negatively charged glutamate repels the negatively charged substrate, so the substrate's charge is no longer compatible with the active site and fewer enzyme-substrate complexes form.",
+        "evidence": "Connects the charge change in the active site (positive lysine attracts, negative glutamate repels the negative substrate) to reduced substrate binding and fewer enzyme-substrate complexes, lowering the rate.",
+        "fix": "Compare the charges of substrate and active-site R group, then link attraction or repulsion to how often enzyme-substrate complexes form.",
+        "accepted_variants": [
+         "like charges repel so the substrate binds less often",
+         "active site charge is incompatible with the substrate"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     3
+    ],
+    "unitCount": {
+     "1": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 bundles three separately observable results—two rates and a percent decrease—into one point rather than awarding one specific element. Its evidence also prescribes calculating the percentage from the rates, although (48.0 − 6.0)/48.0 × 100 is an equally valid method."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 bundles three separately observable results—two rates and a percent decrease—into one point rather than awarding one specific element. Its evidence also prescribes calculating the percentage from the rates, although (48.0 − 6.0)/48.0 × 100 is an equally valid method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 bundles three separately assessable results into one point: the wild-type rate, mutant rate, and percent decrease. The rule requires one specific observable element per criterion; split these into separate 1-point criteria."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 bundles three separately assessable results into one point: the wild-type rate, mutant rate, and percent decrease. The rule requires one specific observable element per criterion; split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c), criterion c1: The question gives a no-enzyme tube (0.2 µmol product) but does not state whether to subtract this background before calculating enzyme rates. A careful AP student could reasonably compute background-corrected rates (4.78 and 0.58 µmol/min; 87.9% decrease) instead of the raw rates accepted by the rubric (4.8, 0.6, 87.5%).",
+       "rubric_points: Part (c), criterion c1: The single criterion bundles three separate observable calculated values—wild-type rate, mutant rate, and percent decrease—into one point. Each requested calculation should have its own 1-point criterion. It also rejects the valid alternative of subtracting the no-enzyme background.",
+       "solution: Part (c): I would subtract the tube 3 no-enzyme baseline (0.2 µmol/10 min = 0.02 µmol/min) before computing enzyme rates, giving 4.78 µmol/min wild-type, 0.58 µmol/min mutant, and 87.9% decrease. The rubric and model answer use raw product/time (4.8, 0.6, 87.5%) and do not state whether background correction is expected. Parts (a), (b), and (d) agree with my solution."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The question gives a no-enzyme tube (0.2 µmol product) but does not state whether to subtract this background before calculating enzyme rates. A careful AP student could reasonably compute background-corrected rates (4.78 and 0.58 µmol/min; 87.9% decrease) instead of the raw rates accepted by the rubric (4.8, 0.6, 87.5%)."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The single criterion bundles three separate observable calculated values—wild-type rate, mutant rate, and percent decrease—into one point. Each requested calculation should have its own 1-point criterion. It also rejects the valid alternative of subtracting the no-enzyme background."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (c): I would subtract the tube 3 no-enzyme baseline (0.2 µmol/10 min = 0.02 µmol/min) before computing enzyme rates, giving 4.78 µmol/min wild-type, 0.58 µmol/min mutant, and 87.9% decrease. The rubric and model answer use raw product/time (4.8, 0.6, 87.5%) and do not state whether background correction is expected. Parts (a), (b), and (d) agree with my solution.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Only parts (a) and (d) assess Topic 3.1 LOs/EK (3.1.A.1 and 3.1.A.2); parts (b) and (c) assess Science Practices 3.C and 5.A. That is 2 of 5 points, less than half.",
+       "well_posed: Part (c): It is ambiguous whether the rates should be corrected for the no-enzyme background (0.2 µmol). A careful student could reasonably use total product/time (4.8, 0.6, 87.5%) or subtract the no-enzyme tube (4.78, 0.58, 87.9%). The question does not state which is required.",
+       "rubric_points: Part (c) criterion c1 accepts only uncorrected values (4.8, 0.6, 87.5%) and rejects the valid background-corrected alternative (4.78, 0.58, 87.9%).",
+       "solution: Part (c): The rubric and model answer use only uncorrected rates (4.8 µmol/min, 0.6 µmol/min, 87.5% decrease). My independent solution notes that subtracting the no-enzyme background gives enzyme-attributable rates of 4.78 µmol/min and 0.58 µmol/min, for about 87.9% decrease. The rubric does not allow this valid alternative."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Only parts (a) and (d) assess Topic 3.1 LOs/EK (3.1.A.1 and 3.1.A.2); parts (b) and (c) assess Science Practices 3.C and 5.A. That is 2 of 5 points, less than half."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c): It is ambiguous whether the rates should be corrected for the no-enzyme background (0.2 µmol). A careful student could reasonably use total product/time (4.8, 0.6, 87.5%) or subtract the no-enzyme tube (4.78, 0.58, 87.9%). The question does not state which is required."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criterion c1 accepts only uncorrected values (4.8, 0.6, 87.5%) and rejects the valid background-corrected alternative (4.78, 0.58, 87.9%)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (c): The rubric and model answer use only uncorrected rates (4.8 µmol/min, 0.6 µmol/min, 87.5% decrease). My independent solution notes that subtracting the no-enzyme background gives enzyme-attributable rates of 4.78 µmol/min and 0.58 µmol/min, for about 87.9% decrease. The rubric does not allow this valid alternative.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:33:05.672Z",
+   "item": {
+    "title": "Active Site Charge and Enzyme Catalysis Rate",
+    "calculator": "not_applicable",
+    "stimulus": "Enzyme P is a protein that speeds up the removal of a phosphate group from substrate S. The phosphate group on S carries a negative charge. In the active site of normal (wild-type) enzyme P, the R group of a lysine amino acid is positively charged. This lysine binds the phosphate group of S when the enzyme-substrate complex forms.\n\nResearchers produced a mutant version of enzyme P. In the mutant, this one lysine is replaced by glutamate, whose R group is negatively charged. Structural analysis showed that the mutant enzyme folds into the same overall three-dimensional shape as the wild-type enzyme.\n\nThe researchers set up three tubes. Each tube contained the same volume of buffer at pH 7.5 and 25°C, and the same concentration of substrate S. They then added one of the following: buffer only (no enzyme), wild-type enzyme P, or mutant enzyme P, using equal amounts of enzyme. After 10 minutes they measured the amount of free phosphate released.\n\nTube | Enzyme added | Phosphate released in 10 min (µmol)\n1 | None (buffer only) | 0.2\n2 | Wild-type enzyme P | 48.0\n3 | Mutant enzyme P | 3.0",
+    "model_answer": "(a) Enzyme P is a biological catalyst. When S binds in its active site and forms an enzyme-substrate complex, the enzyme lowers the activation energy needed for the phosphate to be removed. With a lower energy barrier, the reaction happens much faster, so tube 2 released 48.0 µmol of phosphate compared with only 0.2 µmol in tube 1 without enzyme.\n\n(b) The independent variable is the type of enzyme added to the tube: no enzyme, wild-type enzyme P, or mutant enzyme P. Tube 1 is a control because it measures how much phosphate is released from substrate S on its own, without any enzyme. Since tube 1 released only 0.2 µmol, the much larger amounts in tubes 2 and 3 can be attributed to the enzymes rather than to spontaneous breakdown of S or something in the buffer.\n\n(c) For the reaction to occur, both the shape and the charge of the substrate must be compatible with the active site. In the wild-type enzyme the positively charged lysine attracts the negatively charged phosphate of S, holding the substrate in the active site. In the mutant, the glutamate R group is negatively charged, so it repels the negative phosphate group. Even though the shape is the same, the charge is no longer compatible, so S binds poorly and fewer enzyme-substrate complexes form. As a result, the mutant catalyzes much less phosphate removal (3.0 µmol versus 48.0 µmol).",
+    "verification_python": "none_rate = 0.2\nwt = 48.0\nmut = 3.0\nassert wt > mut > none_rate\nassert abs(wt - 48.0) < 1e-9 and abs(mut - 3.0) < 1e-9 and abs(none_rate - 0.2) < 1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how wild-type enzyme P increases the rate of phosphate removal from substrate S compared with the reaction in tube 1.",
+      "criteria": [
+       {
+        "text": "Enzyme P acts as a catalyst that lowers the activation energy of the reaction, so the reaction proceeds faster.",
+        "evidence": "States that the enzyme lowers the activation energy (energy barrier) of the reaction, linking this to the faster reaction or greater phosphate release.",
+        "fix": "State that enzymes are catalysts that lower the activation energy of a reaction, which increases the reaction rate.",
+        "accepted_variants": [
+         "reduces the activation energy",
+         "lowers the energy barrier needed for the reaction to occur",
+         "decreases the energy required to start the reaction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the independent variable in this experiment. Justify the inclusion of tube 1 as a control.",
+      "criteria": [
+       {
+        "text": "The independent variable is the type of enzyme added (none, wild-type enzyme P, or mutant enzyme P).",
+        "evidence": "Names the enzyme condition (presence and version of enzyme P) as the variable deliberately changed among the tubes.",
+        "fix": "Identify the independent variable as the one factor the researchers deliberately changed between tubes, here the enzyme added.",
+        "accepted_variants": [
+         "the version of enzyme P used",
+         "whether wild-type, mutant, or no enzyme was added",
+         "presence and type of enzyme"
+        ]
+       },
+       {
+        "text": "Tube 1 shows how much phosphate is released without any enzyme, so phosphate release above this baseline in tubes 2 and 3 can be attributed to the enzyme.",
+        "evidence": "Explains that the no-enzyme tube measures the uncatalyzed (background) reaction, allowing differences in tubes 2 and 3 to be attributed to the enzyme rather than to the substrate or buffer alone.",
+        "fix": "Justify a control by saying what baseline it measures and how that lets you attribute differences in other tubes to the independent variable.",
+        "accepted_variants": [
+         "it measures the spontaneous, uncatalyzed rate of the reaction for comparison",
+         "it rules out that the phosphate came from substrate breaking down on its own"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the mutant enzyme released much less phosphate than the wild-type enzyme, even though both enzymes have the same overall shape.",
+      "criteria": [
+       {
+        "text": "The negatively charged glutamate R group repels the negatively charged phosphate of S, so the substrate's charge is no longer compatible with the active site and fewer enzyme-substrate complexes form, giving less product.",
+        "evidence": "Connects the charge change in the active site (negative R group repelling the negative phosphate, or loss of the positive charge that attracted it) to reduced substrate binding or fewer enzyme-substrate complexes, and thus less phosphate released.",
+        "fix": "Explain that substrate charge, not only shape, must match the active site; describe how the changed R group charge affects substrate binding.",
+        "accepted_variants": [
+         "loss of the positive lysine charge means the phosphate is no longer attracted and the substrate binds poorly",
+         "like charges repel so S cannot bind properly in the active site, reducing enzyme-substrate complex formation"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     3
+    ],
+    "unitCount": {
+     "1": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 accepts 'it rules out that the phosphate came from substrate breaking down on its own.' As written, this can earn credit for an incorrect control justification: tube 1 measures spontaneous/background release rather than ruling it out. Require that spontaneous release alone cannot explain the much greater release in the enzyme treatments.",
+       "accurate: Part (b), criterion b2's final accepted variant incorrectly says the control rules out phosphate release from spontaneous substrate breakdown. Tube 1 reports 0.2 µmol of background release. The control establishes that baseline and supports attributing release above it to enzyme activity.",
+       "solution: The independent solution agrees with all four main scoring criteria. It disagrees only with b2's final accepted variant: the no-enzyme control measures background phosphate release; it does not rule out spontaneous breakdown as a contributing source. No model answer was supplied for evaluation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 accepts 'it rules out that the phosphate came from substrate breaking down on its own.' As written, this can earn credit for an incorrect control justification: tube 1 measures spontaneous/background release rather than ruling it out. Require that spontaneous release alone cannot explain the much greater release in the enzyme treatments."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b2's final accepted variant incorrectly says the control rules out phosphate release from spontaneous substrate breakdown. Tube 1 reports 0.2 µmol of background release. The control establishes that baseline and supports attributing release above it to enzyme activity."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all four main scoring criteria. It disagrees only with b2's final accepted variant: the no-enzyme control measures background phosphate release; it does not rule out spontaneous breakdown as a contributing source. No model answer was supplied for evaluation.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 accepts 'it rules out that the phosphate came from substrate breaking down on its own.' This is not equivalent to the correct baseline justification: tube 1 shows nonzero background release. Replace it with 'it measures spontaneous phosphate release, allowing enzyme-dependent release above that baseline to be identified.'",
+       "accurate: Criterion b2's accepted statement that the control rules out spontaneous substrate breakdown is too strong. Tube 1 releases 0.2 µmol without enzyme; the control measures background release rather than ruling it out.",
+       "solution: The independent solution agrees with the main criteria for all parts. However, b2's accepted 'rules out' variant conflicts with the correct interpretation: the no-enzyme tube establishes background phosphate release, and release above that baseline supports an enzyme-dependent contribution. No model answer was provided for evaluation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 accepts 'it rules out that the phosphate came from substrate breaking down on its own.' This is not equivalent to the correct baseline justification: tube 1 shows nonzero background release. Replace it with 'it measures spontaneous phosphate release, allowing enzyme-dependent release above that baseline to be identified.'"
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b2's accepted statement that the control rules out spontaneous substrate breakdown is too strong. Tube 1 releases 0.2 µmol without enzyme; the control measures background release rather than ruling it out."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the main criteria for all parts. However, b2's accepted 'rules out' variant conflicts with the correct interpretation: the no-enzyme tube establishes background phosphate release, and release above that baseline supports an enzyme-dependent contribution. No model answer was provided for evaluation.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1 Enzymes",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:35:41.545Z",
+   "item": {
+    "title": "Invertase Substrate Specificity and Reaction Rate",
+    "calculator": "permitted",
+    "stimulus": "Invertase is an enzyme that hydrolyzes the disaccharide sucrose into glucose and fructose. Students set up four test tubes at 37°C. Each tube held 5 mL of pH 4.5 buffer plus the contents listed below. Solutions were the same volume and concentration in every tube. After 10 minutes, the students measured the mass of glucose in each tube with a glucose assay. Lactose is a disaccharide made of glucose and galactose, so any hydrolysis of lactose would also release glucose.\n\nTube | Contents | Glucose after 10 min (mg)\n1 | sucrose + invertase | 4.8\n2 | sucrose + buffer (no enzyme) | 0.1\n3 | lactose + invertase | 0.1\n4 | invertase + buffer (no sugar) | 0.0",
+    "model_answer": "(a) The independent variable is the type of substrate added (sucrose in tube 1, lactose in tube 3). The dependent variable is the mass of glucose produced after 10 minutes.\n\n(b) Tube 2 contains sucrose but no invertase, so it shows how much glucose forms from sucrose on its own, through spontaneous hydrolysis or background glucose. Because tube 2 produced only 0.1 mg, the extra glucose in tube 1 can be attributed to invertase rather than to sucrose breaking down without the enzyme.\n\n(c) Glucose due to the enzyme = 4.8 mg − 0.1 mg = 4.7 mg. Rate = 4.7 mg ÷ 10 min = 0.47 mg/min.\n\n(d) Invertase is a protein catalyst that lowers the activation energy needed to hydrolyze sucrose. With a lower energy barrier, many more sucrose molecules react per minute, so tube 1 produced much more glucose than tube 2, where the uncatalyzed reaction is very slow. In tube 3, the shape and charge of lactose are not compatible with invertase's active site. Lactose cannot bind and form an enzyme-substrate complex, so it is not hydrolyzed. The glucose level stays at the same background level as the no-enzyme tube.",
+    "verification_python": "t1=4.8\nt2=0.1\nt3=0.1\ntime=10\ncorrected=t1-t2\nassert abs(corrected-4.7)<1e-9\nrate=corrected/time\nassert abs(rate-0.47)<1e-9\nassert abs(t3-t2)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the independent variable and the dependent variable in the comparison between tube 1 and tube 3.",
+      "criteria": [
+       {
+        "text": "Independent variable: the type of substrate (sucrose or lactose). Dependent variable: the mass of glucose produced in 10 minutes.",
+        "evidence": "Names substrate identity (sucrose vs. lactose) as the independent variable AND glucose produced (mass or amount after 10 min) as the dependent variable; both must be correct.",
+        "fix": "Ask what the experimenter changed between the two tubes (independent) and what was measured as the result (dependent); name each explicitly.",
+        "accepted_variants": [
+         "IV: which disaccharide was added; DV: amount of glucose formed",
+         "IV: kind of sugar; DV: glucose concentration after 10 minutes"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Justify the inclusion of tube 2 as a control in this experiment.",
+      "criteria": [
+       {
+        "text": "Tube 2 shows how much glucose forms from sucrose without the enzyme, so glucose above that baseline in tube 1 can be attributed to invertase.",
+        "evidence": "States that tube 2 measures glucose produced without enzyme (spontaneous hydrolysis or background) AND connects this to attributing the extra glucose in tube 1 to the enzyme.",
+        "fix": "State what the control lacks (the enzyme) and explain how comparing it to the experimental tube isolates the enzyme's effect.",
+        "accepted_variants": [
+         "Rules out that sucrose breaks down on its own, so the difference is caused by invertase",
+         "Provides a no-enzyme baseline for comparison with tube 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the rate of glucose production attributable to invertase in tube 1, in mg per minute, by correcting for the glucose produced in tube 2.",
+      "criteria": [
+       {
+        "text": "Rate = (4.8 − 0.1) mg ÷ 10 min = 0.47 mg/min",
+        "evidence": "Shows subtraction of the tube 2 value from tube 1 and division by 10 minutes, giving 0.47 mg/min with units.",
+        "fix": "Subtract the no-enzyme baseline from the experimental value first, then divide by the reaction time and include units.",
+        "accepted_variants": [
+         "0.47 mg glucose/min",
+         "0.47 mg·min⁻¹"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why tube 1 produced far more glucose than tube 2, and explain why tube 3 produced almost no glucose even though invertase was present.",
+      "criteria": [
+       {
+        "text": "Invertase is a catalyst that lowers the activation energy of sucrose hydrolysis, so many more sucrose molecules are hydrolyzed per minute than without the enzyme.",
+        "evidence": "States that the enzyme lowers activation energy (acts as a catalyst) and links this to a faster reaction or more glucose produced in tube 1 than tube 2.",
+        "fix": "Connect the enzyme's role in lowering activation energy directly to the faster reaction rate observed in the enzyme tube.",
+        "accepted_variants": [
+         "Enzyme reduces the energy barrier so the reaction proceeds faster",
+         "Invertase speeds hydrolysis by lowering activation energy"
+        ]
+       },
+       {
+        "text": "Lactose's shape and charge are not compatible with invertase's active site, so no enzyme-substrate complex forms and lactose is not hydrolyzed.",
+        "evidence": "Refers to the active site and states that lactose does not fit (shape and/or charge incompatible) so it cannot bind or form an enzyme-substrate complex, explaining the lack of glucose.",
+        "fix": "Use the enzyme-substrate complex model: state that the substrate's shape and charge must match the active site for binding and catalysis.",
+        "accepted_variants": [
+         "Lactose cannot bind the active site because it is not complementary in shape and charge",
+         "Invertase is specific to sucrose; lactose does not fit the active site"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 combines two separately observable elements—identifying the independent variable and identifying the dependent variable—into one point. Criterion c1 explicitly accepts bare numerical answers despite requiring subtraction, division, and units in its evidence statement. Criterion d2 requires inability to bind or form an enzyme-substrate complex, rejecting the valid explanation that lactose cannot interact productively with the active site to permit catalysis.",
+       "accurate: Criterion d2 categorically states that no enzyme-substrate complex forms. Lack of appreciable hydrolysis does not establish that binding is impossible; substrate specificity can involve failure of productive binding or catalysis. Criterion b1's accepted statement that the control 'rules out that sucrose breaks down on its own' overstates the result: tube 2 provides a nonzero background baseline, not evidence excluding spontaneous hydrolysis.",
+       "solution: Parts (a)–(c) agree with the rubric's main answers, including the corrected rate of (4.8 − 0.1)/10 = 0.47 mg/min. In part (b), the independent solution correctly treats tube 2 as a background control rather than ruling out spontaneous hydrolysis. In part (d), the independent solution explains the absence of appreciable lactose hydrolysis through failure of effective active-site interaction and catalysis; criterion d2 unnecessarily demands the stronger claim that lactose cannot bind at all. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines two separately observable elements—identifying the independent variable and identifying the dependent variable—into one point. Criterion c1 explicitly accepts bare numerical answers despite requiring subtraction, division, and units in its evidence statement. Criterion d2 requires inability to bind or form an enzyme-substrate complex, rejecting the valid explanation that lactose cannot interact productively with the active site to permit catalysis."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 categorically states that no enzyme-substrate complex forms. Lack of appreciable hydrolysis does not establish that binding is impossible; substrate specificity can involve failure of productive binding or catalysis. Criterion b1's accepted statement that the control 'rules out that sucrose breaks down on its own' overstates the result: tube 2 provides a nonzero background baseline, not evidence excluding spontaneous hydrolysis."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric's main answers, including the corrected rate of (4.8 − 0.1)/10 = 0.47 mg/min. In part (b), the independent solution correctly treats tube 2 as a background control rather than ruling out spontaneous hydrolysis. In part (d), the independent solution explains the absence of appreciable lactose hydrolysis through failure of effective active-site interaction and catalysis; criterion d2 unnecessarily demands the stronger claim that lactose cannot bind at all. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two independently observable elements—identifying the independent variable and identifying the dependent variable—into one point. Criterion c1 explicitly accepts bare numerical answers even though its evidence requires subtraction and division; accepted variants must retain that work. Criterion b1 accepts merely providing a no-enzyme baseline for comparison, without the explicit connection to attributing additional glucose to invertase required by its evidence.",
+       "accurate: Criterion b1's accepted statement that tube 2 'rules out that sucrose breaks down on its own' overstates the control's result. The control measures background glucose without enzyme; it does not establish that nonenzymatic sucrose breakdown never occurs.",
+       "solution: The independent solution agrees with the principal biological explanations and the corrected average rate, (4.8 − 0.1)/10 = 0.47 mg/min. It does not support b1's alternative claim that the control rules out spontaneous sucrose breakdown; the control instead measures the no-enzyme background. No model answer was supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently observable elements—identifying the independent variable and identifying the dependent variable—into one point. Criterion c1 explicitly accepts bare numerical answers even though its evidence requires subtraction and division; accepted variants must retain that work. Criterion b1 accepts merely providing a no-enzyme baseline for comparison, without the explicit connection to attributing additional glucose to invertase required by its evidence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1's accepted statement that tube 2 'rules out that sucrose breaks down on its own' overstates the control's result. The control measures background glucose without enzyme; it does not establish that nonenzymatic sucrose breakdown never occurs."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the principal biological explanations and the corrected average rate, (4.8 − 0.1)/10 = 0.47 mg/min. It does not support b1's alternative claim that the control rules out spontaneous sucrose breakdown; the control instead measures the no-enzyme background. No model answer was supplied.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) criterion c1: The 'Also accept' clause lists bare values (0.47 mg glucose/min; 0.47 mg·min⁻¹) as accepted answers, but the part asks for calculation work; accepted variants must keep the required work/equation, not accept a bare final value."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1 Enzymes",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criterion c1: The 'Also accept' clause lists bare values (0.47 mg glucose/min; 0.47 mg·min⁻¹) as accepted answers, but the part asks for calculation work; accepted variants must keep the required work/equation, not accept a bare final value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Only part (d) criteria d1 and d2 directly assess 3.1 EKs (activation energy, active-site compatibility); parts (a)-(c) assess experimental-design and calculation practices without requiring 3.1 content, so only 2 of 5 points target the designated topic (less than half)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1 Enzymes",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Only part (d) criteria d1 and d2 directly assess 3.1 EKs (activation energy, active-site compatibility); parts (a)-(c) assess experimental-design and calculation practices without requiring 3.1 content, so only 2 of 5 points target the designated topic (less than half)."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

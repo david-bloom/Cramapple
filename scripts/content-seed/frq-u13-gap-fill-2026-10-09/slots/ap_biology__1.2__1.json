@@ -1,0 +1,1481 @@
+{
+ "id": "ap_biology__1.2__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 1,
+  "unit_title": "Chemistry of Life",
+  "topic_code": "1.2",
+  "topic_title": "Elements of Life",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.608Z",
+   "item": {
+    "title": "Tracing Sulfur and Phosphorus Into Bacterial Macromolecules",
+    "calculator": "permitted",
+    "stimulus": "A student investigates which elements from the environment bacteria use to build their macromolecules. Two cultures of E. coli are grown in a liquid medium that contains glucose as the only carbon source plus all required mineral salts.\n\nCulture 1: the sulfate (SO₄²⁻) in the medium contains radioactive sulfur-35 (³⁵S).\nCulture 2: the phosphate (PO₄³⁻) in the medium contains radioactive phosphorus-32 (³²P).\n\nAfter several generations, the cells from each culture are collected, and their molecules are separated into four fractions: protein, nucleic acid (DNA and RNA), lipid, and carbohydrate (stored polysaccharide). The radioactivity of each fraction is measured in counts per minute (cpm). Readings of about 60 cpm or less are considered background radiation (no meaningful label).\n\nRadioactivity in each fraction (cpm)\nFraction | Culture 1 (³⁵S) | Culture 2 (³²P)\nProtein | 5200 | 60\nNucleic acid | 50 | 8400\nLipid | 45 | 1500\nCarbohydrate | 40 | 40\nTotal | 5335 | 10000",
+    "model_answer": "(a) Most of the ³⁵S was in the protein fraction (5200 cpm, compared with background levels of 40 to 50 cpm in the other fractions). Sulfur is used to build proteins because it is part of the R groups of some amino acids, so the bacteria used the radioactive sulfate to make sulfur-containing amino acids that were linked into proteins.\n\n(b) The nucleic acid fraction was labeled because each nucleotide in DNA and RNA contains a phosphate group, and these phosphates form the sugar-phosphate backbone, so the bacteria built the ³²P into their nucleic acids. The lipid fraction was labeled because phospholipids, the lipids that form the cell membrane bilayer, contain a phosphate group. The carbohydrate fraction stayed at background because polysaccharides are made only of carbon, hydrogen, and oxygen.\n\n(c) Percentage in nucleic acid = (8400 cpm ÷ 10000 cpm) × 100 = 84%.\n\n(d) The population without phosphate will grow much less than Culture 2, and growth will slow or stop. Phosphorus is required to build nucleotides for new DNA and RNA and to build phospholipids for new membranes. Without a phosphorus source from the environment, the cells cannot replicate their DNA or make the membranes needed to form new cells, so cell division will stop.",
+    "verification_python": "from fractions import Fraction\nc1 = {'protein':5200,'nucleic':50,'lipid':45,'carb':40}\nc2 = {'protein':60,'nucleic':8400,'lipid':1500,'carb':40}\nassert sum(c1.values()) == 5335\nassert sum(c2.values()) == 10000\nassert max(c1, key=c1.get) == 'protein'\npct = Fraction(c2['nucleic'], sum(c2.values()))*100\nassert pct == 84\nassert Fraction(c2['nucleic'], sum(c2.values())) == Fraction(84,100)\nfor k in ['nucleic','lipid','carb']:\n    assert c1[k] <= 60\nassert c2['protein'] <= 60 and c2['carb'] <= 60\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the fraction that contained most of the ³⁵S in Culture 1 and explain why the sulfur was incorporated into that type of macromolecule.",
+      "criteria": [
+       {
+        "text": "Identifies the protein fraction (5200 cpm) and explains that sulfur is used to build proteins because it is found in some amino acids.",
+        "evidence": "Response names protein as the labeled fraction and links sulfur to amino acids or protein building blocks (for example, sulfur in some R groups or in disulfide bridges).",
+        "fix": "Memorize the element pattern: sulfur appears in some amino acids, so labeled sulfur ends up in proteins, not nucleic acids, lipids, or carbohydrates.",
+        "accepted_variants": [
+         "proteins",
+         "polypeptides",
+         "amino acids"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Culture 2, both the nucleic acid fraction and the lipid fraction contained ³²P. Explain why each of these two fractions became labeled.",
+      "criteria": [
+       {
+        "text": "Explains that phosphorus is part of the phosphate group of every nucleotide in DNA and RNA and is also part of phospholipids, the lipids that make up cell membranes.",
+        "evidence": "Response must address both fractions: phosphate in nucleotides (nucleic acid backbone) AND phosphorus in phospholipids. Mentioning only one fraction does not earn the point.",
+        "fix": "When a question names two labeled fractions, explain each one: phosphate groups in nucleotides and phosphate in phospholipid heads.",
+        "accepted_variants": [
+         "phosphate groups in nucleotides and phospholipids",
+         "sugar-phosphate backbone and phospholipid bilayer"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percentage of the total ³²P radioactivity in Culture 2 that was found in the nucleic acid fraction.",
+      "criteria": [
+       {
+        "text": "Calculates 84% using (8400 cpm ÷ 10000 cpm) × 100.",
+        "evidence": "Response shows division of the nucleic acid value by the Culture 2 total and reports 84% (or 0.84).",
+        "fix": "Divide the part by the column total, then multiply by 100; use the Culture 2 total of 10000 cpm, not the Culture 1 total.",
+        "accepted_variants": [
+         "84%",
+         "0.84",
+         "84 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A third culture is grown in the same medium except that all phosphate is removed. Predict how the growth of the bacterial population in this culture will compare with the growth in Culture 2, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the population will grow less or stop growing (fewer cell divisions) compared with Culture 2.",
+        "evidence": "Response states reduced, slowed, or halted population growth or cell reproduction relative to the phosphate-containing culture.",
+        "fix": "State a clear direction of change in growth first, such as reduced or stopped growth, before giving the reason.",
+        "accepted_variants": [
+         "little or no growth",
+         "growth stops",
+         "slower growth"
+        ]
+       },
+       {
+        "text": "Justifies that without phosphorus the cells cannot build new nucleic acids (DNA/RNA) and/or phospholipids needed for new membranes, so new cells cannot be made.",
+        "evidence": "Response connects the missing phosphorus to an inability to synthesize nucleic acids or phospholipids and links this to building new cells.",
+        "fix": "Connect the missing element to the specific macromolecules it builds, then explain why new cells need those molecules to form.",
+        "accepted_variants": [
+         "cannot replicate DNA",
+         "cannot make new membranes"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Although most points assess elemental composition, full credit for (a) requires sulfur-containing amino acids, taught in later Topic 1.7, and (b) requires nucleotide phosphate groups, taught in later Topic 1.6. Topic 1.2's elemental associations alone do not satisfy these criteria.",
+       "rubric_points: Criterion b1 combines two independently observable explanations—labeling of nucleic acids and labeling of phospholipids—into one point. Criterion a1 also lists 'amino acids' as equivalent to the protein fraction, although free amino acids are not proteins or an equivalent name for that fraction."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Although most points assess elemental composition, full credit for (a) requires sulfur-containing amino acids, taught in later Topic 1.7, and (b) requires nucleotide phosphate groups, taught in later Topic 1.6. Topic 1.2's elemental associations alone do not satisfy these criteria."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 combines two independently observable explanations—labeling of nucleic acids and labeling of phospholipids—into one point. Criterion a1 also lists 'amino acids' as equivalent to the protein fraction, although free amino acids are not proteins or an equivalent name for that fraction."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Although most points assess elemental composition, full credit requires later content: a1 requires sulfur-containing amino acids (Topic 1.7), and b1 requires nucleotide phosphate groups (Topic 1.6) and membrane phospholipids (later cell topics). These details are not supplied by the setup or Topic 1.2.",
+       "rubric_points: Criterion a1 combines identifying the fraction and explaining sulfur incorporation into one point. Criterion b1 combines two independently assessable explanations—labeling nucleic acids and labeling phospholipids—into one point. Each criterion must award one specific observable element. Additionally, a1 lists 'amino acids' as an equivalent of the protein fraction, although amino acids are not equivalent to proteins or polypeptides."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Although most points assess elemental composition, full credit requires later content: a1 requires sulfur-containing amino acids (Topic 1.7), and b1 requires nucleotide phosphate groups (Topic 1.6) and membrane phospholipids (later cell topics). These details are not supplied by the setup or Topic 1.2."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines identifying the fraction and explaining sulfur incorporation into one point. Criterion b1 combines two independently assessable explanations—labeling nucleic acids and labeling phospholipids—into one point. Each criterion must award one specific observable element. Additionally, a1 lists 'amino acids' as an equivalent of the protein fraction, although amino acids are not equivalent to proteins or polypeptides."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c): The setup says readings of about 60 cpm or less are background, so Culture 2 has 100 cpm of background counts. The question asks for the percentage of total ³²P radioactivity, but the rubric uses the raw total of 10000 cpm. A careful student could subtract the background counts, using 9900 cpm as the total ³²P radioactivity and obtaining 84.8%, so two defensible answers exist.",
+       "rubric_points: Part (c), criterion c1 accepts only 84% and rejects the valid background-corrected calculation (9900 cpm total, 84.8%).",
+       "accurate: Part (c): The rubric and model answer state 84% as the percentage of total ³²P radioactivity, but 10000 cpm includes background counts; the ³²P-specific total is 9900 cpm, giving 84.8%.",
+       "solution: For (a), (b), and (d) my solution agrees with the rubric and model answer. For (c), I also computed a background-corrected percentage using 9900 cpm as the total ³²P radioactivity, giving 84.8%; the rubric accepts only 84% using the total including background."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (c) is slightly ambiguous because the table total of 10000 cpm includes background counts; the percentage is 84% using the given total, or 84.8% if background counts are excluded.",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c): The setup says readings of about 60 cpm or less are background, so Culture 2 has 100 cpm of background counts. The question asks for the percentage of total ³²P radioactivity, but the rubric uses the raw total of 10000 cpm. A careful student could subtract the background counts, using 9900 cpm as the total ³²P radioactivity and obtaining 84.8%, so two defensible answers exist."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 accepts only 84% and rejects the valid background-corrected calculation (9900 cpm total, 84.8%)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c): The rubric and model answer state 84% as the percentage of total ³²P radioactivity, but 10000 cpm includes background counts; the ³²P-specific total is 9900 cpm, giving 84.8%."
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "For (a), (b), and (d) my solution agrees with the rubric and model answer. For (c), I also computed a background-corrected percentage using 9900 cpm as the total ³²P radioactivity, giving 84.8%; the rubric accepts only 84% using the total including background.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2 Elements of Life",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:28:45.917Z",
+   "item": {
+    "title": "Tracing Sulfur and Phosphorus into Bacterial Macromolecules",
+    "calculator": "permitted",
+    "stimulus": "Students investigated which elements bacteria use to build different macromolecules. They grew two cultures of the same bacterial species in identical growth media. In each medium, all required nutrients were supplied, but one element was supplied only in a radioactive form.\n\nCulture A: the only sulfur source was sulfate containing radioactive sulfur-35 (35S).\nCulture B: the only phosphorus source was phosphate containing radioactive phosphorus-32 (32P).\n\nAfter several hours of growth, the cells from each culture were washed and broken open. Their contents were separated into four macromolecule fractions. The radioactivity of each fraction was measured in counts per minute (cpm). Values of about 300 cpm or less are considered background, meaning no meaningful amount of the label was built into that fraction.\n\nFraction | Culture A (35S), cpm | Culture B (32P), cpm\nProtein | 9,800 | 300\nNucleic acid (DNA and RNA) | 150 | 7,200\nPhospholipid | 120 | 2,400\nCarbohydrate | 90 | 100",
+    "model_answer": "(a) The protein fraction incorporated the 35S label (9,800 cpm, far above the 300 cpm background). Sulfur is an element used to build proteins; it is found in the R groups of certain amino acids. Nucleic acids, phospholipids, and carbohydrates do not contain sulfur, so they stayed at background.\n\n(b) Total 32P in Culture B = 300 + 7,200 + 2,400 + 100 = 10,000 cpm. Percentage in nucleic acid = 7,200 / 10,000 × 100 = 72%.\n\n(c) Carbohydrates are built only from carbon, hydrogen, and oxygen. They contain no sulfur and no phosphorus, so neither 35S nor 32P could be built into them, and the carbohydrate fraction stayed at background (90 and 100 cpm) in both cultures.\n\n(d) Prediction: The bacteria will be unable to make new DNA and new phospholipids for membranes, so their growth and cell division will slow and stop. Justification: Phosphorus is a required component of nucleic acids, since every nucleotide includes a phosphate group, and of phospholipids, which have a phosphate-containing head. Cells cannot make elements; the atoms needed to build new molecules must come from the environment. Without a phosphorus source, these molecules cannot be assembled, which Culture B confirms because 32P appeared mainly in the nucleic acid and phospholipid fractions.",
+    "verification_python": "from fractions import Fraction\nA = {'protein':9800,'nucleic':150,'phospholipid':120,'carb':90}\nB = {'protein':300,'nucleic':7200,'phospholipid':2400,'carb':100}\nbg = 300\nassert max(A, key=A.get) == 'protein'\nassert all(v <= bg for k,v in A.items() if k != 'protein')\ntotalB = sum(B.values())\nassert totalB == 10000\npct = Fraction(B['nucleic'], totalB) * 100\nassert pct == 72\nassert A['carb'] <= bg and B['carb'] <= bg\nassert B['nucleic'] > bg and B['phospholipid'] > bg\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the macromolecule fraction in Culture A that incorporated the 35S label, and explain why that fraction contains sulfur.",
+      "criteria": [
+       {
+        "text": "Identifies protein as the 35S-labeled fraction and explains that sulfur is an element used to build proteins (found in some amino acids).",
+        "evidence": "Names the protein fraction (9,800 cpm) and states that proteins are built with sulfur, for example in the R groups of certain amino acids, while the other fractions lack sulfur.",
+        "fix": "Memorize that sulfur is the element characteristic of proteins, then link the highest-labeled fraction to that element's role in amino acids.",
+        "accepted_variants": [
+         "proteins",
+         "polypeptides"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percentage of the total 32P radioactivity in Culture B that was found in the nucleic acid fraction.",
+      "criteria": [
+       {
+        "text": "Calculates 72% by dividing the nucleic acid value by the Culture B total (7,200 / 10,000 × 100).",
+        "evidence": "Shows the Culture B total of 10,000 cpm (300 + 7,200 + 2,400 + 100) and the division 7,200 / 10,000 giving 72%.",
+        "fix": "Add every fraction in the column to get the total first, then divide the part by the total and multiply by 100.",
+        "accepted_variants": [
+         "72%",
+         "0.72",
+         "72 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the carbohydrate fraction showed only background radioactivity in both cultures.",
+      "criteria": [
+       {
+        "text": "Explains that carbohydrates are built only from carbon, hydrogen, and oxygen, so they contain neither sulfur nor phosphorus and cannot incorporate either label.",
+        "evidence": "States that carbohydrates are composed of C, H, and O and connects the absence of S and P in carbohydrates to the lack of 35S or 32P in that fraction.",
+        "fix": "For each macromolecule, list which elements beyond C, H, and O it uses, then check whether the labeled element is on that list.",
+        "accepted_variants": [
+         "made of C, H, and O only",
+         "contain no S or P"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The students transfer unlabeled bacteria into a medium identical to the original except that it contains no phosphorus in any form. Predict the effect on the cells' ability to make new DNA and new membranes, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the cells will be unable to synthesize new DNA and new phospholipids (membranes), so growth and division will stop or slow greatly.",
+        "evidence": "States that production of both new DNA and new membrane phospholipids will decrease or stop, with a resulting halt or decline in growth or division.",
+        "fix": "When an element is removed, name each macromolecule that requires it and predict reduced synthesis of those molecules specifically.",
+        "accepted_variants": [
+         "cannot make new DNA or phospholipids",
+         "DNA and membrane synthesis stop"
+        ]
+       },
+       {
+        "text": "Justifies that phosphorus is a required building block of nucleic acids (phosphate in each nucleotide) and of phospholipids, and cells must obtain these atoms from the environment.",
+        "evidence": "Links phosphorus to the phosphate in nucleotides and in phospholipids, and states that cells cannot make elements and must take them in from their surroundings.",
+        "fix": "Support the prediction by stating where phosphorus sits in nucleotides and phospholipids and that atoms must come from the environment.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 5,
+     "1.3": 1
+    },
+    "onTarget": 5,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Most points assess Topic 1.2, but criterion d2 requires locating phosphate in nucleotides, knowledge introduced in later Topic 1.6. Topic 1.2 supports identifying phosphorus as necessary for nucleic acids and phospholipids without requiring that structural detail.",
+       "rubric_points: Criterion a1 additionally requires stating that the other fractions lack sulfur, although part (a) asks only which fraction incorporated the label and why it contains sulfur. Criterion d1 requires an effect on growth or division, although part (d) asks only about new DNA and membrane synthesis. These additional requirements can deny credit to complete answers to the stated questions."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Most points assess Topic 1.2, but criterion d2 requires locating phosphate in nucleotides, knowledge introduced in later Topic 1.6. Topic 1.2 supports identifying phosphorus as necessary for nucleic acids and phospholipids without requiring that structural detail."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 additionally requires stating that the other fractions lack sulfur, although part (a) asks only which fraction incorporated the label and why it contains sulfur. Criterion d1 requires an effect on growth or division, although part (d) asks only about new DNA and membrane synthesis. These additional requirements can deny credit to complete answers to the stated questions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Most points assess Topic 1.2, but criterion d2 requires locating phosphate within nucleotides, knowledge introduced in later Topic 1.6. Topic 1.2 establishes that nucleic acids require phosphorus, not nucleotide structure.",
+       "rubric_points: Criterion a1's evidence additionally requires the 9,800-cpm value and a statement that other fractions lack sulfur, although part (a) asks only for identification and an explanation of sulfur in that fraction. Criterion d1 requires a resulting change in growth or division, although part (d) asks only about making DNA and membranes. These requirements can deny credit to complete correct answers.",
+       "solution: The independent solution agrees with the biological conclusions and the calculated 72%. However, its complete answer to (a) does not explicitly state that the other fractions lack sulfur, as a1 requires. Its answer to (d) predicts reduced DNA synthesis and membrane expansion without explicitly predicting overall growth or division, as d1 requires. The solution also correctly allows initial synthesis using intracellular phosphorus; d1's 'unable to synthesize' wording should therefore be interpreted using its more permissive evidence requirement, which accepts decreased synthesis. No model answer was supplied."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Most points assess Topic 1.2, but criterion d2 requires locating phosphate within nucleotides, knowledge introduced in later Topic 1.6. Topic 1.2 establishes that nucleic acids require phosphorus, not nucleotide structure."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's evidence additionally requires the 9,800-cpm value and a statement that other fractions lack sulfur, although part (a) asks only for identification and an explanation of sulfur in that fraction. Criterion d1 requires a resulting change in growth or division, although part (d) asks only about making DNA and membranes. These requirements can deny credit to complete correct answers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the biological conclusions and the calculated 72%. However, its complete answer to (a) does not explicitly state that the other fractions lack sulfur, as a1 requires. Its answer to (d) predicts reduced DNA synthesis and membrane expansion without explicitly predicting overall growth or division, as d1 requires. The solution also correctly allows initial synthesis using intracellular phosphorus; d1's 'unable to synthesize' wording should therefore be interpreted using its more permissive evidence requirement, which accepts decreased synthesis. No model answer was supplied.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (b): 'total 32P radioactivity' is ambiguous because the setup says values ≤300 cpm are background with no meaningful label built in. A careful student could exclude the 300 cpm protein and 100 cpm carbohydrate fractions, giving a total of 9,600 cpm and 75% for nucleic acid, rather than 72%.",
+       "rubric_points: Part (b) criterion b1 accepts only a 10,000 cpm total and 72%, rejecting the valid background-excluded 75%. Part (d) criterion d2 requires linking phosphorus to phosphate in nucleotides and phospholipids; a valid justification from 1.2 that phosphorus is a required element for nucleic acids and phospholipids is rejected.",
+       "accurate: Part (b): the model answer calls 10,000 cpm the total 32P radioactivity by including the protein (300 cpm) and carbohydrate (100 cpm) fractions, but those are defined as background with no meaningful label built in, so they should not be counted as 32P radioactivity.",
+       "model_answer: Part (b) model answer includes background fractions in the total 32P sum, producing 72%; if background is excluded as the setup indicates, the correct percentage is 75%."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2 Elements of Life",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (b): 'total 32P radioactivity' is ambiguous because the setup says values ≤300 cpm are background with no meaningful label built in. A careful student could exclude the 300 cpm protein and 100 cpm carbohydrate fractions, giving a total of 9,600 cpm and 75% for nucleic acid, rather than 72%."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 accepts only a 10,000 cpm total and 72%, rejecting the valid background-excluded 75%. Part (d) criterion d2 requires linking phosphorus to phosphate in nucleotides and phospholipids; a valid justification from 1.2 that phosphorus is a required element for nucleic acids and phospholipids is rejected."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b): the model answer calls 10,000 cpm the total 32P radioactivity by including the protein (300 cpm) and carbohydrate (100 cpm) fractions, but those are defined as background with no meaningful label built in, so they should not be counted as 32P radioactivity."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (b) model answer includes background fractions in the total 32P sum, producing 72%; if background is excluded as the setup indicates, the correct percentage is 75%."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 requires the response to state that growth/division will stop or slow, but part (d) only asks for the effect on the ability to make new DNA and new membranes. This rewards an unasked consequence and could reject a correct answer that states only the direct effect.",
+       "solution: My independent solution matches the rubric and model answer for parts (a), (b), and (c). For part (d), I predicted only the direct inability to synthesize new DNA and membranes, without mentioning growth/division; rubric criterion d1 also requires growth/division, which I view as overbroad."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires the response to state that growth/division will stop or slow, but part (d) only asks for the effect on the ability to make new DNA and new membranes. This rewards an unasked consequence and could reject a correct answer that states only the direct effect."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution matches the rubric and model answer for parts (a), (b), and (c). For part (d), I predicted only the direct inability to synthesize new DNA and membranes, without mentioning growth/division; rubric criterion d1 also requires growth/division, which I view as overbroad.",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:39:32.891Z",
+   "item": {
+    "title": "Tracing Sulfur and Phosphorus Isotopes into Macromolecules",
+    "calculator": "permitted",
+    "stimulus": "Researchers grew two cultures of the bacterium Escherichia coli for several generations in a medium containing glucose and mineral salts. Culture 1 received sulfate containing radioactive sulfur (³⁵S) as its only sulfur source. Culture 2 received phosphate containing radioactive phosphorus (³²P) as its only phosphorus source. The cells were then collected and separated into four macromolecule fractions, and the radioactivity in each fraction was measured in counts per minute (cpm). Values of 25 cpm or less are considered background.\n\nFraction | Culture 1 (³⁵S) cpm | Culture 2 (³²P) cpm\nProteins | 1,940 | 15\nNucleic acids | 20 | 1,620\nLipids | 25 | 360\nCarbohydrates | 15 | 5\nTotal | 2,000 | 2,000",
+    "model_answer": "(a) Proteins contain most of the ³⁵S (1,940 of 2,000 cpm, about 97%). Sulfur is a component of some amino acids, in their R groups, so when the cells build proteins from amino acids made using the sulfate, the labeled sulfur becomes part of the proteins.\n\n(b) 1,620 cpm ÷ 2,000 cpm × 100 = 81% of the ³²P is in the nucleic acid fraction.\n\n(c) Phosphorus is used to build phospholipids, a type of lipid that has a phosphate group, so the ³²P was incorporated into the lipid fraction of Culture 2 (360 cpm). Lipids do not contain sulfur, so ³⁵S was not built into lipids, and the lipid fraction in Culture 1 stayed at background (25 cpm).\n\n(d) The rate of synthesis of new nucleic acids and new phospholipids will decrease, and eventually stop, compared with Culture 2. Cells must take in atoms from the environment to build new molecules. Phosphorus is a required part of every nucleotide in DNA and RNA and of phospholipids, so with no phosphorus available the cells cannot build these molecules.",
+    "verification_python": "from fractions import Fraction\nc1={'prot':1940,'na':20,'lip':25,'carb':15}\nc2={'prot':15,'na':1620,'lip':360,'carb':5}\nassert sum(c1.values())==2000\nassert sum(c2.values())==2000\nassert Fraction(c2['na'],2000)*100==81\nassert Fraction(c1['prot'],2000)*100==97\nassert c1['lip']<=25 and c1['na']<=25 and c1['carb']<=25\nassert c2['prot']<=25 and c2['carb']<=25\nassert c2['lip']>25\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the macromolecule fraction that contains most of the ³⁵S in Culture 1, and describe why sulfur is found in this type of macromolecule.",
+      "criteria": [
+       {
+        "text": "Identifies proteins as the labeled fraction and states that sulfur is a component of some amino acids (in their R groups) used to build proteins.",
+        "evidence": "Response names proteins (about 97% of ³⁵S) and links sulfur to amino acids or protein building blocks, not just restating the data.",
+        "fix": "Connect the element to its macromolecule: sulfur is part of some amino acid R groups, so labeled sulfur ends up in proteins.",
+        "accepted_variants": [
+         "protein fraction",
+         "polypeptides"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percentage of the total ³²P radioactivity in Culture 2 that is found in the nucleic acid fraction.",
+      "criteria": [
+       {
+        "text": "Calculates 81% from 1,620 ÷ 2,000 × 100.",
+        "evidence": "Response shows the nucleic acid cpm divided by the total cpm for Culture 2, multiplied by 100, giving 81%.",
+        "fix": "Divide the fraction's counts by the culture's total counts, then multiply by 100 to convert to a percentage.",
+        "accepted_variants": [
+         "81%",
+         "0.81",
+         "81 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the lipid fraction is clearly labeled in Culture 2 but is at background level in Culture 1.",
+      "criteria": [
+       {
+        "text": "Explains that phosphorus is part of phospholipids (a type of lipid), so ³²P is built into the lipid fraction, whereas lipids do not contain sulfur, so ³⁵S is not incorporated.",
+        "evidence": "Response names phospholipids as containing phosphorus (phosphate) and states that lipids lack sulfur, addressing both cultures.",
+        "fix": "Recall which elements each macromolecule contains: phospholipids contain phosphorus; lipids do not contain sulfur. Address both cultures in your explanation.",
+        "accepted_variants": [
+         "phosphate group in phospholipids"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A third culture is grown in the same medium except that it contains no phosphorus source at all. Predict how the rate of synthesis of new nucleic acids and new phospholipids in this culture will compare with that of Culture 2. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that synthesis of new nucleic acids and new phospholipids will decrease (or stop) compared with Culture 2.",
+        "evidence": "Response states a decrease or halt in production of both nucleic acids (DNA/RNA) and phospholipids.",
+        "fix": "When a required element is removed, predict a decrease in every macromolecule that contains that element, naming each one.",
+        "accepted_variants": [
+         "decrease",
+         "stop",
+         "be reduced"
+        ]
+       },
+       {
+        "text": "Justifies that atoms needed to build new molecules must come from the environment, and phosphorus is a required component of nucleotides and phospholipids, so they cannot be built without it.",
+        "evidence": "Response links the missing environmental phosphorus to its role as a building component of both nucleic acids (nucleotides) and phospholipids.",
+        "fix": "Justify by stating that cells obtain building atoms from the environment and that the missing element is a required part of those molecules.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.2": 4,
+     "1.3": 2
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:27:10.012Z",
+   "item": {
+    "title": "Tracing Labeled Elements into Bacterial Macromolecules",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers grew three separate cultures of the bacterium Escherichia coli. Each medium contained all the nutrients needed for growth, but one nutrient in each culture carried a radioactive label. Culture 1 contained glucose labeled with carbon-14 (14C). Culture 2 contained phosphate labeled with phosphorus-32 (32P). Culture 3 contained sulfate labeled with sulfur-35 (35S). After several generations, the cells from each culture were broken open. Their macromolecules were separated into four fractions: proteins, nucleic acids, lipids, and polysaccharides (carbohydrates). The researchers measured the percent of each culture's incorporated radioactivity found in each fraction.\n\nPercent of incorporated radioactivity in each fraction\nLabel | Proteins | Nucleic acids | Lipids | Polysaccharides\n14C | 55 | 20 | 10 | 15\n32P | 0 | 82 | 18 | 0\n35S | 100 | 0 | 0 | 0",
+    "model_answer": "(a) Carbon is one of the most prevalent elements in all biological macromolecules, including carbohydrates, lipids, proteins, and nucleic acids. The cells used carbon atoms from the labeled glucose to build all four classes, so 14C appears in every fraction. Sulfur, however, is used only in building proteins, because some amino acids contain sulfur. Nucleic acids, lipids, and polysaccharides contain no sulfur, so all of the 35S ends up in the protein fraction.\n\n(b) Counts in nucleic acids = 82% of 50,000 = 0.82 × 50,000 = 41,000 counts per minute.\n\n(c) Once their stored phosphorus is used up, the cells will be unable to make new DNA or new plasma membrane, or will make far less of both. The 32P data show that phosphorus is incorporated only into nucleic acids (82%) and lipids (18%). Every DNA nucleotide contains a phosphate group, and the membrane bilayer is built from phospholipids, which also contain phosphorus. Atoms used to build new molecules must come from the environment, and glucose, sulfate, and nitrogen cannot supply phosphorus, so without phosphorus the cells cannot build these molecules.",
+    "verification_python": "from fractions import Fraction\nrows={'C14':[55,20,10,15],'P32':[0,82,18,0],'S35':[100,0,0,0]}\nfor k,v in rows.items():\n    assert sum(v)==100\nassert all(x>0 for x in rows['C14'])\nassert rows['S35'][0]==100\ntotal=50000\nnuc=Fraction(82,100)*total\nassert nuc==41000\nassert rows['P32'][1]+rows['P32'][2]==100\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Explain why the 14C label appears in all four fractions, while the 35S label appears only in the protein fraction.",
+      "criteria": [
+       {
+        "text": "Carbon is one of the most prevalent elements in all four classes of biological molecules, so carbon atoms taken in from glucose are built into all of them.",
+        "evidence": "States that carbon is a major or prevalent element in proteins, nucleic acids, lipids, and carbohydrates, and connects this to the label from glucose appearing in every fraction.",
+        "fix": "Remember that carbon, hydrogen, and oxygen form the main structure of carbohydrates, lipids, proteins, and nucleic acids alike.",
+        "accepted_variants": [
+         "carbon forms the backbone of all macromolecules",
+         "all organic macromolecules contain carbon"
+        ]
+       },
+       {
+        "text": "Sulfur is used to build proteins (in some amino acids) but is not part of nucleic acids, lipids, or carbohydrates, so 35S appears only in protein.",
+        "evidence": "States that sulfur is used in building proteins and that the other three macromolecule classes do not contain sulfur.",
+        "fix": "Memorize the extra elements: sulfur builds proteins, phosphorus builds phospholipids and nucleic acids, nitrogen builds nucleic acids.",
+        "accepted_variants": [
+         "sulfur is found in certain amino acids such as cysteine and methionine",
+         "sulfur is found only in proteins among these molecules"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The cells in Culture 2 incorporated a total of 50,000 counts per minute of 32P. Calculate the counts per minute of 32P in the nucleic acid fraction. Show your work.",
+      "criteria": [
+       {
+        "text": "Nucleic acid fraction = 0.82 × 50,000 = 41,000 counts per minute.",
+        "evidence": "Shows multiplying 82 percent (0.82) by 50,000 and reports 41,000 counts per minute.",
+        "fix": "Convert the table percent to a decimal, multiply by the total counts, and write the setup before the answer.",
+        "accepted_variants": [
+         "(82/100) × 50,000 = 41,000 cpm",
+         "41,000 counts per minute with 82% of 50,000 shown"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A separate E. coli culture is transferred to a medium that contains glucose, sulfate, and a nitrogen source but no phosphorus. Predict how the cells' ability to make new DNA and new plasma membrane will change once their stored phosphorus is used up. Justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "Prediction: the cells will be unable to make (or will greatly reduce making) both new DNA and new plasma membrane.",
+        "evidence": "Predicts that synthesis of both DNA and membrane will stop or decrease.",
+        "fix": "Make a prediction that addresses both molecules named in the prompt, DNA and plasma membrane.",
+        "accepted_variants": [
+         "DNA and membrane synthesis will decrease",
+         "cells cannot build new nucleic acids or new phospholipid bilayer"
+        ]
+       },
+       {
+        "text": "Justification: the 32P data show phosphorus is built into nucleic acids (82%) and lipids (18%); DNA nucleotides and membrane phospholipids require phosphorus, which must come from the environment.",
+        "evidence": "Cites the 32P distribution in nucleic acids and lipids and explains that DNA and phospholipids contain phosphorus that cells must obtain from their surroundings, since other nutrients cannot substitute.",
+        "fix": "Link each molecule to its element: cite the 32P data showing phosphorus in nucleic acids and phospholipids, then state cells must obtain it externally.",
+        "accepted_variants": [
+         "phosphorus is part of each nucleotide and of phospholipids, as shown by 32P appearing only in nucleic acid and lipid fractions",
+         "atoms needed to build new molecules come from the environment, and only the nucleic acid and lipid fractions took up 32P"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.2": 4,
+     "1.3": 2
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 1
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:29:04.008Z",
+   "item": {
+    "title": "Tracking Labeled Elements into Bacterial Macromolecules",
+    "calculator": "permitted",
+    "stimulus": "Researchers investigated which elements bacteria use to build different macromolecules. They grew three identical cultures of the bacterium Escherichia coli for several generations. Each culture's medium contained one radioactively labeled source of an element:\nCulture 1: glucose labeled with carbon-14 (14C)\nCulture 2: phosphate labeled with phosphorus-32 (32P)\nCulture 3: sulfate labeled with sulfur-35 (35S)\nAll other nutrients were unlabeled and present in excess. The cells were then collected and separated into four macromolecule fractions. The researchers measured the radioactivity in each fraction and expressed it as a percentage of the total label incorporated by that culture.\n\nPercentage of incorporated label in each fraction\nFraction | 14C (Culture 1) | 32P (Culture 2) | 35S (Culture 3)\nProtein | 52 | 2 | 96\nNucleic acid | 22 | 80 | 1\nPhospholipid | 12 | 17 | 1\nPolysaccharide | 14 | 1 | 2\nTotal | 100 | 100 | 100",
+    "model_answer": "(a) Phosphorus is required to build nucleic acids and phospholipids. In Culture 2, 80% of the incorporated 32P was in the nucleic acid fraction and 17% was in the phospholipid fraction, for a total of 97%, while only 2% was in protein and 1% in polysaccharide.\n\n(b) Phospholipid fraction = 17% of total = 0.17 × 250,000 cpm = 42,500 cpm.\n\n(c) Carbon, along with hydrogen and oxygen, is one of the most prevalent elements in all biological molecules; carbohydrates, proteins, lipids, and nucleic acids are all built on carbon. Labeled carbon from glucose is therefore incorporated into every class of macromolecule. Phosphorus and sulfur, in contrast, are used to build only specific macromolecules: phosphorus in nucleic acids and phospholipids, and sulfur in proteins, so their labels are concentrated in those fractions.\n\n(d) The cells will be most directly unable to synthesize new proteins. Sulfur is used in building proteins, as shown by 96% of the 35S label ending up in the protein fraction compared with only 1–2% in the other fractions. Without a sulfur source, the cells cannot build new protein, while nucleic acids and phospholipids can still be built from the available carbon, hydrogen, oxygen, and phosphorus (nitrogen being supplied by the other nutrients).",
+    "verification_python": "from fractions import Fraction\nc14=[52,22,12,14]\np32=[2,80,17,1]\ns35=[96,1,1,2]\nassert sum(c14)==100 and sum(p32)==100 and sum(s35)==100\nassert p32[1]+p32[2]==97\nval=Fraction(17,100)*250000\nassert val==42500\nassert s35[0]==96 and max(s35[1:])==2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data for Culture 2, identify the two types of macromolecules that require phosphorus to be built, and support your answer with the percentages from the table.",
+      "criteria": [
+       {
+        "text": "Identifies nucleic acids and phospholipids as the phosphorus-requiring macromolecules, citing 80% and 17% of the 32P label (97% combined).",
+        "evidence": "Names both nucleic acids and phospholipids and cites their 32P percentages (80% and 17%, or 97% together) compared with the small values in protein and polysaccharide.",
+        "fix": "Read down the 32P column, name every fraction with a large percentage, and quote those percentages as your support.",
+        "accepted_variants": [
+         "DNA/RNA and phospholipids",
+         "nucleic acids and membrane phospholipids, 97% of the label"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Culture 2 incorporated a total of 250,000 counts per minute (cpm) of 32P. Calculate the radioactivity, in cpm, found in the phospholipid fraction. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates 0.17 × 250,000 cpm = 42,500 cpm in the phospholipid fraction.",
+        "evidence": "Shows the multiplication of 17% (0.17) by 250,000 cpm and reports 42,500 cpm.",
+        "fix": "Convert the table percentage to a decimal and multiply it by the total cpm; show the setup before the result.",
+        "accepted_variants": [
+         "42500 cpm",
+         "4.25 × 10⁴ cpm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the 14C label appears in substantial amounts in all four fractions, whereas the 32P and 35S labels are each concentrated mainly in one or two fractions.",
+      "criteria": [
+       {
+        "text": "Explains that carbon is one of the most prevalent elements in, and forms the structure of, all four classes of biological macromolecules, whereas phosphorus and sulfur are used to build only certain macromolecules.",
+        "evidence": "States that carbon is a component of carbohydrates, proteins, lipids, and nucleic acids alike, and contrasts this with phosphorus (nucleic acids and phospholipids) or sulfur (proteins) being used only in specific macromolecules.",
+        "fix": "Remember carbon, hydrogen and oxygen build every macromolecule class; contrast this with elements like P and S that build only specific classes.",
+        "accepted_variants": [
+         "carbon forms the backbone of all macromolecules",
+         "all macromolecules are carbon-based, but P and S occur only in some"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The researchers transfer unlabeled E. coli to a medium that contains glucose and phosphate but no source of sulfur. Predict which type of macromolecule the cells will be most directly unable to synthesize. Justify your prediction using the data and your knowledge of the elements that make up macromolecules.",
+      "criteria": [
+       {
+        "text": "Predicts that synthesis of new proteins will be most directly limited.",
+        "evidence": "Clearly names protein as the macromolecule whose synthesis is most directly blocked.",
+        "fix": "Match the missing element to the macromolecule that requires it; sulfur is used to build proteins.",
+        "accepted_variants": [
+         "protein synthesis will stop or decrease",
+         "cells cannot make new polypeptides"
+        ]
+       },
+       {
+        "text": "Justifies the prediction: sulfur is a required building element of proteins, shown by 96% of the 35S label appearing in the protein fraction, while other macromolecules need little or no sulfur.",
+        "evidence": "Links the prediction to sulfur being used to build proteins and cites the 96% 35S value (or contrasts with the 1–2% in other fractions).",
+        "fix": "Support your prediction by stating sulfur's role in proteins and quoting the 35S percentage in the protein fraction.",
+        "accepted_variants": [
+         "96% of sulfur label went into protein, so proteins need sulfur",
+         "some amino acids contain sulfur, so proteins cannot be built without it"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) asks which macromolecule cells will be unable to synthesize after transfer, without specifying that existing sulfur reserves are depleted. Cells can initially reuse intracellular sulfur-containing compounds. Ask which synthesis will become most directly limited as available sulfur is depleted.",
+       "rubric_points: Criterion a1's Evidence requires comparison with the small protein and polysaccharide percentages, although naming the two fractions and citing 80% and 17% fully answers (a). Criterion b1 explicitly accepts bare numerical answers despite (b) requiring work. Criterion c1's accepted variants include carbon-only statements that omit the requested phosphorus/sulfur contrast, and its Evidence allows explaining only phosphorus or sulfur although (c) asks about both. Criterion d2 accepts an amino-acid explanation without table evidence, although (d) explicitly requires justification using the data.",
+       "accurate: Part (d) and criterion d1 overstate sulfur deprivation as an inability to synthesize new proteins or polypeptides. Existing sulfur can temporarily support synthesis, and sulfur is not present in every polypeptide. The defensible prediction is that sustained protein synthesis becomes most directly limited as usable sulfur is depleted.",
+       "solution: The independent solution agrees with the intended answers: (a) nucleic acids, 80%, and phospholipids, 17%; (b) 0.17 × 250,000 = 42,500 cpm; (c) carbon occurs in all four classes, whereas phosphorus and sulfur have more restricted roles; (d) protein synthesis becomes most directly limited. However, the solution's qualification about existing sulfur reserves and sulfur-containing proteins conflicts with d1's unconditional accepted claims that cells cannot make new polypeptides or that protein synthesis will stop."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) asks which macromolecule cells will be unable to synthesize after transfer, without specifying that existing sulfur reserves are depleted. Cells can initially reuse intracellular sulfur-containing compounds. Ask which synthesis will become most directly limited as available sulfur is depleted."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's Evidence requires comparison with the small protein and polysaccharide percentages, although naming the two fractions and citing 80% and 17% fully answers (a). Criterion b1 explicitly accepts bare numerical answers despite (b) requiring work. Criterion c1's accepted variants include carbon-only statements that omit the requested phosphorus/sulfur contrast, and its Evidence allows explaining only phosphorus or sulfur although (c) asks about both. Criterion d2 accepts an amino-acid explanation without table evidence, although (d) explicitly requires justification using the data."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d) and criterion d1 overstate sulfur deprivation as an inability to synthesize new proteins or polypeptides. Existing sulfur can temporarily support synthesis, and sulfur is not present in every polypeptide. The defensible prediction is that sustained protein synthesis becomes most directly limited as usable sulfur is depleted."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the intended answers: (a) nucleic acids, 80%, and phospholipids, 17%; (b) 0.17 × 250,000 = 42,500 cpm; (c) carbon occurs in all four classes, whereas phosphorus and sulfur have more restricted roles; (d) protein synthesis becomes most directly limited. However, the solution's qualification about existing sulfur reserves and sulfur-containing proteins conflicts with d1's unconditional accepted claims that cells cannot make new polypeptides or that protein synthesis will stop.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) asks which macromolecule cells will be unable to synthesize, but does not specify a time frame or depletion of existing sulfur-containing molecules. Sulfur deprivation supports a prediction of limited protein synthesis, not necessarily immediate inability to synthesize proteins.",
+       "rubric_points: Criterion b1 explicitly accepts bare numerical answers even though part (b) requires work. Criterion d2 accepts 'some amino acids contain sulfur, so proteins cannot be built without it' without the data support explicitly requested in part (d). Criterion a1's Evidence additionally requires comparison with the small protein and polysaccharide values, although naming the two fractions and citing their percentages fully answers part (a).",
+       "accurate: Criterion d1 accepts 'cells cannot make new polypeptides,' and criterion d2 accepts the categorical claim that proteins cannot be built without sulfur. These statements are too broad: existing sulfur-containing molecules can temporarily support synthesis, and not every polypeptide contains sulfur-containing amino acids. The defensible general prediction is that sulfur deprivation limits sustained protein synthesis.",
+       "solution: The independent solution agrees with the rubric's phosphorus identification, 42,500 cpm calculation, carbon-distribution explanation, and prediction that protein synthesis becomes limited. Unlike the categorical alternatives accepted by d1 and d2, it correctly acknowledges temporary use or recycling of existing sulfur-containing molecules. Its answers also provide the work and data support that some rubric alternatives improperly omit. No model answer was provided."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) asks which macromolecule cells will be unable to synthesize, but does not specify a time frame or depletion of existing sulfur-containing molecules. Sulfur deprivation supports a prediction of limited protein synthesis, not necessarily immediate inability to synthesize proteins."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 explicitly accepts bare numerical answers even though part (b) requires work. Criterion d2 accepts 'some amino acids contain sulfur, so proteins cannot be built without it' without the data support explicitly requested in part (d). Criterion a1's Evidence additionally requires comparison with the small protein and polysaccharide values, although naming the two fractions and citing their percentages fully answers part (a)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d1 accepts 'cells cannot make new polypeptides,' and criterion d2 accepts the categorical claim that proteins cannot be built without sulfur. These statements are too broad: existing sulfur-containing molecules can temporarily support synthesis, and not every polypeptide contains sulfur-containing amino acids. The defensible general prediction is that sulfur deprivation limits sustained protein synthesis."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's phosphorus identification, 42,500 cpm calculation, carbon-distribution explanation, and prediction that protein synthesis becomes limited. Unlike the categorical alternatives accepted by d1 and d2, it correctly acknowledges temporary use or recycling of existing sulfur-containing molecules. Its answers also provide the work and data support that some rubric alternatives improperly omit. No model answer was provided.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2 Elements of Life",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:32:13.115Z",
+   "item": {
+    "title": "Tracking Radioactive Sulfur and Phosphorus Into Bacterial Macromolecules",
+    "calculator": "permitted",
+    "stimulus": "A student investigated which elements bacteria use to build different macromolecules. Two cultures of the bacterium Escherichia coli were grown in identical nutrient media, except that each medium contained one radioactive isotope. Culture A received sulfate labeled with radioactive sulfur (³⁵S). Culture B received phosphate labeled with radioactive phosphorus (³²P). After several generations of growth, the cells were broken open. Their contents were separated into three fractions: proteins, nucleic acids (DNA and RNA), and phospholipids. The radioactivity in each fraction was measured and expressed as a percentage of the total radioactivity incorporated by that culture.\n\nPercent of incorporated radioactivity in each fraction\nFraction | Culture A (³⁵S) | Culture B (³²P)\nProteins | 97 | 4\nNucleic acids | 2 | 78\nPhospholipids | 1 | 18\n\nCulture B incorporated a total of 50,000 counts per minute (cpm) of ³²P.",
+    "model_answer": "(a) Proteins contained most of the ³⁵S (97 percent). Sulfur is an element used to build proteins, because some amino acids contain sulfur. Nucleic acids and phospholipids are built mainly from C, H, O, N, and P and typically contain no sulfur, so very little ³⁵S appeared in those fractions.\n\n(b) cpm in phospholipids = 0.18 × 50,000 cpm = 9,000 cpm.\n\n(c) Phosphorus, in the form of phosphate, is used to build both types of molecule. Each nucleotide in DNA and RNA contains a phosphate group, and phospholipids also contain a phosphate group. The cells took up the labeled phosphate from the medium and built it into both nucleic acids and phospholipids, so both fractions were radioactive.\n\n(d) I predict that all three fractions (proteins, nucleic acids, and phospholipids) will contain ¹⁴C. Carbon is one of the most prevalent elements in all biological macromolecules, and glucose is the only carbon source available. The cells must therefore use carbon atoms from the labeled glucose to build every type of macromolecule.",
+    "verification_python": "from fractions import Fraction\nA = {'protein': 97, 'nucleic': 2, 'phospholipid': 1}\nB = {'protein': 4, 'nucleic': 78, 'phospholipid': 18}\nassert sum(A.values()) == 100\nassert sum(B.values()) == 100\nassert max(A, key=A.get) == 'protein'\ntotal = 50000\nphos = Fraction(B['phospholipid'], 100) * total\nassert phos == 9000\nassert abs(0.18 * total - 9000) < 1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the fraction that contained most of the ³⁵S in Culture A. Explain this result in terms of the elements used to build that type of macromolecule.",
+      "criteria": [
+       {
+        "text": "Identifies proteins as the fraction with most ³⁵S (97 percent) and explains that sulfur is an element used to build proteins but not, typically, nucleic acids or phospholipids.",
+        "evidence": "The response names the protein fraction and states that sulfur is used in building proteins, for example as part of some amino acids.",
+        "fix": "Read the highest value in the ³⁵S column, then connect it to the fact that sulfur is used to build proteins.",
+        "accepted_variants": [
+         "proteins, because some amino acids contain sulfur",
+         "the protein fraction, since sulfur is a building element of proteins"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of counts per minute of ³²P found in the phospholipid fraction of Culture B. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates 9,000 cpm by multiplying 50,000 cpm by 0.18.",
+        "evidence": "The response shows 0.18 × 50,000 cpm (or 18/100 × 50,000) and reports 9,000 cpm.",
+        "fix": "Convert the table percentage to a decimal and multiply it by the total incorporated counts; show the setup before the answer.",
+        "accepted_variants": [
+         "9000 cpm",
+         "9.0 × 10³ cpm",
+         "18% of 50,000 = 9,000 cpm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why ³²P was found in both the nucleic acid fraction and the phospholipid fraction of Culture B.",
+      "criteria": [
+       {
+        "text": "Explains that phosphorus (as phosphate) is used to build both nucleic acids and phospholipids, so labeled phosphate taken up from the medium was incorporated into both types of molecule.",
+        "evidence": "The response states that both nucleic acids (in each nucleotide) and phospholipids contain phosphorus or phosphate groups, so both received the label.",
+        "fix": "State that phosphorus builds both nucleic acids, as part of each nucleotide, and phospholipids, then link that to where the label appeared.",
+        "accepted_variants": [
+         "both contain phosphate groups",
+         "nucleotides and phospholipids both include phosphorus"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student grows a third culture in which the only carbon source is glucose labeled with radioactive carbon (¹⁴C). Predict which of the three fractions (proteins, nucleic acids, phospholipids) will contain the ¹⁴C label. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that all three fractions (proteins, nucleic acids, and phospholipids) will contain ¹⁴C.",
+        "evidence": "The response states that the label will appear in every one of the three fractions.",
+        "fix": "Ask whether every macromolecule type contains the element; if so, predict the label in every fraction.",
+        "accepted_variants": [
+         "all three fractions will be labeled",
+         "proteins, nucleic acids, and phospholipids will all be radioactive"
+        ]
+       },
+       {
+        "text": "Justifies the prediction by stating that carbon is one of the most prevalent elements in all biological macromolecules and that glucose is the only carbon source, so the cells must use its carbon to build each type.",
+        "evidence": "The response links the prediction to carbon being a building element of proteins, nucleic acids, and lipids, with glucose supplying the carbon atoms.",
+        "fix": "Justify with two facts: carbon is in every macromolecule type, and labeled glucose is the cells' only carbon source.",
+        "accepted_variants": [
+         "carbon forms the backbone of all biological molecules and comes only from the labeled glucose"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 5,
+     "1.3": 1
+    },
+    "onTarget": 5,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 explicitly accepts bare answers such as '9000 cpm' and '9.0 × 10³ cpm', although the question requires showing work. These variants must include a calculation setup to earn credit.",
+       "accurate: Part (d), criterion d2 accepts 'carbon forms the backbone of all biological molecules'. This is too broad: biologically important molecules such as water contain no carbon. Replace 'all biological molecules' with 'all three macromolecule types listed'.",
+       "solution: The independent solution agrees with the expected answers: proteins in (a), 9,000 cpm in (b), phosphorus in both macromolecule types in (c), and labeling of all three fractions in (d). However, d2's accepted claim about carbon forming the backbone of all biological molecules is broader than the correct justification, which concerns the three listed macromolecule types. No model answer was provided or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 explicitly accepts bare answers such as '9000 cpm' and '9.0 × 10³ cpm', although the question requires showing work. These variants must include a calculation setup to earn credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d), criterion d2 accepts 'carbon forms the backbone of all biological molecules'. This is too broad: biologically important molecules such as water contain no carbon. Replace 'all biological molecules' with 'all three macromolecule types listed'."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the expected answers: proteins in (a), 9,000 cpm in (b), phosphorus in both macromolecule types in (c), and labeling of all three fractions in (d). However, d2's accepted claim about carbon forming the backbone of all biological molecules is broader than the correct justification, which concerns the three listed macromolecule types. No model answer was provided or evaluated.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: The accepted variants '9000 cpm' and '9.0 × 10³ cpm' are bare values, although the part explicitly requires showing work. These variants must include an equivalent calculation.",
+       "accurate: Part (d), criterion d2: The accepted statement 'carbon forms the backbone of all biological molecules' is overbroad. Not all biologically relevant molecules contain carbon. Restrict the statement to the three macromolecule types listed.",
+       "solution: The independent solution agrees with the substantive answers: (a) proteins, because sulfur is used to build proteins; (b) 0.18 × 50,000 = 9,000 cpm; (c) phosphorus occurs in both nucleic acids and phospholipids; (d) all three fractions contain carbon supplied by the labeled glucose. However, b1 improperly accepts answers without the requested work, and d2 accepts an inaccurate generalization about all biological molecules."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: The accepted variants '9000 cpm' and '9.0 × 10³ cpm' are bare values, although the part explicitly requires showing work. These variants must include an equivalent calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d), criterion d2: The accepted statement 'carbon forms the backbone of all biological molecules' is overbroad. Not all biologically relevant molecules contain carbon. Restrict the statement to the three macromolecule types listed."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the substantive answers: (a) proteins, because sulfur is used to build proteins; (b) 0.18 × 50,000 = 9,000 cpm; (c) phosphorus occurs in both nucleic acids and phospholipids; (d) all three fractions contain carbon supplied by the labeled glucose. However, b1 improperly accepts answers without the requested work, and d2 accepts an inaccurate generalization about all biological molecules.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: the 'Also accept' list accepts bare '9000 cpm' or '9.0 × 10³ cpm' without shown work, but part (b) asks the student to show work."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2 Elements of Life",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: the 'Also accept' list accepts bare '9000 cpm' or '9.0 × 10³ cpm' without shown work, but part (b) asks the student to show work."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a) criterion a1 combines two separate observable elements—identifying the protein fraction and explaining sulfur's use in proteins—into one 1-point criterion; each criterion should award one specific element.",
+       "rubric_evidence: Part (a) criterion a1 requires explaining that sulfur is not typically in nucleic acids or phospholipids, but the Evidence only asks for naming proteins and stating sulfur builds proteins; the Fix also omits the absence part, so an incomplete explanation could earn the point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a) criterion a1 combines two separate observable elements—identifying the protein fraction and explaining sulfur's use in proteins—into one 1-point criterion; each criterion should award one specific element."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a) criterion a1 requires explaining that sulfur is not typically in nucleic acids or phospholipids, but the Evidence only asks for naming proteins and stating sulfur builds proteins; the Fix also omits the absence part, so an incomplete explanation could earn the point."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

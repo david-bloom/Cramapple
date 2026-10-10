@@ -1,0 +1,226 @@
+{
+ "id": "ap_chemistry__1.7__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.7",
+  "topic_title": "Periodic Trends",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:50:33.645Z",
+   "item": {
+    "title": "Ionization Energy and Ionic Radius Trends in Groups",
+    "calculator": "not_permitted",
+    "stimulus": "A student collects the first ionization energies of several main-group elements from a reference table. The value for strontium, Sr, is missing from the student's source.\n\nElement | Group | Period | First ionization energy (kJ/mol)\nNa | 1 | 3 | 496\nMg | 2 | 3 | 738\nAl | 13 | 3 | 578\nBe | 2 | 2 | 900\nCa | 2 | 4 | 590\nSr | 2 | 5 | (missing)\nBa | 2 | 6 | 503\n\nAnswer the following using the data and your knowledge of atomic structure.",
+    "model_answer": "(a) All Group 2 atoms have two valence electrons in an s subshell, but going down the group from Be to Ba each atom has an additional occupied shell. The valence electron is therefore farther from the nucleus and more shielded by the inner (core) electrons. The effective nuclear charge felt by the valence electron stays about the same, and by Coulomb's law the attractive force decreases as distance increases. Because the valence electron is held less strongly, less energy is required to remove it, so the first ionization energy decreases from Be to Ba.\n\n(b) Sr lies between Ca and Ba in Group 2, so its first ionization energy should fall between their values. Averaging: (590 + 503)/2 = 546.5, so about 547 kJ/mol. This is reasonable because Sr's valence electron (5s) is farther from the nucleus than Ca's (4s) but closer than Ba's (6s), so its ionization energy should be lower than 590 kJ/mol and higher than 503 kJ/mol.\n\n(c) Mg is [Ne]3s² and Al is [Ne]3s²3p¹. The electron removed from Mg comes from the 3s subshell, while the electron removed from Al is the single 3p electron. The 3p electron is higher in energy and is partially shielded from the nucleus by the 3s electrons, so it experiences a weaker attraction even though Al has one more proton. Less energy is needed to remove it, so Al has a lower first ionization energy than Mg.\n\n(d) Mg²⁺ has the smaller radius. Both ions have 10 electrons in the same two shells, so shielding is about the same, but Mg²⁺ has 12 protons while Na⁺ has 11. The greater nuclear charge of Mg²⁺ attracts the electrons more strongly and pulls them closer to the nucleus, making Mg²⁺ smaller.",
+    "verification_python": "from fractions import Fraction\nIE = {'Na':496,'Mg':738,'Al':578,'Be':900,'Ca':590,'Ba':503}\n# group 2 trend decreasing\nseq = [IE['Be'],IE['Mg'],IE['Ca'],IE['Ba']]\nassert all(seq[i] > seq[i+1] for i in range(len(seq)-1))\n# Sr estimate\nest = Fraction(IE['Ca']+IE['Ba'],2)\nassert est == Fraction(1093,2)\nassert abs(float(est)-546.5) < 1e-9\nassert round(float(est)+1e-9) == 547\nassert IE['Ba'] < est < IE['Ca']\n# Al lower than Mg\nassert IE['Al'] < IE['Mg']\n# isoelectronic ions: proton counts and electron counts\nZ_Na, Z_Mg = 11, 12\nassert Z_Na - 1 == 10 and Z_Mg - 2 == 10\nassert Z_Mg > Z_Na\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "The first ionization energy decreases going down Group 2 from Be to Ba. Explain this trend in terms of the electronic structure of the atoms and Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Explains that going down the group the valence (outermost s) electron is in a higher shell, farther from the nucleus and more shielded by inner electrons, so the Coulombic attraction is weaker and less energy is needed to remove it.",
+        "evidence": "Response links the larger number of occupied shells (greater distance and/or more inner-electron shielding) to a weaker attraction between the nucleus and the valence electron, citing Coulomb's law or force decreasing with distance.",
+        "fix": "Connect each additional occupied shell to greater electron-nucleus distance, then use Coulomb's law to state the attraction weakens, lowering ionization energy.",
+        "accepted_variants": [
+         "valence electron farther from nucleus",
+         "more shielding by core electrons",
+         "weaker Coulombic attraction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Estimate the first ionization energy of Sr. Show how you obtained your estimate and justify why your value is reasonable based on periodic trends.",
+      "criteria": [
+       {
+        "text": "Gives an estimate strictly between 503 kJ/mol and 590 kJ/mol (for example, the average of Ca and Ba, about 547 kJ/mol), justified by Sr lying between Ca and Ba in Group 2.",
+        "evidence": "Response reports a numerical value greater than 503 and less than 590 kJ/mol with a stated basis, such as averaging the Ca and Ba values or noting Sr is between Ca and Ba in the group trend.",
+        "fix": "Locate the missing element between its group neighbors, then choose a value between their ionization energies, for example by averaging them.",
+        "accepted_variants": [
+         "547 kJ/mol",
+         "546.5 kJ/mol",
+         "about 550 kJ/mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Although Al has one more proton than Mg, the first ionization energy of Al is lower than that of Mg. Explain this observation in terms of the electron configurations of the two atoms.",
+      "criteria": [
+       {
+        "text": "Explains that the electron removed from Al is a 3p electron, which is higher in energy (farther from the nucleus on average) and partially shielded by the 3s electrons, whereas the electron removed from Mg comes from the filled 3s subshell.",
+        "evidence": "Response identifies the electron removed from Al as 3p and from Mg as 3s, and states that the 3p electron is shielded by the 3s electrons or is higher in energy, so it is held less tightly despite the greater nuclear charge.",
+        "fix": "Write both electron configurations, identify which subshell loses the electron, and explain the 3p electron is shielded by 3s electrons.",
+        "accepted_variants": [
+         "Al: [Ne]3s²3p¹, Mg: [Ne]3s²",
+         "3p electron shielded by 3s electrons"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The ions Na⁺ and Mg²⁺ both have the electron configuration 1s²2s²2p⁶. Identify which ion has the smaller radius and justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies Mg²⁺ as the smaller ion, because with the same number of electrons in the same shells Mg²⁺ has more protons (12 versus 11), so the greater nuclear charge pulls the electrons closer.",
+        "evidence": "Response states Mg²⁺ is smaller and justifies it with the greater nuclear charge (more protons or greater effective nuclear charge) acting on the same number of electrons in the same shells.",
+        "fix": "For ions with identical electron configurations, compare proton counts; the ion with more protons attracts the same electrons more strongly and is smaller.",
+        "accepted_variants": [
+         "Mg2+",
+         "magnesium ion"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

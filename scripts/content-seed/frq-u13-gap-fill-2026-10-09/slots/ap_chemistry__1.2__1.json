@@ -1,0 +1,692 @@
+{
+ "id": "ap_chemistry__1.2__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:44:35.657Z",
+   "item": {
+    "title": "Gallium Mass Spectrum: Abundances and Average Atomic Mass",
+    "calculator": "permitted",
+    "stimulus": "A pure sample of gallium metal is vaporized and analyzed in a mass spectrometer. Only singly charged Ga+ ions reach the detector, and exactly two peaks are observed. The peak heights are reported relative to the tallest peak, which is set to 100.0. The isotopic masses are listed as the mass-to-charge ratio of each peak.\n\nPeak | Mass of isotope (amu) | Relative intensity\n1 | 68.926 | 100.0\n2 | 70.925 | 66.4\n\nGallium has atomic number 31.",
+    "model_answer": "(a) Total relative intensity = 100.0 + 66.4 = 166.4. Fraction of peak 2 isotope = 66.4/166.4 = 0.399, so the percent abundance of gallium-71 is 39.9%. (Gallium-69 is then 60.1%.)\n\n(b) Average atomic mass = (0.601)(68.926 amu) + (0.399)(70.925 amu) = 41.42 amu + 28.30 amu = 69.72 amu.\n\n(c) The mass difference is caused by neutrons. Both isotopes have 31 protons, which is what makes them gallium. Gallium-69 has 69 − 31 = 38 neutrons and gallium-71 has 71 − 31 = 40 neutrons, so gallium-71 has two more neutrons, accounting for the extra 2 amu.\n\n(d) The average atomic mass of the second sample is greater than 69.72 amu. Peak 2 is now a larger share of the total intensity, so the heavier isotope gallium-71 makes up a larger fraction of the atoms. Because average atomic mass is a weighted average of isotopic masses, increasing the abundance of the heavier isotope shifts the average toward 70.925 amu.",
+    "verification_python": "m1 = 68.926\nm2 = 70.925\ni1 = 100.0\ni2 = 66.4\ntot = i1 + i2\nassert abs(tot - 166.4) < 1e-9\nf2 = i2 / tot\nf1 = i1 / tot\nassert abs(round(f2 * 100, 1) - 39.9) < 1e-9\nassert abs(round(f1 * 100, 1) - 60.1) < 1e-9\navg = f1 * m1 + f2 * m2\nassert abs(round(avg, 2) - 69.72) < 1e-9\nassert abs(round(avg, 1) - 69.7) < 1e-9\navg_rounded = 0.601 * m1 + 0.399 * m2\nassert abs(round(0.601 * m1, 2) - 41.42) < 1e-9\nassert abs(round(0.399 * m2, 2) - 28.30) < 1e-9\nassert abs(round(avg_rounded, 2) - 69.72) < 1e-9\nassert 69 - 31 == 38 and 71 - 31 == 40\nf2b = 80.0 / 180.0\navg2 = (1 - f2b) * m1 + f2b * m2\nassert avg2 > avg\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, calculate the percent abundance of the isotope responsible for peak 2. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent abundance of gallium-71 (peak 2) is 39.9%",
+        "evidence": "Divides the peak 2 intensity by the sum of both intensities, 66.4/(100.0 + 66.4), and reports about 39.9% (or a fraction of 0.399).",
+        "fix": "Convert relative peak heights to abundances by dividing each height by the sum of all peak heights, not by the tallest peak.",
+        "accepted_variants": [
+         "0.399",
+         "39.9 %",
+         "39.90%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the average atomic mass of gallium in this sample. Show your work and report your answer with appropriate units.",
+      "criteria": [
+       {
+        "text": "Average atomic mass is 69.72 amu, calculated as an abundance-weighted average",
+        "evidence": "Sets up a weighted average such as (0.601)(68.926 amu) + (0.399)(70.925 amu), or (100.0 × 68.926 + 66.4 × 70.925)/166.4, and reports about 69.72 amu (69.7 amu also accepted) with units.",
+        "fix": "Multiply each isotopic mass by its fractional abundance, add the products, and include amu (or g/mol) as the unit.",
+        "accepted_variants": [
+         "69.7 amu",
+         "69.72 g/mol",
+         "69.724 amu"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Both peaks come from atoms of the same element, yet their masses differ by about 2 amu. Identify the subatomic particle responsible for this mass difference, state how many of that particle each isotope contains, and explain why both peaks still represent gallium.",
+      "criteria": [
+       {
+        "text": "Mass difference is due to neutrons: gallium-69 has 38 neutrons and gallium-71 has 40 neutrons; both have 31 protons, so both are gallium",
+        "evidence": "States that the isotopes differ in number of neutrons (38 vs 40) and that both have the same number of protons (31), which defines the element as gallium.",
+        "fix": "Remember isotopes share proton number (atomic number) but differ in neutrons; neutrons = mass number minus atomic number.",
+        "accepted_variants": [
+         "differ by two neutrons",
+         "N = 38 and N = 40"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A second gallium sample from a different source contains the same two isotopes, but its peak 2 has a relative intensity of 80.0 instead of 66.4 (peak 1 is still 100.0). Predict whether the average atomic mass of gallium in the second sample is greater than, less than, or equal to the value from part (b), and justify your prediction without a full calculation.",
+      "criteria": [
+       {
+        "text": "Claim: average atomic mass is greater; justification: a larger fraction of the heavier isotope (gallium-71) shifts the weighted average toward 70.925 amu",
+        "evidence": "States the average atomic mass increases and explains that the relative abundance of the heavier isotope increases, so the weighted average moves closer to the mass of gallium-71.",
+        "fix": "Link the claim to the weighted average: more of the heavier isotope pulls the average mass toward that isotope's mass.",
+        "accepted_variants": [
+         "greater than 69.72 amu",
+         "increases"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: The accepted variant 69.72 g/mol is not an equivalent form of an average atomic mass in amu; it expresses molar mass. Remove g/mol from the accepted variants and fix.",
+       "accurate: Part (b), criterion b1: The fix incorrectly permits g/mol as the unit for average atomic mass. Average atomic mass should be reported in amu; g/mol is a unit of molar mass.",
+       "solution: The independent solution agrees with all numerical results and chemical explanations: (a) 39.9%; (b) 69.7236779 amu; (c) 38 and 40 neutrons, with 31 protons in both isotopes; (d) greater average atomic mass. The only disagreement is criterion b1's acceptance of g/mol as an equivalent unit for average atomic mass. No model answer was provided."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: The accepted variant 69.72 g/mol is not an equivalent form of an average atomic mass in amu; it expresses molar mass. Remove g/mol from the accepted variants and fix."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: The fix incorrectly permits g/mol as the unit for average atomic mass. Average atomic mass should be reported in amu; g/mol is a unit of molar mass."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results and chemical explanations: (a) 39.9%; (b) 69.7236779 amu; (c) 38 and 40 neutrons, with 31 protons in both isotopes; (d) greater average atomic mass. The only disagreement is criterion b1's acceptance of g/mol as an equivalent unit for average atomic mass. No model answer was provided.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 accepts 69.72 g/mol as an equivalent form of average atomic mass. This is a molar mass, not an equivalent expression of the requested atomic mass; remove this accepted variant.",
+       "accurate: Criterion b1's fix and accepted variants incorrectly allow g/mol as the unit of average atomic mass. Average atomic mass is expressed in amu; g/mol expresses molar mass.",
+       "solution: The independent solution agrees with the rubric's calculations and reasoning: (a) 39.9%; (b) approximately 69.724 amu; (c) 38 and 40 neutrons, with 31 protons in both isotopes; (d) greater average atomic mass. The only disagreement is criterion b1's acceptance of g/mol for average atomic mass. No model answer was supplied or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 accepts 69.72 g/mol as an equivalent form of average atomic mass. This is a molar mass, not an equivalent expression of the requested atomic mass; remove this accepted variant."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1's fix and accepted variants incorrectly allow g/mol as the unit of average atomic mass. Average atomic mass is expressed in amu; g/mol expresses molar mass."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's calculations and reasoning: (a) 39.9%; (b) approximately 69.724 amu; (c) 38 and 40 neutrons, with 31 protons in both isotopes; (d) greater average atomic mass. The only disagreement is criterion b1's acceptance of g/mol for average atomic mass. No model answer was supplied or evaluated.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: it bundles three separate requested components (identify the particle as neutron, state neutron counts 38 vs 40, and explain that both have 31 protons so both are gallium) into one point, rather than awarding one specific observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: it bundles three separate requested components (identify the particle as neutron, state neutron counts 38 vs 40, and explain that both have 31 protons so both are gallium) into one point, rather than awarding one specific observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:53:21.179Z",
+   "item": {
+    "title": "Average Atomic Mass from a Three-Peak Mass Spectrum",
+    "calculator": "permitted",
+    "stimulus": "A pure sample of an unknown element X was vaporized and analyzed in a mass spectrometer. Every peak arises from a singly charged monatomic ion, X⁺. The spectrometer reports peak heights relative to the tallest peak, which is set to 100.0. The data are summarized below.\n\nPeak | Isotopic mass (amu) | Relative peak height\n1 | 27.977 | 100.0\n2 | 28.976 | 5.06\n3 | 29.974 | 3.36\n\nAssume each peak height is proportional to the relative abundance of that isotope in the sample.",
+    "model_answer": "(a) Total peak height = 100.0 + 5.06 + 3.36 = 108.42. Fraction for peak 1 = 100.0 / 108.42 = 0.922, so the percent abundance is 92.2%.\n\n(b) Fractions: peak 1 = 0.9223, peak 2 = 5.06/108.42 = 0.0467, peak 3 = 3.36/108.42 = 0.0310.\nAverage atomic mass = (27.977)(0.9223) + (28.976)(0.0467) + (29.974)(0.0310) = 25.803 + 1.352 + 0.929 = 28.09 amu.\n\n(c) An average atomic mass of 28.09 amu matches silicon, Si, on the periodic table. Silicon has 14 protons. The peak 2 isotope has mass number 29, so it has 29 − 14 = 15 neutrons.\n\n(d) The claim is incorrect. All three peaks come from the same element, silicon, so every atom has 14 protons; a different proton number would mean a different element. The masses differ because the isotopes contain different numbers of neutrons (14, 15 and 16). The average atomic mass is a weighted average, and the 27.977 amu isotope makes up about 92% of the atoms, so the average lies close to 28 amu rather than 29 amu.",
+    "verification_python": "import math\nm=[27.977,28.976,29.974]\nh=[100.0,5.06,3.36]\ntot=sum(h)\nassert abs(tot-108.42)<1e-9\nf=[x/tot for x in h]\nassert abs(f[0]*100-92.2)<0.05\nassert abs(f[1]-0.0467)<0.0001\nassert abs(f[2]-0.0310)<0.0001\navg=sum(a*b for a,b in zip(m,f))\nassert abs(avg-28.09)<0.005\nassert abs(27.977*0.9223-25.803)<0.001\nassert abs(28.976*0.0467-1.352)<0.001\nassert abs(29.974*0.0310-0.929)<0.001\nassert abs(28.0855-28.0855)<1e-9\nZ=14\nassert round(m[1])-Z==15\nassert [round(x)-Z for x in m]==[14,15,16]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the percent abundance of the isotope responsible for peak 1. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent abundance of the 27.977 amu isotope is 92.2%",
+        "evidence": "Divides 100.0 by the sum of all peak heights (108.42) and reports about 92.2%, or the fraction 0.922.",
+        "fix": "Add all peak heights first, then divide the peak of interest by that total; relative heights are not percentages.",
+        "accepted_variants": [
+         "92.2%",
+         "0.922",
+         "92.23%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the average atomic mass of element X, in amu, reported to the correct number of significant figures. Show your work.",
+      "criteria": [
+       {
+        "text": "Sets up a weighted average of isotopic masses using each isotope's fractional abundance",
+        "evidence": "Shows each isotopic mass multiplied by its fractional abundance (or by its peak height, then divided by 108.42) and summed.",
+        "fix": "Multiply each isotopic mass by its fraction of the total peak height, then add the products.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Average atomic mass is 28.09 amu",
+        "evidence": "Reports 28.09 amu (or 28.1 amu) consistent with a correct weighted-average setup.",
+        "fix": "Carry unrounded fractions through the weighted sum and round only the final answer, keeping the precision of the peak heights.",
+        "accepted_variants": [
+         "28.09 amu",
+         "28.1 amu",
+         "28.086 amu"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify element X and state the number of neutrons in the atoms responsible for peak 2.",
+      "criteria": [
+       {
+        "text": "Identifies X as silicon and states that peak 2 atoms have 15 neutrons",
+        "evidence": "Names silicon (Si), linked to the calculated average atomic mass of about 28.09 amu matching the periodic table, and gives 15 neutrons from mass number 29 minus 14 protons.",
+        "fix": "Match your calculated average mass to the periodic table, then subtract the atomic number from the rounded isotopic mass to get neutrons.",
+        "accepted_variants": [
+         "Si",
+         "silicon"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that the three peaks have different masses because the atoms contain different numbers of protons. Evaluate this claim, and explain why the average atomic mass of X is much closer to 28 amu than to 29 amu.",
+      "criteria": [
+       {
+        "text": "Rejects the claim: isotopes have the same number of protons but different numbers of neutrons; average is near 28 because the 27.977 amu isotope is by far most abundant",
+        "evidence": "States all peaks are the same element so have 14 protons, mass differences come from differing neutron counts, and the weighted average is dominated by the roughly 92% abundant lightest isotope.",
+        "fix": "Remember proton number fixes element identity; isotopes differ only in neutrons, and the weighted average lies nearest the most abundant isotope.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": false,
+    "out": "Traceback (most recent call last):\n  File \"/private/var/folders/1n/bv661kx91xd43mjnk_vmtsp80000gq/T/frqpy-f83AVc/check.py\", line 13, in <module>\n    assert abs(28.976*0.0467-1.352)<0.001\nAssertionError\n"
+   },
+   "stage": "recompute"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:53:58.763Z",
+   "item": {
+    "title": "Silicon Isotopes from a Single-Element Mass Spectrum",
+    "calculator": "permitted",
+    "stimulus": "A pure sample of an unknown element X was analyzed in a mass spectrometer. Only singly charged monatomic ions of X were detected. The spectrum shows three peaks. The mass of the isotope for each peak and the relative peak height are listed below. Relative heights are scaled so that the tallest peak equals 100.0.\n\nIsotope | Isotopic mass (amu) | Relative peak height\nX-28 | 27.977 | 100.0\nX-29 | 28.976 | 5.06\nX-30 | 29.974 | 3.36\n\nAssume that peak height is proportional to the relative abundance of each isotope in the sample.",
+    "model_answer": "(a) Total peak height = 100.0 + 5.06 + 3.36 = 108.42. Percent abundance of X-28 = (100.0 / 108.42) × 100 = 92.23%.\n\n(b) The fractional abundances are 100.0/108.42 = 0.9223, 5.06/108.42 = 0.04667, and 3.36/108.42 = 0.03099.\nAverage atomic mass = (27.977)(0.9223) + (28.976)(0.04667) + (29.974)(0.03099) = 28.09 amu.\n\n(c) Element X is silicon (Si). The average atomic mass calculated in part (b), 28.09 amu, matches the atomic mass of Si on the periodic table. It does not match Al (26.98) or P (30.97).\n\n(d) Every atom of silicon has 14 protons, and the number of protons is what identifies the element. The isotopes differ only in their number of neutrons. X-28 has 28 − 14 = 14 neutrons, X-29 has 29 − 14 = 15 neutrons, and X-30 has 30 − 14 = 16 neutrons. Each extra neutron adds about 1 amu, so the ions reach the detector at three different masses.\n\n(e) The average atomic mass is a weighted average, not a simple average of the three isotopic masses. The X-28 peak is much taller than the other two, so X-28 makes up about 92% of the atoms. X-29 and X-30 together make up only about 8%. Because most atoms have a mass near 28 amu, the average, 28.09 amu, lies very close to 28 and not near 29.",
+    "verification_python": "masses=[27.977,28.976,29.974]\nh=[100.0,5.06,3.36]\nT=sum(h)\nassert abs(T-108.42)<1e-9\npct=h[0]/T*100\nassert abs(pct-92.23)<0.01\nfr=[x/T for x in h]\nassert abs(fr[0]-0.9223)<5e-5 and abs(fr[1]-0.04667)<5e-6 and abs(fr[2]-0.03099)<5e-6\navg=sum(m*f for m,f in zip(masses,fr))\nassert abs(avg-28.0855)<0.001\nassert round(avg,2)==28.09\nassert abs(sum(fr[1:])*100-7.77)<0.05\nZ=14\nassert [28-Z,29-Z,30-Z]==[14,15,16]\nassert abs(avg-28.09)<abs(avg-26.98) and abs(avg-28.09)<abs(avg-30.97)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the percent abundance of the isotope X-28 in the sample. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent abundance of X-28 = 92.23% (100.0 divided by the total height 108.42, times 100)",
+        "evidence": "Response adds the three peak heights (108.42) and divides the X-28 height by this total, giving about 92.2%.",
+        "fix": "Convert peak heights to percent abundance by dividing one peak's height by the sum of all peak heights, then multiplying by 100.",
+        "accepted_variants": [
+         "92.2%",
+         "92.23%",
+         "0.9223",
+         "0.922"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the average atomic mass of element X. Report your answer to four significant figures with units.",
+      "criteria": [
+       {
+        "text": "Average atomic mass = 28.09 amu, found as a weighted average of the isotopic masses",
+        "evidence": "Response multiplies each isotopic mass by its fractional abundance (or by its peak height, then divides by 108.42), sums the results, and reports 28.09 amu.",
+        "fix": "Multiply each isotope's mass by its fractional abundance and add; do not simply average the three masses. Round to the requested significant figures.",
+        "accepted_variants": [
+         "28.09 amu",
+         "28.09 u",
+         "28.09 g/mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify element X. Justify your answer using your result from part (b).",
+      "criteria": [
+       {
+        "text": "X is silicon, because its average atomic mass of 28.09 amu matches the value listed for Si on the periodic table",
+        "evidence": "Response names silicon (Si) and links the calculated average atomic mass to the periodic table value for Si (about 28.09). Credit is also earned for an element consistent with an incorrect answer in part (b).",
+        "fix": "Match a calculated average atomic mass to the atomic mass printed on the periodic table, not to the mass number of one isotope.",
+        "accepted_variants": [
+         "Si",
+         "silicon"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "At the particle level, explain why atoms of the same element X produce peaks at three different masses. Include the number of neutrons in an atom of each isotope.",
+      "criteria": [
+       {
+        "text": "All atoms of X have the same number of protons (14) but differ in their number of neutrons: 14 in X-28, 15 in X-29, and 16 in X-30",
+        "evidence": "Response states that the isotopes share the same number of protons (14, which defines the element) and differ only in neutron count, and gives 14, 15, and 16 neutrons respectively. Attributing the mass difference to electrons or protons does not earn the point.",
+        "fix": "Find neutrons by subtracting the atomic number from the mass number; remember isotopes differ in neutrons, never protons.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that because element X has isotopes with masses near 28, 29, and 30 amu, its average atomic mass should be close to 29 amu. Explain why this claim is incorrect, using the data in the table.",
+      "criteria": [
+       {
+        "text": "The average atomic mass is a weighted average; X-28 is by far the most abundant isotope (about 92%), so the average lies close to 28 amu",
+        "evidence": "Response explains that each isotope's mass contributes in proportion to its abundance and cites the much taller X-28 peak (or its 92% abundance) as the reason the average is near 28 rather than 29.",
+        "fix": "Explain weighted averages by citing which peak is tallest and stating that the average lies nearest the mass of the most abundant isotope.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 lists 28.09 g/mol as an equivalent form of 28.09 amu. Molar mass and average atomic mass are different quantities, so this is not an equivalent answer to the requested quantity. Remove the g/mol variant.",
+       "accurate: Criterion b1 incorrectly treats 28.09 g/mol as an atomic mass equivalent to 28.09 amu. The former is silicon's molar mass; acceptable atomic-mass units here are amu or u.",
+       "solution: The independent solution agrees with all numerical results and explanations. The sole disagreement is criterion b1's acceptance of 28.09 g/mol for average atomic mass; the requested answer is 28.09 amu or 28.09 u. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 lists 28.09 g/mol as an equivalent form of 28.09 amu. Molar mass and average atomic mass are different quantities, so this is not an equivalent answer to the requested quantity. Remove the g/mol variant."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 incorrectly treats 28.09 g/mol as an atomic mass equivalent to 28.09 amu. The former is silicon's molar mass; acceptable atomic-mass units here are amu or u."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results and explanations. The sole disagreement is criterion b1's acceptance of 28.09 g/mol for average atomic mass; the requested answer is 28.09 amu or 28.09 u. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 accepts 28.09 g/mol as equivalent to 28.09 amu. Molar mass is a different quantity, not an equivalent form of the requested average atomic mass. Remove the g/mol variant.",
+       "accurate: Criterion b1 incorrectly treats 28.09 g/mol as equivalent to 28.09 amu. These quantities are numerically related but have different dimensions: molar mass versus average mass per atom.",
+       "solution: The independent solution agrees with all five rubric answers and their substantive explanations. However, b1's accepted variant 28.09 g/mol is not a valid unit for the requested average atomic mass; 28.09 amu or 28.09 u is appropriate. No model answer was supplied for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 accepts 28.09 g/mol as equivalent to 28.09 amu. Molar mass is a different quantity, not an equivalent form of the requested average atomic mass. Remove the g/mol variant."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 incorrectly treats 28.09 g/mol as equivalent to 28.09 amu. These quantities are numerically related but have different dimensions: molar mass versus average mass per atom."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all five rubric answers and their substantive explanations. However, b1's accepted variant 28.09 g/mol is not a valid unit for the requested average atomic mass; 28.09 amu or 28.09 u is appropriate. No model answer was supplied for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

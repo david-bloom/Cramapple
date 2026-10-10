@@ -1,0 +1,454 @@
+{
+ "id": "ap_calculus_bc__1.5__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.5",
+  "topic_title": "Determining Limits Using Algebraic Properties of Limits",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:37:26.123Z",
+   "item": {
+    "title": "Limit Theorems with Given Limits and a Piecewise Function",
+    "calculator": "not_permitted",
+    "stimulus": "Functions f and g are defined for all real numbers. Their limits at x = 2 are:\n\nlim x→2 f(x) = 3\nlim x→2 g(x) = −1\n\nNo other information about f or g is given. In particular, f(2) and g(2) are unknown.\n\nThe function h is defined, with a constant k, by\nh(x) = f(x) + x for x < 2\nh(x) = x²·g(x) + k for x > 2.\n\nAnswer all parts. Justify each answer by naming the limit properties you use.",
+    "model_answer": "(a) By the difference and constant multiple properties, lim x→2 [2f(x) − 3g(x)] = 2·lim f(x) − 3·lim g(x) = 2(3) − 3(−1) = 6 + 3 = 9.\nBy the product property, lim x→2 [f(x)·g(x)] = (lim f(x))(lim g(x)) = 3·(−1) = −3.\n\n(b) Denominator: lim x→2 [f(x) − 1] = 3 − 1 = 2, which is not 0, so the quotient property applies.\nNumerator: lim x→2 [f(x) + (g(x))²] = 3 + (−1)² = 3 + 1 = 4, by the sum and product properties.\nSo the limit is 4/2 = 2.\n\n(c) lim x→2 (f(x) + 6) = 3 + 6 = 9. The square root function is continuous at 9, so by the composite-function limit property, lim x→2 √(f(x) + 6) = √9 = 3.\n\n(d) Left: since lim x→2 f(x) = 3, also lim x→2⁻ f(x) = 3, so lim x→2⁻ h(x) = lim x→2⁻ (f(x) + x) = 3 + 2 = 5.\nRight: lim x→2⁺ h(x) = lim x→2⁺ (x²·g(x) + k) = (2²)(−1) + k = k − 4.\nThe limit exists exactly when the one-sided limits are equal: k − 4 = 5, so k = 9.",
+    "verification_python": "from fractions import Fraction as F\nimport math\nLf=F(3);Lg=F(-1)\na1=2*Lf-3*Lg\nassert a1==9\na2=Lf*Lg\nassert a2==-3\nden=Lf-1\nassert den==2 and den!=0\nnum=Lf+Lg**2\nassert num==4\nassert num/den==2\ninner=Lf+6\nassert inner==9\nassert math.isclose(math.sqrt(inner),3)\nleft=Lf+2\nassert left==5\nk=left-(2**2)*Lg\nassert k==9\nassert (2**2)*Lg+k==left\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [2f(x) − 3g(x)] and lim x→2 [f(x)·g(x)]. Show how the limit properties are applied.",
+      "criteria": [
+       {
+        "text": "lim x→2 [2f(x) − 3g(x)] = 9",
+        "evidence": "Uses the sum/difference and constant multiple properties: 2·3 − 3·(−1) = 9.",
+        "fix": "Split the limit into 2·lim f(x) − 3·lim g(x), then substitute 3 and −1 carefully with signs.",
+        "accepted_variants": []
+       },
+       {
+        "text": "lim x→2 [f(x)·g(x)] = −3",
+        "evidence": "Uses the product property: (lim f(x))(lim g(x)) = 3·(−1) = −3.",
+        "fix": "Apply the product property: multiply the two individual limits, 3 and −1, when both limits exist.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 [f(x) + (g(x))²] / [f(x) − 1]. Justify why the quotient property may be used.",
+      "criteria": [
+       {
+        "text": "Confirms the denominator limit is nonzero: lim x→2 [f(x) − 1] = 2 ≠ 0",
+        "evidence": "Computes the denominator limit as 3 − 1 = 2 and states it is not zero, so the quotient property applies.",
+        "fix": "Before using the quotient property, compute the denominator's limit and state explicitly that it is not zero.",
+        "accepted_variants": []
+       },
+       {
+        "text": "The limit equals 2",
+        "evidence": "Numerator limit 3 + (−1)² = 4 found with sum and product (power) properties, then 4/2 = 2.",
+        "fix": "Find the numerator's limit using sum and power properties, then divide by the denominator's nonzero limit.",
+        "accepted_variants": [
+         "4/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 √(f(x) + 6). Justify your answer.",
+      "criteria": [
+       {
+        "text": "lim x→2 √(f(x) + 6) = 3, justified by the composite-function limit property",
+        "evidence": "States lim (f(x) + 6) = 9 and that the square root function is continuous at 9, so the limit is √9 = 3.",
+        "fix": "For a composite limit, find the inner limit first, then state the outer function is continuous at that value.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which lim x→2 h(x) exists. Show the one-sided limits.",
+      "criteria": [
+       {
+        "text": "Left-hand limit: lim x→2⁻ h(x) = 5",
+        "evidence": "Uses that lim x→2 f(x) = 3 implies the left-hand limit of f is 3, so lim x→2⁻ (f(x) + x) = 3 + 2 = 5.",
+        "fix": "Use the piece for x < 2 and the sum property; a two-sided limit gives the same one-sided limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "k = 9",
+        "evidence": "Right-hand limit computed as 2²·(−1) + k = k − 4 and set equal to 5, giving k = 9.",
+        "fix": "Compute the right-hand limit using the x > 2 piece, then set both one-sided limits equal and solve for k.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "a criterion lacks text or evidence"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:37:51.034Z",
+   "item": {
+    "title": "Limit Theorems with Given Limits and a Piecewise Function",
+    "calculator": "not_permitted",
+    "stimulus": "Functions f and g are defined for all real numbers and satisfy\n\nlim x→2 f(x) = 4 and lim x→2 g(x) = −3.\n\nThe function h is defined piecewise by\n\nh(x) = x² − 1 for x < 1\nh(x) = 3x + 2 for x ≥ 1\n\nAnswer all parts of the following question. Show the limit properties you use.",
+    "model_answer": "(a) By the difference, constant multiple, and product properties,\nlim x→2 [2f(x) − f(x)g(x)] = 2·lim x→2 f(x) − (lim x→2 f(x))(lim x→2 g(x)) = 2(4) − (4)(−3) = 8 + 12 = 20.\n\n(b) Denominator: lim x→2 (g(x) + 5) = −3 + 5 = 2, which is not 0, so the limit of the quotient is the quotient of the limits.\nNumerator: since √ is continuous at 4, lim x→2 √(f(x)) = √(lim x→2 f(x)) = √4 = 2.\nSo lim x→2 √(f(x)) / (g(x) + 5) = 2/2 = 1.\n\n(c) For x < 1, h(x) = x² − 1, so lim x→1⁻ h(x) = 1² − 1 = 0.\nFor x ≥ 1, h(x) = 3x + 2, so lim x→1⁺ h(x) = 3(1) + 2 = 5.\nSince 0 ≠ 5, the left-hand and right-hand limits are not equal, so lim x→1 h(x) does not exist.\n\n(d) From (c), lim x→1⁺ h(x) = 5. As x→1⁺, x + 1 → 2, so lim x→1⁺ f(x + 1) = lim u→2 f(u) = 4. Since 4 ≠ 0, the quotient property gives\nlim x→1⁺ h(x)/f(x + 1) = 5/4.",
+    "verification_python": "from fractions import Fraction\nimport math\nLf=4; Lg=-3\n# (a)\nprod=Lf*Lg\nassert prod==-12\na=2*Lf-prod\nassert a==20\n# (b)\nden=Lg+5\nassert den==2 and den!=0\nnum=math.sqrt(Lf)\nassert num==2\nassert Fraction(int(num),den)==1\n# (c)\nleft=1**2-1\nright=3*1+2\nassert left==0 and right==5 and left!=right\n# (d)\nd=Fraction(right,Lf)\nassert d==Fraction(5,4) and float(d)==1.25\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [2f(x) − f(x)·g(x)]. Show how the limit properties for sums, differences, constant multiples, and products are applied.",
+      "criteria": [
+       {
+        "text": "Splits the limit using the difference, constant multiple, and product properties: 2·lim f(x) − (lim f(x))(lim g(x)) = 2(4) − (4)(−3).",
+        "evidence": "Response writes the limit as a combination of the individual limits of f and g, or substitutes 4 and −3 into 2·lim f − lim f·lim g, showing the product limit is 4·(−3) = −12.",
+        "fix": "Rewrite the limit of a product as the product of the limits, then substitute the given values before combining terms.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value 20.",
+        "evidence": "Response gives 20 as the value of the limit, consistent with 8 − (−12).",
+        "fix": "Subtracting a negative product adds it: 8 − (−12) = 20. Track signs carefully when g has a negative limit.",
+        "accepted_variants": [
+         "20.0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 √(f(x)) / (g(x) + 5). Justify why the quotient property of limits may be used.",
+      "criteria": [
+       {
+        "text": "Justifies the quotient property: the denominator's limit is lim x→2 (g(x) + 5) = −3 + 5 = 2, which is not zero.",
+        "evidence": "Response computes the denominator limit as 2 and explicitly states that it is nonzero, so the limit of the quotient equals the quotient of the limits.",
+        "fix": "Before dividing limits, compute the denominator's limit and state that it is not zero; that condition is required for the quotient property.",
+        "accepted_variants": [
+         "denominator limit is 2 ≠ 0"
+        ]
+       },
+       {
+        "text": "Uses the composite property for the numerator, lim √(f(x)) = √(lim f(x)) = √4 = 2, and obtains the value 1.",
+        "evidence": "Response finds the numerator limit as √4 = 2 (square root is continuous at 4) and gives the final value 2/2 = 1.",
+        "fix": "For a continuous outer function like √, take the inner limit first, then apply the outer function to that value.",
+        "accepted_variants": [
+         "1.0",
+         "2/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1⁻ h(x) and lim x→1⁺ h(x). Then determine whether lim x→1 h(x) exists, and give a reason for your answer.",
+      "criteria": [
+       {
+        "text": "Computes both one-sided limits: lim x→1⁻ h(x) = 1² − 1 = 0 and lim x→1⁺ h(x) = 3(1) + 2 = 5.",
+        "evidence": "Response uses x² − 1 for the left-hand limit and 3x + 2 for the right-hand limit, giving 0 and 5 respectively.",
+        "fix": "For a left-hand limit use the piece defined for x < 1; for a right-hand limit use the piece defined for x ≥ 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→1 h(x) does not exist because the one-sided limits are not equal (0 ≠ 5).",
+        "evidence": "Response states the two-sided limit does not exist and cites that the left-hand and right-hand limits differ.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly and state the conclusion.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1⁺ h(x) / f(x + 1).",
+      "criteria": [
+       {
+        "text": "Correct value 5/4, using lim x→1⁺ h(x) = 5 and lim x→1⁺ f(x + 1) = 4 (since x + 1 → 2), with the nonzero denominator limit permitting the quotient property.",
+        "evidence": "Response identifies that as x→1⁺, x + 1 approaches 2 so f(x + 1) approaches 4, uses the right-hand limit 5 for h, and gives 5/4.",
+        "fix": "Substitute u = x + 1: as x→1⁺, u→2, so f(x + 1)→4. Then divide the limits since 4 ≠ 0.",
+        "accepted_variants": [
+         "1.25"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 bundles the numerator-limit calculation and the final quotient value into one point. Criterion c1 bundles two independently assessable one-sided limits into one point. Criterion d1 bundles the shifted-input limit setup, quotient-property justification, and final value into one point. Separate these into criteria awarding one observable element each; in particular, separate setup from execution for the multistep calculations."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 bundles the numerator-limit calculation and the final quotient value into one point. Criterion c1 bundles two independently assessable one-sided limits into one point. Criterion d1 bundles the shifted-input limit setup, quotient-property justification, and final value into one point. Separate these into criteria awarding one observable element each; in particular, separate setup from execution for the multistep calculations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 bundles the composite-limit setup and the final quotient value into one point. Criterion c1 bundles two separately requested one-sided limit values into one point. Criterion d1 bundles the shifted-function limit setup and the final quotient evaluation into one point. These should be separated into independently scored, specific observable elements, consistent with the stated setup/execution scoring convention."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 bundles the composite-limit setup and the final quotient value into one point. Criterion c1 bundles two separately requested one-sided limit values into one point. Criterion d1 bundles the shifted-function limit setup and the final quotient evaluation into one point. These should be separated into independently scored, specific observable elements, consistent with the stated setup/execution scoring convention."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:41:23.919Z",
+   "item": {
+    "title": "Limits from Limit Theorems and One-Sided Limits",
+    "calculator": "not_permitted",
+    "stimulus": "Functions f and g are defined for all real numbers. It is known that lim x→2 f(x) = 3 and lim x→2 g(x) = −1. Nothing else is known about f or g; in particular, f(2) and g(2) are not given.\n\nA function h is defined piecewise, where k is a constant:\nh(x) = x² + k for x < 1\nh(x) = 3x − 1 for x ≥ 1",
+    "model_answer": "(a) By the difference and constant multiple properties, lim x→2 [2f(x) − 5g(x)] = 2(3) − 5(−1) = 6 + 5 = 11. By the product and sum properties, lim x→2 [f(x)g(x) + 4] = (3)(−1) + 4 = 1. Since the limit of the denominator is 1 ≠ 0, the quotient property applies, so the limit is 11/1 = 11.\n\n(b) lim x→2 (f(x) + 6) = 3 + 6 = 9. The function √u is continuous at u = 9, so by the composite limit property lim x→2 √(f(x) + 6) = √(lim x→2 (f(x) + 6)) = √9 = 3.\n\n(c) For x < 1, h(x) = x² + k, so lim x→1⁻ h(x) = 1² + k = 1 + k. For x ≥ 1, h(x) = 3x − 1, so lim x→1⁺ h(x) = 3(1) − 1 = 2. The two-sided limit exists only if the one-sided limits are equal: 1 + k = 2, so k = 1. Then lim x→1 h(x) = 2.",
+    "verification_python": "import sympy as sp\nF, G = 3, -1\nnum = 2*F - 5*G\nden = F*G + 4\nassert num == 11 and den == 1 and den != 0\nassert sp.Rational(num, den) == 11\ninner = F + 6\nassert inner == 9\nassert sp.sqrt(inner) == 3\nx, k = sp.symbols('x k')\nleft = sp.limit(x**2 + k, x, 1, '-')\nright = sp.limit(3*x - 1, x, 1, '+')\nassert sp.simplify(left - (1 + k)) == 0\nassert right == 2\nsol = sp.solve(sp.Eq(left, right), k)\nassert sol == [1]\nassert left.subs(k, 1) == 2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [2f(x) − 5g(x)] / [f(x)·g(x) + 4]. Show the limits of the numerator and denominator, and justify your use of the quotient property.",
+      "criteria": [
+       {
+        "text": "Finds the limit of the numerator, 11, and the limit of the denominator, 1, using the sum, difference, constant multiple and product properties.",
+        "evidence": "Shows 2(3) − 5(−1) = 11 and (3)(−1) + 4 = 1, or equivalent work using the given limit values.",
+        "fix": "Replace each limit by its given value term by term: constant multiples, sums and products of limits combine the same way the functions do.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes the limit is 11, noting the quotient property applies because the denominator's limit, 1, is not 0.",
+        "evidence": "States the final value 11 and explicitly notes the denominator limit is nonzero.",
+        "fix": "Before dividing limits, check and state that the denominator's limit is not zero; only then is the limit of the quotient the quotient of the limits.",
+        "accepted_variants": [
+         "11/1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 √(f(x) + 6). Justify your answer.",
+      "criteria": [
+       {
+        "text": "Finds the limit of the inner expression: lim x→2 (f(x) + 6) = 9.",
+        "evidence": "Shows 3 + 6 = 9 using the sum property.",
+        "fix": "Find the limit of the inside expression first using the sum property before applying the outer function.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes the limit is 3, justified by continuity of the square root function at 9 (composite limit property).",
+        "evidence": "States √9 = 3 and cites that √u is continuous at u = 9, so the limit passes inside.",
+        "fix": "For a composite limit, state that the outer function is continuous at the inner limit value before moving the limit inside.",
+        "accepted_variants": [
+         "√9"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1⁻ h(x) and lim x→1⁺ h(x), each in terms of k where needed. Then find the value of k for which lim x→1 h(x) exists, and give the value of that limit.",
+      "criteria": [
+       {
+        "text": "Finds lim x→1⁻ h(x) = 1 + k using the x < 1 branch.",
+        "evidence": "Uses x² + k and evaluates 1² + k = 1 + k for the left-hand limit.",
+        "fix": "For a left-hand limit at a break point, use the branch defined for x less than the break point.",
+        "accepted_variants": [
+         "k + 1"
+        ]
+       },
+       {
+        "text": "Finds lim x→1⁺ h(x) = 2 using the x ≥ 1 branch.",
+        "evidence": "Uses 3x − 1 and evaluates 3(1) − 1 = 2 for the right-hand limit.",
+        "fix": "For a right-hand limit at a break point, use the branch defined for x greater than the break point.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds k = 1 by setting the one-sided limits equal, and states lim x→1 h(x) = 2.",
+        "evidence": "Writes 1 + k = 2, giving k = 1, with reasoning that the two-sided limit exists only when both one-sided limits are equal, and gives the limit value 2.",
+        "fix": "A two-sided limit exists only when the left- and right-hand limits are equal; set them equal, solve, and report the common value.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  }
+ ]
+}

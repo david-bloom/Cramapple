@@ -1,0 +1,348 @@
+{
+ "id": "ap_chemistry__2.1__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 2,
+  "unit_title": "Compound Structure and Properties",
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "open",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:52:09.411Z",
+   "item": {
+    "title": "Electronegativity, Bond Polarity and Bond Type from Properties",
+    "calculator": "not_permitted",
+    "stimulus": "A student studies how the type of chemical bond depends on the atoms involved. The student first looks up the Pauling electronegativity values for several elements, shown below.\n\nElement | Electronegativity\nH | 2.20\nF | 3.98\nCl | 3.16\nBr | 2.96\n\nThe student then tests two unknown solid samples, P and Q. Each is a pure substance made of elements from the third period. The results are shown below.\n\nProperty | Sample P | Sample Q\nMelting point | 714 \u00b0C | 650 \u00b0C\nConducts electricity as a solid? | No | Yes\nConducts electricity as a liquid? | Yes | Yes\nBehavior when struck with a hammer | Shatters | Flattens without breaking",
+    "model_answer": "(a) H\u2013F: 3.98 \u2212 2.20 = 1.78. H\u2013Cl: 3.16 \u2212 2.20 = 0.96. H\u2013Br: 2.96 \u2212 2.20 = 0.76. In single bonds a larger electronegativity difference gives a larger bond dipole, so the ranking is H\u2013F > H\u2013Cl > H\u2013Br.\n\n(b) The Cl atom carries the partial negative charge. Cl has a higher electronegativity (3.16) than H (2.20), so the shared bonding electrons are pulled closer to Cl, giving Cl \u03b4\u2212 and H \u03b4+.\n\n(c) Cl and Br are in the same group, but the valence electrons of Cl are in the n = 3 shell while those of Br are in the n = 4 shell. The effective nuclear charge felt by the valence electrons is about the same, but the bonding electrons in Cl are closer to the nucleus. By Coulomb's law, F \u221d q\u2081q\u2082/r\u00b2, a smaller distance gives a stronger attraction, so Cl attracts shared electrons more strongly and is more electronegative.\n\n(d) Sample P is ionic. In the solid, the cations and anions are held in fixed positions in the lattice and cannot move, so the solid does not conduct. When melted, the ions are free to move and carry charge, so the liquid conducts. Its brittleness also fits an ionic lattice. Sample Q is metallic. Its valence electrons are delocalized, a sea of electrons not associated with any individual atom, so they can move through the solid and conduct electricity in both the solid and the liquid. Its malleability also fits metallic bonding.",
+    "verification_python": "from fractions import Fraction as F\nH=F('2.20');Fl=F('3.98');Cl=F('3.16');Br=F('2.96')\nd1=Fl-H;d2=Cl-H;d3=Br-H\nassert d1==F('1.78')\nassert d2==F('0.96')\nassert d3==F('0.76')\nassert d1>d2>d3\nassert Cl>H\nassert Cl>Br\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the electronegativity difference for each of the single bonds H\u2013F, H\u2013Cl and H\u2013Br. Then rank the three bonds from largest bond dipole to smallest.",
+      "criteria": [
+       {
+        "text": "Correct differences (H\u2013F 1.78, H\u2013Cl 0.96, H\u2013Br 0.76) and ranking H\u2013F > H\u2013Cl > H\u2013Br",
+        "evidence": "Response shows all three subtractions with correct values and ranks bond dipoles H\u2013F largest, then H\u2013Cl, then H\u2013Br, consistent with larger difference giving larger dipole.",
+        "fix": "Subtract the smaller electronegativity from the larger for each bond, then rank: in single bonds a larger difference means a larger bond dipole.",
+        "accepted_variants": [
+         "1.78, 0.96, 0.76",
+         "H\u2013F > H\u2013Cl > H\u2013Br"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In the H\u2013Cl bond, identify which atom carries a partial negative charge and justify your answer.",
+      "criteria": [
+       {
+        "text": "Cl carries the partial negative charge because Cl is more electronegative than H (3.16 vs 2.20)",
+        "evidence": "Response names Cl as the partially negative atom and justifies it by Cl having the higher electronegativity, so the shared electrons are pulled closer to Cl.",
+        "fix": "The more electronegative atom attracts the shared electrons more strongly; compare the two values and assign \u03b4\u2212 to the higher one.",
+        "accepted_variants": [
+         "chlorine",
+         "\u03b4\u2212 on Cl"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of atomic structure and Coulomb's law, why Cl is more electronegative than Br.",
+      "criteria": [
+       {
+        "text": "Cl's valence electrons are in a lower shell (n = 3) closer to the nucleus than Br's (n = 4), with similar effective nuclear charge, so Cl attracts bonding electrons more strongly",
+        "evidence": "Response states that the valence electrons of Cl occupy a smaller shell (closer to the nucleus, less shielding by inner shells) than those of Br, and uses Coulomb's law (smaller distance gives stronger attraction) to conclude Cl attracts shared electrons more strongly.",
+        "fix": "Compare valence shell numbers down the group, then apply Coulomb's law: shorter distance between nucleus and bonding electrons means stronger attraction.",
+        "accepted_variants": [
+         "Cl valence electrons closer to the nucleus",
+         "fewer occupied electron shells in Cl"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data for samples P and Q, identify the type of bonding (ionic, covalent or metallic) in each sample. Justify each identification with the particle-level explanation of its electrical conductivity.",
+      "criteria": [
+       {
+        "text": "Sample P is ionic: ions are fixed in the solid lattice but free to move in the liquid, so it conducts only when melted",
+        "evidence": "Response identifies P as ionic and explains that in the solid the ions cannot move, while in the liquid the ions are mobile and carry charge (brittleness or high melting point may be cited as additional support).",
+        "fix": "Link conductivity to mobile charged particles: ionic solids conduct only when melted or dissolved because only then can ions move.",
+        "accepted_variants": [
+         "ionic bonding",
+         "ionic solid"
+        ]
+       },
+       {
+        "text": "Sample Q is metallic: its valence electrons are delocalized and free to move, so it conducts even as a solid",
+        "evidence": "Response identifies Q as metallic and explains that valence electrons are delocalized, not tied to any individual atom, and can move through the solid to carry charge (malleability may be cited as additional support).",
+        "fix": "Remember metallic solids have delocalized valence electrons that move freely, which explains conduction in the solid state.",
+        "accepted_variants": [
+         "metallic bonding",
+         "metal"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6,
+     "3": 1
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (d), criterion d1, requires explaining ionic conductivity through fixed lattice ions versus mobile molten ions. This goes beyond Topic 2.1's bonding classification objectives and requires later content on ionic solids and their properties (Topics 2.3 and 3.2). Although most points assess Topic 2.1, not every part is answerable using that topic and earlier units alone.",
+       "rubric_points: Criterion a1 combines two separately requested, independently observable elements into one point: calculating the three electronegativity differences and ranking the bond dipoles. Separate the calculation result set from the ranking criterion."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (d), criterion d1, requires explaining ionic conductivity through fixed lattice ions versus mobile molten ions. This goes beyond Topic 2.1's bonding classification objectives and requires later content on ionic solids and their properties (Topics 2.3 and 3.2). Although most points assess Topic 2.1, not every part is answerable using that topic and earlier units alone."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines two separately requested, independently observable elements into one point: calculating the three electronegativity differences and ranking the bond dipoles. Separate the calculation result set from the ranking criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles multiple independently observable results into one point: three calculated electronegativity differences and a bond-dipole ranking. Separate the calculations from the ranking, or narrow the requested and scored response to one element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles multiple independently observable results into one point: three calculated electronegativity differences and a bond-dipole ranking. Separate the calculations from the ranking, or narrow the requested and scored response to one element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles two distinct observable elements \u2014 the three calculated electronegativity differences and the bond-dipole ranking \u2014 into one point; each criterion should award one specific element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles two distinct observable elements \u2014 the three calculated electronegativity differences and the bond-dipole ranking \u2014 into one point; each criterion should award one specific element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (d), criterion d1 requires the particle-level explanation that ions in an ionic solid are fixed in a lattice but become mobile when melted; this is not part of Topic 2.1 and is introduced in later Topic 2.3."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires the particle-level explanation that ions in an ionic solid are fixed in a lattice but become mobile when melted; this is not part of Topic 2.1 and is introduced in later Topic 2.3."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "removed_gateway_credit_failures": 2
+}

@@ -1,0 +1,533 @@
+{
+ "id": "ap_calculus_bc__2.10__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.10",
+  "topic_title": "Derivatives of tan x, cot x, sec x, and csc x",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:39:17.728Z",
+   "item": {
+    "title": "Derivatives of Secant, Tangent, Cosecant via Identities and Rules",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x·tan x − csc x for 0 < x < π/2, and let g(x) = sec x / (1 + tan x) for −π/4 < x < π/2.",
+    "model_answer": "(a) sec x = 1/cos x. By the quotient rule, d/dx[1/cos x] = (cos x·0 − 1·(−sin x))/cos²x = sin x/cos²x. Then sin x/cos²x = (1/cos x)·(sin x/cos x) = sec x tan x.\n\n(b) By the product rule, d/dx[x·tan x] = 1·tan x + x·sec²x. Also d/dx[csc x] = −csc x cot x. So f′(x) = tan x + x·sec²x + csc x cot x.\nAt x = π/4: tan(π/4) = 1, sec²(π/4) = 2, csc(π/4) = √2, cot(π/4) = 1.\nf′(π/4) = 1 + (π/4)(2) + √2·1 = 1 + π/2 + √2.\n\n(c) By the quotient rule, g′(x) = [(1 + tan x)·sec x tan x − sec x·sec²x]/(1 + tan x)².\nAt x = 0: tan 0 = 0, sec 0 = 1, so g′(0) = [(1)(1)(0) − (1)(1)]/(1)² = −1.\ng(0) = sec 0/(1 + tan 0) = 1/1 = 1.\nTangent line: y − 1 = −1(x − 0), that is, y = 1 − x.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\nd=sp.diff(1/sp.cos(x),x)\nassert sp.simplify(d-sp.sin(x)/sp.cos(x)**2)==0\nassert sp.simplify(d-sp.sec(x)*sp.tan(x))==0\nf=x*sp.tan(x)-sp.csc(x)\nfp=sp.diff(f,x)\nassert sp.simplify(fp-(sp.tan(x)+x*sp.sec(x)**2+sp.csc(x)*sp.cot(x)))==0\nv=fp.subs(x,sp.pi/4)\nassert sp.simplify(v-(1+sp.pi/2+sp.sqrt(2)))==0\ng=sp.sec(x)/(1+sp.tan(x))\ngp=sp.diff(g,x)\nform=((1+sp.tan(x))*sp.sec(x)*sp.tan(x)-sp.sec(x)*sp.sec(x)**2)/(1+sp.tan(x))**2\nassert sp.simplify(gp-form)==0\nassert sp.simplify(gp.subs(x,0)+1)==0\nassert sp.simplify(g.subs(x,0)-1)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the identity sec x = 1/cos x and the quotient rule, show that d/dx[sec x] = sec x tan x. Show each step.",
+      "criteria": [
+       {
+        "text": "Applies the quotient rule to 1/cos x correctly, obtaining (cos x·0 − 1·(−sin x))/cos²x = sin x/cos²x.",
+        "evidence": "A quotient-rule expression with numerator derivative 0, denominator derivative −sin x, and denominator cos²x, simplified to sin x/cos²x.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom², using top = 1, top′ = 0, bottom = cos x, bottom′ = −sin x.",
+        "accepted_variants": [
+         "sin x/(cos x)²"
+        ]
+       },
+       {
+        "text": "Uses identities to rewrite sin x/cos²x as (1/cos x)(sin x/cos x) = sec x tan x.",
+        "evidence": "An explicit factoring of sin x/cos²x into 1/cos x times sin x/cos x, identified as sec x and tan x.",
+        "fix": "Split cos²x as cos x·cos x and match each factor to sec x = 1/cos x and tan x = sin x/cos x.",
+        "accepted_variants": [
+         "tan x sec x"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find f′(x), and find the exact value of f′(π/4).",
+      "criteria": [
+       {
+        "text": "Correct derivative f′(x) = tan x + x·sec²x + csc x cot x, using the product rule and d/dx[csc x] = −csc x cot x.",
+        "evidence": "A product-rule structure for x·tan x (1·tan x + x·sec²x) and the correct sign on the csc x cot x term.",
+        "fix": "Show the product rule for x·tan x explicitly, and remember d/dx[csc x] = −csc x cot x, so subtracting csc x adds csc x cot x.",
+        "accepted_variants": [
+         "tan x + x sec²x + csc x cot x"
+        ]
+       },
+       {
+        "text": "Correct value f′(π/4) = 1 + π/2 + √2.",
+        "evidence": "Substitution using tan(π/4) = 1, sec²(π/4) = 2, csc(π/4) = √2, cot(π/4) = 1, giving 1 + π/2 + √2.",
+        "fix": "Evaluate each trig value at π/4 separately first: tan = 1, sec² = 2, csc = √2, cot = 1, then substitute.",
+        "accepted_variants": [
+         "1 + √2 + π/2",
+         "(2 + π + 2√2)/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find g′(0). Then write an equation for the line tangent to the graph of g at x = 0.",
+      "criteria": [
+       {
+        "text": "Correct quotient-rule setup: g′(x) = [(1 + tan x)·sec x tan x − sec x·sec²x]/(1 + tan x)².",
+        "evidence": "A quotient-rule expression containing the derivative of sec x (sec x tan x) and of 1 + tan x (sec²x) in the correct positions.",
+        "fix": "Identify top = sec x and bottom = 1 + tan x, differentiate each with the 2.10 formulas, then substitute into the quotient rule.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value g′(0) = −1.",
+        "evidence": "Substitution of tan 0 = 0 and sec 0 = 1 into the derivative, giving (0 − 1)/1 = −1.",
+        "fix": "Substitute tan 0 = 0 and sec 0 = 1 carefully into every term of the numerator and denominator.",
+        "accepted_variants": [
+         "-1"
+        ]
+       },
+       {
+        "text": "Correct tangent line y = 1 − x, using g(0) = 1 and slope g′(0).",
+        "evidence": "Computes g(0) = sec 0/(1 + tan 0) = 1 and writes the line through (0, 1) with slope g′(0).",
+        "fix": "Find the point g(0) first, then use y − g(0) = g′(0)(x − 0).",
+        "accepted_variants": [
+         "y − 1 = −1(x − 0)",
+         "y = −x + 1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words",
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:43:55.216Z",
+   "item": {
+    "title": "Derivatives of Tangent, Secant, and a Rewritten Quotient",
+    "calculator": "not_permitted",
+    "stimulus": "Let g(x) = x² sec x for 0 < x < π/2.\n\nLet h(x) = (1 + cot x)/csc x for 0 < x < π.\n\nAnswer all parts of the following question.",
+    "model_answer": "(a) d/dx[tan x] = d/dx[sin x / cos x] = [cos x · cos x − sin x · (−sin x)] / cos² x = (cos² x + sin² x)/cos² x. Since sin² x + cos² x = 1, this equals 1/cos² x = sec² x.\n\n(b) By the product rule, g′(x) = (2x)(sec x) + (x²)(sec x tan x) = 2x sec x + x² sec x tan x.\nAt x = π/3: sec(π/3) = 2 and tan(π/3) = √3, so g′(π/3) = 2(π/3)(2) + (π²/9)(2)(√3) = 4π/3 + 2√3π²/9.\n\n(c) On 0 < x < π, sin x ≠ 0, so h(x) = (1 + cos x/sin x)/(1/sin x) = (1 + cos x/sin x)·sin x = sin x + cos x.\nTherefore h′(x) = cos x − sin x.\nThe tangent line is horizontal where h′(x) = 0: cos x = sin x. At x = π/2, cos x = 0 ≠ sin x, so we may divide by cos x to get tan x = 1. In 0 < x < π the only solution is x = π/4.",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x')\n# (a)\nq = (sp.cos(x)*sp.cos(x) - sp.sin(x)*(-sp.sin(x)))/sp.cos(x)**2\nassert sp.simplify(q - sp.sec(x)**2) == 0\nassert sp.simplify(sp.diff(sp.tan(x), x) - sp.sec(x)**2) == 0\n# (b)\ng = x**2*sp.sec(x)\ngp = sp.diff(g, x)\nassert sp.simplify(gp - (2*x*sp.sec(x) + x**2*sp.sec(x)*sp.tan(x))) == 0\nassert sp.simplify(sp.sec(sp.pi/3) - 2) == 0\nassert sp.simplify(sp.tan(sp.pi/3) - sp.sqrt(3)) == 0\nval = gp.subs(x, sp.pi/3)\ntarget = 4*sp.pi/3 + 2*sp.sqrt(3)*sp.pi**2/9\nassert abs(float(val - target)) < 1e-12\nassert abs(float(target - (12*sp.pi + 2*sp.sqrt(3)*sp.pi**2)/9)) < 1e-12\n# (c)\nh = (1 + sp.cot(x))/sp.csc(x)\nassert sp.simplify(h - (sp.sin(x) + sp.cos(x))) == 0\nhp = sp.diff(h, x)\nassert sp.simplify(hp - (sp.cos(x) - sp.sin(x))) == 0\nsols = sp.solveset(sp.cos(x) - sp.sin(x), x, sp.Interval.open(0, sp.pi))\nassert sols == sp.FiniteSet(sp.pi/4)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write tan x as sin x / cos x and use the quotient rule to show that d/dx[tan x] = sec² x.",
+      "criteria": [
+       {
+        "text": "Correct quotient rule setup: d/dx[sin x / cos x] = [cos x · cos x − sin x · (−sin x)] / cos² x",
+        "evidence": "Shows the quotient rule applied with numerator derivative cos x and denominator derivative −sin x, written out before simplifying.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom², substitute each piece, and show that line before simplifying.",
+        "accepted_variants": [
+         "(cos² x + sin² x)/cos² x"
+        ]
+       },
+       {
+        "text": "Simplifies using sin² x + cos² x = 1 to obtain 1/cos² x = sec² x",
+        "evidence": "Explicitly uses the Pythagorean identity to reduce the numerator to 1 and rewrites 1/cos² x as sec² x.",
+        "fix": "After combining the numerator, cite sin² x + cos² x = 1, then rewrite 1/cos² x as sec² x.",
+        "accepted_variants": [
+         "1/cos² x"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find g′(x), and find the exact value of g′(π/3).",
+      "criteria": [
+       {
+        "text": "g′(x) = 2x sec x + x² sec x tan x, using the product rule and d/dx[sec x] = sec x tan x",
+        "evidence": "Shows the product rule structure with derivative of x² as 2x and derivative of sec x as sec x tan x.",
+        "fix": "Apply the product rule u′v + uv′, and recall that d/dx[sec x] = sec x tan x, not tan² x or sec² x.",
+        "accepted_variants": [
+         "2x sec x + x² sec x tan x",
+         "x sec x (2 + x tan x)"
+        ]
+       },
+       {
+        "text": "g′(π/3) = 4π/3 + 2√3π²/9",
+        "evidence": "Substitutes sec(π/3) = 2 and tan(π/3) = √3 into the correct derivative and obtains the exact value (unsimplified equivalent accepted).",
+        "fix": "Use sec(π/3) = 1/cos(π/3) = 2 and tan(π/3) = √3, then substitute carefully into each term.",
+        "accepted_variants": [
+         "2(π/3)(2) + (π/3)²(2)(√3)",
+         "(12π + 2√3π²)/9"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find h′(x) for 0 < x < π. Then find the value of x in the interval 0 < x < π at which the line tangent to the graph of h is horizontal.",
+      "criteria": [
+       {
+        "text": "h′(x) = cos x − sin x, found either by rewriting h(x) = sin x + cos x or by the quotient rule with cot and csc derivatives",
+        "evidence": "Shows a valid route: rewriting (1 + cot x)/csc x as (1 + cos x/sin x)·sin x = sin x + cos x and differentiating, or a correct quotient rule computation that simplifies to cos x − sin x.",
+        "fix": "Rewrite csc x and cot x in terms of sin x and cos x first; dividing by csc x means multiplying by sin x.",
+        "accepted_variants": [
+         "−sin x + cos x"
+        ]
+       },
+       {
+        "text": "x = π/4, from setting h′(x) = 0 so tan x = 1 in 0 < x < π",
+        "evidence": "Sets the derivative equal to zero, solves cos x = sin x on the interval, and gives x = π/4 as the only solution.",
+        "fix": "Set h′(x) = 0, divide by cos x to get tan x = 1, and keep only solutions inside 0 < x < π.",
+        "accepted_variants": [
+         "π/4"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": false,
+    "out": "disallowed call or module reference"
+   },
+   "stage": "recompute"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:44:25.717Z",
+   "item": {
+    "title": "Derivatives of Tangent, Secant, Cosecant, and Cotangent",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x·sec x for −π/2 < x < π/2, and let k(x) = csc x + cot x for 0 < x < π.",
+    "model_answer": "(a) d/dx[tan x] = d/dx[sin x / cos x] = [cos x·cos x − sin x·(−sin x)] / cos² x = (cos² x + sin² x)/cos² x. Since sin² x + cos² x = 1, this equals 1/cos² x = sec² x.\n\n(b) By the product rule, f′(x) = (1)(sec x) + x·(sec x tan x) = sec x + x sec x tan x. At x = π/3, sec(π/3) = 1/cos(π/3) = 2 and tan(π/3) = √3, so f′(π/3) = 2 + (π/3)(2)(√3) = 2 + 2π√3/3.\n\n(c) k′(x) = d/dx[csc x] + d/dx[cot x] = −csc x cot x − csc² x. At x = π/2, csc(π/2) = 1 and cot(π/2) = 0, so k(π/2) = 1 + 0 = 1 and k′(π/2) = −(1)(0) − 1² = −1. The tangent line is y − 1 = −1(x − π/2), that is, y = 1 − (x − π/2).",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\n# (a)\nq=(sp.cos(x)*sp.cos(x)-sp.sin(x)*(-sp.sin(x)))/sp.cos(x)**2\nassert sp.simplify(q-sp.sec(x)**2)==0\nassert sp.simplify(sp.diff(sp.tan(x),x)-sp.sec(x)**2)==0\n# (b)\nf=x*sp.sec(x)\nfp=sp.diff(f,x)\nassert sp.simplify(fp-(sp.sec(x)+x*sp.sec(x)*sp.tan(x)))==0\nval=fp.subs(x,sp.pi/3)\nassert sp.simplify(val-(2+2*sp.pi*sp.sqrt(3)/3))==0\nassert sp.simplify(val-(2+2*sp.pi/sp.sqrt(3)))==0\nassert sp.simplify(sp.sec(sp.pi/3)-2)==0 and sp.simplify(sp.tan(sp.pi/3)-sp.sqrt(3))==0\n# (c)\nk=sp.csc(x)+sp.cot(x)\nkp=sp.diff(k,x)\nassert sp.simplify(kp-(-sp.csc(x)*sp.cot(x)-sp.csc(x)**2))==0\nassert sp.simplify(k.subs(x,sp.pi/2)-1)==0\nassert sp.simplify(kp.subs(x,sp.pi/2)+1)==0\nline=1-(x-sp.pi/2)\nassert sp.simplify(line-(-x+sp.pi/2+1))==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the identity tan x = sin x / cos x and the quotient rule, show that d/dx[tan x] = sec² x. Show each step.",
+      "criteria": [
+       {
+        "text": "Correct quotient rule setup: d/dx[sin x / cos x] = [cos x·cos x − sin x·(−sin x)] / cos² x",
+        "evidence": "Response writes the quotient rule numerator using (cos x)(cos x) − (sin x)(−sin x), or an equivalent expression, over cos² x.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom², using d/dx[sin x] = cos x and d/dx[cos x] = −sin x.",
+        "accepted_variants": [
+         "(cos² x + sin² x)/cos² x"
+        ]
+       },
+       {
+        "text": "Simplifies to 1/cos² x = sec² x using sin² x + cos² x = 1",
+        "evidence": "Response replaces cos² x + sin² x with 1 by citing the Pythagorean identity and rewrites 1/cos² x as sec² x.",
+        "fix": "After the quotient rule, apply sin² x + cos² x = 1 to the numerator, then use sec x = 1/cos x.",
+        "accepted_variants": [
+         "1/cos² x"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find f′(x). Then find the exact value of f′(π/3).",
+      "criteria": [
+       {
+        "text": "f′(x) = sec x + x·sec x·tan x, from the product rule",
+        "evidence": "Response applies the product rule with d/dx[x] = 1 and d/dx[sec x] = sec x tan x to obtain sec x + x sec x tan x or an equivalent expression.",
+        "fix": "Treat x·sec x as a product: (1)(sec x) + x·(sec x tan x). Memorize d/dx[sec x] = sec x tan x.",
+        "accepted_variants": [
+         "sec x(1 + x tan x)"
+        ]
+       },
+       {
+        "text": "f′(π/3) = 2 + 2π√3/3",
+        "evidence": "Response substitutes sec(π/3) = 2 and tan(π/3) = √3 into its correct derivative to get 2 + (π/3)(2)(√3) = 2 + 2π√3/3.",
+        "fix": "Evaluate sec(π/3) = 1/cos(π/3) = 2 and tan(π/3) = √3 before substituting into f′(x).",
+        "accepted_variants": [
+         "2 + 2π/√3",
+         "2 + (2√3/3)π"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find k′(x). Then write an equation for the line tangent to the graph of k at x = π/2.",
+      "criteria": [
+       {
+        "text": "k′(x) = −csc x cot x − csc² x",
+        "evidence": "Response uses d/dx[csc x] = −csc x cot x and d/dx[cot x] = −csc² x with the sum rule.",
+        "fix": "Recall that the co-functions csc x and cot x have negative derivatives: −csc x cot x and −csc² x.",
+        "accepted_variants": [
+         "−csc x(cot x + csc x)"
+        ]
+       },
+       {
+        "text": "Tangent line y = 1 − (x − π/2), using k(π/2) = 1 and k′(π/2) = −1",
+        "evidence": "Response computes k(π/2) = 1 + 0 = 1 and k′(π/2) = −(1)(0) − 1² = −1, then writes the tangent line through (π/2, 1) with slope −1.",
+        "fix": "Evaluate both k(π/2) and k′(π/2) using csc(π/2) = 1 and cot(π/2) = 0, then use point-slope form.",
+        "accepted_variants": [
+         "y = −x + π/2 + 1",
+         "y − 1 = −(x − π/2)"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.10": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires the product rule although part (b) permits a valid quotient-rule solution using f(x) = x/cos x. It also bundles product-rule setup and the correct derivative into one all-or-nothing point, contrary to the supplied scoring conventions. Criterion c1 requires direct cosecant and cotangent derivative rules, excluding a valid quotient-rule derivation from k(x) = (1 + cos x)/sin x.",
+       "rubric_evidence: Criterion b1's fix gives two separate actions: apply the product rule and memorize the secant derivative. The rule requires one concrete action; remove the separate memorization directive."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires the product rule although part (b) permits a valid quotient-rule solution using f(x) = x/cos x. It also bundles product-rule setup and the correct derivative into one all-or-nothing point, contrary to the supplied scoring conventions. Criterion c1 requires direct cosecant and cotangent derivative rules, excluding a valid quotient-rule derivation from k(x) = (1 + cos x)/sin x."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion b1's fix gives two separate actions: apply the product rule and memorize the secant derivative. The rule requires one concrete action; remove the separate memorization directive."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria b1 and c1 prescribe methods not required by their parts. Part (b) permits rewriting f(x) = x/cos x and using the quotient rule, but b1 requires product-rule evidence. Part (c) permits rewriting k(x) = (1 + cos x)/sin x and differentiating that quotient, but c1 requires the individual cosecant and cotangent derivative rules with the sum rule. Accept correct differentiation work using either approach."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and c1 prescribe methods not required by their parts. Part (b) permits rewriting f(x) = x/cos x and using the quotient rule, but b1 requires product-rule evidence. Part (c) permits rewriting k(x) = (1 + cos x)/sin x and differentiating that quotient, but c1 requires the individual cosecant and cotangent derivative rules with the sum rule. Accept correct differentiation work using either approach."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: prescribes the product rule even though part (b) only asks to find f′(x); a valid quotient-rule solution using x/cos x is rejected."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: prescribes the product rule even though part (b) only asks to find f′(x); a valid quotient-rule solution using x/cos x is rejected."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 requires the product rule and part (c) criterion c1 requires the memorized csc and cot derivative formulas, but neither part asks for a specific method; valid quotient-rule derivations (x/cos x for f, 1/sin x and cos x/sin x for k) are rejected."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 requires the product rule and part (c) criterion c1 requires the memorized csc and cot derivative formulas, but neither part asks for a specific method; valid quotient-rule derivations (x/cos x for f, 1/sin x and cos x/sin x for k) are rejected."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:38:19.617Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivatives of Secant, Tangent, Cosecant and Cotangent"
+  },
+  {
+   "at": "2026-10-10T01:38:50.449Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivatives of Tangent, Cotangent, and Secant Using Product and Quotient Rules"
+  }
+ ]
+}

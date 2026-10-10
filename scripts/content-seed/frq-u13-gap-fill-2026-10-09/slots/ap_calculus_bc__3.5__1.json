@@ -1,0 +1,902 @@
+{
+ "id": "ap_calculus_bc__3.5__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 3,
+  "unit_title": "Differentiation: Composite, Implicit, and Inverse Functions",
+  "topic_code": "3.5",
+  "topic_title": "Selecting Procedures for Calculating Derivatives",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.217Z",
+   "item": {
+    "title": "Choosing Derivative Rules with Tabulated Function Values",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are differentiable for all real numbers x. The function g is one-to-one, and its inverse function is g⁻¹. Selected values of f, f′, g and g′ are given in the table below.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | 4 | 2 | −1\n2 | 1 | −2 | 3 | 6\n3 | 2 | 5 | 1 | 2\n\nFor each part, decide which differentiation rule or rules apply, and show the structure of the rule before substituting values.",
+    "model_answer": "(a) h is a product, and ln(f(x)) is a composite, so I use the product rule and the chain rule.\nh′(x) = g′(x)·ln(f(x)) + g(x)·f′(x)/f(x).\nh′(3) = g′(3)·ln(f(3)) + g(3)·f′(3)/f(3) = 2·ln 2 + 1·(5/2) = 2 ln 2 + 5/2.\n\n(b) p is a composite of arctan, f, and 2x, so I use the chain rule with the arctan derivative.\np′(x) = [1/(1 + (f(2x))²)]·f′(2x)·2.\np′(1) = [1/(1 + (f(2))²)]·f′(2)·2 = [1/(1 + 1²)]·(−2)·2 = −4/2 = −2.\n\n(c) Since g(2) = 3, g⁻¹(3) = 2. By the inverse function derivative rule,\n(g⁻¹)′(3) = 1/g′(g⁻¹(3)) = 1/g′(2) = 1/6.\n\n(d) q is a quotient, so I use the quotient rule.\nq′(x) = (x²·f′(x) − f(x)·2x)/(x²)².\nq′(2) = (4·f′(2) − f(2)·4)/16 = (4(−2) − 1·4)/16 = −12/16 = −3/4.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction\nf={1:3,2:1,3:2}\nfp={1:4,2:-2,3:5}\ng={1:2,2:3,3:1}\ngp={1:-1,2:6,3:2}\n# one-to-one check\nassert len(set(g.values()))==3\n# (a)\nha=gp[3]*sp.log(f[3])+g[3]*sp.Rational(fp[3],f[3])\nassert sp.simplify(ha-(2*sp.log(2)+sp.Rational(5,2)))==0\nassert sp.simplify(ha-(sp.log(4)+sp.Rational(5,2)))==0\n# (b)\npb=sp.Rational(1,1+f[2]**2)*fp[2]*2\nassert pb==-2\n# (c)\ninv=[x for x in g if g[x]==3][0]\nassert inv==2\nc=Fraction(1,gp[inv])\nassert c==Fraction(1,6)\nassert abs(float(c)-0.1667)<1e-3\n# (d)\nx=2\nqd=Fraction(x**2*fp[x]-f[x]*2*x,(x**2)**2)\nassert qd==Fraction(-3,4)\nassert Fraction(-12,16)==qd\n# symbolic structure check with generic functions\nX=sp.symbols('x')\nF=sp.Function('F'); G=sp.Function('G')\nassert sp.simplify(sp.diff(F(X)/X**2,X)-(X**2*sp.diff(F(X),X)-F(X)*2*X)/X**4)==0\nassert sp.simplify(sp.diff(sp.atan(F(2*X)),X)-2*sp.diff(F(X),X).subs(X,2*X)/(1+F(2*X)**2))==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Let h(x) = g(x)·ln(f(x)). Find h′(3).",
+      "criteria": [
+       {
+        "text": "Correct derivative structure: h′(x) = g′(x)·ln(f(x)) + g(x)·f′(x)/f(x), combining the product rule with the chain rule on ln(f(x)).",
+        "evidence": "Response shows a product-rule expression in which the derivative of ln(f(x)) appears as f′(x)/f(x), either symbolically or with values substituted at x = 3.",
+        "fix": "Write h′ = g′·ln(f) + g·(ln f)′ first, then use the chain rule: the derivative of ln(f(x)) is f′(x)/f(x).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value h′(3) = 2 ln 2 + 5/2.",
+        "evidence": "Response substitutes g′(3) = 2, f(3) = 2, g(3) = 1, f′(3) = 5 and states h′(3) = 2 ln 2 + 5/2 or an equivalent exact form.",
+        "fix": "Read every needed value from the x = 3 row only, then substitute carefully: g′(3)ln f(3) + g(3)f′(3)/f(3).",
+        "accepted_variants": [
+         "5/2 + 2 ln 2",
+         "2.5 + ln 4",
+         "ln 4 + 5/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let p(x) = arctan(f(2x)). Find p′(1).",
+      "criteria": [
+       {
+        "text": "Correct derivative structure: p′(x) = f′(2x)·2 / (1 + (f(2x))²), applying the arctan derivative and the chain rule twice.",
+        "evidence": "Response shows the factor 1/(1 + (f(2x))²), the factor f′(2x), and the factor 2 from the inner function 2x, either symbolically or with values substituted.",
+        "fix": "Peel layers from outside in: arctan gives 1/(1+u²), then multiply by f′(2x), then by 2 from the innermost 2x.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value p′(1) = −2.",
+        "evidence": "Response uses f(2) = 1 and f′(2) = −2 to get (−2)(2)/(1 + 1²) = −2.",
+        "fix": "At x = 1 the input to f is 2x = 2, so use the x = 2 row, not the x = 1 row.",
+        "accepted_variants": [
+         "-2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find (g⁻¹)′(3).",
+      "criteria": [
+       {
+        "text": "Identifies g⁻¹(3) = 2 because g(2) = 3.",
+        "evidence": "Response explicitly states that g(2) = 3, so g⁻¹(3) = 2, and uses 2 as the point at which g′ is evaluated.",
+        "fix": "Find the x-value whose g(x) entry equals 3; that x is g⁻¹(3), where g′ must be evaluated.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value (g⁻¹)′(3) = 1/g′(2) = 1/6.",
+        "evidence": "Response applies (g⁻¹)′(3) = 1/g′(g⁻¹(3)) = 1/g′(2) and states 1/6.",
+        "fix": "Use (g⁻¹)′(a) = 1/g′(g⁻¹(a)); do not compute 1/g′(3) or 1/g(3).",
+        "accepted_variants": [
+         "0.1667",
+         "0.167"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let q(x) = f(x)/x². Find q′(2).",
+      "criteria": [
+       {
+        "text": "Correct derivative structure: q′(x) = (x²·f′(x) − f(x)·2x)/(x²)², using the quotient rule (or an equivalent product rule on f(x)·x⁻²).",
+        "evidence": "Response shows a correct quotient-rule expression, or the equivalent f′(x)·x⁻² − 2f(x)·x⁻³, with correct order of subtraction.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom² before substituting, keeping the subtraction in that order.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value q′(2) = −3/4.",
+        "evidence": "Response substitutes f(2) = 1 and f′(2) = −2 to get (4(−2) − 1·4)/16 = −12/16 = −3/4.",
+        "fix": "Substitute x = 2 into every piece, including x² = 4, 2x = 4 and (x²)² = 16, then simplify.",
+        "accepted_variants": [
+         "-0.75",
+         "-12/16"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup is inconsistent. Differentiability makes g continuous, and g(2) = 3 and g(3) = 1 imply that g(c) = 2 for some c in (2,3). Since g(1) = 2, g cannot be one-to-one. In particular, part (c)'s stated global inverse cannot exist.",
+       "rubric_points: Criterion d2 requires the quotient-rule substitution (4(−2) − 1·4)/16, rejecting a valid product-rule evaluation such as (−2)·2⁻² − 2·1·2⁻³ = −3/4, despite d1 explicitly accepting that method. Criterion c2 also lists 0.1667 and 0.167 as equivalent forms of 1/6, although they are rounded approximations, not equivalent exact values.",
+       "accurate: The setup's assertion that a differentiable, one-to-one g has the tabulated values is mathematically impossible. Criterion c2 incorrectly labels 0.1667 and 0.167 as equivalent forms of 1/6.",
+       "solution: The intended formal computations agree with the rubric: (a) 2 ln 2 + 5/2; (b) −2; (c) 1/6; (d) −3/4. However, no g satisfies the entire setup, so the rubric treats the formal results in (a) and (c) as actual derivative values for an impossible function. Also, c2's accepted decimals are only approximations to 1/6, and d2's evidence unnecessarily excludes a correct product-rule computation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "The setup is inconsistent: no differentiable, one-to-one function g on all real numbers can have the listed values. Differentiability implies continuity. Because g(2)=3 and g(3)=1, the Intermediate Value Theorem guarantees a c in (2,3) with g(c)=2. But g(1)=2, contradicting one-to-one behavior. Consequently, the stated global inverse does not exist, and the results in (a) and (c) are formal intended computations rather than values for a function satisfying the entire setup. Parts (b) and (d), which use only f, are unaffected.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup is inconsistent. Differentiability makes g continuous, and g(2) = 3 and g(3) = 1 imply that g(c) = 2 for some c in (2,3). Since g(1) = 2, g cannot be one-to-one. In particular, part (c)'s stated global inverse cannot exist."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d2 requires the quotient-rule substitution (4(−2) − 1·4)/16, rejecting a valid product-rule evaluation such as (−2)·2⁻² − 2·1·2⁻³ = −3/4, despite d1 explicitly accepting that method. Criterion c2 also lists 0.1667 and 0.167 as equivalent forms of 1/6, although they are rounded approximations, not equivalent exact values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup's assertion that a differentiable, one-to-one g has the tabulated values is mathematically impossible. Criterion c2 incorrectly labels 0.1667 and 0.167 as equivalent forms of 1/6."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The intended formal computations agree with the rubric: (a) 2 ln 2 + 5/2; (b) −2; (c) 1/6; (d) −3/4. However, no g satisfies the entire setup, so the rubric treats the formal results in (a) and (c) as actual derivative values for an impossible function. Also, c2's accepted decimals are only approximations to 1/6, and d2's evidence unnecessarily excludes a correct product-rule computation.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup is inconsistent: no differentiable, one-to-one function g can satisfy the table. By continuity and the Intermediate Value Theorem, g(2) = 3 and g(3) = 1 imply g(d) = 2 for some d in (2,3), but g(1) = 2 already. Thus parts (a) and (c) use data from a nonexistent stipulated function.",
+       "rubric_points: Criterion d2 requires the quotient-rule numerical calculation even though d1 explicitly permits the product rule. A correct calculation q′(2) = (−2)/4 − 2(1)/8 = −3/4 must also earn d2. Criterion c2 lists 0.1667 and 0.167 as equivalent forms of 1/6, although they are rounded approximations, not equivalent values.",
+       "accurate: The setup's claim that g is differentiable and one-to-one is incompatible with its tabulated values. Also, criterion c2 incorrectly labels 0.1667 and 0.167 as equivalent forms of 1/6.",
+       "solution: The formal derivative calculations agree with the rubric: (a) 2 ln 2 + 5/2; (b) −2; (c) 1/6; (d) −3/4. However, the stipulated function g does not exist, so (a) and (c) are only formal table-based results. Criterion c2's listed decimals are approximations rather than exact equivalents. Criterion d2 also fails to accommodate a correct product-rule evaluation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "The assumptions about g are inconsistent with the table. Differentiability implies continuity. Because g(1) = 2 and g(3) = 1, the Intermediate Value Theorem guarantees some c in (1,3) with g(c) = 3/2. Because g(2) = 3 and g(3) = 1, it also guarantees some d in (2,3) with g(d) = 2; this contradicts one-to-one behavior since g(1) = 2 and d ≠ 1. Thus no differentiable, globally one-to-one g satisfies the table. The results in (a) and (c) are formal computations using the intended data, not values arising from a function satisfying every stated assumption. Parts (b) and (d) remain independently answerable.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup is inconsistent: no differentiable, one-to-one function g can satisfy the table. By continuity and the Intermediate Value Theorem, g(2) = 3 and g(3) = 1 imply g(d) = 2 for some d in (2,3), but g(1) = 2 already. Thus parts (a) and (c) use data from a nonexistent stipulated function."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d2 requires the quotient-rule numerical calculation even though d1 explicitly permits the product rule. A correct calculation q′(2) = (−2)/4 − 2(1)/8 = −3/4 must also earn d2. Criterion c2 lists 0.1667 and 0.167 as equivalent forms of 1/6, although they are rounded approximations, not equivalent values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup's claim that g is differentiable and one-to-one is incompatible with its tabulated values. Also, criterion c2 incorrectly labels 0.1667 and 0.167 as equivalent forms of 1/6."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The formal derivative calculations agree with the rubric: (a) 2 ln 2 + 5/2; (b) −2; (c) 1/6; (d) −3/4. However, the stipulated function g does not exist, so (a) and (c) are only formal table-based results. Criterion c2's listed decimals are approximations rather than exact equivalents. Criterion d2 also fails to accommodate a correct product-rule evaluation.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:47:28.872Z",
+   "item": {
+    "title": "Choosing Derivative Rules with a Table of Values",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are differentiable for all real numbers. Selected values of f, f′, g, and g′ are given in the table below.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | −2 | 2 | 4\n2 | 1 | 5 | 3 | −1\n3 | 2 | 6 | 1 | 7\n\nAnswer all parts of the following question. Show the rule or rules you use in each part.",
+    "model_answer": "(a) By the product rule and chain rule, h′(x) = 2x·f(g(x)) + x²·f′(g(x))·g′(x). At x = 1, g(1) = 2, so h′(1) = 2(1)·f(2) + 1²·f′(2)·g′(1) = 2(1)(1) + (1)(5)(4) = 2 + 20 = 22.\n\n(b) By the quotient rule, with d/dx[ln(f(x))] = f′(x)/f(x) by the chain rule:\nk′(x) = [(f′(x)/f(x))·g(x) − ln(f(x))·g′(x)] / (g(x))².\nk′(3) = [(6/2)(1) − (ln 2)(7)] / 1² = 3 − 7 ln 2.\n\n(c) Differentiating implicitly with respect to x: 3y²·(dy/dx) + y + x·(dy/dx) = 4g′(x).\nAt x = 2, y = 2, g′(2) = −1: 3(4)(dy/dx) + 2 + 2(dy/dx) = 4(−1), so 14(dy/dx) = −6 and dy/dx = −3/7.\n\n(d) From the table f(2) = 1, so f⁻¹(1) = 2. Then (f⁻¹)′(1) = 1/f′(f⁻¹(1)) = 1/f′(2) = 1/5.",
+    "verification_python": "import sympy as sp\nf={1:3,2:1,3:2}\nfp={1:-2,2:5,3:6}\ng={1:2,2:3,3:1}\ngp={1:4,2:-1,3:7}\n# (a)\nx=1\nha=2*x*f[g[x]]+x**2*fp[g[x]]*gp[x]\nassert ha==22\n# (b)\nx=3\nkb=(sp.Rational(fp[x],f[x])*g[x]-sp.log(f[x])*gp[x])/g[x]**2\nassert sp.simplify(kb-(3-7*sp.log(2)))==0\nassert sp.simplify(kb-(3-sp.log(128)))==0\n# (c)\nX,Y,D=sp.symbols('X Y D')\nassert 2**3+2*2==4*g[2]\neq=sp.Eq(3*Y**2*D+Y+X*D,4*gp[2])\nsol=sp.solve(eq.subs({X:2,Y:2}),D)[0]\nassert sol==sp.Rational(-3,7)\n# (d)\ninv=[k for k in f if f[k]==1][0]\nassert inv==2\nassert sp.Rational(1,fp[inv])==sp.Rational(1,5)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Let h(x) = x²·f(g(x)). Find h′(1).",
+      "criteria": [
+       {
+        "text": "Writes a correct derivative structure for h at x = 1 that combines the product rule with the chain rule: h′(1) = 2(1)·f(g(1)) + 1²·f′(g(1))·g′(1).",
+        "evidence": "An expression for h′(x) or h′(1) showing both product-rule terms, with the second term including the chain-rule factor g′.",
+        "fix": "For x²·f(g(x)), apply the product rule first, then differentiate f(g(x)) as f′(g(x))·g′(x).",
+        "accepted_variants": [
+         "h′(x) = 2x·f(g(x)) + x²·f′(g(x))·g′(x)"
+        ]
+       },
+       {
+        "text": "Evaluates correctly using g(1) = 2, f(2) = 1, f′(2) = 5, g′(1) = 4 to get h′(1) = 22.",
+        "evidence": "Substitution of the correct table values and the value 22.",
+        "fix": "Evaluate the inner function first: find g(1) = 2, then read f(2) and f′(2), not f(1) or f′(1).",
+        "accepted_variants": [
+         "2 + 20"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let k(x) = ln(f(x)) / g(x). Find k′(3).",
+      "criteria": [
+       {
+        "text": "Writes a correct quotient-rule structure with the chain rule applied to ln(f(x)): k′(x) = [(f′(x)/f(x))·g(x) − ln(f(x))·g′(x)] / (g(x))².",
+        "evidence": "A quotient-rule expression for k′(x) or k′(3) whose numerator includes f′(x)/f(x) as the derivative of ln(f(x)).",
+        "fix": "Use (top′·bottom − top·bottom′)/bottom², and differentiate ln(f(x)) as f′(x)/f(x).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates correctly using f(3) = 2, f′(3) = 6, g(3) = 1, g′(3) = 7 to get k′(3) = 3 − 7 ln 2.",
+        "evidence": "Correct substitution and the exact value 3 − 7 ln 2 or an equivalent unsimplified form.",
+        "fix": "Substitute every table value at x = 3 carefully and keep ln 2 exact rather than approximating.",
+        "accepted_variants": [
+         "[(6/2)(1) − (ln 2)(7)] / 1²",
+         "3 − ln 128"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The differentiable function y = y(x) satisfies y³ + x·y = 4g(x), and y = 2 when x = 2. Find dy/dx at x = 2.",
+      "criteria": [
+       {
+        "text": "Differentiates the equation implicitly and correctly: 3y²·(dy/dx) + y + x·(dy/dx) = 4g′(x).",
+        "evidence": "A correct implicit derivative of the whole equation, including the chain-rule factor on y³ and the product rule on x·y.",
+        "fix": "Treat y as a function of x: d/dx(y³) = 3y²·dy/dx and d/dx(xy) = y + x·dy/dx.",
+        "accepted_variants": [
+         "(3y² + x)·dy/dx = 4g′(x) − y"
+        ]
+       },
+       {
+        "text": "Substitutes x = 2, y = 2, g′(2) = −1 to get dy/dx = −3/7.",
+        "evidence": "The equation 12(dy/dx) + 2 + 2(dy/dx) = −4 or equivalent, solved to give −3/7.",
+        "fix": "After differentiating, substitute x = 2, y = 2 and g′(2) = −1, then solve the linear equation for dy/dx.",
+        "accepted_variants": [
+         "−6/14"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The function f is one-to-one. Find (f⁻¹)′(1).",
+      "criteria": [
+       {
+        "text": "Identifies from the table that f(2) = 1, so f⁻¹(1) = 2.",
+        "evidence": "A statement that f(2) = 1 or f⁻¹(1) = 2 used in the inverse derivative.",
+        "fix": "Find the input where f outputs 1 by scanning the f(x) column; that input is f⁻¹(1).",
+        "accepted_variants": [
+         "f⁻¹(1) = 2"
+        ]
+       },
+       {
+        "text": "Applies (f⁻¹)′(1) = 1/f′(f⁻¹(1)) = 1/f′(2) = 1/5.",
+        "evidence": "The inverse-function derivative relationship with f′(2) = 5 and the value 1/5.",
+        "fix": "Use (f⁻¹)′(a) = 1/f′(f⁻¹(a)); evaluate f′ at f⁻¹(1), not at 1.",
+        "accepted_variants": [
+         "0.2"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) contradicts the setup. Differentiability implies continuity, so f(1) = 3 and f(2) = 1 guarantee an input c in (1, 2) with f(c) = 2. Since f(3) = 2, f cannot be one-to-one.",
+       "rubric_points: Criterion b1 requires a quotient-rule expression, rejecting the valid alternative of rewriting k(x) = ln(f(x))·[g(x)]⁻¹ and using product and chain rules. Part (b) does not require the quotient rule. Criteria d1–d2 also fail to credit the defensible conclusion that the asserted global inverse is incompatible with the givens.",
+       "accurate: Part (d)'s one-to-one assertion is mathematically incompatible with the table and differentiability. Criterion d2 presents 1/5 as a valid global-inverse derivative even though no function satisfies all the stated conditions.",
+       "solution: Parts (a)–(c) agree with the rubric: 22, 3 − 7 ln 2, and −3/7. In part (d), criteria d1–d2 give the intended formal calculation 1/5, but the full setup is inconsistent and therefore does not define the asserted global inverse. A local inverse near x = 2 would support that value, but the question does not specify a local inverse."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (d) is inconsistent with the setup. Differentiability implies continuity. Since f(1) = 3 and f(2) = 1, the Intermediate Value Theorem guarantees some c in (1, 2) with f(c) = 2. But f(3) = 2 as well, contradicting the assertion that f is one-to-one. Parts (a)–(c) are well posed without that additional assertion.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) contradicts the setup. Differentiability implies continuity, so f(1) = 3 and f(2) = 1 guarantee an input c in (1, 2) with f(c) = 2. Since f(3) = 2, f cannot be one-to-one."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires a quotient-rule expression, rejecting the valid alternative of rewriting k(x) = ln(f(x))·[g(x)]⁻¹ and using product and chain rules. Part (b) does not require the quotient rule. Criteria d1–d2 also fail to credit the defensible conclusion that the asserted global inverse is incompatible with the givens."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d)'s one-to-one assertion is mathematically incompatible with the table and differentiability. Criterion d2 presents 1/5 as a valid global-inverse derivative even though no function satisfies all the stated conditions."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric: 22, 3 − 7 ln 2, and −3/7. In part (d), criteria d1–d2 give the intended formal calculation 1/5, but the full setup is inconsistent and therefore does not define the asserted global inverse. A local inverse near x = 2 would support that value, but the question does not specify a local inverse.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) contradicts the setup. Differentiability implies continuity, and f(1) = 3 and f(2) = 1 imply that f(c) = 2 for some c in (1, 2), by the Intermediate Value Theorem. Since f(3) = 2, f cannot be one-to-one.",
+       "rubric_points: Criterion b1 requires a quotient-rule expression, rejecting a valid alternative method that the prompt permits. Applying the product and chain rules to ln(f(x))·g(x)⁻¹ gives k′(x) = [f′(x)/f(x)]·g(x)⁻¹ − ln(f(x))·g′(x)·g(x)⁻² and should earn the structure point.",
+       "accurate: Part (d)'s assertion that f is one-to-one is incompatible with its differentiability and tabulated values. Criteria d1 and d2 consequently treat a nonexistent global inverse as defined; 1/5 is only the intended formal calculation, not a valid answer under all stated conditions.",
+       "solution: Parts (a)–(c) agree with the rubric: 22, 3 − 7 ln 2, and −3/7. In part (d), the formal inverse-derivative calculation gives 1/5, but the stated conditions contradict one another, so no global inverse satisfying the setup exists. The rubric does not acknowledge this defect."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (d) is inconsistent with the setup. Differentiability makes f continuous. Since f(1) = 3 and f(2) = 1, the Intermediate Value Theorem guarantees some c in (1, 2) with f(c) = 2. But f(3) = 2 as well, contradicting the assertion that f is one-to-one. Thus 1/5 is the intended formal answer to (d), but the global inverse is not well-defined under all the given conditions. Parts (a)–(c) are well posed.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) contradicts the setup. Differentiability implies continuity, and f(1) = 3 and f(2) = 1 imply that f(c) = 2 for some c in (1, 2), by the Intermediate Value Theorem. Since f(3) = 2, f cannot be one-to-one."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires a quotient-rule expression, rejecting a valid alternative method that the prompt permits. Applying the product and chain rules to ln(f(x))·g(x)⁻¹ gives k′(x) = [f′(x)/f(x)]·g(x)⁻¹ − ln(f(x))·g′(x)·g(x)⁻² and should earn the structure point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d)'s assertion that f is one-to-one is incompatible with its differentiability and tabulated values. Criteria d1 and d2 consequently treat a nonexistent global inverse as defined; 1/5 is only the intended formal calculation, not a valid answer under all stated conditions."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric: 22, 3 − 7 ln 2, and −3/7. In part (d), the formal inverse-derivative calculation gives 1/5, but the stated conditions contradict one another, so no global inverse satisfying the setup exists. The rubric does not acknowledge this defect.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:49:15.083Z",
+   "item": {
+    "title": "Choosing Derivative Rules with a Table and a Curve",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are differentiable for all real numbers. The function g is one-to-one, and its inverse function g⁻¹ is differentiable. Selected values of f, f′, g and g′ are given in the table.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | −2 | 2 | 5\n2 | 1 | 3 | 1 | −3\n\nA curve is defined by the equation y³ + xy = 12. The point (2, 2) lies on this curve.",
+    "model_answer": "(a) p is a product, so by the product rule p′(x) = 2x·f(x) + x²·f′(x). Then p′(2) = 2(2)·f(2) + 2²·f′(2) = 4(1) + 4(3) = 16.\n\n(b) q is a composite, so by the chain rule q′(x) = f′(g(x))·g′(x). Since g(1) = 2, q′(1) = f′(2)·g′(1) = 3·5 = 15.\n\n(c) Differentiating y³ + xy = 12 implicitly with respect to x: 3y²·(dy/dx) + y + x·(dy/dx) = 0, so (3y² + x)·(dy/dx) = −y and dy/dx = −y/(3y² + x). At (2, 2): dy/dx = −2/(3·4 + 2) = −2/14 = −1/7.\n\n(d) From the table, g(2) = 1, so g⁻¹(1) = 2. By the derivative of an inverse function, (g⁻¹)′(1) = 1/g′(g⁻¹(1)) = 1/g′(2) = 1/(−3) = −1/3.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction as F\nf={1:3,2:1}; fp={1:-2,2:3}; g={1:2,2:1}; gp={1:5,2:-3}\n# (a)\npa=2*2*f[2]+2**2*fp[2]\nassert pa==16\n# (b)\nqb=fp[g[1]]*gp[1]\nassert qb==15\n# (c)\nx=sp.symbols('x'); Y=sp.Function('y')(x)\neq=Y**3+x*Y-12\nd=sp.diff(eq,x)\nyp=sp.solve(d,sp.diff(Y,x))[0]\nval=yp.subs(Y,2).subs(x,2)\nassert sp.simplify(val-sp.Rational(-1,7))==0\nassert 2**3+2*2==12\n# (d)\ninv=[k for k in g if g[k]==1][0]\nassert inv==2\nassert F(1,gp[inv])==F(-1,3)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Let p(x) = x²·f(x). Find p′(2). Show the derivative rule you use.",
+      "criteria": [
+       {
+        "text": "Applies the product rule: p′(2) = 2(2)·f(2) + 2²·f′(2).",
+        "evidence": "Response shows the product-rule structure p′(x) = 2x·f(x) + x²·f′(x), or the same structure evaluated at x = 2, before giving a number.",
+        "fix": "For a product u·v, write u′v + uv′ explicitly with table values substituted before computing the number.",
+        "accepted_variants": [
+         "p′(2) = 4·f(2) + 4·f′(2)",
+         "p′(2) = 4(1) + 4(3)"
+        ]
+       },
+       {
+        "text": "Computes p′(2) = 16.",
+        "evidence": "Response gives p′(2) = 16 from correct table values f(2) = 1 and f′(2) = 3.",
+        "fix": "Read f(2) and f′(2) from the row x = 2, then evaluate 4(1) + 4(3) carefully.",
+        "accepted_variants": [
+         "16"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let q(x) = f(g(x)). Find q′(1). Show the derivative rule you use.",
+      "criteria": [
+       {
+        "text": "Applies the chain rule: q′(1) = f′(g(1))·g′(1) = f′(2)·g′(1).",
+        "evidence": "Response writes q′(x) = f′(g(x))·g′(x) and evaluates the inner function first, using g(1) = 2 so the outer derivative is f′(2).",
+        "fix": "For a composite f(g(x)), evaluate the inner function g(1) first, then use f′ at that output times g′(1).",
+        "accepted_variants": [
+         "q′(1) = f′(2)·5",
+         "q′(1) = 3·5"
+        ]
+       },
+       {
+        "text": "Computes q′(1) = 15.",
+        "evidence": "Response gives q′(1) = 15 from f′(2) = 3 and g′(1) = 5.",
+        "fix": "Multiply f′(2) = 3 by g′(1) = 5; do not use f′(1) in place of f′(g(1)).",
+        "accepted_variants": [
+         "15"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For the curve y³ + xy = 12, find dy/dx at the point (2, 2).",
+      "criteria": [
+       {
+        "text": "Differentiates implicitly: 3y²·(dy/dx) + y + x·(dy/dx) = 0.",
+        "evidence": "Response shows the full implicitly differentiated equation, including the chain-rule factor on y³ and the product rule on xy, with right side 0.",
+        "fix": "Differentiate every term with respect to x: y³ gives 3y²·dy/dx, and xy needs the product rule y + x·dy/dx.",
+        "accepted_variants": [
+         "dy/dx·(3y² + x) = −y",
+         "dy/dx = −y/(3y² + x)"
+        ]
+       },
+       {
+        "text": "Evaluates dy/dx = −1/7 at (2, 2).",
+        "evidence": "Response substitutes x = 2, y = 2 into a correct implicit derivative to get −2/14 = −1/7.",
+        "fix": "Substitute both x = 2 and y = 2 after solving for dy/dx, then simplify −2/(12 + 2).",
+        "accepted_variants": [
+         "−2/14",
+         "−0.142857"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find (g⁻¹)′(1). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Identifies g⁻¹(1) = 2 because g(2) = 1.",
+        "evidence": "Response locates 1 in the g(x) column, at x = 2, and states that g⁻¹(1) = 2.",
+        "fix": "For an inverse, find the x-value where g(x) equals the input 1; that x is g⁻¹(1).",
+        "accepted_variants": [
+         "g(2) = 1"
+        ]
+       },
+       {
+        "text": "Applies (g⁻¹)′(1) = 1/g′(g⁻¹(1)) = 1/g′(2) = −1/3.",
+        "evidence": "Response uses the inverse-function derivative relationship with g′(2) = −3 and obtains −1/3.",
+        "fix": "Use (g⁻¹)′(a) = 1/g′(g⁻¹(a)); evaluate g′ at g⁻¹(1) = 2, not at 1.",
+        "accepted_variants": [
+         "1/(−3)",
+         "−0.333"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup and table are inconsistent. A differentiable, one-to-one function on ℝ is strictly monotonic. Because g(1) = 2 > g(2) = 1, g must be decreasing, contradicting g′(1) = 5 > 0. Consequently, parts (b) and (d) do not describe an existing function.",
+       "rubric_points: Criterion b1 requires the general formula q′(x), rejecting the sufficient point-specific chain-rule calculation q′(1) = f′(g(1))g′(1) = f′(2)g′(1). Criterion c1 mandates an implicitly differentiated equation although part (c) does not require that method; valid inverse-function differentiation of x = 12/y − y² would not satisfy it. Criteria c2 and d2 list rounded decimals as equivalent forms of exact values.",
+       "accurate: The setup asserts the existence of g with incompatible properties and table values. Additionally, criterion c2 lists −0.142857 as equivalent to −1/7, and criterion d2 lists −0.333 as equivalent to −1/3; these are approximations, not equal values, and no approximation tolerance is stated.",
+       "solution: The formal calculations agree with the rubric: (a) 16, (b) 15, (c) −1/7, and (d) −1/3. However, the assumed function g cannot exist, so the results in (b) and (d) are only formal table-based calculations. The decimal variants −0.142857 and −0.333 are not exactly equivalent to the respective fractional answers. No model answer was supplied."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "The assumptions and table are inconsistent: no such function g exists. A differentiable function on all real numbers is continuous, and a continuous one-to-one function on an interval must be strictly monotonic. Since g(1) = 2 > g(2) = 1, g must be strictly decreasing, so its derivative cannot be positive anywhere. But the table states g′(1) = 5 > 0. Parts (b) and (d) therefore give only formal table-based results, not values for a function satisfying all the stated assumptions.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup and table are inconsistent. A differentiable, one-to-one function on ℝ is strictly monotonic. Because g(1) = 2 > g(2) = 1, g must be decreasing, contradicting g′(1) = 5 > 0. Consequently, parts (b) and (d) do not describe an existing function."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires the general formula q′(x), rejecting the sufficient point-specific chain-rule calculation q′(1) = f′(g(1))g′(1) = f′(2)g′(1). Criterion c1 mandates an implicitly differentiated equation although part (c) does not require that method; valid inverse-function differentiation of x = 12/y − y² would not satisfy it. Criteria c2 and d2 list rounded decimals as equivalent forms of exact values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup asserts the existence of g with incompatible properties and table values. Additionally, criterion c2 lists −0.142857 as equivalent to −1/7, and criterion d2 lists −0.333 as equivalent to −1/3; these are approximations, not equal values, and no approximation tolerance is stated."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The formal calculations agree with the rubric: (a) 16, (b) 15, (c) −1/7, and (d) −1/3. However, the assumed function g cannot exist, so the results in (b) and (d) are only formal table-based calculations. The decimal variants −0.142857 and −0.333 are not exactly equivalent to the respective fractional answers. No model answer was supplied.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Setup, affecting parts (b) and (d): No function g satisfies the stated assumptions and table. A continuous one-to-one function on ℝ is strictly monotonic. Since g(1) = 2 > g(2) = 1, g must be decreasing, contradicting g′(1) = 5 > 0.",
+       "rubric_points: Criterion b1 requires the general formula q′(x) = f′(g(x))·g′(x), rejecting the valid point-specific work q′(1) = f′(g(1))·g′(1) = f′(2)·5. The prompt requires showing the derivative rule, not writing it for general x; the listed variants do not waive this evidence restriction.",
+       "accurate: The setup's assumptions about g contradict its table values. Additionally, criteria c2 and d2 list −0.142857 and −0.333 as equivalent forms of −1/7 and −1/3, respectively; these are approximations, not exact equivalents, and should be identified as such.",
+       "solution: The formal calculations agree with the rubric: (a) 16, (b) 15, (c) −1/7, and (d) −1/3. However, the setup admits no such function g, so the answers in (b) and (d) are only formal table calculations, not values arising from a function satisfying the problem. The finite decimal variants in c2 and d2 are approximate rather than exact."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The assumptions about g are inconsistent with the table. A differentiable function is continuous, and a continuous one-to-one function on all real numbers must be strictly monotonic. Since g(1) = 2 > g(2) = 1, g would have to be strictly decreasing, so its derivative could not be positive at any point. But the table gives g′(1) = 5 > 0. Thus no function g satisfies all the stated conditions. The values in (b) and (d) are the intended formal calculations, but they cannot arise from a function satisfying the full setup.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Setup, affecting parts (b) and (d): No function g satisfies the stated assumptions and table. A continuous one-to-one function on ℝ is strictly monotonic. Since g(1) = 2 > g(2) = 1, g must be decreasing, contradicting g′(1) = 5 > 0."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires the general formula q′(x) = f′(g(x))·g′(x), rejecting the valid point-specific work q′(1) = f′(g(1))·g′(1) = f′(2)·5. The prompt requires showing the derivative rule, not writing it for general x; the listed variants do not waive this evidence restriction."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup's assumptions about g contradict its table values. Additionally, criteria c2 and d2 list −0.142857 and −0.333 as equivalent forms of −1/7 and −1/3, respectively; these are approximations, not exact equivalents, and should be identified as such."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The formal calculations agree with the rubric: (a) 16, (b) 15, (c) −1/7, and (d) −1/3. However, the setup admits no such function g, so the answers in (b) and (d) are only formal table calculations, not values arising from a function satisfying the problem. The finite decimal variants in c2 and d2 are approximate rather than exact.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

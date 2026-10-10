@@ -1,0 +1,991 @@
+{
+ "id": "ap_calculus_ab__2.2__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.2",
+  "topic_title": "Defining the Derivative of a Function and Using Derivative Notation",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.210Z",
+   "item": {
+    "title": "Derivative from the Limit of a Difference Quotient",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = 3/(x + 1) for x ≠ −1. In this question, use the definition of the derivative as the limit of a difference quotient. Do not use derivative rules such as the power rule.",
+    "model_answer": "(a) f(2) = 3/3 = 1 and f(2 + h) = 3/(3 + h).\nf′(2) = lim h→0 [f(2 + h) − f(2)]/h = lim h→0 [3/(3 + h) − 1]/h.\n3/(3 + h) − 1 = (3 − (3 + h))/(3 + h) = −h/(3 + h), so the difference quotient is [−h/(3 + h)]/h = −1/(3 + h) for h ≠ 0.\nf′(2) = lim h→0 −1/(3 + h) = −1/3.\n\n(b) The point is (2, f(2)) = (2, 1) and the slope is f′(2) = −1/3.\nTangent line: y − 1 = −(1/3)(x − 2).\n\n(c) Let k(x) = √x and a = 9. Then [k(9 + h) − k(9)]/h = [√(9 + h) − 3]/h, so the limit is k′(9).\n[√(9 + h) − 3]/h · (√(9 + h) + 3)/(√(9 + h) + 3) = (9 + h − 9)/(h(√(9 + h) + 3)) = 1/(√(9 + h) + 3) for h ≠ 0.\nlim h→0 1/(√(9 + h) + 3) = 1/(3 + 3) = 1/6.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=3/(x+1)\nassert f.subs(x,2)==1\ndq=sp.simplify((f.subs(x,2+h)-f.subs(x,2))/h)\nassert sp.simplify(dq-(-1/(3+h)))==0\nd=sp.limit(dq,h,0)\nassert d==sp.Rational(-1,3)\nassert d==sp.diff(f,x).subs(x,2)\ntan=1+d*(x-2)\nassert sp.simplify(tan-(-x/3+sp.Rational(5,3)))==0\nexpr=(sp.sqrt(9+h)-3)/h\nconj=sp.simplify(expr*(sp.sqrt(9+h)+3)/(sp.sqrt(9+h)+3))\nassert sp.simplify(conj-1/(sp.sqrt(9+h)+3))==0\nL=sp.limit(expr,h,0)\nassert L==sp.Rational(1,6)\nassert sp.diff(sp.sqrt(x),x).subs(x,9)==L\nassert abs(float(L)-0.1667)<1e-3 and abs(float(d)+0.333)<1e-3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write f′(2) as the limit of a difference quotient. Then use algebra to evaluate the limit and find the value of f′(2). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes a correct limit definition for f′(2): f′(2) = lim h→0 [f(2 + h) − f(2)]/h = lim h→0 [3/(3 + h) − 1]/h",
+        "evidence": "A limit of a difference quotient at x = 2 with h → 0 (or an equivalent form such as lim x→2 [f(x) − f(2)]/(x − 2)), with f(2) = 1 or f(2 + h) = 3/(3 + h) substituted.",
+        "fix": "Start every definition problem by writing lim h→0 [f(a + h) − f(a)]/h, then substitute a and the formula for f.",
+        "accepted_variants": [
+         "lim x→2 [3/(x + 1) − 1]/(x − 2)",
+         "lim h→0 [3/(2 + h + 1) − 3/3]/h"
+        ]
+       },
+       {
+        "text": "Simplifies the difference quotient by combining fractions so the factor h cancels, giving −1/(3 + h)",
+        "evidence": "Algebra combining 3/(3 + h) − 1 into −h/(3 + h), then dividing by h to reach −1/(3 + h) (or −1/(x + 1) in the x → 2 form) before taking the limit.",
+        "fix": "Combine the fractions over a common denominator first, then cancel h before letting h approach 0.",
+        "accepted_variants": [
+         "−1/(h + 3)",
+         "−1/(x + 1)"
+        ]
+       },
+       {
+        "text": "Evaluates the limit to get f′(2) = −1/3",
+        "evidence": "States f′(2) = −1/3 as the result of taking the limit of the simplified expression.",
+        "fix": "After cancelling h, substitute h = 0 into the simplified expression to evaluate the limit.",
+        "accepted_variants": [
+         "−1/3",
+         "−0.333"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for the line tangent to the graph of y = f(x) at the point where x = 2.",
+      "criteria": [
+       {
+        "text": "Writes the tangent line y − 1 = −(1/3)(x − 2), using f(2) = 1 and slope f′(2)",
+        "evidence": "A correct line through (2, 1) with slope equal to the value of f′(2) found in part (a); any equivalent form, with follow-through credit for an incorrect slope from part (a).",
+        "fix": "Use point-slope form y − f(a) = f′(a)(x − a), with the derivative value as the slope.",
+        "accepted_variants": [
+         "y = −(1/3)x + 5/3",
+         "y = −x/3 + 5/3",
+         "x + 3y = 5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The limit lim h→0 [√(9 + h) − 3]/h represents k′(a) for some function k and some number a. Give one such function k and number a. Then evaluate the limit algebraically.",
+      "criteria": [
+       {
+        "text": "Identifies a correct pair, such as k(x) = √x and a = 9",
+        "evidence": "Any function k and number a for which [k(a + h) − k(a)]/h equals [√(9 + h) − 3]/h, for example k(x) = √x with a = 9, or k(x) = √(x + 9) with a = 0.",
+        "fix": "Match the pattern [k(a + h) − k(a)]/h: the expression inside the square root shows a + h, and the subtracted value is k(a).",
+        "accepted_variants": [
+         "k(x) = √x, a = 9",
+         "k(x) = √(x + 9), a = 0"
+        ]
+       },
+       {
+        "text": "Evaluates the limit as 1/6 using algebraic work such as multiplying by the conjugate",
+        "evidence": "Shows an algebraic step that removes the 0/0 form, for example multiplying by (√(9 + h) + 3)/(√(9 + h) + 3) to get 1/(√(9 + h) + 3), and then states the limit is 1/6.",
+        "fix": "Multiply numerator and denominator by the conjugate √(9 + h) + 3, cancel h, then substitute h = 0.",
+        "accepted_variants": [
+         "1/6",
+         "0.1667"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 bundles algebraic removal of the indeterminate form and evaluation of the resulting limit into one all-or-nothing point, contrary to the fact pack's separate setup/execution scoring requirement. Criteria a3 and c2 also list rounded decimals as equivalent forms of exact fractions; −0.333 and 0.1667 are not equivalent to −1/3 and 1/6.",
+       "accurate: The equivalent-form lists in a3 and c2 incorrectly identify −0.333 as equivalent to −1/3 and 0.1667 as equivalent to 1/6. These are approximations, not exact equivalents.",
+       "solution: The independent solution agrees with the rubric's exact results: (a) f′(2) = −1/3; (b) y − 1 = −(1/3)(x − 2); (c) k(x) = √x, a = 9, and the limit is 1/6. The only mathematical disagreement is the rubric's characterization of −0.333 and 0.1667 as exact equivalent forms."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 bundles algebraic removal of the indeterminate form and evaluation of the resulting limit into one all-or-nothing point, contrary to the fact pack's separate setup/execution scoring requirement. Criteria a3 and c2 also list rounded decimals as equivalent forms of exact fractions; −0.333 and 0.1667 are not equivalent to −1/3 and 1/6."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The equivalent-form lists in a3 and c2 incorrectly identify −0.333 as equivalent to −1/3 and 0.1667 as equivalent to 1/6. These are approximations, not exact equivalents."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's exact results: (a) f′(2) = −1/3; (b) y − 1 = −(1/3)(x − 2); (c) k(x) = √x, a = 9, and the limit is 1/6. The only mathematical disagreement is the rubric's characterization of −0.333 and 0.1667 as exact equivalent forms.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 combines two separately observable elements—algebraically removing the indeterminate form and evaluating the limit—into one all-or-nothing point. Separate the algebra and final-value criteria. Also, a3 and c2 list rounded decimals as equivalent forms, although −0.333 and 0.1667 are not equivalent to the exact answers.",
+       "accurate: The equivalent-form lists in a3 and c2 incorrectly treat −0.333 as equal to −1/3 and 0.1667 as equal to 1/6. These are approximations, not exact equivalents; remove them or explicitly identify an allowed approximation tolerance.",
+       "solution: The independent solution agrees with the rubric's exact results: f′(2) = −1/3, tangent line y − 1 = −(1/3)(x − 2), and the limit in (c) equals 1/6 with k(x) = √x and a = 9. The listed decimal variants −0.333 and 0.1667 are only approximations, not equivalent exact values."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 combines two separately observable elements—algebraically removing the indeterminate form and evaluating the limit—into one all-or-nothing point. Separate the algebra and final-value criteria. Also, a3 and c2 list rounded decimals as equivalent forms, although −0.333 and 0.1667 are not equivalent to the exact answers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The equivalent-form lists in a3 and c2 incorrectly treat −0.333 as equal to −1/3 and 0.1667 as equal to 1/6. These are approximations, not exact equivalents; remove them or explicitly identify an allowed approximation tolerance."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's exact results: f′(2) = −1/3, tangent line y − 1 = −(1/3)(x − 2), and the limit in (c) equals 1/6 with k(x) = √x and a = 9. The listed decimal variants −0.333 and 0.1667 are only approximations, not equivalent exact values.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:47:03.477Z",
+   "item": {
+    "title": "Limit Definition of the Derivative and Tangent Lines",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = 2x² − 5x for all real numbers x. Let k be the function defined by k(x) = √x for x ≥ 0.",
+    "model_answer": "(a) f′(x) = lim h→0 [f(x+h) − f(x)]/h = lim h→0 [2(x+h)² − 5(x+h) − (2x² − 5x)]/h = lim h→0 [2x² + 4xh + 2h² − 5x − 5h − 2x² + 5x]/h = lim h→0 (4xh + 2h² − 5h)/h = lim h→0 (4x + 2h − 5) = 4x − 5. So f′(x) = 4x − 5.\n\n(b) f(3) = 2(9) − 5(3) = 3, and the slope is f′(3) = 4(3) − 5 = 7. The tangent line is y = 3 + 7(x − 3).\n\n(c) Since k(9+h) = √(9+h) and k(9) = √9 = 3, the expression is lim h→0 [k(9+h) − k(9)]/h, which is the definition of k′(9). Evaluating: [√(9+h) − 3]/h · [√(9+h) + 3]/[√(9+h) + 3] = (9 + h − 9)/[h(√(9+h) + 3)] = 1/(√(9+h) + 3). Then lim h→0 1/(√(9+h) + 3) = 1/(3 + 3) = 1/6. So k′(9) = 1/6.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=lambda t:2*t**2-5*t\nnum=sp.expand(f(x+h)-f(x))\nassert sp.simplify(num-(4*x*h+2*h**2-5*h))==0\nq=sp.simplify(num/h)\nassert sp.simplify(q-(4*x+2*h-5))==0\nfp=sp.limit(num/h,h,0)\nassert sp.simplify(fp-(4*x-5))==0\nassert f(3)==3\nassert fp.subs(x,3)==7\nassert sp.expand(3+7*(x-3))==7*x-18\nL=sp.limit((sp.sqrt(9+h)-3)/h,h,0)\nassert L==sp.Rational(1,6)\nassert sp.simplify((sp.sqrt(9+h)-3)/h-1/(sp.sqrt(9+h)+3))==0\nassert sp.diff(sp.sqrt(x),x).subs(x,9)==sp.Rational(1,6)\nassert abs(float(L)-0.1667)<1e-3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the definition of the derivative as the limit of a difference quotient to find f′(x). Show the algebra that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes the correct difference quotient limit for f: f′(x) = lim h→0 [2(x+h)² − 5(x+h) − (2x² − 5x)]/h.",
+        "evidence": "A limit as h→0 of [f(x+h) − f(x)]/h with f(x+h) correctly substituted as 2(x+h)² − 5(x+h).",
+        "fix": "Start with lim h→0 [f(x+h) − f(x)]/h and replace every x in f with (x+h), keeping parentheses.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Simplifies the numerator to 4xh + 2h² − 5h and divides by h to get 4x + 2h − 5.",
+        "evidence": "Shows the expansion 2x² + 4xh + 2h² − 5x − 5h, cancellation of 2x² and −5x, and the factor h removed from the quotient.",
+        "fix": "Expand (x+h)² fully, cancel the terms equal to f(x), then factor h out of every remaining term before taking the limit.",
+        "accepted_variants": [
+         "h(4x + 2h − 5)/h"
+        ]
+       },
+       {
+        "text": "Evaluates the limit to get f′(x) = 4x − 5.",
+        "evidence": "States f′(x) = 4x − 5 as the limit of 4x + 2h − 5 as h→0, with limit notation kept until h is replaced by 0.",
+        "fix": "After canceling h, substitute h = 0 into the remaining expression and write lim h→0 until that substitution is made.",
+        "accepted_variants": [
+         "−5 + 4x"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for the line tangent to the graph of f at the point where x = 3.",
+      "criteria": [
+       {
+        "text": "Finds the slope of the tangent line as f′(3) = 7.",
+        "evidence": "Evaluates the derivative at x = 3, showing 4(3) − 5 = 7 or an equivalent computation, and identifies it as the slope.",
+        "fix": "The tangent slope is the derivative evaluated at the point: substitute x = 3 into f′(x), not into f(x).",
+        "accepted_variants": [
+         "m = 7"
+        ]
+       },
+       {
+        "text": "Writes a correct tangent line equation: y = 3 + 7(x − 3).",
+        "evidence": "Uses the point (3, f(3)) with f(3) = 3 and slope 7 in a correct line equation.",
+        "fix": "Compute f(3) for the y-coordinate, then use point-slope form y = f(3) + f′(3)(x − 3).",
+        "accepted_variants": [
+         "y − 3 = 7(x − 3)",
+         "y = 7x − 18"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why lim h→0 [√(9+h) − 3]/h is equal to k′(9). Then evaluate this limit algebraically, without using derivative rules.",
+      "criteria": [
+       {
+        "text": "Identifies the limit as the difference quotient definition of k′(9).",
+        "evidence": "States that k(9+h) = √(9+h) and k(9) = √9 = 3, so the expression is lim h→0 [k(9+h) − k(9)]/h, which is the definition of k′(9).",
+        "fix": "Match the expression to lim h→0 [k(a+h) − k(a)]/h by naming a, k(a+h), and k(a) explicitly.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit as 1/6 by rationalizing the numerator.",
+        "evidence": "Multiplies by (√(9+h) + 3)/(√(9+h) + 3), simplifies to 1/(√(9+h) + 3), and takes the limit to get 1/6.",
+        "fix": "When a difference quotient contains a square root, multiply numerator and denominator by the conjugate so h cancels.",
+        "accepted_variants": [
+         "0.1667",
+         "k′(9) = 1/6"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a2 requires a particular expanded intermediate expression, rejecting valid algebra using difference-of-squares factoring. Criterion c2 combines the algebraic setup and final evaluation into one all-or-nothing point and mandates conjugate multiplication, although part (c) permits any valid algebraic evaluation.",
+       "accurate: Criterion c2 lists 0.1667 as an equivalent form of 1/6. It is only an approximation, not an equivalent value, and the question supplies no rounding instruction.",
+       "solution: The independent solution agrees with the exact results: f′(x) = 4x − 5, tangent line y = 7x − 18, and k′(9) = 1/6. However, its correct algebra in part (a) does not display the full intermediate expansion demanded by a2, illustrating that the evidence requirement is overly restrictive. The listed variant 0.1667 is not exactly equal to 1/6. No model answer was provided or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a2 requires a particular expanded intermediate expression, rejecting valid algebra using difference-of-squares factoring. Criterion c2 combines the algebraic setup and final evaluation into one all-or-nothing point and mandates conjugate multiplication, although part (c) permits any valid algebraic evaluation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 lists 0.1667 as an equivalent form of 1/6. It is only an approximation, not an equivalent value, and the question supplies no rounding instruction."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the exact results: f′(x) = 4x − 5, tangent line y = 7x − 18, and k′(9) = 1/6. However, its correct algebra in part (a) does not display the full intermediate expansion demanded by a2, illustrating that the evidence requirement is overly restrictive. The listed variant 0.1667 is not exactly equal to 1/6. No model answer was provided or assessed.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a2 requires a particular expanded intermediate expression and factoring step, although correct algebra can directly produce (4xh + 2h² − 5h)/h = 4x + 2h − 5. Criterion c2 mandates rationalizing the numerator, rejecting valid algebraic alternatives such as substituting u = √(9+h). It also bundles algebraic setup and final limit evaluation into one point, contrary to the supplied scoring conventions.",
+       "accurate: Criterion c2 lists 0.1667 as an equivalent form of 1/6. It is only an approximation, not an equivalent value; write 0.1666… or explicitly identify an acceptable approximation.",
+       "solution: The independent solution agrees with the rubric's exact results: f′(x) = 4x − 5, tangent line y = 7x − 18, and k′(9) = 1/6. However, its correct algebra in part (a) omits the uncancelled expanded expression explicitly demanded by a2, demonstrating that this evidence requirement is unnecessarily restrictive. Also, c2 incorrectly treats 0.1667 as exactly equivalent to 1/6."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a2 requires a particular expanded intermediate expression and factoring step, although correct algebra can directly produce (4xh + 2h² − 5h)/h = 4x + 2h − 5. Criterion c2 mandates rationalizing the numerator, rejecting valid algebraic alternatives such as substituting u = √(9+h). It also bundles algebraic setup and final limit evaluation into one point, contrary to the supplied scoring conventions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 lists 0.1667 as an equivalent form of 1/6. It is only an approximation, not an equivalent value; write 0.1666… or explicitly identify an acceptable approximation."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's exact results: f′(x) = 4x − 5, tangent line y = 7x − 18, and k′(9) = 1/6. However, its correct algebra in part (a) omits the uncancelled expanded expression explicitly demanded by a2, demonstrating that this evidence requirement is unnecessarily restrictive. Also, c2 incorrectly treats 0.1667 as exactly equivalent to 1/6.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2: requires multiplication by the conjugate as evidence, rejecting a valid algebraic alternative such as substituting t = √(9+h); it also lists 0.1667 as an equivalent form of 1/6, but 0.1667 is only a decimal approximation, not an exact equivalent.",
+       "accurate: Part (c), criterion c2: states 0.1667 is an equivalent form of 1/6, but 0.1667 is not mathematically equal to 1/6."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2: requires multiplication by the conjugate as evidence, rejecting a valid algebraic alternative such as substituting t = √(9+h); it also lists 0.1667 as an equivalent form of 1/6, but 0.1667 is only a decimal approximation, not an exact equivalent."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c2: states 0.1667 is an equivalent form of 1/6, but 0.1667 is not mathematically equal to 1/6."
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2: accepted variant 0.1667 is a rounded decimal approximation of 1/6, not an exact equivalent; in a no-calculator section only exact values or algebraically equivalent forms should be accepted.",
+       "accurate: Part (c), criterion c2 lists 0.1667 as an equivalent form of 1/6, but 0.1667 is not exactly equal to 1/6."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2: accepted variant 0.1667 is a rounded decimal approximation of 1/6, not an exact equivalent; in a no-calculator section only exact values or algebraically equivalent forms should be accepted."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 lists 0.1667 as an equivalent form of 1/6, but 0.1667 is not exactly equal to 1/6."
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:54:28.283Z",
+   "item": {
+    "title": "Derivative from the Limit Definition and Tangent Lines",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = 6/(x + 2) for x ≠ −2.\n\nAlso, for a certain function g, the limit lim h→0 [√(9 + h) − 3]/h represents the derivative g′(9), written as the limit of a difference quotient.\n\nAnswer all parts of the following question. Do not use derivative rules in parts (a) or (c); work from the definition of the derivative and algebraic properties of limits.",
+    "model_answer": "(a) f(1) = 6/3 = 2 and f(1 + h) = 6/(3 + h).\nf′(1) = lim h→0 [f(1 + h) − f(1)]/h = lim h→0 [6/(3 + h) − 2]/h\n= lim h→0 [6 − 2(3 + h)]/(h(3 + h))\n= lim h→0 (−2h)/(h(3 + h))\n= lim h→0 −2/(3 + h)\n= −2/3.\n\n(b) The point is (1, f(1)) = (1, 2) and the slope is f′(1) = −2/3.\nTangent line: y − 2 = −(2/3)(x − 1), that is, y = 2 − (2/3)(x − 1).\n\n(c) The limit has the form lim h→0 [g(9 + h) − g(9)]/h with g(9 + h) = √(9 + h) and g(9) = 3, so g(x) = √x.\nlim h→0 [√(9 + h) − 3]/h = lim h→0 [(√(9 + h) − 3)(√(9 + h) + 3)]/(h(√(9 + h) + 3))\n= lim h→0 (9 + h − 9)/(h(√(9 + h) + 3))\n= lim h→0 1/(√(9 + h) + 3)\n= 1/(3 + 3) = 1/6.\nSo g′(9) = 1/6.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=6/(x+2)\nassert f.subs(x,1)==2\ndq=(f.subs(x,1+h)-f.subs(x,1))/h\nassert sp.simplify(dq-(-2/(3+h)))==0\nfp1=sp.limit(dq,h,0)\nassert fp1==sp.Rational(-2,3)\nassert sp.diff(f,x).subs(x,1)==sp.Rational(-2,3)\nT=2-sp.Rational(2,3)*(x-1)\nassert sp.simplify(T-(-sp.Rational(2,3)*x+sp.Rational(8,3)))==0\nassert sp.simplify(2*x+3*T-8)==0\ng=sp.sqrt(x)\nassert g.subs(x,9)==3\nexpr=(sp.sqrt(9+h)-3)/h\nassert sp.simplify(expr-1/(sp.sqrt(9+h)+3))==0\nL=sp.limit(expr,h,0)\nassert L==sp.Rational(1,6)\nassert sp.diff(g,x).subs(x,9)==sp.Rational(1,6)\nassert abs(float(fp1)+0.6667)<1e-3 and abs(float(L)-0.1667)<1e-3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the definition of the derivative as the limit of a difference quotient, find f′(1). Show the limit setup and the algebra that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes the correct difference-quotient limit: f′(1) = lim h→0 [6/(3 + h) − 2]/h",
+        "evidence": "A limit as h→0 of [f(1 + h) − f(1)]/h with f(1 + h) = 6/(3 + h) and f(1) = 2 substituted, or the equivalent general form clearly applied at x = 1.",
+        "fix": "Start every definition problem by writing lim h→0 [f(a + h) − f(a)]/h, then substitute f(a + h) and f(a) explicitly.",
+        "accepted_variants": [
+         "lim h→0 [6/(1 + h + 2) − 6/3]/h",
+         "lim x→1 [6/(x + 2) − 2]/(x − 1)"
+        ]
+       },
+       {
+        "text": "Simplifies the difference quotient by combining fractions and cancelling h to get −2/(3 + h)",
+        "evidence": "Shows the common-denominator step, for example [6 − 2(3 + h)]/(h(3 + h)) = −2h/(h(3 + h)), and cancels h before taking the limit (or the equivalent cancellation of x − 1).",
+        "fix": "Combine the fractions in the numerator over a common denominator, factor out h, and cancel it before substituting h = 0.",
+        "accepted_variants": [
+         "−2/(h + 3)",
+         "−2/(x + 2) in the x→1 form"
+        ]
+       },
+       {
+        "text": "Evaluates the limit to get f′(1) = −2/3",
+        "evidence": "States f′(1) = −2/3 as the result of letting h→0 in the simplified expression.",
+        "fix": "After cancelling h, substitute h = 0 into the simplified expression to evaluate the limit.",
+        "accepted_variants": [
+         "−0.667",
+         "−0.666"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for the line tangent to the graph of f at the point where x = 1.",
+      "criteria": [
+       {
+        "text": "Writes the tangent line y = 2 − (2/3)(x − 1), using point (1, 2) and slope f′(1)",
+        "evidence": "An equation through (1, 2) with slope equal to the value of f′(1) from part (a); any equivalent form such as y = −(2/3)x + 8/3 earns the point, as does a line consistent with an incorrect f′(1) from part (a).",
+        "fix": "Compute f(1) for the point, use f′(1) as the slope, and write y − f(1) = f′(1)(x − 1).",
+        "accepted_variants": [
+         "y − 2 = −(2/3)(x − 1)",
+         "y = −(2/3)x + 8/3",
+         "2x + 3y = 8"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an expression for g(x) that is consistent with the given limit, and then evaluate lim h→0 [√(9 + h) − 3]/h using algebra.",
+      "criteria": [
+       {
+        "text": "Identifies g(x) = √x, since g(9 + h) = √(9 + h) and g(9) = 3",
+        "evidence": "States g(x) = √x (at least for x near 9), linking √(9 + h) to g(9 + h) and 3 to g(9).",
+        "fix": "Match the limit to lim h→0 [g(a + h) − g(a)]/h: the expression containing a + h reveals g, and a = 9.",
+        "accepted_variants": [
+         "g(x) = x^(1/2)"
+        ]
+       },
+       {
+        "text": "Evaluates the limit as 1/6 by multiplying by the conjugate",
+        "evidence": "Multiplies by (√(9 + h) + 3)/(√(9 + h) + 3) to get h/(h(√(9 + h) + 3)) = 1/(√(9 + h) + 3), then lets h→0 to obtain 1/6.",
+        "fix": "When a difference quotient contains a square root, multiply numerator and denominator by the conjugate, cancel h, then substitute h = 0.",
+        "accepted_variants": [
+         "0.1667",
+         "0.166",
+         "0.167"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 rejects valid answers g(x) = √x + C, whose difference quotients are exactly the given expression. Criterion c2 prescribes multiplication by the conjugate although the prompt permits any algebraic evaluation; substituting t = √(9 + h) and factoring t² − 9 is also valid. Criteria a3 and c2 list rounded decimals as equivalent forms, although the rule permits only equivalent values.",
+       "accurate: The equivalent-form lists in criteria a3 and c2 incorrectly identify finite decimal approximations as mathematically equivalent to −2/3 and 1/6. They should be explicitly identified as accepted approximations, not equivalent values.",
+       "solution: The independent solution agrees with the rubric's principal results: f′(1) = −2/3, y − 2 = −(2/3)(x − 1), a consistent choice g(x) = √x, and the limit 1/6. However, c1 is too restrictive: every g(x) = √x + C near 9 produces the same difference quotient. Also, c2 unnecessarily excludes algebraic solutions that do not explicitly multiply by the conjugate. No model answer was provided or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 rejects valid answers g(x) = √x + C, whose difference quotients are exactly the given expression. Criterion c2 prescribes multiplication by the conjugate although the prompt permits any algebraic evaluation; substituting t = √(9 + h) and factoring t² − 9 is also valid. Criteria a3 and c2 list rounded decimals as equivalent forms, although the rule permits only equivalent values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The equivalent-form lists in criteria a3 and c2 incorrectly identify finite decimal approximations as mathematically equivalent to −2/3 and 1/6. They should be explicitly identified as accepted approximations, not equivalent values."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's principal results: f′(1) = −2/3, y − 2 = −(2/3)(x − 1), a consistent choice g(x) = √x, and the limit 1/6. However, c1 is too restrictive: every g(x) = √x + C near 9 produces the same difference quotient. Also, c2 unnecessarily excludes algebraic solutions that do not explicitly multiply by the conjugate. No model answer was provided or assessed.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 rejects valid answers g(x) = √x + C: the constant cancels from the given difference quotient. Part (c), criterion c2 mandates conjugate multiplication although the prompt allows other algebraic methods, such as substituting u = √(9 + h). It also combines the algebraic setup/execution and final limit value into one all-or-nothing point, contrary to the supplied scoring conventions.",
+       "solution: The numerical results agree: f′(1) = −2/3, the tangent line is y − 2 = −(2/3)(x − 1), and the limit in (c) is 1/6. However, c1's accepted answers are incomplete: g(x) = √x + C gives exactly the same difference quotient for any constant C. Also, c2 excludes a valid algebraic solution: set u = √(9 + h), so h = u² − 9 and the quotient becomes (u − 3)/(u² − 9) = 1/(u + 3), whose limit as u→3 is 1/6. No model answer was supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 rejects valid answers g(x) = √x + C: the constant cancels from the given difference quotient. Part (c), criterion c2 mandates conjugate multiplication although the prompt allows other algebraic methods, such as substituting u = √(9 + h). It also combines the algebraic setup/execution and final limit value into one all-or-nothing point, contrary to the supplied scoring conventions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results agree: f′(1) = −2/3, the tangent line is y − 2 = −(2/3)(x − 1), and the limit in (c) is 1/6. However, c1's accepted answers are incomplete: g(x) = √x + C gives exactly the same difference quotient for any constant C. Also, c2 excludes a valid algebraic solution: set u = √(9 + h), so h = u² − 9 and the quotient becomes (u − 3)/(u² − 9) = 1/(u + 3), whose limit as u→3 is 1/6. No model answer was supplied.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: it requires g(x)=√x with g(9)=3, but every g(x)=√x+C is consistent with the given limit because the constant cancels in the difference quotient. The rubric rejects valid correct answers."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: it requires g(x)=√x with g(9)=3, but every g(x)=√x+C is consistent with the given limit because the constant cancels in the difference quotient. The rubric rejects valid correct answers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:31:09.002Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from a Limit Definition and Tangent Line"
+  },
+  {
+   "at": "2026-10-10T01:31:54.341Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from the Limit Definition and Tangent Lines"
+  },
+  {
+   "at": "2026-10-10T01:32:37.080Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivative from the Limit Definition and Tangent Lines"
+  }
+ ]
+}

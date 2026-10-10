@@ -1,0 +1,722 @@
+{
+ "id": "ap_calculus_bc__1.9__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.215Z",
+   "item": {
+    "title": "Limits from a Formula, a Table, and a Verbal Description",
+    "calculator": "not_permitted",
+    "stimulus": "Three functions are each described in a different way.\n\nThe function g is defined by g(x) = (√(x+3) − 2)/(x − 1) for x ≥ −3, x ≠ 1.\n\nThe function h is defined for all real numbers, and lim x→1 h(x) exists. Selected values of h are given in the table below, and h(1) = 5.\n\nx: 0.9 | 0.99 | 0.999 | 1.001 | 1.01 | 1.1\nh(x): 2.8 | 2.98 | 2.998 | 3.002 | 3.02 | 3.2\n\nThe function k is defined for all real numbers and has these properties: lim x→1⁻ k(x) = 4, lim x→1⁺ k(x) = −2, and k(1) = 4.",
+    "model_answer": "(a) For x ≠ 1, g(x) = (√(x+3) − 2)/(x − 1) · (√(x+3) + 2)/(√(x+3) + 2) = (x + 3 − 4)/((x − 1)(√(x+3) + 2)) = 1/(√(x+3) + 2). So lim x→1 g(x) = 1/(√4 + 2) = 1/4.\n\n(b) As x → 1⁻, h(x) takes the values 2.8, 2.98, 2.998, and as x → 1⁺, h(x) takes the values 3.2, 3.02, 3.002. Both sides approach 3, so lim x→1 h(x) = 3. Since h(1) = 5 and lim x→1 h(x) = 3 ≠ 5, h is not continuous at x = 1.\n\n(c) No. lim x→1⁻ k(x) = 4 and lim x→1⁺ k(x) = −2. The one-sided limits are not equal, so lim x→1 k(x) does not exist.\n\n(d) Using the product and sum properties of limits, with lim x→1 g(x) = 1/4 and lim x→1 h(x) = 3:\nlim x→1⁻ [4g(x)h(x) + k(x)] = 4(1/4)(3) + 4 = 3 + 4 = 7.\nlim x→1⁺ [4g(x)h(x) + k(x)] = 4(1/4)(3) + (−2) = 3 − 2 = 1.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction\nx = sp.symbols('x')\ng = (sp.sqrt(x+3)-2)/(x-1)\nsimp = 1/(sp.sqrt(x+3)+2)\nassert sp.simplify(g - simp) == 0\nLg = sp.limit(g, x, 1)\nassert Lg == sp.Rational(1,4)\nassert sp.limit(g, x, 1, '-') == sp.Rational(1,4)\nassert sp.limit(g, x, 1, '+') == sp.Rational(1,4)\n# table values approach 3 from both sides\nleft = [2.8, 2.98, 2.998]\nright = [3.2, 3.02, 3.002]\nassert all(abs(v-3) > abs(w-3) for v, w in zip(left, left[1:]))\nassert all(abs(v-3) > abs(w-3) for v, w in zip(right, right[1:]))\nLh = 3\nassert Lh != 5\nkL, kR = 4, -2\nassert kL != kR\nleft_lim = 4*Fraction(1,4)*Lh + kL\nright_lim = 4*Fraction(1,4)*Lh + kR\nassert left_lim == 7\nassert right_lim == 1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→1 g(x) analytically. Show the algebraic work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Uses an algebraic manipulation (multiplying by the conjugate √(x+3) + 2) to rewrite g(x) as 1/(√(x+3) + 2) for x ≠ 1.",
+        "evidence": "Shows the conjugate multiplication and the cancellation of the factor (x − 1), or an equivalent valid rewriting that removes the 0/0 form.",
+        "fix": "When direct substitution gives 0/0 with a square root, multiply numerator and denominator by the conjugate and cancel the common factor.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit correctly: lim x→1 g(x) = 1/4.",
+        "evidence": "States the value 1/4, obtained by substituting x = 1 into the simplified expression.",
+        "fix": "After canceling, substitute x = 1 into 1/(√(x+3) + 2) to get 1/(2 + 2).",
+        "accepted_variants": [
+         "0.25"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to determine the value of lim x→1 h(x). Then determine whether h is continuous at x = 1, and justify your answer using the definition of continuity.",
+      "criteria": [
+       {
+        "text": "States lim x→1 h(x) = 3, supported by the table values approaching 3 from both the left and the right of x = 1.",
+        "evidence": "Gives 3 and refers to values for x < 1 (2.8, 2.98, 2.998) and x > 1 (3.002, 3.02, 3.2) both approaching 3.",
+        "fix": "Read the table values on both sides of x = 1 and identify the single number they approach as x gets closer to 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes h is not continuous at x = 1 because lim x→1 h(x) = 3 ≠ h(1) = 5.",
+        "evidence": "States h is not continuous at x = 1 and explicitly compares the limit 3 with the function value 5.",
+        "fix": "Check continuity by comparing lim x→a h(x) with h(a); continuity requires these two values to be equal.",
+        "accepted_variants": [
+         "discontinuous at x = 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Does lim x→1 k(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 k(x) does not exist because the left-hand limit 4 and the right-hand limit −2 are not equal.",
+        "evidence": "States the limit does not exist and cites the unequal one-sided limits 4 and −2.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare the given left and right limits.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1⁻ [4g(x)·h(x) + k(x)] and lim x→1⁺ [4g(x)·h(x) + k(x)]. Show how you use properties of limits.",
+      "criteria": [
+       {
+        "text": "Finds lim x→1⁻ [4g(x)·h(x) + k(x)] = 4(1/4)(3) + 4 = 7.",
+        "evidence": "Shows the product and sum properties applied with the left-hand values 1/4, 3, and 4, and states 7.",
+        "fix": "Apply limit properties: replace each function by its left-hand limit at 1, then compute 4·(1/4)·3 + 4.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds lim x→1⁺ [4g(x)·h(x) + k(x)] = 4(1/4)(3) + (−2) = 1.",
+        "evidence": "Shows the right-hand values 1/4, 3, and −2 substituted into the expression and states 1.",
+        "fix": "For the right-hand limit, use the right-hand limit of k, which is −2, not k(1) or the left-hand limit.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: The question connects multiple representations of limits, but part (b), criterion b2, requires the definition of continuity from later Topic 1.11, violating the prohibition on requiring later topics.",
+       "well_posed: Parts (b) and (d) are underdetermined. A finite table and the existence of lim x→1 h(x) do not determine its value. Any real limit L is consistent with the data, so continuity and the numerical limits in part (d) cannot be determined.",
+       "rubric_points: Criteria b1, b2, d1, and d2 require conclusions not established by the givens and reject defensible answers identifying the missing information. Criteria d1 and d2 also do not explicitly allow follow-through from an earlier limit value.",
+       "accurate: Criterion b1 incorrectly treats the finite table as establishing an exact limit of 3. Consequently, b2's discontinuity conclusion and d1–d2's exact answers 7 and 1 are not guaranteed. They are correct only conditional on lim x→1 h(x) = 3.",
+       "solution: Part (a) agrees: rationalization gives g(x) = 1/(√(x+3) + 2), so the limit is 1/4. Part (c) agrees: unequal one-sided limits imply DNE. In part (b), the table suggests 3 but does not establish it; writing L = lim x→1 h(x), continuity holds exactly when L = 5. Thus b1 and b2 are not justified by the givens. In part (d), the established answers are L + 4 and L − 2, rather than necessarily 7 and 1. For any real L, assigning h(x) = L away from x = 1 and the six tabulated inputs satisfies every given condition, demonstrating the nonuniqueness."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Parts (b) and (d) are underdetermined: a finite table, together with the existence of a limit, does not establish that limit's value. For any real L, define h(x) = L at every x other than 1 and the six tabulated inputs, assign the listed values at those six inputs, and set h(1) = 5. This satisfies all the stated information and has limit L as x approaches 1. In particular, L = 5 makes h continuous at 1, while L = 3 makes it discontinuous. To obtain the intended answers in (b) and (d), the problem should explicitly state that the limit of h is 3, provide a determining formula near 1, or ask only for an estimate and conclusions conditional on that estimate.",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "The question connects multiple representations of limits, but part (b), criterion b2, requires the definition of continuity from later Topic 1.11, violating the prohibition on requiring later topics."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (b) and (d) are underdetermined. A finite table and the existence of lim x→1 h(x) do not determine its value. Any real limit L is consistent with the data, so continuity and the numerical limits in part (d) cannot be determined."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1, b2, d1, and d2 require conclusions not established by the givens and reject defensible answers identifying the missing information. Criteria d1 and d2 also do not explicitly allow follow-through from an earlier limit value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 incorrectly treats the finite table as establishing an exact limit of 3. Consequently, b2's discontinuity conclusion and d1–d2's exact answers 7 and 1 are not guaranteed. They are correct only conditional on lim x→1 h(x) = 3."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (a) agrees: rationalization gives g(x) = 1/(√(x+3) + 2), so the limit is 1/4. Part (c) agrees: unequal one-sided limits imply DNE. In part (b), the table suggests 3 but does not establish it; writing L = lim x→1 h(x), continuity holds exactly when L = 5. Thus b1 and b2 are not justified by the givens. In part (d), the established answers are L + 4 and L − 2, rather than necessarily 7 and 1. For any real L, assigning h(x) = L away from x = 1 and the six tabulated inputs satisfies every given condition, demonstrating the nonuniqueness.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Most points assess connections among limit representations, but part (b), criterion b2, requires the definition of continuity from later Topic 1.11.",
+       "well_posed: Parts (b) and (d) are underdetermined. A finite table and the assertion that the limit exists do not determine its value. The table suggests 3, but any real limit L is compatible with the data; continuity and the numerical limits in (d) therefore cannot be determined.",
+       "rubric_points: Criteria b1, b2, d1, and d2 require conclusions not established by the givens and reject valid answers identifying the underdetermination. In particular, part (d) supports L + 4 and L − 2, not necessarily 7 and 1.",
+       "accurate: Criterion b1 incorrectly treats the table's suggested limit of 3 as established. Criterion b2 consequently asserts an unsupported discontinuity conclusion, and criteria d1 and d2 assert unsupported numerical limits of 7 and 1.",
+       "solution: Parts (a) and (c) agree with the rubric: the limits are 1/4 and DNE, respectively. For (b), the table suggests 3 but does not establish it. Writing L = lim x→1 h(x), h is continuous at 1 exactly when L = 5. For (d), the defensible answers are L + 4 and L − 2; 7 and 1 follow only if L = 3 is additionally established. No model answer was provided."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Parts (b) and (d) are underdetermined. A finite table, together with the existence of lim_{x→1} h(x), does not establish its value. The table suggests 3, yielding the intended answers that h is discontinuous at 1 and that the limits in (d) are 7 and 1, but other limits—including 5, which makes h continuous—are compatible with all stated data. To make these conclusions rigorous, explicitly state that lim_{x→1} h(x) = 3 or provide a formula or other information determining h arbitrarily close to 1.",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Most points assess connections among limit representations, but part (b), criterion b2, requires the definition of continuity from later Topic 1.11."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (b) and (d) are underdetermined. A finite table and the assertion that the limit exists do not determine its value. The table suggests 3, but any real limit L is compatible with the data; continuity and the numerical limits in (d) therefore cannot be determined."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1, b2, d1, and d2 require conclusions not established by the givens and reject valid answers identifying the underdetermination. In particular, part (d) supports L + 4 and L − 2, not necessarily 7 and 1."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 incorrectly treats the table's suggested limit of 3 as established. Criterion b2 consequently asserts an unsupported discontinuity conclusion, and criteria d1 and d2 assert unsupported numerical limits of 7 and 1."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a) and (c) agree with the rubric: the limits are 1/4 and DNE, respectively. For (b), the table suggests 3 but does not establish it. Writing L = lim x→1 h(x), h is continuous at 1 exactly when L = 5. For (d), the defensible answers are L + 4 and L − 2; 7 and 1 follow only if L = 3 is additionally established. No model answer was provided.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (b), criterion b2, requires the definition of continuity at a point (Topic 1.11), a later topic than the designated Topic 1.9. A student who has studied only 1.9 and earlier topics cannot answer part (b)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (b), criterion b2, requires the definition of continuity at a point (Topic 1.11), a later topic than the designated Topic 1.9. A student who has studied only 1.9 and earlier topics cannot answer part (b)."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:50:19.707Z",
+   "item": {
+    "title": "Limits from a Formula, a Table, and a Description",
+    "calculator": "not_permitted",
+    "stimulus": "The function f is defined by\nf(x) = (x² + x − 6)/(x − 2) for x < 2,\nf(x) = 1 for x = 2,\nf(x) = 3x − 1 for x > 2.\n\nThe function g is defined for all real numbers. It is known that lim x→2 g(x) exists. Selected values of g are given in the table below.\n\nx: 1.9 | 1.99 | 1.999 | 2 | 2.001 | 2.01 | 2.1\ng(x): 2.8 | 2.98 | 2.998 | 5 | 3.002 | 3.02 | 3.2\n\nThe function h is defined by h(x) = f(x) for x < 2, h(2) = 4, and h(x) = g(x) for x > 2.",
+    "model_answer": "(a) For x < 2, f(x) = (x + 3)(x − 2)/(x − 2) = x + 3, so lim x→2⁻ f(x) = 2 + 3 = 5. For x > 2, lim x→2⁺ f(x) = 3(2) − 1 = 5. Since both one-sided limits equal 5, lim x→2 f(x) = 5. The value f(2) = 1 does not affect the limit.\n\n(b) As x approaches 2 from the left, g(x) takes values 2.8, 2.98, 2.998, and from the right 3.2, 3.02, 3.002. These approach 3 from both sides, so lim x→2 g(x) ≈ 3. The value g(2) = 5 does not matter because the limit depends only on the values of g(x) for x near 2 with x ≠ 2, not on the value at x = 2.\n\n(c) lim x→2 (f(x) + 2g(x)) = 5 + 2(3) = 11 and lim x→2 (g(x) + 1) = 3 + 1 = 4. Since 4 ≠ 0, the quotient property gives lim x→2 (f(x) + 2g(x))/(g(x) + 1) = 11/4.\n\n(d) lim x→2⁻ h(x) = lim x→2⁻ f(x) = 5 and lim x→2⁺ h(x) = lim x→2⁺ g(x) = 3. Because 5 ≠ 3, the one-sided limits are not equal, so lim x→2 h(x) does not exist.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction\nx=sp.symbols('x')\nL=sp.limit((x**2+x-6)/(x-2),x,2,dir='-')\nR=sp.limit(3*x-1,x,2,dir='+')\nassert L==5 and R==5\nassert sp.factor(x**2+x-6)==(x-2)*(x+3)\nleft=[2.8,2.98,2.998]; right=[3.2,3.02,3.002]\nassert abs(left[-1]-3)<0.01 and abs(right[-1]-3)<0.01\nassert abs(left[-1]-3)<abs(left[0]-3) and abs(right[-1]-3)<abs(right[0]-3)\nG=3\nnum=5+2*G; den=G+1\nassert num==11 and den==4\nassert Fraction(num,den)==Fraction(11,4) and float(Fraction(11,4))==2.75\nassert L!=G\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 f(x), or explain why it does not exist. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Left-hand limit: factors x² + x − 6 = (x + 3)(x − 2) and finds lim x→2⁻ f(x) = lim x→2⁻ (x + 3) = 5.",
+        "evidence": "Shows the factoring or an equivalent algebraic simplification of the rational piece and obtains 5 for the limit from the left.",
+        "fix": "When direct substitution gives 0/0, factor the numerator, cancel the common factor x − 2, then substitute x = 2.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Right-hand limit lim x→2⁺ (3x − 1) = 5, and concludes lim x→2 f(x) = 5 because the one-sided limits are equal.",
+        "evidence": "Computes the right-hand limit as 5 and states that the two one-sided limits agree, so the two-sided limit is 5 (regardless of f(2) = 1).",
+        "fix": "Compute both one-sided limits separately at the break point, then state that the limit exists only because they are equal.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→2 g(x). Explain why the value g(2) = 5 does not affect your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2 g(x) = 3, citing the table values approaching 3 from both sides of x = 2.",
+        "evidence": "Gives 3 and refers to values such as 2.998 (left) and 3.002 (right) getting closer to 3 as x approaches 2 from each side.",
+        "fix": "Read the table rows closest to x = 2 on each side and identify the common value they approach.",
+        "accepted_variants": [
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of g(x) for x near 2, not on the value at x = 2, so g(2) = 5 is irrelevant.",
+        "evidence": "States that the limit describes behavior as x approaches 2 (x ≠ 2), so the function value at 2 does not change the limit.",
+        "fix": "Remember the limit as x→a uses inputs near a but not equal to a; ignore the table entry at a itself.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using your results from parts (a) and (b), find lim x→2 (f(x) + 2g(x))/(g(x) + 1). Show how you use properties of limits.",
+      "criteria": [
+       {
+        "text": "Applies sum, constant multiple and quotient properties with a nonzero denominator limit to get (5 + 2·3)/(3 + 1) = 11/4.",
+        "evidence": "Writes the numerator limit 11 and denominator limit 4 (noting 4 ≠ 0 so the quotient property applies) and gives 11/4; a value consistent with earlier answers also earns the point.",
+        "fix": "Replace each limit with its value, check the denominator limit is not zero, then simplify the quotient.",
+        "accepted_variants": [
+         "2.75"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Does lim x→2 h(x) exist? Justify your answer using one-sided limits.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2⁻ h(x) = 5 (from f) and lim x→2⁺ h(x) = 3 (from g).",
+        "evidence": "Identifies that the left-hand limit of h comes from f and equals 5 and the right-hand limit comes from g and equals 3.",
+        "fix": "For each side of x = 2, decide which given function defines h there and use its one-sided limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→2 h(x) does not exist because the one-sided limits 5 and 3 are not equal.",
+        "evidence": "States the limit does not exist and gives unequal one-sided limits as the reason; h(2) = 4 is not used as a reason.",
+        "fix": "State that a two-sided limit exists only when both one-sided limits exist and are equal, and compare them explicitly.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d) require exact conclusions that the finite table does not determine. Knowing that lim x→2 g(x) exists does not establish its value or exclude −1 or 5. State lim x→2 g(x) = 3 explicitly to support the intended answers.",
+       "rubric_points: Criteria c1, d1, and d2 reject valid answers identifying that the exact conclusions are underdetermined. Criterion c1 also combines a limit-law setup and its numerical evaluation into one all-or-nothing point rather than separating those observable elements.",
+       "accurate: Criterion c1 treats the estimated limit of g as exactly 3 and asserts an exact quotient limit of 11/4. Criteria d1 and d2 likewise assert an exact right-hand limit of 3 and nonexistence of the two-sided limit. Neither follows from the supplied information. Criterion b1 is acceptable because part (b) explicitly requests an estimate.",
+       "solution: Parts (a) and (b) agree with the rubric. For (c), writing L = lim x→2 g(x), the exact quotient limit is (5 + 2L)/(L + 1) when L ≠ −1; 11/4 is only the intended estimate unless L = 3 is given. For (d), the one-sided limits are 5 and L, so the limit exists exactly when L = 5. For example, a function equal to 5 whenever 0 < |x − 2| < 0.0005 can match every listed table entry and have limit 5. Thus c1, d1, and d2 make unsupported exact claims."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Parts (a) and (b) are well posed. Parts (c) and (d) require more information for exact conclusions: existence of the limit of g together with finitely many tabulated values does not determine that limit. For example, g(x) = 2x − 1 for x ≠ 2, with g(2) = 5, matches the table and has limit 3. Alternatively, g can equal 5 whenever 0 < |x − 2| < 0.0005 and match every listed value elsewhere; it then has limit 5. These give different answers to (c) and (d). To obtain the intended exact answers 11/4 and 'does not exist,' add the assumption lim_{x→2} g(x) = 3.",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d) require exact conclusions that the finite table does not determine. Knowing that lim x→2 g(x) exists does not establish its value or exclude −1 or 5. State lim x→2 g(x) = 3 explicitly to support the intended answers."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria c1, d1, and d2 reject valid answers identifying that the exact conclusions are underdetermined. Criterion c1 also combines a limit-law setup and its numerical evaluation into one all-or-nothing point rather than separating those observable elements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1 treats the estimated limit of g as exactly 3 and asserts an exact quotient limit of 11/4. Criteria d1 and d2 likewise assert an exact right-hand limit of 3 and nonexistence of the two-sided limit. Neither follows from the supplied information. Criterion b1 is acceptable because part (b) explicitly requests an estimate."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a) and (b) agree with the rubric. For (c), writing L = lim x→2 g(x), the exact quotient limit is (5 + 2L)/(L + 1) when L ≠ −1; 11/4 is only the intended estimate unless L = 3 is given. For (d), the one-sided limits are 5 and L, so the limit exists exactly when L = 5. For example, a function equal to 5 whenever 0 < |x − 2| < 0.0005 can match every listed table entry and have limit 5. Thus c1, d1, and d2 make unsupported exact claims.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d) require definitive conclusions that the supplied information does not determine. A finite table and the existence of lim x→2 g(x) do not establish its value. Functions matching the table can have limit 3, 5, or −1, producing different answers. State lim x→2 g(x) = 3 to support the intended answers.",
+       "rubric_points: Criterion c1 combines a limit-law setup and its numerical execution into one all-or-nothing point rather than separating those observable elements. Criteria c1, d1, and d2 also require conclusions based on an unestablished exact limit of g, so a mathematically correct conditional answer need not earn full credit.",
+       "accurate: Criterion c1 treats the estimated limit of g as exactly 3 and asserts the quotient limit is 11/4. Criteria d1 and d2 likewise assert that the right-hand limit of h is exactly 3 and that its two-sided limit does not exist. None of these assertions follows from the supplied information.",
+       "solution: Parts (a) and (b) agree with the rubric, with 3 understood as an estimate in (b). For (c), writing L = lim x→2 g(x), the quotient limit is (5 + 2L)/(L + 1) when L ≠ −1; 11/4 is only the estimate obtained using L ≈ 3. For (d), the one-sided limits are 5 and L, so the limit exists exactly when L = 5. Thus c1, d1, and d2 incorrectly turn a table-based estimate into an exact premise. No model answer was supplied."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (b) is well posed as an estimate, but parts (c) and (d) require information not supplied if exact, definitive answers are expected. Knowing that lim_{x→2} g(x) exists and knowing finitely many values of g does not determine that limit. For example, a function could match every listed value and equal 3 throughout 0<|x−2|<0.0005, or instead equal 5 throughout that punctured neighborhood. Both satisfy the setup, but they give different answers to (c) and (d). To obtain the intended exact answers—11/4 in (c) and nonexistence in (d)—add the statement lim_{x→2} g(x)=3.",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d) require definitive conclusions that the supplied information does not determine. A finite table and the existence of lim x→2 g(x) do not establish its value. Functions matching the table can have limit 3, 5, or −1, producing different answers. State lim x→2 g(x) = 3 to support the intended answers."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 combines a limit-law setup and its numerical execution into one all-or-nothing point rather than separating those observable elements. Criteria c1, d1, and d2 also require conclusions based on an unestablished exact limit of g, so a mathematically correct conditional answer need not earn full credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1 treats the estimated limit of g as exactly 3 and asserts the quotient limit is 11/4. Criteria d1 and d2 likewise assert that the right-hand limit of h is exactly 3 and that its two-sided limit does not exist. None of these assertions follows from the supplied information."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a) and (b) agree with the rubric, with 3 understood as an estimate in (b). For (c), writing L = lim x→2 g(x), the quotient limit is (5 + 2L)/(L + 1) when L ≠ −1; 11/4 is only the estimate obtained using L ≈ 3. For (d), the one-sided limits are 5 and L, so the limit exists exactly when L = 5. Thus c1, d1, and d2 incorrectly turn a table-based estimate into an exact premise. No model answer was supplied.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:53:28.964Z",
+   "item": {
+    "title": "Limits of Combined Functions from Formula and Table",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = (x² + x − 6)/(x − 2) for x ≠ 2, and f(2) = 3.\n\nThe function g is defined for all real numbers. Selected values of g near x = 2 are given in the table below. Assume the table accurately reflects the behavior of g near x = 2.\n\nx    | 1.9  | 1.99   | 1.999    | 2 | 2.001    | 2.01   | 2.1\ng(x) | 3.61 | 3.9601 | 3.996001 | 1 | 4.004001 | 4.0401 | 4.41\n\nAnswer all parts of the following question.",
+    "model_answer": "(a) Direct substitution gives 0/0, so factor: x² + x − 6 = (x + 3)(x − 2). For x ≠ 2, f(x) = (x + 3)(x − 2)/(x − 2) = x + 3. Therefore lim x→2 f(x) = lim x→2 (x + 3) = 2 + 3 = 5.\n\n(b) As x approaches 2 from the left, g(x) takes the values 3.61, 3.9601, 3.996001, and as x approaches 2 from the right, g(x) takes the values 4.41, 4.0401, 4.004001. Both sides approach 4, so lim x→2 g(x) ≈ 4. The value g(2) = 1 does not change this, because the limit as x→2 depends only on the values of g for x close to 2, not at x = 2 itself.\n\n(c) Since lim x→2 f(x) = 5 and lim x→2 g(x) = 4 both exist, the product property of limits gives lim x→2 [f(x) · g(x)] = (lim x→2 f(x)) · (lim x→2 g(x)) = 5 · 4 = 20.\n\n(d) As h→0, the input 2 + h approaches 2, so lim h→0 f(2 + h) = lim x→2 f(x) = 5 from part (a). Likewise, as h→0 the input 2 − h approaches 2, so lim h→0 g(2 − h) = lim x→2 g(x) = 4 from part (b). Both limits exist, so by the difference property, lim h→0 [f(2 + h) − g(2 − h)] = 5 − 4 = 1.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=(x**2+x-6)/(x-2)\nassert sp.factor(x**2+x-6)==(x+3)*(x-2) or sp.expand((x+3)*(x-2)-(x**2+x-6))==0\nassert sp.simplify(f-(x+3))==0\nLf=sp.limit(f,x,2)\nassert Lf==5\ntable={1.9:3.61,1.99:3.9601,1.999:3.996001,2.001:4.004001,2.01:4.0401,2.1:4.41}\nfor k,v in table.items():\n    assert abs(k**2-v)<1e-9\nleft=[table[1.9],table[1.99],table[1.999]]\nright=[table[2.1],table[2.01],table[2.001]]\nassert all(abs(a-4)>abs(b-4) for a,b in zip(left,left[1:]))\nassert all(abs(a-4)>abs(b-4) for a,b in zip(right,right[1:]))\nassert abs(left[-1]-4)<0.01 and abs(right[-1]-4)<0.01\nLg=4\nassert Lf*Lg==20\nassert sp.limit(f.subs(x,2+h),h,0)==5\nassert sp.limit((x**2).subs(x,2-h),h,0)==4\nassert Lf-Lg==1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use algebraic manipulation to find lim x→2 f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Factors the numerator as (x + 3)(x − 2) and cancels the common factor (x − 2) for x ≠ 2, giving f(x) = x + 3 near x = 2.",
+        "evidence": "Response shows the factorization x² + x − 6 = (x + 3)(x − 2) and the simplified expression x + 3 used to evaluate the limit.",
+        "fix": "When direct substitution gives 0/0, factor the numerator and cancel the common factor before substituting.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→2 f(x) = 5.",
+        "evidence": "Response gives the limit value 5 obtained from the simplified expression, not from f(2) = 3.",
+        "fix": "Substitute x = 2 into the simplified expression x + 3; the given value f(2) = 3 does not determine the limit.",
+        "accepted_variants": [
+         "5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→2 g(x). Explain why the value g(2) = 1 does not change your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2 g(x) = 4, citing that the values of g approach 4 as x approaches 2 from both the left and the right.",
+        "evidence": "Response gives 4 and refers to table values on both sides of x = 2 (for example 3.996001 and 4.004001) approaching 4.",
+        "fix": "Read the table values on both sides of x = 2 and identify the single number they both approach.",
+        "accepted_variants": [
+         "4"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of g for x near 2 but not equal to 2, so g(2) = 1 does not affect the limit.",
+        "evidence": "Response states that the limit as x→2 concerns inputs close to (but not at) 2, so the function value at x = 2 is irrelevant.",
+        "fix": "Remember the definition: lim x→a g(x) describes outputs as x gets close to a, never using the output at x = a itself.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 [f(x) · g(x)]. Justify your answer using properties of limits.",
+      "criteria": [
+       {
+        "text": "Justifies using the product property of limits: because lim x→2 f(x) and lim x→2 g(x) both exist, the limit of the product equals the product of the limits.",
+        "evidence": "Response writes lim x→2 [f(x)g(x)] = (lim x→2 f(x))(lim x→2 g(x)) and notes both limits exist (5 and 4).",
+        "fix": "Before using the product property, state that each individual limit exists, then write the limit of the product as the product of limits.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→2 [f(x) · g(x)] = 20.",
+        "evidence": "Response computes 5 · 4 = 20, or a value consistent with its own limits from parts (a) and (b).",
+        "fix": "Multiply the two limits, not the function values f(2) = 3 and g(2) = 1.",
+        "accepted_variants": [
+         "20"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim h→0 [f(2 + h) − g(2 − h)]. Explain how this limit relates to your answers in parts (a) and (b).",
+      "criteria": [
+       {
+        "text": "Re-expresses the limits: as h→0, both 2 + h and 2 − h approach 2, so lim h→0 f(2 + h) = lim x→2 f(x) = 5 and lim h→0 g(2 − h) = lim x→2 g(x) = 4.",
+        "evidence": "Response explains that the inputs 2 + h and 2 − h approach 2 as h approaches 0, and connects each limit to the corresponding limit as x→2.",
+        "fix": "Substitute x = 2 + h (or x = 2 − h) and note that h→0 means x→2, so the limit in h equals the limit in x.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim h→0 [f(2 + h) − g(2 − h)] = 1.",
+        "evidence": "Response computes 5 − 4 = 1 using the difference property, or a value consistent with its own earlier limits.",
+        "fix": "After rewriting each piece as a limit as x→2, subtract the two limit values using the difference property.",
+        "accepted_variants": [
+         "1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 28 words"
+   ],
+   "stage": "lint"
+  }
+ ]
+}

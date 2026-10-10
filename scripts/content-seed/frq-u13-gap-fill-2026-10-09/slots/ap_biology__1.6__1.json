@@ -1,0 +1,939 @@
+{
+ "id": "ap_biology__1.6__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 1,
+  "unit_title": "Chemistry of Life",
+  "topic_code": "1.6",
+  "topic_title": "Nucleic Acids",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.632Z",
+   "item": {
+    "title": "Base Composition and Structure of Nucleic Acid Samples",
+    "calculator": "not_permitted",
+    "stimulus": "A research team isolates nucleic acid from three different viruses. Some viruses carry DNA and others carry RNA as their genetic material, and the genetic material may be single-stranded or double-stranded. The team measures the percentage of each nitrogenous base in each sample. A dash (—) means the base was not detected.\n\nSample | %A | %T | %G | %C | %U\n1 | 30 | 30 | 20 | 20 | —\n2 | 25 | 33 | 24 | 18 | —\n3 | 22 | — | 30 | 20 | 28\n\nThe team also studies a short segment of one DNA strand with the sequence 5′-ATGCCA-3′.",
+    "model_answer": "(a) Sample 3 is RNA. It contains uracil (28%) and no thymine. RNA contains the base uracil, while DNA contains thymine, so Samples 1 and 2 (which contain thymine) are DNA.\n\n(b) In double-stranded DNA, C pairs with G and A pairs with T, so %C = %G = 18%. G + C = 36%, so A + T = 100% − 36% = 64%. Since %A = %T, adenine = 64% ÷ 2 = 32%.\n\n(c) Sample 2 is not double-stranded; it is single-stranded DNA. In double-stranded DNA every A is hydrogen-bonded to a T and every C to a G, so %A would equal %T and %G would equal %C. In Sample 2, A is 25% but T is 33%, and G is 24% but C is 18%, so the bases are not paired in complementary strands.\n\n(d) (i) The complementary strand is 5′-TGGCAT-3′ (aligned with the given strand it reads 3′-TACGGT-5′), because A pairs with T, G pairs with C, and the two strands run antiparallel.\n(ii) A new nucleotide would be added to the 3′ end of the strand, which has a hydroxyl (–OH) group on the sugar; the new nucleotide forms a covalent bond there.",
+    "verification_python": "from fractions import Fraction\nsamples={1:{'A':30,'T':30,'G':20,'C':20,'U':0},2:{'A':25,'T':33,'G':24,'C':18,'U':0},3:{'A':22,'T':0,'G':30,'C':20,'U':28}}\nfor s in samples.values():\n    assert sum(s.values())==100\nrna=[k for k,v in samples.items() if v['U']>0 and v['T']==0]\nassert rna==[3]\nassert samples[1]['A']==samples[1]['T'] and samples[1]['G']==samples[1]['C']\nassert samples[2]['A']!=samples[2]['T'] and samples[2]['G']!=samples[2]['C']\nG=18;C=G;at=100-(G+C);assert at==64\nA=Fraction(at,2);assert A==32\nseq='ATGCCA'\ncomp={'A':'T','T':'A','G':'C','C':'G'}\naligned=''.join(comp[b] for b in seq)\nassert aligned=='TACGGT'\nassert aligned[::-1]=='TGGCAT'\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify which sample (1, 2, or 3) is RNA, and justify your answer using a structural difference between DNA and RNA shown in the data.",
+      "criteria": [
+       {
+        "text": "Identifies Sample 3 as RNA because it contains uracil and no thymine.",
+        "evidence": "Names Sample 3 and justifies with the presence of uracil (U) in place of thymine (T), since RNA contains uracil while DNA contains thymine.",
+        "fix": "Remember RNA contains uracil instead of thymine; look for the sample with U present and T absent.",
+        "accepted_variants": [
+         "contains U instead of T",
+         "uracil replaces thymine"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A fourth virus is found to have double-stranded DNA in which 18% of the bases are guanine. Calculate the percentage of bases in this DNA that are adenine. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates adenine = 32% using complementary base pairing.",
+        "evidence": "Shows C = G = 18%, so G + C = 36%; A + T = 100 − 36 = 64%; A = T, so A = 64 ÷ 2 = 32%.",
+        "fix": "In double-stranded DNA set C equal to G and A equal to T, subtract G + C from 100, then halve.",
+        "accepted_variants": [
+         "32%",
+         "0.32",
+         "32 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Make a claim about whether the DNA in Sample 2 is double-stranded, and justify your claim using the data.",
+      "criteria": [
+       {
+        "text": "Claims Sample 2 is not double-stranded (single-stranded) because A does not equal T and G does not equal C.",
+        "evidence": "States Sample 2 is single-stranded (not double-stranded) and cites that %A (25) ≠ %T (33) and/or %G (24) ≠ %C (18), whereas complementary pairing in a double strand would make these equal.",
+        "fix": "Compare %A with %T and %G with %C; double-stranded DNA pairs A–T and C–G, so those percentages must match.",
+        "accepted_variants": [
+         "single-stranded",
+         "not double-stranded"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For the DNA segment 5′-ATGCCA-3′: (i) write the sequence of the complementary strand, labeled with its 5′ and 3′ ends, and (ii) identify the end of the given strand (5′ or 3′) to which a new nucleotide would be added if the strand were being extended, and name the chemical group found at that end.",
+      "criteria": [
+       {
+        "text": "Writes the antiparallel complementary strand 5′-TGGCAT-3′.",
+        "evidence": "Gives 5′-TGGCAT-3′, or equivalently 3′-TACGGT-5′ aligned under the given strand, with correct base pairing (A–T, C–G) and opposite orientation.",
+        "fix": "Pair each base (A with T, G with C), then remember strands are antiparallel; read the new strand 5′ to 3′.",
+        "accepted_variants": [
+         "5′-TGGCAT-3′",
+         "3′-TACGGT-5′"
+        ]
+       },
+       {
+        "text": "Identifies the 3′ end, which has a hydroxyl (–OH) group, as the end where new nucleotides are added.",
+        "evidence": "States nucleotides are added to the 3′ end and names the hydroxyl group of the sugar at that end.",
+        "fix": "Recall nucleic acid synthesis adds nucleotides only to the 3′ end, defined by the sugar's 3′ hydroxyl group.",
+        "accepted_variants": [
+         "3′ hydroxyl",
+         "3′ OH end"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6,
+     "6": 1
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6 Nucleic Acids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "lint_false_positive_removed": 2,
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:29:04.017Z",
+   "item": {
+    "title": "Base Composition and Strand Structure of Nucleic Acids",
+    "calculator": "not_permitted",
+    "stimulus": "Students isolated three purified nucleic acid samples (1, 2 and 3) from different sources. For each sample they measured the percentage of each nitrogenous base. Samples 1 and 3 contain deoxyribose. The results are shown below.\n\nSample | Adenine (%) | Guanine (%) | Cytosine (%) | Thymine (%) | Uracil (%)\n1 | 30 | 20 | 20 | 30 | 0\n2 | 24 | 31 | 19 | 0 | 26\n3 | 33 | 17 | 22 | 28 | 0",
+    "model_answer": "(a) Sample 2 is RNA. It contains 26% uracil and 0% thymine; uracil is found in RNA, while thymine is found in DNA.\n\n(b) In double-stranded DNA the two antiparallel strands are held together by hydrogen bonds between complementary bases: every adenine pairs with a thymine and every cytosine pairs with a guanine. Therefore the amount of A must equal T and C must equal G, which is true for sample 1 (30% A = 30% T, 20% G = 20% C). In sample 3, A (33%) ≠ T (28%) and G (17%) ≠ C (22%), so the bases are not matched by a complementary strand, meaning sample 3 is single-stranded.\n\n(c) C = G, so G = 18%. C + G = 36%. A + T = 100% − 36% = 64%. Since A = T, A = 64% ÷ 2 = 32% adenine.\n\n(d) The complementary strand is 3′-TACGGT-5′, which written 5′ to 3′ is 5′-TGGCAT-3′. New nucleotides are added to the 3′ (hydroxyl) end of the growing strand.",
+    "verification_python": "rows={1:dict(A=30,G=20,C=20,T=30,U=0),2:dict(A=24,G=31,C=19,T=0,U=26),3:dict(A=33,G=17,C=22,T=28,U=0)}\nfor r in rows.values():\n    assert sum(r.values())==100\nrna=[k for k,r in rows.items() if r['U']>0 and r['T']==0]\nassert rna==[2]\nassert rows[1]['A']==rows[1]['T'] and rows[1]['G']==rows[1]['C']\nassert rows[3]['A']!=rows[3]['T'] and rows[3]['G']!=rows[3]['C']\nC=18\nG=C\nassert C+G==36\nAT=100-(C+G)\nassert AT==64\nA=AT/2\nassert A==32\ncomp={'A':'T','T':'A','G':'C','C':'G'}\ns='ATGCCA'\nc3to5=''.join(comp[b] for b in s)\nassert c3to5=='TACGGT'\nassert c3to5[::-1]=='TGGCAT'\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify which sample is RNA, and use the data to support your identification.",
+      "criteria": [
+       {
+        "text": "Identifies sample 2 as RNA because it contains uracil and no thymine.",
+        "evidence": "Names sample 2 and cites the presence of uracil (or the absence of thymine) from the table.",
+        "fix": "Check the base columns: uracil appears only in RNA and thymine only in DNA, so the sample with uracil is RNA.",
+        "accepted_variants": [
+         "Sample 2, because it has 26% uracil",
+         "Sample 2, because it has 0% thymine and contains uracil"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Samples 1 and 3 are both DNA. Explain why the base composition of sample 1 indicates double-stranded DNA, whereas the composition of sample 3 indicates single-stranded DNA.",
+      "criteria": [
+       {
+        "text": "Explains that in double-stranded DNA each A pairs with T and each C pairs with G by hydrogen bonds, so A = T and C = G (sample 1); sample 3 has A ≠ T and C ≠ G, so its bases are not paired with a complementary strand.",
+        "evidence": "Links complementary base pairing (A–T, C–G) between two strands to equal amounts of the paired bases in sample 1, and states that the unequal amounts in sample 3 show it lacks a complementary strand.",
+        "fix": "Connect base pairing to quantities: two complementary strands force A = T and C = G; unequal amounts mean only one strand is present.",
+        "accepted_variants": [
+         "Sample 1 has 30% A = 30% T and 20% G = 20% C because complementary strands pair A with T and C with G; sample 3 (33% A vs 28% T) is unpaired"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A different sample of double-stranded DNA contains 18% cytosine. Calculate the percentage of adenine in this sample. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates adenine = 32%, using G = C = 18% and A + T = 100 − 36 = 64%, with A = T.",
+        "evidence": "Shows G = 18%, subtracts C + G (36%) from 100% to get 64% for A + T, and divides by 2 to obtain 32% adenine.",
+        "fix": "In double-stranded DNA set G equal to C, subtract C + G from 100%, then split the remainder equally between A and T.",
+        "accepted_variants": [
+         "32",
+         "(100 − 2 × 18) ÷ 2 = 32%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "One strand of a short DNA segment has the sequence 5′-ATGCCA-3′. Predict the sequence of the complementary strand, written in the 5′ to 3′ direction. Then identify the end (3′ or 5′) of a growing strand to which a new nucleotide is added during synthesis.",
+      "criteria": [
+       {
+        "text": "Predicts the complementary strand as 5′-TGGCAT-3′.",
+        "evidence": "Gives TGGCAT labeled 5′ to 3′ (or the equivalent 3′-TACGGT-5′), showing complementary and antiparallel pairing.",
+        "fix": "Pair each base (A–T, G–C), then reverse the result so the new antiparallel strand is written 5′ to 3′.",
+        "accepted_variants": [
+         "5′-TGGCAT-3′",
+         "3′-TACGGT-5′"
+        ]
+       },
+       {
+        "text": "Identifies the 3′ end as the end to which new nucleotides are added.",
+        "evidence": "States the 3′ end (the 3′ hydroxyl end) of the growing strand.",
+        "fix": "Remember that nucleic acid synthesis always adds nucleotides to the 3′ hydroxyl end, so strands grow 5′ to 3′.",
+        "accepted_variants": [
+         "3′ end",
+         "the 3′ hydroxyl end",
+         "3′-OH end"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     6
+    ],
+    "unitCount": {
+     "1": 6,
+     "6": 4
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:30:05.866Z",
+   "item": {
+    "title": "Base Composition and Strand Structure of Nucleic Acids",
+    "calculator": "not_permitted",
+    "stimulus": "A student is given three purified nucleic acid samples from different sources. Each sample was chemically broken down into its nucleotides, and the percentage of each nitrogenous base was measured. The results are shown below.\n\nSample | %A | %T | %G | %C | %U\n1 | 30 | 30 | 20 | 20 | 0\n2 | 26 | 0 | 31 | 19 | 24\n3 | 22 | 35 | 18 | 25 | 0\n\nThe student also studies a short segment of one strand from Sample 1, which has the sequence 5′-ATGCCA-3′.",
+    "model_answer": "(a) Sample 2 is RNA. It contains 24% uracil and 0% thymine, and uracil is the base found in RNA in place of thymine.\n\n(b) In double-stranded DNA, adenine on one strand pairs with thymine on the other, and cytosine pairs with guanine, through hydrogen bonds. Every A is matched by a T and every G by a C, so %A = %T and %G = %C. In Sample 3, A is 22% but T is 35%, and G is 18% but C is 25%. Because the bases are not matched, there is no complementary partner strand, so Sample 3 is single-stranded.\n\n(c) G pairs with C, so C = 18%. G + C = 36%, leaving 100 − 36 = 64% for A + T. A pairs with T, so A = T = 64 ÷ 2 = 32%. Adenine is 32%.\n\n(d) The pairing strand is 3′-TACGGT-5′, which is the same as 5′-TGGCAT-3′. DNA is an antiparallel double helix, so the two strands run in opposite 5′ to 3′ directions. The new strand's 3′ end therefore lies across from the given strand's 5′ end, and its 5′ end lies across from the given strand's 3′ end.",
+    "verification_python": "samples={1:(30,30,20,20,0),2:(26,0,31,19,24),3:(22,35,18,25,0)}\nfor k,v in samples.items():\n    assert sum(v)==100\nrna=[k for k,v in samples.items() if v[4]>0 and v[1]==0]\nassert rna==[2]\nA,T,G,C,U=samples[3]\nassert A!=T and G!=C\nA1,T1,G1,C1,U1=samples[1]\nassert A1==T1 and G1==C1\ng=18\nc=g\nrem=100-g-c\nassert rem==64\na=rem/2\nassert abs(a-32)<1e-9\ncomp={'A':'T','T':'A','G':'C','C':'G'}\ns='ATGCCA'\nc35=''.join(comp[b] for b in s)\nassert c35=='TACGGT'\nassert c35[::-1]=='TGGCAT'\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the sample that is RNA. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Identifies Sample 2 as RNA because it contains uracil (24%) and no thymine.",
+        "evidence": "Response names Sample 2 and cites the presence of uracil and/or absence of thymine in the data as the reason.",
+        "fix": "Remember RNA contains uracil instead of thymine; look for the sample with U and 0% T.",
+        "accepted_variants": [
+         "Sample 2, because it has U and no T",
+         "Sample 2 contains uracil, which is found only in RNA"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Sample 3 contains thymine and no uracil, so it is DNA. Explain why the data indicate that Sample 3 is single-stranded rather than double-stranded.",
+      "criteria": [
+       {
+        "text": "Explains that in double-stranded DNA, A pairs with T and C pairs with G by hydrogen bonds, so %A would equal %T and %G would equal %C; Sample 3 has A (22%) ≠ T (35%) and G (18%) ≠ C (25%).",
+        "evidence": "Response connects complementary base pairing in a double helix to equal A/T and G/C amounts, and notes Sample 3's values are unequal.",
+        "fix": "Link base pairing to amounts: each A pairs with a T, each G with a C, so double strands have equal A=T and G=C.",
+        "accepted_variants": [
+         "Without a complementary strand, A and T need not match; Sample 3 shows 22% A versus 35% T"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A double-stranded DNA sample from another organism contains 18% guanine. Calculate the percentage of adenine in this sample. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates adenine = 32%, using G = C = 18%, so A + T = 100 − 36 = 64% and A = T = 32%.",
+        "evidence": "Response shows C = 18%, subtracts G + C from 100%, and divides the remainder equally between A and T to get 32%.",
+        "fix": "Set C equal to G, subtract both from 100%, then split the remainder equally between A and T.",
+        "accepted_variants": [
+         "32",
+         "(100 − 2 × 18) ÷ 2 = 32%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the sequence of the strand that pairs with the Sample 1 segment 5′-ATGCCA-3′, labeling its 5′ and 3′ ends. Explain why the ends are labeled as you did.",
+      "criteria": [
+       {
+        "text": "Gives the complementary strand as 3′-TACGGT-5′ (equivalent to 5′-TGGCAT-3′) with ends correctly labeled.",
+        "evidence": "Response gives correct complementary bases (A–T, G–C) with 5′ and 3′ ends labeled in the correct orientation.",
+        "fix": "Pair each base (A with T, G with C), then label the new strand's ends opposite to the template's ends.",
+        "accepted_variants": [
+         "3′-TACGGT-5′",
+         "5′-TGGCAT-3′"
+        ]
+       },
+       {
+        "text": "Explains that the two DNA strands are antiparallel, running in opposite 5′ to 3′ directions, so the new strand's 3′ end lies opposite the given strand's 5′ end.",
+        "evidence": "Response states the strands run in opposite (antiparallel) 5′→3′ orientations and uses this to justify the end labels.",
+        "fix": "State that DNA strands are antiparallel: one runs 5′→3′ while its partner runs 3′→5′ alongside it.",
+        "accepted_variants": [
+         "The strands run in opposite directions in the double helix"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 explicitly accepts the bare answer '32', although the prompt requires showing work. Remove that accepted variant and require a calculation demonstrating complementary base proportions. The evidence also unnecessarily prescribes one calculation sequence; accept equivalent work such as A = 50% − 18% = 32% with the base-pairing relationship stated.",
+       "solution: The independent solution agrees with the rubric's biological conclusions, numerical answer, and complementary strand sequences. However, criterion c1's accepted bare answer '32' does not satisfy the requested work, and its evidence should allow equivalent valid calculations. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 explicitly accepts the bare answer '32', although the prompt requires showing work. Remove that accepted variant and require a calculation demonstrating complementary base proportions. The evidence also unnecessarily prescribes one calculation sequence; accept equivalent work such as A = 50% − 18% = 32% with the base-pairing relationship stated."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's biological conclusions, numerical answer, and complementary strand sequences. However, criterion c1's accepted bare answer '32' does not satisfy the requested work, and its evidence should allow equivalent valid calculations. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 explicitly accepts the bare answer '32', although the part requires work. Its evidence also prescribes a particular calculation sequence rather than accepting all valid work, such as A + G = 50%, so A = 50 − 18 = 32%.",
+       "solution: The independent solution agrees with all biological conclusions and calculated answers: Sample 2 is RNA; Sample 3's unequal complementary-base percentages indicate single-stranded DNA; adenine is 32%; and the complementary strand is 3′-TACGGT-5′, with antiparallel orientation. However, c1's accepted bare answer '32' does not satisfy the requested work, and its prescribed evidence excludes a valid alternative calculation using A + G = 50%. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 explicitly accepts the bare answer '32', although the part requires work. Its evidence also prescribes a particular calculation sequence rather than accepting all valid work, such as A + G = 50%, so A = 50 − 18 = 32%."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all biological conclusions and calculated answers: Sample 2 is RNA; Sample 3's unequal complementary-base percentages indicate single-stranded DNA; adenine is 32%; and the complementary strand is 3′-TACGGT-5′, with antiparallel orientation. However, c1's accepted bare answer '32' does not satisfy the requested work, and its prescribed evidence excludes a valid alternative calculation using A + G = 50%. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) criterion c1: the 'Also accept' list includes a bare '32', but the part asks the student to show work, so accepting a value without the required work violates the no-bare-value rule."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6 Nucleic Acids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criterion c1: the 'Also accept' list includes a bare '32', but the part asks the student to show work, so accepting a value without the required work violates the no-bare-value rule."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: In part (c), the question asks 'Show your work,' but criterion c1's 'Also accept' list includes bare '32,' permitting credit without the required work. Remove the bare-value acceptance or require work to be shown."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6 Nucleic Acids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "In part (c), the question asks 'Show your work,' but criterion c1's 'Also accept' list includes bare '32,' permitting credit without the required work. Remove the bare-value acceptance or require work to be shown."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:33:46.039Z",
+   "item": {
+    "title": "Base Composition and Pairing in Nucleic Acid Samples",
+    "calculator": "not_permitted",
+    "stimulus": "A research team isolates purified nucleic acid from three different sources. For each sample, they measure the percentage of each nitrogenous base present. The results are shown below (a dash means the base was not detected; a question mark means the value was not recorded).\n\nSample | Adenine (%) | Guanine (%) | Cytosine (%) | Thymine (%) | Uracil (%)\n1 | 30 | 20 | 20 | 30 | —\n2 | 25 | 30 | 18 | — | 27\n3 | 22 | ? | ? | ? | —\n\nThe team has independently confirmed that Sample 3 is double-stranded DNA. They also sequence a short region of one strand of Sample 1 and obtain 5′-AGTTCG-3′.",
+    "model_answer": "(a) Sample 2 is RNA. It contains uracil (27%) and no detectable thymine. Uracil is a base found in RNA, while thymine is found in DNA, so Sample 2 must be RNA.\n\n(b) Because Sample 3 is double-stranded DNA, A pairs with T and G pairs with C, so %T = %A = 22%. A + T = 22 + 22 = 44%. G + C = 100 − 44 = 56%. Since %G = %C, guanine = 56 ÷ 2 = 28%.\n\n(c) In double-stranded DNA, each adenine on one strand is hydrogen-bonded to a thymine on the opposite, complementary strand, so for every A there is exactly one T and the percentages are equal. RNA is typically single-stranded, so there is no complementary partner strand pairing each adenine with a uracil; the amounts of A and U are therefore independent and need not be equal (25% versus 27%).\n\n(d) The complementary strand is 5′-CGAACT-3′ (written in the other direction, 3′-TCAAGC-5′), running antiparallel to the original strand. During synthesis, new nucleotides are added to the 3′ end of the growing strand. That end has a hydroxyl (–OH) group on the sugar, which forms a covalent bond with the phosphate of the incoming nucleotide.",
+    "verification_python": "comp={'A':'T','T':'A','G':'C','C':'G'}\ns1={'A':30,'G':20,'C':20,'T':30}\nassert sum(s1.values())==100 and s1['A']==s1['T'] and s1['G']==s1['C']\ns2={'A':25,'G':30,'C':18,'U':27}\nassert sum(s2.values())==100 and s2['A']!=s2['U']\nA=22\nT=A\nassert A+T==44\nGC=100-(A+T)\nassert GC==56\nG=GC/2\nassert G==28\nseq='AGTTCG'\ncomp_3to5=''.join(comp[b] for b in seq)\nassert comp_3to5=='TCAAGC'\ncomp_5to3=comp_3to5[::-1]\nassert comp_5to3=='CGAACT'\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the sample that is RNA. Justify your answer using the base composition data.",
+      "criteria": [
+       {
+        "text": "Identifies Sample 2 as RNA, justified by the presence of uracil and the absence of thymine.",
+        "evidence": "Response names Sample 2 and states that it contains uracil (27%) and no thymine, since uracil is found in RNA and thymine in DNA.",
+        "fix": "Remember RNA contains uracil instead of thymine; scan the table for the sample with uracil and no thymine, then cite that data.",
+        "accepted_variants": [
+         "Sample 2, because it has uracil but no thymine",
+         "Sample 2 contains U instead of T"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percentage of guanine in Sample 3. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates guanine = 28% using base-pairing rules: T = A = 22%, so G + C = 100 − 44 = 56%, and G = C = 28%.",
+        "evidence": "Response shows that thymine equals adenine (22%), subtracts 44% from 100% to get 56% for G + C, and divides by 2 to reach 28% guanine.",
+        "fix": "In double-stranded DNA, set %A = %T and %G = %C, subtract A + T from 100, then split the remainder equally.",
+        "accepted_variants": [
+         "28 percent with work showing (100 − 2 × 22) ÷ 2",
+         "G = 28% because A + T = 44%, leaving 56% split equally between G and C"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the percentage of adenine equals the percentage of thymine in Sample 1 but the percentage of adenine does not equal the percentage of uracil in Sample 2.",
+      "criteria": [
+       {
+        "text": "Explains that in double-stranded DNA every adenine is hydrogen-bonded to a thymine on the opposite strand, so the amounts match, whereas RNA is typically single-stranded, so adenine and uracil are not paired one-to-one across a complementary strand.",
+        "evidence": "Response links equal A and T to complementary base pairing (A–T via hydrogen bonds) between two strands, and links unequal A and U to RNA being single-stranded with no complementary partner strand.",
+        "fix": "Connect equal base amounts to pairing between two complementary strands, then note RNA is usually single-stranded, so pairing ratios need not hold.",
+        "accepted_variants": [
+         "A pairs with T across the two strands of the double helix; RNA has only one strand so A and U need not match"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the sequence of the DNA strand complementary to 5′-AGTTCG-3′, labeling its 5′ and 3′ ends. Then identify the end of a growing nucleic acid strand to which new nucleotides are added during synthesis, and describe the chemical group present at that end.",
+      "criteria": [
+       {
+        "text": "Gives the complementary strand as 5′-CGAACT-3′ (equivalently 3′-TCAAGC-5′), with ends labeled in antiparallel orientation.",
+        "evidence": "Response writes the correct complementary bases with correct 5′ and 3′ labels showing the strands run in opposite directions.",
+        "fix": "Pair A with T and G with C, then reverse the orientation labels so the new strand runs antiparallel; write it 5′ to 3′.",
+        "accepted_variants": [
+         "5′-CGAACT-3′",
+         "3′-TCAAGC-5′"
+        ]
+       },
+       {
+        "text": "Identifies the 3′ end as the site where nucleotides are added, and describes the 3′ hydroxyl group on the sugar at that end.",
+        "evidence": "Response states new nucleotides attach to the 3′ end and that this end carries a hydroxyl (–OH) group on the sugar, forming a covalent bond with the incoming nucleotide.",
+        "fix": "Memorize that strands grow only at the 3′ end, which has a free hydroxyl on the sugar; the 5′ end carries the phosphate.",
+        "accepted_variants": [
+         "3′ end, which has a free –OH on the sugar",
+         "the 3′ hydroxyl end"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6,
+     "6": 1
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c), criterion c1: Sample 1 is not confirmed to be double-stranded. Equal A/T and G/C percentages are consistent with double-stranded DNA but can also occur in single-stranded DNA. The required causal explanation therefore depends on an unstated assumption. Specify that Sample 1 is double-stranded and Sample 2 is single-stranded.",
+       "rubric_points: Part (d), criterion d2: The Evidence additionally requires describing covalent-bond formation with the incoming nucleotide, although the prompt only requests the addition end and its chemical group. A complete answer identifying the 3′ end and its sugar hydroxyl should earn credit without this additional explanation; the accepted variants already omit it.",
+       "rubric_evidence: Criterion a1's Fix gives multiple instructions—remember the base distinction, scan the table, and cite the data—rather than the required single concrete action. Replace it with: 'Identify the sample containing uracil but no detectable thymine, and cite those measurements as evidence that it is RNA.'",
+       "accurate: Part (c), criterion c1: The rubric presents Sample 1's double-stranded structure as established, although the supplied data do not establish it. Complementary pairing is a correct conditional explanation, not a demonstrated cause of this sample's equal base percentages.",
+       "solution: Parts (a), (b), and (d) agree with the rubric: Sample 2 is RNA; guanine in Sample 3 is 28%; the complementary strand is 3′-TCAAGC-5′; nucleotides are added at the sugar's 3′ hydroxyl end. For (c), my solution treats double-stranded DNA as an explanation consistent with Sample 1's composition, whereas c1 assumes that structure is established. Equal base percentages alone do not establish double-strandedness. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (c) is slightly underdetermined: equal A and T percentages (and equal G and C percentages) are consistent with double-stranded DNA but do not establish that Sample 1 is double-stranded. A single-stranded DNA sample could coincidentally have those percentages. Likewise, unequal A and U percentages rule out complete canonical base pairing throughout Sample 2, but do not establish that it has no double-stranded regions. The intended double-stranded-DNA versus single-stranded-RNA explanation is given with these qualifications.",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: Sample 1 is not confirmed to be double-stranded. Equal A/T and G/C percentages are consistent with double-stranded DNA but can also occur in single-stranded DNA. The required causal explanation therefore depends on an unstated assumption. Specify that Sample 1 is double-stranded and Sample 2 is single-stranded."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d2: The Evidence additionally requires describing covalent-bond formation with the incoming nucleotide, although the prompt only requests the addition end and its chemical group. A complete answer identifying the 3′ end and its sugar hydroxyl should earn credit without this additional explanation; the accepted variants already omit it."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1's Fix gives multiple instructions—remember the base distinction, scan the table, and cite the data—rather than the required single concrete action. Replace it with: 'Identify the sample containing uracil but no detectable thymine, and cite those measurements as evidence that it is RNA.'"
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The rubric presents Sample 1's double-stranded structure as established, although the supplied data do not establish it. Complementary pairing is a correct conditional explanation, not a demonstrated cause of this sample's equal base percentages."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a), (b), and (d) agree with the rubric: Sample 2 is RNA; guanine in Sample 3 is 28%; the complementary strand is 3′-TCAAGC-5′; nucleotides are added at the sugar's 3′ hydroxyl end. For (c), my solution treats double-stranded DNA as an explanation consistent with Sample 1's composition, whereas c1 assumes that structure is established. Equal base percentages alone do not establish double-strandedness. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c) assumes Sample 1 is double-stranded, but the setup confirms this only for Sample 3. Equal A/T and G/C percentages do not establish double-strandedness; a single-stranded sample could have those percentages by coincidence. State that Sample 1 is double-stranded DNA and Sample 2 is single-stranded RNA to support the intended explanation.",
+       "rubric_points: Criterion c1 requires an explanation based on an unstated double-stranded structure for Sample 1 and does not accommodate the defensible answer that its composition alone cannot establish that structure. Criterion d2's Evidence additionally requires describing covalent-bond formation, although part (d) asks only for the addition end and its chemical group; its Also accept variants omit this extra requirement.",
+       "accurate: Criterion c1 treats Sample 1's double-stranded structure as established by the supplied information. Its equal base percentages are consistent with, but do not prove, double-stranded DNA. The pairing explanation is correct only conditionally.",
+       "solution: Parts (a), (b), and (d) agree with the rubric: Sample 2 is RNA; guanine in Sample 3 is (100 − 2 × 22) ÷ 2 = 28%; the complementary strand is 3′-TCAAGC-5′, equivalently 5′-CGAACT-3′; nucleotides are added at the sugar's free 3′ hydroxyl. For part (c), the independent solution correctly qualifies the intended explanation: Sample 1's composition does not establish double-strandedness, and Sample 2's unequal base percentages do not exclude partially paired RNA. Criterion c1 instead requires an unqualified structural explanation unsupported by the setup."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) implicitly assumes that Sample 1 is double-stranded, but only Sample 3 is independently confirmed to be double-stranded. Equal A/T and G/C percentages support, but do not establish, that Sample 1 is double-stranded; a single-stranded molecule could have those percentages by coincidence. Likewise, Sample 2’s composition does not establish that it is entirely single-stranded, because RNA can contain both paired and unpaired regions. The intended explanation for (c) is valid if Sample 1 is assumed to be double-stranded DNA and Sample 2 is assumed to be single-stranded RNA.",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c) assumes Sample 1 is double-stranded, but the setup confirms this only for Sample 3. Equal A/T and G/C percentages do not establish double-strandedness; a single-stranded sample could have those percentages by coincidence. State that Sample 1 is double-stranded DNA and Sample 2 is single-stranded RNA to support the intended explanation."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires an explanation based on an unstated double-stranded structure for Sample 1 and does not accommodate the defensible answer that its composition alone cannot establish that structure. Criterion d2's Evidence additionally requires describing covalent-bond formation, although part (d) asks only for the addition end and its chemical group; its Also accept variants omit this extra requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1 treats Sample 1's double-stranded structure as established by the supplied information. Its equal base percentages are consistent with, but do not prove, double-stranded DNA. The pairing explanation is correct only conditionally."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a), (b), and (d) agree with the rubric: Sample 2 is RNA; guanine in Sample 3 is (100 − 2 × 22) ÷ 2 = 28%; the complementary strand is 3′-TCAAGC-5′, equivalently 5′-CGAACT-3′; nucleotides are added at the sugar's free 3′ hydroxyl. For part (c), the independent solution correctly qualifies the intended explanation: Sample 1's composition does not establish double-strandedness, and Sample 2's unequal base percentages do not exclude partially paired RNA. Criterion c1 instead requires an unqualified structural explanation unsupported by the setup.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6 Nucleic Acids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

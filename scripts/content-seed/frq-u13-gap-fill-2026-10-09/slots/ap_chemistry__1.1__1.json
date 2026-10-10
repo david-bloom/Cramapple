@@ -1,0 +1,620 @@
+{
+ "id": "ap_chemistry__1.1__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.1",
+  "topic_title": "Moles and Molar Mass",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "open",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.218Z",
+   "item": {
+    "title": "Counting Particles in Weighed Water and Copper Samples",
+    "calculator": "permitted",
+    "stimulus": "A student uses an analytical balance to measure out a sample of liquid water and a piece of pure copper wire. The data are shown below. Use the molar masses H = 1.008 g/mol, O = 16.00 g/mol, Cu = 63.55 g/mol and Avogadro's number NA = 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9.\n\nMeasurement | Mass (g)\nEmpty beaker | 48.217\nBeaker + water | 57.223\nCopper wire | 3.178",
+    "model_answer": "(a) Mass of water = 57.223 g \u2212 48.217 g = 9.006 g. Molar mass of H2O = 2(1.008) + 16.00 = 18.02 g/mol. n = m/M = 9.006 g \u00f7 18.02 g/mol = 0.4998 mol H2O.\n\n(b) 0.4998 mol H2O \u00d7 (6.022 \u00d7 10\u00b2\u00b3 molecules/mol) \u00d7 (2 H atoms/molecule) = 6.019 \u00d7 10\u00b2\u00b3 H atoms.\n\n(c) n = 3.178 g \u00f7 63.55 g/mol = 0.05001 mol Cu. 0.05001 mol \u00d7 6.022 \u00d7 10\u00b2\u00b3 atoms/mol = 3.011 \u00d7 10\u00b2\u00b2 Cu atoms.\n\n(d) The claim is incorrect. The ratio of particles equals the ratio of moles: 0.4998 mol \u00f7 0.05001 mol \u2248 9.99, so the water contains about 10 times as many H2O molecules as the wire contains Cu atoms, not 2.8 times. The mass ratio and particle ratio differ because the particles have different masses. One Cu atom has an average mass of 63.55 amu, while one H2O molecule has a mass of 18.02 amu, so each Cu atom is about 3.5 times as massive. Therefore a gram of copper contains about 3.5 times fewer particles than a gram of water, and 2.8 \u00d7 3.5 \u2248 10.",
+    "verification_python": "import math\nNA=6.022e23\nH=1.008;O=16.00;Cu=63.55\nm_w=57.223-48.217\nassert abs(m_w-9.006)<1e-9\nM_w=2*H+O\nassert abs(M_w-18.016)<1e-9\nn_w=m_w/18.02\nassert abs(n_w-0.4998)<5e-5\nn_w2=m_w/M_w\nassert abs(n_w2-0.4999)<5e-5\nH_atoms=n_w*2*NA\nassert abs(H_atoms/1e23-6.019)<5e-4\nH_atoms2=n_w2*2*NA\nassert 6.019<=round(H_atoms2/1e23,3)<=6.021\nn_cu=3.178/Cu\nassert abs(n_cu-0.05001)<5e-6\ncu_atoms=n_cu*NA\nassert abs(cu_atoms/1e22-3.011)<5e-4\nmass_ratio=m_w/3.178\nassert abs(mass_ratio-2.8)<0.05\nratio=n_w/n_cu\nassert abs(ratio-9.99)<0.01\nassert abs(0.4998/0.05001-9.99)<0.01\npm=Cu/18.02\nassert abs(pm-3.5)<0.05\nassert abs(2.8*3.5-10)<0.3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the number of moles of H2O in the water sample. Show your work and report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Moles of H2O = 0.4998 mol, from water mass 9.006 g divided by molar mass 18.02 g/mol",
+        "evidence": "Response subtracts to get 9.006 g of water, uses a molar mass of 18.02 g/mol (or 18.016 g/mol), applies n = m/M, and reports about 0.4998 mol (0.4999 mol if 18.016 is used) to 4 significant figures.",
+        "fix": "Subtract the empty beaker mass first, build the molar mass from the formula H2O, then divide mass by molar mass using n = m/M.",
+        "accepted_variants": [
+         "0.4998 mol",
+         "0.4999 mol",
+         "4.998 \u00d7 10\u207b\u00b9 mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of hydrogen atoms in the water sample.",
+      "criteria": [
+       {
+        "text": "Number of H atoms = 6.019 \u00d7 10\u00b2\u00b3, using 2 H atoms per H2O molecule and Avogadro's number",
+        "evidence": "Response multiplies moles of H2O (from part (a)) by 6.022 \u00d7 10\u00b2\u00b3 molecules/mol and by 2 H atoms per molecule, giving about 6.019 \u00d7 10\u00b2\u00b3 H atoms (values from 6.019 to 6.021 \u00d7 10\u00b2\u00b3 accepted; consistent with an answer carried from part (a)).",
+        "fix": "After converting moles to molecules with Avogadro's number, multiply by the subscript to count atoms of that element per molecule.",
+        "accepted_variants": [
+         "6.019 \u00d7 10\u00b2\u00b3",
+         "6.020 \u00d7 10\u00b2\u00b3",
+         "6.021 \u00d7 10\u00b2\u00b3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of copper atoms in the copper wire.",
+      "criteria": [
+       {
+        "text": "Number of Cu atoms = 3.011 \u00d7 10\u00b2\u00b2 from 3.178 g \u00f7 63.55 g/mol = 0.05001 mol, times NA",
+        "evidence": "Response converts 3.178 g Cu to 0.05001 mol using 63.55 g/mol, then multiplies by 6.022 \u00d7 10\u00b2\u00b3 atoms/mol to get 3.011 \u00d7 10\u00b2\u00b2 Cu atoms with 4 significant figures.",
+        "fix": "Convert grams to moles with the molar mass, then multiply moles by 6.022 \u00d7 10\u00b2\u00b3 to get the particle count.",
+        "accepted_variants": [
+         "3.011 \u00d7 10\u00b2\u00b2",
+         "3.01 \u00d7 10\u00b2\u00b2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The water sample has about 2.8 times the mass of the copper wire. A classmate claims that the water sample therefore contains about 2.8 times as many particles (H2O molecules) as the copper wire contains Cu atoms. Evaluate the claim using your results, and explain at the particle level why mass ratio and particle ratio differ.",
+      "criteria": [
+       {
+        "text": "States the claim is incorrect: the water contains about 10 times (\u22489.99 times) as many molecules as the wire has Cu atoms",
+        "evidence": "Response rejects the claim and supports it with a ratio of moles or particles, such as 0.4998 mol \u00f7 0.05001 mol \u2248 10 (consistent with earlier answers).",
+        "fix": "Compare particle counts by dividing moles of one sample by moles of the other, not by comparing masses.",
+        "accepted_variants": [
+         "about 10 times",
+         "9.99 times",
+         "\u224810:1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "",
+      "criteria": [
+       {
+        "text": "Explains that each Cu atom (63.55 amu) is about 3.5 times as massive as an H2O molecule (18.02 amu), so a gram of copper contains fewer particles",
+        "evidence": "Response connects the average mass of one particle in amu (numerically equal to molar mass) to the conclusion that heavier particles mean fewer particles per unit mass, so equal or similar masses do not contain equal numbers of particles.",
+        "fix": "Compare the mass of one particle of each substance in amu and state that heavier particles give fewer particles per gram.",
+        "accepted_variants": [
+         "3.53 times as massive",
+         "63.55 amu vs 18.02 amu"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (e) has no prompt, so students cannot determine what response is requested. Its intended explanation is already requested in part (d).",
+       "rubric_points: Criterion e1 awards a point for an explanation that blank part (e) does not request. Assign this criterion to part (d), which explicitly requests the particle-level explanation, or supply a separate prompt.",
+       "solution: The independent numerical results agree with the rubric's accepted values: 0.4999 mol H\u2082O, 6.021 \u00d7 10\u00b2\u00b3 H atoms, 3.011 \u00d7 10\u00b2\u00b2 Cu atoms, and approximately 10 H\u2082O molecules per Cu atom. Criterion e1 is chemically correct, but its explanation answers part (d); there is no question to answer in part (e). No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (e) is blank; its prompt is missing. Parts (a)\u2013(d) are well posed and answerable.",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (e) has no prompt, so students cannot determine what response is requested. Its intended explanation is already requested in part (d)."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion e1 awards a point for an explanation that blank part (e) does not request. Assign this criterion to part (d), which explicitly requests the particle-level explanation, or supply a separate prompt."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent numerical results agree with the rubric's accepted values: 0.4999 mol H\u2082O, 6.021 \u00d7 10\u00b2\u00b3 H atoms, 3.011 \u00d7 10\u00b2\u00b2 Cu atoms, and approximately 10 H\u2082O molecules per Cu atom. Criterion e1 is chemically correct, but its explanation answers part (d); there is no question to answer in part (e). No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (e) is blank despite having a scoring criterion. It provides no task for the student to answer.",
+       "rubric_points: Criterion e1 awards an explanation that part (e) does not request; that explanation is requested in part (d). Move e1 to part (d) or supply an appropriate prompt for part (e). Criterion c1 also lists 3.01 \u00d7 10\u00b2\u00b2 as accepted while its evidence explicitly requires four significant figures; the listed variant has only three.",
+       "solution: The independent calculations agree with the rubric's accepted results: (a) 0.4999 mol using 18.016 g/mol, (b) 6.021 \u00d7 10\u00b2\u00b3 H atoms, (c) 3.011 \u00d7 10\u00b2\u00b2 Cu atoms, and (d) about 10 water molecules per Cu atom. Criterion e1's explanation is scientifically correct but answers the explanatory request in part (d), not the blank part (e). No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (e) is blank and is therefore missing the information needed to answer it. Parts (a)\u2013(d) are well posed.",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (e) is blank despite having a scoring criterion. It provides no task for the student to answer."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion e1 awards an explanation that part (e) does not request; that explanation is requested in part (d). Move e1 to part (d) or supply an appropriate prompt for part (e). Criterion c1 also lists 3.01 \u00d7 10\u00b2\u00b2 as accepted while its evidence explicitly requires four significant figures; the listed variant has only three."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent calculations agree with the rubric's accepted results: (a) 0.4999 mol using 18.016 g/mol, (b) 6.021 \u00d7 10\u00b2\u00b3 H atoms, (c) 3.011 \u00d7 10\u00b2\u00b2 Cu atoms, and (d) about 10 water molecules per Cu atom. Criterion e1's explanation is scientifically correct but answers the explanatory request in part (d), not the blank part (e). No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (e) is blank: the question lists a part (e) with no prompt, so a student cannot know what to answer. Criterion e1 appears to belong to part (d)'s explanation task; delete the blank (e) or add its prompt.",
+       "rubric_points: Part c criterion c1 lists 3.01 \u00d7 10\u00b2\u00b2 as an accepted equivalent while the evidence requires 4 significant figures; 3.01 \u00d7 10\u00b2\u00b2 has only 3 significant figures. Also criterion e1 is orphaned under the blank part (e) rather than attached to part (d).",
+       "accurate: Part c criterion says 0.05001 mol times NA gives 3.011 \u00d7 10\u00b2\u00b2; using the rounded 0.05001 mol exactly gives 3.012 \u00d7 10\u00b2\u00b2. The model answer part (c) repeats this with the rounded value. Use the unrounded 0.0500079 mol Cu for the 3.011 \u00d7 10\u00b2\u00b2 value."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (e) is blank: the question lists a part (e) with no prompt, so a student cannot know what to answer. Criterion e1 appears to belong to part (d)'s explanation task; delete the blank (e) or add its prompt."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part c criterion c1 lists 3.01 \u00d7 10\u00b2\u00b2 as an accepted equivalent while the evidence requires 4 significant figures; 3.01 \u00d7 10\u00b2\u00b2 has only 3 significant figures. Also criterion e1 is orphaned under the blank part (e) rather than attached to part (d)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part c criterion says 0.05001 mol times NA gives 3.011 \u00d7 10\u00b2\u00b2; using the rounded 0.05001 mol exactly gives 3.012 \u00d7 10\u00b2\u00b2. The model answer part (c) repeats this with the rounded value. Use the unrounded 0.0500079 mol Cu for the 3.011 \u00d7 10\u00b2\u00b2 value."
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (e) is listed but has no prompt, while criterion e1 is assigned to it. There is no answerable part (e) in the question, and the explanation criterion appears only under part (d).",
+       "rubric_points: Criterion e1 is assigned to the blank part (e), so it does not belong to an actual part. Criterion c1 also accepts 3.01 \u00d7 10^22 as an equivalent of 3.011 \u00d7 10^22, but 3.01 \u00d7 10^22 has only three significant figures and is not an equivalent form of the key value.",
+       "model_answer: The model answer has no labelled part (e); the content that earns criterion e1 is embedded in part (d), so the answer is not labelled by part and does not show a separate (e) response."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (e) is listed but has no prompt, while criterion e1 is assigned to it. There is no answerable part (e) in the question, and the explanation criterion appears only under part (d)."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion e1 is assigned to the blank part (e), so it does not belong to an actual part. Criterion c1 also accepts 3.01 \u00d7 10^22 as an equivalent of 3.011 \u00d7 10^22, but 3.01 \u00d7 10^22 has only three significant figures and is not an equivalent form of the key value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "The model answer has no labelled part (e); the content that earns criterion e1 is embedded in part (d), so the answer is not labelled by part and does not show a separate (e) response."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:58:32.811Z",
+   "item": {
+    "title": "Moles, Molecules, and Atoms in a Sugar Cube",
+    "calculator": "permitted",
+    "stimulus": "A student weighs a single sugar cube made of pure sucrose, C12H22O11, and records a mass of 2.84 g. The student wants to connect this measured mass to the number of particles in the cube. Use the atomic masses in the table below and Avogadro's number, NA = 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9.\n\nElement | Average atomic mass (amu)\nC | 12.01\nH | 1.008\nO | 16.00",
+    "model_answer": "(a) M(C12H22O11) = 12(12.01) + 22(1.008) + 11(16.00) = 144.12 + 22.176 + 176.00 = 342.30 g/mol. n = m/M = 2.84 g \u00f7 342.30 g/mol = 8.30 \u00d7 10\u207b\u00b3 mol sucrose.\n\n(b) O atoms = (8.30 \u00d7 10\u207b\u00b3 mol sucrose) \u00d7 (11 mol O / 1 mol sucrose) \u00d7 (6.022 \u00d7 10\u00b2\u00b3 atoms/mol) = 5.50 \u00d7 10\u00b2\u00b2 oxygen atoms.\n\n(c) Because the mass of one molecule in amu equals the molar mass in grams, one mole of sucrose has a mass of 342.30 g. Mass of one molecule = 342.30 g/mol \u00f7 6.022 \u00d7 10\u00b2\u00b3 molecules/mol = 5.684 \u00d7 10\u207b\u00b2\u00b2 g.\n\n(d) The water sample contains more molecules. Each water molecule has a much smaller mass than a sucrose molecule (18.02 g/mol compared with 342.30 g/mol), so the same 2.84 g of water corresponds to more moles: 2.84 g \u00f7 18.02 g/mol = 0.158 mol H2O, compared with 8.30 \u00d7 10\u207b\u00b3 mol sucrose. More moles means more molecules, since each mole contains 6.022 \u00d7 10\u00b2\u00b3 molecules.",
+    "verification_python": "import math\nC,H,O=12.01,1.008,16.00\nM=12*C+22*H+11*O\nassert abs(M-342.296)<1e-6\nassert abs(round(M,2)-342.30)<1e-9\nNA=6.022e23\nn=2.84/342.30\nassert abs(n-8.30e-3)<0.005e-3\nO_atoms=n*11*NA\nassert abs(O_atoms-5.50e22)<0.005e22\nm1=342.30/NA\nassert abs(m1-5.684e-22)<0.0005e-22\nnw=2.84/18.02\nassert abs(nw-0.158)<0.0005\nMw=2*H+O\nassert abs(Mw-18.016)<1e-9\nassert nw>n\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the number of moles of sucrose in the 2.84 g sugar cube. Show how you obtain the molar mass of sucrose, and report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Molar mass of sucrose is 342.30 g/mol, so n = 2.84 g \u00f7 342.30 g/mol = 8.30 \u00d7 10\u207b\u00b3 mol",
+        "evidence": "Response sums atomic masses (12 \u00d7 12.01 + 22 \u00d7 1.008 + 11 \u00d7 16.00 \u2248 342.3 g/mol), divides 2.84 g by this molar mass, and reports 8.30 \u00d7 10\u207b\u00b3 mol with units and 3 significant figures",
+        "fix": "Multiply each atomic mass by its subscript, add them for molar mass, then use n = m/M and keep three significant figures.",
+        "accepted_variants": [
+         "0.00830 mol",
+         "8.30 \u00d7 10^-3 mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of oxygen atoms in the sugar cube.",
+      "criteria": [
+       {
+        "text": "Number of O atoms = 8.30 \u00d7 10\u207b\u00b3 mol \u00d7 11 \u00d7 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9 = 5.50 \u00d7 10\u00b2\u00b2 O atoms",
+        "evidence": "Response multiplies moles of sucrose (from part (a), or consistent with it) by 11 O atoms per molecule and by Avogadro's number, giving 5.50 \u00d7 10\u00b2\u00b2 oxygen atoms",
+        "fix": "After converting moles to molecules with Avogadro's number, multiply by the number of that atom in one formula, here 11 oxygen atoms.",
+        "accepted_variants": [
+         "5.50 \u00d7 10^22",
+         "5.5 \u00d7 10\u00b2\u00b2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The average mass of one sucrose molecule is 342.30 amu. Calculate the average mass, in grams, of one sucrose molecule.",
+      "criteria": [
+       {
+        "text": "Mass of one molecule = 342.30 g/mol \u00f7 6.022 \u00d7 10\u00b2\u00b3 molecules/mol = 5.684 \u00d7 10\u207b\u00b2\u00b2 g",
+        "evidence": "Response uses the numerical equality between amu per molecule and grams per mole, divides 342.30 g/mol by Avogadro's number, and reports about 5.684 \u00d7 10\u207b\u00b2\u00b2 g",
+        "fix": "Recall that amu per particle equals grams per mole numerically; divide the molar mass by Avogadro's number to get grams per particle.",
+        "accepted_variants": [
+         "5.68 \u00d7 10\u207b\u00b2\u00b2 g",
+         "5.684 \u00d7 10^-22 g"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student also weighs a 2.84 g sample of pure water, H2O (molar mass 18.02 g/mol). Does the water sample contain more molecules, fewer molecules, or the same number of molecules as the sugar cube? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Claim that the water sample contains more molecules, justified because each water molecule has a much smaller mass (18.02 g/mol versus 342.30 g/mol), so the same mass contains more moles",
+        "evidence": "Response states the water sample has more molecules and links this to the smaller molar mass (smaller mass per molecule) of water, either in words or by comparing 2.84/18.02 \u2248 0.158 mol to 8.30 \u00d7 10\u207b\u00b3 mol",
+        "fix": "For equal masses, compare molar masses: the substance with the smaller mass per particle has more moles and therefore more particles.",
+        "accepted_variants": [
+         "more molecules",
+         "water has more"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria b1 and c1 prescribe calculation methods that their parts do not require. For (b), dividing the sample mass by the mass per sucrose molecule and multiplying by 11 is valid, but does not satisfy the stated requirement to multiply moles by Avogadro\u2019s number. For (c), dividing the sample mass by the number of sucrose molecules, obtained from (b) by dividing by 11, is valid but does not satisfy the required molar-mass/Avogadro\u2019s-number calculation. Accept any valid calculation supporting the correct value and units.",
+       "solution: The independent solution agrees with all rubric values and conclusions: (a) 342.30 g/mol and 8.30 \u00d7 10\u207b\u00b3 mol; (b) 5.50 \u00d7 10\u00b2\u00b2 oxygen atoms; (c) 5.684 \u00d7 10\u207b\u00b2\u00b2 g per molecule; (d) water contains more molecules because its molar mass is smaller. The disagreement concerns only the unnecessarily restrictive evidence requirements in b1 and c1, not the chemistry or numerical answers. No model answer was provided for assessment."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and c1 prescribe calculation methods that their parts do not require. For (b), dividing the sample mass by the mass per sucrose molecule and multiplying by 11 is valid, but does not satisfy the stated requirement to multiply moles by Avogadro\u2019s number. For (c), dividing the sample mass by the number of sucrose molecules, obtained from (b) by dividing by 11, is valid but does not satisfy the required molar-mass/Avogadro\u2019s-number calculation. Accept any valid calculation supporting the correct value and units."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all rubric values and conclusions: (a) 342.30 g/mol and 8.30 \u00d7 10\u207b\u00b3 mol; (b) 5.50 \u00d7 10\u00b2\u00b2 oxygen atoms; (c) 5.684 \u00d7 10\u207b\u00b2\u00b2 g per molecule; (d) water contains more molecules because its molar mass is smaller. The disagreement concerns only the unnecessarily restrictive evidence requirements in b1 and c1, not the chemistry or numerical answers. No model answer was provided for assessment.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria b1 and c1 prescribe calculation methods that the parts do not require. For b1, a valid alternative is dividing the sample mass by the mass per sucrose molecule and multiplying by 11. For c1, a valid alternative is converting 342.30 amu directly to grams using the amu-to-gram conversion factor. Accept any valid calculation with sufficient supporting work, rather than requiring the specified operations."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and c1 prescribe calculation methods that the parts do not require. For b1, a valid alternative is dividing the sample mass by the mass per sucrose molecule and multiplying by 11. For c1, a valid alternative is converting 342.30 amu directly to grams using the amu-to-gram conversion factor. Accept any valid calculation with sufficient supporting work, rather than requiring the specified operations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "removed_gateway_credit_failures": 1
+}

@@ -1,0 +1,291 @@
+{
+ "id": "ap_chemistry__1.8__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.8",
+  "topic_title": "Valence Electrons and Ionic Compounds",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "open",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:51:54.711Z",
+   "item": {
+    "title": "Strontium Chloride Formula and Group Reactivity Trends",
+    "calculator": "permitted",
+    "stimulus": "A student heats a 0.876 g sample of pure strontium metal, Sr, in excess chlorine gas, Cl2. All of the strontium reacts to form a single white ionic solid, which is the only product. The student records the data below.\n\nQuantity | Value\nMass of strontium before reaction | 0.876 g\nMass of ionic solid product | 1.585 g\nMolar mass of Sr | 87.62 g/mol\nMolar mass of Cl | 35.45 g/mol\n\nIn a separate demonstration, small equal-sized pieces of calcium and strontium are placed in water. Both metals react to form hydrogen gas, but strontium reacts noticeably more vigorously than calcium.",
+    "model_answer": "(a) Mass of Cl = 1.585 g \u2212 0.876 g = 0.709 g. Moles of Sr = 0.876 g \u00f7 87.62 g/mol = 0.0100 mol Sr. Moles of Cl = 0.709 g \u00f7 35.45 g/mol = 0.0200 mol Cl.\n\n(b) Ratio Cl : Sr = 0.0200 mol \u00f7 0.0100 mol = 2.00 : 1, so there are 2 Cl atoms for every Sr atom. The empirical formula is SrCl2.\n\n(c) Strontium is in Group 2 and has two valence electrons (5s\u00b2). It loses both to form Sr\u00b2\u207a, which has the same electron configuration as the noble gas Kr. Chlorine is in Group 17 and has seven valence electrons (3s\u00b23p\u2075). It gains one electron to form Cl\u207b, which has a complete octet and the configuration of Ar. One Sr\u00b2\u207a balances two Cl\u207b, which matches SrCl2.\n\n(d) Barium is in the same column (Group 2) as strontium, so it also forms a 2+ ion and an analogous compound with chlorine: BaCl2. Oxygen is in Group 16 with six valence electrons, so it gains two electrons to form O\u00b2\u207b. One Sr\u00b2\u207a balances one O\u00b2\u207b, giving SrO.\n\n(e) The valence electrons of Sr are in the n = 5 shell, while those of Ca are in the n = 4 shell. Sr's valence electrons are farther from the nucleus and are shielded by more inner electrons, so the Coulombic attraction between the nucleus and its valence electrons is weaker. Sr therefore has a lower ionization energy and loses its valence electrons more easily than Ca, so it reacts more vigorously with water.",
+    "verification_python": "import math\nm_sr=0.876\nm_prod=1.585\nM_sr=87.62\nM_cl=35.45\nm_cl=m_prod-m_sr\nassert abs(m_cl-0.709)<1e-9\nn_sr=m_sr/M_sr\nn_cl=m_cl/M_cl\nassert abs(n_sr-0.0100)<5e-5\nassert abs(n_cl-0.0200)<5e-5\nratio=n_cl/n_sr\nassert abs(ratio-2.00)<0.01\nassert round(ratio)==2\n# charge balance checks\nassert 1*2+2*(-1)==0\nassert 1*2+1*(-2)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, calculate the number of moles of strontium and the number of moles of chlorine atoms in the product. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates mol Sr = 0.876 g \u00f7 87.62 g/mol = 0.0100 mol and mol Cl = (1.585 g \u2212 0.876 g) \u00f7 35.45 g/mol = 0.709 g \u00f7 35.45 g/mol = 0.0200 mol.",
+        "evidence": "Response finds the mass of Cl by subtraction (0.709 g) and converts both masses to moles using the given molar masses, giving about 0.0100 mol Sr and 0.0200 mol Cl.",
+        "fix": "Find the mass of chlorine by subtracting metal mass from product mass, then divide each mass by its molar mass.",
+        "accepted_variants": [
+         "1.00 \u00d7 10\u207b\u00b2 mol Sr",
+         "2.00 \u00d7 10\u207b\u00b2 mol Cl",
+         "0.01000 mol Sr",
+         "0.02000 mol Cl"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the empirical formula of the ionic solid. Justify your answer using your results from part (a).",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SrCl2 from a Cl:Sr mole ratio of 0.0200 : 0.0100 = 2.00 : 1.",
+        "evidence": "Response divides moles of Cl by moles of Sr (or vice versa) to obtain a 2:1 Cl-to-Sr ratio and states the formula SrCl2; credit is consistent with the moles found in part (a).",
+        "fix": "Divide each mole amount by the smallest one to get the whole-number atom ratio, then write the formula.",
+        "accepted_variants": [
+         "SrCl\u2082"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of valence electrons, why strontium is present as Sr\u00b2\u207a and chlorine is present as Cl\u207b in this compound.",
+      "criteria": [
+       {
+        "text": "States that Sr (Group 2) has two valence electrons (5s\u00b2) that it loses to form Sr\u00b2\u207a, and Cl (Group 17) has seven valence electrons and gains one to form Cl\u207b, each reaching a noble-gas electron configuration.",
+        "evidence": "Response connects each ion charge to the number of valence electrons: Sr loses its 2 valence electrons and Cl gains 1 electron to complete 8, with both ions having noble-gas configurations (Kr and Ar).",
+        "fix": "Count valence electrons from the group number, then state how many are lost or gained to reach a noble-gas configuration.",
+        "accepted_variants": [
+         "Sr loses 2 electrons; Cl gains 1 electron",
+         "isoelectronic with Kr and Ar"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed between barium and chlorine, and the formula of the ionic compound formed between strontium and oxygen. Justify each prediction using the positions of the elements on the periodic table.",
+      "criteria": [
+       {
+        "text": "Predicts BaCl2 and SrO, justified by periodic table position: Ba is in Group 2 like Sr, so it forms Ba\u00b2\u207a and an analogous chloride; O is in Group 16, so it gains two electrons to form O\u00b2\u207b, balancing one Sr\u00b2\u207a.",
+        "evidence": "Response gives both formulas, BaCl2 and SrO, and justifies them with group membership (same column forms analogous compounds; Group 16 forms 2\u2212 ions) and charge balance.",
+        "fix": "Use group number to assign each ion's typical charge, then combine ions in the ratio that gives zero net charge.",
+        "accepted_variants": [
+         "BaCl\u2082 and SrO"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, using Coulombic attractions at the particle level, why strontium reacts more vigorously with water than calcium does.",
+      "criteria": [
+       {
+        "text": "Explains that strontium's valence electrons are in a higher shell (n = 5 versus n = 4 for Ca), farther from the nucleus and more shielded by inner electrons, so they are attracted less strongly and are lost more easily (lower ionization energy), making Sr more reactive.",
+        "evidence": "Response links greater distance of the valence electrons from the nucleus (and/or more inner-electron shielding) to weaker Coulombic attraction, so Sr loses its valence electrons more easily than Ca.",
+        "fix": "Compare valence shell number and distance from the nucleus, then use Coulomb's law to explain how easily electrons are removed.",
+        "accepted_variants": [
+         "lower first ionization energy for Sr",
+         "weaker attraction between nucleus and valence electrons in Sr"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two independently scorable calculations\u2014moles of Sr and moles of Cl\u2014into one point. Criterion d1 likewise bundles two independently scorable formula predictions and their justifications. Each criterion must award one specific, observable element; split these criteria or narrow the corresponding parts."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently scorable calculations\u2014moles of Sr and moles of Cl\u2014into one point. Criterion d1 likewise bundles two independently scorable formula predictions and their justifications. Each criterion must award one specific, observable element; split these criteria or narrow the corresponding parts."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two independently requested calculations\u2014moles of Sr and moles of Cl\u2014into one point. Criterion d1 likewise bundles two independently requested formula predictions and their justifications. Each criterion should award one specific observable element; split these into separate 1-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently requested calculations\u2014moles of Sr and moles of Cl\u2014into one point. Criterion d1 likewise bundles two independently requested formula predictions and their justifications. Each criterion should award one specific observable element; split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "removed_gateway_credit_failures": 2
+}
