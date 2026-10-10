@@ -143,7 +143,12 @@ export interface ByoqStore {
   topicById(taxonomyTopicId: string): Promise<TopicRow | null>;
   listSubjects(): Promise<string[]>;
   listTopics(subjectKey: string): Promise<TopicRow[]>;
-  topicGuides(subjectKey: string, unitNumber: number, topicCode: string): Promise<{ briefs: unknown[]; explainers: unknown[] }>;
+  topicGuides(subjectKey: string, unitNumber: number, topicCode: string): Promise<{
+    briefs: unknown[];
+    explainers: unknown[];
+    reference: unknown[];
+    memoryHooks: unknown[];
+  }>;
 
   listResponses(itemId: string): Promise<ResponseRow[]>;
   insertResponse(row: Omit<ResponseRow, "id" | "created_at">): Promise<ResponseRow>;
@@ -204,6 +209,109 @@ export interface ByoqStorage {
 type Client = any;
 
 const BUCKET = "learner-uploads";
+
+/* -------------------------------------------------------------------------- */
+/* Topic reference (TASK-0067 / TASK-0066) for anonymous BYOQ visitors          */
+/* -------------------------------------------------------------------------- */
+
+export type ReferenceEntryRow = {
+  reference_entry_id: string;
+  subject_key: string;
+  unit_number: number;
+  owner_topic_code: string;
+  topic_codes: string[];
+  kind: string;
+  title: string;
+  body: string;
+  items: unknown;
+  visual_asset_ref: string | null;
+  caution: string | null;
+  source_note: string;
+};
+
+export type MemoryHookRow = {
+  memory_hook_id: string;
+  reference_entry_id: string;
+  kind: string;
+  hook_text: string;
+  expands_to: unknown;
+  when_to_use: string;
+  caution: string | null;
+  source_note: string;
+  created_at: string;
+};
+
+const REFERENCE_KIND_ORDER = ["formula", "vocabulary", "list_sequence", "convention", "diagram"];
+
+function topicParts(code: string): [number, number] {
+  const [a, b] = code.split(".");
+  return [Number(a), Number(b)];
+}
+
+/** Mirrors public.get_topic_point_guides' reference[] and memoryHooks[] payload (field names and order),
+ * which BYOQ cannot call because that RPC requires auth.uid(). Rows must already be published and
+ * topic-filtered. */
+export function shapeTopicReference(entries: ReferenceEntryRow[], hooks: MemoryHookRow[]) {
+  const byCreated = (a: MemoryHookRow, b: MemoryHookRow) => a.created_at < b.created_at ? -1 : a.created_at > b.created_at ? 1 : 0;
+  const hookView = (h: MemoryHookRow) => ({
+    id: h.memory_hook_id,
+    kind: h.kind,
+    hookText: h.hook_text,
+    expandsTo: h.expands_to,
+    whenToUse: h.when_to_use,
+    caution: h.caution,
+    sourceNote: h.source_note,
+  });
+  const entryOrder = (a: ReferenceEntryRow, b: ReferenceEntryRow) => {
+    const [am, an] = topicParts(a.owner_topic_code);
+    const [bm, bn] = topicParts(b.owner_topic_code);
+    return REFERENCE_KIND_ORDER.indexOf(a.kind) - REFERENCE_KIND_ORDER.indexOf(b.kind) ||
+      a.unit_number - b.unit_number || am - bm || an - bn ||
+      (a.title < b.title ? -1 : a.title > b.title ? 1 : 0);
+  };
+  const byId = new Map(entries.map((e) => [e.reference_entry_id, e]));
+  const reference = [...entries].sort(entryOrder).map((e) => ({
+    id: e.reference_entry_id,
+    subjectKey: e.subject_key,
+    unitNumber: e.unit_number,
+    ownerTopicCode: e.owner_topic_code,
+    topicCodes: e.topic_codes,
+    kind: e.kind,
+    title: e.title,
+    body: e.body,
+    items: e.items,
+    visualAssetRef: e.visual_asset_ref,
+    caution: e.caution,
+    sourceNote: e.source_note,
+    memoryHooks: hooks.filter((h) => h.reference_entry_id === e.reference_entry_id).sort(byCreated).map(hookView),
+  }));
+  const memoryHooks = hooks
+    .filter((h) => byId.has(h.reference_entry_id))
+    .sort((a, b) => {
+      const ea = byId.get(a.reference_entry_id)!, eb = byId.get(b.reference_entry_id)!;
+      const [am, an] = topicParts(ea.owner_topic_code);
+      const [bm, bn] = topicParts(eb.owner_topic_code);
+      return ea.unit_number - eb.unit_number || am - bm || an - bn || byCreated(a, b);
+    })
+    .map((h) => {
+      const e = byId.get(h.reference_entry_id)!;
+      return {
+        id: h.memory_hook_id,
+        referenceEntryId: h.reference_entry_id,
+        referenceTitle: e.title,
+        referenceKind: e.kind,
+        ownerTopicCode: e.owner_topic_code,
+        unitNumber: e.unit_number,
+        kind: h.kind,
+        hookText: h.hook_text,
+        expandsTo: h.expands_to,
+        whenToUse: h.when_to_use,
+        caution: h.caution,
+        sourceNote: h.source_note,
+      };
+    });
+  return { reference, memoryHooks };
+}
 
 function must<T>(result: { data: T | null; error: { message: string } | null }, what: string): T {
   if (result.error) throw new Error(`${what}: ${result.error.message}`);
@@ -409,7 +517,24 @@ export function createSupabaseStore(client: Client): ByoqStore {
           .eq("unit_number", unitNumber).eq("topic_code", topicCode).eq("status", "published"),
         "explainers",
       ) as Record<string, unknown>[];
+      // Unit reference entries + memory hooks for this topic, same filter as the RPC:
+      // published entries whose topic_codes include the topic, and their published hooks.
+      const entries = must(
+        await app().from("unit_reference_entries").select("*").eq("subject_key", subjectKey)
+          .eq("status", "published").contains("topic_codes", [topicCode]),
+        "reference_entries",
+      ) as ReferenceEntryRow[];
+      const hooks = entries.length
+        ? must(
+          await app().from("topic_memory_hooks").select("*").eq("status", "published")
+            .in("reference_entry_id", entries.map((r) => r.reference_entry_id)),
+          "memory_hooks",
+        ) as MemoryHookRow[]
+        : [];
+      const { reference, memoryHooks } = shapeTopicReference(entries, hooks);
       return {
+        reference,
+        memoryHooks,
         briefs: briefs.map((b) => ({
           subjectKey: b.subject_key,
           unitNumber: b.unit_number,

@@ -1,0 +1,2121 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u1-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula n = m/M is explicitly listed as a required equation (EQN: n = m/M) under Topic 1.1 (Moles and Molar Mass) in the CED on page 30."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.1, essential knowledge 1.1.A.3, explicitly gives \u201cEQN: n = m/M.\u201d The entry reproduces that formula exactly, is assigned to its required topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED lists the formula as 'EQN: n = m/M' under 1.1.A (Topic 1.1, Moles and Molar Mass), and the entry's body matches it symbol for symbol. b_topic_codes: Topic 1.1 is the first topic of Unit 1 and the formula appears there; topic_codes ['1.1'] is the only topic that uses it, and owner_topic_code is 1.1. c_ced_required: Learning objective 1.1.A ('Calculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept') is supported by essential knowledge 1.1.A.1-1.1.A.3, and the formula n = m/M is listed in the CED for that LO. d_caution: The CED gives the formula with no added wording, and the entry matches it exactly, so no caution is needed and the absence of one is correct. The title 'Moles from mass and molar mass' is descriptive and does not change the point-earning content."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the weighted average calculation described in Essential Knowledge 1.2.A.2 ('The average atomic mass of an element can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance'). The caution correctly defines the terms used in the formula."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.2, EK 1.2.A.2 states: \u201cThe average atomic mass of an element can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance.\u201d The formula expresses that weighted average, and the caution correctly defines fractional abundance. Topic 1.2 is the first and only listed topic requiring it."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula average atomic mass = \u03a3_i (f_i \u00d7 m_i) matches 1.2.A.2, which says the average atomic mass 'can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance.' The sum over isotopes is the weighted average the CED describes. b_topic_codes: 1.2 is the first unit topic that requires weighted averages of isotopic masses (1.1 covers molar mass only), and 1.2 is the only topic listed, which uses it. c_ced_required: 1.2.A.2 requires students to apply this weighted-average calculation, and LO 1.2.A ('Explain the quantitative relationship between the mass spectrum of an element and the masses of the element's isotopes') is assessed through it. d_caution: The CED gives 'relative abundance' without specifying a fraction versus percent. The formula only yields the correct average if f_i is a fraction, so the caution 'f_i is the fractional abundance (percent divided by 100)' is needed and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Avogadro's number as specified in Essential Knowledge 1.1.A.2 of the AP Chemistry CED ('Avogadro\u2019s number (NA = 6.022 \u00d7 10^23 mol\u22121)'). The topic code, unit number, and formula body are correct and directly supported by the text."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.1, EK 1.1.A.2 states: \u201cAvogadro\u2019s number (NA = 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9) provides the connection between the number of moles in a pure sample of a substance and the number of constituent particles.\u201d The formula matches, Topic 1.1 is the correct owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Topic 1.1, Essential Knowledge 1.1.A.2 states \"Avogadro's number (NA = 6.022 \u00d7 10^23 mol\u22121)\". The body N_A = 6.022\u00d710^23 mol^-1 matches the symbol, value, and units. b_topic_codes: owner_topic_code 1.1 is the only topic listing this constant, and 1.1.A.2 appears under Topic 1.1 (Moles and Molar Mass), so 1.1 is where it is first required. c_ced_required: LO 1.1.A asks students to \"Calculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept,\" which requires applying N_A. d_caution: the entry wording is the CED's own wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 1.1.A.3, which states that the average mass in amu of one particle or formula unit of a substance is numerically equal to the molar mass of that substance in grams. The topic code 1.1 is correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.1, essential knowledge 1.1.A.3 states that \u201cthe average mass in amu of one particle (atom or molecule) or formula unit of a substance will always be numerically equal to the molar mass of that substance in grams.\u201d The entry accurately restates this required relationship. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.1.A.3, which states that 'the average mass in amu of one particle (atom or molecule) or formula unit of a substance will always be numerically equal to the molar mass of that substance in grams.' The entry drops the parenthetical '(atom or molecule)' but keeps the claim and the units intact, so nothing is wrong. b_topic_codes: The entry is owned by 1.1 and topic_codes is ['1.1']. 1.1.A.3 appears under Topic 1.1 (Moles and Molar Mass, LO 1.1.A), and no other unit's pages require it. c_ced_required: 1.1.A.3 is an essential-knowledge statement under LO 1.1.A ('Calculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept'), so it is a required, assessable idea. d_caution: The entry's wording is essentially the CED's own wording, with no unit-swapping or changed claim that would fail to earn the point. No caution is needed, so true is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components of a mass spectrum of a single element as required by EK 1.2.A.1 ('The mass spectrum of a sample containing a single element can be used to determine the identity of the isotopes of that element and the relative abundance of each isotope in nature'). The caution correctly addresses common student errors regarding isotopes and reading graphical data."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.2 states that a single-element mass spectrum can determine \u201cthe identity of the isotopes of that element and the relative abundance of each isotope in nature\u201d (1.2.A.1). The labelled peak position and height convey those required quantities. Topic 1.2 is the appropriate owner and only listed topic. The caution correctly distinguishes isotopes by neutron number; no additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and items match 1.2.A.1, which says the mass spectrum of a sample containing a single element can determine the identity of the isotopes and the relative abundance of each isotope in nature. Assigning peak position to isotope mass and peak height to relative abundance is consistent with that statement. The CED does not specify axis labels, but for singly charged monatomic ions (the only case the 1.2 exclusion statement allows) m/z equals mass, so 'mass' on the x-axis is acceptable. b_topic_codes: owner_topic_code '1.2' is the topic that first requires mass spectra, and topic_codes ['1.2'] is the only topic that uses it. c_ced_required: Learning objective 1.2.A ('Explain the quantitative relationship between the mass spectrum of an element and the masses of the element's isotopes') and 1.2.A.1 directly require reading isotope identity and relative abundance from the spectrum. d_caution: The entry's wording tracks 1.2.A.1 closely, so no caution is strictly required. The caution (isotopes differ in neutron number, not proton or electron number; read the y-axis scale carefully) is chemically correct and does not conflict with the CED, so its presence is acceptable.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's definition of the 'Law of definite proportions' is factually accurate and matches the exact wording of Essential Knowledge statement 1.3.A.2 in the CED ('the ratio of the masses of the constituent elements in any pure sample of that compound is always the same'). The topic code 1.3 is correct and the content is explicitly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.3, EK 1.3.A.2 states: \u201cAccording to the law of definite proportions, the ratio of the masses of the constituent elements in any pure sample of that compound is always the same.\u201d The entry accurately states this required principle; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.3.A.2 in substance: \"According to the law of definite proportions, the ratio of the masses of the constituent elements in any pure sample of that compound is always the same.\" The entry drops the lead-in phrase and says \"a compound\" where the CED says \"that compound\", but the stated relationship is identical. b_topic_codes: The law is first required in Topic 1.3 (1.3.A.2), and no other Unit 1 topic in the pages uses it, so owner_topic_code 1.3 and topic_codes [\"1.3\"] are correct. c_ced_required: 1.3.A.2 is essential knowledge under LO 1.3.A, which asks students to \"Explain the quantitative relationship between the elemental composition by mass and the empirical formula of a pure substance.\" The law is directly required. d_caution: The entry's wording is a close restatement that carries the same point-earning content, so no caution is needed. accept: all booleans are true."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a pure substance is factually accurate and directly matches the wording in Essential Knowledge statement 1.5.A.1 (under Topic 1.4, 'Pure substances contain atoms, molecules, or formula units of a single type'). The topic code is correct and the content is required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.4, EK 1.4.A.1 states: \u201cPure substances contain atoms, molecules, or formula units of a single type.\u201d The body reproduces this definition; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'A pure substance contains atoms, molecules, or formula units of a single type' matches CED 1.4.A.1: 'Pure substances contain atoms, molecules, or formula units of a single type.' The meaning, members, and list are the same; only the singular/plural grammatical form differs. b_topic_codes: owner_topic_code 1.4 is correct. 1.3.A.1 mentions pure substances only in passing ('Some pure substances are composed of individual molecules...') and does not define the term. 1.4.A.1 is where the definition is introduced and used to contrast pure substances with mixtures, so 1.4 is the first topic that requires it. c_ced_required: 1.4.A.1 requires students to know what a pure substance is, and learning objective 1.4.A ('Explain the quantitative relationship between the elemental composition by mass and the composition of substances in a mixture') depends on that distinction. d_caution: The entry's wording is a paraphrase of the CED sentence with the same meaning and no specific required phrasing, so no caution is needed. The entry is consistent with the CED, so a caution is not required here.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'empirical formula' is factually accurate and directly aligned with Essential Knowledge statement 1.3.A.3, which states: 'The chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula.' The topic codes are appropriate as Topic 1.3 introduces the concept and Topic 1.4 involves elemental analysis of mixtures/substances."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 1.3.A.3: \u201cThe chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula.\u201d Topic 1.3 is the correct owner, and no caution is needed. Topic 1.4 addresses the composition of mixtures; its essential knowledge says elemental analysis can determine \u201cthe relative numbers of atoms in a substance and ... its purity,\u201d but does not require an empirical formula. Remove 1.4 from topic_codes."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 1.3.A.3: \u201cThe chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula.\u201d Topic 1.3 is the correct owner. Topic 1.4 addresses the composition of mixtures and does not require the empirical formula, so it should not be listed in topic_codes. No caution is needed for the equivalent hyphenation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body is a direct quote of Essential Knowledge statement 1.5.A.2 (labeled as 1.4.A.2 in the CED under Topic 1.4: 'Elemental analysis can be used to determine the relative numbers of atoms in a substance and to determine its purity.'). All topic codes and unit numbers are correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.4, essential knowledge 1.4.A.2 states: \u201cElemental analysis can be used to determine the relative numbers of atoms in a substance and to determine its purity.\u201d The entry reproduces this wording exactly, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED Essential Knowledge 1.4.A.2 word for word: \"Elemental analysis can be used to determine the relative numbers of atoms in a substance and to determine its purity.\" There is no formula or list to check. b_topic_codes: 1.4.A.2 first appears in Unit 1 under Topic 1.4 (Composition of Mixtures). Topic 1.3 covers only pure-substance formulas and the law of definite proportions, so 1.4 is the first place the statement is required. topic_codes ['1.4'] is correct. c_ced_required: 1.4.A.2 is an essential-knowledge statement on CED p. 33 under learning objective 1.4.A (\"Explain the quantitative relationship between elemental composition by mass and composition of substances in a mixture\"), so students must know it. d_caution: The entry wording is the CED wording that earns the point, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a mixture is factually accurate and directly aligned with Essential Knowledge statement 1.4.A.1: 'Mixtures contain atoms, molecules, or formula units of two or more types, whose relative proportions can vary.' The topic code is correct and the content is required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.4.A.1 states: \u201cMixtures contain atoms, molecules, or formula units of two or more types, whose relative proportions can vary.\u201d The entry matches this required knowledge, is correctly assigned to Topic 1.4, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 1.4.A.1, which states: \"Mixtures contain atoms, molecules, or formula units of two or more types, whose relative proportions can vary.\" The entry keeps the same members (atoms, molecules, formula units), the same count condition (two or more types), and the same variability condition (relative proportions can vary). b_topic_codes: Topic 1.4 (Composition of Mixtures) is where mixtures first appear. Topic 1.3 covers only pure substances, so 1.4 is the correct owner, and 1.4 is the only listed topic code and uses the concept. c_ced_required: 1.4.A.1 defines mixtures, and LO 1.4.A (\"Explain the quantitative relationship between the elemental composition by mass and the composition of substances in a mixture\") requires students to apply that definition. d_caution: The entry's wording is a near-verbatim paraphrase of the CED sentence (\"A mixture contains\" vs. \"Mixtures contain\"), with no change in meaning or required elements, so no caution is needed and null is correct. Minor note only, not a rejection ground: the ced_evidence string is missing a comma after the first clause."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 1.5.A.1 ('The atom is composed of negatively charged electrons and a positively charged nucleus that is made of protons and neutrons') and is correctly mapped to Topic 1.5."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.5.A.1 states: \u201cThe atom is composed of negatively charged electrons and a positively charged nucleus that is made of protons and neutrons.\u201d The entry matches this required knowledge, is assigned to Topic 1.5, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 1.5.A.1 reads 'The atom is composed of negatively charged electrons and a positively charged nucleus that is made of protons and neutrons.' The body says the same thing with 'made of' in place of 'that is made of', and the entry lists the same members in the same order with the same charges. b_topic_codes: 1.5.A.1 first appears under Topic 1.5 (Atomic Structure and Electron Configuration), the entry's owner_topic_code, and 1.5 is the only topic listed. c_ced_required: 1.5.A.1 is an essential-knowledge statement on this page, so it is required content, not trivia. d_caution: the body is a close paraphrase that keeps the point-earning content, so the point is earned without the CED's exact wording and no caution is needed (caution null is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines shells and subshells as described in EK 1.5.A.3, and correctly links to topics 1.5, 1.6, and 1.7 where these concepts are explicitly referenced (e.g., EK 1.5.A.3, EK 1.6.A.1, and EK 1.7.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.5.A.3 says electrons in atoms and ions can be thought of as being in \u201cshells (energy levels)\u201d and \u201csubshells (sublevels),\u201d as described by the ground-state electron configuration. Topic 1.6.A.1 uses shells and subshells to explain PES peaks, and 1.7.A.1 uses filled shells and subshells to explain periodic patterns. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 1.5.A.3 states that 'In atoms and ions, the electrons can be thought of as being in \"shells (energy levels)\" and \"subshells (sublevels),\" as described by the ground-state electron configuration.' The body uses the same terms in the same parenthetical form and the same ground-state context. It drops the hedge 'can be thought of as', but the terms and their relationship are stated correctly. b_topic_codes: owner 1.5 is the first unit topic that requires the terms (1.5.A.3). 1.6.A.1 uses them ('the energies of the electrons in a given shell ... the corresponding subshell'), and 1.7.A.1 uses them ('completely or partially filled shells (and subshells)'). c_ced_required: 1.5.A.3 requires students to apply the shell/subshell description as part of ground-state electron configuration, so the entry is required content. d_caution: the points are earned by the exact terms 'shells (energy levels)' and 'subshells (sublevels)', which the entry reproduces verbatim. The differing lead-in ('are described as occupying' vs 'can be thought of as being in') does not change the point-earning content, so no caution is required. The entry has no hooks, so no hook evaluations are needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the equation provided in Essential Knowledge 1.5.A.2 (EQN: Fcoulombic \u221d q1q2/r^2). The topic codes are correct as Coulomb's law is introduced in Topic 1.5 and explicitly referenced as a tool for qualitative understanding in Topic 1.7 (1.7.A.2) and photoelectron spectroscopy interactions in Topic 1.6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.5 first gives the equation: \u201cFcoulombic \u221d q1q2/r\u00b2\u201d (1.5.A.2). Topic 1.6 requires explaining PES in terms of \u201cthe interactions between the electrons and the nucleus\u201d (1.6.A), and Topic 1.7 explicitly calls for using Coulomb\u2019s law to understand periodic trends (1.7.A.2). The formula matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body F_{coulombic} \u221d q1q2/r^2 matches 1.5.A.2 exactly: \"Coulomb\u2019s law is used to calculate the force between two charged particles. EQN: Fcoulombic \u221d q1q2/r^2\". Symbols, order, and the proportionality sign are correct. b_topic_codes: fails. owner_topic_code 1.5 is correct, since 1.5.A.2 is where Coulomb's law first appears. 1.7 is correct: 1.7.A.2 states trends are \"qualitatively understood using Coulomb\u2019s law, the shell model, and the concepts of shielding and effective nuclear charge.\" 1.6 is not supported: 1.6.A.1 and its learning objective 1.6.A (PES spectrum related to ground-state configuration and \"interactions between the electrons and the nucleus\") never name Coulomb's law or the force relationship, so 1.6 does not explicitly use it. c_ced_required: true, because 1.5.A.2 directly requires students to use the law, and 1.7.A.2 requires it for periodic trends. d_caution: true, because the entry wording is the CED's own wording and includes the proportionality sign, so no caution is needed and none is present.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 1.5.A.2 exactly: 'Coulomb's law is used to calculate the force between two charged particles. EQN: Fcoulombic \u221d q1q2/r\u00b2'. Symbols, proportionality, and exponent are correct. b_topic_codes: owner 1.5 is correct, since 1.5.A.2 is the first place the CED requires Coulomb's law. The list fails on 1.6. Topic 1.6 (1.6.A.1) covers PES peak positions, energies, and heights, and never names Coulomb's law. Its LO part ii mentions only 'interactions between the electrons and the nucleus' in general terms, which does not establish that 1.6 uses Coulomb's law. Topic 1.7 is correct: 1.7.A.2 says trends are 'qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge.' c_ced_required: 1.5.A.2 requires students to use Coulomb's law to calculate force, so the entry is required content. d_caution: the entry wording is the CED wording (\u221d form, same symbols), so no caution is needed and null is correct. Fix: remove 1.6 from topic_codes, or add a justification that the CED explicitly supports."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'core electrons' as the inner electrons of an atom or ion, which directly aligns with the CED Essential Knowledge statement 1.5.A.3: 'Inner electrons are called core electrons'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.5, EK 1.5.A.3 states: \u201cIn atoms and ions\u201d and \u201cInner electrons are called core electrons.\u201d The definition matches the CED, 1.5 is the correct topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.5.A.3, which states 'Inner electrons are called core electrons' and places electrons in atoms and ions in shells and subshells. The body adds 'of an atom or ion', consistent with the CED's 'In atoms and ions'. b_topic_codes: 1.5.A.3 first appears in Topic 1.5 (Atomic Structure and Electron Configuration), and the entry is used only in 1.5. c_ced_required: 1.5.A.3 is an essential-knowledge statement that defines core electrons, so a student is expected to reproduce the term. This is not trivia or content from another unit. d_caution: The entry's wording is essentially the CED's definition ('inner electrons' = core electrons), so the point-earning wording is present and no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'formula unit' is factually accurate and directly supported by Essential Knowledge statement 1.3.A.1, which states: 'Some pure substances are composed of individual molecules, while others consist of atoms or ions held together in fixed proportions as described by a formula unit.' The topic code 1.3 is correct as this is where the concept is introduced."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition faithfully paraphrases 1.3.A.1: some pure substances consist of \u201catoms or ions held together in fixed proportions as described by a formula unit.\u201d However, Topic 1.1 is the first topic to require the concept: 1.1.A.2 refers to counting \u201cconstituent particles (or formula units),\u201d and 1.1.A.3 uses formula units in the mass-to-particles relationship. The owner topic should therefore be 1.1, not 1.3. No caution is needed for this accurate paraphrase."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.3, essential knowledge 1.3.A.1 states: \u201cSome pure substances are composed of individual molecules, while others consist of atoms or ions held together in fixed proportions as described by a formula unit.\u201d The entry accurately restates this required concept. Topic 1.3 is the appropriate owner and topic code. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED in substance. 1.3.A.1 states that some pure substances 'consist of atoms or ions held together in fixed proportions as described by a formula unit.' The body's 'pure substance that is not made of individual molecules' tracks that wording. b_topic_codes: Fails. The CED first uses the term in 1.1.A.2 ('the number of constituent particles (or formula units) of that substance') and 1.1.A.3 ('the average mass in amu of one particle ... or formula unit'), both in Topic 1.1, which precedes 1.3. The owner_topic_code should therefore be 1.1, and topic_codes should include 1.1 as well as 1.3. c_ced_required: Passes. 1.3.A.1 requires students to distinguish substances made of molecules from those made of atoms or ions held together as described by a formula unit. d_caution: Fails. The entry says a formula unit 'describes' fixed proportions, while the CED treats the formula unit as the entity (the fixed-ratio group of atoms or ions in a non-molecular pure substance) that is used to describe composition. The wording is not the point-earning wording, and caution is null. A caution should state that the formula unit is the fixed-ratio group of ions or atoms, not a description, and that the term is first used in 1.1. accept: false because b_topic_codes and d_caution fail.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 1.3.A.1, which says some pure substances 'consist of atoms or ions held together in fixed proportions as described by a formula unit.' The body's restriction to substances 'not made of individual molecules' matches the CED's contrast with 'individual molecules'. b_topic_codes: 1.3.A.1 is the first place in Unit 1 that uses 'formula unit'; 1.3 is the owner and the only listed topic. c_ced_required: 1.3.A.1 is essential knowledge under LO 1.3.A, which requires students to explain the composition-by-mass and empirical formula relationship for pure substances, so the term is required. d_caution: The body paraphrases the CED rather than quoting it, but it states the same concept (fixed proportions of atoms/ions described by a formula unit) with no competing interpretation that would cost points, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of valence electrons as outer electrons is directly supported by EK 1.5.A.3 ('Inner electrons are called core electrons, and outer electrons are called valence electrons.'). The topic codes 1.5 and 1.8 are correct as both topics explicitly discuss valence electrons."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.5.A.3 states, \u201cInner electrons are called core electrons, and outer electrons are called valence electrons,\u201d in its discussion of atoms and ions. Topic 1.8 also uses the concept: 1.8.A.3 says typical ionic charges are \u201cgoverned by the number of valence electrons.\u201d Topic 1.5 is the first required use, and the definition needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 1.5.A.3 states \"Inner electrons are called core electrons, and outer electrons are called valence electrons.\" The body \"Valence electrons are the outer electrons of an atom or ion\" matches this. The \"atom or ion\" scope is consistent with 1.5.A.3, which opens \"In atoms and ions, the electrons...\". b_topic_codes: 1.5.A.3 is the first place the term is defined, so owner 1.5 is correct. Topic 1.8 uses the term in 1.8.A.1 (\"interactions between the valence electrons and nuclei\") and 1.8.A.3 (\"governed by the number of valence electrons\"), and both codes are Unit 1 topics. c_ced_required: 1.5.A.3 is essential knowledge that requires students to know the term, and 1.8.A.3 requires applying it to predict ionic charges. d_caution: the entry uses the CED's point-earning word \"outer\", so no caution is needed; caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the four periodic properties specified in Essential Knowledge 1.7.A.2 of the AP Chemistry CED (Ionization energy, Atomic and ionic radii, Electron affinity, and Electronegativity) in the exact order presented."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.7, essential knowledge 1.7.A.2 lists these properties in the same order: \u201ci. Ionization energy ii. Atomic and ionic radii iii. Electron affinity iv. Electronegativity.\u201d It states that their periodic trends \u201ccan be predicted\u201d and \u201cqualitatively understood\u201d using electronic-structure concepts. The entry needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 1.7.A.2 reads 'Trends in atomic properties within the periodic table (periodicity) can be predicted by the position of the element on the periodic table and qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge. These properties include: i. Ionization energy ii. Atomic and ionic radii iii. Electron affinity iv. Electronegativity.' The entry's four items match the CED's members, labels, and order exactly. b_topic_codes: the list first appears in Unit 1, Topic 1.7 (Periodic Trends), and 1.7.A.2 is the only place it occurs in these pages, so owner_topic_code 1.7 and topic_codes ['1.7'] are correct. c_ced_required: LO 1.7.A ('Explain the relationship between trends in atomic properties of elements and electronic structure and periodicity') and 1.7.A.2 require students to predict and qualitatively explain trends in these properties, so the list is required content. d_caution: the entry's wording is the CED's own list wording, so the point-earning wording is the list itself and no caution is needed; caution is null, which is correct. The body's 'predict and explain' paraphrases LO 1.7.A and 1.7.A.2 accurately.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of ionization energy is factually accurate and directly aligned with EK 1.5.A.4 and EK 1.7.A.2. The topic codes are correct: it is first introduced in Topic 1.5 (EK 1.5.A.4), relates to the binding energy in photoelectron spectroscopy in Topic 1.6 (EK 1.6.A.1), and is analyzed as a periodic trend in Topic 1.7 (EK 1.7.A.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.5 first requires the concept: 1.5.A.4 identifies the relative energy required to remove an electron from a subshell as \u201cionization energy\u201d and relates it to distance from the nucleus and effective charge through Coulomb\u2019s law. Topic 1.6 uses electron-removal energies to interpret PES peaks (1.6.A.1), and topic 1.7 includes ionization energy among the periodic properties explained using Coulomb\u2019s law and effective nuclear charge (1.7.A.2). The wording is consistent with the CED; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.5.A.4: 'The relative energy required to remove an electron from different subshells of an atom or ion ... (ionization energy) can be estimated through a qualitative application of Coulomb's law. This energy is related to the distance from the nucleus and the effective (shield) charge of the nucleus.' The body condenses the 'different subshells / same subshell in different atoms or ions' comparison into 'a subshell of an atom or ion', but the definition and its Coulomb's-law basis are faithful. b_topic_codes: owner 1.5 is correct because 1.5.A.4 first introduces ionization energy. 1.7 is correct because 1.7.A.2(i) lists 'Ionization energy' as a periodic property explained with Coulomb's law, shell model, and shielding/effective nuclear charge. 1.6 is defensible but weaker: 1.6.A.1 does not name ionization energy, but it ties PES peak position to 'the energy required to remove an electron from the corresponding subshell', which is the same concept. c_ced_required: 1.5.A.4 and 1.7.A.2(i) both require students to apply this concept. d_caution: the entry's wording is a close paraphrase of the CED and the term 'ionization energy' is retained, so no caution is needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the required knowledge from Topic 1.6 (Photoelectron Spectroscopy), specifically EK 1.6.A.1, which states that the position of each peak in a PES spectrum is related to the energy required to remove an electron from the corresponding subshell, and the relative height of each peak is (ideally) proportional to the number of electrons in that subshell."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.6.A requires students to relate a photoelectron spectrum to ground-state electron configuration and interactions between electrons and the nucleus. EK 1.6.A.1 states that each peak\u2019s position is related to the energy required to remove an electron from the corresponding subshell, and its relative height is ideally proportional to the number of electrons in that subshell. The entry preserves those qualifications; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (1.6.A.1) states that 'the position of each peak in the PES spectrum is related to the energy required to remove an electron from the corresponding subshell, and the relative height of each peak is (ideally) proportional to the number of electrons in that subshell.' Both items match this wording and order. The body's 'one per subshell' and 'relate the spectrum to electron configuration and electron-nucleus interactions' match 1.6.A's two sub-parts (i: ground-state electron configuration; ii: interactions between the electrons and the nucleus). b_topic_codes: PES is defined and assessed in Topic 1.6 (Photoelectron Spectroscopy), and the entry's owner and only topic code are 1.6. c_ced_required: 1.6.A requires students to 'explain the relationship between the photoelectron spectrum of an atom or ion and' the ground-state configuration and electron-nucleus interactions, so the diagram's content is required. d_caution: The entry's 'energy required to remove' and 'ideally proportional' wording is the CED's own point-earning wording, so no caution is needed; caution is null and correct.",
+            "reasons_note": "See reasons above."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of effective nuclear charge is accurate and directly supported by the CED in EK 1.5.A.4 ('the effective (shield) charge of the nucleus') and EK 1.7.A.2 ('shielding and effective nuclear charge'). The topic codes are correctly mapped to where this concept is introduced and applied."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition correctly describes shielding and effective nuclear charge. Topic 1.5 first uses the concept: 1.5.A.4 relates electron-removal energy to \u201cthe effective (shield) charge of the nucleus.\u201d Topic 1.7 also uses it: 1.7.A.2 calls for qualitative understanding of periodic trends using \u201cthe concepts of shielding and effective nuclear charge.\u201d The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body is a correct definition of effective nuclear charge. The CED does not define the term explicitly, but 1.5.A.4 refers to 'the effective (shield) charge of the nucleus' and 1.7.A.2 to 'shielding and effective nuclear charge', and the body matches both. b_topic_codes: owner 1.5 is the first unit topic that requires the concept (1.5.A.4). Topic 1.7 also uses it (1.7.A.2 'shielding and effective nuclear charge'), so both topic_codes are valid. c_ced_required: 1.5.A.4 requires students to estimate ionization energy 'through a qualitative application of Coulomb's law' related to 'the effective (shield) charge of the nucleus', so the concept must be applied. d_caution: fails. The CED wording is 'effective (shield) charge of the nucleus' (1.5.A.4) and 'effective nuclear charge' with 'shielding' (1.7.A.2). The entry title 'Effective (shielded) nuclear charge' uses 'shielded' where the CED uses 'shield', and the body's paraphrase ('net positive nuclear charge ... after other electrons shield it') is not the CED phrasing. The entry has caution: null, so no caution flags the wording difference. The point-earning wording is not clearly the entry's wording, so a caution is required and missing."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED's concept. 1.5.A.4 refers to 'the effective (shield) charge of the nucleus,' and 1.7.A.2 refers to 'shielding and effective nuclear charge.' The body describes net positive nuclear charge felt by an electron after shielding by other electrons, which is consistent with both statements. No items or formula are present to check. b_topic_codes: owner 1.5 is the first unit topic where the concept appears (1.5.A.4 introduces the shield charge, which is the ionization-energy basis). Topic 1.7 uses it in 1.7.A.2 ('shielding and effective nuclear charge'). Both codes are correct and no other topic in the unit uses it. c_ced_required: 1.5.A.4 requires students to apply the effective (shield) charge to estimate relative ionization energy through a qualitative use of Coulomb's law, and 1.7.A.2 requires students to use shielding and effective nuclear charge to explain periodic trends. Both are required. d_caution: The title 'Effective (shielded) nuclear charge' is a variant of the CED wording. The CED's point-earning term 'effective nuclear charge' appears verbatim in 1.7.A.2, and the body's wording is an accurate paraphrase, so a caution is not needed to earn the point. Accept.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 1.8.A.2 ('Elements in the same column of the periodic table tend to form analogous compounds') from the AP Chemistry CED for Topic 1.8."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body exactly matches essential knowledge 1.8.A.2: \u201cElements in the same column of the periodic table tend to form analogous compounds.\u201d Topic 1.8 is the correct and only listed topic. No caution is needed because the wording matches the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches ESK 1.8.A.2 verbatim: 'Elements in the same column of the periodic table tend to form analogous compounds.' b_topic_codes: The concept appears only under Topic 1.8 (Valence Electrons and Ionic Compounds) in these pages, so owner_topic_code 1.8 and topic_codes ['1.8'] are correct. c_ced_required: ESK 1.8.A.2 is a required essential-knowledge statement under LO 1.8.A, which asks students to explain trends in element reactivity and periodicity. d_caution: The entry wording is the CED wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the core concepts of Topic 1.7 (Periodic Trends) as detailed in EK 1.7.A.1 and EK 1.7.A.3, specifically regarding the organization of the periodic table based on ground-state electron configurations and the utility of periodicity to predict/estimate values in the absence of data."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.7.A.1 states that periodic-table organization is based on recurring properties explained by patterns of ground-state electron configurations and completely or partially filled shells (and subshells). Topic 1.7.A.3 states that periodicity is useful to \u201cpredict/estimate values of properties in the absence of data.\u201d The entry accurately paraphrases both statements, belongs to Topic 1.7, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.7.A.1, which says the periodic table's organization 'is based on patterns of recurring properties of the elements, which are explained by patterns of ground-state electron configurations and the presence of completely or partially filled shells (and subshells) of electrons in atoms.' The body's 'filled or partially filled shells and subshells' is an equivalent paraphrase. The second clause matches 1.7.A.3: 'The periodicity (in 1.7.A.2) is useful to predict/estimate values of properties in the absence of data.' No list, formula, or order is misstated. b_topic_codes: The periodic-table organization and periodicity statements first appear as requirements in Topic 1.7 (1.7.A.1, 1.7.A.3). Topic 1.5 only mentions the periodic table as an example of the Aufbau principle, so owner 1.7 and topic_codes ['1.7'] are correct. c_ced_required: 1.7.A.1 and 1.7.A.3 directly require students to explain periodicity through electron configurations and to predict property values without data. d_caution: The wording is a paraphrase, but it conveys the same point-earning content as the CED ('completely or partially filled' = 'filled or partially filled'; 'predict/estimate ... in the absence of data' = 'can be used to estimate property values when data are absent'). No caution is required, and the null caution is correct. Exclusion statement in 1.7.A.1 (aufbau exceptions) is not contradicted by the body.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 1.8.A.1: 'The likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements.' The topic codes are correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 1.8.A.1 says, \u201cThe likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements.\u201d The entry changes \u201cthe likelihood\u201d to \u201cwhether,\u201d turning a claim about likelihood into an absolute determination. Topic 1.8 is correct, and the underlying relationship is required, but the altered wording needs correction rather than an absent caution."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.8.A.1 requires this concept, but the body changes the CED\u2019s qualified claim\u2014\u201cThe likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements\u201d\u2014to a categorical claim about whether they will bond. The entry has no caution flagging that difference."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the four concepts required by Essential Knowledge 1.7.A.2 to qualitatively understand periodic trends: Coulomb's law, the shell model, shielding, and effective nuclear charge."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.7.A.2 says periodic trends are predicted from an element\u2019s position on the periodic table and qualitatively understood using \u201cCoulomb\u2019s law, the shell model, and the concepts of shielding and effective nuclear charge.\u201d The entry gives those four tools in that order and describes them consistently. Topic 1.7 is where the CED requires applying them together to periodic trends. The paraphrases do not change a required distinction, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The four items match the CED's list in 1.7.A.2 in order: \"qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge.\" The meanings are accurate paraphrases. Coulomb's law is the force \u221d q1q2/r\u00b2 (1.5.A.2). The shell model is the idea that electrons are in \"shells (energy levels)\" (1.5.A.3). Shielding and effective (shield) charge are described in 1.5.A.4. The body's 'four ideas' is consistent with the CED. b_topic_codes: The owner code is 1.7, but the four tools are first required in Topic 1.5. 1.5.A.2 introduces Coulomb's law, 1.5.A.3 introduces the shell model, and 1.5.A.4 introduces effective (shield) charge in the ionization-energy context. Topic 1.7 is where they are applied to trends (1.7.A.2), so owner_topic_code should be 1.5 under the 'first requires it' test, or the entry should be reframed as a 1.7 application. The topic_codes entry ['1.7'] does use them. c_ced_required: 1.7.A.2 requires students to explain trends in atomic properties (ionization energy, radii, electron affinity, electronegativity) using these tools, so the content is required. d_caution: The labels match the CED terms ('Coulomb's law', 'shell model', 'shielding', 'effective nuclear charge'), and the point-earning wording is preserved, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The four items match the CED's list in 1.7.A.2 ('qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge') in the same order. The body matches 1.7.A.2 ('Trends... can be predicted by the position of the element on the periodic table'). The meanings are consistent with 1.5.A.2 (F \u221d q1q2/r\u00b2), 1.5.A.3 (electrons in 'shells (energy levels)'), and 1.5.A.4 ('effective (shield) charge of the nucleus'). b_topic_codes: Fails on owner placement. Coulomb's law is first required in 1.5.A.2, the shell model in 1.5.A.3, and shielding and effective (shield) charge in 1.5.A.4. All of these appear in Topic 1.5, which precedes 1.7, so the unit first requires these tools in 1.5, not 1.7. Topic 1.7 is a valid user (topic_codes is acceptable), but owner_topic_code should be 1.5. c_ced_required: 1.7.A.2 requires students to qualitatively apply these tools to explain trends, so this passes. d_caution: The CED's point-earning wording is the four named tools/concepts, and the entry uses that wording. The meaning column is a paraphrase that does not change the point, so no caution is needed. accept: false because b_topic_codes fails."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 1.8.A.3 from the CED, which states: 'Typical charges of atoms in ionic compounds are governed by the number of valence electrons and predicted by their location on the periodic table.' The topic codes and unit number are correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body accurately restates Topic 1.8 essential knowledge 1.8.A.3: \u201cTypical charges of atoms in ionic compounds are governed by the number of valence electrons and predicted by their location on the periodic table.\u201d Topic 1.8 is the correct owner and topic code. The paraphrase does not change the required meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.8.A.3, 'Typical charges of atoms in ionic compounds are governed by the number of valence electrons and predicted by their location on the periodic table.' The paraphrase ('predicted from' for 'predicted by') keeps the same meaning, and the entry has no formula or list to misstate. b_topic_codes: 1.8.A.3 appears under Topic 1.8 (Valence Electrons and Ionic Compounds), so owner_topic_code '1.8' is where it is first required, and topic_codes ['1.8'] is correct. c_ced_required: 1.8.A.3 is an essential-knowledge statement in these pages, so the entry is required content. d_caution: The wording is a close paraphrase that carries the same point-earning claim (charge set by valence electrons and periodic-table position), so no caution is needed and none is present. The ced_evidence field also quotes 1.8.A.3 accurately, though truncated.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {
+      "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.": true
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The Aufbau subshell filling order is factually correct and directly required by Learning Objective 1.5.A ('Represent the ground-state electron configuration of an atom of an element or its ions using the Aufbau principle') and EK 1.5.A.3."
+            },
+            "hooks": [
+              {
+                "hook_text": "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The diagonal rule is a highly standard and admissible visual mnemonic for recalling the ordered sequence of subshell filling required by the Aufbau principle."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The listed sequence is the standard Aufbau subshell-filling order. Topic 1.5 is the first applicable topic: learning objective 1.5.A requires students to \u201cRepresent the ground-state electron configuration of an atom of an element or its ions using the Aufbau principle.\u201d The entry describes that principle rather than claiming that every element follows it; the CED separately excludes \u201cWriting the electron configuration of elements that are exceptions to the aufbau principle\u201d from assessment. No caution is needed for the entry as worded."
+            },
+            "hooks": [
+              {
+                "hook_text": "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The hook is a recall method for the ordered filling sequence, with no incorrect cues in expands_to. That sequence supports the Aufbau principle required by learning objective 1.5.A; the hook does not substitute different point-earning terminology for the CED\u2019s wording."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The 19-item sequence 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p, 7s, 5f, 6d, 7p matches the standard Aufbau (Madelung) filling order, with 1s first and 7p last as stated. The CED does not print the list itself, but 1.5.A requires the ground-state configuration 'using the Aufbau principle' and 1.5.A.3 says the configuration is 'delineated in the Aufbau principle,' so the sequence the principle implies is correct. b_topic_codes: 1.5.A ('Represent the ground-state electron configuration of an atom ... using the Aufbau principle') is where the principle first appears in Unit 1, and 1.5 is the only listed topic, which is correct. c_ced_required: 1.5.A is a learning objective that requires students to apply the Aufbau principle, which needs this ordering. The exclusion statement under 1.5.A (quantum-number assignment not assessed) does not remove the ordering. d_caution: The entry's wording ('order in which subshells are filled to write the ground-state electron configuration') closely tracks the CED's 1.5.A phrasing, so no caution is needed. Note: 1.7.A.1 excludes writing configurations for Aufbau exceptions, but the entry does not claim otherwise, so a caution is optional, not required."
+          },
+          "hooks": [
+            {
+              "hook_text": "Diagonal rule: write the subshells in rows by shell number, then follow diagonal arrows from upper right to lower left.",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "expands_to is empty, so there are no cues to map and the expansion check passes vacuously. f_admissible: The diagonal (Aufbau) diagram is a standard visual device for recalling the ordered subshell sequence that 1.5.A requires students to apply. Following the arrows from upper right to lower left produces 1s, 2s, 2p, 3s, 3p, 4s, 3d, and so on, which matches the entry. It is a memory aid, not a song lyric, and the sequence it yields is the point-earning content. Its caution is null, which is acceptable because the hook's wording is a method and not the wording that earns the point."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-01-wrong-formula",
+    "control": "wrong formula (number of particles divided, not multiplied, by Avogadro's number; CED 1.1.A.2)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is mathematically incorrect. The number of particles $N$ is equal to the number of moles $n$ multiplied by Avogadro's number $N_A$ ($N = n \\cdot N_A$), not divided by it ($N = \\frac{n}{N_A}$)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is mathematically incorrect. The number of particles N is equal to the number of moles n multiplied by Avogadro's number N_A (N = n * N_A), or conversely, the number of moles is n = N / N_A. The formula provided in the entry, N = n / N_A, is incorrect."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is inverted. CED 1.1.A.2 gives Avogadro\u2019s number as N_A = 6.022 \u00d7 10^23 mol\u207b\u00b9 and says it connects moles to the number of particles. Therefore N = nN_A, not n/N_A. Topic 1.1 requires this conversion; no wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is reversed. CED 1.1.A.2 gives N_A = 6.022 \u00d7 10^23 mol\u207b\u00b9 and says it connects moles to the number of constituent particles. Thus the number of particles is N = nN_A, not n/N_A. This relationship is required in Topic 1.1; a caution would not correct the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-03-wrong-owner",
+    "control": "wrong owner topic (mass spectrum / average atomic mass is 1.2, not 1.6)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '1.6' (Photoelectron Spectroscopy), but the formula for average atomic mass and the cited CED evidence (1.2.A.2) belong to Topic 1.2 (Mass Spectra of Elements). The owner_topic_code should be '1.2' and topic_codes should be ['1.2']."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '1.6' (Photoelectron Spectroscopy) and topic_codes contains '1.6', but the formula for average atomic mass and the cited CED evidence (1.2.A.2) belong to Topic 1.2 (Mass Spectra of Elements)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula correctly expresses 1.2.A.2: average atomic mass is estimated from a weighted average of isotopic masses using each isotope\u2019s mass and relative abundance. It is required in Topic 1.2, not the listed owner and sole topic, 1.6. Topic 1.6 concerns photoelectron spectroscopy and electron-removal energies. No caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula correctly expresses the weighted average required by 1.2.A.2: \u201cThe average atomic mass of an element can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance.\u201d But its first required topic is 1.2, Mass Spectra of Elements, not the listed owner and topic 1.6, Photoelectron Spectroscopy. Topic 1.6 concerns electron-removal energies and electron counts, not average atomic mass. No caution is needed for this faithful formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-02-excluded",
+    "control": "explicitly excluded by the CED (1.5 exclusion: assignment of quantum numbers is not assessed)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry covers the four quantum numbers (n, l, m_l, m_s). However, Topic 1.5 contains an explicit exclusion statement: 'Exclusion Statement: The assignment of quantum numbers to electrons in subshells of an atom will not be assessed on the AP Exam.' Therefore, this content is not required and is explicitly excluded from the AP Chemistry curriculum."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry covers the four quantum numbers (n, l, m_l, m_s). However, Topic 1.5 contains an explicit Exclusion Statement: 'The assignment of quantum numbers to electrons in subshells of an atom will not be assessed on the AP Exam.' Therefore, this content is not required and is explicitly excluded from assessment."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The four names are scientifically correct, and Topic 1.5 is the relevant topic. But 1.5.A requires students to \u201cRepresent the ground-state electron configuration of an atom of an element or its ions using the Aufbau principle,\u201d not to reproduce the four quantum numbers. The CED adds: \u201cThe assignment of quantum numbers to electrons in subshells of an atom will not be assessed on the AP Exam.\u201d With no caution, this entry could imply that the list is required AP content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The four names are scientifically correct, and Topic 1.5 is where the CED mentions quantum numbers. But 1.5.A.3 requires ground-state electron configurations, not reproduction of the four quantum numbers. Its exclusion states: \u201cThe assignment of quantum numbers to electrons in subshells of an atom will not be assessed on the AP Exam.\u201d No alternative point-earning wording calls for a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-06-other-unit",
+    "control": "content from another unit (rate law is Unit 5 kinetics, topic 5.2)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The rate law formula (rate = k[A]^m[B]^n) is not part of Unit 1 (Atomic Structure and Properties). It belongs to Unit 5 (Kinetics). Topic 1.1 covers Moles and Molar Mass, where the only equation specified in the CED is n = m/M."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The rate law formula (rate = k[A]^m[B]^n) is not part of Unit 1 (Atomic Structure and Properties). It belongs to Unit 5 (Kinetics). Topic 1.1 is 'Moles and Molar Mass' and does not feature rate laws."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.1 requires mole calculations, not rate laws. Its learning objective is to \u201cCalculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept,\u201d and its stated equation is \u201cn = m/M.\u201d The CED pages do not state or require rate = k[A]^m[B]^n. Topic 1.1 is therefore an incorrect owner and topic code; no caution is supplied to distinguish the entry from the required content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.1 requires students to \u201cCalculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept\u201d and gives \u201cEQN: n = m/M.\u201d It does not state or require the rate-law formula. Thus 1.1 is not a supported owner or topic code, and the entry has no caution identifying its wording as outside the cited CED content."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-05-wrong-order",
+    "control": "wrong list order (Aufbau filling order places 4s before 3d)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Aufbau filling order listed in the items is factually incorrect. According to the Aufbau principle (referenced in EK 1.5.A.3), the 4s subshell fills before the 3d subshell (the correct order is 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p), but the entry lists '3d' before '4s'. Additionally, the CED evidence cited should be 1.5.A.3 rather than 1.5.A.4."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Aufbau filling order is factually incorrect: the 4s subshell fills before the 3d subshell (the correct sequence is 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p). Additionally, the CED evidence cited should be 1.5.A.3 (which covers the Aufbau principle and ground-state electron configurations) rather than 1.5.A.4 (which covers ionization energy and Coulomb's law)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence incorrectly places 3d before 4s; for ground-state configurations through 4p, 4s fills before 3d. Topic 1.5 requires students to \u201cRepresent the ground-state electron configuration ... using the Aufbau principle\u201d (1.5.A). The cited 1.5.A.4 concerns ionization energy, not filling order; 1.5.A.3 is the relevant essential knowledge. No wording caution is needed, but a caution cannot correct the reversed order."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence incorrectly places 3d before 4s; in the usual Aufbau filling order through 4p, 4s precedes 3d. Topic 1.5 is the correct location: learning objective 1.5.A requires students to \u201cRepresent the ground-state electron configuration of an atom of an element or its ions using the Aufbau principle.\u201d The cited 1.5.A.4 addresses ionization energy, not filling order; 1.5.A.3 is the more relevant essential knowledge. No wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u1-04-bad-hook",
+    "control": "hook expansion inverted (Coulomb's law: distance on top, charges below)",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "Distance up top, charges below": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Distance up top, charges below": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's formula body correctly represents Coulomb's law as defined in Topic 1.5 (1.5.A.2: Fcoulombic \u221d q1q2 / r^2). The topic codes are correct as Coulomb's law is introduced in 1.5 and used to explain periodic trends in 1.7."
+            },
+            "hooks": [
+              {
+                "hook_text": "Distance up top, charges below",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook is mathematically incorrect and teaches the inverse of Coulomb's law. In Coulomb's law (Fcoulombic \u221d q1q2 / r^2), the charges (q1, q2) are in the numerator (up top) and the distance squared (r^2) is in the denominator (below). The hook incorrectly states the opposite, which would lead to incorrect calculations."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents Coulomb's law as specified in EK 1.5.A.2 of the CED: 'EQN: Fcoulombic \u221d q1q2 / r^2'. It is also correctly mapped to Topic 1.5 and Topic 1.7 (which references Coulomb's law in EK 1.7.A.2)."
+            },
+            "hooks": [
+              {
+                "hook_text": "Distance up top, charges below",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook is factually incorrect and teaches the inverse of Coulomb's law. In Coulomb's law, the charges (q1 and q2) are in the numerator ('up top') and the distance squared (r^2) is in the denominator ('below'). The hook claims the opposite, which would lead students to calculate or conceptualize the relationship incorrectly."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Distance up top, charges below": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches the equation in 1.5.A.2: \u201cF_coulombic \u221d q\u2081q\u2082/r\u00b2.\u201d Topic 1.5 first requires Coulomb\u2019s law, and 1.7.A.2 uses it to explain periodic trends. The entry itself needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Distance up top, charges below",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook reverses the CED equation \u201cF_coulombic \u221d q\u2081q\u2082/r\u00b2\u201d: the charges are in the numerator and distance squared is in the denominator. Its expansion repeats that error, and it has no caution."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 1.5.A.2: \u201cFcoulombic \u221d q1q2/r\u00b2.\u201d Topic 1.5 first requires it, and 1.7.A.2 also calls for using Coulomb\u2019s law to understand periodic trends. The entry needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Distance up top, charges below",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook reverses the required formula: 1.5.A.2 puts the charges, q1q2, in the numerator and distance squared, r\u00b2, in the denominator. Both cues teach the opposite, and no caution corrects them."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Distance up top, charges below": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.5.A.2 exactly: 'Coulomb's law is used to calculate the force between two charged particles. EQN: F_coulombic \u221d q1q2/r^2'. Symbols, proportionality, and the q1q2 numerator over r^2 denominator are all correct. b_topic_codes: owner 1.5 is the first topic in Unit 1 that requires Coulomb's law (1.5.A.2). Topic 1.7 is a valid second code because 1.7.A.2 says periodic trends are 'qualitatively understood using Coulomb's law'. c_ced_required: 1.5.A.2 directly requires students to apply Coulomb's law to the force between charged particles. d_caution: the entry wording matches the CED wording and the \u221d form, so no caution is needed."
+          },
+          "hooks": [
+            {
+              "hook_text": "Distance up top, charges below",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The expansion is inverted. The CED formula is F \u221d q1q2/r^2, so q1q2 is in the NUMERATOR and r^2 is in the DENOMINATOR. The hook maps 'Distance up top' to 'r^2 is in the numerator' and 'charges below' to 'q1 q2 is in the denominator', which is wrong on both cues, so the cue-to-member mapping fails. f_admissible: A formula-structure hook is an admissible kind, but this one encodes the opposite structure from the CED equation ('Distance up top' contradicts 'r^2' in the denominator). A student who learned it would reproduce an incorrect Coulomb relationship. The hook also has no caution, and its wording is not the point-earning wording, so it needs one. It is rejected on the inverted content."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.5.A.2 exactly: 'EQN: Fcoulombic \u221d q1q2/r^2', with charges q1 and q2 in the numerator and r^2 in the denominator, and the proportionality sign is preserved. b_topic_codes: 1.5 is the first unit-1 topic that requires Coulomb's law (1.5.A.2), so it is a valid owner. 1.7 uses it, since 1.7.A.2 says trends are 'qualitatively understood using Coulomb's law'. c_ced_required: 1.5.A.2 states 'Coulomb's law is used to calculate the force between two charged particles', so students must apply it. d_caution: the entry wording ('Coulomb's law', proportional form) matches the CED phrasing, so no caution is needed and none is present."
+          },
+          "hooks": [
+            {
+              "hook_text": "Distance up top, charges below",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion fails: the CED equation places the charges in the numerator and distance squared in the denominator ('Fcoulombic \u221d q1q2/r^2' in 1.5.A.2). The expansion reverses both members: 'Distance up top' is mapped to 'r^2 is in the numerator' and 'charges below' to 'q1 q2 is in the denominator'. Both cues are wrong and the order is inverted, so the hook teaches the opposite dependence on distance. f_admissible fails: the hook does recall a formula structure the CED requires, but the structure it encodes is inverted. Its caution is null even though its wording ('distance up top, charges below') is not the point-earning formula wording, so the caution requirement is also unmet. Revise the hook so distance sits in the denominator (for example, 'charges over distance squared'), and correct the expansion to match."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
