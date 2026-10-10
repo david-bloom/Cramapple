@@ -12,6 +12,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
 - APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
 - APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
+- APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2038,6 +2039,31 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). Claude recommended "generate practice MCQs for the thin Unit 1 topics, starting with 1.2 and 1.8, through the normal pipeline"; David answered: "do all of your recommendations".  
+**Related:** batch `scripts/content-seed/chem-u1-mcq-1-2-1-8-2026-10-10/` (branch `claude/chem-u1-mcq-1-2-1-8`, commit `f04bdc8d`), `publish_mcq_batch.py`, `DECISION-0099`/`0101`/`0102`, `APPROVAL-0134` (the earlier set-aside of bank duplicates).  
+**Decision:** Approved
+
+**Scope:** publish 9 generate-and-select practice MCQs (no hand edits).
+- **1.2 Mass Spectra of Elements:** `apchem-mcq-080`, `081` + `sv-081-v1`, `082` + `sv-082-v1`.
+- **1.8 Valence Electrons and Ionic Compounds:** `apchem-mcq-083` + `sv-083-v1`, `084` + `sv-084-v1`.
+- Before this, both topics had zero practice MCQs in Production; their only MCQs were the Open Hand teaching items.
+
+**Gates passed:**
+- Controls 6/6 caught; keys re-derived 9/9 (`recompute.py`).
+- Skill votes validated (4 of 4 on every seed except `080`, 3 of 4).
+- CED exclusions respected; compared against all 200 published Chemistry MCQs.
+- Two first seeds that copied the Open Hand items were set aside, as under APPROVAL-0134; one 1.2 slot stays escalated.
+
+**Noted:**
+- **Key distribution:** A1 B4 C3 D1, hash-placed and not reshuffled.
+- **No Development load:** Dev's schema has drifted (no `content_review_decisions.tutor_decision`; skill-grid and manifest rows missing). The safety step is the Production rehearsal, rolled back.
+- **Plan file:** `plan_publish.json` md5 `cf0781b3…`.
+
+**Rollback:** set the 9 items and their versions to `retired` by `content_key` (`apchem-mcq-080`–`084`, `apchem-sv-081-v1`–`084-v1`).
 
 ## APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production)
 
