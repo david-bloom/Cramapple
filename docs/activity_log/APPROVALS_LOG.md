@@ -8,6 +8,7 @@ Most recent entries (full chronological list follows below):
 
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
+- APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2034,6 +2035,25 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), after the Development hand-back: "I approve the migration plus the byoq change for Production."  
+**Related:** `docs/handoffs/QUESTION_EXPERIENCE_BACKEND_HANDBACK_2026_10_10.md` (findings, RPC contract, Development probes), `supabase/migrations/20261010040000_question_experience_read_model.sql`, commit `3a55ec87` (`byoq`), branch `claude/chem-reference-pack-u1`. Number note: `APPROVAL-0144` is held by open PR #398.  
+**Decision:** Approved
+
+**Approved scope:**
+- Migration `20261010040000_question_experience_read_model` applied to Production, with the ledger row recorded under the file's own version: `app.learning_session_items` (+ service-role-only `app.append_learning_session_items`), `app.content_item_comparison_answers` (per-variant `is_published`, publish guard, no client grant), and `public.get_question_experience(uuid, integer)` (authenticated + service_role only). Before applying, a read-only check confirmed every column and function the migration depends on exists in Production and that neither table did yet.
+- Edge function `byoq` deployed to Production as v15 (`verify_jwt` off, as before). A file-by-file comparison against the deployed v14 found the only difference was `store.ts` from `3a55ec87`: `get_item`'s `reference.guides` now also carries `reference[]` and `memoryHooks[]`, shaped like `get_topic_point_guides`.
+- Not in scope: no Production data seeded; no Lovable publish; `student-session-items` still does not write `learning_session_items` (so `counter` is null for real sessions until that change); the AP Chemistry Unit 1 reference batch remains Development-only.
+
+**Production verification (2026-10-10):**
+- Objects, ledger, forced RLS, zero client grants on comparison answers, anon cannot execute the RPC, authenticated cannot execute the append function.
+- RPC as anon → permission denied; with no user → `not_authenticated`; another user's session → `question_experience:session_not_found`; the most recent real session as its owner → `counter: null`, item null (no stored items yet, as expected).
+- `byoq` signed-out round trip: create item on AP Chemistry 4.9 → `get_item` returned 4 reference entries and the OIL RIG hook (matching the RPC) → the probe item was deleted (`delete_item` ok). Its anonymous owner row is left for the normal retention sweep.
+
+**Rollback:** redeploy `byoq` from `3a55ec87^`. For the migration: `drop function public.get_question_experience(uuid, integer); drop table app.content_item_comparison_answers; drop function app.guard_comparison_answer_publish(); drop table app.learning_session_items; drop function app.append_learning_session_items(uuid, uuid[]);` and delete the ledger row `20261010040000`. Both tables were empty at apply, and nothing else references them.
 
 ## APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production)
 
