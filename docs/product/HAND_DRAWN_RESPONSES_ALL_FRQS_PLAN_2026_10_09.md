@@ -14,9 +14,11 @@ Principle that makes this feasible now: **the student is the decider; the model 
 
 ## 1. Where we are (verified against Production and the live Lovable App, 2026-10-09)
 
+*(Counts corrected 2026-10-10: the original figures counted item versions, not items. Production at apply time: 619 published FRQ items; 37 published hand-drawn items, 52 across all statuses.)*
+
 | Layer | State |
 | --- | --- |
-| Content | 1,090 published FRQs, all with `frq_criteria`. 40 carry `prompt_json.hand_drawn=true` + `expected_graph_spec` and route to `shadow_review` (rubric_type `spatial`). One (`APBIO-HDG-2026-GRAPH-002`) is `human_graded_pilot_approved`; the other 39 are `ai_provisional_unapproved` and excluded from serving by `20260923150000`. |
+| Content | 619 published FRQ items (corrected 2026-10-10 from 1,090, which counted versions), all with `frq_criteria`. 37 published items carry `prompt_json.hand_drawn=true` + `expected_graph_spec` and route to `shadow_review` (rubric_type `spatial`). One (`APBIO-HDG-2026-GRAPH-002`) is `human_graded_pilot_approved`; the other 39 are `ai_provisional_unapproved` and excluded from serving by `20260923150000`. |
 | Capture (backend) | `capture-pairing` edge function + `app.capture_pairing_tokens`: QR pairing, phone upload, 20 MB cap, byte-level type/dimension validation (`_shared/capture-attachment.ts`), EXIF strip (`_shared/image-metadata.ts`), capture-quality check (`_shared/capture-quality-check.ts`, `gpt-4o-mini`, metered), bind into `app.response_attachments` (immutable, retake lineage, one current original per response version). Live in Production since 2026-08-20. |
 | Capture (frontend) | Live Lovable App has `CaptureItem`, `/capture-phone`, `prepareCaptureSlot`/`submitCapturedResponse`, only on the legacy `/session` surface (`SessionFrame`). The live Practice FRQ screen (`/practice-frq` → `LivePracticeFrq` → `PracticeFrqScreen`) has **no photo affordance**. |
 | Grading | `evaluate-attempt` grades text only. `spatial` and `human_shadow` route to `shadow_review` (a hold). `record_manual_grade`, `list_manual_grading_queue`, `get_manual_grading_context` exist for human grading. Engine 4 automated grading fails DR-1 (FAR 10.9% at 40% coverage vs ≤2%). |
@@ -50,8 +52,8 @@ Replace the item-level special case (`hand_drawn` flag + `label_status` gate + s
 prompt_json.response_policy: "typed_only" | "photo_allowed" | "photo_required"
 ```
 
-- **Default for all existing FRQs:** `photo_allowed`. Set by one backfill migration, so all 1,050 non-spatial FRQs accept a photo on day one with no per-item work.
-- **The 40 construct-a-graph items:** `photo_required`. Derived from `hand_drawn=true`; the stem text ("construct", "sketch", "draw", "plot") plus `expected_graph_spec` presence is the rule, checked by the backfill rather than assumed.
+- **Default for all existing FRQs:** `photo_allowed`. Set by one backfill migration, so every non-spatial FRQ accept a photo on day one with no per-item work.
+- **The construct-a-graph items (37 published, 52 in all statuses):** `photo_required`. Derived from `hand_drawn=true`; the stem text ("construct", "sketch", "draw", "plot") plus `expected_graph_spec` presence is the rule, checked by the backfill rather than assumed.
 - **`typed_only`:** reserved for items where a photo makes no sense (none identified yet). Exists so the pipeline has an explicit opt-out rather than an absent value.
 - **Future FRQs:** the generation pipeline (`TASK-0065` generate-select, `scripts/content-seed/task0065_load/build_load_sql.py`) writes `response_policy` on every new item. The checker pass adds one deterministic rule: a stem that asks the student to construct a visual must carry `photo_required` and an `expected_graph_spec`; a `photo_required` item without a spec fails lint. The publish gate (`20260805140000_require_practice_format_at_publish.sql` pattern) refuses an FRQ with no `response_policy`.
 - **Serving:** `_shared/student-item-delivery.ts` `RenderItem` gains `response_policy` next to the existing `response_mode`; `select_practice_frqs` stops excluding `hand_drawn` items once Phase 1's grading path is live (the exclusion was a safety fix for a UI that could not capture; it is retired, not relaxed, in the same migration that ships the capture UI). `select_hand_drawn_pilot_items` and `label_status='human_graded_pilot_approved'` are retired with TASK-0038's close.
@@ -81,8 +83,8 @@ prompt_json.response_policy: "typed_only" | "photo_allowed" | "photo_required"
 
 Grading is decided by **what the criteria need**, not by how the student answered. Each `frq_criteria` row is one of two kinds, derived once at backfill and carried on new items by the pipeline:
 
-- **text-judgeable** (the overwhelming majority, including all criteria on the 1,050 non-spatial FRQs): the rubric can be applied to words, numbers, and equations.
-- **image-judgeable** (a subset of the 40 spatial items' criteria, e.g. curve shape, placement relative to a stimulus, shading): the rubric needs the picture.
+- **text-judgeable** (the overwhelming majority, including all criteria on every non-spatial FRQ): the rubric can be applied to words, numbers, and equations.
+- **image-judgeable** (a subset of the hand-drawn items' criteria, e.g. curve shape, placement relative to a stimulus, shading): the rubric needs the picture.
 
 | Student response | Text-judgeable criteria | Image-judgeable criteria |
 | --- | --- | --- |
@@ -106,7 +108,7 @@ Why this is sound:
 | Object | Change |
 | --- | --- |
 | `content_item_versions.prompt_json` | `response_policy` (section 3); backfill migration; publish-gate check. |
-| `app.frq_criteria` | `judgement_kind text default 'text'` (`text` / `image`); backfill the 40 spatial items by criterion key (`PLOT_VALUES`, `X_SCALE`, `Y_SCALE`, labels → `text`; shape/placement/shading → `image`). |
+| `app.frq_criteria` | `judgement_kind text default 'text'` (`text` / `image`); backfill the hand-drawn items by criterion key (`PLOT_VALUES`, `X_SCALE`, `Y_SCALE`, labels → `text`; shape/placement/shading → `image`). |
 | `app.response_versions.response_parts` | Convention, no DDL: `{ "<part>": text, "_source": "typed"|"photo_transcript"|"mixed", "_proposal": {...}, "_student_added": { "<part>": [spans] }, "_confirmed_at": ts }`. |
 | `app.response_attachments` | `slot_id text`, `redacted_at timestamptz`, `transcript_status text` (`none`/`proposed`/`confirmed`); uniqueness becomes per (response version, slot). Immutability trigger allows only the redaction function to touch `redacted_at`. |
 | `app.capture_pairing_tokens` | No change; `upload_purpose='DRAWN_RESPONSE'` still correct. `access_path` gains `same_device`. |
@@ -138,7 +140,7 @@ Build order: schema and backfill → extraction module + benchmark → `attempt-
 
 - **D1 — Same-device capture on phones.** **Approved 2026-10-09 (`DECISION-0109`).** `DECISION-0051` amended narrowly: QR remains the path from a desktop; a student already on a phone uses that phone's camera.
 - **D2 — Transcript confirmation is mandatory before grading a photo.** **Approved with a condition 2026-10-09 (`DECISION-0110`):** the confirmation screen must prompt the student to confirm *or add missing content* so Cramapple can help (section 2, step 4).
-- **D3 — Default `photo_allowed` on all 1,050 non-spatial FRQs at launch**, versus allow-listing subjects first. Recommendation: flag-gated subject allow-list for two weeks, then all.
+- **D3 — Default `photo_allowed` on all non-spatial FRQs at launch**, versus allow-listing subjects first. Recommendation: flag-gated subject allow-list for two weeks, then all.
 - **D4 — Photo retention.** **Approved 2026-10-09 (`DECISION-0111`):** keep while the account exists; redact bytes 24 months after the attempt or on account deletion or erasure request; row and digest kept for audit. A counsel read against the policy's retention section is still recommended before Phase 1 ships; it does not block the build.
 - **D5 — Spend and rate limits.** Proposed: 30 photos per student per day, `FRQ_PHOTO_DAILY_CAP_USD` 50, both fail closed to "type your answer instead".
 - **D6 — Partial grading as a visible state.** Students see text criteria graded now and image criteria "with a reviewer". Alternative: hold the whole result until the reviewer finishes. Recommendation: partial, with the 24-hour SLA shown.

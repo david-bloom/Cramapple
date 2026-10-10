@@ -7,7 +7,9 @@
 -- creates its own attempt, response versions, and attachment rows inside the
 -- transaction. Run with:
 --   supabase db query --linked --workdir <repo root> -f supabase/tests/task0069_submission_integrity.integration.sql
--- or the Supabase MCP execute_sql. Expected: an error whose message begins
+-- or the Supabase MCP execute_sql. To use a different internal account, prepend
+--   set task0069.account_like = '<email LIKE pattern>';
+-- Expected: an error whose message begins
 -- "TASK0069_INTEGRITY ALL PASS".
 
 begin;
@@ -34,19 +36,20 @@ declare
   v_msg text;
   v_row app.response_versions;
 begin
-  -- Fixture: the most recent smoke student with a session in a pack that has a published FRQ.
+  -- Fixture: the most recent internal smoke account (smoke+*@cramapple.test) with a session in a
+  -- pack that has a published FRQ. Everything below is rolled back.
   select ls.user_id, ls.id, ls.exam_pack_version_id
     into v_user, v_session, v_pack
     from app.learning_sessions ls
     join auth.users u on u.id = ls.user_id
-   where u.email like 'smoke+frqphoto-student-%'
+   where u.email like coalesce(nullif(current_setting('task0069.account_like', true), ''), 'smoke+%@cramapple.test')
      and exists (select 1 from app.content_items ci
                   join app.content_item_versions civ on civ.content_item_id = ci.id and civ.status = 'published'
                  where ci.exam_pack_version_id = ls.exam_pack_version_id and ci.item_type = 'frq' and ci.status = 'published')
    order by ls.created_at desc
    limit 1;
   if v_user is null then
-    raise exception 'TASK0069_INTEGRITY SKIP: no smoke student session found; run scripts/frq_photo_smoke.mjs first';
+    raise exception 'TASK0069_INTEGRITY SKIP: no smoke account session found; run scripts/frq_photo_smoke.mjs or scripts/student_grade_smoke.mjs first';
   end if;
   select civ.id, ci.id into v_civ, v_ci
     from app.content_items ci
