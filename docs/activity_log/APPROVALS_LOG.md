@@ -10,6 +10,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
 - APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
+- APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2036,6 +2037,22 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). After learning that only Units 1 and 4 were in Production, he said: "Chemistry should have all units. Those were built as a beta." Then, on the plan to promote Units 2–3 and build 5–9 for one Production approval: "I approve".  
+**Related:** Units 2–3 batch `scripts/content-seed/ap-chemistry-reference-u2-u3-2026-10-10/` (branch `claude/task-0067-production-records`, commits `383d41c5`, `1fed307c`, handoff `docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`); Units 5–9 batch `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`; `APPROVAL-0140`, `APPROVAL-0147`.  
+**Decision:** Approved
+
+**Units 2–3, loaded 2026-10-10:**
+- Source: that batch's committed `out/load_ap_chemistry_u2.sql` (md5 `225c2ee9…`, 21 entries) and `out/load_ap_chemistry_u3.sql` (md5 `35b3547d…`, 32 entries), as regenerated after the Product Owner–directed correction pass. Before loading, the entry keys (owner topic, kind, title) were compared with Development: identical, 21/21 and 32/32. No hooks; no open escalations in this batch.
+- Production now has AP Chemistry Units 1–4 = 26 / 21 / 32 / 22.
+- QA checks 1–8 ok. `get_topic_point_guides` probes match Development: 2.6 → 4, 3.4 → 4, Unit 2 → 21, Unit 3 → 32.
+
+**Units 5–9:** to be loaded unit by unit after each Development batch completes. Each unit needs controls 6/6 caught, both checkers plus the veto, the Development load and QA. Any unit with open escalations loads only its accepted rows; escalations wait for a Product Owner decision. Each load is recorded as an amendment below.
+
+**Rollback (any unit):** `update app.unit_reference_entries set status='retired' where subject_key='ap_chemistry' and unit_number = <n> and source_note like '%batch=<batch id>%';` (retire hooks first when present).
 
 ## APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production
 
