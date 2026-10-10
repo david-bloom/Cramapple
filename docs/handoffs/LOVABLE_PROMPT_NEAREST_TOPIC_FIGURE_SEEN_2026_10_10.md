@@ -1,8 +1,8 @@
 # Lovable prompt (unsent: workspace out of credits, 2026-10-10)
 
 Send to project 56cae479 once credits are added. Backend pieces: `get_practice_topic_availability`
-(migration 20261010160000) and `student-session-items { teaching_image }` (commit 2fde897d). Both await
-Production approval; the prompt asks for fallbacks so Preview works either way.
+(migration 20261010160000) and `student-session-items { teaching_image }` (commit 2fde897d). Both are LIVE in
+Production (APPROVAL-0151: RPC applied; student-session-items v40). The prompt's fallbacks stay as defensive handling.
 
 ---
 
