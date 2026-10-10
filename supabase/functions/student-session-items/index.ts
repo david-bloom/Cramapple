@@ -39,7 +39,7 @@
 //      so the delivery path can be exercised before Learning Quality sign-off;
 //      students cannot. See 20260805100000_content_asset_metadata.sql.
 
-import { createServiceClient } from "../_shared/supabase.ts";
+import { createAnonClient, createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import { photoEnabledFor } from "../_shared/frq-photo-rollout.ts";
@@ -76,6 +76,10 @@ type ServiceClient = ReturnType<typeof createServiceClient>;
 type StudentSessionItemsDeps = {
   service?: ServiceClient;
   requireProfile?: typeof requireProfile;
+  // Caller-scoped client (the student's own JWT). Used only for the
+  // worked-example figure branch, so the teaching-item RPC's own entitlement
+  // and teaching-item rules decide access rather than a copy of them here.
+  userClient?: (req: Request) => ReturnType<typeof createAnonClient>;
 };
 
 // FF-15. "session_practice_format_unset" is a third, pre-existing case that
@@ -411,6 +415,101 @@ export async function handleStudentSessionItems(
     return respond({ error: "invalid_json" }, { status: 400 });
   }
   const input = body as Record<string, unknown>;
+
+  // ── Worked-example figure (2026-10-10, APPROVAL-0151) ─────────────────────
+  // POST { teaching_image: { subject_key, topic_code } }. Open Hand teaching
+  // items are read through public.get_open_hand_teaching_item, which cannot
+  // sign storage URLs, and storage-sign-url deliberately refuses students the
+  // content-assets bucket. Same pattern as the ordinary queue: the caller's
+  // access is decided by the RPC run AS THE CALLER (entitlement + released
+  // teaching item), then only that item's own stimulus path is signed with
+  // the service role, and only when its accessibility text is approved (staff
+  // QA roles excepted, as in deliverRows). Needs no learning session.
+  const teachingImage = input.teaching_image ?? input.teachingImage;
+  if (teachingImage && typeof teachingImage === "object" && !Array.isArray(teachingImage)) {
+    const t = teachingImage as Record<string, unknown>;
+    const subjectKey = typeof (t.subject_key ?? t.subjectKey) === "string"
+      ? String(t.subject_key ?? t.subjectKey).trim()
+      : "";
+    const topicCode = typeof (t.topic_code ?? t.topicCode) === "string"
+      ? String(t.topic_code ?? t.topicCode).trim()
+      : "";
+    if (!subjectKey || !/^[0-9]+\.[0-9]+$/.test(topicCode)) {
+      return respond(
+        { error: "missing_required_fields", required: ["teaching_image.subject_key", "teaching_image.topic_code"] },
+        { status: 400 },
+      );
+    }
+    const teachingAuth = await authenticate(req);
+    if (!teachingAuth) {
+      return respond({ error: "unauthorized" }, { status: 401 });
+    }
+    const userClient = (deps.userClient ?? createAnonClient)(req);
+    const { data: teachingItem, error: teachingError } = await userClient.rpc(
+      "get_open_hand_teaching_item",
+      { p_subject_key: subjectKey, p_topic_code: topicCode },
+    );
+    if (teachingError) {
+      const message = teachingError.message ?? "";
+      if (/entitlement_required|item_not_accessible/.test(message)) {
+        return respond({ error: "forbidden" }, { status: 403 });
+      }
+      console.error("teaching_image_lookup_failed", message);
+      return respond({ error: "teaching_item_lookup_failed" }, { status: 500 });
+    }
+    const item = (teachingItem ?? null) as Record<string, unknown> | null;
+    const versionId = typeof item?.content_item_version_id === "string" ? item.content_item_version_id : null;
+    const imagePath = typeof item?.stimulus_image_path === "string" && item.stimulus_image_path
+      ? item.stimulus_image_path
+      : null;
+    const empty = (reason: string) =>
+      respond({
+        status: "ok",
+        function: "student-session-items",
+        result: { mode: "teaching_image", content_item_version_id: versionId, image: null, reason },
+      });
+    if (!versionId) return empty("no_teaching_item");
+    if (!imagePath) return empty("no_image");
+
+    const service = deps.service ?? createServiceClient();
+    const { data: assetRows, error: assetError } = await service
+      .schema("app").from("content_asset_metadata")
+      .select("storage_path, alt_text, long_description, approved_at")
+      .eq("content_item_version_id", versionId)
+      .eq("storage_bucket", STIMULUS_IMAGE_BUCKET)
+      .eq("storage_path", imagePath)
+      .limit(1);
+    if (assetError) {
+      return respond({ error: "teaching_image_metadata_failed" }, { status: 500 });
+    }
+    const asset = (assetRows ?? [])[0] as
+      | { alt_text: string; long_description: string | null; approved_at: string | null }
+      | undefined;
+    if (!asset || (!asset.approved_at && !isStaffQaRole(teachingAuth.profile.role))) {
+      return empty("image_not_approved");
+    }
+    const { data: signed, error: signError } = await service.storage
+      .from(STIMULUS_IMAGE_BUCKET)
+      .createSignedUrl(imagePath, SIGNED_URL_TTL_SECONDS);
+    if (signError || !signed?.signedUrl) {
+      return respond({ error: "stimulus_image_sign_failed" }, { status: 500 });
+    }
+    return respond({
+      status: "ok",
+      function: "student-session-items",
+      result: {
+        mode: "teaching_image",
+        content_item_version_id: versionId,
+        image: {
+          url: signed.signedUrl,
+          alt: asset.alt_text,
+          long_description: asset.long_description,
+          expires_at: new Date(Date.now() + SIGNED_URL_TTL_SECONDS * 1000).toISOString(),
+        },
+        reason: null,
+      },
+    });
+  }
 
   const learningSessionId = asUuid(
     input.learning_session_id ?? input.learningSessionId,

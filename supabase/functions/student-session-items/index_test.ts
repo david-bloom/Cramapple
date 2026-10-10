@@ -67,6 +67,7 @@ function tableBuilder(single: any, list: any[]): any {
   b.in = chain;
   b.is = chain;
   b.order = chain;
+  b.limit = chain;
   b.maybeSingle = () => Promise.resolve({ data: single ?? null, error: null });
   // Awaiting the builder (…select().in().order()) resolves to the list result.
   b.then = (res: (v: unknown) => unknown, rej?: (e: unknown) => unknown) =>
@@ -126,6 +127,13 @@ function makeService(spec: Spec) {
     storage: {
       from: (_bucket: string) => ({
         // deno-lint-ignore no-explicit-any
+        // deno-lint-ignore no-explicit-any
+        createSignedUrl: (path: string, _ttl: number): Promise<any> =>
+          Promise.resolve(
+            spec.signFail
+              ? { data: null, error: { message: "sign_failed" } }
+              : { data: { signedUrl: `https://storage/${path}` }, error: null },
+          ),
         createSignedUrls: (paths: string[], _ttl: number): Promise<any> =>
           Promise.resolve(
             spec.signFail
@@ -1047,4 +1055,67 @@ Deno.test("extractQuestionParts copies no field other than key, text and points"
     }],
   });
   assertEquals(Object.keys(out[0]).sort(), ["part_key", "points", "prompt"]);
+});
+
+/* -------------------------------------------------------------------------- */
+/* Worked-example figure (teaching_image)                                      */
+/* -------------------------------------------------------------------------- */
+
+// deno-lint-ignore no-explicit-any
+function teachingCall(spec: any, rpcResult: { data: unknown; error: unknown }, profile: any = STUDENT) {
+  const rpcCalls: Array<{ fn: string; params: unknown }> = [];
+  const res = handleStudentSessionItems(
+    post({ teaching_image: { subject_key: "ap-chemistry", topic_code: "1.2" } }),
+    {
+      service: makeService(spec),
+      requireProfile: () => Promise.resolve(profile),
+      // deno-lint-ignore no-explicit-any
+      userClient: () => ({ rpc: (fn: string, params: unknown) => { rpcCalls.push({ fn, params }); return Promise.resolve(rpcResult); } }) as any,
+    },
+  );
+  return res.then(async (r) => ({ status: r.status, json: await r.json() as Record<string, unknown>, rpcCalls }));
+}
+
+const TEACHING = { content_item_version_id: "tv-oh", stimulus_image_path: "chem/1.2/spectrum.png" };
+const APPROVED_ASSET = { content_item_version_id: "tv-oh", storage_bucket: "content-assets", storage_path: "chem/1.2/spectrum.png", alt_text: "Mass spectrum", long_description: null, approved_at: "2026-10-10T00:00:00Z" };
+
+Deno.test("teaching_image: needs no learning session and asks the teaching-item RPC as the caller", async () => {
+  const { status, json, rpcCalls } = await teachingCall({ assets: [APPROVED_ASSET] }, { data: TEACHING, error: null });
+  assertEquals(status, 200);
+  assertEquals(rpcCalls, [{ fn: "get_open_hand_teaching_item", params: { p_subject_key: "ap-chemistry", p_topic_code: "1.2" } }]);
+  const result = json.result as Record<string, any>;
+  assertEquals(result.mode, "teaching_image");
+  assertEquals(result.image.url, "https://storage/chem/1.2/spectrum.png");
+  assertEquals(result.image.alt, "Mass spectrum");
+});
+
+Deno.test("teaching_image: entitlement refusal from the RPC is a 403, not a signed URL", async () => {
+  const { status, json } = await teachingCall({ assets: [APPROVED_ASSET] }, { data: null, error: { message: "open_hand:entitlement_required" } });
+  assertEquals(status, 403);
+  assertEquals(json.error, "forbidden");
+});
+
+Deno.test("teaching_image: no teaching item or no image returns image null with a reason", async () => {
+  const none = await teachingCall({}, { data: null, error: null });
+  assertEquals((none.json.result as any).reason, "no_teaching_item");
+  const noImg = await teachingCall({}, { data: { content_item_version_id: "tv-oh", stimulus_image_path: null }, error: null });
+  assertEquals((noImg.json.result as any).image, null);
+  assertEquals((noImg.json.result as any).reason, "no_image");
+});
+
+Deno.test("teaching_image: a student never gets an image whose accessibility text is unapproved; staff QA does", async () => {
+  const unapproved = { ...APPROVED_ASSET, approved_at: null };
+  const student = await teachingCall({ assets: [unapproved] }, { data: TEACHING, error: null });
+  assertEquals((student.json.result as any).image, null);
+  assertEquals((student.json.result as any).reason, "image_not_approved");
+  const staff = await teachingCall({ assets: [unapproved] }, { data: TEACHING, error: null }, { user: { id: "a1" }, profile: { role: "admin" } });
+  assertEquals((staff.json.result as any).image.url, "https://storage/chem/1.2/spectrum.png");
+});
+
+Deno.test("teaching_image: unauthenticated caller is refused before any lookup", async () => {
+  const res = await handleStudentSessionItems(
+    post({ teaching_image: { subject_key: "ap-chemistry", topic_code: "1.2" } }),
+    { service: makeService({}), requireProfile: () => Promise.resolve(null as any) },
+  );
+  assertEquals(res.status, 401);
 });
