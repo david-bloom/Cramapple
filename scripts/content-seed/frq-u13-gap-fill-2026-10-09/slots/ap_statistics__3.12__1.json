@@ -11,8 +11,266 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:27:41.650Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test for a Bedtime Breathing Exercise",
+    "calculator": "permitted",
+    "stimulus": "A researcher recruited 180 adult volunteers who reported trouble falling asleep. The volunteers were randomly assigned to two groups of 90. Each night for two weeks, one group did a 10-minute breathing exercise at bedtime and the other group read a printed book for 10 minutes at bedtime. At the end of the two weeks, 52 of the 90 volunteers in the breathing group and 38 of the 90 volunteers in the reading group reported that they fell asleep faster. The researcher wants to know whether the data provide convincing evidence that the breathing exercise is more effective than reading at helping people like these volunteers fall asleep faster.",
+    "parts": [
+     {
+      "prompt": "Identify the appropriate testing procedure, and define the parameters of interest in context.",
+      "criteria": [
+       {
+        "text": "Names a two-sample z-test for a difference between two population proportions.",
+        "evidence": "Response identifies a two-sample z-test for p₁ − p₂ (a difference in proportions); a one-sample test, a test for means, or a chi-square test does not earn the point.",
+        "fix": "With two groups and a yes-or-no response, name the procedure as a two-sample z-test for a difference between two population proportions.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Defines p₁ as the true proportion of people like these volunteers who would report falling asleep faster after two weeks of the bedtime breathing exercise, and p₂ as the true proportion who would report falling asleep faster after two weeks of bedtime reading.",
+        "evidence": "Response defines both parameters as true (long-run) proportions for people like these volunteers, naming the treatment for each and the response (reporting falling asleep faster).",
+        "fix": "Define each parameter with the response, the treatment, and the group it describes (people like these volunteers), not the 52 or 38 counts.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "State the null and alternative hypotheses for the researcher's test.",
+      "criteria": [
+       {
+        "text": "H₀: p₁ = p₂ (or p₁ − p₂ = 0) and Hₐ: p₁ > p₂ (or p₁ − p₂ > 0), with p₁ for the breathing exercise and p₂ for reading.",
+        "evidence": "Response writes a null hypothesis of no difference and a one-sided alternative in which the breathing exercise proportion is greater, using parameters (not sample proportions).",
+        "fix": "State H₀ as no difference, p₁ = p₂, and write Hₐ in the direction of the researcher's question, here breathing greater than reading.",
+        "accepted_variants": [
+         "H₀: p₁ − p₂ = 0, Hₐ: p₁ − p₂ > 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the conditions for this test. In your answer, explain why the 10% condition does not need to be checked.",
+      "criteria": [
+       {
+        "text": "States that the randomization condition is met because the volunteers were randomly assigned to the two treatments, and that the 10% condition is not needed because the data come from a randomized experiment, not from sampling without replacement from a population.",
+        "evidence": "Response cites the random assignment of volunteers to treatments and explains that the 10% condition applies only when sampling from a population, which was not done here.",
+        "fix": "In an experiment, cite random assignment for randomization and say the 10% condition is unnecessary because no sample was drawn from a population.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Computes the combined proportion p̂c = (52 + 38)/(90 + 90) = 0.50 and states that n₁p̂c = 45, n₁(1 − p̂c) = 45, n₂p̂c = 45 and n₂(1 − p̂c) = 45 are all at least 10.",
+        "evidence": "Response finds the pooled proportion 0.50 and checks all four counts (each 45) against 10.",
+        "fix": "For a two-proportion test, pool the groups to get p̂c, then check n₁p̂c, n₁(1 − p̂c), n₂p̂c and n₂(1 − p̂c) against 10.",
+        "accepted_variants": [
+         "0.5",
+         "90/180"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The appropriate procedure is a two-sample z-test for a difference between two population proportions. Let p₁ = the true proportion of people like these volunteers who would report falling asleep faster after two weeks of the bedtime breathing exercise, and p₂ = the true proportion of people like these volunteers who would report falling asleep faster after two weeks of bedtime reading.\n\n(b) H₀: p₁ = p₂ (equivalently p₁ − p₂ = 0)\nHₐ: p₁ > p₂ (equivalently p₁ − p₂ > 0)\n\n(c) Randomization: the 180 volunteers were randomly assigned to the breathing group and the reading group, so the randomization condition is met. The 10% condition does not need to be checked because this is a randomized experiment: the volunteers were not sampled without replacement from a larger population, so there is no population size to compare with.\nNormality: the combined proportion is p̂c = (52 + 38)/(90 + 90) = 90/180 = 0.50. Then n₁p̂c = 90(0.50) = 45, n₁(1 − p̂c) = 45, n₂p̂c = 45 and n₂(1 − p̂c) = 45. All four are at least 10, so the normality condition is met.",
+    "verification_python": "from fractions import Fraction as F\nx1,n1,x2,n2=52,90,38,90\nassert n1+n2==180\npc=F(x1+x2,n1+n2)\nassert pc==F(1,2)\nfor c in [n1*pc,n1*(1-pc),n2*pc,n2*(1-pc)]: assert c==45 and c>=10\nassert F(x1,n1)>F(x2,n2)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     3
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 1,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 combines two independently observable condition checks into one point: verifying randomization and explaining why the 10% condition is unnecessary. Split these into separate 1-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 combines two independently observable condition checks into one point: verifying randomization and explaining why the 10% condition is unnecessary. Split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 combines two independently assessable elements in one point: verifying randomization and explaining why the 10% condition is unnecessary. These should be separate 1-point criteria. Criterion b1 likewise combines stating the null hypothesis and stating the directional alternative hypothesis."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 combines two independently assessable elements in one point: verifying randomization and explaining why the 10% condition is unnecessary. These should be separate 1-point criteria. Criterion b1 likewise combines stating the null hypothesis and stating the directional alternative hypothesis."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

@@ -282,7 +282,9 @@ async function runSlot(IN, batch, slot, n, checkers, rounds, siblings) {
     const it = st.given.item; const tag = `${id}:given`; const c = { round: st.candidates.length + 1, at: new Date().toISOString(), source: 'given', item: it };
     c.lint = lint(it, slot.subject_key);
     if (!c.lint.length) { c.py = runPy(it.verification_python); }
-    if (!c.lint.length && c.py.ok) { c.probe = await probe(IN, slot, it, tag); }
+    if (!c.lint.length && c.py.ok) { c.probe = await probe(IN, slot, it, tag);
+      // Claude's arbitration (Product Owner direction 2026-10-10): a topic ruling made from the CED text overrides the vote.
+      if (st.arbitration?.topic_ruling && !c.probe.pass) { c.probe.vote_pass = false; c.probe.pass = true; c.probe.overridden_by = st.arbitration.topic_ruling; c.probe.required_units = st.arbitration.topic_ruling.required_units; } }
     if (c.probe?.pass) { c.checks = await Promise.all(checkers.map((m) => checker(IN, slot, it, m, siblings, `${tag}:${m.split('/')[0]}`))); }
     const ok = !c.lint.length && c.py?.ok && c.probe?.pass && c.checks?.every((x) => x.pass);
     c.stage = ok ? 'accepted' : (c.lint.length ? 'lint' : !c.py?.ok ? 'recompute' : !c.probe?.pass ? 'topic_vote' : 'checkers');

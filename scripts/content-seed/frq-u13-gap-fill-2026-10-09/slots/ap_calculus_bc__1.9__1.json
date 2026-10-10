@@ -11,8 +11,227 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:07.155Z",
+   "source": "given",
+   "item": {
+    "title": "Connecting a Table, a Formula and a Verbal Description of Limits",
+    "calculator": "not_permitted",
+    "stimulus": "Let g(x) = (√(x + 1) − 2)/(x − 3) for x ≥ −1, x ≠ 3. Selected values of g, rounded to five decimal places, are given in the table.\n\nx | 2.9 | 2.99 | 2.999 | 3.001 | 3.01 | 3.1\ng(x) | 0.25158 | 0.25016 | 0.25002 | 0.24998 | 0.24984 | 0.24846\n\nA function p is described in words. As x increases toward 1, the points (x, p(x)) on the curve y = p(x) get arbitrarily close to (1, 5). As x decreases toward 1, the points (x, p(x)) get arbitrarily close to (1, −2). The point (1, −2) is on the curve, so p(1) = −2.",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 g(x). Explain how the table supports your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 g(x) as 0.25.",
+        "evidence": "Response states a single estimate of 0.25 (or 1/4) for the limit.",
+        "fix": "Read the values on both sides of x = 3 and state the single number they are approaching.",
+        "accepted_variants": [
+         "0.25",
+         "1/4"
+        ]
+       },
+       {
+        "text": "Explains that as x approaches 3 from the left and from the right, the values of g(x) get closer to 0.25.",
+        "evidence": "Response refers to values on both sides of 3, for example 0.25002 at x = 2.999 and 0.24998 at x = 3.001, closing in on 0.25.",
+        "fix": "Cite the table values closest to 3 on each side and say they approach the same number.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use algebra to find the exact value of lim x→3 g(x). Show your work.",
+      "criteria": [
+       {
+        "text": "Rewrites g(x), for x ≠ 3, in a form that can be evaluated at x = 3, such as 1/(√(x + 1) + 2).",
+        "evidence": "Response uses any valid algebra to remove the factor that produces 0/0, for example multiplying by the conjugate √(x + 1) + 2, or factoring x − 3 = (√(x + 1) − 2)(√(x + 1) + 2), and reaches 1/(√(x + 1) + 2) or an equivalent expression.",
+        "fix": "When substitution gives 0/0 with a square root, create a factor of x − 3, for example with the conjugate, and cancel it.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds lim x→3 g(x) = 1/4.",
+        "evidence": "Response substitutes x = 3 into the simplified expression: 1/(√4 + 2) = 1/4.",
+        "fix": "After cancelling, substitute x = 3 into the simplified expression and compare the result with the table estimate.",
+        "accepted_variants": [
+         "1/4",
+         "0.25"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the information in the description of p as two one-sided limit statements. Then state whether lim x→1 p(x) exists, and explain why.",
+      "criteria": [
+       {
+        "text": "Writes lim x→1⁻ p(x) = 5.",
+        "evidence": "Response translates 'as x increases toward 1, the points approach (1, 5)' into the left-hand limit statement lim x→1⁻ p(x) = 5.",
+        "fix": "x increasing toward 1 means x approaches 1 from the left, written x→1⁻; the limit is the y-coordinate approached.",
+        "accepted_variants": [
+         "lim x→1⁻ p(x) = 5"
+        ]
+       },
+       {
+        "text": "Writes lim x→1⁺ p(x) = −2.",
+        "evidence": "Response translates 'as x decreases toward 1, the points approach (1, −2)' into the right-hand limit statement lim x→1⁺ p(x) = −2.",
+        "fix": "x decreasing toward 1 means x approaches 1 from the right, written x→1⁺.",
+        "accepted_variants": [
+         "lim x→1⁺ p(x) = −2"
+        ]
+       },
+       {
+        "text": "States that lim x→1 p(x) does not exist because the left-hand limit 5 and the right-hand limit −2 are not equal.",
+        "evidence": "Response says the two-sided limit does not exist and cites the unequal one-sided limits; the value p(1) = −2 does not change this.",
+        "fix": "Compare the one-sided limits; if they differ, the two-sided limit does not exist, whatever the function value is.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) lim x→3 g(x) ≈ 0.25. As x approaches 3 from the left (2.9, 2.99, 2.999), g(x) takes the values 0.25158, 0.25016, 0.25002, and as x approaches 3 from the right (3.1, 3.01, 3.001), g(x) takes the values 0.24846, 0.24984, 0.24998. From both sides the values close in on 0.25.\n\n(b) Direct substitution gives 0/0. For x ≠ 3, multiply the numerator and denominator by the conjugate:\ng(x) = (√(x + 1) − 2)(√(x + 1) + 2) / [(x − 3)(√(x + 1) + 2)] = (x + 1 − 4) / [(x − 3)(√(x + 1) + 2)] = (x − 3) / [(x − 3)(√(x + 1) + 2)] = 1/(√(x + 1) + 2).\nSo lim x→3 g(x) = 1/(√4 + 2) = 1/(2 + 2) = 1/4 = 0.25, which agrees with the estimate from part (a).\n\n(c) lim x→1⁻ p(x) = 5 and lim x→1⁺ p(x) = −2. The two-sided limit lim x→1 p(x) does not exist, because the left-hand limit 5 and the right-hand limit −2 are not equal. The fact that p(1) = −2 does not change this.",
+    "verification_python": "import math\nimport sympy as sp\nx = sp.symbols('x', real=True)\ng = (sp.sqrt(x + 1) - 2)/(x - 3)\nassert sp.simplify(g - 1/(sp.sqrt(x + 1) + 2)) == 0\nassert sp.limit(g, x, 3) == sp.Rational(1, 4)\nassert 1/(sp.sqrt(4) + 2) == sp.Rational(1, 4)\ntable = {2.9: 0.25158, 2.99: 0.25016, 2.999: 0.25002, 3.001: 0.24998, 3.01: 0.24984, 3.1: 0.24846}\nfor xv, gv in table.items():\n    val = (math.sqrt(xv + 1) - 2)/(xv - 3)\n    assert abs(round(val, 5) - gv) < 1e-9, (xv, val)\nassert sp.expand((sp.sqrt(x + 1) - 2)*(sp.sqrt(x + 1) + 2)) == x - 3\nleft_p, right_p, p1 = 5, -2, -2\nassert left_p != right_p\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "history_before_session_authoring": [
   {
    "round": 1,
@@ -799,5 +1018,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.837728Z"
- }
+ },
+ "accepted_round": 1
 }

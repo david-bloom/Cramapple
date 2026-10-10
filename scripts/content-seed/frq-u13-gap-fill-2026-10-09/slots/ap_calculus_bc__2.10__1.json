@@ -11,8 +11,223 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:04:41.036Z",
+   "source": "given",
+   "item": {
+    "title": "Derivatives Involving Cotangent, Tangent and Cosecant",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x²·tan x for −π/2 < x < π/2.\n\nLet k(x) = csc x for 0 < x < π.",
+    "parts": [
+     {
+      "prompt": "Write cot x as cos x / sin x and use the quotient rule to show that the derivative of cot x is −csc² x.",
+      "criteria": [
+       {
+        "text": "Applies the quotient rule: d/dx (cos x / sin x) = [sin x·(−sin x) − cos x·cos x] / sin² x.",
+        "evidence": "Response writes the quotient-rule numerator as (denominator)(derivative of numerator) minus (numerator)(derivative of denominator), using d/dx cos x = −sin x and d/dx sin x = cos x, all over sin² x.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom² before substituting the sine and cosine derivatives.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Simplifies using sin² x + cos² x = 1 to get −1/sin² x = −csc² x.",
+        "evidence": "Response rewrites −sin² x − cos² x as −(sin² x + cos² x) = −1, then writes −1/sin² x as −csc² x.",
+        "fix": "Factor out −1 to expose sin² x + cos² x, replace it with 1, then use 1/sin x = csc x.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find f′(x). Then find the exact value of f′(π/4).",
+      "criteria": [
+       {
+        "text": "Finds f′(x) = 2x·tan x + x²·sec² x.",
+        "evidence": "Response gives a correct derivative by any valid method, for example the product rule with d/dx tan x = sec² x, or the quotient rule applied to x² sin x / cos x, which gives the equivalent (2x sin x cos x + x²)/cos² x.",
+        "fix": "Use the product rule, (first)′(second) + (first)(second)′, together with d/dx tan x = sec² x.",
+        "accepted_variants": [
+         "2x tan x + x² sec² x",
+         "(2x sin x cos x + x²)/cos² x"
+        ]
+       },
+       {
+        "text": "Finds f′(π/4) = π/2 + π²/8.",
+        "evidence": "Response uses tan(π/4) = 1 and sec²(π/4) = 2 (or sin(π/4) = cos(π/4) = √2/2) to get 2(π/4)(1) + (π²/16)(2) = π/2 + π²/8.",
+        "fix": "Substitute exact values: tan(π/4) = 1 and sec(π/4) = √2, so sec²(π/4) = 2.",
+        "accepted_variants": [
+         "π/2 + π²/8",
+         "(4π + π²)/8",
+         "π(4 + π)/8"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find an equation of the line tangent to the curve y = k(x) at x = π/6.",
+      "criteria": [
+       {
+        "text": "Finds the slope k′(π/6) = −2√3.",
+        "evidence": "Response uses a correct derivative, such as k′(x) = −csc x·cot x or, from the quotient rule on 1/sin x, k′(x) = −cos x / sin² x, and evaluates it at π/6 to get −2√3.",
+        "fix": "Use d/dx csc x = −csc x cot x, with csc(π/6) = 2 and cot(π/6) = √3.",
+        "accepted_variants": [
+         "−2√3"
+        ]
+       },
+       {
+        "text": "Writes y − 2 = −2√3(x − π/6).",
+        "evidence": "Response uses the point (π/6, csc(π/6)) = (π/6, 2) and the slope −2√3 to write an equation of the tangent line.",
+        "fix": "Use point-slope form with the point (π/6, k(π/6)), where k(π/6) = 1/sin(π/6) = 2.",
+        "accepted_variants": [
+         "y − 2 = −2√3(x − π/6)",
+         "y = −2√3x + π√3/3 + 2"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) cot x = cos x / sin x. By the quotient rule,\nd/dx (cos x / sin x) = [sin x·(−sin x) − cos x·cos x] / sin² x = −(sin² x + cos² x) / sin² x = −1/sin² x = −csc² x.\n\n(b) By the product rule, f′(x) = 2x·tan x + x²·sec² x.\nAt x = π/4, tan(π/4) = 1 and sec(π/4) = √2, so sec²(π/4) = 2. Then f′(π/4) = 2(π/4)(1) + (π/4)²(2) = π/2 + π²/8.\n\n(c) k′(x) = −csc x·cot x. At x = π/6, csc(π/6) = 1/sin(π/6) = 2 and cot(π/6) = cos(π/6)/sin(π/6) = √3, so k′(π/6) = −2√3. The point is (π/6, k(π/6)) = (π/6, 2). The tangent line is y − 2 = −2√3(x − π/6).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x')\nd = sp.diff(sp.cos(x)/sp.sin(x), x)\nassert sp.simplify(d - (sp.sin(x)*(-sp.sin(x)) - sp.cos(x)*sp.cos(x))/sp.sin(x)**2) == 0\nassert sp.simplify(d + 1/sp.sin(x)**2) == 0\nassert sp.simplify(d + sp.csc(x)**2) == 0\nf = x**2*sp.tan(x)\nfp = sp.diff(f, x)\nassert sp.simplify(fp - (2*x*sp.tan(x) + x**2*sp.sec(x)**2)) == 0\nassert sp.simplify(fp - (2*x*sp.sin(x)*sp.cos(x) + x**2)/sp.cos(x)**2) == 0\nassert sp.tan(sp.pi/4) == 1 and sp.simplify(sp.sec(sp.pi/4)**2) == 2\nval = sp.simplify(fp.subs(x, sp.pi/4))\nassert sp.simplify(val - (sp.pi/2 + sp.pi**2/8)) == 0\nassert sp.simplify(val - (4*sp.pi + sp.pi**2)/8) == 0\nk = sp.csc(x)\nkp = sp.diff(k, x)\nassert sp.simplify(kp + sp.csc(x)*sp.cot(x)) == 0\nassert sp.simplify(kp + sp.cos(x)/sp.sin(x)**2) == 0\nassert sp.csc(sp.pi/6) == 2 and sp.cot(sp.pi/6) == sp.sqrt(3)\nslope = sp.simplify(kp.subs(x, sp.pi/6))\nassert sp.simplify(slope + 2*sp.sqrt(3)) == 0\nline = 2 + slope*(x - sp.pi/6)\nassert sp.simplify(line - (-2*sp.sqrt(3)*x + sp.pi*sp.sqrt(3)/3 + 2)) == 0\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.10": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "lint_false_positive_dropped": [
   {
    "at": "2026-10-10T01:38:19.617Z",
@@ -606,5 +821,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.838938Z"
- }
+ },
+ "accepted_round": 1
 }

@@ -1,0 +1,231 @@
+[
+ {
+  "slot_id": "ap_physics_1__2.2__1",
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.2",
+  "decisions": [
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "on_topic: Part (a) criterion a1 requires the gravitational force (Topic 2.6) and criterion a3 requires kinetic friction (Topic 2.7), both later topics in Unit 2",
+    "ruling": "reject",
+    "reason": "Naming each force on the box with its source and direction is exactly 2.2.A/2.2.B (forces as interactions, free-body representation); the CED's own 2.2.B.4 example is an object on an incline. No part needs Newton's law of gravitation (2.6) or a friction coefficient or friction equation (2.7): criterion a3 credits 'a friction force' from the rough ramp opposing the sliding, identified qualitatively."
+   }
+  ],
+  "topic_ruling": {
+   "required_units": [
+    2
+   ],
+   "reason": "Every part assesses 2.2 learning objectives (2.2.A.1 force as interaction, 2.2.A.1.ii no force on itself, 2.2.B forces on an object, 2.2.B.4 incline axis choice). Weight and friction are only identified by source and direction, not quantified, so no later topic is required."
+  },
+  "item": {
+   "title": "Identifying the Forces on a Box Sliding Down a Ramp",
+   "calculator": "not_applicable",
+   "stimulus": "A box slides down a rough, straight ramp that makes an angle of 25° with the horizontal. The box speeds up as it slides. The ramp is fixed to the ground, air resistance is negligible, and nothing touches the box except the ramp.",
+   "parts": [
+    {
+     "prompt": "List every force exerted on the box while it slides. For each force, name the object that exerts it and describe its direction in words. Do not resolve the forces into components.",
+     "criteria": [
+      {
+       "text": "Gravitational force exerted by Earth on the box, directed vertically downward.",
+       "evidence": "Response lists the gravitational force (weight, F_g, or mg), names Earth as the object exerting it, and gives its direction as straight down, not perpendicular to the ramp.",
+       "fix": "Name Earth as the source of the gravitational force and point it straight down, whatever the tilt of the surface.",
+       "accepted_variants": [
+        "weight exerted by Earth, straight down"
+       ]
+      },
+      {
+       "text": "Normal force exerted by the ramp on the box, directed perpendicular to the ramp surface and away from it.",
+       "evidence": "Response lists the normal force, names the ramp as the object exerting it, and gives its direction as perpendicular to the ramp surface, away from the surface.",
+       "fix": "A surface pushes perpendicular to itself: point the normal force at a right angle to the ramp, away from it, not straight up.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Friction force exerted by the ramp on the box, directed parallel to the ramp surface and up the ramp, opposite to the box's motion.",
+       "evidence": "Response lists a friction force, names the ramp as the object exerting it, and gives its direction as along the ramp surface, up the ramp.",
+       "fix": "On a rough surface add friction from that surface, directed along the surface opposite to the object's sliding motion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate's list of forces on the box also includes \"the force of the box's motion,\" directed down the ramp. Explain why this force should not be included.",
+     "criteria": [
+      {
+       "text": "Explains that every force is an interaction between the box and another object, and no object exerts a \"force of motion\" on the box; motion results from the forces exerted on the box and is not itself a force.",
+       "evidence": "Response states that no other object exerts this force (an object cannot exert a force on itself), so it is not an interaction and does not belong on the list.",
+       "fix": "Before listing a force, name the other object that exerts it; if no object can be named, it is not a force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To write equations for the box, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain one reason this choice of axes simplifies the analysis.",
+     "criteria": [
+      {
+       "text": "Gives a valid reason: the box accelerates along the ramp, so with an axis parallel to the ramp the acceleration lies entirely along one axis and its perpendicular component is zero; or, the normal and friction forces already lie along the chosen axes, so only the gravitational force must be split into components.",
+       "evidence": "Response states either that the acceleration is parallel to the ramp and so has a component along only one axis, or that only the gravitational force is not along an axis.",
+       "fix": "Choose one axis along the direction of acceleration; then the acceleration has a single nonzero component and the other axis has zero acceleration.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Three forces are exerted on the box:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the ramp, directed perpendicular to the ramp surface, away from the ramp.\n3. The kinetic friction force exerted by the ramp, directed parallel to the ramp surface, up the ramp (opposite to the box's motion down the ramp).\n\n(b) A force is always an interaction between the box and another object. No object exerts a \"force of the box's motion\" on the box, and an object cannot exert a force on itself. The box's motion down the ramp is the result of the forces listed above, not an additional force, so it should not be included.\n\n(c) The box slides along the ramp, so its acceleration is parallel to the ramp surface. With one axis parallel to the ramp, the acceleration lies entirely along that axis and its component perpendicular to the ramp is zero. Also, the normal force and the friction force already lie along the two axes, so only the gravitational force has to be split into components.",
+   "verification_python": "forces=[('gravitational','Earth','down'),('normal','ramp','perpendicular away'),('friction','ramp','up the ramp')]\nassert len(forces)==3\nassert len([f for f in forces if f[1]=='ramp'])==2\nassert len([f for f in forces if f[1]=='Earth'])==1\nangle=25\nassert 0<angle<90\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_1__2.3__1",
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.3",
+  "decisions": [
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (b), criterion b1: the criterion requires justifying by stating that the tension is the same throughout an ideal cable, so it rejects a vali",
+    "ruling": "accept",
+    "reason": "The prompt asks for a justification from 'a property of the cable'; the negligible-mass argument (zero net force on a massless cable, so the truck pulls it 1500 N east, then the third-law partner on the truck is 1500 N west) is a valid justification from a cable property that the evidence rejected. Evidence widened to accept either justification."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Paired Forces Between a Tow Truck, a Cable, and a Car",
+   "calculator": "not_applicable",
+   "stimulus": "A tow truck pulls a car east along a straight, level road using a horizontal cable. The truck is east of the car. Treat the cable as ideal: its mass is negligible and it does not stretch. At one instant, the cable exerts a force of 1500 N directed east on the car.",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the force that the car exerts on the cable at this instant. Justify your answer.",
+     "criteria": [
+      {
+       "text": "The car exerts a force of 1500 N directed west on the cable, by Newton's third law: the force of the car on the cable is equal in magnitude and opposite in direction to the force of the cable on the car.",
+       "evidence": "Response gives 1500 N, west, and justifies it with Newton's third law (paired forces equal in magnitude and opposite in direction).",
+       "fix": "For a force of A on B, the third-law partner is B on A: same magnitude, opposite direction, exerted on the other object.",
+       "accepted_variants": [
+        "1500 N west",
+        "−1500 N with east positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the magnitude and direction of the force that the cable exerts on the truck at this instant. Justify your answer using a property of the cable.",
+     "criteria": [
+      {
+       "text": "The cable exerts a force of 1500 N directed west on the truck, justified by a property of the ideal cable: its tension is the same at all points, or its negligible mass means the forces on it balance.",
+       "evidence": "Response gives 1500 N, west, and justifies the magnitude either by uniform tension in an ideal cable or by the cable's negligible mass requiring zero net force on it, with the third-law partner on the truck.",
+       "fix": "In an ideal string or cable, tension is equal at every point; each end pulls on its attached object along the cable, toward the middle.",
+       "accepted_variants": [
+        "1500 N west"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student says: \"The car pulls back on the cable with a force equal in size and opposite in direction to the cable's pull on the car, so these two forces cancel and the car cannot speed up.\" Explain the error in the student's reasoning.",
+     "criteria": [
+      {
+       "text": "Explains that the two forces in a third-law pair are exerted on different objects (one on the car, one on the cable), so they cannot cancel; only forces exerted on the car itself combine to determine the car's motion.",
+       "evidence": "Response states that the paired forces act on different objects and therefore do not add together or cancel in describing the car's motion.",
+       "fix": "Check which object each force is exerted on; third-law partners are always on different objects, so never cancel them against each other.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Consider the system made up of the truck, the cable, and the car. Explain whether the forces that the cable exerts on the truck and on the car can change the velocity of this system's center of mass.",
+     "criteria": [
+      {
+       "text": "They cannot: the cable's forces on the truck and car are interactions between objects inside the chosen system (internal forces), and internal forces do not influence the motion of the system's center of mass.",
+       "evidence": "Response identifies the cable forces as internal to the truck–cable–car system and states that internal forces do not change the motion of the system's center of mass.",
+       "fix": "First decide whether both interacting objects are inside the system; if so, the forces are internal and cannot change the center-of-mass motion.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By Newton's third law, the force the car exerts on the cable is equal in magnitude and opposite in direction to the force the cable exerts on the car: F(car on cable) = −F(cable on car). So the car exerts 1500 N directed west on the cable.\n\n(b) The cable is ideal, so the tension is the same at all points along it. The cable pulls on each attached object along the cable toward the other object. It pulls the car east with 1500 N, so it pulls the truck with 1500 N directed west, toward the car.\n\n(c) The two forces the student describes form a third-law pair, and they are exerted on different objects: one is exerted on the car and the other on the cable. Forces exerted on different objects cannot cancel each other. Only forces exerted on the car itself determine whether the car speeds up, so the student's conclusion does not follow.\n\n(d) No. The cable, truck, and car are all inside the chosen system, so the forces the cable exerts on the truck and on the car are internal forces. Internal forces do not influence the motion of a system's center of mass, so they cannot change the velocity of the center of mass of the truck–cable–car system.",
+   "verification_python": "F_cable_on_car=1500\nF_car_on_cable=-F_cable_on_car\nassert F_car_on_cable==-1500\nT=abs(F_car_on_cable)\nF_cable_on_truck=-T\nassert F_cable_on_truck==-1500\nassert abs(F_cable_on_truck)==abs(F_cable_on_car)\nassert F_cable_on_car+F_cable_on_truck==0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_1__3.1__1",
+  "subject_key": "ap_physics_1",
+  "topic_code": "3.1",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (c), criterion c1 requires the numerical value 135,000 J, although the part asks only whether the student's claim is correct and why. It als",
+    "ruling": "accept",
+    "reason": "The part asks only whether the student is correct and why. Requiring the value 135,000 J scores something not asked, and requiring the word 'scalar' rejects the sufficient v²-is-positive explanation. Evidence now accepts either reason and drops the number requirement."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (b), criterion b1: requires proportional reasoning about doubling mass and halving speed, but part (b) only asks to determine the ratio; a v",
+    "ruling": "accept",
+    "reason": "Part (b) asks only to determine the ratio, so direct substitution (2400 kg at 7.5 m/s gives 67,500 J; ratio 67,500 J/135,000 J = 1/2, re-derived with Python) is a valid method the evidence rejected. Evidence widened to accept either method."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Kinetic Energy of a Car Measured by Different Observers",
+   "calculator": "permitted",
+   "stimulus": "A car of mass 1200 kg travels east along a straight, level road at 15 m/s, as measured by an observer standing beside the road. Take east as the positive direction.",
+   "parts": [
+    {
+     "prompt": "Calculate the car's translational kinetic energy as measured by the roadside observer.",
+     "criteria": [
+      {
+       "text": "K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = 135,000 J.",
+       "evidence": "Response substitutes m = 1200 kg and v = 15 m/s into K = (1/2)mv² and obtains 135,000 J.",
+       "fix": "Square the speed before multiplying: K = (1/2)mv², with v² = 225 m²/s² here.",
+       "accepted_variants": [
+        "1.35 × 10⁵ J",
+        "135 kJ"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A truck with twice the mass of the car travels at half the car's speed, as measured by the roadside observer. Determine the ratio of the truck's kinetic energy to the car's kinetic energy.",
+     "criteria": [
+      {
+       "text": "K_truck/K_car = (1/2)(2m)(v/2)² ÷ (1/2)mv² = 2 × 1/4 = 1/2, or directly 67,500 J ÷ 135,000 J = 1/2.",
+       "evidence": "Response obtains a ratio of 1/2, either by proportional reasoning (mass factor 2 times speed factor squared, 1/4) or by computing both kinetic energies (67,500 J and 135,000 J).",
+       "fix": "Use K ∝ mv²: multiply the mass factor by the square of the speed factor.",
+       "accepted_variants": [
+        "0.5",
+        "1:2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A second car, identical to the first, travels west at 15 m/s. A student says this car has negative kinetic energy because its velocity is negative. Explain whether the student is correct.",
+     "criteria": [
+      {
+       "text": "The student is incorrect: kinetic energy is a scalar that depends on v², which is positive for either direction of velocity, so the westbound car's kinetic energy is positive.",
+       "evidence": "Response states the student is wrong and explains either that kinetic energy is a scalar with no direction or that K = (1/2)mv² uses v², which is positive for negative velocity.",
+       "fix": "Remember kinetic energy is a scalar: squaring velocity gives a positive value, so direction never affects K.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "An observer riding in a van that moves west at 5.0 m/s, as measured by the roadside observer, measures the motion of the first car. Calculate the first car's translational kinetic energy as measured by the observer in the van.",
+     "criteria": [
+      {
+       "text": "Car's velocity relative to the van = (+15 m/s) − (−5.0 m/s) = +20 m/s, so K = (1/2)(1200 kg)(20 m/s)² = 240,000 J.",
+       "evidence": "Response finds the car's speed relative to the van as 20 m/s and obtains 240,000 J, recognizing that kinetic energy depends on the observer's reference frame.",
+       "fix": "Find the object's velocity relative to the observer first (subtract the observer's signed velocity), then compute K with that speed.",
+       "accepted_variants": [
+        "2.4 × 10⁵ J",
+        "240 kJ"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = (600)(225) = 135,000 J.\n\n(b) K_truck = (1/2)(2m)(v/2)² = (1/2)(2m)(v²/4) = (1/2)·(1/2)mv². So K_truck/K_car = 1/2. Doubling the mass doubles K, but halving the speed divides K by 4.\n\n(c) The student is not correct. Kinetic energy is a scalar, K = (1/2)mv², and v² is positive whether the velocity is +15 m/s or −15 m/s. The westbound car has the same kinetic energy, 135,000 J, not a negative value.\n\n(d) Relative to the van, the car's velocity is (+15 m/s) − (−5.0 m/s) = +20 m/s. The van observer measures K = (1/2)(1200 kg)(20 m/s)² = (600)(400) = 240,000 J. Kinetic energy depends on the observer's reference frame.",
+   "verification_python": "from fractions import Fraction as F\nm=1200;v=15\nK=F(1,2)*m*v**2\nassert K==135000\nassert v**2==225\nmt=2*m;vt=F(v,2)\nassert mt==2400 and vt==F(15,2)\nKt=F(1,2)*mt*vt**2\nassert Kt==67500\nassert Kt/K==F(1,2)\nassert F(2)*F(1,4)==F(1,2)\nK2=F(1,2)*m*(-15)**2\nassert K2==135000\nvvan=-5\nvrel=15-vvan\nassert vrel==20\nKv=F(1,2)*m*vrel**2\nassert Kv==240000\nassert m//2==600 and vrel**2==400\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

@@ -11,8 +11,210 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:06:08.336Z",
+   "source": "given",
+   "item": {
+    "title": "Predicting Ionic Formulas from Periodic Table Position",
+    "calculator": "not_applicable",
+    "stimulus": "Magnesium and chlorine form the ionic compound MgCl₂. Sodium and oxygen form the ionic compound Na₂O. Use these formulas and the periodic table to answer the following.",
+    "parts": [
+     {
+      "prompt": "Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table.",
+      "criteria": [
+       {
+        "text": "Predicts BaBr₂ because barium is in the same group as magnesium and bromine is in the same group as chlorine, so they form a compound analogous to MgCl₂.",
+        "evidence": "Response gives BaBr₂ and justifies it by group membership (Ba with Mg in group 2, Br with Cl in group 17), or by the typical charges Ba²⁺ and Br⁻ that follow from those positions.",
+        "fix": "Locate each element's column; elements in the same columns as those in a known compound form a compound with an analogous formula.",
+        "accepted_variants": [
+         "BaBr2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts K₂S because potassium is in the same group as sodium and sulfur is in the same group as oxygen, so the compound is analogous to Na₂O.",
+        "evidence": "Response gives K₂S and justifies it by group membership (K with Na in group 1, S with O in group 16), or by the typical charges K⁺ and S²⁻.",
+        "fix": "Match potassium to sodium and sulfur to oxygen by column, then use the same subscripts as the known compound Na₂O.",
+        "accepted_variants": [
+         "K2S"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom.",
+      "criteria": [
+       {
+        "text": "Predicts Al₂O₃ because aluminum (3 valence electrons) forms Al³⁺ and oxygen (6 valence electrons) forms O²⁻, and 2(+3) + 3(−2) = 0.",
+        "evidence": "Response gives Al₂O₃, states the charges +3 and −2 based on losing 3 or gaining 2 valence electrons, and shows that the charges balance.",
+        "fix": "Get each ion's charge from the valence electrons lost or gained to reach a noble-gas configuration, then choose subscripts giving zero total charge.",
+        "accepted_variants": [
+         "Al2O3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom.",
+      "criteria": [
+       {
+        "text": "Explains that potassium's valence electron is in a higher shell (n = 4 rather than n = 3), farther from the nucleus and more shielded, so it is attracted less strongly and is lost more easily when potassium forms an ionic compound.",
+        "evidence": "Response states that the K valence electron is farther from the nucleus (or in a higher shell) than the Na valence electron and links this to a weaker Coulombic attraction, making it easier to remove.",
+        "fix": "Compare the shell that holds each valence electron; a farther, more shielded electron feels weaker attraction and is lost more easily.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) BaBr₂. Barium is in group 2 with magnesium, and bromine is in group 17 with chlorine. Elements in the same column form analogous compounds, so barium and bromine form BaBr₂, just as magnesium and chlorine form MgCl₂ (Ba²⁺ and Br⁻ ions).\n\n(b) K₂S. Potassium is in group 1 with sodium, and sulfur is in group 16 with oxygen, so the compound is analogous to Na₂O, with K⁺ and S²⁻ ions.\n\n(c) Al₂O₃. An aluminum atom has 3 valence electrons and loses them to form Al³⁺. An oxygen atom has 6 valence electrons and gains 2 to form O²⁻. Two Al³⁺ ions (+6) balance three O²⁻ ions (−6), giving Al₂O₃.\n\n(d) The valence electron of potassium is in the fourth shell, while that of sodium is in the third shell. The potassium valence electron is farther from the nucleus and is shielded by more inner electrons, so by Coulomb's law it is attracted less strongly to the nucleus. It is therefore removed more easily, so potassium forms K⁺ and reacts with chlorine more readily than sodium does.",
+    "verification_python": "group={'Mg':2,'Ba':2,'Na':1,'K':1,'Cl':17,'Br':17,'O':16,'S':16,'Al':13}\nassert group['Ba']==group['Mg'] and group['Br']==group['Cl']\nassert group['K']==group['Na'] and group['S']==group['O']\nval={'Al':3,'O':6}\nqAl=val['Al']; qO=-(8-val['O'])\nassert qAl==3 and qO==-2\nassert 2*qAl+3*qO==0\nassert 1*2+2*(-1)==0  # BaBr2\nassert 2*1+1*(-2)==0  # K2S\nshell={'Na':3,'K':4}\nassert shell['K']>shell['Na']\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 2,
  "history_before_session_authoring": [
   {
@@ -351,5 +553,6 @@
   },
   "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.847478Z"
- }
+ },
+ "accepted_round": 1
 }

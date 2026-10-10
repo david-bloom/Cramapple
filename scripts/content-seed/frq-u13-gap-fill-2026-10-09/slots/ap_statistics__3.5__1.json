@@ -11,8 +11,275 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:28:37.645Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test for Streetlight Outages",
+    "calculator": "permitted",
+    "stimulus": "A city reports that 10% of its 9,400 streetlights are out of service. After a new repair program, the city's public works department believes that the proportion of the city's streetlights that are out of service has decreased. An inspector checks a random sample of 120 of the city's streetlights and finds that 9 of them are out of service. The department plans to use these data to test its belief.",
+    "parts": [
+     {
+      "prompt": "Identify the appropriate testing procedure, and define the parameter of interest in context.",
+      "criteria": [
+       {
+        "text": "Names a one-sample z-test for a population proportion.",
+        "evidence": "Response identifies a one-sample z-test for a (single) population proportion; naming a test for a mean or a two-sample procedure does not earn the point.",
+        "fix": "With one sample and a yes-or-no response, name the procedure as a one-sample z-test for a population proportion.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Defines p as the proportion of all the city's streetlights that are out of service (after the repair program).",
+        "evidence": "Response defines the parameter as a proportion that refers to all of the city's streetlights and to being out of service, not to the 120 sampled lights or the count of 9.",
+        "fix": "Define p with three pieces: a proportion, the response (out of service), and the population (all of the city's streetlights).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "State the null and alternative hypotheses for the department's test.",
+      "criteria": [
+       {
+        "text": "H₀: p = 0.10 and Hₐ: p < 0.10.",
+        "evidence": "Response writes the null hypothesis with equality at 0.10 and a one-sided alternative with < 0.10, both in terms of the population proportion p (not p̂).",
+        "fix": "Put the status quo value in H₀ with an equals sign and the department's belief (a decrease) in Hₐ using <.",
+        "accepted_variants": [
+         "H₀: p = 0.1, Hₐ: p < 0.1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the randomization condition and the 10% condition for this test.",
+      "criteria": [
+       {
+        "text": "States that the randomization condition is met because the inspector checked a random sample of the city's streetlights.",
+        "evidence": "Response cites the random sample of 120 streetlights as meeting the randomization condition.",
+        "fix": "For the randomization condition, quote the random selection described in the study and say what was randomly selected.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the 10% condition is met because 120 ≤ 0.10(9,400) = 940 (equivalently, 9,400 ≥ 10 × 120 = 1,200).",
+        "evidence": "Response compares the sample size 120 with 10% of the 9,400 streetlights (or compares 9,400 with 10 × 120) and states the condition is met.",
+        "fix": "Show the 10% condition with numbers: compare the sample size with 10% of the stated population size.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate says that the normality condition for this test is not met because only 9 of the sampled streetlights were out of service. Is the classmate correct? Explain.",
+      "criteria": [
+       {
+        "text": "States that the classmate is not correct because the test's normality condition uses the null value p₀ = 0.10: np₀ = 120(0.10) = 12 and n(1 − p₀) = 120(0.90) = 108 are both at least 10.",
+        "evidence": "Response says the classmate is incorrect and checks the expected counts 12 and 108 using p₀ = 0.10, both at least 10.",
+        "fix": "For a test, check the normality condition with expected counts np₀ and n(1 − p₀), not with the observed counts.",
+        "accepted_variants": [
+         "12 and 108"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The appropriate procedure is a one-sample z-test for a population proportion. Let p = the proportion of all the city's streetlights that are out of service (after the repair program).\n\n(b) H₀: p = 0.10\nHₐ: p < 0.10\n\n(c) Randomization: the inspector checked a random sample of 120 of the city's streetlights, so the randomization condition is met.\n10% condition: the sample of 120 streetlights is less than 10% of the city's 9,400 streetlights, because 0.10 × 9,400 = 940 and 120 ≤ 940, so the condition is met.\n\n(d) The classmate is not correct. In a significance test the normality condition is checked using the null value p₀ = 0.10, because the test assumes H₀ is true. The expected number of out-of-service lights is np₀ = 120(0.10) = 12 and the expected number in service is n(1 − p₀) = 120(0.90) = 108. Both are at least 10, so the normality condition is met.",
+    "verification_python": "n=120;N=9400;p0=0.10;x=9\nassert abs(0.10*N-940)<1e-9 and n<=0.10*N\nassert 10*n==1200 and N>=10*n\nassert abs(n*p0-12)<1e-9 and abs(n*(1-p0)-108)<1e-9\nassert n*p0>=10 and n*(1-p0)>=10\nassert x<10\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "1": 2,
+     "2": 2,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires equality in H₀ and thus rejects the valid alternative H₀: p ≥ 0.10 with Hₐ: p < 0.10. The CED explicitly permits a one-sided null containing an inequality, tested at the equality boundary."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires equality in H₀ and thus rejects the valid alternative H₀: p ≥ 0.10 with Hₐ: p < 0.10. The CED explicitly permits a one-sided null containing an inequality, tested at the equality boundary."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires equality in H₀ and therefore rejects the valid alternative H₀: p ≥ 0.10 paired with Hₐ: p < 0.10. The supplied CED explicitly permits an inequality in a one-sided null hypothesis, tested at the equality boundary. Accept this formulation as well."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires equality in H₀ and therefore rejects the valid alternative H₀: p ≥ 0.10 paired with Hₐ: p < 0.10. The supplied CED explicitly permits an inequality in a one-sided null hypothesis, tested at the equality boundary. Accept this formulation as well."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

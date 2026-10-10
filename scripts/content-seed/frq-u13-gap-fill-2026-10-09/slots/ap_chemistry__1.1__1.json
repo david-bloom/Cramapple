@@ -11,8 +11,207 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:05:13.768Z",
+   "source": "given",
+   "item": {
+    "title": "Counting Caffeine Molecules and Atoms by Mass",
+    "calculator": "permitted",
+    "stimulus": "A tablet of a caffeine supplement contains 0.200 g of caffeine, C₈H₁₀N₄O₂. The molar mass of caffeine is 194.19 g/mol, and Avogadro's number is 6.022 × 10²³ mol⁻¹.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+    "parts": [
+     {
+      "prompt": "Calculate the number of moles of caffeine in the tablet.",
+      "criteria": [
+       {
+        "text": "Calculates 1.03 × 10⁻³ mol of caffeine.",
+        "evidence": "Response converts the 0.200 g mass to moles using the molar mass 194.19 g/mol and reports 1.03 × 10⁻³ mol.",
+        "fix": "Use n = m/M: divide the mass in grams by the molar mass in g/mol, keeping three significant digits from 0.200 g.",
+        "accepted_variants": [
+         "0.00103 mol",
+         "1.03 mmol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of caffeine molecules in the tablet.",
+      "criteria": [
+       {
+        "text": "Calculates 6.20 × 10²⁰ caffeine molecules.",
+        "evidence": "Response converts the amount of caffeine to a number of molecules with Avogadro's number (for example 1.03 × 10⁻³ mol × 6.022 × 10²³ mol⁻¹) and reports 6.20 × 10²⁰ molecules, or a value consistent with the student's answer to the previous part.",
+        "fix": "Multiply the amount in moles by Avogadro's number, 6.022 × 10²³ per mole, to turn moles into a count of molecules.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the number of nitrogen atoms in the caffeine in the tablet.",
+      "criteria": [
+       {
+        "text": "Calculates 2.48 × 10²¹ nitrogen atoms, using 4 nitrogen atoms per caffeine molecule.",
+        "evidence": "Response uses the subscript 4 for N in C₈H₁₀N₄O₂ and reports 2.48 × 10²¹ nitrogen atoms, or 4 times the student's number of molecules from the previous part.",
+        "fix": "Read the element's subscript in the formula and multiply the number of molecules by that subscript to count its atoms.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The average mass of one caffeine molecule is 194.19 amu. Calculate the average mass of one caffeine molecule in grams.",
+      "criteria": [
+       {
+        "text": "Calculates 3.225 × 10⁻²² g for the mass of one caffeine molecule.",
+        "evidence": "Response shows a valid conversion, such as dividing 194.19 g/mol by 6.022 × 10²³ molecules/mol, and reports 3.225 × 10⁻²² g; a difference in the last digit caused by a rounded conversion factor is acceptable.",
+        "fix": "The amu mass of one molecule equals the grams in one mole, so divide the molar mass by Avogadro's number to get grams per molecule.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) n = m/M = 0.200 g ÷ 194.19 g/mol = 1.03 × 10⁻³ mol of caffeine.\n\n(b) Number of molecules = 1.03 × 10⁻³ mol × 6.022 × 10²³ molecules/mol = 6.20 × 10²⁰ caffeine molecules.\n\n(c) Each caffeine molecule, C₈H₁₀N₄O₂, contains 4 nitrogen atoms. Number of N atoms = 4 × 6.20 × 10²⁰ = 2.48 × 10²¹ nitrogen atoms.\n\n(d) Because the average mass of one molecule in amu is numerically equal to the molar mass in grams, 1 mol of caffeine (6.022 × 10²³ molecules) has a mass of 194.19 g. Mass of one molecule = 194.19 g/mol ÷ 6.022 × 10²³ molecules/mol = 3.225 × 10⁻²² g.",
+    "verification_python": "import math\nNA=6.022e23\nM=194.19\nm=0.200\n# molar mass check from atomic masses (given value is standard)\nassert abs((8*12.011+10*1.008+4*14.007+2*15.999)-M)<0.02\nn=m/M\nassert abs(n-1.03e-3)<0.005e-3\nN=n*NA\nassert abs(N-6.20e20)<0.005e20\nassert abs(1.03e-3*NA-6.20e20)<0.005e20\nNN=4*N\nassert abs(NN-2.48e21)<0.005e21\nassert abs(4*6.20e20-2.48e21)<1e17\nmm=M/NA\nassert abs(mm-3.225e-22)<0.0005e-22\nassert abs(194.19*1.66054e-24-3.225e-22)<0.001e-22\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 1,
  "history_before_session_authoring": [
   {
@@ -677,5 +876,6 @@
   },
   "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.842608Z"
- }
+ },
+ "accepted_round": 1
 }

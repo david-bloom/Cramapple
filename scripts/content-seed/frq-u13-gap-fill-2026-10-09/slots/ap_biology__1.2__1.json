@@ -11,8 +11,209 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.212Z",
+   "source": "given",
+   "item": {
+    "title": "Tracing Labeled Sulfur and Phosphorus into Macromolecules",
+    "calculator": "not_applicable",
+    "stimulus": "Researchers grew two cultures of the same bacterium. Each culture's food source contained one radioactively labeled element. Cells use a radioactive form of an element in the same way as the ordinary form.\n\nCulture 1: sulfur-35 (³⁵S)\nCulture 2: phosphorus-32 (³²P)\n\nAfter several generations, the cells from each culture were broken open and their molecules were separated into four fractions: carbohydrates, lipids, proteins, and nucleic acids. The radioactivity of each fraction was measured in counts per minute (cpm). Readings below 100 cpm are background and show that the label was not incorporated.\n\nFraction | Culture 1 (³⁵S), cpm | Culture 2 (³²P), cpm\nCarbohydrates | 30 | 40\nLipids | 25 | 2100\nProteins | 8800 | 35\nNucleic acids | 20 | 6400",
+    "parts": [
+     {
+      "prompt": "Explain why the ³⁵S in Culture 1 was incorporated into the protein fraction.",
+      "criteria": [
+       {
+        "text": "Explains that sulfur is an element used in building proteins, so the cells built ³⁵S into the proteins they made.",
+        "evidence": "Response states that sulfur is used to build proteins (is part of proteins) and connects this to the label appearing in the protein fraction.",
+        "fix": "Memorize the element linked to each macromolecule: sulfur is used in building proteins, so a sulfur label marks protein.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "In Culture 2, ³²P was incorporated into two different fractions. Explain why each of these two fractions became labeled.",
+      "criteria": [
+       {
+        "text": "Explains that phosphorus is used in building nucleic acids, so ³²P was incorporated into the nucleic acid fraction (6400 cpm).",
+        "evidence": "Response links the labeled nucleic acid fraction to phosphorus being an element used to build nucleic acids.",
+        "fix": "Recall phosphorus is used in building nucleic acids; check that fraction first when a phosphorus label is used.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains that phosphorus is used in building phospholipids, a type of lipid, so ³²P was incorporated into the lipid fraction (2100 cpm).",
+        "evidence": "Response links the labeled lipid fraction to phosphorus being an element used to build phospholipids.",
+        "fix": "Recall phosphorus also builds phospholipids, which are lipids; a phosphorus label therefore appears in the lipid fraction too.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Cellulose is a carbohydrate. A researcher grows cotton plants with ³²P in their water and then purifies cellulose from the cotton fibers. Predict whether the purified cellulose will contain ³²P, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the purified cellulose will not contain ³²P (it will not be radioactive).",
+        "evidence": "Response states the cellulose will not be labeled with ³²P.",
+        "fix": "Decide whether the molecule class contains the labeled element; if not, predict no label in the purified molecule.",
+        "accepted_variants": [
+         "not radioactive",
+         "no ³²P"
+        ]
+       },
+       {
+        "text": "Justifies the prediction: carbohydrates such as cellulose are built from carbon, hydrogen, and oxygen and do not contain phosphorus.",
+        "evidence": "Response states that carbohydrates are made of carbon, hydrogen, and oxygen (no phosphorus), so phosphorus is not built into cellulose.",
+        "fix": "Justify with elemental composition: carbohydrates are built of carbon, hydrogen, and oxygen only, so they lack phosphorus.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Sulfur is one of the elements used in building proteins. As the bacteria made new proteins, they used the ³⁵S from their food, so the label appeared in the protein fraction (8800 cpm), while the other fractions stayed at background.\n\n(b) Phosphorus is used in building nucleic acids, so the cells built ³²P into their nucleic acids, labeling the nucleic acid fraction (6400 cpm).\nPhosphorus is also used in building phospholipids, which are a type of lipid, so ³²P was built into phospholipids and the lipid fraction was labeled (2100 cpm).\n\n(c) The purified cellulose will not contain ³²P. Cellulose is a carbohydrate, and carbohydrates are built from carbon, hydrogen, and oxygen; they do not contain phosphorus. This matches the data: the carbohydrate fraction in Culture 2 stayed at background (40 cpm).",
+    "verification_python": "c1={'carb':30,'lipid':25,'protein':8800,'nucleic':20}\nc2={'carb':40,'lipid':2100,'protein':35,'nucleic':6400}\nbg=100\nlab1=sorted(k for k,v in c1.items() if not v<bg)\nlab2=sorted(k for k,v in c2.items() if not v<bg)\nassert lab1==['protein']\nassert lab2==['lipid','nucleic']\nassert len(lab2)==2\nassert c2['carb']<bg\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 5,
+     "1.3": 1
+    },
+    "onTarget": 5,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -1539,5 +1740,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.854969Z"
- }
+ },
+ "accepted_round": 1
 }

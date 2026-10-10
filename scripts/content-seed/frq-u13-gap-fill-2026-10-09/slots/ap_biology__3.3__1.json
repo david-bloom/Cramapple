@@ -11,8 +11,326 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.502Z",
+   "source": "given",
+   "item": {
+    "title": "A Sequential Pathway and Energy Coupling in a Bacterium",
+    "calculator": "permitted",
+    "stimulus": "A bacterium makes molecule D from molecule A through a three-step pathway. Each step is catalyzed by a different enzyme.\n\nStep 1: A → B\nStep 2: B → C\nStep 3: C → D\n\nResearchers measured the concentrations of the pathway molecules in normal cells and in a mutant strain that lacks a working enzyme for one of the three steps.\n\nMolecule | Normal cells (mM) | Mutant cells (mM)\nA | 1.0 | 1.1\nB | 0.4 | 6.5\nC | 0.3 | 0.0\nD | 2.0 | 0.0\n\nStep 3 requires an input of energy. In the cell, step 3 is coupled to reaction E, which releases energy. Reaction E releases 30 kJ of energy per mole, and step 3 requires 21 kJ of energy per mole.",
+    "parts": [
+     {
+      "prompt": "Using the data, identify the step that is blocked in the mutant strain.",
+      "criteria": [
+       {
+        "text": "Identifies step 2 (B → C) as the blocked step.",
+        "evidence": "Response names step 2 (B → C).",
+        "fix": "Find where a pathway molecule piles up and the next molecule is missing; the blocked step lies between them.",
+        "accepted_variants": [
+         "B → C",
+         "step 2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The enzyme for step 3 works normally in the mutant cells. Explain why the mutant cells contain no D.",
+      "criteria": [
+       {
+        "text": "Explains that in a sequential pathway the product of one step is the reactant for the next step: C, the product of step 2, is the reactant for step 3, so with no C made, step 3 cannot produce D.",
+        "evidence": "Response states that step 3 needs C as its reactant and that C is not made because step 2 is blocked, so no D is formed.",
+        "fix": "Trace the pathway forward: each step's product feeds the next step, so a missing reactant stops every later step.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how coupling step 3 to reaction E allows step 3 to occur in the cell.",
+      "criteria": [
+       {
+        "text": "Explains that the energy released by reaction E is used to supply the energy that step 3 requires; because E releases more energy (30 kJ per mole) than step 3 needs (21 kJ per mole), the coupled processes can proceed together.",
+        "evidence": "Response states that the energy-releasing reaction E provides the energy input required by the energy-requiring step 3, and notes that E releases at least as much energy as step 3 needs.",
+        "fix": "Describe coupling as an energy-releasing process paying for an energy-requiring one, and check that energy released exceeds energy required.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the amount of energy per mole released by reaction E that is not used to drive step 3, and describe what happens to this energy.",
+      "criteria": [
+       {
+        "text": "Calculates 30 kJ − 21 kJ = 9 kJ per mole not used by step 3.",
+        "evidence": "Response subtracts the energy required by step 3 from the energy released by E and obtains 9 kJ per mole.",
+        "fix": "Subtract energy required from energy released; the difference is the energy left over from the coupled reactions.",
+        "accepted_variants": [
+         "9 kJ/mol"
+        ]
+       },
+       {
+        "text": "Describes that the extra energy is released to the surroundings as heat (thermal energy); it is not destroyed, consistent with the first law of thermodynamics.",
+        "evidence": "Response states that the unused energy is lost to the surroundings as heat (thermal energy), not destroyed or stored.",
+        "fix": "Remember energy transfers are never complete: energy not captured is released as heat, and energy is never destroyed.",
+        "accepted_variants": [
+         "lost as heat"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Step 2 (B → C) is blocked. In the mutant, B builds up to 6.5 mM (compared with 0.4 mM in normal cells), while C is absent (0.0 mM). B is the reactant of step 2 and C is its product, so the block is at step 2.\n\n(b) The pathway is sequential: the product of one step is the reactant for the next. C, the product of step 2, is the reactant for step 3. Because step 2 is blocked, no C is made, so even though the step 3 enzyme works, step 3 has no reactant and no D is produced.\n\n(c) Step 3 requires an input of energy that it cannot supply itself. When step 3 is coupled to reaction E, the energy released by reaction E is used to provide the energy step 3 requires. Reaction E releases 30 kJ per mole, more than the 21 kJ per mole step 3 needs, so the coupled processes can proceed together.\n\n(d) 30 kJ − 21 kJ = 9 kJ per mole is not used to drive step 3. This energy is released to the surroundings as heat (thermal energy). It is not destroyed, consistent with the first law of thermodynamics.",
+    "verification_python": "normal={'A':1.0,'B':0.4,'C':0.3,'D':2.0}\nmut={'A':1.1,'B':6.5,'C':0.0,'D':0.0}\nassert mut['B']>normal['B']\nassert mut['C']==0.0 and mut['D']==0.0\nE=30;S3=21\nassert E>S3\nassert E-S3==9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c)–(d), particularly criterion d1, assume one mole of reaction E drives one mole of step 3, but the coupling ratio is not specified. Without that ratio, the energy surplus per mole of step 3 is not uniquely determined. State explicitly that the reactions are coupled in a 1:1 molar ratio.",
+       "solution: The blocked step is step 2, and the absence of C prevents production of D, agreeing with a1 and b1. Energy released by E can drive step 3, agreeing with the coupling explanation in c1. The 9 kJ/mol result in d1 is correct only under the unstated 1:1 coupling assumption. Under that intended assumption and the AP-level heat-dissipation simplification, d2 agrees. No model answer or existing questions were supplied for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The coupling stoichiometry is not explicitly stated. The numerical answers in (c) and (d) assume that one mole of reaction E drives one mole of step 3, as the question appears to intend.",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c)–(d), particularly criterion d1, assume one mole of reaction E drives one mole of step 3, but the coupling ratio is not specified. Without that ratio, the energy surplus per mole of step 3 is not uniquely determined. State explicitly that the reactions are coupled in a 1:1 molar ratio."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The blocked step is step 2, and the absence of C prevents production of D, agreeing with a1 and b1. Energy released by E can drive step 3, agreeing with the coupling explanation in c1. The 9 kJ/mol result in d1 is correct only under the unstated 1:1 coupling assumption. Under that intended assumption and the AP-level heat-dissipation simplification, d2 agrees. No model answer or existing questions were supplied for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d2: the part asks only what happens to the excess energy; a correct answer 'lost as heat' should suffice, but the rubric additionally requires 'it is not destroyed, consistent with the first law of thermodynamics,' an unasked conservation claim and a second observable element for one point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3 Cellular Energy",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d2: the part asks only what happens to the excess energy; a correct answer 'lost as heat' should suffice, but the rubric additionally requires 'it is not destroyed, consistent with the first law of thermodynamics,' an unasked conservation claim and a second observable element for one point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -624,5 +942,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.865020Z"
- }
+ },
+ "accepted_round": 1
 }

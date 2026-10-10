@@ -11,8 +11,227 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:04:21.249Z",
+   "source": "given",
+   "item": {
+    "title": "Average and Instantaneous Rates of Change of Reservoir Volume",
+    "calculator": "not_permitted",
+    "stimulus": "During a dry season, the volume of water in a reservoir, in millions of cubic meters, is given by a differentiable function V(t), where t is the number of weeks since the season began. Selected values of V(t) are given in the table.\n\nt (weeks) | 0 | 2 | 5 | 9 | 12\nV(t) (millions of cubic meters) | 84 | 80 | 71 | 56 | 50\n\nThe volume of water in a second reservoir, in millions of cubic meters, is R(t) = 120 − 2t − t² for 0 ≤ t ≤ 8, where t is measured in weeks.",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of V(t) over the interval [2, 9]. Show the difference quotient you use and include units.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7.",
+        "evidence": "Response writes the change in V over the change in t using V(9) = 56, V(2) = 80 and a time change of 7 weeks.",
+        "fix": "Write V(b) − V(a) over b − a, taking the endpoints in the same order on top and bottom.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Gives the value −24/7 millions of cubic meters per week.",
+        "evidence": "Response states −24/7 (equivalently −3 3/7) with units of millions of cubic meters per week.",
+        "fix": "Keep the negative sign, which shows the volume decreased, and attach the units of V over the units of t.",
+        "accepted_variants": [
+         "−24/7",
+         "−3 3/7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write a limit expression, in terms of V, that represents the instantaneous rate of change of the volume at t = 5 weeks. Then explain why the table alone cannot give the exact value of this limit.",
+      "criteria": [
+       {
+        "text": "Writes lim h→0 [V(5 + h) − V(5)] / h, or lim t→5 [V(t) − V(5)] / (t − 5).",
+        "evidence": "Response gives a limit of a difference quotient at t = 5 with h approaching 0 (or t approaching 5).",
+        "fix": "Write the average rate over [5, 5 + h], then place it inside a limit as h approaches 0.",
+        "accepted_variants": [
+         "lim h→0 (V(5 + h) − V(5))/h",
+         "lim t→5 (V(t) − V(5))/(t − 5)"
+        ]
+       },
+       {
+        "text": "Explains that near t = 5 the table gives V only at t = 2 and t = 9, so the interval around t = 5 cannot be made arbitrarily small.",
+        "evidence": "Response states that the limit needs values of V at times arbitrarily close to 5, which the table does not provide.",
+        "fix": "Ask which values of V the limit needs as h shrinks, and check whether the table supplies them.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the limit of a difference quotient to find the instantaneous rate of change of R at t = 3, showing the algebra. Interpret your answer in context.",
+      "criteria": [
+       {
+        "text": "Simplifies the difference quotient for h ≠ 0: [R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h.",
+        "evidence": "Response substitutes R(3 + h) and R(3) = 105, simplifies the numerator to −8h − h² and cancels h to obtain −8 − h. Equivalently, [R(t) − R(3)] / (t − 3) = −(t + 5) for t ≠ 3.",
+        "fix": "Expand R(3 + h) completely, subtract R(3) = 105, and cancel the common factor h before taking the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit as −8.",
+        "evidence": "Response lets h → 0 (or t → 3) in the simplified expression and obtains −8.",
+        "fix": "Only after cancelling h, substitute h = 0 into the simplified expression.",
+        "accepted_variants": [
+         "−8"
+        ]
+       },
+       {
+        "text": "Interprets: at t = 3 weeks, the second reservoir's volume is decreasing at 8 million cubic meters per week.",
+        "evidence": "Response states the rate with units of millions of cubic meters per week and says the volume is decreasing at the instant t = 3.",
+        "fix": "Say what quantity is changing, at which time, in which direction, and with which units.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7 = −24/7 millions of cubic meters per week. On average, the volume decreased by 24/7 million cubic meters per week over [2, 9].\n\n(b) The instantaneous rate of change at t = 5 is lim h→0 [V(5 + h) − V(5)] / h. Near t = 5 the table gives V only at t = 2 and t = 9, so we cannot compute average rates over intervals that shrink to t = 5; the table can only approximate this limit, not give its exact value.\n\n(c) R(3) = 120 − 6 − 9 = 105, and R(3 + h) = 120 − 2(3 + h) − (3 + h)² = 120 − 6 − 2h − 9 − 6h − h² = 105 − 8h − h².\n[R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h for h ≠ 0, so lim h→0 [R(3 + h) − R(3)] / h = lim h→0 (−8 − h) = −8.\nAt t = 3 weeks, the volume of water in the second reservoir is decreasing at 8 million cubic meters per week.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nV = {0: 84, 2: 80, 5: 71, 9: 56, 12: 50}\nr = lambda a, b: F(V[b] - V[a], b - a)\nassert V[9] - V[2] == -24 and 9 - 2 == 7\nassert r(2, 9) == F(-24, 7) and F(-24, 7) == -(3 + F(3, 7))\nh, t = sp.symbols('h t')\nR = lambda s: 120 - 2*s - s**2\nassert R(3) == 105\nassert sp.expand(R(3 + h) - (105 - 8*h - h**2)) == 0\nassert sp.expand(R(3 + h) - R(3)) == -8*h - h**2\nassert sp.cancel((R(3 + h) - R(3))/h) == -h - 8\nassert sp.limit((R(3 + h) - R(3))/h, h, 0) == -8\nassert sp.cancel((R(t) - R(3))/(t - 3)) == -t - 5\nassert R(8) == 40 and R(0) == 120\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "history_before_session_authoring": [
   {
    "round": 1,
@@ -594,5 +813,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.839676Z"
- }
+ },
+ "accepted_round": 1
 }

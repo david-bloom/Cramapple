@@ -11,8 +11,94 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:26:27.045Z",
+   "source": "given",
+   "item": {
+    "title": "Components of a State Park Pass Holder Survey",
+    "calculator": "not_applicable",
+    "stimulus": "The state park agency sold annual park passes to 48,000 people last year. The state has about 2.1 million adult residents. The agency wants to know whether its pass holders would use a proposed online campsite reservation system. Calling every pass holder would take agency staff several months, so the agency selected a random sample of 600 pass holders and asked each one: \"Would you use an online campsite reservation system? (yes or no)\" All 600 pass holders in the sample answered, and 372 of them answered yes.",
+    "parts": [
+     {
+      "prompt": "Identify the population and the sample in this study, and give the values of N and n.",
+      "criteria": [
+       {
+        "text": "Identifies the population as all 48,000 people who hold an annual pass from the state park agency, with N = 48,000.",
+        "evidence": "Response names all of the agency's annual pass holders as the population and gives N = 48,000 (not 2.1 million and not 600).",
+        "fix": "Name the whole group the agency wants to learn about, then give N as the size of that group, not a larger group.",
+        "accepted_variants": [
+         "N = 48,000",
+         "N = 48000"
+        ]
+       },
+       {
+        "text": "Identifies the sample as the 600 randomly selected pass holders who were asked the question, with n = 600.",
+        "evidence": "Response names the 600 pass holders who were selected and asked the question as the sample and gives n = 600.",
+        "fix": "Name the subset of the population from which data were actually obtained, then give n as the number of individuals in it.",
+        "accepted_variants": [
+         "n = 600"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the agency used a statistical study instead of collecting data from every pass holder.",
+      "criteria": [
+       {
+        "text": "Explains that collecting data from every one of the 48,000 pass holders would be too difficult or time-consuming, so data were collected from a sample instead.",
+        "evidence": "Response states that contacting every pass holder is impractical because of the size of the population or the months of staff time it would take.",
+        "fix": "Give a reason tied to the context: say what makes collecting data from every member of this population too large or too difficult a task.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "One pass holder in the sample answered yes. Identify the datum that this pass holder provides, and describe the data set that the agency collected.",
+      "criteria": [
+       {
+        "text": "Identifies the datum as this pass holder's answer, yes, to the question about using an online campsite reservation system.",
+        "evidence": "Response states that the datum is the single recorded answer (yes) for this one pass holder, not the pass holder or the count 372.",
+        "fix": "A datum is one piece of information about one individual; state the recorded answer for that individual, not the individual.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Describes the data set as the collection of all 600 yes-or-no answers given by the sampled pass holders.",
+        "evidence": "Response states that the data set is the full collection of recorded answers from the 600 sampled pass holders.",
+        "fix": "Describe the data set as the full collection of recorded values, one per sampled individual, and say how many values it contains.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The population is all 48,000 people who hold an annual pass from the state park agency, so N = 48,000. The sample is the 600 randomly selected pass holders who were asked the question, so n = 600.\n\n(b) The population of 48,000 pass holders is too large to contact everyone easily: calling every pass holder would take agency staff several months. A statistical study lets the agency collect data from a sample of 600 pass holders to answer its question about all pass holders.\n\n(c) The datum is this pass holder's answer, yes, to the question \"Would you use an online campsite reservation system?\" The data set is the collection of all 600 yes-or-no answers given by the sampled pass holders (372 yes and 228 no).",
+    "verification_python": "N=48000\nn=600\nresidents=2_100_000\nyes=372\nassert n<N<residents\nassert n-yes==228\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.1": 4,
+     "1.10": 2
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

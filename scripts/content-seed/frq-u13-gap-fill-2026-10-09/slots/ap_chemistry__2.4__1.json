@@ -11,8 +11,205 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:06:56.479Z",
+   "source": "given",
+   "item": {
+    "title": "Classifying Alloys of Copper, Silver, and Iron by Atomic Radius",
+    "calculator": "not_applicable",
+    "stimulus": "Approximate atomic radii of five elements are listed below.\n\nElement | Atomic radius (pm)\nCu | 128\nNi | 124\nAg | 144\nFe | 126\nN | 71\n\nCupronickel, used in some coins, is an alloy of copper and nickel. Nitrided iron is an alloy of iron that contains a small amount of nitrogen. Sterling silver is an alloy of silver and copper. Answer the following.",
+    "parts": [
+     {
+      "prompt": "Describe a particle-level model of pure solid copper that shows the essential features of metallic bonding.",
+      "criteria": [
+       {
+        "text": "Describes an array of positive copper ions surrounded by delocalized valence electrons (a sea of electrons) that are not associated with any single ion.",
+        "evidence": "Response states that solid copper consists of copper cations arranged in a regular array and that the valence electrons are delocalized throughout the solid rather than bound to individual atoms.",
+        "fix": "Describe two features: copper cations held in a regular array, and valence electrons spread through the whole solid rather than belonging to one atom.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Classify cupronickel as a substitutional alloy or an interstitial alloy, and describe where the nickel atoms are located. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Classifies cupronickel as a substitutional alloy in which nickel atoms take the place of copper atoms at positions in the lattice, because Cu (128 pm) and Ni (124 pm) have comparable radii.",
+        "evidence": "Response states substitutional, says that Ni atoms replace (substitute for) Cu atoms in the lattice, and supports this by noting that the two radii are similar.",
+        "fix": "Compare the two radii; atoms of similar size can replace one another at lattice positions, which defines a substitutional alloy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Classify nitrided iron as a substitutional alloy or an interstitial alloy, and describe where the nitrogen atoms are located. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Classifies nitrided iron as an interstitial alloy in which nitrogen atoms occupy the spaces between iron atoms, because N (71 pm) is much smaller than Fe (126 pm).",
+        "evidence": "Response states interstitial, says the N atoms fill spaces (interstices) between Fe atoms in the lattice, and supports this by noting that the N radius is much smaller than the Fe radius.",
+        "fix": "When one atom is much smaller, it fits into the gaps between the larger atoms; name this an interstitial alloy and cite the radii.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that sterling silver must be an interstitial alloy because copper atoms are smaller than silver atoms. Evaluate the student's claim using the data.",
+      "criteria": [
+       {
+        "text": "States that the claim is incorrect: Cu (128 pm) is only slightly smaller than Ag (144 pm), so the radii are comparable and copper substitutes for silver, making sterling silver a substitutional alloy; interstitial alloys require a much smaller atom, as with N (71 pm) in Fe (126 pm).",
+        "evidence": "Response rejects the claim and explains that the Ag and Cu radii are comparable (differing by only about 11%), so sterling silver is substitutional; being merely smaller is not enough for an interstitial alloy.",
+        "fix": "Judge how large the size difference is, not just which atom is smaller; only a much smaller atom fits between atoms of the host metal.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Solid copper is a regular three-dimensional array of positive copper ions. The valence electrons are not attached to any one ion; they are delocalized and move freely throughout the whole solid as a sea of electrons that holds the cations together.\n\n(b) Cupronickel is a substitutional alloy. The radii of Cu (128 pm) and Ni (124 pm) are very similar, so nickel atoms can take the place of copper atoms at positions in the copper lattice.\n\n(c) Nitrided iron is an interstitial alloy. A nitrogen atom (71 pm) is much smaller than an iron atom (126 pm), so the nitrogen atoms fit into the spaces between the iron atoms while the iron atoms keep their lattice positions.\n\n(d) The claim is incorrect. Copper atoms (128 pm) are only about 11% smaller than silver atoms (144 pm), so the radii are comparable. Copper atoms therefore replace silver atoms at lattice positions, and sterling silver is a substitutional alloy. An interstitial alloy forms only when one atom is much smaller than the other, as with N (71 pm) in Fe (126 pm).",
+    "verification_python": "r={'Cu':128,'Ni':124,'Ag':144,'Fe':126,'N':71}\nassert abs(r['Ni']/r['Cu']-1)<0.05\nassert r['N']/r['Fe']<0.6\ndiff=(r['Ag']-r['Cu'])/r['Ag']\nassert abs(diff-0.11)<0.005\nassert r['Cu']<r['Ag']\nassert r['Cu']/r['Ag']>0.85\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 1,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_session_authoring": [
   {
    "round": 1,
@@ -483,5 +680,6 @@
   },
   "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.848724Z"
- }
+ },
+ "accepted_round": 1
 }

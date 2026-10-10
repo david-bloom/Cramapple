@@ -11,8 +11,215 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.323Z",
+   "source": "given",
+   "item": {
+    "title": "Surface Area-to-Volume Ratio in Cells and in Mammals",
+    "calculator": "permitted",
+    "stimulus": "Two spherical cells are compared.\n\nCell | Shape | Radius (μm)\nA | sphere | 2\nB | sphere | 6\n\nFor a sphere, surface area SA = 4πr² and volume V = (4/3)πr³.\n\nIn a separate comparison, researchers study two mammals that both keep a constant body temperature: a shrew with a body mass of about 5 g and a moose with a body mass of about 400 kg.",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of cell A. Include units.",
+      "criteria": [
+       {
+        "text": "Calculates SA:V of cell A = 1.5 μm⁻¹, by any valid method, for example SA = 16π μm² and V = (32/3)π μm³, so SA/V = 16π ÷ (32π/3) = 1.5 μm⁻¹, or SA/V = 3/r = 3/2.",
+        "evidence": "Response shows a correct calculation for a sphere of radius 2 μm and reports 1.5 μm⁻¹ (1.5 per μm).",
+        "fix": "Substitute r into both sphere formulas, or simplify SA/V to 3/r first, and report the ratio with units of μm⁻¹.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate how many times greater the surface area-to-volume ratio of cell A is than that of cell B.",
+      "criteria": [
+       {
+        "text": "Calculates that cell A's SA:V is 3 times that of cell B, by any valid method, for example 1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3 (cell B: SA/V = 3/6 = 0.5 μm⁻¹).",
+        "evidence": "Response shows cell B's ratio (0.5 μm⁻¹) or the radius ratio reasoning and obtains a factor of 3.",
+        "fix": "Compute the second cell's ratio the same way, then divide the larger ratio by the smaller one.",
+        "accepted_variants": [
+         "3 times",
+         "three times"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using your calculated values, explain why cell B is less efficient than cell A at exchanging materials with its environment.",
+      "criteria": [
+       {
+        "text": "Explains, citing the calculated values, that cell B has a lower SA:V (0.5 μm⁻¹ versus 1.5 μm⁻¹, one-third as much), so it has less plasma membrane surface per unit of volume through which nutrients can enter and wastes can leave, relative to the needs of its larger volume.",
+        "evidence": "Response cites B's lower calculated SA:V and explains that less membrane area is available per unit volume for taking in nutrients or removing wastes.",
+        "fix": "Quote both calculated ratios, then link a lower ratio to less membrane surface available to serve each unit of cell volume.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict which animal, the shrew or the moose, has the higher metabolic rate per unit body mass, and justify your prediction using surface area-to-volume ratio.",
+      "criteria": [
+       {
+        "text": "Predicts that the shrew has the higher metabolic rate per unit body mass.",
+        "evidence": "Response names the shrew.",
+        "fix": "Smaller organisms typically have higher metabolic rates per unit body mass; choose the smaller animal.",
+        "accepted_variants": [
+         "the shrew"
+        ]
+       },
+       {
+        "text": "Justifies that the smaller shrew has a higher SA:V, so it exchanges (loses) heat with its environment proportionally faster, and must produce more heat by metabolism per unit body mass to keep its body temperature constant.",
+        "evidence": "Response links the shrew's higher SA:V to proportionally greater heat loss and to a greater need for metabolic heat production per unit mass.",
+        "fix": "Chain the reasoning: smaller size, higher SA:V, faster heat loss per unit mass, so more metabolism is needed to stay warm.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For cell A, r = 2 μm.\nSA = 4π(2)² = 16π μm².\nV = (4/3)π(2)³ = (32/3)π μm³.\nSA/V = 16π ÷ (32π/3) = 48/32 = 1.5 μm⁻¹.\n\n(b) For cell B, r = 6 μm: SA = 4π(6)² = 144π μm² and V = (4/3)π(6)³ = 288π μm³, so SA/V = 0.5 μm⁻¹.\n1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3, so cell A's surface area-to-volume ratio is 3 times that of cell B.\n\n(c) Cell B's SA:V (0.5 μm⁻¹) is only one-third of cell A's (1.5 μm⁻¹). Materials are exchanged across the plasma membrane, so cell B has much less membrane surface for each unit of volume that needs nutrients and produces wastes. Exchange across the membrane therefore cannot keep up with the needs of B's volume as well as it can in A, so B is less efficient at exchanging materials.\n\n(d) The shrew has the higher metabolic rate per unit body mass. Because it is much smaller, the shrew has a much higher surface area-to-volume ratio, so it exchanges heat with its environment proportionally faster and loses heat quickly for its mass. To keep its body temperature constant, it must produce more heat through metabolism per unit of body mass than the moose does.",
+    "verification_python": "from fractions import Fraction as F\ndef sa(r): return 4*r*r\ndef vol(r): return F(4,3)*r**3\n# pi cancels in SA/V, so work with coefficients of pi\nA=F(sa(2))/vol(2)\nB=F(sa(6))/vol(6)\nassert sa(2)==16 and vol(2)==F(32,3)\nassert sa(6)==144 and vol(6)==288\nassert A==F(3,2) and A==F(3,2)\nassert B==F(1,2) and B==F(3,6)\nassert A/B==3\nassert F(48,32)==F(3,2)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -1766,5 +1973,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.859790Z"
- }
+ },
+ "accepted_round": 1
 }

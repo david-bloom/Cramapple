@@ -11,8 +11,275 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:21:13.990Z",
+   "source": "given",
+   "item": {
+    "title": "Rewriting Exponential Expressions",
+    "calculator": "not_permitted",
+    "stimulus": "Let f, g and h be the functions defined by\nf(x) = 2^(x + 3)\ng(x) = 16^(3x/4)\nh(x) = 3·4^(1/2 − x)",
+    "parts": [
+     {
+      "prompt": "Rewrite f(x) in the form a·2ˣ, where a is a constant. Then describe the horizontal translation of y = 2ˣ that gives the graph of f, and the vertical dilation of y = 2ˣ that gives the same graph.",
+      "criteria": [
+       {
+        "text": "f(x) = 2ˣ·2³ = 8·2ˣ, using the product property of exponents.",
+        "evidence": "Response rewrites 2^(x + 3) as 2ˣ·2³ and gives f(x) = 8·2ˣ.",
+        "fix": "Split a sum in the exponent into a product of powers with the same base: b^(m + n) = bᵐ·bⁿ.",
+        "accepted_variants": [
+         "8(2ˣ)"
+        ]
+       },
+       {
+        "text": "The graph of f is the graph of y = 2ˣ translated 3 units to the left, which is the same as a vertical dilation of y = 2ˣ by a factor of 8.",
+        "evidence": "Response states both: horizontal translation 3 units left, and vertical dilation by a factor of 8.",
+        "fix": "Read x + 3 inside the exponent as a shift left 3, and read the constant 8 in front as a vertical dilation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Rewrite g(x) in the form bˣ, where b is a positive constant. Show how the value of b is found.",
+      "criteria": [
+       {
+        "text": "Rewrites g(x) as a constant base raised to the power x, such as (16^(3/4))ˣ or (2³)ˣ, using the power property of exponents.",
+        "evidence": "Response shows a valid power-property step, for example 16^(3x/4) = (16^(3/4))ˣ or 16^(3x/4) = (2⁴)^(3x/4) = 2^(3x) = (2³)ˣ.",
+        "fix": "Use (bᵐ)ⁿ = b^(mn) to move the factor multiplying x out of the exponent and into the base.",
+        "accepted_variants": []
+       },
+       {
+        "text": "b = 8, so g(x) = 8ˣ.",
+        "evidence": "Response evaluates 16^(3/4) = (fourth root of 16)³ = 2³ = 8, or 2³ = 8, and writes g(x) = 8ˣ.",
+        "fix": "Evaluate a fractional exponent by taking the root first, here the fourth root of 16, then raising to the power.",
+        "accepted_variants": [
+         "8ˣ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Rewrite h(x) in the form a·bˣ, where a and b are positive constants. Show the properties of exponents you use.",
+      "criteria": [
+       {
+        "text": "Finds a = 6, from h(x) = 3·4^(1/2)·4^(−x) and 4^(1/2) = 2.",
+        "evidence": "Response separates 4^(1/2 − x) into 4^(1/2)·4^(−x) and evaluates 4^(1/2) as the square root of 4, which is 2, giving the constant 3·2 = 6.",
+        "fix": "Separate the constant part of the exponent with the product property, then evaluate 4^(1/2) as a square root.",
+        "accepted_variants": [
+         "6"
+        ]
+       },
+       {
+        "text": "Rewrites 4^(−x) as (1/4)ˣ, giving h(x) = 6(1/4)ˣ.",
+        "evidence": "Response uses the negative exponent property, 4^(−x) = 1/4ˣ = (1/4)ˣ, and writes h(x) = 6(1/4)ˣ or 6(0.25)ˣ.",
+        "fix": "Use b^(−n) = 1/bⁿ to turn a negative exponent into a base between 0 and 1.",
+        "accepted_variants": [
+         "6(0.25)ˣ"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) f(x) = 2^(x + 3) = 2ˣ·2³ = 8·2ˣ by the product property.\nThe graph of f is the graph of y = 2ˣ translated 3 units to the left. Because f(x) = 8·2ˣ, the same graph is also the graph of y = 2ˣ vertically dilated by a factor of 8.\n\n(b) By the power property, g(x) = 16^(3x/4) = (16^(3/4))ˣ.\n16^(3/4) = (fourth root of 16)³ = 2³ = 8.\nSo g(x) = 8ˣ, with b = 8.\n\n(c) By the product property, h(x) = 3·4^(1/2)·4^(−x).\n4^(1/2) is the square root of 4, which is 2, so 3·4^(1/2) = 6.\nBy the negative exponent property, 4^(−x) = 1/4ˣ = (1/4)ˣ.\nSo h(x) = 6(1/4)ˣ, with a = 6 and b = 1/4.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nf=2**(x+3); g=sp.Integer(16)**(sp.Rational(3,4)*x); h=3*sp.Integer(4)**(sp.Rational(1,2)-x)\nassert 2**3==8\nassert sp.Integer(16)**sp.Rational(3,4)==8\nassert sp.Integer(4)**sp.Rational(1,2)==2\nfor v in [-3,-1,0,sp.Rational(1,2),2,5]:\n    assert sp.simplify(f.subs(x,v)-8*2**v)==0\n    assert sp.simplify(g.subs(x,v)-sp.Integer(8)**v)==0\n    assert sp.simplify(h.subs(x,v)-6*sp.Rational(1,4)**v)==0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 5,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, c1, and c2 prescribe particular intermediate steps rather than accepting all valid exponent-property methods. Part (a) does not require the specific decomposition 2ˣ·2³. In part (c), the valid derivation 3·(2²)^(1/2 − x) = 3·2^(1 − 2x) = 6·(2^(−2))ˣ = 6·(1/4)ˣ should earn full credit, but it does not show c1's required separation into powers of 4 or c2's required reciprocal intermediate. Accept equivalent, supported derivations of the requested constants and forms.",
+       "solution: The mathematical results agree: (a) f(x) = 8·2ˣ, with a translation 3 units left or a vertical dilation by factor 8; (b) g(x) = 8ˣ; (c) h(x) = 6·(1/4)ˣ. However, the independent solution in (c) uses 4^(−x) = (4^(−1))ˣ = (1/4)ˣ, which is valid but omits c2's prescribed intermediate 1/4ˣ. That omission should not cost credit."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, c1, and c2 prescribe particular intermediate steps rather than accepting all valid exponent-property methods. Part (a) does not require the specific decomposition 2ˣ·2³. In part (c), the valid derivation 3·(2²)^(1/2 − x) = 3·2^(1 − 2x) = 6·(2^(−2))ˣ = 6·(1/4)ˣ should earn full credit, but it does not show c1's required separation into powers of 4 or c2's required reciprocal intermediate. Accept equivalent, supported derivations of the requested constants and forms."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The mathematical results agree: (a) f(x) = 8·2ˣ, with a translation 3 units left or a vertical dilation by factor 8; (b) g(x) = 8ˣ; (c) h(x) = 6·(1/4)ˣ. However, the independent solution in (c) uses 4^(−x) = (4^(−1))ˣ = (1/4)ˣ, which is valid but omits c2's prescribed intermediate 1/4ˣ. That omission should not cost credit.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires the intermediate product 2ˣ·2³, although part (a) only requests the rewritten expression and transformations; the correct answer 8·2ˣ need not include that step. Criterion c1 requires separating the original base-4 expression, rejecting valid alternative work such as h(x) = 3·2^(1 − 2x) = 6·2^(−2x) = 6·(1/4)ˣ, which shows exponent properties and determines the requested constants."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires the intermediate product 2ˣ·2³, although part (a) only requests the rewritten expression and transformations; the correct answer 8·2ˣ need not include that step. Criterion c1 requires separating the original base-4 expression, rejecting valid alternative work such as h(x) = 3·2^(1 − 2x) = 6·2^(−2x) = 6·(1/4)ˣ, which shows exponent properties and determines the requested constants."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

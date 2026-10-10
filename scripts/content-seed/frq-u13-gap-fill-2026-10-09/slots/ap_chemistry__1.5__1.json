@@ -345,9 +345,9 @@
      "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
      "criteria": [
       {
-       "text": "Explains that 2p electrons are, on average, closer to the nucleus than 3p electrons (and are shielded by fewer inner electrons), so by Coulomb's law they are attracted more strongly to the nucleus and need more energy to remove.",
-       "evidence": "Response states that 2p electrons are in shell 2, closer to the nucleus than 3p electrons in shell 3, and links the smaller distance (F ∝ q₁q₂/r²) to a stronger attraction and a greater energy requirement; mentioning less shielding is also acceptable support.",
-       "fix": "Name the shell of each electron, compare its distance from the nucleus, then use F ∝ q₁q₂/r² to compare the attractions.",
+       "text": "Explains with Coulomb’s law that 2p electrons are attracted more strongly to the nucleus than 3p electrons, because they are closer to it on average or experience less shielding (greater effective nuclear charge), so they need more energy to remove.",
+       "evidence": "Response links a stronger Coulombic attraction for 2p electrons to either their smaller average distance from the nucleus (shell 2 versus shell 3) or less shielding by inner electrons, and concludes that more energy is needed to remove them.",
+       "fix": "Compare the two electrons’ distance from the nucleus or their shielding, then use Coulomb’s law to compare the attractions.",
        "accepted_variants": []
       }
      ]
@@ -358,5 +358,334 @@
   },
   "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.846499Z"
- }
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "d1 accepts a distance argument or a shielding/effective-nuclear-charge argument (rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:06:02.844Z",
+   "source": "given",
+   "item": {
+    "title": "Electron Configurations of Sulfur and the Sulfide Ion",
+    "calculator": "not_applicable",
+    "stimulus": "Sulfur has atomic number 16. In many compounds sulfur is present as the sulfide ion, S²⁻. Answer the following about a ground-state sulfur atom and a ground-state sulfide ion.",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration of a sulfur atom.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁴ for the sulfur atom.",
+        "evidence": "Response gives the full configuration with 16 electrons placed in Aufbau order: 1s² 2s² 2p⁶ 3s² 3p⁴.",
+        "fix": "Fill subshells in Aufbau order (1s, 2s, 2p, 3s, 3p) until the total number of electrons equals the atomic number.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the complete ground-state electron configuration of the sulfide ion, S²⁻.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁶ for the sulfide ion (18 electrons).",
+        "evidence": "Response adds two electrons to the configuration of the sulfur atom, placing them in the 3p subshell, to give 1s² 2s² 2p⁶ 3s² 3p⁶.",
+        "fix": "For an anion, add as many electrons as the negative charge to the next available spaces in the neutral atom's configuration.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State the number of valence electrons and the number of core electrons in a sulfur atom.",
+      "criteria": [
+       {
+        "text": "States that a sulfur atom has 6 valence electrons (3s² 3p⁴).",
+        "evidence": "Response gives 6 valence electrons, the electrons in the outermost shell (n = 3).",
+        "fix": "Count only the electrons in the highest-numbered shell of the configuration; for sulfur that is shell 3, holding 3s² 3p⁴.",
+        "accepted_variants": [
+         "six"
+        ]
+       },
+       {
+        "text": "States that a sulfur atom has 10 core electrons (1s² 2s² 2p⁶).",
+        "evidence": "Response gives 10 core electrons, the electrons in the inner shells (n = 1 and n = 2).",
+        "fix": "Core electrons are all the electrons in shells below the outermost shell; add the electrons in shells 1 and 2.",
+        "accepted_variants": [
+         "ten"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Explains that 2p electrons are, on average, closer to the nucleus than 3p electrons (and are shielded by fewer inner electrons), so by Coulomb's law they are attracted more strongly to the nucleus and need more energy to remove.",
+        "evidence": "Response states that 2p electrons are in shell 2, closer to the nucleus than 3p electrons in shell 3, and links the smaller distance (F ∝ q₁q₂/r²) to a stronger attraction and a greater energy requirement; mentioning less shielding is also acceptable support.",
+        "fix": "Name the shell of each electron, compare its distance from the nucleus, then use F ∝ q₁q₂/r² to compare the attractions.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) 1s² 2s² 2p⁶ 3s² 3p⁴\n\n(b) S²⁻ has 16 + 2 = 18 electrons. The two added electrons go into the 3p subshell: 1s² 2s² 2p⁶ 3s² 3p⁶.\n\n(c) The valence electrons are those in the outermost shell, n = 3 (3s² 3p⁴), so a sulfur atom has 6 valence electrons. The core electrons are those in shells 1 and 2 (1s² 2s² 2p⁶), so it has 10 core electrons.\n\n(d) By Coulomb's law, F ∝ q₁q₂/r², so the attraction between an electron and the nucleus increases as their distance decreases. The 2p electrons are in the second shell, much closer to the nucleus than the 3p electrons in the third shell, and they are shielded only by the two 1s electrons rather than by the ten electrons in shells 1 and 2. The 2p electrons therefore experience a much stronger attraction to the nucleus, so more energy is needed to remove one of them.",
+    "verification_python": "caps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\ndef conf(n):\n    out={}\n    for s,c in caps:\n        k=min(c,n); out[s]=k; n-=k\n    return out\nS=conf(16)\nassert S=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nS2=conf(18)\nassert S2=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':6}\nval=S['3s']+S['3p']\ncore=S['1s']+S['2s']+S['2p']\nassert val==6 and core==10 and val+core==16\n# Coulomb: smaller r gives larger force for same charges\nassert 1/2**2>1/3**2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: The evidence unnecessarily requires explicit shell numbers and a distance-based explanation. Accept a correct Coulomb-law explanation based on less shielding and greater effective nuclear charge, or a correct distance-based explanation without explicit shell numbers."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: The evidence unnecessarily requires explicit shell numbers and a distance-based explanation. Accept a correct Coulomb-law explanation based on less shielding and greater effective nuclear charge, or a correct distance-based explanation without explicit shell numbers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: The evidence requires a distance-based Coulomb's law explanation and treats shielding as optional, but a valid AP answer could instead use the greater effective nuclear charge on 2p due to less shielding and apply Coulomb's law through q1q2/r². The criterion should accept either a distance-based or an effective-charge/shielding-based explanation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: The evidence requires a distance-based Coulomb's law explanation and treats shielding as optional, but a valid AP answer could instead use the greater effective nuclear charge on 2p due to less shielding and apply Coulomb's law through q1q2/r². The criterion should accept either a distance-based or an effective-charge/shielding-based explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: the criterion requires a distance comparison and treats shielding/effective nuclear charge only as optional support. A response that correctly uses Coulomb's law with effective nuclear charge alone (e.g., 2p electrons are less shielded than 3p electrons, so the effective nuclear charge is greater) would not earn the point, even though that is a valid alternative under 1.5.A.4."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: the criterion requires a distance comparison and treats shielding/effective nuclear charge only as optional support. A response that correctly uses Coulomb's law with effective nuclear charge alone (e.g., 2p electrons are less shielded than 3p electrons, so the effective nuclear charge is greater) would not earn the point, even though that is a valid alternative under 1.5.A.4."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
 }

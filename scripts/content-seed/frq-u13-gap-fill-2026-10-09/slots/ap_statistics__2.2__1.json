@@ -11,8 +11,274 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:26:31.532Z",
+   "source": "given",
+   "item": {
+    "title": "Grade Group and Preferred Study Location",
+    "calculator": "permitted",
+    "stimulus": "A high school surveyed 500 of its students about where they prefer to study. Each student was classified by grade group and by preferred study location. The results are shown in the table.\n\nGrade group | Home | Library | Café | Total\nGrades 9–10 | 156 | 52 | 52 | 260\nGrades 11–12 | 96 | 84 | 60 | 240\nTotal | 252 | 136 | 112 | 500",
+    "parts": [
+     {
+      "prompt": "For these 500 students, calculate the joint relative frequency of being in grades 11–12 and preferring the library, and calculate the marginal relative frequency of preferring the library.",
+      "criteria": [
+       {
+        "text": "Joint relative frequency: 84/500 = 0.168.",
+        "evidence": "Response divides the single cell count 84 by the table total 500 to get 0.168.",
+        "fix": "For a joint relative frequency, divide the one cell count by the total for the entire table, not by a row or column total.",
+        "accepted_variants": [
+         "0.168",
+         "16.8%",
+         "84/500"
+        ]
+       },
+       {
+        "text": "Marginal relative frequency: 136/500 = 0.272.",
+        "evidence": "Response divides the Library column total 136 by the table total 500 to get 0.272.",
+        "fix": "For a marginal relative frequency, divide the row or column total for that category by the total for the entire table.",
+        "accepted_variants": [
+         "0.272",
+         "27.2%",
+         "136/500"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the proportion of students in grades 9–10 who prefer the library and the proportion of students in grades 11–12 who prefer the library. Based on the conditional relative frequencies of preferred study location for the two grade groups, is there an association between grade group and preferred study location for these students? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the conditional relative frequencies 52/260 = 0.20 for grades 9–10 and 84/240 = 0.35 for grades 11–12.",
+        "evidence": "Response divides each Library count by the total for its own grade group to get 0.20 and 0.35.",
+        "fix": "To condition on grade group, divide each cell count by that grade group's row total, not by the column total or table total.",
+        "accepted_variants": [
+         "0.2 and 0.35",
+         "20% and 35%"
+        ]
+       },
+       {
+        "text": "States that there is an association, because the conditional distributions of preferred study location differ between the grade groups, citing at least one comparison of conditional relative frequencies (for example 0.20 versus 0.35 for the library, or 0.60 versus 0.40 for home).",
+        "evidence": "Response says yes, there is an association, and supports it by comparing conditional relative frequencies (not raw counts) for the two grade groups.",
+        "fix": "Compare the same conditional relative frequency across the groups; if the values differ noticeably, state that the variables are associated and cite them.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims: \"Most of the students who prefer the library are in grades 11–12.\" Use an appropriate relative frequency to determine whether the data support this claim.",
+      "criteria": [
+       {
+        "text": "Computes 84/136 ≈ 0.618, the proportion of library-preferring students who are in grades 11–12, and concludes that the claim is supported because 0.618 is greater than 0.5.",
+        "evidence": "Response divides by the Library column total (84/136 ≈ 0.62), compares the result with one half, and states that the claim is supported.",
+        "fix": "Identify the group the claim restricts to (students who prefer the library), divide by that column total, then compare the result with 0.5.",
+        "accepted_variants": [
+         "84/136",
+         "0.618",
+         "0.62",
+         "61.8%"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Joint relative frequency of grades 11–12 and library = 84/500 = 0.168.\nMarginal relative frequency of library = 136/500 = 0.272.\n\n(b) Grades 9–10: 52/260 = 0.20 prefer the library. Grades 11–12: 84/240 = 0.35 prefer the library.\nYes, there is an association between grade group and preferred study location for these students. The conditional distributions differ: 35% of students in grades 11–12 prefer the library compared with 20% in grades 9–10, and 60% (156/260) of students in grades 9–10 prefer home compared with 40% (96/240) in grades 11–12. If the variables were not associated, these conditional relative frequencies would be about the same for both grade groups.\n\n(c) Among the 136 students who prefer the library, 84 are in grades 11–12, so the proportion is 84/136 ≈ 0.618. Because 0.618 is greater than 0.5, most of the students who prefer the library are in grades 11–12, so the data support the claim.",
+    "verification_python": "from fractions import Fraction as F\nrows={'a':[156,52,52],'b':[96,84,60]}\nassert sum(rows['a'])==260 and sum(rows['b'])==240\ncols=[156+96,52+84,52+60]\nassert cols==[252,136,112] and sum(cols)==500\nassert F(84,500)==F(168,1000)\nassert F(136,500)==F(272,1000)\nassert F(52,260)==F(1,5)\nassert F(84,240)==F(35,100)\nassert F(156,260)==F(3,5) and F(96,240)==F(2,5)\nassert abs(84/136-0.618)<0.0005 and 84/136>0.5\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two separately requested calculations into one point: 52/260 = 0.20 and 84/240 = 0.35. Award each conditional relative frequency its own 1-point criterion."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two separately requested calculations into one point: 52/260 = 0.20 and 84/240 = 0.35. Award each conditional relative frequency its own 1-point criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles two independently assessable calculations into one point: the library proportion for each grade group. Criterion c1 bundles calculating a conditional relative frequency with evaluating and supporting the claim. Split these into separate one-point criteria so each awards one specific, observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles two independently assessable calculations into one point: the library proportion for each grade group. Criterion c1 bundles calculating a conditional relative frequency with evaluating and supporting the claim. Split these into separate one-point criteria so each awards one specific, observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

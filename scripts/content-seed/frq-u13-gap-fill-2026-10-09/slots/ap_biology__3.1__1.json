@@ -1366,7 +1366,7 @@
   "item": {
    "title": "Charge Compatibility at an Enzyme's Active Site",
    "calculator": "permitted",
-   "stimulus": "An enzyme catalyzes the breakdown of substrate S. The part of S that binds to the enzyme carries a negative charge, and the enzyme's active site contains amino acids with positively charged R groups. Researchers measured the initial rate of product formation in four tubes kept at the same temperature and pH.\n\nTube | Contents | Initial rate of product formation (μmol/min)\n1 | Substrate S + normal enzyme | 48\n2 | Substrate S + mutant enzyme | 2\n3 | Substrate S, no enzyme | 0.5\n4 | Substrate S′ + normal enzyme | 4\n\nIn the mutant enzyme, one positively charged R group in the active site is replaced by a negatively charged R group; the overall shape of the active site is unchanged. Substrate S′ has the same shape as substrate S but carries no charge.",
+   "stimulus": "An enzyme catalyzes the breakdown of substrate S. The part of S that binds to the enzyme carries a negative charge, and the enzyme's active site contains amino acids with positively charged R groups. Researchers measured the initial rate of product formation in four tubes kept at the same temperature and pH. Every tube starts with the same concentration of substrate, and every tube that contains enzyme has the same enzyme concentration.\n\nTube | Contents | Initial rate of product formation (μmol/min)\n1 | Substrate S + normal enzyme | 48\n2 | Substrate S + mutant enzyme | 2\n3 | Substrate S, no enzyme | 0.5\n4 | Substrate S′ + normal enzyme | 4\n\nIn the mutant enzyme, one positively charged R group in the active site is replaced by a negatively charged R group; the overall shape of the active site is unchanged. Substrate S′ has the same shape as substrate S but carries no charge.",
    "parts": [
     {
      "prompt": "Calculate how many times faster product forms in tube 1 than in tube 3.",
@@ -1399,7 +1399,7 @@
       {
        "text": "Explains that the substituted negatively charged R group makes the charge of the active site incompatible with the negatively charged substrate S (like charges repel), so S binds poorly and few enzyme–substrate complexes form.",
        "evidence": "Response links the new negative charge in the active site to loss of charge compatibility with negative S and to reduced substrate binding or reduced enzyme–substrate complex formation.",
-       "fix": "Compare the charges of active site and substrate; opposite charges attract, while like charges repel and prevent the enzyme–substrate complex.",
+       "fix": "Compare the charges of active site and substrate; like charges repel, which reduces binding and enzyme–substrate complex formation.",
        "accepted_variants": []
       }
      ]
@@ -1421,5 +1421,272 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.863473Z"
- }
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Added equal substrate and enzyme concentrations to the setup (well_posed); c1 fix says like charges reduce, not prevent, complex formation (accurate)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.454Z",
+   "source": "given",
+   "item": {
+    "title": "Charge Compatibility at an Enzyme's Active Site",
+    "calculator": "permitted",
+    "stimulus": "An enzyme catalyzes the breakdown of substrate S. The part of S that binds to the enzyme carries a negative charge, and the enzyme's active site contains amino acids with positively charged R groups. Researchers measured the initial rate of product formation in four tubes kept at the same temperature and pH.\n\nTube | Contents | Initial rate of product formation (μmol/min)\n1 | Substrate S + normal enzyme | 48\n2 | Substrate S + mutant enzyme | 2\n3 | Substrate S, no enzyme | 0.5\n4 | Substrate S′ + normal enzyme | 4\n\nIn the mutant enzyme, one positively charged R group in the active site is replaced by a negatively charged R group; the overall shape of the active site is unchanged. Substrate S′ has the same shape as substrate S but carries no charge.",
+    "parts": [
+     {
+      "prompt": "Calculate how many times faster product forms in tube 1 than in tube 3.",
+      "criteria": [
+       {
+        "text": "Calculates 48 ÷ 0.5 = 96, so product forms 96 times faster in tube 1.",
+        "evidence": "Response divides the tube 1 rate by the tube 3 rate and obtains 96.",
+        "fix": "To find how many times faster, divide the larger rate by the smaller rate; do not subtract.",
+        "accepted_variants": [
+         "96 times",
+         "96-fold"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the normal enzyme causes the rate of product formation in tube 1 to be much higher than in tube 3.",
+      "criteria": [
+       {
+        "text": "Explains that the enzyme is a biological catalyst that lowers the activation energy of the reaction, so the reaction proceeds much faster than without the enzyme.",
+        "evidence": "Response states that the enzyme lowers the activation energy (energy needed to start the reaction), which increases the reaction rate.",
+        "fix": "When explaining an enzyme's effect on rate, name activation energy and state that the enzyme lowers it.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the mutant enzyme in tube 2 has much lower activity than the normal enzyme.",
+      "criteria": [
+       {
+        "text": "Explains that the substituted negatively charged R group makes the charge of the active site incompatible with the negatively charged substrate S (like charges repel), so S binds poorly and few enzyme–substrate complexes form.",
+        "evidence": "Response links the new negative charge in the active site to loss of charge compatibility with negative S and to reduced substrate binding or reduced enzyme–substrate complex formation.",
+        "fix": "Compare the charges of active site and substrate; opposite charges attract, while like charges repel and prevent the enzyme–substrate complex.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The normal enzyme acts slowly on substrate S′ even though S′ has the same shape as S. Explain why.",
+      "criteria": [
+       {
+        "text": "Explains that for the reaction to occur, both the shape and the charge of the substrate must be compatible with the active site; S′ fits the shape but lacks the negative charge attracted by the positive R groups, so it binds poorly and forms few enzyme–substrate complexes.",
+        "evidence": "Response states that charge, not only shape, must match the active site and that uncharged S′ is not attracted to the positively charged R groups, so binding is reduced.",
+        "fix": "Remember the enzyme–substrate model requires compatible shape and charge; check both properties for any substrate.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) 48 μmol/min ÷ 0.5 μmol/min = 96. Product forms 96 times faster in tube 1 than in tube 3.\n\n(b) The enzyme is a biological catalyst. It lowers the activation energy of the reaction, so far more substrate molecules can react per minute than in tube 3, where the reaction occurs without the enzyme.\n\n(c) Substrate S binds through a negatively charged region, which is attracted to the positively charged R groups in the normal active site. In the mutant, a negatively charged R group replaces a positive one, so the active site's charge is no longer compatible with S; the like charges repel. S therefore binds poorly, few enzyme–substrate complexes form, and the rate drops to 2 μmol/min.\n\n(d) For an enzyme-mediated reaction to occur, both the shape and the charge of the substrate must be compatible with the active site. S′ has the right shape but no charge, so it is not attracted to the positively charged R groups in the active site. S′ binds poorly, few enzyme–substrate complexes form, and the rate is only 4 μmol/min.",
+    "verification_python": "from fractions import Fraction as F\nr1=F(48);r2=F(2);r3=F(1,2);r4=F(4)\nassert r1/r3==96\nassert r2<r1 and r4<r1\nassert r3<r2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     3
+    ],
+    "unitCount": {
+     "1": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Criterion c1's fix incorrectly states that like charges 'prevent the enzyme–substrate complex.' The mutation reduces binding and activity; it does not necessarily eliminate complex formation. Replace the fix with: 'Compare substrate and active-site charges; explain how replacing attraction with repulsion reduces substrate binding and enzyme–substrate complex formation.'",
+       "solution: The independent solution agrees with all four scoring requirements: (a) 96-fold, (b) lowered activation energy, (c) reduced charge compatibility and binding, and (d) loss of favorable charge interactions despite compatible shape. However, c1's fix overstates the effect as preventing complex formation rather than reducing it. No model answer was provided or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1's fix incorrectly states that like charges 'prevent the enzyme–substrate complex.' The mutation reduces binding and activity; it does not necessarily eliminate complex formation. Replace the fix with: 'Compare substrate and active-site charges; explain how replacing attraction with repulsion reduces substrate binding and enzyme–substrate complex formation.'"
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all four scoring requirements: (a) 96-fold, (b) lowered activation energy, (c) reduced charge compatibility and binding, and (d) loss of favorable charge interactions despite compatible shape. However, c1's fix overstates the effect as preventing complex formation rather than reducing it. No model answer was provided or evaluated.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c) and (d) attribute rate differences to charge compatibility without specifying equal enzyme and substrate concentrations across the relevant tubes. Different concentrations could also explain the observed rate differences. State that enzyme concentrations and initial substrate concentrations are equal wherever those components are present.",
+       "accurate: Criterion c1's fix states that like charges 'prevent the enzyme–substrate complex.' Replacing one charged R group can reduce binding without preventing complex formation, consistent with the criterion's own explanation. Replace 'prevent' with 'can reduce formation of.'",
+       "solution: The independent solution agrees with the rubric's ratio of 96, activation-energy explanation, and intended charge-compatibility explanations. However, c1's fix overstates the effect as preventing complex formation; reduced binding is the supported explanation. The causal interpretations in (c) and (d) also require comparable enzyme and substrate concentrations, which the setup does not specify. No model answer was provided or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The mechanistic rate comparisons implicitly assume comparable enzyme and substrate concentrations across the relevant tubes. Only equal temperature and pH are explicitly specified; unequal concentrations could also contribute to the observed rate differences.",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c) and (d) attribute rate differences to charge compatibility without specifying equal enzyme and substrate concentrations across the relevant tubes. Different concentrations could also explain the observed rate differences. State that enzyme concentrations and initial substrate concentrations are equal wherever those components are present."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1's fix states that like charges 'prevent the enzyme–substrate complex.' Replacing one charged R group can reduce binding without preventing complex formation, consistent with the criterion's own explanation. Replace 'prevent' with 'can reduce formation of.'"
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's ratio of 96, activation-energy explanation, and intended charge-compatibility explanations. However, c1's fix overstates the effect as preventing complex formation; reduced binding is the supported explanation. The causal interpretations in (c) and (d) also require comparable enzyme and substrate concentrations, which the setup does not specify. No model answer was provided or assessed.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
 }

@@ -11,8 +11,281 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:06.320Z",
+   "source": "given",
+   "item": {
+    "title": "Limits from Limit Properties and One-Sided Limits",
+    "calculator": "not_permitted",
+    "stimulus": "Functions f and g satisfy lim x→2 f(x) = 3 and lim x→2 g(x) = −1. Nothing else is known about f and g, including their values at x = 2.\n\nLet m be the function defined by\nm(x) = x³ − 2x for x < 2\nm(x) = (x + 6)/(x − 1) for x ≥ 2.",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [g(x)·√(f(x) + 13)]. Show how you use properties of limits.",
+      "criteria": [
+       {
+        "text": "Applies the product and root (composite) properties: the limit equals [lim x→2 g(x)]·√(lim x→2 f(x) + 13) = (−1)·√(3 + 13).",
+        "evidence": "Response writes the limit of the product as the product of the limits and moves the limit inside the square root, substituting the given values −1 and 3.",
+        "fix": "Split the limit with the product property, move the limit inside the square root, then substitute the given limit values.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit as (−1)·√16 = −4.",
+        "evidence": "Response evaluates (−1)·√16 = −4.",
+        "fix": "Evaluate carefully: √16 = 4, then multiply by the limit of g, which is −1.",
+        "accepted_variants": [
+         "−4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 [f(x)² − 1] / [g(x) + 3]. Explain why the quotient property of limits can be used.",
+      "criteria": [
+       {
+        "text": "States that the denominator's limit is lim x→2 [g(x) + 3] = −1 + 3 = 2, which is not 0, so the quotient property applies.",
+        "evidence": "Response computes the limit of the denominator as 2 and notes that it is nonzero, the condition for the limit of a quotient to equal the quotient of the limits.",
+        "fix": "Before using the quotient property, compute the denominator's limit and confirm it is not 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit as (3² − 1)/2 = 8/2 = 4.",
+        "evidence": "Response computes the numerator's limit as 3² − 1 = 8 and divides by 2 to get 4.",
+        "fix": "Use the power property for f(x)²: square the limit of f, then subtract 1 before dividing.",
+        "accepted_variants": [
+         "4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2⁻ m(x) and lim x→2⁺ m(x). Then state whether lim x→2 m(x) exists, and explain why.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2⁻ m(x) = 2³ − 2(2) = 4 using the piece for x < 2.",
+        "evidence": "Response uses x³ − 2x as x approaches 2 from the left and obtains 4.",
+        "fix": "For a left-hand limit at a break point, use only the piece defined for x less than that point.",
+        "accepted_variants": [
+         "4"
+        ]
+       },
+       {
+        "text": "Finds lim x→2⁺ m(x) = (2 + 6)/(2 − 1) = 8 using the piece for x ≥ 2.",
+        "evidence": "Response uses (x + 6)/(x − 1) as x approaches 2 from the right and obtains 8.",
+        "fix": "For a right-hand limit, use the piece for x greater than the break point; its denominator approaches 1, not 0.",
+        "accepted_variants": [
+         "8"
+        ]
+       },
+       {
+        "text": "Concludes lim x→2 m(x) does not exist because the one-sided limits 4 and 8 are not equal.",
+        "evidence": "Response states that the two-sided limit does not exist and cites the unequal one-sided limits.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare your two values.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By the product property and the root (composite) property of limits,\nlim x→2 [g(x)·√(f(x) + 13)] = [lim x→2 g(x)]·√(lim x→2 f(x) + 13) = (−1)·√(3 + 13) = (−1)·√16 = −4.\n\n(b) The limit of the denominator is lim x→2 [g(x) + 3] = −1 + 3 = 2, which is not 0, so the limit of the quotient equals the quotient of the limits. The limit of the numerator is [lim x→2 f(x)]² − 1 = 3² − 1 = 8. So lim x→2 [f(x)² − 1] / [g(x) + 3] = 8/2 = 4.\n\n(c) For x < 2, m(x) = x³ − 2x, so lim x→2⁻ m(x) = 2³ − 2(2) = 8 − 4 = 4.\nFor x > 2, m(x) = (x + 6)/(x − 1), and the denominator approaches 1, so lim x→2⁺ m(x) = (2 + 6)/(2 − 1) = 8.\nSince the left-hand limit 4 and the right-hand limit 8 are not equal, lim x→2 m(x) does not exist.",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nLf, Lg = 3, -1\nassert Lg*sp.sqrt(Lf + 13) == -4 and sp.sqrt(16) == 4\nden = Lg + 3\nassert den == 2 and den != 0\nassert Lf**2 - 1 == 8\nassert sp.Rational(Lf**2 - 1, den) == 4\n# concrete check with sample functions having these limits\nF = 3 + (x - 2)\nG = -1 + (x - 2)**2\nassert sp.limit(G*sp.sqrt(F + 13), x, 2) == -4\nassert sp.limit((F**2 - 1)/(G + 3), x, 2) == 4\nleft = sp.limit(x**3 - 2*x, x, 2, '-')\nright = sp.limit((x + 6)/(x - 1), x, 2, '+')\nassert left == 4 and right == 8 and left != right\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a) criterion a2, part (b) criterion b2, and part (c) criteria c1 and c2 list only the simplified key value as the accepted equivalent form; AP scoring accepts unsimplified correct expressions such as (−1)√16, 8/2, 2³−2(2), and (2+6)/(2−1), so the rubric would reject valid answers."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a) criterion a2, part (b) criterion b2, and part (c) criteria c1 and c2 list only the simplified key value as the accepted equivalent form; AP scoring accepts unsimplified correct expressions such as (−1)√16, 8/2, 2³−2(2), and (2+6)/(2−1), so the rubric would reject valid answers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_session_authoring": [
   {
    "round": 1,
@@ -529,5 +802,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.836447Z"
- }
+ },
+ "accepted_round": 1
 }

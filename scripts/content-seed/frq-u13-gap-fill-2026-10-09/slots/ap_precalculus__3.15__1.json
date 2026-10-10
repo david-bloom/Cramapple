@@ -11,8 +11,337 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:24:15.391Z",
+   "source": "given",
+   "item": {
+    "title": "Distance from the Origin and Average Rate of Change of a Polar Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function given by f(θ) = 1 + 2cos θ. Consider the polar curve r = f(θ) for 0 ≤ θ ≤ 2π. For each θ, the point on the curve has polar coordinates (f(θ), θ).",
+    "parts": [
+     {
+      "prompt": "On the interval 2π/3 < θ < π, is the distance between the point (f(θ), θ) and the origin increasing or decreasing? Give a reason for your answer.",
+      "criteria": [
+       {
+        "text": "On 2π/3 < θ < π, f(θ) is negative (its values go from 0 to −1) and f is decreasing (because cos θ is decreasing on 0 < θ < π).",
+        "evidence": "Response states both that f(θ) < 0 on the interval (for example f(2π/3) = 0 and f(π) = −1) and that f is decreasing there.",
+        "fix": "Check two things separately on the interval: the sign of r and whether r is increasing or decreasing.",
+        "accepted_variants": []
+       },
+       {
+        "text": "The distance from the origin is increasing, because f is negative and decreasing on this interval.",
+        "evidence": "Response concludes that the distance is increasing and bases this on r being negative and decreasing.",
+        "fix": "When r is negative and decreasing, |r| grows, so the point moves away from the origin.",
+        "accepted_variants": [
+         "increasing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average rate of change of r with respect to θ over the interval π/3 ≤ θ ≤ π/2. Then use this average rate of change to estimate f(5π/12).",
+      "criteria": [
+       {
+        "text": "Average rate of change = (f(π/2) − f(π/3))/(π/2 − π/3) = (1 − 2)/(π/6) = −6/π.",
+        "evidence": "Response evaluates f(π/3) = 2 and f(π/2) = 1 and divides the change in r by the change in θ, π/6, to get −6/π.",
+        "fix": "Divide the change in signed radius, f(b) − f(a), by the change in θ in radians, b − a.",
+        "accepted_variants": [
+         "−6/π",
+         "−1.910"
+        ]
+       },
+       {
+        "text": "f(5π/12) ≈ f(π/3) + (−6/π)(5π/12 − π/3) = 2 − (6/π)(π/12) = 1.5.",
+        "evidence": "Response uses the average rate of change times the change in θ from a known endpoint to estimate f(5π/12) as 1.5.",
+        "fix": "Estimate a value inside the interval by starting at a known endpoint and adding the average rate times the change in θ.",
+        "accepted_variants": [
+         "3/2",
+         "1.5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "On the interval 2π/3 < θ < 4π/3, the function f has exactly one relative extremum. Find the value of θ at which it occurs and state whether it is a relative minimum or a relative maximum of f, with a reason. Then determine whether the corresponding point on the curve is relatively closest to or relatively farthest from the origin, and explain.",
+      "criteria": [
+       {
+        "text": "At θ = π, f changes from decreasing to increasing, so f(π) = −1 is a relative minimum of f.",
+        "evidence": "Response identifies θ = π, states f(π) = −1 is a relative minimum, and gives the change from decreasing to increasing as the reason.",
+        "fix": "Find where r switches from decreasing to increasing; that change, not the sign of r, decides minimum versus maximum.",
+        "accepted_variants": [
+         "θ = π, relative minimum"
+        ]
+       },
+       {
+        "text": "The point is relatively farthest from the origin: for θ near π in this interval, f(θ) is between −1 and 0, so its distance |f(θ)| from the origin is less than |f(π)| = 1.",
+        "evidence": "Response concludes relatively farthest and explains using distance |r|, noting nearby r-values are negative with absolute value less than 1.",
+        "fix": "Distance from the origin is |r|; a negative relative minimum of r gives a point relatively farthest from the origin.",
+        "accepted_variants": [
+         "relatively farthest"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) f(2π/3) = 1 + 2(−1/2) = 0 and f(π) = 1 + 2(−1) = −1. Since cos θ is decreasing on 0 < θ < π, f(θ) = 1 + 2cos θ is decreasing on 2π/3 < θ < π, and its values go from 0 down to −1, so f(θ) is negative there. Because f is negative and decreasing, the distance between the point (f(θ), θ) and the origin is increasing on 2π/3 < θ < π.\n\n(b) f(π/3) = 1 + 2(1/2) = 2 and f(π/2) = 1 + 2(0) = 1.\nAverage rate of change = (f(π/2) − f(π/3))/(π/2 − π/3) = (1 − 2)/(π/6) = −6/π, about −1.910 units of r per radian.\nEstimate: f(5π/12) ≈ f(π/3) + (−6/π)(5π/12 − π/3) = 2 + (−6/π)(π/12) = 2 − 1/2 = 1.5.\n\n(c) cos θ is decreasing on 2π/3 < θ < π and increasing on π < θ < 4π/3, so f changes from decreasing to increasing at θ = π. Therefore f has a relative minimum at θ = π, with f(π) = −1.\nThe distance from the origin is |f(θ)|. For θ near π in this interval, f(θ) is between −1 and 0, so |f(θ)| < 1 = |f(π)|. The point on the curve at θ = π is relatively farthest from the origin.",
+    "verification_python": "import sympy as sp, math\nt = sp.symbols('t')\nf = 1 + 2*sp.cos(t)\nassert f.subs(t, 2*sp.pi/3) == 0 and f.subs(t, sp.pi) == -1\nfn = sp.lambdify(t, f, 'math')\nxs = [2*math.pi/3 + (math.pi/3)*k/300 for k in range(1, 300)]\nassert all(fn(x) < 0 for x in xs)\nassert all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\nassert all(abs(fn(xs[i+1])) > abs(fn(xs[i])) for i in range(len(xs)-1))\na, b = sp.pi/3, sp.pi/2\nassert f.subs(t, a) == 2 and f.subs(t, b) == 1\naroc = sp.simplify((f.subs(t, b) - f.subs(t, a))/(b - a))\nassert sp.simplify(aroc + 6/sp.pi) == 0\nassert abs(float(aroc) - (-1.910)) < 1e-3\nest = sp.simplify(f.subs(t, a) + aroc*(5*sp.pi/12 - a))\nassert est == sp.Rational(3, 2)\nest2 = sp.simplify(f.subs(t, b) + aroc*(5*sp.pi/12 - b))\nassert est2 == sp.Rational(3, 2)\nys = [2*math.pi/3 + (2*math.pi/3)*k/600 for k in range(1, 600)]\nvals = [fn(y) for y in ys]\nimin = min(range(len(vals)), key=lambda i: vals[i])\nassert abs(ys[imin] - math.pi) < 0.01 and abs(vals[imin] + 1) < 1e-4\nassert all(-1 - 1e-12 < v < 0 for v in vals)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     3
+    ],
+    "unitCount": {
+     "1": 4,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires f(π) = −1, although part (c) asks for the extremum's θ-value and classification, not its function value. It also requires a decreasing-to-increasing justification, rejecting valid alternatives such as cos θ ≥ −1 with equality only at π in the interval. Criterion c2 requires a specific nearby-value comparison, rejecting the valid explanation that |f(θ)| increases before π and decreases afterward. Criterion b1 accepts a decimal approximation where this no-calculator task requires an exact value.",
+       "accurate: Criterion b1 lists −1.910 as an equivalent form of −6/π. It is only a rounded approximation, not an equivalent exact value, and the no-calculator directions require the obtainable exact value.",
+       "solution: The mathematical results agree: (a) distance increases; (b) the average rate is −6/π and the estimate is 3/2; (c) θ = π is a relative minimum of f and corresponds to a relatively farthest point. However, my valid part (c) explanation uses increasing/decreasing distance rather than c2's required nearby-value comparison. Also, b1 should not accept −1.910 instead of the exact answer."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires f(π) = −1, although part (c) asks for the extremum's θ-value and classification, not its function value. It also requires a decreasing-to-increasing justification, rejecting valid alternatives such as cos θ ≥ −1 with equality only at π in the interval. Criterion c2 requires a specific nearby-value comparison, rejecting the valid explanation that |f(θ)| increases before π and decreases afterward. Criterion b1 accepts a decimal approximation where this no-calculator task requires an exact value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 lists −1.910 as an equivalent form of −6/π. It is only a rounded approximation, not an equivalent exact value, and the no-calculator directions require the obtainable exact value."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The mathematical results agree: (a) distance increases; (b) the average rate is −6/π and the estimate is 3/2; (c) θ = π is a relative minimum of f and corresponds to a relatively farthest point. However, my valid part (c) explanation uses increasing/decreasing distance rather than c2's required nearby-value comparison. Also, b1 should not accept −1.910 instead of the exact answer.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires the unasked value f(π) = −1 and prescribes a decreasing-to-increasing justification, excluding a valid justification using cos θ ≥ −1 with equality at π. Criterion c2 requires comparison with nearby absolute values, excluding an equally valid explanation that |f(θ)| increases before π and decreases afterward. Criterion b1 lists −1.910 as an accepted answer although this no-calculator question requires the obtainable exact value −6/π.",
+       "solution: The independent solution agrees with all mathematical results: distance increases in (a), the average rate is −6/π and the estimate is 3/2 in (b), and π gives a relative minimum of f and a relatively farthest point in (c). However, its valid explanation in (c), using the increase and then decrease of distance, is not explicitly accepted by criterion c2's narrowly specified evidence."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires the unasked value f(π) = −1 and prescribes a decreasing-to-increasing justification, excluding a valid justification using cos θ ≥ −1 with equality at π. Criterion c2 requires comparison with nearby absolute values, excluding an equally valid explanation that |f(θ)| increases before π and decreases afterward. Criterion b1 lists −1.910 as an accepted answer although this no-calculator question requires the obtainable exact value −6/π."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all mathematical results: distance increases in (a), the average rate is −6/π and the estimate is 3/2 in (b), and π gives a relative minimum of f and a relatively farthest point in (c). However, its valid explanation in (c), using the increase and then decrease of distance, is not explicitly accepted by criterion c2's narrowly specified evidence.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 lists −1.910 as an equivalent form of −6/π; −1.910 is a rounded decimal approximation, not an exact equivalent, and this no-calculator item requires the exact value."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 lists −1.910 as an equivalent form of −6/π; −1.910 is a rounded decimal approximation, not an exact equivalent, and this no-calculator item requires the exact value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

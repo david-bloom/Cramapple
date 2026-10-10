@@ -47,9 +47,9 @@
      "prompt": "Explain why the first robot's displacement at the end of trip 3 is equal to Robot B's displacement, even though the first robot traveled a much greater distance.",
      "criteria": [
       {
-       "text": "Explains that displacement is a vector sum in which trips in opposite directions have opposite signs and partly cancel, so the first robot's net change in position, −3 m, equals Robot B's −3 m; distance is a scalar, so nothing cancels.",
-       "evidence": "Response states both displacements are −3 m (3 m west) and explains that the westward −20 m cancels most of the eastward +17 m in the vector sum, while distance only adds.",
-       "fix": "When comparing displacements, add signed values so opposite trips cancel; only the net change in position from start to finish matters.",
+       "text": "Explains that displacement depends only on the net change in position, so both robots have −3 m (3 m west), while distance counts every meter traveled.",
+       "evidence": "Response states both displacements are −3 m (3 m west) and explains why, either by signed trips canceling in the vector sum (−20 m against +17 m) or by both robots starting and ending at the same positions, and contrasts this with distance.",
+       "fix": "Compare only start and end positions for displacement; distance adds every trip regardless of direction.",
        "accepted_variants": []
       }
      ]
@@ -79,5 +79,274 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.852021Z"
- }
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "b1 accepts endpoint-based reasoning as well as signed-sum reasoning (rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:08:50.222Z",
+   "source": "given",
+   "item": {
+    "title": "Distance, Displacement, and Speed of a Hallway Robot",
+    "calculator": "permitted",
+    "stimulus": "A delivery robot moves along a straight east–west hallway. Take east as the positive direction. Starting from its charging station, the robot makes three trips in order. During each trip it moves in only one direction.\n\nTrip | Direction | Distance moved (m)\n1 | east | 12\n2 | west | 20\n3 | east | 5\n\nA second robot, Robot B, starts at the same charging station and makes a single trip of 3 m west.",
+    "parts": [
+     {
+      "prompt": "Calculate the total distance traveled by the first robot during the three trips. Then calculate its displacement from the charging station at the end of trip 3, giving it as a signed value and stating its direction.",
+      "criteria": [
+       {
+        "text": "Total distance = 12 m + 20 m + 5 m = 37 m, found by adding the sizes of the three trips without regard to direction.",
+        "evidence": "Response adds the three trip lengths as positive quantities and gets 37 m.",
+        "fix": "Distance is a scalar: add the length of every trip as a positive number, ignoring direction.",
+        "accepted_variants": [
+         "37 meters"
+        ]
+       },
+       {
+        "text": "Displacement = (+12 m) + (−20 m) + (+5 m) = −3 m, that is, 3 m west of the charging station.",
+        "evidence": "Response gives east trips positive signs and the west trip a negative sign, sums them to −3 m, and states the direction is west.",
+        "fix": "Displacement is a vector: give each trip a sign for its direction, add the signed values, then read direction from the sign.",
+        "accepted_variants": [
+         "−3 m",
+         "3 m west"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the first robot's displacement at the end of trip 3 is equal to Robot B's displacement, even though the first robot traveled a much greater distance.",
+      "criteria": [
+       {
+        "text": "Explains that displacement is a vector sum in which trips in opposite directions have opposite signs and partly cancel, so the first robot's net change in position, −3 m, equals Robot B's −3 m; distance is a scalar, so nothing cancels.",
+        "evidence": "Response states both displacements are −3 m (3 m west) and explains that the westward −20 m cancels most of the eastward +17 m in the vector sum, while distance only adds.",
+        "fix": "When comparing displacements, add signed values so opposite trips cancel; only the net change in position from start to finish matters.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "During trip 2, the robot's velocity component is v_x = −0.80 m/s. A student states that the robot's speed during trip 2 is −0.80 m/s. Explain what is wrong with the student's statement, and give the robot's correct speed during trip 2.",
+      "criteria": [
+       {
+        "text": "States that the speed is 0.80 m/s, because speed is a scalar equal to the magnitude of the velocity and is never negative.",
+        "evidence": "Response gives the speed as 0.80 m/s (positive) and identifies speed as a scalar or as the magnitude of velocity.",
+        "fix": "Speed is a scalar: report the size of the velocity only, as a positive number, and drop the sign.",
+        "accepted_variants": [
+         "0.8 m/s"
+        ]
+       },
+       {
+        "text": "Explains that the negative sign in v_x = −0.80 m/s is direction information: the velocity, a vector, points west (the negative direction).",
+        "evidence": "Response states that the minus sign shows the velocity is directed west, opposite to the chosen positive direction, and that speed does not carry direction.",
+        "fix": "In one dimension, read the sign of a vector component as its direction; negative here means west.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Total distance = 12 m + 20 m + 5 m = 37 m. Distance is a scalar, so each trip adds its length regardless of direction.\nDisplacement = (+12 m) + (−20 m) + (+5 m) = −3 m. The first robot ends 3 m west of the charging station.\n\n(b) Displacement is a vector, so in the sum the eastward trips (+12 m and +5 m, total +17 m) and the westward trip (−20 m) have opposite signs and mostly cancel, leaving a net change in position of −3 m. Robot B's single trip also gives a displacement of −3 m, so the two displacements are equal (3 m west). Distance is a scalar, so for the first robot nothing cancels and it is 37 m, compared with 3 m for Robot B.\n\n(c) Speed is a scalar equal to the magnitude of the velocity, so it cannot be negative. The robot's speed during trip 2 is 0.80 m/s. The negative sign in v_x = −0.80 m/s tells the direction of the velocity vector: the robot is moving west, the negative direction.",
+    "verification_python": "trips=[12,-20,5]\ndist=sum(abs(t) for t in trips)\nassert dist==37\ndisp=sum(trips)\nassert disp==-3\nrobotB=-3\nassert disp==robotB\nassert 12+5==17\nvx=-0.80\nspeed=abs(vx)\nassert abs(speed-0.80)<1e-12\nassert vx<0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires an explicit signed-vector cancellation explanation involving −20 m and +17 m. This rejects the equally valid explanation that displacement depends only on endpoints: both robots start together and finish 3 m west, despite traveling different distances. Accept either explanation.",
+       "solution: The numerical and physical results agree: total distance 37 m, displacement −3 m (west), equal displacements for both robots, and speed 0.80 m/s. However, the independent solution's correct endpoint-based explanation for part (b) would not satisfy b1's unnecessarily restrictive cancellation evidence requirement."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires an explicit signed-vector cancellation explanation involving −20 m and +17 m. This rejects the equally valid explanation that displacement depends only on endpoints: both robots start together and finish 3 m west, despite traveling different distances. Accept either explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical and physical results agree: total distance 37 m, displacement −3 m (west), equal displacements for both robots, and speed 0.80 m/s. However, the independent solution's correct endpoint-based explanation for part (b) would not satisfy b1's unnecessarily restrictive cancellation evidence requirement.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires explicit cancellation of −20 m against +17 m and a statement that distance only adds. This rejects a valid alternative explanation: displacement depends only on initial and final positions, and both robots start and finish at the same positions despite traveling different paths. Accept endpoint-based reasoning as well as signed-sum reasoning.",
+       "solution: The independent solution agrees with all numerical results: distance 37 m, displacement −3 m (west), and speed 0.80 m/s. However, its correct endpoint-based explanation for part (b) would not satisfy b1's mandatory cancellation evidence. That is an unwarranted restriction on the explanation, not a physics disagreement. No model answer or existing comparison questions were supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires explicit cancellation of −20 m against +17 m and a statement that distance only adds. This rejects a valid alternative explanation: displacement depends only on initial and final positions, and both robots start and finish at the same positions despite traveling different paths. Accept endpoint-based reasoning as well as signed-sum reasoning."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results: distance 37 m, displacement −3 m (west), and speed 0.80 m/s. However, its correct endpoint-based explanation for part (b) would not satisfy b1's mandatory cancellation evidence. That is an unwarranted restriction on the explanation, not a physics disagreement. No model answer or existing comparison questions were supplied.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
 }

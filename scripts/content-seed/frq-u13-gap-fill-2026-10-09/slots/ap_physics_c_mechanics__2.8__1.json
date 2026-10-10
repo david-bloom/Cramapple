@@ -11,8 +11,325 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:18:57.342Z",
+   "source": "given",
+   "item": {
+    "title": "Springs in Series and in Parallel Supporting a Block",
+    "calculator": "permitted",
+    "stimulus": "Two ideal springs have spring constants k₁ = 200 N/m and k₂ = 300 N/m. Use g = 10 m/s².\n\nArrangement 1: Spring 1 hangs from a fixed ceiling hook, spring 2 hangs from the bottom of spring 1, and a 3.0 kg block hangs from the bottom of spring 2. The block hangs at rest.\n\nArrangement 2: Both springs hang side by side from the ceiling, and their lower ends are attached to a light horizontal bar from which the same 3.0 kg block hangs. The bar stays horizontal, so both springs stretch by the same amount, and the block hangs at rest.",
+    "parts": [
+     {
+      "prompt": "For Arrangement 1, calculate the equivalent spring constant of the two springs and the total stretch of the two-spring combination.",
+      "criteria": [
+       {
+        "text": "1/k_eq = 1/200 + 1/300, so k_eq = 120 N/m.",
+        "evidence": "Response adds the reciprocals of the two spring constants and obtains 120 N/m.",
+        "fix": "For springs connected end to end, add the reciprocals of the spring constants, then take the reciprocal of that sum.",
+        "accepted_variants": [
+         "120 N/m"
+        ]
+       },
+       {
+        "text": "Total stretch = mg/k_eq = (30 N)/(120 N/m) = 0.25 m.",
+        "evidence": "Response divides the 30 N spring force (equal to the block's weight) by its own k_eq and obtains 0.25 m.",
+        "fix": "At rest, the spring force equals the weight; divide that force by the equivalent spring constant to find the total stretch.",
+        "accepted_variants": [
+         "25 cm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For Arrangement 1, determine how much each spring stretches, and explain why the two springs exert forces of the same magnitude.",
+      "criteria": [
+       {
+        "text": "Both ideal (massless) springs carry the full 30 N, so spring 1 stretches (30 N)/(200 N/m) = 0.15 m and spring 2 stretches (30 N)/(300 N/m) = 0.10 m.",
+        "evidence": "Response states that each massless spring transmits the same 30 N force and gives stretches of 0.15 m and 0.10 m, which add to the total from part (a).",
+        "fix": "In a chain of massless springs each spring carries the whole load; divide that force by each individual spring constant.",
+        "accepted_variants": [
+         "15 cm and 10 cm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For Arrangement 2, calculate the equivalent spring constant and the distance each spring stretches.",
+      "criteria": [
+       {
+        "text": "k_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.",
+        "evidence": "Response adds the two spring constants to obtain 500 N/m.",
+        "fix": "For springs side by side that stretch by the same amount, add the spring constants directly.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Each spring stretches (30 N)/(500 N/m) = 0.060 m.",
+        "evidence": "Response divides the 30 N load by its own parallel k_eq and obtains 0.060 m.",
+        "fix": "Divide the total load by the parallel equivalent spring constant; each spring then stretches by that same amount.",
+        "accepted_variants": [
+         "6.0 cm",
+         "0.06 m"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Springs connected end to end are in series:\n1/k_eq = 1/k₁ + 1/k₂ = 1/200 + 1/300 = 5/600, so k_eq = 120 N/m.\nAt rest, the spring force on the block balances its weight, mg = (3.0 kg)(10 m/s²) = 30 N.\nTotal stretch = (30 N)/(120 N/m) = 0.25 m.\n\n(b) Spring 2 pulls up on the block with 30 N. Because spring 2 is ideal and has no mass, spring 1 must pull up on spring 2 with the same 30 N, so both springs exert 30 N.\nSpring 1: Δx₁ = (30 N)/(200 N/m) = 0.15 m.\nSpring 2: Δx₂ = (30 N)/(300 N/m) = 0.10 m.\nCheck: 0.15 m + 0.10 m = 0.25 m, matching part (a).\n\n(c) Side by side and stretching equally, the springs are in parallel:\nk_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.\nEach spring stretches Δx = (30 N)/(500 N/m) = 0.060 m.\nCheck: spring 1 exerts (200)(0.060) = 12 N and spring 2 exerts (300)(0.060) = 18 N, which total 30 N.",
+    "verification_python": "from fractions import Fraction as Fr\nk1, k2 = Fr(200), Fr(300)\nW = Fr(3)*Fr(10)\nassert W == 30\ninv = 1/k1 + 1/k2\nassert inv == Fr(5,600)\nkser = 1/inv\nassert kser == 120\nassert kser < min(k1, k2)\nx_tot = W/kser\nassert x_tot == Fr(1,4)\nx1, x2 = W/k1, W/k2\nassert x1 == Fr(15,100) and x2 == Fr(10,100)\nassert x1 + x2 == x_tot\nkpar = k1 + k2\nassert kpar == 500\nxp = W/kpar\nassert xp == Fr(6,100)\nassert k1*xp == 12 and k2*xp == 18 and k1*xp + k2*xp == W\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles the two calculated stretches and the explanation of equal forces into one point rather than awarding one specific element. Criteria a1, a2, c1, and c2 prescribe particular computational steps although the parts only ask students to calculate quantities. For example, a2 would reject the valid method of calculating each spring’s stretch and adding them; c2 would reject solving 200x + 300x = 30 directly. Criterion b1 additionally requires agreement with part (a), an unrequested consistency check that could deny credit for a correct part (b) after an error in part (a). Criteria a2 and c2 reference the student’s own equivalent constant but still require the exact correct stretch, rather than allowing consistent follow-through."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles the two calculated stretches and the explanation of equal forces into one point rather than awarding one specific element. Criteria a1, a2, c1, and c2 prescribe particular computational steps although the parts only ask students to calculate quantities. For example, a2 would reject the valid method of calculating each spring’s stretch and adding them; c2 would reject solving 200x + 300x = 30 directly. Criterion b1 additionally requires agreement with part (a), an unrequested consistency check that could deny credit for a correct part (b) after an error in part (a). Criteria a2 and c2 reference the student’s own equivalent constant but still require the exact correct stretch, rather than allowing consistent follow-through."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, a2, c1, and c2 prescribe particular computational methods although the parts only ask students to calculate values. For example, a student may calculate the individual series stretches, add them, and use k_eq = mg/ΔL_total, rather than explicitly adding reciprocals or dividing by k_eq. Likewise, part (c) can be solved using k₁x + k₂x = mg before identifying k_eq. Criterion b1 combines both stretch values and the force-equality explanation into one point rather than awarding one specific element. Its evidence also requires agreement with part (a), although part (b) does not request that check; correct independent answers should not lose credit because part (a) was incorrect."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, a2, c1, and c2 prescribe particular computational methods although the parts only ask students to calculate values. For example, a student may calculate the individual series stretches, add them, and use k_eq = mg/ΔL_total, rather than explicitly adding reciprocals or dividing by k_eq. Likewise, part (c) can be solved using k₁x + k₂x = mg before identifying k_eq. Criterion b1 combines both stretch values and the force-equality explanation into one point rather than awarding one specific element. Its evidence also requires agreement with part (a), although part (b) does not request that check; correct independent answers should not lose credit because part (a) was incorrect."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 bundles two requested elements—the individual stretches and the explanation of equal forces—into one point; it should be split so the criterion awards one specific observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 bundles two requested elements—the individual stretches and the explanation of equal forces—into one point; it should be split so the criterion awards one specific observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: one point combines two required tasks—explaining why both springs exert equal force magnitudes and computing two separate stretches. Part (a), criterion a2: prescribes dividing by k_eq, rejecting the valid alternative of summing the two individual stretches."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: one point combines two required tasks—explaining why both springs exert equal force magnitudes and computing two separate stretches. Part (a), criterion a2: prescribes dividing by k_eq, rejecting the valid alternative of summing the two individual stretches."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

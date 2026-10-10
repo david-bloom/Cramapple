@@ -11,8 +11,262 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.405Z",
+   "source": "given",
+   "item": {
+    "title": "Internal Membranes Separate and Support Cellular Reactions",
+    "calculator": "permitted",
+    "stimulus": "Liver cells make a molecule, Q, in the cytosol. The reactions that break Q down occur only inside a membrane-bound organelle, compartment K. Researchers prepared two extracts from the same liver tissue and supplied each with the raw materials needed to make Q.\n\nExtract 1: cells were broken open gently, so the organelles, including compartment K, stayed intact.\nExtract 2: cells were broken open harshly, so organelle membranes ruptured and the contents of compartment K mixed with the cytosol.\n\nTable 1: Amount of Q present (μmol per gram of tissue)\nTime (min) | Extract 1 | Extract 2\n0 | 0 | 0\n10 | 4.0 | 0.6\n20 | 8.1 | 1.0\n30 | 12.0 | 1.5\n\nIn a second study, the researchers compared two cell types in which reaction R is carried out by proteins embedded in internal membranes.\n\nTable 2\nCell type | Internal membrane surface area per cell (μm²) | Rate of reaction R (relative units)\nM | 1,500 | 30\nN | 4,500 | 90",
+    "parts": [
+     {
+      "prompt": "Calculate the percent decrease in the amount of Q present at 30 minutes in Extract 2 compared with Extract 1.",
+      "criteria": [
+       {
+        "text": "Calculates a percent decrease of 87.5%: (12.0 − 1.5) ÷ 12.0 × 100 = 87.5%.",
+        "evidence": "Response shows the difference (10.5 μmol per gram) divided by the Extract 1 value (12.0) and expresses the result as 87.5%, or uses an equivalent valid method such as (1 − 1.5/12.0) × 100.",
+        "fix": "For percent decrease, divide the drop by the original (reference) value, then multiply by 100.",
+        "accepted_variants": [
+         "87.5 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data in Table 1, explain how the membrane of compartment K allows Q to accumulate in Extract 1, and why much less Q accumulated in Extract 2.",
+      "criteria": [
+       {
+        "text": "Explains that the membrane of compartment K keeps the reactions that break down Q separate from the cytosol where Q is made, minimizing competing reactions; when the membrane ruptures (Extract 2), breakdown occurs in the same space as synthesis, so Q is broken down as it is made and only 1.5 μmol per gram accumulates versus 12.0.",
+        "evidence": "Response links the intact membrane to separation of the competing synthesis and breakdown reactions, and links rupture to Q being broken down in the mixed extract, citing the lower amount of Q.",
+        "fix": "Name the two opposing processes, state where each happens, and explain that the membrane keeps them apart so they cannot compete.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between internal membrane surface area and the rate of reaction R shown in Table 2.",
+      "criteria": [
+       {
+        "text": "Describes that the rate of reaction R increases as internal membrane surface area increases, in proportion: tripling the area (1,500 to 4,500 μm²) triples the rate (30 to 90).",
+        "evidence": "Response states that greater internal membrane surface area is associated with a higher rate of reaction R, and notes the threefold change in both.",
+        "fix": "Describe the direction of the trend and its size: compare how many times each variable changed between the two cell types.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how a larger area of internal membranes leads to the higher rate of reaction R in cell type N.",
+      "criteria": [
+       {
+        "text": "Explains that internal membranes increase the surface area where membrane-associated reactions can occur, providing room for more of the embedded proteins that carry out reaction R, so more reaction R can happen at the same time.",
+        "evidence": "Response states that more internal membrane provides more surface area on which reaction R can take place (more embedded proteins), increasing the rate.",
+        "fix": "Connect membrane area to reaction sites: more membrane surface holds more embedded proteins, so more reactions run at once.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Percent decrease = (12.0 − 1.5) ÷ 12.0 × 100 = 10.5 ÷ 12.0 × 100 = 87.5%.\n\n(b) In Extract 1, compartment K is intact, so its membrane keeps the reactions that break down Q inside the compartment, separate from the cytosol where Q is made. Because the opposing reactions are kept apart, they do not compete, and Q builds up steadily, reaching 12.0 μmol per gram at 30 minutes. In Extract 2, the ruptured membrane lets the contents of compartment K mix with the cytosol, so Q is broken down in the same space where it is being made. Much of the Q is broken down as soon as it forms, so only 1.5 μmol per gram accumulates.\n\n(c) The rate of reaction R increases as internal membrane surface area increases. Cell type N has 3 times the internal membrane surface area of M (4,500 versus 1,500 μm²) and 3 times the rate (90 versus 30), so the rate rises in proportion to the membrane area.\n\n(d) Reaction R is carried out by proteins embedded in internal membranes, so the reaction can occur only on membrane surfaces. A larger area of internal membrane increases the surface area where the reaction can occur and holds more of the embedded proteins, so more reaction R takes place at the same time and the rate is higher.",
+    "verification_python": "from fractions import Fraction as F\ne1=F(120,10);e2=F(15,10)\nassert e1-e2==F(105,10)\npct=(e1-e2)/e1*100\nassert pct==F(875,10)\nassert (1-e2/e1)*100==pct\nassert F(4500,1500)==3\nassert F(90,30)==3\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My solution to part (b) did not cite the specific 30-minute amounts (12.0 vs 1.5 μmol/g) that rubric b1 requires as evidence; otherwise my solution agrees with the rubric and model answer."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My solution to part (b) did not cite the specific 30-minute amounts (12.0 vs 1.5 μmol/g) that rubric b1 requires as evidence; otherwise my solution agrees with the rubric and model answer.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -667,5 +921,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.862604Z"
- }
+ },
+ "accepted_round": 1
 }

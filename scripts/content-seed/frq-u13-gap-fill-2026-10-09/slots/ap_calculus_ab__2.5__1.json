@@ -11,8 +11,238 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:04.449Z",
+   "source": "given",
+   "item": {
+    "title": "Power Rule with Negative and Fractional Exponents",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x⁴.\n\nLet g(x) = 1/x³ for x ≠ 0.\n\nLet h(x) = x·∛x for x > 0.",
+    "parts": [
+     {
+      "prompt": "Rewrite g(x) in the form x^r, then use the power rule to find g′(x). Find g′(2).",
+      "criteria": [
+       {
+        "text": "Rewrites g(x) = x^(−3).",
+        "evidence": "Response writes g(x) as x^(−3), that is, x raised to the power −3.",
+        "fix": "Move a power of x from the denominator to the numerator by changing the sign of its exponent: 1/xⁿ = x^(−n).",
+        "accepted_variants": [
+         "x^(−3)",
+         "x⁻³"
+        ]
+       },
+       {
+        "text": "Finds g′(x) = −3x^(−4) by the power rule.",
+        "evidence": "Response multiplies by the exponent −3 and lowers the exponent by 1 to −4, giving g′(x) = −3x^(−4), equivalently −3/x⁴.",
+        "fix": "For x^r, bring down r and subtract 1 from the exponent; with a negative r, the new exponent is more negative.",
+        "accepted_variants": [
+         "−3x^(−4)",
+         "−3x⁻⁴",
+         "−3/x⁴"
+        ]
+       },
+       {
+        "text": "Finds g′(2) = −3/16.",
+        "evidence": "Response substitutes x = 2 into its g′(x): −3/2⁴ = −3/16.",
+        "fix": "Substitute into the derivative and evaluate the negative power as a reciprocal: 2^(−4) = 1/16.",
+        "accepted_variants": [
+         "−3/16",
+         "−0.1875"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write h(x) in the form x^r, then use the power rule to find h′(x).",
+      "criteria": [
+       {
+        "text": "Rewrites h(x) = x^(4/3).",
+        "evidence": "Response writes ∛x as x^(1/3) and combines x·x^(1/3) = x^(1 + 1/3) = x^(4/3).",
+        "fix": "Write each root as a fractional power, then add the exponents when multiplying powers of x.",
+        "accepted_variants": [
+         "x^(4/3)"
+        ]
+       },
+       {
+        "text": "Finds h′(x) = (4/3)x^(1/3).",
+        "evidence": "Response applies the power rule with r = 4/3 to get (4/3)x^(1/3), equivalently (4/3)∛x.",
+        "fix": "Subtract 1 from a fractional exponent using a common denominator: 4/3 − 1 = 1/3.",
+        "accepted_variants": [
+         "(4/3)x^(1/3)",
+         "(4/3)∛x",
+         "4∛x/3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find all points on the curve y = f(x) at which the line tangent to the curve has slope −32.",
+      "criteria": [
+       {
+        "text": "Finds f′(x) = 4x³ using the power rule.",
+        "evidence": "Response states f′(x) = 4x³.",
+        "fix": "Apply the power rule to x⁴: bring down the 4 and lower the exponent to 3.",
+        "accepted_variants": [
+         "4x³"
+        ]
+       },
+       {
+        "text": "Solves 4x³ = −32 to get x = −2 and gives the point (−2, 16).",
+        "evidence": "Response sets its f′(x) equal to −32, obtains x³ = −8 so x = −2 (the only real solution), and gives the point (−2, 16) using f(−2) = (−2)⁴ = 16.",
+        "fix": "Set the derivative equal to the given slope, solve for x, then evaluate f at that x to get the point.",
+        "accepted_variants": [
+         "(−2, 16)",
+         "x = −2, y = 16"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) g(x) = 1/x³ = x^(−3). By the power rule, g′(x) = −3x^(−3 − 1) = −3x^(−4) = −3/x⁴. Then g′(2) = −3/2⁴ = −3/16.\n\n(b) h(x) = x·x^(1/3) = x^(1 + 1/3) = x^(4/3). By the power rule, h′(x) = (4/3)x^(4/3 − 1) = (4/3)x^(1/3) = (4/3)∛x for x > 0.\n\n(c) By the power rule, f′(x) = 4x³. Setting 4x³ = −32 gives x³ = −8, so x = −2, the only real solution. Since f(−2) = (−2)⁴ = 16, the only such point is (−2, 16).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', positive=True)\ny = sp.symbols('y', real=True)\ng = 1/x**3\nassert sp.simplify(g - x**-3) == 0\ngp = sp.diff(g, x)\nassert sp.simplify(gp - (-3*x**-4)) == 0\nassert gp.subs(x, 2) == sp.Rational(-3, 16)\nassert sp.Rational(-3, 16) == sp.Rational(-1875, 10000)\nassert sp.Integer(2)**-4 == sp.Rational(1, 16)\nh = x*sp.cbrt(x)\nassert sp.simplify(h - x**sp.Rational(4, 3)) == 0\nassert sp.Rational(4, 3) - 1 == sp.Rational(1, 3)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - sp.Rational(4, 3)*x**sp.Rational(1, 3)) == 0\nf = y**4\nfp = sp.diff(f, y)\nassert fp == 4*y**3\nsols = sp.solve(sp.Eq(fp, -32), y)\nassert sols == [-2]\nassert f.subs(y, -2) == 16\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "lint_false_positive_dropped": [
   {
    "at": "2026-10-10T01:33:19.597Z",
@@ -1069,5 +1299,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.833027Z"
- }
+ },
+ "accepted_round": 1
 }

@@ -11,8 +11,208 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.293Z",
+   "source": "given",
+   "item": {
+    "title": "Double Bonds and the Physical State of Fatty Acids",
+    "calculator": "not_applicable",
+    "stimulus": "A student compares four fatty acids. Each has a chain of 18 carbon atoms, and they differ only in the number of carbon–carbon double bonds (C=C) in the chain. A fatty acid is liquid at temperatures above its melting point and solid at temperatures below it.\n\nFatty acid | Number of C=C double bonds | Approximate melting point (°C)\nW | 0 | 69\nX | 1 | 13\nY | 2 | −5\nZ | 3 | −11",
+    "parts": [
+     {
+      "prompt": "Identify the fatty acid in the table that is saturated.",
+      "criteria": [
+       {
+        "text": "Identifies fatty acid W, the fatty acid with zero carbon–carbon double bonds.",
+        "evidence": "Response names W.",
+        "fix": "A saturated fatty acid has only single bonds between carbons; pick the one with zero C=C double bonds.",
+        "accepted_variants": [
+         "W"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the number of carbon–carbon double bonds and the melting point shown in the data.",
+      "criteria": [
+       {
+        "text": "As the number of carbon–carbon double bonds increases, the melting point decreases (from 69 °C with 0 double bonds to −11 °C with 3).",
+        "evidence": "Response states that more double bonds is associated with a lower melting point across the four fatty acids.",
+        "fix": "Describe the trend across all rows in one sentence: as the first variable increases, the second variable decreases.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "At a room temperature of 20 °C, fatty acid W is solid and fatty acid Y is liquid. Explain this difference in terms of the structure of the carbon chains of W and Y.",
+      "criteria": [
+       {
+        "text": "Explains that Y's two double bonds put kinks in its carbon chain, making Y unsaturated, and that unsaturated fatty acids are more liquid at room temperature than saturated ones such as W, whose chain has only single bonds.",
+        "evidence": "Response states that the double bonds in Y cause kinks in the carbon chain and links being unsaturated (kinked) to being liquid at room temperature, in contrast to saturated W.",
+        "fix": "Connect each double bond to a kink in the carbon chain, then state that more unsaturated lipids are more liquid at room temperature.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Seals live in very cold ocean water and have a thick layer of fat beneath the skin. Other than serving as a store of energy, explain how this fat layer helps a seal maintain its body temperature in this environment.",
+      "criteria": [
+       {
+        "text": "Explains that the fat layer provides insulation, reducing the loss of heat from the seal's body to the cold water and helping keep the seal warm.",
+        "evidence": "Response identifies insulation (reduced heat loss to the surroundings) as the function of the fat layer.",
+        "fix": "Recall that besides energy storage, fats can insulate mammals, slowing heat loss to a cold environment.",
+        "accepted_variants": [
+         "insulation"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Fatty acid W is saturated. It has no carbon–carbon double bonds, so its chain contains only single bonds between carbon atoms.\n\n(b) As the number of carbon–carbon double bonds increases, the melting point decreases: 69 °C with 0 double bonds, 13 °C with 1, −5 °C with 2, and −11 °C with 3.\n\n(c) Fatty acid W is saturated: its carbon chain has only single bonds. Fatty acid Y is unsaturated: it has two double bonds, and each double bond causes a kink in the carbon chain. The more unsaturated a lipid is, the more liquid it is at room temperature, so Y is liquid at 20 °C (above its melting point of −5 °C) while W is solid (below its melting point of 69 °C).\n\n(d) Fat provides insulation. The thick fat layer beneath the skin slows the loss of heat from the seal's body to the cold water, helping the seal stay warm.",
+    "verification_python": "data=[('W',0,69),('X',1,13),('Y',2,-5),('Z',3,-11)]\nsat=[n for n,d,mp in data if d==0]\nassert sat==['W']\nmps=[mp for n,d,mp in data]\nassert all(mps[i]>mps[i+1] for i in range(3))\nassert all(data[i][1]<data[i+1][1] for i in range(3))\nroom=20\nassert 69>room\nassert -5<room\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (c) does not specify whether the double bonds are cis or trans. The standard AP Biology explanation involving bent chains and reduced packing assumes cis double bonds; trans double bonds do not produce the same pronounced bends. The physical states at 20 °C are nevertheless unambiguous from the supplied melting points.",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5 Lipids",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -1642,5 +1842,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.858136Z"
- }
+ },
+ "accepted_round": 1
 }

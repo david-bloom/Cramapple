@@ -11,8 +11,281 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:21:22.592Z",
+   "source": "given",
+   "item": {
+    "title": "Validating Models for App Growth with Residuals",
+    "calculator": "permitted",
+    "stimulus": "An app developer recorded the number of active users U, in thousands, t months after the app's launch.\nt (months) | 0 | 1 | 2 | 3 | 4 | 5\nU (thousands) | 11.9 | 15.2 | 18.9 | 23.2 | 29.6 | 36.4\n\nUsing regression on these data, the developer found a linear model L(t) = 4.857t + 10.390 and an exponential model E(t) = 12.027(1.249)ᵗ. The coefficients are rounded to three decimal places; use the models exactly as written. The residuals of each model, except those at t = 3, are listed below (in thousands of users).\nt (months) | 0 | 1 | 2 | 3 | 4 | 5\nResidual for L | 1.510 | −0.047 | −1.204 | ? | −0.218 | 1.725\nResidual for E | −0.127 | 0.178 | 0.138 | ? | 0.331 | −0.157",
+    "parts": [
+     {
+      "prompt": "Find the residual of L at t = 3 and the residual of E at t = 3. Give each answer to three decimal places.",
+      "criteria": [
+       {
+        "text": "The residual of L at t = 3 is 23.2 − L(3) = 23.2 − 24.961 = −1.761.",
+        "evidence": "Response computes L(3) = 24.961 and the residual as actual minus predicted, −1.761.",
+        "fix": "A residual is the actual value minus the predicted value; compute the model value first, then subtract it from the data.",
+        "accepted_variants": [
+         "−1.761"
+        ]
+       },
+       {
+        "text": "The residual of E at t = 3 is 23.2 − E(3) ≈ 23.2 − 23.434 = −0.234.",
+        "evidence": "Response computes E(3) = 12.027(1.249)³ ≈ 23.434 and the residual −0.234 (actual minus predicted).",
+        "fix": "Evaluate the exponential model without rounding the power early, then subtract the prediction from the actual value.",
+        "accepted_variants": [
+         "−0.234"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using all six residuals of each model, explain which model is more appropriate for these data.",
+      "criteria": [
+       {
+        "text": "States that the residuals of L show a pattern: positive at t = 0 and t = 5 and negative for t = 1 through t = 4, so L is not appropriate.",
+        "evidence": "Response describes the systematic sign pattern of the linear residuals (positive at both ends, negative in the middle) and concludes the linear model is not appropriate.",
+        "fix": "Look at the signs of the residuals in order of t; a systematic arrangement such as positive, negative, positive shows a poor model.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the residuals of E, −0.127, 0.178, 0.138, −0.234, 0.331, −0.157, change sign without a pattern, so E is the more appropriate model.",
+        "evidence": "Response notes the exponential residuals mix positive and negative values with no systematic pattern and concludes the exponential model is more appropriate.",
+        "fix": "A model is justified as appropriate when its residuals, listed in order of t, appear without any pattern.",
+        "accepted_variants": [
+         "E is more appropriate",
+         "the exponential model"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The developer will use E to decide how much server capacity to buy. Having too little capacity causes the app to crash, while extra capacity costs little. Does E overestimate or underestimate the number of active users at t = 4? Explain whether overestimates or underestimates are preferable in this context.",
+      "criteria": [
+       {
+        "text": "E underestimates at t = 4, because the residual 0.331 is positive (actual 29.6 is greater than predicted E(4) ≈ 29.269).",
+        "evidence": "Response says underestimate and connects it to the positive residual, or to the actual value exceeding the predicted value.",
+        "fix": "A positive residual means actual is greater than predicted, so the model underestimates; a negative residual means it overestimates.",
+        "accepted_variants": [
+         "underestimate"
+        ]
+       },
+       {
+        "text": "Overestimates are preferable, because overestimating users leads to buying extra capacity, which costs little, while underestimating could leave too little capacity and make the app crash.",
+        "evidence": "Response chooses overestimates and gives the contextual reason comparing the cost of too little and too much capacity.",
+        "fix": "Compare the consequences of each error in the context, and prefer the error whose consequence is less harmful.",
+        "accepted_variants": [
+         "overestimates"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) L(3) = 4.857(3) + 10.390 = 24.961, so the residual of L at t = 3 is 23.2 − 24.961 = −1.761.\nE(3) = 12.027(1.249)³ ≈ 23.434, so the residual of E at t = 3 is 23.2 − 23.434 ≈ −0.234.\n\n(b) The residuals of L in order of t are 1.510, −0.047, −1.204, −1.761, −0.218, 1.725: positive at both ends and negative in the middle. This systematic pattern means the linear model is not appropriate.\nThe residuals of E are −0.127, 0.178, 0.138, −0.234, 0.331, −0.157. They switch between positive and negative with no systematic pattern, so the exponential model E is more appropriate for these data.\n\n(c) E(4) = 12.027(1.249)⁴ ≈ 29.269, and the residual is 29.6 − 29.269 ≈ 0.331 > 0. The actual value is greater than the predicted value, so E underestimates the number of active users at t = 4.\nOverestimates are preferable. If the model overestimates users, the developer buys a little extra capacity, which costs little. If it underestimates, the developer may buy too little capacity and the app could crash.",
+    "verification_python": "import math\nt=[0,1,2,3,4,5]; U=[11.9,15.2,18.9,23.2,29.6,36.4]\nn=6; mx=sum(t)/n; my=sum(U)/n\nb=sum((a-mx)*(c-my) for a,c in zip(t,U))/sum((a-mx)**2 for a in t); a=my-b*mx\nassert round(b,3)==4.857 and round(a,3)==10.390\nly=[math.log(u) for u in U]; ml=sum(ly)/n\nlb=sum((x-mx)*(c-ml) for x,c in zip(t,ly))/sum((x-mx)**2 for x in t); la=ml-lb*mx\nassert round(math.exp(la),3)==12.027 and round(math.exp(lb),3)==1.249\nL=lambda x:4.857*x+10.390\nE=lambda x:12.027*1.249**x\nrl=[round(u-L(x),3) for x,u in zip(t,U)]\nre=[round(u-E(x),3) for x,u in zip(t,U)]\nassert rl==[1.510,-0.047,-1.204,-1.761,-0.218,1.725]\nassert re==[-0.127,0.178,0.138,-0.234,0.331,-0.157]\nassert abs(L(3)-24.961)<1e-9\nassert abs(E(3)-23.434)<5e-4 and abs(E(4)-29.269)<5e-4\nassert [s>0 for s in rl]==[True,False,False,False,False,True]\nassert re[4]>0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup gives inconsistent information at t = 4. Using E exactly as written gives E(4) ≈ 29.269969 and residual 29.6 − E(4) ≈ 0.330, not the listed 0.331.",
+       "rubric_points: Part (b), criteria b1 and b2 require sign-pattern reasoning exclusively, although the prompt only asks for a comparison using all six residuals. A valid comparison of overall absolute residual errors is within the CED and answers the prompt, but would not earn these criteria. Accept that alternative justification or explicitly request residual-pattern analysis.",
+       "accurate: The setup's exponential residual at t = 4 and criterion c1's numerical explanation are incorrect. E(4) rounds to 29.270, not 29.269, and its residual rounds to 0.330, not 0.331. The conclusion that E underestimates remains correct.",
+       "solution: Independent calculation confirms both answers in part (a), the residual-pattern comparison in part (b), and both qualitative conclusions in part (c). However, E(4) = 12.027(1.249)⁴ ≈ 29.269969, so its residual is approximately 0.330031, rounding to 0.330. Criterion c1 and the supplied independent solution both incorrectly report E(4) ≈ 29.269 and residual 0.331."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup gives inconsistent information at t = 4. Using E exactly as written gives E(4) ≈ 29.269969 and residual 29.6 − E(4) ≈ 0.330, not the listed 0.331."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criteria b1 and b2 require sign-pattern reasoning exclusively, although the prompt only asks for a comparison using all six residuals. A valid comparison of overall absolute residual errors is within the CED and answers the prompt, but would not earn these criteria. Accept that alternative justification or explicitly request residual-pattern analysis."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup's exponential residual at t = 4 and criterion c1's numerical explanation are incorrect. E(4) rounds to 29.270, not 29.269, and its residual rounds to 0.330, not 0.331. The conclusion that E underestimates remains correct."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Independent calculation confirms both answers in part (a), the residual-pattern comparison in part (b), and both qualitative conclusions in part (c). However, E(4) = 12.027(1.249)⁴ ≈ 29.269969, so its residual is approximately 0.330031, rounding to 0.330. Criterion c1 and the supplied independent solution both incorrectly report E(4) ≈ 29.269 and residual 0.331.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup's exponential residual at t = 5 contradicts the instruction to use E exactly as written: 36.4 − 12.027(1.249)⁵ ≈ −0.157912, which rounds to −0.158, not −0.157.",
+       "rubric_points: Criteria b1 and b2 require a particular residual-pattern justification although part (b) permits other valid comparisons using all six residuals. For example, comparing total absolute residuals (6.465 for L versus approximately 1.166 for E) supports choosing E but would not earn either criterion. Accept valid error-based comparisons or explicitly request pattern analysis.",
+       "accurate: The setup and criterion b2 incorrectly give the exponential residual at t = 5 as −0.157. Using the stated model, it is −0.158 to three decimal places.",
+       "solution: The answers for parts (a) and (c), and the model choice and reasoning in part (b), agree with the rubric. However, recalculating E(5) gives 36.557911961, so its residual rounds to −0.158 rather than −0.157. Criterion b2 and the supplied independent solution repeat the incorrect table entry. This correction does not change the model choice."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup's exponential residual at t = 5 contradicts the instruction to use E exactly as written: 36.4 − 12.027(1.249)⁵ ≈ −0.157912, which rounds to −0.158, not −0.157."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and b2 require a particular residual-pattern justification although part (b) permits other valid comparisons using all six residuals. For example, comparing total absolute residuals (6.465 for L versus approximately 1.166 for E) supports choosing E but would not earn either criterion. Accept valid error-based comparisons or explicitly request pattern analysis."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup and criterion b2 incorrectly give the exponential residual at t = 5 as −0.157. Using the stated model, it is −0.158 to three decimal places."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The answers for parts (a) and (c), and the model choice and reasoning in part (b), agree with the rubric. However, recalculating E(5) gives 36.557911961, so its residual rounds to −0.158 rather than −0.157. Criterion b2 and the supplied independent solution repeat the incorrect table entry. This correction does not change the model choice.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {

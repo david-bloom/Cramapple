@@ -11,8 +11,208 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:29:06.385Z",
+   "source": "given",
+   "item": {
+    "title": "Type I and Type II Errors in Apple Shipment Inspection",
+    "calculator": "permitted",
+    "stimulus": "A grocery chain buys apples in shipments of 20,000 apples. Before accepting a shipment, the chain inspects a random sample of 400 apples from it. The chain will reject the shipment if the sample gives convincing evidence that more than 5% of the apples in the shipment are bruised. For each shipment, the chain tests H₀: p = 0.05 versus Hₐ: p > 0.05, where p is the proportion of all apples in the shipment that are bruised.",
+    "parts": [
+     {
+      "prompt": "Describe a Type I error and a Type II error in context.",
+      "criteria": [
+       {
+        "text": "Type I error: the chain finds convincing evidence that more than 5% of the apples in the shipment are bruised and rejects the shipment, when in fact the proportion of bruised apples in the shipment is 0.05 (not greater than 0.05).",
+        "evidence": "Response describes rejecting the shipment (concluding p > 0.05) when the true proportion of bruised apples in the shipment is actually 0.05, or not more than 0.05.",
+        "fix": "Describe a Type I error as: the test finds convincing evidence for Hₐ, but in reality H₀ is true, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Type II error: the chain does not find convincing evidence that more than 5% of the apples are bruised and accepts the shipment, when in fact more than 5% of the apples in the shipment are bruised.",
+        "evidence": "Response describes accepting the shipment (not concluding p > 0.05) when the true proportion of bruised apples in the shipment is actually greater than 0.05.",
+        "fix": "Describe a Type II error as: the test does not find convincing evidence for Hₐ, but in reality Hₐ is true, in context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The chain considers a Type II error more serious than a Type I error because bruised apples lead to customer complaints. Should the chain use a significance level of α = 0.01 or α = 0.10? Explain.",
+      "criteria": [
+       {
+        "text": "Chooses α = 0.10 because a larger significance level makes it easier to reject H₀, which increases the power and decreases the probability of a Type II error.",
+        "evidence": "Response picks α = 0.10 and explains that a larger α lowers the probability of a Type II error (raises the power of the test).",
+        "fix": "Remember the trade-off: a larger α increases power and lowers the Type II error probability, at the cost of more Type I errors.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "With α = 0.05 and a sample of 400 apples, the power of the test is about 0.81 when 8% of the apples in a shipment are bruised. Find the probability of a Type II error for such a shipment. Then, if the chain increased its sample size to 800 apples (keeping α = 0.05), would the probability of a Type II error for such a shipment increase, decrease, or stay the same? Explain.",
+      "criteria": [
+       {
+        "text": "Calculates the probability of a Type II error as 1 − 0.81 = 0.19.",
+        "evidence": "Response computes 1 − power = 1 − 0.81 = 0.19.",
+        "fix": "Use P(Type II error) = 1 − power, because power is the probability of correctly rejecting a false null hypothesis.",
+        "accepted_variants": [
+         "0.19",
+         "19%"
+        ]
+       },
+       {
+        "text": "States that the probability of a Type II error would decrease (the power would increase) because a larger sample size decreases the standard error.",
+        "evidence": "Response answers decrease and explains it with the larger sample size (smaller standard error, or higher power).",
+        "fix": "Recall that larger samples shrink the standard error, so the test detects a real difference more often and Type II errors become less likely.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Type I error: the sample leads the chain to conclude that more than 5% of the apples in the shipment are bruised, so it rejects the shipment, when in fact only 5% (not more than 5%) of the apples in the shipment are bruised.\nType II error: the sample does not give convincing evidence that more than 5% of the apples are bruised, so the chain accepts the shipment, when in fact more than 5% of the apples in the shipment are bruised.\n\n(b) The chain should use α = 0.10. A larger significance level makes it easier to reject H₀, which increases the power of the test and decreases the probability of a Type II error (accepting a shipment that has too many bruised apples). The cost is a higher probability of a Type I error, which the chain considers less serious.\n\n(c) P(Type II error) = 1 − power = 1 − 0.81 = 0.19.\nWith a sample of 800 apples, the probability of a Type II error would decrease. A larger sample size gives a smaller standard error, so the test is more likely to detect that the true proportion (0.08) is greater than 0.05; the power increases and the probability of a Type II error decreases.",
+    "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nZ=NormalDist()\np0=0.05;n=400;pa=0.08;a=0.05\nassert n<=0.10*20000\nassert n*p0>=10 and n*(1-p0)>=10\nzc=Z.inv_cdf(1-a)\ncut=p0+zc*sqrt(p0*(1-p0)/n)\npower=1-Z.cdf((cut-pa)/sqrt(pa*(1-pa)/n))\nassert abs(power-0.81)<0.005\nassert abs((1-0.81)-0.19)<1e-12\nn2=800\ncut2=p0+zc*sqrt(p0*(1-p0)/n2)\npower2=1-Z.cdf((cut2-pa)/sqrt(pa*(1-pa)/n2))\nassert power2>power and 1-power2<1-power\nfor alpha in (0.01,0.10):\n    c=p0+Z.inv_cdf(1-alpha)*sqrt(p0*(1-p0)/n)\n    pw=1-Z.cdf((c-pa)/sqrt(pa*(1-pa)/n))\n    if alpha==0.10: assert pw>power\n    else: assert pw<power\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -75,5 +275,6 @@
   },
   "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.881368Z"
- }
+ },
+ "accepted_round": 1
 }

@@ -11,8 +11,218 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:11:23.673Z",
+   "source": "given",
+   "item": {
+    "title": "Entropy Changes in an Isolated and a Closed System",
+    "calculator": "not_applicable",
+    "stimulus": "System 1: Two copper blocks, one at 90 °C and one at 10 °C, are placed in contact inside a closed, perfectly insulated container. The two blocks together form an isolated system, and they eventually reach a common final temperature.\n\nSystem 2: A tray of liquid water is placed in a freezer, and the water freezes into ice. Energy is transferred between the water and the air in the freezer, but no matter enters or leaves the water.",
+    "parts": [
+     {
+      "prompt": "For System 1, state whether the total entropy of the two blocks increases, decreases, or stays the same as they approach the common temperature. Justify your answer using the second law of thermodynamics.",
+      "criteria": [
+       {
+        "text": "States that the total entropy increases, because the blocks form an isolated system undergoing an irreversible process (energy spreading from the hot block to the cold block), and the second law says entropy of an isolated system stays constant only for reversible processes.",
+        "evidence": "Response answers 'increases' and justifies it by citing the isolated system, the irreversible (spontaneous) energy transfer or spreading of energy, and the second law.",
+        "fix": "Identify the system as isolated, decide whether the process is reversible, then apply the second law's rule for isolated systems.",
+        "accepted_variants": [
+         "increases"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the blocks will not spontaneously return to temperatures of 90 °C and 10 °C.",
+      "criteria": [
+       {
+        "text": "Explains that returning to 90 °C and 10 °C would decrease the total entropy of the isolated system, which the second law forbids; the equal-temperature equilibrium state has the maximum entropy.",
+        "evidence": "Response states that the reverse process would require the isolated system's entropy to decrease (or to leave its maximum-entropy equilibrium state), which cannot happen.",
+        "fix": "Ask what the reverse process would do to the isolated system's entropy, and compare that with what the second law allows.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The entropy of the water in System 2 decreases as it freezes. A student says this violates the second law of thermodynamics. Evaluate the student's claim.",
+      "criteria": [
+       {
+        "text": "States the claim is incorrect because the water is a closed system, not an isolated one: energy is transferred out of it to its surroundings, so its entropy can decrease.",
+        "evidence": "Response rejects the claim and identifies the water as closed (exchanging energy with the freezer air), not isolated.",
+        "fix": "Before applying the second law, check whether the system is isolated; a closed system that loses energy can lose entropy.",
+        "accepted_variants": [
+         "incorrect",
+         "does not violate"
+        ]
+       },
+       {
+        "text": "States that the total entropy of a larger isolated system that includes the water and its surroundings does not decrease, so the second law is satisfied.",
+        "evidence": "Response explains that when the surroundings (freezer and room) are included to make an isolated system, the total entropy does not decrease.",
+        "fix": "Enlarge the system until it is isolated, then apply the second law to that total entropy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For System 1, a second student claims that if the blocks had reached the same final state by a slower process, the entropy of that final state would be different. Evaluate this claim.",
+      "criteria": [
+       {
+        "text": "States the claim is incorrect because entropy is a state function: it depends only on the current state of the system, not on the process used to reach it.",
+        "evidence": "Response rejects the claim and explains that entropy depends only on the state (temperature, configuration), not on the path or speed of the process.",
+        "fix": "Recall that entropy is a state function; for any claim about a final state, ask whether the final state itself changed.",
+        "accepted_variants": [
+         "incorrect",
+         "same entropy"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The total entropy increases. The two blocks form an isolated system, and energy spreads spontaneously from the hot block to the cold block. This process is irreversible. The second law states that the total entropy of an isolated system never decreases and stays constant only when every process is reversible, so the entropy of the blocks increases.\n\n(b) The equal-temperature state is thermodynamic equilibrium, where the entropy of the isolated system is at its maximum. Returning to 90 °C and 10 °C would require the energy to become concentrated again and the total entropy of the isolated system to decrease, which the second law does not allow. So this never happens spontaneously.\n\n(c) The claim is incorrect. The water is a closed system, not an isolated one: energy is transferred out of the water to the air in the freezer. The entropy of a closed system can decrease when energy is transferred out of it. If the water is combined with its surroundings (the freezer and the room it operates in) to form an isolated system, the total entropy of that larger system does not decrease, so the second law is satisfied.\n\n(d) The claim is incorrect. Entropy is a state function, so it depends only on the current state of the system, not on how the system reached it. The same final state of the two blocks has the same entropy whether it was reached quickly or slowly.",
+    "verification_python": "T_hot=90; T_cold=10\nassert T_hot>T_cold\nparts=4\ncriteria=[1,1,2,1]\nassert len(criteria)==parts and sum(criteria)==5\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "9.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     9
+    ],
+    "unitCount": {
+     "9": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
@@ -85,5 +295,6 @@
   },
   "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.869012Z"
- }
+ },
+ "accepted_round": 1
 }

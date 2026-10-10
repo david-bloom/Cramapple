@@ -11,8 +11,218 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.262Z",
+   "source": "given",
+   "item": {
+    "title": "Linear and Branched Storage Polysaccharides",
+    "calculator": "permitted",
+    "stimulus": "Two storage polysaccharides were purified. Every molecule of each polysaccharide is built from exactly 1,200 glucose monomers.\n\nPolysaccharide L: one unbranched (linear) chain.\nPolysaccharide B: highly branched; it consists of 100 chains joined to one another.\n\nCells break these polysaccharides down by removing glucose monomers one at a time, and a monomer can be removed only from the free end of a chain. Each chain, in either polysaccharide, has exactly one free end from which monomers can be removed. In a test, glucose was removed from every free end at the same rate, 10 glucose monomers per second per free end.",
+    "parts": [
+     {
+      "prompt": "Identify the type of bond that links the glucose monomers together in both polysaccharides.",
+      "criteria": [
+       {
+        "text": "Identifies the bonds between monomers as covalent bonds.",
+        "evidence": "Response states that the glucose monomers are joined by covalent bonds.",
+        "fix": "Remember monosaccharide monomers are joined into polysaccharides by covalent bonds, not hydrogen or ionic bonds.",
+        "accepted_variants": [
+         "covalent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For one molecule of each polysaccharide, calculate how many times faster glucose is released from Polysaccharide B than from Polysaccharide L at the start of the test.",
+      "criteria": [
+       {
+        "text": "Calculates that B releases glucose 100 times faster: L has 1 free end (10 monomers per second) and B has 100 free ends (1,000 monomers per second); 1,000 ÷ 10 = 100.",
+        "evidence": "Response compares the number of free ends (100 versus 1), or the release rates (1,000 versus 10 monomers per second), and obtains a factor of 100.",
+        "fix": "Count free ends in each molecule, multiply by the rate per end, then divide the two release rates.",
+        "accepted_variants": [
+         "100 times faster",
+         "100-fold"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Animals store glucose in glycogen, a highly branched polysaccharide, in cells such as muscle cells that may need glucose very quickly. Using the results of the test, explain how a branched structure suits this function.",
+      "criteria": [
+       {
+        "text": "Explains that branching produces many chains and therefore many free ends, so glucose can be removed from many ends at the same time, releasing glucose quickly when the cell needs it.",
+        "evidence": "Response connects the many free chain ends of a branched polymer to simultaneous removal of monomers and faster glucose release, using the test result.",
+        "fix": "Link structure to function: more branches mean more free ends, and more ends mean more monomers released at once.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "One molecule of L and one molecule of B are each completely broken down into glucose. Predict whether the two molecules release the same or different numbers of glucose monomers, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that both molecules release the same number of glucose monomers, 1,200 each.",
+        "evidence": "Response states that the numbers are the same (1,200 glucose monomers from each molecule).",
+        "fix": "Compare total monomer counts, not rates; complete breakdown of a polymer releases every monomer it contains.",
+        "accepted_variants": [
+         "the same number",
+         "1,200 each"
+        ]
+       },
+       {
+        "text": "Justifies that both are polymers of 1,200 glucose monomers; branching changes how the monomers are connected (and how fast they can be removed), not how many monomers the polymer contains.",
+        "evidence": "Response explains that complete breakdown releases every monomer in each polymer and that branched versus linear arrangement does not change the number of monomers.",
+        "fix": "Separate structure from composition: linear or branched describes how monomers are joined, while the monomer count sets total glucose released.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The glucose monomers (monosaccharides) are linked by covalent bonds to form the polysaccharide polymers.\n\n(b) Polysaccharide L has one chain and therefore 1 free end: 1 × 10 = 10 glucose monomers per second.\nPolysaccharide B has 100 chains and therefore 100 free ends: 100 × 10 = 1,000 glucose monomers per second.\n1,000 ÷ 10 = 100, so B releases glucose 100 times faster than L at the start.\n\n(c) Glucose can be removed only from free chain ends. A highly branched polysaccharide such as glycogen contains many chains and so has many free ends, so glucose can be removed from all of these ends at the same time. As the test shows, this releases glucose much faster than from a linear chain, which suits muscle cells that may need glucose quickly.\n\n(d) Both molecules release the same number of glucose monomers, 1,200 each. Both are polymers built from 1,200 glucose monomers, and complete breakdown releases every monomer. Being linear or branched changes how the monomers are connected and how fast they can be removed, not how many monomers the molecule contains.",
+    "verification_python": "rate=10\nends_L=1\nends_B=100\nrL=ends_L*rate\nrB=ends_B*rate\nassert rL==10 and rB==1000\nassert rB//rL==100 and rB%rL==0\nn=1200\nassert n/ends_B==12\nassert n==1200\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "history_before_rule_calibration": [
   {
    "round": 1,
@@ -1617,5 +1827,6 @@
   },
   "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.856495Z"
- }
+ },
+ "accepted_round": 1
 }

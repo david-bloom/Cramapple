@@ -11,8 +11,226 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:04:54.756Z",
+   "source": "given",
+   "item": {
+    "title": "Selecting Derivative Rules for Product, Implicit and Inverse Tangent Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Each part below calls for choosing an appropriate combination of differentiation rules.\n\nLet f(x) = x²·e^(3x).\n\nA curve is defined by the equation x² + xy + y² = 7. The point (1, 2) is on the curve.\n\nLet h(x) = arctan(x²).",
+    "parts": [
+     {
+      "prompt": "Find f′(x). Then find f′(1).",
+      "criteria": [
+       {
+        "text": "Finds f′(x) = 2x·e^(3x) + 3x²·e^(3x).",
+        "evidence": "Response gives a correct expression for f′(x) by any valid method; the product rule with the chain rule on e^(3x) is typical. Equivalent forms such as x·e^(3x)(2 + 3x) earn the point.",
+        "fix": "Use the product rule, and differentiate e^(3x) with the chain rule: its derivative is 3e^(3x), not e^(3x).",
+        "accepted_variants": [
+         "e^(3x)(2x + 3x²)",
+         "x·e^(3x)(3x + 2)"
+        ]
+       },
+       {
+        "text": "Finds f′(1) = 5e³.",
+        "evidence": "Response substitutes x = 1 into f′(x): 2e³ + 3e³ = 5e³.",
+        "fix": "Substitute x = 1 into every term of f′(x), then combine the like terms in e³.",
+        "accepted_variants": [
+         "5e³",
+         "5e^3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use implicit differentiation to find the slope of the curve at the point (1, 2).",
+      "criteria": [
+       {
+        "text": "Differentiates the whole equation implicitly: 2x + y + x·(dy/dx) + 2y·(dy/dx) = 0.",
+        "evidence": "Response differentiates each term with respect to x, using the product rule on xy and the chain rule on y², and keeps 0 on the right side.",
+        "fix": "Differentiate xy with the product rule and y² as 2y·dy/dx, and remember the derivative of the constant 7 is 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds dy/dx = −4/5 at the point (1, 2).",
+        "evidence": "Response substitutes x = 1 and y = 2, either before or after solving for dy/dx = −(2x + y)/(x + 2y), and obtains −4/5.",
+        "fix": "Substitute x = 1 and y = 2, then solve the resulting linear equation 4 + 5·(dy/dx) = 0 for dy/dx.",
+        "accepted_variants": [
+         "−4/5",
+         "−0.8"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find h′(x). Then find h′(1).",
+      "criteria": [
+       {
+        "text": "Finds h′(x) = 2x / (1 + x⁴).",
+        "evidence": "Response gives a correct expression for h′(x), such as [1/(1 + (x²)²)]·2x, from the derivative of arctan u together with the chain-rule factor 2x.",
+        "fix": "Use d/dx arctan u = u′/(1 + u²) with u = x², so u² = x⁴ and u′ = 2x.",
+        "accepted_variants": [
+         "2x/(1 + x⁴)"
+        ]
+       },
+       {
+        "text": "Finds h′(1) = 1.",
+        "evidence": "Response substitutes x = 1 into h′(x): 2(1)/(1 + 1⁴) = 2/2 = 1.",
+        "fix": "Substitute x = 1 into h′(x): the numerator is 2 and the denominator is 1 + 1⁴ = 2.",
+        "accepted_variants": [
+         "1"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By the product rule, with the chain rule for e^(3x),\nf′(x) = 2x·e^(3x) + x²·3e^(3x) = 2x·e^(3x) + 3x²·e^(3x).\nf′(1) = 2e³ + 3e³ = 5e³.\n\n(b) Differentiating x² + xy + y² = 7 with respect to x:\n2x + (y + x·dy/dx) + 2y·dy/dx = 0.\nAt (1, 2): 2 + 2 + 1·dy/dx + 4·dy/dx = 0, so 5·dy/dx = −4 and dy/dx = −4/5. The slope of the curve at (1, 2) is −4/5.\n\n(c) Using d/dx arctan u = u′/(1 + u²) with u = x²,\nh′(x) = 2x / (1 + (x²)²) = 2x / (1 + x⁴).\nh′(1) = 2/(1 + 1) = 1.",
+    "verification_python": "import sympy as sp\nx, y = sp.symbols('x y')\nf = x**2*sp.exp(3*x)\nfp = sp.diff(f, x)\nassert sp.simplify(fp - (2*x*sp.exp(3*x) + 3*x**2*sp.exp(3*x))) == 0\nassert sp.simplify(fp - x*sp.exp(3*x)*(3*x + 2)) == 0\nassert sp.simplify(fp.subs(x, 1) - 5*sp.exp(3)) == 0\nassert 1**2 + 1*2 + 2**2 == 7\nF = x**2 + x*y + y**2 - 7\ndydx = -sp.diff(F, x)/sp.diff(F, y)\nassert sp.simplify(dydx + (2*x + y)/(x + 2*y)) == 0\nassert dydx.subs({x: 1, y: 2}) == sp.Rational(-4, 5)\nassert sp.Rational(-4, 5) == sp.Rational(-8, 10)\nh = sp.atan(x**2)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - 2*x/(1 + x**4)) == 0\nassert hp.subs(x, 1) == 1\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
  "history_before_session_authoring": [
   {
    "round": 1,
@@ -976,5 +1194,6 @@
   },
   "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
   "at": "2026-10-10T03:02:43.840923Z"
- }
+ },
+ "accepted_round": 1
 }

@@ -11,8 +11,335 @@
   "need": 1
  },
  "n": 1,
- "status": "pending_checks",
- "candidates": [],
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:14:01.496Z",
+   "source": "given",
+   "item": {
+    "title": "Loop Rule and Potential Around a Three-Resistor Loop",
+    "calculator": "permitted",
+    "stimulus": "An ideal battery with emf 12.0 V is connected in a single loop with three resistors. Going around the loop in the direction of the conventional current, starting from the battery's positive terminal, charge passes through resistor R₁ = 2.0 Ω, then point M, then resistor R₂ = 4.0 Ω, then point K, then resistor R₃ of unknown resistance, and then returns to the battery's negative terminal. An ideal voltmeter connected across R₂ reads 4.0 V. Take the electric potential of the battery's negative terminal to be 0 V.",
+    "parts": [
+     {
+      "prompt": "Calculate the current in the loop.",
+      "criteria": [
+       {
+        "text": "Calculates I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A.",
+        "evidence": "Response applies Ohm's law to R₂ using the voltmeter reading and obtains 1.0 A.",
+        "fix": "Use the element whose potential difference and resistance are both known to find the current in a single loop.",
+        "accepted_variants": [
+         "1.0 A",
+         "1 A"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use Kirchhoff's loop rule to determine the potential difference across R₃. Then determine the resistance R₃.",
+      "criteria": [
+       {
+        "text": "Applies the loop rule: 12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V (with ΔV₁ = IR₁ = 2.0 V).",
+        "evidence": "Response writes a loop equation in which the battery's 12.0 V gain equals the sum of the drops across the three resistors and solves for 6.0 V.",
+        "fix": "Go once around the loop adding the battery's gain and each resistor's drop, set the sum to zero, then solve.",
+        "accepted_variants": [
+         "6.0 V",
+         "6 V"
+        ]
+       },
+       {
+        "text": "Calculates R₃ = ΔV₃/I = 6.0 V / 1.0 A = 6.0 Ω.",
+        "evidence": "Response divides the potential difference across R₃ by the loop current to get 6.0 Ω.",
+        "fix": "Once the potential difference across a resistor is known, divide by the current through it to find its resistance.",
+        "accepted_variants": [
+         "6.0 Ω",
+         "6 Ω"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the electric potential at the battery's positive terminal, at point M, and at point K.",
+      "criteria": [
+       {
+        "text": "Gives 12.0 V at the positive terminal, 10.0 V at M, and 6.0 V at K.",
+        "evidence": "Response starts at 12.0 V and subtracts each resistor's drop in order (2.0 V across R₁, then 4.0 V across R₂) to get 10.0 V and 6.0 V.",
+        "fix": "Start at the known potential and step around the loop, subtracting each drop in the order the current passes through elements.",
+        "accepted_variants": [
+         "12 V, 10 V, 6 V"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A charge of +2.0 C passes through R₃ in the direction of the conventional current. Calculate the change in the electric potential energy associated with this charge, and state whether it increases or decreases.",
+      "criteria": [
+       {
+        "text": "Calculates ΔU = qΔV = (2.0 C)(0 V − 6.0 V) = −12 J, a decrease of 12 J.",
+        "evidence": "Response multiplies the charge by the change in potential from K (6.0 V) to the negative terminal (0 V), giving −12 J, and states the energy decreases.",
+        "fix": "Use ΔU = qΔV with ΔV = final potential minus initial potential, keeping the sign to decide increase or decrease.",
+        "accepted_variants": [
+         "−12 J",
+         "decreases by 12 J"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The voltmeter shows ΔV₂ = 4.0 V across R₂ = 4.0 Ω, so I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A. This is the current everywhere in the single loop.\n\n(b) ΔV₁ = IR₁ = (1.0 A)(2.0 Ω) = 2.0 V.\nLoop rule, going around in the direction of the current: +12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V.\nR₃ = ΔV₃/I = 6.0 V / 1.0 A = 6.0 Ω.\n\n(c) The ideal battery raises the potential from 0 V at the negative terminal to 12.0 V at the positive terminal.\nAt M (after R₁): 12.0 V − 2.0 V = 10.0 V.\nAt K (after R₂): 10.0 V − 4.0 V = 6.0 V.\n(After R₃ the potential is 6.0 V − 6.0 V = 0 V, matching the negative terminal.)\n\n(d) The charge goes from K (6.0 V) to the negative terminal (0 V), so ΔV = −6.0 V.\nΔU = qΔV = (2.0 C)(−6.0 V) = −12 J. The electric potential energy decreases by 12 J.",
+    "verification_python": "emf=12.0; R1=2.0; R2=4.0; V2=4.0\nI=V2/R2\nassert abs(I-1.0)<1e-12\nV1=I*R1\nassert abs(V1-2.0)<1e-12\nV3=emf-V1-V2\nassert abs(V3-6.0)<1e-12\nassert abs(emf-V1-V2-V3)<1e-12\nR3=V3/I\nassert abs(R3-6.0)<1e-12\nVp=emf; VM=Vp-V1; VK=VM-V2\nassert (Vp,VM,VK)==(12.0,10.0,6.0)\nassert abs(VK-V3)<1e-12\ndU=2.0*(0-VK)\nassert abs(dU-(-12.0))<1e-12\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     10,
+     11
+    ],
+    "unitCount": {
+     "10": 6,
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 requires division of ΔV₃ by I, although calculating R₃ = 12.0 V/I − R₁ − R₂ is also valid. Criterion c1 requires starting at the positive terminal and subtracting drops, although working backward from the grounded negative terminal is equally valid. These evidence requirements prescribe methods the parts do not require."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 requires division of ΔV₃ by I, although calculating R₃ = 12.0 V/I − R₁ − R₂ is also valid. Criterion c1 requires starting at the positive terminal and subtracting drops, although working backward from the grounded negative terminal is equally valid. These evidence requirements prescribe methods the parts do not require."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 requires dividing the potential difference across R₃ by the current, excluding the valid alternative R₃ = 12.0 V/I − R₁ − R₂ = 6.0 Ω. Criterion c1 requires starting at 12.0 V and subtracting drops, although part (c) does not prescribe that method; a student may instead work backward from the negative terminal, adding potential rises. Accept equivalent valid reasoning rather than requiring these particular calculation paths."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 requires dividing the potential difference across R₃ by the current, excluding the valid alternative R₃ = 12.0 V/I − R₁ − R₂ = 6.0 Ω. Criterion c1 requires starting at 12.0 V and subtracting drops, although part (c) does not prescribe that method; a student may instead work backward from the negative terminal, adding potential rises. Accept equivalent valid reasoning rather than requiring these particular calculation paths."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: evidence requires starting at 12.0 V and subtracting drops in order, but the question only asks to determine the potentials; a valid alternative uses part (b)'s ΔV₃ = 6.0 V and steps from the negative terminal upward (V_K = 6 V, V_M = 10 V, V_positive = 12 V), which the evidence would reject."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: evidence requires starting at 12.0 V and subtracting drops in order, but the question only asks to determine the potentials; a valid alternative uses part (b)'s ΔV₃ = 6.0 V and steps from the negative terminal upward (V_K = 6 V, V_M = 10 V, V_positive = 12 V), which the evidence would reject."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "removed_gateway_credit_failures": 3,
  "history_before_session_authoring": [],
  "given": {
