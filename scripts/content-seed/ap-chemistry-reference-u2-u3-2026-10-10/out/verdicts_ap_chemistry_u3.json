@@ -1,0 +1,2570 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u3-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 3.1.A.3, which states that the relative strength and orientation dependence of dipole-dipole and ion-dipole forces can be understood qualitatively by considering the sign of the partial charges and their interactions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely tracks 3.1.A.3: the relative strength and orientation dependence of dipole-dipole and ion-dipole forces can be understood by considering 'the sign of the partial charges' and their interactions 'with an ion or with an adjacent dipole.' Topic 3.1 first requires this; 3.2.A.1 uses intermolecular-force strengths to explain properties of liquids and solids. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.1.A.3: \"The relative strength and orientation dependence of dipole-dipole and ion-dipole forces can be understood qualitatively by considering the sign of the partial charges responsible for the molecular dipole moment, and how these partial charges interact with an ion or with an adjacent dipole.\" The body's content is correct, and the entry has no formula or list to misstate. b_topic_codes: owner 3.1 is correct, since 3.1.A.3 first appears in Topic 3.1. The added code 3.2 fails. Topic 3.2 (3.2.A.1-3.2.A.7) covers solids' properties, including ionic, covalent network, molecular, and metallic solids. None of its essential knowledge statements uses the sign of partial charges or dipole-dipole/ion-dipole orientation dependence. Only 3.2.A.1, which mentions intermolecular forces in general, comes close, and it does not require this reasoning. The rule requires every topic_codes entry to be a topic that uses it, so 3.2 should be removed. c_ced_required: 3.1.A.3 is an essential knowledge statement that a student must apply to explain relative dipole-dipole and ion-dipole strength, so the requirement is met. d_caution: the body paraphrases the CED closely and keeps the point-earning idea (sign of partial charges, interaction with an ion or adjacent dipole). The title drops the qualifier \"qualitatively,\" but the body keeps it out too, so a caution is not strictly required. Marking true. Fix: change topic_codes to [\"3.1\"] or find evidence in 3.2 that actually uses this."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body says the dipole-dipole and ion-dipole strength and orientation dependence 'are explained by' partial-charge signs. CED 3.1.A.3 says it 'can be understood qualitatively by considering the sign of the partial charges responsible for the molecular dipole moment, and how these partial charges interact with an ion or with an adjacent dipole.' The list and sign logic match, but the body drops the word 'qualitatively' and turns a qualitative reasoning aid into a full explanation, which overstates the CED. Marked false as a strict check. b_topic_codes: owner 3.1 is correct, since 3.1.A.3 is where this first appears. The extra code 3.2 is wrong: Topic 3.2 (3.2.A.1\u20133.2.A.7) covers macroscopic properties of solids, ionic/covalent/molecular/metallic solids and biomolecules, and never requires the sign of partial charges or dipole-dipole/ion-dipole strength. c_ced_required: 3.1.A.3 directly requires students to apply this reasoning, so true. d_caution: the entry's wording ('are explained by') differs from the CED's point-earning wording ('can be understood qualitatively by'), and the 'qualitatively' qualifier matters. No caution is present, so this fails. hooks: none provided, so there is nothing to evaluate.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Ion-dipole forces' using the exact phrasing from CED 3.1.A.2.iii ('Ion-dipole forces of attraction are present between ions and polar molecules. These tend to be stronger than dipole-dipole forces.'). The topic codes are correct, as ion-dipole forces are introduced in Topic 3.1 and are directly relevant to the solubility of ionic compounds in polar solvents in Topic 3.10."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.1.A.2 states: \u201cIon-dipole forces of attraction are present between ions and polar molecules. These tend to be stronger than dipole-dipole forces.\u201d Topic 3.1 first requires the concept; Topic 3.10 uses intermolecular interactions to explain solubility of ionic and molecular compounds (3.10.A). The entry\u2019s wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED. Essential knowledge 3.1.A.2 (iii) states: \"Ion-dipole forces of attraction are present between ions and polar molecules. These tend to be stronger than dipole-dipole forces.\" The entry's definition and the comparison to dipole-dipole forces are correct. b_topic_codes: owner 3.1 is correct, since ion-dipole forces first appear in 3.1.A.2. The 3.10 code fails. Topic 3.10 (3.10.A.1) says only \"Substances with similar intermolecular interactions tend to be miscible or soluble in one another,\" and its pages never name ion-dipole forces. Linking them to ionic solubility in water is an inference, not something 3.10 states, so 3.10 does not clearly use this entry. c_ced_required: Satisfied by 3.1.A.2 (iii), which requires students to know the presence and relative strength of ion-dipole forces. d_caution: The entry's wording is essentially the CED wording, and the comparative \"stronger than dipole-dipole\" avoids the bare \"strong/weak\" wording the CED warns against, so no caution is needed. Overall rejected only because of the unsupported 3.10 topic code. Fix: drop 3.10 from topic_codes, or cite a 3.10 statement that explicitly names ion-dipole interactions.",
+            "": ""
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (p. 59, essential knowledge 3.1.A.2 item iii) states: \"Ion-dipole forces of attraction are present between ions and polar molecules. These tend to be stronger than dipole-dipole forces.\" The body says the same thing: forces of attraction between ions and polar molecules, which tend to be stronger than dipole-dipole forces. The ced_evidence cites 3.1.A.2 correctly. b_topic_codes: owner 3.1 is the first topic where this appears (3.1.A.2). The second code, 3.10, is defensible: LO 3.10.A asks students to explain solubility of ionic compounds in aqueous solvents in terms of the intermolecular interactions between particles, and ion-dipole attraction is the interaction that drives this. The CED does not name ion-dipole explicitly under 3.10, so this is the weakest point of the entry, but it is not a clear error. c_ced_required: 3.1.A.2 (and LO 3.1.A, cases i and ii) requires students to identify and explain ion-dipole forces and their strength relative to dipole-dipole forces. d_caution: The entry's wording tracks the CED's wording closely, including the hedged \"tend to be stronger\", and the CED itself warns against vague \"strong/weak\" language. The body names the actual force and compares its strength to another actual force, so no caution is required. No hooks to evaluate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the exact wording and concept of Essential Knowledge 3.1.A.2 ('Interactions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces'). The topic codes are appropriate as Topic 3.1 introduces this and Topic 3.2 applies it to properties of solids."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body accurately states 3.1.A.2: \u201cInteractions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces.\u201d Topic 3.1 first requires this comparison; 3.2.A.1 uses the strengths and types of intermolecular forces to explain properties of solids and liquids. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.1.A.2 nearly verbatim: \"Interactions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces.\" The only difference is \"these interactions\" versus \"because dipole-dipole interactions,\" which is a clarification and not a factual change. b_topic_codes: owner 3.1 is correct, since the statement first appears in 3.1.A.2. The topic_codes entry 3.2 fails. Topic 3.2 (3.2.A.1) discusses intermolecular forces in general (\"Many properties of liquids and solids are determined by the strengths and types of intermolecular forces present\"), but no 3.2 essential knowledge statement makes the polar-versus-nonpolar comparison of molecules of comparable size. That convention is stated only in 3.1, so 3.2 does not use it. c_ced_required: pass. Learning objective 3.1.A requires students to \"Explain the relationship between the chemical structures of molecules and the relative strength of their intermolecular forces\" for same and different species, and 3.1.A.2 is the essential knowledge for this. d_caution: pass. The entry wording is effectively the CED wording, and it does not use \"van der Waals\" as a synonym for London dispersion forces, so no caution is needed. Fix: remove 3.2 from topic_codes, or cite a 3.2 statement that explicitly uses this comparison."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.1.A.2 in substance: 'Interactions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces.' The entry says 'dipole-dipole interactions' where the CED says 'these interactions', which narrows the referent. Hydrogen bonding is also an interaction between polar molecules (3.1.A.4), so the claim as worded is only partly the CED claim. b_topic_codes: owner 3.1 is correct; 3.1.A.2 is the first place the claim appears. 3.2 is listed as a second topic, but its CED text (3.2.A.1) only states that vapor pressure and boiling point track interaction strength. It does not state the polar-versus-nonpolar comparison, so 3.2 uses the idea only indirectly. This is borderline and passes on a loose reading. c_ced_required: Essential knowledge 3.1.A.2 states this relationship, and LO 3.1.A asks students to explain relative intermolecular force strength for molecules of the same and different species, so it is required. d_caution: The entry's wording is not the CED wording ('dipole-dipole interactions' replaces 'these interactions'), and no caution is present. A caution is needed, for example: 'Polar molecules interact through dipole-dipole forces and hydrogen bonding, both in addition to London dispersion forces; the point is the comparison with nonpolar molecules of similar size, not dipole-dipole alone.' Without it the entry fails d_caution, so accept is false.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definition and details of London dispersion forces as specified in EK 3.1.A.1. The caution correctly addresses the exclusion/clarification in EK 3.1.A.1.iii regarding the synonymous use of 'van der Waals forces'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.1 first requires the concept: 3.1.A.1 states that London dispersion forces result from \u201cCoulombic interactions between temporary, fluctuating dipoles\u201d and are \u201coften the strongest net intermolecular force between large molecules.\u201d Topic 3.2 uses intermolecular-force types to explain properties: 3.2.A.1 says many properties of liquids and solids are determined by their \u201cstrengths and types.\u201d The caution matches 3.1.A.1: \u201cThe term \u2018London dispersion forces\u2019 should not be used synonymously with the term \u2018van der Waals forces.\u2019\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 3.1.A.1 ('London dispersion forces are a result of the Coulombic interactions between temporary, fluctuating dipoles... often the strongest net intermolecular force between large molecules'). The body drops the subject and reads as a fragment, but the content is correct. b_topic_codes: owner 3.1 is correct, since 3.1.A.1 is where London dispersion forces are first required. The extra topic code 3.2 fails because no 3.2 statement names London dispersion forces. 3.2.A.1 refers only generically to 'the strengths and types of intermolecular forces present', and 3.2.A.5 refers to 'relatively weak intermolecular forces'. Topic 3.2 does not use this term, so 3.2 should be removed from topic_codes. c_ced_required: 3.1.A.1 explicitly requires students to know this. d_caution: CED 3.1.A.1.iii states 'The term \"London dispersion forces\" should not be used synonymously with the term \"van der Waals forces.\"' The caution reproduces that requirement correctly, and the caution is needed because the entry's wording is not the CED wording. Overall reject: topic_codes contains 3.2, which does not use this term."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.1.A.1 reads 'London dispersion forces are a result of the Coulombic interactions between temporary, fluctuating dipoles. London dispersion forces are often the strongest net intermolecular force between large molecules.' The body matches this. The formula and list fields are empty, so there is nothing else to check. b_topic_codes: owner 3.1 is correct because 3.1.A.1 is where London dispersion forces are first defined. Topic 3.2 is supported but only indirectly: 3.2.A.1 says property trends depend on 'the strengths and types of intermolecular forces present,' and 3.2.A.5 relies on weak intermolecular forces in molecular solids. The term itself is not named in 3.2, so this is the weakest link. c_ced_required: 3.1.A.1 is essential knowledge under learning objective 3.1.A, which requires students to explain relative intermolecular force strength, so the content is required. d_caution: CED 3.1.A.1.iii states that 'London dispersion forces' should not be used synonymously with 'van der Waals forces.' The entry's caution says the same thing, so the caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines dipole-dipole interactions using the exact details from Essential Knowledge 3.1.A.2, including the dependence on dipole magnitude and relative orientation, and their additive nature to London dispersion forces. The topic codes are correct as Topic 3.1 introduces these forces and Topic 3.2 applies them to the properties of molecular solids."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.1.A.2 states that dipole-dipole interactions occur between polar molecules, depend on dipole magnitudes and relative orientation, and act in addition to London dispersion forces. Topic 3.1 first requires the concept; 3.2.A.1 uses the types and strengths of intermolecular forces to explain properties of liquids and solids. The entry\u2019s paraphrase needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED essential knowledge 3.1.A.2: 'Dipole-dipole interactions are present between polar molecules. The interaction strength depends on the magnitudes of the dipoles and their relative orientation. Interactions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces.' The paraphrase is accurate and nothing is misstated. b_topic_codes: owner_topic_code 3.1 is correct, since 3.1.A.2 is where dipole-dipole interactions are first required. The added topic code 3.2 is not supported. No 3.2 statement names dipole-dipole interactions. 3.2.A.1 refers only generically to 'the strengths and types of intermolecular forces present,' and the entry's own ced_evidence cites only 3.1. This is the failing element. c_ced_required: Learning objective 3.1.A requires students to explain how molecular structure relates to the relative strength of intermolecular forces, and 3.1.A.2 requires the dipole-dipole content. Satisfied. d_caution: The entry uses essentially the CED wording ('Dipole-dipole interactions are present between polar molecules'), so the point-earning wording is present and no caution is needed. The CED's caution about London dispersion vs. van der Waals does not apply to this entry.",
+            "hooks": []
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED dipole-dipole statement under 3.1.A.2 (continuation, p. 59): \"Dipole-dipole interactions are present between polar molecules. The interaction strength depends on the magnitudes of the dipoles and their relative orientation. Interactions between polar molecules are typically greater than those between nonpolar molecules of comparable size because these interactions act in addition to London dispersion forces.\" No formula or list is involved. b_topic_codes: owner 3.1 is correct, since dipole-dipole forces are first required in 3.1.A.2. The 3.2 tag is not supported. Topic 3.2 (p. 60) refers only generically to \"the strengths and types of intermolecular forces present\" (3.2.A.1), and dipole-dipole interactions are never named or used in 3.2's essential knowledge. The tag should be removed, or 3.2 should be justified by a specific 3.2 statement. c_ced_required: 3.1.A requires explaining the relative strength of intermolecular forces for molecules of the same and of different species, which requires knowing dipole-dipole interactions. Satisfied. d_caution: The entry wording tracks the CED phrasing closely, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {
+      "FON": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "FON": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of hydrogen bonding is highly accurate and directly aligns with EK 3.1.A.4. The topic codes are correct, as hydrogen bonding is introduced in 3.1, affects states of matter in 3.3, and solubility in 3.10. The caution correctly addresses the common student misconception of confusing intermolecular and intramolecular forces, which is highlighted in the 'Preparing for the AP Exam' section on page 55."
+            },
+            "hooks": [
+              {
+                "hook_text": "FON",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The acronym 'FON' is a standard, highly effective mnemonic for remembering the three highly electronegative elements (F, O, N) required for hydrogen bonding as specified in EK 3.1.A.4. The caution correctly warns students to explain the interaction fully rather than just writing the acronym."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "FON": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.1.A.4 defines hydrogen bonding as an attraction involving H covalently bonded to N, O, or F and the negative end of a dipole on N, O, or F in another molecule or another part of the same molecule. Topic 3.1 first requires it; 3.3.A.2 explicitly names hydrogen bonding, and 3.10.A.1 applies intermolecular interactions to solubility. The caution correctly distinguishes the attraction from the covalent bond."
+            },
+            "hooks": [
+              {
+                "hook_text": "FON",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "F, O, and N correctly expand to fluorine, oxygen, and nitrogen, the three atoms specified in CED 3.1.A.4. Their order in the CED\u2019s list is not a chemical sequence. The hook recalls that required list, and its caution supplies the full interaction rather than treating the acronym as a sufficient answer."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {
+        "FON": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.1.A.4: \"Hydrogen bonding is a strong type of intermolecular interaction that exists when hydrogen atoms covalently bonded to the highly electronegative atoms (N, O, and F) are attracted to the negative end of a dipole formed by the electronegative atom (N, O, and F) in a different molecule, or a different part of the same molecule.\" Nothing is wrong with the definition. b_topic_codes: owner 3.1 is correct, since 3.1.A.4 is the first place the CED names hydrogen bonding. 3.3 is supported by 3.3.A.2 (\"the nature and strength of the forces (e.g., polarity, hydrogen bonding, and temperature)\"). 3.10 fails: 3.10.A.1 says only \"Substances with similar intermolecular interactions tend to be miscible or soluble in one another,\" and the 3.10 pages never name hydrogen bonding. The code is not supported by the CED pages as written. c_ced_required: 3.1.A.4 requires students to explain hydrogen bonding, so this is met. d_caution: The caution (the hydrogen bond is the attraction between molecules, not the covalent X-H bond; name the H and the N/O/F atoms) is correct and addresses the common confusion, so it is present and appropriate."
+          },
+          "hooks": [
+            {
+              "hook_text": "FON",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: F\u2192fluorine, O\u2192oxygen, N\u2192nitrogen. Each letter maps to the correct element, and the set matches the CED list \"N, O, and F\" in 3.1.A.4. f_admissible: The hook recalls the list of atoms that the CED requires for hydrogen bonding (the H must be covalently bonded to N, O, or F). The caution (\"do not just write 'FON'\") is present and correct, since the point-earning wording is the full statement of the interaction."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.1.A.4: \"Hydrogen bonding is a strong type of intermolecular interaction that exists when hydrogen atoms covalently bonded to the highly electronegative atoms (N, O, and F) are attracted to the negative end of a dipole formed by the electronegative atom (N, O, and F) in a different molecule, or a different part of the same molecule.\" The body is a faithful paraphrase. b_topic_codes: owner 3.1 is correct, since 3.1.A.4 is the first place the CED requires it. Topic 3.3 is correct: 3.3.A.2 names \"hydrogen bonding\" as a force influencing particle arrangement and movement in liquids. Topic 3.10 is not supported by the CED pages. 3.10.A.1 says only \"Substances with similar intermolecular interactions tend to be miscible or soluble,\" and the 3.10 learning objective refers generically to \"intermolecular interactions.\" Hydrogen bonding is never named in 3.10, so the entry's topic_codes list over-assigns 3.10. c_ced_required: 3.1.A.4 requires students to explain hydrogen bonding. d_caution: The CED narrative says \"Students also confuse the terms intramolecular and intermolecular forces,\" so a caution separating the intermolecular H-bond from the covalent X-H bond is warranted and correctly stated. The entry fails only on b_topic_codes.",
+            "}": ""
+          },
+          "hooks": [
+            {
+              "hook_text": "FON",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: F\u2192fluorine, O\u2192oxygen, N\u2192nitrogen. Each cue maps to the correct element and the set matches the N, O, F list in 3.1.A.4. f_admissible: The hook recalls the set of three atoms that must bond to H for hydrogen bonding, which 3.1.A.4 requires. It is a mnemonic for a list, not a song lyric. The caution (\"do not just write 'FON'\"; state that H bonded to N, O, or F is attracted to the negative end of a dipole on N, O, or F in another molecule or region) is present and correct, because the point-earning wording is the full attraction statement, not the acronym."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines crystalline and amorphous solids using the exact phrasing and concepts from Essential Knowledge 3.3.A.1 of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.3, EK 3.3.A.1 states that crystalline solids have particles \u201carranged in a regular three-dimensional structure,\u201d while amorphous solids \u201cdo not have a regular, orderly arrangement.\u201d The entry accurately reproduces this required distinction; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 3.3.A.1, which states: \"Solids can be crystalline, where the particles are arranged in a regular three-dimensional structure, or they can be amorphous, where the particles do not have a regular, orderly arrangement.\" The body's definitions are accurate and no list or formula is involved. b_topic_codes: 3.3 (Solids, Liquids, and Gases) is the unit topic that first requires this content, and it is the only topic code listed. c_ced_required: 3.3.A.1 states the crystalline/amorphous distinction directly, and it sits under LO 3.3.A (represent the differences between solid, liquid, and gas phases with a particulate-level model), so students are expected to apply it. d_caution: The entry's wording closely paraphrases the CED's point-earning language (\"regular three-dimensional structure\" and \"no regular, orderly arrangement\"), so no caution is required and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the exact wording and conceptual distinction in Essential Knowledge 3.2.A.1 regarding how intermolecular forces relate to vapor pressure, boiling point, and melting point."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2, EK 3.2.A.1 states that intermolecular interactions are \u201covercome completely when a substance vaporizes,\u201d so \u201cthe vapor pressure and boiling point are directly related to the strength of those interactions.\u201d It adds that melting points \u201ctend to correlate\u201d with interaction strength, but the relationship is subtler because the interactions are \u201conly rearranged\u201d in melting. The entry closely follows this wording; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Matches 3.2.A.1 nearly verbatim in substance: 'Because intermolecular interactions are overcome completely when a substance vaporizes, the vapor pressure and boiling point are directly related to the strength of those interactions. Melting points also tend to correlate with interaction strength, but because the interactions are only rearranged, in melting, the relations can be more subtle.' The body's claims are the same. b_topic_codes: 3.2 is the topic where 3.2.A.1 first appears in Unit 3 and the only listed topic, so owner_topic_code and topic_codes are correct. c_ced_required: 3.2.A.1 explicitly requires students to relate vapor pressure and boiling point to interaction strength and to explain why melting point is more subtle. d_caution: The body paraphrases the CED but keeps the same claims, so no caution is needed. One minor point: the body drops the CED hedge 'tend to correlate' for melting points and says they 'correlate more subtly.' The CED's hedged wording is 'tend to correlate... the relations can be more subtle.' This does not change the claim, so the entry passes, but the hedge could be restored for precision."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 3.1.A.5 and 3.2.A.7 regarding noncovalent interactions in large biomolecules, their occurrence between different molecules or regions of the same molecule, and their role in dictating molecular shape and function."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The location of noncovalent interactions is supported by 3.1.A.5, and 3.1 is the first topic requiring it; 3.2.A.7 also uses it. But the body collapses an important distinction: 3.2.A.7 says molecular shape is 'largely dictated by noncovalent interactions,' while 'functionality and properties ... depend strongly on the shape of the molecule.' It does not say noncovalent interactions largely dictate function. No caution flags this departure from the CED wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topics 3.1.A.5 and 3.2.A.7 support interactions between different molecules or regions of the same large biomolecule. But 3.2.A.7 says functionality and properties \u201cdepend strongly on the shape of the molecule, which is largely dictated by noncovalent interactions.\u201d The entry instead says the interactions \u201clargely dictate molecular shape and function,\u201d overstating the CED\u2019s claim about function. No caution preserves the CED\u2019s distinction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the four types of solids (ionic, covalent network, molecular, and metallic) and their properties as explicitly detailed in the CED under Essential Knowledge statements 3.2.A.3, 3.2.A.4, 3.2.A.5, and 3.2.A.6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2, EK 3.2.A.3\u20133.2.A.6 describes these four types of solids and the listed structures and properties. For example, it says ionic solids \u201ctend to have low vapor pressures, high melting points, and high boiling points,\u201d and molecular solids \u201cgenerally have a low melting point.\u201d The entry presents these as characteristic properties, not exceptionless rules. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Each item matches its CED statement. Ionic (3.2.A.3): 'low vapor pressures, high melting points, and high boiling points... brittle due to the repulsion of like charges... conduct electricity only when the ions are mobile, as when the ionic solid is melted... or dissolved.' Covalent network (3.2.A.4): 'only formed from nonmetals and metalloids'; 'high melting points'; 3-D networks 'rigid and hard'; graphite 'soft because adjacent layers can slide past each other.' Molecular (3.2.A.5): 'low melting point because of the relatively weak intermolecular forces'; 'do not conduct because their valence electrons are tightly held within the covalent bonds and the lone pairs.' Metallic (3.2.A.6): 'good conductors of electricity and heat... free valence electrons'; 'malleable and ductile'; interstitial atoms 'decreasing malleability and ductility'; 'remain conducting.' The CED gives no required order for the four types, so the list order is not an error. b_topic_codes: 3.2 is the topic whose Essential Knowledge introduces these solid types, and no other topic in this unit uses them as its content, so owner 3.2 with topic_codes ['3.2'] is correct. c_ced_required: 3.2.A.3-3.2.A.6 directly require students to relate each solid type's structure and bonding to its macroscopic properties under Learning Objective 3.2.A. d_caution: the item wording tracks the CED closely. The CED warns against simplifying explanations with 'strong' and 'weak', but that warning concerns explanations of intermolecular forces. The entry's 'strong ion-ion interactions' and 'relatively weak intermolecular forces' mirror CED wording for descriptions, so no caution is required.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Ideal Gas Law formula (PV = nRT) as explicitly required by Topic 3.4 (3.4.A.1: 'EQN: PV = nRT') and referenced in Topic 3.6 regarding deviations from ideal behavior."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4 states \u201cEQN: PV = nRT\u201d (3.4.A.1), so the formula is exact and required. Topic 3.6 uses it when explaining deviations: \u201cThe ideal gas law does not explain the actual behavior of real gases\u201d (3.6.A.1). Topic 3.4 is its first required use, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states 'EQN: PV = nRT' under 3.4.A.1 ('The macroscopic properties of ideal gases are related through the ideal gas law: EQN: PV = nRT'). The body matches exactly. b_topic_codes: owner_topic_code 3.4 is where the equation is first required (3.4.A.1). The second code, 3.6, is 'Deviation from Ideal Gas Law', whose 3.6.A.1 is framed against the ideal gas law ('The ideal gas law does not explain the actual behavior of real gases'), so 3.6 uses it as the baseline. This is a weaker link than 3.4, but it is a topic of this unit that relies on the law, so it passes. c_ced_required: 3.4.A.1 is a learning objective requirement ('Explain the relationship between the macroscopic properties of a sample of gas... using the ideal gas law'), so students must apply the equation. d_caution: The CED uses the same wording and symbols as the entry, so no caution is needed and none is present. Symbol meanings are not defined in the CED, but the entry does not claim any definitions that conflict with it.",
+            "hooks_note": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for mole fraction is factually correct and directly required by Topic 3.4 (specifically Essential Knowledge 3.4.A.2: 'where XA = moles A/total moles')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4, EK 3.4.A.2 states: \u201cwhere XA = moles A/total moles.\u201d The formula matches that definition, is required for applying partial-pressure relationships, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states the mole fraction as \"where XA = moles A/total moles\" under Essential Knowledge 3.4.A.2 (\"EQN: PA = Ptotal \u00d7 XA, where XA = moles A/total moles\"). The entry's symbol X_A and its numerator and denominator match this exactly. b_topic_codes: Mole fraction first appears in 3.4.A.2, which sits under Topic 3.4 (Ideal Gas Law), so owner_topic_code 3.4 is correct. topic_codes [3.4] lists only that topic, and it is the only unit topic that uses the term. c_ced_required: 3.4.A.2 requires students to apply mole fraction to relate partial pressure to total pressure (PA = Ptotal \u00d7 XA), so the entry is required content. d_caution: The entry wording is the CED's own wording (\"moles A/total moles\"), so the point-earning wording is already present and no caution is needed. The null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the total pressure of a gas mixture as explicitly defined in Topic 3.4 (Essential Knowledge 3.4.A.2: 'EQN: Ptotal = PA + PB + PC + \u2026')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4, EK 3.4.A.2 states that \u201cthe total pressure of the sample is the sum of the partial pressures\u201d and gives \u201cEQN: Ptotal = PA + PB + PC + \u2026\u201d. The entry reproduces that equation, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED equation exactly: 3.4.A.2 gives 'EQN: Ptotal = PA + PB + PC + \u2026', and the entry's symbols, term order, and ellipsis are the same. b_topic_codes: Topic 3.4 (Ideal Gas Law) is the only unit location where this equation appears, so owner_topic_code '3.4' is correct, and topic_codes ['3.4'] is the only topic that uses it. c_ced_required: 3.4.A.2 is essential knowledge under LO 3.4.A ('Explain the relationship between the macroscopic properties of a sample of gas or mixture of gases using the ideal gas law'). It states that total pressure is the sum of partial pressures, so a student is expected to apply this equation to gas mixtures. d_caution: The entry's wording is the CED's own equation wording, so the point-earning form is the one shown and no caution is needed. Caution is correctly null."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the partial pressure formula from Topic 3.4 (Ideal Gas Law) of the AP Chemistry CED, specifically matching the equation 'EQN: PA = Ptotal \u00d7 XA' in Essential Knowledge 3.4.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4, essential knowledge 3.4.A.2, states that a gas\u2019s partial pressure is proportional to its mole fraction and gives the equation \u201cPA = Ptotal \u00d7 XA.\u201d The entry reproduces that equation, is assigned to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'P_A = P_total \u00d7 X_A' matches the CED equation at 3.4.A.2 exactly ('EQN: PA = Ptotal \u00d7 XA'), and the symbols and meanings (partial pressure of A, total pressure, mole fraction) agree with the text ('the partial pressure of a gas within the mixture is proportional to its mole fraction (X), and the total pressure of the sample is the sum of the partial pressures'). b_topic_codes: 3.4.A.2 is the first place this relationship appears in the unit, and it sits under Topic 3.4 (Ideal Gas Law), so owner_topic_code '3.4' is correct and topic_codes ['3.4'] is the only topic that uses it. c_ced_required: Learning Objective 3.4.A ('Explain the relationship between the macroscopic properties of a sample of gas or mixture of gases using the ideal gas law') requires students to apply the mixture relationship, and 3.4.A.2 states the equation explicitly. d_caution: The entry uses the CED's own equation wording, which is the point-earning form, so no caution is needed and its absence is correct. Note that the definition XA = moles A / total moles is stated in the CED but is not in the body; this is a completeness gap, not a factual error, and does not fail the check."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the kinetic energy equation as specified in Topic 3.5 (Essential Knowledge 3.5.A.2: 'EQN: KE = \u00bd mv2')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.5, essential knowledge 3.5.A.2 states: \u201cThe average kinetic energy of a particle is related to its average velocity by the equation: EQN: KE = \u00bd mv\u00b2.\u201d The entry reproduces that equation, assigns it to Topic 3.5, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The CED states 3.5.A.2 as 'The average kinetic energy of a particle is related to its average velocity by the equation: EQN: KE = \u00bd mv2.' The symbols and formula match. b_topic_codes: 3.5 is the only topic here and it is where the Kinetic Molecular Theory content (3.5.A.2) appears in this unit. c_ced_required: 3.5.A.2 is essential knowledge under learning objective 3.5.A, which asks students to explain the relationship between particle motion and macroscopic gas properties, so the equation is required. d_caution: The entry title is 'Kinetic energy of a particle' and the body omits the word 'average.' The CED's point-earning statement is about the average kinetic energy of a particle being related to its average velocity. The entry has no caution, so the wording gap is not flagged. The entry needs a caution noting that the relation applies to average kinetic energy and average velocity in a sample, or the title needs to say 'average.' Because that caution is missing, accept is false."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The formula matches 3.5.A.2 exactly ('EQN: KE = \u00bd mv2'), and the symbols are correct. b_topic_codes: Topic 3.5 (Kinetic Molecular Theory) is where this equation first appears in these pages, and 3.5 is the only listed code. c_ced_required: 3.5.A.2 requires students to relate kinetic energy to velocity by this equation, so it is CED-required. d_caution: Fails. 3.5.A.2 states that 'The average kinetic energy of a particle is related to its average velocity by the equation KE = \u00bd mv2.' The entry title ('Kinetic energy of a particle') and body omit the 'average' qualifier, which is the wording that earns the point, and caution is null. A caution such as 'This relates the average kinetic energy of a particle to its average velocity' is needed.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement 3.5.A.3 from the AP Chemistry CED, which states that 'The Kelvin temperature of a sample of matter is proportional to the average kinetic energy of the particles in the sample.' The topic code is correct and the content is directly required."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Essential knowledge 3.5.A.3 states: \u201cThe Kelvin temperature of a sample of matter is proportional to the average kinetic energy of the particles in the sample.\u201d The entry accurately restates this required relationship. Topic 3.5 is the correct topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 3.5.A.3 ('The Kelvin temperature of a sample of matter is proportional to the average kinetic energy of the particles in the sample'). The paraphrase ('its particles') keeps the same claim: Kelvin temperature is proportional to average particle kinetic energy. b_topic_codes: 3.5.A.3 sits under Topic 3.5 (Kinetic Molecular Theory), and owner_topic_code and topic_codes both name 3.5. c_ced_required: 3.5.A.3 is an essential-knowledge statement under LO 3.5.A, which asks students to explain the relationship between particle motion and macroscopic gas properties, so the entry is CED-required. d_caution: The entry's wording differs only trivially from the CED and carries the same point-earning claim (proportionality to average KE), so no caution is needed and caution is null. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the Maxwell-Boltzmann distribution as described in EK 3.5.A.1 and EK 3.5.A.4 of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.5 is the appropriate topic. CED 3.5.A.1 says the Maxwell-Boltzmann distribution describes the distribution of particle kinetic energies at a given temperature; 3.5.A.4 calls it a graphical representation of particle energies/velocities. The entry accurately combines those statements, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. Essential knowledge 3.5.A.1 states that 'The Maxwell-Boltzmann distribution describes the distribution of the kinetic energies of particles at a given temperature,' and 3.5.A.4 states that 'The Maxwell-Boltzmann distribution provides a graphical representation of the energies/velocities of particles at a given temperature.' The body combines these accurately and introduces no incorrect claim. b_topic_codes: Topic 3.5 (Kinetic Molecular Theory) is the first place in Unit 3 where the Maxwell-Boltzmann distribution appears, and the entry uses only 3.5. c_ced_required: LO 3.5.A requires explaining gas properties with 'iii. A graphical representation,' and 3.5.A.4 requires the graphical Maxwell-Boltzmann representation, so a student must apply this. d_caution: The body paraphrases the CED but does not change the meaning, and the CED does not give a different point-earning wording for the definition, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the particulate-level descriptions of solids, liquids, and gases as detailed in EK 3.3.A.1 through 3.3.A.4. It directly addresses Learning Objective 3.3.A, which requires students to represent the differences between these phases using a particulate-level model."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.3 requires students to \u201cRepresent the differences between solid, liquid, and gas phases using a particulate-level model\u201d (3.3.A). The descriptions follow 3.3.A.1\u20133.3.A.4: solids may be crystalline or amorphous and have no overall particle translation; liquid particles remain in close contact while moving and colliding; gas particles are in constant motion and have neither definite volume nor definite shape. Topic 3.2 also uses particulate-level structure to explain properties of solids and liquids (3.2.A). No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body and items match the CED. Solid (3.3.A.1): 'the particles are arranged in a regular three-dimensional structure' (crystalline) or are amorphous, 'motion of the individual particles is limited, and the particles do not undergo overall translation.' Liquid (3.3.A.2): 'in close contact... continually moving and colliding.' The molar-volume note matches 3.3.A.3. Gas (3.3.A.4): 'constant motion... neither a definite volume nor a definite shape.' The formula-free list is correct and complete for the three phases. b_topic_codes: owner 3.3 is correct, since the phase-arrangement content first appears in 3.3. The additional code 3.2 is not supported. Topic 3.2 addresses how bond type and intermolecular forces set solid properties (3.2.A.1 to 3.2.A.7). None of its statements describe the phase arrangement, spacing, or motion that this entry lists, so 3.2 does not use this content. c_ced_required: Learning objective 3.3.A ('Represent the differences between solid, liquid, and gas phases using a particulate-level model') requires this. d_caution: The CED does not say gas particles are 'far apart on average.' It says the 'average spacing between them are dependent on temperature, pressure, and volume.' The CED also does not state a fixed spacing for liquids or solids beyond close contact. A caution is needed to prevent students from treating gas spacing as a fixed property, and the entry has caution: null. Because the entry lacks a required caution and includes an extra topic code, it fails."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The three phase descriptions do not contradict the CED. Solid: 3.3.A.1 gives crystalline or amorphous arrangement, limited motion, and no overall translation. Liquid: 3.3.A.2 gives continual motion and collisions, and 3.3.A.3 gives close contact and similar molar volume to the solid. Gas: 3.3.A.4 gives constant motion and no definite volume or shape. The list members and order (Solid, Liquid, Gas) are correct. The gas item's 'far apart on average' is a gloss; the CED instead says spacing depends on temperature, pressure, and volume, but this is not an error. b_topic_codes: FAILS. 3.3.A.1-3.3.A.4 are the only CED statements requiring the solid/liquid/gas particulate model, so owner 3.3 is correct. However, topic_codes lists 3.2, but Topic 3.2 (3.2.A.1-3.2.A.7) relates macroscopic properties to intermolecular forces and structure; it does not require the phase-by-phase particle diagram. Either 3.2 uses it (then owner_topic_code would be 3.2, the earlier topic) or it does not (then 3.2 must be removed). The entry is internally inconsistent. c_ced_required: PASSES. CED 3.3.A asks students to 'Represent the differences between solid, liquid, and gas phases using a particulate-level model.' d_caution: FAILS. The CED's point-earning content for gases is that spacing depends on temperature, pressure, and volume (3.3.A.4), but the entry states gas particles are 'far apart on average' without that conditional. Solids are also described as motion 'limited', while the CED explicitly rules out overall translation; a caution distinguishing limited motion from particles being at rest, and the gas-spacing condition, is needed and absent. Reject until topic_codes and caution are fixed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines solutions and heterogeneous mixtures using the exact criteria specified in Essential Knowledge 3.7.A.1 ('In a solution, the macroscopic properties do not vary throughout the sample. In a heterogeneous mixture, the macroscopic properties depend on location in the mixture.')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely follows 3.7.A.1: \u201cIn a solution, the macroscopic properties do not vary throughout the sample. In a heterogeneous mixture, the macroscopic properties depend on location in the mixture.\u201d Topic 3.7 first requires the distinction; 3.8 uses it when representing the structure and properties of solutions and mixtures. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 3.7.A.1 exactly in substance: \"In a solution, the macroscopic properties do not vary throughout the sample. In a heterogeneous mixture, the macroscopic properties depend on location in the mixture.\" The parenthetical \"homogeneous mixture\" matches \"Solutions, also sometimes called homogeneous mixtures.\" b_topic_codes: 3.7.A.1 is the first place the CED states this distinction, so owner 3.7 is correct. 3.8 is accepted as a listed topic because 3.8.A.1 (\"Particulate representations of solutions...\") presupposes the solution concept, though 3.8 does not itself use the heterogeneous-mixture half. c_ced_required: 3.7.A.1 is an essential-knowledge statement that a student must know this distinction, so it is required content, not trivia. d_caution: The entry's wording (\"properties that do not vary throughout the sample\" / \"properties that depend on location\") is essentially the CED's wording, so no caution is needed and caution null is correct. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the molarity formula as explicitly required and formatted in the AP Chemistry CED under Topic 3.7 (Essential Knowledge 3.7.A.2: 'EQN: M = nsolute /Lsolution')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.7, essential knowledge 3.7.A.2 states: \u201cEQN: M = nsolute /Lsolution.\u201d The entry reproduces that formula, and learning objective 3.7.A requires students to calculate the molarity of solutions. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula M = n_solute / L_solution matches 3.7.A.2 exactly: 'EQN: M = nsolute /Lsolution', with molarity defined as moles of solute per liter of solution. b_topic_codes: 3.7 is the only topic that uses molarity on these pages. It first appears in 3.7.A.2, and the owner code and topic_codes both list 3.7. c_ced_required: LO 3.7.A ('Calculate the number of solute particles, volume, or molarity of solutions') requires students to apply this relationship. d_caution: The entry's notation (n_solute, L_solution) is a typographic rendering of the CED's nsolute and Lsolution, so no caution is needed. The CED's wording is not phrased differently in a way that changes the point-earning content. Note that the entry has no caution field value, which is correct here."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the two causes of deviation from ideal gas behavior (interparticle attractions and particle volumes) and their respective conditions as specified in Essential Knowledge 3.6.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.6, EK 3.6.A.1 identifies both listed causes: deviations \u201cmay result from interparticle attractions among gas molecules, particularly at conditions that are close to those resulting in condensation\u201d and \u201cmay also arise from particle volumes, particularly at extremely high pressures.\u201d The entry accurately summarizes those causes under the correct topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The items match CED 3.6.A.1 in content and order. The body does not. It states that real gases deviate 'for two reasons', which makes the list exhaustive. The CED says deviations 'may result from' interparticle attractions and 'may also arise from' particle volumes. It never says these are the only two causes. b_topic_codes: 3.6 is the unit topic where 3.6.A.1 first appears, and topic_codes lists only 3.6. c_ced_required: 3.6.A.1 requires students to explain the causes of deviation from ideal gas behavior, so the content is required. d_caution: The entry's definitive wording ('deviate for two reasons') differs from the CED's hedged 'may result from / may also arise from', but caution is null. A caution is needed to flag that the point-earning wording is the hedged CED phrasing."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The two causes, their order, and their qualifiers match 3.6.A.1: 'Deviations from the ideal gas law may result from interparticle attractions among gas molecules, particularly at conditions that are close to those resulting in condensation. Deviations may also arise from particle volumes, particularly at extremely high pressures.' b_topic_codes: 3.6 is the topic that introduces deviation from ideal gas behavior, and it is the only topic listed. c_ced_required: 3.6.A.1 requires students to explain non-ideal behavior in terms of interparticle attractions and particle volumes. d_caution: Caution is null, but the body states 'Real gases deviate from the ideal gas law for two reasons.' The CED hedges with 'may result from' and 'may also arise from' and does not say these are the only two causes. The entry's definitive, exhaustive framing is not the point-earning wording, so a caution is needed and is missing. Fix: add a caution such as 'CED says deviations MAY result from these two causes; do not state them as the only possible causes,' or reword the body to 'Deviations from ideal gas behavior may result from two causes.'",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 3.9.A.1, which states that components of a liquid solution cannot be separated by filtration but can be separated using processes that take advantage of differences in intermolecular interactions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.9, EK 3.9.A.1 states: \u201cThe components of a liquid solution cannot be separated by filtration. They can, however, be separated using processes that take advantage of differences in the intermolecular interactions of the components.\u201d The entry accurately paraphrases this required content. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.9.A.1 states 'The components of a liquid solution cannot be separated by filtration. They can, however, be separated using processes that take advantage of differences in the intermolecular interactions of the components.' The entry says the same thing in paraphrase ('exploit' for 'take advantage of'), with no change in meaning. b_topic_codes: the statement appears under Topic 3.9 (Separation of Solutions and Mixtures), so owner_topic_code 3.9 and topic_codes ['3.9'] are correct. c_ced_required: 3.9.A.1 is essential knowledge under learning objective 3.9.A ('Explain the results of a separation experiment based on intermolecular interactions'), so students are required to apply this. d_caution: the entry is a close paraphrase; the point-earning concept (filtration cannot separate a liquid solution; separation relies on differences in intermolecular interactions) is fully preserved, so no caution is needed and caution null is correct.",
+            "}": null
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body matches the exact wording of Essential Knowledge 3.10.A.1: 'Substances with similar intermolecular interactions tend to be miscible or soluble in one another.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces Topic 3.10 essential knowledge 3.10.A.1: \u201cSubstances with similar intermolecular interactions tend to be miscible or soluble in one another.\u201d Topic 3.10 is the correct owner and only listed topic. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED Essential Knowledge 3.10.A.1 verbatim: \"Substances with similar intermolecular interactions tend to be miscible or soluble in one another.\" b_topic_codes: 3.10 is the topic where this is first required (3.10.A.1), and topic_codes lists only 3.10, which uses it. c_ced_required: 3.10.A.1 is an essential-knowledge statement, and LO 3.10.A asks students to explain solubility in terms of intermolecular interactions, so the entry is required content. d_caution: The entry wording is the CED wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines chromatography based on the exact wording and concepts in Essential Knowledge 3.9.A.1, which states that chromatography (paper, thin-layer, and column) separates chemical species by taking advantage of the differential strength of intermolecular interactions between and among the components of the solution (the mobile phase) and with the surface components of the stationary phase, and that the resulting chromatogram can be used to infer the relative polarities of components in a mixture."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 3.9 requires chromatography and describes separation through differing intermolecular interactions. But the body says the chromatogram \u201cshows relative polarities\u201d; CED 3.9.A.1 says it \u201ccan be used to infer the relative polarities of components in a mixture.\u201d That distinction matters, and no caution qualifies the wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 3.9.A.1 requires chromatography and supports the stated separation mechanism. But it says the resulting chromatogram \u201ccan be used to infer the relative polarities of components in a mixture,\u201d not that it shows their polarities directly. The entry makes that distinction incorrectly and has no caution clarifying it."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-027",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 3.12.A.1: 'When a photon is absorbed (or emitted) by an atom or molecule, the energy of the species is increased (or decreased) by an amount equal to the energy of the photon.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.12, EK 3.12.A.1 states: \u201cWhen a photon is absorbed (or emitted) by an atom or molecule, the energy of the species is increased (or decreased) by an amount equal to the energy of the photon.\u201d The entry accurately restates this required relationship, is correctly assigned to 3.12, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.12.A.1 states 'When a photon is absorbed (or emitted) by an atom or molecule, the energy of the species is increased (or decreased) by an amount equal to the energy of the photon.' The entry says the same thing in different words: the energy increases (or decreases) by an amount equal to the photon's energy. No symbols, list members, or direction conventions are wrong. b_topic_codes: Topic 3.12 (Properties of Photons) is the only unit topic that carries 3.12.A.1, so owner_topic_code 3.12 and topic_codes ['3.12'] are correct. c_ced_required: LO 3.12.A ('Explain the properties of an absorbed or emitted photon in relationship to an electronic transition in an atom or molecule') requires students to apply this energy-change relationship. d_caution: the entry's paraphrase ('its energy', 'the photon's energy') is equivalent to the CED's 'the energy of the species', 'the energy of the photon', and the point-earning idea (direction of change and equality to photon energy) is fully present, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-028",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula relating wavelength, frequency, and the speed of light as explicitly required in Essential Knowledge 3.12.A.2 (EQN: c = \u03bb\u03bd)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.12, essential knowledge 3.12.A.2 states: \u201cThe wavelength of the electromagnetic wave is related to its frequency and the speed of light by the equation: EQN: c = \u03bb\u03bd.\u201d The entry reproduces that equation exactly, assigns it to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states 'The wavelength of the electromagnetic wave is related to its frequency and the speed of light by the equation: EQN: c = \u03bb\u03bd' (3.12.A.2, p. 71). The body c = \u03bb\u03bd has the correct symbols (c = speed of light, \u03bb = wavelength, \u03bd = frequency) and the correct relation. b_topic_codes: The equation appears in these pages only under Topic 3.12, so owner_topic_code 3.12 is where this unit first requires it, and topic_codes ['3.12'] matches the only topic that uses it here. c_ced_required: Learning objective 3.12.A asks students to explain properties of an absorbed or emitted photon, and 3.12.A.2 requires relating wavelength, frequency, and the speed of light by this equation, so applying it is required. d_caution: The CED wording is 'EQN: c = \u03bb\u03bd', identical to the entry, so the point is earned with this wording and no caution is needed (caution is null, which is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements of LO 3.8.A (Using particulate models for mixtures: i. Represent interactions between components. ii. Represent concentrations of components) and EK 3.8.A.1, which states that particulate representations of solutions communicate structure and properties by illustrating relative concentrations and/or interactions among components."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.8 first requires particulate models of solutions. CED 3.8.A.1 says they illustrate \u201cthe relative concentrations of the components in the solution and/or drawings that show interactions among the components.\u201d Showing both is valid. Topic 3.10 also uses interactions between particles to explain solubility: 3.10.A requires explaining the relationship between solubility and \u201cthe intermolecular interactions between particles.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body ('particle drawing... showing the relative concentrations of components and the interactions among them') matches 3.8.A.1: 'Particulate representations of solutions communicate the structure and properties of solutions, by illustration of the relative concentrations of the components in the solution and/or drawings that show interactions among the components.' Both items (relative concentrations; interactions between components) are the two members the CED lists, in the same order. The examples in the interactions item (ion-dipole, hydrogen bonds) are drawn from 3.1.A.3 and 3.1.A.4 and are consistent with the CED. b_topic_codes: owner 3.8 is correct, since 3.8.A.1 is the first place this representation is required. 3.10 fails. Its only learning objective (3.10.A) and essential knowledge (3.10.A.1, 'Substances with similar intermolecular interactions tend to be miscible or soluble in one another') concern solubility and intermolecular interactions, not representing solutions with particle drawings. The 4.D suggested skill on model analysis is generic and does not name particulate representations of solutions. Sample activity 4, which uses particulate representations of mixtures, is tagged to 3.7 and 3.8 only. Removing 3.10 would make the tags accurate. c_ced_required: 3.8.A (i and ii) requires students to represent interactions between components and concentrations of components, so this is required content. d_caution: the entry wording 'Particulate representation of a solution' is a close paraphrase of the CED's 'particulate representations of solutions' and the meaning of each item is preserved, so no caution is needed and caution null is correct. Hooks: none supplied."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body, items, and ced_evidence match 3.8.A.1: 'Particulate representations of solutions communicate the structure and properties of solutions, by illustration of the relative concentrations of the components in the solution and/or drawings that show interactions among the components.' The item meanings are consistent with that wording. The examples (ion-dipole, hydrogen bonds) are the 3.1.A.3 and 3.1.A.4 interactions. b_topic_codes: owner_topic_code 3.8 is correct, since 3.8.A is the first unit topic that requires particulate representations of solutions. The extra code 3.10 fails. The 3.10 CED (3.10.A.1: 'Substances with similar intermolecular interactions tend to be miscible or soluble in one another') requires explaining solubility from intermolecular interactions, not producing or using particulate representations of solutions. The entry's own ced_evidence and learning objective cite only 3.8. The 3.10 suggested skill (4.D) is a general model-analysis skill, not a requirement to use this representation. c_ced_required: 3.8 LO 3.8.A (i. represent interactions between components; ii. represent concentrations of components) and 3.8.A.1 directly require this. d_caution: The entry wording ('mixture', 'relative concentrations', 'interactions') is close to the CED. The CED's 'and/or' is not a point-earning distinction that needs a caution, so no caution is required and null is correct. accept is false only because b_topic_codes fails; remove 3.10 from topic_codes (or justify its use with a 3.10 learning objective that explicitly requires representations) to pass."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-029",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Planck's equation as explicitly required in Topic 3.12 (Essential Knowledge 3.12.A.2: 'EQN: E = \u210e\u03bd')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.12, Essential Knowledge 3.12.A.2 states: \u201cThe energy of a photon is related to the frequency of the electromagnetic wave through Planck\u2019s equation: EQN: E = \u210e\u03bd.\u201d The entry gives that equation, is assigned to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body E = h\u03bd matches the CED equation exactly: 'EQN: E = \u210e\u03bd' under 3.12.A.2 ('The energy of a photon is related to the frequency of the electromagnetic wave through Planck's equation'). The title and symbols are consistent with that statement. b_topic_codes: 3.12 is the only topic listed, and Planck's equation first appears in the CED under Topic 3.12 (3.12.A.2), so owner_topic_code 3.12 is correct. c_ced_required: 3.12.A.2 is an essential-knowledge statement that gives the equation, and learning objective 3.12.A asks students to explain photon energy in relation to electronic transitions, so students are required to apply it. d_caution: The entry wording is the same as the CED wording ('E = \u210e\u03bd'), so no caution is needed and caution is correctly null."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry perfectly matches the Essential Knowledge statement 3.11.A.1 (i-iii) regarding the regions of the electromagnetic spectrum and their associated molecular/electronic transitions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.11, EK 3.11.A.1 lists these associations in this order: \u201cMicrowave radiation is associated with transitions in molecular rotational levels,\u201d \u201cInfrared radiation\u201d with \u201cmolecular vibrational levels,\u201d and \u201cUltraviolet/visible radiation\u201d with \u201celectronic energy levels.\u201d LO 3.11.A requires students to explain these relationships. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "The three items are correct and in CED order. 3.11.A.1 i: 'Microwave radiation is associated with transitions in molecular rotational levels.' ii: 'Infrared radiation is associated with transitions in molecular vibrational levels.' iii: 'Ultraviolet/visible radiation is associated with transitions in electronic energy levels.' The body, however, overgeneralizes. It says 'Each region of the electromagnetic spectrum is associated with a type of molecular motion or electronic transition.' The CED names only microwave, infrared, and UV/visible, and says that 'differences in absorption or emission of photons in different spectral regions are related to' these three transition types. It does not make the claim for every region of the spectrum, such as radio, X-ray, or gamma. That makes a_factual false. Because the body's universal wording is not the CED's wording and the entry has no caution limiting it to the three regions, d_caution is also false. owner_topic_code 3.11 is where the content first appears, and it is the only topic listed (b true). LO 3.11.A requires explaining the link between spectral region and transition type (c true). The entry has no hooks."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.11.A.1, which states that spectral-region differences 'are related to the different types of molecular motion or electronic transition.' The items match the three numbered clauses in the same objective: microwave = 'transitions in molecular rotational levels' (i), infrared = 'transitions in molecular vibrational levels' (ii), ultraviolet/visible = 'transitions in electronic energy levels' (iii). The order is correct. b_topic_codes: 3.11 is the only topic listed, and 'Spectroscopy and the Electromagnetic Spectrum' is the topic that requires LO 3.11.A, so owner and topic_codes are correct. c_ced_required: LO 3.11.A reads 'Explain the relationship between a region of the electromagnetic spectrum and the types of molecular or electronic transitions associated with that region,' so the entry is required content. d_caution: The entry's wording tracks the CED closely, including the 'type of molecular motion or electronic transition' phrasing from 3.11.A.1, so no caution is needed and caution null is correct. The item meanings are the CED's own wording. hooks: none present, so no hook evaluation applies."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-030",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Beer-Lambert law formula (A = \\varepsilon b c) as explicitly required in Topic 3.13 (Essential Knowledge 3.13.A.1: 'EQN: A = \u03b5bc')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.13, essential knowledge 3.13.A.1 explicitly gives \u201cEQN: A = \u03b5bc.\u201d The entry reproduces that formula, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Topic 3.13, Essential Knowledge 3.13.A.1 states 'EQN: A = \u03b5bc', and the entry's body 'A = \\varepsilon b c' matches the symbols, order, and form. The CED defines \u03b5 as the molar absorptivity, b as path length, and c as concentration, and the entry includes no conflicting definitions. b_topic_codes: owner_topic_code 3.13 is where the Beer-Lambert law first appears in the CED pages, and topic_codes ['3.13'] is the only topic that uses it. c_ced_required: Learning Objective 3.13.A ('Explain the amount of light absorbed by a solution of molecules or ions in relationship to the concentration, path length, and molar absorptivity') requires students to apply this relationship. d_caution: The entry's wording matches the CED's 'EQN: A = \u03b5bc' exactly, so no caution is needed and caution is null, which is correct. No hooks were supplied, so the hooks list is empty.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-01-wrong-formula",
+    "control": "wrong formula (Beer-Lambert law given as A = epsilon*b/c; CED 3.13.A.1 says A = epsilon*b*c)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula provided in the body is mathematically incorrect. The Beer-Lambert law is A = \\varepsilon b c (multiplication of molar absorptivity, path length, and concentration), as stated in EK 3.13.A.1 ('EQN: A = \u03b5bc'). The entry incorrectly represents it as a fraction: A = \\frac{\\varepsilon b}{c}."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula in the body is mathematically incorrect and contradicts the CED. The CED (3.13.A.1) states the equation is 'A = \u03b5bc' (multiplication of molar absorptivity, path length, and concentration), whereas the entry writes it as 'A = \\frac{\\varepsilon b}{c}' (dividing by concentration)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.13.A.1 requires the Beer-Lambert law, but the CED gives \u201cEQN: A = \u03b5bc,\u201d not A = \u03b5b/c. The entry incorrectly makes absorbance inversely proportional to concentration; 3.13.A.2 says absorbance is proportional to concentration when path length and wavelength are held constant. The topic codes and title are appropriate, and the title needs no caution."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.13.A.1 states \u201cEQN: A = \u03b5bc,\u201d but the body gives A = \u03b5b/c. Concentration is multiplied, not divided. The topic placement is correct, and no wording-specific caution is needed; a caution would not correct the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-031",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Molar absorptivity' (symbolized as \u03b5) exactly as stated in the AP Chemistry CED under Essential Knowledge 3.13.A.1 ('The molar absorptivity, \u03b5, describes how intensely a chemical species absorbs light of a specific wavelength.')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.13, essential knowledge 3.13.A.1 states: \u201cThe molar absorptivity, \u03b5, describes how intensely a chemical species absorbs light of a specific wavelength.\u201d The entry matches this definition, is assigned to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.13.A.1 verbatim in substance: \"The molar absorptivity, \u03b5, describes how intensely a chemical species absorbs light of a specific wavelength.\" The symbol \u03b5 and the definition are correct. b_topic_codes: The term first appears in this unit at 3.13 (Beer-Lambert Law), and 3.11 and 3.12 do not use it. owner_topic_code 3.13 and topic_codes [3.13] are correct. c_ced_required: Learning objective 3.13.A requires students to \"Explain the amount of light absorbed by a solution... in relationship to the concentration, path length, and molar absorptivity,\" and 3.13.A.1 defines it. Applying the term is required. d_caution: The entry's definition wording is the CED's wording, so the point-earning wording is present and no caution is needed. caution is null, which is correct. accept: all booleans are true."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r1-032",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 3.13.A.2, which states that in most experiments, path length and wavelength are held constant, making absorbance proportional only to concentration, and that the spectrophotometer is set to the wavelength of maximum absorbance for maximum sensitivity."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.13.A.2 states: \u201cIn most experiments the path length and wavelength of light are held constant. In such cases, the absorbance is proportional only to the concentration of absorbing molecules or ions.\u201d It also states that the spectrophotometer is typically set to the wavelength of maximum absorbance \u201cto ensure the maximum sensitivity of measurement.\u201d The entry accurately paraphrases both points; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.13.A.2 (\"In most experiments the path length and wavelength of light are held constant. In such cases, the absorbance is proportional only to the concentration of absorbing molecules or ions.\"). The 'maximum sensitivity' clause also matches. b_topic_codes: 3.13 is the topic that first requires this, and the entry uses only 3.13. c_ced_required: 3.13.A.2 requires students to know this convention, so the requirement is met. d_caution: The CED hedges the spectrophotometer statement with 'typically' ('The spectrophotometer is typically set to the wavelength of maximum absorbance'), and it scopes the proportionality claim to 'most experiments'. The entry drops both hedges and states the wavelength setting as a fixed fact ('the spectrophotometer is set to...'). Its caution is null, so the wording overstates the CED and a caution is required. The entry therefore fails d_caution and is not accepted as written. Fix: add 'typically' to the spectrophotometer clause, or add a caution noting that the wavelength setting is the usual practice rather than a requirement."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.13.A.2 states that in such cases (path length and wavelength held constant) 'absorbance is proportional only to the concentration of absorbing molecules or ions,' and that 'the spectrophotometer is typically set to the wavelength of maximum absorbance (optimum wavelength) for the species being analyzed to ensure the maximum sensitivity of measurement.' The body matches both claims. b_topic_codes: the concept appears in Topic 3.13 (Beer-Lambert Law) and nowhere else in these pages, so owner 3.13 and topic_codes ['3.13'] are correct. c_ced_required: 3.13.A.2 is an essential knowledge statement that this relationship and the wavelength-setting convention apply to. d_caution: the entry's conditional phrasing ('with path length and wavelength held constant') carries the CED's qualifier ('In most experiments... In such cases'), so the wording is not a loose restatement. No caution is required, and caution: null is correct. The CED wording is not reproduced verbatim, but the entry's meaning is equivalent."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-02-excluded",
+    "control": "explicitly excluded by the CED (3.8 Exclusion Statement: colligative properties will not be assessed on the AP Exam)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry introduces the boiling-point elevation formula (a colligative property). However, Topic 3.8 (Essential Knowledge 3.8.A.1) explicitly contains an Exclusion Statement: 'Colligative properties will not be assessed on the AP Exam.' and 'Calculations of molality, percent by mass, and percent by volume for solutions will not be assessed on the AP Exam.' Therefore, this content is not required and is explicitly excluded from the AP Chemistry curriculum."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula for boiling-point elevation (\\Delta T_b = i K_b m) represents a colligative property. Under Topic 3.8 (Representations of Solutions), the CED explicitly states: 'Exclusion Statement: Colligative properties will not be assessed on the AP Exam.' and 'Exclusion Statement: Calculations of molality, percent by mass, and percent by volume for solutions will not be assessed on the AP Exam.' Therefore, this formula is explicitly excluded from the AP Chemistry course and exam."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 3.8 does not state the boiling-point elevation formula. Its exclusion says, \u201cColligative properties will not be assessed on the AP Exam.\u201d Boiling-point elevation is a colligative property, so 3.8.A.1 does not support this entry or its topic assignment. The formula is not CED-stated, and the entry has no caution identifying it as outside the assessed content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is not stated in the CED pages. Topic 3.8 instead says, \u201cColligative properties will not be assessed on the AP Exam\u201d and \u201cCalculations of molality ... will not be assessed on the AP Exam.\u201d Boiling-point elevation is a colligative property, and the formula uses molality (m), so 3.8 neither requires nor uses this entry. No caution about alternative point-earning wording is applicable."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-03-wrong-owner",
+    "control": "wrong owner topic (partial pressures and mole fraction are CED 3.4.A.2 under the Ideal Gas Law; 3.6 covers only deviations from ideal behavior)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '3.6' (Deviation from Ideal Gas Law), but this formula is explicitly introduced and required in Topic 3.4 (Ideal Gas Law), under Essential Knowledge 3.4.A.2. The owner_topic_code and topic_codes should be updated to '3.4'."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '3.6' (Deviation from Ideal Gas Law), but this formula is explicitly introduced and required in Topic 3.4 (Ideal Gas Law) under Essential Knowledge 3.4.A.2 ('EQN: PA = Ptotal \u00d7 XA, where XA = moles A/total moles'). The owner_topic_code should be '3.4' and topic_codes should contain '3.4'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 3.4.A.2: \u201cP_A = P_total \u00d7 X_A, where X_A = moles A/total moles.\u201d But it is first required in Topic 3.4, Ideal Gas Law, not Topic 3.6. Topic 3.6 addresses deviations from ideal-gas behavior and does not require this formula. No caution is needed because the entry uses the CED formula."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 3.4.A.2: \u201cPA = Ptotal \u00d7 XA, where XA = moles A/total moles.\u201d But it is first required in Topic 3.4, not the listed owner Topic 3.6. Topic 3.6 addresses deviations from ideal-gas behavior, not partial pressure and mole fraction. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-04-wrong-member",
+    "control": "wrong list mapping (CED 3.11.A.1: microwave = rotational, infrared = vibrational, UV/visible = electronic; the rotational and vibrational assignments are swapped here)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry has swapped the associations for microwave and infrared radiation. According to CED 3.11.A.1, microwave radiation is associated with transitions in molecular rotational levels (not vibrational), and infrared radiation is associated with transitions in molecular vibrational levels (not rotational)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry has swapped the meanings of Microwave and Infrared radiation. According to CED 3.11.A.1, microwave radiation is associated with transitions in molecular rotational levels, and infrared radiation is associated with transitions in molecular vibrational levels."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The first two items are reversed. CED 3.11.A.1 states, \u201cMicrowave radiation is associated with transitions in molecular rotational levels\u201d and \u201cInfrared radiation is associated with transitions in molecular vibrational levels.\u201d It assigns ultraviolet/visible radiation to electronic energy-level transitions, as the entry does. Topic 3.11 requires these associations. The body says each region \u201cexcites\u201d a transition, whereas the CED describes absorption or emission and says the regions are \u201cassociated with\u201d transitions; no caution addresses that narrower wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The microwave and infrared meanings are reversed. CED 3.11.A.1 states, \u201cMicrowave radiation is associated with transitions in molecular rotational levels\u201d and \u201cInfrared radiation is associated with transitions in molecular vibrational levels.\u201d It associates ultraviolet/visible radiation with electronic energy-level transitions. Topic 3.11 requires these associations, so the topic codes and CED evidence are appropriate. The body says each region \u201cexcites\u201d a transition, whereas the CED describes absorption or emission and says the regions are \u201cassociated with\u201d those transitions; no caution addresses that difference."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-06-other-unit",
+    "control": "content from another unit (the rate law is Unit 5 kinetics; 'rate law' and 'half-life' do not appear in the Unit 3 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry provides the rate law formula (rate = k[A]^m[B]^n) and cites Topic 3.5 / 3.5.A.2. However, Topic 3.5 is 'Kinetic Molecular Theory' and 3.5.A.2 specifies the kinetic energy equation (KE = \u00bd mv\u00b2). The rate law formula is part of Unit 5 (Kinetics) and is not required or mentioned in Unit 3."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry defines the rate law for a chemical reaction, which is a kinetics concept from a later unit (Unit 5). Topic 3.5 in Unit 3 is 'Kinetic Molecular Theory' and its essential knowledge statement 3.5.A.2 actually specifies the kinetic energy equation: 'KE = \u00bd mv2'. The rate law is not required or mentioned anywhere in the Unit 3 CED pages."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The cited 3.5.A.2 gives the kinetic-energy equation, \u201cKE = \u00bd mv\u00b2,\u201d not a reaction rate law. Topic 3.5 is Kinetic Molecular Theory and does not require rate = k[A]^m[B]^n. No caution about alternate wording is needed; the problem is that the formula is outside the supplied Unit 3 requirements."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.5 is Kinetic Molecular Theory, not reaction kinetics. The cited 3.5.A.2 gives the equation \u201cKE = \u00bd mv\u00b2\u201d for a particle\u2019s average kinetic energy; it does not give the rate law rate = k[A]^m[B]^n. No learning objective or essential-knowledge statement on these Unit 3 pages requires this rate law. No caution is needed to remedy a wording difference; the content itself is misplaced."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u3-05-bad-hook",
+    "control": "hook expansion contradicts the CED (3.11.A.1 assigns infrared to vibrational transitions, not electronic). The entry is correct, so the entry should be accepted and only the hook rejected.",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "MIU: Rotate, Excite, Vibrate": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "MIU: Rotate, Excite, Vibrate": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the associations in EK 3.11.A.1 between spectral regions (microwave, infrared, ultraviolet/visible) and their corresponding molecular/electronic transitions."
+            },
+            "hooks": [
+              {
+                "hook_text": "MIU: Rotate, Excite, Vibrate",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion contains factual errors that contradict both the entry and the CED: it associates Infrared (I) with electronic transitions and Ultraviolet (U) with vibration, whereas the CED states that Infrared is associated with vibrational transitions and Ultraviolet/visible is associated with electronic transitions."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly lists the spectral regions and their corresponding molecular/electronic transitions exactly as specified in EK 3.11.A.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "MIU: Rotate, Excite, Vibrate",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook contains factual errors that contradict the CED. According to EK 3.11.A.1, Infrared radiation is associated with vibrational transitions (not electronic/excitation), and Ultraviolet/visible radiation is associated with electronic transitions (not vibrational)."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "MIU: Rotate, Excite, Vibrate": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.11, EK 3.11.A.1 lists the same three associations in this order: \u201cMicrowave radiation is associated with transitions in molecular rotational levels,\u201d infrared with molecular vibrational levels, and ultraviolet/visible with electronic energy levels. The entry uses those CED terms, so no caution is needed."
+            },
+            "hooks": [
+              {
+                "hook_text": "MIU: Rotate, Excite, Vibrate",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "This is an admissible mnemonic for the ordered CED list, and it cautions students to use CED terms. But its associations are wrong: EK 3.11.A.1 assigns infrared to molecular vibrational levels, not electronic transitions, and ultraviolet/visible to electronic energy levels, not vibration."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.11, EK 3.11.A.1 lists these pairings in this order: microwave\u2014\u201ctransitions in molecular rotational levels\u201d; infrared\u2014\u201ctransitions in molecular vibrational levels\u201d; ultraviolet/visible\u2014\u201ctransitions in electronic energy levels.\u201d The entry matches them, and no caution is needed."
+            },
+            "hooks": [
+              {
+                "hook_text": "MIU: Rotate, Excite, Vibrate",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The hook targets a CED-required list and supplies a caution, but it reverses two pairings. EK 3.11.A.1 associates infrared with \u201ctransitions in molecular vibrational levels\u201d and ultraviolet/visible with \u201ctransitions in electronic energy levels,\u201d not the other way around."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "MIU: Rotate, Excite, Vibrate": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "Body, items, and order match Essential Knowledge 3.11.A.1 exactly: i. Microwave = transitions in molecular rotational levels; ii. Infrared = transitions in molecular vibrational levels; iii. Ultraviolet/visible = transitions in electronic energy levels. The body's 'different type of transition' is a faithful paraphrase of 'different types of molecular motion or electronic transition.' Topic 3.11 is the only topic listed and is where 3.11.A requires this relationship. The item wording is the CED wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "MIU: Rotate, Excite, Vibrate",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "Expansion is wrong for two of three cues. CED 3.11.A.1 ii states infrared is associated with transitions in molecular VIBRATIONAL levels, but the hook maps I to 'infrared excites electronic transitions.' CED 3.11.A.1 iii states ultraviolet/visible is associated with transitions in ELECTRONIC energy levels, but the hook maps U to 'ultraviolet excites vibration.' Only M (microwave excites rotation, CED i) is correct. The hook_text 'Rotate, Excite, Vibrate' also does not match the CED sequence of rotational, vibrational, electronic. The ordering of the letters matches the entry's list order, but the content the mnemonic encodes contradicts the CED. A hook that teaches IR=electronic and UV=vibrational would cause students to answer incorrectly. Ordered-list mnemonics are otherwise an admissible hook type, but this one is not admissible as written. The caution is also absent even though the hook's wording ('excites rotation') is not the CED wording."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and items match CED 3.11.A.1 exactly. Microwave is tied to 'molecular rotational levels' (i), infrared to 'molecular vibrational levels' (ii), and ultraviolet/visible to 'electronic energy levels' (iii). The list order matches the CED order. b_topic_codes: 3.11 is the topic whose Essential Knowledge states this, and it is the only topic listed. c_ced_required: LO 3.11.A asks students to 'explain the relationship between a region of the electromagnetic spectrum and the types of molecular or electronic transitions associated with that region,' so the entry is required content. d_caution: The entry's wording is the CED's own wording, so no caution is needed and caution: null is correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "MIU: Rotate, Excite, Vibrate",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion fails on two of three cues. M \u2192 'microwave excites rotation' is correct (CED 3.11.A.1.i: rotational levels). I \u2192 'infrared excites electronic transitions' is wrong: CED 3.11.A.1.ii says infrared is associated with vibrational levels, and electronic transitions belong to ultraviolet/visible (iii). U \u2192 'ultraviolet excites vibration' is wrong: CED 3.11.A.1.iii says ultraviolet/visible is associated with electronic energy levels, and vibration belongs to infrared. The hook text 'Rotate, Excite, Vibrate' also assigns 'Excite' to I and 'Vibrate' to U, so the mnemonic words conflict with the expansions. f_admissible fails because the hook is an ordered-list mnemonic, a permitted kind, but it encodes the wrong transition for two of the three regions, so it would teach students the wrong answer. The caution ('Name the transition type in CED terms') is reasonable but does not fix the incorrect mappings."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-precalc-u1-01-wrong-fact", "control": "wrong fact (CED 1.5.A.2: a polynomial function of degree n has exactly n COMPLEX zeros counting multiplicities, not n real zeros)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.5", "topic_codes": ["1.5"], "kind": "convention",
+   "title": "Number of zeros of a polynomial function", "body": "A polynomial function of degree n has exactly n real zeros when counting multiplicities.", "items": [], "caution": null, "ced_evidence": "1.5.A.2: \"A polynomial function of degree n has exactly n complex zeros when counting multiplicities.\"", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u1-02-non-ced", "control": "non-CED content (synthetic division and the rational root theorem appear nowhere in the AP Precalculus CED; the CED names only polynomial long division at 1.11.B.1)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.11", "topic_codes": ["1.11"], "kind": "convention",
+   "title": "Synthetic division and the rational root theorem", "body": "Use synthetic division to test each candidate from the rational root theorem, p/q where p divides the constant term and q divides the leading coefficient, to find the zeros of a polynomial.", "items": [], "caution": null, "ced_evidence": "1.11.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u1-03-wrong-owner", "control": "wrong owner topic (vertical asymptotes of rational functions are topic 1.9, EK 1.9.A.1; 1.7 covers end behavior of rational functions)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.7", "topic_codes": ["1.7"], "kind": "convention",
+   "title": "Vertical asymptote of a rational function", "body": "If a is a real zero of the denominator and is not also a real zero of the numerator, the graph of the rational function has a vertical asymptote at x = a.", "items": [], "caution": null, "ced_evidence": "1.9.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u1-04-swapped", "control": "swapped conditions (CED 1.7.A.5: when the DENOMINATOR dominates, the graph has a horizontal asymptote at y = 0; 1.7.A.3: when the numerator dominates, the function takes the end behavior of that polynomial)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.7", "topic_codes": ["1.7"], "kind": "list_sequence",
+   "title": "End behavior of a rational function by dominance", "body": "Which polynomial dominates determines the end behavior of the rational function.", "items": [{"label": "Numerator dominates", "meaning": "the graph has a horizontal asymptote at y = 0"}, {"label": "Neither dominates", "meaning": "the quotient of the leading terms is a constant, which locates a horizontal asymptote"}, {"label": "Denominator dominates", "meaning": "the quotient of the leading terms is a nonconstant polynomial and the function has that polynomial's end behavior"}], "caution": null, "ced_evidence": "1.7.A.3-1.7.A.5", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u1-05-bad-hook", "control": "hook expansion contradicts the CED (1.10.A.1: a hole occurs when the numerator multiplicity is greater than or equal to the denominator's; 1.9.A.1: a vertical asymptote occurs when the denominator multiplicity is greater). The hook reverses this. The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.10", "topic_codes": ["1.10"], "kind": "convention",
+   "title": "Hole versus vertical asymptote at a shared zero", "body": "If the multiplicity of a real zero in the numerator is greater than or equal to its multiplicity in the denominator, the graph has a hole at that input value; a vertical asymptote occurs instead when the multiplicity in the denominator is greater.", "items": [], "caution": null, "ced_evidence": "1.10.A.1 and 1.9.A.1",
+   "hooks": [{"kind": "phrase", "hook_text": "Bottom bigger, bottom hole", "expands_to": [{"cue": "Bottom bigger", "means": "the denominator's multiplicity is greater"}, {"cue": "bottom hole", "means": "so the graph has a hole at that input value"}], "when_to_use": "when deciding between a hole and a vertical asymptote", "caution": "State the multiplicity comparison in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-precalc-u1-06-other-unit", "control": "content from another unit (logarithmic properties are Unit 2 exponential and logarithmic functions; 'logarithm' and 'radian' do not appear in the Unit 1 pages)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 1, "owner_topic_code": "1.11", "topic_codes": ["1.11"], "kind": "formula",
+   "title": "Product property of logarithms", "body": "\\log_b(xy) = \\log_b x + \\log_b y", "items": [], "caution": null, "ced_evidence": "1.11.A.1", "hooks": []}
+]

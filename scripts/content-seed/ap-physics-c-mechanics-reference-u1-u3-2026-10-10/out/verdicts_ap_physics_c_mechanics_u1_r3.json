@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "ap_physics_c_mechanics-u1-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of average velocity as stated in EK 1.2.B.2 ('Average velocity is the displacement of an object divided by the interval of time in which that displacement occurs.'). The formula uses the vector notation for position r established in EK 1.1.A.4.ii, and the caution correctly clarifies the distinction between the 3D vector form and the 1D component form mentioned in EK 1.2.C.1.i."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula matches 1.2.B.2: \u201cAverage velocity is the displacement of an object divided by the interval of time in which that displacement occurs.\u201d Topic 1.2 is the correct owner. The caution incorrectly cites 1.2.C.1.i for the average-velocity component form; that statement defines instantaneous velocity as dx/dt, not average velocity as \u0394x/\u0394t."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula matches 1.2.B.2: \u201cAverage velocity is the displacement of an object divided by the interval of time in which that displacement occurs.\u201d Topic 1.2 is the correct placement. The caution\u2019s single-axis average-velocity formula is valid, but its citation is incorrect: 1.2.C.1.i defines instantaneous velocity and gives v_x = dx/dt, not average velocity as change in x over change in t."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

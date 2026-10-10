@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-phys2-u11-01-reversed", "control": "reversed proportionality (CED 11.3.A.2: resistance is proportional to resistivity and LENGTH and inversely proportional to CROSS-SECTIONAL AREA)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.3", "topic_codes": ["11.3"], "kind": "convention",
+   "title": "What the resistance of a uniform resistor depends on", "body": "The resistance of a resistor with uniform geometry is proportional to its resistivity and its cross-sectional area, and inversely proportional to its length.", "items": [], "caution": null, "ced_evidence": "11.3.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u11-02-excluded", "control": "explicitly excluded by the CED (11.x BOUNDARY STATEMENT: descriptions of charging and discharging RC circuits in AP Physics 2 are limited to qualitative descriptions and representations)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.8", "topic_codes": ["11.8"], "kind": "formula",
+   "title": "Charge on a charging capacitor in an RC circuit", "body": "q(t) = C\\varepsilon\\left(1 - e^{-t/RC}\\right)", "items": [], "caution": null, "ced_evidence": "11.8.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u11-03-wrong-owner", "control": "wrong owner topic (equivalent resistance in series and parallel is topic 11.5, EK 11.5.A; 11.3 covers the resistance of a single object)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.3", "topic_codes": ["11.3"], "kind": "convention",
+   "title": "Equivalent resistance of resistors in parallel", "body": "The inverse of the equivalent resistance of resistors connected in parallel equals the sum of the inverses of the individual resistances.", "items": [], "caution": null, "ced_evidence": "11.5.A.2.ii", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u11-04-swapped", "control": "swapped meter connections (CED 11.5.C.1.i: ammeters connect in SERIES; 11.5.C.2.i: voltmeters connect in PARALLEL)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.5", "topic_codes": ["11.5"], "kind": "list_sequence",
+   "title": "How to connect circuit meters", "body": "How each meter must be connected to make its measurement.", "items": [{"label": "Ammeter", "meaning": "connected in parallel with the element whose current is being measured"}, {"label": "Voltmeter", "meaning": "connected in series with the element across which potential difference is measured"}], "caution": null, "ced_evidence": "11.5.C.1.i and 11.5.C.2.i", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u11-05-bad-hook", "control": "hook expansion contradicts the CED (11.5.A.2.iii: adding resistors in parallel increases the number of paths and DECREASES the equivalent resistance). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.5", "topic_codes": ["11.5"], "kind": "convention",
+   "title": "Adding resistors in parallel", "body": "When resistors are connected in parallel, the number of paths available to charges increases and the equivalent resistance of the group decreases.", "items": [], "caution": null, "ced_evidence": "11.5.A.2.iii",
+   "hooks": [{"kind": "phrase", "hook_text": "More resistors, more resistance", "expands_to": [{"cue": "More resistors", "means": "adding another resistor in parallel"}, {"cue": "more resistance", "means": "raises the equivalent resistance of the group"}], "when_to_use": "when predicting how a parallel branch changes equivalent resistance", "caution": "State the change in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-phys2-u11-06-other-unit", "control": "content from another unit (the magnetic force on a moving charge is Unit 12 magnetism and electromagnetism; it is not in the Unit 11 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 11, "owner_topic_code": "11.3", "topic_codes": ["11.3"], "kind": "formula",
+   "title": "Magnetic force on a moving charge", "body": "F_B = |q| v B \\sin\\theta", "items": [], "caution": null, "ced_evidence": "11.3.A.1", "hooks": []}
+]

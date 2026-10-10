@@ -1,0 +1,450 @@
+[
+  {
+    "candidate_id": "ap_physics_1-u3-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the sign convention of work as energy transfer into or out of a system, which is directly supported by EK 3.2.A.1 ('Work is the amount of energy transferred into or out of a system') and EK 3.2.A.2 ('Work is a scalar quantity that may be positive, negative, or zero'). The caution correctly notes when work is zero, aligning with EK 3.2.A.3.i and 3.2.A.3.ii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2 first establishes that work transfers energy into or out of a system (3.2.A.1) and that work may be positive, negative, or zero (3.2.A.2). Topic 3.4 also uses work to describe energy transfer between a system and its environment (3.4.C.3). The caution\u2019s zero-work examples agree with 3.2.A.3.i: only the force component parallel to the displacement of its point of application changes the system\u2019s total energy."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "The body matches the CED's energy-transfer definition. 3.2.A.1 states work 'is the amount of energy transferred into or out of a system by a force exerted on that system over a distance', so work into the system is positive and work out is negative. The CED does not state the sign convention verbatim, but it follows directly from that definition. Owner 3.2 is where work is first introduced (3.2.A.1-3.2.A.2). Topic 3.4 uses the sign of work in 3.4.C.2 (zero work with no nonconservative interactions means constant mechanical energy) and 3.4.C.3 (nonzero work means energy is transferred between system and environment). The requirement to apply this appears in the 3.2.A learning objective ('Describe the work done on an object or system by a given force') and in 3.2.A.2 ('Work is a scalar quantity that may be positive, negative, or zero'). The caution is needed because the body omits zero, which 3.2.A.2 lists as a possible value, and it correctly names the zero cases: a perpendicular component (3.2.A.3.ii) and no displacement of the point of application (implied by 'over a distance' in 3.2.A.1). Minor: the ced_evidence quote for 3.2.A.1 is truncated before 'exerted on that system over a distance' without an ellipsis; this does not change the substance."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of work done by a constant force as described in Topic 3.2. Specifically, EK 3.2.A.3 and EK 3.2.A.3.i state that only the component of the force parallel to the displacement of the point of application changes the system's total energy, and EK 3.2.A.2 states that work is a scalar quantity that may be positive, negative, or zero. The caution correctly highlights the limitations (constant force, displacement of the point of application) which are explicitly mentioned in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2 first requires this relationship: 3.2.A.3 addresses work by a constant force, 3.2.A.3.i says only the component parallel to the displacement of the point of application changes the system\u2019s total energy, and 3.2.A.2 says work is a scalar that may be positive, negative, or zero. Topic 3.4 uses work to describe energy transfer (3.4.C.2\u20133), and 3.5 uses it to describe power (3.5.A.3\u20134). The caution correctly limits the formula to a constant force and identifies the relevant displacement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body W = F_\u2225 d = F d cos\u03b8 matches the 3.2.A.3 relevant equation, which expresses work for a constant force through the component parallel to the displacement. The ced_evidence quotes match the CED: 3.2.A.3.i ('Only the component of the force exerted on a system that is parallel to the displacement of the point of application of the force will change the system's total energy') and 3.2.A.2 ('Work is a scalar quantity that may be positive, negative, or zero'). b_topic_codes: 3.2 is the topic that first defines work (3.2.A.1, 3.2.A.3), so it is the correct owner. 3.4 uses work in its energy-transfer statements (3.4.C.2, 3.4.C.3), and 3.5 defines average power as work divided by time (3.5.A.3), so both listed topics use it. c_ced_required: LO 3.2.A requires describing the work done by a given force, and 3.2.A.3 requires relating that work to the parallel component and the displacement. d_caution: The entry title and body wording differ from the CED phrasing, so a caution is needed. The caution is correct: it limits the formula to a constant force (matching 3.2.A.3), identifies d as the displacement of the point of application (matching 3.2.A.3.i), and states that the perpendicular component does no work. The CED supports this in 3.2.A.3.ii, which says the perpendicular component changes direction without changing kinetic energy. The caution does not contradict the CED."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the work-energy theorem as described in Essential Knowledge 3.2.A.4, which states that the change in an object's kinetic energy is equal to the sum of the work (net work) being done by all forces exerted on the object. The formula body correctly represents this relationship mathematically."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.2 requires the work\u2013energy theorem: CED 3.2.A.4 states that the change in an object's kinetic energy equals the net work done by all forces on it. However, the formula gives every force the same displacement d without a condition that their points of application move that distance. CED 3.2.A.3 relates work to 'the displacement of the point at which that force is exerted,' and 3.2.A.4.ii specifies when a system may be modeled as an object with a common displacement. The caution correctly identifies the sum as net work, but does not fix the formula's unrestricted use of d."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.2 requires the work-energy theorem: 3.2.A.4 says the change in an object\u2019s kinetic energy equals \u201cthe sum of the work (net work) being done by all forces exerted on the object.\u201d But the unqualified formula \u03a3F\u2225,i d treats every force\u2019s work as its parallel component times one shared displacement. The CED specifies this force\u2013displacement relationship for a constant force (3.2.A.3) and refers to \u201cthe displacement of the point at which that force is exerted.\u201d The entry does not state those conditions. Its caution correctly identifies the sum as net work, but does not resolve the formula\u2019s overgeneralization."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 3.3.A.3 from the AP Physics 1 CED: 'The definition of zero potential energy for a given system is a decision made by the observer considering the situation to simplify or otherwise assist in analysis.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.3, EK 3.3.A.3 states: \u201cThe definition of zero potential energy for a given system is a decision made by the observer considering the situation to simplify or otherwise assist in analysis.\u201d The entry preserves that meaning, belongs to Topic 3.3, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the substance of CED 3.3.A.3: \"The definition of zero potential energy for a given system is a decision made by the observer...to simplify or otherwise assist in analysis.\" The body drops the qualifier \"considering the situation\", which narrows the wording but does not make any statement false. No formula or list is involved. b_topic_codes: The statement is essential knowledge 3.3.A.3 under Topic 3.3 (Potential Energy), and no other topic in Unit 3 uses it, so owner_topic_code 3.3 and topic_codes [\"3.3\"] are correct. c_ced_required: 3.3.A.3 is an essential-knowledge statement supporting learning objective 3.3.A (\"Describe the potential energy of a system\"), so a student must know it. d_caution: The entry's wording carries the point the CED makes (zero PE is the observer's decision), so no caution is required. The only difference is the dropped qualifier, which does not change the point-earning content."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the essential knowledge statements 3.4.A.1 and 3.4.A.2 from the AP Physics 1 CED. It correctly identifies that a single-object system can only have kinetic energy, whereas a multi-object system with conservative interactions or reversible shape changes can have both kinetic and potential energies."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4.A.1 states, \u201cA system composed of only a single object can only have kinetic energy.\u201d Topic 3.4.A.2 states that a system with objects that \u201cinteract via conservative forces or that can change its shape reversibly may have both kinetic and potential energies.\u201d The entry faithfully states both required distinctions; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.4.A.1, \"A system composed of only a single object can only have kinetic energy,\" and 3.4.A.2, \"A system that contains objects that interact via conservative forces or that can change its shape reversibly may have both kinetic and potential energies.\" The entry paraphrases both statements without changing their meaning. b_topic_codes: The entry sits under topic 3.4 (Conservation of Energy), where LO 3.4.A (\"Describe the energies present in a system\") first requires this distinction, and the only topic code listed is 3.4. c_ced_required: LO 3.4.A directly requires students to describe the energies present in a system, so this is a required skill. d_caution: The entry's wording is a close paraphrase of the CED essential knowledge. The same concept is earned by either phrasing, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the physical relationship described in EK 3.2.A.4.iii ('The energy dissipated by friction is typically equated to the force of friction times the length of the path over which the force is exerted'). The topic codes are correct as Topic 3.2 introduces the concept and Topic 3.4 applies it to conservation of energy and dissipation. The caution correctly highlights the path-dependent nature of friction as a nonconservative force, which is a key distinction in AP Physics 1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2 first requires this relationship: 3.2.A.4.iii states, \u201cThe energy dissipated by friction is typically equated to the force of friction times the length of the path over which the force is exerted.\u201d Topic 3.4 also uses frictional dissipation in conservation-of-energy analysis; its boundary statement says mechanical energy can be dissipated as thermal energy or sound by nonconservative forces. The caution correctly distinguishes path length from net displacement and is consistent with 3.2.A.1.iv: \u201cThe work done by a nonconservative force is path-dependent.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: 3.2.A.4.iii states 'The energy dissipated by friction is typically equated to the force of friction times the length of the path over which the force is exerted.' The body E_dissipated = F_f \u2113_path matches these symbols and this relation. b_topic_codes: owner 3.2 is correct, since 3.2.A.4.iii sits under LO 3.2.A. The topic_codes entry 3.4 fails. No 3.4 statement contains the F\u00b7\u2113 relation. The only related 3.4 text is the boundary statement that mechanical energy 'can be dissipated as thermal energy or sound by nonconservative forces,' which gives no equation. 3.4 does not use this formula, so the tag should be removed. c_ced_required: 3.2.A.4.iii is essential knowledge under LO 3.2.A ('Describe the work done on an object or system by a given force'), so students are required to apply it. d_caution: the caution directs students to path length rather than net displacement, which is the point-earning distinction ('over which the force is exerted'). It also notes path-dependence and the thermal/sound outcome, which the CED supports via 3.2.A.1.iv and the boundary statement. The entry omits the CED's hedge 'typically', but the caution covers the point that matters."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body E_dissipated = F_f * l_path matches 3.2.A.4.iii, which says the energy dissipated by friction is 'typically equated to the force of friction times the length of the path over which the force is exerted.' The formula structure and the path-length (not displacement) quantity are correct. b_topic_codes: owner 3.2 is correct because 3.2.A.4.iii, the source of the formula, sits in Topic 3.2. Topic 3.4 is listed as a user of the entry. Topic 3.4 does not state the friction formula, but its boundary statement and 3.4.C discuss mechanical energy being dissipated as thermal energy or sound by nonconservative forces, so the 3.4 link is supported in substance. c_ced_required: 3.2.A.4.iii is an essential-knowledge statement under LO 3.2.A (describe work done by a given force), so the student is required to apply it. d_caution: The caution says to use path length rather than net displacement, which matches the CED's 'length of the path over which the force is exerted.' It also cites 3.2.A.1.iv (friction is nonconservative and path-dependent) and the boundary statement (energy becomes thermal energy or sound). The caution is present and correct. One minor gap: the CED says 'typically equated,' but the body writes a plain equality and the caution does not flag the hedge. This does not change the verdict."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the potential energy of a system based on the exact wording of Essential Knowledge 3.3.A.1 and 3.3.A.2. The topic codes are correct as Topic 3.3 introduces potential energy and Topic 3.4 applies it to conservation of energy."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 3.3.A.2 supports the scalar-quantity definition. But 3.3.A.1 says a system has potential energy **if** its objects interact only through conservative forces; the entry changes this to **only if**, asserting a requirement the CED does not state. CED 3.4.A.2 also identifies systems that can change shape reversibly as potentially having potential energy. Topics 3.3 and 3.4 both use the concept, but no caution flags the consequential wording change."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.3 first requires this content: 3.3.A.1 says a system of two or more objects has potential energy if its objects \u201conly interact with each other through conservative forces,\u201d and 3.3.A.2 calls potential energy \u201ca scalar quantity associated with the position of objects within a system.\u201d Topic 3.4 also uses the concept in 3.4.A.2, which describes potential energy in systems whose objects interact via conservative forces. The entry\u2019s wording matches the CED in substance, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The scalar-quantity sentence matches 3.3.A.2 (\"Potential energy is a scalar quantity associated with the position of objects within a system\"). The system condition is changed. 3.3.A.1 reads \"A system composed of two or more objects has potential energy if the objects within that system only interact with each other through conservative forces.\" The body says the system \"has it only if those objects interact with each other through conservative forces.\" That reverses the 'if' into 'only if' and drops 'only', so the logical relation the CED states is not reproduced. b_topic_codes: 3.3 is where 3.3.A.1 and 3.3.A.2 first appear. 3.4 uses the concept in 3.4.A.2 (\"may have both kinetic and potential energies\") and 3.4.B.1 (mechanical energy as kinetic plus potential), so it is a valid secondary code. c_ced_required: 3.3.A (\"Describe the potential energy of a system\") requires students to apply this idea. d_caution: the wording departs from the CED (\"if\" changed to \"only if\", 'only' dropped), so a caution was needed to flag the paraphrase, and caution is null. Fix: restore the CED sufficiency wording ('has potential energy if ... only interact ... through conservative forces') or add a caution, then re-check."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The scalar-quantity statement matches 3.3.A.2 ('Potential energy is a scalar quantity associated with the position of objects within a system'). The system condition matches 3.3.A.1 ('has potential energy if the objects within that system only interact with each other through conservative forces'). The body's 'only if' is a stronger logical claim than the CED's 'if', but it is not contradicted by 3.2.A.1.iii ('Potential energies are associated only with conservative forces'), so it is marked factual. b_topic_codes: 3.3 is where potential energy is first required (3.3.A), and 3.4 uses it (3.4.A.2 'may have both kinetic and potential energies'; 3.4.B.1 mechanical energy as the sum of kinetic and potential energies). c_ced_required: 3.3.A asks students to 'Describe the potential energy of a system', and 3.3.A.1 and 3.3.A.2 state the content directly. d_caution: The body rewrites the CED's conditional 'has potential energy if ... only interact ... through conservative forces' as 'has it only if those objects interact ... through conservative forces'. The quantifier direction changes, and the CED's point-earning wording is 'if' with the word 'only' attached to the interaction. No caution is present to flag this difference, so the check fails. Fix: either use the CED's 'if' wording or add a caution stating that potential energy is defined for systems whose internal interactions are conservative, with 3.2.A.1.iii as the source for the 'only' relationship."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

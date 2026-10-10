@@ -1,0 +1,484 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.1.A.1.i ('Charge is a scalar quantity and is described as positive or negative') and 8.1.A.3 ('The direction of the electrostatic force depends on the signs of the charges...')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1 states, \u201cCharge is a scalar quantity and is described as positive or negative\u201d (8.1.A.1.i). It also states that the direction of electrostatic force depends on the signs of the charges, with same-sign charges repelling and opposite-sign charges attracting (8.1.A.3). The entry accurately combines these requirements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.1.A.1.i reads \"Charge is a scalar quantity and is described as positive or negative,\" which matches the body. The clause linking sign to attraction/repulsion is consistent with 8.1.A.3.i (\"Two objects with charges of the same sign exert repulsive forces\") and 8.1.A.3.ii (\"opposite signs ... attractive\"). b_topic_codes: 8.1.A.1 is the first place this appears, and topic 8.1 is the only code listed, so owner 8.1 is correct. c_ced_required: 8.1.A.1.i is essential knowledge under LO 8.1.A, which requires students to describe electric force between charged objects, so the content is required. d_caution: the body paraphrases rather than quoting, but it states the same content and does not contradict the CED. The parenthetical \"(not a direction)\" is consistent with scalar charge; the CED assigns direction to the force (8.1.A.3), not to charge. No caution is needed. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions of elementary charge and the charges of electrons, protons, and neutrons as specified in Essential Knowledge 8.1.A.1.ii and 8.1.A.1.iii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.1 requires the particle charges stated in the entry: 8.1.A.1.iii says an electron has charge \u2212e, a proton +e, and a neutron no electric charge. But 8.1.A.1.ii says the elementary charge \u201ccan be considered to be the smallest indivisible amount of charge.\u201d The entry changes that qualified statement to an unqualified \u201cis,\u201d with no caution explaining the distinction."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.1 requires the particle charges stated here: 8.1.A.1.iii says an electron has charge \u2212e, a proton +e, and a neutron no electric charge. But 8.1.A.1.ii says the elementary charge e \u201ccan be considered to be the smallest indivisible amount of charge.\u201d The body changes that qualified statement to an unqualified \u201cis,\u201d with no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the Boundary Statement under Topic 8.1 on page 29 of the CED, which states: 'AP Physics C: Electricity & Magnetism only expects students to make calculations of the electric force between four or fewer interacting charged objects or systems. The analysis of the resulting electric force from more charges is allowed in situations of high symmetry.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Topic 8.1 boundary statement supports the stated scope: students are expected to calculate electric forces between \u201cfour or fewer interacting charged objects or systems,\u201d while analysis involving more charges is allowed \u201cin situations of high symmetry.\u201d But this is a boundary on what the course expects, not a learning objective or essential-knowledge statement requiring students to reproduce or apply the limit itself."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Topic 8.1 boundary says the course \u201conly expects students to make calculations of the electric force between four or fewer interacting charged objects or systems\u201d and allows analysis of more charges \u201cin situations of high symmetry.\u201d The entry accurately summarizes that scope limit and assigns it to 8.1. But the limit is a boundary on assessment, not something a learning objective or essential-knowledge statement requires students to reproduce or apply."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines electric permittivity, free space permittivity, and the permittivity of matter, directly aligning with Essential Knowledge statements 8.1.C.1, 8.1.C.3, and 8.1.C.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1 requires students to describe electric permittivity. CED 8.1.C.1 defines it as a measurement of how much a material or medium is polarized in an electric field; 8.1.C.3 states that free space has a constant permittivity; and 8.1.C.4 attributes matter\u2019s different permittivity to its composition and arrangement. The entry preserves those claims, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. 8.1.C.1 reads \"Electric permittivity is a measurement of the degree to which a material or medium is polarized in the presence of an electric field.\" The entry's \"measure\" is a synonym, not a change in meaning. 8.1.C.3 states that free space has a constant permittivity \u03b50, and 8.1.C.4 states that matter's permittivity differs from free space because of its composition and arrangement. No formula or list is involved. b_topic_codes: 8.1.C is the first place the CED requires permittivity in this unit, so owner_topic_code 8.1 is correct, and topic_codes [8.1] lists only that topic. c_ced_required: LO 8.1.C reads \"Describe the electric permittivity of a material or medium,\" so students must apply this content. d_caution: The entry's wording is essentially the CED's own phrasing, so no caution is needed and the empty caution is correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the properties of conductors in electrostatic equilibrium as specified in Essential Knowledge 8.3.B.1 and 8.3.B.1.i. The caution correctly distinguishes conductors from insulators as described in 8.3.B.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3, EK 8.3.B.1 states that in electrostatic equilibrium, excess charge is distributed on a conductor\u2019s surface and the electric field within it is zero. EK 8.3.B.1.i states that the field at the surface is perpendicular to the surface. The caution correctly limits the zero-field rule: EK 8.3.B.2 says the field within an insulator may be nonzero."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.3.B.1 ('While in electrostatic equilibrium, the excess charge of a conductor is distributed on the surface of the conductor, and the electric field within the conductor is zero') and 8.3.B.1.i ('At the surface of a charged conductor, the electric field is perpendicular to the surface'). The paraphrase 'lies on its surface' is equivalent to 'distributed on the surface'. No formula or list is involved. b_topic_codes: 8.3.B.1 sits under Topic 8.3 (Electric Fields), which is the owner and only topic code, so owner_topic_code 8.3 is where the unit first requires it. c_ced_required: 8.3.B.1 and 8.3.B.1.i are essential-knowledge statements under learning objective 8.3.B ('Describe the electric field generated by charged conductors or insulators'), so a student must apply this. d_caution: The caution 'Zero field inside applies to a conductor in electrostatic equilibrium, not to insulators' is correct and needed. CED 8.3.B.2 states that for an insulator 'the electric field within the insulator may have a nonzero value', so the caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Electric polarization' using the exact phrasing from Essential Knowledge 8.1.C.2. The topic codes are correct, as the concept is introduced in Topic 8.1 (8.1.C.2) and referenced in Topic 8.2 (8.2.A.1.ii)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 8.1.C.2: electric polarization is modeled as the \u201cinduced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium.\u201d Topic 8.1 first requires it; 8.2.A.1.ii also uses polarization to describe induced charge separation. The wording follows the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.1.C.2 ('induced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium'). The symbols and content are correct. b_topic_codes: 8.1 is the first unit topic that requires polarization (8.1.C.2, Topic 8.1, Unit 8). 8.2 also uses it in 8.2.A.1.ii ('Induced charge separation ... resulting in the polarization of one or both systems'), so both codes are valid. c_ced_required: 8.1.C.2 is an essential-knowledge statement that students must apply. d_caution: FAILS. The CED says polarization 'can be modeled as' an induced rearrangement of electrons (8.1.C.2). The entry says 'Electric polarization is modeled as', which turns a modeling statement into an unqualified definition. The point-earning wording is 'can be modeled as', and no caution is present. Fix by restoring 'can be modeled as' or adding a caution that polarization is a model of the process. Substance is otherwise correct.",
+            "hooks": []
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 8.1.C.2 ('Electric polarization can be modeled as the induced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium'). The entry says 'is modeled as' where the CED says 'can be modeled as'. This is a minor hedging difference, not a change in substance, so it passes. b_topic_codes: owner 8.1 is the first topic to require the term (8.1.C.2 sits in Topic 8.1, which precedes 8.2). 8.2 also uses it: 8.2.A.1.ii says induced charge separation 'resulting in the polarization of one or both systems', so listing 8.2 is accurate. c_ced_required: 8.1.C.2 is essential knowledge under LO 8.1.C ('Describe the electric permittivity of a material or medium'), so it is required content. d_caution: the entry's wording tracks the CED closely enough that no caution is needed; the 'is' vs 'can be' difference is covered by the model framing in the body."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.3.B.1.ii from the CED, which states that the electric field outside an isolated sphere with spherically symmetric charge distribution is the same as that of a point charge with the same net charge located at the center. The caution is appropriate and correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Essential knowledge 8.3.B.1.ii states: \u201cThe electric field outside an isolated sphere with spherically symmetric charge distribution is the same as the electric field due to a point charge with the same net charge as the sphere located at the center of the sphere.\u201d The entry reproduces this required Topic 8.3 result. Its caution correctly limits the equivalence to the region outside the sphere."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.3.B.1.ii, which states: \"The electric field outside an isolated sphere with spherically symmetric charge distribution is the same as the electric field due to a point charge with the same net charge as the sphere located at the center of the sphere.\" The body's paraphrase (\"that of a point charge with the sphere's net charge located at its center\") is equivalent. b_topic_codes: 8.3.B.1.ii sits under Topic 8.3 (LO 8.3.B, Electric fields generated by charged conductors or insulators), so owner_topic_code 8.3 is where the unit first requires it, and topic_codes [\"8.3\"] is correct. Topics 8.4 and 8.6 use symmetry but do not state this result, so they are not added. c_ced_required: 8.3.B.1.ii is an essential-knowledge statement under LO 8.3.B, so it is required content. d_caution: The CED states only the outside-field result and says nothing about the inside field. The caution (\"This applies outside the sphere; it does not describe the field inside the sphere.\") is accurate and consistent with the CED's separate treatment of interior fields (8.3.B.1, 8.3.B.2), so its presence is correct and it does no harm. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r2-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.3.B.2 from the CED, which states that 'While in electrostatic equilibrium, the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.' The topic code is correct and the content is directly required."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely matches essential knowledge 8.3.B.2: \u201cWhile in electrostatic equilibrium, the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.\u201d This is required in Topic 8.3, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.3.B.2, which says that in electrostatic equilibrium 'the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.' The entry's 'may be nonzero' and 'throughout its interior as well as at its surface' are faithful rewordings, and no symbols or formulas are involved. b_topic_codes: 8.3.B.2 sits under Topic 8.3 (Electric Fields), so owner_topic_code 8.3 is where the requirement first appears, and topic_codes ['8.3'] is the only topic that uses it. c_ced_required: 8.3.B.2 is an essential-knowledge statement under learning objective 8.3.B ('Describe the electric field generated by charged conductors or insulators'), so a student is required to apply this. d_caution: The entry's wording differs only trivially from the CED, and the substance (insulator charge distributed through the volume; interior field may be nonzero) is the point-earning content, so no caution is needed. The entry does not restate the conductor contrast, but nothing in it is wrong or misleading.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

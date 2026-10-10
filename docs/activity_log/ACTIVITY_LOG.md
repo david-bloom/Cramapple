@@ -6,6 +6,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0070 Opened and Applied to Development: Calculus BC Serves AB's Shared Reference Content, No Duplicate Rows (2026-10-10): David asked why BC needed its own units 1-3 pack; it did not — AB and BC share one CED, BC's units 1-5 topic sets are identical and 6-8 a superset, and only `subject_key` keying made BC serve nothing. Duplicating was rejected because the same duplication in `topic_explainers` has already drifted (all 81 shared AB/BC explainers differ; units 1-8 AB 35 of 81 repaired against BC 85 of 87), so copying would have hidden the same divergence and required mirroring today's 43 corrections. Shipped a general `app.subject_reference_aliases` table plus an RPC union with three guards (own row wins, unit range, requesting subject's taxonomy). No content row created, copied or deleted. Verified against a 30-probe pre-change baseline: 23 of 30 payloads byte-identical once the additive key is stripped, the 7 that differ are exactly BC units 1-3, both guards exercised and rolled back, alias table unreadable by `authenticated`, migration idempotent, all 8 QA checks ok. AB's stale explainers recorded as F2; anonymous BYOQ sharing as F1. Code change, so the PR goes to David; Production untouched.
+- Extractor Prompt Fixed for Boundary Statements, Skills and Exam-Prep Text; Pipeline Scripts Given a Canonical Template (2026-10-10): the seven unit 1-3 entries that had to be dropped rather than corrected all came from CED sections that are not course content — Exclusion/Boundary Statements, SUGGESTED SKILL lists, "Preparing for the AP Exam", ILLUSTRATIVE EXAMPLES alone. New protocol §1.2 names the admissible source, keeps a boundary statement's legitimate use in a `caution`, and makes an LO/EK citation a hard gate; `extract.py` and `check.py` (b)(c) now enforce it. Scripts moved to a canonical baseline at `scripts/content-seed/reference-pack-template/` so prompt lessons stop being lost between batches. Verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2: all three previously-inadmissible entries gone, no entry citing a non-LO/EK section. Test extractions not loaded; no batch re-run; Production untouched.
+- Ownership Rule Written into the Reference-Content Protocol (2026-10-10): the protocol's "owned by the topic that first requires it" was being read by the checkers as earliest mention, which caused most of the ownership escalations in the units 1-3 run. New §1.1 states the rule the Product Owner has applied five times (the topic whose LO/EK requires the entry as stated), gives the test, lists the ruled examples, bars a pre-owner topic from `topic_codes`, tells a session to escalate rather than re-key to satisfy a checker, and carries the exact prompt wording for `extract.py` and `check.py`. The AP Chemistry inventory's matching phrasing was aligned. Codification of existing rulings, so no new decision id; docs only, no content or database change.
+- Last Four Reference-Row Escalations Ruled and Loaded; Development Found to Be Shared Mid-Run (2026-10-10): David ruled owners 1.3, 2.7, 1.3 and 10.7, loaded via `load.py --po-accept`, so all 50 escalations are now dispositioned (43 corrected and loaded, 7 rejected for having no LO/EK basis). The ownership principle is now ruled three times and should be written into the production protocol. Separately, Development is shared: another session loaded PR #399's 2 Chemistry Unit 1 escalations and a new Chemistry units 5-9 batch (119 rows) during this run, so Development's 1,076 entries include 247 rows from outside this branch and only 829 are this session's. A Production approval must therefore name batches, not a row count. All 8 QA checks still pass. Production untouched.
+- Escalation Correction Pass: 39 of 50 Escalated Reference Rows Corrected, Re-Checked and Loaded (2026-10-10): David directed the session to correct the escalations itself rather than regenerate them (a recorded deviation from the protocol's no-hand-edit rule, under his authority over escalations). Each correction restored the CED wording the checker had identified as missing and was re-checked by both independent checkers plus the reject-only veto; 39 passed and loaded, 7 were rejected as having no LO/EK basis (boundary statements, a suggested skill, exam-prep guidance), and 4 remain open — three are one ownership question David has already ruled on twice, and one is a genuine deadlock between the two checker families. Development: 951 entries, 11 hooks; all 8 QA checks ok. The earlier count of 45 escalations was wrong and is corrected to 50. Production untouched.
+- Reference Packs Built for Units 1-3 of Nine Subjects: 786 Entries + 6 Hooks Loaded to Development, Controls 150/150, $37.80 (2026-10-10): David scoped units 1-3 for all subjects, Development only, and supplied the four missing Physics CEDs that had blocked Physics 1 / 2 / C Mechanics / C E&M; 25 unit batches run through the two-checker plus reject-only Haiku veto pipeline with six CED-verified controls each (6/6 every batch). Development now holds 912 entries and 10 hooks; all 8 QA checks ok and RPC probes correct. `load.py` gained a schema guard after one bad `topic_codes` row silently voided a whole batch load; `extract.py` now requires a caution on mnemonic hooks. Calculus BC units 1-3 left to a Product Owner call (identical taxonomy and CED to AB, re-key SQL generated not applied); 45 escalations open, grouped into three patterns. Production untouched.
+- Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented; Lovable Not Sent (2026-10-09): AP Chemistry's 91-topic inventory now carries the repeatable vocabulary/equation/memory-hook workflow, checker and control gates, Notes-vs-question projection rules, and BYOQ boundary; the compact three-pane template and `2/5`-only header are recorded in a session-close handoff. Docs and local rendering only; no app, database, Lovable, or Production change.
 - Session Close: FRQ Coverage Audit, Topic Labels and FRQ Gap Fill, Units 1-3 (2026-10-10): handoff `docs/handoffs/SESSION_CLOSE_2026_10_10_FRQ_GAP_FILL_UNITS_1_3.md`; next owner David (merge PR #400; decide on the second FRQ for 202 single-FRQ topics).
 - 126 New FRQs Published to Production and Development: Every Units 1-3 Topic Now Has an FRQ (APPROVAL-0146) (2026-10-10): 104 written in session after the Product Owner stopped paid authoring ($47 for 20 before; $21 for 106 after); three arbitration rounds; model answers 126/126 full credit (Biology also 10/10 on the production grader); 0 of 271 topics empty (was 126), 202 still have one FRQ.
 - TASK-0069 in Production, Dark (APPROVAL-0144) (2026-10-10): seven migrations applied verbatim and recorded at repository versions (one file corrected first: the attachment delete guard it had dropped), four functions deployed byte-identical, secrets set, Lovable App published (`e8c11dce`); integrity test 8/8 on Production; ~3-minute selector window with no student activity; API smoke owed (no Production secret key locally). Counts corrected: 619 published FRQ items, 37 published hand-drawn. **Next Owner:** David Bloom. **Next Action:** live admin run (runbook step 6), then decide on widening `FRQ_PHOTO_SUBJECTS`.
@@ -415,6 +422,354 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0070: Calculus BC Serves AB's Shared Reference Content — 2026-10-10
+
+**The question.** David, on reviewing the proposed Calculus BC re-key: *"why do we need a separate reference
+pack for units 1-3?"* Investigated rather than answered from the data model, and the answer was **we do not**.
+
+**Evidence.** AB and BC share one CED PDF. BC's units 1-5 topic sets are *identical* to AB's (16/10/6/7/12,
+zero asymmetric difference), units 6-8 BC is a *superset* (adds 3, 2, 1; `ab_only = 0` for every unit 1-8),
+and units 9-10 are BC-only. The only thing making BC serve nothing was that `unit_reference_entries` is keyed
+by `subject_key` and `get_topic_point_guides` filters on it.
+
+**Why duplication was rejected, not just declined.** The precedent exists — `topic_explainers` and
+`topic_point_briefs` do carry separate BC rows — but it has already failed. All 81 shared AB/BC explainers
+differ in text, and units 1-8 show **AB 81 rows with 35 repaired against BC 87 with 85**: a 2026-08-21 repair
+pass BC received and AB largely did not. An AB student on topic 1.1 currently gets a thinner explainer than a
+BC student on the same topic. Duplicating per subject concealed a one-sided repair rather than keeping the
+copies aligned, and copying the reference pack would have started the same clock plus required mirroring all
+43 corrections made earlier today.
+
+**Shipped to Development** (`supabase/migrations/20261010170000_task0070_shared_reference_serving.sql`): a
+general `app.subject_reference_aliases` table, seeded with one row (`ap_calculus_bc` reads `ap_calculus_ab`,
+units 1-8), and a `CREATE OR REPLACE` of `public.get_topic_point_guides` whose `published_reference` CTE
+unions the requesting subject's rows with alias-sourced rows under three guards: the requesting subject's own
+row always wins on `(owner_topic_code, kind, title)`, the unit range is bounded, and an alias row is served
+only when its owner topic exists in the *requesting* subject's latest verified taxonomy. Reference objects
+gain an additive `sharedFromSubjectKey`. **No content row was created, copied, re-keyed or deleted.**
+
+**Verified against a 30-probe pre-change baseline:** 23 of 30 payloads byte-identical once the new additive
+key is stripped, and the 7 that differ are exactly the BC units 1-3 probes (0 → 24/17/10 on the roll-ups,
+matching AB topic for topic). BC units 6/9/10 stayed empty, correctly. Both guards were exercised in
+rolled-back transactions — a BC row duplicating an AB row replaced it rather than doubling it, and an AB entry
+on a topic absent from BC's taxonomy reached AB but never BC including in the roll-up — and the database
+confirms nothing was left behind. The alias table is RLS-forced with no policies and no grants beyond
+`postgres`; an `authenticated` role reading it gets `permission denied`. The migration applied twice with no
+drift. All 8 QA checks ok.
+
+**A mistake worth recording.** The first apply failed on a syntax error: `pg_get_functiondef` returns no
+trailing semicolon, so the appended `commit;` was swallowed into the function body. Before diagnosing it the
+migration ledger row had already been inserted, claiming a migration that had not applied. Both were
+corrected — ledger row deleted, Development verified untouched (alias table absent, function md5 still
+matching the pre-change hash) — before re-applying with the terminator fixed.
+
+**Scoped out on purpose.** The anonymous BYOQ path reads the `public.unit_reference_entries` and
+`public.topic_memory_hooks` views rather than this RPC, so a BC visitor there still sees nothing (0 BC rows
+against 51 for AB). Those views are read by the edge function in the still-open PR #399, so widening them is
+recorded as follow-up **F1** instead of being changed underneath work in flight. AB's apparently pre-repair
+explainers are **F2** and need a Product Owner call.
+
+Code change, so the PR goes to David. Production untouched.
+
+## Extractor Prompt Fixed for Boundary Statements; Pipeline Scripts Given a Canonical Template — 2026-10-10
+
+**Why.** Of the 50 escalations in the units 1-3 run, 7 could not be corrected at all, only dropped: each had no
+learning-objective or essential-knowledge basis. Three came from **Exclusion/Boundary Statements**, two from
+**SUGGESTED SKILL** lists printed beside the topic, one from **"Preparing for the AP Exam"**, and one from
+**ILLUSTRATIVE EXAMPLES** alone. The extractor sees all of this because the unit page ranges necessarily include
+the unit opener and the margins of each topic page, and nothing in the prompt told it those sections are not
+content.
+
+**Protocol §1.2 added.** It names the admissible source (LO/EK statements under Required Course Content), lists
+the sections that may never be the basis for an entry, and keeps the two legitimate uses of a boundary statement:
+deciding what to leave out, and being quoted in the `caution` of an entry that has its own LO/EK basis — the
+accepted AP Physics 1 kinematic-equation entry does exactly that. It also makes an LO/EK citation in
+`ced_evidence` a hard gate, and warns that code style differs by subject (`1.5.A.2` in the sciences,
+`CHA-2.A.1` / `FUN-3.B.1` in Calculus), so an automated check of that field must accept both.
+
+**Scripts now have a canonical baseline:** `scripts/content-seed/reference-pack-template/`. Until now each batch
+copied scripts from a previous batch, so prompt lessons were lost whenever a session picked the wrong ancestor —
+this run hit two prompt defects that had already been diagnosed. Protocol §3 now says to copy from the template.
+Each batch still keeps its own copy so its artifacts stay honest about what produced them. The template's README
+records every enforcement the scripts carry beyond the first pilot and notes that `gateway.py` resolves the
+gitignored key at `parents[3]`, so the scripts only run from a directory at that depth.
+
+**Verified rather than asserted.** Re-extracted two units that had produced inadmissible entries, against the
+same CED pages and fact-pack sections:
+
+| Unit | Previously produced | Under the fixed prompt |
+|---|---|---|
+| Physics C: E&M unit 8 | "Limit on discrete-charge force calculations" (8.1 boundary statement) | gone; 31 entries, 0 citing a non-LO/EK section |
+| Calculus AB unit 2 | "Calculator answers: rounding" (exam-prep text) and "Keep notation precise" (Skill 4.C plus an invented rule) | both gone; 16 entries, 0 citing a non-LO/EK section |
+
+Every entry in both runs cites a recognisable LO/EK code. A first pass of this check reported 16 Calculus
+entries with no code; that was the check's own regex not accepting `CHA-`/`FUN-` style codes, not a defect in
+the output.
+
+The test re-extractions were a prompt test only: nothing from them was loaded to any database, no existing batch
+was re-run or re-keyed, and the committed batch scripts still reflect what actually produced their rows.
+Production untouched.
+
+## Ownership Rule Written into the Reference-Content Protocol — 2026-10-10
+
+**Why.** The protocol said an entry is "owned by the topic that first requires it". Both checker families read
+that as *earliest mention*, so they rejected correctly-owned entries on `b_topic_codes`; that single phrase
+produced most of the ownership escalations in the units 1-3 run across nine subjects, and the Product Owner
+overrode the checkers on it five times.
+
+**What changed.** New `§1.1 Ownership: which topic owns an entry` in
+`MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md`:
+
+- the rule — the owner is the topic whose LO/EK requires the entry *as stated*, not the earliest topic to
+  mention the idea;
+- the test — which topic's LO/EK would be incomplete without this entry stated this way;
+- `topic_codes` is the owner plus *later* reuse topics, and a topic preceding the owner is never a reuse tag;
+  if an earlier topic needs its own lookup, that is a separate entry owned by that topic;
+- five worked examples, each a ruling rather than an inference: AP Statistics 1.13 (`DECISION-0107` rule 2), AP
+  Chemistry 1.7, AP Physics 1's kinematic equation (1.3) and normal force (2.7), AP Precalculus concavity (1.3);
+- the instruction that a checker's ownership objection is not by itself grounds to move the owner — re-apply the
+  test and escalate for an override instead of re-keying to satisfy the checker, and escalate rather than cycling
+  encodings when the two checker families disagree with each other (AP Physics 2's 10.7 case took three attempts);
+- the exact prompt wording for `extract.py` and `check.py`, so the next batch's copied-forward scripts apply the
+  rule instead of re-escalating it.
+
+The same loose phrasing in `AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md` §3 was aligned, and its
+`topic_codes` bullet now bars a pre-owner topic too.
+
+**Governance.** This codifies `DECISION-0107` rule 2 and the Product Owner's 2026-10-10 rulings rather than
+setting new policy, so it carries no new decision id; the protocol's RECORDS line and a change note say so. Docs
+only: no content, database, migration or Production change, and no previously loaded row changes disposition.
+
+## Last Four Escalations Ruled; Development Found to Be Shared Mid-Run — 2026-10-10
+
+**Ruling.** David: keep **1.3, 2.7 and 1.3** as owners, and **10.7** for Physics 2. All four loaded with
+`load.py --po-accept`, so each row's `source_note` carries the override and its reason. With these, **all 50
+escalations are dispositioned: 43 corrected and loaded, 7 rejected as having no learning-objective or
+essential-knowledge basis.**
+
+**The ownership principle is now settled and should be written down.** Three rulings now agree that the topic
+whose objective *requires* the entry owns it, not the earliest topic that merely mentions the idea
+(`DECISION-0107` rule 2, the AP Chemistry Unit 1 periodic-trends call, and this one). The checkers systematically
+prefer earliest mention, so until the protocol says otherwise every batch will keep escalating the same question.
+
+For Physics 2 the 10.5 reuse code was dropped, because `topic_codes` means the owner plus *later* reuse topics and
+10.5 precedes 10.7. Checked for a serving gap first: topic 10.5 carries its own `Electric potential difference`
+entry and still returns 11 reference entries.
+
+**Development is a shared database and moved mid-run.** While this session ran its correction pass, another
+session loaded into the same Development project: PR #399's 2 Chemistry Unit 1 escalations at 11:37 UTC (the ones
+this session had reported as not yet applied) and a new `task0067-chem-u5-u9-2026-10-10` batch of 119 rows at
+11:49-11:53 UTC, a batch directory that does not exist in this session's working tree. Attribution by `created_at`
+and the `batch=` tag: Development holds **1,076 entries and 13 hooks**, of which **829 entries are this session's**
+(786 initial + 39 corrected + 4 ruled) and 247 belong to other batches.
+
+Two consequences: a Production approval must **name batches rather than a row count**, because a count taken in a
+shared Development database is not reproducible; and the earlier 912/951 figures in this log were accurate when
+measured but are not comparable to the current total. All 8 QA checks still pass across the whole table, which
+says the concurrent batch has not broken the invariants, not that its content has been reviewed here.
+
+## Escalation Correction Pass — 2026-10-10
+
+**Instruction.** David: correct the escalated rows in this session rather than regenerate them through the API
+pipeline. The production protocol bars hand-editing a generated row (`§3` step 6), so this is a **recorded
+deviation**, taken under the Product Owner's `§4` authority over every escalation. Two safeguards were kept: each
+correction restores the CED's own wording or qualification that a checker had identified as missing, verified
+against the CED PDF rather than the fact pack; and every corrected row went back through the same two independent
+checkers and the reject-only own-family veto. Rationale text was deliberately kept out of the candidate files so
+it could not bias a checker.
+
+**Count correction.** The escalation total is **50, not 45**. The 45 in the preceding entry was computed before the
+last three batches finished and was never recomputed; the per-subject table in the session record was always right
+and sums to 50.
+
+**Outcome: 39 corrected and loaded, 7 rejected, 4 open.** Development went from 912 entries and 10 hooks to **951
+entries and 11 hooks**. One hook returned with its corrected entry (the Calculus AB implicit-differentiation
+chain-rule hook, whose caution had over-claimed that every term containing y carries a factor of dy/dx). All 8 QA
+checks returned ok and RPC probes serve the corrected rows.
+
+**The 7 rejected could not be corrected, only dropped.** Each had no basis in a learning objective or
+essential-knowledge statement, which the inclusion rule requires: three came from **boundary statements** (Physics 1
+"action at a distance is gravitational only"; E&M's four-or-fewer-charges limit and its list of quantitatively
+examinable capacitor geometries), two from **suggested skills** (Biology's graph components, Calculus AB's notation
+rules), one from **"Preparing for the AP Exam"** (Calculus AB's three-decimal rounding), and one from
+**illustrative examples only** (Biology's cellulose/starch/glycogen list). This is a systematic extractor failure
+mode worth fixing in `extract.py`: it mines those sections as if they were course content.
+
+**The 4 open are not arbitrary.** Three are the same ownership question, and David has answered it twice already
+(`DECISION-0107` rule 2, and the AP Chemistry Unit 1 "Tools for explaining periodic trends" call): the checkers
+assign ownership to the earliest topic that *mentions* an idea, while David has chosen the topic whose objective
+*requires the entry as such*. Applying his precedent loads all three unchanged. The fourth, Physics 2's
+ΔU_E = qΔV, is a real deadlock: GPT-6 Sol insists on owner 10.5, the veto rejected exactly that and insists on
+10.7, and all three encodings tried were rejected by one or the other. The session did not self-override a veto or
+a two-checker rejection in any of the four.
+
+**Provenance.** Every corrected row's `source_note` carries `product-owner-directed correction by the Claude
+session (David, 2026-10-10)`, so a corrected row is distinguishable in the database from a stateless
+re-extraction. `load.py` gained a `correction_note` passthrough for this. Per-correction reasons are in each batch
+README and in `docs/handoffs/REFERENCE_PACK_CORRECTION_RATIONALES_2026_10_10.json`.
+
+**Cost.** The pass added 153 checker calls and $1.22; session total 4,165 calls and $39.02. Production untouched.
+
+## Reference Packs Built for Units 1-3 of Nine Subjects — 2026-10-10
+
+**What happened.** David scoped the session to **units 1-3 for all subjects, Development only**, ruled the two
+AP Chemistry Unit 1 escalations carried in from PR #399, and then supplied the four Physics CEDs
+(`ap-physics-1`, `ap-physics-2`, `ap-physics-c-mechanics`, `ap-physics-c-electricity-and-magnetism`) that had
+been the one hard blocker: those subjects had fact packs but no CED PDF, and the protocol makes the PDF the
+authority. They were copied from his gitignored `subject packs/` into `docs/teaching/` alongside the other six.
+
+**Twenty-five unit batches** were taken through the governed pipeline (controls first, Claude Sonnet 5.5
+extraction, independent Gemini 3.5 Flash and GPT-6 Sol checkers, reject-only Claude Haiku 5.5 own-family
+veto, stateless Round 2, escalate rather than patch): Statistics 2-3, Chemistry 2-3, Biology 1-3, Calculus AB
+1-3, Precalculus 1-3, Physics 1 1-3, Physics 2 9-11, Physics C: Mechanics 1-3, Physics C: E&M 8-10.
+**786 entries and 6 hooks loaded**, taking Development to **912 published entries and 10 hooks**.
+
+**Controls: 150 planted defects, 150 caught — 6/6 in every batch.** One control was found wrong *before* its
+run and corrected rather than voiding it: the Biology Unit 2 "non-CED" control claimed the Na+/K+ pump is
+absent from the CED, but it is at 2.8.A.1.ii and only the PDF's superscripts hid it from a text search. The
+CED gives no pumping stoichiometry, so the planted defect stood and its justification was rewritten.
+
+**Two script defects found and fixed.** `load.py` now refuses any accepted row that breaks a schema invariant
+the checkers do not police: a Statistics Unit 3 row had `owner_topic_code` 3.3 with `topic_codes` `{3.4}`, all
+three models passed its topic codes, and because the load is one transaction the whole batch silently wrote
+nothing until the row was pulled. `extract.py` now requires a `caution` on any hook whose wording is not the
+CED's point-earning wording — the Statistics Unit 2 BINS hook was otherwise correct and was rejected twice for
+exactly that omission.
+
+**Verified.** All 8 checks in `scripts/qa/unit_reference_and_memory_hooks_qa.sql` returned ok. Read-only RPC
+probes (rolled back) returned 9 and 11 entries for two Physics 1 topics (3 hooks on 1.5), 47 for the Physics
+C: Mechanics unit 2 roll-up, and empty arrays with unchanged briefs for Calculus BC. The RPC is
+`public.get_topic_point_guides(_subject_key, _unit_number, _topic_code)`; earlier records naming
+`app.get_topic_point_guides` with two arguments are wrong on both counts.
+
+**Cost.** 4,012 gateway calls, **$37.80** at list prices, about $1.45 per unit against roughly $10 in the
+pilot — the Haiku veto is 1,169 calls for $2.55 where GPT-6 Sol's pass alone is $21.99.
+
+**Open for the Product Owner.** Calculus BC units 1-3 are not loaded: BC and AB units 1-3 share one CED and an
+identical 32-topic taxonomy set (measured, zero difference either way), so a re-key of AB's checked rows would
+produce the same content at no model cost, but the protocol describes no re-key path — the SQL is generated and
+unapplied. 45 escalations are open, falling into three patterns (modality and hedging, over-generalised reuse
+tags, missing qualifying caution) and best ruled by pattern.
+
+**Not done.** No Production change, migration, schema change, Lovable build or frontend publish. Record:
+`docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`; per-batch READMEs under
+`scripts/content-seed/ap-*-reference-*-2026-10-10/`.
+
+## Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented — 2026-10-09
+
+**Direction:** David asked to document the protocol for building the Reference Pack (equations,
+vocabulary, and memory hooks), document the question-page template changes, write a thorough activity
+log, and close the session.
+
+**Durable record added:**
+`docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md` now contains a seven-part
+**Reference Pack build protocol** directly above the 91-topic inventory. The repo index now identifies
+the file as both the AP Chemistry scope map and the pack-building protocol. A full closeout is in
+`docs/handoffs/REFERENCE_PACK_AND_QUESTION_PAGE_SESSION_CLOSE_2026_10_09.md`.
+
+### How Reference Packs are made
+
+The protocol makes the CED PDF authoritative and uses the AP Chemistry fact pack only as an indexed
+aid, the 91-topic inventory as the completeness/boundary checklist, and current taxonomy rows as valid
+keys. Work is one unit per batch. Unit 4's 22 already-checked Production entries are reused rather than
+regenerated.
+
+Inventory phrases are not cards. They are consolidated into one-entry/one-lookup-need candidates.
+Synonyms and inseparable ideas combine; ideas with different meanings, conditions, or uses split. Each
+entry is owned by the first topic that requires it, and later `topic_codes` are added only when those
+topics' own CED objectives or essential knowledge use the entry. The candidate manifest carries stable
+identity, kind, student content, use/non-use boundary, CED page and LO/EK evidence, provenance, equation
+metadata, and hook linkage/no-hook disposition.
+
+**Vocabulary:** use CED meaning and exam-safe language, define the useful distinction, include the
+condition that prevents the predictable misconception, and put classroom-shorthand warnings in
+`caution`.
+
+**Equations and relationships:** include the accepted name, correct LaTeX, every symbol, units and
+constraints, sign/temperature/standard-state conditions, what evidence calls for the relationship, and
+when not to use it. Do not turn a proportional or qualitative relationship into a false equality.
+Equation-sheet availability is recorded metadata, not an inclusion/exclusion rule.
+
+**Memory hooks:** attach to exactly one accepted reference entry, inherit its topic scope, and expand
+completely and in the right order. Use public-domain-common or Cramapple-authored phrasing with recorded
+provenance; no publisher-specific novel wording, songs, lyrics, or audio. A hook is recall language, not
+the exam answer, so it carries a caution when translation into CED language is required. “No hook” is
+expected and must not be treated as missing work.
+
+The checking workflow is generate-and-select, not hand repair:
+
+1. Extract candidates from the unit's CED pages plus fact-pack section.
+2. Create and CED-verify six planted defects: wrong formula/definition, excluded or non-CED content,
+   wrong owner, wrong list/order, wrong hook expansion, and another-unit content.
+3. Run two independent checker families against factual accuracy, CED inclusion, topic ownership/reuse,
+   conditions/cautions, and evidence. Hooks are checked separately for expansion/order, linkage,
+   admissibility, and provenance.
+4. Run an extractor-family reject-only audit. It cannot rewrite content or rescue a checker rejection;
+   rejecting a hook does not reject the linked entry.
+5. Re-sample a flag once; only a repeated flag counts. Both checkers must accept and the audit must not
+   repeatedly veto. All six controls must be rejected.
+6. Re-extract rejected rows statelessly in Round 2 without checker reasons and without hand edits.
+7. Escalate persistent disagreement to the Product Owner with the CED evidence and all reasons. Resolve
+   against evidence; do not ask models to debate until they agree.
+
+The documented 2026-10-09 roster remains Claude Sonnet 5.5 for extraction, Gemini 3.5 Flash and GPT-6
+Sol as the independent checkers, and Claude Haiku 5.5 as the own-family reject-only audit. A changed
+roster needs the protocol smoke test and batch-level Product Owner ratification.
+
+A pack is complete only when every inventory phrase has an accepted/consolidated/excluded disposition,
+ownership and reuse validate, duplicates are resolved, no-hook outcomes and all verdicts are retained,
+controls pass, and the pack is compared back to every topic row and boundary. Generated SQL loads first
+to Development; the zero-orphan/owner/linkage/view/RPC QA and populated/hook/unit/empty probes must pass.
+Production remains a named approval plus same-SQL load and repeated QA. Hooks retire before their
+entries.
+
+### Lesson Notes versus a question page
+
+The complete accepted pack belongs in Lesson Notes. A question page is only a relevance projection:
+maximum three vocabulary terms, relevant equations/visuals, and at most one directly relevant memory
+hook. Empty sections are omitted. The presentation limit never removes CED-required content from the
+full Notes pack.
+
+### Proposed question-page template
+
+The compact shell is intended to be shared by Worked Example MCQ/FRQ, graded Practice MCQ/FRQ, and
+BYOQ without sharing their grading behavior.
+
+- **Orange bar:** Return to student hub, Change topic, and subject selector.
+- **Lesson strip:** subject/unit/topic breadcrumb, lesson title/subtitle, mode label, and plain
+  `current/total` only (example `2/5`). Remove `exam in __ days`, mastery summary, segmented progress,
+  and `Save and stop` from the work page; leave the exam countdown on the Student Hub and preserve
+  attempt persistence.
+- **Left:** Worked Example choices/rationales or FRQ rubric plus what earns points/common point loss;
+  Practice shows no answer truth before submission and only authorized feedback after; BYOQ shows
+  ungraded topic guidance with no score/correctness/canonical-answer claim.
+- **Center:** stimulus, question, response/worked response, and primary actions. Worked Example remains
+  illustrative, Practice scored, BYOQ read-only support.
+- **Right:** Skills; up to three vocabulary terms; relevant equations/graphs/diagrams/visuals; one
+  Memory Hook; one Full Lesson Note link. Omit empty or placeholder sections.
+- **BYOQ:** before both unit and topic confirmation, show a confirmation state and no guessed content.
+  After both are confirmed, use `fetchTopicGuides` or the current equivalent to populate both support
+  panes. Never call grading, expose `is_correct`, or fabricate missing content.
+- **Responsive/accessibility:** desktop left/center/right; narrow screens center then left then right;
+  wrapped navigation, semantic accordions, visible focus, and no color-only state.
+
+### Verification and boundaries
+
+The local 1440×900 @2x rendering was regenerated and visually checked: the top lesson strip now shows
+the mode plus `2/5` only. The Lovable implementation prompt was prepared locally but **not sent**; the
+question page was **not built in Preview or Production**. No model content run, database change, RPC
+change, deployment, or Production action occurred. The local `output/` rendering/prompt are convenience
+artifacts, not durable source of truth.
+
+**Open:** deterministic relevance selection for the three vocabulary terms and one hook; MCQ, Practice,
+BYOQ, mobile, and accessibility implementation/QA; existing Full Lesson Note destination; formula
+rendering; AP Chemistry units outside the checked Unit 4 pilot.
+
+**Next owner:** David Bloom or the next Lovable implementation session. **Next action:** review the
+session-close handoff, send the documented shared-shell implementation to Lovable Preview, wait for its
+commit/tests, and inspect the diff. Do not change backend/scoring contracts, remove the Student Hub exam
+countdown, build the Notes page, publish Production, or touch unrelated dirty-tree files.
+
 ## Session Close: FRQ Coverage Audit, Topic Labels and FRQ Gap Fill, Units 1-3 — 2026-10-10
 
 **Context:** David: "document using the end of session protocol and end the session."

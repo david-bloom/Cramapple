@@ -1,0 +1,218 @@
+[
+  {
+    "owner_topic_code": "3.1",
+    "topic_codes": [
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4",
+      "3.5"
+    ],
+    "kind": "formula",
+    "title": "Chain rule (Leibniz notation)",
+    "body": "\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.C.1 \"The chain rule provides a way to differentiate composite functions\"; Developing Understanding: \"dy/dx = dy/du \u00b7 du/dx\"",
+    "hooks": [
+      {
+        "kind": "phrase",
+        "hook_text": "Times the derivative of what's inside",
+        "expands_to": [
+          {
+            "cue": "times the derivative of",
+            "means": "multiply by the derivative of the inner function u(x)"
+          },
+          {
+            "cue": "what's inside",
+            "means": "the inner function"
+          }
+        ],
+        "when_to_use": "Say it each time you differentiate an outer function, so you do not forget the inner derivative.",
+        "caution": "In written work, show the explicit inner-derivative factor (e.g. du/dx or g'(x)). Also differentiate the outer function with the inner function left unchanged inside it.",
+        "source_note": "public-domain-common"
+      }
+    ],
+    "candidate_id": "ap_calculus_ab-u3-r1-001",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.1",
+    "topic_codes": [
+      "3.1",
+      "3.5"
+    ],
+    "kind": "formula",
+    "title": "Chain rule for a composite f(g(x))",
+    "body": "\\frac{d}{dx}\\left[f\\left(g(x)\\right)\\right]=f'\\left(g(x)\\right)\\cdot g'(x)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.C \"Calculate derivatives of compositions of differentiable functions\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-002",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.1",
+    "topic_codes": [
+      "3.1",
+      "3.2"
+    ],
+    "kind": "vocabulary",
+    "title": "Composite function: outer and inner functions",
+    "body": "A composite function is a function embedded in another function; to differentiate it, decompose it into an outer function and an inner function, where y is a function of u and u is a function of x.",
+    "items": [],
+    "caution": "Common errors are misidentifying the inner function and forgetting to differentiate it. The chain rule also applies to sin\u00b2x, tan(2x \u2212 1), and e^{x\u00b2}.",
+    "ced_evidence": "Building the Mathematical Practices: \"decompose composite functions into their 'outer' and 'inner' component functions\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-003",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Chain rule applied to y in implicit differentiation",
+    "body": "\\frac{d}{dx}\\left[g(y)\\right]=g'(y)\\cdot\\frac{dy}{dx}",
+    "items": [],
+    "caution": "y depends on x, so every term containing y needs the factor dy/dx. This includes y in expressions such as y/(3y\u00b2 \u2212 x).",
+    "ced_evidence": "FUN-3.D.1 \"The chain rule is the basis for implicit differentiation\"; Preparing for the AP Exam: \"the chain rule applies to y because y depends on x\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-004",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Derivative of an inverse function",
+    "body": "\\left(f^{-1}\\right)'(a)=\\frac{1}{f'\\left(f^{-1}(a)\\right)},\\quad f'\\left(f^{-1}(a)\\right)\\neq 0",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.E.1 \"The chain rule and definition of an inverse function can be used to find the derivative of an inverse function, provided the derivative exists\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-005",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Derivative of arcsin x",
+    "body": "\\frac{d}{dx}\\left[\\arcsin x\\right]=\\frac{1}{\\sqrt{1-x^{2}}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.E.2 \"find the derivatives of inverse trigonometric functions\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-006",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Derivative of arccos x",
+    "body": "\\frac{d}{dx}\\left[\\arccos x\\right]=-\\frac{1}{\\sqrt{1-x^{2}}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.E.2 \"find the derivatives of inverse trigonometric functions\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-007",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Derivative of arctan x",
+    "body": "\\frac{d}{dx}\\left[\\arctan x\\right]=\\frac{1}{1+x^{2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.E.2 \"find the derivatives of inverse trigonometric functions\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-008",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Second and higher-order derivatives",
+    "body": "Differentiating f\u2032 produces the second derivative f\u2033, provided the derivative of f\u2032 exists, and repeating this process produces higher-order derivatives of f.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.F.1 \"Differentiating f\u2032 produces the second derivative f\u2033, provided the derivative of f\u2032 exists\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-009",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6"
+    ],
+    "kind": "list_sequence",
+    "title": "Notations for higher-order derivatives",
+    "body": "For y = f(x), the second derivative is written in these ways, and the nth derivative has its own notations.",
+    "items": [
+      {
+        "label": "d\u00b2y/dx\u00b2",
+        "meaning": "Leibniz notation for the second derivative"
+      },
+      {
+        "label": "f\u2033(x)",
+        "meaning": "prime notation for the second derivative"
+      },
+      {
+        "label": "y\u2033",
+        "meaning": "prime notation for the second derivative of y"
+      },
+      {
+        "label": "d\u207fy/dx\u207f",
+        "meaning": "Leibniz notation for the nth derivative"
+      },
+      {
+        "label": "f\u207d\u207f\u207e(x)",
+        "meaning": "nth derivative of f"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "FUN-3.F.2 \"notations for the second derivative include d\u00b2y/dx\u00b2, f\u2033(x), and y\u2033 ... d\u207fy/dx\u207f or f\u207d\u207f\u207e(x)\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u3-r1-010",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

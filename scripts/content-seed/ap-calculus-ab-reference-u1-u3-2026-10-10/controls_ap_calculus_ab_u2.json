@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-calcab-u2-01-wrong-formula", "control": "wrong formula (CED CHA-2.B.1 gives the derivative as the limit of [f(a+h)-f(a)]/h as h approaches 0; the denominator here is a, not h)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.1", "topic_codes": ["2.1"], "kind": "formula",
+   "title": "Definition of the derivative at a point", "body": "f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{a}", "items": [], "caution": null, "ced_evidence": "CHA-2.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u2-02-non-ced", "control": "non-CED content (Newton's method appears nowhere in the AP Calculus CED; 'Newton' does not occur in the PDF)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.3", "topic_codes": ["2.3"], "kind": "formula",
+   "title": "Newton's method for approximating a root", "body": "x_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}", "items": [], "caution": null, "ced_evidence": "CHA-2.D.2", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u2-03-wrong-owner", "control": "wrong owner topic (the product rule is topic 2.8, FUN-3.B.1; 2.6 covers sums, differences and constant multiples)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.6", "topic_codes": ["2.6"], "kind": "formula",
+   "title": "Product rule", "body": "\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)", "items": [], "caution": null, "ced_evidence": "FUN-3.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u2-04-wrong-member", "control": "wrong list member (CED CHA-2.B.3 gives dy/dx, f'(x) and y' as the notations for the derivative; f^{-1}(x) is inverse-function notation, not a derivative notation)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.2", "topic_codes": ["2.2"], "kind": "list_sequence",
+   "title": "Notations for the derivative", "body": "The equivalent notations for the derivative of y = f(x).", "items": [{"label": "dy/dx", "meaning": "Leibniz notation"}, {"label": "f'(x)", "meaning": "prime notation"}, {"label": "y'", "meaning": "prime notation on the dependent variable"}, {"label": "f^{-1}(x)", "meaning": "the derivative written as an inverse"}], "caution": null, "ced_evidence": "CHA-2.B.3", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u2-05-bad-hook", "control": "hook expansion reverses the CED implication (FUN-2.A.1: differentiable implies continuous; FUN-2.A.2: a continuous function may fail to be differentiable). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.4", "topic_codes": ["2.4"], "kind": "convention",
+   "title": "Differentiability and continuity", "body": "If a function is differentiable at a point, then it is continuous at that point; a continuous function may still fail to be differentiable at a point in its domain.", "items": [], "caution": null, "ced_evidence": "FUN-2.A.1 and FUN-2.A.2",
+   "hooks": [{"kind": "phrase", "hook_text": "Continuous means differentiable", "expands_to": [{"cue": "Continuous means differentiable", "means": "if a function is continuous at a point then it is differentiable there"}], "when_to_use": "when deciding whether a function is differentiable at a point", "caution": "State the implication in CED terms when justifying.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-calcab-u2-06-other-unit", "control": "content from another unit (the Fundamental Theorem of Calculus is Unit 6; 'Fundamental Theorem', 'antiderivative' and 'Riemann' do not appear in the Unit 2 pages)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 2, "owner_topic_code": "2.1", "topic_codes": ["2.1"], "kind": "formula",
+   "title": "Fundamental Theorem of Calculus", "body": "\\frac{d}{dx}\\int_a^x f(t)\\,dt = f(x)", "items": [], "caution": null, "ced_evidence": "CHA-2.A.1", "hooks": []}
+]

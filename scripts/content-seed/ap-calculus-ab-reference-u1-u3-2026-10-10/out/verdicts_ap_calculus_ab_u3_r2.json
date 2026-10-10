@@ -1,0 +1,87 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u3-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {
+      "Times the derivative of what's inside": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the application of the chain rule to implicit differentiation as required by FUN-3.D.1 ('The chain rule is the basis for implicit differentiation') and highlighted in the Unit 3 Overview ('students must recognize that the chain rule applies to y because y depends on x')."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "This specific phrase is explicitly recommended in the Unit 3 Overview: 'Saying, \"times the derivative of what\u2019s inside,\" every time we apply the chain rule reminds students to avoid a common error.' The expansion and caution are accurate and helpful."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula correctly applies the chain rule and belongs in Topic 3.2: FUN-3.D.1 states, \u201cThe chain rule is the basis for implicit differentiation.\u201d The caution overstates the rule by saying \u201cevery term containing y needs the factor dy/dx.\u201d For example, d(xy)/dx = y + x(dy/dx); the resulting y term has no dy/dx factor."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The cues correctly recall the chain-rule structure for g(y), including the dy/dx factor. The unit overview explicitly uses \u201ctimes the derivative of what\u2019s inside\u201d and states that \u201cthe chain rule applies to y because y depends on x.\u201d The hook cautions students to write dy/dx explicitly rather than rely on the phrase alone."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula correctly applies the chain rule to g(y), and Topic 3.2 states, \u201cThe chain rule is the basis for implicit differentiation.\u201d The caution overstates the rule: not every term produced by differentiating an expression containing y has a dy/dx factor. For example, d(xy)/dx = y + x(dy/dx). The caution should distinguish differentiating y-dependent components from differentiating an entire product."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The cues correctly describe the chain-rule structure of the entry\u2019s g(y) formula. The unit overview uses the phrase \u201ctimes the derivative of what\u2019s inside,\u201d and FUN-3.D.1 identifies the chain rule as the basis for implicit differentiation. The hook\u2019s caution appropriately says to write dy/dx explicitly."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

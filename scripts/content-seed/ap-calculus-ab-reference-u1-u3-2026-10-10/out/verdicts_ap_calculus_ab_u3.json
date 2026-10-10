@@ -1,0 +1,1119 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the derivative of arcsin(x) is mathematically correct and directly required by Topic 3.4, Essential Knowledge FUN-3.E.2, which states that students must be able to 'find the derivatives of inverse trigonometric functions'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula is correct where the derivative exists (\u22121 < x < 1). Topic 3.4, FUN-3.E.2 says students can \u201cfind the derivatives of inverse trigonometric functions,\u201d which requires applying this formula. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[arcsin x] = 1/\u221a(1\u2212x\u00b2) is the correct derivative; the CED pages do not state the formula, so there is nothing in them to contradict it. b_topic_codes: The CED places inverse trigonometric differentiation under Topic 3.4 (FUN-3.E.2), so owner_topic_code 3.4 is where it first appears, and 3.4 is the only listed topic. c_ced_required: FUN-3.E.2 states that 'the chain rule applied with the definition of an inverse function, or the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions.' Arcsin is the basic case students must differentiate under that objective, so the entry is required. d_caution: No caution is needed because the entry's wording does not compete with CED-specified point-earning wording; the CED gives the procedure, not this formula. Note for the author: the formula is only valid for \u22121 < x < 1, and the entry does not state that domain restriction."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the derivative of an inverse function is mathematically correct and directly required by FUN-3.E.1 ('The chain rule and definition of an inverse function can be used to find the derivative of an inverse function...') and FUN-3.E.2 ('...or the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly gives the derivative of an inverse function where it exists and the stated denominator is nonzero. Topic 3.3 first requires it: FUN-3.E.1 says the chain rule and definition of an inverse function can be used to find its derivative, \u201cprovided the derivative exists.\u201d Topic 3.4 also uses it: FUN-3.E.2 explicitly refers to \u201cthe formula for the derivative of an inverse function\u201d when finding derivatives of inverse trigonometric functions. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula (f^{-1})'(a) = 1/f'(f^{-1}(a)), with f'(f^{-1}(a)) \u2260 0, is the standard inverse-derivative result and is consistent with FUN-3.E.1 (\"The chain rule and definition of an inverse function can be used to find the derivative of an inverse function, provided the derivative exists\"). The nonzero condition corresponds to the CED's \"provided the derivative exists.\" b_topic_codes: 3.3 (Differentiating Inverse Functions, FUN-3.E.1) is where the inverse-derivative idea first appears, so it is the correct owner. 3.4 is listed correctly because FUN-3.E.2 says \"the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions.\" c_ced_required: FUN-3.E calls for calculating derivatives of inverse functions, and FUN-3.E.2 names the formula directly, so applying it is required content. d_caution: The CED names the formula itself in FUN-3.E.2, and the existence condition is in the body, so the entry's wording earns the point and no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the standard mathematical formula for the chain rule, which is the core requirement of Topic 3.1 (FUN-3.C.1: 'The chain rule provides a way to differentiate composite functions') and is also relevant to Topic 3.5 (Selecting Procedures for Calculating Derivatives)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly applies the chain rule to f(g(x)). Topic 3.1 states that students should \u201cCalculate derivatives of compositions of differentiable functions\u201d and that \u201cThe chain rule provides a way to differentiate composite functions.\u201d Topic 3.5 calls for practice selecting procedures across \u201call learning objectives relating to calculating derivatives,\u201d so both topic codes apply. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[f(g(x))] = f'(g(x))\u00b7g'(x) is the standard chain rule, and the symbols are correct. The CED states the chain rule for composite functions in FUN-3.C.1 (\"The chain rule provides a way to differentiate composite functions\"), and the Unit 3 narrative names the outer/inner structure (\"decompose composite functions into their 'outer' and 'inner' component functions\"), which this formula encodes. b_topic_codes: owner 3.1 is where the chain rule first appears (FUN-3.C.1 sits under Topic 3.1). Topic 3.5 is a unit topic whose 1.C skill explicitly cites \"Use the chain rule to find the derivative of a composite function\" and which says students should practice \"when and how to apply all learning objectives relating to calculating derivatives,\" so 3.5 does use the chain rule. c_ced_required: FUN-3.C (\"Calculate derivatives of compositions of differentiable functions\") requires students to apply the chain rule to compositions, so this is required content, not trivia. d_caution: The CED does not print this formula; it states the idea in words and uses Leibniz form (dy/dx = dy/du \u00b7 du/dx) elsewhere in the Unit 3 narrative. The formula is an unambiguous equivalent of the CED statement, so no caution is needed to earn the point. The CED's named pitfalls (forgetting to differentiate the inner function, misidentifying the inner function) are teaching notes, not required wording the entry must carry."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the chain rule applied to implicit differentiation as described in FUN-3.D.1. The caution directly addresses the specific common error and example expression (y / (3y^2 - x)) highlighted in the 'Preparing for the AP Exam' section on page 67 of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula correctly applies the chain rule to y(x), as required by Topic 3.2: \u201cThe chain rule is the basis for implicit differentiation.\u201d The caution overstates the rule: not every resulting term containing y has a factor dy/dx. For example, differentiating the cited y/(3y\u00b2\u2212x) produces a term from differentiating \u2212x that contains y but no dy/dx. The CED says instead that \u201cthe chain rule applies to y because y depends on x.\u201d"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula correctly applies the chain rule to g(y), and Topic 3.2 states, \u201cThe chain rule is the basis for implicit differentiation.\u201d The caution overstates the rule: not every term produced when differentiating an expression containing y has a dy/dx factor. For example, d(xy)/dx = y + x(dy/dx). The CED says only that \u201cthe chain rule applies to y because y depends on x.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines composite functions and their decomposition into outer and inner functions as described in the Unit 3 Overview and Topic 3.1 (FUN-3.C.1). The caution correctly incorporates the common errors and specific examples (sin\u00b2x, tan(2x - 1), e^{x\u00b2}) highlighted in the 'Preparing for the AP Exam' and 'Building the Mathematical Practices' sections of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The CED says students must decompose composite functions into their \u201couter\u201d and \u201cinner\u201d component functions and describes the relationship as \u201cy is a function of u while u is a function of x.\u201d Topic 3.1 first requires differentiating compositions (FUN-3.C); Topic 3.2 uses the same rule because \u201cThe chain rule is the basis for implicit differentiation\u201d (FUN-3.D.1). The caution correctly identifies errors the CED names: misidentifying or failing to differentiate the inner function. No alternative point-earning wording is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. Building the Mathematical Practices says students must 'decompose composite functions into their \"outer\" and \"inner\" component functions,' and Developing Understanding states that 'y is a function of u while u is a function of x.' b_topic_codes: owner 3.1 is correct because the composite-function chain rule is introduced in Topic 3.1 (FUN-3.C.1: 'The chain rule provides a way to differentiate composite functions'). 3.2 is a reasonable secondary code because FUN-3.D.1 states 'The chain rule is the basis for implicit differentiation,' and the unit pages stress that the chain rule applies to y because y depends on x. This is a secondary link, not a decomposition-specific one. c_ced_required: FUN-3.C requires students to calculate derivatives of compositions, which requires identifying the outer and inner functions. d_caution: The caution matches the CED. Building the Mathematical Practices names 'forgetting to also differentiate the \"inner\" function or misidentifying the \"inner\" function' as common errors. Preparing for the AP Exam names sin2x, tan(2x - 1), and e^(x^2) as composite examples. The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the derivative of arctan(x) is mathematically correct and directly required under Topic 3.4 (Differentiating Inverse Trigonometric Functions), specifically supported by FUN-3.E.2 which states that students must be able to find the derivatives of inverse trigonometric functions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula is correct. Topic 3.4 is \u201cDifferentiating Inverse Trigonometric Functions,\u201d and FUN-3.E.2 requires students to \u201cfind the derivatives of inverse trigonometric functions.\u201d The CED does not prescribe different point-earning wording for this formula, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[arctan x] = 1/(1+x^2) is the correct derivative and matches the standard inverse-trig result that FUN-3.E.2 requires students to apply. b_topic_codes: Topic 3.4 (Differentiating Inverse Trigonometric Functions) is where the CED first requires inverse-trig derivatives (FUN-3.E.2: \"The chain rule applied with the definition of an inverse function, or the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions.\"). Topic 3.3 covers only general inverse functions (FUN-3.E.1), and the entry's topic_codes list contains only 3.4. c_ced_required: arctan is an inverse trigonometric function, and FUN-3.E.2 requires students to find its derivative, so the entry is an application the CED requires. d_caution: The CED does not state this formula in words, so no caution about alternate wording is needed; the entry is the standard result, and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {
+      "Times the derivative of what's inside": true
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Leibniz notation for the chain rule as explicitly highlighted in the Unit 3 'Developing Understanding' section of the CED ('dy/dx = dy/du \u00b7 du/dx'). Topic 3.1 is the correct owner topic, and topics 3.2 through 3.5 all rely on or apply the chain rule."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "This hook is directly supported by the CED Unit 3 'Developing Understanding' page, which states: 'Saying, \"times the derivative of what\u2019s inside,\" every time we apply the chain rule reminds students to avoid a common error.'"
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The Developing Understanding section gives the Leibniz chain-rule formula exactly and states that y is a function of u while u is a function of x. FUN-3.C.1 requires the chain rule for composite functions; FUN-3.D.1, FUN-3.E.1, and FUN-3.E.2 use it for implicit, inverse, and inverse trigonometric differentiation. Topic 3.5 calls for selecting among derivative procedures. Topic 3.1 is its first required use. No entry-level caution is needed because the formula matches the CED."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The CED explicitly recommends saying \u201ctimes the derivative of what\u2019s inside\u201d when applying the chain rule. The cues correctly identify the inner function and its derivative, matching the formula\u2019s du/dx factor. The hook recalls required formula structure, and its caution correctly directs students to show that factor in written work."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Times the derivative of what's inside": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula dy/dx = dy/du \u00b7 du/dx matches the Developing Understanding text on the Unit 3 overview page, which the entry's ced_evidence quotes. b_topic_codes: 3.1 is the first topic that introduces the chain rule. 3.2 uses it as the basis for implicit differentiation (FUN-3.D.1: 'The chain rule is the basis for implicit differentiation'). 3.3 uses it with the definition of an inverse function (FUN-3.E.1). 3.4 applies it to inverse trig functions (FUN-3.E.2). 3.5 covers selecting the chain rule as a procedure (1.C, with the chain rule named as the example). c_ced_required: FUN-3.C.1 ('The chain rule provides a way to differentiate composite functions') and LO FUN-3.C ('Calculate derivatives of compositions of differentiable functions') require students to apply the rule. d_caution: The entry uses the CED's own Leibniz wording verbatim, so no caution is needed."
+          },
+          "hooks": [
+            {
+              "hook_text": "Times the derivative of what's inside",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: 'times the derivative of' maps to 'multiply by the derivative of the inner function u(x)', and 'what's inside' maps to 'the inner function'. Both cues appear in the right order and match the entry's chain-rule formula, where du/dx is the inner derivative. f_admissible: The CED itself quotes this phrase ('Saying, \"times the derivative of what's inside,\" every time we apply the chain rule reminds students to avoid a common error') and ties it to the required outer/inner structure ('Misapplying the chain rule by forgetting to also differentiate the \"inner\" function ... common errors'). It recalls the chain-rule structure and is not a song lyric. The caution is present because the hook's wording is not the Leibniz point-earning wording, and it correctly requires the explicit du/dx or g'(x) factor and an unchanged inner function in the outer derivative."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the notations for higher-order derivatives as explicitly required by FUN-3.F.2 in Topic 3.6 of the AP Calculus CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.6, FUN-3.F.2 lists the second-derivative notations in this order: d\u00b2y/dx\u00b2, f\u2033(x), and y\u2033. It then gives d\u207fy/dx\u207f or f\u207d\u207f\u207e(x) for higher-order derivatives. The entry matches these notations and their order. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (FUN-3.F.2) gives the second-derivative notations as d\u00b2y/dx\u00b2, f\u2033(x), and y\u2033 for y = f(x), and the nth-derivative notations as d\u207fy/dx\u207f and f\u207d\u207f\u207e(x). All five items match these symbols and meanings, and their order matches the CED's order. b_topic_codes: Topic 3.6 (Calculating Higher-Order Derivatives) is where FUN-3.F.2 appears in Unit 3, and it is the only topic code listed. c_ced_required: Learning objective FUN-3.F ('Determine higher order derivatives of a function') and essential knowledge FUN-3.F.2 require students to recognize and use these notations. d_caution: The entry says the second derivative 'is written in these ways', which reads as exhaustive. The CED says the notations 'include' these forms, so the wording is slightly stronger than the source. The point-earning content, the notations themselves, is stated correctly, so no caution is needed. This is a minor wording note, not a substantive error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definition of higher-order derivatives as stated in FUN-3.F.1 of the AP Calculus CED: 'Differentiating f \u2032 produces the second derivative f \u2033, provided the derivative of f \u2032 exists; repeating this process produces higher-order derivatives of f.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.6, FUN-3.F.1 states: \u201cDifferentiating f \u2032 produces the second derivative f \u2033, provided the derivative of f \u2032 exists; repeating this process produces higher-order derivatives of f.\u201d The entry preserves that meaning. Topic 3.6 is the required location, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches FUN-3.F.1 nearly verbatim: \"Differentiating f\u2032 produces the second derivative f\u2033, provided the derivative of f\u2032 exists; repeating this process produces higher-order derivatives of f.\" The formula symbols (f\u2032, f\u2033, f) are correct and no content is altered. b_topic_codes: owner_topic_code 3.6 is correct because Topic 3.6 (Calculating Higher-Order Derivatives) is the unit topic that first requires FUN-3.F.1, and topic_codes ['3.6'] contains only that topic. c_ced_required: FUN-3.F.1 is an essential-knowledge statement under learning objective FUN-3.F (\"Determine higher order derivatives of a function\"), so it is required content. d_caution: The entry wording is the CED's own wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u3-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the derivative of arccos(x) is factually correct. It is aligned with Topic 3.4 (Differentiating Inverse Trigonometric Functions) and directly supported by FUN-3.E.2, which states that the chain rule or formula can be used to find the derivatives of inverse trigonometric functions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula is correct where the derivative exists (-1 < x < 1). Topic 3.4 is the first topic whose essential knowledge explicitly requires inverse-trigonometric derivatives: FUN-3.E.2 says students can \u201cfind the derivatives of inverse trigonometric functions.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The formula d/dx[arccos x] = -1/sqrt(1-x^2) is mathematically correct. b_topic_codes: 3.4 is the topic where inverse trigonometric derivatives first appear (FUN-3.E.2, Topic 3.4 'Differentiating Inverse Trigonometric Functions'), and the only topic code listed is 3.4. c_ced_required: FUN-3.E.2 states 'The chain rule applied with the definition of an inverse function, or the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions.' Students must calculate derivatives of inverse trig functions, and arccos is one of them, so this is required. d_caution: fails. The CED never uses arccos notation and phrases the requirement as 'inverse trigonometric functions' without naming a specific function or notation. The entry states a notation-specific formula with caution: null. Since the CED's notation (cos^-1 x) differs from arccos x, the entry needs a caution noting that arccos x = cos^-1 x (and that the point is the chain-rule/inverse-function derivation, not memorizing one notation). Without it, the entry fails d_caution."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[arccos x] = -1/sqrt(1-x^2) is mathematically correct, and the symbols match standard notation. b_topic_codes: FUN-3.E.2 (\"The chain rule applied with the definition of an inverse function, or the formula for the derivative of an inverse function, can be used to find the derivatives of inverse trigonometric functions.\") appears under Topic 3.4, Differentiating Inverse Trigonometric Functions, which is the first place the CED requires inverse trig derivatives. Topic 3.3 (FUN-3.E.1) covers general inverse functions, so 3.4 is the correct owner and the only topic code. c_ced_required: FUN-3.E.2 requires students to calculate derivatives of inverse trigonometric functions, and arccos is one of them. The CED does not list individual formulas, but the objective requires applying them. d_caution: The CED wording describes a method (chain rule with the inverse definition or inverse-derivative formula), not this specific formula, so a caution could arguably be expected. Because the entry states the derivative result the student must produce, and the CED does not supply a competing wording to correct against, no caution is needed. Note for the author: the domain (-1 < x < 1) is not stated, but the CED does not require it, so it does not fail the check."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-01-wrong-formula",
+    "control": "wrong formula (the chain rule requires the derivative of the inner function; this writes g(x) instead of g'(x), contradicting FUN-3.C.1)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the chain rule in the body is mathematically incorrect. It is written as \\frac{d}{dx}\\left[f(g(x))\\right] = f'(g(x)) \\cdot g(x), which is missing the prime on the inner function's derivative; it should be g'(x) instead of g(x)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the chain rule is factually incorrect. The derivative of the inner function is written as g(x) instead of g'(x). It should be \\frac{d}{dx}\\left[f(g(x))\\right] = f'(g(x)) \\cdot g'(x)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is incorrect: its final factor must be g'(x), not g(x). The Unit 3 introduction gives the chain rule as dy/dx = (dy/du)(du/dx), and Topic 3.1 requires students to \u201cCalculate derivatives of compositions of differentiable functions.\u201d Topic 3.1 is the correct owner and topic code. A caution cannot correct the formula itself."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula ends with g(x), but the chain rule requires g'(x): d/dx[f(g(x))] = f'(g(x))g'(x). The Unit 3 introduction displays dy/dx = (dy/du)(du/dx), and FUN-3.C.1 states, \u201cThe chain rule provides a way to differentiate composite functions.\u201d Topic 3.1 is the correct owner and topic. No wording caution is needed; the formula itself must be corrected."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-04-wrong-member",
+    "control": "wrong list member (CED FUN-3.F.2 gives d^2y/dx^2, f''(x) and y'' for the second derivative; f'(x^2) is not a derivative notation)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Item 4 ('f'(x^2)') is factually incorrect as an equivalent notation for the second derivative of y = f(x). According to FUN-3.F.2, the notations for the second derivative are d^2y/dx^2, f''(x), and y''. The expression f'(x^2) represents the first derivative evaluated at x^2, not the second derivative."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The fourth item in the list ('f'(x^2)') is factually incorrect as a notation for the second derivative. According to the CED (FUN-3.F.2 on page 75), the notations for the second derivative of y = f(x) include d^2y/dx^2, f''(x), and y''. The expression f'(x^2) represents the first derivative evaluated at x^2, not the second derivative."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "FUN-3.F.2 lists the second-derivative notations for y = f(x) as d\u00b2y/dx\u00b2, f\u2033(x), and y\u2033. The fourth item, f\u2032(x\u00b2), is a first derivative evaluated at x\u00b2, not a notation for the second derivative. Topic 3.6 is the correct topic, and no wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "FUN-3.F.2 lists d\u00b2y/dx\u00b2, f\u2033(x), and y\u2033 as notations for the second derivative. The added f\u2032(x\u00b2) means the first derivative evaluated at x\u00b2, not the second derivative. Topic 3.6 requires the valid notations; no wording caution would correct the erroneous list member."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-02-non-ced",
+    "control": "non-CED content (logarithmic differentiation appears nowhere in the AP Calculus CED; the phrase does not occur in the PDF)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Logarithmic differentiation is not mentioned or required anywhere in the Unit 3 CED pages. Topic 3.2 and FUN-3.D.1 focus generally on implicit differentiation ('The chain rule is the basis for implicit differentiation'), but there is no learning objective or essential knowledge statement requiring logarithmic differentiation or the differentiation of functions raised to variable powers."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Logarithmic differentiation (differentiating a function raised to a variable power using natural logs) is not mentioned or required anywhere in the Unit 3 CED. Topic 3.2 only requires basic implicit differentiation (FUN-3.D.1: 'The chain rule is the basis for implicit differentiation')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Logarithmic differentiation is a valid method where taking logarithms is defined, but the cited FUN-3.D.1 says only, \u201cThe chain rule is the basis for implicit differentiation.\u201d Topic 3.2 requires students to \u201cCalculate derivatives of implicitly defined functions\u201d; it does not require this particular logarithmic procedure or identify variable-power functions as its subject. No caution about point-earning wording is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The procedure is a valid application of implicit differentiation, so Topic 3.2 is a reasonable placement. But the cited FUN-3.D.1 says only, \u201cThe chain rule is the basis for implicit differentiation.\u201d Neither it nor the Topic 3.2 learning objective requires students to reproduce or apply logarithmic differentiation as a specific procedure."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-03-wrong-owner",
+    "control": "wrong owner topic (higher-order derivatives and their notations are topic 3.6, FUN-3.F.1-2; 3.1 is the chain rule)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '3.1' (The Chain Rule), but higher-order derivatives are not introduced or required until Topic 3.6 ('Calculating Higher-Order Derivatives'), which is where FUN-3.F.1 is defined. The owner_topic_code should be '3.6' and topic_codes should be ['3.6']."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '3.1' (The Chain Rule), but the CED evidence cited (FUN-3.F.1) and the topic of higher-order derivatives belong to Topic 3.6 (Calculating Higher-Order Derivatives). The owner_topic_code and topic_codes must be updated to '3.6'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches FUN-3.F.1: \u201cDifferentiating f\u2032 produces the second derivative f\u2033, provided the derivative of f\u2032 exists; repeating this process produces higher-order derivatives of f.\u201d However, that essential knowledge is under Topic 3.6, \u201cCalculating Higher-Order Derivatives,\u201d not the listed owner Topic 3.1, \u201cThe Chain Rule.\u201d No caution is needed because the body closely follows the CED wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches FUN-3.F.1: \u201cDifferentiating f\u2032 produces the second derivative f\u2033, provided the derivative of f\u2032 exists; repeating this process produces higher-order derivatives of f.\u201d However, that requirement appears in Topic 3.6, \u201cCalculating Higher-Order Derivatives,\u201d not the listed owner topic 3.1, \u201cThe Chain Rule.\u201d No caution is needed because the wording closely follows the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-06-other-unit",
+    "control": "content from another unit (related rates is Unit 4 contextual applications; 'related rates' does not appear in the Unit 3 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Related rates is not covered in Unit 3. While implicit differentiation (Topic 3.2) is a prerequisite skill, the related rates procedure (differentiating with respect to time t) is specifically taught and assessed in Unit 4 (Topics 4.4 and 4.5). It is not required by any learning objective or essential knowledge statement in Unit 3."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Related rates is not part of Unit 3; it is covered in Unit 4 (Contextual Applications of Differentiation, Topics 4.4 and 4.5). Topic 3.2 is strictly 'Implicit Differentiation' and its essential knowledge statement (FUN-3.D.1) states 'The chain rule is the basis for implicit differentiation,' which does not encompass the related rates procedure of differentiating with respect to time."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The procedure is mathematically valid, but Topic 3.2 requires students to \u201cCalculate derivatives of implicitly defined functions\u201d (FUN-3.D), and FUN-3.D.1 states that \u201cThe chain rule is the basis for implicit differentiation.\u201d Neither requires the related-rates procedure described here. The unit\u2019s diver question mentions a rate of change with respect to time, but it is a framing question, not required Topic 3.2 content. No wording caution is needed; the failure is the content\u2019s placement and claimed CED requirement."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The procedure is mathematically sound, but Topic 3.2 requires calculating derivatives of implicitly defined functions. Its essential knowledge states, \u201cThe chain rule is the basis for implicit differentiation\u201d (FUN-3.D.1). These pages do not require the stated related-rates procedure under Topic 3.2. No special point-earning wording calls for a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-calcab-u3-05-bad-hook",
+    "control": "hook expansion inverts the chain rule (it differentiates the inner function and leaves the outer undifferentiated). The entry is correct, so only the hook should be rejected.",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "Inside out": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Inside out": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly states the standard chain rule formula for composite functions, which is required by FUN-3.C.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "Inside out",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion is mathematically incorrect. For the chain rule, the outer function is differentiated while keeping the inner function the same (i.e., f'(g(x))), and then multiplied by the derivative of the inner function (g'(x)). The hook's description ('leave the outer function undifferentiated, evaluated at the derivative of the inner function') describes f(g'(x)), which is incorrect."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the chain rule is mathematically correct and directly required by FUN-3.C.1 ('The chain rule provides a way to differentiate composite functions')."
+            },
+            "hooks": [
+              {
+                "hook_text": "Inside out",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion of the hook is mathematically incorrect. For the chain rule, the outer function is differentiated (not left undifferentiated) and evaluated at the original inner function (not at the derivative of the inner function). The inner function's derivative is multiplied on the outside."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Inside out": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly differentiates f(g(x)) as f\u2032(g(x))g\u2032(x). Topic 3.1, FUN-3.C.1 states, \u201cThe chain rule provides a way to differentiate composite functions.\u201d The formula needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Inside out",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion reverses the formula\u2019s roles: f must be differentiated and evaluated at the unchanged inner argument g(x), while g\u2032(x) is a separate factor. \u201cLeave the outer function undifferentiated, evaluated at the derivative of the inner function\u201d instead suggests f(g\u2032(x)). The CED says to remember \u201ctimes the derivative of what\u2019s inside\u201d; the hook\u2019s caution does not correct its substantive error."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly states the chain rule. Topic 3.1 is its first required location: FUN-3.C asks students to \u201cCalculate derivatives of compositions of differentiable functions,\u201d and FUN-3.C.1 states that \u201cThe chain rule provides a way to differentiate composite functions.\u201d The formula needs no caution because it states the rule directly."
+            },
+            "hooks": [
+              {
+                "hook_text": "Inside out",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The hook addresses the chain-rule formula structure required by FUN-3.C.1 and includes a caution to write the full rule. But its cues reverse the formula\u2019s operations: f'(g(x)) differentiates the outer function and evaluates it at the unchanged inner function g(x), while g'(x) is a separate factor. The CED likewise emphasizes \u201ctimes the derivative of what\u2019s inside,\u201d not evaluating an undifferentiated outer function at the inner derivative."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Inside out": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body d/dx[f(g(x))] = f'(g(x))\u00b7g'(x) is the correct chain rule. The CED does not print the formula, but FUN-3.C.1 states 'The chain rule provides a way to differentiate composite functions,' and the formula is that rule. b_topic_codes: owner 3.1 is correct because FUN-3.C.1 first appears under Topic 3.1 ('The Chain Rule'), and the only topic_codes entry is 3.1, which uses it. c_ced_required: LO FUN-3.C ('Calculate derivatives of compositions of differentiable functions') and FUN-3.C.1 require students to apply the chain rule. d_caution: The entry's wording is equivalent to the CED's and needs no caution for correctness. Note that the CED's Developing Understanding presents the chain rule in Leibniz form (dy/dx = dy/du \u00b7 du/dx) and the entry uses prime notation without a caution. This does not fail the entry because the prime form is mathematically equivalent and earns the point, but the entry's own hook caution asks for CED notation, which the body does not give."
+          },
+          "hooks": [
+            {
+              "hook_text": "Inside out",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The 'out' cue is wrong on two counts. It says 'leave the outer function undifferentiated,' but the formula requires differentiating the outer function, f'. It also says 'evaluated at the derivative of the inner function,' but f' is evaluated at the inner function g(x), not at g'(x). The 'Inside' cue is also misworded: 'keep it as the argument' describes g(x) in f'(g(x)), not g'(x). The cue order (Inside, then out) does not match the entry's factor order (f'(g(x)) first, then g'(x)). f_admissible: The CED's own reminder is 'times the derivative of what's inside' (Big Idea 3 page). The hook's expansions misstate the structure it is supposed to recall, so it is not admissible as written. Its caution asks for 'CED notation,' which is the Leibniz form the CED uses, but the hook does not supply that form."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[f(g(x))] = f'(g(x))\u00b7g'(x) is the correct chain rule. The CED does not print a formula, but the Essential Knowledge (FUN-3.C.1: 'The chain rule provides a way to differentiate composite functions') and the Big Idea caution ('times the derivative of what's inside') both match it. b_topic_codes: 3.1 'The Chain Rule' is the first and only topic that uses FUN-3.C.1, so owner 3.1 and topic_codes [3.1] are correct. c_ced_required: LO FUN-3.C ('Calculate derivatives of compositions of differentiable functions') requires students to apply this rule. d_caution: The CED frames the rule in Leibniz form (dy/dx = dy/du \u00b7 du/dx), but the Lagrange form used here is mathematically equivalent and would earn the point, so no entry-level caution is required. The hook carries its own caution about CED notation."
+          },
+          "hooks": [
+            {
+              "hook_text": "Inside out",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The 'Inside' cue says to 'differentiate the inner function and keep it as the argument'. This is wrong: the inner function is kept as the argument and its derivative g'(x) is multiplied in; it is not differentiated in place. The 'out' cue says to 'leave the outer function undifferentiated, evaluated at the derivative of the inner function'. This is also wrong: the outer function is differentiated to f'(g(x)), evaluated at g(x), not at g'(x). The cues do not map to the entry's structure f'(g(x))\u00b7g'(x). f_admissible: The CED (Big Idea 3 caution) requires the reminder 'times the derivative of what's inside'. The 'Inside out' phrase omits the multiplication by the inner derivative, and its expansion misstates the structure, so it does not recall the CED-required structure. The hook's caution about CED notation is present, but it does not fix the faulty expansion."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

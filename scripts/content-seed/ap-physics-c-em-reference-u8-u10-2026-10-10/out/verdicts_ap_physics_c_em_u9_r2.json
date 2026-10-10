@@ -1,0 +1,205 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u9-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the electric potential energy of a system of two point charges, which is explicitly required by Essential Knowledge 9.1.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the electric potential energy of two point charges separated by r, with zero energy at infinite separation. Topic 9.1 first requires this: 9.1.A.2 specifies the general form for electric potential energy between two charged objects, and 9.1.A.1 defines it using the work required to bring two point charges from infinitely far away. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED 9.1.A.2 equation is an image and does not survive in the extracted text, so this rests on the standard form the CED uses for two point charges, U_E = k q1 q2 / r. The body gives that as 1/(4\u03c0\u03b50)\u00b7q1q2/r = k q1q2/r, which is the same relation with k = 1/(4\u03c0\u03b50). Symbols are standard and the entry is physically correct. b_topic_codes: 9.1.A.1 and 9.1.A.2 sit under Topic 9.1 (Electric Potential Energy), the first topic of Unit 9, so owner 9.1 is where the equation is first required, and topic_codes [9.1] matches. c_ced_required: 9.1.A.2 states \"The general form for the electric potential energy between two charged objects is given by the equation\", which requires students to apply this relation. d_caution: The entry title (\"two-charge system\") and body paraphrase the CED's \"two charged objects\" and \"two point charges\", but the scored content is the equation itself, which is stated correctly. No caution is needed. The ced_evidence quote of 9.1.A.1 (\"work required for an external force to bring the point charges to their current positions from infinitely far away\") matches the CED text verbatim. The reference-point convention (U = 0 at infinity) is implied by 9.1.A.1 but not written in the body; that is a completeness gap, not a factual error.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the conservation of energy principle described in EK 9.3.A.2, which states that the movement of a charged object between two points with different electric potentials results in a change in kinetic energy consistent with the conservation of energy. The caution correctly notes that the CED describes this conceptually rather than providing this specific algebraic form as a 'relevant equation'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.3.A.1 relates a change in electric potential energy to a potential difference, and 9.3.A.2 says the resulting change in kinetic energy is \u201cconsistent with the conservation of energy.\u201d The formula follows when the electric force is the only force doing work, as the caution correctly specifies. Topic 9.3 is the appropriate code. The CED does not state the displayed kinetic-energy formula explicitly, and the caution identifies that distinction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: \u0394U_E = q\u0394V is the potential-energy change for an object-field system (9.3.A.1, whose equation is not legible in the extracted pages). With conservation of energy and only the electric force doing work, \u0394K + \u0394U_E = 0 gives \u0394K = -q\u0394V, which is correct physics. The CED does not print this combined form, so it is a valid derivation rather than a verbatim CED statement. b_topic_codes: 9.3 is the Unit 9 topic that first requires this (9.3.A.1, 9.3.A.2, 'Conservation of Electric Energy'), and it is the only topic code listed. c_ced_required: 9.3.A.2 says the movement of a charged object between points with different potentials 'results in a change in kinetic energy of the object consistent with the conservation of energy', so students must apply this relationship. d_caution: the CED wording ('consistent with the conservation of energy') differs from the formula, and the caution correctly notes that no explicit formula is given and that the electric force must be the only force doing work. The caution's advice to 'state the argument in words' sits a little awkwardly beside a formula body, but the caution is present and accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly identifies the formula for the change in electric potential energy of a charge moving through a potential difference (\\Delta U_E = q\\Delta V), which is explicitly required by Essential Knowledge 9.3.A.1 under Topic 9.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is correct and is directly required by 9.3.A.1. However, 9.2.A.3 first states the same relationship: electric potential difference is \u201cthe change in electric potential energy per unit charge.\u201d Rearranging that relationship gives \u0394U_E = q\u0394V, so 9.2 is also a topic that uses it and should be the owner topic. No wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.3.A.1 requires the change in electric potential energy when a charged object moves between locations with different electric potentials. The formula \u0394U_E = q\u0394V also follows from 9.2.A.3, which defines potential difference as \u201cthe change in electric potential energy per unit charge.\u201d Topic 9.3 explicitly applies the relationship to a moving charge. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body \u0394U_E = q\u0394V matches the relevant equation for 9.3.A.1, which states that when a charged object moves between locations with different electric potentials, 'the resulting change in the electric potential energy of the object-field system is given by the following equation.' The symbols are correct. b_topic_codes: 9.3 is the topic whose learning objective 9.3.A (9.3.A.1) requires this relation, and the entry's only topic code is 9.3. c_ced_required: 9.3.A.1 requires students to apply this equation, so it is CED-required. d_caution: The CED phrases the quantity as the change in the electric potential energy of the 'object-field system,' but the entry's title says 'Change in potential energy of a charge' and omits the system framing. No caution is present to correct this. The entry also does not note that \u0394V is the potential difference between the final and initial locations, which sets the sign. A caution is needed, so the entry fails d_caution and is rejected.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: \u0394U_E = q\u0394V is the standard relation, and the CED 9.3.A.1 equation (not legible in the extracted text) is this relation. Symbols and sign convention are correct. b_topic_codes: 9.3 is the topic whose essential knowledge states the equation (9.3.A.1). Topic 9.2 introduces \u0394V, but the \u0394U = q\u0394V relation is first stated in 9.3, so owner 9.3 and topic_codes [9.3] are correct. c_ced_required: CED 9.3.A.1 says \"When a charged object moves between two locations with different electric potentials, the resulting change in the electric potential energy of the object-field system is given by the following equation.\" This requires students to apply the equation. d_caution: the title \"Change in potential energy of a charge moving through a potential difference\" drops the CED's wording \"electric potential energy of the object-field system.\" The point is about the object-field system's electric potential energy, not the charge's potential energy alone. Dropping \"electric\" and \"object-field system\" and leaving caution null is a wording mismatch that needs a caution (e.g., that \u0394U_E belongs to the object-field system and that the charge's kinetic energy changes oppositely per 9.3.A.2). Caution is missing, so the entry is not accepted as written.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

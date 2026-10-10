@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-pcm-u3-01-wrong-fact", "control": "wrong fact (CED 3.2.A.3.ii: only the component of the force PARALLEL to the displacement of the point of application does work)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "convention",
+   "title": "Which force component does work", "body": "Only the component of the force exerted on a system that is perpendicular to the displacement of the point of application of the force does work on the system.", "items": [], "caution": null, "ced_evidence": "3.2.A.3.ii", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u3-02-wrong-formula", "control": "wrong formula (CED 3.2.A.3: the work done by a variable force is the line integral of F dot dr along the path, not F divided by the path length)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "formula",
+   "title": "Work done by a variable force", "body": "W = \\frac{\\vec{F}}{\\int_a^b d\\vec{r}}", "items": [], "caution": null, "ced_evidence": "3.2.A.3", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u3-03-wrong-owner", "control": "wrong owner topic (power is topic 3.5, EK 3.5.A.1-2; 3.2 is the work done by a force)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "convention",
+   "title": "Average power", "body": "Average power is the amount of energy transferred or converted divided by the time taken for that transfer or conversion.", "items": [], "caution": null, "ced_evidence": "3.5.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u3-04-swapped", "control": "swapped definitions (CED 3.3.A.6.i: at STABLE equilibrium a small displacement produces a force OPPOSITE the displacement; 3.3.A.6.ii: at UNSTABLE equilibrium the force is in the SAME direction)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "list_sequence",
+   "title": "Stable and unstable equilibrium", "body": "How the force responds to a small displacement at each kind of equilibrium.", "items": [{"label": "Stable equilibrium", "meaning": "a small displacement results in a force in the same direction as the displacement"}, {"label": "Unstable equilibrium", "meaning": "a small displacement results in a force opposite the displacement, accelerating the object back"}], "caution": null, "ced_evidence": "3.3.A.6.i-ii", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u3-05-bad-hook", "control": "hook expansion contradicts the CED (3.4.C.2: mechanical energy is constant only when the work done on the system is zero and there are no nonconservative interactions). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.4", "topic_codes": ["3.4"], "kind": "convention",
+   "title": "When mechanical energy is constant", "body": "If the work done on a selected system is zero and there are no nonconservative interactions within the system, the total mechanical energy of the system is constant.", "items": [], "caution": null, "ced_evidence": "3.4.C.2",
+   "hooks": [{"kind": "phrase", "hook_text": "Mechanical energy never changes", "expands_to": [{"cue": "never changes", "means": "the total mechanical energy of a system is constant in every situation"}], "when_to_use": "when deciding whether mechanical energy is conserved", "caution": "State the conditions in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-pcm-u3-06-other-unit", "control": "content from another unit (rotational kinetic energy and moment of inertia are Units 5-6; they are not in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "formula",
+   "title": "Rotational kinetic energy", "body": "K_{rot} = \\tfrac{1}{2} I \\omega^2", "items": [], "caution": null, "ced_evidence": "3.3.A.2", "hooks": []}
+]

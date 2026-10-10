@@ -1,0 +1,373 @@
+[
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1",
+      "2.3"
+    ],
+    "kind": "formula",
+    "title": "Average rate of change as a difference quotient",
+    "body": "\\frac{f(a+h)-f(a)}{h}\\quad\\text{or}\\quad\\frac{f(x)-f(a)}{x-a}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.A.1: The difference quotients f(a+h)-f(a)/h and f(x)-f(a)/(x-a) express the average rate of change of a function over an interval.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-001",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1",
+      "2.2",
+      "2.7"
+    ],
+    "kind": "formula",
+    "title": "Derivative at a point: two equivalent limit forms",
+    "body": "f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}=\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.B.1: The instantaneous rate of change of a function at x = a ... provided the limit exists. These are equivalent forms of the definition of the derivative",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-002",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2"
+    ],
+    "kind": "formula",
+    "title": "Derivative of f as a function",
+    "body": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.B.2: The derivative of f is the function whose value at x is lim h\u21920 [f(x+h)-f(x)]/h, provided this limit exists.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-003",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2"
+    ],
+    "kind": "list_sequence",
+    "title": "Derivative notations for y = f(x)",
+    "body": "The CED names three notations for the derivative of y = f(x).",
+    "items": [
+      {
+        "label": "dy/dx",
+        "meaning": "Leibniz notation for the derivative of y with respect to x"
+      },
+      {
+        "label": "f'(x)",
+        "meaning": "Function notation for the derivative of f"
+      },
+      {
+        "label": "y'",
+        "meaning": "Prime notation for the derivative of y"
+      }
+    ],
+    "caution": "If you introduce a new name for a derivative expression, define it. Do not silently rename it.",
+    "ced_evidence": "CHA-2.B.3: For y = f(x), notations for the derivative include dy/dx, f\u2032(x), and y\u2032.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-004",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.3"
+    ],
+    "kind": "list_sequence",
+    "title": "Representations of the derivative",
+    "body": "The derivative can be represented in four ways.",
+    "items": [
+      {
+        "label": "Graphical",
+        "meaning": "Slope of the tangent line on the graph; the graph of f' is not the graph of f"
+      },
+      {
+        "label": "Numerical",
+        "meaning": "Values in a table, e.g. estimated from difference quotients"
+      },
+      {
+        "label": "Analytical",
+        "meaning": "An expression or limit definition"
+      },
+      {
+        "label": "Verbal",
+        "meaning": "A description of an instantaneous rate of change"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "CHA-2.B.4: The derivative can be represented graphically, numerically, analytically, and verbally.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-005",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2"
+    ],
+    "kind": "formula",
+    "title": "Tangent line at x = a",
+    "body": "y-f(a)=f'(a)\\,(x-a)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.C and CHA-2.C.1: The derivative of a function at a point is the slope of the line tangent to a graph of the function at that point.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-006",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.8"
+    ],
+    "kind": "convention",
+    "title": "Keep notation precise: parentheses and defined names",
+    "body": "Keep parentheses around grouped factors and do not drop notation, since procedural errors in notation cost points even when the calculus is right.",
+    "items": [],
+    "caution": "For example, write (2t\u22124)\u00b7e^(...), not 2t\u22124\u00b7e^(...).",
+    "ced_evidence": "Building the Mathematical Practices: students may drop important notation, such as a parenthesis",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-007",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3"
+    ],
+    "kind": "formula",
+    "title": "Estimating a derivative from a table (difference quotient)",
+    "body": "C'(3.5)\\approx\\frac{C(4)-C(3)}{4-3}=\\frac{12.8-11.2}{1}",
+    "items": [],
+    "caution": "Write the difference quotient itself. A correct number without this structure can lose the point.",
+    "ced_evidence": "CHA-2.D.1; Preparing for the AP Exam: C\u2032(3.5) \u2248 (C(4) \u2212 C(3))/(4 \u2212 3) = (12.8 \u2212 11.2)/1",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-008",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3"
+    ],
+    "kind": "convention",
+    "title": "Calculator answers: rounding",
+    "body": "Present the expression evaluated on the calculator and round or truncate to three places after the decimal point.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.D.2; Preparing for the AP Exam: rounding or truncating to three places after the decimal point",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-009",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4"
+    ],
+    "kind": "convention",
+    "title": "Differentiable implies continuous (not the converse)",
+    "body": "If a function is differentiable at a point, it is continuous there, but a continuous function may fail to be differentiable at a point in its domain.",
+    "items": [],
+    "caution": "If a point is not in the domain of f, it is not in the domain of f'.",
+    "ced_evidence": "FUN-2.A.1: If a function is differentiable at a point, then it is continuous at that point.; FUN-2.A.2: A continuous function may fail to be differentiable at a point in its domain.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-010",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4"
+    ],
+    "kind": "list_sequence",
+    "title": "How a continuous function can fail to be differentiable",
+    "body": "CED illustrative examples of non-differentiability at a point in the domain.",
+    "items": [
+      {
+        "label": "Unequal one-sided limits",
+        "meaning": "The left and right limits of the difference quotient are not equal, as in f(x)=|x| at x=0"
+      },
+      {
+        "label": "Vertical tangent",
+        "meaning": "The tangent line is vertical and has no slope, as in f(x)=\\sqrt[3]{x} at x=0"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "FUN-2.A.2 illustrative examples: The left hand and right hand limits of the difference quotient are not equal; The tangent line is vertical and has no slope",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-011",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.5",
+    "topic_codes": [
+      "2.5",
+      "2.6"
+    ],
+    "kind": "formula",
+    "title": "Power rule",
+    "body": "\\frac{d}{dx}\\left[x^{r}\\right]=r\\,x^{r-1}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.A.1: derivative for functions of the form f(x) = x^r",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-012",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "formula",
+    "title": "Constant, constant multiple, sum and difference rules",
+    "body": "\\frac{d}{dx}[c]=0,\\quad \\frac{d}{dx}[c\\,f(x)]=c\\,f'(x),\\quad \\frac{d}{dx}[f(x)\\pm g(x)]=f'(x)\\pm g'(x)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.A.2: Sums, differences, and constant multiples of functions can be differentiated using derivative rules.; FUN-3.A.3 (polynomials)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-013",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Derivatives of sin x, cos x, e^x, ln x",
+    "body": "\\frac{d}{dx}[\\sin x]=\\cos x,\\quad \\frac{d}{dx}[\\cos x]=-\\sin x,\\quad \\frac{d}{dx}[e^{x}]=e^{x},\\quad \\frac{d}{dx}[\\ln x]=\\frac{1}{x}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.A.4: Specific rules can be used to find the derivatives for sine, cosine, exponential, and logarithmic functions.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-014",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7"
+    ],
+    "kind": "convention",
+    "title": "Evaluate a limit by recognizing a derivative",
+    "body": "If a limit has the form of the definition of the derivative of a function whose derivative is known, evaluate the limit by finding that derivative.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-3.A.1: recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-015",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.8",
+    "topic_codes": [
+      "2.8",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Product rule",
+    "body": "\\frac{d}{dx}[u(x)v(x)]=u'(x)v(x)+u(x)v'(x)",
+    "items": [],
+    "caution": "The derivative of a product is not the product of the derivatives. Show the rule's structure, e.g. f'(3)=u(3)v'(3)+v(3)u'(3), then substitute values.",
+    "ced_evidence": "FUN-3.B.1: Derivatives of products of differentiable functions can be found using the product rule.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-016",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Quotient rule",
+    "body": "\\frac{d}{dx}\\left[\\frac{u(x)}{v(x)}\\right]=\\frac{v(x)\\,u'(x)-u(x)\\,v'(x)}{\\left[v(x)\\right]^{2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.B.2: Derivatives of quotients of differentiable functions can be found using the quotient rule.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-017",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.10",
+    "topic_codes": [
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Rewriting tan, cot, sec, csc with identities",
+    "body": "\\tan x=\\frac{\\sin x}{\\cos x},\\quad \\cot x=\\frac{\\cos x}{\\sin x},\\quad \\sec x=\\frac{1}{\\cos x},\\quad \\csc x=\\frac{1}{\\sin x}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.B.3: Rearranging tangent, cotangent, secant, and cosecant functions using identities allows differentiation using derivative rules.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-018",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.10",
+    "topic_codes": [
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Derivatives of tan, cot, sec, csc",
+    "body": "\\frac{d}{dx}[\\tan x]=\\sec^{2}x,\\quad \\frac{d}{dx}[\\cot x]=-\\csc^{2}x,\\quad \\frac{d}{dx}[\\sec x]=\\sec x\\tan x,\\quad \\frac{d}{dx}[\\csc x]=-\\csc x\\cot x",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.B.3 (Topic 2.10: Finding the Derivatives of Tangent, Cotangent, Secant, and/or Cosecant Functions)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r1-019",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

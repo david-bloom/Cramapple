@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-calcab-u1-01-wrong-definition", "control": "incomplete definition (CED LIM-2.A.2 requires three conditions: f(c) exists, the limit exists, AND the limit equals f(c). The equality is dropped here.)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.11", "topic_codes": ["1.11"], "kind": "convention",
+   "title": "Continuity at a point", "body": "A function f is continuous at x = c provided that f(c) exists and \\lim_{x \\to c} f(x) exists.", "items": [], "caution": null, "ced_evidence": "LIM-2.A.2: \"A function f is continuous at x = c provided that f(c) exists, lim f(x) exists, and lim f(x) = f(c)\"", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u1-02-excluded", "control": "explicitly excluded by the CED (the epsilon-delta definition of a limit is not assessed on the AP Calculus AB or BC Exam)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.2", "topic_codes": ["1.2"], "kind": "formula",
+   "title": "Epsilon-delta definition of a limit", "body": "\\lim_{x \\to c} f(x) = L \\iff \\forall \\varepsilon > 0\\ \\exists \\delta > 0 : 0 < |x - c| < \\delta \\implies |f(x) - L| < \\varepsilon", "items": [], "caution": null, "ced_evidence": "LIM-1.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u1-03-wrong-owner", "control": "wrong owner topic (the Intermediate Value Theorem is topic 1.16, FUN-1.A.1; 1.12 is Confirming Continuity over an Interval)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.12", "topic_codes": ["1.12"], "kind": "convention",
+   "title": "Intermediate Value Theorem", "body": "If f is a continuous function on the closed interval [a, b] and d is a number between f(a) and f(b), then there is at least one number c between a and b such that f(c) = d.", "items": [], "caution": null, "ced_evidence": "FUN-1.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u1-04-swapped", "control": "swapped definitions (a removable discontinuity is one where the limit exists and the point can be redefined, per LIM-2.C.1; differing one-sided limits is a jump discontinuity)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.10", "topic_codes": ["1.10"], "kind": "list_sequence",
+   "title": "Types of discontinuities", "body": "The kinds of discontinuity a function may have at a point.", "items": [{"label": "Removable discontinuity", "meaning": "the one-sided limits both exist but are not equal to each other"}, {"label": "Jump discontinuity", "meaning": "the limit exists, so the function can be redefined at the point to make it continuous"}, {"label": "Discontinuity due to a vertical asymptote", "meaning": "the function grows without bound near the point"}], "caution": null, "ced_evidence": "LIM-2.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u1-05-bad-hook", "control": "hook expansion contradicts the CED (LIM-2.A.2's third condition is that the limit EQUALS f(c), not that f is differentiable at c). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.11", "topic_codes": ["1.11"], "kind": "list_sequence",
+   "title": "Three conditions for continuity at a point", "body": "All three must hold for f to be continuous at x = c.", "items": [{"label": "The value exists", "meaning": "f(c) exists"}, {"label": "The limit exists", "meaning": "the limit of f(x) as x approaches c exists"}, {"label": "They agree", "meaning": "the limit of f(x) as x approaches c equals f(c)"}], "caution": null, "ced_evidence": "LIM-2.A.2",
+   "hooks": [{"kind": "acrostic", "hook_text": "Value, Limit, Derivative", "expands_to": [{"cue": "Value", "means": "f(c) exists"}, {"cue": "Limit", "means": "the limit of f(x) as x approaches c exists"}, {"cue": "Derivative", "means": "f is differentiable at c"}], "when_to_use": "when checking continuity at a point", "caution": "State each condition in CED terms when justifying continuity.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-calcab-u1-06-other-unit", "control": "content from another unit (the power rule for derivatives is Unit 2; 'power rule', 'difference quotient' and 'chain rule' do not appear in the Unit 1 pages)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "formula",
+   "title": "Power rule for derivatives", "body": "\\frac{d}{dx}\\left[x^n\\right] = n x^{n-1}", "items": [], "caution": null, "ced_evidence": "LIM-1.A.1", "hooks": []}
+]

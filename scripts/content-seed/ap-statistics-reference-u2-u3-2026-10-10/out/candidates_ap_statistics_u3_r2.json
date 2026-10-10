@@ -1,0 +1,192 @@
+[
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "convention",
+    "title": "Interpret sampling distribution results in context",
+    "body": "The mean, standard deviation, and probabilities for a sampling distribution of a sample proportion must be interpreted in the context of a specific population.",
+    "items": [],
+    "caution": "Say clearly whether you mean the population, one sample of values, or the sample proportion across repeated samples. A vague \"it\" or \"larger samples have less variability\" can be read as the wrong one.",
+    "ced_evidence": "3.2.C.1 \"should be interpreted in the context of a specific population\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-001",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Standard deviation of the sampling distribution of a sample proportion",
+    "body": "\\sigma_{\\hat{p}} = \\sqrt{\\frac{p(1-p)}{n}}",
+    "items": [],
+    "caution": "This formula uses the population proportion p. It applies when the sampled values are independent.",
+    "ced_evidence": "3.2.A.1 \"a standard deviation\" of \\sqrt{p(1-p)/n}",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-002",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Mean of the sampling distribution of a sample proportion",
+    "body": "\\mu_{\\hat{p}} = p",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.1 \"has a mean \\mu_{\\hat p} = p\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-003",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.5"
+    ],
+    "kind": "convention",
+    "title": "Identify the procedure and parameter for one proportion",
+    "body": "The procedure for a confidence interval for one population proportion is a one-sample z-interval, and the parameter must name the proportion, the response variable, and the population in context.",
+    "items": [],
+    "caution": "Define the parameter in words with the population from the problem. A bare symbol like p is not enough. For a hypothesis test the procedure is a one-sample z-test, and the parameter is described the same way.",
+    "ced_evidence": "3.3.A.1 \"one-sample z-interval for a population proportion\"; 3.3.A.2 \"reference the proportion, the response variable, and the population in context\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-004",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Interpreting the confidence level",
+    "body": "A C% confidence level means that in repeated random sampling with the same sample size, approximately C% of the confidence intervals calculated will capture the population proportion.",
+    "items": [],
+    "caution": "The confidence level describes the long-run capture rate of the method. It is not the probability that one computed interval contains the parameter. To interpret a specific interval, write \"We are C% confident that the interval from a to b captures the [parameter in context].\"",
+    "ced_evidence": "3.4.A.2 \"approximately C% of confidence intervals calculated will capture the population proportion\"; 3.4.A.3",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-005",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Sample size and interval width",
+    "body": "Increasing the sample size decreases the standard error, so with everything else unchanged the interval width tends to decrease, and it is approximately proportional to 1/\\sqrt{n}.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.4.C.2 \"width of the interval is approximately proportional to 1/\\sqrt{n}\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-006",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Justify a claim from a confidence interval",
+    "body": "A confidence interval for a population proportion gives a range of plausible values, and it can serve as convincing evidence for a claim about the population proportion.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.4.B.1 \"range of plausible values that may serve as convincing evidence\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-007",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Conclusion wording for a hypothesis test",
+    "body": "State the conclusion in context, consistent with the alternative hypothesis, using non-definitive language, and refer to the parameter and population (or the populations).",
+    "items": [],
+    "caution": "Never say \"accept\" or \"prove\" the null hypothesis. A large p-value means there is not convincing evidence for the alternative, which is different from evidence for the null. For chi-square tests, say the data do not provide convincing evidence of an association or a difference, rather than saying there is none.",
+    "ced_evidence": "3.7.B.6 \"stated in context consistent with, and in terms of, the alternative hypothesis using non-definitive language\"; 3.7.B.4; 3.13.C.3; 3.15.D.3",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-008",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.9",
+    "topic_codes": [
+      "3.9"
+    ],
+    "kind": "formula",
+    "title": "Mean of the sampling distribution of \\hat{p}_1 - \\hat{p}_2",
+    "body": "\\mu_{\\hat{p}_1-\\hat{p}_2} = p_1 - p_2",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.9.A.1 \"has a mean, \\mu_{\\hat p_1-\\hat p_2}\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-009",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.9",
+    "topic_codes": [
+      "3.9"
+    ],
+    "kind": "formula",
+    "title": "Standard deviation of the sampling distribution of \\hat{p}_1 - \\hat{p}_2",
+    "body": "\\sigma_{\\hat{p}_1-\\hat{p}_2} = \\sqrt{\\frac{p_1(1-p_1)}{n_1}+\\frac{p_2(1-p_2)}{n_2}}",
+    "items": [],
+    "caution": "This applies to two independent populations when the sampled values are independent. Add the two variances under one radical. Do not subtract them or add the standard deviations.",
+    "ced_evidence": "3.9.A.1 \"standard deviation\" of \\sqrt{p_1(1-p_1)/n_1 + p_2(1-p_2)/n_2}",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-010",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10"
+    ],
+    "kind": "formula",
+    "title": "Standard error of \\hat{p}_1 - \\hat{p}_2",
+    "body": "SE_{\\hat{p}_1-\\hat{p}_2} = \\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1}+\\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.10.D.1 \"standard error (SE) for the difference between two population proportions\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r2-011",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

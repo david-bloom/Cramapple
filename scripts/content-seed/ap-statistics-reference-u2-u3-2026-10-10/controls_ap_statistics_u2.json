@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-stats-u2-01-wrong-formula", "control": "wrong formula (binomial standard deviation given as sqrt(np); CED 2.10.B.1 says sigma_X = sqrt(np(1-p)))", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.10", "topic_codes": ["2.10"], "kind": "formula",
+   "title": "Mean and standard deviation of a binomial distribution", "body": "\\mu_X = np \\quad\\text{and}\\quad \\sigma_X = \\sqrt{np}", "items": [], "caution": null, "ced_evidence": "2.10.B.1: \"If a random variable is binomial, its mean, mu_X, is np and its standard deviation, sigma_X, is sqrt(np(1-p))\"", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u2-02-non-ced", "control": "non-CED content (the geometric distribution is a confirmed removal from the current CED; the string 'geometric' does not appear anywhere in the CED PDF)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.10", "topic_codes": ["2.10"], "kind": "formula",
+   "title": "Geometric distribution probability", "body": "P(X = x) = (1-p)^{x-1} p", "items": [], "caution": null, "ced_evidence": "2.10.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u2-03-wrong-owner", "control": "wrong owner topic (binomial mean and standard deviation are 2.10.B, not 2.4 Introduction to Probability)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.4", "topic_codes": ["2.4"], "kind": "formula",
+   "title": "Binomial mean and standard deviation", "body": "\\mu_X = np \\quad\\text{and}\\quad \\sigma_X = \\sqrt{np(1-p)}", "items": [], "caution": null, "ced_evidence": "2.10.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u2-04-wrong-member", "control": "wrong list member (a sample size of at least 30 is not a binomial condition; CED 2.10.A.1 gives repeated independent trials n, two possible outcomes, and probability of success p)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.10", "topic_codes": ["2.10"], "kind": "list_sequence",
+   "title": "Conditions for a binomial random variable", "body": "What must hold before a count can be modeled as a binomial random variable.", "items": [{"label": "Fixed number of trials", "meaning": "a fixed number n of repeated trials"}, {"label": "Independent trials", "meaning": "the trials are independent of one another"}, {"label": "Two outcomes", "meaning": "each trial has only two possible outcomes, success or failure"}, {"label": "Sample size at least 30", "meaning": "n must be at least 30 for the binomial model to apply"}, {"label": "Constant probability", "meaning": "the probability of success p is the same on every trial"}], "caution": null, "ced_evidence": "2.10.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u2-05-bad-hook", "control": "hook expansion swapped (68% is within 1 SD and 95% within 2 SD; CED 2.11.C.1). The entry itself is correct, so the entry should be accepted and only the hook rejected.", "control_target": "hook",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.11", "topic_codes": ["2.11"], "kind": "convention",
+   "title": "Empirical rule for a normal distribution", "body": "For a normal distribution, approximately 68% of observations are within 1 standard deviation of the mean, approximately 95% within 2 standard deviations, and approximately 99.7% within 3 standard deviations.", "items": [], "caution": null, "ced_evidence": "2.11.C.1: \"This is called the empirical rule, or the 68-95-99.7 rule.\"",
+   "hooks": [{"kind": "acronym", "hook_text": "68-95-99.7", "expands_to": [{"cue": "68", "means": "within 2 standard deviations of the mean"}, {"cue": "95", "means": "within 1 standard deviation of the mean"}, {"cue": "99.7", "means": "within 3 standard deviations of the mean"}], "when_to_use": "when estimating the area under a normal curve without technology", "caution": null, "source_note": "public-domain-common"}]},
+
+  {"candidate_id": "ctrl-stats-u2-06-other-unit", "control": "content from another unit (the least-squares regression line is Unit 5 regression analysis; 'least squares' does not appear in the Unit 2 pages)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 2, "owner_topic_code": "2.12", "topic_codes": ["2.12"], "kind": "formula",
+   "title": "Least-squares regression line", "body": "\\hat{y} = b_0 + b_1 x", "items": [], "caution": null, "ced_evidence": "2.12.A.1", "hooks": []}
+]

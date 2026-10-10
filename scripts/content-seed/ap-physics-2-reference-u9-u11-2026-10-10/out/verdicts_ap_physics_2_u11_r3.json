@@ -1,0 +1,194 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u11-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a series connection is factually accurate and directly matches the wording in Essential Knowledge 11.5.A.1.i: 'A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 11.5, EK 11.5.A.1.i states: \u201cA series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.\u201d The entry preserves both requirements, is assigned to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 11.5.A.1.i: 'A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available.' The entry's clause 'so the current in each element is the same' restates the CED's next sentence, 'The current in each element in series must be the same.' No formula or list is involved, and nothing is misstated. b_topic_codes: Series connection is introduced in 11.5.A.1.i, so 11.5 is where the unit first requires it. The only topic_codes entry is 11.5, which uses it. c_ced_required: 11.5.A.1 is an essential-knowledge statement, and learning objective 11.5.A ('Describe the equivalent resistance of multiple resistors connected in a circuit') requires students to apply the series definition, for example in the 11.5.A.2.i series-sum rule. d_caution: The entry's wording is essentially the CED's own wording, so the point-earning definition is present and no caution is needed. The entry has no caution, which is correct here."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u11-r3-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'Parallel connection' is highly accurate and directly supported by Essential Knowledge 11.5.A.1.ii: 'A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.' The topic codes are correct and no caution is necessary."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 11.5.A.1.ii states: \u201cA parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\u201d The entry preserves both required parts of the definition. Topic 11.5 is where this connection is first required, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 11.5.A.1.ii, which states that a parallel connection is one in which charges may flow through one of two or more paths and that the potential difference is the same across each path. The entry's wording is a near-verbatim paraphrase with the same meaning, and the ced_evidence quote is accurate, though truncated. b_topic_codes: The definition first appears in this unit under 11.5 (Compound DC Circuits, Essential Knowledge 11.5.A.1.ii). Topics 11.1\u201311.4 do not define parallel connections, and no other topic_codes entry is needed. c_ced_required: 11.5.A.1 says circuit elements 'may be connected in series and/or in parallel', and LO 11.5.A asks students to describe equivalent resistance of resistors connected in a circuit, which requires applying the parallel definition. d_caution: The entry's wording conveys the same point-earning content as the CED (same potential difference across each path, one of two or more paths), so no caution is needed and caution null is correct.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u11-r3-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the RC time constant definition and behavior as specified in Topic 11.8 (specifically EK 11.8.B.1.i, 11.8.B.1.ii, and 11.8.B.1.iii). The caution correctly incorporates the boundary statement regarding qualitative vs. mathematical modeling of RC circuits over time."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 11.8.B.1.i defines the RC time constant; using equivalent resistance and capacitance is appropriate when the circuit reduces to one of each. Topic 11.8 is where the time constant is required. The caution correctly reflects 11.8.B.1.ii\u2013iii (approximately 63% when charging and 37% when discharging) and the boundary statement: time-dependent descriptions are qualitative, while initial and final states may be described mathematically."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body states \u03c4 = R_eq C_eq. The CED pages (11.8.B.1.i, p. 73) define the time constant as 'a measure of how quickly the capacitor will charge or discharge and is defined as' followed by an equation that does not survive text extraction. Nothing in the visible CED adds equivalent-subscript notation to that defining relation. The entry is physically sound for a circuit reducible to one R and one C, but it is not the formula the CED states, so the entry fails the 'as the CED states them' test. The formula should be \u03c4 = RC, or the entry should cite the CED image directly. b_topic_codes: 11.8.B.1 is the first place the time constant is required, and 11.8 is the only listed topic, so this passes. c_ced_required: 11.8.B.1.i-iii require the student to apply the time constant as a measure of charging/discharging speed, and the 63%/37% criteria are tested, so this passes. d_caution: The caution's 63% and 37% statements match 11.8.B.1.ii and 11.8.B.1.iii. Its note that charging and discharging are qualitative but initial/final states are mathematical matches the Boundary Statement on p. 74. The caution is present and correct. No hooks were supplied."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED 11.8.B.1.i text says the time constant of an RC circuit 'is defined as' an equation, but the equation image is absent from the extracted pages, so the symbols cannot be checked character-for-character. The body \u03c4 = R_eq C_eq matches the standard definition \u03c4 = RC, with the equivalent-element generalization being correct physics for circuits reducible to one R and one C (11.8.A.1 supports equivalent capacitance). b_topic_codes: 11.8 is the only unit where the RC time constant appears (11.8.B.1), and the entry lists only 11.8. c_ced_required: 11.8.B.1.i\u2013iii explicitly require the time constant definition and its 63% (charging) and 37% (discharging) meanings. d_caution: The caution restates 11.8.B.1.ii and 11.8.B.1.iii accurately ('approximately 63 percent of its final asymptotic value', 'approximately 37 percent of its initial value'). It also reflects the boundary statement that charging and discharging descriptions are qualitative, while initial and final states must be described mathematically. The 'reducible to one equivalent R and C' wording is not CED wording, but the caution does not need to address it because it does not change the point-earning content.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

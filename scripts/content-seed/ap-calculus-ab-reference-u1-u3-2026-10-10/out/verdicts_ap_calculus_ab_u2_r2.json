@@ -1,0 +1,446 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the calculator usage and rounding conventions described in the 'Preparing for the AP Exam' section of Unit 2 (page 51), which states that students must present mathematical expressions evaluated on the calculator, round or truncate to three decimal places, and store intermediate calculations to avoid rounding errors. This is directly relevant to Topic 2.3 and EK CHA-2.D.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.3 includes using technology to calculate or estimate a derivative, so the topic assignment fits. But the entry makes three-decimal rounding an unconditional instruction. The CED says to use \u201cspecified rounding procedures, typically rounding or truncating to three places after the decimal point.\u201d Its advice to present calculator expressions and store intermediate calculations appears in \u201cPreparing for the AP Exam,\u201d not in a learning objective or essential-knowledge statement requiring this convention."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.3 is the unit's explicit technology topic: CHA-2.D.2 says technology can be used to calculate or estimate a derivative at a point. But no learning objective or essential-knowledge statement requires a three-decimal calculator-answer convention. The Preparing for the AP Exam guidance says to use \u201cspecified rounding procedures, typically rounding or truncating to three places after the decimal point.\u201d The entry omits \u201cspecified\u201d and \u201ctypically,\u201d making three places an unconditional rule, and has no caution about following the procedure specified in a question."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formulas for the derivatives of sine, cosine, exponential, and logarithmic functions are mathematically correct and directly required by FUN-3.A.4 in Topic 2.7. Topic 2.10 is also a valid associated topic as finding the derivatives of other trigonometric functions relies on these fundamental derivatives."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7, FUN-3.A.4 states: \u201cSpecific rules can be used to find the derivatives for sine, cosine, exponential, and logarithmic functions.\u201d The four formulas are correct, including the stated x > 0 restriction for ln x. Topic 2.7 first requires them; Topic 2.10, FUN-3.B.3 uses the sine and cosine derivatives when differentiating tangent, cotangent, secant, and cosecant after rearranging them using identities. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: All four formulas are correct: d/dx[sin x] = cos x, d/dx[cos x] = -sin x, d/dx[e^x] = e^x, d/dx[ln x] = 1/x. The domain restriction x > 0 is correct for ln x. The items list is empty, so there are no list-order issues. b_topic_codes: 2.7 is the first unit topic that requires these derivatives (2.5 and 2.6 cover only power, sum, difference, and constant multiple rules). 2.10 is also valid as a secondary code because FUN-3.B.3 states that 'Rearranging tangent, cotangent, secant, and cosecant functions using identities allows differentiation using derivative rules,' which relies on the sine and cosine derivatives. c_ced_required: FUN-3.A.4 states 'Specific rules can be used to find the derivatives for sine, cosine, exponential, and logarithmic functions,' and FUN-3.A.4 sits under Topic 2.7 Learning Objective FUN-3.A, which requires students to calculate these derivatives. d_caution: The CED does not print these formulas, and the entry's wording matches standard point-earning form, so no caution is required and its absence is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the two equivalent limit definitions of the derivative at a point as specified in CHA-2.B.1. The topic codes are correct: Topic 2.1 introduces the definition at a point, Topic 2.2 extends it to a function, and Topic 2.7 (specifically LIM-3.A.1) requires students to recognize these limit forms to evaluate limits."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CHA-2.B.1 gives these two equivalent forms of f\u2032(a), provided the limit exists. Topic 2.1 first requires them; Topic 2.2 uses the derivative definition, and Topic 2.7 requires recognizing limits as derivatives (LIM-3.A.1). The entry\u2019s evidence states the existence qualification, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED CHA-2.B.1 states the instantaneous rate of change at x = a as lim_{h\u21920} [f(a+h)-f(a)]/h or lim_{x\u2192a} [f(x)-f(a)]/(x-a), 'provided the limit exists,' and says these 'are equivalent forms of the definition of the derivative... denoted f'(a).' The formula matches in both forms, order, and notation. The proviso 'provided the limit exists' appears only in the ced_evidence field, not in the body; the body should carry it, but the formula itself is not incorrect. b_topic_codes: CHA-2.B.1 (the two-form limit) first appears in Topic 2.1, so owner 2.1 is correct. Topic 2.2 uses the derivative-as-limit definition (CHA-2.B.2, LO CHA-2.B), and Topic 2.7 uses LIM-3.A.1, which requires recognizing the limit as a derivative definition, so both listed codes are unit-2 topics that use this definition. c_ced_required: LO CHA-2.B ('Represent the derivative of a function as the limit of a difference quotient') requires students to reproduce and apply this form. d_caution: the entry's wording matches the CED's wording of the two forms, so the point is earned without a caution; caution is null and correctly so."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the CED's emphasis on precise notation in Unit 2. Specifically, the Unit 2 overview (page 51) warns that 'students may drop important notation, such as a parenthesis,' and Topic 2.2 (page 56) explicitly lists the standard notations for the derivative (f'(x), y', dy/dx) under CHA-2.B.3 and Skill 4.C."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.2 is the first listed topic requiring derivative notation: CHA-2.B.3 says its notations include dy/dx, f\u2032(x), and y\u2032. The Unit 2 introduction also warns that students may drop important notation, \u201csuch as a parenthesis,\u201d while applying differentiation rules. However, the CED does not require the additional rule that a derivative must not be renamed to a new symbol without defining it. Thus the entry as a whole goes beyond the cited required content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.2 lists dy/dx, f\u2032(x), and y\u2032 as derivative notation (CHA-2.B.3), and the Unit 2 introduction warns that students may 'drop important notation, such as a parenthesis.' The CED does not state the additional rule 'do not rename a derivative to a new symbol without defining it' or require students to apply it. The entry presents that rule without a caution distinguishing it from CED requirements."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The quotient rule formula is mathematically correct and directly required by FUN-3.B.2 ('Derivatives of quotients of differentiable functions can be found using the quotient rule.'). Topic 2.9 is the correct owner topic, and Topic 2.10 is a valid secondary topic since finding the derivatives of tangent, cotangent, secant, and cosecant functions relies on applying the quotient rule to their quotient identities. The caution correctly addresses the order of terms in the numerator and the CED's emphasis on showing the rule's structure before substituting values (as described in the Unit 2 'Preparing for the AP Exam' section)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the quotient rule with the correct numerator order and squared denominator. Topic 2.9 first requires it: FUN-3.B.2 states, \u201cDerivatives of quotients of differentiable functions can be found using the quotient rule.\u201d Topic 2.10 also uses derivative rules after rearranging trigonometric functions with identities (FUN-3.B.3). The caution correctly emphasizes the numerator order and showing the rule structure; the CED\u2019s exam guidance asks students to present mathematical structures connecting their work to a rule."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[u/v] = (v\u00b7u\u2032 \u2212 u\u00b7v\u2032)/[v]\u00b2 is the standard quotient rule and matches the CED's statement at FUN-3.B.2, 'Derivatives of quotients of differentiable functions can be found using the quotient rule.' The pages do not print the symbolic formula, but the formula is correct. b_topic_codes: 2.9 (The Quotient Rule) is the first topic that requires the rule, so it is the correct owner. 2.10 is included because it requires rearranging tan, cot, sec, and csc with identities 'allows differentiation using derivative rules' (FUN-3.B.3), and rewriting these as quotients such as sin/cos depends on the quotient rule. c_ced_required: FUN-3.B.2 directly requires students to apply the quotient rule. d_caution: The CED's Preparing for the AP Exam section says students 'are expected to show the product rule structure' and that 'Failure to present this structure will cost students the point.' The caution applies the same structure-first requirement to the quotient rule, and its ordering note (v\u00b7u\u2032 first, then u\u00b7v\u2032, over [v]\u00b2) is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects LIM-3.A.1 from Topic 2.7 of the AP Calculus CED, which states that 'recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7, LIM-3.A.1 states that recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit. The entry accurately states that strategy. No point-earning wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body is mathematically sound. A limit in the form lim (f(a+h)-f(a))/h, or lim (f(x)-f(a))/(x-a), equals f'(a) when f is differentiable at a. b_topic_codes: LIM-3.A.1 appears only under Topic 2.7 in these pages, so owner_topic_code '2.7' is where the unit first requires it, and topic_codes ['2.7'] is correct. c_ced_required: LIM-3.A.1 states 'recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit', so the skill is required. d_caution: The CED wording is 'In some cases, recognizing an expression for the definition of the derivative ... offers a strategy for determining a limit.' The entry instead states an unconditional 'if ... evaluate the limit as that derivative' rule and rephrases the point-earning wording. The caution field is null, so the required caution is missing. The entry should add a caution that the limit must be exactly in difference-quotient form at the point where the derivative is known and that the function must be differentiable there."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED's logic. LIM-3.A.1 states that \"recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit.\" The entry turns that into a procedure: when the limit has the difference-quotient form, evaluate it as the derivative at the indicated point. No formula symbols or lists are misstated. b_topic_codes: LIM-3.A.1 appears in these pages only under Topic 2.7 (Derivatives of cos x, sin x, e^x, and ln x), so owner_topic_code \"2.7\" is where it is first required, and topic_codes [\"2.7\"] is correct. c_ced_required: LIM-3.A.1 is a learning objective in this unit (\"Interpret a limit as a definition of a derivative\" / essential knowledge on recognizing the derivative definition), so a student is required to apply this. d_caution: The entry's wording is a paraphrase, not the CED's exact sentence. The rule as stated is a faithful, correct application of the CED idea, so no caution is needed to avoid a wrong point-earning claim. The caution field is null, which is acceptable here. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u2-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The product rule formula is factually correct. Topic 2.8 is the first topic requiring the product rule (FUN-3.B.1), and Topic 2.10 involves applying derivative rules to trigonometric functions. The caution correctly highlights the common error and the specific notation structure required on the AP Exam as described on page 51 of the CED ('students are expected to show the product rule structure, as in f'(3) = u(3)v'(3) + v(3)u'(3)')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is correct and is required by Topic 2.8: FUN-3.B.1 says, \u201cDerivatives of products of differentiable functions can be found using the product rule.\u201d The caution correctly reflects the Unit 2 guidance against \u201ctaking the derivative of each factor separately and then multiplying those together\u201d and its example of showing the product-rule structure. Topic 2.10, however, requires differentiating tangent, cotangent, secant, and cosecant after rearranging them using identities; it does not identify the product rule as a required rule for that topic. Remove 2.10 from topic_codes."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.8, FUN-3.B.1 states, \u201cDerivatives of products of differentiable functions can be found using the product rule,\u201d supporting the formula and its first required topic. Topic 2.10, FUN-3.B.3 permits differentiating rearranged trigonometric identities \u201cusing derivative rules,\u201d which can include the product rule. The caution correctly rejects multiplying the derivatives and matches the CED\u2019s example structure, f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3)."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula d/dx[u(x)v(x)] = u(x)v'(x) + v(x)u'(x) is the product rule as the CED uses it (FUN-3.B.1: \"Derivatives of products of differentiable functions can be found using the product rule\"). The body and its symbols are correct. b_topic_codes: owner 2.8 is correct, since 2.8 is \"The Product Rule\" and FUN-3.B.1 is its only essential knowledge. The second code, 2.10, fails. Topic 2.10 (FUN-3.B.3) states only that \"Rearranging tangent, cotangent, secant, and cosecant functions using identities allows differentiation using derivative rules.\" It never names the product or quotient rule, so the CED does not show 2.10 using this rule. c_ced_required: FUN-3.B.1 requires students to calculate derivatives of products using the product rule, so this passes. d_caution: The caution matches the CED's wording in 'Preparing for the AP Exam' (p. 51): students 'are expected to show the product rule structure, as in f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3)' before substituting values. It is present and correct. Note also that the ced_evidence field attributes the f\u2032(3) quotation to FUN-3.B.1, but that line comes from the 'Preparing for the AP Exam' section, not from the learning objective. This citation should be corrected. Overall, reject because topic code 2.10 is not supported by the CED."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula d/dx[u(x)v(x)] = u(x)v'(x) + v(x)u'(x) matches FUN-3.B.1 ('Derivatives of products of differentiable functions can be found using the product rule') and the CED example 'f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3)' in the Unit 2 Preparing for the AP Exam text. b_topic_codes: owner_topic_code 2.8 is correct, since FUN-3.B.1 appears under Topic 2.8. However, topic_codes includes 2.10, and the CED does not say Topic 2.10 uses the product rule. Topic 2.10 (FUN-3.B.3) states only that 'Rearranging tangent, cotangent, secant, and cosecant functions using identities allows differentiation using derivative rules,' without naming the product rule. The entry fails this check. c_ced_required: FUN-3.B.1 requires students to apply the product rule to find derivatives of products. d_caution: The caution ('The derivative of a product is not the product of the derivatives' and 'show the product rule structure ... before substituting values') matches the CED's 'students are expected to show the product rule structure' and its warning about applying the product rule by differentiating each factor separately (Big Idea 2 text). The caution is present and needed.",
+            "_note": "Fix: remove 2.10 from topic_codes (or replace with a topic that explicitly uses the product rule)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

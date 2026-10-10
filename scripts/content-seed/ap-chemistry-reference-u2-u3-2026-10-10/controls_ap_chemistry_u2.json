@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-chem-u2-01-wrong-fact", "control": "reversed fact (CED 2.2.A.2: bonds with a HIGHER order are SHORTER and have LARGER bond energies)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.2", "topic_codes": ["2.2"], "kind": "convention",
+   "title": "Bond order, bond length, and bond energy", "body": "Bonds with a higher bond order are longer and have smaller bond energies.", "items": [], "caution": null, "ced_evidence": "2.2.A.2: \"Bonds with a higher order are shorter and have larger bond energies.\"", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u2-02-excluded", "control": "explicitly excluded by the CED (2.7.A Exclusion Statement: hybridization involving d orbitals will not be assessed)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.7", "topic_codes": ["2.7"], "kind": "list_sequence",
+   "title": "Expanded-octet hybridization schemes", "body": "The hybridizations used when a central atom has more than four electron pairs.", "items": [{"label": "sp^3d", "meaning": "five electron domains, trigonal bipyramidal"}, {"label": "sp^3d^2", "meaning": "six electron domains, octahedral"}], "caution": null, "ced_evidence": "2.7.A.3", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u2-03-wrong-owner", "control": "wrong owner topic (the VSEPR molecular-geometry list is 2.7.A.2.i; 2.5 covers only the construction of Lewis diagrams)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.5", "topic_codes": ["2.5"], "kind": "list_sequence",
+   "title": "Molecular geometries predicted by VSEPR theory", "body": "The molecular geometries students must predict from a Lewis diagram and VSEPR theory.", "items": [{"label": "linear", "meaning": ""}, {"label": "trigonal planar", "meaning": ""}, {"label": "tetrahedral", "meaning": ""}, {"label": "trigonal pyramidal", "meaning": ""}, {"label": "bent", "meaning": ""}, {"label": "trigonal bipyramidal", "meaning": ""}, {"label": "seesaw", "meaning": ""}, {"label": "T-shaped", "meaning": ""}, {"label": "octahedral", "meaning": ""}, {"label": "square pyramidal", "meaning": ""}, {"label": "square planar", "meaning": ""}], "caution": null, "ced_evidence": "2.7.A.2.i", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u2-04-wrong-member", "control": "wrong list values (CED 2.7.A.3: sp = 180 degrees, sp2 = 120 degrees, sp3 = 109.5 degrees; the sp2 and sp3 angles are swapped here)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.7", "topic_codes": ["2.7"], "kind": "list_sequence",
+   "title": "Ideal bond angles by hybridization", "body": "The ideal bond angles associated with each hybridization of a central atom.", "items": [{"label": "sp", "meaning": "180 degrees"}, {"label": "sp^2", "meaning": "109.5 degrees"}, {"label": "sp^3", "meaning": "120 degrees"}], "caution": null, "ced_evidence": "2.7.A.3", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u2-05-bad-hook", "control": "hook expansion contradicts the CED (2.7.A.4: overlap is stronger in sigma than pi bonds, so sigma bonds have GREATER bond energy). The entry is correct, so the entry should be accepted and only the hook rejected.", "control_target": "hook",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.7", "topic_codes": ["2.7"], "kind": "convention",
+   "title": "Sigma versus pi bond strength", "body": "Orbital overlap is stronger in sigma bonds than in pi bonds, so sigma bonds have greater bond energy than pi bonds.", "items": [], "caution": null, "ced_evidence": "2.7.A.4",
+   "hooks": [{"kind": "phrase", "hook_text": "Pi beats sigma", "expands_to": [{"cue": "Pi beats sigma", "means": "pi bonds have greater bond energy than sigma bonds because pi overlap is stronger"}], "when_to_use": "when comparing the strength of sigma and pi bonds", "caution": "State the comparison in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-chem-u2-06-other-unit", "control": "content from another unit (Hess's law is Unit 6 thermochemistry; 'Hess' and 'enthalpy' do not appear in the Unit 2 pages)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 2, "owner_topic_code": "2.2", "topic_codes": ["2.2"], "kind": "formula",
+   "title": "Hess's law", "body": "\\Delta H_{rxn} = \\sum \\Delta H_{steps}", "items": [], "caution": null, "ced_evidence": "2.2.A.1", "hooks": []}
+]

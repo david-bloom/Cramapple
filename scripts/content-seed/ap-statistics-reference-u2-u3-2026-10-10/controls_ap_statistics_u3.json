@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-stats-u3-01-wrong-formula", "control": "wrong formula (chi-square degrees of freedom given as the sum (rows-1)+(cols-1); CED 3.15.B.1 says the product (number of rows - 1)(number of columns - 1))", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.15", "topic_codes": ["3.15"], "kind": "formula",
+   "title": "Degrees of freedom for a chi-square test for homogeneity or independence", "body": "df = (\\text{number of rows} - 1) + (\\text{number of columns} - 1)", "items": [], "caution": null, "ced_evidence": "3.15.B.1: degrees of freedom equal to (number of rows - 1)(number of columns - 1)", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u3-02-non-ced", "control": "non-CED content (the chi-square goodness-of-fit test is a confirmed removal; the string 'goodness' does not appear anywhere in the CED PDF, which keeps only homogeneity and independence)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.14", "topic_codes": ["3.14", "3.15"], "kind": "formula",
+   "title": "Chi-square goodness-of-fit test statistic", "body": "\\chi^2 = \\sum \\frac{(\\text{Observed} - \\text{Expected})^2}{\\text{Expected}} \\text{ with } df = k - 1", "items": [], "caution": null, "ced_evidence": "3.14.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u3-03-wrong-owner", "control": "wrong owner topic (the chi-square test statistic is calculated in 3.15.B.1, Carrying Out the test; 3.14 only sets the test up)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.14", "topic_codes": ["3.14"], "kind": "formula",
+   "title": "Chi-square test statistic for homogeneity or independence", "body": "\\chi^2 = \\sum \\frac{(\\text{Observed Count} - \\text{Expected Count})^2}{\\text{Expected Count}}", "items": [], "caution": null, "ced_evidence": "3.15.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u3-04-wrong-member", "control": "wrong list member (CED 3.3.B.1.iii gives a normality condition that the observed successes and failures each be at least 10; a sample size of at least 30 is not one of the three conditions)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "list_sequence",
+   "title": "Conditions for a one-sample z-interval for a population proportion", "body": "The three conditions that must be met before constructing a one-sample z-interval for a population proportion.", "items": [{"label": "Randomization condition", "meaning": "the data should be collected using a random sample"}, {"label": "10% condition", "meaning": "when sampling without replacement, the population must be at least 10 times the sample size"}, {"label": "Sample size condition", "meaning": "the sample size must be at least 30"}], "caution": null, "ced_evidence": "3.3.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-stats-u3-05-bad-hook", "control": "hook expansion contradicts the CED (3.8.C.1.iv says power increases when the significance level INCREASES; the hook says it decreases). The entry itself is correct, so the entry should be accepted and only the hook rejected.", "control_target": "hook",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.8", "topic_codes": ["3.8"], "kind": "list_sequence",
+   "title": "Factors that increase the power of a test", "body": "Power increases, and the probability of a Type II error decreases, when any one of these changes while the others stay the same.", "items": [{"label": "Sample size", "meaning": "sample size(s) increases"}, {"label": "Standard error", "meaning": "standard error decreases"}, {"label": "True parameter", "meaning": "the true parameter value is farther from the null hypothesis"}, {"label": "Significance level", "meaning": "the significance level of the test increases"}], "caution": null, "ced_evidence": "3.8.C.1.i-iv",
+   "hooks": [{"kind": "acronym", "hook_text": "SSTS", "expands_to": [{"cue": "S", "means": "sample size increases"}, {"cue": "S", "means": "standard error decreases"}, {"cue": "T", "means": "true parameter farther from the null"}, {"cue": "S", "means": "significance level decreases"}], "when_to_use": "when asked what would raise the power of a test", "caution": null, "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-stats-u3-06-other-unit", "control": "content from another unit (inference for a population mean with a t-interval is Unit 4; 't-interval', 't-distribution' and 'population mean' do not appear in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_statistics", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "formula",
+   "title": "One-sample t-interval for a population mean", "body": "\\bar{x} \\pm t^* \\frac{s}{\\sqrt{n}}", "items": [], "caution": null, "ced_evidence": "3.3.C.2", "hooks": []}
+]

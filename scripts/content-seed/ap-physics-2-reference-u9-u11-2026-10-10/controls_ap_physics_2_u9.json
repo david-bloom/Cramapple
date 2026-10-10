@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-phys2-u9-01-reversed", "control": "reversed fact (CED 9.6.A.1: the total entropy of an ISOLATED system can never decrease; 9.6.A.3.ii adds that a closed system's entropy can decrease)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.6", "topic_codes": ["9.6"], "kind": "convention",
+   "title": "Second law of thermodynamics", "body": "The total entropy of an isolated system can never increase, and is constant only when all processes the system undergoes are reversible.", "items": [], "caution": null, "ced_evidence": "9.6.A.1: \"the total entropy of an isolated system can never decrease\"", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u9-02-excluded", "control": "explicitly excluded by the CED (9.6 BOUNDARY STATEMENT: only qualitative treatment of the second law of thermodynamics is within the scope of AP Physics 2)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.6", "topic_codes": ["9.6"], "kind": "formula",
+   "title": "Entropy change of a reversible process", "body": "\\Delta S = \\int \\frac{dQ_{rev}}{T} = \\frac{Q}{T}", "items": [], "caution": null, "ced_evidence": "9.6.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u9-03-wrong-owner", "control": "wrong owner topic (specific heat is topic 9.5, EK 9.5.A.1-2; 9.2 covers the properties of an ideal gas)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.2", "topic_codes": ["9.2"], "kind": "vocabulary",
+   "title": "Specific heat", "body": "The specific heat of a material is an intrinsic property that relates the energy required to change the temperature of the material.", "items": [], "caution": null, "ced_evidence": "9.5.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u9-04-wrong-member", "control": "wrong list member (CED 9.2.A.1 lists random instantaneous velocities, negligible atomic volume, elastic collisions, and appreciable forces only during collisions; it never assumes atoms attract one another at long range)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.2", "topic_codes": ["9.2"], "kind": "list_sequence",
+   "title": "Assumptions of the classical ideal gas model", "body": "What the classical model of an ideal gas assumes about its atoms.", "items": [{"label": "Random velocities", "meaning": "the instantaneous velocities of the atoms are random"}, {"label": "Negligible volume", "meaning": "the volumes of the atoms are negligible compared to the total volume"}, {"label": "Elastic collisions", "meaning": "the atoms collide elastically"}, {"label": "Long-range attraction", "meaning": "the atoms exert appreciable attractive forces on one another at all separations"}], "caution": null, "ced_evidence": "9.2.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u9-05-bad-hook", "control": "hook expansion contradicts the CED (9.4.A.1.i: an ideal gas has no internal potential energy, so its internal energy is kinetic only). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.4", "topic_codes": ["9.4"], "kind": "convention",
+   "title": "Internal energy of an ideal gas", "body": "The internal energy of a system is the sum of the kinetic energy of its objects and the potential energy of their configuration; because the atoms of an ideal gas do not interact through conservative forces, an ideal gas has no internal potential energy.", "items": [], "caution": null, "ced_evidence": "9.4.A.1 and 9.4.A.1.i",
+   "hooks": [{"kind": "phrase", "hook_text": "Ideal gas keeps both kinds of energy", "expands_to": [{"cue": "both kinds", "means": "an ideal gas has both internal kinetic energy and internal potential energy"}], "when_to_use": "when identifying the internal energy of an ideal gas", "caution": "State the components in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-phys2-u9-06-other-unit", "control": "content from another unit (Coulomb's law is Unit 10 electric force, field and potential; it is not in the Unit 9 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 9, "owner_topic_code": "9.2", "topic_codes": ["9.2"], "kind": "formula",
+   "title": "Coulomb's law", "body": "F_E = k\\frac{|q_1 q_2|}{r^2}", "items": [], "caution": null, "ced_evidence": "9.2.A.2", "hooks": []}
+]

@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-calcab-u3-01-wrong-formula", "control": "wrong formula (the chain rule requires the derivative of the inner function; this writes g(x) instead of g'(x), contradicting FUN-3.C.1)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.1", "topic_codes": ["3.1"], "kind": "formula",
+   "title": "Chain rule", "body": "\\frac{d}{dx}\\left[f(g(x))\\right] = f'(g(x)) \\cdot g(x)", "items": [], "caution": null, "ced_evidence": "FUN-3.C.1: \"The chain rule provides a way to differentiate composite functions.\"", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u3-02-non-ced", "control": "non-CED content (logarithmic differentiation appears nowhere in the AP Calculus CED; the phrase does not occur in the PDF)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "convention",
+   "title": "Logarithmic differentiation", "body": "Take the natural logarithm of both sides, differentiate implicitly, then solve for dy/dx to differentiate a function raised to a variable power.", "items": [], "caution": null, "ced_evidence": "FUN-3.D.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u3-03-wrong-owner", "control": "wrong owner topic (higher-order derivatives and their notations are topic 3.6, FUN-3.F.1-2; 3.1 is the chain rule)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.1", "topic_codes": ["3.1"], "kind": "convention",
+   "title": "Second and higher-order derivatives", "body": "Differentiating f' produces the second derivative f'', provided the derivative of f' exists; repeating the process produces higher-order derivatives.", "items": [], "caution": null, "ced_evidence": "FUN-3.F.1", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u3-04-wrong-member", "control": "wrong list member (CED FUN-3.F.2 gives d^2y/dx^2, f''(x) and y'' for the second derivative; f'(x^2) is not a derivative notation)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.6", "topic_codes": ["3.6"], "kind": "list_sequence",
+   "title": "Notations for the second derivative", "body": "The equivalent notations for the second derivative of y = f(x).", "items": [{"label": "d^2y/dx^2", "meaning": "Leibniz notation"}, {"label": "f''(x)", "meaning": "double-prime notation"}, {"label": "y''", "meaning": "double prime on the dependent variable"}, {"label": "f'(x^2)", "meaning": "the derivative evaluated at x squared"}], "caution": null, "ced_evidence": "FUN-3.F.2", "hooks": []},
+
+  {"candidate_id": "ctrl-calcab-u3-05-bad-hook", "control": "hook expansion inverts the chain rule (it differentiates the inner function and leaves the outer undifferentiated). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.1", "topic_codes": ["3.1"], "kind": "formula",
+   "title": "Chain rule for composite functions", "body": "\\frac{d}{dx}\\left[f(g(x))\\right] = f'(g(x)) \\cdot g'(x)", "items": [], "caution": null, "ced_evidence": "FUN-3.C.1",
+   "hooks": [{"kind": "formula_sentence", "hook_text": "Inside out", "expands_to": [{"cue": "Inside", "means": "differentiate the inner function and keep it as the argument"}, {"cue": "out", "means": "leave the outer function undifferentiated, evaluated at the derivative of the inner function"}], "when_to_use": "when differentiating a composite function", "caution": "Write the full chain-rule structure in CED notation when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-calcab-u3-06-other-unit", "control": "content from another unit (related rates is Unit 4 contextual applications; 'related rates' does not appear in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_calculus_ab", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "convention",
+   "title": "Related rates procedure", "body": "Differentiate an equation relating two quantities with respect to time, then substitute the known rates to find the unknown rate of change.", "items": [], "caution": null, "ced_evidence": "FUN-3.D.1", "hooks": []}
+]

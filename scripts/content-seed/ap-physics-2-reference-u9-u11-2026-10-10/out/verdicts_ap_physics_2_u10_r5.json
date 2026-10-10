@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u10-r5-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the change in electric potential energy of an object-field system as described in Topic 10.7 (10.7.A.1) and Topic 10.5 (10.5.A.3). The caution correctly highlights the conceptual distinction that potential energy belongs to the object-field system rather than the single charged object, which is explicitly emphasized in the wording of EK 10.7.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and caution agree with 10.7.A.1, which describes the change in electric potential energy of the \u201cobject-field system\u201d when a charged object moves between different potentials. Both listed topics use the relationship, but 10.5.A.3 requires it first: potential difference is \u201cthe change in electric potential energy per unit charge.\u201d The owner_topic_code should therefore be 10.5, not 10.7."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is consistent with 10.5.A.3, which defines electric potential difference as \u201cthe change in electric potential energy per unit charge,\u201d and with 10.7.A.1, which requires the resulting energy change. Both topic codes are relevant, but 10.5 first requires this relationship, so owner_topic_code should be 10.5 rather than 10.7. The caution correctly follows 10.7.A.1\u2019s wording, \u201celectric potential energy of the object-field system.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

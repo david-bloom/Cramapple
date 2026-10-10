@@ -1,0 +1,1486 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula and concept for the total electric potential energy of a multi-charge system as described in Essential Knowledge 9.1.A.3: 'The total electric potential energy of a system can be determined by finding the sum of the electric potential energies of the individual interactions between each pair of charged objects in the system.' The caution is highly relevant to prevent double-counting pairs."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.1, EK 9.1.A.3 states that total electric potential energy is found by taking the \u201csum of the electric potential energies of the individual interactions between each pair of charged objects in the system.\u201d The formula expresses that pairwise sum, and the caution correctly prevents double-counting."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula U_total = sum over pairs of (1/4\u03c0\u03b50)(q_i q_j / r_ij) is the standard pairwise potential energy form. The CED's 9.1.A.2 equation is an image that does not survive in the supplied text, so the symbols are checked against physics, not the CED page. 9.1.A.3 states that the total is 'the sum of the electric potential energies of the individual interactions between each pair of charged objects,' which matches the summation over pairs. b_topic_codes: 9.1.A.2 and 9.1.A.3 both sit under Topic 9.1 (Electric Potential Energy), and Topic 9.1 is the only topic listed, so owner_topic_code = 9.1 is correct. c_ced_required: 9.1.A.3 explicitly requires students to apply the pairwise sum to find the total potential energy of a multi-charge system. d_caution: 'Count each pair of charges exactly once' is a correct clarification of 'each pair' in 9.1.A.3. The caution does not contradict the CED and is appropriate because double-counting is a common error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the electric potential energy of a system of two point charges, matching the exact wording of Essential Knowledge 9.1.A.1: 'The electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The title identifies the quantity, and the body matches 9.1.A.1: \u201cThe electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.\u201d Topic 9.1 is where the CED requires this definition. No caution is needed because the wording follows the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body's physics is correct and matches the CED's 9.1.A.1 meaning (work an external force must do to bring the charges in from infinity). It is a truncated paraphrase, but the content is not wrong. b_topic_codes: 9.1 is the topic where this is first required (9.1.A.1 sits under Topic 9.1), and topic_codes lists only 9.1. c_ced_required: LO 9.1.A ('Describe the electric potential energy of a system') and EK 9.1.A.1 require students to know this. d_caution: The CED wording is 'The electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.' The entry body drops the subject and the equality ('The work required...'), so as a standalone statement it defines work rather than stating that potential energy equals that work. The point-earning relation is therefore not explicit, and caution is null. Either restore the CED wording ('The electric potential energy of a system of two point charges equals the work required...') or add a caution stating that the entry's wording is shortened and the point is the equality with electric potential energy. As written, the entry fails d_caution, so it is not accepted.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body contains no error. It is a truncated form of 9.1.A.1, which reads: \"The electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.\" The body keeps the work clause but drops the subject and the equality, so it no longer states that the potential energy equals the work. b_topic_codes: True. Unit 9 is where two-charge electric potential energy is first required, and 9.1 is the topic that contains 9.1.A.1. c_ced_required: True. Learning objective 9.1.A (\"Describe the electric potential energy of a system\") and 9.1.A.1 require this content. d_caution: False. The point-earning wording is the equality \"electric potential energy ... equals the amount of work required ...\". The body states only the work definition, and caution is null. The title names potential energy, but the body alone does not earn the point, so a caution is needed to flag that the entry describes the equivalence to the potential energy of a two-point-charge system. Rejected on d_caution, not on factual error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the electric potential energy of two point charges, which is required by Essential Knowledge 9.1.A.2 (\"The general form for the electric potential energy between two charged objects is given by the equation\")."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.1.A.2 gives the general form for electric potential energy between two charged objects; the entry states its standard equivalent forms for two point charges. Topic 9.1.A.1 explicitly addresses a system of two point charges. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: U_E = (1/4\u03c0\u03b50)q1q2/r = kq1q2/r is the standard point-charge form, and k = 1/4\u03c0\u03b50 is consistent. The CED gives the general form only as an image (9.1.A.2), so the equation cannot be checked symbol-for-symbol against the page text, but nothing in the text contradicts it. b_topic_codes: 9.1.A.2 sits in Topic 9.1, which is the first place this unit requires it, so owner 9.1 and topic_codes [9.1] are correct. c_ced_required: 9.1.A.2 explicitly requires 'the general form for the electric potential energy between two charged objects... given by the equation', so the entry is CED-required. d_caution: the entry has no caution, but the expression only holds with the reference convention set by 9.1.A.1, 'the work required for an external force to bring the point charges to their current positions from infinitely far away', i.e. U = 0 at infinity. The sign of q1q2 carrying the sign of the interaction also needs stating. The title ('two point charges') narrows the CED's 'two charged objects' wording, and 9.1.A.3 (sum over pairs for multi-charge systems) is the step that extends this beyond two charges. The entry omits all of this, so a caution is needed and is missing. Fix: add a caution stating U = 0 at infinity, that the value is for the pair (sum over pairs per 9.1.A.3 for more charges), and that the sign of q1q2 gives the sign of U."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body U_E = (1/4\u03c0\u03b50)\u00b7q1q2/r = k\u00b7q1q2/r is the standard Coulomb potential energy of two point charges, and k = 1/(4\u03c0\u03b50) is correctly stated. The CED equation for 9.1.A.2 is an image that does not survive text extraction, so the exact symbols could not be read directly from the pages. The formula is consistent with 9.1.A.2 ('The general form for the electric potential energy between two charged objects is given by the equation') and with 9.1.A.1, which defines the energy as the work needed to bring the charges from infinity. b_topic_codes: owner_topic_code 9.1 is where this equation first appears (Topic 9.1, Essential Knowledge 9.1.A.2), and topic_codes ['9.1'] lists only that topic. c_ced_required: 9.1.A.2 requires students to know and apply this general form, and Learning Objective 9.1.A ('Describe the electric potential energy of a system') requires it. d_caution: the entry uses 'two point charges' where 9.1.A.2 says 'two charged objects', but the point charge form is the one that applies to the 9.1.A.1 wording. The entry lists no items or caution, and none is required to earn the point, so true."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of electric potential matches the exact wording of Essential Knowledge 9.2.A.1: 'Electric potential describes the electric potential energy per unit charge at a point in space.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 9.2.A.1: \u201cElectric potential describes the electric potential energy per unit charge at a point in space.\u201d Topic 9.2 is the appropriate topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 9.2.A.1 almost verbatim: \"Electric potential describes the electric potential energy per unit charge at a point in space.\" The entry drops the leading \"Electric potential describes\" and presents the content as a noun-phrase definition, but the definition itself is unchanged. b_topic_codes: Electric potential is first required in Topic 9.2 (9.2.A.1). Topic 9.1 covers electric potential energy of a system, and the electric potential definition appears only in 9.2, so owner 9.2 and topic_codes [\"9.2\"] are correct. c_ced_required: 9.2.A.1 is essential knowledge that students must know, and 9.2.A.2 and 9.2.A.3 depend on it. d_caution: The entry's wording is substantively the CED's definition (per unit charge, at a point in space, potential energy). No point-earning wording is changed, so no caution is needed and none is present, which is correct. The ced_evidence field also quotes the CED line accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the electric potential of a single point charge, which is required by Essential Knowledge 9.2.A.2.i (\"The electric potential for single point charge is\")."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the electric potential of a single point charge. Topic 9.2.A.2.i states, \u201cThe electric potential for single point charge is\u201d and identifies its formula as required content. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula V = (1/(4\u03c0\u03b50))\u00b7q/r is the standard point-charge potential (equivalent to kq/r with k = 1/(4\u03c0\u03b50)). The CED equation for 9.2.A.2.i is an image that did not extract, so the symbols were checked against the standard form, not the CED image itself. The symbols (V, \u03b50, q, r) are used correctly. b_topic_codes: 9.2.A.2.i, 'The electric potential for single point charge is,' sits under Topic 9.2 (Electric Potential), which is where electric potential is first introduced in this unit. Topic 9.1 deals with electric potential energy U between two charges, not V, so owner_topic_code 9.2 and topic_codes [9.2] are correct. c_ced_required: 9.2.A.2.i is an essential-knowledge statement under LO 9.2.A ('Describe the electric potential due to a configuration of charged objects'), so students must apply this relation. d_caution: The entry body is the equation the CED states for this point, so no caution is needed and none is present, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the integration method for finding the electric potential of a continuous charge distribution, as required by Essential Knowledge 9.2.A.2 ('Expressions for the electric potential of charge distributions can be found using integration and the principle of superposition') and the accompanying boundary statement detailing the specific charge distributions students are expected to integrate."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2.A.2 states that expressions for the electric potential of charge distributions can be found using integration and the principle of superposition. The formula gives that integration with the conventional zero-potential reference at infinity. Topic 9.2 is the correct placement; no caution is needed.",
+              "hooks": []
+            }
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: V = (1/(4\u03c0\u03b50))\u222bdq/r is the standard expression for the potential of a continuous charge distribution, with \u03b50 the permittivity, dq the element of charge and r its distance from the field point. The CED equation for 9.2.A.2 is rendered as an image and is not extractable from the pages supplied, so the exact symbols could not be matched character-for-character; the formula is nonetheless correct as physics. b_topic_codes: 9.2.A.2 is the first place in the unit that needs potential from a charge distribution, and it sits under Topic 9.2 (Electric Potential). c_ced_required: 9.2.A.2 states \"Expressions for the electric potential of charge distributions can be found using integration and the principle of superposition.\" The boundary statement then limits the calculus cases (infinite line/cylinder, ring on axis, semicircular arc, finite line). The entry is the general integral that underlies those cases, so it is required. d_caution: the entry title \"Potential from a charge distribution (integration)\" uses the CED's own wording (\"integration\", \"charge distributions\"), and the CED does not phrase the point differently, so no caution is needed. The ced_evidence quote is accurate apart from dropping \"can be\", which does not change the meaning.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the scalar superposition of electric potentials from multiple point charges as described in Essential Knowledge 9.2.A.2.ii: 'The electric potential due to multiple point charges can be determined by the principle of scalar superposition of the electric potential due to each of the point charges.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.2.A.2.ii states that the potential due to multiple point charges is determined by the \u201cprinciple of scalar superposition of the electric potential due to each of the point charges.\u201d The formula applies that principle and belongs to Topic 9.2. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula V = (1/(4\u03c0\u03b50)) \u03a3 q_i/r_i is the standard scalar superposition expression for the potential of point charges, which 9.2.A.2.ii requires ('The electric potential due to multiple point charges can be determined by the principle of scalar superposition of the electric potential due to each of the point charges'). The CED relevant-equation image is not present in the extracted pages, so the symbols are checked against standard physics; they are correct and the sum is over scalar potentials with signed charges. b_topic_codes: 9.2.A.2.ii sits under Topic 9.2 (Electric Potential). Topic 9.1 covers potential energy of pairs (9.1.A.3 uses pairwise sums of energies, not V), so 9.2 is the first unit/topic that requires this potential formula, and no other topic code is listed. c_ced_required: 9.2.A.2.ii explicitly requires applying scalar superposition for multiple point charges, which this entry supports. d_caution: The entry's body is the formula itself, which is the point-earning content, and the title 'Potential of multiple point charges' matches the CED wording of 9.2.A.2.ii. The CED's key phrase 'scalar superposition' is carried by ced_evidence. No caution is strictly required; a caution noting that q_i keeps its sign and r_i is a scalar distance would be helpful but its absence does not make the entry wrong.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects EK 9.2.A.2.ii, which states that the electric potential due to multiple point charges is determined by the principle of scalar superposition, contrasting it with vector addition used for electric fields."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2 states that potential from multiple point charges uses the \u201cprinciple of scalar superposition\u201d (9.2.A.2.ii). It separately describes electric fields as vectors (9.2.B.3), consistent with the contrast in the entry. The caution correctly reinforces that potential is added as a scalar."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 9.2.A.2.ii states that 'the electric potential due to multiple point charges can be determined by the principle of scalar superposition of the electric potential due to each of the point charges.' The body matches this: V is summed as a scalar, and the signs of the charges matter. Direction does not enter the sum for V. The body's contrast with the electric field needing vector addition is not stated on these pages, but it is standard physics and nothing here contradicts it. b_topic_codes: 9.2.A.2.ii, the scalar-superposition statement, sits under Topic 9.2 (Electric Potential), and topic_codes ['9.2'] matches that. c_ced_required: 9.2.A.2 and 9.2.A.2.ii require students to apply scalar superposition to find electric potential from multiple point charges, which is what the entry asks for. d_caution: the body says 'scalar addition' while the CED says 'scalar superposition', so the wording differs from the point-earning phrase. The caution ('Say scalar superposition for V; do not add components or directions for V') corrects this and is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula and concept from Essential Knowledge 9.2.B.1, which states: 'The value of an electric field component in any direction at a given location is equal to the negative of the spatial rate of change in electric potential at that location. Relevant equation: Ex = -dV/dx'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2, EK 9.2.B.1 states that an electric-field component is the \u201cnegative of the spatial rate of change in electric potential\u201d and gives the exact equation E\u2093 = \u2212dV/dx. The title and formula match, 9.2 is the correct topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body E_x = -dV/dx matches the CED relevant equation under 9.2.B.1 (\"Ex = -dV/dx\"), including the minus sign and the x-component symbol. b_topic_codes: 9.2.B.1 is in Topic 9.2 (Electric Potential), which is where Unit 9 first requires this relation, and topic_codes lists only 9.2. c_ced_required: LO 9.2.B (\"Describe the relationship between electric potential and electric field\") and EK 9.2.B.1 (\"the negative of the spatial rate of change in electric potential\") require students to apply this relation. d_caution: The entry's point-earning content is the formula itself, which the CED states directly, so the title's paraphrase does not change what earns the point and no caution is needed. The entry's ced_evidence quotes 9.2.B.1 accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of electric potential difference as stated in Essential Knowledge 9.2.A.3 ('The electric potential difference between two points is the change in electric potential energy per unit charge when a test charge is moved between the two points') and is directly related to the conservation of energy equations in Topic 9.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.2.A.3 defines potential difference as the \u201cchange in electric potential energy per unit charge when a test charge is moved between the two points,\u201d matching \u0394V = \u0394U_E/q. Topic 9.2 first requires it; 9.3.A.1 also uses the relationship to describe the change in electric potential energy when a charged object moves between potentials. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 9.2.A.3 defines electric potential difference as \"the change in electric potential energy per unit charge when a test charge is moved between the two points,\" with a relevant equation. The equation image is not in the extracted text, but \u0394V = \u0394U_E/q matches that definition, and the symbols and their meaning are correct. b_topic_codes: 9.2.A.3 is the first place this relation is required, so owner 9.2 is correct. 9.3.A.1 uses the same potential-energy/potential relation (\u0394U of the object-field system tied to moving a charge between points of different potential), so listing 9.3 is supported. c_ced_required: 9.2.A.3 directly requires students to state and apply this relation. d_caution: the entry wording (\"change in electric potential energy per unit charge\") tracks the CED wording closely, and the title \"Electric potential difference\" matches the CED term, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'equipotential line' (isoline) based directly on Essential Knowledge 9.2.B.3.i, which states: 'Equipotential lines represent lines of equal electric potential. These lines are also referred to as isolines of electric potential.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2, EK 9.2.B.3.i states: \u201cEquipotential lines represent lines of equal electric potential. These lines are also referred to as isolines of electric potential.\u201d The entry accurately restates this required definition, uses the correct topic code, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 9.2.B.3.i states \"Equipotential lines represent lines of equal electric potential. These lines are also referred to as isolines of electric potential.\" The body (\"A line of equal electric potential, also called an isoline of electric potential\") matches that definition, and the title's \"(isoline)\" alias matches the CED's second sentence. b_topic_codes: equipotential lines first appear in this unit under 9.2.B.3.i, which sits in Topic 9.2, so owner_topic_code \"9.2\" is correct and topic_codes [\"9.2\"] is the only topic that uses it. c_ced_required: 9.2.B (\"Describe the relationship between electric potential and electric field\") and its essential knowledge 9.2.B.3.i/ii/iv require students to apply equipotential lines (e.g., 9.2.B.3.ii, \"Isolines are perpendicular to electric field vectors\"). This is a required CED term, not trivia. d_caution: the body paraphrases the CED with only minor wording change (\"A line of\" vs. \"Equipotential lines represent lines of\"). The point-earning phrase \"lines of equal electric potential\" is preserved, so no caution is needed and caution null is correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 9.2.B.3.ii and 9.2.B.3.iv from the AP Physics C: Electricity and Magnetism CED, which state that isolines are perpendicular to electric field vectors, that there is no component of an electric field along an isoline, and that maps can be constructed from each other."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2, EK 9.2.B.3.ii states: \u201cIsolines are perpendicular to electric field vectors\u201d and says that an isoline map and an electric field map may each be constructed from the other. EK 9.2.B.3.iv states: \u201cThere is no component of an electric field along an isoline.\u201d The entry accurately combines these required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 9.2.B.3.ii states \"Isolines are perpendicular to electric field vectors. An isoline map of electric potential can be constructed from an electric field vector map, and an electric field map may be constructed from an isoline map.\" CED 9.2.B.3.iv states \"There is no component of an electric field along an isoline.\" The body matches both statements. b_topic_codes: 9.2.B.3.ii and 9.2.B.3.iv sit under Topic 9.2, so owner_topic_code 9.2 is the unit's first and only place this is required, and topic_codes [\"9.2\"] is correct. c_ced_required: learning objective 9.2.B (\"Describe the relationship between electric potential and electric field\") requires students to apply this relationship. d_caution: the title says \"the electric field\" where the CED says \"electric field vectors\", but the physics point is the same and the body uses the CED wording, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 9.2.B.3.iii: 'An electric field vector points in the direction of decreasing potential.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Essential Knowledge 9.2.B.3.iii: \u201cAn electric field vector points in the direction of decreasing potential.\u201d This is required in Topic 9.2, and the entry uses the CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 9.2.B.3.iii verbatim: \"An electric field vector points in the direction of decreasing potential.\" The sign/direction convention is stated correctly. b_topic_codes: 9.2.B.3.iii sits under Topic 9.2 (Electric Potential), and Topic 9.1 does not use it, so owner_topic_code 9.2 is the first place the unit requires it. topic_codes [\"9.2\"] is correct. c_ced_required: 9.2.B.3.iii is essential knowledge under learning objective 9.2.B (\"Describe the relationship between electric potential and electric field\"), so students must apply this convention. d_caution: The entry wording is the CED wording, so no caution is needed. caution is null, which is correct. The entry has no formula or ordered list that could be misstated."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the line integral formula for calculating electric potential difference from an electric field, which is explicitly required by Essential Knowledge 9.2.B.2 ('integrating the dot product of the electric field and the displacement along the path connecting the points')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly expresses the potential difference as the negative line integral of the electric field from a to b. CED 9.2.B.2 states that the change in electric potential between two points can be determined by \u201cintegrating the dot product of the electric field and the displacement along the path connecting the points.\u201d This is required in Topic 9.2, and the caution about endpoints and substitution is consistent with applying the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED relevant equation for 9.2.B.2 is not reproduced as text on the page, but the 9.2.B.2 statement, \"The change in electric potential between two points can be determined by integrating the dot product of the electric field and the displacement along the path connecting the points,\" fixes the form \u0394V = V_b \u2212 V_a = \u2212\u222b_a^b E\u00b7dr. The entry's sign, endpoint order, and integrand match standard physics and the CED's \u0394V convention (9.2.A.3 defines the difference as the change per unit charge between two points). b_topic_codes: 9.2.B.2 is first required in Topic 9.2 (owner 9.2), and topic_codes lists only 9.2, which is correct. c_ced_required: LO 9.2.B (\"Describe the relationship between electric potential and electric field\") and EK 9.2.B.2 require students to apply this line-integral relation. d_caution: The CED wording is the verbal statement \"integrating the dot product ... along the path,\" not the minus sign or the V_b \u2212 V_a ordering. The caution correctly flags the endpoint limits and substitution step. It does not explicitly flag the negative sign, which is the main point-earning convention, so it is adequate but could be stronger. ced_evidence quotes the CED accurately (truncated at 'along the path'). No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-01-wrong-fact",
+    "control": "wrong fact (CED 9.2.A.1: electric potential is electric potential energy PER UNIT CHARGE)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body of the entry incorrectly defines 'Electric potential' as 'the total electric potential energy stored in a configuration of charges'. According to CED 9.2.A.1, 'Electric potential describes the electric potential energy per unit charge at a point in space.' The total energy stored in a configuration is the electric potential energy of the system (9.1.A.3), not the electric potential."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition of 'Electric potential' in the body is factually incorrect and contradicts the CED. The CED states in 9.2.A.1 that 'Electric potential describes the electric potential energy per unit charge at a point in space,' whereas the entry incorrectly defines it as the 'total electric potential energy stored in a configuration of charges' (which describes electric potential energy of a system, not electric potential)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 9.2.A.1 states: \u201cElectric potential describes the electric potential energy per unit charge at a point in space.\u201d The body instead defines it as the total electric potential energy stored in a configuration of charges, omitting \u201cper unit charge\u201d and conflating potential with potential energy. Topic 9.2 is the correct topic. The entry has no caution flagging its non-CED wording, though a caution alone would not fix the incorrect definition."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The topic code 9.2 is appropriate, but the definition contradicts CED 9.2.A.1: \u201cElectric potential describes the electric potential energy per unit charge at a point in space.\u201d The body instead defines it as total energy stored in a configuration of charges. The CED does not require that claim, and no caution flags the non-point-earning wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the change in electric potential energy of a charge moving through a potential difference, which is explicitly required by Essential Knowledge 9.3.A.1 under Topic 9.3 ('Conservation of Electric Energy')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.3.A.1 requires the change in electric potential energy when a charged object moves between locations with different electric potentials; \u0394U_E = q\u0394V gives that change. Topic 9.2.A.3 also defines potential difference as the change in electric potential energy per unit charge. The title accurately describes the formula, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: \u0394U_E = q\u0394V matches the 9.3.A.1 relation (the image is absent from the extracted text, so this rests on the standard form of the CED equation). The symbols are correct, and the formula is a valid statement of the CED relation. b_topic_codes: 9.3 is correct. The relation first appears in 9.3.A.1. Topic 9.2 defines \u0394V (9.2.A.3) but does not use \u0394U = q\u0394V, so 9.3 is the owner and the only topic code. c_ced_required: 9.3.A.1 says 'When a charged object moves between two locations with different electric potentials, the resulting change in the electric potential energy of the object-field system is given by the following equation,' so students must apply it. d_caution: the entry title says 'Change in potential energy of a charge moving through a potential difference,' which drops 'electric' and 'object-field system.' The CED wording that earns the point is 'change in the electric potential energy of the object-field system,' and the entry has caution: null. A caution is needed to state that the quantity belongs to the object-field system and that \u0394V = V_final \u2212 V_initial with q carrying its sign. Because none is present, the entry fails d_caution."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: \u0394U_E = q\u0394V matches the 9.3.A.1 relation (the equation image is not in the extracted text, but the symbols and physics are the standard CED form). b_topic_codes: 9.3 is the first unit topic that requires \u0394U = q\u0394V, since 9.2.A.3 defines \u0394V but does not use it for energy. c_ced_required: 9.3.A.1 says the change in electric potential energy of a charged object moving between locations with different potentials 'is given by the following equation', so students must apply it. d_caution: the title says 'Change in potential energy of a charge', but the CED wording is 'the resulting change in the electric potential energy of the object-field system'. The title omits 'electric' and 'object-field system', which is the point-earning framing, and caution is null. A caution is needed to state that the energy belongs to the object-field system, not to the charge alone. Because that caution is missing, the entry is rejected."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u9-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the conservation of energy for a charge moving through a potential difference, combining the concepts in EK 9.3.A.1 (change in electric potential energy) and EK 9.3.A.2 (change in kinetic energy consistent with conservation of energy)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.3.A.1 gives the change in electric potential energy for a charge moving between potentials, and 9.3.A.2 says the resulting change in kinetic energy is \u201cconsistent with the conservation of energy.\u201d Together they support \u0394K = \u2212q\u0394V when energy is exchanged only between kinetic and electric potential energy. Topic 9.3 is the correct placement; no caution about CED wording is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The physics is correct. \u0394K + \u0394U_E = 0 is the conservation statement in 9.3.A.2 (\"change in kinetic energy of the object consistent with the conservation of energy\"). Substituting \u0394U_E = q\u0394V, the relation used in 9.3.A.1 (\"the resulting change in the electric potential energy of the object-field system is given by the following equation\"), gives \u0394K = \u2212q\u0394V. b_topic_codes: 9.3 is the unit and topic where the energy transfer for a charge moving between potentials is first required (9.3.A.1\u20139.3.A.2), and the only listed topic is 9.3. c_ced_required: 9.3.A.1 and 9.3.A.2 require a student to apply this relationship. d_caution: The CED never states \u0394K = \u2212q\u0394V. It states the change in electric potential energy of the object-field system (9.3.A.1) and the conservation-of-energy link to kinetic energy (9.3.A.2). The entry's headline formula is a derived form whose sign convention is a common error point, yet caution is null. A caution is needed (e.g., \u0394U_E = q\u0394V is the CED equation; \u0394K = \u2212q\u0394V follows from conservation; sign depends on the sign of q) and is absent, so this fails. The entry is rejected on d_caution alone."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The physics is correct. CED 9.3.A.1 gives the change in electric potential energy of the object-field system for a charge moving between points with different potentials, which is \u0394U_E = q\u0394V. CED 9.3.A.2 states that the change in kinetic energy is consistent with conservation of energy, so \u0394K + \u0394U_E = 0 and \u0394K = \u2212q\u0394V follow. The CED equation images are not legible in the supplied pages, so the exact printed form of 9.3.A.1 cannot be checked symbol by symbol. b_topic_codes: 9.3 is the unit and topic where the energy-conservation relation for a charge in a potential difference is required (9.3.A.1 and 9.3.A.2). Topic 9.2 defines \u0394V but does not require this kinetic-energy relation. c_ced_required: 9.3.A.2 requires students to apply conservation of energy to the change in kinetic energy of a charged object moving between locations with different potentials, so the entry is CED-required. d_caution: The CED does not state \u0394K = \u2212q\u0394V. Its point-earning wording is the conservation-of-energy statement in 9.3.A.2 together with the 9.3.A.1 relation for \u0394U_E. The entry's formula is a derived consequence that holds only when the electric force is the only force doing work (no other work or non-conservative contributions). No caution states this, so the caution is missing and this element fails."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-03-wrong-owner",
+    "control": "wrong owner topic (the electric potential energy of a system of two point charges is topic 9.1, EK 9.1.A.1-2; 9.3 covers changes due to a potential difference)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '9.3', but the CED evidence cited (9.1.A.1) belongs to Topic 9.1 ('Electric Potential Energy'). The owner_topic_code should be '9.1' as that is where this unit first requires this knowledge."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '9.3', but the CED evidence cited is 9.1.A.1, which belongs to Topic 9.1 ('Electric Potential Energy'). The owner_topic_code should be '9.1' as that is where the concept is first introduced in this unit."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches 9.1.A.1: \u201cThe electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.\u201d But the CED first requires this statement in Topic 9.1, not the listed owner topic 9.3. Topic 9.3 addresses changes in potential energy when a charge moves between locations, not this work-from-infinity definition. The wording is sufficiently faithful that no caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches Essential Knowledge 9.1.A.1: \u201cThe electric potential energy of a system of two point charges equals the amount of work required for an external force to bring the point charges to their current positions from infinitely far away.\u201d This definition is first required in Topic 9.1, not the listed owner topic, 9.3. No caution is needed because the wording preserves the CED\u2019s meaning."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-02-excluded",
+    "control": "explicitly excluded by the CED (9.2 BOUNDARY STATEMENT limits the charge distributions for which students use calculus to find electric potential; an arbitrary three-dimensional distribution is outside it)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry requires setting up and evaluating a volume integral over an 'arbitrary non-symmetric three-dimensional charge distribution'. This directly contradicts the explicit Boundary Statement on page 44 of the CED, which limits calculus expectations for electric potential to specific simple geometries: 'an infinitely long, uniformly charged wire or cylinder... a thin ring of charge... a semicircular arc... and a finite wire or line charge...'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry directly contradicts the explicit Boundary Statement on page 44 of the CED. The Boundary Statement limits the calculus expectations for finding electric potential to specific geometries: 'an infinitely long, uniformly charged wire or cylinder at a distance from its central axis, a thin ring of charge at a location along the axis of the ring, a semicircular arc or part of a semicircular arc at its center, and a finite wire or line charge at a point collinear with the line charge or at a location along its perpendicular bisector.' Setting up and evaluating a volume integral over an arbitrary non-symmetric three-dimensional charge distribution is far outside the scope of the AP Physics C curriculum."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 9.2 is the correct location, and 9.2.A.2 says that expressions for electric potential of charge distributions can be found using integration. But the boundary statement says the course \u201conly expects students to use calculus to find the electric potential\u201d for its specified wires, cylinder, ring, and arcs at specified locations. Setting up and evaluating a volume integral for an arbitrary non-symmetric three-dimensional distribution is outside that boundary. No caution identifies this difference from the CED expectation."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 9.2.A.2 says potential expressions can be found using integration and superposition, but its boundary statement says the course \u201conly expects students to use calculus\u201d for the listed charge distributions and locations. An arbitrary non-symmetric three-dimensional distribution is not among them. The entry presents that out-of-scope calculation as a convention without a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-04-reversed",
+    "control": "reversed fact (CED 9.2.B.3.iii: an electric field vector points in the direction of DECREASING potential)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry states that 'An electric field vector points in the direction of increasing electric potential', which is factually incorrect and directly contradicts CED Essential Knowledge 9.2.B.3.iii, which states: 'An electric field vector points in the direction of decreasing potential.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry states that 'An electric field vector points in the direction of increasing electric potential.' However, Essential Knowledge 9.2.B.3.iii explicitly states: 'An electric field vector points in the direction of decreasing potential.' The entry is factually incorrect and directly contradicts the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 9.2.B.3.iii states: \u201cAn electric field vector points in the direction of decreasing potential.\u201d The entry says \u201cincreasing,\u201d reversing the required direction. Topic 9.2 is correctly assigned, but the stated convention is not CED-required content, and no caution flags the incorrect wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 9.2.B.3.iii states, \u201cAn electric field vector points in the direction of decreasing potential,\u201d not increasing potential. Topic 9.2 is correct, and this direction convention is required. No caution flags the incorrect wording, though a caution would not make the false statement acceptable."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-06-other-unit",
+    "control": "content from another unit (the behavior of charge on a conductor in electrostatic equilibrium is Unit 10, EK 10.1.A.2; it is not in the Unit 9 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry discusses conductors in electrostatic equilibrium and excess charge residing on their surface, which is not mentioned or required in the Unit 9 CED pages. The cited CED evidence 9.2.A.1 actually states: 'Electric potential describes the electric potential energy per unit charge at a point in space.' This content belongs to a different unit (such as Unit 8 on Gauss's Law or Unit 10 on Capacitors)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry describes conductors in electrostatic equilibrium and the electric field inside them. While factually correct in physics, this content is not present in the provided Unit 9 CED pages (which focus on electric potential, potential energy, and conservation of energy). Furthermore, the cited CED evidence '9.2.A.1' states: 'Electric potential describes the electric potential energy per unit charge at a point in space,' which does not support or require knowledge of excess charge on conductors in electrostatic equilibrium."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The statement is physically correct, but Topic 9.2 does not require this conductor rule. The cited 9.2.A.1 says, \u201cElectric potential describes the electric potential energy per unit charge at a point in space\u201d; it says nothing about excess charge on a conductor or the field inside one. No Unit 9 topic shown requires the rule, so 9.2 is not a valid owner topic. There is no alternative CED point-earning wording that calls for a caution."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The statement is physically correct, but these Unit 9 pages do not state it. The cited 9.2.A.1 says, \u201cElectric potential describes the electric potential energy per unit charge at a point in space\u201d; it does not address excess charge on conductors or the electric field inside them. Topic 9.2 therefore does not establish this entry as required content. No wording caution would resolve the missing CED support."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u9-05-bad-hook",
+    "control": "hook expansion contradicts the CED (9.2.B.3.ii: isolines are PERPENDICULAR to electric field vectors; 9.2.B.3.iv: there is no component of the field along an isoline). The entry is correct, so only the hook should be rejected.",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "Field runs along the isoline": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Field runs along the isoline": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately and directly reflects the CED statements in 9.2.B.3.ii and 9.2.B.3.iv regarding the perpendicular relationship between isolines and electric field vectors."
+            },
+            "hooks": [
+              {
+                "hook_text": "Field runs along the isoline",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion is physically incorrect and directly contradicts the CED. The CED states that 'There is no component of an electric field along an isoline' (9.2.B.3.iv) and that 'Isolines are perpendicular to electric field vectors' (9.2.B.3.ii). The hook incorrectly defines the relationship as parallel."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately reflects the CED statements in 9.2.B.3.ii and 9.2.B.3.iv regarding the perpendicular relationship between isolines and electric field vectors."
+            },
+            "hooks": [
+              {
+                "hook_text": "Field runs along the isoline",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook and its expansion state that the electric field is parallel to an isoline of equal potential. This is physically incorrect and directly contradicts CED 9.2.B.3.ii ('Isolines are perpendicular to electric field vectors') and 9.2.B.3.iv ('There is no component of an electric field along an isoline')."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Field runs along the isoline": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 9.2: 9.2.B.3.ii states that isolines are perpendicular to electric field vectors, and 9.2.B.3.iv states that there is no component of an electric field along an isoline. Topic 9.2 is the correct owner and topic code. No caution is needed because the body uses the CED's wording."
+            },
+            "hooks": [
+              {
+                "hook_text": "Field runs along the isoline",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion says the electric field is parallel to an isoline, contradicting 9.2.B.3.ii: \u201cIsolines are perpendicular to electric field vectors.\u201d It also conflicts with 9.2.B.3.iv: \u201cThere is no component of an electric field along an isoline.\u201d The caution does not correct this false direction relationship."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 9.2: 9.2.B.3.ii says, \u201cIsolines are perpendicular to electric field vectors,\u201d and 9.2.B.3.iv says, \u201cThere is no component of an electric field along an isoline.\u201d The wording needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Field runs along the isoline",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion says the electric field is parallel to an isoline, contradicting 9.2.B.3.ii: \u201cIsolines are perpendicular to electric field vectors.\u201d The hook reinforces the incorrect geometry, and its caution does not identify the contradiction."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Field runs along the isoline": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "The body matches two CED essential-knowledge statements in Topic 9.2. 9.2.B.3.ii says 'Isolines are perpendicular to electric field vectors.' 9.2.B.3.iv says 'There is no component of an electric field along an isoline.' The entry's 'Isolines of electric potential' adds the definition from 9.2.B.3.i ('Equipotential lines represent lines of equal electric potential'), which is correct and does not change the meaning. owner_topic_code 9.2 is where 9.2.B.3 first appears, and 9.2 is the only listed topic. The objective 9.2.B ('Describe the relationship between electric potential and electric field') requires students to apply this relationship, so the content is CED-required. The entry is a faithful paraphrase of the CED statements, so a caution is not needed."
+          },
+          "hooks": [
+            {
+              "hook_text": "Field runs along the isoline",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "The expansion maps 'runs along the isoline' to 'the electric field is parallel to an isoline of equal potential.' This contradicts CED 9.2.B.3.ii ('Isolines are perpendicular to electric field vectors') and 9.2.B.3.iv ('There is no component of an electric field along an isoline'), and it also contradicts the entry's own body. The hook therefore recalls a wrong geometry convention, not the one the CED requires. The caution 'State the geometry in CED terms' does not correct the misstatement, because the hook text and expansion themselves encode the opposite of the required relationship."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. 9.2.B.3.ii says 'Isolines are perpendicular to electric field vectors,' and 9.2.B.3.iv says 'There is no component of an electric field along an isoline.' The body adds 'of electric potential' to 'isolines,' which 9.2.B.3.i supports ('Equipotential lines represent lines of equal electric potential... also referred to as isolines of electric potential'). b_topic_codes: Both 9.2.B.3.ii and 9.2.B.3.iv sit under Topic 9.2, which is the only topic listed and the owner, so the owner is where the unit first requires it. c_ced_required: Learning objective 9.2.B ('Describe the relationship between electric potential and electric field') requires students to apply this geometry. d_caution: The entry's wording is essentially the CED wording, so no caution is needed. Caution is null and correctly so."
+          },
+          "hooks": [
+            {
+              "hook_text": "Field runs along the isoline",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "The expansion 'the electric field is parallel to an isoline of equal potential' contradicts CED 9.2.B.3.iv ('There is no component of an electric field along an isoline') and 9.2.B.3.ii ('Isolines are perpendicular to electric field vectors'). The cue 'runs along the isoline' therefore maps to the wrong geometry (parallel instead of perpendicular). f_admissible: The hook recalls a direction relationship that the CED states the opposite way, so it teaches a misconception. The caution 'State the geometry in CED terms when answering' does not correct the hook's wrong content and does not flag the conflict, so it does not rescue the hook."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

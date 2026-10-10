@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_precalculus-u1-r4-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists and describes the function types used for modeling as specified in EK 1.13.A.1 through 1.13.A.7. The mapping of linear, quadratic, cubic, polynomial, polynomial of degree n, and piecewise-defined functions matches the CED's guidelines for model selection."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The items follow the order of the function types in 1.13.A.1\u20131.13.A.7 and accurately summarize their stated uses. For example, 1.13.A.1 says linear functions model situations with \u201croughly constant rates of change,\u201d and 1.13.A.7 describes piecewise-defined functions over \u201cnonoverlapping domain intervals.\u201d Topic 1.13 first requires selecting an appropriate function type; 1.14.A then requires constructing function models. No caution is needed because the entry uses the CED\u2019s terminology and does not substitute a different point-earning rule."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Each item matches its cited CED statement. Linear = 1.13.A.1 ('roughly constant rates of change'); Quadratic = 1.13.A.2 (roughly linear rates of change, or roughly symmetric data with a unique max/min) and 1.13.A.3 (area/two-dimensional geometry); Cubic = 1.13.A.3 (volume/three dimensions); Polynomial = 1.13.A.4 (multiple real zeros or multiple maxima/minima); Polynomial of degree n = 1.13.A.5 ('roughly constant nonzero nth differences'); Piecewise-defined = 1.13.A.7 (nonoverlapping domain intervals). The listed order follows the CED sequence A.1 to A.5 then A.7. Minor note: ced_evidence is labelled '1.13.A.1\u20131.13.A.7' but quotes only A.1. The quote itself is accurate, so this does not fail a_factual. b_topic_codes: 1.13.A.1\u2013A.7 first appear in Topic 1.13 (Function Model Selection and Assumption Articulation), so owner 1.13 is correct. 1.14.A requires constructing linear, quadratic, cubic, quartic, polynomial of degree n, or piecewise-defined models, so 1.14 also uses it. c_ced_required: LO 1.13.A ('Identify an appropriate function type to construct a function model for a given scenario') requires this selection. d_caution: The entry paraphrases the CED ('Data or contexts that demonstrate...') but keeps the same meaning and the same function-type mapping, so no caution is needed; caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

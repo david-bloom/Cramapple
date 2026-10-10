@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u2-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the product rule as required by Topic 2.8 (FUN-3.B.1). The caution is highly aligned with the 'Preparing for the AP Exam' and 'Building the Mathematical Practices' sections on page 51 of the CED, which warn against multiplying derivatives of factors separately and emphasize showing the product rule structure before substituting values."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly states the product rule. Topic 2.8 is its first required location: FUN-3.B.1 says, \u201cDerivatives of products of differentiable functions can be found using the product rule.\u201d The caution is correct and matches the CED\u2019s example, \u201cf\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3),\u201d which students are expected to show before importing values."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body d/dx[u(x)v(x)] = u(x)v'(x) + v(x)u'(x) is the product rule as used in the CED. The caution's example f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3) matches the CED's Preparing for the AP Exam text, which says to evaluate the derivative of f(x) = u(x)\u00b7v(x) at x = 3 by showing 'the product rule structure, as in f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3)'. b_topic_codes: The product rule is introduced in Unit 2 Topic 2.8 ('The Product Rule'), which is the first place this unit requires it, and 2.8 is the only topic code listed. c_ced_required: FUN-3.B.1 states 'Derivatives of products of differentiable functions can be found using the product rule,' and the learning objective FUN-3.B asks students to calculate such derivatives. d_caution: The CED's point-earning wording is the product rule structure shown before substituting values, and the caution states this. The added warning that the derivative of a product is not the product of the derivatives addresses the misapplication the CED describes in Big Idea 2 ('misapply the product rule by taking the derivative of each factor separately and then multiplying those together'). ced_evidence quote is accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

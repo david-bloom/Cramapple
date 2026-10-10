@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-pcm-u1-01-wrong-formula", "control": "wrong formula (CED 1.3.A.4.i: instantaneous velocity is v_x = dx/dt, the derivative of position with respect to time, not the derivative of time with respect to position)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.3", "topic_codes": ["1.3"], "kind": "formula",
+   "title": "Instantaneous velocity as a derivative", "body": "v_x = \\frac{dt}{dx}", "items": [], "caution": null, "ced_evidence": "1.3.A.4.i: \"Relevant equation: v_x = dx/dt\"", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u1-02-excluded", "control": "explicitly excluded by the CED (1.x BOUNDARY STATEMENT: AP Physics C: Mechanics only expects students to quantitatively analyze the motion of an object in two dimensions)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.5", "topic_codes": ["1.5"], "kind": "formula",
+   "title": "Three-dimensional position vector", "body": "\\vec{r}(t) = x(t)\\hat{i} + y(t)\\hat{j} + z(t)\\hat{k}, \\text{ analyzed quantitatively in three dimensions}", "items": [], "caution": null, "ced_evidence": "1.5.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u1-03-wrong-owner", "control": "wrong owner topic (instantaneous velocity as a derivative is topic 1.3, EK 1.3.A.4.i; 1.1 covers scalars and vectors)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "formula",
+   "title": "Instantaneous velocity", "body": "v_x = \\frac{dx}{dt}", "items": [], "caution": null, "ced_evidence": "1.3.A.4.i", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u1-04-swapped", "control": "swapped operations (the derivative gives velocity from position and acceleration from velocity; the integral gives displacement from velocity and change in velocity from acceleration)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.3", "topic_codes": ["1.3"], "kind": "list_sequence",
+   "title": "Calculus relationships among the kinematic quantities", "body": "Which calculus operation connects each pair of kinematic quantities.", "items": [{"label": "Position to velocity", "meaning": "integrate position with respect to time"}, {"label": "Velocity to acceleration", "meaning": "integrate velocity with respect to time"}, {"label": "Velocity to displacement", "meaning": "differentiate velocity with respect to time"}], "caution": null, "ced_evidence": "1.3.A.4.i-ii", "hooks": []},
+
+  {"candidate_id": "ctrl-pcm-u1-05-bad-hook", "control": "hook expansion contradicts the CED (1.2.C.1 and 1.3.A.4: the instantaneous value is the limit as the interval approaches zero, obtained by differentiating). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.2", "topic_codes": ["1.2"], "kind": "convention",
+   "title": "From average to instantaneous values", "body": "As the time interval used to calculate the average value of a quantity approaches zero, the average value approaches the instantaneous value.", "items": [], "caution": null, "ced_evidence": "1.2.B.5 and 1.2.C.1",
+   "hooks": [{"kind": "phrase", "hook_text": "Average becomes instantaneous when the interval grows", "expands_to": [{"cue": "when the interval grows", "means": "as the time interval becomes larger, the average approaches the instantaneous value"}], "when_to_use": "when relating average and instantaneous quantities", "caution": "State the limit in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-pcm-u1-06-other-unit", "control": "content from another unit (Newton's second law is Unit 2 force and translational dynamics; it is not in the Unit 1 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_c_mechanics", "unit_number": 1, "owner_topic_code": "1.2", "topic_codes": ["1.2"], "kind": "formula",
+   "title": "Newton's second law", "body": "\\sum \\vec{F} = m\\vec{a}", "items": [], "caution": null, "ced_evidence": "1.2.B.3", "hooks": []}
+]

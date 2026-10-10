@@ -1,0 +1,558 @@
+[
+  {
+    "owner_topic_code": "1.1",
+    "topic_codes": [
+      "1.1"
+    ],
+    "kind": "vocabulary",
+    "title": "Instantaneous rate of change via limits",
+    "body": "The limit concept lets us define the instantaneous rate of change in terms of average rates of change over intervals containing that instant.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-1.A.3 The limit concept allows us to define instantaneous rate of change in terms of average rates of change.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-001",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.1",
+    "topic_codes": [
+      "1.1"
+    ],
+    "kind": "convention",
+    "title": "Average rate of change is undefined at a single point",
+    "body": "An average rate of change divides the change in one variable by the change in another, so it is undefined where the change in the independent variable would be zero.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-1.A.2 the average rate of change is undefined at a point where the change in the independent variable would be zero",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-002",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.2",
+    "topic_codes": [
+      "1.2",
+      "1.3",
+      "1.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Limit of f(x) as x approaches c",
+    "body": "The limit of f(x) as x approaches c is a real number R if f(x) can be made arbitrarily close to R by taking x sufficiently close to c (but not equal to c).",
+    "items": [],
+    "caution": "The limit depends on values of f near c, not at c. The epsilon-delta definition is not assessed.",
+    "ced_evidence": "LIM-1.A.1 f(x) can be made arbitrarily close to R by taking x sufficiently close to c (but not equal to c)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-003",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.2",
+    "topic_codes": [
+      "1.2",
+      "1.3",
+      "1.5"
+    ],
+    "kind": "formula",
+    "title": "Limit notation (two-sided and one-sided)",
+    "body": "\\lim_{x\\to c} f(x)=R \\qquad \\lim_{x\\to c^-} f(x) \\qquad \\lim_{x\\to c^+} f(x)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-1.A.1 the common notation is lim f(x) = R; LIM-1.C.1 The concept of a limit includes one sided limits.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-004",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.2",
+    "topic_codes": [
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.9"
+    ],
+    "kind": "list_sequence",
+    "title": "Ways a limit can be expressed",
+    "body": "A limit can be expressed graphically, numerically, and analytically, and students must interpret and move between these.",
+    "items": [
+      {
+        "label": "Graphically",
+        "meaning": "Read from the graph of the function near x = c."
+      },
+      {
+        "label": "Numerically",
+        "meaning": "Estimate from a table of values near x = c."
+      },
+      {
+        "label": "Analytically",
+        "meaning": "Write and evaluate using limit notation and algebra."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-1.B.1 A limit can be expressed in multiple ways, including graphically, numerically, and analytically.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-005",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.3",
+    "topic_codes": [
+      "1.3",
+      "1.5",
+      "1.11",
+      "1.13"
+    ],
+    "kind": "vocabulary",
+    "title": "One-sided limit",
+    "body": "A one-sided limit describes the value f(x) approaches as x approaches c from only the left (c\u207b) or only the right (c\u207a), and it can be found analytically or graphically.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-1.C.1 The concept of a limit includes one sided limits; LIM-1.D.1 One-sided limits can be determined analytically or graphically.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-006",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.3",
+    "topic_codes": [
+      "1.3",
+      "1.14"
+    ],
+    "kind": "list_sequence",
+    "title": "Ways a limit might not exist",
+    "body": "A limit might not exist at a value of x if the function is unbounded, oscillates near that value, or has unequal left and right limits.",
+    "items": [
+      {
+        "label": "Unbounded",
+        "meaning": "The function grows without bound near c, e.g. lim 1/x\u00b2 as x\u21920 is \u221e (and lim 1/x does not exist)."
+      },
+      {
+        "label": "Oscillating",
+        "meaning": "The function oscillates near c, e.g. lim sin(1/x) as x\u21920 does not exist."
+      },
+      {
+        "label": "Left \u2260 right",
+        "meaning": "The limit from the left does not equal the limit from the right, e.g. lim |x|/x as x\u21920 does not exist."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-1.C.4 if the function is unbounded, if the function is oscillating near this value, or if the limit from the left does not equal the limit from the right",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-007",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.3",
+    "topic_codes": [
+      "1.3"
+    ],
+    "kind": "convention",
+    "title": "Graphs can miss important behavior",
+    "body": "Because of issues of scale, a graphical representation of a function may miss important behavior, so graph-based limit estimates should be treated with care.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-1.C.3 Because of issues of scale, graphical representations of functions may miss important function behavior.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-008",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.4",
+    "topic_codes": [
+      "1.4",
+      "1.9"
+    ],
+    "kind": "convention",
+    "title": "Estimating a limit from a table",
+    "body": "Numerical information, such as table values of x on both sides of c and close to c, can be used to estimate a limit.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-1.C.5 Numerical information can be used to estimate limits.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-009",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.5",
+    "topic_codes": [
+      "1.5",
+      "1.7"
+    ],
+    "kind": "list_sequence",
+    "title": "Combinations of functions covered by limit theorems",
+    "body": "Limit theorems let you find limits of these combinations of functions.",
+    "items": [
+      {
+        "label": "Sums",
+        "meaning": "Limit of f + g"
+      },
+      {
+        "label": "Differences",
+        "meaning": "Limit of f \u2212 g"
+      },
+      {
+        "label": "Products",
+        "meaning": "Limit of f \u00b7 g"
+      },
+      {
+        "label": "Quotients",
+        "meaning": "Limit of f / g"
+      },
+      {
+        "label": "Composite functions",
+        "meaning": "Limit of f(g(x))"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-1.D.2 Limits of sums, differences, products, quotients, and composite functions can be found using limit theorems.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-010",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.6",
+    "topic_codes": [
+      "1.6",
+      "1.7"
+    ],
+    "kind": "list_sequence",
+    "title": "Algebraic manipulation strategies for limits",
+    "body": "Rearrange an expression into an equivalent form before evaluating the limit, using these strategies.",
+    "items": [
+      {
+        "label": "Factor and divide common factors",
+        "meaning": "Used for rational functions."
+      },
+      {
+        "label": "Multiply by the conjugate",
+        "meaning": "Multiply by an expression involving the conjugate of a sum or difference to simplify functions involving radicals."
+      },
+      {
+        "label": "Alternate trigonometric forms",
+        "meaning": "Use equivalent forms of trigonometric functions."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-1.E.1 It may be necessary or helpful to rearrange expressions into equivalent forms before evaluating limits.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-011",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.8",
+    "topic_codes": [
+      "1.8",
+      "1.7"
+    ],
+    "kind": "vocabulary",
+    "title": "Squeeze theorem",
+    "body": "The limit of a function may be found with the squeeze theorem, which requires confirming that the function is bounded between two functions with the same limit at c.",
+    "items": [],
+    "caution": "State and verify the conditions (the bounding inequality near c and equal limits of the bounding functions) before concluding.",
+    "ced_evidence": "LIM-1.E.2 The limit of a function may be found by using the squeeze theorem.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-012",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.8",
+    "topic_codes": [
+      "1.8",
+      "1.7"
+    ],
+    "kind": "formula",
+    "title": "Squeeze-theorem limits",
+    "body": "\\lim_{x\\to 0}\\frac{\\sin x}{x}=1 \\qquad \\lim_{x\\to 0}\\frac{1-\\cos x}{x}=0",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "The squeeze theorem can be used to show lim sin x / x = 1 and lim (1 - cos x)/x = 0",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-013",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.10",
+    "topic_codes": [
+      "1.10",
+      "1.13",
+      "1.14"
+    ],
+    "kind": "list_sequence",
+    "title": "Types of discontinuities",
+    "body": "The CED names these types of discontinuity.",
+    "items": [
+      {
+        "label": "Removable discontinuity",
+        "meaning": "The limit exists at the point, but the function value is missing or differs from it."
+      },
+      {
+        "label": "Jump discontinuity",
+        "meaning": "The left and right limits differ."
+      },
+      {
+        "label": "Vertical asymptote",
+        "meaning": "The discontinuity comes from unbounded behavior near the point."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-2.A.1 removable discontinuities, jump discontinuities, and discontinuities due to vertical asymptotes",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-014",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.11",
+    "topic_codes": [
+      "1.11",
+      "1.10",
+      "1.12",
+      "1.13"
+    ],
+    "kind": "list_sequence",
+    "title": "Definition of continuity at x = c",
+    "body": "A function f is continuous at x = c provided all three conditions hold: f(c) exists, the limit of f(x) as x\u2192c exists, and that limit equals f(c).",
+    "items": [
+      {
+        "label": "1",
+        "meaning": "f(c) exists"
+      },
+      {
+        "label": "2",
+        "meaning": "lim_{x\u2192c} f(x) exists"
+      },
+      {
+        "label": "3",
+        "meaning": "lim_{x\u2192c} f(x) = f(c)"
+      }
+    ],
+    "caution": "When justifying continuity or discontinuity, check each condition explicitly. If it fails, state which condition is not satisfied.",
+    "ced_evidence": "LIM-2.A.2 f(c) exists, lim f(x) exists, and lim f(x) = f(c)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-015",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.12",
+    "topic_codes": [
+      "1.12",
+      "1.16"
+    ],
+    "kind": "vocabulary",
+    "title": "Continuous on an interval",
+    "body": "A function is continuous on an interval if it is continuous at each point in the interval.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-2.B.1 A function is continuous on an interval if the function is continuous at each point in the interval.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-016",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.12",
+    "topic_codes": [
+      "1.12",
+      "1.13",
+      "1.16"
+    ],
+    "kind": "list_sequence",
+    "title": "Function types continuous on their domains",
+    "body": "These function types are continuous at all points in their domains.",
+    "items": [
+      {
+        "label": "Polynomial",
+        "meaning": "Continuous on its domain"
+      },
+      {
+        "label": "Rational",
+        "meaning": "Continuous on its domain"
+      },
+      {
+        "label": "Power",
+        "meaning": "Continuous on its domain"
+      },
+      {
+        "label": "Exponential",
+        "meaning": "Continuous on its domain"
+      },
+      {
+        "label": "Logarithmic",
+        "meaning": "Continuous on its domain"
+      },
+      {
+        "label": "Trigonometric",
+        "meaning": "Continuous on its domain"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "LIM-2.B.2 Polynomial, rational, power, exponential, logarithmic, and trigonometric functions are continuous on all points in their domains.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-017",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.13",
+    "topic_codes": [
+      "1.13"
+    ],
+    "kind": "convention",
+    "title": "Removing a discontinuity",
+    "body": "If the limit exists at a discontinuity, remove it by defining or redefining f at that point so that it equals the value of the limit.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-2.C.1 it is possible to remove the discontinuity by defining or redefining the value of the function at that point",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-018",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.13",
+    "topic_codes": [
+      "1.13"
+    ],
+    "kind": "formula",
+    "title": "Continuity of a piecewise function at a boundary",
+    "body": "\\lim_{x\\to c^-} f(x)=\\lim_{x\\to c^+} f(x)=f(c)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-2.C.2 the value of the expression defining the function on one side of the boundary must equal the value of the expression defining the other side of the boundary, as well as the value of the function at the boundary",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-019",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.14",
+    "topic_codes": [
+      "1.14"
+    ],
+    "kind": "vocabulary",
+    "title": "Infinite limits and vertical asymptotes",
+    "body": "The limit concept extends to infinite limits, and asymptotic and unbounded behavior of functions can be described and explained using limits.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-2.D.1 / LIM-2.D.2 The concept of a limit can be extended to include infinite limits.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-020",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.15",
+    "topic_codes": [
+      "1.15"
+    ],
+    "kind": "vocabulary",
+    "title": "Limits at infinity and end behavior",
+    "body": "The limit concept extends to limits at infinity, which describe end behavior and relate to horizontal asymptotes.",
+    "items": [],
+    "caution": "For end behavior, write the limit as the variable approaches \u221e (e.g. t\u2192\u221e), not as it approaches 0.",
+    "ced_evidence": "LIM-2.D.3 The concept of a limit can be extended to include limits at infinity. LIM-2.D.4 Limits at infinity describe end behavior.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-021",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.15",
+    "topic_codes": [
+      "1.15"
+    ],
+    "kind": "convention",
+    "title": "Comparing relative magnitudes with limits",
+    "body": "Relative magnitudes of functions and their rates of change can be compared using limits.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-2.D.5 Relative magnitudes of functions and their rates of change can be compared using limits.",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-022",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.16",
+    "topic_codes": [
+      "1.16"
+    ],
+    "kind": "vocabulary",
+    "title": "Intermediate Value Theorem (IVT)",
+    "body": "If f is continuous on the closed interval [a, b] and d is a number between f(a) and f(b), then there is at least one number c between a and b such that f(c) = d.",
+    "items": [],
+    "caution": "IVT is not the Mean Value Theorem. It guarantees an input c where f(c) = d, not a point where the derivative equals an average rate.",
+    "ced_evidence": "FUN-1.A.1 If f is a continuous function on the closed interval [a, b] and d is a number between f(a) and f(b)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-023",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.16",
+    "topic_codes": [
+      "1.16"
+    ],
+    "kind": "list_sequence",
+    "title": "Parts of a complete IVT justification",
+    "body": "A full IVT argument verifies the hypotheses before stating the conclusion.",
+    "items": [
+      {
+        "label": "Continuity",
+        "meaning": "State that f is continuous on [a, b] and give the reason (e.g. differentiable, so continuous)."
+      },
+      {
+        "label": "Target value between endpoints",
+        "meaning": "Show with the actual numbers that d lies between f(a) and f(b)."
+      },
+      {
+        "label": "Conclusion",
+        "meaning": "State that there is at least one c in (a, b) with f(c) = d."
+      }
+    ],
+    "caution": "Do not state the conclusion without both hypothesis checks. Missing the continuity justification is a common lost point.",
+    "ced_evidence": "FUN-1.A.1 the Intermediate Value Theorem guarantees that there is at least one number c between a and b, such that f(c) = d; skill 3.C/3.E",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u1-r1-024",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

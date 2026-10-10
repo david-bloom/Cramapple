@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u9-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula and concept described in Essential Knowledge 9.3.A.1, which states that the change in electric potential energy of the object-field system is given by an equation when a charged object moves through a potential difference. The caution correctly highlights the system-based nature of potential energy as emphasized in the CED ('object-field system')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.3.A.1 requires the change in electric potential energy when a charged object moves between locations with different electric potentials. The formula \u0394U_E = q\u0394V agrees with that relationship and with 9.2.A.3, which defines potential difference as the change in electric potential energy per unit charge. The caution correctly preserves 9.3.A.1\u2019s wording: the energy is that of the \u201cobject-field system.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 9.3.A.1 states that when a charged object moves between locations with different electric potentials, 'the resulting change in the electric potential energy of the object-field system is given by the following equation.' The equation image did not survive text extraction, so the symbols are checked against the physics the CED states. \u0394U_E = q\u0394V is consistent with 9.2.A.3, which defines potential difference as 'the change in electric potential energy per unit charge.' b_topic_codes: 9.3 is the topic where the CED requires this relation (9.3.A.1), and the entry's topic_codes list contains only 9.3, which is correct. Topic 9.2 uses \u0394V in its definitions, but the \u0394U = q\u0394V statement itself is required under 9.3. c_ced_required: learning objective 9.3.A ('Describe changes in a system due to a difference in electric potential between two locations') and essential knowledge 9.3.A.1 require students to apply this equation. d_caution: the CED wording is 'change in the electric potential energy of the object-field system,' and the entry title says 'Change in potential energy of a charge.' The caution ('belongs to the object-field system, not to the charge alone (9.3.A.1)') corrects that wording and cites the right statement, so it is present and needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

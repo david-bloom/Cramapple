@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-pcem-u10-01-wrong-fact", "control": "wrong fact (CED 10.1.A.4: all excess charge resides on the surface, so the electric field is ZERO within a conductor; 10.1.A.5: the field is perpendicular to the outer surface)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.1", "topic_codes": ["10.1"], "kind": "convention",
+   "title": "Electric field inside a conductor in electrostatic equilibrium", "body": "Excess charge spreads through the volume of a conductor, producing a uniform nonzero electric field within the conductor that is parallel to its outer surface.", "items": [], "caution": null, "ced_evidence": "10.1.A.4 and 10.1.A.5", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u10-02-excluded", "control": "explicitly excluded by the CED (10.3 BOUNDARY STATEMENT: only parallel-plate, concentric spherical and coaxial cylindrical capacitors are expected; a toroidal capacitor is outside it)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.3", "topic_codes": ["10.3"], "kind": "formula",
+   "title": "Capacitance of a toroidal capacitor", "body": "C = \\frac{2\\pi\\varepsilon_0 R}{\\ln\\left(1 + a/R\\right)}", "items": [], "caution": null, "ced_evidence": "10.3.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u10-03-wrong-owner", "control": "wrong owner topic (dielectrics are topic 10.4, EK 10.4.A.1-2; 10.1 covers the charge distribution within a conductor)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.1", "topic_codes": ["10.1"], "kind": "vocabulary",
+   "title": "Dielectric material", "body": "In a dielectric material electric charges are not as free to move as in a conductor; instead the material becomes polarized in the presence of an external electric field.", "items": [], "caution": null, "ced_evidence": "10.4.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u10-04-reversed", "control": "reversed fact (CED 10.1.A.3.iii: the surface charge density on a conductor is GREATER at points and edges than on planar areas)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.1", "topic_codes": ["10.1"], "kind": "convention",
+   "title": "Surface charge density at points and edges", "body": "The charge density on the surface of a conductor is smaller where there are points or edges than on planar areas.", "items": [], "caution": null, "ced_evidence": "10.1.A.3.iii", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u10-05-bad-hook", "control": "hook expansion contradicts the CED (10.2.A.1: conductors in electrical contact redistribute charge so their surfaces are at the SAME electric potential, not the same charge). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.2", "topic_codes": ["10.2"], "kind": "convention",
+   "title": "Conductors in electrical contact", "body": "When conductors are in electrical contact, charge redistributes so that the surfaces of each conductor are at the same electric potential.", "items": [], "caution": null, "ced_evidence": "10.2.A.1",
+   "hooks": [{"kind": "phrase", "hook_text": "Touching conductors share charge equally", "expands_to": [{"cue": "share charge equally", "means": "each conductor ends up with the same amount of charge"}], "when_to_use": "when two conductors are brought into contact", "caution": "State what is equalized in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-pcem-u10-06-other-unit", "control": "content from another unit (Gauss's law is Unit 8, EK 8.6.A.1; it is not in the Unit 10 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 10, "owner_topic_code": "10.1", "topic_codes": ["10.1"], "kind": "convention",
+   "title": "Gauss's law", "body": "Gauss's law relates the electric flux through a Gaussian surface to the charge enclosed by that surface.", "items": [], "caution": null, "ced_evidence": "10.1.A.4", "hooks": []}
+]

@@ -1,0 +1,810 @@
+[
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1"
+    ],
+    "kind": "formula",
+    "title": "Center of mass along an axis",
+    "body": "x_{cm}=\\frac{\\sum m_i x_i}{\\sum m_i}",
+    "items": [],
+    "caution": "Only systems of five or fewer particles in a two-dimensional arrangement, or highly symmetrical systems, are expected.",
+    "ced_evidence": "2.1.B.2 \"location of a system's center of mass along a given axis can be calculated using the equation\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-001",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1",
+      "2.2"
+    ],
+    "kind": "convention",
+    "title": "Modeling a system as one object at its center of mass",
+    "body": "A system can be treated as a single object located at its center of mass, and for symmetric mass distributions the center of mass lies on lines of symmetry.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.1.B.3 \"A system can be modeled as a singular object that is located at the system's center of mass\"; 2.1.B.1",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-002",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1",
+      "2.3",
+      "2.5"
+    ],
+    "kind": "vocabulary",
+    "title": "System",
+    "body": "A system is a collection of objects whose properties are determined by the interactions among its constituent objects, and it can be treated as a single object when those internal interactions are not important to the model.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.1.A.1, 2.1.A.2 \"the system can itself be treated as a single object\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-003",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.3",
+      "2.4",
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Force",
+    "body": "A force is a vector quantity describing an interaction between two objects or systems, and an object or system cannot exert a net force on itself.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.2.A.1 \"Forces are vector quantities that describe the interactions between objects or systems\"; 2.2.A.1.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-004",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2"
+    ],
+    "kind": "vocabulary",
+    "title": "Contact force",
+    "body": "A contact force describes the interaction of an object or system touching another object or system and is a macroscopic effect of interatomic electric forces.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.2.A.2 \"Contact forces describe the interaction of an object or system touching another\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-005",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.3",
+      "2.4",
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9"
+    ],
+    "kind": "diagram",
+    "title": "Free-body diagram (FBD)",
+    "body": "A single-object diagram showing every force the environment exerts on that object or system as whole-force arrows from a center-of-mass dot.",
+    "items": [
+      {
+        "label": "Dot",
+        "meaning": "Represents the object or system's center of mass; all force arrows originate here"
+      },
+      {
+        "label": "Force arrows",
+        "meaning": "Each force is its own straight arrow starting on the dot and pointing in the direction of the force"
+      },
+      {
+        "label": "Same-direction forces",
+        "meaning": "Drawn side by side, never overlapping or stacked"
+      },
+      {
+        "label": "Forces included",
+        "meaning": "Only forces exerted on the object by its environment; no components, and no extra 'net' or 'centripetal' arrow"
+      },
+      {
+        "label": "Labels",
+        "meaning": "Each arrow is labeled with a specific force name, such as F_g, F_N, F_T, F_f, or F_s"
+      }
+    ],
+    "caution": "Label gravity as F_g, F_G, W, or mg; 'G' or 'g' alone is not acceptable. Do not label non-forces (KE, momentum) as forces. Do not draw 'centripetal force' as a separate force. At the top of a vertical loop the normal force points down, toward the center.",
+    "ced_evidence": "2.2.B.2, 2.2.B.3 \"vectors originating from the representation of the center of mass, such as a dot\"; Boundary statement on 2.2",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-006",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.5",
+      "2.7",
+      "2.9"
+    ],
+    "kind": "convention",
+    "title": "Choosing a coordinate axis",
+    "body": "Put one axis parallel to the direction of the object's acceleration (for an incline, parallel to the surface) to simplify turning the free-body diagram into equations.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.2.B.4 \"A coordinate system with one axis parallel to the direction of acceleration\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-007",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3"
+    ],
+    "kind": "formula",
+    "title": "Newton's third law",
+    "body": "\\vec{F}_{A\\text{ on }B}=-\\vec{F}_{B\\text{ on }A}",
+    "items": [],
+    "caution": "The paired forces act on different objects, so they never appear together on the same free-body diagram and never cancel each other.",
+    "ced_evidence": "2.3.A.1 \"paired forces that each exerts on the other\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-008",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3",
+      "2.5"
+    ],
+    "kind": "convention",
+    "title": "Internal forces and center-of-mass motion",
+    "body": "Interactions between objects within a system (internal forces) do not influence the motion of the system's center of mass.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.3.A.2 \"Interactions between objects within a system (internal forces) do not influence the motion\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-009",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3",
+      "2.5",
+      "2.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Tension",
+    "body": "Tension is the macroscopic net result of the forces that segments of a string, cable, or chain exert on each other in response to an external force.",
+    "items": [],
+    "caution": "For strings, cables, or chains with mass, describe tension qualitatively only, for example greater toward the top of a hanging chain.",
+    "ced_evidence": "2.3.A.3 \"Tension is the macroscopic net result of forces\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-010",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3",
+      "2.5"
+    ],
+    "kind": "vocabulary",
+    "title": "Ideal string",
+    "body": "An ideal string has negligible mass and does not stretch under tension, so its tension is the same at all points.",
+    "items": [],
+    "caution": "In a string with nonnegligible mass, tension may differ at different points.",
+    "ced_evidence": "2.3.A.3.i, 2.3.A.3.ii, 2.3.A.3.iii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-011",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3",
+      "2.5"
+    ],
+    "kind": "vocabulary",
+    "title": "Ideal pulley",
+    "body": "An ideal pulley has negligible mass and rotates about an axle through its center of mass with negligible friction.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.3.A.3.iv \"An ideal pulley is a pulley that has negligible mass\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-012",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3",
+      "2.6"
+    ],
+    "kind": "convention",
+    "title": "Action at a distance is gravitational only",
+    "body": "In AP Physics 1, interactions between objects at a distance are limited to gravitational forces.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "Boundary statement 2.3: \"limited to gravitational forces in AP Physics 1\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-013",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4",
+      "2.5"
+    ],
+    "kind": "vocabulary",
+    "title": "Net force",
+    "body": "The net force on a system is the vector sum of all forces exerted on the system.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.4.A.1 \"vector sum of all forces exerted on the system\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-014",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4"
+    ],
+    "kind": "formula",
+    "title": "Translational equilibrium",
+    "body": "\\sum_i \\vec{F}_i=\\vec{0}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.4.A.2 \"net force exerted on a system is zero\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-015",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Newton's first law",
+    "body": "If the net force exerted on a system is zero, the velocity of that system remains constant.",
+    "items": [],
+    "caution": "Constant velocity includes being at rest. Forces may be balanced in one dimension but unbalanced in another, and velocity changes only along the unbalanced direction.",
+    "ced_evidence": "2.4.A.3 \"if the net force exerted on a system is zero, the velocity of that system will remain constant\"; 2.4.A.4",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-016",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.4",
+    "topic_codes": [
+      "2.4",
+      "2.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Inertial reference frame",
+    "body": "An inertial reference frame is one from which an observer would verify Newton's first law of motion.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.4.A.5 \"An inertial reference frame is one from which an observer would verify Newton's first law\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-017",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.5",
+    "topic_codes": [
+      "2.5",
+      "2.7",
+      "2.8",
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Newton's second law",
+    "body": "\\vec{a}_{sys}=\\frac{\\sum \\vec{F}}{m_{sys}}=\\frac{\\vec{F}_{net}}{m_{sys}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.5.A.2 \"acceleration of a system's center of mass has a magnitude proportional to the magnitude of the net force\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-018",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.5",
+    "topic_codes": [
+      "2.5"
+    ],
+    "kind": "convention",
+    "title": "Direction of acceleration and when velocity changes",
+    "body": "Acceleration points in the same direction as the net force, and the velocity of a system's center of mass changes only if a nonzero net external force is exerted on it.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.5.A.2 \"in the same direction as that net force\"; 2.5.A.3",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-019",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6",
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Newton's law of universal gravitation",
+    "body": "|\\vec{F}_g|=G\\frac{m_1 m_2}{r^2}",
+    "items": [],
+    "caution": "r is the distance between the centers of mass of the two systems.",
+    "ced_evidence": "2.6.A.1 \"directly proportional to each of their masses and inversely proportional to the square of the distance\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-020",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "convention",
+    "title": "Direction and point of application of gravity",
+    "body": "The gravitational force is attractive, acts along the line connecting the centers of mass of the two systems, and can be considered exerted on each system's center of mass.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.A.1.i, 2.6.A.1.ii, 2.6.A.1.iii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-021",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6",
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Gravitational field strength",
+    "body": "|\\vec{g}|=\\frac{|\\vec{F}_g|}{m}=G\\frac{M}{r^2}",
+    "items": [],
+    "caution": "M is the mass of the body creating the field, so g depends on M and r, not on the test mass m. Greater M gives greater g.",
+    "ced_evidence": "2.6.A.2.i \"ratio of the gravitational force exerted by the system on a test object of mass m to the mass of the test object\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-022",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "convention",
+    "title": "Acceleration under gravity alone",
+    "body": "If gravity is the only force on an object, its acceleration in m/s^2 is numerically equal to the gravitational field strength in N/kg at that location.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.A.2.ii \"numerically equal to the magnitude of the gravitational field strength\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-023",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6",
+      "2.7",
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Weight",
+    "body": "\\text{Weight}=F_g=mg,\\quad g\\approx 10\\ \\text{N/kg near Earth's surface}",
+    "items": [],
+    "caution": "Weight is a force and depends on location; mass does not.",
+    "ced_evidence": "2.6.A.3 \"Weight = Fg = mg\"; 2.6.B.2 \"g \u2248 10 N/kg\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-024",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "convention",
+    "title": "When gravitational force can be treated as constant",
+    "body": "If the gravitational force between two systems' centers of mass changes negligibly as their relative position changes, it can be treated as constant between the initial and final positions.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.B.1 \"has a negligible change as the relative position of the two systems changes\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-025",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6",
+      "2.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Apparent weight",
+    "body": "The magnitude of a system's apparent weight is the magnitude of the normal force exerted on the system, and it differs from the gravitational force when the system is accelerating.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.C.1 \"apparent weight of a system is the magnitude of the normal force\"; 2.6.C.2",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-026",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Apparent weightlessness",
+    "body": "A system appears weightless when no forces are exerted on it or when the force of gravity is the only force exerted on it.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.C.3 \"appears weightless when there are no forces exerted on the system or when the force of gravity is the only force\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-027",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Equivalence principle",
+    "body": "An observer in a noninertial reference frame cannot distinguish between an object's apparent weight and the gravitational force exerted on the object by a gravitational field.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.C.4 \"The equivalence principle states\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-028",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.6",
+    "topic_codes": [
+      "2.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Inertial mass vs. gravitational mass",
+    "body": "Inertial mass determines how much an object's motion resists change when interacting with another object, gravitational mass is related to the attractive force between two systems with mass, and the two have been experimentally verified to be equivalent.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.6.D.1, 2.6.D.2, 2.6.D.3",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-029",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7"
+    ],
+    "kind": "formula",
+    "title": "Kinetic friction magnitude",
+    "body": "|\\vec{F}_{f,k}|=\\mu_k|\\vec{F}_n|",
+    "items": [],
+    "caution": "Kinetic friction is an equality, and it does not depend on the contact surface area.",
+    "ced_evidence": "2.7.A.2 \"product of the normal force the surface exerts on the object and the coefficient of kinetic friction\"; 2.7.A.1.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-030",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7",
+      "2.9"
+    ],
+    "kind": "convention",
+    "title": "Direction of kinetic friction",
+    "body": "The kinetic friction force on each surface is exerted opposite to that surface's motion relative to the other surface.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.7.A.1.i \"opposite to the motion of each surface relative to the other surface\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-031",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7",
+      "2.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Normal force",
+    "body": "Normal force is the perpendicular component of the force exerted on an object by the surface it contacts, directed away from the surface.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.7.A.2.ii \"perpendicular component of the force exerted on an object by the surface\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-032",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7",
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Static friction bound and maximum",
+    "body": "|\\vec{F}_{f,s}|\\le \\mu_s|\\vec{F}_n|,\\qquad F_{f,s,max}=\\mu_s F_n",
+    "items": [],
+    "caution": "Static friction is an inequality: it adopts whatever value and direction prevents slipping, up to the maximum. Do not set it equal to \\mu_s F_n unless slipping is about to begin.",
+    "ced_evidence": "2.7.B.2 \"Static friction adopts the value and direction required to prevent an object from slipping\"; 2.7.B.2.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-033",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7"
+    ],
+    "kind": "convention",
+    "title": "Static vs. kinetic coefficient",
+    "body": "For a given pair of surfaces, the coefficient of static friction is typically greater than the coefficient of kinetic friction.",
+    "items": [],
+    "caution": "The CED says 'typically', not always.",
+    "ced_evidence": "2.7.B.3 \"typically greater than the coefficient of kinetic friction\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-034",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.8",
+    "topic_codes": [
+      "2.8"
+    ],
+    "kind": "formula",
+    "title": "Hooke's law",
+    "body": "|\\vec{F}_s|=k|\\Delta \\vec{x}|,\\qquad \\vec{F}_s=-k\\Delta\\vec{x}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.8.A.2 \"given by Hooke's law\"; 2.8.A.1 \"proportional to the change in its length as measured from its relaxed length\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-035",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.8",
+    "topic_codes": [
+      "2.8"
+    ],
+    "kind": "convention",
+    "title": "Direction of spring force",
+    "body": "The force a spring exerts on an object is always directed toward the equilibrium position of the object-spring system.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.8.A.3 \"always directed toward the equilibrium position\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-036",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.8",
+    "topic_codes": [
+      "2.8"
+    ],
+    "kind": "vocabulary",
+    "title": "Ideal spring",
+    "body": "An ideal spring has negligible mass and exerts a force proportional to the change in its length from its relaxed length.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.8.A.1 \"An ideal spring has negligible mass\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-037",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Centripetal acceleration",
+    "body": "a_c=\\frac{v^2}{r}",
+    "items": [],
+    "caution": "Centripetal acceleration points toward the center of the circle. It is not a separate force; the net of the real forces supplies it.",
+    "ced_evidence": "2.9.A.1.i \"ratio of the object's tangential speed squared to the radius\"; 2.9.A.1.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-038",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Tangential acceleration and net acceleration",
+    "body": "Tangential acceleration is the rate at which an object's speed changes, directed tangent to the circular path, and the net acceleration is the vector sum of the centripetal and tangential accelerations.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.9.A.3, 2.9.A.4 \"vector sum of the centripetal acceleration and tangential acceleration\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-039",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "convention",
+    "title": "Sources of centripetal acceleration",
+    "body": "Centripetal acceleration can come from a single force, several forces, or components of forces, such as normal force and static friction components on a banked surface or a tension component in a conical pendulum.",
+    "items": [],
+    "caution": "On a banked curve, quantitative analysis is expected only when no friction is required; analysis that requires friction is qualitative.",
+    "ced_evidence": "2.9.A.2, 2.9.A.2.ii, 2.9.A.2.iii; Boundary statement 2.9",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-040",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Minimum speed at top of a vertical loop",
+    "body": "v=\\sqrt{gr}",
+    "items": [],
+    "caution": "This holds when gravity alone supplies the centripetal acceleration at the top, so the normal force is zero.",
+    "ced_evidence": "2.9.A.2.i \"requires a minimum speed to maintain circular motion\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-041",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Period and frequency",
+    "body": "T=\\frac{1}{f}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "2.9.A.5.ii \"Relevant equation: T = 1/f\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-042",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Period of uniform circular motion",
+    "body": "T=\\frac{2\\pi r}{v}",
+    "items": [],
+    "caution": "Period and frequency are used only for constant-speed circular motion.",
+    "ced_evidence": "2.9.A.5.iii \"For an object traveling at a constant speed in a circular path, the period is given by the derived equation\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-043",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9"
+    ],
+    "kind": "formula",
+    "title": "Kepler's third law for circular orbits",
+    "body": "T^2=\\frac{4\\pi^2}{GM}R^3",
+    "items": [],
+    "caution": "Only circular orbits are expected; Kepler's first and second laws are not required. M is the mass of the central body.",
+    "ced_evidence": "2.9.B.1 \"period and radius of the circular orbit are related to the mass of the central body\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_1-u2-r1-044",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

@@ -1,0 +1,183 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u10-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the boundary statement in Topic 10.3 of the CED, which limits quantitative analysis and description to parallel-plate, concentric spherical, and coaxial cylindrical capacitors. The caution is highly appropriate as students frequently misapply the parallel-plate capacitance formula to spherical or cylindrical geometries."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The three geometries match the 10.3 boundary statement, and the caution correctly distinguishes the parallel-plate formula from other geometries. Topic 10.3 is the appropriate owner, but 10.4 addresses how a dielectric inserted between capacitor plates changes their properties; it does not use this geometry list. The cited line is a boundary on quantitative coverage, not a learning objective or essential-knowledge statement requiring students to reproduce this list."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The three geometries match the 10.3 Boundary Statement, which names \u201cparallel-plate capacitors, concentric spherical capacitors, and coaxial cylindrical capacitors.\u201d The warning not to apply the parallel-plate formula to the other geometries is correct. However, Topic 10.4 addresses dielectrics, not this list of geometries, so 10.4 should not be a topic code. More importantly, the three-geometry list appears in a Boundary Statement, not in a learning objective or essential-knowledge statement requiring students to reproduce or apply the list. Learning objective 10.3.A specifically addresses the physical properties of a parallel-plate capacitor."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u10-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula E = Q / (\\varepsilon_0 A) = \\sigma / \\varepsilon_0 is factually correct and directly required by Topic 10.3 (specifically EK 10.3.A.3.i and 10.3.A.3.ii). The caution accurately reflects the boundary conditions and physical principles (Gauss's law and superposition) mentioned in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 10.3.A.3.i requires the field between parallel plates to be determined using Gauss\u2019s law and superposition when plate separation is much smaller than plate dimensions; 10.3.A.3.ii says the field is proportional to surface charge density. The formula is the no-dielectric result. Topic 10.4.A.4 says the field in an isolated parallel-plate capacitor decreases when a dielectric is inserted, so 10.4 does not use this unmodified formula for its dielectric case. The caution correctly covers geometry and edges but omits the no-dielectric limitation."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 10.3.A.3.i requires the field magnitude for closely spaced parallel plates using Gauss\u2019s law and superposition, and 10.3.A.3.ii states that the field is proportional to the surface charge density on either plate. Topic 10.4.A.4 also uses this field as the baseline for a dielectric comparison. But the caution\u2019s conditions are incomplete: 10.4.A.4 says the field between the plates of an isolated parallel-plate capacitor decreases when a dielectric is inserted. E = Q/(\u03b5\u2080A) therefore also requires a no-dielectric assumption; small separation and distance from the edges are not sufficient.",
+              "hooks": []
+            }
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u10-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the relationships described in Topic 10.4 (Dielectrics). Specifically, 10.4.A.2 defines the dielectric constant as relating the permittivity of the material to the permittivity of free space. 10.4.A.4 describes the reduction of the electric field in an isolated capacitor (E = E_0 / \\kappa), and 10.4.A.5 describes the change in capacitance (C = \\kappa C_0). The caution correctly notes the physical conditions under which the electric field relation holds."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 10.4 supports \u03ba = \u03b5/\u03b5\u2080: 10.4.A.2 says the dielectric constant relates a material\u2019s permittivity to that of free space. The ratios E\u2080/E = \u03ba and C/C\u2080 = \u03ba require the dielectric to fill the relevant space between the plates, with the same capacitor geometry used for comparison. The caution correctly specifies fixed charge for E\u2080/E but omits the full-filling condition and states C = \u03baC\u2080 without it. The CED says insertion 'may change the capacitance' (10.4.A.5), not that any insertion multiplies it by \u03ba."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 10.4.A.2 defines the dielectric constant through permittivity; 10.4.A.4 addresses the reduced field of an isolated parallel-plate capacitor; and 10.4.A.5 addresses the change in capacitance. The field and capacitance ratios apply to the same capacitor before and after its gap is filled with dielectric. The caution correctly identifies the fixed-charge condition for the field ratio."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The chain \u03ba = \u03b5/\u03b50 = E0/E = C/C0 is physically correct and matches the CED. 10.4.A.2 defines the dielectric constant as relating the material's permittivity to the permittivity of free space, with a relevant equation. 10.4.A.4 says the field between plates of an isolated parallel-plate capacitor decreases when a dielectric is inserted, which corresponds to E = E0/\u03ba. 10.4.A.5 says the capacitance may change, which corresponds to C = \u03baC0. The equation images are not fully legible in the extracted text, so the exact typeset form of the 10.4.A.4 and 10.4.A.5 derived equations was checked against these statements, not against the images. b_topic_codes: 10.4 is the topic that defines \u03ba = \u03b5/\u03b50 (10.4.A.2). Topic 10.3.A.2.ii already names \u03ba as part of the capacitance constant of proportionality, so \u03ba is used earlier without that definition. Owner 10.4 is defensible as the first point where the relation is required, and every listed topic is in Unit 10. c_ced_required: 10.4.A.2 lists a relevant equation for \u03ba, and 10.4.A.4 and 10.4.A.5 are derived equations that students must apply. d_caution: The CED's point-earning statement for the isolated-capacitor field reduction is 'isolated parallel-plate capacitor' (10.4.A.4). The caution supplies that condition, and its statement that the field is reduced and C = \u03baC0 matches 10.4.A.4 and 10.4.A.5. The E0/E form is not the CED's stated wording, so the caution is needed and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

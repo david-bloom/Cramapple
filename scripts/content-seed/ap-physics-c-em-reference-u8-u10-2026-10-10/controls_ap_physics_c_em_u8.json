@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-pcem-u8-01-swapped", "control": "swapped signs (CED 8.1.A.3.i-ii: like charges repel and opposite charges attract)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.1", "topic_codes": ["8.1"], "kind": "list_sequence",
+   "title": "Direction of the electrostatic force by charge sign", "body": "How the signs of two charges determine whether the force is attractive or repulsive.", "items": [{"label": "Same sign", "meaning": "the objects exert attractive forces on each other"}, {"label": "Opposite signs", "meaning": "the objects exert repulsive forces on each other"}], "caution": null, "ced_evidence": "8.1.A.3.i-ii", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u8-02-excluded", "control": "explicitly excluded by the CED (8.6 BOUNDARY STATEMENT: AP Physics C: E&M only expects students to quantitatively apply Gauss's law to point charges and distributions with spherical, cylindrical or planar symmetry)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.6", "topic_codes": ["8.6"], "kind": "convention",
+   "title": "Applying Gauss's law to a toroidal charge distribution", "body": "Choose a toroidal Gaussian surface and integrate the flux to find the electric field of a charged torus.", "items": [], "caution": null, "ced_evidence": "8.6.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u8-03-wrong-owner", "control": "wrong owner topic (electric flux is topic 8.5, EK 8.5.A.1-2; 8.3 covers the electric field produced by charges)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.3", "topic_codes": ["8.3"], "kind": "vocabulary",
+   "title": "Electric flux", "body": "Flux describes the amount of a given quantity that passes through a given area; for a constant electric field across an area, the electric flux is the dot product of the field and the area vector.", "items": [], "caution": null, "ced_evidence": "8.5.A.1 and 8.5.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u8-04-wrong-fact", "control": "wrong fact (CED 8.6.A.6: Gauss's law is Maxwell's FIRST equation)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.6", "topic_codes": ["8.6"], "kind": "convention",
+   "title": "Gauss's law among Maxwell's equations", "body": "Maxwell's equations are the collection of equations that fully describe electromagnetism; Gauss's law is Maxwell's fourth equation.", "items": [], "caution": null, "ced_evidence": "8.6.A.6", "hooks": []},
+
+  {"candidate_id": "ctrl-pcem-u8-05-bad-hook", "control": "hook expansion contradicts the CED (8.5.A.2.i: the area vector is defined as perpendicular to the plane of the surface). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.5", "topic_codes": ["8.5"], "kind": "convention",
+   "title": "Direction of the area vector", "body": "The direction of the area vector is defined as perpendicular to the plane of the surface.", "items": [], "caution": null, "ced_evidence": "8.5.A.2.i",
+   "hooks": [{"kind": "phrase", "hook_text": "Area vector lies in the surface", "expands_to": [{"cue": "lies in the surface", "means": "the area vector points along the plane of the surface"}], "when_to_use": "when setting up an electric flux calculation", "caution": "State the direction in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-pcem-u8-06-other-unit", "control": "content from another unit (capacitance of a parallel-plate capacitor is Unit 10 conductors and capacitors, EK 10.3.A.2; it is not in the Unit 8 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_c_em", "unit_number": 8, "owner_topic_code": "8.3", "topic_codes": ["8.3"], "kind": "formula",
+   "title": "Capacitance of a parallel-plate capacitor", "body": "C = \\frac{\\varepsilon_0 A}{d}", "items": [], "caution": null, "ced_evidence": "8.3.A.2", "hooks": []}
+]

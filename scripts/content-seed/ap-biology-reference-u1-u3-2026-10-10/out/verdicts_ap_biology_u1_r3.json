@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_biology-u1-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines hydrogen bonding and its role in water, DNA, and proteins as specified in the CED (1.1.A.1, 1.1.A.2, 1.6.A.3, 1.7.A.4, and 1.7.A.5). The topic codes are correct and represent the topics where hydrogen bonding is explicitly mentioned."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately describes the polarity and hydrogen bonding required in Topic 1.1. EK 1.1.A.1 says water\u2019s polarity results from \u201cpolar covalent bonds between hydrogen and oxygen\u201d and \u201ccontributes to hydrogen bonding between and within biological molecules\u201d; EK 1.1.A.2 identifies \u201chydrogen bonds between adjacent polar water molecules.\u201d Topic 1.6 uses hydrogen bonds in DNA base pairing (EK 1.6.A.3), and Topic 1.7 uses them in protein structure (EK 1.7.A.4\u20135). Topic 1.1 is the first of these topics to require the concept. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED never gives a formal definition of a hydrogen bond, but the body is consistent with the CED and with standard chemistry. 1.1.A.1.i states 'Water has polarity, because of the formation of polar covalent bonds between hydrogen and oxygen within water molecules. This polarity contributes to hydrogen bonding between and within biological molecules,' and 1.1.A.2 states 'The hydrogen bonds between adjacent polar water molecules result in cohesion, adhesion, and surface tension.' The body's sentences match these. The opening definition (H in a polar covalent bond interacting with the negative end of another dipole) is accurate and contradicts nothing. b_topic_codes: 1.1 is the first unit topic that requires the concept (1.1.A.1, 1.1.A.2). 1.6 uses it in 1.6.A.3 ('adenine nucleotides pair with thymine nucleotides via hydrogen bonds'; 'cytosine... guanine... via hydrogen bonds'). 1.7 uses it in 1.7.A.4 ('Hydrogen bonding forms shapes such as alpha-helices and beta-pleated sheets') and 1.7.A.5 ('formation of hydrogen bonds'). All three codes are Unit 1 topics that use it. c_ced_required: 1.1.A.1 and 1.1.A.2 require students to explain how polarity and hydrogen bonding produce water's properties, which the entry supports. d_caution: The CED's point-earning phrasing is 'hydrogen bonds' / 'hydrogen bonding,' which the entry uses verbatim in its title and body. No wording trap that would need a caution appears in the CED pages, so no caution is required and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

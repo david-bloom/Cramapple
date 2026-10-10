@@ -1,0 +1,228 @@
+[
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Work done by a variable force (line integral)",
+    "body": "W=\\int_a^b \\vec{F}\\cdot d\\vec{r}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.3: \"The work done on an object by a variable force is calculated using ... the integral is taken over the path from point a to point b.\" (3.2.A.3.i: dot product A\u00b7B = AB cos\u03b8)",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-001",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.4",
+      "3.5"
+    ],
+    "kind": "vocabulary",
+    "title": "Work",
+    "body": "Work is the amount of energy transferred into or out of a system by a force exerted on that system over a distance.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.1: \"Work is the amount of energy transferred into or out of a system by a force exerted on that system over a distance.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-002",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "convention",
+    "title": "Only the parallel force component changes the system's energy",
+    "body": "Only the component of the force parallel to the displacement of the point of application changes the system's total energy, while the perpendicular component can change the direction of motion without changing kinetic energy.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.3.ii: \"Only the component of the force exerted on a system that is parallel to the displacement ... will change the system's total energy\"; 3.2.A.3.iv",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-003",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Work by a force with constant parallel component",
+    "body": "W=F_{\\parallel}\\,d=Fd\\cos\\theta",
+    "items": [],
+    "caution": "This is a derived special case of the line integral, valid only when the parallel component of the force is constant; use the integral otherwise.",
+    "ced_evidence": "3.2.A.3.iii: \"If the component of the force exerted on a system that is parallel to the displacement is constant, the work done on the system by the force is given by the derived equation\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-004",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "convention",
+    "title": "Work is a scalar with sign",
+    "body": "Work is a scalar quantity that may be positive, negative, or zero.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.2: \"Work is a scalar quantity that may be positive, negative, or zero.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-005",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Work\u2013energy theorem",
+    "body": "\\Delta K=\\sum_i W_i=\\sum_i F_{\\parallel,i}\\,d_i",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.4: \"the change in an object's kinetic energy is equal to the sum of the work (net work) being done by all forces exerted on the object.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-006",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Nonconservative force work",
+    "body": "The work done by a nonconservative force is path-dependent, and the most common nonconservative forces are friction and air resistance, whereas the work done by a conservative force depends only on the initial and final configurations and is zero if the system returns to its initial configuration.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.1.iv: \"The work done by a nonconservative force is path-dependent.\" 3.2.A.1.v: \"most common nonconservative forces are friction and air resistance\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-007",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Energy dissipated by friction",
+    "body": "E_{\\text{dissipated}}\\approx F_{f}\\,s,\\quad s=\\text{length of the path over which the force is exerted}",
+    "items": [],
+    "caution": "The CED says this is typically equated to friction force times the length of the path, so use path length, not net displacement.",
+    "ced_evidence": "3.2.A.4.iii: \"The energy dissipated by friction is typically equated to the force of friction times the length of the path over which the force is exerted.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-008",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Boundary: mechanical energy only",
+    "body": "AP Physics C: Mechanics only expects analysis of the transfer of mechanical energy, though mechanical energy may be dissipated as thermal energy or sound by nonconservative forces.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "Boundary statement: \"AP Physics C: Mechanics only expects students to analyze the transfer of mechanical energy, although students should be aware that mechanical energy may be dissipated in the form of thermal energy or sound.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-009",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "convention",
+    "title": "Zero of potential energy is a choice",
+    "body": "The definition of zero potential energy for a system is a decision made by the observer to simplify or assist analysis.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.A.3: \"The definition of zero potential energy for a given system is a decision made by the observer\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-010",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "formula",
+    "title": "Potential energy of multi-object systems",
+    "body": "U_{\\text{total}}=\\sum_{\\text{pairs}}U_{ij}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.A.8: \"The total potential energy of a system containing more than two objects is the sum of the potential energy of each pair of objects within the system.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-011",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "formula",
+    "title": "General gravitational potential energy",
+    "body": "U_g=-G\\frac{m_1m_2}{r}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.A.7.ii: \"U_g = -G m1m2 / r\" for two approximately spherical distributions of mass",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-012",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "formula",
+    "title": "Gravitational potential energy near a planet's surface",
+    "body": "\\Delta U_g=mg\\,\\Delta y",
+    "items": [],
+    "caution": "This is only an approximation valid near the surface where the gravitational field is nearly constant; use -Gm_1m_2/r for large changes in distance.",
+    "ced_evidence": "3.3.A.7.iii: \"Because the gravitational field near the surface of a planet is nearly constant, the change in gravitational potential energy ... may be approximated by the equation\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_c_mechanics-u3-r2-013",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

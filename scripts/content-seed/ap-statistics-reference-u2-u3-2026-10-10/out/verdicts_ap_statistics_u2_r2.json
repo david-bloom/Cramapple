@@ -1,0 +1,242 @@
+[
+  {
+    "candidate_id": "ap_statistics-u2-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Cumulative probability distribution' based on Essential Knowledge statement 2.8.A.5 from the CED, which states: 'A cumulative probability distribution can be represented as a table or function and shows the probability of being less than or equal to each value of the discrete random variable.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.8.A.5 states: \u201cA cumulative probability distribution can be represented as a table or function and shows the probability of being less than or equal to each value of the discrete random variable.\u201d The entry matches this required content, belongs to Topic 2.8, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.8.A.5 in substance: \"A cumulative probability distribution can be represented as a table or function and shows the probability of being less than or equal to each value of the discrete random variable.\" The entry's paraphrase keeps the table-or-function representation, the less-than-or-equal-to probability, and the discrete random variable. No formula or list is involved. b_topic_codes: 2.8.A.5 sits under Topic 2.8 (Introduction to Random Variables and Probability Distributions), so owner_topic_code \"2.8\" is where it first appears, and topic_codes [\"2.8\"] is correct. c_ced_required: 2.8.A.5 is an essential-knowledge statement that students must know how a cumulative probability distribution is represented and what it shows. d_caution: The entry is a definitional restatement with the same meaning as the CED sentence, and the point-earning idea (table or function; probability of being less than or equal to each value) is preserved, so no caution is needed. caution is null and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a continuous random variable is factually accurate and matches the exact wording of Essential Knowledge 2.11.A.1: 'A continuous random variable is a variable that can take on any value within a specified domain. Every interval within the domain has a probability associated with it.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 2.11.A.1: \u201cA continuous random variable is a variable that can take on any value within a specified domain. Every interval within the domain has a probability associated with it.\u201d Topic 2.11 is the correct owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.11.A.1 word for word: 'A continuous random variable is a variable that can take on any value within a specified domain. Every interval within the domain has a probability associated with it.' b_topic_codes: The term first appears in Topic 2.11 (2.11.A.1, The Normal Distribution), so owner_topic_code '2.11' is correct and topic_codes ['2.11'] is the only topic that uses it. c_ced_required: 2.11.A.1 is an essential-knowledge statement under LO 2.11.A ('Describe a normal distribution'), so students must know and apply this definition. d_caution: The body's wording is the CED's own wording, so it is the point-earning wording and no caution is needed (caution is null, which is correct). The ced_evidence field is an accurate partial quote of 2.11.A.1."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Sample space' using the exact phrasing from Essential Knowledge 2.4.A.1: 'The sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.4.A.1 states: \u201cThe sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.\u201d The entry accurately combines these statements; Topic 2.4 is the required topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.4.A.1 ('The sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.'). The body merges the two sentences into 'whose probability is 1', which keeps the same meaning. b_topic_codes: 'Sample space' is first required in Topic 2.4 (2.4.A.1). Topic 2.3 mentions random processes, outcomes and events but not the sample space, so owner_topic_code '2.4' and topic_codes ['2.4'] are correct. c_ced_required: 2.4.A.1 is an essential-knowledge statement under LO 2.4.A ('Calculate probabilities for events and their complements'), and the sample space concept underlies the probability calculations that LO requires. d_caution: The body paraphrases the CED closely and the definition is the point being earned, so no caution is needed; caution is null and that is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'conditional relative frequency' according to Essential Knowledge 2.2.A.3. The caution correctly distinguishes it from joint relative frequency (2.2.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.2.A.3 defines conditional relative frequency as restricting to a category of interest and dividing a cell frequency by that row\u2019s or column\u2019s total. Topic 2.2 is where the CED requires students to calculate it. The caution correctly distinguishes this denominator from the entire-table total used for joint relative frequency in 2.2.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.2.A.3 ('A conditional relative frequency is a relative frequency computed by restricting to a particular level, or category of interest' and 'a cell frequency in a row divided by the total for that row or... a cell frequency in a column divided by the total for that column'). No formula or list is misstated. b_topic_codes: 2.2.A.3 first appears in Topic 2.2 (Summary Statistics for Two Categorical Variables), and no other topic in Unit 2 uses it, so owner 2.2 and topic_codes ['2.2'] are correct. c_ced_required: 2.2.A.3 is essential knowledge under LO 2.2.A ('Calculate summary statistics from two-way tables', Skill 3.B), so students must calculate and apply conditional relative frequencies. d_caution: The CED does not use the 'denominator is the row or column total, not the table total' wording. The caution is accurate and needed because 2.2.A.1 defines a joint relative frequency as 'a cell frequency divided by the total for the entire table', so the caution correctly separates the two concepts the CED distinguishes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]
