@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- 126 New FRQs Published to Production and Development: Every Units 1-3 Topic Now Has an FRQ (APPROVAL-0146) (2026-10-10): 104 written in session after the Product Owner stopped paid authoring ($47 for 20 before; $21 for 106 after); three arbitration rounds; model answers 126/126 full credit (Biology also 10/10 on the production grader); 0 of 271 topics empty (was 126), 202 still have one FRQ.
 - FRQ Units 1-3 Topic Coverage Audit + 181 FRQ Topic Cells Written to Production (APPROVAL-0143) (2026-10-09): 126 of 271 Unit 1-3 topics have no published FRQ (table in `docs/qa/FRQ_UNITS_1_3_TOPIC_COVERAGE_AUDIT_2026_10_09.md`); 339 untagged FRQs labelled with the runbook six-vote probe ($8.26); 183 Units 1-3 primary topic cells written, rehearsed, hash-verified (2 after resolving unit conflicts from the official course PDFs). No FRQs written yet.
 - Session Close: TASK-0068 BYOQ Photo Extraction — Live for Students, QA Cycle Complete, Hand-Drawn Leverage Analysis (2026-10-09): plan → build → backend QA (Fail→Pass) → Sol browser QA (Fail→rerun pass; draft-routing P2 fixed) → Vercel review defect fixed → PR #393 merged. Open: Done decision (topic-ranking gate, S9 expiry checks), SOL-08 hint copy. Close record: `docs/handoffs/SESSION_CLOSE_2026_10_09_TASK0068_BYOQ_PHOTO_EXTRACTION.md`.
 - TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production for All Students (APPROVAL-0141) (2026-10-09): migration + extraction module + extract_question + phone review ops; benchmark 210 pages, gpt-4.1-mini chosen; backend QA Fail → three fixes → Pass; Dev and Prod smokes green; Lovable App published; Sol browser QA script written. Topic top-3 below gate, recorded.
@@ -407,6 +408,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## FRQ Gap Fill, Units 1-3: 126 FRQs Published to Production and Development — 2026-10-10
+
+**Context:** David asked for FRQ generation with existing FRQs as seeds, then: every Unit 1-3 topic needs FRQs (scope cut to one FRQ per topic with none; "Do not make FRQs if there is even a single FRQ in the topic"). After the paid-author run cost $47.09 for 20 accepted FRQs, he directed: "Don't use Opus as primary author - that is your job" and "Where there are edge cases, you should arbitrate and correct ambiguities." Later: "add FRQ content to dev" (content-only load chosen), "publish to dev as well", and Production publish approved (`APPROVAL-0146`).
+
+**What was done:** 104 FRQs written in session (eight parallel sub-sessions with self-contained briefs built from the official CED PDFs in `subject packs/` and the unit-scoped fact packs), plus the Product Owner's own Calculus AB 1.1 and 2.1 drafts rewritten to their CED topics. Every item went through lint, an exact recompute, the six-vote topic probe and two checkers (GPT-6.1 Sol, DeepSeek V4 Pro); planted-defect controls 8/8 before and after calibrating the rules to AP level. Three arbitration rounds by Claude: genuine rubric defects fixed (method prescribed, unasked justification scored, bundled points, missing givens), wrong checker claims rejected after recomputation, topic overlaps ruled from the CED text. Follow-through credit is used for Calculus and Physics only (documented in those fact packs). Model answers 126/126 full credit by a third family; Biology also 10/10 on the production grader after publish.
+
+**Result:** Production 126/126 published and verified (text hash, primary topic cell, hash-fresh validated label, difficulty). 0 of 271 Units 1-3 topics now lack an FRQ (was 126); the live selector serves the new items. Development: 126/126 published as a content-only copy (packs created for 8 subjects it lacked; no labels or difficulty there). Spend after the change of method: $21.24 for 106 FRQs. Batch record: `scripts/content-seed/frq-u13-gap-fill-2026-10-09/README.md`.
+
+**Open:** 202 Units 1-3 topics have exactly one FRQ (the original two-per-topic goal is not met); Units 4+ untouched; Development's schema still lags Production (no difficulty, validation-decision tables or label hash function).
+
+**Next Owner:** David Bloom. **Next Action:** merge the PR; decide whether to fill the second FRQ for the 202 single-FRQ topics with the same in-session method.
+
 ## FRQ Units 1-3 Topic Coverage Audit and Topic Cells Written to Production — 2026-10-09
 
 **Context:** David asked for an FRQ generation session (concept generation protocol, existing FRQs as seeds), then: "Before you start writing FRQs audit the subjects to determine which Subject/Unit/Topics do not have FRQs", "We have a question labeling protocol. Find it and use it. Do only units 1-3 for every subject and then stop", and, after the report, "Write the labels to the database."

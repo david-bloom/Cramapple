@@ -89,5 +89,8 @@ are edge cases, you should arbitrate and correct ambiguities. Don't use Opus as 
 - **Spend:** $47.09 before the change of method (20 FRQs); $21.24 after it (106 FRQs, checks only, about $0.20 each).
 - **Development:** all 126 loaded and published as a content-only copy (`load_dev_content.py`; packs created for the 8
   subjects Development lacked; no unit labels or difficulty, which Development's schema does not have). Verified 126/126.
-- **Production:** not written. Preflight shows every target topic still empty; a full rollback rehearsal passes in all
-  10 subjects. Publishing needs the Product Owner's Hard-Gate approval.
+- **Production (APPROVAL-0146):** all 126 published 2026-10-10, one rehearsed transaction per subject; verify 126/126
+  (matching text, primary topic, fresh validated unit label). The 10 Biology model answers were then graded by the
+  production grader (`app.qa_grade_frq`): 10/10 full marks (`production_grader_biology.json`). Recount: 0 of 271 Units 1-3
+  topics have no FRQ (was 126); 202 have exactly one. The live selector (`select_student_practice_items`) serves the new
+  FRQs as topic matches (spot-checked Calculus AB 1.4, Biology 3.1, Statistics 3.6).
