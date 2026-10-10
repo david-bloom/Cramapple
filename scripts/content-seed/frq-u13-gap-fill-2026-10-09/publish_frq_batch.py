@@ -26,6 +26,7 @@ PREFIX = {'ap_biology': 'apbio', 'ap_calculus_ab': 'apcalcab', 'ap_calculus_bc':
           'ap_precalculus': 'apprecalc', 'ap_statistics': 'apstats'}
 CALC_LINE = {'not_permitted': 'No calculator is permitted.', 'permitted': 'A calculator is permitted.', 'not_applicable': ''}
 PLAN = os.path.join(HERE, 'plan.json')
+REGISTRY = lambda sk: 'biology' if sk == 'ap_biology' else sk.replace('_', '-')  # taxonomy key -> subjects.subject_key
 
 
 def item_hash(stem, stimulus, criteria):
@@ -63,7 +64,7 @@ def cmd_plan(a):
                        'provenance': {'batch': SRC, 'author': 'anthropic/claude-opus-5.5',
                                       'checkers': ['openai/gpt-6.1-sol', 'deepseek/deepseek-v4-pro'],
                                       'topic_votes': probe['votes'], 'accepted_round': c['round']}}
-        rows.append({'k': key, 'sk': sl['subject_key'], 'pack': epv[sl['subject_key']], 'tsv': sl['tsv'], 'unit': sl['unit'],
+        rows.append({'k': key, 'sk': sl['subject_key'], 'pack': epv[REGISTRY(sl['subject_key'])], 'tsv': sl['tsv'], 'unit': sl['unit'],
                      'topic': sl['topic_code'], 'title': it['title'], 'stem': stem, 'stimulus': it['stimulus'],
                      'answer': it['model_answer'], 'criteria': crit, 'prompt_json': prompt_json,
                      'required_units': probe['required_units'], 'votes': probe['onTarget'], 'difficulty': c['difficulty'],
@@ -135,7 +136,7 @@ select assignment_id, version_id, {lit(OWNER)}::uuid, 'tutor_question', 1, diffi
 update app.content_item_versions civ set status='reviewed_approved', review_status='question_review_approved', approved_by={lit(OWNER)}::uuid, approved_at=now(), updated_at=now() from lab where civ.id=lab.version_id;
 update app.content_items ci set status='reviewed_approved', updated_at=now() from lab where ci.id=lab.item_id;
 insert into app.content_taxonomy_labels (content_taxonomy_label_id, content_item_id, label_version, label_scope, required_units, max_required_unit, primary_unit, assessed_topics, taxonomy_source_version, taxonomy_confidence, label_status, source, source_payload, model_run_id, created_by)
-select label_id, item_id, 1, 'serving', required_units, (select max(u) from unnest(required_units) u), unit, array[topic]::text[], tsv, 'provisional', 'provisional_model', {lit(SRC)},
+select label_id, item_id, 1, 'serving', required_units, (select max(u) from unnest(required_units) u), unit, array[]::text[], tsv, 'provisional', 'provisional_model', {lit(SRC)},
  jsonb_build_object('topic', topic, 'topic_votes_on_target', votes, 'units_source', 'six-vote probe (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol x2): units named by >= 4 of 6'),
  {lit(SRC + ' six-vote probe (' + approval + ')')}, {lit(OWNER)}::uuid from lab;
 insert into app.content_taxonomy_validation_decisions (validation_decision_id, content_taxonomy_label_id, decided_by, decision, decision_source, reviewed_primary_unit, reviewed_required_units, notes)

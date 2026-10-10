@@ -44,7 +44,7 @@ function unitTopicList(IN, sk) {
 }
 function itemText(it, { rubric = true, answer = true } = {}) {
   const parts = it.parts.map((p, i) => `(${LETTERS[i]}) ${p.prompt}` + (rubric ? '\n' + p.criteria.map((c, j) =>
-    `   Criterion ${LETTERS[i]}${j + 1} (1 point): ${c.text}\n      Evidence: ${c.evidence}\n      Fix: ${c.fix}${c.accepted_variants?.length ? `\n      Also accept: ${c.accepted_variants.join('; ')}` : ''}`).join('\n') : '')).join('\n');
+    `   Criterion ${LETTERS[i]}${j + 1} (1 point): ${c.text}\n      Evidence: ${c.evidence}\n      Fix: ${c.fix}${c.accepted_variants?.length ? `\n      Equivalent forms of the key value (the evidence requirement still applies): ${c.accepted_variants.join('; ')}` : ''}`).join('\n') : '')).join('\n');
   return `Title: ${it.title}\nCalculator: ${it.calculator}\n\nSetup:\n${it.stimulus}\n\nParts:\n${parts}` + (answer ? `\n\nModel answer:\n${it.model_answer}` : '');
 }
 function storedText(x) { // an existing published FRQ, as stored
@@ -261,7 +261,7 @@ async function cmdAnswers() {
   const q = [...todo];
   await Promise.all(Array.from({ length: 8 }, async () => { while (q.length) { const st = q.shift();
     const it = st.candidates.find((c) => c.stage === 'accepted').item;
-    const list = it.parts.flatMap((p, i) => p.criteria.map((c, j) => `${LETTERS[i]}${j + 1}. ${c.text}\n    Evidence required: ${c.evidence}${c.accepted_variants?.length ? `\n    Also accept: ${c.accepted_variants.join('; ')}` : ''}`)).join('\n');
+    const list = it.parts.flatMap((p, i) => p.criteria.map((c, j) => `${LETTERS[i]}${j + 1}. ${c.text}\n    Evidence required: ${c.evidence}${c.accepted_variants?.length ? `\n    Equivalent forms of the key value (the evidence requirement still applies): ${c.accepted_variants.join('; ')}` : ''}`)).join('\n');
     const prompt = `You are grading a student's response to a ${SPEC[st.slot.subject_key].name} free-response question against its scoring criteria. Each criterion is worth 1 point. Award a point only if the response clearly shows the required evidence; do not give credit for work that is not on the page. Grade every criterion in order.\n\nQUESTION\n${itemText(it, { rubric: false, answer: false })}\n\nSCORING CRITERIA\n${list}\n\nSTUDENT RESPONSE\n${it.model_answer}`;
     const r = await call(ANSWER_GRADER, GRADE_SCHEMA, prompt, 240_000, `${st.id}:answer_grade`);
     const n = it.parts.reduce((a, p) => a + p.criteria.length, 0);
