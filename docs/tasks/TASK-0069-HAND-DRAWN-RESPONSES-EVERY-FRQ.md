@@ -4,12 +4,12 @@
 **Title:** Any student can photograph a handwritten or drawn answer to any FRQ (current or future), confirm what we read from it, and get it graded; image management and retention included
 **Owner:** Claude session (implementation). **Product Owner:** David Bloom
 **Tier:** Hard-Gate (model processing of student photos, schema migrations, new owner/admin ops, production frontend publish, retention rule)
-**Status:** **Ready for Review (re-QA).** Codex QA failed on 2026-10-09 (`docs/qa/QA_TASK0069_CODEX_2026_10_09.md`); every finding has been remediated and verified on Development (`docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md`): the confirmation is content-bound and enforced by a database trigger inside the submit transaction, `photo_required` is enforced server-side, the rollout is server-driven, redaction is resumable. Lovable preview updated (`e8c11dce`, unpublished). Production unchanged; PR #397 unmerged pending Codex re-QA and David.
+**Status:** **QA Passed — Awaiting Product Owner / Production hard gate.** Codex re-QA passed on 2026-10-09 (`docs/qa/QA_TASK0069_CODEX_2026_10_09.md`): all five original findings are resolved. The confirmation is content-bound and enforced by a database trigger inside the submit transaction, `photo_required` is enforced server-side, the rollout is server-driven, and redaction is resumable. Lovable preview updated (`e8c11dce`, unpublished). Production is unchanged; PR #397 remains unmerged pending David's review and the Production hard gate.
 **Priority:** High
 **Created Date:** 2026-10-09
 **Approved Date:** 2026-10-09 for the three plan decisions D1, D2 (conditioned), D4 (`APPROVAL-0142`); David then directed "execute the build including Lovable front end work, and move hand drawn responses to production as a PR. I will review and merge the PR." Open plan decisions D3, D5–D8 are taken at the plan's recommended defaults and recorded below as assumptions for his review.
 **Branch:** `claude/hand-drawn-frq-build-2026-10-09` (build). Plan and decision records: `claude/hand-drawn-deployment-2026-10-09` (PR #395, docs-only).
-**PR:** #397 — `https://github.com/david-bloom/Cramapple/pull/397` (open; QA-blocked)
+**PR:** #397 — `https://github.com/david-bloom/Cramapple/pull/397` (open; Codex re-QA passed; awaiting David)
 **Design:** `docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md` (governing). Frontend brief as sent: `docs/handoffs/FRQ_PHOTO_FRONTEND_PROMPT_2026_10_09.md`. Execution record: `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md`.
 **Related:** `TASK-0016` Phase D, `TASK-0020`, `TASK-0025`, `TASK-0038`, `TASK-0068` (code reused), `DECISION-0051`, `DECISION-0059`, `DECISION-0109`, `DECISION-0110`, `DECISION-0111`, `APPROVAL-0142`
 
@@ -23,8 +23,8 @@ On any FRQ, a student may type, photograph their page, or both. We read the phot
 2. **Transcript.** `_shared/drawn-response-extraction.ts` (OpenAI Responses API, `store: false`, closed strict schema with no answer-bearing field, `[unreadable]` / `[see photo: …]` markers, never throws) and `_shared/response-transcript.ts` (parts, confirmation validation, `student_added`, the submit gate). `attempt-response` ops `propose_transcript` (owner; per-student daily cap, feature breaker, shared ledger reservation; reuses a stored proposal for the same photo) and `confirm_transcript` (owner; writes the confirmed text onto the same unsubmitted response version the photo is bound to). `submit_response` refuses a response with a bound photo until its transcript is confirmed (`transcript_confirmation_required`), only while the feature flag is on.
 3. **Image management.** Capture, byte validation, EXIF stripping, quality check, and immutable binding are the existing Stage D2 pipeline. New: `SAME_DEVICE` access path (phone as primary device; the phone's declared path now wins in `claim_capture_pairing_upload`), `response_attachments.redacted_at` with a one-time-write guard, `app.redact_response_attachment()`, `app.response_attachments_due_for_redaction(interval)`, and the admin op `redact_attachment` (removes bytes through the Storage API, stamps the row).
 4. **Grading.** Unchanged `evaluate-attempt`: the confirmed transcript is the response text. `photo_required` items are not sent to `evaluate-attempt`; they stay `submitted` for the human queue (`list_manual_grading_queue`), whose context now carries the transcript, `student_added` spans, and `judgement_kind` per criterion.
-5. **Frontend (Lovable App `56cae479`).** Capture control on the Practice FRQ screen (QR on desktop, same-device camera on phones), the confirm-or-add review screen (DECISION-0110 condition), pending-review state for `photo_required` items, consent copy, admin grading queue and RLS-safe per-attempt page, redact button, PostHog events, feature flag (`?photo=on`, admins always on, subject allow-list).
-6. **Verification.** 587 Deno tests (31 new); `scripts/frq_photo_smoke.mjs` drives the deployed functions end to end with a real student and a real admin.
+5. **Frontend (Lovable App `56cae479`).** Capture control on the Practice FRQ screen (QR on desktop, same-device camera on phones), the confirm-or-add review screen (DECISION-0110 condition), pending-review state for `photo_required` items, consent copy, admin grading queue and RLS-safe per-attempt page, redact button, PostHog events, and the server-driven `photo_enabled` rollout with only a local `?photo=off` opt-out.
+6. **Verification.** 596 Deno tests; the eight-case rollback-only database integrity test, deterministic two-connection race test, and `scripts/frq_photo_smoke.mjs` exercise the deployed Development boundary end to end.
 
 ## Assumptions standing in for open decisions (David to confirm or change at review)
 
@@ -52,13 +52,13 @@ Student photos continue to live in the private `learner-uploads` bucket under th
 ## Acceptance Criteria
 
 - [x] Every published FRQ carries `response_policy`; hand-drawn items are `photo_required`; a future FRQ inherits `photo_allowed` and cannot publish without a policy (Development verified).
-- [x] A photo bound to a response cannot be submitted until its transcript is confirmed for that photo and that text; enforced by `app.response_versions_guard_submission` inside the submit transaction (Development: integration test 8/8, two-connection race test both orderings, smoke including post-confirm PATCH). Pending Codex re-QA.
+- [x] A photo bound to a response cannot be submitted until its transcript is confirmed for that photo and that text; enforced by `app.response_versions_guard_submission` inside the submit transaction (Development: integration test 8/8, two-connection race test both orderings, smoke including post-confirm PATCH; independently confirmed by Codex re-QA).
 - [x] Same-device capture is recorded as `SAME_DEVICE` (Development smoke).
 - [x] An admin can read the grading context with transcript and judgement kinds, and redact a photo; the row survives with its digest; the object is gone (Development smoke).
-- [x] Frontend: capture control, confirm-or-add review, pending-review state, admin queue, consent copy, flag — built in preview (Lovable commits `42c5028e`, `700965bd`), 834 vitest passing, `tsc` and `vite build` clean; read against the brief.
+- [x] Frontend: capture control, confirm-or-add review, pending-review state, admin queue, consent copy, and server-driven flag — built in preview through Lovable commit `e8c11dce`, 838 vitest passing, `tsc` and `vite build` clean; current source read against the remediation brief.
 - [ ] Production: migrations, secrets, functions, publish; live admin run on `app.cramapple.com` (one typed+photo FRQ graded; one `photo_required` item reaching the queue and graded by David).
 - [x] Independent backend review (fresh-context agent, 2026-10-09): two High, four Medium, three Low findings; all but one Low (cap overshoot under concurrency, accepted) fixed and re-verified by the extended smoke.
-- [x] Independent QA (Codex, fresh context) per `docs/handoffs/HANDOFF_TASK0069_CODEX_QA_2026_10_09.md` — **Fail / Blocked** on 2026-10-09; remediation and re-QA required before students see it.
+- [x] Independent QA (Codex, fresh context) per `docs/handoffs/HANDOFF_TASK0069_CODEX_QA_2026_10_09.md` — initial **Fail / Blocked**, followed by **Pass** on remediation re-QA on 2026-10-09. All five original findings are resolved; the full initial and re-QA evidence is in `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`.
 
 ## QA Plan
 
@@ -70,13 +70,14 @@ See `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md` (status log, Deve
 
 ## Test Results
 
-Deno: implementation record 587 passed, 0 failed; Codex independently reran `deno test --allow-env --allow-read --allow-net supabase/functions`: 587 passed, 0 failed. Development smoke (`scripts/frq_photo_smoke.mjs`): Codex independently observed `ALL CHECKS PASSED`, including the PostgREST reserved-key forgery refusal and the sequential retake-after-confirm gate; admin checks were skipped because Development admin credentials were not supplied. The unit-gated serving check remains unavailable on Development (no labelled, servable FRQs there). Lovable App implementation record: 834 vitest passing across 92 files, `tsc --noEmit` and `vite build` clean; Codex source-reviewed the preview through `42c5028e` / `700965bd` but did not rerun the Lovable suite locally. Adversarial review found paths the green suites do not cover; see `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`.
+Deno: Codex independently reran `deno test --allow-env --allow-read --allow-net supabase/functions`: **596 passed, 0 failed**. Development rollback-only database integrity test: **8/8 passed**. Deterministic two-connection race test: **all seven checks passed** across retake-first and submit-first orderings. Development smoke (`scripts/frq_photo_smoke.mjs`): Codex independently observed `ALL CHECKS PASSED`, including the owner post-confirm PATCH refusal, sequential retake invalidation, re-read/re-confirm, submit, and evaluation; admin checks were skipped because Development admin credentials were not supplied. The unit-gated serving check remains unavailable on Development (no servable item in that fixture). Lovable App implementation record: **838 vitest passing across 92 files**, `tsc --noEmit` and `vite build` clean; Codex source-reviewed the current preview but did not rerun the separate Lovable suite locally. Full re-QA evidence: `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`.
 
 ## Risks / Issues
 
 - Development cannot exercise unit-gated FRQ serving, so `response_policy` on the served payload is first proven on Production.
 - The first Lovable publish ships whatever else is in preview; review the diff at publish time.
 - Transcript fidelity on real handwriting is unmeasured beyond the one fixture; the `frq_transcript_confirmed.edited_fields` event is the real number.
+- Non-blocking P3: the legacy, presently undeployed `submit-response` wrapper does not map the new database refusal codes to HTTP 409; the database still refuses the write. Update that wrapper before it is ever deployed again.
 
 ## Approval State
 
@@ -84,7 +85,7 @@ Deno: implementation record 587 passed, 0 failed; Codex independently reran `den
 
 ## QA Result
 
-**Fail / Blocked — Codex adversarial QA, 2026-10-09.** Two P1 findings allow submission without a trustworthy confirmation boundary: an owner can mutate confirmed answer content without invalidating `_confirmed_*`, and a retake can commit between the Edge preflight and the SQL submit transaction. A P2 path also lets `photo_required` items submit typed-only and enter automated grading. Production browser cases are untested because the migrations are not applied and Lovable is unpublished. Full evidence and required remediation: `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`.
+**Pass — Codex remediation re-QA, 2026-10-09.** All five original findings are resolved. Content confirmation is bound to a server-computed digest and enforced in the database submit transaction; retake/submit races serialize under the established lock order; `photo_required` is enforced by submission, evaluation, selection, and UI layers; redaction fails closed and resumes safely; and the integrity boundary now has integration, concurrency, handler/helper, and smoke coverage. This removes the QA block but does not mark the task Done: Production remains unchanged, Lovable remains unpublished, and the live Production acceptance criterion still requires David's hard-gate approval. Full evidence: `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`.
 
 ## Done Decision
 
