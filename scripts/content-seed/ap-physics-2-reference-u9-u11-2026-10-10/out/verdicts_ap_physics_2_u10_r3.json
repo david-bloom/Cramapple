@@ -1,0 +1,205 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u10-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement 10.1.A.1.iii regarding the charges of electrons, protons, and neutrons, as well as 10.1.A.1.ii regarding the elementary charge e."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 10.1.A.1.ii states that the elementary charge e is the magnitude of a single electron\u2019s or proton\u2019s charge and can be considered the smallest indivisible amount of charge. CED 10.1.A.1.iii lists the particles in the entry\u2019s order: \u201cThe charge of an electron is \u2212e, the charge of a proton is +e, and a neutron has no electric charge.\u201d Both statements are required in Topic 10.1. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 10.1.A.1.ii nearly verbatim: \"The magnitude of the charge of a single electron or proton, the elementary charge e, can be considered to be the smallest indivisible amount of charge.\" The items match 10.1.A.1.iii, \"The charge of an electron is \u2212e, the charge of a proton is +e, and a neutron has no electric charge,\" and their order (electron, proton, neutron) follows the CED. b_topic_codes: 10.1 is the unit's first and only topic where these charge values appear (10.1.A.1.ii\u2013iii), so owner_topic_code 10.1 and topic_codes [\"10.1\"] are correct. c_ced_required: The charge values are essential knowledge under LO 10.1.A (\"Describe the electric force that results from the interactions between charged objects\"), so a student is expected to know the sign and magnitude of each particle's charge. d_caution: The wording tracks the CED closely and no point-earning wording is missing, so no caution is needed and none is present. The entry is accepted."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r3-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of EK 10.6.A.3 and EK 10.6.A.3.ii regarding the constant electric field between parallel plates and the resulting projectile-like motion of a charged particle under constant acceleration."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.6 is the first and only listed topic requiring this content. CED 10.6.A.3 states that the electric field between two charged parallel plates with uniformly distributed charge is constant in magnitude and direction except near the edges. CED 10.6.A.3.ii states that a charged particle between the plates undergoes constant acceleration and that its motion shares characteristics with projectile motion near Earth\u2019s surface. The entry closely follows that wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The field statement matches 10.6.A.3 ('constant in both magnitude and direction, except near the edges of the plates'). The motion statement does not match 10.6.A.3.ii, which says 'A charged particle between two oppositely charged parallel plates undergoes constant acceleration and therefore its motion shares characteristics with the projectile motion...'. The entry drops 'oppositely', so it says a charged particle between 'two charged parallel plates' accelerates uniformly. That is only true for oppositely charged plates; like-charged plates do not give a uniform field between them. d_caution: The entry's wording differs from the CED point-earning wording on the oppositely charged condition, and no caution is present, so the caution requirement fails. b_topic_codes: 10.6.A.3 and 10.6.A.3.ii sit under Topic 10.6 (Capacitors), so owner_topic_code '10.6' is correct. c_ced_required: 10.6.A.3 and 10.6.A.3.ii are required content in the Topic 10.6 learning objective 10.6.A, so this is CED-required. The entry has no hooks.",
+            "fix": "Add 'oppositely' to the motion sentence, e.g. 'a charged particle between two oppositely charged parallel plates undergoes constant acceleration...', or add a caution stating the opposite-charge condition."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 10.6.A.3, which says the field between two charged parallel plates with uniformly distributed charge 'is constant in both magnitude and direction, except near the edges of the plates.' It also matches 10.6.A.3.ii, which says a charged particle between oppositely charged parallel plates 'undergoes constant acceleration and therefore its motion shares characteristics with the projectile motion of an object with mass in the gravitational field near Earth's surface.' No formula or list is involved, and no factual error appears. b_topic_codes: Parallel-plate field behaviour is first required in Topic 10.6 (10.6.A.3, under 'Describe the physical properties of a parallel-plate capacitor'). Topic 10.3 covers conductors and point-charge fields but not the parallel-plate case, so owner 10.6 and topic_codes ['10.6'] are correct. c_ced_required: 10.6.A.3 and 10.6.A.3.ii are learning-objective essential knowledge statements in these pages that a student must be able to apply. d_caution: The body paraphrases the CED closely, using 'the field is constant in magnitude and direction, except near the edges' and 'shares characteristics with projectile motion'. The point-earning wording is preserved, so no caution is needed and caution null is correct. The ced_evidence quote is accurate. hooks: none provided, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r3-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the relationship between electric potential difference, charge, and change in electric potential energy as described in 10.5.A.3 and 10.7.A.1. The caution accurately reflects the CED's emphasis on the energy belonging to the 'object-field system' rather than the individual charge."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula follows from 10.5.A.3: electric potential difference is \u201cthe change in electric potential energy per unit charge when a test charge is moved between the two points.\u201d Topic 10.5 therefore first requires the relationship; 10.7.A.1 applies it to \u201cthe electric potential energy of the object-field system.\u201d The caution correctly preserves that system wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: 10.7.A.1 gives the change in electric potential energy of the object-field system between two locations with different electric potentials as a relevant equation. The equation image does not survive in the extracted text, but the standard CED relation is \u0394U_E = q\u0394V, and the symbols and meaning match. b_topic_codes: fails. The owner_topic_code is 10.5, but the CED requires this relation as a learning objective only in 10.7 (10.7.A.1, 'the resulting change in the electric potential energy of the object-field system is given by the following equation'). Topic 10.5 defines electric potential difference per unit charge (10.5.A.3) and does not state \u0394U = q\u0394V as a requirement. The owner should be 10.7. Listing 10.5 as a using topic is defensible only because 10.5 defines \u0394V. c_ced_required: 10.7.A.1 requires students to apply this equation. d_caution: the caution matches the CED wording 'object-field system' in 10.7.A.1, so it is present and correct. Caution is not needed for a charge-only reading, but it does not mislead, so it passes."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: \u0394U_E = q\u0394V is the standard relation and matches the 10.7.A.1 'Relevant equation' for the change in electric potential energy of the object-field system. The equation image is not in the extracted text, but 10.5.A.3 (\u0394V is the change in PE per unit charge) is consistent with it. b_topic_codes: fails. The equation is stated as the relevant equation for the change in PE in 10.7.A.1 ('the resulting change in the electric potential energy of the object-field system is given by the following equation'). Topic 10.5 only defines potential difference as change in PE per unit charge (10.5.A.3), so 10.5 is not where this formula is first required. The owner should be 10.7, and 10.5 should not be listed as a topic that uses this formula. c_ced_required: passes. 10.7.A.1 requires students to apply this relationship. d_caution: passes. The CED says 'object-field system' (10.7.A.1, quoted in ced_evidence), and the caution states this correctly; the ced_evidence quote matches the CED text. The entry fails overall on b_topic_codes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

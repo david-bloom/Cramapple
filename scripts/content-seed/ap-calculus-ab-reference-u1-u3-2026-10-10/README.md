@@ -36,6 +36,22 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_calculus_ab-u2-r2-006`** — 2.8 formula, “Product rule”. Rejected twice by own-family veto. a_factual: The formula d/dx[u(x)v(x)] = u(x)v'(x) + v(x)u'(x) matches FUN-3.B.1 ('Derivatives of products of differentiable functions can be found using the product rule') and the CED example 'f′(3) = u(3)v′(3) + v(3)u′(3)' in the Unit 2 Preparing for the AP Exam text. b_topic_codes: owner_topic_code 2.8 is correct, si
 - **`ap_calculus_ab-u3-r2-001`** — 3.2 formula, “Chain rule applied to y in implicit differentiation”. Rejected twice by gpt-6-sol. The formula correctly applies the chain rule to g(y), and Topic 3.2 states, “The chain rule is the basis for implicit differentiation.” The caution overstates the rule: not every term produced by differentiating an expression containing y has a dy/dx factor. For example, d(xy)/dx = y + x(dy/dx). The caution should dist
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_calculus_ab-u2-r3-001` (2.8, topic_codes) — “Product rule”. Dropped 2.10: FUN-3.B.3 covers rewriting tangent, cotangent, secant and cosecant with identities and does not use the product rule.
+- `ap_calculus_ab-u3-r3-001` (3.2, caution) — “Chain rule applied to y in implicit differentiation”. Corrected the caution's over-general claim that every term containing y needs a dy/dx factor, using the d(xy)/dx counterexample the checker raised.
+
+### Rejected as inadmissible (no LO/EK basis; not correctable)
+
+- `ap_calculus_ab-u2-r2-002` — Three-decimal rounding comes from 'Preparing for the AP Exam', not an LO/EK; the entry also drops 'specified'/'typically'.
+- `ap_calculus_ab-u2-r2-003` — Derivative-notation rules trace to Skill 4.C plus an invented rule ('do not rename a derivative') the CED never states.
 ## Cost
 
 307 gateway calls, $2.42 at gateway list prices (from `out/logs_*`, which are not committed).

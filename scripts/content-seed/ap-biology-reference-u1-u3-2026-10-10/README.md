@@ -35,6 +35,21 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_biology-u1-r2-001`** — 1.1 vocabulary, “Hydrogen bonding”. Rejected twice by gpt-6-sol. The entry incorrectly defines hydrogen bonding generally as arising from the polarity of water’s H–O bonds. The CED says that water’s polarity “contributes to hydrogen bonding between and within biological molecules” (1.1.A.1), not that all hydrogen bonding arises from water’s bonds. The CED also identifies hydrogen bo
 - **`ap_biology-u3-r2-005`** — 3.5 list_sequence, “Required components of a constructed graph”. Rejected twice by gpt-6-sol. The five items match the ordered components in Skill 4.A, which the CED assigns to Topic 3.5: graph type; axis labeling, units, and legend; scaling; accurately plotted data, including error bars when appropriate; and a trend line when appropriate. No caution is needed. However, these are requirements of a suggested ski
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_biology-u1-r3-001` (1.1, body) — “Hydrogen bonding”. Restored 1.1.A.1's 'contributes to'; the entry had all hydrogen bonding in biological molecules arising from water's bonds.
+
+### Rejected as inadmissible (no LO/EK basis; not correctable)
+
+- `ap_biology-u1-r2-002` — Cellulose/Starch/Glycogen appear only under ILLUSTRATIVE EXAMPLES; EK 1.4.A.1 does not require reproducing the list.
+- `ap_biology-u3-r2-005` — The graph components are Skill 4.A, not a Topic 3.5 LO/EK.
 ## Cost
 
 440 gateway calls, $3.67 at gateway list prices (from `out/logs_*`, which are not committed).

@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u8-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 8.1.A.1.ii and 8.1.A.1.iii from the CED, which define the elementary charge e, the charges of electrons (-e) and protons (+e), and the neutral charge of neutrons."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1, EK 8.1.A.1.ii states that the magnitude of a single electron\u2019s or proton\u2019s charge, e, can be considered the smallest indivisible amount of charge. EK 8.1.A.1.iii states: \u201cThe charge of an electron is \u2212e and the charge of a proton is +e, and a neutron has no electric charge.\u201d The entry matches both statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. 8.1.A.1.ii says the elementary charge e is the magnitude of the charge of a single electron or proton and 'can be considered to be the smallest indivisible amount of charge.' 8.1.A.1.iii says 'The charge of an electron is \u2212e and the charge of a proton is +e, and a neutron has no electric charge.' The signs, the list members, and the order are all correct. b_topic_codes: Topic 8.1 is where Unit 8 first requires elementary charge (8.1.A.1.ii\u2013iii), and the owner and only topic code are both 8.1. c_ced_required: These are essential knowledge statements under LO 8.1.A (8.1.A.1.ii\u2013iii), so students are required to know them. d_caution: The body paraphrases the CED rather than quoting it, but it carries the same point-earning content (smallest indivisible magnitude, electron \u2212e, proton +e, neutron zero charge). No caution is needed, so the null caution is correct. hooks: The entry has no hooks, so there is nothing to evaluate for e_expansion or f_admissible."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

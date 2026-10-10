@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Escalation Correction Pass: 39 of 50 Escalated Reference Rows Corrected, Re-Checked and Loaded (2026-10-10): David directed the session to correct the escalations itself rather than regenerate them (a recorded deviation from the protocol's no-hand-edit rule, under his authority over escalations). Each correction restored the CED wording the checker had identified as missing and was re-checked by both independent checkers plus the reject-only veto; 39 passed and loaded, 7 were rejected as having no LO/EK basis (boundary statements, a suggested skill, exam-prep guidance), and 4 remain open — three are one ownership question David has already ruled on twice, and one is a genuine deadlock between the two checker families. Development: 951 entries, 11 hooks; all 8 QA checks ok. The earlier count of 45 escalations was wrong and is corrected to 50. Production untouched.
 - Reference Packs Built for Units 1-3 of Nine Subjects: 786 Entries + 6 Hooks Loaded to Development, Controls 150/150, $37.80 (2026-10-10): David scoped units 1-3 for all subjects, Development only, and supplied the four missing Physics CEDs that had blocked Physics 1 / 2 / C Mechanics / C E&M; 25 unit batches run through the two-checker plus reject-only Haiku veto pipeline with six CED-verified controls each (6/6 every batch). Development now holds 912 entries and 10 hooks; all 8 QA checks ok and RPC probes correct. `load.py` gained a schema guard after one bad `topic_codes` row silently voided a whole batch load; `extract.py` now requires a caution on mnemonic hooks. Calculus BC units 1-3 left to a Product Owner call (identical taxonomy and CED to AB, re-key SQL generated not applied); 45 escalations open, grouped into three patterns. Production untouched.
 - Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented; Lovable Not Sent (2026-10-09): AP Chemistry's 91-topic inventory now carries the repeatable vocabulary/equation/memory-hook workflow, checker and control gates, Notes-vs-question projection rules, and BYOQ boundary; the compact three-pane template and `2/5`-only header are recorded in a session-close handoff. Docs and local rendering only; no app, database, Lovable, or Production change.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
@@ -406,6 +407,48 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Escalation Correction Pass — 2026-10-10
+
+**Instruction.** David: correct the escalated rows in this session rather than regenerate them through the API
+pipeline. The production protocol bars hand-editing a generated row (`§3` step 6), so this is a **recorded
+deviation**, taken under the Product Owner's `§4` authority over every escalation. Two safeguards were kept: each
+correction restores the CED's own wording or qualification that a checker had identified as missing, verified
+against the CED PDF rather than the fact pack; and every corrected row went back through the same two independent
+checkers and the reject-only own-family veto. Rationale text was deliberately kept out of the candidate files so
+it could not bias a checker.
+
+**Count correction.** The escalation total is **50, not 45**. The 45 in the preceding entry was computed before the
+last three batches finished and was never recomputed; the per-subject table in the session record was always right
+and sums to 50.
+
+**Outcome: 39 corrected and loaded, 7 rejected, 4 open.** Development went from 912 entries and 10 hooks to **951
+entries and 11 hooks**. One hook returned with its corrected entry (the Calculus AB implicit-differentiation
+chain-rule hook, whose caution had over-claimed that every term containing y carries a factor of dy/dx). All 8 QA
+checks returned ok and RPC probes serve the corrected rows.
+
+**The 7 rejected could not be corrected, only dropped.** Each had no basis in a learning objective or
+essential-knowledge statement, which the inclusion rule requires: three came from **boundary statements** (Physics 1
+"action at a distance is gravitational only"; E&M's four-or-fewer-charges limit and its list of quantitatively
+examinable capacitor geometries), two from **suggested skills** (Biology's graph components, Calculus AB's notation
+rules), one from **"Preparing for the AP Exam"** (Calculus AB's three-decimal rounding), and one from
+**illustrative examples only** (Biology's cellulose/starch/glycogen list). This is a systematic extractor failure
+mode worth fixing in `extract.py`: it mines those sections as if they were course content.
+
+**The 4 open are not arbitrary.** Three are the same ownership question, and David has answered it twice already
+(`DECISION-0107` rule 2, and the AP Chemistry Unit 1 "Tools for explaining periodic trends" call): the checkers
+assign ownership to the earliest topic that *mentions* an idea, while David has chosen the topic whose objective
+*requires the entry as such*. Applying his precedent loads all three unchanged. The fourth, Physics 2's
+ΔU_E = qΔV, is a real deadlock: GPT-6 Sol insists on owner 10.5, the veto rejected exactly that and insists on
+10.7, and all three encodings tried were rejected by one or the other. The session did not self-override a veto or
+a two-checker rejection in any of the four.
+
+**Provenance.** Every corrected row's `source_note` carries `product-owner-directed correction by the Claude
+session (David, 2026-10-10)`, so a corrected row is distinguishable in the database from a stateless
+re-extraction. `load.py` gained a `correction_note` passthrough for this. Per-correction reasons are in each batch
+README and in `docs/handoffs/REFERENCE_PACK_CORRECTION_RATIONALES_2026_10_10.json`.
+
+**Cost.** The pass added 153 checker calls and $1.22; session total 4,165 calls and $39.02. Production untouched.
+
 ## Reference Packs Built for Units 1-3 of Nine Subjects — 2026-10-10
 
 **What happened.** David scoped the session to **units 1-3 for all subjects, Development only**, ruled the two

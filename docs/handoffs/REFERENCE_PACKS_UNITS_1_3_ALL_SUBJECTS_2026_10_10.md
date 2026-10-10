@@ -1,7 +1,8 @@
 # Reference Packs, Units 1-3, All Ten Subjects — Session Record
 
 **STATUS:** Development complete for 25 new unit batches. Production untouched and still a Hard Gate.
-45 escalations and two decisions are open for the Product Owner.
+After a Product-Owner-directed correction pass, 39 of the 50 escalations are corrected and loaded, 7 are
+rejected as inadmissible, and 4 plus one Calculus BC decision remain open. See section 11.
 
 **DATE:** 2026-10-10 (America/New_York)
 
@@ -28,7 +29,8 @@ which unblocked the only subjects that could not be run to protocol.
 | Physics 2 | 9, 10, 11 |
 | Physics C: E&M | 8, 9, 10 |
 
-**Development now holds 912 published reference entries and 10 published hooks** across nine subjects.
+**Development now holds 951 published reference entries and 11 published hooks** across nine subjects (912 and 10
+before the correction pass in section 11).
 786 entries and 6 hooks are new this session; the rest is the pilot (Statistics Unit 1, Chemistry Unit 4)
 plus Chemistry Unit 1 from PR #399.
 
@@ -169,7 +171,7 @@ committed.
 
 Nothing from this session's batches has been overridden. The two rulings David gave are recorded in 8.3.
 
-### 8.2 Forty-five escalations, none loaded
+### 8.2 Fifty escalations (section 11 resolves 46 of them)
 
 Each is content that survived a stateless Round 2 and was still rejected. Full reasons, with the CED
 citation each checker gave, are in the per-batch READMEs under "Escalated to the Product Owner". The
@@ -234,3 +236,146 @@ is not merged, so it was left alone rather than edited from here.
 
 **Do not touch:** the unrelated modified and untracked files in the working tree, which belong to other
 work.
+
+## 11. Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed this session to correct the escalations itself rather than regenerate them. The production
+protocol bars hand-editing a generated row (`§3` step 6), so this is a recorded deviation taken on the Product
+Owner's instruction under his `§4` authority over every escalation. Two safeguards were kept:
+
+1. Each correction restores the CED's own wording or qualification that the checker had identified as missing,
+   verified against the CED PDF text rather than the fact pack. No new content was authored.
+2. Every corrected row went back through the same two independent checkers and the reject-only own-family veto
+   (rounds 3-5). Nothing loaded on the session's judgment alone, and the rationale text was deliberately kept
+   out of the candidate files so it could not bias a checker.
+
+**Correction of an earlier count in this record:** the escalation total is **50, not 45**. The 45 was computed
+before the last three batches finished and was never recomputed; the per-subject table in section 8.2 was always
+right and sums to 50.
+
+### Outcome
+
+| Disposition | Rows |
+|---|---:|
+| Corrected, re-checked, accepted and loaded | **39** |
+| Rejected as inadmissible (not correctable) | **7** |
+| Still open for the Product Owner | **4** |
+| **Total** | **50** |
+
+Development now holds **951 published entries and 11 published hooks**. One hook came back with its corrected
+entry: the Calculus AB implicit-differentiation chain-rule hook, whose caution had over-claimed that every term
+containing y carries a factor of dy/dx.
+
+### The 7 rejected as inadmissible
+
+Each had no basis in a learning objective or essential-knowledge statement, which the inclusion rule requires.
+Correcting them would have meant inventing a basis, so they stay rejected:
+
+- **`ap_biology-u1-r2-002`** — Cellulose/Starch/Glycogen appear only under ILLUSTRATIVE EXAMPLES; EK 1.4.A.1 does not require reproducing the list.
+- **`ap_biology-u3-r2-005`** — The graph components are Skill 4.A, not a Topic 3.5 LO/EK.
+- **`ap_calculus_ab-u2-r2-002`** — Three-decimal rounding comes from 'Preparing for the AP Exam', not an LO/EK; the entry also drops 'specified'/'typically'.
+- **`ap_calculus_ab-u2-r2-003`** — Derivative-notation rules trace to Skill 4.C plus an invented rule ('do not rename a derivative') the CED never states.
+- **`ap_physics_1-u2-r2-003`** — 'Action at a distance is gravitational only' exists solely in the Topic 2.3 boundary statement.
+- **`ap_physics_c_em-u8-r2-003`** — The four-or-fewer-charges limit is the Topic 8.1 boundary statement, a scope limit rather than content.
+- **`ap_physics_c_em-u10-r2-001`** — The list of quantitatively examinable capacitor geometries is the Topic 10.3 boundary statement.
+
+Three of the seven are the same failure mode and worth noting for later batches: the extractor will mine a
+**boundary statement**, a **suggested skill**, or the **"Preparing for the AP Exam"** section as if it were
+course content. A future `extract.py` revision should name those sections and forbid them explicitly.
+
+### The 4 still open
+
+Three are one question, and it is a question you have already answered twice. The checkers assign ownership to
+the **earliest topic that mentions** an idea; `DECISION-0107` rule 2 and the AP Chemistry Unit 1 "Tools for
+explaining periodic trends" call both chose **the topic whose objective requires the entry as such**. Applying
+your precedent would load all three as they stand; applying the checkers' rule would move each owner earlier.
+I did not self-override a veto or a two-checker rejection, so they are unloaded pending your word:
+
+| Candidate | Entry | Checkers want | Precedent (`DECISION-0107` r2) wants |
+|---|---|---|---|
+| `ap_physics_1-u1-r3-001` | Kinematic equation v = v0 + at (owner 1.3) | owner **1.1** — 1.1.A.3.ii prints the derived equation first | owner **1.3**, where 1.3.A.2 requires it *as* a kinematic equation |
+| `ap_physics_1-u2-r3-005` | Normal force (owner 2.7) | owner **2.6** — 2.6.C.1 uses its magnitude to define apparent weight | owner **2.7**, where 2.7.A.2.ii defines the force |
+| `ap_precalculus-u1-r3-001` | Concavity from average rates of change (owner 1.3) | owner **1.1** — 1.1.B.3/1.1.B.4 state concavity from rate of change | owner **1.3**, whose 1.3.B.3 is the average-rate-over-equal-intervals statement the body actually makes |
+
+The fourth is a genuine deadlock between the two model families, not a judgment I should force:
+
+- **`ap_physics_2-u10-r5-003`** — ΔU_E = qΔV. GPT-6 Sol insists the owner is **10.5** (10.5.A.3 defines potential
+  difference as the change in potential energy per unit charge, so it requires the relationship first); the
+  own-family veto rejected exactly that and insists on **10.7** (10.7.A.1 gives the equation itself). Three
+  encodings were tried — owner 10.5, owner 10.7, and owner 10.7 with 10.5 as a reuse code — and each was rejected
+  by one of the two. The body, title and caution are agreed; only ownership is contested.
+
+### Where the corrections came from
+
+Every correction and its reason is listed below, and the full machine-readable registry is
+`correction_rationales.json` alongside the batch outputs. Each loaded row's `source_note` carries
+`product-owner-directed correction by the Claude session (David, 2026-10-10)`, so a corrected row is
+distinguishable in the database from a stateless re-extraction.
+
+**ap_biology**
+
+- `ap_biology-u1-r3-001` (1.1, body) — “Hydrogen bonding”. Restored 1.1.A.1's 'contributes to'; the entry had all hydrogen bonding in biological molecules arising from water's bonds.
+
+**ap_calculus_ab**
+
+- `ap_calculus_ab-u2-r3-001` (2.8, topic_codes) — “Product rule”. Dropped 2.10: FUN-3.B.3 covers rewriting tangent, cotangent, secant and cosecant with identities and does not use the product rule.
+- `ap_calculus_ab-u3-r3-001` (3.2, caution) — “Chain rule applied to y in implicit differentiation”. Corrected the caution's over-general claim that every term containing y needs a dy/dx factor, using the d(xy)/dx counterexample the checker raised.
+
+**ap_chemistry**
+
+- `ap_chemistry-u2-r3-001` (2.6, body) — “Resonance for equivalent Lewis structures”. Restored 2.6.A.1's hedge 'In many such cases'; the entry had made the accuracy claim universal.
+- `ap_chemistry-u3-r3-001` (3.5, caution, title) — “Average kinetic energy of a particle”. 3.5.A.2 ties the equation to average kinetic energy and average velocity; title restored and the gap cautioned.
+- `ap_chemistry-u3-r3-002` (3.1, body) — “Noncovalent interactions in large biomolecules”. Restored 3.2.A.7's causal chain through shape; the entry had the interactions dictating properties directly.
+- `ap_chemistry-u3-r3-003` (3.9, body) — “Chromatography”. Restored 3.9.A.1's 'between and among the components of the solution (the mobile phase)', which the entry omitted.
+
+**ap_physics_1**
+
+- `ap_physics_1-u2-r3-002` (2.5, body) — “Direction of acceleration and when velocity changes”. Restored 'of the system's center of mass' in the second clause; without it the claim is false for a system whose parts move.
+- `ap_physics_1-u2-r3-003` (2.5, body, caution) — “Newton's second law”. Replaced a_sys with a_cm and SigmaF with SigmaF_ext to match 2.5.A.2/2.5.A.3, dropped the redundant second equality, and added the center-of-mass caution the veto asked for twice.
+- `ap_physics_1-u2-r3-004` (2.6, caution) — “Weight”. Deleted the unsupported label-acceptance caution; 2.6.A.3 gives 'Weight = F_g = mg' and the body matches it, so no caution is needed.
+- `ap_physics_1-u3-r3-001` (3.2, body, caution) — “Work-energy theorem”. Dropped 'Sigma F_parallel d', which gave every force the same displacement; 3.2.A.3 ties work to the displacement of each force's point of application.
+- `ap_physics_1-u3-r3-002` (3.3, body) — “Potential energy of a system”. Restored 3.3.A.1's 'if ... only interact through conservative forces'; the entry had turned it into 'only if ... interact', a different and stronger claim.
+
+**ap_physics_2**
+
+- `ap_physics_2-u10-r3-001` (10.1, body) — “Charges of the basic particles”. Restored 10.1.A.1.ii's qualifier 'can be considered to be'.
+- `ap_physics_2-u10-r3-002` (10.6, body) — “Uniform field and motion between plates”. Added 10.6.A.3's 'uniformly distributed electric charge' condition and 10.6.A.3.ii's 'near Earth's surface'.
+- `ap_physics_2-u11-r3-001` (11.5, topic_codes) — “Series connection”. Dropped 11.7: its LO/EK cover only Kirchhoff's junction rule and do not use the series definition.
+- `ap_physics_2-u11-r3-002` (11.5, topic_codes) — “Parallel connection”. Dropped 11.7 for the same reason as the series entry.
+- `ap_physics_2-u11-r3-003` (11.8, body, caution) — “RC time constant”. Restricted tau to a circuit reducible to one equivalent R and C, and replaced 'Only qualitative use is required' with the boundary statement's actual terms, which permit mathematical treatment of initial and final states.
+
+**ap_physics_c_em**
+
+- `ap_physics_c_em-u10-r3-001` (10.3, caution, topic_codes) — “Field between parallel plates”. Added the no-dielectric condition from 10.4.A.4 and dropped 10.4 from the reuse codes, since 10.4 uses the dielectric-modified field rather than this formula.
+- `ap_physics_c_em-u8-r3-001` (8.1, body) — “Elementary charge and charges of particles”. Restored 8.1.A.1.ii's qualifier 'can be considered to be'.
+- `ap_physics_c_em-u9-r3-001` (9.3, caution) — “Change in potential energy of a charge moving through a potential difference”. Added the object-field-system caution the veto required twice.
+
+**ap_physics_c_mechanics**
+
+- `ap_physics_c_mechanics-u1-r4-001` (1.2, caution) — “Average velocity”. Dropped the citation of 1.2.C.1.i, which defines instantaneous velocity as dx/dt rather than the average-velocity component form. My citation error, not the extractor's.
+- `ap_physics_c_mechanics-u3-r3-001` (3.2, body) — “Only the parallel force component changes the system's energy”. Restored 3.2.A.3.iv's reference frame: the perpendicular component is perpendicular to the displacement of the center of mass, not of the point of application.
+- `ap_physics_c_mechanics-u3-r3-002` (3.2, body, caution) — “Work–energy theorem”. Dropped the unqualified 'Sigma F_parallel d_i': 3.2.A.3 specifies a path integral for a variable force and 3.2.A.3.iii gives the constant-component condition.
+- `ap_physics_c_mechanics-u3-r3-003` (3.2, topic_codes) — “Energy dissipated by friction”. Dropped 3.4, which never states the friction-times-path-length relation.
+
+**ap_precalculus**
+
+- `ap_precalculus-u1-r3-002` (1.3, body) — “Concavity from changing average rates of change”. Restored 1.3.B.3's 'for all small-length intervals'; rates rising over some intervals do not establish concavity.
+- `ap_precalculus-u1-r3-003` (1.4, body) — “Polynomial function in standard form”. Added 1.4.A.1's condition that every coefficient is real; without it the form admits complex coefficients.
+- `ap_precalculus-u1-r3-004` (1.11, body) — “Factored form vs. standard form”. Restored 1.11.A.1's structure: 'readily provides' applies to real zeros, and the rest follows from that.
+- `ap_precalculus-u1-r3-005` (1.6, body) — “End behavior limit notation for polynomials”. Added 'nonconstant' from 1.6.A.1-2; a constant polynomial has finite end-behavior limits.
+- `ap_precalculus-u1-r3-006` (1.10, body) — “Location of a hole”. Reversed the implication to match 1.10.A.2, which presupposes a hole at x = c and then locates it; a finite limit alone does not establish one.
+- `ap_precalculus-u1-r3-008` (1.12, items) — “Additive and multiplicative transformations”. Replaced the absolute-value dilation factors with the CED's own phrasing, 'by a factor of a' and 'by a factor of 1/b', each followed by its reflection condition.
+- `ap_precalculus-u1-r4-007` (1.13, items) — “Choosing a function type for a model”. Added the piecewise-defined type from 1.13.A.7 and split 1.13.A.4 from 1.13.A.5, which the entry had folded into one item.
+- `ap_precalculus-u3-r3-002` (3.5, caution) — “Concavity of sinusoidal graphs”. Deleted the caution: the CED pages say nothing about scoring guidelines rejecting 'increasing at an increasing rate'. The body matches 3.5.A.5 and needs no caution.
+- `ap_precalculus-u3-r3-003` (3.6, caution, owner_topic_code, topic_codes) — “Converting frequency to the parameter b”. Ownership moves to 3.6, the first topic requiring the parameter b, and the caution now gives |b| = 400 pi rather than the entry's incorrect b = 2 pi times 200.
+- `ap_precalculus-u3-r3-004` (3.11, body) — “Secant, cosecant, and cotangent definitions”. Separated the cotangent restrictions as 3.11.A.4 does; the combined condition wrongly excluded angles where cos theta = 0.
+
+**ap_statistics**
+
+- `ap_statistics-u3-r3-001` (3.2, body) — “Interpret sampling distribution results in context”. 3.2.C.1 says 'should'; the entry said 'must', which its own cited evidence contradicted.
+- `ap_statistics-u3-r3-002` (3.7, body) — “Conclusion wording for a hypothesis test”. The entry required a parameter reference for all three tests; 3.15.D.3 requires the population(s) only. Stated per test so the 3.13/3.15 reuse stays valid.
+- `ap_statistics-u3-r3-003` (3.10, caution) — “Standard error of \hat{p}_1 - \hat{p}_2”. 3.10.D.1 defines the SE for the difference between two population proportions; the caution now states that sample proportions stand in for them.
+
+### Cost
+
+The correction pass added 153 checker calls and $1.22, taking the session total to 4,165 calls and **$39.02**.

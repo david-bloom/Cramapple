@@ -44,6 +44,30 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_precalculus-u3-r2-003`** — 3.7 formula, “Converting frequency to the parameter b”. Rejected twice by gpt-6-sol. The body correctly combines 3.5.A.2, which says period and frequency are reciprocals, with 3.6.A.6's period formula. Topic 3.7.A.1 uses period and frequency to construct sinusoidal models. However, the caution says a frequency of 200 cycles per second 'gives b = 2π·200.' The body correctly specifies |b|: a negative b h
 - **`ap_precalculus-u3-r2-006`** — 3.11 formula, “Secant, cosecant, and cotangent definitions”. Rejected twice by gpt-6-sol. Topic 3.11 first requires these definitions, and Topic 3.12 uses equivalent trigonometric forms. However, the body applies “tan θ≠0” to the entire cotangent equality. CED 3.11.A.4 gives the forms separately: cot θ is the reciprocal of tangent “where tan θ≠0”; equivalently, “cot θ = cos θ / sin θ, where sin θ≠0.” The qu
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_precalculus-u1-r3-002` (1.1, body) — “Image and preimage”. Restored 1.3.B.3's 'for all small-length intervals'; rates rising over some intervals do not establish concavity.
+- `ap_precalculus-u1-r3-003` (1.4, body) — “Polynomial function in standard form”. Added 1.4.A.1's condition that every coefficient is real; without it the form admits complex coefficients.
+- `ap_precalculus-u1-r3-004` (1.11, body) — “Factored form vs. standard form”. Restored 1.11.A.1's structure: 'readily provides' applies to real zeros, and the rest follows from that.
+- `ap_precalculus-u1-r3-005` (1.6, body) — “End behavior limit notation for polynomials”. Added 'nonconstant' from 1.6.A.1-2; a constant polynomial has finite end-behavior limits.
+- `ap_precalculus-u1-r3-006` (1.10, body) — “Location of a hole”. Reversed the implication to match 1.10.A.2, which presupposes a hole at x = c and then locates it; a finite limit alone does not establish one.
+- `ap_precalculus-u1-r3-008` (1.12, items) — “Additive and multiplicative transformations”. Replaced the absolute-value dilation factors with the CED's own phrasing, 'by a factor of a' and 'by a factor of 1/b', each followed by its reflection condition.
+- `ap_precalculus-u1-r4-007` (1.13, items) — “Choosing a function type for a model”. Added the piecewise-defined type from 1.13.A.7 and split 1.13.A.4 from 1.13.A.5, which the entry had folded into one item.
+- `ap_precalculus-u3-r3-001` (3.5, ) — “Concavity of sinusoidal graphs”. 
+- `ap_precalculus-u3-r3-002` (3.5, caution) — “Period and frequency are reciprocals”. Deleted the caution: the CED pages say nothing about scoring guidelines rejecting 'increasing at an increasing rate'. The body matches 3.5.A.5 and needs no caution.
+- `ap_precalculus-u3-r3-004` (3.11, body) — “Secant, cosecant, and cotangent definitions”. Separated the cotangent restrictions as 3.11.A.4 does; the combined condition wrongly excluded angles where cos theta = 0.
+- `ap_precalculus-u3-r3-003` (3.6, caution, owner_topic_code, topic_codes) — “Converting frequency to the parameter b”. Ownership moves to 3.6, the first topic requiring the parameter b, and the caution now gives |b| = 400 pi rather than the entry's incorrect b = 2 pi times 200.
+
+### Still open for the Product Owner
+
+- `ap_precalculus-u1-r3-001` — “Concavity from changing average rates of change”. Ownership contested; see section 11 of the session record.
 ## Cost
 
 687 gateway calls, $8.19 at gateway list prices (from `out/logs_*`, which are not committed).

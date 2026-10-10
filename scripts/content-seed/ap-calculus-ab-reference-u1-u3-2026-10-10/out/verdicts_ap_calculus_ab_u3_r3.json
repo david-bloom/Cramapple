@@ -1,0 +1,94 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u3-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {
+      "Times the derivative of what's inside": true
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the application of the chain rule to implicit differentiation as required by Topic 3.2 (FUN-3.D.1). The formula and caution are mathematically sound and align perfectly with the CED's guidance on implicit differentiation and common student errors (e.g., forgetting that y depends on x)."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "This hook is explicitly recommended in the Unit 3 Overview of the CED: 'Saying, \"times the derivative of what\u2019s inside,\" every time we apply the chain rule reminds students to avoid a common error.' The expansion and caution are accurate and helpful."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Times the derivative of what's inside": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly applies the chain rule to y(x). Topic 3.2 is the first topic requiring this application: FUN-3.D.1 states, \u201cThe chain rule is the basis for implicit differentiation.\u201d The unit overview also says \u201cthe chain rule applies to y because y depends on x.\u201d The caution correctly distinguishes differentiating an expression in y from differentiating an entire product such as xy."
+            },
+            "hooks": [
+              {
+                "hook_text": "Times the derivative of what's inside",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The cues map in order to the outer derivative and then the inner derivative dy/dx in the entry\u2019s formula. The unit overview explicitly recommends saying \u201ctimes the derivative of what\u2019s inside\u201d when applying the chain rule. The hook\u2019s caution makes clear that the phrase is a reminder, not a substitute for writing dy/dx."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Times the derivative of what's inside": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula d/dx[g(y)] = g'(y)\u00b7dy/dx and the example d/dx(y\u00b2) = 2y\u00b7dy/dx are mathematically correct. The caution's product-rule example, d(xy)/dx = y + x\u00b7dy/dx, is also correct. b_topic_codes: The CED places the chain-rule basis of implicit differentiation under Topic 3.2 (FUN-3.D.1: \"The chain rule is the basis for implicit differentiation.\"), so owner 3.2 is correct and it is the only listed topic code. c_ced_required: LO FUN-3.D, \"Calculate derivatives of implicitly defined functions,\" with EK FUN-3.D.1, requires students to apply this. The ced_evidence quote, \"students must recognize that the chain rule applies to y because y depends on x,\" appears on p. 67 (Preparing for the AP Exam). d_caution: The CED wording (\"The chain rule is the basis for implicit differentiation\") differs from the entry's wording, so a caution is needed. The caution is present and accurate: it requires differentiating the whole equation, writing dy/dx rather than dy, and applying the product rule to xy first."
+          },
+          "hooks": [
+            {
+              "hook_text": "Times the derivative of what's inside",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: The cues appear in the phrase's order. \"times the derivative of\" maps to multiplying by the derivative of the inner function, which matches the CED's own gloss. \"what's inside\" maps to y(x) for a term in y, giving the factor dy/dx, which matches the entry body. f_admissible: The CED explicitly quotes this phrase (p. 67: \"Saying, 'times the derivative of what's inside,' every time we apply the chain rule reminds students to avoid a common error\") and it recalls the chain-rule structure required by FUN-3.C.1 and FUN-3.D.1. It is not a song lyric. The caution is present and correct: it says the phrase is only a reminder and that dy/dx must be written explicitly. Minor note: source_note \"public-domain-common\" misattributes the phrase, which comes from the CED, but this does not affect the accept decision."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

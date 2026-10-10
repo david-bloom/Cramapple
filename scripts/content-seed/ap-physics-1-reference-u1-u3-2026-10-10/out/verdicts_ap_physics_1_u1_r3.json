@@ -1,0 +1,68 @@
+[
+  {
+    "candidate_id": "ap_physics_1-u1-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code should be '1.1' instead of '1.3' because the equation v_x = v_x0 + a_x t is first introduced and required in Topic 1.1 (under Essential Knowledge 1.1.A.3.ii as a derived equation)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '1.3', but this equation is first required in Topic 1.1 (Essential Knowledge 1.1.A.3.ii explicitly lists the derived equation: v_x = v_x0 + a_x t). Therefore, the owner_topic_code must be '1.1'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and constant-acceleration limitation match 1.3.A.2: \u201cFor constant acceleration, three kinematic equations can be used,\u201d including v_x = v_x0 + a_x t. Topic 1.5.B.1 supports applying one-dimensional kinematic relationships to components of two-dimensional motion. However, Topic 1.1 first requires this component equation, listing \u201cDerived equation: v_x = v_x0 + a_x t.\u201d The owner_topic_code should therefore be 1.1, not 1.3."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 1.3.A.2: \u201cv_x = v_x0 + a_x t.\u201d Its constant-acceleration limitation matches 1.3.A.2, and 1.5.B.1 supports applying one-dimensional kinematic relationships to separated components. However, the owner must be 1.1, where 1.1.A.3.ii first gives the same derived equation, \u201cv_x = v_x0 + a_x t,\u201d before Topic 1.3."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

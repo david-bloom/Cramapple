@@ -38,6 +38,24 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_physics_2-u11-r2-001`** — 11.5 vocabulary, “Series connection”. Rejected twice by own-family veto. a_factual: The body matches 11.5.A.1.i: "A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same." The entry's 'so the current in each element is the sa
 - **`ap_physics_2-u11-r2-003`** — 11.8 formula, “RC time constant”. Rejected twice by gpt-6-sol. Topic 11.8 requires the RC time constant: 11.8.B.1.i says it measures how quickly a capacitor charges or discharges and gives its definition. But the entry presents τ = R_eq C_eq without restricting it to a circuit reducible to one equivalent resistance and capacitance; the CED does not state that as a general rule for
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_physics_2-u10-r3-001` (10.1, body) — “Charges of the basic particles”. Restored 10.1.A.1.ii's qualifier 'can be considered to be'.
+- `ap_physics_2-u10-r3-002` (10.6, body) — “Uniform field and motion between plates”. Added 10.6.A.3's 'uniformly distributed electric charge' condition and 10.6.A.3.ii's 'near Earth's surface'.
+- `ap_physics_2-u11-r3-001` (11.5, topic_codes) — “Series connection”. Dropped 11.7: its LO/EK cover only Kirchhoff's junction rule and do not use the series definition.
+- `ap_physics_2-u11-r3-002` (11.5, topic_codes) — “Parallel connection”. Dropped 11.7 for the same reason as the series entry.
+- `ap_physics_2-u11-r3-003` (11.8, body, caution) — “RC time constant”. Restricted tau to a circuit reducible to one equivalent R and C, and replaced 'Only qualitative use is required' with the boundary statement's actual terms, which permit mathematical treatment of initial and final states.
+
+### Still open for the Product Owner
+
+- `ap_physics_2-u10-r5-003` — “Change in the electric potential energy of the object-field system”. Ownership contested; see section 11 of the session record.
 ## Cost
 
 465 gateway calls, $4.09 at gateway list prices (from `out/logs_*`, which are not committed).

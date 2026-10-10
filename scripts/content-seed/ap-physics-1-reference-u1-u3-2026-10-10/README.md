@@ -41,6 +41,30 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_physics_1-u3-r2-002`** — 3.2 formula, “Work-energy theorem”. Rejected twice by gpt-6-sol. Topic 3.2 requires the work-energy theorem: 3.2.A.4 says the change in an object’s kinetic energy equals “the sum of the work (net work) being done by all forces exerted on the object.” But the unqualified formula ΣF∥,i d treats every force’s work as its parallel component times one shared displacement. The CED specifi
 - **`ap_physics_1-u3-r2-004`** — 3.3 vocabulary, “Potential energy of a system”. Rejected twice by own-family veto. a_factual: The scalar-quantity statement matches 3.3.A.2 ('Potential energy is a scalar quantity associated with the position of objects within a system'). The system condition matches 3.3.A.1 ('has potential energy if the objects within that system only interact with each other through conservative forces'). The body'
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_physics_1-u2-r3-001` (2.5, ) — “Direction of acceleration and when velocity changes”. 
+- `ap_physics_1-u2-r3-002` (2.2, body) — “Free-body diagram (FBD)”. Restored 'of the system's center of mass' in the second clause; without it the claim is false for a system whose parts move.
+- `ap_physics_1-u2-r3-003` (2.5, body, caution) — “Newton's second law”. Replaced a_sys with a_cm and SigmaF with SigmaF_ext to match 2.5.A.2/2.5.A.3, dropped the redundant second equality, and added the center-of-mass caution the veto asked for twice.
+- `ap_physics_1-u2-r3-004` (2.6, caution) — “Weight”. Deleted the unsupported label-acceptance caution; 2.6.A.3 gives 'Weight = F_g = mg' and the body matches it, so no caution is needed.
+- `ap_physics_1-u3-r3-002` (3.3, body) — “Potential energy of a system”. Restored 3.3.A.1's 'if ... only interact through conservative forces'; the entry had turned it into 'only if ... interact', a different and stronger claim.
+- `ap_physics_1-u3-r3-001` (3.2, body, caution) — “Work-energy theorem”. Dropped 'Sigma F_parallel d', which gave every force the same displacement; 3.2.A.3 ties work to the displacement of each force's point of application.
+
+### Rejected as inadmissible (no LO/EK basis; not correctable)
+
+- `ap_physics_1-u2-r2-003` — 'Action at a distance is gravitational only' exists solely in the Topic 2.3 boundary statement.
+
+### Still open for the Product Owner
+
+- `ap_physics_1-u1-r3-001` — “Kinematic equation: velocity vs. time (constant acceleration)”. Ownership contested; see section 11 of the session record.
+- `ap_physics_1-u2-r3-005` — “Normal force”. Ownership contested; see section 11 of the session record.
 ## Cost
 
 485 gateway calls, $4.34 at gateway list prices (from `out/logs_*`, which are not committed).

@@ -63,7 +63,7 @@ def main():
     hooks_written = 0
     for v in accepted:
         c = cands[v["candidate_id"]]
-        src = f"generated-checked; extractor={c.get('extractor')}; batch={a.batch}; candidate={c['candidate_id']}; ced={c.get('ced_evidence','')[:200]}" + (f"; po-override={v['po_override']}" if v.get("po_override") else "")
+        src = f"generated-checked; extractor={c.get('extractor')}; batch={a.batch}; candidate={c['candidate_id']}; ced={c.get('ced_evidence','')[:200]}" + (f"; po-override={v['po_override']}" if v.get("po_override") else "") + (f"; {c['correction_note']}" if c.get("correction_note") else "")
         lines.append(
             "insert into app.unit_reference_entries (subject_key, unit_number, owner_topic_code, topic_codes, kind, title, body, items, visual_asset_ref, caution, status, source_note)\n"
             f"values ({q(c['subject_key'])}, {c['unit_number']}, {q(c['owner_topic_code'])}, array[{', '.join(q(t) for t in c['topic_codes'])}]::text[], {q(c['kind'])}, {q(c['title'])}, {q(c['body'])}, {j(c.get('items') or [])}, NULL, {q(c.get('caution'))}, 'published', {q(src)})\n"

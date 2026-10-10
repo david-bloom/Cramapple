@@ -36,6 +36,19 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_physics_c_mechanics-u3-r2-006`** — 3.2 formula, “Work–energy theorem”. Rejected twice by gpt-6-sol. Topic 3.2.A.4 requires the work–energy theorem: the change in kinetic energy equals the sum of the work done by all forces. But the entry’s further equality, ΣWᵢ = ΣF∥,ᵢdᵢ, is unqualified. The CED specifies in 3.2.A.3.iii that the parallel force component must be constant for work to equal that component times displace
 - **`ap_physics_c_mechanics-u3-r2-008`** — 3.2 formula, “Energy dissipated by friction”. Rejected twice by own-family veto. a_factual: The body matches 3.2.A.4.iii, which says "The energy dissipated by friction is typically equated to the force of friction times the length of the path over which the force is exerted." The approximate sign, F_f, and path length s are stated correctly. b_topic_codes: owner 3.2 is correct, since the statement 
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_physics_c_mechanics-u1-r4-001` (1.2, caution) — “Average velocity”. Dropped the citation of 1.2.C.1.i, which defines instantaneous velocity as dx/dt rather than the average-velocity component form. My citation error, not the extractor's.
+- `ap_physics_c_mechanics-u3-r3-001` (3.2, body) — “Only the parallel force component changes the system's energy”. Restored 3.2.A.3.iv's reference frame: the perpendicular component is perpendicular to the displacement of the center of mass, not of the point of application.
+- `ap_physics_c_mechanics-u3-r3-003` (3.2, topic_codes) — “Energy dissipated by friction”. Dropped 3.4, which never states the friction-times-path-length relation.
+- `ap_physics_c_mechanics-u3-r3-002` (3.2, body, caution) — “Work–energy theorem”. Dropped the unqualified 'Sigma F_parallel d_i': 3.2.A.3 specifies a path integral for a variable force and 3.2.A.3.iii gives the constant-component condition.
 ## Cost
 
 527 gateway calls, $4.78 at gateway list prices (from `out/logs_*`, which are not committed).

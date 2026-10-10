@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u10-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the electric field between two parallel plates, E = Q/(\u03b5_0 A) = \u03c3/\u03b5_0, is directly derived from Gauss's law and the principle of superposition as required by Essential Knowledge 10.3.A.3.i and 10.3.A.3.ii. The caution correctly identifies the physical limitations (edge effects, plate separation, and dielectric presence) described in 10.3.A.3 and 10.4.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the field magnitude for oppositely charged parallel plates without a dielectric, with Q the magnitude of the charge on either plate and \u03c3 = Q/A. Topic 10.3 first requires it: 10.3.A.3.i says the field magnitude can be determined using \u201cGauss\u2019s law and the principle of superposition,\u201d and 10.3.A.3.ii says it is \u201cproportional to the surface charge density on either plate.\u201d The caution correctly includes the CED\u2019s small-separation condition and its exception \u201cnear the edges of the plates,\u201d and distinguishes the dielectric case in 10.4.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: E = Q/(\u03b50\u00b7A) = \u03c3/\u03b50 is the correct field magnitude between oppositely charged parallel plates. Q/A = \u03c3, so the two forms agree. The CED's 'Derived equation' image under 10.3.A.3.i is not legible in the supplied text, so the match rests on the physics, not on a visible CED line. b_topic_codes: 10.3.A.3.i and 10.3.A.3.ii (field from Gauss's law and superposition, field proportional to surface charge density) sit in Topic 10.3, so owner_topic_code 10.3 is where the unit first requires it. c_ced_required: 10.3.A.3.i states that 'the magnitude of the electric field between two charged parallel plates, where the plate separation is much smaller than the dimensions of the plates, can be determined by applying Gauss's law and the principle of superposition.' d_caution: the caution's conditions match the CED. 10.3.A.3 says the field is constant 'except near the edges of the plates' and 10.3.A.3.i requires separation much smaller than plate dimensions. The no-dielectric condition is supported by 10.4.A.4, which says the field between plates of an isolated capacitor decreases when a dielectric is inserted. The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

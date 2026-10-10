@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_physics_c_mechanics-u1-r4-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents average velocity as defined in EK 1.2.B.2 ('Average velocity is the displacement of an object divided by the interval of time in which that displacement occurs.'). The caution correctly notes the CED's position vector notation r from EK 1.1.A.4.ii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.2 first requires this relationship. CED 1.2.B.2 states, \u201cAverage velocity is the displacement of an object divided by the interval of time in which that displacement occurs.\u201d CED 1.2.A.2 defines displacement as the change in position, supporting the vector formula. The caution correctly explains the position-vector notation and its single-axis component form."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED defines average velocity as displacement divided by the interval in which that displacement occurs (1.2.B.2), and displacement is the change in position (1.2.A.2). v_avg = \u0394r/\u0394t matches that definition, and the vector notation is consistent with the CED's use of r for position (1.1.A.4.ii). b_topic_codes: Average velocity is first required in Topic 1.2 (LO 1.2.B, essential knowledge 1.2.B.2), so owner 1.2 is correct. topic_codes ['1.2'] is the only topic that uses it. c_ced_required: LO 1.2.B requires students to 'Describe the average velocity and acceleration of an object', and 1.2.B.2 states the definition the formula expresses. d_caution: The CED wording is verbal ('the displacement of an object divided by the interval of time'), not an equation, so the entry's wording is not the point-earning wording and a caution is needed. The caution is accurate: 1.1.A.4.ii denotes position by r, and the one-axis component form \u0394x/\u0394t is the appropriate single-axis expression. The CED does not give \u0394x/\u0394t for average velocity explicitly, but the caution does not conflict with any CED statement. hooks: none provided, so no hook evaluation is required."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

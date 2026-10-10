@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u2-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 2.6.A.1 from the AP Chemistry CED, which states: 'In cases where more than one equivalent Lewis structure can be constructed, resonance must be included as a refinement to the Lewis structure. In many such cases, this refinement is needed to provide qualitatively accurate predictions of molecular structure and properties.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches essential knowledge 2.6.A.1: \u201cIn cases where more than one equivalent Lewis structure can be constructed, resonance must be included as a refinement to the Lewis structure. In many such cases, this refinement is needed to provide qualitatively accurate predictions of molecular structure and properties.\u201d Topic 2.6 is where this content is required. The entry uses the CED\u2019s terminology, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 2.6.A.1 (CED p. 50) word for word: \"In cases where more than one equivalent Lewis structure can be constructed, resonance must be included as a refinement to the Lewis structure. In many such cases, this refinement is needed to provide qualitatively accurate predictions of molecular structure and properties.\" The title and ced_evidence quote are also consistent with the CED. b_topic_codes: Resonance is introduced under Topic 2.6 (Resonance and Formal Charge), which is the owner code. Topic 2.5 covers only Lewis diagrams, so 2.6 is where this requirement first appears, and topic_codes lists only 2.6. c_ced_required: 2.6.A.1 requires students to include resonance for equivalent Lewis structures, and the LO 2.6.A asks students to represent a molecule with a Lewis diagram that accounts for resonance between equivalent structures. d_caution: The entry uses the CED's own wording, so the point-earning wording is the entry's wording and no caution is needed. caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

@@ -35,6 +35,19 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_chemistry-u3-r2-005`** — 3.1 vocabulary, “Noncovalent interactions in large biomolecules”. Rejected twice by gpt-6-sol. Topics 3.1.A.5 and 3.2.A.7 require noncovalent interactions in large biomolecules; 3.2.A.7 also addresses polymers, so the topic codes and owner are appropriate. However, the body changes the CED’s causal claim. The CED says functionality and properties “depend strongly on the shape of the molecule, which is largely di
 - **`ap_chemistry-u3-r2-009`** — 3.9 vocabulary, “Chromatography”. Rejected twice by gpt-6-sol. Topic 3.9.A.1 requires chromatography, but the body omits part of its stated mechanism: interactions occur “between and among the components of the solution (the mobile phase) and with the surface components of the stationary phase.” The body describes only interactions between mobile- and stationary-phase components. 
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_chemistry-u2-r3-001` (2.6, body) — “Resonance for equivalent Lewis structures”. Restored 2.6.A.1's hedge 'In many such cases'; the entry had made the accuracy claim universal.
+- `ap_chemistry-u3-r3-003` (3.9, body) — “Chromatography”. Restored 3.9.A.1's 'between and among the components of the solution (the mobile phase)', which the entry omitted.
+- `ap_chemistry-u3-r3-001` (3.5, caution, title) — “Average kinetic energy of a particle”. 3.5.A.2 ties the equation to average kinetic energy and average velocity; title restored and the gap cautioned.
+- `ap_chemistry-u3-r3-002` (3.1, body) — “Noncovalent interactions in large biomolecules”. Restored 3.2.A.7's causal chain through shape; the entry had the interactions dictating properties directly.
 ## Cost
 
 294 gateway calls, $2.45 at gateway list prices (from `out/logs_*`, which are not committed).

@@ -38,6 +38,18 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_statistics-u3-r2-008`** — 3.7 convention, “Conclusion wording for a hypothesis test”. Rejected twice by gpt-6-sol. The conclusion convention is required in 3.7.B.6, 3.13.C.3, and 3.15.D.3, and 3.7 is its first listed topic. But the body applies a requirement to refer to a parameter across all three tests. For chi-square conclusions, 3.15.D.3 requires a reference to the population(s), not a parameter; for two-proportion conclusions,
 - **`ap_statistics-u3-r2-011`** — 3.10 formula, “Standard error of \hat{p}_1 - \hat{p}_2”. Rejected twice by own-family veto. a_factual: The formula matches the CED's 3.10.D.1 structure, SE = sqrt(p1(1-p1)/n1 + p2(1-p2)/n2), with the two-proportion sum under the root and n1 and n2 in the denominators. The hats were lost in text extraction, so the sample-proportion notation is taken as the intended form. b_topic_codes: 3.10.D.1 is where the st
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_statistics-u3-r3-001` (3.2, body) — “Interpret sampling distribution results in context”. 3.2.C.1 says 'should'; the entry said 'must', which its own cited evidence contradicted.
+- `ap_statistics-u3-r3-002` (3.7, body) — “Conclusion wording for a hypothesis test”. The entry required a parameter reference for all three tests; 3.15.D.3 requires the population(s) only. Stated per test so the 3.13/3.15 reuse stays valid.
+- `ap_statistics-u3-r3-003` (3.10, caution) — “Standard error of \hat{p}_1 - \hat{p}_2”. 3.10.D.1 defines the SE for the difference between two population proportions; the caution now states that sample proportions stand in for them.
 ## Cost
 
 445 gateway calls, $5.16 at gateway list prices (from `out/logs_*`, which are not committed).

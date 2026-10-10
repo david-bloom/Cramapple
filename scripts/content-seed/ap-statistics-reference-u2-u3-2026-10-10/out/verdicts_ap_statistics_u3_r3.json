@@ -1,0 +1,182 @@
+[
+  {
+    "candidate_id": "ap_statistics-u3-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body is a direct quote of Essential Knowledge 3.2.C.1. The caution is highly accurate and directly addresses the common student errors highlighted in the 'Preparing for the AP Exam' section on page 82 of the CED (distinguishing between population, sample, and sampling distribution, and avoiding the ambiguous use of 'it' or vague statements about sample size and variability)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 3.2.C.1: the mean, standard deviation, and probabilities for a sampling distribution of a sample proportion \u201cshould be interpreted in the context of a specific population.\u201d Topic 3.2 is the listed topic for this requirement. The caution is consistent with Preparing for the AP Exam, which distinguishes \u201ca population, a sample of values \u2026 or a sample statistic from repeated samples\u201d and warns that \u201clarger samples have less variability\u201d is ambiguous."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.2.C.1 verbatim: \"The mean, standard deviation, and probabilities for a sampling distribution of a sample proportion should be interpreted in the context of a specific population.\" No formula or list is present to get wrong. b_topic_codes: 3.2 is the topic that first requires this interpretation (3.2.C.1), and topic_codes lists only 3.2, which is correct. c_ced_required: 3.2.C.1 (skill 4.D) requires students to interpret the mean, standard deviation, and probabilities of a sampling distribution of a sample proportion in context. d_caution: The body is already the point-earning CED wording, so a caution is not strictly required. The caution is still accurate: the 'Preparing for the AP Exam' section says students must make clear whether they mean the population, a sample of values, or a sample statistic across repeated samples, and it cites 'larger samples have less variability' as the ambiguous example. The caution is therefore supported by the CED and does no harm. ced_evidence quotes the CED accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r3-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the CED guidelines for writing conclusions for hypothesis tests across Unit 3. Specifically, it correctly references 3.7.B.6 (one-proportion test conclusion refers to the parameter and population), 3.13.C.3 (two-proportion test conclusion refers to the parameters and populations), and 3.15.D.3 (chi-square test conclusion refers to the population(s)). The caution correctly warns against accepting or proving the null hypothesis, which is emphasized in 3.7.B.4 and the Unit 3 overview."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.7 is the first listed topic requiring a hypothesis-test conclusion in this wording. The body tracks 3.7.B.6, 3.13.C.3, and 3.15.D.3, each of which requires a conclusion in context, in terms of the alternative hypothesis, using non-definitive language. Those statements also specify the respective references to the parameter and population, parameters and populations, and population(s). The caution agrees with 3.7.B.4: a test 'can never lead to concluding or proving that the null hypothesis is true,' and lack of evidence for the alternative is not evidence for the null."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. 3.7.B.6 reads \"A conclusion for the hypothesis test for a population proportion is stated in context consistent with, and in terms of, the alternative hypothesis using non-definitive language. The conclusion should contain a reference to the parameter and the population.\" 3.13.C.3 requires a reference to the parameters and populations for the two-proportion test, and 3.15.D.3 requires a reference to the population(s) for chi-square tests. The items list is empty and no formula is stated, so there is nothing else to verify. b_topic_codes: 3.7.B.6 is the first place the conclusion-wording requirement appears for a one-proportion test, so owner 3.7 is correct. Topics 3.13 and 3.15 each use the same requirement for their own test types. c_ced_required: 3.7.B.6, 3.13.C.3 and 3.15.D.3 each require students to state conclusions in context using non-definitive language that references the parameter or population(s). d_caution: The caution matches 3.7.B.4 (\"can never lead to concluding or proving that the null hypothesis is true\"). It also matches the unit's Preparing for the AP Exam text, which says that for chi-square tests students should say the data \"do not provide strong enough evidence to conclude that the variables are associated\" rather than claiming no association. The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r3-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the standard error of the difference between two sample proportions is factually correct and directly required by Essential Knowledge 3.10.D.1, which states: 'The standard error (SE) for the difference between two population proportions is SE p\u0302_1 - p\u0302_2 = \\sqrt{\\frac{p\u0302_1(1-p\u0302_1)}{n_1} + \\frac{p\u0302_2(1-p\u0302_2)}{n_2}}'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 3.10.D.1, which gives the standard error for the difference between two population proportions using the two sample proportions and sample sizes. Topic 3.10 first requires this estimated standard error; 3.9 instead gives the sampling-distribution standard deviation using population proportions. Learning objective 3.10.D explicitly requires students to calculate the standard error. The caution correctly distinguishes the estimated standard error from that population-based standard deviation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula is the estimated standard error of the difference, with sample proportions in place of population proportions. CED 3.10.D.1 gives the standard error for the difference between two population proportions as sqrt(p1(1-p1)/n1 + p2(1-p2)/n2), with population symbols. The sample-based version is the one used in practice, since CED 3.10.C.2 builds the interval from p\u03021 and p\u03022. The symbols differ from 3.10.D.1 only by the estimation step, which the caution states explicitly, so the body is substantively correct. b_topic_codes: 3.10 is where the estimated SE of a difference is first required. Topic 3.9 gives only the population-parameter standard deviation of the sampling distribution, and 3.10 is the first topic that requires calculating it from data. c_ced_required: 3.10.D.1 says 'Calculate the standard error and margin of error for estimating the difference between two population proportions' [Skill 3.E], so the formula is required. d_caution: The CED writes the SE with population proportions. The caution notes that sample proportions are substituted and ties this to 3.3.D.1, whose CED formula SE_p\u0302 = sqrt(p\u0302(1-p\u0302)/n) uses the same substitution. The caution is needed and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

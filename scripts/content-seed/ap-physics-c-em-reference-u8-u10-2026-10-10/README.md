@@ -37,6 +37,23 @@ Controls include one hook control, which counts as caught only when its planted 
 - **`ap_physics_c_em-u8-r2-003`** — 8.1 convention, “Limit on discrete-charge force calculations”. Rejected twice by gpt-6-sol. The Topic 8.1 boundary says the course “only expects students to make calculations of the electric force between four or fewer interacting charged objects or systems” and allows analysis of more charges “in situations of high symmetry.” The entry accurately summarizes that scope limit and assigns it to 8.1. But the lim
 - **`ap_physics_c_em-u9-r2-002`** — 9.3 formula, “Change in potential energy of a charge moving through a potential difference”. Rejected twice by own-family veto. a_factual: ΔU_E = qΔV is the standard relation, and the CED 9.3.A.1 equation (not legible in the extracted text) is this relation. Symbols and sign convention are correct. b_topic_codes: 9.3 is the topic whose essential knowledge states the equation (9.3.A.1). Topic 9.2 introduces ΔV, but the ΔU = qΔV relation is first
 
+## Product-Owner-directed correction pass (David, 2026-10-10)
+
+David directed the session to correct the escalated rows rather than regenerate them. The protocol bars
+hand-editing a generated row, so this is a recorded deviation under the Product Owner's authority over
+escalations. Each correction restores the CED wording the checker identified as missing, and every corrected
+row was re-checked by both independent checkers and the reject-only veto before loading.
+
+### Corrected, re-checked, accepted and loaded
+
+- `ap_physics_c_em-u10-r3-001` (10.3, caution, topic_codes) — “Field between parallel plates”. Added the no-dielectric condition from 10.4.A.4 and dropped 10.4 from the reuse codes, since 10.4 uses the dielectric-modified field rather than this formula.
+- `ap_physics_c_em-u8-r3-001` (8.1, body) — “Elementary charge and charges of particles”. Restored 8.1.A.1.ii's qualifier 'can be considered to be'.
+- `ap_physics_c_em-u9-r3-001` (9.3, caution) — “Change in potential energy of a charge moving through a potential difference”. Added the object-field-system caution the veto required twice.
+
+### Rejected as inadmissible (no LO/EK basis; not correctable)
+
+- `ap_physics_c_em-u8-r2-003` — The four-or-fewer-charges limit is the Topic 8.1 boundary statement, a scope limit rather than content.
+- `ap_physics_c_em-u10-r2-001` — The list of quantitatively examinable capacitor geometries is the Topic 10.3 boundary statement.
 ## Cost
 
 362 gateway calls, $2.70 at gateway list prices (from `out/logs_*`, which are not committed).

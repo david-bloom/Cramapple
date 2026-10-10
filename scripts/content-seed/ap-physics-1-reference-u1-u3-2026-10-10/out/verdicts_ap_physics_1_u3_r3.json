@@ -1,0 +1,122 @@
+[
+  {
+    "candidate_id": "ap_physics_1-u3-r3-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body is factually accurate and directly quotes Essential Knowledge statements 3.3.A.1 and 3.3.A.2 from the AP Physics 1 CED. The topic codes are appropriate as potential energy is introduced in Topic 3.3 and heavily utilized in Topic 3.4 (Conservation of Energy). No caution is required because the wording matches the CED exactly."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces the substance of 3.3.A.1 and 3.3.A.2: a system of two or more objects has potential energy when its objects interact only through conservative forces, and potential energy is a scalar associated with their positions. Topic 3.3 first requires these statements; 3.4.A.2 also uses potential energy in systems with conservative interactions. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.3.A.1 verbatim in substance: \"A system composed of two or more objects has potential energy if the objects within that system only interact with each other through conservative forces.\" The second sentence matches 3.3.A.2: \"Potential energy is a scalar quantity associated with the position of objects within a system.\" b_topic_codes: 3.3 is the topic that defines potential energy (3.3.A.1, 3.3.A.2). 3.4 uses it in 3.4.A.2 (\"objects that interact via conservative forces ... may have both kinetic and potential energies\"). Caveat: 3.2.A.1.ii and 3.2.A.1.iii mention potential energy before 3.3, so 'first required' is defensible only for the formal definition, which is first stated in 3.3. c_ced_required: 3.3.A (\"Describe the potential energy of a system.\") and its essential knowledge 3.3.A.1 and 3.3.A.2 require a student to reproduce this definition. d_caution: The entry uses the CED's own wording, so the point-earning wording is the wording shown and no caution is needed. caution is null and correct. The entry is accepted."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_1-u3-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the work-energy theorem as defined in Topic 3.2 (specifically EK 3.2.A.4), which states that the change in kinetic energy is equal to the net work done on the object. The caution correctly highlights the nuances of the point of application of forces and constant parallel components as described in EK 3.2.A.3 and 3.2.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2, EK 3.2.A.4 states that \u201cthe change in an object\u2019s kinetic energy is equal to the sum of the work (net work) being done by all forces exerted on the object.\u201d The formula expresses that relationship. The caution correctly identifies whose work is summed and reflects EK 3.2.A.3\u2019s reference to displacement of the point where the force is exerted."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states the work-energy theorem in 3.2.A.4 as \"the change in an object's kinetic energy is equal to the sum of the work (net work) being done by all forces exerted on the object.\" The body \\Delta K=\\sum_i W_i matches this, with \u0394K as the change in kinetic energy and W_i as the work by each force. b_topic_codes: The theorem first appears in Topic 3.2 (3.2.A.4), and no other topic in Unit 3 states it; 3.1 covers only translational KE (3.1.A.1), so owner and topic_codes are correct. c_ced_required: Learning objective 3.2.A asks students to \"Describe the work done on an object or system by a given force or collection of forces,\" and 3.2.A.4 supplies the relation, so the CED requires students to apply it. d_caution: The CED does not state the relation as a net-work sum over each force's work, so the caution is needed. Its content matches 3.2.A.3 (work depends on the component of force and displacement of the point of application, with the force constant) and 3.2.A.4 (\"sum of the work (net work) being done by all forces\")."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]
