@@ -1,0 +1,525 @@
+{
+ "id": "ap_calculus_ab__1.5__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.5",
+  "topic_title": "Determining Limits Using Algebraic Properties of Limits",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:27:55.272Z",
+   "item": {
+    "title": "Limit Theorems with Given Limits and a Piecewise Function",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are defined for all real numbers, and it is known that lim x→2 f(x) = 3 and lim x→2 g(x) = −4. No other information about f and g is given.\n\nThe function q is defined by\nq(x) = x³ − 2x for x < 2\nq(x) = kx + 1 for x > 2\nwhere k is a constant. The function q is not defined at x = 2.",
+    "model_answer": "(a) By the difference and constant multiple properties, lim x→2 [2f(x) − 3g(x)] = 2·lim x→2 f(x) − 3·lim x→2 g(x) = 2(3) − 3(−4) = 6 + 12 = 18.\n\n(b) Denominator: lim x→2 [f(x) + 1] = 3 + 1 = 4. Since this limit is 4 ≠ 0, the quotient property applies. Numerator, by the product property: lim x→2 f(x)·g(x) = (3)(−4) = −12. So the limit is −12/4 = −3.\n\n(c) Inner expression: lim x→2 ([f(x)]² + 7) = (3)² + 7 = 16, using the product (or power) and sum properties. The square root function is continuous at 16, so by the limit property for composite functions, lim x→2 √([f(x)]² + 7) = √16 = 4.\n\n(d) For x < 2, q(x) = x³ − 2x, so lim x→2⁻ q(x) = 2³ − 2(2) = 8 − 4 = 4. For x > 2, q(x) = kx + 1, so lim x→2⁺ q(x) = 2k + 1. The two-sided limit lim x→2 q(x) exists if and only if the left-hand and right-hand limits are equal (q(2) being undefined does not affect the limit). Setting 2k + 1 = 4 gives k = 3/2.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nLf=F(3); Lg=F(-4)\na=2*Lf-3*Lg\nassert a==18\nden=Lf+1\nassert den==4 and den!=0\nnum=Lf*Lg\nassert num==-12\nassert num/den==-3\ninner=Lf**2+7\nassert inner==16\nassert sp.sqrt(16)==4\nx,k=sp.symbols('x k')\nleft=sp.limit(x**3-2*x,x,2,'-')\nassert left==4\nright=sp.limit(k*x+1,x,2,'+')\nassert sp.simplify(right-(2*k+1))==0\nsol=sp.solve(sp.Eq(right,left),k)\nassert sol==[sp.Rational(3,2)]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [2f(x) − 3g(x)]. Show the limit properties you use.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2 [2f(x) − 3g(x)] = 18 using the sum/difference and constant multiple properties.",
+        "evidence": "Response writes the limit as 2·lim f(x) − 3·lim g(x) = 2(3) − 3(−4) and obtains 18.",
+        "fix": "Split the limit into 2·lim f(x) − 3·lim g(x), substitute the given limits, and watch the sign when subtracting a negative.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 [f(x)·g(x)] / [f(x) + 1]. Explain why the quotient property of limits may be applied.",
+      "criteria": [
+       {
+        "text": "States that the limit of the denominator is lim x→2 [f(x) + 1] = 4, which is not 0, so the quotient property applies.",
+        "evidence": "Response computes the denominator's limit as 4 and explicitly notes it is nonzero as the condition for the quotient property.",
+        "fix": "Before using the quotient property, compute the limit of the denominator and state that it is not zero.",
+        "accepted_variants": [
+         "denominator limit is 4 ≠ 0"
+        ]
+       },
+       {
+        "text": "Finds the limit value −3.",
+        "evidence": "Response shows the numerator limit (3)(−4) = −12 from the product property and divides by 4 to get −3.",
+        "fix": "Use the product property for the numerator, lim f · lim g = (3)(−4), then divide by the denominator's limit.",
+        "accepted_variants": [
+         "-12/4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 √( [f(x)]² + 7 ). Justify your answer by referring to the appropriate limit property.",
+      "criteria": [
+       {
+        "text": "Finds the limit value 4 with justification that the limit of a composite function can be found by applying the continuous outer square-root function to the limit of the inner expression.",
+        "evidence": "Response finds lim x→2 ([f(x)]² + 7) = 9 + 7 = 16, states that the square root function is continuous at 16 (composite limit property), and obtains √16 = 4.",
+        "fix": "Find the inner limit first, then state that √u is continuous at that value so the limit passes inside the root.",
+        "accepted_variants": [
+         "√16"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2⁻ q(x) and lim x→2⁺ q(x) in terms of k. Then find the value of k for which lim x→2 q(x) exists, and explain why.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2⁻ q(x) = 4.",
+        "evidence": "Response uses the x < 2 piece and evaluates 2³ − 2(2) = 4.",
+        "fix": "For a left-hand limit at 2, use the piece defined for x < 2 and substitute x = 2 into that polynomial.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds lim x→2⁺ q(x) = 2k + 1.",
+        "evidence": "Response uses the x > 2 piece and evaluates k(2) + 1 = 2k + 1.",
+        "fix": "For a right-hand limit at 2, use the piece defined for x > 2 and substitute x = 2.",
+        "accepted_variants": [
+         "k·2 + 1"
+        ]
+       },
+       {
+        "text": "Finds k = 3/2 because the two-sided limit exists exactly when the left-hand and right-hand limits are equal.",
+        "evidence": "Response sets 2k + 1 = 4, solves k = 3/2, and states that the two-sided limit exists only if both one-sided limits are equal (the fact that q(2) is undefined does not matter).",
+        "fix": "State that a two-sided limit exists only when both one-sided limits are equal, then set them equal and solve for k.",
+        "accepted_variants": [
+         "1.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:38:46.500Z",
+   "item": {
+    "title": "Limit Theorems with Two Unknown Functions",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are defined for all real numbers. Their values at x = 2 are not given, but it is known that lim x→2 f(x) = 4 and lim x→2 g(x) = −3. The function q is defined by q(x) = x·f(x) for x < 2 and q(x) = 2 − x·g(x) for x > 2. The value q(2) is not defined.",
+    "model_answer": "(a) lim x→2 [3f(x) − x·g(x)²] = 3·lim x→2 f(x) − (lim x→2 x)(lim x→2 g(x))² = 3(4) − 2(−3)² = 12 − 18 = −6.\n\n(b) Denominator: lim x→2 (x − f(x)) = 2 − 4 = −2. Since −2 ≠ 0, the quotient property applies. Numerator: lim x→2 (f(x) + g(x)) = 4 + (−3) = 1. So the limit is 1/(−2) = −1/2.\n\n(c) lim x→2 (f(x) + 5) = 4 + 5 = 9. Because the square root function is continuous at 9, lim x→2 √(f(x) + 5) = √(lim x→2 (f(x) + 5)) = √9 = 3.\n\n(d) lim x→2− q(x) = lim x→2− x·f(x) = 2·4 = 8.\nlim x→2+ q(x) = lim x→2+ (2 − x·g(x)) = 2 − 2(−3) = 8.\nThe left-hand and right-hand limits both exist and are equal to 8, so lim x→2 q(x) exists and equals 8. The fact that q(2) is undefined does not affect the limit.",
+    "verification_python": "from fractions import Fraction as F\nimport math\nLf=F(4);Lg=F(-3);c=F(2)\na=3*Lf-c*Lg**2\nassert a==-6\nassert 3*Lf==12 and c*Lg**2==18\nden=c-Lf\nassert den==-2 and den!=0\nnum=Lf+Lg\nassert num==1\nassert num/den==F(-1,2)\ninner=Lf+5\nassert inner==9\nassert math.isclose(math.sqrt(inner),3)\nleft=c*Lf\nright=2-c*Lg\nassert left==8 and right==8 and left==right\nassert c*Lg==-6\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→2 [3f(x) − x·g(x)²]. Show the limit properties you use.",
+      "criteria": [
+       {
+        "text": "Correct value −6, obtained by applying sum/difference, constant multiple and product properties of limits.",
+        "evidence": "Shows 3·lim f(x) − (lim x)(lim g(x))² = 3(4) − 2(−3)² = 12 − 18 and concludes −6.",
+        "fix": "Split the expression into separate limits using sum, constant multiple and product rules, substitute each known limit, then combine carefully.",
+        "accepted_variants": [
+         "12 − 18 = −6",
+         "3·4 − 2·9 = −6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 (f(x) + g(x))/(x − f(x)). Justify that the quotient property of limits applies.",
+      "criteria": [
+       {
+        "text": "States the limit of the denominator is 2 − 4 = −2, which is not 0, so the quotient property applies.",
+        "evidence": "Computes lim x→2 (x − f(x)) = −2 and explicitly notes it is nonzero as the condition for using the quotient rule.",
+        "fix": "Before using the quotient property, compute the denominator's limit and state explicitly that it is not zero.",
+        "accepted_variants": [
+         "denominator limit −2 ≠ 0"
+        ]
+       },
+       {
+        "text": "Correct value −1/2 from numerator limit 1 divided by denominator limit −2.",
+        "evidence": "Shows lim (f(x) + g(x)) = 4 + (−3) = 1 and gives 1/(−2) = −1/2.",
+        "fix": "Find the numerator and denominator limits separately, then divide them; watch the sign of the denominator.",
+        "accepted_variants": [
+         "−0.5",
+         "1/(−2)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 √(f(x) + 5). Give a reason why the limit can be moved inside the square root.",
+      "criteria": [
+       {
+        "text": "Correct value 3, with inner limit 9 and the reason that the square root function is continuous at 9.",
+        "evidence": "Shows lim (f(x) + 5) = 9, states √ is continuous at 9 (composite limit property), and concludes √9 = 3.",
+        "fix": "For a composite limit, find the inner limit first, then state that the outer function is continuous at that value before applying it.",
+        "accepted_variants": [
+         "√9 = 3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2− q(x) and lim x→2+ q(x). Then determine whether lim x→2 q(x) exists, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Left-hand limit lim x→2− q(x) = 8, using the x < 2 rule.",
+        "evidence": "Shows lim x→2− x·f(x) = 2·4 = 8.",
+        "fix": "For a left-hand limit of a piecewise function, use the rule for x < 2 and apply the product property.",
+        "accepted_variants": [
+         "2·4 = 8"
+        ]
+       },
+       {
+        "text": "Right-hand limit lim x→2+ q(x) = 8, using the x > 2 rule.",
+        "evidence": "Shows lim x→2+ (2 − x·g(x)) = 2 − 2(−3) = 8.",
+        "fix": "For a right-hand limit, use the rule for x > 2, substitute the limit of g, and track the double negative.",
+        "accepted_variants": [
+         "2 − (−6) = 8",
+         "2 + 6 = 8"
+        ]
+       },
+       {
+        "text": "Concludes lim x→2 q(x) exists and equals 8 because the two one-sided limits are equal.",
+        "evidence": "States that both one-sided limits equal 8, so the two-sided limit exists and is 8; notes q(2) being undefined does not matter.",
+        "fix": "State that a two-sided limit exists exactly when both one-sided limits exist and are equal, then name the common value.",
+        "accepted_variants": [
+         "lim x→2 q(x) = 8 since left and right limits agree"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 accepts arithmetic alone, such as 12 − 18 = −6, without showing the limit properties explicitly requested in part (a). Criterion c1 accepts √9 = 3 without the continuity justification explicitly requested in part (c). These accepted variants omit required evidence and are not equivalent to the complete elements described by the criteria.",
+       "solution: The independent solution agrees with every mathematical result: (a) −6; (b) −1/2 with denominator limit −2 ≠ 0; (c) 3 by continuity of the square-root function at 9; (d) both one-sided limits equal 8, so the two-sided limit is 8. However, the accepted variants in a1 and c1 permit responses that omit reasoning required by the prompts."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 accepts arithmetic alone, such as 12 − 18 = −6, without showing the limit properties explicitly requested in part (a). Criterion c1 accepts √9 = 3 without the continuity justification explicitly requested in part (c). These accepted variants omit required evidence and are not equivalent to the complete elements described by the criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with every mathematical result: (a) −6; (b) −1/2 with denominator limit −2 ≠ 0; (c) 3 by continuity of the square-root function at 9; (d) both one-sided limits equal 8, so the two-sided limit is 8. However, the accepted variants in a1 and c1 permit responses that omit reasoning required by the prompts.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 combines limit-property setup and numerical execution into one all-or-nothing point, contrary to the supplied scoring conventions; c1 similarly combines evaluation and continuity justification. The accepted variant '12 − 18 = −6' in a1 does not show the requested limit properties, and '√9 = 3' in c1 omits the explicitly requested reason. Criterion d3's evidence additionally requires noting that q(2) being undefined does not matter, although the part does not request that separate observation and equality of the one-sided limits fully justifies the conclusion."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines limit-property setup and numerical execution into one all-or-nothing point, contrary to the supplied scoring conventions; c1 similarly combines evaluation and continuity justification. The accepted variant '12 − 18 = −6' in a1 does not show the requested limit properties, and '√9 = 3' in c1 omits the explicitly requested reason. Criterion d3's evidence additionally requires noting that q(2) being undefined does not matter, although the part does not request that separate observation and equality of the one-sided limits fully justifies the conclusion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

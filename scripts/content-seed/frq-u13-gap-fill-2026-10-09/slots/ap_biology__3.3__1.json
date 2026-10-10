@@ -1,0 +1,947 @@
+{
+ "id": "ap_biology__3.3__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 3,
+  "unit_title": "Cellular Energetics",
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.502Z",
+   "source": "given",
+   "item": {
+    "title": "A Sequential Pathway and Energy Coupling in a Bacterium",
+    "calculator": "permitted",
+    "stimulus": "A bacterium makes molecule D from molecule A through a three-step pathway. Each step is catalyzed by a different enzyme.\n\nStep 1: A → B\nStep 2: B → C\nStep 3: C → D\n\nResearchers measured the concentrations of the pathway molecules in normal cells and in a mutant strain that lacks a working enzyme for one of the three steps.\n\nMolecule | Normal cells (mM) | Mutant cells (mM)\nA | 1.0 | 1.1\nB | 0.4 | 6.5\nC | 0.3 | 0.0\nD | 2.0 | 0.0\n\nStep 3 requires an input of energy. In the cell, step 3 is coupled to reaction E, which releases energy. Reaction E releases 30 kJ of energy per mole, and step 3 requires 21 kJ of energy per mole.",
+    "parts": [
+     {
+      "prompt": "Using the data, identify the step that is blocked in the mutant strain.",
+      "criteria": [
+       {
+        "text": "Identifies step 2 (B → C) as the blocked step.",
+        "evidence": "Response names step 2 (B → C).",
+        "fix": "Find where a pathway molecule piles up and the next molecule is missing; the blocked step lies between them.",
+        "accepted_variants": [
+         "B → C",
+         "step 2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The enzyme for step 3 works normally in the mutant cells. Explain why the mutant cells contain no D.",
+      "criteria": [
+       {
+        "text": "Explains that in a sequential pathway the product of one step is the reactant for the next step: C, the product of step 2, is the reactant for step 3, so with no C made, step 3 cannot produce D.",
+        "evidence": "Response states that step 3 needs C as its reactant and that C is not made because step 2 is blocked, so no D is formed.",
+        "fix": "Trace the pathway forward: each step's product feeds the next step, so a missing reactant stops every later step.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how coupling step 3 to reaction E allows step 3 to occur in the cell.",
+      "criteria": [
+       {
+        "text": "Explains that the energy released by reaction E is used to supply the energy that step 3 requires; because E releases more energy (30 kJ per mole) than step 3 needs (21 kJ per mole), the coupled processes can proceed together.",
+        "evidence": "Response states that the energy-releasing reaction E provides the energy input required by the energy-requiring step 3, and notes that E releases at least as much energy as step 3 needs.",
+        "fix": "Describe coupling as an energy-releasing process paying for an energy-requiring one, and check that energy released exceeds energy required.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the amount of energy per mole released by reaction E that is not used to drive step 3, and describe what happens to this energy.",
+      "criteria": [
+       {
+        "text": "Calculates 30 kJ − 21 kJ = 9 kJ per mole not used by step 3.",
+        "evidence": "Response subtracts the energy required by step 3 from the energy released by E and obtains 9 kJ per mole.",
+        "fix": "Subtract energy required from energy released; the difference is the energy left over from the coupled reactions.",
+        "accepted_variants": [
+         "9 kJ/mol"
+        ]
+       },
+       {
+        "text": "Describes that the extra energy is released to the surroundings as heat (thermal energy); it is not destroyed, consistent with the first law of thermodynamics.",
+        "evidence": "Response states that the unused energy is lost to the surroundings as heat (thermal energy), not destroyed or stored.",
+        "fix": "Remember energy transfers are never complete: energy not captured is released as heat, and energy is never destroyed.",
+        "accepted_variants": [
+         "lost as heat"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Step 2 (B → C) is blocked. In the mutant, B builds up to 6.5 mM (compared with 0.4 mM in normal cells), while C is absent (0.0 mM). B is the reactant of step 2 and C is its product, so the block is at step 2.\n\n(b) The pathway is sequential: the product of one step is the reactant for the next. C, the product of step 2, is the reactant for step 3. Because step 2 is blocked, no C is made, so even though the step 3 enzyme works, step 3 has no reactant and no D is produced.\n\n(c) Step 3 requires an input of energy that it cannot supply itself. When step 3 is coupled to reaction E, the energy released by reaction E is used to provide the energy step 3 requires. Reaction E releases 30 kJ per mole, more than the 21 kJ per mole step 3 needs, so the coupled processes can proceed together.\n\n(d) 30 kJ − 21 kJ = 9 kJ per mole is not used to drive step 3. This energy is released to the surroundings as heat (thermal energy). It is not destroyed, consistent with the first law of thermodynamics.",
+    "verification_python": "normal={'A':1.0,'B':0.4,'C':0.3,'D':2.0}\nmut={'A':1.1,'B':6.5,'C':0.0,'D':0.0}\nassert mut['B']>normal['B']\nassert mut['C']==0.0 and mut['D']==0.0\nE=30;S3=21\nassert E>S3\nassert E-S3==9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Parts (c)–(d), particularly criterion d1, assume one mole of reaction E drives one mole of step 3, but the coupling ratio is not specified. Without that ratio, the energy surplus per mole of step 3 is not uniquely determined. State explicitly that the reactions are coupled in a 1:1 molar ratio.",
+       "solution: The blocked step is step 2, and the absence of C prevents production of D, agreeing with a1 and b1. Energy released by E can drive step 3, agreeing with the coupling explanation in c1. The 9 kJ/mol result in d1 is correct only under the unstated 1:1 coupling assumption. Under that intended assumption and the AP-level heat-dissipation simplification, d2 agrees. No model answer or existing questions were supplied for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The coupling stoichiometry is not explicitly stated. The numerical answers in (c) and (d) assume that one mole of reaction E drives one mole of step 3, as the question appears to intend.",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Parts (c)–(d), particularly criterion d1, assume one mole of reaction E drives one mole of step 3, but the coupling ratio is not specified. Without that ratio, the energy surplus per mole of step 3 is not uniquely determined. State explicitly that the reactions are coupled in a 1:1 molar ratio."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The blocked step is step 2, and the absence of C prevents production of D, agreeing with a1 and b1. Energy released by E can drive step 3, agreeing with the coupling explanation in c1. The 9 kJ/mol result in d1 is correct only under the unstated 1:1 coupling assumption. Under that intended assumption and the AP-level heat-dissipation simplification, d2 agrees. No model answer or existing questions were supplied for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d2: the part asks only what happens to the excess energy; a correct answer 'lost as heat' should suffice, but the rubric additionally requires 'it is not destroyed, consistent with the first law of thermodynamics,' an unasked conservation claim and a second observable element for one point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3 Cellular Energy",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d2: the part asks only what happens to the excess energy; a correct answer 'lost as heat' should suffice, but the rubric additionally requires 'it is not destroyed, consistent with the first law of thermodynamics,' an unasked conservation claim and a second observable element for one point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:34:40.092Z",
+   "item": {
+    "title": "ATP Balance and Sequential Pathways in Yeast Cells",
+    "calculator": "permitted",
+    "stimulus": "A researcher studies energy balance in yeast cells. Two identical yeast cultures are grown at 30°C in a medium containing glucose. Compound X is added to culture 2 only.\n\nCompound X binds to the enzyme that catalyzes the third reaction of glycolysis and blocks its activity. Glycolysis is a sequence of enzyme-catalyzed reactions.\n\nDuring the first hour after treatment, the researcher measures two rates in each culture. The rate of ATP synthesis is the rate at which the cells produce ATP. The rate of ATP use is the rate at which the cells hydrolyze ATP to power cellular processes such as protein synthesis and active transport.\n\nCulture | Treatment | Rate of ATP synthesis (µmol per g cells per min) | Rate of ATP use (µmol per g cells per min)\n1 | Glucose only | 12.0 | 10.5\n2 | Glucose + compound X | 3.0 | 9.0",
+    "model_answer": "(a) Joining amino acids requires energy. The cell couples this energy-requiring reaction to ATP hydrolysis, in which ATP is broken into ADP and phosphate and energy is released. The energy released by ATP hydrolysis powers the formation of peptide bonds, so the overall coupled process can proceed.\n\n(b) Percent decrease = (12.0 − 3.0) ÷ 12.0 × 100 = 9.0 ÷ 12.0 × 100 = 75%.\n\n(c) The cells in culture 2 will be unable to maintain their highly ordered state and cellular processes such as protein synthesis and active transport, and they will eventually die. In culture 2 the cells use ATP at 9.0 µmol per g per min but synthesize it at only 3.0 µmol per g per min, so energy loss exceeds energy input. Living systems must have energy input greater than energy loss to maintain order and power cellular processes, and a significant loss of energy flow results in death.\n\n(d) Glycolysis is a sequential pathway in which the product of one reaction is the reactant for the next reaction. When compound X blocks the third reaction, its product is not made, so the enzymes for the fourth and later reactions have no substrate. The later steps, including those that produce ATP, cannot occur, so the output of the whole pathway falls.",
+    "verification_python": "from fractions import Fraction as F\nsyn1=F(120,10); use1=F(105,10); syn2=F(30,10); use2=F(90,10)\npct=(syn1-syn2)/syn1*100\nassert pct==75\nassert (syn1-syn2)==F(9)\nassert use2>syn2\nassert use2-syn2==F(6)\nassert syn1>use1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how yeast cells use ATP to carry out an energy-requiring process such as joining amino acids to make a protein.",
+      "criteria": [
+       {
+        "text": "The energy-releasing hydrolysis of ATP is coupled to the energy-requiring process, so energy released from ATP powers the reaction.",
+        "evidence": "States that ATP hydrolysis (breaking ATP into ADP and phosphate) releases energy and that this energy-releasing reaction is coupled to, or drives, the energy-requiring reaction.",
+        "fix": "State that ATP hydrolysis releases energy and is coupled to the energy-requiring reaction, supplying the energy that reaction needs.",
+        "accepted_variants": [
+         "energy released when ATP is broken down to ADP and phosphate is used to power the endergonic reaction",
+         "an exergonic reaction (ATP hydrolysis) is coupled with an endergonic reaction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent decrease in the rate of ATP synthesis in culture 2 compared with culture 1. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent decrease = (12.0 − 3.0) ÷ 12.0 × 100 = 75%.",
+        "evidence": "Shows the difference between the two synthesis rates divided by the culture 1 rate and reports 75%.",
+        "fix": "Subtract the new value from the original, divide by the original value (12.0), then multiply by 100.",
+        "accepted_variants": [
+         "75 percent",
+         "a 75% decrease",
+         "9.0/12.0 × 100 = 75%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict what will happen to the cells in culture 2 if the conditions continue for many hours. Justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "Prediction: the cells in culture 2 will be unable to maintain their organized (ordered) state and cellular processes, and will eventually die.",
+        "evidence": "Predicts loss of cellular order or failure of cellular processes, leading to cell death or loss of viability.",
+        "fix": "Predict a specific outcome for the cells, such as loss of order and death, not just a change in a number.",
+        "accepted_variants": [
+         "the cells will die",
+         "the cells will stop growing, lose order, and die",
+         "cellular processes such as active transport and protein synthesis will fail and the cells die"
+        ]
+       },
+       {
+        "text": "Justification: in culture 2 the rate of ATP use (9.0) exceeds the rate of ATP synthesis (3.0), but living systems require energy input to exceed energy loss to maintain order.",
+        "evidence": "Cites that ATP use is greater than ATP synthesis in culture 2 (with the values or the comparison) and connects this to the principle that energy input must exceed energy loss to maintain order and power cellular processes.",
+        "fix": "Compare the two rates for culture 2, then link the comparison to the rule that energy input must exceed energy loss.",
+        "accepted_variants": [
+         "cells use 6.0 more µmol ATP per g per min than they make, so energy input is less than energy loss",
+         "energy demand is greater than energy supply, so order cannot be maintained"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Compound X blocks only the third reaction of glycolysis. Explain why blocking this single reaction reduces the output of the entire pathway.",
+      "criteria": [
+       {
+        "text": "Glycolysis is sequential: the product of each reaction is the reactant for the next, so blocking the third reaction prevents the substrates of all later reactions, including the ATP-producing steps, from being made.",
+        "evidence": "Explains that the product of the blocked reaction is the reactant (substrate) for the next step, so later steps cannot proceed and their products, including ATP, are not formed.",
+        "fix": "Explain that each reaction's product is the next reaction's reactant, so a blocked step starves all later steps of substrate.",
+        "accepted_variants": [
+         "later enzymes in the pathway lack their substrate because the product of step 3 is not made",
+         "downstream reactions cannot occur because each step depends on the product of the previous step"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "3.5": 4,
+     "3.3": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:36:00.379Z",
+   "item": {
+    "title": "Energy Balance, Order, and Coupling in Growing Fish",
+    "calculator": "not_permitted",
+    "stimulus": "A biologist studied how energy input affects the growth of juvenile zebrafish. Three groups of fish were fed different daily food rations for 14 days. Water temperature and all other conditions were kept the same. For each group, the biologist estimated three values. The first was the energy absorbed from food per fish per day. The second was the energy lost per fish per day, mainly as heat and in waste. The third was the percent change in body mass over the 14 days.\n\nGroup | Energy absorbed (J/day per fish) | Energy lost (J/day per fish) | Change in body mass over 14 days (%)\nA | 120 | 80 | +18\nB | 80 | 78 | +1\nC | 40 | 75 | −12",
+    "model_answer": "(a) Net energy balance = energy absorbed − energy lost = 40 J/day − 75 J/day = −35 J/day. Over 14 days: −35 J/day × 14 days = −490 J. Each group C fish had a net energy loss of 490 J.\n\n(b) Group A absorbed 120 J/day but lost only 80 J/day, a surplus of 40 J/day. Because energy input exceeded energy loss, the extra energy was available to build and maintain ordered structures such as new tissue, so the fish gained mass (+18%). Group C absorbed only 40 J/day but lost 75 J/day. Its loss exceeded its input, so the fish had to break down their own stored fats, glycogen and proteins to supply the missing energy. As a result they lost body mass (−12%).\n\n(c) The group C fish would continue to lose mass and would eventually die. Energy loss would keep exceeding energy input, so the fish would use up their stored macromolecules. Once the reserves were gone, cells could no longer power the processes that maintain their highly ordered structure. A significant loss of order or energy flow results in death.\n\n(d) Cellular respiration is an energy-releasing process. The energy released from glucose is captured by making ATP from ADP and phosphate. Joining amino acids by peptide bonds (dehydration synthesis) requires energy. The cell couples the hydrolysis of ATP, which releases energy, to this energy-requiring reaction. In this way the energy from glucose indirectly drives protein synthesis and growth.",
+    "verification_python": "from fractions import Fraction\nA_in, A_out = 120, 80\nB_in, B_out = 80, 78\nC_in, C_out = 40, 75\ndays = 14\nnet_C = C_in - C_out\nassert net_C == -35\nassert net_C * days == -490\nnet_A = A_in - A_out\nassert net_A == 40\nassert A_in > A_out\nassert C_out > C_in\nassert B_in - B_out == 2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the net energy balance per fish in group C, both per day and over the full 14 days. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct net energy balance for group C: 40 − 75 = −35 J/day, and −35 × 14 = −490 J over 14 days (a net loss of 490 J).",
+        "evidence": "Response subtracts energy lost from energy absorbed to get −35 J/day. It then multiplies by 14 days to get −490 J, or states a net loss of 490 J. The work is shown.",
+        "fix": "Subtract energy lost from energy absorbed for one day, then multiply that daily balance by the number of days. Keep the negative sign.",
+        "accepted_variants": [
+         "−35 J/day and −490 J",
+         "net loss of 35 J per day and 490 J over 14 days",
+         "a deficit of 35 J/day, totaling 490 J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain why fish in group A increased in body mass while fish in group C decreased in body mass.",
+      "criteria": [
+       {
+        "text": "Group A absorbed more energy than it lost (120 > 80 J/day, a surplus of 40 J/day), so the surplus could be used to build and maintain ordered body structures. Group C lost more energy than it absorbed (75 > 40 J/day), so the fish had to break down their own stored molecules.",
+        "evidence": "Response compares input with loss for both groups, using the data. It links A's surplus to building ordered structure or growth. It links C's deficit to breaking down body molecules or reserves, which lowers mass.",
+        "fix": "Compare energy input to energy loss for each group with numbers. State that only surplus energy can build order, and a deficit forces breakdown of reserves.",
+        "accepted_variants": [
+         "A's input exceeded its loss, so extra energy was stored as new tissue; C's loss exceeded its input, so C used up its fats or proteins",
+         "A had a positive energy balance that allowed biosynthesis; C had a negative balance that required catabolism of body macromolecules"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict what would happen to fish in group C if they were kept on the same ration indefinitely. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the group C fish would keep losing body mass and would eventually die.",
+        "evidence": "Response states that the fish would continue to lose mass and would eventually die.",
+        "fix": "Extend the trend: a continuing energy deficit cannot last forever. State the end result for the organism, which is death.",
+        "accepted_variants": [
+         "the fish will starve to death",
+         "continued mass loss leading to death"
+        ]
+       },
+       {
+        "text": "Justification: energy loss would keep exceeding energy input, so stored energy reserves would be used up. Cells could then no longer power the processes that maintain order, and this significant loss of order or energy flow results in death.",
+        "evidence": "Response connects the continuing deficit to the depletion of stored reserves. It then connects that depletion to the inability to maintain order or power cellular processes, which causes death.",
+        "fix": "Link the deficit to the depletion of stored molecules, then to the failure to maintain cellular order, which causes death.",
+        "accepted_variants": [
+         "once fat and protein reserves are gone, there is no energy to maintain organized cells, so the organism dies",
+         "energy input must exceed loss to maintain order; without it order breaks down and the fish dies"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The growth of group A fish requires building proteins from amino acids, which is an energy-requiring process. Explain how energy released by breaking down glucose in cellular respiration can be used to power this protein synthesis.",
+      "criteria": [
+       {
+        "text": "Energy coupling: cellular respiration releases energy from glucose, and that energy is captured in ATP. ATP is then hydrolyzed in a reaction coupled to the energy-requiring formation of peptide bonds between amino acids.",
+        "evidence": "Response states that respiration produces ATP. It also states that energy released by ATP hydrolysis is coupled to, or drives, the energy-requiring joining of amino acids into proteins.",
+        "fix": "Name ATP as the link. Respiration makes ATP, and ATP hydrolysis is coupled to energy-requiring reactions such as joining amino acids.",
+        "accepted_variants": [
+         "an energy-releasing process (respiration making ATP) is coupled to an energy-requiring process (peptide bond formation) through ATP hydrolysis",
+         "respiration regenerates ATP from ADP; breaking ATP releases energy that drives dehydration synthesis of polypeptides"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:36:49.598Z",
+   "item": {
+    "title": "Energy Coupling, Sequential Pathways, and Conserved Metabolism",
+    "calculator": "not_applicable",
+    "stimulus": "A soil bacterium makes most of its ATP through a three-step metabolic pathway in which compound W is converted to compound Z. Each step is catalyzed by a different enzyme:\n\nW → X (enzyme 1)\nX → Y (enzyme 2)\nY → Z (enzyme 3)\n\nATP is produced during the step catalyzed by enzyme 3. The bacterium also builds the amino acid glutamine from glutamate and ammonia, a reaction that requires energy and does not occur on its own at a useful rate.\n\nResearchers grew two cultures of the bacterium under identical conditions. They added a chemical that inhibits one of the three enzymes to the treated culture only. After 30 minutes, they measured the concentration of each pathway compound in both cultures.\n\nCompound | Control culture (μmol/g cells) | Treated culture (μmol/g cells)\nW | 2.0 | 2.1\nX | 1.5 | 6.8\nY | 1.2 | 0.1\nZ | 3.0 | 0.3\n\nGenes encoding the enzymes of glycolysis have also been found in this bacterium, in archaea, and in eukaryotes such as yeast and humans.",
+    "model_answer": "(a) Making glutamine from glutamate and ammonia requires an input of energy. The bacterium couples this reaction to an energy-releasing process, the hydrolysis of ATP to ADP and phosphate. The energy released by breaking down ATP is used to drive glutamine synthesis.\n\n(b) Enzyme 2 (the enzyme that converts X to Y) was inhibited. In the treated culture X built up from 1.5 to 6.8 μmol/g, while Y dropped from 1.2 to 0.1 μmol/g and Z dropped from 3.0 to 0.3 μmol/g. W stayed about the same (2.0 vs 2.1). X is the substrate of enzyme 2, so blocking enzyme 2 lets X accumulate and stops formation of the compounds after it.\n\n(c) Z decreased even though enzyme 3 was not the target. Enzyme 3 needs Y as its reactant, and Y is the product of step 2. When step 2 was blocked, little Y was made, so step 3 could not produce Z. This shows that each step uses the product of the step before it, so the pathway is sequential.\n\n(d) I predict the cells will stop growing and eventually die. Because step 3 makes the ATP, blocking the pathway sharply reduces ATP production. Cells must have an energy input that is greater than the energy they lose in order to maintain their highly ordered structure and to power processes such as glutamine synthesis. Without enough ATP, energy loss exceeds energy input, the cell loses order, and it dies. Glycolysis is a core metabolic pathway found in bacteria, archaea, and eukaryotes. The simplest explanation for the same pathway appearing in all three domains is that it was inherited from a common ancestor that already used it, rather than evolving separately in each lineage.",
+    "verification_python": "control = {'W': 2.0, 'X': 1.5, 'Y': 1.2, 'Z': 3.0}\ntreated = {'W': 2.1, 'X': 6.8, 'Y': 0.1, 'Z': 0.3}\norder = ['W', 'X', 'Y', 'Z']\n# enzyme k converts order[k-1] to order[k]\n# find accumulated compound (largest increase)\nincreases = {c: treated[c] - control[c] for c in order}\naccum = max(increases, key=increases.get)\nassert accum == 'X'\ninhibited_enzyme = order.index(accum) + 1\nassert inhibited_enzyme == 2\n# all downstream compounds decrease\nfor c in order[order.index(accum) + 1:]:\n    assert treated[c] < control[c]\nassert abs(treated['W'] - control['W']) <= 0.2\nassert control['X'] == 1.5 and treated['X'] == 6.8\nassert control['Y'] == 1.2 and treated['Y'] == 0.1\nassert control['Z'] == 3.0 and treated['Z'] == 0.3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how the bacterium can carry out the energy-requiring synthesis of glutamine from glutamate and ammonia.",
+      "criteria": [
+       {
+        "text": "The energy-requiring glutamine synthesis is coupled to an energy-releasing process, such as ATP hydrolysis, which supplies the energy needed.",
+        "evidence": "Response states that an energy-releasing reaction (ATP hydrolysis or breakdown of ATP to ADP and phosphate) is coupled to the glutamine-forming reaction and provides its energy.",
+        "fix": "When a reaction requires energy, state that it is coupled to an energy-releasing process such as ATP hydrolysis that supplies that energy.",
+        "accepted_variants": [
+         "ATP is broken down and the released energy drives glutamine formation",
+         "the reaction is powered by coupling it to ATP hydrolysis",
+         "an exergonic reaction is coupled to the endergonic reaction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the enzyme that the chemical inhibited. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Enzyme 2 was inhibited, justified by the accumulation of X (1.5 to 6.8 μmol/g) and the drop in Y and Z (1.2 to 0.1 and 3.0 to 0.3 μmol/g) in the treated culture.",
+        "evidence": "Response names enzyme 2 and cites data showing that X, the substrate of enzyme 2, built up while Y and Z, the products downstream of enzyme 2, decreased, with W roughly unchanged.",
+        "fix": "Find the compound that accumulates; the inhibited enzyme uses it as substrate, and every compound after that step should decrease.",
+        "accepted_variants": [
+         "the enzyme that converts X to Y",
+         "X increased while Y and Z decreased, so the X → Y step is blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the data in the table show that the steps of this pathway are sequential, with the product of one step serving as the reactant for the next.",
+      "criteria": [
+       {
+        "text": "Blocking one step decreased not only Y but also Z, showing that Y (the product of step 2) is the reactant for step 3, so each step depends on the product of the previous step.",
+        "evidence": "Response connects the decrease in Z (from 3.0 to 0.3) to the lack of Y, stating that step 3 needs Y made in step 2, so inhibiting one enzyme affects all later steps.",
+        "fix": "Link a downstream decrease to the missing intermediate: explain that the next enzyme lacks its reactant because the previous step produced it.",
+        "accepted_variants": [
+         "Z fell because enzyme 3 had no Y to convert",
+         "the product of step 2 is the substrate of step 3, so blocking step 2 starves step 3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the effect on the bacterial cells if the inhibitor remained in the culture for many hours, and justify your prediction. Then explain how the presence of glycolysis genes in bacteria, archaea, and eukaryotes supports the idea that all organisms share a common ancestor.",
+      "criteria": [
+       {
+        "text": "Prediction that the cells will die (or stop growing), justified because ATP production falls so energy input no longer exceeds energy loss, and the cells cannot maintain order or power cellular processes.",
+        "evidence": "Response predicts cell death or failure to maintain cell functions and justifies it by reduced ATP production causing energy input to fall below energy loss, leading to loss of order.",
+        "fix": "Connect less ATP to energy input falling below energy loss, then state that cells cannot maintain order and die.",
+        "accepted_variants": [
+         "cells stop growing and eventually die because they cannot maintain order without enough energy input",
+         "energy loss exceeds energy input, so the organized cell breaks down and dies"
+        ]
+       },
+       {
+        "text": "Glycolysis is a core metabolic pathway conserved across all three domains, which is best explained by inheritance from a common ancestor that already had the pathway.",
+        "evidence": "Response states that the shared pathway in Archaea, Bacteria, and Eukarya was most likely inherited from a single common ancestor rather than evolving separately in each lineage.",
+        "fix": "State that a pathway shared by all three domains was most likely inherited from one common ancestor, not evolved independently in each.",
+        "accepted_variants": [
+         "the same pathway in all domains indicates it was present in the last universal common ancestor",
+         "conserved core metabolism shows descent from a shared ancestor"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "3.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3,
+     7
+    ],
+    "unitCount": {
+     "3": 6,
+     "7": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.635Z",
+   "item": {
+    "title": "ATP Depletion, Cellular Order, and Energy Coupling",
+    "calculator": "permitted",
+    "stimulus": "Researchers studied cultured mammalian cells to examine how cells depend on a continuous supply of energy. At time 0, the cells were moved from a normal growth medium into a medium with no glucose and no oxygen. Under these conditions the cells cannot make ATP by cellular respiration. At 2-hour intervals the researchers measured two things: the intracellular ATP concentration, and the percentage of cells with intact plasma membranes. Cells with intact membranes were counted as viable.\n\nTime (h) | ATP (nmol per mg protein) | Viable cells (%)\n0 | 8.0 | 98\n2 | 5.2 | 95\n4 | 2.4 | 80\n6 | 0.8 | 42\n8 | 0.2 | 11\n\nIn healthy cells, the Na⁺/K⁺ pump uses ATP to keep the K⁺ concentration higher inside the cell than outside. The researchers also noted that the enzymes these cells use for glycolysis have closely similar counterparts in many species of Bacteria and Archaea.",
+    "model_answer": "(a) Percent decrease = (8.0 − 2.4) / 8.0 × 100 = 5.6 / 8.0 × 100 = 70%. The ATP concentration decreased by 70% from 0 h to 4 h.\n\n(b) As ATP falls from 8.0 to 0.2 nmol per mg protein, the percentage of viable cells falls from 98% to 11%. Living cells are highly ordered systems. To maintain that order and power cellular processes, their energy input must exceed their energy loss. With no glucose and no oxygen, the cells cannot make ATP by respiration, so their energy input stops while they keep using energy. Once ATP runs low, the cells can no longer maintain ordered structures such as intact membranes. This significant loss of order and energy flow results in cell death.\n\n(c) (i) Hydrolysis of ATP is an energy-releasing reaction. The pump couples the energy released by ATP hydrolysis to the energy-requiring process of moving K⁺ from low concentration outside the cell to high concentration inside. This is active transport. (ii) The difference in K⁺ concentration across the membrane will decrease between 0 h and 8 h and approach zero. By 8 h, ATP has dropped to 0.2 nmol per mg protein, so there is almost no energy to power the pump. K⁺ continues to move passively down its concentration gradient out of the cell, and the pump can no longer move it back in, so the gradient dissipates.\n\n(d) Glycolysis is a core metabolic pathway found with closely similar enzymes in Bacteria, Archaea, and Eukarya. It is very unlikely that the same pathway evolved independently in every domain. The simpler explanation is that it evolved once in a common ancestor of all living organisms and was passed down to every descendant lineage. Its conservation across all domains is therefore evidence for common ancestry.",
+    "verification_python": "from fractions import Fraction\ninitial = Fraction(80, 10)\nfinal4 = Fraction(24, 10)\npct_decrease = (initial - final4) / initial * 100\nassert pct_decrease == 70\nassert initial - final4 == Fraction(56, 10)\natp = [8.0, 5.2, 2.4, 0.8, 0.2]\nviab = [98, 95, 80, 42, 11]\nassert all(atp[i] > atp[i+1] for i in range(4))\nassert all(viab[i] > viab[i+1] for i in range(4))\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the percent decrease in intracellular ATP concentration from 0 h to 4 h. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct percent decrease of 70% with supporting work",
+        "evidence": "Shows (8.0 − 2.4) / 8.0 × 100, or an equivalent setup, and arrives at 70% (a decrease of 70%, or a change of −70%).",
+        "fix": "Use percent change = (final − initial) / initial × 100, with initial = 8.0 and final = 2.4, then report the size of the decrease.",
+        "accepted_variants": [
+         "70%",
+         "70 percent",
+         "−70%",
+         "0.70 decrease"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain why the percentage of viable cells decreases over the 8 hours.",
+      "criteria": [
+       {
+        "text": "Links falling ATP to loss of viability through the requirement for continuous energy input to maintain order",
+        "evidence": "Cites the data trend: viability falls from 98% to 11% as ATP falls from 8.0 to 0.2 nmol per mg protein, or quotes specific paired values. Explains that living cells must have an energy input that exceeds energy loss to maintain their highly ordered structure and power cellular processes. Without that input, order is lost, for example membrane integrity fails, and the cells die.",
+        "fix": "Cite paired ATP and viability values, then state that energy input must exceed energy loss to maintain cellular order; losing order causes death.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "(i) Explain how ATP allows the Na⁺/K⁺ pump to move K⁺ into the cell against its concentration gradient. (ii) Predict how the difference in K⁺ concentration across the plasma membrane will change between 0 h and 8 h, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Energy coupling: energy released by ATP hydrolysis powers the energy-requiring active transport of K⁺",
+        "evidence": "States that hydrolysis of ATP releases energy. States that this energy-releasing reaction is coupled to the energy-requiring movement of K⁺ from low to high concentration (active transport) by the pump.",
+        "fix": "State that ATP hydrolysis releases energy and that this release is coupled to the pump's energy-requiring movement of ions against their gradient.",
+        "accepted_variants": [
+         "ATP hydrolysis is coupled to active transport"
+        ]
+       },
+       {
+        "text": "Predicts that the K⁺ concentration difference decreases, justified by loss of ATP to power the pump",
+        "evidence": "Predicts that the K⁺ gradient becomes smaller or dissipates by 8 h. Justifies this by noting that ATP is nearly depleted (0.2 nmol per mg protein), so the pump can no longer actively transport K⁺. K⁺ then continues to move passively down its concentration gradient out of the cell, and the gradient is not restored.",
+        "fix": "Predict the direction of change, then connect the ATP value at 8 h to the pump stopping and ions moving passively down their gradient.",
+        "accepted_variants": [
+         "the gradient dissipates",
+         "the gradient decreases",
+         "K⁺ inside and outside become more similar"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the presence of closely similar glycolysis enzymes in Bacteria, Archaea, and Eukarya (including these mammalian cells) supports the idea of common ancestry.",
+      "criteria": [
+       {
+        "text": "A conserved core pathway shared across all three domains indicates inheritance from a common ancestor",
+        "evidence": "States that glycolysis is a core metabolic pathway conserved across all three domains. Explains that this shared pathway most likely evolved once in a common ancestor of all living organisms and was inherited by its descendants, rather than arising independently in each domain.",
+        "fix": "State that a pathway shared by all three domains was most likely inherited from one common ancestor rather than evolving separately in each lineage.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:22:19.012Z",
+   "item": {
+    "title": "Blocked Step in a Sequential Energy-Releasing Pathway",
+    "calculator": "permitted",
+    "stimulus": "A bacterium breaks down molecule A in a sequential metabolic pathway: A → B → C → D. Each step is catalyzed by a different enzyme. Enzyme 1 converts A to B, enzyme 2 converts B to C, and enzyme 3 converts C to D. Step 3 (C → D) releases energy, and the cell couples this reaction to the synthesis of ATP from ADP and phosphate. The bacterium uses ATP to power a membrane pump that moves H⁺ ions out of the cell against their concentration gradient.\n\nResearchers grew the bacteria with a constant supply of molecule A. They then added inhibitor X, which binds to and blocks only enzyme 2. They measured the concentration of each molecule inside the cells just before and 30 minutes after adding inhibitor X.\n\nMolecule | Concentration before inhibitor (μM) | Concentration 30 min after inhibitor (μM)\nA | 50 | 52\nB | 40 | 120\nC | 35 | 5\nD | 30 | 4",
+    "model_answer": "(a) Percent change = (120 − 40) / 40 × 100 = 80 / 40 × 100 = 200%. The concentration of B increased by 200%.\n\n(b) The pathway is sequential, so the product of one step is the reactant for the next. B is produced from A by enzyme 1 and is normally used as the reactant for enzyme 2. Inhibitor X blocks enzyme 2, so B keeps being made but is not converted to C, and B builds up. C is made only from B by enzyme 2, so no new C is formed, while the existing C is still converted to D by enzyme 3. Therefore C decreases.\n\n(c) The H⁺ concentration gradient across the membrane will decrease. With less C available, step 3 (C → D) occurs less often, as shown by the drop in D from 30 to 4 μM. Step 3 is the energy-releasing reaction coupled to ATP synthesis, so less ATP is made. The pump moves H⁺ against its concentration gradient, which is active transport and requires energy from ATP. With less ATP, the pump cannot keep moving H⁺ out, and H⁺ that leaks back in is not removed. Energy input no longer exceeds energy loss, so the ordered gradient runs down.\n\n(d) It is very unlikely that the same pathway, with enzymes of very similar sequence, evolved separately in each of the three domains. More likely, the pathway was present in a common ancestor of all living organisms and was passed to its descendants in Archaea, Bacteria and Eukarya. It has been conserved because it is a fundamental way to obtain energy. Shared, conserved core processes like this support the idea that all organisms share a common ancestor.",
+    "verification_python": "from fractions import Fraction\nB_before, B_after = 40, 120\npct = Fraction(B_after - B_before, B_before) * 100\nassert pct == 200\nassert B_after - B_before == 80\nC_before, C_after = 35, 5\nassert C_after < C_before\nD_before, D_after = 30, 4\nassert D_after < D_before\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the percent change in the concentration of molecule B from before to 30 minutes after inhibitor X was added.",
+      "criteria": [
+       {
+        "text": "Percent change in B is a 200% increase, with work shown: (120 − 40) / 40 × 100.",
+        "evidence": "Response shows the difference 120 − 40 = 80 divided by the initial value 40, multiplied by 100, giving a 200% increase (or +200%).",
+        "fix": "Use percent change = (final − initial) ÷ initial × 100, always dividing by the starting value, and state increase or decrease.",
+        "accepted_variants": [
+         "+200%",
+         "200% increase",
+         "an increase of 200 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the concentration of molecule B increased while the concentration of molecule C decreased after inhibitor X was added.",
+      "criteria": [
+       {
+        "text": "Because the pathway is sequential, B (the product of step 1) is the reactant for step 2; with enzyme 2 blocked, B is no longer converted to C, so B accumulates and C is not replenished.",
+        "evidence": "Response links both changes to the blocked step: B keeps being made from A but cannot be used by enzyme 2, and C drops because its only source (conversion of B by enzyme 2) is stopped while C is still used in step 3.",
+        "fix": "Trace the pathway step by step: the product of one step is the next step's reactant, so a blocked enzyme causes buildup before it and depletion after it.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the effect of inhibitor X on the H⁺ concentration gradient across the bacterium's plasma membrane. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the H⁺ concentration gradient across the membrane decreases (becomes smaller or dissipates).",
+        "evidence": "Response states that the difference in H⁺ concentration between outside and inside the cell gets smaller over time after the inhibitor is added.",
+        "fix": "Follow the chain from the blocked enzyme to its final effect on the pump before predicting a direction of change.",
+        "accepted_variants": [
+         "the gradient weakens",
+         "the gradient is lost",
+         "fewer H⁺ ions are kept outside the cell"
+        ]
+       },
+       {
+        "text": "Justification: less C → D means less energy released to couple to ATP synthesis, so less ATP is available to power the energy-requiring active transport of H⁺; without enough energy input, the gradient cannot be maintained.",
+        "evidence": "Response connects the drop in step 3 (C and D both fell) to reduced ATP production through coupling, and connects reduced ATP to the pump being unable to move H⁺ against its gradient.",
+        "fix": "Explain coupling explicitly: an energy-releasing reaction makes ATP, and ATP hydrolysis powers the energy-requiring process; name both linked processes.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Enzymes with very similar amino acid sequences that catalyze this same pathway are found in organisms from all three domains: Archaea, Bacteria, and Eukarya. Explain how this observation supports the concept of common ancestry.",
+      "criteria": [
+       {
+        "text": "A core metabolic pathway shared across all three domains was most likely inherited from a common ancestor of all organisms and conserved, rather than evolving independently in each domain.",
+        "evidence": "Response states that the pathway (or its enzymes) was present in a shared ancestor and passed down to descendants in all three domains, and notes it was conserved because it is fundamental to obtaining energy.",
+        "fix": "When a feature appears in Archaea, Bacteria and Eukarya, state it was inherited from a shared ancestor and conserved, not invented separately.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 28 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:23:05.942Z",
+   "item": {
+    "title": "Energy Coupling and Order in a Bacterial Cell Extract",
+    "calculator": "permitted",
+    "stimulus": "Students study how cells power reactions that require energy. They prepare a cell-free extract from the bacterium Escherichia coli. The extract contains the enzyme that joins glutamate and ammonia to form the amino acid glutamine. Forming glutamine requires an input of energy. The students set up two tubes at 37°C. Each tube contains the extract, glutamate and ammonia. Tube 2 also receives ATP. They measure the rate of glutamine production.\n\nTube | ATP added | Rate of glutamine production (µmol/min)\n1 | No | 0.2\n2 | Yes | 4.6\n\nIn a separate experiment, living E. coli cells are placed in a medium with no usable energy source. A chemical is also added that blocks all ATP production by the cells.",
+    "model_answer": "(a) Forming glutamine requires an input of energy. In tube 2, ATP is hydrolyzed, which releases energy. The cell enzyme couples this energy-releasing reaction to the energy-requiring synthesis of glutamine, so glutamine forms much faster. In tube 1 there is no ATP, so there is no energy source to couple to the reaction and almost no glutamine forms.\n\n(b) Percent increase = (4.6 − 0.2)/0.2 × 100 = 4.4/0.2 × 100 = 2200%.\n\n(c) The cells will lose their internal order: they cannot keep synthesizing proteins, maintaining membrane gradients, or repairing structures, and they will eventually die. Living things are highly ordered systems, and by the second law of thermodynamics order tends to be lost. To maintain order and power cellular processes, energy input must exceed energy loss. With no energy source and no ATP production, energy flow stops, so order breaks down and the cells die.\n\n(d) E. coli is in domain Bacteria and humans are in domain Eukarya. Because these distantly related organisms use the same sequence of glycolysis reactions, the pathway most likely evolved once in a common ancestor and was inherited and conserved in both lineages, supporting common ancestry of all organisms.",
+    "verification_python": "from fractions import Fraction\nr1=Fraction(2,10)\nr2=Fraction(46,10)\npct=(r2-r1)/r1*100\nassert pct==2200\nassert (r2-r1)==Fraction(44,10)\nassert (r2-r1)/r1==22\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Explain why the rate of glutamine production is much higher in tube 2 than in tube 1.",
+      "criteria": [
+       {
+        "text": "ATP hydrolysis releases energy that is coupled to the energy-requiring synthesis of glutamine.",
+        "evidence": "Response states that breaking down (hydrolyzing) ATP releases energy AND that this energy-releasing process is coupled to (powers) the energy-requiring formation of glutamine.",
+        "fix": "State both halves of coupling: which process releases energy (ATP hydrolysis) and which process uses that energy (glutamine synthesis).",
+        "accepted_variants": [
+         "energy coupling",
+         "ATP breakdown drives glutamine formation"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent increase in the rate of glutamine production in tube 2 compared with tube 1.",
+      "criteria": [
+       {
+        "text": "Percent increase = (4.6 − 0.2)/0.2 × 100 = 2200%.",
+        "evidence": "Response shows the change divided by the original rate (tube 1) times 100 and reports 2200%.",
+        "fix": "Use percent change = (new − original)/original × 100, with tube 1 as the original value.",
+        "accepted_variants": [
+         "2200%",
+         "2,200 percent",
+         "22-fold increase over the original rate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the long-term effect on the E. coli cells placed in the medium with no energy source and the ATP-blocking chemical. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the cells lose their internal order (cannot maintain structures, gradients, or synthesize molecules) and eventually die.",
+        "evidence": "Response predicts loss of cellular organization or function leading to cell death.",
+        "fix": "Connect the removal of energy input to the final outcome for the cell: loss of order and death.",
+        "accepted_variants": [
+         "the cells die",
+         "cells cannot survive"
+        ]
+       },
+       {
+        "text": "Justification: living systems must have energy input exceeding energy loss to maintain order; significant loss of energy flow results in death.",
+        "evidence": "Response explains that maintaining a highly ordered system requires continuous energy input greater than energy lost, so without energy input order cannot be maintained.",
+        "fix": "Explain that order is maintained only when energy input exceeds energy loss, citing the second law of thermodynamics.",
+        "accepted_variants": [
+         "energy input must exceed energy loss",
+         "without energy flow order breaks down"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Both E. coli and human cells carry out glycolysis using the same sequence of reactions. Explain how this observation supports the concept of common ancestry.",
+      "criteria": [
+       {
+        "text": "A core metabolic pathway shared by organisms in different domains was most likely inherited from a common ancestor and conserved.",
+        "evidence": "Response states that glycolysis is conserved across domains (Bacteria and Eukarya) and that this shared pathway is best explained by inheritance from a common ancestral organism.",
+        "fix": "Link the shared pathway to inheritance: say it was present in a common ancestor and conserved in descendant lineages across domains.",
+        "accepted_variants": [
+         "conserved pathway inherited from a shared ancestor"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "3.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3,
+     7
+    ],
+    "unitCount": {
+     "3": 6,
+     "7": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "A Sequential Pathway and Energy Coupling in a Bacterium",
+   "calculator": "permitted",
+   "stimulus": "A bacterium makes molecule D from molecule A through a three-step pathway. Each step is catalyzed by a different enzyme.\n\nStep 1: A → B\nStep 2: B → C\nStep 3: C → D\n\nResearchers measured the concentrations of the pathway molecules in normal cells and in a mutant strain that lacks a working enzyme for one of the three steps.\n\nMolecule | Normal cells (mM) | Mutant cells (mM)\nA | 1.0 | 1.1\nB | 0.4 | 6.5\nC | 0.3 | 0.0\nD | 2.0 | 0.0\n\nStep 3 requires an input of energy. In the cell, step 3 is coupled to reaction E, which releases energy. Reaction E releases 30 kJ of energy per mole, and step 3 requires 21 kJ of energy per mole.",
+   "parts": [
+    {
+     "prompt": "Using the data, identify the step that is blocked in the mutant strain.",
+     "criteria": [
+      {
+       "text": "Identifies step 2 (B → C) as the blocked step.",
+       "evidence": "Response names step 2 (B → C).",
+       "fix": "Find where a pathway molecule piles up and the next molecule is missing; the blocked step lies between them.",
+       "accepted_variants": [
+        "B → C",
+        "step 2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The enzyme for step 3 works normally in the mutant cells. Explain why the mutant cells contain no D.",
+     "criteria": [
+      {
+       "text": "Explains that in a sequential pathway the product of one step is the reactant for the next step: C, the product of step 2, is the reactant for step 3, so with no C made, step 3 cannot produce D.",
+       "evidence": "Response states that step 3 needs C as its reactant and that C is not made because step 2 is blocked, so no D is formed.",
+       "fix": "Trace the pathway forward: each step's product feeds the next step, so a missing reactant stops every later step.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how coupling step 3 to reaction E allows step 3 to occur in the cell.",
+     "criteria": [
+      {
+       "text": "Explains that the energy released by reaction E is used to supply the energy that step 3 requires; because E releases more energy (30 kJ per mole) than step 3 needs (21 kJ per mole), the coupled processes can proceed together.",
+       "evidence": "Response states that the energy-releasing reaction E provides the energy input required by the energy-requiring step 3, and notes that E releases at least as much energy as step 3 needs.",
+       "fix": "Describe coupling as an energy-releasing process paying for an energy-requiring one, and check that energy released exceeds energy required.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the amount of energy per mole released by reaction E that is not used to drive step 3, and describe what happens to this energy.",
+     "criteria": [
+      {
+       "text": "Calculates 30 kJ − 21 kJ = 9 kJ per mole not used by step 3.",
+       "evidence": "Response subtracts the energy required by step 3 from the energy released by E and obtains 9 kJ per mole.",
+       "fix": "Subtract energy required from energy released; the difference is the energy left over from the coupled reactions.",
+       "accepted_variants": [
+        "9 kJ/mol"
+       ]
+      },
+      {
+       "text": "Describes that the extra energy is released to the surroundings as heat (thermal energy); it is not destroyed, consistent with the first law of thermodynamics.",
+       "evidence": "Response states that the unused energy is lost to the surroundings as heat (thermal energy), not destroyed or stored.",
+       "fix": "Remember energy transfers are never complete: energy not captured is released as heat, and energy is never destroyed.",
+       "accepted_variants": [
+        "lost as heat"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Step 2 (B → C) is blocked. In the mutant, B builds up to 6.5 mM (compared with 0.4 mM in normal cells), while C is absent (0.0 mM). B is the reactant of step 2 and C is its product, so the block is at step 2.\n\n(b) The pathway is sequential: the product of one step is the reactant for the next. C, the product of step 2, is the reactant for step 3. Because step 2 is blocked, no C is made, so even though the step 3 enzyme works, step 3 has no reactant and no D is produced.\n\n(c) Step 3 requires an input of energy that it cannot supply itself. When step 3 is coupled to reaction E, the energy released by reaction E is used to provide the energy step 3 requires. Reaction E releases 30 kJ per mole, more than the 21 kJ per mole step 3 needs, so the coupled processes can proceed together.\n\n(d) 30 kJ − 21 kJ = 9 kJ per mole is not used to drive step 3. This energy is released to the surroundings as heat (thermal energy). It is not destroyed, consistent with the first law of thermodynamics.",
+   "verification_python": "normal={'A':1.0,'B':0.4,'C':0.3,'D':2.0}\nmut={'A':1.1,'B':6.5,'C':0.0,'D':0.0}\nassert mut['B']>normal['B']\nassert mut['C']==0.0 and mut['D']==0.0\nE=30;S3=21\nassert E>S3\nassert E-S3==9\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.865020Z"
+ },
+ "accepted_round": 1
+}

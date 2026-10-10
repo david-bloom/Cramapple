@@ -1,0 +1,818 @@
+{
+ "id": "ap_calculus_bc__2.1__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.1",
+  "topic_title": "Defining Average and Instantaneous Rates of Change at a Point",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:04:21.249Z",
+   "source": "given",
+   "item": {
+    "title": "Average and Instantaneous Rates of Change of Reservoir Volume",
+    "calculator": "not_permitted",
+    "stimulus": "During a dry season, the volume of water in a reservoir, in millions of cubic meters, is given by a differentiable function V(t), where t is the number of weeks since the season began. Selected values of V(t) are given in the table.\n\nt (weeks) | 0 | 2 | 5 | 9 | 12\nV(t) (millions of cubic meters) | 84 | 80 | 71 | 56 | 50\n\nThe volume of water in a second reservoir, in millions of cubic meters, is R(t) = 120 − 2t − t² for 0 ≤ t ≤ 8, where t is measured in weeks.",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of V(t) over the interval [2, 9]. Show the difference quotient you use and include units.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7.",
+        "evidence": "Response writes the change in V over the change in t using V(9) = 56, V(2) = 80 and a time change of 7 weeks.",
+        "fix": "Write V(b) − V(a) over b − a, taking the endpoints in the same order on top and bottom.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Gives the value −24/7 millions of cubic meters per week.",
+        "evidence": "Response states −24/7 (equivalently −3 3/7) with units of millions of cubic meters per week.",
+        "fix": "Keep the negative sign, which shows the volume decreased, and attach the units of V over the units of t.",
+        "accepted_variants": [
+         "−24/7",
+         "−3 3/7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write a limit expression, in terms of V, that represents the instantaneous rate of change of the volume at t = 5 weeks. Then explain why the table alone cannot give the exact value of this limit.",
+      "criteria": [
+       {
+        "text": "Writes lim h→0 [V(5 + h) − V(5)] / h, or lim t→5 [V(t) − V(5)] / (t − 5).",
+        "evidence": "Response gives a limit of a difference quotient at t = 5 with h approaching 0 (or t approaching 5).",
+        "fix": "Write the average rate over [5, 5 + h], then place it inside a limit as h approaches 0.",
+        "accepted_variants": [
+         "lim h→0 (V(5 + h) − V(5))/h",
+         "lim t→5 (V(t) − V(5))/(t − 5)"
+        ]
+       },
+       {
+        "text": "Explains that near t = 5 the table gives V only at t = 2 and t = 9, so the interval around t = 5 cannot be made arbitrarily small.",
+        "evidence": "Response states that the limit needs values of V at times arbitrarily close to 5, which the table does not provide.",
+        "fix": "Ask which values of V the limit needs as h shrinks, and check whether the table supplies them.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the limit of a difference quotient to find the instantaneous rate of change of R at t = 3, showing the algebra. Interpret your answer in context.",
+      "criteria": [
+       {
+        "text": "Simplifies the difference quotient for h ≠ 0: [R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h.",
+        "evidence": "Response substitutes R(3 + h) and R(3) = 105, simplifies the numerator to −8h − h² and cancels h to obtain −8 − h. Equivalently, [R(t) − R(3)] / (t − 3) = −(t + 5) for t ≠ 3.",
+        "fix": "Expand R(3 + h) completely, subtract R(3) = 105, and cancel the common factor h before taking the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Evaluates the limit as −8.",
+        "evidence": "Response lets h → 0 (or t → 3) in the simplified expression and obtains −8.",
+        "fix": "Only after cancelling h, substitute h = 0 into the simplified expression.",
+        "accepted_variants": [
+         "−8"
+        ]
+       },
+       {
+        "text": "Interprets: at t = 3 weeks, the second reservoir's volume is decreasing at 8 million cubic meters per week.",
+        "evidence": "Response states the rate with units of millions of cubic meters per week and says the volume is decreasing at the instant t = 3.",
+        "fix": "Say what quantity is changing, at which time, in which direction, and with which units.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7 = −24/7 millions of cubic meters per week. On average, the volume decreased by 24/7 million cubic meters per week over [2, 9].\n\n(b) The instantaneous rate of change at t = 5 is lim h→0 [V(5 + h) − V(5)] / h. Near t = 5 the table gives V only at t = 2 and t = 9, so we cannot compute average rates over intervals that shrink to t = 5; the table can only approximate this limit, not give its exact value.\n\n(c) R(3) = 120 − 6 − 9 = 105, and R(3 + h) = 120 − 2(3 + h) − (3 + h)² = 120 − 6 − 2h − 9 − 6h − h² = 105 − 8h − h².\n[R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h for h ≠ 0, so lim h→0 [R(3 + h) − R(3)] / h = lim h→0 (−8 − h) = −8.\nAt t = 3 weeks, the volume of water in the second reservoir is decreasing at 8 million cubic meters per week.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nV = {0: 84, 2: 80, 5: 71, 9: 56, 12: 50}\nr = lambda a, b: F(V[b] - V[a], b - a)\nassert V[9] - V[2] == -24 and 9 - 2 == 7\nassert r(2, 9) == F(-24, 7) and F(-24, 7) == -(3 + F(3, 7))\nh, t = sp.symbols('h t')\nR = lambda s: 120 - 2*s - s**2\nassert R(3) == 105\nassert sp.expand(R(3 + h) - (105 - 8*h - h**2)) == 0\nassert sp.expand(R(3 + h) - R(3)) == -8*h - h**2\nassert sp.cancel((R(3 + h) - R(3))/h) == -h - 8\nassert sp.limit((R(3 + h) - R(3))/h, h, 0) == -8\nassert sp.cancel((R(t) - R(3))/(t - 3)) == -t - 5\nassert R(8) == 40 and R(0) == 120\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:37:56.607Z",
+   "item": {
+    "title": "Average and Instantaneous Rates of Change from Difference Quotients",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = x³ − 4x for all real numbers x.",
+    "model_answer": "(a) f(3) = 27 − 12 = 15 and f(1) = 1 − 4 = −3. Average rate of change = (f(3) − f(1))/(3 − 1) = (15 − (−3))/2 = 18/2 = 9.\n\n(b) f(2) = 8 − 8 = 0. f(2 + h) = (2 + h)³ − 4(2 + h) = 8 + 12h + 6h² + h³ − 8 − 4h = 8h + 6h² + h³. So for h ≠ 0, (f(2 + h) − f(2))/h = (8h + 6h² + h³)/h = 8 + 6h + h². The interval [2, 2.1] corresponds to h = 0.1, so the average rate of change is 8 + 0.6 + 0.01 = 8.61.\n\n(c) f′(2) = lim h→0 (f(2 + h) − f(2))/h = lim h→0 (8 + 6h + h²) = 8 + 0 + 0 = 8. The instantaneous rate of change of f at x = 2 is 8.\n\n(d) f(−1) = −1 + 4 = 3. f′(−1) = lim x→−1 (x³ − 4x − 3)/(x − (−1)) = lim x→−1 (x³ − 4x − 3)/(x + 1). Direct substitution gives 0/0. Since x³ − 4x − 3 = (x + 1)(x² − x − 3), for x ≠ −1 the quotient equals x² − x − 3. So f′(−1) = lim x→−1 (x² − x − 3) = 1 + 1 − 3 = −1.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=lambda t: t**3-4*t\nassert f(3)==15 and f(1)==-3\nassert sp.Rational(f(3)-f(1),2)==9\nassert f(2)==0\ndq=sp.simplify(sp.expand((f(2+h)-f(2))/h))\nassert sp.expand(dq-(8+6*h+h**2))==0\nassert sp.Rational(861,100)==dq.subs(h,sp.Rational(1,10))\nassert sp.limit(dq,h,0)==8\nassert f(-1)==3\nassert sp.expand((x+1)*(x**2-x-3)-(x**3-4*x-3))==0\nassert sp.limit((f(x)-f(-1))/(x+1),x,-1)==-1\nassert ((-1)**2-(-1)-3)==-1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of f over the interval 1 ≤ x ≤ 3. Show the difference quotient you use.",
+      "criteria": [
+       {
+        "text": "Average rate of change over [1, 3] equals 9, from (f(3) − f(1))/(3 − 1) = (15 − (−3))/2.",
+        "evidence": "Response shows the difference quotient (f(3) − f(1))/(3 − 1) with f(3) = 15 and f(1) = −3, or equivalent values, and arrives at 9.",
+        "fix": "Evaluate f at both endpoints, subtract in the same order as the x-values, and divide by the interval length.",
+        "accepted_variants": [
+         "9",
+         "18/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, write the difference quotient (f(2 + h) − f(2))/h and simplify it to a polynomial in h. Then use your result to find the average rate of change of f over the interval 2 ≤ x ≤ 2.1.",
+      "criteria": [
+       {
+        "text": "Simplifies (f(2 + h) − f(2))/h to 8 + 6h + h² for h ≠ 0.",
+        "evidence": "Response expands f(2 + h) = (2 + h)³ − 4(2 + h), uses f(2) = 0, cancels the factor h, and states 8 + 6h + h² or an equivalent polynomial.",
+        "fix": "Expand (2 + h)³ fully as 8 + 12h + 6h² + h³ before subtracting f(2), then factor h from every term and cancel.",
+        "accepted_variants": [
+         "h² + 6h + 8"
+        ]
+       },
+       {
+        "text": "Average rate of change over [2, 2.1] equals 8.61, using h = 0.1.",
+        "evidence": "Response substitutes h = 0.1 into its simplified quotient (or computes (f(2.1) − f(2))/0.1 directly) and obtains 8.61.",
+        "fix": "Recognize the interval [2, 2.1] corresponds to h = 0.1, then substitute that value into the simplified difference quotient.",
+        "accepted_variants": [
+         "8.61",
+         "861/100"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the definition of the derivative as the limit of a difference quotient, together with your result from part (b), to find the instantaneous rate of change of f at x = 2.",
+      "criteria": [
+       {
+        "text": "Writes f′(2) as lim h→0 (f(2 + h) − f(2))/h, equivalently lim h→0 (8 + 6h + h²).",
+        "evidence": "Response explicitly writes a limit as h→0 of the difference quotient or of its simplified form; a value without limit notation does not earn this point.",
+        "fix": "Write the limit notation lim h→0 in front of the difference quotient before evaluating, so the instantaneous rate is shown as a limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Instantaneous rate of change at x = 2 equals 8.",
+        "evidence": "Response evaluates the limit, letting h approach 0 in 8 + 6h + h², and states f′(2) = 8.",
+        "fix": "After canceling h, the remaining polynomial is continuous, so substitute h = 0 to evaluate the limit.",
+        "accepted_variants": [
+         "8"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the form f′(a) = lim x→a (f(x) − f(a))/(x − a) of the definition of the derivative, find f′(−1). Show the algebra that evaluates the limit.",
+      "criteria": [
+       {
+        "text": "Sets up lim x→−1 (x³ − 4x − 3)/(x + 1) using f(−1) = 3, and factors the numerator as (x + 1)(x² − x − 3).",
+        "evidence": "Response shows f(−1) = 3, writes the limit of (x³ − 4x − 3)/(x + 1) as x→−1, and factors or divides to cancel the factor x + 1.",
+        "fix": "Since direct substitution gives 0/0, factor x + 1 out of the numerator using polynomial division, then cancel it.",
+        "accepted_variants": [
+         "(x + 1)(x² − x − 3)"
+        ]
+       },
+       {
+        "text": "f′(−1) = −1, from lim x→−1 (x² − x − 3).",
+        "evidence": "Response evaluates lim x→−1 (x² − x − 3) = 1 + 1 − 3 and states f′(−1) = −1.",
+        "fix": "Substitute x = −1 carefully into the canceled expression, tracking signs: (−1)² − (−1) − 3.",
+        "accepted_variants": [
+         "-1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.2": 4,
+     "2.1": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:39:02.748Z",
+   "item": {
+    "title": "Average and Instantaneous Rates of Change of a Root Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = √(2x + 1) for x ≥ −1/2. Answer all parts without using derivative rules such as the power rule or chain rule. Use the difference quotient or the limit definition of the derivative where asked.",
+    "model_answer": "(a) Average rate of change = (f(12) − f(4))/(12 − 4) = (√25 − √9)/8 = (5 − 3)/8 = 2/8 = 1/4.\n\n(b) f(4 + h) = √(2(4 + h) + 1) = √(9 + 2h), and f(4) = 3. So\n(f(4 + h) − f(4))/h = (√(9 + 2h) − 3)/h.\nMultiply by (√(9 + 2h) + 3)/(√(9 + 2h) + 3):\n= ((9 + 2h) − 9)/(h(√(9 + 2h) + 3)) = 2h/(h(√(9 + 2h) + 3)) = 2/(√(9 + 2h) + 3), for h ≠ 0.\n\n(c) f′(4) = lim h→0 (f(4 + h) − f(4))/h = lim h→0 2/(√(9 + 2h) + 3) = 2/(3 + 3) = 1/3.\nSince 1/3 = 4/12 and 1/4 = 3/12, the instantaneous rate of change at x = 4, which is 1/3, is greater than the average rate of change on [4, 12], which is 1/4.\n\n(d) Since f(4) = √9 = 3, the expression is (f(x) − f(4))/(x − 4). The limit lim x→a (f(x) − f(a))/(x − a) is an equivalent form of the definition of f′(a), here with a = 4. Therefore lim x→4 (√(2x + 1) − 3)/(x − 4) = f′(4) = 1/3.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=sp.sqrt(2*x+1)\nassert f.subs(x,12)==5 and f.subs(x,4)==3\navg=sp.Rational(5-3,12-4)\nassert avg==sp.Rational(1,4)\ndq=(f.subs(x,4+h)-3)/h\nsimp=2/(sp.sqrt(9+2*h)+3)\nfor hv in [sp.Rational(1,2),1,3,-1,sp.Rational(7,3)]:\n    assert sp.simplify(dq.subs(h,hv)-simp.subs(h,hv))==0\nassert sp.expand(((9+2*h)-9))==2*h\nd=sp.limit(dq,h,0)\nassert d==sp.Rational(1,3)\nassert simp.subs(h,0)==sp.Rational(1,3)\nassert d>avg\nassert sp.Rational(1,3)==sp.Rational(4,12) and sp.Rational(1,4)==sp.Rational(3,12)\nL=sp.limit((sp.sqrt(2*x+1)-3)/(x-4),x,4)\nassert L==sp.Rational(1,3)\nassert sp.diff(f,x).subs(x,4)==sp.Rational(1,3)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of f over the interval [4, 12]. Show the difference quotient you use.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient (f(12) − f(4))/(12 − 4) with f(12) = 5 and f(4) = 3.",
+        "evidence": "Response shows the quotient of the change in f over the change in x on [4, 12], with the function values 5 and 3 correctly substituted.",
+        "fix": "Write (f(b) − f(a))/(b − a) first, then evaluate f at each endpoint before dividing.",
+        "accepted_variants": [
+         "(5 − 3)/(12 − 4)",
+         "2/8"
+        ]
+       },
+       {
+        "text": "Computes the average rate of change as 1/4.",
+        "evidence": "Response states the value 1/4 as the result of the difference quotient.",
+        "fix": "After finding the change in f and the change in x, divide them and reduce the fraction carefully.",
+        "accepted_variants": [
+         "1/4",
+         "0.25",
+         "2/8"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, write the difference quotient (f(4 + h) − f(4))/h in terms of h, and rewrite it in a form that contains no h factor in the denominator that would make the expression undefined at h = 0.",
+      "criteria": [
+       {
+        "text": "Writes the difference quotient as (√(9 + 2h) − 3)/h.",
+        "evidence": "Response substitutes 4 + h into f to get √(2(4 + h) + 1) = √(9 + 2h) and subtracts f(4) = 3, all over h.",
+        "fix": "Replace x with 4 + h inside the square root, simplify 2(4 + h) + 1, then subtract f(4).",
+        "accepted_variants": [
+         "(√(2(4 + h) + 1) − 3)/h"
+        ]
+       },
+       {
+        "text": "Multiplies by the conjugate to obtain 2/(√(9 + 2h) + 3).",
+        "evidence": "Response multiplies numerator and denominator by √(9 + 2h) + 3, simplifies the numerator to 2h, cancels h, and reaches 2/(√(9 + 2h) + 3).",
+        "fix": "Multiply by the conjugate √(9 + 2h) + 3 over itself, expand the numerator, then cancel the common factor h.",
+        "accepted_variants": [
+         "2h/(h(√(9 + 2h) + 3)) simplified to 2/(√(9 + 2h) + 3)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a limit of the difference quotient from part (b) to find the instantaneous rate of change of f at x = 4. Then state whether this instantaneous rate is greater than, less than, or equal to the average rate of change found in part (a).",
+      "criteria": [
+       {
+        "text": "Finds f′(4) = lim h→0 2/(√(9 + 2h) + 3) = 1/3 using limit notation.",
+        "evidence": "Response writes the limit as h→0 of the difference quotient (or its simplified form) and evaluates it to 1/3.",
+        "fix": "Write lim h→0 in front of the simplified quotient, then substitute h = 0 only after the h has been cancelled.",
+        "accepted_variants": [
+         "1/3",
+         "2/6"
+        ]
+       },
+       {
+        "text": "Concludes the instantaneous rate 1/3 is greater than the average rate 1/4.",
+        "evidence": "Response compares the two values (consistent with its answers to parts (a) and (c)) and states the instantaneous rate at x = 4 is greater.",
+        "fix": "Compare the two fractions using a common denominator, such as 4/12 and 3/12, and state which is larger.",
+        "accepted_variants": [
+         "1/3 > 1/4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→4 (√(2x + 1) − 3)/(x − 4). Justify your answer by connecting the limit to the definition of the derivative.",
+      "criteria": [
+       {
+        "text": "States the limit equals f′(4) = 1/3 because it is the form lim x→a (f(x) − f(a))/(x − a) of the derivative with a = 4.",
+        "evidence": "Response identifies the expression as (f(x) − f(4))/(x − 4) with f(4) = 3, names it as an equivalent form of the definition of f′(4), and gives the value 1/3 (or the value consistent with part (c)).",
+        "fix": "Match the expression to (f(x) − f(a))/(x − a): identify f, identify a, and note f(a) is the constant subtracted.",
+        "accepted_variants": [
+         "1/3",
+         "f′(4)"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 requires multiplying by the conjugate and showing specified intermediate steps, although the prompt only requires an equivalent expression without the vanishing h factor in its denominator. This prescribes a method the part does not require and rejects valid alternative algebraic derivations. Award the point for a valid demonstrated rewrite to 2/(√(9 + 2h) + 3), without requiring conjugate multiplication."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 requires multiplying by the conjugate and showing specified intermediate steps, although the prompt only requires an equivalent expression without the vanishing h factor in its denominator. This prescribes a method the part does not require and rejects valid alternative algebraic derivations. Award the point for a valid demonstrated rewrite to 2/(√(9 + 2h) + 3), without requiring conjugate multiplication."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 requires explicitly multiplying numerator and denominator by the conjugate, although the prompt only requires rewriting the quotient. This rejects valid alternative algebraic derivations, such as using the difference-of-squares identity directly. Award the point for a justified equivalent expression 2/(√(9 + 2h) + 3), without prescribing conjugate multiplication."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 requires explicitly multiplying numerator and denominator by the conjugate, although the prompt only requires rewriting the quotient. This rejects valid alternative algebraic derivations, such as using the difference-of-squares identity directly. Award the point for a justified equivalent expression 2/(√(9 + 2h) + 3), without prescribing conjugate multiplication."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:43:55.215Z",
+   "item": {
+    "title": "Average and Instantaneous Rates of Change of a Cubic",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x³ − 4x. Answer all parts without using derivative rules such as the power rule; use difference quotients and limits as directed.",
+    "model_answer": "(a) f(3) = 27 − 12 = 15 and f(1) = 1 − 4 = −3. Average rate of change = (f(3) − f(1))/(3 − 1) = (15 − (−3))/2 = 18/2 = 9.\n\n(b) f(1 + h) = (1 + h)³ − 4(1 + h) = 1 + 3h + 3h² + h³ − 4 − 4h = h³ + 3h² − h − 3. Then f(1 + h) − f(1) = h³ + 3h² − h − 3 − (−3) = h³ + 3h² − h. For h ≠ 0, (f(1 + h) − f(1))/h = (h³ + 3h² − h)/h = h² + 3h − 1.\n\n(c) f′(1) = lim h→0 (f(1 + h) − f(1))/h = lim h→0 (h² + 3h − 1) = 0 + 0 − 1 = −1.\n\n(d) f(2) = 8 − 8 = 0. f′(2) = lim x→2 (x³ − 4x − 0)/(x − 2) = lim x→2 x(x − 2)(x + 2)/(x − 2) = lim x→2 x(x + 2) for x ≠ 2, which equals 2(4) = 8.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=lambda t: t**3-4*t\nassert f(3)==15 and f(1)==-3\nassert sp.Rational(f(3)-f(1),3-1)==9\nnum=sp.expand(f(1+h)-f(1))\nassert sp.expand(num-(h**3+3*h**2-h))==0\nq=sp.simplify(num/h)\nassert sp.expand(q-(h**2+3*h-1))==0\nassert sp.limit(q,h,0)==-1\nassert f(2)==0\nassert sp.expand(x*(x-2)*(x+2)-(x**3-4*x))==0\nassert sp.simplify((f(x)-f(2))/(x-2)-x*(x+2))==0\nassert sp.limit((f(x)-f(2))/(x-2),x,2)==8\nassert sp.diff(f(x),x).subs(x,2)==8 and sp.diff(f(x),x).subs(x,1)==-1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average rate of change of f over the interval [1, 3]. Show the difference quotient you use.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient (f(3) − f(1))/(3 − 1) with f(3) = 15 and f(1) = −3",
+        "evidence": "Response shows a quotient of the form (f(3) − f(1))/(3 − 1) with the correct function values 15 and −3 substituted.",
+        "fix": "Evaluate f at both endpoints first, then divide the change in f by the change in x, (f(b) − f(a))/(b − a).",
+        "accepted_variants": [
+         "(15 − (−3))/2",
+         "18/2"
+        ]
+       },
+       {
+        "text": "Average rate of change equals 9",
+        "evidence": "Response states the average rate of change is 9, supported by the difference quotient.",
+        "fix": "Subtract carefully with negative values: 15 − (−3) = 18, then divide by the interval length 2.",
+        "accepted_variants": [
+         "9",
+         "18/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, write the difference quotient (f(1 + h) − f(1))/h and simplify it so that h no longer appears in a denominator.",
+      "criteria": [
+       {
+        "text": "Correct numerator: f(1 + h) − f(1) = h³ + 3h² − h",
+        "evidence": "Response expands (1 + h)³ − 4(1 + h) correctly and subtracts f(1) = −3 to obtain h³ + 3h² − h (or an equivalent expanded form).",
+        "fix": "Expand (1 + h)³ = 1 + 3h + 3h² + h³, distribute −4(1 + h), then subtract f(1) = −3.",
+        "accepted_variants": [
+         "h(h² + 3h − 1)"
+        ]
+       },
+       {
+        "text": "Simplified difference quotient h² + 3h − 1",
+        "evidence": "Response divides the numerator by h to obtain h² + 3h − 1 (any equivalent order).",
+        "fix": "Factor h out of every numerator term, then cancel it with the h in the denominator, noting h ≠ 0.",
+        "accepted_variants": [
+         "h² + 3h − 1",
+         "−1 + 3h + h²"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the limit of the difference quotient from part (b) to find f′(1), the instantaneous rate of change of f at x = 1.",
+      "criteria": [
+       {
+        "text": "f′(1) = lim h→0 (h² + 3h − 1) = −1",
+        "evidence": "Response writes f′(1) as the limit as h→0 of the simplified quotient from part (b) and evaluates it to −1 (follow-through allowed from an incorrect part (b) expression).",
+        "fix": "Write f′(1) = lim h→0 [f(1 + h) − f(1)]/h using your simplified expression, then substitute h = 0.",
+        "accepted_variants": [
+         "−1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the form f′(a) = lim x→a (f(x) − f(a))/(x − a) to find f′(2).",
+      "criteria": [
+       {
+        "text": "Sets up lim x→2 (x³ − 4x − 0)/(x − 2) using f(2) = 0",
+        "evidence": "Response writes the limit with f(x) = x³ − 4x and f(2) = 0 substituted into (f(x) − f(2))/(x − 2).",
+        "fix": "Compute f(2) first, then substitute f(x) and f(2) into (f(x) − f(a))/(x − a) with a = 2.",
+        "accepted_variants": [
+         "lim x→2 (x³ − 4x)/(x − 2)"
+        ]
+       },
+       {
+        "text": "Factors x³ − 4x = x(x − 2)(x + 2) and cancels x − 2 to get x(x + 2) for x ≠ 2",
+        "evidence": "Response shows the factorization and cancellation of the common factor x − 2, leaving x(x + 2) or x² + 2x.",
+        "fix": "Factor out x, then factor x² − 4 as a difference of squares to reveal the factor x − 2 to cancel.",
+        "accepted_variants": [
+         "x² + 2x"
+        ]
+       },
+       {
+        "text": "f′(2) = 8",
+        "evidence": "Response evaluates the limit of x(x + 2) as x→2 to obtain 8.",
+        "fix": "After cancelling, substitute x = 2 into the remaining continuous expression x(x + 2).",
+        "accepted_variants": [
+         "8"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "a criterion lacks text or evidence"
+   ],
+   "stage": "lint"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Average and Instantaneous Rates of Change of Reservoir Volume",
+   "calculator": "not_permitted",
+   "stimulus": "During a dry season, the volume of water in a reservoir, in millions of cubic meters, is given by a differentiable function V(t), where t is the number of weeks since the season began. Selected values of V(t) are given in the table.\n\nt (weeks) | 0 | 2 | 5 | 9 | 12\nV(t) (millions of cubic meters) | 84 | 80 | 71 | 56 | 50\n\nThe volume of water in a second reservoir, in millions of cubic meters, is R(t) = 120 − 2t − t² for 0 ≤ t ≤ 8, where t is measured in weeks.",
+   "parts": [
+    {
+     "prompt": "Find the average rate of change of V(t) over the interval [2, 9]. Show the difference quotient you use and include units.",
+     "criteria": [
+      {
+       "text": "Sets up the difference quotient [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7.",
+       "evidence": "Response writes the change in V over the change in t using V(9) = 56, V(2) = 80 and a time change of 7 weeks.",
+       "fix": "Write V(b) − V(a) over b − a, taking the endpoints in the same order on top and bottom.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Gives the value −24/7 millions of cubic meters per week.",
+       "evidence": "Response states −24/7 (equivalently −3 3/7) with units of millions of cubic meters per week.",
+       "fix": "Keep the negative sign, which shows the volume decreased, and attach the units of V over the units of t.",
+       "accepted_variants": [
+        "−24/7",
+        "−3 3/7"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write a limit expression, in terms of V, that represents the instantaneous rate of change of the volume at t = 5 weeks. Then explain why the table alone cannot give the exact value of this limit.",
+     "criteria": [
+      {
+       "text": "Writes lim h→0 [V(5 + h) − V(5)] / h, or lim t→5 [V(t) − V(5)] / (t − 5).",
+       "evidence": "Response gives a limit of a difference quotient at t = 5 with h approaching 0 (or t approaching 5).",
+       "fix": "Write the average rate over [5, 5 + h], then place it inside a limit as h approaches 0.",
+       "accepted_variants": [
+        "lim h→0 (V(5 + h) − V(5))/h",
+        "lim t→5 (V(t) − V(5))/(t − 5)"
+       ]
+      },
+      {
+       "text": "Explains that near t = 5 the table gives V only at t = 2 and t = 9, so the interval around t = 5 cannot be made arbitrarily small.",
+       "evidence": "Response states that the limit needs values of V at times arbitrarily close to 5, which the table does not provide.",
+       "fix": "Ask which values of V the limit needs as h shrinks, and check whether the table supplies them.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the limit of a difference quotient to find the instantaneous rate of change of R at t = 3, showing the algebra. Interpret your answer in context.",
+     "criteria": [
+      {
+       "text": "Simplifies the difference quotient for h ≠ 0: [R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h.",
+       "evidence": "Response substitutes R(3 + h) and R(3) = 105, simplifies the numerator to −8h − h² and cancels h to obtain −8 − h. Equivalently, [R(t) − R(3)] / (t − 3) = −(t + 5) for t ≠ 3.",
+       "fix": "Expand R(3 + h) completely, subtract R(3) = 105, and cancel the common factor h before taking the limit.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Evaluates the limit as −8.",
+       "evidence": "Response lets h → 0 (or t → 3) in the simplified expression and obtains −8.",
+       "fix": "Only after cancelling h, substitute h = 0 into the simplified expression.",
+       "accepted_variants": [
+        "−8"
+       ]
+      },
+      {
+       "text": "Interprets: at t = 3 weeks, the second reservoir's volume is decreasing at 8 million cubic meters per week.",
+       "evidence": "Response states the rate with units of millions of cubic meters per week and says the volume is decreasing at the instant t = 3.",
+       "fix": "Say what quantity is changing, at which time, in which direction, and with which units.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7 = −24/7 millions of cubic meters per week. On average, the volume decreased by 24/7 million cubic meters per week over [2, 9].\n\n(b) The instantaneous rate of change at t = 5 is lim h→0 [V(5 + h) − V(5)] / h. Near t = 5 the table gives V only at t = 2 and t = 9, so we cannot compute average rates over intervals that shrink to t = 5; the table can only approximate this limit, not give its exact value.\n\n(c) R(3) = 120 − 6 − 9 = 105, and R(3 + h) = 120 − 2(3 + h) − (3 + h)² = 120 − 6 − 2h − 9 − 6h − h² = 105 − 8h − h².\n[R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h for h ≠ 0, so lim h→0 [R(3 + h) − R(3)] / h = lim h→0 (−8 − h) = −8.\nAt t = 3 weeks, the volume of water in the second reservoir is decreasing at 8 million cubic meters per week.",
+   "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nV = {0: 84, 2: 80, 5: 71, 9: 56, 12: 50}\nr = lambda a, b: F(V[b] - V[a], b - a)\nassert V[9] - V[2] == -24 and 9 - 2 == 7\nassert r(2, 9) == F(-24, 7) and F(-24, 7) == -(3 + F(3, 7))\nh, t = sp.symbols('h t')\nR = lambda s: 120 - 2*s - s**2\nassert R(3) == 105\nassert sp.expand(R(3 + h) - (105 - 8*h - h**2)) == 0\nassert sp.expand(R(3 + h) - R(3)) == -8*h - h**2\nassert sp.cancel((R(3 + h) - R(3))/h) == -h - 8\nassert sp.limit((R(3 + h) - R(3))/h, h, 0) == -8\nassert sp.cancel((R(t) - R(3))/(t - 3)) == -t - 5\nassert R(8) == 40 and R(0) == 120\nprint('ALL_CHECKS_PASSED')\n"
+  },
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.839676Z"
+ },
+ "accepted_round": 1
+}

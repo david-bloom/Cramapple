@@ -1,0 +1,312 @@
+{
+ "id": "ap_precalculus__2.9__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 2,
+  "unit_title": "Exponential and Logarithmic Functions",
+  "topic_code": "2.9",
+  "topic_title": "Logarithmic Expressions",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:21:37.983Z",
+   "source": "given",
+   "item": {
+    "title": "Evaluating Logarithms and Reading a Logarithmic Scale",
+    "calculator": "not_permitted",
+    "stimulus": "In this question, log v with no base written means the common logarithm, base 10.\n\nA number line is marked with a base-10 logarithmic scale: each positive value v is placed at position log v. For example, the value 100 is placed at position 2, and the value 1 is placed at position 0.",
+    "parts": [
+     {
+      "prompt": "Find the exact values of log₄ 64 and log₉ (1/3). For each, state the exponential equation that confirms your answer.",
+      "criteria": [
+       {
+        "text": "log₄ 64 = 3, because 4³ = 64.",
+        "evidence": "Response gives 3 and the confirming equation 4³ = 64.",
+        "fix": "Ask what power of the base gives the argument, and confirm by writing base^answer = argument.",
+        "accepted_variants": [
+         "3"
+        ]
+       },
+       {
+        "text": "log₉ (1/3) = −1/2, because 9^(−1/2) = 1/3.",
+        "evidence": "Response gives −1/2 and the confirming equation 9^(−1/2) = 1/3 (since the square root of 9 is 3 and the negative exponent gives the reciprocal).",
+        "fix": "A square root of the base is exponent 1/2, and a reciprocal is a negative exponent; combine them.",
+        "accepted_variants": [
+         "−0.5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Without a calculator, find the two consecutive integers between which log₂ 20 lies, and the two consecutive integers between which log 0.05 lies. Explain each answer.",
+      "criteria": [
+       {
+        "text": "log₂ 20 is between 4 and 5, because 2⁴ = 16 < 20 < 32 = 2⁵.",
+        "evidence": "Response names 4 and 5 and brackets 20 between the powers 2⁴ = 16 and 2⁵ = 32.",
+        "fix": "List consecutive powers of the base until you pass the argument; the exponents on either side bound the logarithm.",
+        "accepted_variants": [
+         "4 < log₂ 20 < 5"
+        ]
+       },
+       {
+        "text": "log 0.05 is between −2 and −1, because 10^(−2) = 0.01 < 0.05 < 0.1 = 10^(−1).",
+        "evidence": "Response names −2 and −1 and brackets 0.05 between 0.01 = 10^(−2) and 0.1 = 10^(−1).",
+        "fix": "For a value between 0 and 1, write nearby powers of 10 with negative exponents, such as 0.01 and 0.1.",
+        "accepted_variants": [
+         "−2 < log 0.05 < −1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "On the logarithmic scale described above, find the position of the value 0.001. Point P is at position 1.7 and point Q is at position 4.7. How many times as large as the value at P is the value at Q? Explain.",
+      "criteria": [
+       {
+        "text": "The value 0.001 is at position −3, because 0.001 = 10^(−3).",
+        "evidence": "Response gives −3 and writes 0.001 as 10^(−3) (or states log 0.001 = −3).",
+        "fix": "Write the value as a power of 10; the exponent is its position on a base-10 logarithmic scale.",
+        "accepted_variants": [
+         "−3"
+        ]
+       },
+       {
+        "text": "The value at Q is 1000 times the value at P, because Q is 3 units to the right of P and each unit on a base-10 logarithmic scale represents multiplication by 10, so the factor is 10³ = 1000.",
+        "evidence": "Response gives 1000 and explains it from the 3-unit gap with each unit a factor of 10 (or from 10^4.7/10^1.7 = 10³).",
+        "fix": "Find the distance between positions, then raise 10 to that distance; each unit is a factor of 10, not an added amount.",
+        "accepted_variants": [
+         "10³",
+         "1000"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) log₄ 64 = 3, because 4³ = 64.\nlog₉ (1/3) = −1/2, because 9^(1/2) = 3, so 9^(−1/2) = 1/3.\n\n(b) 2⁴ = 16 and 2⁵ = 32. Since 16 < 20 < 32, the exponent that turns 2 into 20 is between 4 and 5, so log₂ 20 lies between 4 and 5.\n10^(−2) = 0.01 and 10^(−1) = 0.1. Since 0.01 < 0.05 < 0.1, log 0.05 lies between −2 and −1.\n\n(c) 0.001 = 10^(−3), so the value 0.001 is at position log 0.001 = −3.\nQ is 4.7 − 1.7 = 3 units to the right of P. On a base-10 logarithmic scale each unit represents multiplication by 10, so the value at Q is 10³ = 1000 times the value at P. (Equivalently, 10^4.7 / 10^1.7 = 10³ = 1000.)",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction as F\nassert 4**3==64\nassert sp.Integer(9)**sp.Rational(-1,2)==sp.Rational(1,3)\nassert sp.log(64,4)==3\nassert sp.simplify(sp.log(sp.Rational(1,3),9)+sp.Rational(1,2))==0\nassert 2**4<20<2**5\nassert 4<float(sp.log(20,2))<5\nassert F(1,100)<F(5,100)<F(1,10)\nassert -2<float(sp.log(sp.Rational(1,20),10))<-1\nassert sp.log(sp.Rational(1,1000),10)==-3\nassert F(47,10)-F(17,10)==3\nassert abs(10**4.7/10**1.7-1000)<1e-6\nassert sp.log(100,10)==2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Evaluating Logarithms and Reading a Logarithmic Scale",
+   "calculator": "not_permitted",
+   "stimulus": "In this question, log v with no base written means the common logarithm, base 10.\n\nA number line is marked with a base-10 logarithmic scale: each positive value v is placed at position log v. For example, the value 100 is placed at position 2, and the value 1 is placed at position 0.",
+   "parts": [
+    {
+     "prompt": "Find the exact values of log₄ 64 and log₉ (1/3). For each, state the exponential equation that confirms your answer.",
+     "criteria": [
+      {
+       "text": "log₄ 64 = 3, because 4³ = 64.",
+       "evidence": "Response gives 3 and the confirming equation 4³ = 64.",
+       "fix": "Ask what power of the base gives the argument, and confirm by writing base^answer = argument.",
+       "accepted_variants": [
+        "3"
+       ]
+      },
+      {
+       "text": "log₉ (1/3) = −1/2, because 9^(−1/2) = 1/3.",
+       "evidence": "Response gives −1/2 and the confirming equation 9^(−1/2) = 1/3 (since the square root of 9 is 3 and the negative exponent gives the reciprocal).",
+       "fix": "A square root of the base is exponent 1/2, and a reciprocal is a negative exponent; combine them.",
+       "accepted_variants": [
+        "−0.5"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Without a calculator, find the two consecutive integers between which log₂ 20 lies, and the two consecutive integers between which log 0.05 lies. Explain each answer.",
+     "criteria": [
+      {
+       "text": "log₂ 20 is between 4 and 5, because 2⁴ = 16 < 20 < 32 = 2⁵.",
+       "evidence": "Response names 4 and 5 and brackets 20 between the powers 2⁴ = 16 and 2⁵ = 32.",
+       "fix": "List consecutive powers of the base until you pass the argument; the exponents on either side bound the logarithm.",
+       "accepted_variants": [
+        "4 < log₂ 20 < 5"
+       ]
+      },
+      {
+       "text": "log 0.05 is between −2 and −1, because 10^(−2) = 0.01 < 0.05 < 0.1 = 10^(−1).",
+       "evidence": "Response names −2 and −1 and brackets 0.05 between 0.01 = 10^(−2) and 0.1 = 10^(−1).",
+       "fix": "For a value between 0 and 1, write nearby powers of 10 with negative exponents, such as 0.01 and 0.1.",
+       "accepted_variants": [
+        "−2 < log 0.05 < −1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "On the logarithmic scale described above, find the position of the value 0.001. Point P is at position 1.7 and point Q is at position 4.7. How many times as large as the value at P is the value at Q? Explain.",
+     "criteria": [
+      {
+       "text": "The value 0.001 is at position −3, because 0.001 = 10^(−3).",
+       "evidence": "Response gives −3 and writes 0.001 as 10^(−3) (or states log 0.001 = −3).",
+       "fix": "Write the value as a power of 10; the exponent is its position on a base-10 logarithmic scale.",
+       "accepted_variants": [
+        "−3"
+       ]
+      },
+      {
+       "text": "The value at Q is 1000 times the value at P, because Q is 3 units to the right of P and each unit on a base-10 logarithmic scale represents multiplication by 10, so the factor is 10³ = 1000.",
+       "evidence": "Response gives 1000 and explains it from the 3-unit gap with each unit a factor of 10 (or from 10^4.7/10^1.7 = 10³).",
+       "fix": "Find the distance between positions, then raise 10 to that distance; each unit is a factor of 10, not an added amount.",
+       "accepted_variants": [
+        "10³",
+        "1000"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) log₄ 64 = 3, because 4³ = 64.\nlog₉ (1/3) = −1/2, because 9^(1/2) = 3, so 9^(−1/2) = 1/3.\n\n(b) 2⁴ = 16 and 2⁵ = 32. Since 16 < 20 < 32, the exponent that turns 2 into 20 is between 4 and 5, so log₂ 20 lies between 4 and 5.\n10^(−2) = 0.01 and 10^(−1) = 0.1. Since 0.01 < 0.05 < 0.1, log 0.05 lies between −2 and −1.\n\n(c) 0.001 = 10^(−3), so the value 0.001 is at position log 0.001 = −3.\nQ is 4.7 − 1.7 = 3 units to the right of P. On a base-10 logarithmic scale each unit represents multiplication by 10, so the value at Q is 10³ = 1000 times the value at P. (Equivalently, 10^4.7 / 10^1.7 = 10³ = 1000.)",
+   "verification_python": "import sympy as sp\nfrom fractions import Fraction as F\nassert 4**3==64\nassert sp.Integer(9)**sp.Rational(-1,2)==sp.Rational(1,3)\nassert sp.log(64,4)==3\nassert sp.simplify(sp.log(sp.Rational(1,3),9)+sp.Rational(1,2))==0\nassert 2**4<20<2**5\nassert 4<float(sp.log(20,2))<5\nassert F(1,100)<F(5,100)<F(1,10)\nassert -2<float(sp.log(sp.Rational(1,20),10))<-1\nassert sp.log(sp.Rational(1,1000),10)==-3\nassert F(47,10)-F(17,10)==3\nassert abs(10**4.7/10**1.7-1000)<1e-6\nassert sp.log(100,10)==2\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.877028Z"
+ },
+ "accepted_round": 1
+}

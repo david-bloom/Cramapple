@@ -1,0 +1,737 @@
+[
+ {
+  "subject_key": "ap_calculus_ab",
+  "topic_code": "2.2",
+  "item": {
+   "title": "Derivative from the Definition, Notation and Tangent Lines",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = 3x² − 4x + 1.\n\nA function g satisfies g(3) = 4 and\nlim h→0 [g(3 + h) − g(3)] / h = −2.",
+   "parts": [
+    {
+     "prompt": "Use the definition of the derivative to find f′(x). Show the algebra that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Writes the definition with f substituted: f′(x) = lim h→0 [3(x + h)² − 4(x + h) + 1 − (3x² − 4x + 1)] / h.",
+       "evidence": "Response writes the limit as h → 0 of [f(x + h) − f(x)] / h with both f(x + h) and f(x) replaced by their expressions. The equivalent form lim z→x [f(z) − f(x)] / (z − x), with f substituted, also earns this point.",
+       "fix": "Start by writing lim h→0 [f(x + h) − f(x)] / h, then substitute the formula for f into both terms.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Simplifies the difference quotient, for h ≠ 0, to 6x + 3h − 4 before taking the limit.",
+       "evidence": "Response shows correct algebra that removes h from the denominator and reaches 6x + 3h − 4 or an equivalent expression; any correct order of expanding, cancelling or factoring earns the point. In the z-form, the equivalent simplified quotient is 3z + 3x − 4.",
+       "fix": "Expand f(x + h), cancel the terms that do not contain h, then divide each remaining term by h.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes f′(x) = 6x − 4.",
+       "evidence": "Response lets h → 0 (or z → x) in the simplified quotient and states f′(x) = 6x − 4.",
+       "fix": "Substitute h = 0 only after h is gone from every denominator, then write the result as f′(x).",
+       "accepted_variants": [
+        "6x − 4",
+        "2(3x − 2)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find an equation of the line tangent to the curve y = f(x) at the point where x = 2.",
+     "criteria": [
+      {
+       "text": "Uses the slope f′(2) = 8.",
+       "evidence": "Response states that the slope of the tangent line is f′(2) = 6(2) − 4 = 8.",
+       "fix": "Substitute x = 2 into f′(x), not into f(x), to get the slope of the tangent line.",
+       "accepted_variants": [
+        "8"
+       ]
+      },
+      {
+       "text": "Writes the tangent line y − 5 = 8(x − 2), using the point (2, f(2)) = (2, 5).",
+       "evidence": "Response computes f(2) = 3(4) − 4(2) + 1 = 5 and writes an equation of the line through (2, 5) with its slope from f′(2), such as y − 5 = 8(x − 2) or y = 8x − 11.",
+       "fix": "Find the point by evaluating f(2), not f′(2), then use point-slope form y − f(a) = f′(a)(x − a).",
+       "accepted_variants": [
+        "y − 5 = 8(x − 2)",
+        "y = 8x − 11"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write the limit given for g using derivative notation, and state its value. Then find an equation of the line tangent to the curve y = g(x) at x = 3.",
+     "criteria": [
+      {
+       "text": "Identifies the limit as the derivative of g at x = 3: g′(3) = −2.",
+       "evidence": "Response writes g′(3) = −2 (or, with y = g(x), dy/dx = −2 at x = 3, or y′ = −2 at x = 3).",
+       "fix": "The limit lim h→0 [g(a + h) − g(a)] / h is g′(a); here a = 3.",
+       "accepted_variants": [
+        "g′(3) = −2",
+        "dy/dx = −2 at x = 3",
+        "y′(3) = −2"
+       ]
+      },
+      {
+       "text": "Writes the tangent line y − 4 = −2(x − 3).",
+       "evidence": "Response uses the point (3, g(3)) = (3, 4) and the slope g′(3) = −2 to write y − 4 = −2(x − 3) or y = −2x + 10.",
+       "fix": "Use the given function value for the point and the derivative value for the slope in point-slope form.",
+       "accepted_variants": [
+        "y − 4 = −2(x − 3)",
+        "y = −2x + 10"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) f′(x) = lim h→0 [f(x + h) − f(x)] / h = lim h→0 [3(x + h)² − 4(x + h) + 1 − (3x² − 4x + 1)] / h.\nThe numerator is 3x² + 6xh + 3h² − 4x − 4h + 1 − 3x² + 4x − 1 = 6xh + 3h² − 4h = h(6x + 3h − 4).\nFor h ≠ 0, the difference quotient equals 6x + 3h − 4, so f′(x) = lim h→0 (6x + 3h − 4) = 6x − 4.\n\n(b) The slope of the tangent line at x = 2 is f′(2) = 6(2) − 4 = 8, and f(2) = 3(4) − 4(2) + 1 = 5. The tangent line is y − 5 = 8(x − 2), or y = 8x − 11.\n\n(c) The limit is the derivative of g at x = 3, so g′(3) = −2 (equivalently, dy/dx = −2 at x = 3 when y = g(x)). The tangent line passes through (3, g(3)) = (3, 4) with slope −2: y − 4 = −2(x − 3), or y = −2x + 10.",
+   "verification_python": "import sympy as sp\nx, h, z = sp.symbols('x h z')\nf = lambda t: 3*t**2 - 4*t + 1\nnum = sp.expand(f(x + h) - f(x))\nassert num == sp.expand(6*x*h + 3*h**2 - 4*h)\nassert sp.expand(sp.factor(num) - h*(6*x + 3*h - 4)) == 0\nq = sp.cancel(num / h)\nassert sp.expand(q - (6*x + 3*h - 4)) == 0\nfp = sp.limit(q, h, 0)\nassert sp.expand(fp - (6*x - 4)) == 0\nassert sp.expand(sp.cancel((f(z) - f(x)) / (z - x)) - (3*z + 3*x - 4)) == 0\nassert sp.expand(2*(3*x - 2) - fp) == 0\nassert fp.subs(x, 2) == 8 and f(2) == 5\nassert 3*4 - 4*2 + 1 == 5\nassert sp.expand(5 + 8*(x - 2) - (8*x - 11)) == 0\ng3, gp3 = 4, -2\nassert sp.expand(g3 + gp3*(x - 3) - (-2*x + 10)) == 0\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_ab",
+  "topic_code": "2.5",
+  "item": {
+   "title": "Power Rule with Negative and Fractional Exponents",
+   "calculator": "not_permitted",
+   "stimulus": "Let f(x) = x⁴.\n\nLet g(x) = 1/x³ for x ≠ 0.\n\nLet h(x) = x·∛x for x > 0.",
+   "parts": [
+    {
+     "prompt": "Rewrite g(x) in the form x^r, then use the power rule to find g′(x). Find g′(2).",
+     "criteria": [
+      {
+       "text": "Rewrites g(x) = x^(−3).",
+       "evidence": "Response writes g(x) as x^(−3), that is, x raised to the power −3.",
+       "fix": "Move a power of x from the denominator to the numerator by changing the sign of its exponent: 1/xⁿ = x^(−n).",
+       "accepted_variants": [
+        "x^(−3)",
+        "x⁻³"
+       ]
+      },
+      {
+       "text": "Finds g′(x) = −3x^(−4) by the power rule.",
+       "evidence": "Response multiplies by the exponent −3 and lowers the exponent by 1 to −4, giving g′(x) = −3x^(−4), equivalently −3/x⁴.",
+       "fix": "For x^r, bring down r and subtract 1 from the exponent; with a negative r, the new exponent is more negative.",
+       "accepted_variants": [
+        "−3x^(−4)",
+        "−3x⁻⁴",
+        "−3/x⁴"
+       ]
+      },
+      {
+       "text": "Finds g′(2) = −3/16.",
+       "evidence": "Response substitutes x = 2 into its g′(x): −3/2⁴ = −3/16.",
+       "fix": "Substitute into the derivative and evaluate the negative power as a reciprocal: 2^(−4) = 1/16.",
+       "accepted_variants": [
+        "−3/16",
+        "−0.1875"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write h(x) in the form x^r, then use the power rule to find h′(x).",
+     "criteria": [
+      {
+       "text": "Rewrites h(x) = x^(4/3).",
+       "evidence": "Response writes ∛x as x^(1/3) and combines x·x^(1/3) = x^(1 + 1/3) = x^(4/3).",
+       "fix": "Write each root as a fractional power, then add the exponents when multiplying powers of x.",
+       "accepted_variants": [
+        "x^(4/3)"
+       ]
+      },
+      {
+       "text": "Finds h′(x) = (4/3)x^(1/3).",
+       "evidence": "Response applies the power rule with r = 4/3 to get (4/3)x^(1/3), equivalently (4/3)∛x.",
+       "fix": "Subtract 1 from a fractional exponent using a common denominator: 4/3 − 1 = 1/3.",
+       "accepted_variants": [
+        "(4/3)x^(1/3)",
+        "(4/3)∛x",
+        "4∛x/3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find all points on the curve y = f(x) at which the line tangent to the curve has slope −32.",
+     "criteria": [
+      {
+       "text": "Finds f′(x) = 4x³ using the power rule.",
+       "evidence": "Response states f′(x) = 4x³.",
+       "fix": "Apply the power rule to x⁴: bring down the 4 and lower the exponent to 3.",
+       "accepted_variants": [
+        "4x³"
+       ]
+      },
+      {
+       "text": "Solves 4x³ = −32 to get x = −2 and gives the point (−2, 16).",
+       "evidence": "Response sets its f′(x) equal to −32, obtains x³ = −8 so x = −2 (the only real solution), and gives the point (−2, 16) using f(−2) = (−2)⁴ = 16.",
+       "fix": "Set the derivative equal to the given slope, solve for x, then evaluate f at that x to get the point.",
+       "accepted_variants": [
+        "(−2, 16)",
+        "x = −2, y = 16"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(x) = 1/x³ = x^(−3). By the power rule, g′(x) = −3x^(−3 − 1) = −3x^(−4) = −3/x⁴. Then g′(2) = −3/2⁴ = −3/16.\n\n(b) h(x) = x·x^(1/3) = x^(1 + 1/3) = x^(4/3). By the power rule, h′(x) = (4/3)x^(4/3 − 1) = (4/3)x^(1/3) = (4/3)∛x for x > 0.\n\n(c) By the power rule, f′(x) = 4x³. Setting 4x³ = −32 gives x³ = −8, so x = −2, the only real solution. Since f(−2) = (−2)⁴ = 16, the only such point is (−2, 16).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', positive=True)\ny = sp.symbols('y', real=True)\ng = 1/x**3\nassert sp.simplify(g - x**-3) == 0\ngp = sp.diff(g, x)\nassert sp.simplify(gp - (-3*x**-4)) == 0\nassert gp.subs(x, 2) == sp.Rational(-3, 16)\nassert sp.Rational(-3, 16) == sp.Rational(-1875, 10000)\nassert sp.Integer(2)**-4 == sp.Rational(1, 16)\nh = x*sp.cbrt(x)\nassert sp.simplify(h - x**sp.Rational(4, 3)) == 0\nassert sp.Rational(4, 3) - 1 == sp.Rational(1, 3)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - sp.Rational(4, 3)*x**sp.Rational(1, 3)) == 0\nf = y**4\nfp = sp.diff(f, y)\nassert fp == 4*y**3\nsols = sp.solve(sp.Eq(fp, -32), y)\nassert sols == [-2]\nassert f.subs(y, -2) == 16\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.15",
+  "item": {
+   "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+   "parts": [
+    {
+     "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+       "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→∞ f(x) = 2.",
+       "evidence": "Response gives the value 2 for the limit as x → ∞.",
+       "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+       "accepted_variants": [
+        "2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → −∞ that uses √(x²) = −x for x < 0, giving f(x) = −√(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response uses √(x²) = |x| = −x for x < 0 when dividing by x (or explains that for large negative x, √(16x² + 9) behaves like 4|x| = −4x while 2x + 5 behaves like 2x), so that a negative sign appears.",
+       "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→−∞ f(x) = −2.",
+       "evidence": "Response gives the value −2 for the limit as x → −∞.",
+       "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+       "accepted_variants": [
+        "−2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+     "criteria": [
+      {
+       "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+       "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞).",
+       "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+       "accepted_variants": [
+        "y = 2 and y = −2",
+        "y = ±2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+     "criteria": [
+      {
+       "text": "Shows valid work, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or noting that the denominator has the higher degree.",
+       "evidence": "Response divides by n³, the highest power in the denominator, or compares the degrees (3 for b(n) and 2 for a(n)) to support the value of the limit.",
+       "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim n→∞ a(n)/b(n) = 0.",
+       "evidence": "Response gives the value 0.",
+       "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+       "accepted_variants": [
+        "0"
+       ]
+      },
+      {
+       "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+       "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+       "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.1",
+  "item": {
+   "title": "A Drone's Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+   "parts": [
+    {
+     "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+     "criteria": [
+      {
+       "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+       "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+       "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows the average velocity on [3, 3.01]: [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01 = −13.0099 ft/s.",
+       "evidence": "Response shows A(3.01) = 196.869901 and A(3) = 197, divides their difference by a change in time of 0.01, and obtains −13.0099.",
+       "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+       "accepted_variants": [
+        "−13.0099"
+       ]
+      },
+      {
+       "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+       "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3.",
+       "fix": "State one value with units, read from where the averages on both sides are heading.",
+       "accepted_variants": [
+        "−13 ft/s",
+        "−13 feet per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+       "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+       "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+       "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second.",
+       "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+       "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+       "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+   "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.5",
+  "item": {
+   "title": "Limits from Limit Properties and One-Sided Limits",
+   "calculator": "not_permitted",
+   "stimulus": "Functions f and g satisfy lim x→2 f(x) = 3 and lim x→2 g(x) = −1. Nothing else is known about f and g, including their values at x = 2.\n\nLet m be the function defined by\nm(x) = x³ − 2x for x < 2\nm(x) = (x + 6)/(x − 1) for x ≥ 2.",
+   "parts": [
+    {
+     "prompt": "Find lim x→2 [g(x)·√(f(x) + 13)]. Show how you use properties of limits.",
+     "criteria": [
+      {
+       "text": "Applies the product and root (composite) properties: the limit equals [lim x→2 g(x)]·√(lim x→2 f(x) + 13) = (−1)·√(3 + 13).",
+       "evidence": "Response writes the limit of the product as the product of the limits and moves the limit inside the square root, substituting the given values −1 and 3.",
+       "fix": "Split the limit with the product property, move the limit inside the square root, then substitute the given limit values.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Evaluates the limit as (−1)·√16 = −4.",
+       "evidence": "Response evaluates (−1)·√16 = −4.",
+       "fix": "Evaluate carefully: √16 = 4, then multiply by the limit of g, which is −1.",
+       "accepted_variants": [
+        "−4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→2 [f(x)² − 1] / [g(x) + 3]. Explain why the quotient property of limits can be used.",
+     "criteria": [
+      {
+       "text": "States that the denominator's limit is lim x→2 [g(x) + 3] = −1 + 3 = 2, which is not 0, so the quotient property applies.",
+       "evidence": "Response computes the limit of the denominator as 2 and notes that it is nonzero, the condition for the limit of a quotient to equal the quotient of the limits.",
+       "fix": "Before using the quotient property, compute the denominator's limit and confirm it is not 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Evaluates the limit as (3² − 1)/2 = 8/2 = 4.",
+       "evidence": "Response computes the numerator's limit as 3² − 1 = 8 and divides by 2 to get 4.",
+       "fix": "Use the power property for f(x)²: square the limit of f, then subtract 1 before dividing.",
+       "accepted_variants": [
+        "4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→2⁻ m(x) and lim x→2⁺ m(x). Then state whether lim x→2 m(x) exists, and explain why.",
+     "criteria": [
+      {
+       "text": "Finds lim x→2⁻ m(x) = 2³ − 2(2) = 4 using the piece for x < 2.",
+       "evidence": "Response uses x³ − 2x as x approaches 2 from the left and obtains 4.",
+       "fix": "For a left-hand limit at a break point, use only the piece defined for x less than that point.",
+       "accepted_variants": [
+        "4"
+       ]
+      },
+      {
+       "text": "Finds lim x→2⁺ m(x) = (2 + 6)/(2 − 1) = 8 using the piece for x ≥ 2.",
+       "evidence": "Response uses (x + 6)/(x − 1) as x approaches 2 from the right and obtains 8.",
+       "fix": "For a right-hand limit, use the piece for x greater than the break point; its denominator approaches 1, not 0.",
+       "accepted_variants": [
+        "8"
+       ]
+      },
+      {
+       "text": "Concludes lim x→2 m(x) does not exist because the one-sided limits 4 and 8 are not equal.",
+       "evidence": "Response states that the two-sided limit does not exist and cites the unequal one-sided limits.",
+       "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare your two values.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By the product property and the root (composite) property of limits,\nlim x→2 [g(x)·√(f(x) + 13)] = [lim x→2 g(x)]·√(lim x→2 f(x) + 13) = (−1)·√(3 + 13) = (−1)·√16 = −4.\n\n(b) The limit of the denominator is lim x→2 [g(x) + 3] = −1 + 3 = 2, which is not 0, so the limit of the quotient equals the quotient of the limits. The limit of the numerator is [lim x→2 f(x)]² − 1 = 3² − 1 = 8. So lim x→2 [f(x)² − 1] / [g(x) + 3] = 8/2 = 4.\n\n(c) For x < 2, m(x) = x³ − 2x, so lim x→2⁻ m(x) = 2³ − 2(2) = 8 − 4 = 4.\nFor x > 2, m(x) = (x + 6)/(x − 1), and the denominator approaches 1, so lim x→2⁺ m(x) = (2 + 6)/(2 − 1) = 8.\nSince the left-hand limit 4 and the right-hand limit 8 are not equal, lim x→2 m(x) does not exist.",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nLf, Lg = 3, -1\nassert Lg*sp.sqrt(Lf + 13) == -4 and sp.sqrt(16) == 4\nden = Lg + 3\nassert den == 2 and den != 0\nassert Lf**2 - 1 == 8\nassert sp.Rational(Lf**2 - 1, den) == 4\n# concrete check with sample functions having these limits\nF = 3 + (x - 2)\nG = -1 + (x - 2)**2\nassert sp.limit(G*sp.sqrt(F + 13), x, 2) == -4\nassert sp.limit((F**2 - 1)/(G + 3), x, 2) == 4\nleft = sp.limit(x**3 - 2*x, x, 2, '-')\nright = sp.limit((x + 6)/(x - 1), x, 2, '+')\nassert left == 4 and right == 8 and left != right\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.9",
+  "item": {
+   "title": "Connecting a Table, a Formula and a Verbal Description of Limits",
+   "calculator": "not_permitted",
+   "stimulus": "Let g(x) = (√(x + 1) − 2)/(x − 3) for x ≥ −1, x ≠ 3. Selected values of g, rounded to five decimal places, are given in the table.\n\nx | 2.9 | 2.99 | 2.999 | 3.001 | 3.01 | 3.1\ng(x) | 0.25158 | 0.25016 | 0.25002 | 0.24998 | 0.24984 | 0.24846\n\nA function p is described in words. As x increases toward 1, the points (x, p(x)) on the curve y = p(x) get arbitrarily close to (1, 5). As x decreases toward 1, the points (x, p(x)) get arbitrarily close to (1, −2). The point (1, −2) is on the curve, so p(1) = −2.",
+   "parts": [
+    {
+     "prompt": "Use the table to estimate lim x→3 g(x). Explain how the table supports your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates lim x→3 g(x) as 0.25.",
+       "evidence": "Response states a single estimate of 0.25 (or 1/4) for the limit.",
+       "fix": "Read the values on both sides of x = 3 and state the single number they are approaching.",
+       "accepted_variants": [
+        "0.25",
+        "1/4"
+       ]
+      },
+      {
+       "text": "Explains that as x approaches 3 from the left and from the right, the values of g(x) get closer to 0.25.",
+       "evidence": "Response refers to values on both sides of 3, for example 0.25002 at x = 2.999 and 0.24998 at x = 3.001, closing in on 0.25.",
+       "fix": "Cite the table values closest to 3 on each side and say they approach the same number.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use algebra to find the exact value of lim x→3 g(x). Show your work.",
+     "criteria": [
+      {
+       "text": "Rewrites g(x), for x ≠ 3, in a form that can be evaluated at x = 3, such as 1/(√(x + 1) + 2).",
+       "evidence": "Response uses any valid algebra to remove the factor that produces 0/0, for example multiplying by the conjugate √(x + 1) + 2, or factoring x − 3 = (√(x + 1) − 2)(√(x + 1) + 2), and reaches 1/(√(x + 1) + 2) or an equivalent expression.",
+       "fix": "When substitution gives 0/0 with a square root, create a factor of x − 3, for example with the conjugate, and cancel it.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Finds lim x→3 g(x) = 1/4.",
+       "evidence": "Response substitutes x = 3 into the simplified expression: 1/(√4 + 2) = 1/4.",
+       "fix": "After cancelling, substitute x = 3 into the simplified expression and compare the result with the table estimate.",
+       "accepted_variants": [
+        "1/4",
+        "0.25"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write the information in the description of p as two one-sided limit statements. Then state whether lim x→1 p(x) exists, and explain why.",
+     "criteria": [
+      {
+       "text": "Writes lim x→1⁻ p(x) = 5.",
+       "evidence": "Response translates 'as x increases toward 1, the points approach (1, 5)' into the left-hand limit statement lim x→1⁻ p(x) = 5.",
+       "fix": "x increasing toward 1 means x approaches 1 from the left, written x→1⁻; the limit is the y-coordinate approached.",
+       "accepted_variants": [
+        "lim x→1⁻ p(x) = 5"
+       ]
+      },
+      {
+       "text": "Writes lim x→1⁺ p(x) = −2.",
+       "evidence": "Response translates 'as x decreases toward 1, the points approach (1, −2)' into the right-hand limit statement lim x→1⁺ p(x) = −2.",
+       "fix": "x decreasing toward 1 means x approaches 1 from the right, written x→1⁺.",
+       "accepted_variants": [
+        "lim x→1⁺ p(x) = −2"
+       ]
+      },
+      {
+       "text": "States that lim x→1 p(x) does not exist because the left-hand limit 5 and the right-hand limit −2 are not equal.",
+       "evidence": "Response says the two-sided limit does not exist and cites the unequal one-sided limits; the value p(1) = −2 does not change this.",
+       "fix": "Compare the one-sided limits; if they differ, the two-sided limit does not exist, whatever the function value is.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) lim x→3 g(x) ≈ 0.25. As x approaches 3 from the left (2.9, 2.99, 2.999), g(x) takes the values 0.25158, 0.25016, 0.25002, and as x approaches 3 from the right (3.1, 3.01, 3.001), g(x) takes the values 0.24846, 0.24984, 0.24998. From both sides the values close in on 0.25.\n\n(b) Direct substitution gives 0/0. For x ≠ 3, multiply the numerator and denominator by the conjugate:\ng(x) = (√(x + 1) − 2)(√(x + 1) + 2) / [(x − 3)(√(x + 1) + 2)] = (x + 1 − 4) / [(x − 3)(√(x + 1) + 2)] = (x − 3) / [(x − 3)(√(x + 1) + 2)] = 1/(√(x + 1) + 2).\nSo lim x→3 g(x) = 1/(√4 + 2) = 1/(2 + 2) = 1/4 = 0.25, which agrees with the estimate from part (a).\n\n(c) lim x→1⁻ p(x) = 5 and lim x→1⁺ p(x) = −2. The two-sided limit lim x→1 p(x) does not exist, because the left-hand limit 5 and the right-hand limit −2 are not equal. The fact that p(1) = −2 does not change this.",
+   "verification_python": "import math\nimport sympy as sp\nx = sp.symbols('x', real=True)\ng = (sp.sqrt(x + 1) - 2)/(x - 3)\nassert sp.simplify(g - 1/(sp.sqrt(x + 1) + 2)) == 0\nassert sp.limit(g, x, 3) == sp.Rational(1, 4)\nassert 1/(sp.sqrt(4) + 2) == sp.Rational(1, 4)\ntable = {2.9: 0.25158, 2.99: 0.25016, 2.999: 0.25002, 3.001: 0.24998, 3.01: 0.24984, 3.1: 0.24846}\nfor xv, gv in table.items():\n    val = (math.sqrt(xv + 1) - 2)/(xv - 3)\n    assert abs(round(val, 5) - gv) < 1e-9, (xv, val)\nassert sp.expand((sp.sqrt(x + 1) - 2)*(sp.sqrt(x + 1) + 2)) == x - 3\nleft_p, right_p, p1 = 5, -2, -2\nassert left_p != right_p\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "2.10",
+  "item": {
+   "title": "Derivatives Involving Cotangent, Tangent and Cosecant",
+   "calculator": "not_permitted",
+   "stimulus": "Let f(x) = x²·tan x for −π/2 < x < π/2.\n\nLet k(x) = csc x for 0 < x < π.",
+   "parts": [
+    {
+     "prompt": "Write cot x as cos x / sin x and use the quotient rule to show that the derivative of cot x is −csc² x.",
+     "criteria": [
+      {
+       "text": "Applies the quotient rule: d/dx (cos x / sin x) = [sin x·(−sin x) − cos x·cos x] / sin² x.",
+       "evidence": "Response writes the quotient-rule numerator as (denominator)(derivative of numerator) minus (numerator)(derivative of denominator), using d/dx cos x = −sin x and d/dx sin x = cos x, all over sin² x.",
+       "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom² before substituting the sine and cosine derivatives.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Simplifies using sin² x + cos² x = 1 to get −1/sin² x = −csc² x.",
+       "evidence": "Response rewrites −sin² x − cos² x as −(sin² x + cos² x) = −1, then writes −1/sin² x as −csc² x.",
+       "fix": "Factor out −1 to expose sin² x + cos² x, replace it with 1, then use 1/sin x = csc x.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find f′(x). Then find the exact value of f′(π/4).",
+     "criteria": [
+      {
+       "text": "Finds f′(x) = 2x·tan x + x²·sec² x.",
+       "evidence": "Response gives a correct derivative by any valid method, for example the product rule with d/dx tan x = sec² x, or the quotient rule applied to x² sin x / cos x, which gives the equivalent (2x sin x cos x + x²)/cos² x.",
+       "fix": "Use the product rule, (first)′(second) + (first)(second)′, together with d/dx tan x = sec² x.",
+       "accepted_variants": [
+        "2x tan x + x² sec² x",
+        "(2x sin x cos x + x²)/cos² x"
+       ]
+      },
+      {
+       "text": "Finds f′(π/4) = π/2 + π²/8.",
+       "evidence": "Response uses tan(π/4) = 1 and sec²(π/4) = 2 (or sin(π/4) = cos(π/4) = √2/2) to get 2(π/4)(1) + (π²/16)(2) = π/2 + π²/8.",
+       "fix": "Substitute exact values: tan(π/4) = 1 and sec(π/4) = √2, so sec²(π/4) = 2.",
+       "accepted_variants": [
+        "π/2 + π²/8",
+        "(4π + π²)/8",
+        "π(4 + π)/8"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find an equation of the line tangent to the curve y = k(x) at x = π/6.",
+     "criteria": [
+      {
+       "text": "Finds the slope k′(π/6) = −2√3.",
+       "evidence": "Response uses a correct derivative, such as k′(x) = −csc x·cot x or, from the quotient rule on 1/sin x, k′(x) = −cos x / sin² x, and evaluates it at π/6 to get −2√3.",
+       "fix": "Use d/dx csc x = −csc x cot x, with csc(π/6) = 2 and cot(π/6) = √3.",
+       "accepted_variants": [
+        "−2√3"
+       ]
+      },
+      {
+       "text": "Writes y − 2 = −2√3(x − π/6).",
+       "evidence": "Response uses the point (π/6, csc(π/6)) = (π/6, 2) and the slope −2√3 to write an equation of the tangent line.",
+       "fix": "Use point-slope form with the point (π/6, k(π/6)), where k(π/6) = 1/sin(π/6) = 2.",
+       "accepted_variants": [
+        "y − 2 = −2√3(x − π/6)",
+        "y = −2√3x + π√3/3 + 2"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) cot x = cos x / sin x. By the quotient rule,\nd/dx (cos x / sin x) = [sin x·(−sin x) − cos x·cos x] / sin² x = −(sin² x + cos² x) / sin² x = −1/sin² x = −csc² x.\n\n(b) By the product rule, f′(x) = 2x·tan x + x²·sec² x.\nAt x = π/4, tan(π/4) = 1 and sec(π/4) = √2, so sec²(π/4) = 2. Then f′(π/4) = 2(π/4)(1) + (π/4)²(2) = π/2 + π²/8.\n\n(c) k′(x) = −csc x·cot x. At x = π/6, csc(π/6) = 1/sin(π/6) = 2 and cot(π/6) = cos(π/6)/sin(π/6) = √3, so k′(π/6) = −2√3. The point is (π/6, k(π/6)) = (π/6, 2). The tangent line is y − 2 = −2√3(x − π/6).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x')\nd = sp.diff(sp.cos(x)/sp.sin(x), x)\nassert sp.simplify(d - (sp.sin(x)*(-sp.sin(x)) - sp.cos(x)*sp.cos(x))/sp.sin(x)**2) == 0\nassert sp.simplify(d + 1/sp.sin(x)**2) == 0\nassert sp.simplify(d + sp.csc(x)**2) == 0\nf = x**2*sp.tan(x)\nfp = sp.diff(f, x)\nassert sp.simplify(fp - (2*x*sp.tan(x) + x**2*sp.sec(x)**2)) == 0\nassert sp.simplify(fp - (2*x*sp.sin(x)*sp.cos(x) + x**2)/sp.cos(x)**2) == 0\nassert sp.tan(sp.pi/4) == 1 and sp.simplify(sp.sec(sp.pi/4)**2) == 2\nval = sp.simplify(fp.subs(x, sp.pi/4))\nassert sp.simplify(val - (sp.pi/2 + sp.pi**2/8)) == 0\nassert sp.simplify(val - (4*sp.pi + sp.pi**2)/8) == 0\nk = sp.csc(x)\nkp = sp.diff(k, x)\nassert sp.simplify(kp + sp.csc(x)*sp.cot(x)) == 0\nassert sp.simplify(kp + sp.cos(x)/sp.sin(x)**2) == 0\nassert sp.csc(sp.pi/6) == 2 and sp.cot(sp.pi/6) == sp.sqrt(3)\nslope = sp.simplify(kp.subs(x, sp.pi/6))\nassert sp.simplify(slope + 2*sp.sqrt(3)) == 0\nline = 2 + slope*(x - sp.pi/6)\nassert sp.simplify(line - (-2*sp.sqrt(3)*x + sp.pi*sp.sqrt(3)/3 + 2)) == 0\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "2.1",
+  "item": {
+   "title": "Average and Instantaneous Rates of Change of Reservoir Volume",
+   "calculator": "not_permitted",
+   "stimulus": "During a dry season, the volume of water in a reservoir, in millions of cubic meters, is given by a differentiable function V(t), where t is the number of weeks since the season began. Selected values of V(t) are given in the table.\n\nt (weeks) | 0 | 2 | 5 | 9 | 12\nV(t) (millions of cubic meters) | 84 | 80 | 71 | 56 | 50\n\nThe volume of water in a second reservoir, in millions of cubic meters, is R(t) = 120 − 2t − t² for 0 ≤ t ≤ 8, where t is measured in weeks.",
+   "parts": [
+    {
+     "prompt": "Find the average rate of change of V(t) over the interval [2, 9]. Show the difference quotient you use and include units.",
+     "criteria": [
+      {
+       "text": "Sets up the difference quotient [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7.",
+       "evidence": "Response writes the change in V over the change in t using V(9) = 56, V(2) = 80 and a time change of 7 weeks.",
+       "fix": "Write V(b) − V(a) over b − a, taking the endpoints in the same order on top and bottom.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Gives the value −24/7 millions of cubic meters per week.",
+       "evidence": "Response states −24/7 (equivalently −3 3/7) with units of millions of cubic meters per week.",
+       "fix": "Keep the negative sign, which shows the volume decreased, and attach the units of V over the units of t.",
+       "accepted_variants": [
+        "−24/7",
+        "−3 3/7"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write a limit expression, in terms of V, that represents the instantaneous rate of change of the volume at t = 5 weeks. Then explain why the table alone cannot give the exact value of this limit.",
+     "criteria": [
+      {
+       "text": "Writes lim h→0 [V(5 + h) − V(5)] / h, or lim t→5 [V(t) − V(5)] / (t − 5).",
+       "evidence": "Response gives a limit of a difference quotient at t = 5 with h approaching 0 (or t approaching 5).",
+       "fix": "Write the average rate over [5, 5 + h], then place it inside a limit as h approaches 0.",
+       "accepted_variants": [
+        "lim h→0 (V(5 + h) − V(5))/h",
+        "lim t→5 (V(t) − V(5))/(t − 5)"
+       ]
+      },
+      {
+       "text": "Explains that near t = 5 the table gives V only at t = 2 and t = 9, so the interval around t = 5 cannot be made arbitrarily small.",
+       "evidence": "Response states that the limit needs values of V at times arbitrarily close to 5, which the table does not provide.",
+       "fix": "Ask which values of V the limit needs as h shrinks, and check whether the table supplies them.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the limit of a difference quotient to find the instantaneous rate of change of R at t = 3, showing the algebra. Interpret your answer in context.",
+     "criteria": [
+      {
+       "text": "Simplifies the difference quotient for h ≠ 0: [R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h.",
+       "evidence": "Response substitutes R(3 + h) and R(3) = 105, simplifies the numerator to −8h − h² and cancels h to obtain −8 − h. Equivalently, [R(t) − R(3)] / (t − 3) = −(t + 5) for t ≠ 3.",
+       "fix": "Expand R(3 + h) completely, subtract R(3) = 105, and cancel the common factor h before taking the limit.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Evaluates the limit as −8.",
+       "evidence": "Response lets h → 0 (or t → 3) in the simplified expression and obtains −8.",
+       "fix": "Only after cancelling h, substitute h = 0 into the simplified expression.",
+       "accepted_variants": [
+        "−8"
+       ]
+      },
+      {
+       "text": "Interprets: at t = 3 weeks, the second reservoir's volume is decreasing at 8 million cubic meters per week.",
+       "evidence": "Response states the rate with units of millions of cubic meters per week and says the volume is decreasing at the instant t = 3.",
+       "fix": "Say what quantity is changing, at which time, in which direction, and with which units.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) [V(9) − V(2)] / (9 − 2) = (56 − 80) / 7 = −24/7 millions of cubic meters per week. On average, the volume decreased by 24/7 million cubic meters per week over [2, 9].\n\n(b) The instantaneous rate of change at t = 5 is lim h→0 [V(5 + h) − V(5)] / h. Near t = 5 the table gives V only at t = 2 and t = 9, so we cannot compute average rates over intervals that shrink to t = 5; the table can only approximate this limit, not give its exact value.\n\n(c) R(3) = 120 − 6 − 9 = 105, and R(3 + h) = 120 − 2(3 + h) − (3 + h)² = 120 − 6 − 2h − 9 − 6h − h² = 105 − 8h − h².\n[R(3 + h) − R(3)] / h = (−8h − h²) / h = −8 − h for h ≠ 0, so lim h→0 [R(3 + h) − R(3)] / h = lim h→0 (−8 − h) = −8.\nAt t = 3 weeks, the volume of water in the second reservoir is decreasing at 8 million cubic meters per week.",
+   "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nV = {0: 84, 2: 80, 5: 71, 9: 56, 12: 50}\nr = lambda a, b: F(V[b] - V[a], b - a)\nassert V[9] - V[2] == -24 and 9 - 2 == 7\nassert r(2, 9) == F(-24, 7) and F(-24, 7) == -(3 + F(3, 7))\nh, t = sp.symbols('h t')\nR = lambda s: 120 - 2*s - s**2\nassert R(3) == 105\nassert sp.expand(R(3 + h) - (105 - 8*h - h**2)) == 0\nassert sp.expand(R(3 + h) - R(3)) == -8*h - h**2\nassert sp.cancel((R(3 + h) - R(3))/h) == -h - 8\nassert sp.limit((R(3 + h) - R(3))/h, h, 0) == -8\nassert sp.cancel((R(t) - R(3))/(t - 3)) == -t - 5\nassert R(8) == 40 and R(0) == 120\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "3.5",
+  "item": {
+   "title": "Selecting Derivative Rules for Product, Implicit and Inverse Tangent Functions",
+   "calculator": "not_permitted",
+   "stimulus": "Each part below calls for choosing an appropriate combination of differentiation rules.\n\nLet f(x) = x²·e^(3x).\n\nA curve is defined by the equation x² + xy + y² = 7. The point (1, 2) is on the curve.\n\nLet h(x) = arctan(x²).",
+   "parts": [
+    {
+     "prompt": "Find f′(x). Then find f′(1).",
+     "criteria": [
+      {
+       "text": "Finds f′(x) = 2x·e^(3x) + 3x²·e^(3x).",
+       "evidence": "Response gives a correct expression for f′(x) by any valid method; the product rule with the chain rule on e^(3x) is typical. Equivalent forms such as x·e^(3x)(2 + 3x) earn the point.",
+       "fix": "Use the product rule, and differentiate e^(3x) with the chain rule: its derivative is 3e^(3x), not e^(3x).",
+       "accepted_variants": [
+        "e^(3x)(2x + 3x²)",
+        "x·e^(3x)(3x + 2)"
+       ]
+      },
+      {
+       "text": "Finds f′(1) = 5e³.",
+       "evidence": "Response substitutes x = 1 into f′(x): 2e³ + 3e³ = 5e³.",
+       "fix": "Substitute x = 1 into every term of f′(x), then combine the like terms in e³.",
+       "accepted_variants": [
+        "5e³",
+        "5e^3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use implicit differentiation to find the slope of the curve at the point (1, 2).",
+     "criteria": [
+      {
+       "text": "Differentiates the whole equation implicitly: 2x + y + x·(dy/dx) + 2y·(dy/dx) = 0.",
+       "evidence": "Response differentiates each term with respect to x, using the product rule on xy and the chain rule on y², and keeps 0 on the right side.",
+       "fix": "Differentiate xy with the product rule and y² as 2y·dy/dx, and remember the derivative of the constant 7 is 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Finds dy/dx = −4/5 at the point (1, 2).",
+       "evidence": "Response substitutes x = 1 and y = 2, either before or after solving for dy/dx = −(2x + y)/(x + 2y), and obtains −4/5.",
+       "fix": "Substitute x = 1 and y = 2, then solve the resulting linear equation 4 + 5·(dy/dx) = 0 for dy/dx.",
+       "accepted_variants": [
+        "−4/5",
+        "−0.8"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find h′(x). Then find h′(1).",
+     "criteria": [
+      {
+       "text": "Finds h′(x) = 2x / (1 + x⁴).",
+       "evidence": "Response gives a correct expression for h′(x), such as [1/(1 + (x²)²)]·2x, from the derivative of arctan u together with the chain-rule factor 2x.",
+       "fix": "Use d/dx arctan u = u′/(1 + u²) with u = x², so u² = x⁴ and u′ = 2x.",
+       "accepted_variants": [
+        "2x/(1 + x⁴)"
+       ]
+      },
+      {
+       "text": "Finds h′(1) = 1.",
+       "evidence": "Response substitutes x = 1 into h′(x): 2(1)/(1 + 1⁴) = 2/2 = 1.",
+       "fix": "Substitute x = 1 into h′(x): the numerator is 2 and the denominator is 1 + 1⁴ = 2.",
+       "accepted_variants": [
+        "1"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By the product rule, with the chain rule for e^(3x),\nf′(x) = 2x·e^(3x) + x²·3e^(3x) = 2x·e^(3x) + 3x²·e^(3x).\nf′(1) = 2e³ + 3e³ = 5e³.\n\n(b) Differentiating x² + xy + y² = 7 with respect to x:\n2x + (y + x·dy/dx) + 2y·dy/dx = 0.\nAt (1, 2): 2 + 2 + 1·dy/dx + 4·dy/dx = 0, so 5·dy/dx = −4 and dy/dx = −4/5. The slope of the curve at (1, 2) is −4/5.\n\n(c) Using d/dx arctan u = u′/(1 + u²) with u = x²,\nh′(x) = 2x / (1 + (x²)²) = 2x / (1 + x⁴).\nh′(1) = 2/(1 + 1) = 1.",
+   "verification_python": "import sympy as sp\nx, y = sp.symbols('x y')\nf = x**2*sp.exp(3*x)\nfp = sp.diff(f, x)\nassert sp.simplify(fp - (2*x*sp.exp(3*x) + 3*x**2*sp.exp(3*x))) == 0\nassert sp.simplify(fp - x*sp.exp(3*x)*(3*x + 2)) == 0\nassert sp.simplify(fp.subs(x, 1) - 5*sp.exp(3)) == 0\nassert 1**2 + 1*2 + 2**2 == 7\nF = x**2 + x*y + y**2 - 7\ndydx = -sp.diff(F, x)/sp.diff(F, y)\nassert sp.simplify(dydx + (2*x + y)/(x + 2*y)) == 0\nassert dydx.subs({x: 1, y: 2}) == sp.Rational(-4, 5)\nassert sp.Rational(-4, 5) == sp.Rational(-8, 10)\nh = sp.atan(x**2)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - 2*x/(1 + x**4)) == 0\nassert hp.subs(x, 1) == 1\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+]

@@ -1,0 +1,1001 @@
+{
+ "id": "ap_biology__2.5__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 2,
+  "unit_title": "Cells",
+  "topic_code": "2.5",
+  "topic_title": "Membrane Transport",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:41.589Z",
+   "source": "given",
+   "item": {
+    "title": "Passive, Active, and Bulk Transport in an Amoeba",
+    "calculator": "not_applicable",
+    "stimulus": "A freshwater amoeba is a single-celled eukaryote. Researchers measured the concentrations of two small solutes, G and K, inside the amoeba and in the surrounding water. Both solutes show net movement into the cell.\n\nTable 1\nSolute | Concentration inside cell (mM) | Concentration in surrounding water (mM) | Direction of net movement\nG | 0.8 | 6.0 | into cell\nK | 25.0 | 1.5 | into cell\n\nThe researchers also added tiny plastic beads to the water. Each bead is far too large to pass through the plasma membrane. After 20 minutes, beads were found inside small membrane-bound vesicles in the amoeba's cytoplasm. The researchers then repeated the measurements on amoebas treated with a chemical that blocks the cell's supply of metabolic energy.\n\nTable 2\nMeasurement | Untreated amoebas | Energy-blocked amoebas\nUptake rate of G (relative units) | 100 | 98\nUptake rate of K (relative units) | 100 | 3\nBeads taken in per cell in 20 minutes | 40 | 0",
+    "parts": [
+     {
+      "prompt": "Using Table 1, explain why solute K must be moved into the cell by active transport.",
+      "criteria": [
+       {
+        "text": "Explains that K moves from a lower concentration outside (1.5 mM) to a higher concentration inside (25.0 mM), against its concentration gradient, and moving a substance from low to high concentration requires the direct input of energy (active transport).",
+        "evidence": "Response cites K's concentrations (or states K moves from low to high concentration) and states that this movement requires an input of energy.",
+        "fix": "Compare outside and inside concentrations; net movement from low to high concentration cannot be passive and requires energy input.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using Table 2, describe the evidence that solute G enters the cell by passive transport.",
+      "criteria": [
+       {
+        "text": "Describes that G's uptake rate is almost unchanged when the energy supply is blocked (100 versus 98), showing that G's net movement into the cell, from 6.0 mM outside to 0.8 mM inside, does not require a direct input of metabolic energy.",
+        "evidence": "Response cites G's nearly unchanged uptake rate under the energy block (100 versus 98) as evidence that no direct energy input is needed.",
+        "fix": "Compare each solute's rate with and without energy; a rate that barely changes shows the movement does not depend on metabolic energy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the plasma membrane brings the beads into the cell.",
+      "criteria": [
+       {
+        "text": "Describes endocytosis: the plasma membrane folds inward around the beads and pinches off, forming a new small vesicle that encloses them inside the cell.",
+        "evidence": "Response describes the membrane folding in (or surrounding the beads) and forming a vesicle containing the beads; naming endocytosis or phagocytosis without describing the membrane movement is not enough.",
+        "fix": "Describe the membrane's movement step by step: it folds in around the material, then closes off as a vesicle inside the cell.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Inside the amoeba, undigested material is enclosed in vesicles that normally fuse with the plasma membrane to release the material outside the cell. Predict the effect of the energy-blocking chemical on the release of this material, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that release of the undigested material will stop or greatly decrease in energy-blocked amoebas.",
+        "evidence": "Response states that the energy-blocked amoebas will release little or none of the material.",
+        "fix": "State the direction of the change clearly: release stops, decreases, or stays the same.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Justifies that release by vesicle fusion is exocytosis, which requires energy (consistent with bead uptake by endocytosis falling from 40 to 0 when energy was blocked).",
+        "evidence": "Response identifies the release as exocytosis (vesicle fusing with the membrane) and states that this process requires energy, optionally citing the bead data.",
+        "fix": "Remember both endocytosis and exocytosis move large amounts of material in vesicles and both require an input of energy.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Solute K is 1.5 mM in the surrounding water but 25.0 mM inside the cell, yet its net movement is into the cell. K is therefore moving from a region of low concentration to a region of high concentration, against its concentration gradient. Passive transport only produces net movement from high to low concentration, so moving K inward requires the direct input of energy: active transport.\n\n(b) When the cell's supply of metabolic energy is blocked, the uptake rate of G stays almost the same (98 compared with 100), while the uptake of K drops to 3. G's movement into the cell therefore does not depend on a direct input of metabolic energy. This fits passive transport: G moves from high concentration outside (6.0 mM) to low concentration inside (0.8 mM).\n\n(c) The beads enter by endocytosis. The plasma membrane folds inward around the beads, and the folded region closes and pinches off as a new small vesicle that contains the beads inside the cell.\n\n(d) Release of the undigested material will stop (or nearly stop) in the energy-blocked amoebas. The material is released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. The bead data show the same dependence for vesicle transport in the other direction: endocytosis fell from 40 beads to 0 when energy was blocked.",
+    "verification_python": "G_in,G_out=0.8,6.0\nK_in,K_out=25.0,1.5\nassert G_out>G_in\nassert K_in>K_out\nassert 100-98==2\nassert 100-3==97\nbeads=(40,0)\nassert beads[1]==0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.8": 5,
+     "2.5": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "2.5",
+     "required_units": [
+      2
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "CED 2.5.A.1-3 (passive vs active by concentration gradient) and 2.5.B (endocytosis/exocytosis) are exactly what the item tests; 2.8 is membrane proteins, ATP and the Na+/K+ pump, none of which appear. Vote misled by \"energy-blocking chemical\"."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) has a qualification: concentration data alone do not establish that an unspecified solute must undergo active transport. If K is an ion, an electrical gradient could drive passive inward movement despite the opposing concentration gradient. The intended answer assumes that K is uncharged or that the electrical gradient is insufficient to drive inward transport. Table 2 strongly supports energy-dependent uptake of K, but Table 1 alone lacks information about charge and membrane potential.",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:27:10.022Z",
+   "item": {
+    "title": "Solute Uptake by Algal Cells With and Without an Energy Blocker",
+    "calculator": "not_permitted",
+    "stimulus": "Students studied how cells of a freshwater alga take up a dissolved solute, X. Two groups of algal cells were placed in identical solutions containing X at a concentration of 2.0 mM. The volume of solution was very large, so the external concentration of X stayed at 2.0 mM throughout the experiment. One group (control) received no treatment. The other group was first treated with a compound that blocks the cells' production of ATP and was otherwise handled identically. The students measured the concentration of X inside the cells at several times.\n\nTime (min) | Internal [X], control (mM) | Internal [X], ATP-blocked (mM)\n0 | 0.5 | 0.5\n10 | 6.5 | 1.4\n20 | 12.5 | 1.9\n30 | 18.5 | 2.0\n40 | 24.5 | 2.0",
+    "model_answer": "(a) Rate = (18.5 mM − 6.5 mM) ÷ (30 min − 10 min) = 12 mM ÷ 20 min = 0.6 mM/min.\n\n(b) The control cells use active transport. After 10 minutes the internal concentration of X (6.5 mM, rising to 24.5 mM) is higher than the external concentration of 2.0 mM, yet X keeps entering, so it is moving from a region of low concentration to a region of high concentration, against its gradient. The ATP-blocked cells show this requires energy: when ATP production is blocked, the internal concentration levels off at 2.0 mM and never exceeds the outside concentration. Therefore the accumulation in the control cells depends on a direct input of metabolic energy.\n\n(c) Without ATP, X can only move by passive transport. At the start the concentration outside (2.0 mM) is higher than inside (0.5 mM), so there is net movement of X into the cells down its concentration gradient without energy input. Once the internal concentration reaches 2.0 mM, the concentrations are equal, there is no gradient, and there is no further net movement, so the value stays constant.\n\n(d) Blocking ATP production would decrease or stop the uptake of the protein particles. Taking in large particles by folding the membrane inward to form vesicles is endocytosis, which requires energy. Without ATP the cell cannot supply that energy, so fewer particles would be engulfed.",
+    "verification_python": "from fractions import Fraction as F\nctrl={0:F('0.5'),10:F('6.5'),20:F('12.5'),30:F('18.5'),40:F('24.5')}\nblk={0:F('0.5'),10:F('1.4'),20:F('1.9'),30:F('2.0'),40:F('2.0')}\next=F('2.0')\nrate=(ctrl[30]-ctrl[10])/(30-10)\nassert ctrl[30]-ctrl[10]==12\nassert rate==F('0.6')\nassert all(ctrl[t]>ext for t in (10,20,30,40))\nassert max(blk.values())==ext\nassert blk[30]==blk[40]==ext\nassert blk[0]<ext\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the average rate of increase in internal concentration of X in the control cells between 10 min and 30 min. Show your work and include units.",
+      "criteria": [
+       {
+        "text": "Rate = 0.6 mM/min, from (18.5 − 6.5) mM ÷ (30 − 10) min.",
+        "evidence": "Shows the change in concentration (12 mM) divided by the change in time (20 min) and reports 0.6 mM per minute with units.",
+        "fix": "Subtract the start value from the end value, divide by elapsed time, and attach units such as mM/min.",
+        "accepted_variants": [
+         "0.6 mM per minute",
+         "0.60 mM/min",
+         "12 mM ÷ 20 min = 0.6 mM/min"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the type of membrane transport the control cells use to take up X after 10 minutes, and justify your answer using the data for both groups.",
+      "criteria": [
+       {
+        "text": "Identifies active transport, supported by the observation that the internal concentration of X (6.5 to 24.5 mM) exceeds the external 2.0 mM, so X moves from low to high concentration.",
+        "evidence": "Names active transport and cites that internal [X] is greater than external [X] yet keeps rising, meaning movement against the concentration gradient.",
+        "fix": "Compare the inside value to the outside value; if the inside keeps rising above the outside, the solute moves against its gradient.",
+        "accepted_variants": [
+         "X is pumped against its concentration gradient by active transport",
+         "moves from lower to higher concentration, so it is active transport"
+        ]
+       },
+       {
+        "text": "Uses the ATP-blocked group to show the uptake requires energy: without ATP, internal [X] never rises above 2.0 mM.",
+        "evidence": "States that when ATP production is blocked, accumulation above the external concentration stops (levels off at 2.0 mM), so the control uptake depends on a direct input of metabolic energy.",
+        "fix": "Use the treated group as evidence: explain what removing ATP changed and what that reveals about the energy requirement.",
+        "accepted_variants": [
+         "blocking ATP prevents accumulation beyond 2.0 mM, so transport needs ATP",
+         "ATP-blocked cells only reach equilibrium, showing the extra uptake requires energy"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the internal concentration of X in the ATP-blocked cells increases from 0.5 mM to 2.0 mM and then stops changing.",
+      "criteria": [
+       {
+        "text": "X enters by passive transport (net movement from high to low concentration without energy) until internal and external concentrations are equal at 2.0 mM, after which there is no net movement.",
+        "evidence": "States that X moves down its concentration gradient (2.0 mM outside to lower inside) without energy input and that net movement stops when concentrations are equal (equilibrium).",
+        "fix": "Describe passive transport as net movement down a gradient, then state what happens when the inside and outside concentrations become equal.",
+        "accepted_variants": [
+         "diffusion down the gradient until equilibrium at 2.0 mM",
+         "net movement stops because there is no longer a concentration gradient"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The same algal cells also take in large protein particles from their surroundings by folding the plasma membrane inward to form vesicles. Predict whether blocking ATP production would change the uptake of these particles, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts uptake of the particles would decrease or stop, because this process (endocytosis) requires energy to fold the membrane and form vesicles.",
+        "evidence": "Makes the prediction of reduced or no uptake and links it to endocytosis requiring energy from ATP.",
+        "fix": "Name the vesicle-forming uptake process as endocytosis and state that it requires energy, then link the loss of ATP to that requirement.",
+        "accepted_variants": [
+         "endocytosis would be inhibited because it requires ATP",
+         "particle uptake would drop since forming vesicles needs energy"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:29:04.018Z",
+   "item": {
+    "title": "Solute Accumulation and Energy Use in Algal Cells",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers studied how cells of a freshwater alga take up solute X, a small, uncharged molecule that the cells do not metabolize. Algal cells with an internal solute X concentration of 1.0 mM were placed in a large volume of medium containing 5.0 mM solute X. Because the medium volume was large, the external concentration stayed at 5.0 mM throughout the experiment. One group of cells (control) received no treatment. A second group was treated with a chemical that blocks the production of ATP in the cells. The internal concentration of solute X was measured every 10 minutes.\n\nTime (min) | Internal solute X, control (mM) | Internal solute X, ATP inhibitor (mM)\n0 | 1.0 | 1.0\n10 | 6.0 | 3.0\n20 | 12.0 | 4.5\n30 | 18.0 | 5.0",
+    "model_answer": "(a) Active transport. Between 10 and 30 minutes the internal concentration in the control rises from 6.0 mM to 18.0 mM while the external concentration is only 5.0 mM. Solute X is therefore moving from a region of lower concentration (outside) to a region of higher concentration (inside), against its concentration gradient, which requires active transport.\n\n(b) Rate = (18.0 mM − 6.0 mM) ÷ (30 min − 10 min) = 12.0 mM ÷ 20 min = 0.60 mM/min.\n\n(c) At first the inside (1.0 mM) is lower than the outside (5.0 mM), so solute X moves into the cells by passive transport, a net movement from high to low concentration that needs no direct input of metabolic energy. When the internal concentration reaches 5.0 mM, the concentrations are equal, there is no gradient, and net movement stops. The concentration cannot go above 5.0 mM because moving solute X from low to high concentration requires active transport, which needs a direct input of energy such as ATP. The inhibitor blocks ATP production, so active transport cannot occur.\n\n(d) Uptake of the protein particles will decrease or stop. Endocytosis requires energy to fold the plasma membrane inward and pinch off vesicles that engulf the particles, and without ATP the cells cannot supply this energy.",
+    "verification_python": "from fractions import Fraction as F\next=F(5)\nctrl={0:F(1),10:F(6),20:F(12),30:F(18)}\ninh={0:F(1),10:F(3),20:F(9,2),30:F(5)}\nassert ctrl[10]>ext and ctrl[30]>ext\nrate=(ctrl[30]-ctrl[10])/(30-10)\nassert rate==F(3,5)\nassert abs(float(rate)-0.60)<1e-9\nassert ctrl[30]-ctrl[10]==12\nassert inh[30]==ext\nassert all(inh[t]<=ext for t in inh)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the type of membrane transport responsible for the uptake of solute X by the control cells between 10 and 30 minutes. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Active transport, justified by solute X moving into cells whose internal concentration (6.0 to 18.0 mM) is higher than the external 5.0 mM, against its concentration gradient.",
+        "evidence": "Names active transport AND cites data showing the internal concentration exceeds the external 5.0 mM while uptake continues, so movement is from low to high concentration.",
+        "fix": "Compare internal and external concentrations; if solute keeps entering when the inside is already higher, state it moves against its gradient by active transport.",
+        "accepted_variants": [
+         "active transport because internal concentration rises above 5.0 mM, moving from low to high concentration",
+         "pumping against the concentration gradient, since 18.0 mM inside is greater than 5.0 mM outside"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the average rate of increase in the internal concentration of solute X in the control cells from 10 minutes to 30 minutes. Show your work and include units.",
+      "criteria": [
+       {
+        "text": "Rate = (18.0 − 6.0) mM ÷ (30 − 10) min = 0.60 mM/min, with work shown.",
+        "evidence": "Shows the change in concentration divided by the change in time and reports 0.60 mM/min (or 0.6 mM per minute) with units.",
+        "fix": "Divide the change in concentration (final minus initial) by the elapsed time between the two readings, and attach units of mM/min.",
+        "accepted_variants": [
+         "0.6 mM/min",
+         "12 mM / 20 min = 0.6 mM per minute",
+         "0.60 mM·min⁻¹"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In the cells treated with the ATP inhibitor, the internal concentration of solute X rose from 1.0 mM to 5.0 mM and then stopped rising. Explain why the internal concentration increased to 5.0 mM and why it did not increase beyond 5.0 mM.",
+      "criteria": [
+       {
+        "text": "The increase to 5.0 mM is passive transport: net movement of solute X from the higher external concentration to the lower internal concentration without energy input, which stops when the concentrations are equal.",
+        "evidence": "States that solute X moved passively (diffusion or facilitated diffusion) down its concentration gradient without metabolic energy, and that net movement ends when inside equals outside at 5.0 mM.",
+        "fix": "Explain that passive transport needs no energy and moves solutes from high to low concentration until both sides are equal, ending net movement.",
+        "accepted_variants": [
+         "solute X diffused in down its gradient until equilibrium at 5.0 mM",
+         "facilitated diffusion from 5.0 mM outside to lower inside, stopping when there is no concentration gradient"
+        ]
+       },
+       {
+        "text": "Concentration cannot exceed 5.0 mM because accumulating solute X against its gradient requires active transport, which needs direct input of energy (ATP) that the inhibitor blocked.",
+        "evidence": "Links the inhibitor's blocking of ATP to the loss of active transport, stating that moving solute from low to high concentration requires direct energy input.",
+        "fix": "Connect the treatment to the mechanism: no ATP means no active transport, so the cell cannot move solute against its concentration gradient.",
+        "accepted_variants": [
+         "without ATP the transport protein cannot pump solute X against its gradient",
+         "active transport requires energy, which is unavailable when ATP production is blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The algal cells also take in large protein particles from the medium by endocytosis. Predict the effect of the ATP inhibitor on the uptake of these protein particles. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Uptake of the protein particles will decrease (or stop) because endocytosis requires energy to fold the plasma membrane inward and form vesicles that engulf the particles.",
+        "evidence": "Predicts reduced or no particle uptake AND justifies it by stating that endocytosis requires energy (ATP) to fold the membrane and form vesicles.",
+        "fix": "State that endocytosis is energy-requiring vesicle formation, so blocking ATP production reduces or stops intake of large particles.",
+        "accepted_variants": [
+         "particle uptake stops because forming endocytic vesicles requires ATP",
+         "less engulfment of protein particles since endocytosis uses metabolic energy"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.5": 2,
+     "2.8": 4
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:30:38.701Z",
+   "item": {
+    "title": "Solute Accumulation and Bead Uptake in Cultured Cells",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers studied how cultured animal cells take in two kinds of material: solute X, a small polar molecule, and fluorescent beads that are far too large to pass through any membrane protein. At the start, the cells contained no solute X. Cells were divided into two groups and placed in a large volume of medium containing 2.0 mM solute X and fluorescent beads. The medium volume was large enough that the external concentration of X stayed at 2.0 mM throughout. The control group received no treatment. The second group received a compound that stops the cells from producing ATP but does not damage the plasma membrane. After 60 minutes, the researchers measured the concentration of X inside the cells and the percentage of cells containing beads inside vesicles. Earlier time points showed that internal X had stopped changing by 60 minutes in both groups.\n\nCondition | Internal [X] at 60 min (mM) | External [X] (mM) | Cells containing beads (%)\nControl | 12.0 | 2.0 | 64\nATP-production blocked | 2.0 | 2.0 | 4",
+    "model_answer": "(a) Ratio = internal [X] ÷ external [X] = 12.0 mM ÷ 2.0 mM = 6. The control cells hold X at 6 times the outside concentration.\n\n(b) X enters by active transport. In the control cells, X reached 12.0 mM inside while the medium was only 2.0 mM. X was moved from a region of low concentration to a region of high concentration, against its gradient. When ATP production was blocked, internal X rose only to 2.0 mM, equal to the outside. This shows that X can enter passively only until the concentrations are equal, and that accumulation above the external level requires a direct input of energy.\n\n(c) The beads are taken in by endocytosis. The plasma membrane folds inward around the beads and pinches off as vesicles, and this process requires energy. When ATP production was blocked, the cells could not form these vesicles, so the percentage of cells containing beads dropped from 64% to 4%.\n\n(d) Internal X will decrease from 12.0 mM to about 2.0 mM, the same as the medium. Without ATP, active transport stops and can no longer maintain the gradient. The blocked-ATP group shows that X can cross the membrane without energy, so X will show net passive movement out of the cell, from high concentration to low concentration. This continues until the inside and outside concentrations are equal.",
+    "verification_python": "from fractions import Fraction\ninternal_control = Fraction(120, 10)\nexternal = Fraction(20, 10)\ninternal_blocked = Fraction(20, 10)\nratio = internal_control / external\nassert ratio == 6\nassert internal_control > external\nassert internal_blocked == external\nbeads_control = 64\nbeads_blocked = 4\nassert beads_blocked < beads_control\npredicted_final = external\nassert predicted_final == Fraction(2, 1)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of the internal concentration of X to the external concentration of X for the control cells at 60 minutes. Show your work.",
+      "criteria": [
+       {
+        "text": "Ratio of internal to external [X] in control cells = 6 (12.0 mM ÷ 2.0 mM)",
+        "evidence": "Response shows the division 12.0 ÷ 2.0, or an equivalent setup, and reports a ratio of 6.",
+        "fix": "Divide the internal concentration by the external concentration for the requested group, and write the setup before the answer.",
+        "accepted_variants": [
+         "6:1",
+         "6 to 1",
+         "12.0/2.0 = 6",
+         "internal is 6 times external"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the type of membrane transport that moves X into the control cells. Justify your answer using data from both conditions.",
+      "criteria": [
+       {
+        "text": "Active transport, justified because X accumulated from low (2.0 mM) to high (12.0 mM) concentration in control cells, but reached only 2.0 mM (equal to outside) when ATP production was blocked",
+        "evidence": "Response names active transport. It cites control data showing X moved against its concentration gradient (internal higher than external). It also cites the blocked-ATP data showing that, without energy, X did not accumulate above the external concentration.",
+        "fix": "When a solute ends up more concentrated inside than outside and accumulation stops without ATP, name active transport and cite both conditions.",
+        "accepted_variants": [
+         "ATP-dependent transport against the concentration gradient, supported by both conditions",
+         "pumping of X by an energy-requiring transport protein, supported by both conditions"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the process by which control cells take in the beads, and explain why bead uptake decreased when ATP production was blocked.",
+      "criteria": [
+       {
+        "text": "Endocytosis; the process requires energy to fold the plasma membrane inward and form vesicles, so without ATP few cells engulfed beads (64% fell to 4%)",
+        "evidence": "Response names endocytosis (phagocytosis also accepted). It explains that endocytosis requires energy (ATP) for the membrane to fold in and pinch off vesicles around the beads, so blocking ATP production prevented uptake.",
+        "fix": "Large particles enter by endocytosis, which needs energy to fold the membrane into vesicles; connect missing ATP to failed vesicle formation.",
+        "accepted_variants": [
+         "phagocytosis, which requires ATP to form vesicles around the beads",
+         "bulk uptake by membrane infolding into vesicles, which requires energy"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "After control cells reach 12.0 mM internal X, the researchers add the ATP-blocking compound and wait until internal X stops changing. Predict the final internal concentration of X. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: internal [X] decreases to about 2.0 mM, equal to the external concentration",
+        "evidence": "Response predicts that internal X falls from 12.0 mM to approximately 2.0 mM, matching the outside concentration.",
+        "fix": "Use the blocked-ATP group as a guide: without energy, internal concentration settles at the external value.",
+        "accepted_variants": [
+         "decreases until inside equals outside",
+         "drops to approximately 2 mM",
+         "falls to equilibrium with the 2.0 mM medium"
+        ]
+       },
+       {
+        "text": "Justification: without ATP, active transport can no longer maintain the gradient, and X moves passively out of the cell from high to low concentration",
+        "evidence": "Response states that active transport stops without energy. It also states that X shows net passive movement down its gradient out of the cell, with no energy input, until inside equals outside. The blocked-ATP data show that X can cross the membrane without energy.",
+        "fix": "Explain that gradients built by active transport collapse when energy stops, because passive transport moves molecules from high to low concentration.",
+        "accepted_variants": [
+         "net diffusion of X out of the cell until equilibrium because the pump can no longer use ATP",
+         "passive transport down the gradient replaces energy-driven accumulation"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.634Z",
+   "item": {
+    "title": "Solute Uptake in Cells With and Without ATP",
+    "calculator": "not_permitted",
+    "stimulus": "Students studied how cultured animal cells take up solute X, a small polar molecule that crosses the plasma membrane only through membrane proteins. Cells were placed in a large volume of medium in which the concentration of X was held constant at 1.0 mM. Group 1 (control) received no treatment. Group 2 was treated with a compound that blocks ATP production but does not damage the plasma membrane or its proteins. The concentration of X inside the cells was measured over time.\n\nTime (min) | Internal X, Group 1 control (mM) | Internal X, Group 2 ATP blocked (mM)\n0 | 0.0 | 0.0\n10 | 1.5 | 0.6\n20 | 2.8 | 0.9\n40 | 4.3 | 1.0\n60 | 5.0 | 1.0\n\nThe same cells can also engulf fluorescent beads 1 µm in diameter from the medium. The beads are far too large to pass through any membrane protein.",
+    "model_answer": "(a) Active transport. Between 40 and 60 minutes the internal concentration of X in Group 1 rises from 4.3 mM to 5.0 mM while the external concentration is only 1.0 mM. X is therefore moving from a region of low concentration (outside) to a region of high concentration (inside), against its concentration gradient, which requires active transport.\n\n(b) Ratio = internal ÷ external = 5.0 mM ÷ 1.0 mM = 5.0. Inside the cells, X is 5 times as concentrated as in the medium.\n\n(c) Blocking ATP production removes the energy needed for active transport, so X can enter only by passive transport through membrane proteins. Passive transport produces net movement from high to low concentration, so X moves into the cells only until the internal concentration equals the external concentration of 1.0 mM. At that point there is no net movement, so the level stays at 1.0 mM. Rising above 1.0 mM, as in Group 1, would require moving X against its gradient, which needs energy.\n\n(d) Group 2 cells will take up fewer beads than Group 1 cells, with little or no bead uptake. The beads are too large to pass through membrane proteins, so they must enter by endocytosis, in which the plasma membrane folds inward and forms small vesicles that engulf the beads. Endocytosis requires energy, and with ATP production blocked the cells lack that energy, so bead uptake decreases.",
+    "verification_python": "from fractions import Fraction\nexternal = Fraction(10,10)\ng1 = {0:Fraction(0),10:Fraction(15,10),20:Fraction(28,10),40:Fraction(43,10),60:Fraction(50,10)}\ng2 = {0:Fraction(0),10:Fraction(6,10),20:Fraction(9,10),40:Fraction(10,10),60:Fraction(10,10)}\nratio = g1[60]/external\nassert ratio == 5\nassert g1[40] > external and g1[60] > external\nassert g2[40] == external and g2[60] == external\nassert all(v <= external for v in g2.values())\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify whether active or passive transport accounts for the uptake of X by Group 1 cells between 40 and 60 minutes, and justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Active transport, because internal X (4.3 to 5.0 mM) is higher than external X (1.0 mM), so X is moving from low to high concentration.",
+        "evidence": "Response names active transport and supports it with data showing internal concentration exceeds the 1.0 mM external concentration, meaning movement is against the concentration gradient.",
+        "fix": "Compare inside and outside concentrations; net movement from low to high concentration requires active transport, so cite both values as evidence.",
+        "accepted_variants": [
+         "against the concentration gradient",
+         "up the concentration gradient",
+         "from low to high concentration"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio of the internal concentration of X to the external concentration of X for Group 1 cells at 60 minutes.",
+      "criteria": [
+       {
+        "text": "Ratio = 5.0 mM ÷ 1.0 mM = 5.0 (internal X is 5 times external X).",
+        "evidence": "Response divides the 60-minute Group 1 internal value (5.0 mM) by the external value (1.0 mM) and reports 5.0.",
+        "fix": "Divide the internal value at the requested time by the external concentration, showing the setup before reporting the result.",
+        "accepted_variants": [
+         "5",
+         "5.0",
+         "5:1",
+         "5 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the internal concentration of X in Group 2 cells levels off at 1.0 mM rather than rising to the values seen in Group 1.",
+      "criteria": [
+       {
+        "text": "Without ATP, X can enter only by passive transport, whose net movement is from high to low concentration and stops when inside and outside concentrations are equal at 1.0 mM; accumulating X above 1.0 mM requires energy.",
+        "evidence": "Response states that blocking ATP leaves only passive transport, that net passive movement occurs down the gradient until internal equals external (1.0 mM), and that active transport needing energy is required to exceed 1.0 mM.",
+        "fix": "Link the plateau value to the external concentration: passive net movement stops at equal concentrations; only energy-driven transport moves X beyond that.",
+        "accepted_variants": [
+         "no net movement once concentrations are equal",
+         "equilibrium with the medium"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict how the number of fluorescent beads taken up by Group 2 cells will compare with the number taken up by Group 1 cells. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: Group 2 cells will take up fewer beads (little or no bead uptake) than Group 1 cells.",
+        "evidence": "Response clearly predicts reduced or absent bead uptake in the ATP-blocked group relative to the control.",
+        "fix": "State a direction for the treated group relative to the control, such as fewer beads taken up, before giving reasons.",
+        "accepted_variants": [
+         "less bead uptake",
+         "no bead uptake",
+         "decreased uptake"
+        ]
+       },
+       {
+        "text": "Justification: beads are too large for membrane proteins and enter by endocytosis, in which the membrane folds inward to form vesicles; endocytosis requires energy, which is unavailable when ATP production is blocked.",
+        "evidence": "Response identifies endocytosis (membrane folding inward to form vesicles around the beads) as the uptake mechanism and states that it requires energy that the ATP-blocked cells lack.",
+        "fix": "Name endocytosis for large particles, describe vesicle formation from the membrane, and connect its energy requirement to the missing ATP.",
+        "accepted_variants": [
+         "phagocytosis",
+         "engulfing by vesicle formation"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 5,
+     "2.5": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:22:17.622Z",
+   "item": {
+    "title": "Solute Accumulation and Energy Use in Cultured Cells",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers studied how cultured pancreatic cells take up amino acid Q. Q is a polar molecule that cannot cross the phospholipid bilayer directly but enters cells through membrane transport proteins. Two groups of cells were placed in a medium in which the concentration of Q was held constant at 2.0 mM. The control group received no treatment. The treated group received a compound that blocks ATP production. The concentration of Q inside the cells was measured every 10 minutes.\n\nTime (min) | Internal [Q], control cells (mM) | Internal [Q], treated cells (mM)\n0 | 0.5 | 0.5\n10 | 8.0 | 1.4\n20 | 15.5 | 1.9\n30 | 22.0 | 2.0\n\nExternal [Q] for both groups: 2.0 mM at all times.",
+    "model_answer": "(a) Ratio = internal [Q] ÷ external [Q] = 22.0 mM ÷ 2.0 mM = 11. The control cells hold 11 times more Q inside than outside.\n\n(b) Active transport. After internal [Q] passes 2.0 mM, Q keeps entering the control cells until it reaches 22.0 mM, even though the outside concentration is only 2.0 mM. Q is therefore moving from a region of low concentration to a region of high concentration, against its gradient, which requires the direct input of energy.\n\n(c) The compound blocks ATP production, so the cells cannot perform active transport. Q can still enter by passive transport through transport proteins, which causes net movement from high concentration (2.0 mM outside) to low concentration (0.5 mM inside). As internal [Q] rises, the gradient shrinks, and once the inside reaches 2.0 mM the concentrations are equal, so there is no further net movement and internal [Q] does not exceed 2.0 mM.\n\n(d) Treated cells will secrete less enzyme (secretion will decrease or stop). Exocytosis requires energy: vesicles carrying the large enzyme molecules must move to and fuse with the plasma membrane to release their contents. Without ATP, this energy-requiring process cannot proceed normally, so less enzyme is released.",
+    "verification_python": "from fractions import Fraction\ncontrol = {0: Fraction(5,10), 10: Fraction(80,10), 20: Fraction(155,10), 30: Fraction(220,10)}\ntreated = {0: Fraction(5,10), 10: Fraction(14,10), 20: Fraction(19,10), 30: Fraction(20,10)}\nexternal = Fraction(20,10)\nratio = control[30] / external\nassert ratio == 11\n# control exceeds external (against gradient)\nassert control[30] > external\nassert control[10] > external\n# treated rises from 0.5 but never exceeds external 2.0\nassert treated[0] == Fraction(1,2)\nassert all(v <= external for v in treated.values())\nassert treated[30] == external\n# monotonic increases\nfor d in (control, treated):\n    vals = [d[t] for t in sorted(d)]\n    assert all(a < b for a, b in zip(vals, vals[1:]))\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of internal [Q] to external [Q] for the control cells at 30 minutes.",
+      "criteria": [
+       {
+        "text": "Ratio of internal to external [Q] for control cells at 30 min is 11 (22.0 mM ÷ 2.0 mM).",
+        "evidence": "Response divides 22.0 mM by 2.0 mM and reports a ratio of 11 (or 11:1).",
+        "fix": "Read the 30-minute control value and divide it by the external concentration, keeping internal on top of the ratio.",
+        "accepted_variants": [
+         "11",
+         "11:1",
+         "11.0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the type of membrane transport the control cells use to take up Q after the internal concentration exceeds 2.0 mM. Justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Identifies active transport, justified by Q moving into cells from lower external (2.0 mM) to higher internal concentration (up to 22.0 mM), against its concentration gradient.",
+        "evidence": "Response names active transport AND cites that internal [Q] rises above the external 2.0 mM, so Q moves from low to high concentration.",
+        "fix": "Compare internal and external concentrations; if a solute keeps entering when inside is already higher, state that it moves against its gradient by active transport.",
+        "accepted_variants": [
+         "active transport",
+         "transport against the concentration gradient using energy"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the internal [Q] of the treated cells increases from 0.5 mM but does not rise above 2.0 mM.",
+      "criteria": [
+       {
+        "text": "Without ATP only passive transport occurs: Q moves net from high (outside) to low (inside) concentration until internal [Q] equals the external 2.0 mM, after which there is no net movement.",
+        "evidence": "Response links lack of ATP to loss of active transport AND states that passive net movement down the gradient stops when inside and outside concentrations are equal at 2.0 mM.",
+        "fix": "Explain that passive transport only moves solute down its gradient, so net movement stops once concentrations on both sides become equal.",
+        "accepted_variants": [
+         "equilibrium at 2.0 mM",
+         "diffusion until concentrations are equal"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "These pancreatic cells also secrete large digestive enzymes by exocytosis. Predict how treatment with the ATP-blocking compound will affect the amount of enzyme the cells secrete. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that secretion of the enzyme will decrease (or stop) in treated cells.",
+        "evidence": "Response clearly states that enzyme secretion will decrease or stop compared with control cells.",
+        "fix": "State a clear direction of change for secretion, such as decrease or stop, before giving your reasoning.",
+        "accepted_variants": [
+         "decrease",
+         "stop",
+         "be reduced"
+        ]
+       },
+       {
+        "text": "Justifies the prediction by stating that exocytosis requires energy (ATP) for vesicles to move to and fuse with the plasma membrane to release large molecules.",
+        "evidence": "Response states that exocytosis is energy-requiring, so blocking ATP production prevents vesicles from fusing with the membrane and releasing the enzyme.",
+        "fix": "Recall that endocytosis and exocytosis both require energy; connect loss of ATP to failure of vesicle fusion with the plasma membrane.",
+        "accepted_variants": [
+         "exocytosis requires ATP",
+         "vesicle fusion requires energy"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 5,
+     "2.5": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:23:38.972Z",
+   "item": {
+    "title": "Solute Accumulation and Energy in Membrane Transport",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers studied how cells of a single-celled eukaryote take up solute X. They placed the cells in a solution in which the concentration of X was held constant at 2.0 mM. At the start, the cells contained no X. They then measured the concentration of X inside the cells over 30 minutes. One group of cells was untreated (control). A second group was treated with a compound that blocks ATP production but does not damage the plasma membrane. These cells also release a large digestive enzyme to their surroundings by exocytosis.\n\nTime (min) | Internal X, control (mM) | Internal X, ATP blocker (mM)\n0 | 0.0 | 0.0\n10 | 2.0 | 1.2\n20 | 4.5 | 1.9\n30 | 6.0 | 2.0\n\nExternal concentration of X in all trials: 2.0 mM",
+    "model_answer": "(a) Ratio = internal ÷ external = 6.0 mM ÷ 2.0 mM = 3.0. The control cells contain three times as much X as their surroundings.\n\n(b) Active transport. At 30 minutes the control cells contain 6.0 mM X while the outside is only 2.0 mM, so X is being moved from a region of lower concentration to a region of higher concentration, against its gradient. This requires energy: when ATP production is blocked, the cells never rise above 2.0 mM, so the accumulation above the external level depends on ATP.\n\n(c) In the ATP-blocked cells, X still moves by passive transport from the higher concentration outside (2.0 mM) to the lower concentration inside, which needs no direct input of metabolic energy. As X enters, the gradient gets smaller, so uptake slows (1.2 mM, then 1.9 mM). When the internal concentration equals the external concentration at 2.0 mM, there is no gradient, so net movement stops and the level stays at 2.0 mM.\n\n(d) The amount of digestive enzyme released would decrease (or stop). The enzyme is a large molecule released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. Because the compound blocks ATP production, the cells lack the energy needed for exocytosis, so less enzyme is secreted.",
+    "verification_python": "from fractions import Fraction\nexternal = Fraction(20,10)\ncontrol = {0:Fraction(0),10:Fraction(20,10),20:Fraction(45,10),30:Fraction(60,10)}\nblocked = {0:Fraction(0),10:Fraction(12,10),20:Fraction(19,10),30:Fraction(20,10)}\nratio = control[30]/external\nassert ratio == 3\nassert control[30] > external\nassert blocked[30] == external\nassert all(blocked[t] <= external for t in blocked)\nassert blocked[10] < blocked[20] < blocked[30]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of the internal concentration of X to the external concentration of X in the control cells at 30 minutes.",
+      "criteria": [
+       {
+        "text": "Ratio = 3.0 (6.0 mM ÷ 2.0 mM)",
+        "evidence": "Shows division of the internal value at 30 minutes (6.0 mM) by the external value (2.0 mM) and reports 3.0, or an equivalent form.",
+        "fix": "Read the control internal value at 30 minutes, divide it by the constant external value of 2.0 mM, and report the ratio.",
+        "accepted_variants": [
+         "3",
+         "3:1",
+         "3.0 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the type of membrane transport that allows the control cells to accumulate X above 2.0 mM, and justify your answer using the data.",
+      "criteria": [
+       {
+        "text": "Active transport, justified because X accumulates against its gradient (to 6.0 mM inside versus 2.0 mM outside) and accumulation above 2.0 mM does not occur when ATP production is blocked",
+        "evidence": "Names active transport and supports it with data: the internal concentration exceeds the external concentration (movement from low to high concentration), and/or the ATP-blocked cells stop at 2.0 mM, showing energy is required.",
+        "fix": "When inside concentration exceeds outside, name active transport and cite both the 6.0 vs 2.0 mM values and the ATP-blocker result.",
+        "accepted_variants": [
+         "primary active transport",
+         "energy-requiring transport"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why X still enters the ATP-blocked cells but the internal concentration levels off at 2.0 mM.",
+      "criteria": [
+       {
+        "text": "X enters by passive transport down its concentration gradient, which requires no metabolic energy; net movement stops when internal and external concentrations become equal at 2.0 mM",
+        "evidence": "States that entry is passive movement from high (outside) to low (inside) concentration without ATP, and that net movement ends when the concentrations are equal (no gradient remains).",
+        "fix": "Connect passive transport to the gradient: explain that net movement continues only while concentrations differ and stops once inside equals outside.",
+        "accepted_variants": [
+         "diffusion down the gradient",
+         "equilibrium reached"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict how treating the cells with the ATP-blocking compound would affect the amount of digestive enzyme released by the cells. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the amount of digestive enzyme released decreases",
+        "evidence": "States that release of the enzyme would decrease or stop in ATP-blocked cells compared with control cells.",
+        "fix": "State a clear direction of change for enzyme release in ATP-blocked cells compared with untreated cells.",
+        "accepted_variants": [
+         "secretion decreases",
+         "secretion stops",
+         "less enzyme released"
+        ]
+       },
+       {
+        "text": "Justification: exocytosis requires energy (ATP), so blocking ATP production prevents vesicles from fusing with the plasma membrane to release the large enzyme",
+        "evidence": "Links the prediction to the fact that exocytosis is an energy-requiring process for moving large molecules out of the cell and the blocker removes the ATP supply.",
+        "fix": "Justify with the principle that exocytosis of large molecules requires energy, then connect that to the blocker removing ATP.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Passive, Active, and Bulk Transport in an Amoeba",
+   "calculator": "not_applicable",
+   "stimulus": "A freshwater amoeba is a single-celled eukaryote. Researchers measured the concentrations of two small solutes, G and K, inside the amoeba and in the surrounding water. Both solutes show net movement into the cell.\n\nTable 1\nSolute | Concentration inside cell (mM) | Concentration in surrounding water (mM) | Direction of net movement\nG | 0.8 | 6.0 | into cell\nK | 25.0 | 1.5 | into cell\n\nThe researchers also added tiny plastic beads to the water. Each bead is far too large to pass through the plasma membrane. After 20 minutes, beads were found inside small membrane-bound vesicles in the amoeba's cytoplasm. The researchers then repeated the measurements on amoebas treated with a chemical that blocks the cell's supply of metabolic energy.\n\nTable 2\nMeasurement | Untreated amoebas | Energy-blocked amoebas\nUptake rate of G (relative units) | 100 | 98\nUptake rate of K (relative units) | 100 | 3\nBeads taken in per cell in 20 minutes | 40 | 0",
+   "parts": [
+    {
+     "prompt": "Using Table 1, explain why solute K must be moved into the cell by active transport.",
+     "criteria": [
+      {
+       "text": "Explains that K moves from a lower concentration outside (1.5 mM) to a higher concentration inside (25.0 mM), against its concentration gradient, and moving a substance from low to high concentration requires the direct input of energy (active transport).",
+       "evidence": "Response cites K's concentrations (or states K moves from low to high concentration) and states that this movement requires an input of energy.",
+       "fix": "Compare outside and inside concentrations; net movement from low to high concentration cannot be passive and requires energy input.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Using Table 2, describe the evidence that solute G enters the cell by passive transport.",
+     "criteria": [
+      {
+       "text": "Describes that G's uptake rate is almost unchanged when the energy supply is blocked (100 versus 98), showing that G's net movement into the cell, from 6.0 mM outside to 0.8 mM inside, does not require a direct input of metabolic energy.",
+       "evidence": "Response cites G's nearly unchanged uptake rate under the energy block (100 versus 98) as evidence that no direct energy input is needed.",
+       "fix": "Compare each solute's rate with and without energy; a rate that barely changes shows the movement does not depend on metabolic energy.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe how the plasma membrane brings the beads into the cell.",
+     "criteria": [
+      {
+       "text": "Describes endocytosis: the plasma membrane folds inward around the beads and pinches off, forming a new small vesicle that encloses them inside the cell.",
+       "evidence": "Response describes the membrane folding in (or surrounding the beads) and forming a vesicle containing the beads; naming endocytosis or phagocytosis without describing the membrane movement is not enough.",
+       "fix": "Describe the membrane's movement step by step: it folds in around the material, then closes off as a vesicle inside the cell.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Inside the amoeba, undigested material is enclosed in vesicles that normally fuse with the plasma membrane to release the material outside the cell. Predict the effect of the energy-blocking chemical on the release of this material, and justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that release of the undigested material will stop or greatly decrease in energy-blocked amoebas.",
+       "evidence": "Response states that the energy-blocked amoebas will release little or none of the material.",
+       "fix": "State the direction of the change clearly: release stops, decreases, or stays the same.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Justifies that release by vesicle fusion is exocytosis, which requires energy (consistent with bead uptake by endocytosis falling from 40 to 0 when energy was blocked).",
+       "evidence": "Response identifies the release as exocytosis (vesicle fusing with the membrane) and states that this process requires energy, optionally citing the bead data.",
+       "fix": "Remember both endocytosis and exocytosis move large amounts of material in vesicles and both require an input of energy.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Solute K is 1.5 mM in the surrounding water but 25.0 mM inside the cell, yet its net movement is into the cell. K is therefore moving from a region of low concentration to a region of high concentration, against its concentration gradient. Passive transport only produces net movement from high to low concentration, so moving K inward requires the direct input of energy: active transport.\n\n(b) When the cell's supply of metabolic energy is blocked, the uptake rate of G stays almost the same (98 compared with 100), while the uptake of K drops to 3. G's movement into the cell therefore does not depend on a direct input of metabolic energy. This fits passive transport: G moves from high concentration outside (6.0 mM) to low concentration inside (0.8 mM).\n\n(c) The beads enter by endocytosis. The plasma membrane folds inward around the beads, and the folded region closes and pinches off as a new small vesicle that contains the beads inside the cell.\n\n(d) Release of the undigested material will stop (or nearly stop) in the energy-blocked amoebas. The material is released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. The bead data show the same dependence for vesicle transport in the other direction: endocytosis fell from 40 beads to 0 when energy was blocked.",
+   "verification_python": "G_in,G_out=0.8,6.0\nK_in,K_out=25.0,1.5\nassert G_out>G_in\nassert K_in>K_out\nassert 100-98==2\nassert 100-3==97\nbeads=(40,0)\nassert beads[1]==0\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.861359Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Topic ruling by CED text: CED 2.5.A.1-3 (passive vs active by concentration gradient) and 2.5.B (endocytosis/exocytosis) are exactly what the item tests; 2.8 is membrane proteins, ATP and the Na+/K+ pump, none of which appear. Vote misled by \"energy-blocking chemical\"."
+   }
+  ],
+  "topic_ruling": {
+   "topic": "2.5",
+   "required_units": [
+    2
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "CED 2.5.A.1-3 (passive vs active by concentration gradient) and 2.5.B (endocytosis/exocytosis) are exactly what the item tests; 2.8 is membrane proteins, ATP and the Na+/K+ pump, none of which appear. Vote misled by \"energy-blocking chemical\"."
+  }
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.377Z",
+   "source": "given",
+   "item": {
+    "title": "Passive, Active, and Bulk Transport in an Amoeba",
+    "calculator": "not_applicable",
+    "stimulus": "A freshwater amoeba is a single-celled eukaryote. Researchers measured the concentrations of two small solutes, G and K, inside the amoeba and in the surrounding water. Both solutes show net movement into the cell.\n\nTable 1\nSolute | Concentration inside cell (mM) | Concentration in surrounding water (mM) | Direction of net movement\nG | 0.8 | 6.0 | into cell\nK | 25.0 | 1.5 | into cell\n\nThe researchers also added tiny plastic beads to the water. Each bead is far too large to pass through the plasma membrane. After 20 minutes, beads were found inside small membrane-bound vesicles in the amoeba's cytoplasm. The researchers then repeated the measurements on amoebas treated with a chemical that blocks the cell's supply of metabolic energy.\n\nTable 2\nMeasurement | Untreated amoebas | Energy-blocked amoebas\nUptake rate of G (relative units) | 100 | 98\nUptake rate of K (relative units) | 100 | 3\nBeads taken in per cell in 20 minutes | 40 | 0",
+    "parts": [
+     {
+      "prompt": "Using Table 1, explain why solute K must be moved into the cell by active transport.",
+      "criteria": [
+       {
+        "text": "Explains that K moves from a lower concentration outside (1.5 mM) to a higher concentration inside (25.0 mM), against its concentration gradient, and moving a substance from low to high concentration requires the direct input of energy (active transport).",
+        "evidence": "Response cites K's concentrations (or states K moves from low to high concentration) and states that this movement requires an input of energy.",
+        "fix": "Compare outside and inside concentrations; net movement from low to high concentration cannot be passive and requires energy input.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using Table 2, describe the evidence that solute G enters the cell by passive transport.",
+      "criteria": [
+       {
+        "text": "Describes that G's uptake rate is almost unchanged when the energy supply is blocked (100 versus 98), showing that G's net movement into the cell, from 6.0 mM outside to 0.8 mM inside, does not require a direct input of metabolic energy.",
+        "evidence": "Response cites G's nearly unchanged uptake rate under the energy block (100 versus 98) as evidence that no direct energy input is needed.",
+        "fix": "Compare each solute's rate with and without energy; a rate that barely changes shows the movement does not depend on metabolic energy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the plasma membrane brings the beads into the cell.",
+      "criteria": [
+       {
+        "text": "Describes endocytosis: the plasma membrane folds inward around the beads and pinches off, forming a new small vesicle that encloses them inside the cell.",
+        "evidence": "Response describes the membrane folding in (or surrounding the beads) and forming a vesicle containing the beads; naming endocytosis or phagocytosis without describing the membrane movement is not enough.",
+        "fix": "Describe the membrane's movement step by step: it folds in around the material, then closes off as a vesicle inside the cell.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Inside the amoeba, undigested material is enclosed in vesicles that normally fuse with the plasma membrane to release the material outside the cell. Predict the effect of the energy-blocking chemical on the release of this material, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that release of the undigested material will stop or greatly decrease in energy-blocked amoebas.",
+        "evidence": "Response states that the energy-blocked amoebas will release little or none of the material.",
+        "fix": "State the direction of the change clearly: release stops, decreases, or stays the same.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Justifies that release by vesicle fusion is exocytosis, which requires energy (consistent with bead uptake by endocytosis falling from 40 to 0 when energy was blocked).",
+        "evidence": "Response identifies the release as exocytosis (vesicle fusing with the membrane) and states that this process requires energy, optionally citing the bead data.",
+        "fix": "Remember both endocytosis and exocytosis move large amounts of material in vesicles and both require an input of energy.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Solute K is 1.5 mM in the surrounding water but 25.0 mM inside the cell, yet its net movement is into the cell. K is therefore moving from a region of low concentration to a region of high concentration, against its concentration gradient. Passive transport only produces net movement from high to low concentration, so moving K inward requires the direct input of energy: active transport.\n\n(b) When the cell's supply of metabolic energy is blocked, the uptake rate of G stays almost the same (98 compared with 100), while the uptake of K drops to 3. G's movement into the cell therefore does not depend on a direct input of metabolic energy. This fits passive transport: G moves from high concentration outside (6.0 mM) to low concentration inside (0.8 mM).\n\n(c) The beads enter by endocytosis. The plasma membrane folds inward around the beads, and the folded region closes and pinches off as a new small vesicle that contains the beads inside the cell.\n\n(d) Release of the undigested material will stop (or nearly stop) in the energy-blocked amoebas. The material is released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. The bead data show the same dependence for vesicle transport in the other direction: endocytosis fell from 40 beads to 0 when energy was blocked.",
+    "verification_python": "G_in,G_out=0.8,6.0\nK_in,K_out=25.0,1.5\nassert G_out>G_in\nassert K_in>K_out\nassert 100-98==2\nassert 100-3==97\nbeads=(40,0)\nassert beads[1]==0\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.8": 5,
+     "2.5": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "accepted_round": 1
+}

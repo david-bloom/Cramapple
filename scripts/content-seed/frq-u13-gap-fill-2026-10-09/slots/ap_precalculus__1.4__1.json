@@ -1,0 +1,845 @@
+{
+ "id": "ap_precalculus__1.4__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 1,
+  "unit_title": "Polynomial and Rational Functions",
+  "topic_code": "1.4",
+  "topic_title": "Polynomial Functions and Rates of Change",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:19.706Z",
+   "source": "given",
+   "item": {
+    "title": "Extrema and Inflection of a Polynomial on a Restricted Domain",
+    "calculator": "not_permitted",
+    "stimulus": "Let p be the polynomial function defined by p(x) = −3x⁴ + 44x³ − 144x² + 200, with its domain restricted to 0 ≤ x ≤ 10. The following information about p is known.\n• p is decreasing for 0 < x < 3, increasing for 3 < x < 8, and decreasing for 8 < x < 10.\n• The rate of change of p is decreasing for 0 < x < 4/3, increasing for 4/3 < x < 6, and decreasing for 6 < x < 10.\nThe table gives selected values of p.\nx | 0 | 3 | 8 | 10\np(x) | 200 | −151 | 1224 | −200",
+    "parts": [
+     {
+      "prompt": "On the domain 0 ≤ x ≤ 10, identify every input value at which p has a local maximum and every input value at which p has a local minimum. Give a reason for each.",
+      "criteria": [
+       {
+        "text": "Local maximums at x = 0 (an included endpoint, with p decreasing immediately after it) and at x = 8 (p switches from increasing to decreasing).",
+        "evidence": "Response lists both x = 0 and x = 8 as local maximum locations with a correct reason for each.",
+        "fix": "Check included endpoints as well as inputs where p switches between increasing and decreasing.",
+        "accepted_variants": [
+         "x = 0 and x = 8"
+        ]
+       },
+       {
+        "text": "Local minimums at x = 3 (p switches from decreasing to increasing) and at x = 10 (an included endpoint, with p decreasing just before it).",
+        "evidence": "Response lists both x = 3 and x = 10 as local minimum locations with a correct reason for each.",
+        "fix": "At a right endpoint, a function that is decreasing up to that endpoint has a local minimum there.",
+        "accepted_variants": [
+         "x = 3 and x = 10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the global maximum value and the global minimum value of p on its domain. Explain why p(3) is not the global minimum value of p.",
+      "criteria": [
+       {
+        "text": "The global maximum value is 1224 (it occurs at x = 8 and exceeds the other local maximum value, p(0) = 200).",
+        "evidence": "Response gives the global maximum value 1224. The input x = 8 and a comparison with p(0) are not required.",
+        "fix": "Compare the output values at every local maximum, including endpoints; the largest one is the global maximum.",
+        "accepted_variants": [
+         "1224"
+        ]
+       },
+       {
+        "text": "The global minimum value is −200; p(3) = −151 is not the global minimum because p(10) = −200 is less than −151.",
+        "evidence": "Response gives the global minimum value −200 and explains that p(3) = −151 is not the least value because p(10) = −200 is smaller. The input x = 10 is not required.",
+        "fix": "Compare the output values at every local minimum, including endpoints; a local minimum is global only if it is the least.",
+        "accepted_variants": [
+         "−200"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the input values at which the graph of p has a point of inflection. Then state whether the graph of p is concave up or concave down for 6 < x < 10. Give a reason for each answer based on the rate of change of p.",
+      "criteria": [
+       {
+        "text": "Points of inflection at x = 4/3 and x = 6, because the rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6.",
+        "evidence": "Response gives both x = 4/3 and x = 6 and states that the rate of change of p changes between increasing and decreasing at each.",
+        "fix": "Look for inputs where the rate of change switches between increasing and decreasing; those are the points of inflection.",
+        "accepted_variants": [
+         "x = 4/3 and x = 6"
+        ]
+       },
+       {
+        "text": "Concave down for 6 < x < 10, because the rate of change of p is decreasing there.",
+        "evidence": "Response states concave down on 6 < x < 10 and cites the decreasing rate of change.",
+        "fix": "A decreasing rate of change means concave down; an increasing rate of change means concave up.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Local maximums: at x = 0, because x = 0 is an included endpoint and p is decreasing for 0 < x < 3, so p(0) is greater than nearby outputs; and at x = 8, because p switches from increasing to decreasing there.\nLocal minimums: at x = 3, because p switches from decreasing to increasing there; and at x = 10, because x = 10 is an included endpoint and p is decreasing for 8 < x < 10, so p(10) is less than nearby outputs.\n\n(b) The local maximum values are p(0) = 200 and p(8) = 1224. Since 1224 > 200, the global maximum value is 1224, at x = 8.\nThe local minimum values are p(3) = −151 and p(10) = −200. Since −200 < −151, the global minimum value is −200, at x = 10. So p(3) = −151 is only a local minimum, because p(10) = −200 is smaller.\n\n(c) The rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6, so the graph of p has points of inflection at x = 4/3 and x = 6.\nFor 6 < x < 10, the rate of change of p is decreasing, so the graph of p is concave down there.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\np=-3*x**4+44*x**3-144*x**2+200\nassert [p.subs(x,v) for v in (0,3,8,10)]==[200,-151,1224,-200]\nd1=sp.diff(p,x); d2=sp.diff(p,x,2)\nassert sorted(sp.solve(d1,x))==[0,3,8]\nassert sorted(sp.solve(d2,x))==[sp.Rational(4,3),6]\n# monotonic behavior on stated intervals (checker only)\nassert d1.subs(x,1)<0 and d1.subs(x,5)>0 and d1.subs(x,9)<0\nassert d2.subs(x,1)<0 and d2.subs(x,3)>0 and d2.subs(x,7)<0\nassert max(200,1224)==1224 and min(-151,-200)==-200\n# global extrema on [0,10] over a fine grid\nvals=[p.subs(x,sp.Rational(k,100)) for k in range(0,1001)]\nassert max(vals)==1224 and min(vals)==-200\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) does not specify whether endpoints may count as local extrema. Under the definition relative to the restricted domain, x = 0 is a local maximum and x = 10 is a local minimum. Under the convention that local extrema must occur at interior inputs, neither endpoint counts. Both interpretations are given above. The polynomial, table, and supplied rate-of-change information are consistent.",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My independent solution incorrectly concluded that x = 0 and x = 10 are not local extrema. Under CED 1.4.A.2, an included endpoint of a polynomial with a restricted domain can be a local maximum or minimum, so the rubric and model answer are correct to count x = 0 as a local maximum and x = 10 as a local minimum."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution incorrectly concluded that x = 0 and x = 10 are not local extrema. Under CED 1.4.A.2, an included endpoint of a polynomial with a restricted domain can be a local maximum or minimum, so the rubric and model answer are correct to count x = 0 as a local maximum and x = 10 as a local minimum.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My independent solution disagreed only on part (a): I said endpoints are not local extrema because the function is not defined on both sides. Under CED topic 1.4.A.2, included endpoints of a polynomial with restricted domain do count as local extrema, so the rubric and model answer are correct. All other parts agree."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution disagreed only on part (a): I said endpoints are not local extrema because the function is not defined on both sides. Under CED topic 1.4.A.2, included endpoints of a polynomial with restricted domain do count as local extrema, so the rubric and model answer are correct. All other parts agree.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium",
+   "accepted_by_arbitration": true
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Extrema and Inflection of a Polynomial on a Restricted Domain",
+   "calculator": "not_permitted",
+   "stimulus": "Let p be the polynomial function defined by p(x) = −3x⁴ + 44x³ − 144x² + 200, with its domain restricted to 0 ≤ x ≤ 10. The following information about p is known.\n• p is decreasing for 0 < x < 3, increasing for 3 < x < 8, and decreasing for 8 < x < 10.\n• The rate of change of p is decreasing for 0 < x < 4/3, increasing for 4/3 < x < 6, and decreasing for 6 < x < 10.\nThe table gives selected values of p.\nx | 0 | 3 | 8 | 10\np(x) | 200 | −151 | 1224 | −200",
+   "parts": [
+    {
+     "prompt": "On the domain 0 ≤ x ≤ 10, identify every input value at which p has a local maximum and every input value at which p has a local minimum. Give a reason for each.",
+     "criteria": [
+      {
+       "text": "Local maximums at x = 0 (an included endpoint, with p decreasing immediately after it) and at x = 8 (p switches from increasing to decreasing).",
+       "evidence": "Response lists both x = 0 and x = 8 as local maximum locations with a correct reason for each.",
+       "fix": "Check included endpoints as well as inputs where p switches between increasing and decreasing.",
+       "accepted_variants": [
+        "x = 0 and x = 8"
+       ]
+      },
+      {
+       "text": "Local minimums at x = 3 (p switches from decreasing to increasing) and at x = 10 (an included endpoint, with p decreasing just before it).",
+       "evidence": "Response lists both x = 3 and x = 10 as local minimum locations with a correct reason for each.",
+       "fix": "At a right endpoint, a function that is decreasing up to that endpoint has a local minimum there.",
+       "accepted_variants": [
+        "x = 3 and x = 10"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the global maximum value and the global minimum value of p on its domain. Explain why p(3) is not the global minimum value of p.",
+     "criteria": [
+      {
+       "text": "The global maximum value is 1224 (it occurs at x = 8 and exceeds the other local maximum value, p(0) = 200).",
+       "evidence": "Response gives the global maximum value 1224. The input x = 8 and a comparison with p(0) are not required.",
+       "fix": "Compare the output values at every local maximum, including endpoints; the largest one is the global maximum.",
+       "accepted_variants": [
+        "1224"
+       ]
+      },
+      {
+       "text": "The global minimum value is −200; p(3) = −151 is not the global minimum because p(10) = −200 is less than −151.",
+       "evidence": "Response gives the global minimum value −200 and explains that p(3) = −151 is not the least value because p(10) = −200 is smaller. The input x = 10 is not required.",
+       "fix": "Compare the output values at every local minimum, including endpoints; a local minimum is global only if it is the least.",
+       "accepted_variants": [
+        "−200"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the input values at which the graph of p has a point of inflection. Then state whether the graph of p is concave up or concave down for 6 < x < 10. Give a reason for each answer based on the rate of change of p.",
+     "criteria": [
+      {
+       "text": "Points of inflection at x = 4/3 and x = 6, because the rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6.",
+       "evidence": "Response gives both x = 4/3 and x = 6 and states that the rate of change of p changes between increasing and decreasing at each.",
+       "fix": "Look for inputs where the rate of change switches between increasing and decreasing; those are the points of inflection.",
+       "accepted_variants": [
+        "x = 4/3 and x = 6"
+       ]
+      },
+      {
+       "text": "Concave down for 6 < x < 10, because the rate of change of p is decreasing there.",
+       "evidence": "Response states concave down on 6 < x < 10 and cites the decreasing rate of change.",
+       "fix": "A decreasing rate of change means concave down; an increasing rate of change means concave up.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Local maximums: at x = 0, because x = 0 is an included endpoint and p is decreasing for 0 < x < 3, so p(0) is greater than nearby outputs; and at x = 8, because p switches from increasing to decreasing there.\nLocal minimums: at x = 3, because p switches from decreasing to increasing there; and at x = 10, because x = 10 is an included endpoint and p is decreasing for 8 < x < 10, so p(10) is less than nearby outputs.\n\n(b) The local maximum values are p(0) = 200 and p(8) = 1224. Since 1224 > 200, the global maximum value is 1224, at x = 8.\nThe local minimum values are p(3) = −151 and p(10) = −200. Since −200 < −151, the global minimum value is −200, at x = 10. So p(3) = −151 is only a local minimum, because p(10) = −200 is smaller.\n\n(c) The rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6, so the graph of p has points of inflection at x = 4/3 and x = 6.\nFor 6 < x < 10, the rate of change of p is decreasing, so the graph of p is concave down there.",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x')\np=-3*x**4+44*x**3-144*x**2+200\nassert [p.subs(x,v) for v in (0,3,8,10)]==[200,-151,1224,-200]\nd1=sp.diff(p,x); d2=sp.diff(p,x,2)\nassert sorted(sp.solve(d1,x))==[0,3,8]\nassert sorted(sp.solve(d2,x))==[sp.Rational(4,3),6]\n# monotonic behavior on stated intervals (checker only)\nassert d1.subs(x,1)<0 and d1.subs(x,5)>0 and d1.subs(x,9)<0\nassert d2.subs(x,1)<0 and d2.subs(x,3)>0 and d2.subs(x,7)<0\nassert max(200,1224)==1224 and min(-151,-200)==-200\n# global extrema on [0,10] over a fine grid\nvals=[p.subs(x,sp.Rational(k,100)) for k in range(0,1001)]\nassert max(vals)==1224 and min(vals)==-200\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875554Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "six-vote topic classifier",
+      "objection": "topic votes {'1.4': 4, '1.3': 2}, required units [1]",
+      "ruling": "reject",
+      "reason": "The majority vote (4 of 6) is 1.4, and the item matches 1.4: local extrema at sign changes and included endpoints of a restricted domain, global extrema (1.4.A.2) and points of inflection of a polynomial (1.4.A.5). The concavity point is background from 1.3, inside the allowed earlier content."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires a comparison with p(0) to justify the global maximum, although the part requests an explanation only for why p(3)",
+      "ruling": "accept",
+      "reason": "Valid: part (b) asks only for the two values and one explanation (about p(3)). b1 now requires only 1224; b2 requires −200 plus the requested p(3) explanation; inputs are no longer required."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "solution: My independent solution omitted x=0 and x=10 as local extrema, stating endpoints are not local extrema under the standard AP definition. CED 1.4.A.2 e",
+      "ruling": "reject",
+      "reason": "Not an objection to the item: the checker confirms that CED 1.4.A.2 makes included endpoints of a restricted domain local extrema, so the rubric and model answer are correct."
+     }
+    ],
+    "accept_as_is": false
+   },
+   {
+    "at": "2026-10-10T04:25:30.141729Z",
+    "round": 4,
+    "accept_as_is": true,
+    "decisions": [
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "solution: endpoints not local extrema",
+      "ruling": "reject",
+      "reason": "The checker concedes its own solution was wrong: CED 1.4.A.2 counts included endpoints of a restricted-domain polynomial as local extrema, which is what the rubric scores."
+     }
+    ]
+   }
+  ],
+  "topic_ruling": {
+   "topic": "1.4",
+   "required_units": [
+    1
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "Five of six points assess 1.4.A.2 and 1.4.A.5; the one concavity point uses earlier Unit 1 content as background. Only Unit 1 is needed."
+  }
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:20:56.255Z",
+   "source": "given",
+   "item": {
+    "title": "Extrema and Inflection of a Polynomial on a Restricted Domain",
+    "calculator": "not_permitted",
+    "stimulus": "Let p be the polynomial function defined by p(x) = −3x⁴ + 44x³ − 144x² + 200, with its domain restricted to 0 ≤ x ≤ 10. The following information about p is known.\n• p is decreasing for 0 < x < 3, increasing for 3 < x < 8, and decreasing for 8 < x < 10.\n• The rate of change of p is decreasing for 0 < x < 4/3, increasing for 4/3 < x < 6, and decreasing for 6 < x < 10.\nThe table gives selected values of p.\nx | 0 | 3 | 8 | 10\np(x) | 200 | −151 | 1224 | −200",
+    "parts": [
+     {
+      "prompt": "On the domain 0 ≤ x ≤ 10, identify every input value at which p has a local maximum and every input value at which p has a local minimum. Give a reason for each.",
+      "criteria": [
+       {
+        "text": "Local maximums at x = 0 (an included endpoint, with p decreasing immediately after it) and at x = 8 (p switches from increasing to decreasing).",
+        "evidence": "Response lists both x = 0 and x = 8 as local maximum locations with a correct reason for each.",
+        "fix": "Check included endpoints as well as inputs where p switches between increasing and decreasing.",
+        "accepted_variants": [
+         "x = 0 and x = 8"
+        ]
+       },
+       {
+        "text": "Local minimums at x = 3 (p switches from decreasing to increasing) and at x = 10 (an included endpoint, with p decreasing just before it).",
+        "evidence": "Response lists both x = 3 and x = 10 as local minimum locations with a correct reason for each.",
+        "fix": "At a right endpoint, a function that is decreasing up to that endpoint has a local minimum there.",
+        "accepted_variants": [
+         "x = 3 and x = 10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the global maximum value and the global minimum value of p on its domain. Explain why p(3) is not the global minimum value of p.",
+      "criteria": [
+       {
+        "text": "The global maximum value is 1224, at x = 8, because it is greater than the only other local maximum value, p(0) = 200.",
+        "evidence": "Response gives 1224 (at x = 8) and compares it with p(0) = 200.",
+        "fix": "Compare the output values at every local maximum, including endpoints; the largest one is the global maximum.",
+        "accepted_variants": [
+         "1224"
+        ]
+       },
+       {
+        "text": "The global minimum value is −200, at x = 10; p(3) = −151 is not the global minimum because p(10) = −200 is less than −151.",
+        "evidence": "Response gives −200 (at x = 10) and explains that the local minimum −151 is greater than the endpoint value −200.",
+        "fix": "Compare the output values at every local minimum, including endpoints; a local minimum is global only if it is the least.",
+        "accepted_variants": [
+         "−200"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the input values at which the graph of p has a point of inflection. Then state whether the graph of p is concave up or concave down for 6 < x < 10. Give a reason for each answer based on the rate of change of p.",
+      "criteria": [
+       {
+        "text": "Points of inflection at x = 4/3 and x = 6, because the rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6.",
+        "evidence": "Response gives both x = 4/3 and x = 6 and states that the rate of change of p changes between increasing and decreasing at each.",
+        "fix": "Look for inputs where the rate of change switches between increasing and decreasing; those are the points of inflection.",
+        "accepted_variants": [
+         "x = 4/3 and x = 6"
+        ]
+       },
+       {
+        "text": "Concave down for 6 < x < 10, because the rate of change of p is decreasing there.",
+        "evidence": "Response states concave down on 6 < x < 10 and cites the decreasing rate of change.",
+        "fix": "A decreasing rate of change means concave down; an increasing rate of change means concave up.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Local maximums: at x = 0, because x = 0 is an included endpoint and p is decreasing for 0 < x < 3, so p(0) is greater than nearby outputs; and at x = 8, because p switches from increasing to decreasing there.\nLocal minimums: at x = 3, because p switches from decreasing to increasing there; and at x = 10, because x = 10 is an included endpoint and p is decreasing for 8 < x < 10, so p(10) is less than nearby outputs.\n\n(b) The local maximum values are p(0) = 200 and p(8) = 1224. Since 1224 > 200, the global maximum value is 1224, at x = 8.\nThe local minimum values are p(3) = −151 and p(10) = −200. Since −200 < −151, the global minimum value is −200, at x = 10. So p(3) = −151 is only a local minimum, because p(10) = −200 is smaller.\n\n(c) The rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6, so the graph of p has points of inflection at x = 4/3 and x = 6.\nFor 6 < x < 10, the rate of change of p is decreasing, so the graph of p is concave down there.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\np=-3*x**4+44*x**3-144*x**2+200\nassert [p.subs(x,v) for v in (0,3,8,10)]==[200,-151,1224,-200]\nd1=sp.diff(p,x); d2=sp.diff(p,x,2)\nassert sorted(sp.solve(d1,x))==[0,3,8]\nassert sorted(sp.solve(d2,x))==[sp.Rational(4,3),6]\n# monotonic behavior on stated intervals (checker only)\nassert d1.subs(x,1)<0 and d1.subs(x,5)>0 and d1.subs(x,9)<0\nassert d2.subs(x,1)<0 and d2.subs(x,3)>0 and d2.subs(x,7)<0\nassert max(200,1224)==1224 and min(-151,-200)==-200\n# global extrema on [0,10] over a fine grid\nvals=[p.subs(x,sp.Rational(k,100)) for k in range(0,1001)]\nassert max(vals)==1224 and min(vals)==-200\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.4": 4,
+     "1.3": 2
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:57:48.285Z",
+   "source": "given",
+   "item": {
+    "title": "Extrema and Inflection of a Polynomial on a Restricted Domain",
+    "calculator": "not_permitted",
+    "stimulus": "Let p be the polynomial function defined by p(x) = −3x⁴ + 44x³ − 144x² + 200, with its domain restricted to 0 ≤ x ≤ 10. The following information about p is known.\n• p is decreasing for 0 < x < 3, increasing for 3 < x < 8, and decreasing for 8 < x < 10.\n• The rate of change of p is decreasing for 0 < x < 4/3, increasing for 4/3 < x < 6, and decreasing for 6 < x < 10.\nThe table gives selected values of p.\nx | 0 | 3 | 8 | 10\np(x) | 200 | −151 | 1224 | −200",
+    "parts": [
+     {
+      "prompt": "On the domain 0 ≤ x ≤ 10, identify every input value at which p has a local maximum and every input value at which p has a local minimum. Give a reason for each.",
+      "criteria": [
+       {
+        "text": "Local maximums at x = 0 (an included endpoint, with p decreasing immediately after it) and at x = 8 (p switches from increasing to decreasing).",
+        "evidence": "Response lists both x = 0 and x = 8 as local maximum locations with a correct reason for each.",
+        "fix": "Check included endpoints as well as inputs where p switches between increasing and decreasing.",
+        "accepted_variants": [
+         "x = 0 and x = 8"
+        ]
+       },
+       {
+        "text": "Local minimums at x = 3 (p switches from decreasing to increasing) and at x = 10 (an included endpoint, with p decreasing just before it).",
+        "evidence": "Response lists both x = 3 and x = 10 as local minimum locations with a correct reason for each.",
+        "fix": "At a right endpoint, a function that is decreasing up to that endpoint has a local minimum there.",
+        "accepted_variants": [
+         "x = 3 and x = 10"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the global maximum value and the global minimum value of p on its domain. Explain why p(3) is not the global minimum value of p.",
+      "criteria": [
+       {
+        "text": "The global maximum value is 1224, at x = 8, because it is greater than the only other local maximum value, p(0) = 200.",
+        "evidence": "Response gives 1224 (at x = 8) and compares it with p(0) = 200.",
+        "fix": "Compare the output values at every local maximum, including endpoints; the largest one is the global maximum.",
+        "accepted_variants": [
+         "1224"
+        ]
+       },
+       {
+        "text": "The global minimum value is −200, at x = 10; p(3) = −151 is not the global minimum because p(10) = −200 is less than −151.",
+        "evidence": "Response gives −200 (at x = 10) and explains that the local minimum −151 is greater than the endpoint value −200.",
+        "fix": "Compare the output values at every local minimum, including endpoints; a local minimum is global only if it is the least.",
+        "accepted_variants": [
+         "−200"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the input values at which the graph of p has a point of inflection. Then state whether the graph of p is concave up or concave down for 6 < x < 10. Give a reason for each answer based on the rate of change of p.",
+      "criteria": [
+       {
+        "text": "Points of inflection at x = 4/3 and x = 6, because the rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6.",
+        "evidence": "Response gives both x = 4/3 and x = 6 and states that the rate of change of p changes between increasing and decreasing at each.",
+        "fix": "Look for inputs where the rate of change switches between increasing and decreasing; those are the points of inflection.",
+        "accepted_variants": [
+         "x = 4/3 and x = 6"
+        ]
+       },
+       {
+        "text": "Concave down for 6 < x < 10, because the rate of change of p is decreasing there.",
+        "evidence": "Response states concave down on 6 < x < 10 and cites the decreasing rate of change.",
+        "fix": "A decreasing rate of change means concave down; an increasing rate of change means concave up.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Local maximums: at x = 0, because x = 0 is an included endpoint and p is decreasing for 0 < x < 3, so p(0) is greater than nearby outputs; and at x = 8, because p switches from increasing to decreasing there.\nLocal minimums: at x = 3, because p switches from decreasing to increasing there; and at x = 10, because x = 10 is an included endpoint and p is decreasing for 8 < x < 10, so p(10) is less than nearby outputs.\n\n(b) The local maximum values are p(0) = 200 and p(8) = 1224. Since 1224 > 200, the global maximum value is 1224, at x = 8.\nThe local minimum values are p(3) = −151 and p(10) = −200. Since −200 < −151, the global minimum value is −200, at x = 10. So p(3) = −151 is only a local minimum, because p(10) = −200 is smaller.\n\n(c) The rate of change of p switches from decreasing to increasing at x = 4/3 and from increasing to decreasing at x = 6, so the graph of p has points of inflection at x = 4/3 and x = 6.\nFor 6 < x < 10, the rate of change of p is decreasing, so the graph of p is concave down there.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\np=-3*x**4+44*x**3-144*x**2+200\nassert [p.subs(x,v) for v in (0,3,8,10)]==[200,-151,1224,-200]\nd1=sp.diff(p,x); d2=sp.diff(p,x,2)\nassert sorted(sp.solve(d1,x))==[0,3,8]\nassert sorted(sp.solve(d2,x))==[sp.Rational(4,3),6]\n# monotonic behavior on stated intervals (checker only)\nassert d1.subs(x,1)<0 and d1.subs(x,5)>0 and d1.subs(x,9)<0\nassert d2.subs(x,1)<0 and d2.subs(x,3)>0 and d2.subs(x,7)<0\nassert max(200,1224)==1224 and min(-151,-200)==-200\n# global extrema on [0,10] over a fine grid\nvals=[p.subs(x,sp.Rational(k,100)) for k in range(0,1001)]\nassert max(vals)==1224 and min(vals)==-200\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 1,
+     "1.4": 5
+    },
+    "onTarget": 5,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires the maximizing input x = 8 and a comparison with p(0) = 200, although the part asks only for the global maximum value, not its location or justification. Criterion b2 likewise requires the minimizing input x = 10, although only the minimum value and an explanation of why p(3) is not the global minimum are requested. Remove these additional requirements or explicitly request them in part (b)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) does not specify whether endpoints count as local extrema. Under a definition relative to the restricted domain, x = 0 is a local maximum and x = 10 is a local minimum; under a convention requiring local extrema to be interior points, neither endpoint counts. Both interpretations are provided. The numerical and monotonicity information is consistent with the polynomial, and the supplied rate-of-change information makes part (c) answerable without calculus.",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires the maximizing input x = 8 and a comparison with p(0) = 200, although the part asks only for the global maximum value, not its location or justification. Criterion b2 likewise requires the minimizing input x = 10, although only the minimum value and an explanation of why p(3) is not the global minimum are requested. Remove these additional requirements or explicitly request them in part (b)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires a comparison with p(0) to justify the global maximum, although the part requests an explanation only for why p(3) is not the global minimum. Criteria b1 and b2 also require the inputs where the extrema occur, although the part asks only for their values. Remove these extra evidence requirements or explicitly request them in part (b)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (a) does not specify whether endpoints count as local extrema. Under the definition using neighborhoods relative to the restricted domain, x = 0 is a local maximum and x = 10 is a local minimum. Under the common classroom convention that local extrema must be interior points, these endpoints are excluded. The remaining parts are consistent and answerable from the supplied information without differentiation.",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires a comparison with p(0) to justify the global maximum, although the part requests an explanation only for why p(3) is not the global minimum. Criteria b1 and b2 also require the inputs where the extrema occur, although the part asks only for their values. Remove these extra evidence requirements or explicitly request them in part (b)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My independent solution disagreed with the rubric and model answer only on local extrema: I said endpoints are not local extrema under the standard AP definition, but CED 1.4.A.2 includes included endpoints as local extrema, so the rubric and model answer are correct."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution disagreed with the rubric and model answer only on local extrema: I said endpoints are not local extrema under the standard AP definition, but CED 1.4.A.2 includes included endpoints as local extrema, so the rubric and model answer are correct.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My independent solution omitted x=0 and x=10 as local extrema, stating endpoints are not local extrema under the standard AP definition. CED 1.4.A.2 explicitly says included endpoints of a polynomial with a restricted domain have local extrema, so the rubric and model answer are correct."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution omitted x=0 and x=10 as local extrema, stating endpoints are not local extrema under the standard AP definition. CED 1.4.A.2 explicitly says included endpoints of a polynomial with a restricted domain have local extrema, so the rubric and model answer are correct.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

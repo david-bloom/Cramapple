@@ -1,0 +1,958 @@
+[
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "1.1",
+  "item": {
+   "title": "Components of a State Park Pass Holder Survey",
+   "calculator": "not_applicable",
+   "stimulus": "The state park agency sold annual park passes to 48,000 people last year. The state has about 2.1 million adult residents. The agency wants to know whether its pass holders would use a proposed online campsite reservation system. Calling every pass holder would take agency staff several months, so the agency selected a random sample of 600 pass holders and asked each one: \"Would you use an online campsite reservation system? (yes or no)\" All 600 pass holders in the sample answered, and 372 of them answered yes.",
+   "parts": [
+    {
+     "prompt": "Identify the population and the sample in this study, and give the values of N and n.",
+     "criteria": [
+      {
+       "text": "Identifies the population as all 48,000 people who hold an annual pass from the state park agency, with N = 48,000.",
+       "evidence": "Response names all of the agency's annual pass holders as the population and gives N = 48,000 (not 2.1 million and not 600).",
+       "fix": "Name the whole group the agency wants to learn about, then give N as the size of that group, not a larger group.",
+       "accepted_variants": [
+        "N = 48,000",
+        "N = 48000"
+       ]
+      },
+      {
+       "text": "Identifies the sample as the 600 randomly selected pass holders who were asked the question, with n = 600.",
+       "evidence": "Response names the 600 pass holders who were selected and asked the question as the sample and gives n = 600.",
+       "fix": "Name the subset of the population from which data were actually obtained, then give n as the number of individuals in it.",
+       "accepted_variants": [
+        "n = 600"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the agency used a statistical study instead of collecting data from every pass holder.",
+     "criteria": [
+      {
+       "text": "Explains that collecting data from every one of the 48,000 pass holders would be too difficult or time-consuming, so data were collected from a sample instead.",
+       "evidence": "Response states that contacting every pass holder is impractical because of the size of the population or the months of staff time it would take.",
+       "fix": "Give a reason tied to the context: say what makes collecting data from every member of this population too large or too difficult a task.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "One pass holder in the sample answered yes. Identify the datum that this pass holder provides, and describe the data set that the agency collected.",
+     "criteria": [
+      {
+       "text": "Identifies the datum as this pass holder's answer, yes, to the question about using an online campsite reservation system.",
+       "evidence": "Response states that the datum is the single recorded answer (yes) for this one pass holder, not the pass holder or the count 372.",
+       "fix": "A datum is one piece of information about one individual; state the recorded answer for that individual, not the individual.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Describes the data set as the collection of all 600 yes-or-no answers given by the sampled pass holders.",
+       "evidence": "Response states that the data set is the full collection of recorded answers from the 600 sampled pass holders.",
+       "fix": "Describe the data set as the full collection of recorded values, one per sampled individual, and say how many values it contains.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The population is all 48,000 people who hold an annual pass from the state park agency, so N = 48,000. The sample is the 600 randomly selected pass holders who were asked the question, so n = 600.\n\n(b) The population of 48,000 pass holders is too large to contact everyone easily: calling every pass holder would take agency staff several months. A statistical study lets the agency collect data from a sample of 600 pass holders to answer its question about all pass holders.\n\n(c) The datum is this pass holder's answer, yes, to the question \"Would you use an online campsite reservation system?\" The data set is the collection of all 600 yes-or-no answers given by the sampled pass holders (372 yes and 228 no).",
+   "verification_python": "N=48000\nn=600\nresidents=2_100_000\nyes=372\nassert n<N<residents\nassert n-yes==228\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "2.2",
+  "item": {
+   "title": "Grade Group and Preferred Study Location",
+   "calculator": "permitted",
+   "stimulus": "A high school surveyed 500 of its students about where they prefer to study. Each student was classified by grade group and by preferred study location. The results are shown in the table.\n\nGrade group | Home | Library | Café | Total\nGrades 9–10 | 156 | 52 | 52 | 260\nGrades 11–12 | 96 | 84 | 60 | 240\nTotal | 252 | 136 | 112 | 500",
+   "parts": [
+    {
+     "prompt": "For these 500 students, calculate the joint relative frequency of being in grades 11–12 and preferring the library, and calculate the marginal relative frequency of preferring the library.",
+     "criteria": [
+      {
+       "text": "Joint relative frequency: 84/500 = 0.168.",
+       "evidence": "Response divides the single cell count 84 by the table total 500 to get 0.168.",
+       "fix": "For a joint relative frequency, divide the one cell count by the total for the entire table, not by a row or column total.",
+       "accepted_variants": [
+        "0.168",
+        "16.8%",
+        "84/500"
+       ]
+      },
+      {
+       "text": "Marginal relative frequency: 136/500 = 0.272.",
+       "evidence": "Response divides the Library column total 136 by the table total 500 to get 0.272.",
+       "fix": "For a marginal relative frequency, divide the row or column total for that category by the total for the entire table.",
+       "accepted_variants": [
+        "0.272",
+        "27.2%",
+        "136/500"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the proportion of students in grades 9–10 who prefer the library and the proportion of students in grades 11–12 who prefer the library. Based on the conditional relative frequencies of preferred study location for the two grade groups, is there an association between grade group and preferred study location for these students? Justify your answer.",
+     "criteria": [
+      {
+       "text": "Calculates the conditional relative frequencies 52/260 = 0.20 for grades 9–10 and 84/240 = 0.35 for grades 11–12.",
+       "evidence": "Response divides each Library count by the total for its own grade group to get 0.20 and 0.35.",
+       "fix": "To condition on grade group, divide each cell count by that grade group's row total, not by the column total or table total.",
+       "accepted_variants": [
+        "0.2 and 0.35",
+        "20% and 35%"
+       ]
+      },
+      {
+       "text": "States that there is an association, because the conditional distributions of preferred study location differ between the grade groups, citing at least one comparison of conditional relative frequencies (for example 0.20 versus 0.35 for the library, or 0.60 versus 0.40 for home).",
+       "evidence": "Response says yes, there is an association, and supports it by comparing conditional relative frequencies (not raw counts) for the two grade groups.",
+       "fix": "Compare the same conditional relative frequency across the groups; if the values differ noticeably, state that the variables are associated and cite them.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A student claims: \"Most of the students who prefer the library are in grades 11–12.\" Use an appropriate relative frequency to determine whether the data support this claim.",
+     "criteria": [
+      {
+       "text": "Computes 84/136 ≈ 0.618, the proportion of library-preferring students who are in grades 11–12, and concludes that the claim is supported because 0.618 is greater than 0.5.",
+       "evidence": "Response divides by the Library column total (84/136 ≈ 0.62), compares the result with one half, and states that the claim is supported.",
+       "fix": "Identify the group the claim restricts to (students who prefer the library), divide by that column total, then compare the result with 0.5.",
+       "accepted_variants": [
+        "84/136",
+        "0.618",
+        "0.62",
+        "61.8%"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Joint relative frequency of grades 11–12 and library = 84/500 = 0.168.\nMarginal relative frequency of library = 136/500 = 0.272.\n\n(b) Grades 9–10: 52/260 = 0.20 prefer the library. Grades 11–12: 84/240 = 0.35 prefer the library.\nYes, there is an association between grade group and preferred study location for these students. The conditional distributions differ: 35% of students in grades 11–12 prefer the library compared with 20% in grades 9–10, and 60% (156/260) of students in grades 9–10 prefer home compared with 40% (96/240) in grades 11–12. If the variables were not associated, these conditional relative frequencies would be about the same for both grade groups.\n\n(c) Among the 136 students who prefer the library, 84 are in grades 11–12, so the proportion is 84/136 ≈ 0.618. Because 0.618 is greater than 0.5, most of the students who prefer the library are in grades 11–12, so the data support the claim.",
+   "verification_python": "from fractions import Fraction as F\nrows={'a':[156,52,52],'b':[96,84,60]}\nassert sum(rows['a'])==260 and sum(rows['b'])==240\ncols=[156+96,52+84,52+60]\nassert cols==[252,136,112] and sum(cols)==500\nassert F(84,500)==F(168,1000)\nassert F(136,500)==F(272,1000)\nassert F(52,260)==F(1,5)\nassert F(84,240)==F(35,100)\nassert F(156,260)==F(3,5) and F(96,240)==F(2,5)\nassert abs(84/136-0.618)<0.0005 and 84/136>0.5\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "2.7",
+  "item": {
+   "title": "Pastry Orders and Mobile App Payments",
+   "calculator": "permitted",
+   "stimulus": "A coffee shop recorded 800 transactions during one week. Each transaction was classified by whether the customer ordered a pastry and whether the customer paid with the shop's mobile app.\n\nOrder | Paid with app | Did not pay with app | Total\nOrdered a pastry | 120 | 120 | 240\nNo pastry | 240 | 320 | 560\nTotal | 360 | 440 | 800\n\nOne of these 800 transactions is selected at random. Let A be the event that the customer ordered a pastry, and let M be the event that the customer paid with the mobile app.",
+   "parts": [
+    {
+     "prompt": "Find P(A ∪ M), the probability that the selected customer ordered a pastry or paid with the app (or both). Show your work.",
+     "criteria": [
+      {
+       "text": "Finds P(A ∪ M) = 0.60, shown either as P(A) + P(M) − P(A ∩ M) = 0.30 + 0.45 − 0.15 or as (120 + 120 + 240)/800 = 480/800.",
+       "evidence": "Response shows a correct calculation that counts transactions with both a pastry and an app payment only once, and obtains 0.60.",
+       "fix": "When adding P(A) and P(M), subtract P(A ∩ M) so that transactions with both a pastry and an app payment are counted once.",
+       "accepted_variants": [
+        "0.6",
+        "480/800",
+        "60%",
+        "3/5"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Are events A and M independent? Justify your answer using probabilities.",
+     "criteria": [
+      {
+       "text": "Computes a pair of probabilities that would be equal if the events were independent, such as P(A | M) = 120/360 ≈ 0.333 and P(A) = 240/800 = 0.30, or P(A ∩ M) = 0.15 and P(A)·P(M) = 0.30 × 0.45 = 0.135.",
+       "evidence": "Response computes both values of a valid independence check from the table (a conditional versus an unconditional probability, or a joint probability versus a product).",
+       "fix": "Write the independence check first, for example P(A | M) = P(A), then compute both sides from the table.",
+       "accepted_variants": [
+        "1/3 and 0.30",
+        "0.15 and 0.135"
+       ]
+      },
+      {
+       "text": "Concludes that A and M are not independent because the compared probabilities are not equal (0.333 ≠ 0.30, or 0.15 ≠ 0.135).",
+       "evidence": "Response states that the events are not independent and links this conclusion to the computed probabilities being unequal.",
+       "fix": "After computing both sides of the independence check, state explicitly that unequal values mean the events are not independent.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "At a new location, the manager models ordering a pastry and paying with the app as independent events, with probability 0.35 that a customer orders a pastry and probability 0.50 that a customer pays with the app. Under this model, find the probability that a randomly selected customer orders a pastry and pays with the app, and the probability that the customer orders a pastry or pays with the app (or both).",
+     "criteria": [
+      {
+       "text": "P(pastry and app) = 0.35 × 0.50 = 0.175.",
+       "evidence": "Response multiplies the two probabilities, using the stated independence, to get 0.175.",
+       "fix": "For independent events, multiply the two individual probabilities to find the probability that both events occur.",
+       "accepted_variants": [
+        "0.175",
+        "17.5%",
+        "7/40"
+       ]
+      },
+      {
+       "text": "P(pastry or app) = 0.35 + 0.50 − 0.175 = 0.675.",
+       "evidence": "Response obtains 0.675 by subtracting the joint probability from the sum of the two probabilities (or equivalently 1 − (0.65)(0.50) = 0.675).",
+       "fix": "Add the two probabilities, then subtract the probability that both occur, which for independent events is their product.",
+       "accepted_variants": [
+        "0.675",
+        "67.5%",
+        "27/40"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P(A) = 240/800 = 0.30, P(M) = 360/800 = 0.45, and P(A ∩ M) = 120/800 = 0.15.\nP(A ∪ M) = P(A) + P(M) − P(A ∩ M) = 0.30 + 0.45 − 0.15 = 0.60.\n\n(b) P(A | M) = 120/360 ≈ 0.333, while P(A) = 0.30. (Equivalently, P(A ∩ M) = 0.15 but P(A)·P(M) = 0.30 × 0.45 = 0.135.) Because P(A | M) ≠ P(A), knowing that a customer paid with the app changes the probability that the customer ordered a pastry, so A and M are not independent.\n\n(c) Because the events are modeled as independent, P(pastry and app) = 0.35 × 0.50 = 0.175.\nP(pastry or app) = 0.35 + 0.50 − 0.175 = 0.675.",
+   "verification_python": "from fractions import Fraction as F\nT=800\nPP=F(240,T);PM=F(360,T);PPM=F(120,T)\nassert 120+120==240 and 240+320==560 and 120+240==360 and 120+320==440 and 240+560==800\nassert PP==F(3,10) and PM==F(9,20) and PPM==F(3,20)\nU=PP+PM-PPM\nassert U==F(3,5) and F(120+120+240,T)==U\ncond=F(120,360)\nassert cond==F(1,3) and abs(float(cond)-0.333)<0.001\nassert cond!=PP and PPM!=PP*PM and PP*PM==F(135,1000)\na=F(35,100);b=F(50,100)\nboth=a*b\nassert both==F(175,1000)\nassert a+b-both==F(675,1000)\nassert 1-(1-a)*(1-b)==F(675,1000)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.1",
+  "item": {
+   "title": "Comparing Two Estimators of a Germination Proportion",
+   "calculator": "permitted",
+   "stimulus": "A seed company wants to estimate p, the proportion of all seeds in a large bin that germinate. Two estimators are proposed, each based on a random sample of 10 seeds, where X is the number of sampled seeds that germinate.\n\nEstimator A: X/10 (the sample proportion)\nEstimator B: (X + 2)/14\n\nTo study the estimators, a statistics class used a computer to simulate 1,000 random samples of 10 seeds from a large bin in which exactly 40% of the seeds germinate. For each simulated sample, the class calculated the value of both estimators. The results are summarized in the table.\n\nEstimator | Mean of the 1,000 simulated values\nA | 0.401\nB | 0.428",
+   "parts": [
+    {
+     "prompt": "Based on the simulation, which estimator appears to be unbiased and which appears to be biased? Justify your answers.",
+     "criteria": [
+      {
+       "text": "Identifies Estimator A as appearing unbiased because the mean of its simulated values, 0.401, is approximately equal to the true proportion, 0.40.",
+       "evidence": "Response compares the mean of A's simulated values (0.401) with p = 0.40, states that they are approximately equal, and so A does not tend to overestimate or underestimate p.",
+       "fix": "Judge bias by comparing the center (mean) of the estimator's simulated values with the true parameter used in the simulation, here 0.40.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Identifies Estimator B as biased because the mean of its simulated values, 0.428, is greater than 0.40, so on average B overestimates the true proportion.",
+       "evidence": "Response states that B is biased and explains that its simulated values are centered above 0.40, so it tends to overestimate p.",
+       "fix": "When simulated values center above or below the true parameter, call the estimator biased and name the direction: overestimates or underestimates.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The company then selects a random sample of 10 seeds from a new bin whose germination proportion is unknown, and 7 of the 10 seeds germinate. Calculate the value of each estimator for this sample, and identify which value the company should report as an unbiased point estimate of the proportion of all seeds in the new bin that germinate.",
+     "criteria": [
+      {
+       "text": "Calculates Estimator A = 7/10 = 0.70 and Estimator B = (7 + 2)/14 ≈ 0.643, and identifies 0.70 (the sample proportion) as the unbiased point estimate.",
+       "evidence": "Response shows 7/10 = 0.70 and 9/14 ≈ 0.643 and names 0.70, the value of Estimator A, as the unbiased point estimate.",
+       "fix": "Substitute the observed count X into each estimator's formula, then report the value from the estimator shown to be unbiased.",
+       "accepted_variants": [
+        "0.7 and 9/14",
+        "0.70 and 0.64"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student says, \"Because Estimator A is unbiased, its value from any single sample will be closer to the true proportion than the value of Estimator B.\" Explain why the student's statement is incorrect.",
+     "criteria": [
+      {
+       "text": "Explains that unbiased describes the average of the estimator's values over many random samples, so in a particular sample the value of Estimator A can be farther from the true proportion than the value of Estimator B.",
+       "evidence": "Response states that unbiasedness refers to the estimator's values on average across repeated samples, not to the accuracy of one sample's value, so A can miss p by more than B in a given sample.",
+       "fix": "Remember unbiased means correct on average across many samples; state that the value from one sample can still miss the parameter by more.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Estimator A appears to be unbiased. In the simulation the true proportion was 0.40, and the mean of A's 1,000 simulated values is 0.401, which is approximately 0.40, so on average A neither overestimates nor underestimates p.\nEstimator B appears to be biased. The mean of its simulated values is 0.428, which is clearly greater than 0.40, so on average B overestimates the true proportion of seeds that germinate.\n\n(b) Estimator A: 7/10 = 0.70. Estimator B: (7 + 2)/14 = 9/14 ≈ 0.643.\nThe company should report 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate of the proportion of all seeds in the new bin that germinate.\n\n(c) Unbiased means that the values of Estimator A are centered at the true proportion on average over many random samples. It does not mean that the value from a single sample is close to p, or closer than B's value. For example, if p = 0.40 and a sample has X = 7, Estimator A gives 0.70 (0.30 away from 0.40) while Estimator B gives about 0.643 (about 0.243 away), so in that sample A is farther from the true proportion.",
+   "verification_python": "from fractions import Fraction as F\np=F(2,5);n=10\nEA=p\nEB=(n*p+2)/14\nassert EA==F(2,5)\nassert EB==F(3,7) and abs(float(EB)-0.428)<0.001\nassert abs(0.401-0.40)<0.005 and 0.428>0.40\nA=F(7,10);B=F(7+2,14)\nassert A==F(7,10) and B==F(9,14) and abs(float(B)-0.643)<0.0005\nassert abs(A-p)==F(3,10)\nassert abs(float(abs(B-p))-0.243)<0.0005\nassert abs(A-p)>abs(B-p)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.4",
+  "item": {
+   "title": "Interpreting a Poll Interval for a Ballot Measure",
+   "calculator": "permitted",
+   "stimulus": "A polling organization selected a random sample of 400 registered voters from a state with about 6 million registered voters. Of the voters sampled, 224 said they support a proposed ballot measure. All conditions for inference were met, and the organization reported a 95% confidence interval for the proportion of all the state's registered voters who support the measure: (0.511, 0.609).",
+   "parts": [
+    {
+     "prompt": "Interpret the 95% confidence interval in context.",
+     "criteria": [
+      {
+       "text": "States that we are 95% confident that the interval from 0.511 to 0.609 captures the proportion of all registered voters in the state who support the ballot measure.",
+       "evidence": "Response says \"95% confident\" that the interval (0.511, 0.609) contains the true (population) proportion and identifies the population (all the state's registered voters) and the response (support for the measure).",
+       "fix": "Name the parameter fully: the proportion of all registered voters in this state who support the measure, not the 400 sampled voters.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the 95% confidence level in context.",
+     "criteria": [
+      {
+       "text": "Explains that if many random samples of 400 registered voters were taken from this state and a 95% confidence interval were calculated from each, about 95% of those intervals would capture the proportion of all the state's registered voters who support the measure.",
+       "evidence": "Response refers to repeated random samples of the same size and states that about 95% of the resulting intervals capture the population proportion, in context.",
+       "fix": "Describe the long-run capture rate: in many repeated random samples of 400 voters, about 95% of the intervals would contain the true proportion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Supporters of the measure claim that a majority of the state's registered voters support it. The measure's sponsor claims that 65% of the state's registered voters support it. Does the interval support each claim? Explain.",
+     "criteria": [
+      {
+       "text": "States that the interval supports the majority claim (provides convincing evidence for it) because every value in the interval from 0.511 to 0.609 is greater than 0.50.",
+       "evidence": "Response notes that all plausible values in the interval are above 0.50, so the claim that a majority support the measure is supported.",
+       "fix": "Check where 0.50 lies relative to the whole interval; if every plausible value is above it, the majority claim is supported.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the interval does not support the 65% claim because 0.65 is not in the interval; every plausible value is less than 0.65.",
+       "evidence": "Response observes that 0.65 is greater than the upper limit 0.609, so 0.65 is not a plausible value of the population proportion.",
+       "fix": "Check whether the claimed value lies inside the interval; a value outside the interval is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Answer each question about how the interval would change. First, if the organization had used a 99% confidence level with the same sample, would the margin of error be larger, smaller, or the same? Explain. Second, if the organization had instead used a random sample of 1,600 registered voters and obtained the same sample proportion, about how would the width of the 95% confidence interval compare with the width of (0.511, 0.609)?",
+     "criteria": [
+      {
+       "text": "States that the margin of error would be larger because a 99% confidence level uses a larger critical value (z* ≈ 2.576 instead of 1.96).",
+       "evidence": "Response answers larger and attributes the change to the larger critical value required for a higher confidence level.",
+       "fix": "Recall that raising the confidence level raises the critical value z*, which increases the margin of error for the same sample.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the width would be about half as large (about 0.049 instead of 0.098), because the width is approximately proportional to 1/√n and √(1,600/400) = 2.",
+       "evidence": "Response states that the interval would be about half as wide and links this to the sample size being 4 times as large (width proportional to 1/√n).",
+       "fix": "Use width ∝ 1/√n: multiplying the sample size by 4 divides the width by √4 = 2.",
+       "accepted_variants": [
+        "half as wide",
+        "about 0.049"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.511 to 0.609 captures the true proportion of all registered voters in the state who support the proposed ballot measure.\n\n(b) If the organization took many random samples of 400 registered voters from this state and calculated a 95% confidence interval from each sample, about 95% of those intervals would capture the true proportion of all the state's registered voters who support the measure.\n\n(c) Majority claim: supported. Every value in the interval, from 0.511 to 0.609, is greater than 0.50, so the interval gives convincing evidence that a majority of the state's registered voters support the measure.\n65% claim: not supported. The value 0.65 is greater than the upper limit 0.609, so 0.65 is not a plausible value for the proportion of all registered voters who support the measure; all plausible values are less than 0.65.\n\n(d) The margin of error would be larger. A 99% confidence level requires a larger critical value (z* ≈ 2.576 instead of z* ≈ 1.96), and the margin of error is the critical value times the standard error, which stays the same for the same sample.\nWith 1,600 voters the interval would be about half as wide. The width is approximately proportional to 1/√n, and √(1,600/400) = √4 = 2, so the width would be about 0.098/2 ≈ 0.049 instead of 0.609 − 0.511 = 0.098.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nn=400;x=224;ph=x/n\nassert ph==0.56\nz=NormalDist().inv_cdf(0.975)\nassert abs(z-1.96)<0.001\nse=sqrt(ph*(1-ph)/n)\nlo=ph-1.96*se;hi=ph+1.96*se\nassert abs(lo-0.511)<0.0005 and abs(hi-0.609)<0.0005\nassert lo>0.5 and hi<0.65\nz99=NormalDist().inv_cdf(0.995)\nassert abs(z99-2.576)<0.0005 and z99>z\nw=0.609-0.511\nassert abs(w-0.098)<1e-9\nw2=2*1.96*sqrt(ph*(1-ph)/1600)\nassert abs(w2-0.049)<0.0005\nassert sqrt(1600/400)==2\nassert abs(w/2-0.049)<1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.5",
+  "item": {
+   "title": "Setting Up a Test for Streetlight Outages",
+   "calculator": "permitted",
+   "stimulus": "A city reports that 10% of its 9,400 streetlights are out of service. After a new repair program, the city's public works department believes that the proportion of the city's streetlights that are out of service has decreased. An inspector checks a random sample of 120 of the city's streetlights and finds that 9 of them are out of service. The department plans to use these data to test its belief.",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate testing procedure, and define the parameter of interest in context.",
+     "criteria": [
+      {
+       "text": "Names a one-sample z-test for a population proportion.",
+       "evidence": "Response identifies a one-sample z-test for a (single) population proportion; naming a test for a mean or a two-sample procedure does not earn the point.",
+       "fix": "With one sample and a yes-or-no response, name the procedure as a one-sample z-test for a population proportion.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Defines p as the proportion of all the city's streetlights that are out of service (after the repair program).",
+       "evidence": "Response defines the parameter as a proportion that refers to all of the city's streetlights and to being out of service, not to the 120 sampled lights or the count of 9.",
+       "fix": "Define p with three pieces: a proportion, the response (out of service), and the population (all of the city's streetlights).",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses for the department's test.",
+     "criteria": [
+      {
+       "text": "H₀: p = 0.10 and Hₐ: p < 0.10.",
+       "evidence": "Response writes the null hypothesis with equality at 0.10 and a one-sided alternative with < 0.10, both in terms of the population proportion p (not p̂).",
+       "fix": "Put the status quo value in H₀ with an equals sign and the department's belief (a decrease) in Hₐ using <.",
+       "accepted_variants": [
+        "H₀: p = 0.1, Hₐ: p < 0.1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the randomization condition and the 10% condition for this test.",
+     "criteria": [
+      {
+       "text": "States that the randomization condition is met because the inspector checked a random sample of the city's streetlights.",
+       "evidence": "Response cites the random sample of 120 streetlights as meeting the randomization condition.",
+       "fix": "For the randomization condition, quote the random selection described in the study and say what was randomly selected.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the 10% condition is met because 120 ≤ 0.10(9,400) = 940 (equivalently, 9,400 ≥ 10 × 120 = 1,200).",
+       "evidence": "Response compares the sample size 120 with 10% of the 9,400 streetlights (or compares 9,400 with 10 × 120) and states the condition is met.",
+       "fix": "Show the 10% condition with numbers: compare the sample size with 10% of the stated population size.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate says that the normality condition for this test is not met because only 9 of the sampled streetlights were out of service. Is the classmate correct? Explain.",
+     "criteria": [
+      {
+       "text": "States that the classmate is not correct because the test's normality condition uses the null value p₀ = 0.10: np₀ = 120(0.10) = 12 and n(1 − p₀) = 120(0.90) = 108 are both at least 10.",
+       "evidence": "Response says the classmate is incorrect and checks the expected counts 12 and 108 using p₀ = 0.10, both at least 10.",
+       "fix": "For a test, check the normality condition with expected counts np₀ and n(1 − p₀), not with the observed counts.",
+       "accepted_variants": [
+        "12 and 108"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate procedure is a one-sample z-test for a population proportion. Let p = the proportion of all the city's streetlights that are out of service (after the repair program).\n\n(b) H₀: p = 0.10\nHₐ: p < 0.10\n\n(c) Randomization: the inspector checked a random sample of 120 of the city's streetlights, so the randomization condition is met.\n10% condition: the sample of 120 streetlights is less than 10% of the city's 9,400 streetlights, because 0.10 × 9,400 = 940 and 120 ≤ 940, so the condition is met.\n\n(d) The classmate is not correct. In a significance test the normality condition is checked using the null value p₀ = 0.10, because the test assumes H₀ is true. The expected number of out-of-service lights is np₀ = 120(0.10) = 12 and the expected number in service is n(1 − p₀) = 120(0.90) = 108. Both are at least 10, so the normality condition is met.",
+   "verification_python": "n=120;N=9400;p0=0.10;x=9\nassert abs(0.10*N-940)<1e-9 and n<=0.10*N\nassert 10*n==1200 and N>=10*n\nassert abs(n*p0-12)<1e-9 and abs(n*(1-p0)-108)<1e-9\nassert n*p0>=10 and n*(1-p0)>=10\nassert x<10\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.6",
+  "item": {
+   "title": "Simulated p-Value for Mobile Fare Payments",
+   "calculator": "permitted",
+   "stimulus": "A city transit agency reports that 25% of its riders pay their fares with a mobile app. A transportation analyst believes the proportion is greater than 25%. In a random sample of 50 of the agency's riders, 20 paid with the mobile app. The analyst will test H₀: p = 0.25 versus Hₐ: p > 0.25, where p is the proportion of all the agency's riders who pay with the mobile app.\n\nTo obtain the null distribution, the analyst used a computer to simulate 200 random samples of 50 riders, assuming p = 0.25, and recorded the number of riders in each simulated sample who paid with the app. The results are shown in the table.\n\nNumber who paid with app | Number of simulated samples\n6 or fewer | 4\n7 | 6\n8 | 11\n9 | 17\n10 | 22\n11 | 25\n12 | 26\n13 | 24\n14 | 20\n15 | 15\n16 | 11\n17 | 7\n18 | 5\n19 | 3\n20 | 2\n21 or more | 2\nTotal | 200",
+   "parts": [
+    {
+     "prompt": "Use the simulation results to estimate the p-value of the test. Show how you obtained it.",
+     "criteria": [
+      {
+       "text": "Estimates the p-value as 4/200 = 0.02 by counting the simulated samples with 20 or more riders who paid with the app (2 + 2 = 4).",
+       "evidence": "Response counts the simulated samples at or above the observed value of 20 (the direction of Hₐ), gets 4, and divides by 200.",
+       "fix": "Count simulated results as extreme as or more extreme than the observed value in the direction of Hₐ, including the observed value itself.",
+       "accepted_variants": [
+        "0.02",
+        "4/200",
+        "2%"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value you estimated in context.",
+     "criteria": [
+      {
+       "text": "Describes the p-value as the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders (a result as extreme as or more extreme than the one observed).",
+       "evidence": "Response states the event as 20 or more of 50 randomly sampled riders paying with the app (or a sample proportion of 0.40 or more), in context.",
+       "fix": "Name the event the p-value measures: a sample result at least as extreme as the observed one, in the direction of Hₐ, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that this probability is calculated assuming that the proportion of all the agency's riders who pay with the app is 0.25.",
+       "evidence": "Response includes the condition that the null hypothesis is true, stated in context (if the true proportion of all riders who pay with the app is 0.25).",
+       "fix": "End every p-value interpretation with the assumption, for example: assuming the true proportion of all riders who pay with the app is 0.25.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "What does the p-value suggest about the agency's report that 25% of its riders pay with the app? Explain.",
+     "criteria": [
+      {
+       "text": "Explains that because the p-value (about 0.02) is small, getting 20 or more app users in a sample of 50 would be unusual if p were 0.25, so the data provide evidence that the proportion of all the agency's riders who pay with the app is greater than 0.25.",
+       "evidence": "Response links the small p-value to the observed result being unusual if the null hypothesis were true and states that this is evidence for the alternative (proportion greater than 0.25), in context.",
+       "fix": "Translate a small p-value into words: the observed result would rarely happen if H₀ were true, so it is evidence for Hₐ.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A second analyst took a different random sample of 50 riders and obtained a p-value of 0.41 for the same test. The second analyst concluded that this proves that exactly 25% of all the agency's riders pay with the app. Explain why this conclusion is not justified.",
+     "criteria": [
+      {
+       "text": "Explains that a p-value that is not small means the observed result would not be unusual if p were 0.25, so it fails to provide convincing evidence for Hₐ, but it does not provide evidence that H₀ is true or prove that p = 0.25.",
+       "evidence": "Response states that a large p-value only means there is not convincing evidence for the alternative and that it cannot prove, or give evidence for, the null hypothesis being true.",
+       "fix": "Remember a large p-value means not enough evidence for Hₐ, never that H₀ is true; other values of p remain plausible.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The observed value is 20 riders who paid with the app. Because Hₐ is p > 0.25, I count the simulated samples with 20 or more app users: 2 (for 20) + 2 (for 21 or more) = 4. The estimated p-value is 4/200 = 0.02.\n\n(b) Assuming the true proportion of all the agency's riders who pay with the mobile app is 0.25, the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders is about 0.02.\n\n(c) The p-value of about 0.02 is small. If 25% of all riders paid with the app, a sample with 20 or more app users out of 50 would happen only about 2% of the time, so the observed result would be unusual. This provides evidence against the agency's report and for the analyst's belief that the proportion of all the agency's riders who pay with the app is greater than 0.25.\n\n(d) A p-value of 0.41 means that a result like the second sample's would not be unusual if p = 0.25, so the second sample does not provide convincing evidence that the proportion is greater than 0.25. However, a large p-value does not provide evidence that the null hypothesis is true. Other values of p, such as 0.27, could also produce such a sample, so the data cannot prove that exactly 25% of riders pay with the app.",
+   "verification_python": "rows=[4,6,11,17,22,25,26,24,20,15,11,7,5,3,2,2]\nvals=['6-',7,8,9,10,11,12,13,14,15,16,17,18,19,20,'21+']\nassert len(rows)==len(vals)\nassert sum(rows)==200\nextreme=rows[vals.index(20)]+rows[vals.index('21+')]\nassert extreme==4\npv=extreme/200\nassert abs(pv-0.02)<1e-12\nassert abs(20/50-0.40)<1e-12\nassert 0.41>pv\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.8",
+  "item": {
+   "title": "Type I and Type II Errors in Apple Shipment Inspection",
+   "calculator": "permitted",
+   "stimulus": "A grocery chain buys apples in shipments of 20,000 apples. Before accepting a shipment, the chain inspects a random sample of 400 apples from it. The chain will reject the shipment if the sample gives convincing evidence that more than 5% of the apples in the shipment are bruised. For each shipment, the chain tests H₀: p = 0.05 versus Hₐ: p > 0.05, where p is the proportion of all apples in the shipment that are bruised.",
+   "parts": [
+    {
+     "prompt": "Describe a Type I error and a Type II error in context.",
+     "criteria": [
+      {
+       "text": "Type I error: the chain finds convincing evidence that more than 5% of the apples in the shipment are bruised and rejects the shipment, when in fact the proportion of bruised apples in the shipment is 0.05 (not greater than 0.05).",
+       "evidence": "Response describes rejecting the shipment (concluding p > 0.05) when the true proportion of bruised apples in the shipment is actually 0.05, or not more than 0.05.",
+       "fix": "Describe a Type I error as: the test finds convincing evidence for Hₐ, but in reality H₀ is true, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Type II error: the chain does not find convincing evidence that more than 5% of the apples are bruised and accepts the shipment, when in fact more than 5% of the apples in the shipment are bruised.",
+       "evidence": "Response describes accepting the shipment (not concluding p > 0.05) when the true proportion of bruised apples in the shipment is actually greater than 0.05.",
+       "fix": "Describe a Type II error as: the test does not find convincing evidence for Hₐ, but in reality Hₐ is true, in context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The chain considers a Type II error more serious than a Type I error because bruised apples lead to customer complaints. Should the chain use a significance level of α = 0.01 or α = 0.10? Explain.",
+     "criteria": [
+      {
+       "text": "Chooses α = 0.10 because a larger significance level makes it easier to reject H₀, which increases the power and decreases the probability of a Type II error.",
+       "evidence": "Response picks α = 0.10 and explains that a larger α lowers the probability of a Type II error (raises the power of the test).",
+       "fix": "Remember the trade-off: a larger α increases power and lowers the Type II error probability, at the cost of more Type I errors.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "With α = 0.05 and a sample of 400 apples, the power of the test is about 0.81 when 8% of the apples in a shipment are bruised. Find the probability of a Type II error for such a shipment. Then, if the chain increased its sample size to 800 apples (keeping α = 0.05), would the probability of a Type II error for such a shipment increase, decrease, or stay the same? Explain.",
+     "criteria": [
+      {
+       "text": "Calculates the probability of a Type II error as 1 − 0.81 = 0.19.",
+       "evidence": "Response computes 1 − power = 1 − 0.81 = 0.19.",
+       "fix": "Use P(Type II error) = 1 − power, because power is the probability of correctly rejecting a false null hypothesis.",
+       "accepted_variants": [
+        "0.19",
+        "19%"
+       ]
+      },
+      {
+       "text": "States that the probability of a Type II error would decrease (the power would increase) because a larger sample size decreases the standard error.",
+       "evidence": "Response answers decrease and explains it with the larger sample size (smaller standard error, or higher power).",
+       "fix": "Recall that larger samples shrink the standard error, so the test detects a real difference more often and Type II errors become less likely.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Type I error: the sample leads the chain to conclude that more than 5% of the apples in the shipment are bruised, so it rejects the shipment, when in fact only 5% (not more than 5%) of the apples in the shipment are bruised.\nType II error: the sample does not give convincing evidence that more than 5% of the apples are bruised, so the chain accepts the shipment, when in fact more than 5% of the apples in the shipment are bruised.\n\n(b) The chain should use α = 0.10. A larger significance level makes it easier to reject H₀, which increases the power of the test and decreases the probability of a Type II error (accepting a shipment that has too many bruised apples). The cost is a higher probability of a Type I error, which the chain considers less serious.\n\n(c) P(Type II error) = 1 − power = 1 − 0.81 = 0.19.\nWith a sample of 800 apples, the probability of a Type II error would decrease. A larger sample size gives a smaller standard error, so the test is more likely to detect that the true proportion (0.08) is greater than 0.05; the power increases and the probability of a Type II error decreases.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nZ=NormalDist()\np0=0.05;n=400;pa=0.08;a=0.05\nassert n<=0.10*20000\nassert n*p0>=10 and n*(1-p0)>=10\nzc=Z.inv_cdf(1-a)\ncut=p0+zc*sqrt(p0*(1-p0)/n)\npower=1-Z.cdf((cut-pa)/sqrt(pa*(1-pa)/n))\nassert abs(power-0.81)<0.005\nassert abs((1-0.81)-0.19)<1e-12\nn2=800\ncut2=p0+zc*sqrt(p0*(1-p0)/n2)\npower2=1-Z.cdf((cut2-pa)/sqrt(pa*(1-pa)/n2))\nassert power2>power and 1-power2<1-power\nfor alpha in (0.01,0.10):\n    c=p0+Z.inv_cdf(1-alpha)*sqrt(p0*(1-p0)/n)\n    pw=1-Z.cdf((c-pa)/sqrt(pa*(1-pa)/n))\n    if alpha==0.10: assert pw>power\n    else: assert pw<power\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.9",
+  "item": {
+   "title": "Sampling Distribution of a Difference in On-Campus Housing Rates",
+   "calculator": "permitted",
+   "stimulus": "At University X, which has 18,000 students, 62% of the students live on campus. At University Y, which has 25,000 students, 48% of the students live on campus. A researcher will select a random sample of 120 students from University X and, independently, a random sample of 100 students from University Y. Let p̂₁ be the proportion of the sampled University X students who live on campus, and let p̂₂ be the proportion of the sampled University Y students who live on campus.",
+   "parts": [
+    {
+     "prompt": "Find the mean and the standard deviation of the sampling distribution of p̂₁ − p̂₂.",
+     "criteria": [
+      {
+       "text": "Mean of p̂₁ − p̂₂ = 0.62 − 0.48 = 0.14.",
+       "evidence": "Response gives the mean as the difference in population proportions, 0.62 − 0.48 = 0.14.",
+       "fix": "The sampling distribution of p̂₁ − p̂₂ is centered at p₁ − p₂; subtract the two population proportions in the same order.",
+       "accepted_variants": [
+        "0.14"
+       ]
+      },
+      {
+       "text": "Standard deviation of p̂₁ − p̂₂ = √(0.62(0.38)/120 + 0.48(0.52)/100) ≈ 0.0668.",
+       "evidence": "Response adds the two variance terms p(1 − p)/n under one square root, using 0.62 with 120 and 0.48 with 100, to get about 0.0668.",
+       "fix": "Add the variances p₁(1 − p₁)/n₁ and p₂(1 − p₂)/n₂, then take the square root; never subtract them or add standard deviations.",
+       "accepted_variants": [
+        "0.0668",
+        "0.067"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions that justify using this standard deviation formula and modeling the sampling distribution of p̂₁ − p̂₂ as approximately normal.",
+     "criteria": [
+      {
+       "text": "States that the samples are independent random samples and that each sample is at most 10% of its population: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500.",
+       "evidence": "Response cites the two independent random samples and compares each sample size with 10% of its own university's enrollment.",
+       "fix": "Check the 10% condition separately for each sample, comparing each sample size with 10% of its own population size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that n₁p₁ = 74.4, n₁(1 − p₁) = 45.6, n₂p₂ = 48 and n₂(1 − p₂) = 52 are all at least 10, so the sampling distribution is approximately normal.",
+       "evidence": "Response computes all four expected counts using the population proportions (74.4, 45.6, 48, 52) and states that each is at least 10.",
+       "fix": "List all four expected counts, successes and failures for each sample, and confirm that each one is at least 10.",
+       "accepted_variants": [
+        "74.4, 45.6, 48, 52"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the proportion of sampled University X students who live on campus is less than the proportion of sampled University Y students who live on campus. Show your work.",
+     "criteria": [
+      {
+       "text": "Identifies the event as p̂₁ − p̂₂ < 0 and uses a normal model with mean 0.14 and standard deviation 0.0668, for example z = (0 − 0.14)/0.0668 ≈ −2.10.",
+       "evidence": "Response shows the event p̂₁ − p̂₂ < 0 with the normal model's mean 0.14 and standard deviation about 0.0668, either as a z-score or as labeled technology inputs.",
+       "fix": "Translate the comparison into p̂₁ − p̂₂ < 0, then standardize the boundary 0 using the mean and standard deviation found earlier.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Finds the probability ≈ 0.018.",
+       "evidence": "Response reports a probability of about 0.018 (0.0179 to 0.0180).",
+       "fix": "After finding z ≈ −2.10, use the standard normal table or technology for the area to the left, not the right.",
+       "accepted_variants": [
+        "0.018",
+        "0.0179",
+        "0.0180",
+        "1.8%"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Mean: μ(p̂₁ − p̂₂) = p₁ − p₂ = 0.62 − 0.48 = 0.14.\nStandard deviation: σ(p̂₁ − p̂₂) = √(0.62(0.38)/120 + 0.48(0.52)/100) = √(0.001963 + 0.002496) = √0.004459 ≈ 0.0668.\n\n(b) The samples are independent random samples from the two universities. The 10% condition holds for each: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500, so the standard deviation formula applies.\nLarge counts: n₁p₁ = 120(0.62) = 74.4, n₁(1 − p₁) = 120(0.38) = 45.6, n₂p₂ = 100(0.48) = 48 and n₂(1 − p₂) = 100(0.52) = 52. All four are at least 10, so the sampling distribution of p̂₁ − p̂₂ is approximately normal.\n\n(c) The event is p̂₁ < p̂₂, that is, p̂₁ − p̂₂ < 0. Using the normal model with mean 0.14 and standard deviation 0.0668:\nz = (0 − 0.14)/0.0668 ≈ −2.10, and P(Z < −2.10) ≈ 0.018.\nThere is about a 0.018 probability that the sample proportion of University X students who live on campus is less than the sample proportion of University Y students who live on campus.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\np1,p2,n1,n2=0.62,0.48,120,100\nm=p1-p2\nassert abs(m-0.14)<1e-12\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.001963)<5e-7 and abs(v2-0.002496)<5e-7 and abs(v1+v2-0.004459)<5e-7\nsd=sqrt(v1+v2)\nassert abs(sd-0.0668)<0.00005\nassert n1<=0.10*18000 and abs(0.10*18000-1800)<1e-9\nassert n2<=0.10*25000 and abs(0.10*25000-2500)<1e-9\nc=[n1*p1,n1*(1-p1),n2*p2,n2*(1-p2)]\nfor a,b in zip(c,[74.4,45.6,48,52]): assert abs(a-b)<1e-9 and a>=10\nz=(0-m)/sd\nassert abs(z-(-2.10))<0.005\nP=NormalDist(m,sd).cdf(0)\nassert abs(P-0.018)<0.0005\nassert abs(NormalDist().cdf(-2.10)-0.0179)<0.0001\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.10",
+  "item": {
+   "title": "Confidence Interval for Beetle Damage in Two Forest Sections",
+   "calculator": "permitted",
+   "stimulus": "A forestry agency wants to estimate the difference between the proportions of trees with beetle damage in the northern and southern sections of a large state forest. Each section contains more than 50,000 trees. The agency selected a random sample of 200 trees from the northern section and, independently, a random sample of 250 trees from the southern section. Of the 200 northern trees, 46 had beetle damage; of the 250 southern trees, 35 had beetle damage.",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate confidence interval procedure, and define the parameter of interest in context.",
+     "criteria": [
+      {
+       "text": "Names a two-sample z-interval for a difference between two population proportions.",
+       "evidence": "Response identifies a two-sample z-interval for p₁ − p₂ (a difference of population proportions); a one-sample interval or an interval for means does not earn the point.",
+       "fix": "With two independent samples and a yes-or-no response, name the procedure as a two-sample z-interval for a difference in population proportions.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Defines the parameter as p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.",
+       "evidence": "Response defines a difference of population proportions and identifies both populations (all northern-section trees, all southern-section trees) and the response (beetle damage).",
+       "fix": "Define each proportion with the response and its whole population, then state that the parameter is their difference in a stated order.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for this procedure.",
+     "criteria": [
+      {
+       "text": "States that the data come from two independent random samples and that each sample is at most 10% of its section: 200 and 250 are both less than 0.10(50,000) = 5,000.",
+       "evidence": "Response cites the two independent random samples and compares each sample size with 10% of the number of trees in its section.",
+       "fix": "Name the random selection for each sample, then compare each sample size with 10% of its own population size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the numbers of observed successes and failures, 46, 154, 35 and 215, are all at least 10.",
+       "evidence": "Response lists all four observed counts (damaged and undamaged in each sample), or n₁p̂₁, n₁(1 − p̂₁), n₂p̂₂, n₂(1 − p̂₂), and states that each is at least 10.",
+       "fix": "For an interval, check all four observed counts, successes and failures in each sample, against 10.",
+       "accepted_variants": [
+        "46, 154, 35, 215"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the point estimate, its standard error, and a 95% confidence interval for the parameter you defined.",
+     "criteria": [
+      {
+       "text": "Point estimate p̂₁ − p̂₂ = 46/200 − 35/250 = 0.23 − 0.14 = 0.09, and standard error √(0.23(0.77)/200 + 0.14(0.86)/250) ≈ 0.0370.",
+       "evidence": "Response shows the point estimate 0.09 and a standard error of about 0.037 using each sample's own proportion.",
+       "fix": "Compute each sample proportion first, subtract them for the point estimate, and use each sample's own p̂ in the standard error.",
+       "accepted_variants": [
+        "0.09 and 0.037"
+       ]
+      },
+      {
+       "text": "95% confidence interval: 0.09 ± 1.96(0.0370) ≈ 0.09 ± 0.0725, giving about (0.018, 0.162).",
+       "evidence": "Response uses the critical value z* ≈ 1.96 with the standard error to get an interval of about (0.018, 0.162).",
+       "fix": "Build the interval as point estimate ± z* × standard error, using z* = 1.96 for 95% confidence.",
+       "accepted_variants": [
+        "(0.0175, 0.1625)",
+        "(0.017, 0.162)",
+        "(0.018, 0.162)"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate procedure is a two-sample z-interval for a difference between two population proportions. The parameter is p₁ − p₂, where p₁ is the proportion of all trees in the northern section with beetle damage and p₂ is the proportion of all trees in the southern section with beetle damage.\n\n(b) Randomization: the agency took two independent random samples, one from each section.\n10% condition: 200 ≤ 0.10(50,000) = 5,000 and 250 ≤ 5,000, and each section has more than 50,000 trees, so each sample is less than 10% of its section.\nNormality: observed successes and failures are 46 and 200 − 46 = 154 in the northern sample and 35 and 250 − 35 = 215 in the southern sample. All four are at least 10.\n\n(c) p̂₁ = 46/200 = 0.23 and p̂₂ = 35/250 = 0.14, so the point estimate is 0.23 − 0.14 = 0.09.\nSE = √(0.23(0.77)/200 + 0.14(0.86)/250) = √(0.000886 + 0.000482) = √0.001367 ≈ 0.0370.\n95% interval: 0.09 ± 1.96(0.0370) = 0.09 ± 0.0725, which is about (0.018, 0.162).",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=46,200,35,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.23)<1e-12 and abs(p2-0.14)<1e-12\nd=p1-p2\nassert abs(d-0.09)<1e-12\nassert n1<=0.10*50000 and n2<=0.10*50000 and abs(0.10*50000-5000)<1e-9\nfor c,e in zip([x1,n1-x1,x2,n2-x2],[46,154,35,215]): assert c==e and c>=10\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.000886)<5e-7 and abs(v2-0.000482)<5e-7 and abs(v1+v2-0.001367)<5e-7\nse=sqrt(v1+v2)\nassert abs(se-0.0370)<0.00005\nz=NormalDist().inv_cdf(0.975)\nassert abs(z-1.96)<0.001\nme=1.96*se\nassert abs(me-0.0725)<0.00005\nlo,hi=d-me,d+me\nassert abs(lo-0.0175)<0.0001 and abs(hi-0.1625)<0.0001\nassert abs(round(lo,3)-0.018)<0.0006 and abs(round(hi,3)-0.162)<1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.11",
+  "item": {
+   "title": "Interpreting an Interval for Library Use in Two Towns",
+   "calculator": "permitted",
+   "stimulus": "A regional library board selected a random sample of 500 adult residents of Riverton and, independently, a random sample of 400 adult residents of Lakeside. Each town has more than 20,000 adult residents. In the samples, 230 of the Riverton residents (0.46) and 140 of the Lakeside residents (0.35) said they had used a public library in the past month. All conditions for inference were met, and the board calculated a 95% confidence interval for p₁ − p₂, where p₁ is the proportion of all adult residents of Riverton who used a public library in the past month and p₂ is the proportion of all adult residents of Lakeside who used a public library in the past month. The interval is (0.046, 0.174).",
+   "parts": [
+    {
+     "prompt": "Interpret the 95% confidence interval in context.",
+     "criteria": [
+      {
+       "text": "States that we are 95% confident that the interval from 0.046 to 0.174 captures the difference (Riverton minus Lakeside) between the proportions of all adult residents of each town who used a public library in the past month.",
+       "evidence": "Response says \"95% confident\", gives the interval limits, and describes the parameter as the difference in population proportions with the order (Riverton minus Lakeside), both towns' adult residents and library use.",
+       "fix": "Name the parameter fully: the difference in the proportions of all adults in each town who used a library, and say which town is subtracted.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the 95% confidence level in context.",
+     "criteria": [
+      {
+       "text": "Explains that if many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults were taken and a 95% interval calculated from each pair, about 95% of the intervals would capture the true difference p₁ − p₂ in the proportions of adults who used a public library in the past month.",
+       "evidence": "Response refers to repeated random sampling with the same sample sizes from the same two towns and states that about 95% of the resulting intervals capture the true difference, in context.",
+       "fix": "Describe the long-run capture rate: in repeated random samples of the same sizes, about 95% of intervals would contain the true difference.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "One board member claims that the proportions of adults who used a public library in the past month are different in the two towns. A second board member claims that Riverton's proportion is more than 20 percentage points higher than Lakeside's. Does the interval support each claim? Explain.",
+     "criteria": [
+      {
+       "text": "States that the interval supports the first claim (gives convincing evidence of a difference) because 0 is not in the interval; every plausible value of p₁ − p₂ is positive.",
+       "evidence": "Response notes that the interval (0.046, 0.174) does not contain 0 and concludes there is convincing evidence that the two population proportions differ.",
+       "fix": "To judge a claimed difference, check whether 0 is in the interval; if 0 is excluded, there is convincing evidence of a difference.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the interval does not support the second claim because every plausible value of p₁ − p₂ is less than 0.20 (0.20 is above the upper limit 0.174).",
+       "evidence": "Response compares 0.20 with the interval, notes that 0.20 is not in it and that all plausible differences are below 0.20, and states that the claim is not supported.",
+       "fix": "Convert percentage points to a difference, here 0.20, and check whether any plausible value in the interval is as large as that.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A resident says, \"Since the interval was calculated from the data, the true difference p₁ − p₂ must be between 0.046 and 0.174.\" Explain why the resident's statement is not correct.",
+     "criteria": [
+      {
+       "text": "Explains that the interval is calculated from random samples, so it may or may not contain the true difference; the 95% confidence level means about 5% of such intervals miss the true difference.",
+       "evidence": "Response states that an interval based on samples might not capture p₁ − p₂, so the true difference is not guaranteed to lie between 0.046 and 0.174.",
+       "fix": "Remember that confidence is not certainty: a sample-based interval may or may not contain the parameter, so never say it must be inside.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.046 to 0.174 captures the true difference (Riverton minus Lakeside) between the proportion of all adult residents of Riverton and the proportion of all adult residents of Lakeside who used a public library in the past month.\n\n(b) If the board took many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults and calculated a 95% confidence interval from each pair, about 95% of those intervals would capture the true difference p₁ − p₂ between the proportions of adults in the two towns who used a public library in the past month.\n\n(c) First claim: supported. The interval (0.046, 0.174) does not contain 0, and every plausible value of p₁ − p₂ is positive, so there is convincing evidence that the proportions of adults who used a public library in the past month differ between the two towns.\nSecond claim: not supported. A difference of more than 20 percentage points means p₁ − p₂ > 0.20, but every value in the interval is less than 0.20 (the upper limit is 0.174), so a difference that large is not plausible.\n\n(d) The interval was calculated from random samples, and a different pair of samples would give a different interval. An interval built this way may or may not contain the true difference p₁ − p₂; about 5% of 95% intervals miss it. So we can be 95% confident, but not certain, that the true difference is between 0.046 and 0.174.",
+   "verification_python": "from math import sqrt\nx1,n1,x2,n2=230,500,140,400\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.46)<1e-12 and abs(p2-0.35)<1e-12\nd=p1-p2\nse=sqrt(p1*(1-p1)/n1+p2*(1-p2)/n2)\nlo,hi=d-1.96*se,d+1.96*se\nassert abs(lo-0.046)<0.0005 and abs(hi-0.174)<0.0005\nassert n1<=0.10*20000 and n2<=0.10*20000\nfor c in [x1,n1-x1,x2,n2-x2]: assert c>=10\nassert not (0.046<=0<=0.174)\nassert 0.174<0.20\nassert abs((1-0.95)-0.05)<1e-12\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.12",
+  "item": {
+   "title": "Setting Up a Test for a Bedtime Breathing Exercise",
+   "calculator": "permitted",
+   "stimulus": "A researcher recruited 180 adult volunteers who reported trouble falling asleep. The volunteers were randomly assigned to two groups of 90. Each night for two weeks, one group did a 10-minute breathing exercise at bedtime and the other group read a printed book for 10 minutes at bedtime. At the end of the two weeks, 52 of the 90 volunteers in the breathing group and 38 of the 90 volunteers in the reading group reported that they fell asleep faster. The researcher wants to know whether the data provide convincing evidence that the breathing exercise is more effective than reading at helping people like these volunteers fall asleep faster.",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate testing procedure, and define the parameters of interest in context.",
+     "criteria": [
+      {
+       "text": "Names a two-sample z-test for a difference between two population proportions.",
+       "evidence": "Response identifies a two-sample z-test for p₁ − p₂ (a difference in proportions); a one-sample test, a test for means, or a chi-square test does not earn the point.",
+       "fix": "With two groups and a yes-or-no response, name the procedure as a two-sample z-test for a difference between two population proportions.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Defines p₁ as the true proportion of people like these volunteers who would report falling asleep faster after two weeks of the bedtime breathing exercise, and p₂ as the true proportion who would report falling asleep faster after two weeks of bedtime reading.",
+       "evidence": "Response defines both parameters as true (long-run) proportions for people like these volunteers, naming the treatment for each and the response (reporting falling asleep faster).",
+       "fix": "Define each parameter with the response, the treatment, and the group it describes (people like these volunteers), not the 52 or 38 counts.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses for the researcher's test.",
+     "criteria": [
+      {
+       "text": "H₀: p₁ = p₂ (or p₁ − p₂ = 0) and Hₐ: p₁ > p₂ (or p₁ − p₂ > 0), with p₁ for the breathing exercise and p₂ for reading.",
+       "evidence": "Response writes a null hypothesis of no difference and a one-sided alternative in which the breathing exercise proportion is greater, using parameters (not sample proportions).",
+       "fix": "State H₀ as no difference, p₁ = p₂, and write Hₐ in the direction of the researcher's question, here breathing greater than reading.",
+       "accepted_variants": [
+        "H₀: p₁ − p₂ = 0, Hₐ: p₁ − p₂ > 0"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for this test. In your answer, explain why the 10% condition does not need to be checked.",
+     "criteria": [
+      {
+       "text": "States that the randomization condition is met because the volunteers were randomly assigned to the two treatments, and that the 10% condition is not needed because the data come from a randomized experiment, not from sampling without replacement from a population.",
+       "evidence": "Response cites the random assignment of volunteers to treatments and explains that the 10% condition applies only when sampling from a population, which was not done here.",
+       "fix": "In an experiment, cite random assignment for randomization and say the 10% condition is unnecessary because no sample was drawn from a population.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Computes the combined proportion p̂c = (52 + 38)/(90 + 90) = 0.50 and states that n₁p̂c = 45, n₁(1 − p̂c) = 45, n₂p̂c = 45 and n₂(1 − p̂c) = 45 are all at least 10.",
+       "evidence": "Response finds the pooled proportion 0.50 and checks all four counts (each 45) against 10.",
+       "fix": "For a two-proportion test, pool the groups to get p̂c, then check n₁p̂c, n₁(1 − p̂c), n₂p̂c and n₂(1 − p̂c) against 10.",
+       "accepted_variants": [
+        "0.5",
+        "90/180"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate procedure is a two-sample z-test for a difference between two population proportions. Let p₁ = the true proportion of people like these volunteers who would report falling asleep faster after two weeks of the bedtime breathing exercise, and p₂ = the true proportion of people like these volunteers who would report falling asleep faster after two weeks of bedtime reading.\n\n(b) H₀: p₁ = p₂ (equivalently p₁ − p₂ = 0)\nHₐ: p₁ > p₂ (equivalently p₁ − p₂ > 0)\n\n(c) Randomization: the 180 volunteers were randomly assigned to the breathing group and the reading group, so the randomization condition is met. The 10% condition does not need to be checked because this is a randomized experiment: the volunteers were not sampled without replacement from a larger population, so there is no population size to compare with.\nNormality: the combined proportion is p̂c = (52 + 38)/(90 + 90) = 90/180 = 0.50. Then n₁p̂c = 90(0.50) = 45, n₁(1 − p̂c) = 45, n₂p̂c = 45 and n₂(1 − p̂c) = 45. All four are at least 10, so the normality condition is met.",
+   "verification_python": "from fractions import Fraction as F\nx1,n1,x2,n2=52,90,38,90\nassert n1+n2==180\npc=F(x1+x2,n1+n2)\nassert pc==F(1,2)\nfor c in [n1*pc,n1*(1-pc),n2*pc,n2*(1-pc)]: assert c==45 and c>=10\nassert F(x1,n1)>F(x2,n2)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.13",
+  "item": {
+   "title": "Testing for a Difference in Household Composting Rates",
+   "calculator": "permitted",
+   "stimulus": "An environmental group wants to know whether the proportion of households that compost food waste differs between two large towns, Town A (about 30,000 households) and Town B (about 22,000 households). The group selected a random sample of 300 households in Town A and, independently, a random sample of 250 households in Town B. In the samples, 84 of the Town A households and 50 of the Town B households compost food waste.\n\nLet p₁ be the proportion of all Town A households that compost food waste, and let p₂ be the proportion of all Town B households that compost food waste. The group tests H₀: p₁ = p₂ versus Hₐ: p₁ ≠ p₂ at the α = 0.05 significance level. All conditions for inference are met.",
+   "parts": [
+    {
+     "prompt": "Calculate the combined (pooled) sample proportion and the test statistic. Show your work.",
+     "criteria": [
+      {
+       "text": "Combined proportion p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.",
+       "evidence": "Response adds the successes and the sample sizes across both samples to get 134/550 ≈ 0.244.",
+       "fix": "Pool the samples under H₀: add the two success counts, divide by the total of the two sample sizes.",
+       "accepted_variants": [
+        "134/550",
+        "0.2436",
+        "0.244"
+       ]
+      },
+      {
+       "text": "Test statistic z = (0.28 − 0.20)/√(0.2436(0.7564)(1/300 + 1/250)) ≈ 0.08/0.0368 ≈ 2.18.",
+       "evidence": "Response shows the sample proportions 0.28 and 0.20 and a standard error built from the pooled proportion (about 0.0368), giving z ≈ 2.18.",
+       "fix": "In the test statistic's standard error, use the pooled proportion p̂c for both samples, because the test assumes p₁ = p₂.",
+       "accepted_variants": [
+        "2.18",
+        "2.176"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the p-value of the test.",
+     "criteria": [
+      {
+       "text": "p-value = 2P(Z ≥ 2.18) ≈ 0.029, using both tails because the alternative hypothesis is two-sided.",
+       "evidence": "Response doubles the upper-tail area beyond z ≈ 2.18 (or gives labeled technology output for a two-sided test) and reports about 0.029 to 0.030.",
+       "fix": "For Hₐ with ≠, add the areas in both tails beyond ±z; do not report the one-tail area alone.",
+       "accepted_variants": [
+        "0.029",
+        "0.0295",
+        "0.03"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "States that, assuming the proportions of all households that compost food waste are the same in the two towns, the probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) is about 0.029.",
+       "evidence": "Response includes both the assumption that p₁ = p₂ (in context) and the event of a sample difference at least as extreme as 0.08 in either direction, with the value of the p-value.",
+       "fix": "State the assumption (equal proportions in both towns) and the event (a sample difference at least as large as 0.08 in either direction).",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "What conclusion should the group make at the α = 0.05 significance level? Justify your answer.",
+     "criteria": [
+      {
+       "text": "Because the p-value ≈ 0.029 is less than α = 0.05, the group rejects H₀; there is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+       "evidence": "Response compares the p-value with 0.05, rejects H₀, and states a non-definitive conclusion in context in terms of Hₐ (the population proportions differ).",
+       "fix": "Compare the p-value with α explicitly, then write the conclusion as convincing evidence for Hₐ, naming both populations, never as proof.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) p̂₁ = 84/300 = 0.28 and p̂₂ = 50/250 = 0.20.\nCombined proportion: p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.\nTest statistic: z = (0.28 − 0.20)/√(0.2436(1 − 0.2436)(1/300 + 1/250)) = 0.08/√(0.18428 × 0.007333) = 0.08/0.0368 ≈ 2.18.\n\n(b) Because Hₐ is two-sided, p-value = 2P(Z ≥ 2.18) ≈ 2(0.0146) ≈ 0.029.\n\n(c) Assuming the proportion of all households that compost food waste is the same in Town A and Town B, there is about a 0.029 probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) by chance in random samples of these sizes.\n\n(d) Because the p-value of about 0.029 is less than α = 0.05, the group should reject H₀. There is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=84,300,50,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.28)<1e-12 and abs(p2-0.20)<1e-12\npc=(x1+x2)/(n1+n2)\nassert x1+x2==134 and n1+n2==550\nassert abs(pc-0.2436)<0.00005 and abs(round(pc,3)-0.244)<1e-9\nassert abs(pc*(1-pc)-0.18428)<0.00001 and abs((1/n1+1/n2)-0.007333)<0.000001\nse=sqrt(pc*(1-pc)*(1/n1+1/n2))\nassert abs(se-0.0368)<0.00005\nz=(p1-p2)/se\nassert abs(z-2.18)<0.005\nassert abs(z-2.176)<0.0005\nZ=NormalDist()\nassert abs((1-Z.cdf(2.18))-0.0146)<0.00005\npv=2*(1-Z.cdf(z))\nassert 0.029<=pv<=0.030 and abs(pv-0.0295)<0.0001\nassert abs(2*(1-Z.cdf(2.18))-0.029)<0.0005\nassert pv<0.05\nassert abs((p1-p2)-0.08)<1e-12\nfor c in [n1*pc,n1*(1-pc),n2*pc,n2*(1-pc)]: assert c>=10\nassert n1<=0.10*30000 and n2<=0.10*22000\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "3.14",
+  "item": {
+   "title": "Setting Up a Chi-Square Test for Main News Sources",
+   "calculator": "permitted",
+   "stimulus": "A media researcher wants to know whether the distribution of adults' main news source differs among three large cities. The researcher selected independent random samples of 150 adults from each city (each city has more than 500,000 adults) and recorded each adult's main news source. The observed counts are shown in the table, with the expected counts (calculated assuming the distribution of main news source is the same in the three cities) in parentheses.\n\nCity | Television | Online | Other | Total\nCity A | 60 (53.0) | 70 (77.7) | 20 (19.3) | 150\nCity B | 45 (53.0) | 85 (77.7) | 20 (19.3) | 150\nCity C | 54 (53.0) | 78 (77.7) | 18 (19.3) | 150\nTotal | 159 | 233 | 58 | 450",
+   "parts": [
+    {
+     "prompt": "Identify the appropriate chi-square test, and explain why it is appropriate for this study.",
+     "criteria": [
+      {
+       "text": "Identifies a chi-square test for homogeneity, because the researcher took separate (independent) random samples from three populations (the adults of the three cities) and compares the distribution of one categorical variable, main news source, across those populations.",
+       "evidence": "Response names the chi-square test for homogeneity and justifies it with the three separate samples from three populations and one categorical variable being compared.",
+       "fix": "Use homogeneity when separate samples come from several populations and one categorical variable is compared; use independence for one sample and two variables.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses in context.",
+     "criteria": [
+      {
+       "text": "H₀: The distribution of main news source (television, online, other) is the same for adults in all three cities. Hₐ: The distribution of main news source is not the same for adults in all three cities (it differs for at least one city).",
+       "evidence": "Response states a null hypothesis of no difference in the distributions of main news source across the three cities' adult populations and an alternative of a difference, both in context.",
+       "fix": "Write homogeneity hypotheses about distributions of the categorical variable across populations, naming the variable and the populations, not about sample counts.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for the test.",
+     "criteria": [
+      {
+       "text": "States that the data come from independent random samples from the three cities and that each sample of 150 is at most 10% of its city's adults (150 ≤ 0.10(500,000) = 50,000).",
+       "evidence": "Response cites the independent random samples and checks the 10% condition for the cities with numbers or a clear comparison.",
+       "fix": "For homogeneity, cite independent random samples, then compare each sample size with 10% of the population it was drawn from.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that all expected counts are greater than 5 (the smallest is 19.3).",
+       "evidence": "Response refers to the expected counts (not the observed counts) and states that all of them, including the smallest, 19.3, are greater than 5.",
+       "fix": "Check the expected counts, not the observed counts, and confirm every expected count is greater than 5 by naming the smallest one.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "If the null hypothesis is true, the test statistic has a chi-square distribution with 4 degrees of freedom. Describe the shape of this distribution and how it compares with the shape of a chi-square distribution with 10 degrees of freedom. Then explain what a large value of the chi-square statistic would indicate about the observed counts compared with the expected counts.",
+     "criteria": [
+      {
+       "text": "States that the chi-square distribution with 4 degrees of freedom takes only positive values and is skewed right, and that the distribution with 10 degrees of freedom is less skewed (its skew is less pronounced).",
+       "evidence": "Response describes the 4-degree-of-freedom distribution as positive-valued and skewed right, and says the 10-degree-of-freedom distribution is less strongly skewed.",
+       "fix": "Recall that chi-square distributions take positive values, are skewed right, and become less skewed as the degrees of freedom increase.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Explains that the chi-square statistic measures the distance between observed and expected counts relative to the expected counts, so a large value indicates that the observed counts are far from the counts expected if the distributions were the same.",
+       "evidence": "Response states that a large chi-square value means the observed counts differ greatly from the expected counts (relative to the expected counts).",
+       "fix": "Link the statistic to its formula: each term compares an observed count with its expected count, so large values mean large departures.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The appropriate test is a chi-square test for homogeneity. The researcher took three separate, independent random samples from three populations (the adults of City A, City B and City C) and wants to compare the distribution of one categorical variable, main news source, across those populations.\n\n(b) H₀: The distribution of main news source (television, online, other) is the same for adults in City A, City B and City C.\nHₐ: The distribution of main news source is not the same for adults in all three cities.\n\n(c) Randomization: the data come from independent random samples of adults from the three cities.\n10% condition: each sample of 150 adults is less than 10% of its city's adults, because 0.10(500,000) = 50,000 and 150 ≤ 50,000.\nExpected counts: all nine expected counts (53.0, 77.7 and 19.3 for each city) are greater than 5; the smallest is 19.3.\n\n(d) The chi-square distribution with 4 degrees of freedom takes only positive values and is skewed right. A chi-square distribution with 10 degrees of freedom is also skewed right, but its skew is less pronounced.\nThe chi-square statistic adds up (observed − expected)²/expected over all the cells, so it measures how far the observed counts are from the expected counts relative to the expected counts. A large value would indicate that the observed counts are far from the counts expected if the distribution of main news source were the same in all three cities.",
+   "verification_python": "obs=[[60,70,20],[45,85,20],[54,78,18]]\nfor r in obs: assert sum(r)==150\ncols=[sum(r[j] for r in obs) for j in range(3)]\nassert cols==[159,233,58] and sum(cols)==450\nexp=[150*c/450 for c in cols]\nassert abs(exp[0]-53.0)<1e-9 and abs(exp[1]-77.7)<0.05 and abs(exp[2]-19.3)<0.05\nassert min(exp)>5 and abs(min(exp)-19.3)<0.05\nassert 150<=0.10*500000 and abs(0.10*500000-50000)<1e-9\ndf=(3-1)*(3-1)\nassert df==4\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

@@ -1,0 +1,284 @@
+{
+ "id": "ap_physics_1__2.6__1",
+ "slot": {
+  "subject_key": "ap_physics_1",
+  "tsv": "27111dec-ee07-48f1-86cf-1a5833dd2962",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.6",
+  "topic_title": "Gravitational Force",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:10:20.437Z",
+   "source": "given",
+   "item": {
+    "title": "Weight and Apparent Weight on a Larger Planet",
+    "calculator": "permitted",
+    "stimulus": "Planet P has twice the mass of Earth and twice the radius of Earth. Treat both planets as spheres with symmetrically distributed mass, and ignore their rotation. At Earth's surface the gravitational field strength is 10 N/kg. An astronaut has a mass of 60 kg. Ignore gravitational forces from all objects other than the planet being discussed.",
+    "parts": [
+     {
+      "prompt": "Calculate the gravitational field strength at the surface of Planet P.",
+      "criteria": [
+       {
+        "text": "g_P = G(2M)/(2R)² = (2/4)·GM/R² = (1/2)(10 N/kg) = 5.0 N/kg.",
+        "evidence": "Response applies g = GM/r² with doubled mass and doubled radius and obtains 5.0 N/kg (or 5.0 m/s²).",
+        "fix": "Write g = GM/r², replace M and r by their multiples, and simplify: doubling r divides g by four.",
+        "accepted_variants": [
+         "5 N/kg",
+         "5.0 m/s²"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut when the astronaut stands on its surface.",
+      "criteria": [
+       {
+        "text": "F_g = mg_P = (60 kg)(5.0 N/kg) = 300 N.",
+        "evidence": "Response multiplies the astronaut's 60 kg mass by the surface field strength of Planet P to obtain 300 N (a consistent follow-through value from the previous part also earns this point).",
+        "fix": "Weight is mass times the local field strength; use the field strength for Planet P, not Earth's 10 N/kg.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The astronaut later travels in a spacecraft to a point that is a distance 3R from the center of Planet P, where R is the radius of Planet P. Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut at that point.",
+      "criteria": [
+       {
+        "text": "The distance from the center triples, so F_g falls by a factor of 3² = 9: F = 300 N/9 ≈ 33 N.",
+        "evidence": "Response uses the inverse-square dependence on distance from the planet's center (3R, not 2R) and obtains about 33 N (100/3 N).",
+        "fix": "Measure r from the planet's center; with F ∝ 1/r², tripling r divides the force by nine.",
+        "accepted_variants": [
+         "100/3 N",
+         "33.3 N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Back on the surface of Planet P, the astronaut stands on a scale in an elevator that has an upward acceleration of magnitude 2.0 m/s². Calculate the astronaut's apparent weight.",
+      "criteria": [
+       {
+        "text": "Apparent weight = normal force: F_N − mg_P = ma, so F_N = m(g_P + a) = 60(5.0 + 2.0) = 420 N.",
+        "evidence": "Response identifies apparent weight as the normal (scale) force and obtains 420 N from F_N − mg = ma with upward acceleration.",
+        "fix": "Apparent weight is the normal force; apply net force = ma with the acceleration's direction, so F_N exceeds mg when accelerating upward.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The field strength at a planet's surface is g = GM/R². For Planet P, g_P = G(2M)/(2R)² = (2/4)(GM/R²) = (1/2)(10 N/kg) = 5.0 N/kg.\n\n(b) F_g = m·g_P = (60 kg)(5.0 N/kg) = 300 N.\n\n(c) The gravitational force is inversely proportional to the square of the distance between centers. On the surface the distance is R; at the new point it is 3R, three times larger, so the force is 1/9 as large: F = 300 N/9 ≈ 33 N.\n\n(d) The apparent weight is the magnitude of the normal force exerted by the scale. Taking up as positive, F_N − m·g_P = m·a, so F_N = m(g_P + a) = (60 kg)(5.0 m/s² + 2.0 m/s²) = 420 N. The apparent weight is 420 N, greater than the 300 N gravitational force because the astronaut accelerates upward.",
+    "verification_python": "from fractions import Fraction as F\ngE=F(10)\ngP=gE*F(2)/F(2)**2\nassert gP==5\nm=60\nW=m*gP\nassert W==300\nF3=W/F(3)**2\nassert F3==F(100,3)\nassert abs(float(F3)-33.3)<0.05\na=2\nFN=m*(gP+a)\nassert FN==420\nassert FN-m*gP==m*a\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Weight and Apparent Weight on a Larger Planet",
+   "calculator": "permitted",
+   "stimulus": "Planet P has twice the mass of Earth and twice the radius of Earth. Treat both planets as spheres with symmetrically distributed mass, and ignore their rotation. At Earth's surface the gravitational field strength is 10 N/kg. An astronaut has a mass of 60 kg. Ignore gravitational forces from all objects other than the planet being discussed.",
+   "parts": [
+    {
+     "prompt": "Calculate the gravitational field strength at the surface of Planet P.",
+     "criteria": [
+      {
+       "text": "g_P = G(2M)/(2R)² = (2/4)·GM/R² = (1/2)(10 N/kg) = 5.0 N/kg.",
+       "evidence": "Response applies g = GM/r² with doubled mass and doubled radius and obtains 5.0 N/kg (or 5.0 m/s²).",
+       "fix": "Write g = GM/r², replace M and r by their multiples, and simplify: doubling r divides g by four.",
+       "accepted_variants": [
+        "5 N/kg",
+        "5.0 m/s²"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut when the astronaut stands on its surface.",
+     "criteria": [
+      {
+       "text": "F_g = mg_P = (60 kg)(5.0 N/kg) = 300 N.",
+       "evidence": "Response multiplies the astronaut's 60 kg mass by the surface field strength of Planet P to obtain 300 N (a consistent follow-through value from the previous part also earns this point).",
+       "fix": "Weight is mass times the local field strength; use the field strength for Planet P, not Earth's 10 N/kg.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The astronaut later travels in a spacecraft to a point that is a distance 3R from the center of Planet P, where R is the radius of Planet P. Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut at that point.",
+     "criteria": [
+      {
+       "text": "The distance from the center triples, so F_g falls by a factor of 3² = 9: F = 300 N/9 ≈ 33 N.",
+       "evidence": "Response uses the inverse-square dependence on distance from the planet's center (3R, not 2R) and obtains about 33 N (100/3 N).",
+       "fix": "Measure r from the planet's center; with F ∝ 1/r², tripling r divides the force by nine.",
+       "accepted_variants": [
+        "100/3 N",
+        "33.3 N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Back on the surface of Planet P, the astronaut stands on a scale in an elevator that has an upward acceleration of magnitude 2.0 m/s². Calculate the astronaut's apparent weight.",
+     "criteria": [
+      {
+       "text": "Apparent weight = normal force: F_N − mg_P = ma, so F_N = m(g_P + a) = 60(5.0 + 2.0) = 420 N.",
+       "evidence": "Response identifies apparent weight as the normal (scale) force and obtains 420 N from F_N − mg = ma with upward acceleration.",
+       "fix": "Apparent weight is the normal force; apply net force = ma with the acceleration's direction, so F_N exceeds mg when accelerating upward.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The field strength at a planet's surface is g = GM/R². For Planet P, g_P = G(2M)/(2R)² = (2/4)(GM/R²) = (1/2)(10 N/kg) = 5.0 N/kg.\n\n(b) F_g = m·g_P = (60 kg)(5.0 N/kg) = 300 N.\n\n(c) The gravitational force is inversely proportional to the square of the distance between centers. On the surface the distance is R; at the new point it is 3R, three times larger, so the force is 1/9 as large: F = 300 N/9 ≈ 33 N.\n\n(d) The apparent weight is the magnitude of the normal force exerted by the scale. Taking up as positive, F_N − m·g_P = m·a, so F_N = m(g_P + a) = (60 kg)(5.0 m/s² + 2.0 m/s²) = 420 N. The apparent weight is 420 N, greater than the 300 N gravitational force because the astronaut accelerates upward.",
+   "verification_python": "from fractions import Fraction as F\ngE=F(10)\ngP=gE*F(2)/F(2)**2\nassert gP==5\nm=60\nW=m*gP\nassert W==300\nF3=W/F(3)**2\nassert F3==F(100,3)\nassert abs(float(F3)-33.3)<0.05\na=2\nFN=m*(gP+a)\nassert FN==420\nassert FN-m*gP==m*a\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.853579Z"
+ },
+ "accepted_round": 1
+}

@@ -1,0 +1,902 @@
+{
+ "id": "ap_chemistry__1.5__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.073Z",
+   "source": "given",
+   "item": {
+    "title": "Electron Configurations of Sulfur and the Sulfide Ion",
+    "calculator": "not_applicable",
+    "stimulus": "Sulfur has atomic number 16. In many compounds sulfur is present as the sulfide ion, S²⁻. Answer the following about a ground-state sulfur atom and a ground-state sulfide ion.",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration of a sulfur atom.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁴ for the sulfur atom.",
+        "evidence": "Response gives the full configuration with 16 electrons placed in Aufbau order: 1s² 2s² 2p⁶ 3s² 3p⁴.",
+        "fix": "Fill subshells in Aufbau order (1s, 2s, 2p, 3s, 3p) until the total number of electrons equals the atomic number.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the complete ground-state electron configuration of the sulfide ion, S²⁻.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁶ for the sulfide ion (18 electrons).",
+        "evidence": "Response adds two electrons to the configuration of the sulfur atom, placing them in the 3p subshell, to give 1s² 2s² 2p⁶ 3s² 3p⁶.",
+        "fix": "For an anion, add as many electrons as the negative charge to the next available spaces in the neutral atom's configuration.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State the number of valence electrons and the number of core electrons in a sulfur atom.",
+      "criteria": [
+       {
+        "text": "States that a sulfur atom has 6 valence electrons (3s² 3p⁴).",
+        "evidence": "Response gives 6 valence electrons, the electrons in the outermost shell (n = 3).",
+        "fix": "Count only the electrons in the highest-numbered shell of the configuration; for sulfur that is shell 3, holding 3s² 3p⁴.",
+        "accepted_variants": [
+         "six"
+        ]
+       },
+       {
+        "text": "States that a sulfur atom has 10 core electrons (1s² 2s² 2p⁶).",
+        "evidence": "Response gives 10 core electrons, the electrons in the inner shells (n = 1 and n = 2).",
+        "fix": "Core electrons are all the electrons in shells below the outermost shell; add the electrons in shells 1 and 2.",
+        "accepted_variants": [
+         "ten"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Explains with Coulomb’s law that 2p electrons are attracted more strongly to the nucleus than 3p electrons, because they are closer to it on average or experience less shielding (greater effective nuclear charge), so they need more energy to remove.",
+        "evidence": "Response links a stronger Coulombic attraction for 2p electrons to either their smaller average distance from the nucleus (shell 2 versus shell 3) or less shielding by inner electrons, and concludes that more energy is needed to remove them.",
+        "fix": "Compare the two electrons’ distance from the nucleus or their shielding, then use Coulomb’s law to compare the attractions.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) 1s² 2s² 2p⁶ 3s² 3p⁴\n\n(b) S²⁻ has 16 + 2 = 18 electrons. The two added electrons go into the 3p subshell: 1s² 2s² 2p⁶ 3s² 3p⁶.\n\n(c) The valence electrons are those in the outermost shell, n = 3 (3s² 3p⁴), so a sulfur atom has 6 valence electrons. The core electrons are those in shells 1 and 2 (1s² 2s² 2p⁶), so it has 10 core electrons.\n\n(d) By Coulomb's law, F ∝ q₁q₂/r², so the attraction between an electron and the nucleus increases as their distance decreases. The 2p electrons are in the second shell, much closer to the nucleus than the 3p electrons in the third shell, and they are shielded only by the two 1s electrons rather than by the ten electrons in shells 1 and 2. The 2p electrons therefore experience a much stronger attraction to the nucleus, so more energy is needed to remove one of them.",
+    "verification_python": "caps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\ndef conf(n):\n    out={}\n    for s,c in caps:\n        k=min(c,n); out[s]=k; n-=k\n    return out\nS=conf(16)\nassert S=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nS2=conf(18)\nassert S2=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':6}\nval=S['3s']+S['3p']\ncore=S['1s']+S['2s']+S['2p']\nassert val==6 and core==10 and val+core==16\n# Coulomb: smaller r gives larger force for same charges\nassert 1/2**2>1/3**2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:48:00.636Z",
+   "item": {
+    "title": "Electron Configurations, Coulombic Attraction, and Sodium Ionization",
+    "calculator": "permitted",
+    "stimulus": "A chemistry class is studying how electron configurations and Coulomb's law explain the behavior of atoms and ions. The class collected the following data from reference tables.\n\nQuantity | Value\nDistance between ion centers in NaCl(s), Na+ to Cl− | 2.82 Å\nDistance between ion centers in MgO(s), Mg2+ to O2− | 2.11 Å\nFirst ionization energy of Na | 496 kJ/mol\nSecond ionization energy of Na | 4562 kJ/mol\n\nAnswer the following.",
+    "model_answer": "(a) Sulfur has 16 electrons: 1s² 2s² 2p⁶ 3s² 3p⁴.\n\n(b) Neutral Fe is [Ar] 4s² 3d⁶. Forming Fe3+ removes the two 4s electrons first and then one 3d electron, giving Fe3+ = [Ar] 3d⁵ (1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵).\n\n(c) F ∝ q1q2/r².\nF(MgO)/F(NaCl) = [(2)(2)/(2.11 Å)²] / [(1)(1)/(2.82 Å)²] = 4 × (2.82/2.11)² = 4 × 1.786 = 7.14.\nThe attraction between Mg2+ and O2− is about 7.14 times as strong.\n\n(d) Na is 1s² 2s² 2p⁶ 3s¹. The first ionization removes the single 3s valence electron. Na+ is 1s² 2s² 2p⁶, so the second ionization removes a 2p core electron. The 2p electron is in the n = 2 shell, much closer to the nucleus, and it is shielded only by the 1s electrons, so it experiences a much greater effective nuclear charge than the 3s electron, which is shielded by all ten core electrons. By Coulomb's law, the smaller distance and larger effective charge produce a much stronger attraction, so far more energy (4562 kJ/mol versus 496 kJ/mol) is needed to remove the second electron.",
+    "verification_python": "import math\n# (a) S electrons\ns_config=[2,2,6,2,4]\nassert sum(s_config)==16\n# (b) Fe3+ electrons: Fe has 26, Fe3+ has 23; [Ar]=18 plus 3d5\nassert 26-3==18+5\n# (c) Coulomb ratio\nr_nacl=2.82; r_mgo=2.11\nratio=(2*2/r_mgo**2)/(1*1/r_nacl**2)\nassert abs(ratio-7.14)<0.01\nassert abs((r_nacl/r_mgo)**2-1.786)<0.001\nassert round(ratio,2)==7.14\n# (d) Na configs\nna=[2,2,6,1]\nassert sum(na)==11\nassert sum(na[:3])==10\nassert 4562>496\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration (no noble-gas shorthand) of a neutral sulfur atom, S.",
+      "criteria": [
+       {
+        "text": "Correct configuration of S: 1s² 2s² 2p⁶ 3s² 3p⁴",
+        "evidence": "Response gives 1s² 2s² 2p⁶ 3s² 3p⁴, with 16 electrons placed in Aufbau order.",
+        "fix": "Count the atomic number to get total electrons, then fill subshells in Aufbau order 1s, 2s, 2p, 3s, 3p.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the ground-state electron configuration of the iron(III) ion, Fe3+. Noble-gas shorthand is acceptable. Indicate which subshells the removed electrons came from.",
+      "criteria": [
+       {
+        "text": "Correct configuration of Fe3+: [Ar] 3d⁵, with the two 4s electrons and one 3d electron removed",
+        "evidence": "Response gives [Ar] 3d⁵ (or 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵) and states that the 4s electrons are removed before a 3d electron.",
+        "fix": "For transition-metal cations, remove electrons from the highest-n subshell (4s) first, then from 3d.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p6 3d5",
+         "[Ar]3d5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using Coulomb's law and the data in the table, calculate the ratio of the magnitude of the attractive force between Mg2+ and O2− in MgO to that between Na+ and Cl− in NaCl, treating the ions as point charges.",
+      "criteria": [
+       {
+        "text": "Correct force ratio F(MgO)/F(NaCl) = 7.14 with supporting setup",
+        "evidence": "Response sets up F ∝ q1q2/r², uses charge product 4 (2 × 2) for MgO and 1 for NaCl with the given distances, and reports about 7.14 (7.1 also accepted).",
+        "fix": "Write F ∝ q1q2/r² for each pair, divide the two expressions, and square the distance ratio before multiplying by the charge ratio.",
+        "accepted_variants": [
+         "7.14",
+         "7.1",
+         "about 7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The second ionization energy of Na is much greater than its first ionization energy. Identify the subshell from which each electron is removed, and explain the large difference in terms of Coulombic attraction.",
+      "criteria": [
+       {
+        "text": "Identifies that the first electron is removed from the 3s subshell and the second from the 2p subshell",
+        "evidence": "Response states that the first ionization removes the 3s valence electron and the second removes a 2p core electron.",
+        "fix": "Write the configuration of Na and Na+, then note which subshell loses an electron at each step.",
+        "accepted_variants": [
+         "3s then 2p",
+         "valence 3s, core 2p"
+        ]
+       },
+       {
+        "text": "Explains that the 2p electron is closer to the nucleus and less shielded (greater effective nuclear charge), so Coulombic attraction is much stronger",
+        "evidence": "Response connects the larger second ionization energy to the 2p electron being in a lower shell (n = 2), smaller distance from the nucleus, and experiencing less shielding or greater effective nuclear charge, giving a stronger attraction per Coulomb's law.",
+        "fix": "Explain ionization energy using both distance from the nucleus and shielding, linking each to the strength of Coulombic attraction.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 5
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:50:49.273Z",
+   "item": {
+    "title": "Electron Configurations and Coulombic Attraction in F and Cl",
+    "calculator": "permitted",
+    "stimulus": "Fluorine (atomic number 9) and chlorine (atomic number 17) are both in Group 17 of the periodic table. A student uses a simple Coulombic model in which the outermost electron of each atom is attracted by an effective nuclear charge, Zeff, at an average distance r from the nucleus. The model values are given in the table below.\n\nAtom | Subshell of outermost electron | Zeff | r (pm)\nF | 2p | +5.10 | 64\nCl | 3p | +6.12 | 99\n\nThe Coulombic force between two charged particles is given by F ∝ q1q2/r².",
+    "model_answer": "(a) Cl: 1s² 2s² 2p⁶ 3s² 3p⁵. Cl⁻: 1s² 2s² 2p⁶ 3s² 3p⁶ (the added electron completes the 3p subshell).\n\n(b) A Cl atom has 10 core electrons (1s² 2s² 2p⁶) and 7 valence electrons, located in the 3s and 3p subshells (3s² 3p⁵).\n\n(c) F ∝ Zeff/r² because the electron charge is the same in both atoms.\nF atom: 5.10/(64)² = 5.10/4096 = 1.245 × 10⁻³\nCl atom: 6.12/(99)² = 6.12/9801 = 6.244 × 10⁻⁴\nRatio = (1.245 × 10⁻³)/(6.244 × 10⁻⁴) = 1.99 ≈ 2.0\nThe force on the outermost electron in F is about 2.0 times the force in Cl.\n\n(d) F has the greater first ionization energy. The outermost electron of F is in the 2p subshell (n = 2), while that of Cl is in the 3p subshell (n = 3), so the F electron is much closer to the nucleus (64 pm versus 99 pm). By Coulomb's law the force depends on 1/r², so even though Cl has a slightly larger effective nuclear charge, the attraction on the F electron is about twice as strong. A more strongly attracted electron requires more energy to remove, so the first ionization energy of F is greater.",
+    "verification_python": "import math\nZF, rF = 5.10, 64\nZCl, rCl = 6.12, 99\nfF = ZF/rF**2\nfCl = ZCl/rCl**2\nassert abs(rF**2-4096)<1e-9 and abs(rCl**2-9801)<1e-9\nassert abs(fF-1.245e-3)<1e-6\nassert abs(fCl-6.244e-4)<1e-6\nratio = fF/fCl\nassert abs(ratio-1.99)<0.01\nassert round(ratio,1)==2.0\n# electron counts for Cl\nconfig = [('1s',2),('2s',2),('2p',6),('3s',2),('3p',5)]\nassert sum(n for _,n in config)==17\ncore = sum(n for s,n in config if s[0] in '12')\nval = sum(n for s,n in config if s[0]=='3')\nassert core==10 and val==7\nion = config[:-1]+[('3p',6)]\nassert sum(n for _,n in ion)==18\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration of a chlorine atom and of the chloride ion, Cl⁻.",
+      "criteria": [
+       {
+        "text": "Cl: 1s² 2s² 2p⁶ 3s² 3p⁵ and Cl⁻: 1s² 2s² 2p⁶ 3s² 3p⁶",
+        "evidence": "Both configurations are written correctly, with the added electron placed in the 3p subshell for Cl⁻.",
+        "fix": "Fill subshells in Aufbau order for 17 electrons, then add the extra electron of an anion to the lowest available subshell, here 3p.",
+        "accepted_variants": [
+         "[Ne] 3s² 3p⁵ and [Ne] 3s² 3p⁶",
+         "[Ne]3s²3p⁵; [Ar]"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State the number of core electrons and the number of valence electrons in a neutral chlorine atom, and identify the subshells that hold the valence electrons.",
+      "criteria": [
+       {
+        "text": "10 core electrons and 7 valence electrons, with the valence electrons in the 3s and 3p subshells",
+        "evidence": "Response gives 10 core and 7 valence electrons and identifies 3s and 3p (the n = 3 shell) as the valence subshells.",
+        "fix": "Count electrons in the outermost shell (highest n) as valence; all electrons in lower shells are core electrons.",
+        "accepted_variants": [
+         "core = 10, valence = 7 (3s² 3p⁵)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the model values in the table, calculate the ratio of the Coulombic force on the outermost electron in F to the Coulombic force on the outermost electron in Cl. Report your answer with the correct number of significant digits.",
+      "criteria": [
+       {
+        "text": "Ratio F(F)/F(Cl) = (5.10/64²)/(6.12/99²) ≈ 2.0",
+        "evidence": "Shows the Zeff/r² setup for each atom (electron charge cancels) and reports a ratio of about 2.0 (2 significant digits, limited by r).",
+        "fix": "Write F ∝ Zeff/r² for each atom, divide the two expressions, square each distance, and round to the fewest significant digits in the data.",
+        "accepted_variants": [
+         "2.0",
+         "1.99",
+         "about 2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict which atom, F or Cl, has the greater first ionization energy. Justify your prediction using Coulomb's law and the electron configurations of the atoms.",
+      "criteria": [
+       {
+        "text": "F has the greater first ionization energy because its outermost electron is in the n = 2 shell, closer to the nucleus, so it is attracted more strongly",
+        "evidence": "Claims F is greater and justifies with Coulomb's law: the 2p electron of F is at a smaller distance (fewer shells) than the 3p electron of Cl, so the attractive force is larger (about twice as large) despite the slightly smaller Zeff, requiring more energy to remove.",
+        "fix": "Compare shell number (distance) and effective nuclear charge, then argue that a larger Coulombic attraction means more energy is needed to remove the electron.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.7": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:53:32.280Z",
+   "item": {
+    "title": "Electron Configurations and Coulombic Attraction in Iron Ions",
+    "calculator": "permitted",
+    "stimulus": "Iron (atomic number 26) forms two common oxides, FeO and Fe2O3. FeO contains Fe2+ ions and Fe2O3 contains Fe3+ ions. In each oxide, every iron ion is attracted to neighboring oxide ions, O2−. The table gives approximate center-to-center distances between an iron ion and an adjacent oxide ion.\n\nIon pair | Charge on iron ion | Charge on oxide ion | Distance between ion centers\nFe2+ and O2− | +2 | −2 | 2.16 × 10² pm\nFe3+ and O2− | +3 | −2 | 2.00 × 10² pm",
+    "model_answer": "(a) Fe has 26 electrons: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁶ (or [Ar] 4s² 3d⁶).\n\n(b) Fe3+ has 23 electrons: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ (or [Ar] 3d⁵). The two 4s electrons are removed first because n = 4 is the outermost shell, and then one electron is removed from the 3d subshell.\n\n(c) More energy is required to remove an electron from Fe3+. In Fe the electron removed is a 4s electron, in the n = 4 shell, farther from the nucleus. In Fe3+ the electron removed is a 3d electron in the n = 3 shell, which is closer to the nucleus. Also, Fe3+ has 26 protons attracting only 23 electrons, so there is less electron–electron repulsion and a greater effective nuclear charge on each electron. By Coulomb's law, F ∝ q1q2/r², a larger effective charge and a smaller distance produce a stronger attraction, so more energy is needed to remove the electron.\n\n(d) F ∝ q1q2/r².\nF(Fe3+–O2−) ∝ (3)(2)/(2.00 × 10² pm)² = 6/40000\nF(Fe2+–O2−) ∝ (2)(2)/(2.16 × 10² pm)² = 4/46656\nRatio = (6/40000) ÷ (4/46656) = (6 × 46656)/(4 × 40000) = 1.75\nThe attraction in the Fe3+–O2− pair is 1.75 times as strong as in the Fe2+–O2− pair.",
+    "verification_python": "from fractions import Fraction\nZ=26\nfe=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6),('4s',2),('3d',6)]\nassert sum(n for _,n in fe)==Z\nfe3=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6),('3d',5)]\nassert sum(n for _,n in fe3)==Z-3==23\nr3=Fraction(200);r2=Fraction(216)\nratio=(Fraction(3*2)/r3**2)/(Fraction(2*2)/r2**2)\nassert abs(float(ratio)-1.7496)<1e-4\nassert round(float(ratio),2)==1.75\nassert Fraction(6,40000)==Fraction(6)/r3**2\nassert 216**2==46656\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration of a neutral Fe atom.",
+      "criteria": [
+       {
+        "text": "Correct configuration for Fe: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁶",
+        "evidence": "Response gives all subshells with correct superscripts totaling 26 electrons, ending 4s² 3d⁶ (either listing order, or noble-gas shorthand).",
+        "fix": "Fill subshells in Aufbau order 1s, 2s, 2p, 3s, 3p, 4s, 3d until the electron total equals the atomic number.",
+        "accepted_variants": [
+         "1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁶ 4s²",
+         "[Ar] 4s² 3d⁶",
+         "[Ar] 3d⁶ 4s²"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the ground-state electron configuration of the Fe3+ ion, and identify the subshell(s) from which the three electrons were removed.",
+      "criteria": [
+       {
+        "text": "Fe3+ is 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵, with both 4s electrons removed before one 3d electron",
+        "evidence": "Response gives a configuration with 23 electrons ending in 3d⁵ with no 4s electrons, and states that two electrons come from 4s and one from 3d.",
+        "fix": "When forming transition-metal cations, remove electrons from the highest n shell (4s) before removing any 3d electrons.",
+        "accepted_variants": [
+         "[Ar] 3d⁵"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Claim whether more energy is required to remove one electron from a gaseous Fe atom or from a gaseous Fe3+ ion. Justify your claim using Coulomb's law and the electron configurations from parts (a) and (b).",
+      "criteria": [
+       {
+        "text": "Claim: removing an electron from Fe3+ requires more energy, justified by Coulombic attraction",
+        "evidence": "Response states Fe3+ requires more energy and explains that the electron removed from Fe3+ is a 3d electron, closer to the nucleus than the 4s electron removed from Fe, and/or that Fe3+ has 26 protons attracting only 23 electrons (greater effective nuclear charge), so the attraction is stronger.",
+        "fix": "Link ionization energy to Coulomb's law: compare the distance of the removed electron from the nucleus and the effective nuclear charge it experiences.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using Coulomb's law and the data in the table, calculate the ratio of the magnitude of the attractive force in the Fe3+–O2− pair to that in the Fe2+–O2− pair. Report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Ratio of forces = 1.75, obtained from F ∝ q1q2/r²",
+        "evidence": "Response shows (3 × 2 / (2.00 × 10²)²) ÷ (2 × 2 / (2.16 × 10²)²) or equivalent and reports 1.75 (three significant figures).",
+        "fix": "Write F ∝ q1q2/r² for each pair, divide the two expressions so constants cancel, and keep three significant figures from the distances.",
+        "accepted_variants": [
+         "1.75",
+         "7/4"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.5": 4,
+     "1.7": 1,
+     "2.2": 1
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 5
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Electron Configurations of Sulfur and the Sulfide Ion",
+   "calculator": "not_applicable",
+   "stimulus": "Sulfur has atomic number 16. In many compounds sulfur is present as the sulfide ion, S²⁻. Answer the following about a ground-state sulfur atom and a ground-state sulfide ion.",
+   "parts": [
+    {
+     "prompt": "Write the complete ground-state electron configuration of a sulfur atom.",
+     "criteria": [
+      {
+       "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁴ for the sulfur atom.",
+       "evidence": "Response gives the full configuration with 16 electrons placed in Aufbau order: 1s² 2s² 2p⁶ 3s² 3p⁴.",
+       "fix": "Fill subshells in Aufbau order (1s, 2s, 2p, 3s, 3p) until the total number of electrons equals the atomic number.",
+       "accepted_variants": [
+        "1s2 2s2 2p6 3s2 3p4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write the complete ground-state electron configuration of the sulfide ion, S²⁻.",
+     "criteria": [
+      {
+       "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁶ for the sulfide ion (18 electrons).",
+       "evidence": "Response adds two electrons to the configuration of the sulfur atom, placing them in the 3p subshell, to give 1s² 2s² 2p⁶ 3s² 3p⁶.",
+       "fix": "For an anion, add as many electrons as the negative charge to the next available spaces in the neutral atom's configuration.",
+       "accepted_variants": [
+        "1s2 2s2 2p6 3s2 3p6"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the number of valence electrons and the number of core electrons in a sulfur atom.",
+     "criteria": [
+      {
+       "text": "States that a sulfur atom has 6 valence electrons (3s² 3p⁴).",
+       "evidence": "Response gives 6 valence electrons, the electrons in the outermost shell (n = 3).",
+       "fix": "Count only the electrons in the highest-numbered shell of the configuration; for sulfur that is shell 3, holding 3s² 3p⁴.",
+       "accepted_variants": [
+        "six"
+       ]
+      },
+      {
+       "text": "States that a sulfur atom has 10 core electrons (1s² 2s² 2p⁶).",
+       "evidence": "Response gives 10 core electrons, the electrons in the inner shells (n = 1 and n = 2).",
+       "fix": "Core electrons are all the electrons in shells below the outermost shell; add the electrons in shells 1 and 2.",
+       "accepted_variants": [
+        "ten"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
+     "criteria": [
+      {
+       "text": "Explains with Coulomb’s law that 2p electrons are attracted more strongly to the nucleus than 3p electrons, because they are closer to it on average or experience less shielding (greater effective nuclear charge), so they need more energy to remove.",
+       "evidence": "Response links a stronger Coulombic attraction for 2p electrons to either their smaller average distance from the nucleus (shell 2 versus shell 3) or less shielding by inner electrons, and concludes that more energy is needed to remove them.",
+       "fix": "Compare the two electrons’ distance from the nucleus or their shielding, then use Coulomb’s law to compare the attractions.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) 1s² 2s² 2p⁶ 3s² 3p⁴\n\n(b) S²⁻ has 16 + 2 = 18 electrons. The two added electrons go into the 3p subshell: 1s² 2s² 2p⁶ 3s² 3p⁶.\n\n(c) The valence electrons are those in the outermost shell, n = 3 (3s² 3p⁴), so a sulfur atom has 6 valence electrons. The core electrons are those in shells 1 and 2 (1s² 2s² 2p⁶), so it has 10 core electrons.\n\n(d) By Coulomb's law, F ∝ q₁q₂/r², so the attraction between an electron and the nucleus increases as their distance decreases. The 2p electrons are in the second shell, much closer to the nucleus than the 3p electrons in the third shell, and they are shielded only by the two 1s electrons rather than by the ten electrons in shells 1 and 2. The 2p electrons therefore experience a much stronger attraction to the nucleus, so more energy is needed to remove one of them.",
+   "verification_python": "caps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\ndef conf(n):\n    out={}\n    for s,c in caps:\n        k=min(c,n); out[s]=k; n-=k\n    return out\nS=conf(16)\nassert S=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nS2=conf(18)\nassert S2=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':6}\nval=S['3s']+S['3p']\ncore=S['1s']+S['2s']+S['2p']\nassert val==6 and core==10 and val+core==16\n# Coulomb: smaller r gives larger force for same charges\nassert 1/2**2>1/3**2\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.846499Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "d1 accepts a distance argument or a shielding/effective-nuclear-charge argument (rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:06:02.844Z",
+   "source": "given",
+   "item": {
+    "title": "Electron Configurations of Sulfur and the Sulfide Ion",
+    "calculator": "not_applicable",
+    "stimulus": "Sulfur has atomic number 16. In many compounds sulfur is present as the sulfide ion, S²⁻. Answer the following about a ground-state sulfur atom and a ground-state sulfide ion.",
+    "parts": [
+     {
+      "prompt": "Write the complete ground-state electron configuration of a sulfur atom.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁴ for the sulfur atom.",
+        "evidence": "Response gives the full configuration with 16 electrons placed in Aufbau order: 1s² 2s² 2p⁶ 3s² 3p⁴.",
+        "fix": "Fill subshells in Aufbau order (1s, 2s, 2p, 3s, 3p) until the total number of electrons equals the atomic number.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the complete ground-state electron configuration of the sulfide ion, S²⁻.",
+      "criteria": [
+       {
+        "text": "Writes 1s² 2s² 2p⁶ 3s² 3p⁶ for the sulfide ion (18 electrons).",
+        "evidence": "Response adds two electrons to the configuration of the sulfur atom, placing them in the 3p subshell, to give 1s² 2s² 2p⁶ 3s² 3p⁶.",
+        "fix": "For an anion, add as many electrons as the negative charge to the next available spaces in the neutral atom's configuration.",
+        "accepted_variants": [
+         "1s2 2s2 2p6 3s2 3p6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State the number of valence electrons and the number of core electrons in a sulfur atom.",
+      "criteria": [
+       {
+        "text": "States that a sulfur atom has 6 valence electrons (3s² 3p⁴).",
+        "evidence": "Response gives 6 valence electrons, the electrons in the outermost shell (n = 3).",
+        "fix": "Count only the electrons in the highest-numbered shell of the configuration; for sulfur that is shell 3, holding 3s² 3p⁴.",
+        "accepted_variants": [
+         "six"
+        ]
+       },
+       {
+        "text": "States that a sulfur atom has 10 core electrons (1s² 2s² 2p⁶).",
+        "evidence": "Response gives 10 core electrons, the electrons in the inner shells (n = 1 and n = 2).",
+        "fix": "Core electrons are all the electrons in shells below the outermost shell; add the electrons in shells 1 and 2.",
+        "accepted_variants": [
+         "ten"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "More energy is required to remove an electron from the 2p subshell of a sulfur atom than from the 3p subshell. Explain this difference using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Explains that 2p electrons are, on average, closer to the nucleus than 3p electrons (and are shielded by fewer inner electrons), so by Coulomb's law they are attracted more strongly to the nucleus and need more energy to remove.",
+        "evidence": "Response states that 2p electrons are in shell 2, closer to the nucleus than 3p electrons in shell 3, and links the smaller distance (F ∝ q₁q₂/r²) to a stronger attraction and a greater energy requirement; mentioning less shielding is also acceptable support.",
+        "fix": "Name the shell of each electron, compare its distance from the nucleus, then use F ∝ q₁q₂/r² to compare the attractions.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) 1s² 2s² 2p⁶ 3s² 3p⁴\n\n(b) S²⁻ has 16 + 2 = 18 electrons. The two added electrons go into the 3p subshell: 1s² 2s² 2p⁶ 3s² 3p⁶.\n\n(c) The valence electrons are those in the outermost shell, n = 3 (3s² 3p⁴), so a sulfur atom has 6 valence electrons. The core electrons are those in shells 1 and 2 (1s² 2s² 2p⁶), so it has 10 core electrons.\n\n(d) By Coulomb's law, F ∝ q₁q₂/r², so the attraction between an electron and the nucleus increases as their distance decreases. The 2p electrons are in the second shell, much closer to the nucleus than the 3p electrons in the third shell, and they are shielded only by the two 1s electrons rather than by the ten electrons in shells 1 and 2. The 2p electrons therefore experience a much stronger attraction to the nucleus, so more energy is needed to remove one of them.",
+    "verification_python": "caps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\ndef conf(n):\n    out={}\n    for s,c in caps:\n        k=min(c,n); out[s]=k; n-=k\n    return out\nS=conf(16)\nassert S=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nS2=conf(18)\nassert S2=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':6}\nval=S['3s']+S['3p']\ncore=S['1s']+S['2s']+S['2p']\nassert val==6 and core==10 and val+core==16\n# Coulomb: smaller r gives larger force for same charges\nassert 1/2**2>1/3**2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: The evidence unnecessarily requires explicit shell numbers and a distance-based explanation. Accept a correct Coulomb-law explanation based on less shielding and greater effective nuclear charge, or a correct distance-based explanation without explicit shell numbers."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: The evidence unnecessarily requires explicit shell numbers and a distance-based explanation. Accept a correct Coulomb-law explanation based on less shielding and greater effective nuclear charge, or a correct distance-based explanation without explicit shell numbers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: The evidence requires a distance-based Coulomb's law explanation and treats shielding as optional, but a valid AP answer could instead use the greater effective nuclear charge on 2p due to less shielding and apply Coulomb's law through q1q2/r². The criterion should accept either a distance-based or an effective-charge/shielding-based explanation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: The evidence requires a distance-based Coulomb's law explanation and treats shielding as optional, but a valid AP answer could instead use the greater effective nuclear charge on 2p due to less shielding and apply Coulomb's law through q1q2/r². The criterion should accept either a distance-based or an effective-charge/shielding-based explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: the criterion requires a distance comparison and treats shielding/effective nuclear charge only as optional support. A response that correctly uses Coulomb's law with effective nuclear charge alone (e.g., 2p electrons are less shielded than 3p electrons, so the effective nuclear charge is greater) would not earn the point, even though that is a valid alternative under 1.5.A.4."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: the criterion requires a distance comparison and treats shielding/effective nuclear charge only as optional support. A response that correctly uses Coulomb's law with effective nuclear charge alone (e.g., 2p electrons are less shielded than 3p electrons, so the effective nuclear charge is greater) would not earn the point, even though that is a valid alternative under 1.5.A.4."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

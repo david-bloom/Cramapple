@@ -70,7 +70,7 @@ export const auditSchema = (withModelAnswer) => z.object({
 });
 
 // Deterministic lint (no model). Any failure rejects the candidate.
-const FIG = /\b((figure|graph|diagram|image|picture) (is |are )?shown|(the|this) (figure|graph|diagram|image|picture)( shown)?( above| below)?\b|(refer to|in|from|using) the (figure|image|picture|diagram)|see (the )?(figure|graph|diagram))/i;
+const FIG = /\b((figure|graph|diagram|image|picture|chart) (is |are )?(shown|provided|given) (above|below)|(figure|graph|diagram|image|picture|chart) (above|below)|(the|this) (following|accompanying) (figure|graph|diagram|image|picture|chart)|(refer to|see|use|using|in|from) the (figure|diagram|image|picture|chart)( shown| above| below)?\b|see (the )?(figure|graph|diagram))/i;
 const DRAW = /\b(draw|sketch|plot|shade|label (the|a|each) (graph|diagram|axes|figure))\b/i;
 export function lint(it, sk) {
   const f = []; const s = SPEC[sk];

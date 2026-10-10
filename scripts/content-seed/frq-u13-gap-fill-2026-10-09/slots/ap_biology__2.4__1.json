@@ -1,0 +1,1445 @@
+{
+ "id": "ap_biology__2.4__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 2,
+  "unit_title": "Cells",
+  "topic_code": "2.4",
+  "topic_title": "Membrane Permeability",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.634Z",
+   "item": {
+    "title": "Selective Permeability of Protein-Free Phospholipid Vesicles",
+    "calculator": "not_applicable",
+    "stimulus": "Students made artificial vesicles whose membranes were pure phospholipid bilayers with no embedded proteins. Each batch of vesicles was placed in a solution containing one test substance. After 10 minutes, the students measured the concentration of the substance inside the vesicles as a percentage of its concentration outside. A value of 100% would mean the inside and outside concentrations had become equal.\n\nSubstance | Molecular properties | Molecular mass (g/mol) | Inside concentration after 10 min (% of outside)\nO₂ | small, nonpolar | 32 | 98\nCO₂ | small, nonpolar | 44 | 97\nNH₃ (ammonia) | small, polar, uncharged | 17 | 35\nNa⁺ | small ion (charged) | 23 | 0.5\nGlucose | large, polar | 180 | 2\n\nIn a separate trial, the students placed protein-free vesicles containing a concentrated sucrose solution, and also living plant leaf cells, into distilled water. After several hours, many vesicles had burst, but the plant cells had swollen without bursting.",
+    "model_answer": "(a) The interior of the phospholipid bilayer is made of nonpolar, hydrophobic hydrocarbon tails. O₂ is small and nonpolar, so it can move freely through this hydrophobic region and reached 98% of the outside concentration. Na⁺ is a charged ion, and the nonpolar tails prevent ions from crossing, so with no channel proteins present it reached only 0.5%.\n\n(b) The data do not support the claim. Na⁺ (23 g/mol) is much smaller than glucose (180 g/mol), yet it reached only 0.5% inside, even less than glucose. Also, NH₃ (17 g/mol) is smaller than O₂ (32 g/mol) but reached only 35% compared with 98% for O₂. These results show that charge and polarity, not just size, determine how easily a substance crosses the hydrophobic interior of the bilayer.\n\n(c) The inside glucose concentration will be higher than 2%, moving toward the outside concentration. Glucose is large and polar, so it cannot pass through the hydrophobic tails of the bilayer on its own. Transport proteins embedded in the membrane provide a hydrophilic pathway, so glucose can move through the protein down its concentration gradient from outside (high) to inside (low).\n\n(d) Water entered both the vesicles and the plant cells by osmosis because distilled water is hypotonic to their contents. The vesicles have only a membrane, so they swelled until they burst. The plant cells are surrounded by a rigid cell wall that acts as a structural boundary; as the cell swells, the wall resists further expansion and protects the cell from osmotic lysis.",
+    "verification_python": "masses={'O2':32,'CO2':44,'NH3':17,'Na':23,'glucose':180}\npct={'O2':98,'CO2':97,'NH3':35,'Na':0.5,'glucose':2}\nassert masses['Na']<masses['glucose'] and pct['Na']<pct['glucose']\nassert masses['NH3']<masses['O2'] and pct['NH3']<pct['O2']\nassert pct['O2']>pct['Na']\nassert abs(2*16-32)<1e-9 and abs(12+2*16-44)<1e-9 and abs(14+3-17)<1e-9 and abs(6*12+12+6*16-180)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the structure of the phospholipid bilayer, explain why O₂ reached a much higher inside concentration than Na⁺ did.",
+      "criteria": [
+       {
+        "text": "Explains that the hydrophobic (nonpolar hydrocarbon tail) interior of the bilayer allows nonpolar O₂ to pass freely but blocks charged Na⁺.",
+        "evidence": "Response must link the nonpolar/hydrophobic interior of the membrane to both outcomes: O₂ (small, nonpolar) passes through it, while Na⁺ (charged ion) is prevented from crossing it.",
+        "fix": "Connect each molecule's polarity or charge to the hydrophobic tail region: nonpolar molecules dissolve through it, ions cannot cross it.",
+        "accepted_variants": [
+         "hydrophobic core",
+         "nonpolar fatty acid tails",
+         "lipid interior"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that any molecule smaller than glucose crosses a phospholipid bilayer readily, so molecular size alone determines permeability. Evaluate this claim using specific data from the table.",
+      "criteria": [
+       {
+        "text": "States that the data do not support the claim and cites a small substance that crossed poorly, such as Na⁺ (23 g/mol, 0.5%) or NH₃ (17 g/mol, 35%, less than O₂), showing that charge or polarity also matters.",
+        "evidence": "Response must reject the claim and cite at least one specific data value for a substance smaller than glucose that did not cross readily, attributing the result to charge or polarity rather than size.",
+        "fix": "When evaluating a claim, quote a specific data point that contradicts it and name the other property, such as charge, that explains it.",
+        "accepted_variants": [
+         "claim is not supported",
+         "data refute the claim"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The students repeat the glucose trial using vesicles whose bilayers contain glucose transport proteins. Predict how the inside glucose concentration after 10 minutes will compare with the original 2%, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the inside glucose concentration will be higher than 2% (moving toward the outside concentration).",
+        "evidence": "Response must state that the inside glucose percentage increases above the 2% measured without proteins.",
+        "fix": "State the direction of change explicitly, comparing the new value to the original 2% data point.",
+        "accepted_variants": [
+         "greater than 2%",
+         "increases",
+         "closer to 100%"
+        ]
+       },
+       {
+        "text": "Justifies that the transport proteins provide a hydrophilic pathway so large polar glucose can cross without passing through the hydrophobic interior, moving down its concentration gradient.",
+        "evidence": "Response must explain that the embedded protein lets glucose bypass the hydrophobic interior of the bilayer (a hydrophilic route), allowing net movement from higher outside to lower inside concentration.",
+        "fix": "Explain that transport proteins give polar or charged substances a hydrophilic route around the nonpolar tails of the bilayer.",
+        "accepted_variants": [
+         "facilitated diffusion through transport proteins",
+         "hydrophilic channel through the membrane"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the plant cells did not burst in distilled water even though many of the vesicles did.",
+      "criteria": [
+       {
+        "text": "Explains that the plant cell wall is a rigid structural boundary that resists expansion as water enters, protecting the cell from osmotic lysis, while the vesicles have no wall.",
+        "evidence": "Response must identify the cell wall as the difference and state that it pushes back against or limits swelling from water entry, preventing osmotic lysis (bursting).",
+        "fix": "Name the cell wall and describe its function: a rigid boundary that resists swelling from water uptake and prevents osmotic lysis.",
+        "accepted_variants": [
+         "cell wall prevents osmotic lysis",
+         "wall resists turgor pressure"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 1,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: At least half the points assess Topic 2.4, but criterion c2 requires net movement down a concentration gradient, content introduced in later Topics 2.5–2.6. Topic 2.4 supports protein-mediated passage but does not establish facilitated diffusion or its direction.",
+       "well_posed: Part (c) does not specify that the glucose transport proteins support passive inward transport under the experimental conditions. Transport proteins can require energy or another driving gradient, so their presence alone does not guarantee an increase above 2%. Specify functional glucose transport proteins that permit passive movement down the glucose concentration gradient.",
+       "solution: The independent solution agrees with criteria a1, b1, and d1. It supports c1 and c2 only conditionally: functional transport proteins permitting inward facilitated diffusion would increase glucose entry. The unspecified transport proteins in part (c) do not establish that condition, so the rubric's unconditional prediction and mechanism are not uniquely warranted."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) does not specify the type or functionality of the glucose transport proteins. The standard prediction of an increase above 2% assumes functional transporters that support inward facilitated diffusion under the trial conditions. Merely including an unspecified transport protein does not guarantee increased glucose uptake; for example, a coupled transporter might require an ion gradient that is not provided.",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "At least half the points assess Topic 2.4, but criterion c2 requires net movement down a concentration gradient, content introduced in later Topics 2.5–2.6. Topic 2.4 supports protein-mediated passage but does not establish facilitated diffusion or its direction."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c) does not specify that the glucose transport proteins support passive inward transport under the experimental conditions. Transport proteins can require energy or another driving gradient, so their presence alone does not guarantee an increase above 2%. Specify functional glucose transport proteins that permit passive movement down the glucose concentration gradient."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with criteria a1, b1, and d1. It supports c1 and c2 only conditionally: functional transport proteins permitting inward facilitated diffusion would increase glucose entry. The unspecified transport proteins in part (c) do not establish that condition, so the rubric's unconditional prediction and mechanism are not uniquely warranted.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: At least half the points assess Topic 2.4, but criterion c2 requires explaining facilitated diffusion down a concentration gradient, content introduced in later Topics 2.5–2.6. This violates the requirement that no part need a later topic.",
+       "well_posed: Part (c) does not specify that the glucose transport proteins are functional passive transporters. Transport proteins requiring an unavailable energy source need not increase glucose uptake. Specify functional facilitated-diffusion transporters to make the required prediction determinate.",
+       "rubric_points: Criteria c1 and c2 require increased glucose uptake by passive transport, although part (c) leaves the transport mechanism unspecified. They exclude the defensible alternative that uptake does not increase when the proteins require an unavailable energy source.",
+       "solution: Parts (a), (b), and (d) agree with the rubric. For part (c), my prediction agrees with c1 and c2 only under the assumption that the added proteins are functional facilitated-diffusion transporters. The setup does not establish that assumption; adding transport proteins that require an unavailable energy source would not necessarily increase glucose uptake. No model answer was supplied for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) leaves the type and operating conditions of the glucose transport proteins unspecified. The standard prediction of an inside concentration greater than 2% assumes functional facilitated-diffusion transporters. If the proteins instead require an energy source or a coupled ion gradient that is absent, adding them alone would not necessarily increase glucose uptake.",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "At least half the points assess Topic 2.4, but criterion c2 requires explaining facilitated diffusion down a concentration gradient, content introduced in later Topics 2.5–2.6. This violates the requirement that no part need a later topic."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c) does not specify that the glucose transport proteins are functional passive transporters. Transport proteins requiring an unavailable energy source need not increase glucose uptake. Specify functional facilitated-diffusion transporters to make the required prediction determinate."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria c1 and c2 require increased glucose uptake by passive transport, although part (c) leaves the transport mechanism unspecified. They exclude the defensible alternative that uptake does not increase when the proteins require an unavailable energy source."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a), (b), and (d) agree with the rubric. For part (c), my prediction agrees with c1 and c2 only under the assumption that the added proteins are functional facilitated-diffusion transporters. The setup does not establish that assumption; adding transport proteins that require an unavailable energy source would not necessarily increase glucose uptake. No model answer was supplied for comparison.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:25:43.914Z",
+   "item": {
+    "title": "Permeability of Protein-Free Phospholipid Vesicles",
+    "calculator": "not_permitted",
+    "stimulus": "A student prepares artificial vesicles whose membranes are pure phospholipid bilayers with no embedded proteins. The student measures how quickly each of four substances crosses the vesicle membrane when it is added at the same concentration to the solution outside the vesicles. Rates are reported in the same arbitrary units for every substance.\n\nSubstance | Description | Relative rate of crossing the protein-free bilayer\nO₂ | small, nonpolar | 5000\nH₂O | small, polar, uncharged | 50\nGlucose | large, polar | 0.05\nK⁺ | ion (charged) | below detection (less than 0.0001)",
+    "model_answer": "(a) O₂ rate ÷ H₂O rate = 5000 ÷ 50 = 100, so O₂ crosses 100 times faster than H₂O. The interior of the bilayer is made of the nonpolar hydrocarbon tails of phospholipids, so it is hydrophobic. Small nonpolar molecules such as O₂ pass freely through this nonpolar region. Water is small and uncharged but polar, so the hydrophobic interior restricts it and only small amounts pass through.\n\n(b) K⁺ is an ion with a charge. The nonpolar hydrocarbon tails in the middle of the bilayer prevent ions from crossing, so even though K⁺ is small, its charge keeps it from moving through the hydrophobic interior. Charge matters more than size here.\n\n(c) The rate of K⁺ crossing will increase and become detectable in the vesicles with K⁺ channel proteins. The embedded channel proteins provide a hydrophilic passage through the membrane, so the charged ions can cross without moving through the hydrophobic tails.\n\n(d) The cells whose walls were removed are more likely to burst. As water enters, the cell swells. The cell wall is a rigid structural boundary around the plasma membrane that resists this expansion, which protects walled cells from osmotic lysis. Cells without walls have no such protection.",
+    "verification_python": "from fractions import Fraction\no2 = Fraction(5000)\nh2o = Fraction(50)\nglucose = Fraction(5, 100)\nratio = o2 / h2o\nassert ratio == 100\n# ordering consistent with membrane permeability principles\nassert o2 > h2o > glucose > Fraction(1, 10000)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate how many times faster O₂ crosses the protein-free bilayer than H₂O does. Then explain, based on the structure of the membrane interior, why O₂ crosses much faster than H₂O.",
+      "criteria": [
+       {
+        "text": "Correct calculation: O₂ crosses 100 times faster than H₂O (5000 ÷ 50 = 100).",
+        "evidence": "Shows the division of the O₂ rate by the H₂O rate and reports 100 (100 times faster).",
+        "fix": "Divide the larger rate by the smaller rate from the table, show the setup, and report the result as 'times faster'.",
+        "accepted_variants": [
+         "100",
+         "100 times",
+         "100-fold",
+         "5000/50"
+        ]
+       },
+       {
+        "text": "Explanation: the bilayer interior is hydrophobic (nonpolar hydrocarbon tails), so small nonpolar O₂ passes freely, while polar H₂O passes only in small amounts.",
+        "evidence": "Links the hydrophobic/nonpolar interior of the bilayer to free passage of nonpolar O₂ and to restricted passage of polar water.",
+        "fix": "State that the membrane interior is made of nonpolar hydrocarbon tails, then connect each molecule's polarity to how easily it passes through.",
+        "accepted_variants": [
+         "hydrophobic core",
+         "nonpolar fatty acid tails"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the rate at which K⁺ crosses the protein-free bilayer is below detection, even though K⁺ is smaller than glucose.",
+      "criteria": [
+       {
+        "text": "K⁺ is charged (an ion), and the nonpolar hydrocarbon tails in the bilayer interior prevent the movement of ions, so size alone does not allow passage.",
+        "evidence": "Identifies the charge of K⁺ as the key property and states that the hydrophobic/nonpolar interior blocks charged particles regardless of small size.",
+        "fix": "Identify the property (charge) that matters more than size, and say how the nonpolar interior of the bilayer blocks ions.",
+        "accepted_variants": [
+         "ions are blocked by the hydrophobic interior",
+         "charged particles cannot pass through nonpolar tails"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student makes a second set of vesicles that are identical except that K⁺ channel proteins are embedded in the bilayer. Predict how the rate of K⁺ crossing will compare with the rate in the protein-free vesicles, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction that the K⁺ rate increases (becomes detectable), justified because channel proteins provide a hydrophilic pathway through the membrane that lets ions bypass the hydrophobic interior.",
+        "evidence": "States that K⁺ crossing increases AND justifies it by explaining that embedded channel proteins give ions a passage through the membrane that avoids the nonpolar tails.",
+        "fix": "Pair the prediction with a reason: explain what an embedded channel protein provides that the bare bilayer lacks for charged ions.",
+        "accepted_variants": [
+         "K⁺ rate increases",
+         "K⁺ crosses faster with channels"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Plant cells with intact cell walls and plant cells whose cell walls have been removed by enzymes are both placed in distilled water, which causes water to enter the cells. Predict which group of cells is more likely to burst, and describe the role of the cell wall that accounts for the difference.",
+      "criteria": [
+       {
+        "text": "Prediction that the cells without cell walls are more likely to burst, because the cell wall is a rigid structural boundary that resists expansion and protects the cell from osmotic lysis.",
+        "evidence": "Identifies the wall-less cells as the group that bursts AND describes the cell wall as a structural boundary that protects against osmotic lysis (bursting) as water enters.",
+        "fix": "Name the group that bursts and state that the cell wall provides structural support that prevents osmotic lysis when water enters.",
+        "accepted_variants": [
+         "protoplasts burst",
+         "wall-removed cells lyse"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 1,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (b) model answer and table state that glucose, a large polar molecule, crosses a protein-free phospholipid bilayer at a low rate because it is uncharged. The CED (2.4.A.2/2.4.A.3) teaches that large polar molecules such as glucose move through embedded channels/transport proteins, and that the nonpolar hydrocarbon tails prevent movement of large polar molecules; they should not be able to cross a protein-free bilayer at a measurable rate.",
+       "model_answer: Part (b) includes the same AP-inaccurate claim that glucose crosses a protein-free bilayer because it is uncharged; a strong AP student would state that large polar molecules require transport proteins and ions are blocked by the hydrophobic interior."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b) model answer and table state that glucose, a large polar molecule, crosses a protein-free phospholipid bilayer at a low rate because it is uncharged. The CED (2.4.A.2/2.4.A.3) teaches that large polar molecules such as glucose move through embedded channels/transport proteins, and that the nonpolar hydrocarbon tails prevent movement of large polar molecules; they should not be able to cross a protein-free bilayer at a measurable rate."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (b) includes the same AP-inaccurate claim that glucose crosses a protein-free bilayer because it is uncharged; a strong AP student would state that large polar molecules require transport proteins and ions are blocked by the hydrophobic interior."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:29:04.017Z",
+   "item": {
+    "title": "Solute Passage Across Protein-Free Phospholipid Vesicles",
+    "calculator": "not_applicable",
+    "stimulus": "A student prepares artificial vesicles made only of a phospholipid bilayer, with no embedded proteins. The vesicles are placed in solutions containing one test substance at a time, and the rate at which each substance enters the vesicles is measured at 25°C. All solutions start at the same concentration of test substance, and the vesicles start with none inside. The results are shown below (relative rates are hypothetical, in arbitrary units; a higher number means faster entry).\n\nSubstance | Molecular mass (g/mol) | Polarity or charge | Relative rate of entry\nO₂ | 32 | nonpolar | 950\nCO₂ | 44 | nonpolar | 900\nNH₃ (ammonia) | 17 | polar, uncharged | 30\nH₂O | 18 | polar, uncharged | 20\nGlucose | 180 | polar, uncharged | less than 0.01\nNa⁺ | 23 | charged ion | less than 0.0001",
+    "model_answer": "(a) O₂ (rate 950) and CO₂ (rate 900) entered fastest. Both are small nonpolar molecules, so they can dissolve into and pass directly through the hydrophobic interior of the bilayer.\n\n(b) Na⁺ is a charged ion and is hydrophilic. The interior of the bilayer is made of the nonpolar hydrocarbon tails of the phospholipids, which form a hydrophobic barrier that charged particles cannot pass through, so Na⁺ barely enters even though it is small.\n\n(c) The data do not support the hypothesis. H₂O (18 g/mol) enters at a rate of only 20 and NH₃ (17 g/mol) at 30, while the heavier CO₂ (44 g/mol) enters at 900. Na⁺ (23 g/mol) barely enters at all, while O₂ (32 g/mol) enters at 950. Lighter substances that are polar or charged cross more slowly than heavier nonpolar ones, so polarity and charge, not mass alone, determine how quickly a substance crosses the bilayer.\n\n(d) Glucose will enter faster in the vesicles with glucose transport proteins than in the protein-free vesicles. Glucose is a large polar molecule, so the hydrophobic hydrocarbon tails block it from crossing the bilayer directly. The embedded transport protein provides a hydrophilic pathway across the membrane, letting glucose move into the vesicles down its concentration gradient.",
+    "verification_python": "data={'O2':(32,950),'CO2':(44,900),'NH3':(17,30),'H2O':(18,20),'glucose':(180,0.01),'Na':(23,0.0001)}\nrates=sorted(data,key=lambda k:data[k][1],reverse=True)\nassert set(rates[:2])=={'O2','CO2'}\nassert data['Na'][0]<data['O2'][0] and data['Na'][1]<data['O2'][1]\nassert data['H2O'][0]<data['CO2'][0] and data['H2O'][1]<data['CO2'][1]\nassert data['NH3'][0]<data['O2'][0] and data['NH3'][1]<data['O2'][1]\nassert data['NH3'][1]>data['H2O'][1]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the two substances that entered the protein-free vesicles most rapidly, and describe the property of these substances that allows them to cross the bilayer freely.",
+      "criteria": [
+       {
+        "text": "Identifies O₂ and CO₂ as the fastest-entering substances and describes them as small nonpolar molecules.",
+        "evidence": "Response names both O₂ and CO₂ and states that they are small and nonpolar (or hydrophobic), so they can pass through the bilayer.",
+        "fix": "Find the two largest rates in the table, then read their polarity column and connect nonpolar to passing through the bilayer.",
+        "accepted_variants": [
+         "oxygen and carbon dioxide; small and nonpolar",
+         "O₂ and CO₂ are small hydrophobic molecules"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Na⁺ has a smaller molecular mass than O₂, yet it barely entered the vesicles. Explain why, based on the structure of the phospholipid bilayer.",
+      "criteria": [
+       {
+        "text": "Explains that the charged Na⁺ ion cannot pass through the nonpolar hydrocarbon tails forming the hydrophobic interior of the bilayer.",
+        "evidence": "Response links the charge of Na⁺ (ion or hydrophilic) to the nonpolar, hydrophobic interior formed by the fatty acid or hydrocarbon tails, which blocks its passage.",
+        "fix": "State the ion's charge, then name the hydrophobic hydrocarbon tails in the bilayer interior as the barrier to charged and polar substances.",
+        "accepted_variants": [
+         "ions are hydrophilic and are blocked by the hydrophobic core of the membrane",
+         "the nonpolar fatty acid tails prevent charged particles from crossing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate hypothesizes that molecular mass alone determines how quickly a substance crosses a phospholipid bilayer, with smaller substances always crossing faster. Use the data to evaluate this hypothesis.",
+      "criteria": [
+       {
+        "text": "Rejects the hypothesis by citing specific data showing lighter substances (H₂O, NH₃, or Na⁺) crossing slower than heavier ones (O₂ or CO₂), and concludes that polarity or charge also determines permeability.",
+        "evidence": "Response states the hypothesis is not supported, cites at least one pair from the table in which the lighter substance is slower (for example H₂O at 18 g/mol with rate 20 versus CO₂ at 44 g/mol with rate 900), and attributes the difference to polarity or charge.",
+        "fix": "Compare a light polar or charged substance with a heavier nonpolar one using table values, then name polarity or charge as the deciding property.",
+        "accepted_variants": [
+         "NH₃ (17 g/mol, rate 30) is slower than O₂ (32 g/mol, rate 950), so the hypothesis is rejected because polarity matters",
+         "Na⁺ (23 g/mol) barely enters while CO₂ (44 g/mol) enters rapidly, so charge, not just size, determines crossing"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student repeats the glucose trial using vesicles that also contain embedded glucose transport proteins. Predict how the rate of glucose entry will compare with the rate in protein-free vesicles, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that glucose will enter the protein-containing vesicles faster than the protein-free vesicles.",
+        "evidence": "Response states that the rate of glucose entry increases (is greater than less than 0.01 units) when transport proteins are present.",
+        "fix": "Decide whether adding a protein pathway raises or lowers entry, and state the direction of change explicitly compared with the protein-free vesicles.",
+        "accepted_variants": [
+         "glucose entry rate increases",
+         "more glucose enters the vesicles with transport proteins"
+        ]
+       },
+       {
+        "text": "Justifies that glucose is a large polar molecule blocked by the hydrophobic interior, and the transport protein provides a hydrophilic pathway across the membrane.",
+        "evidence": "Response explains that glucose cannot cross the hydrophobic interior easily because it is large and polar, and that the embedded transport protein lets it move across without passing through the hydrocarbon tails.",
+        "fix": "Explain why glucose is blocked without proteins (large, polar), then state how a transport protein bypasses the hydrophobic interior.",
+        "accepted_variants": [
+         "large polar molecules need transport proteins to cross; the protein provides a passage through the membrane",
+         "the protein shields glucose from the nonpolar tails, allowing it to move down its concentration gradient"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Setup, H₂O trial: ordinary phospholipid vesicles already contain water, contradicting the statement that none of the test substance is initially inside. Water also cannot have the same starting concentration as these dilute aqueous solutes. Specify labeled-water entry into water-filled vesicles and distinguish tracer concentration from total water concentration.",
+       "rubric_points: Criterion c1 requires attributing the difference to polarity or charge, although rejecting the stated hypothesis with a numerical counterexample fully answers the evaluation task. Criteria a1 and d2 also list incomplete accepted variants: 'small and nonpolar' omits identification, and 'the protein provides a passage through the membrane' omits the requested mechanistic justification. Require complete responses rather than accepting these fragments independently.",
+       "accurate: The setup treats H₂O as an initially absent solute in aqueous vesicles and assigns it the same starting concentration as the other test substances. Those conditions are not physically consistent as written; hypothetical relative rates do not resolve this problem.",
+       "solution: The expected biological conclusions agree with the independent solution: O₂ and CO₂ enter fastest, the hydrophobic interior restricts Na⁺, the data refute the molecular-mass-only hypothesis, and functional glucose transport proteins should increase glucose entry. However, c1 unnecessarily requires an alternative causal explanation to earn credit for evaluating the hypothesis. Some accepted variants in a1 and d2 would earn credit without supplying the complete elements shown in the independent solution. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Setup, H₂O trial: ordinary phospholipid vesicles already contain water, contradicting the statement that none of the test substance is initially inside. Water also cannot have the same starting concentration as these dilute aqueous solutes. Specify labeled-water entry into water-filled vesicles and distinguish tracer concentration from total water concentration."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires attributing the difference to polarity or charge, although rejecting the stated hypothesis with a numerical counterexample fully answers the evaluation task. Criteria a1 and d2 also list incomplete accepted variants: 'small and nonpolar' omits identification, and 'the protein provides a passage through the membrane' omits the requested mechanistic justification. Require complete responses rather than accepting these fragments independently."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "The setup treats H₂O as an initially absent solute in aqueous vesicles and assigns it the same starting concentration as the other test substances. Those conditions are not physically consistent as written; hypothetical relative rates do not resolve this problem."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The expected biological conclusions agree with the independent solution: O₂ and CO₂ enter fastest, the hydrophobic interior restricts Na⁺, the data refute the molecular-mass-only hypothesis, and functional glucose transport proteins should increase glucose entry. However, c1 unnecessarily requires an alternative causal explanation to earn credit for evaluating the hypothesis. Some accepted variants in a1 and d2 would earn credit without supplying the complete elements shown in the independent solution. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not specify functional, appropriately oriented glucose transport proteins that operate under the stated conditions. Glucose transport could require an additional energy source or coupled gradient, so increased entry is not guaranteed. Specify functional facilitated-diffusion carriers.",
+       "rubric_points: Criterion c1 requires attributing the difference to polarity or charge, although part (c) only asks students to evaluate the mass-only hypothesis; rejecting it with a specific counterexample is sufficient. Accepted variants also permit incomplete answers: a1 accepts 'small and nonpolar' without identifying both substances, and d2 accepts 'the protein provides a passage through the membrane' without explaining glucose's large polar nature and the hydrophobic barrier.",
+       "accurate: Criterion d1 treats increased glucose entry as unconditional, and d2 assumes the unspecified transport proteins provide effective inward transport. These claims require functional transport proteins and suitable driving conditions, which part (d) does not establish.",
+       "solution: The independent solution agrees with the rubric for (a)–(c). For (d), it predicts increased entry only assuming functional facilitated-diffusion carriers; the rubric omits this necessary condition. No model answer was supplied for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (d) does not specify the type or functionality of the glucose transport proteins. The expected prediction assumes functional facilitated-diffusion glucose carriers. If the proteins instead require coupling to an ion gradient or another energy source, faster entry is not guaranteed without that driving force.",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not specify functional, appropriately oriented glucose transport proteins that operate under the stated conditions. Glucose transport could require an additional energy source or coupled gradient, so increased entry is not guaranteed. Specify functional facilitated-diffusion carriers."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires attributing the difference to polarity or charge, although part (c) only asks students to evaluate the mass-only hypothesis; rejecting it with a specific counterexample is sufficient. Accepted variants also permit incomplete answers: a1 accepts 'small and nonpolar' without identifying both substances, and d2 accepts 'the protein provides a passage through the membrane' without explaining glucose's large polar nature and the hydrophobic barrier."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d1 treats increased glucose entry as unconditional, and d2 assumes the unspecified transport proteins provide effective inward transport. These claims require functional transport proteins and suitable driving conditions, which part (d) does not establish."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric for (a)–(c). For (d), it predicts increased entry only assuming functional facilitated-diffusion carriers; the rubric omits this necessary condition. No model answer was supplied for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:32:00.698Z",
+   "item": {
+    "title": "Permeability of Artificial Vesicles to Different Solutes",
+    "calculator": "permitted",
+    "stimulus": "A student prepares two types of artificial vesicles, which are small spheres of membrane enclosing a solution. Type 1 vesicles are made only of phospholipids. Type 2 vesicles are made of the same phospholipids but also contain an embedded potassium channel protein. The student places each vesicle type in separate solutions containing one test substance and measures how far the substance has moved toward equal concentration inside and outside the vesicles after 60 seconds. 100 percent means the inside and outside concentrations have become equal.\n\nPercent of equilibrium reached after 60 seconds\nSubstance | Type 1 (phospholipid only) | Type 2 (phospholipid + K⁺ channel)\nO₂ | 100 | 100\nH₂O | 35 | 35\nK⁺ | 0.2 | 94\nGlucose | 0.4 | 0.4",
+    "model_answer": "(a) O₂ is a small, nonpolar molecule. The interior of the phospholipid bilayer is hydrophobic, made of nonpolar hydrocarbon tails, so O₂ can diffuse directly through it without needing a channel or transport protein. That is why it reaches 100 percent equilibrium even in Type 1 vesicles.\n\n(b) K⁺ is a charged ion. The nonpolar hydrocarbon tails in the middle of the bilayer block the movement of ions, so with no channel present K⁺ barely crosses (0.2 percent). H₂O is polar, but it is small and uncharged, so it can pass through the bilayer in small amounts, giving the moderate value of 35 percent.\n\n(c) 94 ÷ 0.2 = 470. K⁺ reached a percent of equilibrium 470 times greater in Type 2 vesicles than in Type 1 vesicles.\n\n(d) The hypothesis is not supported. Glucose, a large polar (hydrophilic) molecule, reached 0.4 percent in both vesicle types, and water stayed at 35 percent in both. Only K⁺ increased, from 0.2 to 94 percent. The channel protein increases permeability only to K⁺, not to all hydrophilic substances, so the hypothesis should be rejected.",
+    "verification_python": "from fractions import Fraction\nk1 = Fraction(2,10)\nk2 = Fraction(94)\nratio = k2 / k1\nassert ratio == 470\nglc1 = Fraction(4,10); glc2 = Fraction(4,10)\nassert glc1 == glc2\nh1 = 35; h2 = 35\nassert h1 == h2\nassert k2 > k1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Explain why O₂ reaches equilibrium across the Type 1 vesicle membrane, even though no transport proteins are present.",
+      "criteria": [
+       {
+        "text": "O₂ is a small nonpolar molecule, so it passes directly through the hydrophobic interior of the phospholipid bilayer.",
+        "evidence": "Response links O₂ being small and nonpolar (or hydrophobic) to its ability to cross the hydrophobic (hydrocarbon-tail) interior of the bilayer without a protein.",
+        "fix": "State the molecule's size and polarity, then connect nonpolar molecules to free passage through the bilayer's hydrophobic core.",
+        "accepted_variants": [
+         "O₂ is small and uncharged/nonpolar and dissolves through the lipid tails",
+         "nonpolar molecules diffuse freely across the hydrophobic core"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the Type 1 data, explain why H₂O crosses the phospholipid bilayer in moderate amounts while K⁺ barely crosses it.",
+      "criteria": [
+       {
+        "text": "K⁺ is a charged ion, and the nonpolar hydrocarbon tails of the phospholipids block its movement through the bilayer.",
+        "evidence": "Response identifies K⁺ as charged (an ion) and states that the hydrophobic/nonpolar interior of the membrane prevents ions from crossing.",
+        "fix": "Identify the substance as charged, then explain that the nonpolar hydrocarbon tails repel charged particles and block their passage.",
+        "accepted_variants": [
+         "ions are hydrophilic and cannot pass the hydrophobic core",
+         "the charged K⁺ cannot move through the nonpolar fatty acid tails"
+        ]
+       },
+       {
+        "text": "H₂O is polar but small and uncharged, so it can pass through the bilayer in small amounts.",
+        "evidence": "Response states that water, though polar, is small and uncharged (not an ion), which allows limited passage through the bilayer, explaining the 35 percent value.",
+        "fix": "Note that small polar molecules with no charge, like water, slip through the bilayer in small amounts, unlike ions.",
+        "accepted_variants": [
+         "water is a small uncharged polar molecule that crosses slowly",
+         "small size and lack of charge let some water pass"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate how many times greater the percent of equilibrium reached by K⁺ is in Type 2 vesicles than in Type 1 vesicles. Show your work.",
+      "criteria": [
+       {
+        "text": "94 ÷ 0.2 = 470 times greater.",
+        "evidence": "Response shows division of the Type 2 K⁺ value by the Type 1 K⁺ value (94 ÷ 0.2) and reports 470.",
+        "fix": "For 'how many times greater,' divide the larger value by the smaller value and show the setup before the answer.",
+        "accepted_variants": [
+         "470-fold",
+         "94/0.2 = 470"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Another student hypothesizes that adding the potassium channel protein makes the membrane more permeable to all hydrophilic substances. Evaluate this hypothesis using the data.",
+      "criteria": [
+       {
+        "text": "The hypothesis is not supported (rejected) because glucose (and H₂O) movement is unchanged between Type 1 and Type 2, while only K⁺ movement increases, showing the channel is specific.",
+        "evidence": "Response states the hypothesis is not supported and cites that glucose (0.4 vs 0.4) or H₂O (35 vs 35), which are polar/hydrophilic, did not increase in Type 2, so the channel increased only K⁺ movement.",
+        "fix": "Compare each hydrophilic substance across both vesicle types; one unchanged hydrophilic substance is enough evidence to reject a claim about all.",
+        "accepted_variants": [
+         "reject; glucose stayed at 0.4 percent in both types",
+         "not supported; water stayed at 35 percent, so the channel is specific to K⁺"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 3,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 explicitly accepts the bare answer '470-fold,' although the part requires students to show their work. Require a calculation such as 94 ÷ 0.2 = 470 for every accepted response."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 explicitly accepts the bare answer '470-fold,' although the part requires students to show their work. Require a calculation such as 94 ÷ 0.2 = 470 for every accepted response."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: The accepted variant “470-fold” is a bare answer, but the part explicitly requires showing work. Accept it only when accompanied by 94 ÷ 0.2 or an equivalent calculation.",
+       "solution: The independent solution agrees with the rubric’s biological explanations, calculation of 470, and rejection of the hypothesis. The only disagreement is scoring: criterion c1 permits “470-fold” without the work required by part (c). No model answer was provided or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The accepted variant “470-fold” is a bare answer, but the part explicitly requires showing work. Accept it only when accompanied by 94 ÷ 0.2 or an equivalent calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric’s biological explanations, calculation of 470, and rejection of the hypothesis. The only disagreement is scoring: criterion c1 permits “470-fold” without the work required by part (c). No model answer was provided or assessed.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:35:37.445Z",
+   "item": {
+    "title": "Permeability of Artificial Vesicles to Different Solutes",
+    "calculator": "not_applicable",
+    "stimulus": "Students made two types of artificial vesicles, which are tiny spheres enclosed by a membrane. Type 1 vesicles have a membrane made only of a phospholipid bilayer, with no proteins. Type 2 vesicles have the same phospholipid bilayer plus embedded channel proteins that are specific for potassium ions (K⁺). Each type of vesicle was placed in separate solutions containing one test substance. After 10 minutes the students measured the concentration of the substance inside the vesicles and expressed it as a percentage of the concentration outside. A value of 100% means the inside and outside concentrations are equal. Each value is the mean of five trials.\n\nSubstance | Type 1: bilayer only (%) | Type 2: bilayer + K⁺ channels (%)\nOxygen (O₂) | 99 | 99\nAmmonia (NH₃) | 40 | 40\nGlucose | 2 | 2\nPotassium ion (K⁺) | 1 | 95",
+    "model_answer": "(a) O₂ is a small nonpolar molecule, so it dissolves through the hydrophobic interior of the phospholipid bilayer and crosses freely, reaching 99%. NH₃ is small but polar. The nonpolar hydrocarbon tails in the middle of the bilayer hinder polar molecules, so NH₃ passes only in small amounts and reached just 40% in the same time.\n\n(b) K⁺ is a charged ion, so it is hydrophilic. The nonpolar hydrocarbon tails of the phospholipids block ions from crossing the bilayer, which is why K⁺ reached only 1% in Type 1 vesicles. In Type 2 vesicles, the embedded K⁺ channel proteins form a hydrophilic pathway through the membrane. K⁺ can move through this pathway down its concentration gradient without contacting the hydrophobic interior, so it reached 95%.\n\n(c) The data do not support the hypothesis. Glucose, a large polar molecule, reached 2% in both vesicle types. NH₃ reached 40% in both. Adding the channels increased only K⁺ (from 1% to 95%), which shows that the channels are specific to K⁺ and do not raise permeability to all hydrophilic substances.\n\n(d) The wall-less cells are more likely to burst. Distilled water is hypotonic to the cytoplasm, so water moves into both kinds of cells by osmosis. In intact cells, the cell wall is a rigid structural boundary that resists expansion and protects the cell from osmotic lysis. Without the wall, nothing resists the swelling, so the membrane stretches until the cell bursts.",
+    "verification_python": "t1={'O2':99,'NH3':40,'glucose':2,'K':1}\nt2={'O2':99,'NH3':40,'glucose':2,'K':95}\nassert t1['O2']>t1['NH3']\nassert t1['K']==1 and t2['K']==95\nassert t1['glucose']==t2['glucose']==2\nassert t1['NH3']==t2['NH3']==40\nassert t2['K']-t1['K']==94\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the Type 1 data, explain why O₂ reached a higher percentage than NH₃ after 10 minutes. Both molecules are small; O₂ is nonpolar and NH₃ is polar but uncharged.",
+      "criteria": [
+       {
+        "text": "Explains that nonpolar O₂ passes freely through the hydrophobic interior of the bilayer, while polar NH₃ crosses it only in small amounts.",
+        "evidence": "Response links O₂'s nonpolarity to free passage through the hydrophobic (nonpolar) interior of the bilayer. It also states that NH₃'s polarity limits its passage, so only a small amount crosses.",
+        "fix": "Compare each molecule's polarity with the hydrophobic membrane interior: nonpolar molecules dissolve through it freely, while small polar molecules cross only slowly.",
+        "accepted_variants": [
+         "O₂ is nonpolar so it moves easily through the hydrophobic fatty acid tails; NH₃ is polar so the nonpolar tails slow its movement",
+         "the nonpolar core lets O₂ through freely but restricts polar NH₃ to small amounts"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why K⁺ reached only 1% in Type 1 vesicles but 95% in Type 2 vesicles.",
+      "criteria": [
+       {
+        "text": "Explains that K⁺ is charged (hydrophilic), so the nonpolar hydrocarbon tails of the phospholipids block it from crossing the bilayer alone.",
+        "evidence": "Response identifies K⁺ as an ion, or as charged or hydrophilic. It states that the hydrophobic interior or the nonpolar tails prevent K⁺ from passing through the bilayer.",
+        "fix": "State the charge of the ion, then explain that charged particles cannot pass through the nonpolar hydrocarbon tails in the middle of the bilayer.",
+        "accepted_variants": [
+         "ions cannot cross the hydrophobic core of the membrane",
+         "the charged K⁺ is repelled by the nonpolar fatty acid tails"
+        ]
+       },
+       {
+        "text": "Explains that the embedded K⁺ channel proteins provide a hydrophilic pathway through the membrane, so K⁺ can cross.",
+        "evidence": "Response states that the channel proteins in Type 2 vesicles let K⁺ pass through the membrane. It describes this route as a hydrophilic pathway or pore that bypasses the hydrophobic interior.",
+        "fix": "Describe how an embedded channel protein forms a hydrophilic passage across the membrane that lets a specific ion avoid the hydrophobic interior.",
+        "accepted_variants": [
+         "channel proteins form a pore that lets K⁺ move across without contacting the hydrophobic tails",
+         "the channels allow facilitated diffusion of K⁺ across the membrane"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student hypothesizes that adding K⁺ channel proteins to a membrane increases the membrane's permeability to all hydrophilic substances. Use the data to evaluate this hypothesis.",
+      "criteria": [
+       {
+        "text": "States that the data do not support the hypothesis, citing glucose (2% in both vesicle types) and/or NH₃ (40% in both) as unchanged when channels were added.",
+        "evidence": "Response makes a claim that the hypothesis is not supported, is rejected, or is incorrect. It cites specific data showing that a hydrophilic substance other than K⁺ did not increase with channels: glucose stayed at 2%, or NH₃ stayed at 40%.",
+        "fix": "Compare the two columns for each hydrophilic substance other than K⁺, then state whether the values changed and quote the numbers.",
+        "accepted_variants": [
+         "not supported; glucose was 2% with and without channels, so the channels are specific to K⁺",
+         "rejected because NH₃ stayed at 40% and glucose at 2% in both vesicle types"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Researchers use enzymes to remove the cell walls from some plant cells. They place intact plant cells and wall-less plant cells in distilled water. Predict which cells are more likely to burst, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the wall-less cells are more likely to burst, justified by water entering by osmosis and the cell wall providing a structural boundary that protects against osmotic lysis.",
+        "evidence": "Response predicts that the wall-less cells burst while the intact cells do not. The justification states that water moves into the cells from the hypotonic distilled water. It also states that the cell wall resists expansion and protects against osmotic lysis, so cells without it cannot resist the swelling.",
+        "fix": "Identify the direction of water movement in distilled water, then explain that the cell wall is the structural boundary that resists swelling and lysis.",
+        "accepted_variants": [
+         "the protoplasts burst because water rushes in and nothing resists the expanding membrane, while the wall of intact cells prevents lysis",
+         "cells without walls lyse; the wall pushes back against the swelling cell and prevents osmotic lysis"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Setup and parts (a)–(c): Initial internal solute concentrations are unspecified, so endpoint concentration percentages alone do not establish relative permeability. Also, the 95% K⁺ result needs an unstated charge-balancing condition; uncompensated K⁺ entry creates a membrane potential that opposes further entry.",
+       "rubric_points: Part (d), d1: The evidence demands that wall-less cells burst and intact cells do not, although the question asks only which are more likely to burst. This can reject a correct probabilistic prediction. The accepted variant 'cells without walls lyse' also lacks the requested justification. Part (b), b2: The facilitated-diffusion variant omits the hydrophilic pathway or bypass explanation explicitly required by its evidence.",
+       "accurate: Part (b), b1: The accepted statement that charged K⁺ is 'repelled by the nonpolar fatty acid tails' incorrectly describes the barrier as repulsion. Ion passage through the hydrophobic interior is energetically unfavorable; the nonpolar tails do not electrostatically repel K⁺.",
+       "solution: The independent solution agrees with the intended biological conclusions. However, d1's evidence requires certain bursting/nonbursting rather than the defensible relative-likelihood prediction given in the solution. The b1 accepted 'repelled' explanation is not equivalent to the solution's energetically unfavorable crossing explanation. The independent solution also identifies the missing charge-balancing condition needed to interpret the 95% K⁺ result."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The intended AP Biology interpretations are answerable from the supplied data. However, the setup does not specify initial internal solute concentrations, pH, or counterion conditions. A physically complete explanation of the 95% K⁺ result requires considering electrical charge balance: if only K⁺ can cross and no compensating charge movement occurs, an opposing membrane potential can prevent K⁺ concentrations from nearly equalizing. This omission does not change the intended conclusion that K⁺ channels selectively facilitate K⁺ transport.",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Setup and parts (a)–(c): Initial internal solute concentrations are unspecified, so endpoint concentration percentages alone do not establish relative permeability. Also, the 95% K⁺ result needs an unstated charge-balancing condition; uncompensated K⁺ entry creates a membrane potential that opposes further entry."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), d1: The evidence demands that wall-less cells burst and intact cells do not, although the question asks only which are more likely to burst. This can reject a correct probabilistic prediction. The accepted variant 'cells without walls lyse' also lacks the requested justification. Part (b), b2: The facilitated-diffusion variant omits the hydrophilic pathway or bypass explanation explicitly required by its evidence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), b1: The accepted statement that charged K⁺ is 'repelled by the nonpolar fatty acid tails' incorrectly describes the barrier as repulsion. Ion passage through the hydrophobic interior is energetically unfavorable; the nonpolar tails do not electrostatically repel K⁺."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the intended biological conclusions. However, d1's evidence requires certain bursting/nonbursting rather than the defensible relative-likelihood prediction given in the solution. The b1 accepted 'repelled' explanation is not equivalent to the solution's energetically unfavorable crossing explanation. The independent solution also identifies the missing charge-balancing condition needed to interpret the 95% K⁺ result.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: The setup does not specify initial internal concentrations or establish identical starting concentration gradients between vesicle types. Parts (a)–(c) interpret concentrations after 10 minutes as evidence of permeability differences, but that interpretation requires controlled starting conditions. State that each test substance was initially absent inside both vesicle types and that corresponding external concentrations were identical.",
+       "rubric_points: Criterion d1's evidence requires that wall-less cells actually burst and intact cells do not, whereas part (d) asks only which cells are more likely to burst; this rejects a valid probabilistic prediction. Its final accepted variant also omits the required explanation of inward water movement. Criterion b2 accepts 'the channels allow facilitated diffusion' without the hydrophilic pathway or bypass explanation explicitly required by its evidence.",
+       "accurate: Criterion b1 accepts the claim that charged K⁺ is 'repelled by the nonpolar fatty acid tails.' Nonpolar tails do not electrostatically repel K⁺; crossing the hydrophobic interior is energetically unfavorable for a hydrated ion. Accept wording about exclusion by the hydrophobic interior rather than repulsion.",
+       "solution: The supplied independent solution agrees with the intended biological explanations. In part (d), however, its correct prediction that wall-less cells are 'more likely to rupture' does not satisfy d1's unnecessarily absolute evidence requirement. The solution also correctly describes K⁺ as unable to readily cross the hydrophobic interior, rather than being repelled by nonpolar tails as permitted by b1. Interpretation of the concentration data additionally depends on starting conditions missing from the setup."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "The setup does not specify initial internal concentrations or establish identical starting concentration gradients between vesicle types. Parts (a)–(c) interpret concentrations after 10 minutes as evidence of permeability differences, but that interpretation requires controlled starting conditions. State that each test substance was initially absent inside both vesicle types and that corresponding external concentrations were identical."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1's evidence requires that wall-less cells actually burst and intact cells do not, whereas part (d) asks only which cells are more likely to burst; this rejects a valid probabilistic prediction. Its final accepted variant also omits the required explanation of inward water movement. Criterion b2 accepts 'the channels allow facilitated diffusion' without the hydrophilic pathway or bypass explanation explicitly required by its evidence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 accepts the claim that charged K⁺ is 'repelled by the nonpolar fatty acid tails.' Nonpolar tails do not electrostatically repel K⁺; crossing the hydrophobic interior is energetically unfavorable for a hydrated ion. Accept wording about exclusion by the hydrophobic interior rather than repulsion."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The supplied independent solution agrees with the intended biological explanations. In part (d), however, its correct prediction that wall-less cells are 'more likely to rupture' does not satisfy d1's unnecessarily absolute evidence requirement. The solution also correctly describes K⁺ as unable to readily cross the hydrophobic interior, rather than being repelled by nonpolar tails as permitted by b1. Interpretation of the concentration data additionally depends on starting conditions missing from the setup.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (d), criterion d1 requires osmosis/tonicity (distilled water is hypotonic, water enters by osmosis), which is topic 2.7 Tonicity and Osmoregulation, a later topic. A student who has studied only topic 2.4 and earlier units cannot fully answer part (d)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires osmosis/tonicity (distilled water is hypotonic, water enters by osmosis), which is topic 2.7 Tonicity and Osmoregulation, a later topic. A student who has studied only topic 2.4 and earlier units cannot fully answer part (d)."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.4 Membrane Permeability",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 2
+}

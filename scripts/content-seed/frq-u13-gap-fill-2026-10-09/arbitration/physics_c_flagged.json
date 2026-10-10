@@ -1,0 +1,894 @@
+[
+ {
+  "slot_id": "ap_physics_c_em__10.2__1",
+  "subject_key": "ap_physics_c_em",
+  "topic_code": "10.2",
+  "topic_title": "Redistribution of Charge between Conductors",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; split them into separate criteria. Criterion c1 explicitly requires 360 V despite mentioning consistency with the student's own charges, so it does not clearly allow the required follow-through credit for correctly using an incorrect charge from part (b)."
+   }
+  ],
+  "item": {
+   "title": "Sharing Charge Between Two Connected Metal Spheres",
+   "calculator": "permitted",
+   "stimulus": "Two solid metal spheres are very far apart. Sphere A has radius 0.10 m and initially carries a charge of +6.0 nC. Sphere B has radius 0.050 m and is initially neutral. The spheres are then connected by a long, thin conducting wire that holds a negligible amount of charge. Because the spheres are far apart, each sphere's charge spreads uniformly over its own surface, and a sphere with charge Q and radius R has electric potential kQ/R, with the potential taken as zero very far away. Use k = 9.0 × 10⁹ N·m²/C².",
+   "parts": [
+    {
+     "prompt": "Explain what condition determines how the charge is shared between the spheres once charge stops moving through the wire.",
+     "criteria": [
+      {
+       "text": "Charge flows until the surfaces of both spheres are at the same electric potential; then there is no potential difference along the wire to drive more charge.",
+       "evidence": "Response states that the final condition is equal electric potential on both spheres, not equal charge.",
+       "fix": "For conductors in electrical contact, say charge moves until every surface is at one common potential, not until the charges are equal.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the final charge on each sphere.",
+     "criteria": [
+      {
+       "text": "Writes Q_A + Q_B = 6.0 nC (conservation of charge) and kQ_A/(0.10 m) = kQ_B/(0.050 m) (equal potentials).",
+       "evidence": "Response writes both the charge-conservation equation and the equal-potential equation.",
+       "fix": "Pair a total-charge equation with an equal-potential equation so that you have two equations for the two unknown charges.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Q_A = 4.0 nC and Q_B = 2.0 nC.",
+       "evidence": "Response solves to obtain 4.0 nC on sphere A and 2.0 nC on sphere B, consistent with its equations.",
+       "fix": "With equal potentials, each charge is proportional to its sphere's radius; split the 6.0 nC total in the ratio of the radii, 2 : 1.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the final electric potential of the spheres.",
+     "criteria": [
+      {
+       "text": "V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V, equal to kQ_B/R_B.",
+       "evidence": "Response obtains 360 V from either sphere, consistent with its own charges from part (b).",
+       "fix": "Substitute either sphere's final charge and radius into kQ/R, then confirm that the other sphere gives the same value.",
+       "accepted_variants": [
+        "3.6 × 10² V"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Separately, a neutral metal sphere C on an insulating stand is connected to ground by a wire while a positively charged rod is held near sphere C without touching it. The ground wire is disconnected, and then the rod is removed. State the sign of the final charge on sphere C, and explain how sphere C acquired this charge.",
+     "criteria": [
+      {
+       "text": "Negative: the positive rod attracts electrons, which flow from ground onto sphere C through the wire; because the wire is disconnected before the rod is removed, the extra electrons cannot return.",
+       "evidence": "Response states negative and explains that electrons flowed from ground to the sphere and were trapped when the ground connection was removed before the rod.",
+       "fix": "Track electron flow through the ground wire while the external charge is present, then note which connection is removed first.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Charge moves through the wire until both spheres, which now form one connected conductor, are at the same electric potential. Once the potentials are equal, there is no potential difference along the wire to drive more charge, so the distribution stops changing.\n\n(b) Conservation of charge: Q_A + Q_B = 6.0 nC.\nEqual potentials: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B.\nThen 2Q_B + Q_B = 6.0 nC, giving Q_B = 2.0 nC and Q_A = 4.0 nC.\n\n(c) V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V.\nCheck: kQ_B/R_B = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.050) = 360 V.\n\n(d) Sphere C ends with a negative charge. While the positive rod is nearby, it attracts electrons, and the ground connection lets electrons flow from ground onto sphere C, giving C an induced negative charge. The ground wire is disconnected before the rod is removed, so the extra electrons cannot flow back to ground. When the rod is then taken away, these electrons spread over C's surface, and C keeps a net negative charge.",
+   "verification_python": "from fractions import Fraction as Fr\nQt = Fr(6)\nRA, RB = Fr(1,10), Fr(1,20)\nassert RA/RB == 2\nQB = Qt/(RA/RB + 1)\nQA = Qt - QB\nassert QA == 4 and QB == 2\nassert QA/RA == QB/RB\nk = 9.0e9\nVA = k*4.0e-9/0.10\nVB = k*2.0e-9/0.050\nassert abs(VA - 360) < 1e-9\nassert abs(VB - 360) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_em__8.1__1",
+  "subject_key": "ap_physics_c_em",
+  "topic_code": "8.1",
+  "topic_title": "Electric Charge and Electric Force",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "well_posed: Part (d) does not specify whether sphere 3 is at its original position or its new position from part (c). These interpretations give different gravitational-force magnitudes: 7.4 × 10⁻¹⁶ N and 2.5 × 10⁻¹⁶ N, respectively. Specify the position to use."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion d1 accepts only the gravitational force at the original separation, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere 3’s position from part (c). Clarify part (d) or accept both interpretations with corresponding work and comparisons."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "solution: Parts (a)–(c) agree with the rubric. For part (d), 7.4 × 10⁻¹⁶ N agrees if the original separation is intended; using the position established in part (c) instead gives 2.5 × 10⁻¹⁶ N, which criterion d1 does not accept despite the ambiguous wording. Both are negligible compared with the corresponding individual electric force. No model answer was provided."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "well_posed: Part (d) does not specify whether the gravitational force between spheres 1 and 3 is computed at the original 0.60 m separation or after sphere 3 is moved to about 1.02 m in part (c); a careful student could reasonably choose either, yielding about 7.4×10⁻¹⁶ N or 2.5×10⁻¹⁶ N."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (d) criterion d1 accepts only the original-separation value 7.4×10⁻¹⁶ N; because the part's separation is ambiguous, a valid alternative using the part (c) position and 2.5×10⁻¹⁶ N is rejected rather than accepted as an equivalent or credited via evidence."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "solution: Part (d): My independent solution misstated the ratio as 7.4×10¹⁵; the correct comparison is 0.10 N / 7.4×10⁻¹⁶ N ≈ 1.4×10¹⁴. The conclusion that gravity is negligible still agrees with the rubric and model answer."
+   }
+  ],
+  "item": {
+   "title": "Net Coulomb Force on a Charge on a Line",
+   "calculator": "permitted",
+   "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+     "criteria": [
+      {
+       "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+       "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+       "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+       "accepted_variants": [
+        "0.1 N"
+       ]
+      },
+      {
+       "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+       "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+       "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+       "accepted_variants": [
+        "0.2 N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+     "criteria": [
+      {
+       "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+       "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction, consistent with its own part (a) values.",
+       "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+     "criteria": [
+      {
+       "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+       "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+       "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+       "accepted_variants": [
+        "1.0 m",
+        "1.024 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+     "criteria": [
+      {
+       "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+       "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres to conclude gravity is negligible.",
+       "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+       "accepted_variants": [
+        "7.41 × 10⁻¹⁶ N"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) F_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+   "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_em__8.2__1",
+  "subject_key": "ap_physics_c_em",
+  "topic_code": "8.2",
+  "topic_title": "Conservation of Electric Charge and the Process of Charging",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a2 bundles two independently observable answers into one point: the number of electrons transferred and their direction of transfer. Criterion b1 likewise bundles the induced charge distribution and the sphere's net charge with its explanation. Separate these independent requested elements into individual 1-point criteria."
+   }
+  ],
+  "item": {
+   "title": "Tracking Charge When a Rod Is Rubbed and Touched to a Sphere",
+   "calculator": "permitted",
+   "stimulus": "A plastic rod and a wool cloth are both initially electrically neutral. The rod is rubbed with the cloth, and afterward the rod has a net charge of −8.0 nC. The elementary charge is e = 1.6 × 10⁻¹⁹ C. Assume that no charge is transferred to or from the air or the person's hands.",
+   "parts": [
+    {
+     "prompt": "Determine the net charge on the wool cloth after rubbing. Then calculate the number of electrons transferred, and state the direction in which they moved.",
+     "criteria": [
+      {
+       "text": "The cloth has +8.0 nC, because charge is conserved: the rod–cloth system started neutral, so its total charge remains zero.",
+       "evidence": "Response gives +8.0 nC for the cloth and justifies it by conservation of charge for the isolated rod–cloth system.",
+       "fix": "Treat the rod and cloth as one isolated system; their charges must add up to the system's starting charge, here zero.",
+       "accepted_variants": []
+      },
+      {
+       "text": "N = (8.0 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 5.0 × 10¹⁰ electrons, which moved from the cloth to the rod.",
+       "evidence": "Response obtains 5.0 × 10¹⁰ electrons and states that they moved from the wool cloth to the rod.",
+       "fix": "Divide the charge magnitude by e, and assign the direction by noting that the negatively charged object gained electrons.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The charged rod is brought close to, but does not touch, a neutral metal sphere on an insulating stand. Describe the distribution of charge on the sphere, and state the sphere's net charge, while the rod is nearby.",
+     "criteria": [
+      {
+       "text": "Free electrons in the sphere are repelled by the negative rod, so the side nearest the rod becomes positive and the far side negative (induced charge separation), while the net charge stays zero because no charge is transferred.",
+       "evidence": "Response states that the near side is positive and the far side negative, and that the sphere's net charge remains zero because no charge enters or leaves it.",
+       "fix": "When a charged object only comes near a conductor, describe electrons shifting within it; the net charge changes only if charge is transferred.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The rod is then touched to the metal sphere and removed. Afterward, the rod has a net charge of −5.0 nC. Assuming the rod and sphere exchange charge only with each other, determine the net charge on the sphere.",
+     "criteria": [
+      {
+       "text": "Sphere charge = −8.0 nC − (−5.0 nC) = −3.0 nC, because the rod–sphere system's total charge of −8.0 nC is conserved during contact.",
+       "evidence": "Response gives −3.0 nC for the sphere using conservation of charge for the rod–sphere system.",
+       "fix": "Total charge before contact equals total charge after; subtract the rod's final charge from the system's initial total to get the sphere's.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The rod and cloth together form an isolated system that started with zero net charge. Charge is conserved, so after rubbing the cloth must carry +8.0 nC, keeping the total at zero.\nNumber of electrons: N = (8.0 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 5.0 × 10¹⁰ electrons. The rod became negative, so these electrons moved from the wool cloth to the rod.\n\n(b) The metal sphere contains free electrons. The negative rod repels them, so they shift toward the side of the sphere far from the rod. The side near the rod becomes positively charged and the far side becomes negatively charged; this is induced charge separation (polarization). No charge is transferred to or from the sphere, so its net charge remains zero.\n\n(c) The total charge of the rod–sphere system before contact is −8.0 nC + 0 = −8.0 nC. Charge is conserved, so after contact the sphere's charge is −8.0 nC − (−5.0 nC) = −3.0 nC. Electrons carrying 3.0 nC of negative charge moved from the rod to the sphere.",
+   "verification_python": "from fractions import Fraction as Fr\nrod = Fr(-8)\ncloth = 0 - rod\nassert cloth == 8\nN = 8.0e-9/1.6e-19\nassert abs(N - 5.0e10) < 1e3\nsphere_b = 0\nassert sphere_b == 0\nsphere_c = (rod + 0) - Fr(-5)\nassert sphere_c == -3\nassert rod + 0 == -8\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_em__8.5__1",
+  "subject_key": "ap_physics_c_em",
+  "topic_code": "8.5",
+  "topic_title": "Electric Flux",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (c), criterion c1: The evidence requires the area vector to point along E, excluding the equally correct antiparallel orientation explicitly accepted by the criterion. Accept either orientation. Part (d), criterion d2: Requiring the correct numerical result without allowing correct evaluation of an incorrect upstream integral conflicts with the fact pack's follow-through scoring convention."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "solution: The physical and numerical results agree: (a) +12 N·m²/C; (b) −16 N·m²/C; (c) maximum magnitude 20 N·m²/C with the normal parallel or antiparallel to E; (d) −80/3 N·m²/C. However, c1's evidence requirement excludes the valid antiparallel orientation, contrary to its own scoring statement. No model answer was provided for comparison."
+   }
+  ],
+  "item": {
+   "title": "Electric Flux Through a Square in Two Field Regions",
+   "calculator": "permitted",
+   "stimulus": "Region 1 contains a uniform electric field E = (300 î + 400 ĵ) N/C. A flat square surface with sides 0.20 m long is placed in this region in different orientations.\n\nRegion 2, which contains no charge, has a nonuniform electric field E = α[(x² − y²) î − 2xy ĵ], where α = 5.0 × 10⁴ N/(C·m²) and x and y are coordinates in meters.",
+   "parts": [
+    {
+     "prompt": "In Region 1, the square lies in the yz-plane with its area vector pointing in the +x direction. Calculate the electric flux through the square.",
+     "criteria": [
+      {
+       "text": "Φ = E·A = (300 N/C)(0.040 m²) = 12 N·m²/C, since only the x-component of E is along the area vector.",
+       "evidence": "Response uses the dot product with an area of 0.040 m² in the +x direction and obtains 12 N·m²/C.",
+       "fix": "Use Φ = E·A: multiply the area by only the field component that lies along the area vector.",
+       "accepted_variants": [
+        "12 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The square is moved to lie in the xz-plane, with its area vector pointing in the −y direction. Calculate the electric flux through the square, and explain the sign of your answer.",
+     "criteria": [
+      {
+       "text": "Φ = (400 N/C)(−0.040 m²) = −16 N·m²/C; the flux is negative because the field's y-component points opposite to the area vector, making the dot product negative.",
+       "evidence": "Response gives −16 N·m²/C and attributes the negative sign to the dot product of E with an oppositely directed area vector.",
+       "fix": "Keep the area vector's direction in the dot product; a field component opposite to the area vector gives negative flux.",
+       "accepted_variants": [
+        "−16 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Region 1, describe the orientation of the square that gives the greatest magnitude of flux through it, and calculate that magnitude.",
+     "criteria": [
+      {
+       "text": "The area vector is parallel (or antiparallel) to E, so |Φ| = |E|A = (500 N/C)(0.040 m²) = 20 N·m²/C, using |E| = √(300² + 400²) = 500 N/C.",
+       "evidence": "Response states that the area vector must point along E (the square perpendicular to the field) and obtains 500 N/C and 20 N·m²/C.",
+       "fix": "Flux magnitude is largest when cos θ = 1, so align the area vector with the field and use the field's full magnitude.",
+       "accepted_variants": [
+        "20 V·m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Region 2, a square of side 0.20 m lies in the plane x = 0, with corners at (y, z) = (0, 0), (0.20 m, 0), (0.20 m, 0.20 m) and (0, 0.20 m). Its area vector points in the +x direction. Calculate the electric flux through this square.",
+     "criteria": [
+      {
+       "text": "Sets up the surface integral Φ = ∫E·dA with E_x = −αy² on the plane x = 0, for example Φ = ∫ from 0 to 0.20 of (−αy²)(0.20 m) dy.",
+       "evidence": "Response finds E_x = −αy² on the square and writes an integral of it over the square's area (single integral with strips of width 0.20 m or a double integral over y and z).",
+       "fix": "When the field varies across a surface, find the field component along the area vector at each point and integrate it over the area.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Φ = −(0.20)(5.0 × 10⁴)(0.20)³/3 ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+       "evidence": "Response evaluates its integral to about −27 N·m²/C, including the negative sign.",
+       "fix": "Evaluate y³/3 between the limits, multiply by α and the 0.20 m strip width, and keep the sign of E_x.",
+       "accepted_variants": [
+        "−26.7 N·m²/C",
+        "−80/3 N·m²/C"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The square's area is A = (0.20 m)² = 0.040 m², and its area vector is (0.040 m²) î.\nΦ = E·A = (300 N/C)(0.040 m²) + (400 N/C)(0) = 12 N·m²/C.\n\n(b) Now the area vector is (−0.040 m²) ĵ.\nΦ = E·A = (300 N/C)(0) + (400 N/C)(−0.040 m²) = −16 N·m²/C.\nThe flux is negative because the field's y-component points in the +y direction, opposite to the area vector, so the dot product is negative.\n\n(c) The flux magnitude is greatest when the area vector is parallel (or antiparallel) to E, that is, when the square is perpendicular to the field. |E| = √(300² + 400²) = 500 N/C, so |Φ|max = (500 N/C)(0.040 m²) = 20 N·m²/C.\n\n(d) On the plane x = 0, E = α[(0 − y²) î − 0 ĵ] = −αy² î, so the field's component along the area vector varies with y. Divide the square into strips of height dy and width 0.20 m, so dA = (0.20 m) dy in the +x direction:\nΦ = ∫E·dA = ∫ from 0 to 0.20 of (−αy²)(0.20) dy = −(0.20)α[y³/3] from 0 to 0.20 = −(0.20)(5.0 × 10⁴)(0.0080/3)\nΦ ≈ −27 N·m²/C (exactly −80/3 N·m²/C).",
+   "verification_python": "import sympy as sp\nx, y, z = sp.symbols('x y z', real=True)\nA = sp.Rational(1,5)**2\nassert A == sp.Rational(1,25)\nassert abs(float(A) - 0.040) < 1e-12\nEx1, Ey1 = 300, 400\nassert Ex1*A == 12\nassert Ey1*(-A) == -16\nEmag = sp.sqrt(Ex1**2 + Ey1**2)\nassert Emag == 500\nassert Emag*A == 20\nalpha = 5*10**4\nEx = alpha*(x**2 - y**2)\nEy = -2*alpha*x*y\n# field is charge-free and curl-free (valid electrostatic field)\nassert sp.simplify(sp.diff(Ex, x) + sp.diff(Ey, y)) == 0\nassert sp.simplify(sp.diff(Ey, x) - sp.diff(Ex, y)) == 0\nEx0 = Ex.subs(x, 0)\nassert sp.simplify(Ex0 + alpha*y**2) == 0\nassert Ey.subs(x, 0) == 0\nPhi = sp.integrate(sp.integrate(Ex0, (y, 0, sp.Rational(1,5))), (z, 0, sp.Rational(1,5)))\nassert Phi == sp.Rational(-80,3)\nassert abs(float(Phi) + 26.7) < 0.05\nassert abs(round(float(Phi)) + 27) < 1e-9\nassert abs(0.20**3 - 0.0080) < 1e-12\nassert abs(-(0.20)*alpha*(0.0080/3) - float(Phi)) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__1.1__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "1.1",
+  "topic_title": "Scalars and Vectors",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion b2 combines two independently observable results—resultant magnitude and direction—into one point; these should have separate criteria. Criterion c1 also requires the displacement magnitude already scored by b2, double-counting that result. Restrict c1 to determining the total distance."
+   }
+  ],
+  "item": {
+   "title": "Adding Two Drone Displacements in Unit-Vector Form",
+   "calculator": "permitted",
+   "stimulus": "A survey drone flies in a horizontal plane. Use a coordinate system with the +x-axis pointing east (unit vector î) and the +y-axis pointing north (unit vector ĵ).\n\nOn the first leg of its flight, the drone's displacement is A = (120 î + 50 ĵ) m.\nOn the second leg, the drone flies in a straight line for 80 m in a direction 60° south of west.\n\nEach leg is a straight line.",
+   "parts": [
+    {
+     "prompt": "Express the displacement B of the second leg in unit-vector notation.",
+     "criteria": [
+      {
+       "text": "B = (−40 î − 69.3 ĵ) m: the x-component is −80 cos 60° = −40 m (west) and the y-component is −80 sin 60° ≈ −69.3 m (south).",
+       "evidence": "Response gives both components with correct magnitudes and negative signs for west and south, written as B = (−40 î − 69.3 ĵ) m or an equivalent form.",
+       "fix": "Resolve the vector with cos and sin of the angle from the west axis, then give westward and southward components negative signs.",
+       "accepted_variants": [
+        "(−40 î − 40√3 ĵ) m",
+        "B_x = −40 m, B_y = −69.3 m",
+        "(−40 î − 69 ĵ) m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the drone's resultant displacement R = A + B for the two legs. Give R in unit-vector notation, and give its magnitude and its direction as an angle measured from east toward north or south.",
+     "criteria": [
+      {
+       "text": "R = (80 î − 19.3 ĵ) m, found by adding the x-components (120 − 40 = 80 m) and the y-components (50 − 69.3 = −19.3 m) separately.",
+       "evidence": "Response adds like components to obtain R_x = 80 m and R_y ≈ −19.3 m (or values consistent with its own B from part (a)).",
+       "fix": "Add the î components together and the ĵ components together separately; never add the two leg lengths 130 m and 80 m.",
+       "accepted_variants": [
+        "(80 î − 19 ĵ) m",
+        "R_x = 80 m, R_y = −19.3 m"
+       ]
+      },
+      {
+       "text": "|R| ≈ 82.3 m directed about 13.6° south of east, from |R| = √(80² + 19.3²) and tan θ = 19.3/80.",
+       "evidence": "Response computes a magnitude of about 82 m and a direction of about 14° south of east, consistent with its own components.",
+       "fix": "Use the Pythagorean theorem on the components for the magnitude, then inverse tangent of |R_y|/|R_x|, naming the compass direction from the signs.",
+       "accepted_variants": [
+        "82 m",
+        "14° south of east",
+        "346° counterclockwise from east"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the total distance the drone traveled during the two legs and the magnitude of its displacement. Explain why these two values differ, stating which quantity is a scalar and which is a vector.",
+     "criteria": [
+      {
+       "text": "Total distance = 130 m + 80 m = 210 m, using |A| = √(120² + 50²) = 130 m, compared with a displacement magnitude of about 82 m.",
+       "evidence": "Response finds |A| = 130 m, adds the two leg lengths to get 210 m, and states the displacement magnitude is about 82 m.",
+       "fix": "For distance, add the length of every leg as a positive number; get each leg's length from its components with the Pythagorean theorem.",
+       "accepted_variants": [
+        "210 m"
+       ]
+      },
+      {
+       "text": "Explains that distance is a scalar (magnitude only, the total path length) while displacement is a vector, so legs pointing in different directions partly cancel when added.",
+       "evidence": "Response identifies distance as a scalar and displacement as a vector and attributes the smaller displacement magnitude to the legs' different directions.",
+       "fix": "When comparing them, say displacement adds legs as vectors so non-parallel legs partly cancel, while distance adds lengths and never cancels.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The second leg points 60° south of west, so its x-component points west (negative) and its y-component points south (negative).\nB_x = −80 cos 60° = −40 m\nB_y = −80 sin 60° = −69.3 m\nB = (−40 î − 69.3 ĵ) m\n\n(b) R_x = 120 m + (−40 m) = 80 m\nR_y = 50 m + (−69.3 m) = −19.3 m\nR = (80 î − 19.3 ĵ) m\n|R| = √(80² + 19.3²) = √6772 ≈ 82.3 m\nθ = tan⁻¹(19.3/80) ≈ 13.6°. Because R_x is positive and R_y is negative, R points 13.6° south of east.\n\n(c) |A| = √(120² + 50²) = 130 m, and the second leg is 80 m long, so the total distance is 130 m + 80 m = 210 m. The magnitude of the displacement is 82.3 m, from part (b).\nDistance is a scalar: it adds the lengths of the path segments with no regard to direction, so it never cancels. Displacement is a vector: the two legs point in different directions, so when they are added as vectors their components partly cancel (for example, the 50 m north and the 69.3 m south), giving a magnitude much smaller than the distance.",
+   "verification_python": "import math\nBx = -80*math.cos(math.radians(60))\nBy = -80*math.sin(math.radians(60))\nassert abs(Bx + 40) < 1e-9\nassert abs(By + 69.3) < 0.05\nassert abs(40*math.sqrt(3) - 69.3) < 0.05\nRx = 120 + Bx\nRy = 50 + By\nassert abs(Rx - 80) < 1e-9\nassert abs(Ry + 19.3) < 0.02\nassert abs(120 - 40 - 80) < 1e-12\nR = math.hypot(Rx, Ry)\nassert abs(R - 82.3) < 0.05\nassert abs(80**2 + 19.3**2 - 6772) < 1\nth = math.degrees(math.atan(abs(Ry)/Rx))\nassert abs(th - 13.6) < 0.06\nassert abs((360 - th) - 346) < 1\nA = math.hypot(120, 50)\nassert abs(A - 130) < 1e-9\nassert abs(A + 80 - 210) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__1.4__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "1.4",
+  "topic_title": "Reference Frames and Relative Motion",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (b), criterion b1 combines two separately requested, independently observable answers in one point: the angle from vertical and the east/west direction. Split these into separate 1-point criteria."
+   }
+  ],
+  "item": {
+   "title": "Rain Observed from a Moving Bicycle",
+   "calculator": "permitted",
+   "stimulus": "Use a coordinate system fixed to the ground with +x pointing east (unit vector î) and +y pointing vertically upward (unit vector ĵ). There is no wind. Raindrops fall straight down at a constant speed of 8.0 m/s relative to the ground. A cyclist rides due east along a level road at a constant speed of 6.0 m/s relative to the ground. The ground and the cyclist may each be treated as an inertial reference frame.",
+   "parts": [
+    {
+     "prompt": "Determine the velocity of a raindrop as measured by the cyclist. Give it in unit-vector notation, and give its magnitude.",
+     "criteria": [
+      {
+       "text": "Uses v(rain relative to cyclist) = v(rain relative to ground) − v(cyclist relative to ground) = (−8.0 ĵ) − (6.0 î) = (−6.0 î − 8.0 ĵ) m/s.",
+       "evidence": "Response subtracts the cyclist's velocity from the raindrop's ground velocity as vectors and writes (−6.0 î − 8.0 ĵ) m/s or equivalent components.",
+       "fix": "Write object-relative-to-observer as object-relative-to-ground minus observer-relative-to-ground, then subtract the vectors component by component.",
+       "accepted_variants": [
+        "v_x = −6.0 m/s, v_y = −8.0 m/s"
+       ]
+      },
+      {
+       "text": "Magnitude = √(6.0² + 8.0²) = 10 m/s.",
+       "evidence": "Response gives a speed of 10 m/s for the raindrop in the cyclist's frame, consistent with its components.",
+       "fix": "After finding the relative velocity components, combine them with the Pythagorean theorem to get the speed this observer measures.",
+       "accepted_variants": [
+        "10.0 m/s"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "To the cyclist, the rain does not appear to fall vertically. Determine the angle between the raindrops' path and the vertical as measured by the cyclist, and state whether the drops appear to move toward the east or toward the west.",
+     "criteria": [
+      {
+       "text": "Angle = tan⁻¹(6.0/8.0) ≈ 37° from the vertical, with the drops appearing to move downward and toward the west.",
+       "evidence": "Response gives about 37° from the vertical (or its equivalent 53° from the horizontal) and states the apparent horizontal motion is westward.",
+       "fix": "Take the inverse tangent of the horizontal over the vertical relative-velocity component, and read east or west from the x-component's sign.",
+       "accepted_variants": [
+        "36.9°",
+        "53° from the horizontal"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Higher in the sky, a raindrop that has not yet reached its constant speed has an acceleration of 3.0 m/s² directed downward, as measured by an observer on the ground. Determine the acceleration of this raindrop as measured by the cyclist, and justify your answer.",
+     "criteria": [
+      {
+       "text": "The cyclist measures 3.0 m/s² downward, because the cyclist's frame moves at constant velocity relative to the ground, so the acceleration is the same in both inertial frames.",
+       "evidence": "Response states 3.0 m/s² downward and justifies it by the cyclist's constant velocity (subtracting a constant velocity does not change the rate of change of velocity) or by the rule that inertial frames agree on acceleration.",
+       "fix": "Remember that frames moving at constant velocity relative to each other measure the same acceleration; only velocities need converting.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) v(rain relative to cyclist) = v(rain relative to ground) − v(cyclist relative to ground)\n= (−8.0 ĵ m/s) − (6.0 î m/s) = (−6.0 î − 8.0 ĵ) m/s.\nIts magnitude is √(6.0² + 8.0²) = √100 = 10 m/s.\n\n(b) The angle θ from the vertical satisfies tan θ = 6.0/8.0 = 0.75, so θ ≈ 37°. The x-component of the relative velocity is negative, so to the cyclist the drops appear to move downward and toward the west, arriving from in front of the cyclist.\n\n(c) The cyclist measures an acceleration of 3.0 m/s² downward, the same as the ground observer. The cyclist moves at constant velocity relative to the ground, so the raindrop's velocity in the cyclist's frame equals its ground velocity minus a constant vector. Subtracting a constant does not change how quickly the velocity changes, so the acceleration is the same in both inertial frames.",
+   "verification_python": "import math\nvr = (0.0, -8.0)\nvc = (6.0, 0.0)\nrel = (vr[0]-vc[0], vr[1]-vc[1])\nassert rel == (-6.0, -8.0)\nmag = math.hypot(*rel)\nassert abs(mag - 10) < 1e-9\nassert abs(6.0**2 + 8.0**2 - 100) < 1e-9\nang = math.degrees(math.atan(6.0/8.0))\nassert abs(ang - 36.9) < 0.05\nassert abs(round(ang) - 37) < 1e-9\nassert abs((90 - ang) - 53) < 0.2\nassert abs(6.0/8.0 - 0.75) < 1e-12\nassert rel[0] < 0\na_ground = -3.0\na_cyclist = a_ground - 0.0\nassert a_cyclist == -3.0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__2.1__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "2.1",
+  "topic_title": "Systems and Center of Mass",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criteria a1 and c1 prescribe methods the parts do not require. In (a), averaging the endpoint densities of this linear density function and multiplying by length correctly gives 8.0 kg without explicitly integrating. In (c), directly calculating [∫₀⁴ xλ(x) dx + (4.0 kg)(0 m)]/[∫₀⁴ λ(x) dx + 4.0 kg] correctly gives 14/9 m without explicitly replacing the rod by a point object at its center of mass. The evidence requirements should accept these valid alternative methods."
+   }
+  ],
+  "item": {
+   "title": "Center of Mass of a Rod with Increasing Density",
+   "calculator": "permitted",
+   "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+   "parts": [
+    {
+     "prompt": "Calculate the total mass of the rod.",
+     "criteria": [
+      {
+       "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+       "evidence": "Response integrates λ(x) over the rod's length from 0 to 4.0 m and obtains 8.0 kg.",
+       "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length instead of multiplying one density value by the length.",
+       "accepted_variants": [
+        "8 kg"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the x-coordinate of the rod's center of mass.",
+     "criteria": [
+      {
+       "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+       "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (its own value from part (a)).",
+       "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+       "accepted_variants": []
+      },
+      {
+       "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+       "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m, consistent with its own setup.",
+       "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+       "accepted_variants": [
+        "7/3 m",
+        "2.3 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+     "criteria": [
+      {
+       "text": "Treats the rod as a single 8.0 kg object at x = 7/3 m: x_cm = (8.0 × 2.33 + 4.0 × 0)/(8.0 + 4.0) ≈ 1.56 m (14/9 m).",
+       "evidence": "Response combines the rod, located at its own center of mass, with the block using Σmᵢxᵢ/Σmᵢ and gets about 1.6 m (or a value consistent with its earlier answers).",
+       "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+       "accepted_variants": [
+        "14/9 m",
+        "1.6 m"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__2.2__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "2.2",
+  "topic_title": "Forces and Free-Body Diagrams",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion c1 combines two independently observable elements into one point: classifying the contact forces and explaining their interatomic electric origin. Split these into separate 1-point criteria."
+   }
+  ],
+  "item": {
+   "title": "Identifying the Forces on a Sled Pulled Up a Hill",
+   "calculator": "permitted",
+   "stimulus": "A child pulls a sled up a snowy hill that is inclined at 20° above the horizontal. The child pulls on a rope attached to the sled, and the rope is parallel to the surface of the hill. The sled slides up the hill while staying in contact with the snow. The snow exerts a friction force on the sled that is directed opposite to the sled's motion relative to the snow. Air resistance is negligible.",
+   "parts": [
+    {
+     "prompt": "Identify every force exerted on the sled. For each force, name the object that exerts it and state the force's direction.",
+     "criteria": [
+      {
+       "text": "Identifies exactly four forces, each with the object exerting it: the gravitational force exerted by Earth, the normal force exerted by the snow, the friction force exerted by the snow, and the tension force exerted by the rope.",
+       "evidence": "Response lists these four forces, names Earth, the snow (for both normal and friction) and the rope as the exerting objects, and includes no extra forces.",
+       "fix": "For each force, name the other object that touches or pulls the sled; if no such object exists, the force does not exist.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Gives correct directions: gravity vertically downward, normal force perpendicular to the hill's surface and away from it, friction parallel to the surface and down the hill, tension parallel to the surface and up the hill.",
+       "evidence": "Response states all four directions correctly, relative to the vertical or to the hill's surface.",
+       "fix": "Describe the normal force as perpendicular to the contact surface, not vertical, and state friction and tension directions along the surface explicitly.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate suggests adding a fifth force: \"the force the sled exerts on itself to keep moving up the hill.\" Explain whether this force should be included.",
+     "criteria": [
+      {
+       "text": "No: every force is an interaction between two different objects, and an object cannot exert a net force on itself, so this force does not exist.",
+       "evidence": "Response rejects the proposed force and explains that forces come from interactions with other objects, so an object cannot exert a net force on itself.",
+       "fix": "Test any proposed force by asking which other object exerts it; a force with no other object behind it is not a real force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Which of the forces you identified are contact forces? At the level of atoms, what kind of interaction is responsible for these contact forces?",
+     "criteria": [
+      {
+       "text": "Normal, friction and tension forces are contact forces, and gravity is not; contact forces are large-scale effects of electric forces between the atoms of the objects in contact.",
+       "evidence": "Response names the normal, friction and tension forces as contact forces, excludes gravity, and attributes contact forces to interatomic electric forces.",
+       "fix": "Remember that contact forces such as normal, friction and tension are large-scale results of electric forces between atoms; gravity acts without contact.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To turn the forces into equations, a student wants to choose x- and y-axes that make the analysis simplest. Describe a convenient choice of axes, and state which of the forces then has components along both axes.",
+     "criteria": [
+      {
+       "text": "Chooses one axis parallel to the hill's surface (along the sled's motion) and the other perpendicular to it; then only the gravitational force has components along both axes.",
+       "evidence": "Response picks axes parallel and perpendicular to the incline and identifies gravity as the only force that must be split into components.",
+       "fix": "On an incline, align one axis with the surface so the normal, friction and tension forces each lie along a single axis.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Four forces are exerted on the sled:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the snow (the hill's surface), directed perpendicular to the surface of the hill and away from it.\n3. The friction force exerted by the snow, directed parallel to the hill's surface and down the slope, opposite to the sled's motion.\n4. The tension force exerted by the rope, directed parallel to the hill's surface and up the slope.\n\n(b) The classmate is not correct. Every force is an interaction between two objects, so each force on the sled must be exerted by some other object. An object cannot exert a net force on itself, so there is no force of the sled on itself. The four forces in part (a) are the only forces exerted on the sled.\n\n(c) The normal force, the friction force and the tension force are contact forces. The gravitational force is not, because Earth exerts it without touching the sled. Contact forces are the large-scale result of electric forces between the atoms of the surfaces that touch.\n\n(d) Choose the x-axis parallel to the hill's surface, pointing up the slope along the sled's motion, and the y-axis perpendicular to the surface. With these axes the tension and friction forces lie along the x-axis and the normal force lies along the y-axis, so only the gravitational force has components along both axes.",
+   "verification_python": "forces = {'gravitational': 'Earth', 'normal': 'snow', 'friction': 'snow', 'tension': 'rope'}\nassert len(forces) == 4\ncontact = [f for f in forces if f not in ('gravitational',)]\nassert len(contact) == 3\ndirections = {'gravitational': 'vertical', 'normal': 'perpendicular', 'friction': 'parallel', 'tension': 'parallel'}\nboth_axes = [f for f, d in directions.items() if d == 'vertical']\nassert both_axes == ['gravitational']\nassert 0 < 20 < 90\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__2.3__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "2.3",
+  "topic_title": "Newton's Third Law",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_evidence: Criterion a1's Fix states a principle but gives no concrete action. Replace it with: “Identify the interacting objects, then reverse the given force’s direction while keeping its magnitude unchanged.”"
+   }
+  ],
+  "item": {
+   "title": "Third-Law Force Pairs Between Two Skaters",
+   "calculator": "permitted",
+   "stimulus": "Two ice skaters stand at rest facing each other on a horizontal, frictionless ice rink. Skater A has a mass of 75 kg and skater B has a mass of 50 kg. Skater A pushes on skater B with a horizontal force of 120 N directed east, and the skaters move apart. During the push, the only horizontal forces exerted on the skaters are the forces they exert on each other.",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the horizontal force that skater B exerts on skater A during the push. Justify your answer.",
+     "criteria": [
+      {
+       "text": "120 N directed west, because by Newton's third law the force B exerts on A is equal in magnitude and opposite in direction to the force A exerts on B, regardless of the skaters' masses.",
+       "evidence": "Response gives 120 N west and cites Newton's third law (equal magnitude, opposite direction) rather than an argument based on the masses.",
+       "fix": "For any interaction, the two forces are equal in size and opposite in direction, even when the two objects' masses differ.",
+       "accepted_variants": [
+        "120 N to the west"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student says that the gravitational force Earth exerts on skater A and the upward normal force the ice exerts on skater A form a Newton's third law pair. Explain whether the student is correct, and identify the actual third-law partner of the gravitational force Earth exerts on skater A.",
+     "criteria": [
+      {
+       "text": "The student is incorrect: both forces act on skater A, whereas the two forces of a third-law pair act on two different objects in a single interaction.",
+       "evidence": "Response says the student is wrong and states that third-law pair forces act on different objects, while both of these forces act on skater A.",
+       "fix": "Check that the two forces in a claimed pair act on different objects and describe one interaction: A on B and B on A.",
+       "accepted_variants": []
+      },
+      {
+       "text": "The partner is the gravitational force skater A exerts on Earth, equal in magnitude and directed upward, toward the skater.",
+       "evidence": "Response identifies the gravitational pull of skater A on Earth, directed upward toward the skater, as the partner force.",
+       "fix": "To find a partner force, swap the two objects' roles: Earth pulls the skater down, so the skater pulls Earth up.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Consider the two skaters together as one system. Explain what effect the push has on the horizontal motion of the system's center of mass.",
+     "criteria": [
+      {
+       "text": "No effect: the pushes are internal forces forming a third-law pair, so they add to zero for the system; with no external horizontal force, the center of mass stays at rest.",
+       "evidence": "Response states the center of mass remains at rest (its horizontal velocity is unchanged) because the push forces are internal to the system and cancel in pairs.",
+       "fix": "Classify each force as internal or external to the chosen system; internal third-law pairs cancel and cannot change the center of mass's motion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Later, the skaters hold opposite ends of a light rope that does not stretch. Skater A pulls on her end of the rope with a force of 80 N. Determine the magnitude of the force that the rope exerts on skater B, and justify your answer.",
+     "criteria": [
+      {
+       "text": "80 N, because the rope is an ideal string (negligible mass, does not stretch), so the tension is the same at every point and the rope pulls on skater B with 80 N.",
+       "evidence": "Response gives 80 N and justifies it by the uniform tension in a light, non-stretching rope.",
+       "fix": "For a massless rope that does not stretch, use the same tension at both ends; tension differs along a rope only when its mass matters.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The force skater B exerts on skater A is 120 N directed west. By Newton's third law, the force A exerts on B and the force B exerts on A are the two forces of one interaction, so they are equal in magnitude and opposite in direction. The different masses of the skaters do not change this.\n\n(b) The student is not correct. A third-law pair consists of the two forces of a single interaction, and those two forces act on different objects. The gravitational force and the normal force here both act on skater A, and they come from two different interactions (skater with Earth, and skater with ice). The third-law partner of the gravitational force Earth exerts on skater A is the gravitational force skater A exerts on Earth, which has the same magnitude and is directed upward, toward the skater.\n\n(c) The push forces are internal to the two-skater system. They form a third-law pair, so they are equal and opposite and add to zero when summed over the system. Since there is no external horizontal force on the system, the horizontal motion of the center of mass does not change: the center of mass stays at rest even though the skaters move apart.\n\n(d) The rope exerts a force of 80 N on skater B. The rope is light and does not stretch, so it is an ideal string and the tension is the same at every point along it. Skater A's 80 N pull sets the tension at 80 N, so the rope pulls on skater B with 80 N, directed toward skater A.",
+   "verification_python": "F_AB = 120.0\nF_BA = -F_AB\nassert abs(F_BA) == 120.0\nassert F_AB + F_BA == 0\nmA, mB = 75.0, 50.0\n# internal forces sum to zero, so the center of mass acceleration is zero\na_cm = (F_AB + F_BA)/(mA + mB)\nassert a_cm == 0\nT = 80.0\nassert T == 80.0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__2.4__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "2.4",
+  "topic_title": "Newton's First Law",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a1 bundles two independently assessable equilibrium equations into one point; b1 bundles two tension values; c1 bundles the behavior and justification of two independent velocity components. Split these into criteria that each award one specific observable element."
+   }
+  ],
+  "item": {
+   "title": "Balanced Forces on a Hanging Sign and a Sliding Puck",
+   "calculator": "permitted",
+   "stimulus": "A sign of mass 20 kg hangs at rest from two light cables. Cable 1 pulls on the sign up and to the left at 30° above the horizontal, with tension T₁. Cable 2 pulls on the sign up and to the right at 60° above the horizontal, with tension T₂. Use g = 10 m/s².",
+   "parts": [
+    {
+     "prompt": "Write the equations that express the condition for the sign to remain at rest, one for the horizontal direction and one for the vertical direction, in terms of T₁ and T₂.",
+     "criteria": [
+      {
+       "text": "Horizontal: T₁ cos 30° = T₂ cos 60°; vertical: T₁ sin 30° + T₂ sin 60° = mg = 200 N, from setting the net force equal to zero in each direction.",
+       "evidence": "Response sets the sum of the horizontal components and the sum of the vertical components each equal to zero, using a weight of 200 N.",
+       "fix": "For an object at rest, write ΣFx = 0 and ΣFy = 0 separately, resolving each tension with the angle measured from the horizontal.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate T₁ and T₂.",
+     "criteria": [
+      {
+       "text": "T₁ = 100 N and T₂ = 100√3 N ≈ 173 N.",
+       "evidence": "Response solves the two equations to get T₁ = 100 N and T₂ ≈ 173 N, or values consistent with its own equations from part (a).",
+       "fix": "Solve the horizontal equation for T₂ in terms of T₁, substitute into the vertical equation, then check both equations with your values.",
+       "accepted_variants": [
+        "100√3 N",
+        "1.0 × 10² N",
+        "1.7 × 10² N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Separately, a hockey puck slides due north at constant velocity across horizontal, frictionless ice. As it passes a player, the player's stick gives the puck a brief push directed due east. Describe what happens to the north component and to the east component of the puck's velocity during the push. Justify your answer.",
+     "criteria": [
+      {
+       "text": "The north component stays constant because the forces in the north–south direction remain balanced, while the east component increases from zero because the eastward force is unbalanced.",
+       "evidence": "Response states the north velocity component is unchanged and the east component increases, linking each to balanced versus unbalanced forces in that direction.",
+       "fix": "Analyze each direction separately: a velocity component changes only along a direction in which the forces are unbalanced.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A passenger in a car that is braking places a water bottle on the car's flat, frictionless floor. The forces on the bottle (gravity and the normal force from the floor) are balanced, yet the passenger sees the bottle start to slide forward. Explain whether the braking car is an inertial reference frame.",
+     "criteria": [
+      {
+       "text": "The braking car is not an inertial frame: in that frame an object with zero net force changes its velocity, so Newton's first law is not verified there.",
+       "evidence": "Response says the car is not an inertial frame because, in it, the bottle's velocity changes although the net force on the bottle is zero.",
+       "fix": "Define an inertial frame as one where objects with zero net force keep a constant velocity, then test the observed motion against that.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The sign is at rest, so the net force on it is zero in each direction. Take right and up as positive. The weight is mg = (20 kg)(10 m/s²) = 200 N.\nHorizontal: T₂ cos 60° − T₁ cos 30° = 0, so T₁ cos 30° = T₂ cos 60°.\nVertical: T₁ sin 30° + T₂ sin 60° − 200 N = 0.\n\n(b) From the horizontal equation, T₂ = T₁ cos 30°/cos 60° = √3 T₁ ≈ 1.732T₁.\nSubstituting into the vertical equation: 0.5T₁ + (1.732T₁)(0.866) = 200 N, so 0.5T₁ + 1.5T₁ = 2.0T₁ = 200 N.\nT₁ = 100 N and T₂ = 100√3 N ≈ 173 N.\nCheck: the horizontal components are (100 N)(0.866) = 86.6 N and (173.2 N)(0.5) = 86.6 N.\n\n(c) The north component of the puck's velocity stays constant during the push, because no force acts on the puck in the north–south direction, so the forces in that direction stay balanced. (Gravity and the normal force from the ice balance vertically.) The east component of the velocity increases from zero, because the stick's eastward force is unbalanced in the east–west direction. The velocity changes only in the direction of the unbalanced force.\n\n(d) The braking car is not an inertial reference frame. The net force on the bottle is zero, so by Newton's first law its velocity should stay constant; in the car's frame it was at rest and should stay at rest. Instead, the passenger sees it start moving forward. Newton's first law is not verified in the car's frame, so that frame is not inertial.",
+   "verification_python": "import math\nm, g = 20.0, 10.0\nW = m*g\nassert W == 200.0\nc30, c60 = math.cos(math.radians(30)), math.cos(math.radians(60))\ns30, s60 = math.sin(math.radians(30)), math.sin(math.radians(60))\nratio = c30/c60\nassert abs(ratio - math.sqrt(3)) < 1e-12\nassert abs(ratio - 1.732) < 0.001\nT1 = W/(s30 + ratio*s60)\nT2 = ratio*T1\nassert abs(s30 + ratio*s60 - 2.0) < 1e-12\nassert abs(ratio*s60 - 1.5) < 1e-12\nassert abs(T1 - 100) < 1e-9\nassert abs(T2 - 100*math.sqrt(3)) < 1e-9\nassert abs(T2 - 173) < 0.5\nassert abs(T1*c30 - T2*c60) < 1e-9\nassert abs(T1*c30 - 86.6) < 0.01\nassert abs(173.2*0.5 - 86.6) < 1e-9\nassert abs(T2 - 173.2) < 0.01\nassert abs(T1*s30 + T2*s60 - W) < 1e-9\nassert abs(s60 - 0.866) < 0.001\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__2.8__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "2.8",
+  "topic_title": "Spring Forces",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criteria a1, a2, c1, and c2 prescribe particular computational methods although the parts only ask students to calculate values. For example, a student may calculate the individual series stretches, add them, and use k_eq = mg/ΔL_total, rather than explicitly adding reciprocals or dividing by k_eq. Likewise, part (c) can be solved using k₁x + k₂x = mg before identifying k_eq. Criterion b1 combines both stretch values and the force-equality explanation into one point rather than awarding one specific element. Its evidence also requires agreement with part (a), although part (b) does not request that check; correct independent answers should not lose credit because part (a) was incorrect."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (b), criterion b1: one point combines two required tasks—explaining why both springs exert equal force magnitudes and computing two separate stretches. Part (a), criterion a2: prescribes dividing by k_eq, rejecting the valid alternative of summing the two individual stretches."
+   }
+  ],
+  "item": {
+   "title": "Springs in Series and in Parallel Supporting a Block",
+   "calculator": "permitted",
+   "stimulus": "Two ideal springs have spring constants k₁ = 200 N/m and k₂ = 300 N/m. Use g = 10 m/s².\n\nArrangement 1: Spring 1 hangs from a fixed ceiling hook, spring 2 hangs from the bottom of spring 1, and a 3.0 kg block hangs from the bottom of spring 2. The block hangs at rest.\n\nArrangement 2: Both springs hang side by side from the ceiling, and their lower ends are attached to a light horizontal bar from which the same 3.0 kg block hangs. The bar stays horizontal, so both springs stretch by the same amount, and the block hangs at rest.",
+   "parts": [
+    {
+     "prompt": "For Arrangement 1, calculate the equivalent spring constant of the two springs and the total stretch of the two-spring combination.",
+     "criteria": [
+      {
+       "text": "1/k_eq = 1/200 + 1/300, so k_eq = 120 N/m.",
+       "evidence": "Response adds the reciprocals of the two spring constants and obtains 120 N/m.",
+       "fix": "For springs connected end to end, add the reciprocals of the spring constants, then take the reciprocal of that sum.",
+       "accepted_variants": [
+        "120 N/m"
+       ]
+      },
+      {
+       "text": "Total stretch = mg/k_eq = (30 N)/(120 N/m) = 0.25 m.",
+       "evidence": "Response divides the 30 N spring force (equal to the block's weight) by its own k_eq and obtains 0.25 m.",
+       "fix": "At rest, the spring force equals the weight; divide that force by the equivalent spring constant to find the total stretch.",
+       "accepted_variants": [
+        "25 cm"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For Arrangement 1, determine how much each spring stretches, and explain why the two springs exert forces of the same magnitude.",
+     "criteria": [
+      {
+       "text": "Both ideal (massless) springs carry the full 30 N, so spring 1 stretches (30 N)/(200 N/m) = 0.15 m and spring 2 stretches (30 N)/(300 N/m) = 0.10 m.",
+       "evidence": "Response states that each massless spring transmits the same 30 N force and gives stretches of 0.15 m and 0.10 m, which add to the total from part (a).",
+       "fix": "In a chain of massless springs each spring carries the whole load; divide that force by each individual spring constant.",
+       "accepted_variants": [
+        "15 cm and 10 cm"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For Arrangement 2, calculate the equivalent spring constant and the distance each spring stretches.",
+     "criteria": [
+      {
+       "text": "k_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.",
+       "evidence": "Response adds the two spring constants to obtain 500 N/m.",
+       "fix": "For springs side by side that stretch by the same amount, add the spring constants directly.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Each spring stretches (30 N)/(500 N/m) = 0.060 m.",
+       "evidence": "Response divides the 30 N load by its own parallel k_eq and obtains 0.060 m.",
+       "fix": "Divide the total load by the parallel equivalent spring constant; each spring then stretches by that same amount.",
+       "accepted_variants": [
+        "6.0 cm",
+        "0.06 m"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Springs connected end to end are in series:\n1/k_eq = 1/k₁ + 1/k₂ = 1/200 + 1/300 = 5/600, so k_eq = 120 N/m.\nAt rest, the spring force on the block balances its weight, mg = (3.0 kg)(10 m/s²) = 30 N.\nTotal stretch = (30 N)/(120 N/m) = 0.25 m.\n\n(b) Spring 2 pulls up on the block with 30 N. Because spring 2 is ideal and has no mass, spring 1 must pull up on spring 2 with the same 30 N, so both springs exert 30 N.\nSpring 1: Δx₁ = (30 N)/(200 N/m) = 0.15 m.\nSpring 2: Δx₂ = (30 N)/(300 N/m) = 0.10 m.\nCheck: 0.15 m + 0.10 m = 0.25 m, matching part (a).\n\n(c) Side by side and stretching equally, the springs are in parallel:\nk_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.\nEach spring stretches Δx = (30 N)/(500 N/m) = 0.060 m.\nCheck: spring 1 exerts (200)(0.060) = 12 N and spring 2 exerts (300)(0.060) = 18 N, which total 30 N.",
+   "verification_python": "from fractions import Fraction as Fr\nk1, k2 = Fr(200), Fr(300)\nW = Fr(3)*Fr(10)\nassert W == 30\ninv = 1/k1 + 1/k2\nassert inv == Fr(5,600)\nkser = 1/inv\nassert kser == 120\nassert kser < min(k1, k2)\nx_tot = W/kser\nassert x_tot == Fr(1,4)\nx1, x2 = W/k1, W/k2\nassert x1 == Fr(15,100) and x2 == Fr(10,100)\nassert x1 + x2 == x_tot\nkpar = k1 + k2\nassert kpar == 500\nxp = W/kpar\nassert xp == Fr(6,100)\nassert k1*xp == 12 and k2*xp == 18 and k1*xp + k2*xp == W\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_c_mechanics__3.5__1",
+  "subject_key": "ap_physics_c_mechanics",
+  "topic_code": "3.5",
+  "topic_title": "Power",
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion c1 combines two separately requested observable elements—calculating 72 W and explaining why it exceeds the average—into one point. Split these into separate one-point criteria. Criterion b2 requires dividing total work by 4.0 s, excluding the valid alternative of averaging the endpoint powers after establishing that power increases linearly."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (c), criterion c1: it bundles the requested numerical calculation (72 W) and the requested explanation into one 1-point criterion; each is a distinct observable element and should be credited separately."
+   }
+  ],
+  "item": {
+   "title": "Instantaneous and Average Power of a Constant Force",
+   "calculator": "permitted",
+   "stimulus": "A 2.0 kg block is at rest on a horizontal, frictionless surface at time t = 0. Starting at t = 0, a constant horizontal force of 6.0 N is exerted on the block. No other horizontal forces are exerted on the block.",
+   "parts": [
+    {
+     "prompt": "Derive an expression for the instantaneous power delivered to the block by the 6.0 N force as a function of time t.",
+     "criteria": [
+      {
+       "text": "The block's speed is v = (F/m)t = 3.0t, so P = Fv = (6.0)(3.0t) = 18t, in watts with t in seconds.",
+       "evidence": "Response finds v(t) = 3.0t m/s and multiplies by 6.0 N, or differentiates the work W(t) = 9.0t², to obtain P = 18t W.",
+       "fix": "For a force parallel to the velocity, instantaneous power is force times current speed; first find the speed as a function of time.",
+       "accepted_variants": [
+        "P = 18t W",
+        "P(t) = 18t"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the work done on the block by the force from t = 0 to t = 4.0 s, and the average power delivered by the force during that interval.",
+     "criteria": [
+      {
+       "text": "W = 144 J, from ΔK = ½(2.0 kg)(12 m/s)² or from Fd = (6.0 N)(24 m).",
+       "evidence": "Response obtains 144 J using the work–energy theorem with v(4.0 s) = 12 m/s, or force times the 24 m displacement, or the integral of P(t).",
+       "fix": "Find the speed or the displacement at t = 4.0 s, then use ΔK = ½mv² or W = Fd for the work done.",
+       "accepted_variants": [
+        "1.4 × 10² J"
+       ]
+      },
+      {
+       "text": "P_avg = W/Δt = (144 J)/(4.0 s) = 36 W.",
+       "evidence": "Response divides its total work by 4.0 s to obtain 36 W, consistent with its own work value.",
+       "fix": "Average power is the total work divided by the time interval, not the instantaneous power at the end of the interval.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the instantaneous power at t = 4.0 s, and explain why it differs from the average power you found in part (b).",
+     "criteria": [
+      {
+       "text": "P(4.0 s) = 18(4.0) = 72 W, greater than 36 W because the speed, and so the power Fv, increases steadily with time, so the value at the end of the interval exceeds the average over it.",
+       "evidence": "Response gives 72 W and explains that the power grows as the block speeds up, so the end-of-interval value is larger than the average.",
+       "fix": "Evaluate P = Fv at the requested instant, then compare: when speed rises during the interval, the final power exceeds the average.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) a = F/m = (6.0 N)/(2.0 kg) = 3.0 m/s², so, starting from rest, v(t) = 3.0t (in m/s). The force is parallel to the velocity, so\nP(t) = Fv = (6.0 N)(3.0t) = 18t, in watts with t in seconds.\n(Equivalently, W(t) = ΔK = ½(2.0)(3.0t)² = 9.0t² J, and P = dW/dt = 18t W.)\n\n(b) At t = 4.0 s, v = 3.0(4.0) = 12 m/s, so W = ΔK = ½(2.0 kg)(12 m/s)² − 0 = 144 J.\n(Check: d = ½(3.0 m/s²)(4.0 s)² = 24 m, and Fd = (6.0 N)(24 m) = 144 J.)\nP_avg = W/Δt = (144 J)/(4.0 s) = 36 W.\n\n(c) P(4.0 s) = 18(4.0) = 72 W. This is greater than the average power of 36 W because the block speeds up steadily, so the power P = Fv grows in proportion to time, from 0 at t = 0 to 72 W at t = 4.0 s. The average over the interval is therefore smaller than the final value; because P increases linearly, the average is exactly half of 72 W.",
+   "verification_python": "import sympy as sp\nt = sp.symbols('t', nonnegative=True)\nF, m = 6, 2\na = sp.Rational(F, m)\nassert a == 3\nv = a*t\nP = F*v\nassert sp.simplify(P - 18*t) == 0\nWt = sp.Rational(1,2)*m*v**2\nassert sp.simplify(Wt - 9*t**2) == 0\nassert sp.simplify(sp.diff(Wt, t) - P) == 0\nv4 = v.subs(t, 4)\nassert v4 == 12\nW = sp.Rational(1,2)*m*v4**2\nassert W == 144\nd = sp.Rational(1,2)*a*4**2\nassert d == 24 and F*d == 144\nassert sp.integrate(P, (t, 0, 4)) == 144\nPavg = W/4\nassert Pavg == 36\nP4 = P.subs(t, 4)\nassert P4 == 72\nassert P4 == 2*Pavg\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

@@ -1,0 +1,232 @@
+{
+ "id": "ap_calculus_bc__1.2__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.2",
+  "topic_title": "Defining Limits and Using Limit Notation",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:36:12.773Z",
+   "item": {
+    "title": "Interpreting and Writing Limits Using the Definition",
+    "calculator": "not_permitted",
+    "stimulus": "Let h be the function defined for all real numbers by h(x) = 2x + 1 for x ≠ 3, and h(3) = 10.\n\nSeparately, C(t) is the concentration of a medication in a patient's bloodstream, in milligrams per liter (mg/L), t hours after the medication is given.",
+    "model_answer": "(a) For x close to 3 but x ≠ 3, h(x) = 2x + 1. As x gets close to 3, 2x + 1 gets close to 2(3) + 1 = 7, so lim x→3 h(x) = 7. By the definition of a limit, the limit is 7 because h(x) can be made arbitrarily close to 7 by taking x sufficiently close to 3 but not equal to 3. Since x = 3 itself is never used, the value h(3) = 10 does not affect the limit. The limit does not equal h(3), because 7 ≠ 10.\n\n(b) lim t→5 C(t) = 12. The statement lim t→2 C(t) = 18 means the concentration of the medication in the bloodstream can be made as close as we like to 18 mg/L by taking the time sufficiently close to 2 hours after the dose (not necessarily at exactly 2 hours).\n\n(c) The claim is false. The limit as x→1 depends only on values of k(x) for x close to 1 with x ≠ 1, so k(1) can be any value or undefined. Counterexample: let k(x) = x + 3 for x ≠ 1 and k(1) = 0. For x near 1 with x ≠ 1, k(x) = x + 3 is close to 1 + 3 = 4, so lim x→1 k(x) = 4, but k(1) = 0 ≠ 4.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\nL=sp.limit(2*x+1,x,3)\nassert L==7\nassert L!=10\nLk=sp.limit(x+3,x,1)\nassert Lk==4\nk1=0\nassert k1!=4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→3 h(x). Using the definition of a limit, explain why the value h(3) = 10 does not affect your answer. Then state whether lim x→3 h(x) equals h(3).",
+      "criteria": [
+       {
+        "text": "Finds lim x→3 h(x) = 7.",
+        "evidence": "States the limit is 7, supported by using h(x) = 2x + 1 for x near 3 with x ≠ 3 (for example, 2(3) + 1 = 7).",
+        "fix": "For x near but not equal to 3, use the rule h(x) = 2x + 1 and find the value it approaches.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains from the definition that the limit depends only on values of h(x) for x close to 3 but not equal to 3, so h(3) is irrelevant.",
+        "evidence": "States that the limit is determined by h(x) for x sufficiently close to 3 with x ≠ 3, where h(x) = 2x + 1 can be made arbitrarily close to 7, so the value at x = 3 is not used.",
+        "fix": "Quote the definition: f(x) is made arbitrarily close to R by taking x sufficiently close to c, but not equal to c.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the limit does not equal h(3) because 7 ≠ 10.",
+        "evidence": "Explicitly compares the two values and concludes lim x→3 h(x) ≠ h(3), citing 7 and 10 (or a consistent earlier limit value).",
+        "fix": "Compare the limit value you found with the given function value h(3) = 10 and state whether they match.",
+        "accepted_variants": [
+         "not equal",
+         "no"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A nurse reports: \"As the time after the dose gets closer and closer to 5 hours, the concentration of the medication gets closer and closer to 12 mg/L.\" Write this statement using limit notation. Then, given that lim t→2 C(t) = 18, interpret this limit statement in the context of the problem, including units.",
+      "criteria": [
+       {
+        "text": "Writes lim t→5 C(t) = 12.",
+        "evidence": "Correct limit notation with variable t approaching 5, function C(t), and limit value 12.",
+        "fix": "Put the input's approach value under lim, the function after it, and the value the outputs approach after the equals sign.",
+        "accepted_variants": [
+         "lim (t→5) C(t) = 12"
+        ]
+       },
+       {
+        "text": "Interprets lim t→2 C(t) = 18 as: the concentration can be made arbitrarily close to 18 mg/L by taking the time sufficiently close to 2 hours.",
+        "evidence": "States in context that C(t) gets as close as desired to 18 mg/L for times t sufficiently close to (not necessarily equal to) 2 hours, with both units. Does not claim C(2) must equal 18.",
+        "fix": "Describe outputs approaching 18 mg/L as inputs approach 2 hours, naming both quantities with units, without asserting the value at t = 2.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims: \"If lim x→1 k(x) = 4, then k(1) must equal 4.\" State whether the claim is true or false, and give a specific function k that supports your answer, showing that it satisfies the conditions.",
+      "criteria": [
+       {
+        "text": "States the claim is false, with the reason that the limit depends only on values of k(x) for x near 1, x ≠ 1.",
+        "evidence": "Concludes false and explains that the definition of the limit excludes x = 1, so k(1) can be different from 4 or undefined.",
+        "fix": "Recall that the limit definition uses x close to c but not equal to c, so the function value at c is unrestricted.",
+        "accepted_variants": [
+         "the claim is not true"
+        ]
+       },
+       {
+        "text": "Gives a valid counterexample k with lim x→1 k(x) = 4 and k(1) ≠ 4 or k(1) undefined.",
+        "evidence": "Defines a specific k (for example k(x) = x + 3 for x ≠ 1 and k(1) = 0) and shows the limit is 4 while k(1) is not 4 or is undefined.",
+        "fix": "Build a piecewise function: a formula approaching 4 near x = 1, then assign a different value at x = 1.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

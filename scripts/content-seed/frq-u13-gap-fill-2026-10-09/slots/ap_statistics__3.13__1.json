@@ -1,0 +1,307 @@
+{
+ "id": "ap_statistics__3.13__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 3,
+  "unit_title": "Inference for Categorical Data: Proportions",
+  "topic_code": "3.13",
+  "topic_title": "Carrying Out a Test for the Difference Between Two Population Proportions",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:27:46.937Z",
+   "source": "given",
+   "item": {
+    "title": "Testing for a Difference in Household Composting Rates",
+    "calculator": "permitted",
+    "stimulus": "An environmental group wants to know whether the proportion of households that compost food waste differs between two large towns, Town A (about 30,000 households) and Town B (about 22,000 households). The group selected a random sample of 300 households in Town A and, independently, a random sample of 250 households in Town B. In the samples, 84 of the Town A households and 50 of the Town B households compost food waste.\n\nLet p₁ be the proportion of all Town A households that compost food waste, and let p₂ be the proportion of all Town B households that compost food waste. The group tests H₀: p₁ = p₂ versus Hₐ: p₁ ≠ p₂ at the α = 0.05 significance level. All conditions for inference are met.",
+    "parts": [
+     {
+      "prompt": "Calculate the combined (pooled) sample proportion and the test statistic. Show your work.",
+      "criteria": [
+       {
+        "text": "Combined proportion p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.",
+        "evidence": "Response adds the successes and the sample sizes across both samples to get 134/550 ≈ 0.244.",
+        "fix": "Pool the samples under H₀: add the two success counts, divide by the total of the two sample sizes.",
+        "accepted_variants": [
+         "134/550",
+         "0.2436",
+         "0.244"
+        ]
+       },
+       {
+        "text": "Test statistic z = (0.28 − 0.20)/√(0.2436(0.7564)(1/300 + 1/250)) ≈ 0.08/0.0368 ≈ 2.18.",
+        "evidence": "Response shows the sample proportions 0.28 and 0.20 and a standard error built from the pooled proportion (about 0.0368), giving z ≈ 2.18.",
+        "fix": "In the test statistic's standard error, use the pooled proportion p̂c for both samples, because the test assumes p₁ = p₂.",
+        "accepted_variants": [
+         "2.18",
+         "2.176"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the p-value of the test.",
+      "criteria": [
+       {
+        "text": "p-value = 2P(Z ≥ 2.18) ≈ 0.029, using both tails because the alternative hypothesis is two-sided.",
+        "evidence": "Response doubles the upper-tail area beyond z ≈ 2.18 (or gives labeled technology output for a two-sided test) and reports about 0.029 to 0.030.",
+        "fix": "For Hₐ with ≠, add the areas in both tails beyond ±z; do not report the one-tail area alone.",
+        "accepted_variants": [
+         "0.029",
+         "0.0295",
+         "0.03"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the p-value in context.",
+      "criteria": [
+       {
+        "text": "States that, assuming the proportions of all households that compost food waste are the same in the two towns, the probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) is about 0.029.",
+        "evidence": "Response includes both the assumption that p₁ = p₂ (in context) and the event of a sample difference at least as extreme as 0.08 in either direction, with the value of the p-value.",
+        "fix": "State the assumption (equal proportions in both towns) and the event (a sample difference at least as large as 0.08 in either direction).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "What conclusion should the group make at the α = 0.05 significance level? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Because the p-value ≈ 0.029 is less than α = 0.05, the group rejects H₀; there is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+        "evidence": "Response compares the p-value with 0.05, rejects H₀, and states a non-definitive conclusion in context in terms of Hₐ (the population proportions differ).",
+        "fix": "Compare the p-value with α explicitly, then write the conclusion as convincing evidence for Hₐ, naming both populations, never as proof.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) p̂₁ = 84/300 = 0.28 and p̂₂ = 50/250 = 0.20.\nCombined proportion: p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.\nTest statistic: z = (0.28 − 0.20)/√(0.2436(1 − 0.2436)(1/300 + 1/250)) = 0.08/√(0.18428 × 0.007333) = 0.08/0.0368 ≈ 2.18.\n\n(b) Because Hₐ is two-sided, p-value = 2P(Z ≥ 2.18) ≈ 2(0.0146) ≈ 0.029.\n\n(c) Assuming the proportion of all households that compost food waste is the same in Town A and Town B, there is about a 0.029 probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) by chance in random samples of these sizes.\n\n(d) Because the p-value of about 0.029 is less than α = 0.05, the group should reject H₀. There is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+    "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=84,300,50,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.28)<1e-12 and abs(p2-0.20)<1e-12\npc=(x1+x2)/(n1+n2)\nassert x1+x2==134 and n1+n2==550\nassert abs(pc-0.2436)<0.00005 and abs(round(pc,3)-0.244)<1e-9\nassert abs(pc*(1-pc)-0.18428)<0.00001 and abs((1/n1+1/n2)-0.007333)<0.000001\nse=sqrt(pc*(1-pc)*(1/n1+1/n2))\nassert abs(se-0.0368)<0.00005\nz=(p1-p2)/se\nassert abs(z-2.18)<0.005\nassert abs(z-2.176)<0.0005\nZ=NormalDist()\nassert abs((1-Z.cdf(2.18))-0.0146)<0.00005\npv=2*(1-Z.cdf(z))\nassert 0.029<=pv<=0.030 and abs(pv-0.0295)<0.0001\nassert abs(2*(1-Z.cdf(2.18))-0.029)<0.0005\nassert pv<0.05\nassert abs((p1-p2)-0.08)<1e-12\nfor c in [n1*pc,n1*(1-pc),n2*pc,n2*(1-pc)]: assert c>=10\nassert n1<=0.10*30000 and n2<=0.10*22000\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.13": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "2": 3,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.13",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.13",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Testing for a Difference in Household Composting Rates",
+   "calculator": "permitted",
+   "stimulus": "An environmental group wants to know whether the proportion of households that compost food waste differs between two large towns, Town A (about 30,000 households) and Town B (about 22,000 households). The group selected a random sample of 300 households in Town A and, independently, a random sample of 250 households in Town B. In the samples, 84 of the Town A households and 50 of the Town B households compost food waste.\n\nLet p₁ be the proportion of all Town A households that compost food waste, and let p₂ be the proportion of all Town B households that compost food waste. The group tests H₀: p₁ = p₂ versus Hₐ: p₁ ≠ p₂ at the α = 0.05 significance level. All conditions for inference are met.",
+   "parts": [
+    {
+     "prompt": "Calculate the combined (pooled) sample proportion and the test statistic. Show your work.",
+     "criteria": [
+      {
+       "text": "Combined proportion p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.",
+       "evidence": "Response adds the successes and the sample sizes across both samples to get 134/550 ≈ 0.244.",
+       "fix": "Pool the samples under H₀: add the two success counts, divide by the total of the two sample sizes.",
+       "accepted_variants": [
+        "134/550",
+        "0.2436",
+        "0.244"
+       ]
+      },
+      {
+       "text": "Test statistic z = (0.28 − 0.20)/√(0.2436(0.7564)(1/300 + 1/250)) ≈ 0.08/0.0368 ≈ 2.18.",
+       "evidence": "Response shows the sample proportions 0.28 and 0.20 and a standard error built from the pooled proportion (about 0.0368), giving z ≈ 2.18.",
+       "fix": "In the test statistic's standard error, use the pooled proportion p̂c for both samples, because the test assumes p₁ = p₂.",
+       "accepted_variants": [
+        "2.18",
+        "2.176"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the p-value of the test.",
+     "criteria": [
+      {
+       "text": "p-value = 2P(Z ≥ 2.18) ≈ 0.029, using both tails because the alternative hypothesis is two-sided.",
+       "evidence": "Response doubles the upper-tail area beyond z ≈ 2.18 (or gives labeled technology output for a two-sided test) and reports about 0.029 to 0.030.",
+       "fix": "For Hₐ with ≠, add the areas in both tails beyond ±z; do not report the one-tail area alone.",
+       "accepted_variants": [
+        "0.029",
+        "0.0295",
+        "0.03"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "States that, assuming the proportions of all households that compost food waste are the same in the two towns, the probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) is about 0.029.",
+       "evidence": "Response includes both the assumption that p₁ = p₂ (in context) and the event of a sample difference at least as extreme as 0.08 in either direction, with the value of the p-value.",
+       "fix": "State the assumption (equal proportions in both towns) and the event (a sample difference at least as large as 0.08 in either direction).",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "What conclusion should the group make at the α = 0.05 significance level? Justify your answer.",
+     "criteria": [
+      {
+       "text": "Because the p-value ≈ 0.029 is less than α = 0.05, the group rejects H₀; there is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+       "evidence": "Response compares the p-value with 0.05, rejects H₀, and states a non-definitive conclusion in context in terms of Hₐ (the population proportions differ).",
+       "fix": "Compare the p-value with α explicitly, then write the conclusion as convincing evidence for Hₐ, naming both populations, never as proof.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) p̂₁ = 84/300 = 0.28 and p̂₂ = 50/250 = 0.20.\nCombined proportion: p̂c = (84 + 50)/(300 + 250) = 134/550 ≈ 0.244.\nTest statistic: z = (0.28 − 0.20)/√(0.2436(1 − 0.2436)(1/300 + 1/250)) = 0.08/√(0.18428 × 0.007333) = 0.08/0.0368 ≈ 2.18.\n\n(b) Because Hₐ is two-sided, p-value = 2P(Z ≥ 2.18) ≈ 2(0.0146) ≈ 0.029.\n\n(c) Assuming the proportion of all households that compost food waste is the same in Town A and Town B, there is about a 0.029 probability of getting a difference in sample proportions of 0.08 or more in either direction (|p̂₁ − p̂₂| ≥ 0.08) by chance in random samples of these sizes.\n\n(d) Because the p-value of about 0.029 is less than α = 0.05, the group should reject H₀. There is convincing statistical evidence that the proportion of all Town A households that compost food waste is different from the proportion of all Town B households that compost food waste.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\nx1,n1,x2,n2=84,300,50,250\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.28)<1e-12 and abs(p2-0.20)<1e-12\npc=(x1+x2)/(n1+n2)\nassert x1+x2==134 and n1+n2==550\nassert abs(pc-0.2436)<0.00005 and abs(round(pc,3)-0.244)<1e-9\nassert abs(pc*(1-pc)-0.18428)<0.00001 and abs((1/n1+1/n2)-0.007333)<0.000001\nse=sqrt(pc*(1-pc)*(1/n1+1/n2))\nassert abs(se-0.0368)<0.00005\nz=(p1-p2)/se\nassert abs(z-2.18)<0.005\nassert abs(z-2.176)<0.0005\nZ=NormalDist()\nassert abs((1-Z.cdf(2.18))-0.0146)<0.00005\npv=2*(1-Z.cdf(z))\nassert 0.029<=pv<=0.030 and abs(pv-0.0295)<0.0001\nassert abs(2*(1-Z.cdf(2.18))-0.029)<0.0005\nassert pv<0.05\nassert abs((p1-p2)-0.08)<1e-12\nfor c in [n1*pc,n1*(1-pc),n2*pc,n2*(1-pc)]: assert c>=10\nassert n1<=0.10*30000 and n2<=0.10*22000\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.882592Z"
+ },
+ "accepted_round": 1
+}

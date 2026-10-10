@@ -1,0 +1,1073 @@
+{
+ "id": "ap_calculus_bc__1.1__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:15.750Z",
+   "source": "given",
+   "item": {
+    "title": "A Drone's Velocity at an Instant from Average Velocities",
+    "calculator": "permitted",
+    "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+    "parts": [
+     {
+      "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+      "criteria": [
+       {
+        "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+        "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+        "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+      "criteria": [
+       {
+        "text": "Shows a valid calculation of the average velocity on [3, 3.01], such as [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01.",
+        "evidence": "Response shows correct work for [3, 3.01] by any valid method: the difference quotient with A(3.01) = 196.869901 and A(3) = 197 over 0.01, or an equivalent simplified quotient such as −13 − h + h² at h = 0.01.",
+        "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+        "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+        "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+        "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3, or the value toward which the response's own part (b) averages correctly point.",
+        "fix": "State one value with units, read from where the averages on both sides are heading.",
+        "accepted_variants": [
+         "−13 ft/s",
+         "−13 feet per second"
+        ]
+       },
+       {
+        "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+        "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+        "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+      "criteria": [
+       {
+        "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+        "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second, or interprets the sign and size of the response's own estimate in part (c) correctly.",
+        "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+        "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+        "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+    "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# simplified quotient on [3, 3 + h]: -13 - h + h^2\nh = F(1, 100)\nassert (A(3 + h) - A(3)) / h == -13 - h + h**2 == F(-130099, 10000)\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 5,
+     "1.1": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 5
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "1.1",
+     "required_units": [
+      1
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "Same 1.1 ruling as AB 1.1 (identical CED text for BC)."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:34:33.977Z",
+   "item": {
+    "title": "Average Velocities Approaching an Instantaneous Velocity",
+    "calculator": "not_permitted",
+    "stimulus": "A ball is thrown straight up. Its height above the ground, in meters, t seconds after it is thrown is s(t) = 40t − 5t² for 0 ≤ t ≤ 8. The questions below focus on the instant t = 2 seconds.",
+    "model_answer": "(a) s(2) = 80 − 20 = 60, s(2.1) = 84 − 22.05 = 61.95, s(1.9) = 76 − 18.05 = 57.95.\nOver [2, 2.1]: (61.95 − 60)/(2.1 − 2) = 1.95/0.1 = 19.5 meters per second.\nOver [1.9, 2]: (60 − 57.95)/(2 − 1.9) = 2.05/0.1 = 20.5 meters per second.\n\n(b) s(2 + h) = 40(2 + h) − 5(4 + 4h + h²) = 80 + 40h − 20 − 20h − 5h² = 60 + 20h − 5h².\ns(2 + h) − s(2) = 60 + 20h − 5h² − 60 = 20h − 5h².\nFor h ≠ 0: [s(2 + h) − s(2)]/h = (20h − 5h²)/h = 20 − 5h.\nAt h = 0 the interval has zero length, so the change in time is 0. The quotient would be 0/0, which requires dividing by zero, so the average velocity is undefined at h = 0.\n\n(c) The instantaneous velocity at t = 2 is the limit of the average velocities as the interval shrinks:\nlim h→0 [s(2 + h) − s(2)]/h = lim h→0 (20 − 5h) = 20 meters per second.\nThe part (a) values correspond to h = 0.1 (20 − 0.5 = 19.5) and h = −0.1 (20 + 0.5 = 20.5). The value 20 lies between 19.5 and 20.5, and as h gets closer to 0 on either side, 20 − 5h gets closer to 20, so the average velocities over shrinking intervals containing t = 2 approach 20 m/s.",
+    "verification_python": "from fractions import Fraction as F\nimport sympy as sp\ns=lambda t: 40*t-5*t**2\nassert s(F(2))==60\nassert s(F(21,10))==F(6195,100)\nassert s(F(19,10))==F(5795,100)\na1=(s(F(21,10))-s(F(2)))/F(1,10)\na2=(s(F(2))-s(F(19,10)))/F(1,10)\nassert a1==F(39,2)\nassert a2==F(41,2)\nh=sp.symbols('h')\nS=lambda t: 40*t-5*t**2\nassert sp.expand(S(2+h))==sp.expand(60+20*h-5*h**2)\nassert sp.expand(S(2+h)-S(2))==sp.expand(20*h-5*h**2)\nq=sp.simplify((S(2+h)-S(2))/h)\nassert sp.simplify(q-(20-5*h))==0\nL=sp.limit((S(2+h)-S(2))/h,h,0)\nassert L==20\nassert (20-5*F(1,10))==a1 and (20-5*F(-1,10))==a2\nassert a1<20<a2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average velocity of the ball over the time interval [2, 2.1] and over the time interval [1.9, 2]. Show the computations and include units.",
+      "criteria": [
+       {
+        "text": "Average velocity over [2, 2.1] is 19.5 meters per second.",
+        "evidence": "Shows s(2.1) − s(2) divided by 0.1, for example (61.95 − 60)/0.1, giving 19.5 m/s.",
+        "fix": "Compute s at both endpoints, subtract, then divide by the length of the time interval, 0.1 seconds.",
+        "accepted_variants": [
+         "19.5 m/s",
+         "39/2 m/s"
+        ]
+       },
+       {
+        "text": "Average velocity over [1.9, 2] is 20.5 meters per second.",
+        "evidence": "Shows s(2) − s(1.9) divided by 0.1, for example (60 − 57.95)/0.1, giving 20.5 m/s.",
+        "fix": "Evaluate s(1.9) = 76 − 18.05 carefully, then divide the change in height by the change in time.",
+        "accepted_variants": [
+         "20.5 m/s",
+         "41/2 m/s"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, the average velocity of the ball over the time interval with endpoints 2 and 2 + h is [s(2 + h) − s(2)]/h. Show that this expression simplifies to 20 − 5h. Then explain why the expression [s(2 + h) − s(2)]/h cannot be evaluated at h = 0.",
+      "criteria": [
+       {
+        "text": "Finds the change in height s(2 + h) − s(2) = 20h − 5h².",
+        "evidence": "Expands s(2 + h) = 40(2 + h) − 5(2 + h)² = 60 + 20h − 5h² and subtracts s(2) = 60 to get 20h − 5h².",
+        "fix": "Expand (2 + h)² as 4 + 4h + h² before multiplying by −5, then subtract s(2) = 60.",
+        "accepted_variants": [
+         "h(20 − 5h)"
+        ]
+       },
+       {
+        "text": "Divides by h (h ≠ 0) to obtain the average velocity 20 − 5h.",
+        "evidence": "Shows (20h − 5h²)/h = 20 − 5h, noting the division is valid because h ≠ 0.",
+        "fix": "Factor h out of the numerator and cancel it, stating that cancellation is allowed only because h ≠ 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains that at h = 0 the change in time is zero, so the quotient would require division by zero (0/0) and the average velocity is undefined.",
+        "evidence": "States that h = 0 means the interval has zero length, the denominator is 0 (the expression becomes 0/0), so an average rate of change cannot be computed there.",
+        "fix": "Point out that an average rate divides by the change in the independent variable, and that change is zero when h = 0.",
+        "accepted_variants": [
+         "division by zero",
+         "0/0 is undefined"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the result of part (b) to find the instantaneous velocity of the ball at t = 2 as a limit of average velocities, with units. Then explain how your two answers from part (a) are consistent with this value.",
+      "criteria": [
+       {
+        "text": "Instantaneous velocity at t = 2 is lim h→0 (20 − 5h) = 20 meters per second.",
+        "evidence": "Writes the limit of the average velocity as h→0 (not substituting h = 0 into the original quotient) and obtains 20 m/s with units.",
+        "fix": "Write lim h→0 of the simplified average velocity 20 − 5h, then evaluate; include meters per second.",
+        "accepted_variants": [
+         "20 m/s"
+        ]
+       },
+       {
+        "text": "Explains consistency: 20 lies between 19.5 and 20.5, the average velocities on short intervals on each side of t = 2, and averages approach 20 as the intervals shrink.",
+        "evidence": "Notes that 19.5 < 20 < 20.5 and that these come from h = 0.1 and h = −0.1 in 20 − 5h, so shrinking the interval moves the averages toward 20.",
+        "fix": "Compare the part (a) averages with the limit value and note they come from intervals of length 0.1 on either side of t = 2.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:35:49.025Z",
+   "item": {
+    "title": "Average Velocities Approaching an Instant for a Thrown Ball",
+    "calculator": "not_permitted",
+    "stimulus": "A ball is thrown upward. Its height above the ground, in feet, t seconds after it is thrown is s(t) = 64t − 16t² for 0 ≤ t ≤ 4. For a nonzero number h, consider the time interval between t = 1 and t = 1 + h.",
+    "model_answer": "(a) s(1) = 64 − 16 = 48. s(1 + h) = 64(1 + h) − 16(1 + 2h + h²) = 64 + 64h − 16 − 32h − 16h² = 48 + 32h − 16h². So s(1 + h) − s(1) = 32h − 16h². Average velocity = [s(1 + h) − s(1)]/h = (32h − 16h²)/h = 32 − 16h feet per second, for h ≠ 0.\n\n(b) An average velocity divides the change in height by the change in time. Over an interval of length zero the change in time is 0, so the quotient [s(1 + h) − s(1)]/h would be 0/0, which is undefined. The average velocity formula therefore cannot be evaluated at h = 0 directly.\n\n(c) Over 1 ≤ t ≤ 1.1 (h = 0.1): 32 − 16(0.1) = 30.4 ft/s. Check: s(1.1) = 70.4 − 19.36 = 51.04, and (51.04 − 48)/0.1 = 30.4. Over 0.9 ≤ t ≤ 1 (h = −0.1): 32 − 16(−0.1) = 33.6 ft/s. Check: s(0.9) = 57.6 − 12.96 = 44.64, and (48 − 44.64)/0.1 = 33.6.\n\n(d) Instantaneous velocity at t = 1 = lim h→0 [s(1 + h) − s(1)]/h = lim h→0 (32 − 16h) = 32 feet per second. The average velocities over intervals on either side of t = 1 (30.4 just after, 33.6 just before) lie on either side of 32, and as the interval length shrinks toward 0 the average velocities get closer and closer to 32. The instantaneous velocity is the limit of these average velocities.",
+    "verification_python": "import sympy as sp\nt,h=sp.symbols('t h')\ns=64*t-16*t**2\nassert s.subs(t,1)==48\nd=sp.expand(s.subs(t,1+h)-s.subs(t,1))\nassert sp.simplify(d-(32*h-16*h**2))==0\nq=sp.simplify(d/h)\nassert sp.simplify(q-(32-16*h))==0\nR=sp.Rational\nassert s.subs(t,R(11,10))==R(5104,100)\nassert (s.subs(t,R(11,10))-48)/R(1,10)==R(304,10)\nassert s.subs(t,R(9,10))==R(4464,100)\nassert (48-s.subs(t,R(9,10)))/R(1,10)==R(336,10)\nassert q.subs(h,R(1,10))==R(304,10)\nassert q.subs(h,R(-1,10))==R(336,10)\nassert sp.limit(d/h,h,0)==32\nassert R(304,10)<32<R(336,10)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find s(1 + h) − s(1) in simplified form. Then find a simplified expression in h for the average velocity of the ball over the time interval between t = 1 and t = 1 + h, where h ≠ 0.",
+      "criteria": [
+       {
+        "text": "Change in height: s(1 + h) − s(1) = 32h − 16h².",
+        "evidence": "Shows s(1) = 48 and expands s(1 + h) = 48 + 32h − 16h², or otherwise arrives at 32h − 16h² with supporting algebra.",
+        "fix": "Substitute 1 + h for every t, expand (1 + h)² carefully, then subtract s(1) = 48.",
+        "accepted_variants": [
+         "−16h² + 32h",
+         "16h(2 − h)"
+        ]
+       },
+       {
+        "text": "Average velocity: [s(1 + h) − s(1)]/h = 32 − 16h feet per second, for h ≠ 0.",
+        "evidence": "Divides the change in height by the change in time h and simplifies to 32 − 16h.",
+        "fix": "Divide the change in height by the change in time h, then cancel the common factor h.",
+        "accepted_variants": [
+         "(32h − 16h²)/h",
+         "−16h + 32"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why the instantaneous velocity at t = 1 cannot be found by using the average velocity formula with an interval of length zero.",
+      "criteria": [
+       {
+        "text": "With h = 0 the change in time is zero, so the quotient [s(1 + h) − s(1)]/h becomes 0/0 and the average velocity is undefined.",
+        "evidence": "States that the change in the independent variable (time) would be zero, making the average rate of change a division by zero, so it is undefined.",
+        "fix": "Note that average velocity divides by the change in time; say explicitly that a zero change in time makes the quotient undefined.",
+        "accepted_variants": [
+         "division by zero",
+         "0/0 is undefined"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average velocity of the ball over the interval 1 ≤ t ≤ 1.1 and over the interval 0.9 ≤ t ≤ 1.",
+      "criteria": [
+       {
+        "text": "Average velocity over 1 ≤ t ≤ 1.1 is 30.4 feet per second.",
+        "evidence": "Uses h = 0.1 in 32 − 16h, or computes (s(1.1) − s(1))/0.1 = (51.04 − 48)/0.1, to get 30.4.",
+        "fix": "Substitute h = 0.1 into your part (a) expression or compute (s(1.1) − s(1))/0.1 directly.",
+        "accepted_variants": [
+         "30.4 ft/s",
+         "152/5"
+        ]
+       },
+       {
+        "text": "Average velocity over 0.9 ≤ t ≤ 1 is 33.6 feet per second.",
+        "evidence": "Uses h = −0.1 in 32 − 16h, or computes (s(1) − s(0.9))/(1 − 0.9) = (48 − 44.64)/0.1, to get 33.6.",
+        "fix": "For the interval ending at t = 1, use h = −0.1, or divide s(1) − s(0.9) by 0.1.",
+        "accepted_variants": [
+         "33.6 ft/s",
+         "168/5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a limit of average velocities to find the instantaneous velocity of the ball at t = 1, including units. Explain how your answer relates to the average velocities found in part (c).",
+      "criteria": [
+       {
+        "text": "Sets up the instantaneous velocity as the limit lim h→0 [s(1 + h) − s(1)]/h = lim h→0 (32 − 16h).",
+        "evidence": "Writes a limit as h→0 of the average velocity expression (difference quotient or 32 − 16h), not a substitution of h = 0 into the unsimplified quotient.",
+        "fix": "Write lim h→0 in front of the average velocity expression before evaluating; the limit is what defines instantaneous velocity.",
+        "accepted_variants": [
+         "lim h→0 (32 − 16h)"
+        ]
+       },
+       {
+        "text": "Instantaneous velocity at t = 1 is 32 feet per second.",
+        "evidence": "Evaluates the limit to 32 and includes units of feet per second.",
+        "fix": "After simplifying to 32 − 16h, let h approach 0 and attach units of feet per second.",
+        "accepted_variants": [
+         "32 ft/s"
+        ]
+       },
+       {
+        "text": "Explains that average velocities over intervals containing or ending at t = 1 approach 32 as the interval length shrinks, from both sides (30.4 below, 33.6 above).",
+        "evidence": "States that as h→0 from either side the average velocities approach 32, noting 32 lies between the averages 30.4 and 33.6 or that they get closer to 32 as intervals shrink.",
+        "fix": "Compare your part (c) averages to the limit and state that both approach it as the interval length shrinks toward zero.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:36:51.892Z",
+   "item": {
+    "title": "Average Velocities Approaching an Instantaneous Velocity",
+    "calculator": "not_permitted",
+    "stimulus": "A cart moves along a straight track. Its position, in meters, at time t seconds is s(t) = 4t² + 2t for 0 ≤ t ≤ 5.",
+    "model_answer": "(a) s(1) = 4(1)² + 2(1) = 6 and s(1.5) = 4(2.25) + 3 = 12. Average velocity on [1, 1.5] = (12 − 6)/(1.5 − 1) = 6/0.5 = 12 meters per second.\ns(1.1) = 4(1.21) + 2.2 = 7.04. Average velocity on [1, 1.1] = (7.04 − 6)/(1.1 − 1) = 1.04/0.1 = 10.4 meters per second.\n\n(b) s(1 + h) = 4(1 + 2h + h²) + 2 + 2h = 6 + 10h + 4h². So s(1 + h) − s(1) = 10h + 4h², and for h ≠ 0, A(h) = (10h + 4h²)/h = 10 + 4h.\nThe quotient (s(1 + h) − s(1))/h cannot be evaluated at h = 0 because h is the change in time. When h = 0 the change in time is zero, so the quotient becomes 0/0, which involves division by zero. An average rate of change is undefined when the change in the independent variable is zero.\n\n(c) Instantaneous velocity at t = 1 = lim h→0 (s(1 + h) − s(1))/h = lim h→0 (10 + 4h) = 10 meters per second.\nIn part (a), the average velocity was 12 m/s over an interval of length 0.5 and 10.4 m/s over an interval of length 0.1. As the interval starting at t = 1 shrinks, these average velocities get closer and closer to 10 m/s, and the limit of these average velocities is the instantaneous velocity at t = 1.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction as F\nt,h=sp.symbols('t h')\ns=4*t**2+2*t\nassert s.subs(t,1)==6\nassert s.subs(t,sp.Rational(3,2))==12\nassert s.subs(t,sp.Rational(11,10))==sp.Rational(704,100)\na1=(s.subs(t,sp.Rational(3,2))-s.subs(t,1))/sp.Rational(1,2)\nassert a1==12\na2=(s.subs(t,sp.Rational(11,10))-s.subs(t,1))/sp.Rational(1,10)\nassert a2==sp.Rational(104,10)\nassert sp.expand(s.subs(t,1+h))==6+10*h+4*h**2\nA=sp.simplify((s.subs(t,1+h)-s.subs(t,1))/h)\nassert sp.simplify(A-(10+4*h))==0\nL=sp.limit(A,h,0)\nassert L==10\nassert sp.diff(s,t).subs(t,1)==10\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the average velocity of the cart over the time interval 1 ≤ t ≤ 1.5 and over the time interval 1 ≤ t ≤ 1.1. Show the computations that lead to your answers, and include units.",
+      "criteria": [
+       {
+        "text": "Average velocity over 1 ≤ t ≤ 1.5 is 12 meters per second.",
+        "evidence": "Shows (s(1.5) − s(1))/(1.5 − 1) = (12 − 6)/0.5 = 12, or equivalent work, giving 12.",
+        "fix": "Evaluate s at both endpoints, subtract, then divide by the length of the time interval, 0.5 seconds.",
+        "accepted_variants": [
+         "12 m/s",
+         "12 m/sec"
+        ]
+       },
+       {
+        "text": "Average velocity over 1 ≤ t ≤ 1.1 is 10.4 meters per second.",
+        "evidence": "Shows (s(1.1) − s(1))/(1.1 − 1) = (7.04 − 6)/0.1 = 10.4, or equivalent work, giving 10.4.",
+        "fix": "Compute s(1.1) = 4(1.21) + 2.2 = 7.04 carefully, then divide the change 1.04 by 0.1.",
+        "accepted_variants": [
+         "10.4 m/s",
+         "52/5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For h ≠ 0, the average velocity of the cart over the interval from t = 1 to t = 1 + h is A(h) = (s(1 + h) − s(1))/h. Write A(h) as a simplified expression in h. Then explain why the quotient (s(1 + h) − s(1))/h cannot be evaluated at h = 0.",
+      "criteria": [
+       {
+        "text": "A(h) = 10 + 4h for h ≠ 0.",
+        "evidence": "Expands s(1 + h) = 4(1 + h)² + 2(1 + h) = 6 + 10h + 4h², subtracts s(1) = 6, and divides 10h + 4h² by h to get 10 + 4h.",
+        "fix": "Expand 4(1 + h)² + 2(1 + h) fully, subtract s(1), factor h from the numerator, then cancel it.",
+        "accepted_variants": [
+         "4h + 10"
+        ]
+       },
+       {
+        "text": "Explains that at h = 0 the change in time is zero, so the quotient divides by zero (gives 0/0) and the average velocity is undefined.",
+        "evidence": "States that h is the change in the independent variable t, and when h = 0 the denominator is zero, so the average rate of change is undefined.",
+        "fix": "Remember an average rate divides the change in output by the change in input; a zero change in input makes it undefined.",
+        "accepted_variants": [
+         "division by zero",
+         "0/0 is undefined"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a limit of the average velocities from part (b) to find the instantaneous velocity of the cart at t = 1. Explain how your answer is related to the values found in part (a), and include units.",
+      "criteria": [
+       {
+        "text": "Sets up the instantaneous velocity as lim h→0 of the average velocity, lim h→0 (s(1 + h) − s(1))/h = lim h→0 (10 + 4h).",
+        "evidence": "Writes a limit as h→0 of the average velocity quotient or of 10 + 4h (or of an expression consistent with an earlier part (b) result).",
+        "fix": "Write the instantaneous rate as the limit, as h approaches 0, of the average rate over [1, 1 + h].",
+        "accepted_variants": [
+         "lim h→0 A(h)"
+        ]
+       },
+       {
+        "text": "Instantaneous velocity at t = 1 is 10 meters per second, with the explanation that the average velocities (12, then 10.4) approach 10 as the interval shrinks toward t = 1.",
+        "evidence": "Gives 10 m/s from evaluating the limit and states that average velocities over shorter intervals starting at t = 1 get closer to 10, consistent with 12 and 10.4.",
+        "fix": "After evaluating the limit, connect it to part (a): say the average velocities approach this value as the interval length shrinks to 0.",
+        "accepted_variants": [
+         "10 m/s",
+         "10 m/sec"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "A Drone's Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+   "parts": [
+    {
+     "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+     "criteria": [
+      {
+       "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+       "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+       "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows a valid calculation of the average velocity on [3, 3.01], such as [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01.",
+       "evidence": "Response shows correct work for [3, 3.01] by any valid method: the difference quotient with A(3.01) = 196.869901 and A(3) = 197 over 0.01, or an equivalent simplified quotient such as −13 − h + h² at h = 0.01.",
+       "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+       "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3, or the value toward which the response's own part (b) averages correctly point.",
+       "fix": "State one value with units, read from where the averages on both sides are heading.",
+       "accepted_variants": [
+        "−13 ft/s",
+        "−13 feet per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+       "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+       "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+       "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second, or interprets the sign and size of the response's own estimate in part (c) correctly.",
+       "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+       "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+       "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+   "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# simplified quotient on [3, 3 + h]: -13 - h + h^2\nh = F(1, 100)\nassert (A(3 + h) - A(3)) / h == -13 - h + h**2 == F(-130099, 10000)\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+  },
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.835681Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Topic ruling by CED text: Same 1.1 ruling as AB 1.1 (identical CED text for BC)."
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "calc_physics12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires separately computing both endpoint altitudes, rejecting valid algebraic calculations such as substituting h = 0.0",
+      "ruling": "accept",
+      "reason": "Valid on both counts. Expanding [A(3 + h) − A(3)]/h gives −13 − h + h², which at h = 0.01 is −13.0099 (re-derived exactly), a valid alternative to evaluating both altitudes. b1 now credits the shown work by any valid method and no longer scores −13.0099, which is scored once in b2. c1 and d1 also accept follow-through from the response's own earlier answers (round 3 addendum)."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ],
+  "topic_ruling": {
+   "topic": "1.1",
+   "required_units": [
+    1
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "Same 1.1 ruling as AB 1.1 (identical CED text for BC)."
+  }
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:05.293Z",
+   "source": "given",
+   "item": {
+    "title": "A Drone's Velocity at an Instant from Average Velocities",
+    "calculator": "permitted",
+    "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+    "parts": [
+     {
+      "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+      "criteria": [
+       {
+        "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+        "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+        "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+      "criteria": [
+       {
+        "text": "Shows the average velocity on [3, 3.01]: [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01 = −13.0099 ft/s.",
+        "evidence": "Response shows A(3.01) = 196.869901 and A(3) = 197, divides their difference by a change in time of 0.01, and obtains −13.0099.",
+        "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+        "accepted_variants": [
+         "−13.0099"
+        ]
+       },
+       {
+        "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+        "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+        "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+        "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3.",
+        "fix": "State one value with units, read from where the averages on both sides are heading.",
+        "accepted_variants": [
+         "−13 ft/s",
+         "−13 feet per second"
+        ]
+       },
+       {
+        "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+        "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+        "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+      "criteria": [
+       {
+        "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+        "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second.",
+        "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+        "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+        "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+    "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 5,
+     "1.1": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 1,
+     "2": 5
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:43.130Z",
+   "source": "given",
+   "item": {
+    "title": "A Drone's Velocity at an Instant from Average Velocities",
+    "calculator": "permitted",
+    "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+    "parts": [
+     {
+      "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+      "criteria": [
+       {
+        "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+        "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+        "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+      "criteria": [
+       {
+        "text": "Shows the average velocity on [3, 3.01]: [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01 = −13.0099 ft/s.",
+        "evidence": "Response shows A(3.01) = 196.869901 and A(3) = 197, divides their difference by a change in time of 0.01, and obtains −13.0099.",
+        "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+        "accepted_variants": [
+         "−13.0099"
+        ]
+       },
+       {
+        "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+        "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+        "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+        "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3.",
+        "fix": "State one value with units, read from where the averages on both sides are heading.",
+        "accepted_variants": [
+         "−13 ft/s",
+         "−13 feet per second"
+        ]
+       },
+       {
+        "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+        "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+        "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+      "criteria": [
+       {
+        "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+        "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second.",
+        "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+        "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+        "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+    "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 5,
+     "1.1": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 2,
+     "2": 5
+    },
+    "vote_pass": false,
+    "overridden_by": {
+     "topic": "1.1",
+     "required_units": [
+      1
+     ],
+     "basis": "ced_text_tiebreak",
+     "reason": "Same 1.1 ruling as AB 1.1 (identical CED text for BC)."
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires separately computing and displaying both endpoint altitudes, rejecting a valid calculation using the simplified quotient −13 − h + h² with h = 0.01. It also awards the value −13.0099, which criterion b2 awards again. Make b1 a calculation/setup point accepting equivalent methods, and reserve the six numerical results for b2."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires separately computing and displaying both endpoint altitudes, rejecting a valid calculation using the simplified quotient −13 − h + h² with h = 0.01. It also awards the value −13.0099, which criterion b2 awards again. Make b1 a calculation/setup point accepting equivalent methods, and reserve the six numerical results for b2."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires separately computing both endpoint altitudes, rejecting valid algebraic calculations such as substituting h = 0.01 into the derived average-velocity expression −13 − h + h². It also awards the value −13.0099 again in b2. Make b1 a calculation/setup point accepting equivalent valid work, and score the six numerical answers only in b2."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires separately computing both endpoint altitudes, rejecting valid algebraic calculations such as substituting h = 0.01 into the derived average-velocity expression −13 − h + h². It also awards the value −13.0099 again in b2. Make b1 a calculation/setup point accepting equivalent valid work, and score the six numerical answers only in b2."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

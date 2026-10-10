@@ -1,0 +1,744 @@
+{
+ "id": "ap_precalculus__3.2__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 3,
+  "unit_title": "Trigonometric and Polar Functions",
+  "topic_code": "3.2",
+  "topic_title": "Sine, Cosine, and Tangent",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:00:06.534Z",
+   "source": "given",
+   "item": {
+    "title": "Ratios on a Circle and Radian Measure",
+    "calculator": "not_permitted",
+    "stimulus": "An angle θ is in standard position. Its terminal ray intersects the circle of radius 13 centered at the origin at the point P = (−5, 12).\n\nA second angle α is in standard position. On the circle of radius 4 centered at the origin, the angle α subtends an arc of length 10, measured counterclockwise from the positive x-axis.",
+    "parts": [
+     {
+      "prompt": "Find the exact values of sin θ and cos θ. Show how each value is obtained from the coordinates of P.",
+      "criteria": [
+       {
+        "text": "sin θ = 12/13: the vertical displacement of P from the x-axis, 12, divided by the distance from the origin to P, 13.",
+        "evidence": "Response gives sin θ = 12/13 and shows it as the ratio of the y-coordinate 12 to the distance 13.",
+        "fix": "On a circle of radius r, divide the point's y-coordinate by r to get the sine, keeping the coordinate's sign.",
+        "accepted_variants": [
+         "12/13"
+        ]
+       },
+       {
+        "text": "cos θ = −5/13: the horizontal displacement of P from the y-axis, −5, divided by the distance from the origin to P, 13.",
+        "evidence": "Response gives cos θ = −5/13, keeping the negative sign from the x-coordinate of P, and shows the ratio to 13.",
+        "fix": "Divide the point's x-coordinate by the radius to get the cosine; a point left of the y-axis gives a negative cosine.",
+        "accepted_variants": [
+         "−5/13"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the coordinates of the point Q where the terminal ray of θ intersects the unit circle. Then find the exact value of tan θ and state what tan θ represents for the terminal ray.",
+      "criteria": [
+       {
+        "text": "Q = (−5/13, 12/13), because on the unit circle the point on the terminal ray has coordinates (cos θ, sin θ) (equivalently, P scaled by 1/13).",
+        "evidence": "Response gives Q = (−5/13, 12/13), from cos θ and sin θ or from dividing the coordinates of P by 13.",
+        "fix": "The point where the terminal ray meets the unit circle has x-coordinate cos θ and y-coordinate sin θ.",
+        "accepted_variants": [
+         "(−5/13, 12/13)"
+        ]
+       },
+       {
+        "text": "tan θ = −12/5, which is the slope of the terminal ray, (12 − 0)/(−5 − 0), equivalently sin θ/cos θ.",
+        "evidence": "Response gives tan θ = −12/5 and identifies it as the slope of the terminal ray.",
+        "fix": "Find tangent as the slope of the terminal ray: divide the y-coordinate by the x-coordinate of any point on the ray.",
+        "accepted_variants": [
+         "−12/5",
+         "−2.4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the radian measure of α. Then find the exact value of the negative angle that is coterminal with α and is closest to 0, and state the direction of rotation that this negative angle represents.",
+      "criteria": [
+       {
+        "text": "α = 10/4 = 2.5 radians, the arc length divided by the radius of the circle.",
+        "evidence": "Response divides the arc length 10 by the radius 4 to get α = 2.5 radians.",
+        "fix": "Radian measure equals arc length divided by the radius of the same circle; do not divide by the circumference.",
+        "accepted_variants": [
+         "5/2",
+         "2.5"
+        ]
+       },
+       {
+        "text": "The coterminal angle is 2.5 − 2π radians (approximately −3.78), because coterminal angles differ by whole revolutions of 2π, and a negative angle is a clockwise rotation from the positive x-axis.",
+        "evidence": "Response gives 2.5 − 2π (or an equivalent exact form) and states that the rotation is clockwise.",
+        "fix": "Subtract one full revolution, 2π, for a coterminal negative angle; negative measures mean clockwise rotation from the positive x-axis.",
+        "accepted_variants": [
+         "5/2 − 2π",
+         "2.5 − 2π"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) P is on the circle of radius 13, so the distance from the origin to P is 13 (check: √((−5)² + 12²) = √169 = 13).\nsin θ = (vertical displacement of P from the x-axis)/(distance from origin to P) = 12/13.\ncos θ = (horizontal displacement of P from the y-axis)/(distance from origin to P) = −5/13.\n\n(b) On the unit circle, the point on the terminal ray has coordinates (cos θ, sin θ), so Q = (−5/13, 12/13). This is P with both coordinates divided by 13.\ntan θ is the slope of the terminal ray: tan θ = (12 − 0)/(−5 − 0) = −12/5. Equivalently, tan θ = sin θ/cos θ = (12/13)/(−5/13) = −12/5.\n\n(c) The radian measure is the arc length divided by the radius: α = 10/4 = 2.5 radians.\nCoterminal angles differ by whole revolutions of 2π. Since 0 < 2.5 < 2π, subtracting one revolution gives the negative coterminal angle closest to 0: 2.5 − 2π radians, approximately −3.78. Because it is negative, it represents a clockwise rotation from the positive x-axis.",
+    "verification_python": "import sympy as sp\nx, y, r = -5, 12, 13\nassert sp.sqrt(x**2 + y**2) == r\ns = sp.Rational(y, r); c = sp.Rational(x, r)\nassert s == sp.Rational(12, 13) and c == sp.Rational(-5, 13)\nassert s**2 + c**2 == 1\nQ = (c, s)\nassert Q == (sp.Rational(-5, 13), sp.Rational(12, 13))\nt = sp.Rational(y - 0, x - 0)\nassert t == sp.Rational(-12, 5) and s / c == t\nassert abs(float(t) - (-2.4)) < 1e-12\nalpha = sp.Rational(10, 4)\nassert alpha == sp.Rational(5, 2)\nassert 0 < alpha < 2*sp.pi\nneg = alpha - 2*sp.pi\nassert neg < 0 and neg + 2*sp.pi > 0\nassert abs(float(neg) - (-3.783)) < 1e-3\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b criterion b2 and part c criterion c2 each bundle two distinct required outputs into a single point: b2 requires tan θ = −12/5 and the slope interpretation; c2 requires 2.5 − 2π and the clockwise direction. Each criterion should award one specific observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b criterion b2 and part c criterion c2 each bundle two distinct required outputs into a single point: b2 requires tan θ = −12/5 and the slope interpretation; c2 requires 2.5 − 2π and the clockwise direction. Each criterion should award one specific observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2 Sine, Cosine, and Tangent",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Ratios on a Circle and Radian Measure",
+   "calculator": "not_permitted",
+   "stimulus": "An angle θ is in standard position. Its terminal ray intersects the circle of radius 13 centered at the origin at the point P = (−5, 12).\n\nA second angle α is in standard position. On the circle of radius 4 centered at the origin, the angle α subtends an arc of length 10, measured counterclockwise from the positive x-axis.",
+   "parts": [
+    {
+     "prompt": "Find the exact values of sin θ and cos θ. Show how each value is obtained from the coordinates of P.",
+     "criteria": [
+      {
+       "text": "sin θ = 12/13: the vertical displacement of P from the x-axis, 12, divided by the distance from the origin to P, 13.",
+       "evidence": "Response gives sin θ = 12/13 and shows it as the ratio of the y-coordinate 12 to the distance 13.",
+       "fix": "On a circle of radius r, divide the point's y-coordinate by r to get the sine, keeping the coordinate's sign.",
+       "accepted_variants": [
+        "12/13"
+       ]
+      },
+      {
+       "text": "cos θ = −5/13: the horizontal displacement of P from the y-axis, −5, divided by the distance from the origin to P, 13.",
+       "evidence": "Response gives cos θ = −5/13, keeping the negative sign from the x-coordinate of P, and shows the ratio to 13.",
+       "fix": "Divide the point's x-coordinate by the radius to get the cosine; a point left of the y-axis gives a negative cosine.",
+       "accepted_variants": [
+        "−5/13"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the coordinates of the point Q where the terminal ray of θ intersects the unit circle. Then find the exact value of tan θ and state what tan θ represents for the terminal ray.",
+     "criteria": [
+      {
+       "text": "Q = (−5/13, 12/13), because on the unit circle the point on the terminal ray has coordinates (cos θ, sin θ) (equivalently, P scaled by 1/13).",
+       "evidence": "Response gives Q = (−5/13, 12/13), from cos θ and sin θ or from dividing the coordinates of P by 13.",
+       "fix": "The point where the terminal ray meets the unit circle has x-coordinate cos θ and y-coordinate sin θ.",
+       "accepted_variants": [
+        "(−5/13, 12/13)"
+       ]
+      },
+      {
+       "text": "tan θ = −12/5, which is the slope of the terminal ray, (12 − 0)/(−5 − 0), equivalently sin θ/cos θ.",
+       "evidence": "Response gives tan θ = −12/5 and identifies it as the slope of the terminal ray.",
+       "fix": "Find tangent as the slope of the terminal ray: divide the y-coordinate by the x-coordinate of any point on the ray.",
+       "accepted_variants": [
+        "−12/5",
+        "−2.4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the radian measure of α. Then find the exact value of the negative angle that is coterminal with α and is closest to 0, and state the direction of rotation that this negative angle represents.",
+     "criteria": [
+      {
+       "text": "α = 10/4 = 2.5 radians, the arc length divided by the radius of the circle.",
+       "evidence": "Response divides the arc length 10 by the radius 4 to get α = 2.5 radians.",
+       "fix": "Radian measure equals arc length divided by the radius of the same circle; do not divide by the circumference.",
+       "accepted_variants": [
+        "5/2",
+        "2.5"
+       ]
+      },
+      {
+       "text": "The coterminal angle is 2.5 − 2π radians (approximately −3.78), because coterminal angles differ by whole revolutions of 2π, and a negative angle is a clockwise rotation from the positive x-axis.",
+       "evidence": "Response gives 2.5 − 2π (or an equivalent exact form) and states that the rotation is clockwise.",
+       "fix": "Subtract one full revolution, 2π, for a coterminal negative angle; negative measures mean clockwise rotation from the positive x-axis.",
+       "accepted_variants": [
+        "5/2 − 2π",
+        "2.5 − 2π"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P is on the circle of radius 13, so the distance from the origin to P is 13 (check: √((−5)² + 12²) = √169 = 13).\nsin θ = (vertical displacement of P from the x-axis)/(distance from origin to P) = 12/13.\ncos θ = (horizontal displacement of P from the y-axis)/(distance from origin to P) = −5/13.\n\n(b) On the unit circle, the point on the terminal ray has coordinates (cos θ, sin θ), so Q = (−5/13, 12/13). This is P with both coordinates divided by 13.\ntan θ is the slope of the terminal ray: tan θ = (12 − 0)/(−5 − 0) = −12/5. Equivalently, tan θ = sin θ/cos θ = (12/13)/(−5/13) = −12/5.\n\n(c) The radian measure is the arc length divided by the radius: α = 10/4 = 2.5 radians.\nCoterminal angles differ by whole revolutions of 2π. Since 0 < 2.5 < 2π, subtracting one revolution gives the negative coterminal angle closest to 0: 2.5 − 2π radians, approximately −3.78. Because it is negative, it represents a clockwise rotation from the positive x-axis.",
+   "verification_python": "import sympy as sp\nx, y, r = -5, 12, 13\nassert sp.sqrt(x**2 + y**2) == r\ns = sp.Rational(y, r); c = sp.Rational(x, r)\nassert s == sp.Rational(12, 13) and c == sp.Rational(-5, 13)\nassert s**2 + c**2 == 1\nQ = (c, s)\nassert Q == (sp.Rational(-5, 13), sp.Rational(12, 13))\nt = sp.Rational(y - 0, x - 0)\nassert t == sp.Rational(-12, 5) and s / c == t\nassert abs(float(t) - (-2.4)) < 1e-12\nalpha = sp.Rational(10, 4)\nassert alpha == sp.Rational(5, 2)\nassert 0 < alpha < 2*sp.pi\nneg = alpha - 2*sp.pi\nassert neg < 0 and neg + 2*sp.pi > 0\nassert abs(float(neg) - (-3.783)) < 1e-3\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.877650Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u3_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion c2 lists −3.78 and −3.783 as equivalent forms, although they are approximations rather than equivalents of 5/2 − 2π. Its evidence expli",
+      "ruling": "accept",
+      "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "accurate: Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of the exact angle 5/2 − 2π. They are only approximations; the parenthetical appr",
+      "ruling": "accept",
+      "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "solution: The independent solution agrees with all six substantive scoring results: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing",
+      "ruling": "accept",
+      "reason": "Accepted for its only disagreement (the decimal accepted variants in c2), fixed as above. The checker's note that no model answer was provided is wrong: the item has one, and it earns every criterion."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (c), criterion c2: the Equivalent forms of the key value list includes decimal approximations −3.78 and −3.783, but the key value 5/2 − 2π h",
+      "ruling": "accept",
+      "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:24:18.440Z",
+   "source": "given",
+   "item": {
+    "title": "Ratios on a Circle and Radian Measure",
+    "calculator": "not_permitted",
+    "stimulus": "An angle θ is in standard position. Its terminal ray intersects the circle of radius 13 centered at the origin at the point P = (−5, 12).\n\nA second angle α is in standard position. On the circle of radius 4 centered at the origin, the angle α subtends an arc of length 10, measured counterclockwise from the positive x-axis.",
+    "parts": [
+     {
+      "prompt": "Find the exact values of sin θ and cos θ. Show how each value is obtained from the coordinates of P.",
+      "criteria": [
+       {
+        "text": "sin θ = 12/13: the vertical displacement of P from the x-axis, 12, divided by the distance from the origin to P, 13.",
+        "evidence": "Response gives sin θ = 12/13 and shows it as the ratio of the y-coordinate 12 to the distance 13.",
+        "fix": "On a circle of radius r, divide the point's y-coordinate by r to get the sine, keeping the coordinate's sign.",
+        "accepted_variants": [
+         "12/13"
+        ]
+       },
+       {
+        "text": "cos θ = −5/13: the horizontal displacement of P from the y-axis, −5, divided by the distance from the origin to P, 13.",
+        "evidence": "Response gives cos θ = −5/13, keeping the negative sign from the x-coordinate of P, and shows the ratio to 13.",
+        "fix": "Divide the point's x-coordinate by the radius to get the cosine; a point left of the y-axis gives a negative cosine.",
+        "accepted_variants": [
+         "−5/13"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the coordinates of the point Q where the terminal ray of θ intersects the unit circle. Then find the exact value of tan θ and state what tan θ represents for the terminal ray.",
+      "criteria": [
+       {
+        "text": "Q = (−5/13, 12/13), because on the unit circle the point on the terminal ray has coordinates (cos θ, sin θ) (equivalently, P scaled by 1/13).",
+        "evidence": "Response gives Q = (−5/13, 12/13), from cos θ and sin θ or from dividing the coordinates of P by 13.",
+        "fix": "The point where the terminal ray meets the unit circle has x-coordinate cos θ and y-coordinate sin θ.",
+        "accepted_variants": [
+         "(−5/13, 12/13)"
+        ]
+       },
+       {
+        "text": "tan θ = −12/5, which is the slope of the terminal ray, (12 − 0)/(−5 − 0), equivalently sin θ/cos θ.",
+        "evidence": "Response gives tan θ = −12/5 and identifies it as the slope of the terminal ray.",
+        "fix": "Find tangent as the slope of the terminal ray: divide the y-coordinate by the x-coordinate of any point on the ray.",
+        "accepted_variants": [
+         "−12/5",
+         "−2.4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the radian measure of α. Then find the negative angle that is coterminal with α and is closest to 0, and state the direction of rotation that this negative angle represents.",
+      "criteria": [
+       {
+        "text": "α = 10/4 = 2.5 radians, the arc length divided by the radius of the circle.",
+        "evidence": "Response divides the arc length 10 by the radius 4 to get α = 2.5 radians.",
+        "fix": "Radian measure equals arc length divided by the radius of the same circle; do not divide by the circumference.",
+        "accepted_variants": [
+         "5/2",
+         "2.5"
+        ]
+       },
+       {
+        "text": "The coterminal angle is 2.5 − 2π radians (approximately −3.78), because coterminal angles differ by whole revolutions of 2π, and a negative angle is a clockwise rotation from the positive x-axis.",
+        "evidence": "Response gives 2.5 − 2π (or an equivalent exact form) and states that the rotation is clockwise.",
+        "fix": "Subtract one full revolution, 2π, for a coterminal negative angle; negative measures mean clockwise rotation from the positive x-axis.",
+        "accepted_variants": [
+         "5/2 − 2π",
+         "2.5 − 2π",
+         "−3.78",
+         "−3.783"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) P is on the circle of radius 13, so the distance from the origin to P is 13 (check: √((−5)² + 12²) = √169 = 13).\nsin θ = (vertical displacement of P from the x-axis)/(distance from origin to P) = 12/13.\ncos θ = (horizontal displacement of P from the y-axis)/(distance from origin to P) = −5/13.\n\n(b) On the unit circle, the point on the terminal ray has coordinates (cos θ, sin θ), so Q = (−5/13, 12/13). This is P with both coordinates divided by 13.\ntan θ is the slope of the terminal ray: tan θ = (12 − 0)/(−5 − 0) = −12/5. Equivalently, tan θ = sin θ/cos θ = (12/13)/(−5/13) = −12/5.\n\n(c) The radian measure is the arc length divided by the radius: α = 10/4 = 2.5 radians.\nCoterminal angles differ by whole revolutions of 2π. Since 0 < 2.5 < 2π, subtracting one revolution gives the negative coterminal angle closest to 0: 2.5 − 2π radians, approximately −3.78. Because it is negative, it represents a clockwise rotation from the positive x-axis.",
+    "verification_python": "import sympy as sp\nx, y, r = -5, 12, 13\nassert sp.sqrt(x**2 + y**2) == r\ns = sp.Rational(y, r); c = sp.Rational(x, r)\nassert s == sp.Rational(12, 13) and c == sp.Rational(-5, 13)\nassert s**2 + c**2 == 1\nQ = (c, s)\nassert Q == (sp.Rational(-5, 13), sp.Rational(12, 13))\nt = sp.Rational(y - 0, x - 0)\nassert t == sp.Rational(-12, 5) and s / c == t\nassert abs(float(t) - (-2.4)) < 1e-12\nalpha = sp.Rational(10, 4)\nassert alpha == sp.Rational(5, 2)\nassert 0 < alpha < 2*sp.pi\nneg = alpha - 2*sp.pi\nassert neg < 0 and neg + 2*sp.pi > 0\nassert abs(float(neg) - (-3.783)) < 1e-3\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 lists −3.78 and −3.783 as accepted equivalent forms, although they are only approximations of 5/2 − 2π. These variants conflict with the criterion's exact-form evidence requirement and the no-calculator exact-value requirement. Remove both decimal variants.",
+       "accurate: Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of 5/2 − 2π. Neither is equal to that exact value; both are rounded approximations. The parenthetical approximation itself is correctly identified as approximate.",
+       "solution: The independent solution agrees with every main rubric answer: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing the terminal ray's slope, α = 5/2 radians, and the closest negative coterminal angle is 5/2 − 2π, representing clockwise rotation. The only disagreement is c2's classification of −3.78 and −3.783 as equivalent exact answers."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 lists −3.78 and −3.783 as accepted equivalent forms, although they are only approximations of 5/2 − 2π. These variants conflict with the criterion's exact-form evidence requirement and the no-calculator exact-value requirement. Remove both decimal variants."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of 5/2 − 2π. Neither is equal to that exact value; both are rounded approximations. The parenthetical approximation itself is correctly identified as approximate."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with every main rubric answer: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing the terminal ray's slope, α = 5/2 radians, and the closest negative coterminal angle is 5/2 − 2π, representing clockwise rotation. The only disagreement is c2's classification of −3.78 and −3.783 as equivalent exact answers.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 lists −3.78 and −3.783 as equivalent forms, although they are approximations rather than equivalents of 5/2 − 2π. Its evidence explicitly requires an exact form, consistent with the no-calculator instructions. Remove the decimal accepted variants.",
+       "accurate: Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of the exact angle 5/2 − 2π. They are only approximations; the parenthetical approximation itself is mathematically reasonable.",
+       "solution: The independent solution agrees with all six substantive scoring results: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing the terminal ray's slope, α = 5/2 radians, and the closest negative coterminal angle 5/2 − 2π representing clockwise rotation. The only disagreement is c2's designation of decimal approximations as equivalent exact answers. No model answer was provided or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 lists −3.78 and −3.783 as equivalent forms, although they are approximations rather than equivalents of 5/2 − 2π. Its evidence explicitly requires an exact form, consistent with the no-calculator instructions. Remove the decimal accepted variants."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of the exact angle 5/2 − 2π. They are only approximations; the parenthetical approximation itself is mathematically reasonable."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all six substantive scoring results: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing the terminal ray's slope, α = 5/2 radians, and the closest negative coterminal angle 5/2 − 2π representing clockwise rotation. The only disagreement is c2's designation of decimal approximations as equivalent exact answers. No model answer was provided or evaluated.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 lists −3.78 and −3.783 as accepted equivalent forms of 2.5 − 2π, but these are decimal approximations, not exact equivalents. With calculator not permitted and the criterion requiring an equivalent exact form, this makes the accepted variants overbroad and inconsistent.",
+       "accurate: Part (c), criterion c2 labels the decimal approximations −3.78 and −3.783 as equivalent forms of 2.5 − 2π; they are only approximate values and not equal to the exact key value."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 lists −3.78 and −3.783 as accepted equivalent forms of 2.5 − 2π, but these are decimal approximations, not exact equivalents. With calculator not permitted and the criterion requiring an equivalent exact form, this makes the accepted variants overbroad and inconsistent."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 labels the decimal approximations −3.78 and −3.783 as equivalent forms of 2.5 − 2π; they are only approximate values and not equal to the exact key value."
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2: the Equivalent forms of the key value list includes decimal approximations −3.78 and −3.783, but the key value 5/2 − 2π has no terminating-decimal equivalent; accepted variants must be exact equivalents, not rounded or truncated decimals."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2: the Equivalent forms of the key value list includes decimal approximations −3.78 and −3.783, but the key value 5/2 − 2π has no terminating-decimal equivalent; accepted variants must be exact equivalents, not rounded or truncated decimals."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

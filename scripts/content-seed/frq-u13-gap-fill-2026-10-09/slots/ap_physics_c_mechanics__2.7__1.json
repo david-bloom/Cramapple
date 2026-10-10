@@ -1,0 +1,336 @@
+{
+ "id": "ap_physics_c_mechanics__2.7__1",
+ "slot": {
+  "subject_key": "ap_physics_c_mechanics",
+  "tsv": "d77d7801-441d-49bb-a2cf-a02f6bff407d",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.7",
+  "topic_title": "Kinetic and Static Friction",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:18:37.709Z",
+   "source": "given",
+   "item": {
+    "title": "Static and Kinetic Friction on a Pushed Crate",
+    "calculator": "permitted",
+    "stimulus": "A 5.0 kg crate rests on a level floor. The coefficient of static friction between the crate and the floor is 0.50, and the coefficient of kinetic friction is 0.30. Every face of the crate is made of the same material. A person pushes on the crate with a horizontal force P. Use g = 10 m/s².",
+    "parts": [
+     {
+      "prompt": "The person pushes with P = 15 N, and the crate does not move. Determine the magnitude and direction of the friction force exerted on the crate by the floor, and explain your reasoning.",
+      "criteria": [
+       {
+        "text": "Friction is 15 N directed opposite to the push, because static friction takes whatever value is needed to prevent sliding, and 15 N is less than the maximum μₛF_N = 25 N.",
+        "evidence": "Response gives 15 N opposite the push and explains that static friction matches the push instead of automatically equaling μₛF_N = 25 N.",
+        "fix": "Treat μₛF_N as only the maximum value; find the actual static friction from the forces it must balance to prevent sliding.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the minimum horizontal push needed to start the crate sliding.",
+      "criteria": [
+       {
+        "text": "F_N = mg = 50 N, so P_min = F_f,s,max = μₛF_N = (0.50)(50 N) = 25 N.",
+        "evidence": "Response finds the normal force of 50 N and multiplies it by 0.50 to obtain 25 N.",
+        "fix": "On a level floor with a horizontal push, set the normal force equal to mg; the threshold push equals μₛ times that normal force.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "After the crate starts sliding, the person keeps pushing with a constant horizontal force of 25 N. Calculate the magnitude of the kinetic friction force on the crate and the magnitude of the crate's acceleration.",
+      "criteria": [
+       {
+        "text": "Kinetic friction = μₖF_N = (0.30)(50 N) = 15 N, opposite the crate's motion.",
+        "evidence": "Response uses μₖ (not μₛ) with F_N = 50 N to obtain 15 N.",
+        "fix": "Once the surfaces slide relative to each other, switch to the kinetic coefficient to compute the friction force.",
+        "accepted_variants": []
+       },
+       {
+        "text": "a = (25 N − 15 N)/5.0 kg = 2.0 m/s².",
+        "evidence": "Response computes a net force of 10 N and divides by 5.0 kg to obtain 2.0 m/s², consistent with its own friction value.",
+        "fix": "Subtract the friction force from the push to get the net force, then divide by the crate's mass.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The crate is turned onto a different face that has half the contact area with the floor and is pushed so that it slides again. State whether the kinetic friction force on the crate is greater than, less than, or the same as before, and justify your answer.",
+      "criteria": [
+       {
+        "text": "The same (15 N): kinetic friction depends only on μₖ and the normal force, which are unchanged, and not on the area of contact.",
+        "evidence": "Response states the friction force is unchanged and justifies it with F_f,k = μₖF_N being independent of the contact area.",
+        "fix": "Remember that friction does not depend on contact area; check only whether the normal force or the coefficient has changed.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The friction force is 15 N, directed opposite to the push. The crate is not moving, so static friction acts, and static friction takes whatever value is needed to keep the crate from sliding. With the crate at rest the horizontal forces balance, so the friction force equals the 15 N push. The maximum possible static friction is μₛF_N = (0.50)(50 N) = 25 N, but static friction reaches that value only at the point of slipping; 15 N is less than 25 N, so the crate stays at rest.\n\n(b) On the level floor with a horizontal push, F_N = mg = (5.0 kg)(10 m/s²) = 50 N.\nP_min = F_f,s,max = μₛF_N = (0.50)(50 N) = 25 N. Any push larger than this exceeds the maximum static friction, so 25 N is the threshold for starting the crate sliding.\n\n(c) Once the crate slides, kinetic friction acts: F_f,k = μₖF_N = (0.30)(50 N) = 15 N, opposite the crate's motion.\nNet force = 25 N − 15 N = 10 N in the direction of the push.\na = F_net/m = (10 N)/(5.0 kg) = 2.0 m/s².\n\n(d) The kinetic friction force stays the same, 15 N. Kinetic friction equals μₖF_N. The coefficient is unchanged because the surfaces are the same materials, and the normal force is still mg = 50 N. Friction does not depend on the area of contact, so halving the area does not change it.",
+    "verification_python": "m, g, mus, muk = 5.0, 10.0, 0.50, 0.30\nN = m*g\nassert N == 50.0\nfsmax = mus*N\nassert abs(fsmax - 25) < 1e-12\nP = 15.0\nassert P < fsmax\nfs = P\nassert fs == 15.0\nfk = muk*N\nassert abs(fk - 15) < 1e-12\na = (25 - fk)/m\nassert abs(25 - fk - 10) < 1e-12\nassert abs(a - 2.0) < 1e-12\nfk_half_area = muk*N\nassert abs(fk_half_area - fk) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria b1 and c2 prescribe intermediate calculations that the parts do not require. For example, P_min = μₛmg = 25 N and a = P/m − μₖg = 2.0 m/s² are valid calculations without separately reporting 50 N or 10 N. Criterion c2 also requires exactly 10 N and 2.0 m/s² despite claiming to allow consistency with the student's own friction value; its evidence requirement should explicitly permit correct follow-through."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and c2 prescribe intermediate calculations that the parts do not require. For example, P_min = μₛmg = 25 N and a = P/m − μₖg = 2.0 m/s² are valid calculations without separately reporting 50 N or 10 N. Criterion c2 also requires exactly 10 N and 2.0 m/s² despite claiming to allow consistency with the student's own friction value; its evidence requirement should explicitly permit correct follow-through."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Static and Kinetic Friction on a Pushed Crate",
+   "calculator": "permitted",
+   "stimulus": "A 5.0 kg crate rests on a level floor. The coefficient of static friction between the crate and the floor is 0.50, and the coefficient of kinetic friction is 0.30. Every face of the crate is made of the same material. A person pushes on the crate with a horizontal force P. Use g = 10 m/s².",
+   "parts": [
+    {
+     "prompt": "The person pushes with P = 15 N, and the crate does not move. Determine the magnitude and direction of the friction force exerted on the crate by the floor, and explain your reasoning.",
+     "criteria": [
+      {
+       "text": "Friction is 15 N directed opposite to the push, because static friction takes whatever value is needed to prevent sliding, and 15 N is less than the maximum μₛF_N = 25 N.",
+       "evidence": "Response gives 15 N opposite the push and explains that static friction matches the push instead of automatically equaling μₛF_N = 25 N.",
+       "fix": "Treat μₛF_N as only the maximum value; find the actual static friction from the forces it must balance to prevent sliding.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the minimum horizontal push needed to start the crate sliding.",
+     "criteria": [
+      {
+       "text": "F_N = mg = 50 N, so P_min = F_f,s,max = μₛF_N = (0.50)(50 N) = 25 N.",
+       "evidence": "Response finds the normal force of 50 N and multiplies it by 0.50 to obtain 25 N.",
+       "fix": "On a level floor with a horizontal push, set the normal force equal to mg; the threshold push equals μₛ times that normal force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "After the crate starts sliding, the person keeps pushing with a constant horizontal force of 25 N. Calculate the magnitude of the kinetic friction force on the crate and the magnitude of the crate's acceleration.",
+     "criteria": [
+      {
+       "text": "Kinetic friction = μₖF_N = (0.30)(50 N) = 15 N, opposite the crate's motion.",
+       "evidence": "Response uses μₖ (not μₛ) with F_N = 50 N to obtain 15 N.",
+       "fix": "Once the surfaces slide relative to each other, switch to the kinetic coefficient to compute the friction force.",
+       "accepted_variants": []
+      },
+      {
+       "text": "a = (25 N − 15 N)/5.0 kg = 2.0 m/s².",
+       "evidence": "Response computes a net force of 10 N and divides by 5.0 kg to obtain 2.0 m/s², consistent with its own friction value.",
+       "fix": "Subtract the friction force from the push to get the net force, then divide by the crate's mass.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The crate is turned onto a different face that has half the contact area with the floor and is pushed so that it slides again. State whether the kinetic friction force on the crate is greater than, less than, or the same as before, and justify your answer.",
+     "criteria": [
+      {
+       "text": "The same (15 N): kinetic friction depends only on μₖ and the normal force, which are unchanged, and not on the area of contact.",
+       "evidence": "Response states the friction force is unchanged and justifies it with F_f,k = μₖF_N being independent of the contact area.",
+       "fix": "Remember that friction does not depend on contact area; check only whether the normal force or the coefficient has changed.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The friction force is 15 N, directed opposite to the push. The crate is not moving, so static friction acts, and static friction takes whatever value is needed to keep the crate from sliding. With the crate at rest the horizontal forces balance, so the friction force equals the 15 N push. The maximum possible static friction is μₛF_N = (0.50)(50 N) = 25 N, but static friction reaches that value only at the point of slipping; 15 N is less than 25 N, so the crate stays at rest.\n\n(b) On the level floor with a horizontal push, F_N = mg = (5.0 kg)(10 m/s²) = 50 N.\nP_min = F_f,s,max = μₛF_N = (0.50)(50 N) = 25 N. Any push larger than this exceeds the maximum static friction, so 25 N is the threshold for starting the crate sliding.\n\n(c) Once the crate slides, kinetic friction acts: F_f,k = μₖF_N = (0.30)(50 N) = 15 N, opposite the crate's motion.\nNet force = 25 N − 15 N = 10 N in the direction of the push.\na = F_net/m = (10 N)/(5.0 kg) = 2.0 m/s².\n\n(d) The kinetic friction force stays the same, 15 N. Kinetic friction equals μₖF_N. The coefficient is unchanged because the surfaces are the same materials, and the normal force is still mg = 50 N. Friction does not depend on the area of contact, so halving the area does not change it.",
+   "verification_python": "m, g, mus, muk = 5.0, 10.0, 0.50, 0.30\nN = m*g\nassert N == 50.0\nfsmax = mus*N\nassert abs(fsmax - 25) < 1e-12\nP = 15.0\nassert P < fsmax\nfs = P\nassert fs == 15.0\nfk = muk*N\nassert abs(fk - 15) < 1e-12\na = (25 - fk)/m\nassert abs(25 - fk - 10) < 1e-12\nassert abs(a - 2.0) < 1e-12\nfk_half_area = muk*N\nassert abs(fk_half_area - fk) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.872484Z"
+ },
+ "accepted_round": 1
+}

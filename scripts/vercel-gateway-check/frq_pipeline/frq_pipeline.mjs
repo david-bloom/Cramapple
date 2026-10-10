@@ -276,7 +276,24 @@ async function runSlot(IN, batch, slot, n, checkers, rounds, siblings) {
   const id = `${slot.subject_key}__${slot.topic_code}__${n}`;
   const f = path.join(batch, 'slots', `${id}.json`);
   const st = readJson(f, { id, slot: { ...slot }, n, status: 'open', candidates: [] });
+  if (st.status === 'pending_checks' && st.given) {
+    // A Product-Owner-supplied item: run every gate on it as given. Never author a replacement and never edit it;
+    // if any gate flags it, mark it given_flagged for the Product Owner to decide.
+    const it = st.given.item; const tag = `${id}:given`; const c = { round: st.candidates.length + 1, at: new Date().toISOString(), source: 'given', item: it };
+    c.lint = lint(it, slot.subject_key);
+    if (!c.lint.length) { c.py = runPy(it.verification_python); }
+    if (!c.lint.length && c.py.ok) { c.probe = await probe(IN, slot, it, tag);
+      // Claude's arbitration (Product Owner direction 2026-10-10): a topic ruling made from the CED text overrides the vote.
+      if (st.arbitration?.topic_ruling && !c.probe.pass) { c.probe.vote_pass = false; c.probe.pass = true; c.probe.overridden_by = st.arbitration.topic_ruling; c.probe.required_units = st.arbitration.topic_ruling.required_units; } }
+    if (c.probe?.pass) { c.checks = await Promise.all(checkers.map((m) => checker(IN, slot, it, m, siblings, `${tag}:${m.split('/')[0]}`))); }
+    const ok = !c.lint.length && c.py?.ok && c.probe?.pass && c.checks?.every((x) => x.pass);
+    c.stage = ok ? 'accepted' : (c.lint.length ? 'lint' : !c.py?.ok ? 'recompute' : !c.probe?.pass ? 'topic_vote' : 'checkers');
+    if (ok) { const d = c.checks.map((x) => x.difficulty); const cnt = d.reduce((m, x) => ((m[x] = (m[x] || 0) + 1), m), {});
+      const top = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0]; c.difficulty = top[1] > d.length / 2 ? top[0] : 'Medium'; }
+    st.candidates.push(c); st.status = ok ? 'accepted' : 'given_flagged'; if (ok) st.accepted_round = c.round; writeJson(f, st); return st;
+  }
   if (st.status !== 'open') return st;
+  if (flag('no-author')) return st; // Product Owner 2026-10-10: Claude in session authors; never pay a gateway model to author
   while (st.candidates.length < rounds) {
     const r = st.candidates.length + 1; const tag = `${id}:r${r}`;
     const c = { round: r, at: new Date().toISOString() };

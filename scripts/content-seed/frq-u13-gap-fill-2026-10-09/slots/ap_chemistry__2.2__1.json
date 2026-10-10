@@ -1,0 +1,507 @@
+{
+ "id": "ap_chemistry__2.2__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 2,
+  "unit_title": "Compound Structure and Properties",
+  "topic_code": "2.2",
+  "topic_title": "Intramolecular Force and Potential Energy",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:53:11.301Z",
+   "item": {
+    "title": "Potential Energy of H2 and Coulombic Strength of Ionic Pairs",
+    "calculator": "permitted",
+    "stimulus": "A student studies the bond in a hydrogen molecule, H2. The table lists the potential energy of two hydrogen atoms at different internuclear distances. Potential energy is set to zero when the atoms are infinitely far apart, and values are given per mole of H2.\n\nInternuclear distance (pm) | Potential energy (kJ/mol)\n30 | +357\n40 | −55\n50 | −283\n74 | −436\n100 | −368\n150 | −177\n250 | −28\n500 | 0\n\nThe student then compares the cation–anion interactions in three ionic compounds using the ionic radii below.\n\nIon | Charge | Ionic radius (pm)\nNa | +1 | 102\nMg | +2 | 72\nF | −1 | 133\nCl | −1 | 181\nO | −2 | 140\n\nMolar mass of H2 = 2.016 g/mol.",
+    "model_answer": "(a) The equilibrium bond length is 74 pm, because that is the distance at which the potential energy is lowest (−436 kJ/mol). The bond energy is 436 kJ/mol, because separating the atoms completely raises the potential energy from −436 kJ/mol to 0 kJ/mol, so 436 kJ must be supplied per mole of H2.\n\n(b) n = m/M = 1.00 g ÷ 2.016 g/mol = 0.496 mol H2. Energy = 0.496 mol × 436 kJ/mol = 216 kJ.\n\n(c) When the atoms are pushed closer than 74 pm, the two positively charged nuclei (and the two electrons) repel each other strongly. Below the bond length, these repulsions increase much faster than the attraction of each nucleus for the shared electrons, so the net interaction becomes repulsive and the potential energy rises steeply.\n\n(d) NaF. Both compounds contain a +1 cation and a −1 anion, so the charges are the same. F⁻ (133 pm) is smaller than Cl⁻ (181 pm), so the distance between ion centers is shorter in NaF (102 + 133 = 235 pm) than in NaCl (102 + 181 = 283 pm). By Coulomb's law the attraction increases as distance decreases, so NaF has the stronger attraction.\n\n(e) MgO. By Coulomb's law the attraction is proportional to q1q2/r². Mg²⁺ and O²⁻ have charges of +2 and −2, a charge product of 4, compared with 1 for Na⁺ and F⁻. The distance between ion centers is also slightly shorter in MgO (72 + 140 = 212 pm) than in NaF (235 pm). Both factors make the attraction in MgO stronger.",
+    "verification_python": "import math\n# table minimum\ntable={30:357,40:-55,50:-283,74:-436,100:-368,150:-177,250:-28,500:0}\nrmin=min(table,key=lambda r:table[r])\nassert rmin==74\nBE=table[500]-table[74]\nassert BE==436\n# Morse check of table plausibility\nD=436;a=0.0194;re=74\nfor r,v in table.items():\n    m=D*(1-math.exp(-a*(r-re)))**2-D\n    assert abs(m-v)<3,(r,m,v)\n# part b\nn=1.00/2.016\nassert abs(n-0.496)<0.0005\nE=n*436\nassert round(E)==216\n# part d, e\nr_NaF=102+133; r_NaCl=102+181; r_MgO=72+140\nassert (r_NaF,r_NaCl,r_MgO)==(235,283,212)\nassert 1/r_NaF**2>1/r_NaCl**2\nassert 4/r_MgO**2>1/r_NaF**2\nassert 2*2==4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the first table, identify the equilibrium bond length of H2 and the bond energy of H2. Explain how each value is obtained from the data.",
+      "criteria": [
+       {
+        "text": "Bond length is 74 pm and bond energy is 436 kJ/mol, each linked to the data correctly.",
+        "evidence": "States 74 pm as the bond length because the potential energy is lowest there. States 436 kJ/mol as the bond energy because it is the energy needed to raise the potential energy from −436 kJ/mol to 0 when the atoms are fully separated.",
+        "fix": "Take bond length at the minimum potential energy, and bond energy as the energy rise from that minimum to zero at large separation.",
+        "accepted_variants": [
+         "74 pm and 436 kJ/mol",
+         "0.74 Å and 436 kJ/mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the minimum energy, in kJ, needed to break all of the H–H bonds in a 1.00 g sample of H2(g). Report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Energy needed is 216 kJ (3 significant figures), calculated as (1.00 g ÷ 2.016 g/mol) × 436 kJ/mol.",
+        "evidence": "Converts 1.00 g to 0.496 mol of H2 and multiplies by the 436 kJ/mol bond energy, reporting 216 kJ with units. Error carried forward from the bond energy given in part (a) is accepted.",
+        "fix": "Convert grams to moles with n = m/M first, multiply by bond energy in kJ/mol, then round to the least number of significant figures.",
+        "accepted_variants": [
+         "216 kJ",
+         "2.16 × 10² kJ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The potential energy rises from −436 kJ/mol at 74 pm to +357 kJ/mol at 30 pm. Explain, in terms of the interactions between the particles in the two atoms, why the potential energy rises steeply as the internuclear distance is reduced below 74 pm.",
+      "criteria": [
+       {
+        "text": "Repulsion between the two positively charged nuclei (and between the electrons) dominates at distances shorter than the bond length.",
+        "evidence": "States that as the atoms are pushed closer than 74 pm, repulsions between the nuclei (and between the electron clouds) increase faster than the nucleus–electron attractions, so potential energy rises sharply.",
+        "fix": "At short distances, name the nucleus–nucleus repulsion and state that it outweighs nucleus–electron attraction, raising potential energy.",
+        "accepted_variants": [
+         "internuclear repulsion dominates",
+         "proton–proton repulsion outweighs attraction"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using Coulomb's law and the ionic radius data, identify which compound, NaF or NaCl, has the stronger attraction between its cation and anion. Justify your answer.",
+      "criteria": [
+       {
+        "text": "NaF has the stronger attraction, because F⁻ is smaller than Cl⁻ while the ion charges are the same.",
+        "evidence": "Claims NaF and justifies that both compounds have +1 and −1 charges, but the smaller F⁻ ion (133 pm vs 181 pm) gives a shorter distance between ion centers (235 pm vs 283 pm), so the Coulombic attraction is stronger.",
+        "fix": "When charges match, compare the sum of ionic radii; the shorter distance between ion centers gives the stronger Coulombic attraction.",
+        "accepted_variants": [
+         "sodium fluoride"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Identify which compound, NaF or MgO, has the stronger attraction between its cation and anion. Justify your answer using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "MgO has the stronger attraction, because its ions have larger charges (+2 and −2) and also a slightly shorter distance between ion centers.",
+        "evidence": "Claims MgO and cites the larger ion charges (charge product of 4 versus 1 for NaF) as the reason the force is greater. May also note the shorter distance of 212 pm versus 235 pm, though the charge argument is required.",
+        "fix": "Use F ∝ q1q2/r²; compare the ion charges first, since doubling both charges quadruples the attraction.",
+        "accepted_variants": [
+         "magnesium oxide"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 combines two independently observable elements—identifying and explaining equilibrium bond length, and identifying and explaining bond energy—into one point. These should be separate criteria. Criterion d1's evidence requires numerical ion-center distances, although part (d) permits a complete qualitative justification: equal charges and a smaller F⁻ radius imply shorter separation and stronger attraction. Accept that justification without requiring radius sums."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines two independently observable elements—identifying and explaining equilibrium bond length, and identifying and explaining bond energy—into one point. These should be separate criteria. Criterion d1's evidence requires numerical ion-center distances, although part (d) permits a complete qualitative justification: equal charges and a smaller F⁻ radius imply shorter separation and stronger attraction. Accept that justification without requiring radius sums."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles two independently observable answers—equilibrium bond length and bond energy, each with its explanation—into one point. Split these into separate 1-point criteria. Part (d), criterion d1's evidence unnecessarily specifies numerical center-to-center distances; a qualitative justification that equal charges and the smaller F⁻ radius produce stronger attraction is sufficient and must receive credit without calculating radius sums."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles two independently observable answers—equilibrium bond length and bond energy, each with its explanation—into one point. Split these into separate 1-point criteria. Part (d), criterion d1's evidence unnecessarily specifies numerical center-to-center distances; a qualitative justification that equal charges and the smaller F⁻ radius produce stronger attraction is sufficient and must receive credit without calculating radius sums."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:57:28.808Z",
+   "item": {
+    "title": "Potential Energy Curve for Cl2 and Ionic Interactions",
+    "calculator": "permitted",
+    "stimulus": "A student uses a computer model to calculate the potential energy of two chlorine atoms as a function of the distance between their nuclei (internuclear distance). The potential energy is defined as zero when the atoms are infinitely far apart. Selected results are shown in the table.\n\nInternuclear distance (pm) | Potential energy per pair of atoms (×10⁻¹⁹ J)\n150 | +3.10\n170 | −2.20\n185 | −3.65\n199 | −4.02\n215 | −3.80\n250 | −2.60\n300 | −1.20\n400 | −0.25\ninfinite | 0\n\nAvogadro's number is 6.022 × 10²³ mol⁻¹.",
+    "model_answer": "(a) The equilibrium bond length is 199 pm. At this distance the potential energy is at its minimum value, −4.02 × 10⁻¹⁹ J, so the two atoms are most stable at this separation.\n\n(b) The bond energy is the energy needed to separate the atoms from the minimum (−4.02 × 10⁻¹⁹ J) to zero, so 4.02 × 10⁻¹⁹ J per bond.\n(4.02 × 10⁻¹⁹ J/bond)(6.022 × 10²³ bonds/mol) = 2.42 × 10⁵ J/mol\n2.42 × 10⁵ J/mol × (1 kJ / 1000 J) = 242 kJ/mol\n\n(c) At 150 pm the atoms are much closer than the equilibrium bond length. At this short distance the repulsion between the two positively charged nuclei, and between the electrons of the two atoms, becomes greater than the attraction of each nucleus for the electrons of the other atom. Because repulsion dominates, the potential energy is higher than that of the separated atoms, so it is positive.\n\n(d) CO has the shorter carbon-oxygen bond and the larger carbon-oxygen bond energy. The C–O bond in CO is a triple bond (bond order 3), while each C–O bond in CO2 is a double bond (bond order 2). More shared electron pairs between the same two atoms pull the nuclei closer together and hold them more strongly, so a higher bond order gives a shorter bond with a larger bond energy.\n\n(e) MgO has the stronger attraction. By Coulomb's law, the force between ions is proportional to q₁q₂/r². The distances are similar, but the ion charges in MgO (2+ and 2−) are larger than those in NaF (1+ and 1−), so the product of the charges is four times as large in magnitude, giving a stronger attraction in MgO.",
+    "verification_python": "import math\nr=[150,170,185,199,215,250,300,400]\npe=[3.10,-2.20,-3.65,-4.02,-3.80,-2.60,-1.20,-0.25]\ni=pe.index(min(pe))\nassert r[i]==199\nassert pe[0]>0\nNA=6.022e23\nE_J_mol=4.02e-19*NA\nassert abs(E_J_mol-2.42e5)<0.01e5\nE_kJ=E_J_mol/1000\nassert round(E_kJ)==242\nassert abs(float('%.3g'%E_kJ)-242)<1e-9\n# Coulomb charge product comparison\nassert abs(2*-2)/abs(1*-1)==4\n# bond order comparison\nassert 3>2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, identify the equilibrium bond length of the Cl–Cl bond. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies the equilibrium bond length as 199 pm because the potential energy is lowest (most negative, −4.02 × 10⁻¹⁹ J) at that distance.",
+        "evidence": "States 199 pm and links it to the minimum potential energy in the table.",
+        "fix": "Find the internuclear distance where potential energy is lowest; that minimum defines the equilibrium bond length.",
+        "accepted_variants": [
+         "199 pm",
+         "1.99 × 10⁻¹⁰ m",
+         "0.199 nm"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the bond energy of the Cl–Cl bond in kJ/mol. Show your work and report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Calculates the bond energy as 242 kJ/mol from 4.02 × 10⁻¹⁹ J per bond multiplied by Avogadro's number and converted to kJ.",
+        "evidence": "Shows (4.02 × 10⁻¹⁹ J)(6.022 × 10²³ mol⁻¹) = 2.42 × 10⁵ J/mol and converts to 242 kJ/mol, reported to three significant figures as a positive value.",
+        "fix": "Take the depth of the minimum as energy per bond, multiply by Avogadro's number, divide by 1000, and keep three significant figures.",
+        "accepted_variants": [
+         "242 kJ/mol",
+         "2.42 × 10² kJ/mol"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "At an internuclear distance of 150 pm, the potential energy is positive. Explain this observation in terms of the interactions between the particles in the two atoms.",
+      "criteria": [
+       {
+        "text": "Explains that at 150 pm the atoms are closer than the equilibrium distance, so repulsions between the two positively charged nuclei (and between the electron clouds) dominate over the attractions of each nucleus for the other atom's electrons.",
+        "evidence": "Identifies nucleus–nucleus (or electron–electron) repulsion as exceeding nucleus–electron attraction at short distance.",
+        "fix": "At very short distances, describe nucleus–nucleus repulsion becoming larger than nucleus–electron attraction, which raises the potential energy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Carbon monoxide, CO, contains a carbon-oxygen triple bond, while each carbon-oxygen bond in carbon dioxide, CO2, is a double bond. Predict which molecule has the shorter carbon-oxygen bond and the larger carbon-oxygen bond energy. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that CO has the shorter carbon-oxygen bond and the larger bond energy, justified by its higher bond order (triple versus double).",
+        "evidence": "Chooses CO for both shorter length and larger bond energy and cites bond order 3 versus 2 (more shared electron pairs between the same two atoms).",
+        "fix": "Compare bond orders between the same two atoms: higher bond order means shorter bond and larger bond energy.",
+        "accepted_variants": [
+         "bond order 3 versus 2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Solid MgO contains Mg²⁺ and O²⁻ ions, and solid NaF contains Na⁺ and F⁻ ions. The distances between the centers of adjacent cations and anions in the two solids are similar. Identify which compound has the stronger attraction between its cations and anions, and justify your answer using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Identifies MgO as having the stronger cation–anion attraction because, by Coulomb's law, interaction strength is proportional to the product of the ion charges (2+ and 2− versus 1+ and 1−) at similar internuclear distance.",
+        "evidence": "Chooses MgO and refers to the larger ion charges in MgO increasing the Coulombic attraction, with distance being similar.",
+        "fix": "Apply Coulomb's law F ∝ q₁q₂/r²: when distances are similar, compare ion charges; larger charges give stronger attraction.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 2
+}
