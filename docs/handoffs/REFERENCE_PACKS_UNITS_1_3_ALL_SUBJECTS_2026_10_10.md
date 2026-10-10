@@ -280,9 +280,15 @@ Correcting them would have meant inventing a basis, so they stay rejected:
 - **`ap_physics_c_em-u8-r2-003`** — The four-or-fewer-charges limit is the Topic 8.1 boundary statement, a scope limit rather than content.
 - **`ap_physics_c_em-u10-r2-001`** — The list of quantitatively examinable capacitor geometries is the Topic 10.3 boundary statement.
 
-Three of the seven are the same failure mode and worth noting for later batches: the extractor will mine a
-**boundary statement**, a **suggested skill**, or the **"Preparing for the AP Exam"** section as if it were
-course content. A future `extract.py` revision should name those sections and forbid them explicitly.
+All seven are one failure mode: the extractor mines a **boundary statement**, a **suggested skill**, the
+**"Preparing for the AP Exam"** section, or an **illustrative-examples box** as if it were course content.
+**Fixed 2026-10-10.** Protocol **§1.2** now names the admissible source and the sections that may never be a
+basis, keeps a boundary statement usable in a `caution`, and makes an LO/EK citation a hard gate; `extract.py`
+and checker checks (b) and (c) enforce it. The scripts also now have a canonical baseline at
+`scripts/content-seed/reference-pack-template/`, because copying from a previous batch is how this lesson and
+the hook-caution lesson were lost. Verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2: all
+three previously-inadmissible entries are gone and no entry cites a non-LO/EK section. Nothing from those test
+extractions was loaded, and no existing batch was re-run.
 
 ### The 4 still open
 

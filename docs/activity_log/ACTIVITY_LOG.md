@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Extractor Prompt Fixed for Boundary Statements, Skills and Exam-Prep Text; Pipeline Scripts Given a Canonical Template (2026-10-10): the seven unit 1-3 entries that had to be dropped rather than corrected all came from CED sections that are not course content — Exclusion/Boundary Statements, SUGGESTED SKILL lists, "Preparing for the AP Exam", ILLUSTRATIVE EXAMPLES alone. New protocol §1.2 names the admissible source, keeps a boundary statement's legitimate use in a `caution`, and makes an LO/EK citation a hard gate; `extract.py` and `check.py` (b)(c) now enforce it. Scripts moved to a canonical baseline at `scripts/content-seed/reference-pack-template/` so prompt lessons stop being lost between batches. Verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2: all three previously-inadmissible entries gone, no entry citing a non-LO/EK section. Test extractions not loaded; no batch re-run; Production untouched.
 - Ownership Rule Written into the Reference-Content Protocol (2026-10-10): the protocol's "owned by the topic that first requires it" was being read by the checkers as earliest mention, which caused most of the ownership escalations in the units 1-3 run. New §1.1 states the rule the Product Owner has applied five times (the topic whose LO/EK requires the entry as stated), gives the test, lists the ruled examples, bars a pre-owner topic from `topic_codes`, tells a session to escalate rather than re-key to satisfy a checker, and carries the exact prompt wording for `extract.py` and `check.py`. The AP Chemistry inventory's matching phrasing was aligned. Codification of existing rulings, so no new decision id; docs only, no content or database change.
 - Last Four Reference-Row Escalations Ruled and Loaded; Development Found to Be Shared Mid-Run (2026-10-10): David ruled owners 1.3, 2.7, 1.3 and 10.7, loaded via `load.py --po-accept`, so all 50 escalations are now dispositioned (43 corrected and loaded, 7 rejected for having no LO/EK basis). The ownership principle is now ruled three times and should be written into the production protocol. Separately, Development is shared: another session loaded PR #399's 2 Chemistry Unit 1 escalations and a new Chemistry units 5-9 batch (119 rows) during this run, so Development's 1,076 entries include 247 rows from outside this branch and only 829 are this session's. A Production approval must therefore name batches, not a row count. All 8 QA checks still pass. Production untouched.
 - Escalation Correction Pass: 39 of 50 Escalated Reference Rows Corrected, Re-Checked and Loaded (2026-10-10): David directed the session to correct the escalations itself rather than regenerate them (a recorded deviation from the protocol's no-hand-edit rule, under his authority over escalations). Each correction restored the CED wording the checker had identified as missing and was re-checked by both independent checkers plus the reject-only veto; 39 passed and loaded, 7 were rejected as having no LO/EK basis (boundary statements, a suggested skill, exam-prep guidance), and 4 remain open — three are one ownership question David has already ruled on twice, and one is a genuine deadlock between the two checker families. Development: 951 entries, 11 hooks; all 8 QA checks ok. The earlier count of 45 escalations was wrong and is corrected to 50. Production untouched.
@@ -409,6 +410,45 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Extractor Prompt Fixed for Boundary Statements; Pipeline Scripts Given a Canonical Template — 2026-10-10
+
+**Why.** Of the 50 escalations in the units 1-3 run, 7 could not be corrected at all, only dropped: each had no
+learning-objective or essential-knowledge basis. Three came from **Exclusion/Boundary Statements**, two from
+**SUGGESTED SKILL** lists printed beside the topic, one from **"Preparing for the AP Exam"**, and one from
+**ILLUSTRATIVE EXAMPLES** alone. The extractor sees all of this because the unit page ranges necessarily include
+the unit opener and the margins of each topic page, and nothing in the prompt told it those sections are not
+content.
+
+**Protocol §1.2 added.** It names the admissible source (LO/EK statements under Required Course Content), lists
+the sections that may never be the basis for an entry, and keeps the two legitimate uses of a boundary statement:
+deciding what to leave out, and being quoted in the `caution` of an entry that has its own LO/EK basis — the
+accepted AP Physics 1 kinematic-equation entry does exactly that. It also makes an LO/EK citation in
+`ced_evidence` a hard gate, and warns that code style differs by subject (`1.5.A.2` in the sciences,
+`CHA-2.A.1` / `FUN-3.B.1` in Calculus), so an automated check of that field must accept both.
+
+**Scripts now have a canonical baseline:** `scripts/content-seed/reference-pack-template/`. Until now each batch
+copied scripts from a previous batch, so prompt lessons were lost whenever a session picked the wrong ancestor —
+this run hit two prompt defects that had already been diagnosed. Protocol §3 now says to copy from the template.
+Each batch still keeps its own copy so its artifacts stay honest about what produced them. The template's README
+records every enforcement the scripts carry beyond the first pilot and notes that `gateway.py` resolves the
+gitignored key at `parents[3]`, so the scripts only run from a directory at that depth.
+
+**Verified rather than asserted.** Re-extracted two units that had produced inadmissible entries, against the
+same CED pages and fact-pack sections:
+
+| Unit | Previously produced | Under the fixed prompt |
+|---|---|---|
+| Physics C: E&M unit 8 | "Limit on discrete-charge force calculations" (8.1 boundary statement) | gone; 31 entries, 0 citing a non-LO/EK section |
+| Calculus AB unit 2 | "Calculator answers: rounding" (exam-prep text) and "Keep notation precise" (Skill 4.C plus an invented rule) | both gone; 16 entries, 0 citing a non-LO/EK section |
+
+Every entry in both runs cites a recognisable LO/EK code. A first pass of this check reported 16 Calculus
+entries with no code; that was the check's own regex not accepting `CHA-`/`FUN-` style codes, not a defect in
+the output.
+
+The test re-extractions were a prompt test only: nothing from them was loaded to any database, no existing batch
+was re-run or re-keyed, and the committed batch scripts still reflect what actually produced their rows.
+Production untouched.
+
 ## Ownership Rule Written into the Reference-Content Protocol — 2026-10-10
 
 **Why.** The protocol said an entry is "owned by the topic that first requires it". Both checker families read

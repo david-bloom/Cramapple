@@ -1,7 +1,7 @@
 # Memory Hooks and Unit Reference Production Protocol
 
 STATUS: CURRENT
-DATE: 2026-10-10 (§1.1 ownership rule added; see the change note at the end)
+DATE: 2026-10-10 (§1.1 ownership rule and §1.2 admissible-source rules added; see the change note at the end)
 OWNER: Product Owner / Learning Quality. Executed by a Claude session.
 GOVERNS: `app.unit_reference_entries` (formulas, vocabulary, lists/sequences, conventions, diagrams) and
 `app.topic_memory_hooks` (acronyms, acrostics, phrases, formula sentences, visual cues, diagram parts).
@@ -73,6 +73,37 @@ when a CED learning objective or essential-knowledge statement for that unit req
 reproduce or apply it. Textbook completeness, trivia, and content from other units fail. Most topics
 get no hook. Expect roughly one hook per ten entries; the pilot produced 3 hooks for 102 entries.
 
+### 1.2 Which parts of the CED may become an entry
+
+**Only a LEARNING OBJECTIVE or ESSENTIAL KNOWLEDGE statement under a topic's Required Course Content may
+be the basis for an entry.** A unit's pages carry a great deal of other material, and the extractor will
+mine it if not told otherwise. None of the following may be the basis for an entry, however useful it
+looks:
+
+- **Exclusion Statements and Boundary Statements** — these are scope limits, not content;
+- the **SUGGESTED SKILL** / science-practice / mathematical-practice list printed beside each topic;
+- **"Preparing for the AP Exam"**;
+- **"Developing Understanding"**, **"Essential Questions"**, **"Unit at a Glance"**, **"Sample
+  Instructional Activities"**, **"Available Resources"**, **"Building ... Practices"**;
+- **ILLUSTRATIVE EXAMPLES** on their own. An EK statement must require the entry; a named illustrative
+  example may then appear inside it. A list whose only basis is the illustrative-examples box is not an
+  entry.
+
+**An Exclusion or Boundary Statement keeps two legitimate uses.** It tells you what to leave out, and it
+may be quoted in the `caution` of an entry that has its own LO/EK basis — the accepted AP Physics 1
+kinematic-equation entry cautions with the Topic 1.3 boundary statement on nonuniform acceleration. The
+statement is never the entry itself.
+
+**Hard gate on evidence.** `ced_evidence` must cite at least one LO or EK code. If no such code can be
+cited, the entry is inadmissible; it is dropped rather than justified by a boundary statement, a skill or
+a page heading. Code style differs by subject — `1.5.A.2` in the sciences, `CHA-2.A.1` / `FUN-3.B.1` in
+Calculus — so any automated check of this field must accept both.
+
+**Why this is written down.** Seven entries in the 2026-10-10 units 1-3 run had no LO/EK basis at all and
+could only be dropped, not corrected: three came from boundary statements, two from suggested skills, one
+from "Preparing for the AP Exam", and one from illustrative examples alone. The rule is enforced in the
+template scripts' prompts (§3) and by checker check (c).
+
 Never: songs or lyrics (`DECISION-0104` D4); hooks inside hints or post-miss feedback (D5); hand
 edits to a generated row; a publisher's novel phrasing (common mnemonics in general circulation are
 `public-domain-common`; original ones are `cramapple-authored`).
@@ -98,8 +129,14 @@ edits to a generated row; a publisher's novel phrasing (common mnemonics in gene
 ## 3. The run, step by step
 
 All scripts live in the batch directory and are copied forward per batch
-(`scripts/content-seed/<subject>-reference-<units>-<date>/`). Set
-`CED_TXT_DIR` to a scratch directory holding `pdftotext -layout` output of the CED PDF.
+(`scripts/content-seed/<subject>-reference-<units>-<date>/`). **Copy them from
+`scripts/content-seed/reference-pack-template/`**, which is the canonical baseline: it carries the
+§1.1 ownership wording, the §1.2 admissible-source rules, the required hook `caution`, the checker
+wording for checks (b) and (c), and `load.py`'s pre-load schema guard. Copying from a previous batch
+instead is how prompt lessons were lost before 2026-10-10. Each batch still keeps its own copy, so its
+artifacts stay honest about what produced them. `gateway.py` resolves the gitignored gateway key at
+`parents[3]`, so the scripts only run from a directory at that depth. Set `CED_TXT_DIR` to a scratch
+directory holding `pdftotext -layout` output of the CED PDF.
 
 1. **Page range.** Find the unit's pages in the text dump (form feeds mark pages; `UNIT N` headers).
    Stats Unit 1 was pp. 28–59, Chem Unit 4 pp. 79–94.
@@ -173,3 +210,14 @@ units 1-3 run across nine subjects. §1.1 states the rule the Product Owner has 
 the test, lists the ruled examples, and carries the prompt wording for `extract.py` and `check.py` so the
 models apply the rule instead of re-escalating it. No other policy changed, and no previously loaded row
 changes disposition.
+
+**2026-10-10 — §1.2 admissible-source rules added, and a template directory for the scripts.** Seven
+entries in the units 1-3 run had no learning-objective or essential-knowledge basis: the extractor was
+mining Exclusion/Boundary Statements, SUGGESTED SKILL lists, "Preparing for the AP Exam" and
+ILLUSTRATIVE EXAMPLES as content. §1.2 names the admissible source, names the sections that may never
+be a basis, preserves a boundary statement's legitimate use in a `caution`, and makes an LO/EK citation
+a hard gate. The pipeline scripts now have a canonical baseline at
+`scripts/content-seed/reference-pack-template/`, so prompt fixes are no longer lost between batches; the
+fix was verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2, where all three
+previously-inadmissible entries disappeared and no entry cited a non-LO/EK section. Those test
+re-extractions were not loaded anywhere, and no existing batch was re-run or re-keyed.
