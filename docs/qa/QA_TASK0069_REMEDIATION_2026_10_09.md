@@ -32,7 +32,11 @@
 
 Development state after remediation: migrations `20261009230917`, `…230918`, `…231314`, `…233521`, `…233645`, and `20261010002322_frq_photo_submission_integrity`; functions `attempt-response`, `student-session-items`, `evaluate-attempt`, `capture-pairing` deployed; secrets `FRQ_PHOTO_RESPONSES_ENABLED=true`, `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_SUBJECTS=ap-statistics`.
 
-## Re-QA prompt for Codex
+## Re-QA outcome (2026-10-10)
+
+Codex re-QA: **Pass** (`docs/qa/QA_TASK0069_CODEX_2026_10_09.md`, "Re-QA update"). Its one non-blocking P3 (the legacy `supabase/functions/submit-response/index.ts` wrapper mapped the two new database refusals to a generic 500) is fixed: both now return 409 with their own code. That wrapper is not in the TASK-0069 deploy set.
+
+## Re-QA prompt for Codex (as used)
 
 """
 You are the independent QA Agent re-testing TASK-0069 after remediation. Fresh context. Read docs/team_charter/CRAMAPPLE_SESSION_START.md, your own report docs/qa/QA_TASK0069_CODEX_2026_10_09.md, and this file (docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md). Work on branch claude/hand-drawn-frq-build-2026-10-09 at the head named in PR #397, in a worktree or fresh clone; never git stash in the shared checkout. Same boundaries as before: no Production writes, deploys, migrations, secrets, publishes, or merges.
