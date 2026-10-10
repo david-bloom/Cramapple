@@ -1,0 +1,320 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u5-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'Reaction intermediate' is highly accurate and directly matches the wording in EK 5.7.A.3 ('A reaction intermediate is produced by some elementary steps and consumed by others, such that it is present only while a reaction is occurring.'). The topic codes are correct as the concept is introduced in Topic 5.7 and referenced in Topic 5.11 (catalysis intermediates)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 5.7.A.3: an intermediate is \u201cproduced by some elementary steps and consumed by others, such that it is present only while a reaction is occurring.\u201d Topic 5.7 first requires the concept; 5.11.A.3\u20135 also uses reaction intermediates. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body restates CED 5.7.A.3 almost verbatim: 'A reaction intermediate is produced by some elementary steps and consumed by others, such that it is present only while a reaction is occurring.' The entry's 'species' for the defined term is a faithful rendering and no fact is wrong. b_topic_codes: owner 5.7 is the first unit topic that requires the concept (5.7.A.1 and 5.7.A.3 define intermediates). 5.11 also uses it: 5.11.A.2 refers to the catalyst's 'new reaction intermediate' in 5.11.A.3 and 5.11.A.4, and 5.11.A.5 to 'new bound reaction intermediate(s)'. c_ced_required: LO 5.7.A ('Identify the components of a reaction mechanism') requires students to identify intermediates, and 5.7.A.1 lists them among the components. d_caution: the entry wording matches the CED wording closely enough that the point is earned without a caution, so caution is null and correct. No hooks are present, so none are evaluated.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 5.2.A.5, which states that 'Comparing initial rates of a reaction is a method to determine the order with respect to each reactant.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.2.A.5 states, \u201cComparing initial rates of a reaction is a method to determine the order with respect to each reactant.\u201d The entry expresses that method, places it in Topic 5.2, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.2.A.5, which states 'Comparing initial rates of a reaction is a method to determine the order with respect to each reactant.' The body adds that the rate change is observed when that reactant's concentration changes, which is consistent with the order definition in 5.2.A.3 ('The power of each reactant in the rate law is the order of the reaction with respect to that reactant'). No formula or list is present to misstate. b_topic_codes: 5.2 (Introduction to Rate Law) is the unit topic where 5.2.A.5 first appears, and owner_topic_code and topic_codes both correctly list only 5.2. c_ced_required: LO 5.2.A and its essential knowledge 5.2.A.5 directly require students to apply initial-rate comparison to determine order with respect to each reactant. d_caution: The entry's wording ('compare initial rates ... determine order') tracks the CED phrasing closely enough that the point-earning wording is preserved, so no caution is required and caution is null as correct. The body does not explicitly say to hold the other concentrations constant, but the CED pages do not state that either, so this is not a point-earning omission."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements for a successful collision as specified in EK 5.5.A.2: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.' Topic 5.11 is also relevant as it discusses catalysts increasing the number of effective collisions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.5 first requires this content. EK 5.5.A.2 states that successful collisions have both \u201csufficient energy to overcome the activation energy requirements\u201d and orientations that allow bonds to rearrange. Topic 5.11 also uses these concepts: EK 5.11.A.1 addresses effective collisions and lower activation energy, and EK 5.11.A.3 addresses more favorable orientation. The entry closely follows the CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body drops the CED qualifier. CED 5.5.A.2 says \"In most reactions, only a small fraction of the collisions leads to a reaction,\" but the entry states it as a universal (\"Only a small fraction of collisions lead to reaction\"). The two items match the CED's two requirements (sufficient energy to overcome activation energy; orientations that allow bonds to rearrange), so they are acceptable. b_topic_codes: owner 5.5 is correct, since 5.5.A.2 is where the requirements first appear. 5.11 is not correct as a topic code. 5.11.A.1 only refers to 'effective collisions' and does not state or use the sufficient-energy and proper-orientation requirements. c_ced_required: true, because 5.5.A.2 requires students to explain both requirements for a successful collision. d_caution: false. The entry's wording departs from the CED in two places: the universal 'only a small fraction' claim, and the label 'Proper orientation', which is not the CED's phrasing ('orientations that allow the bonds to rearrange in the required manner'). No caution is present to flag this."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The items are correct. Sufficient energy matches 5.5.A.2 ('sufficient energy to overcome the activation energy requirements') and Proper orientation matches 'orientations that allow the bonds to rearrange in the required manner'. The body drops the qualifier in the CED's 5.5.A.2 sentence, 'In most reactions, only a small fraction of the collisions leads to a reaction.' As written it states a universal claim ('Only a small fraction of collisions lead to reaction') that the CED does not make, so the body is not correct as the CED states it. b_topic_codes: 5.5 is the first unit topic requiring successful-collision requirements (5.5.A.2). 5.11.A.1 relies on 'effective collisions', so listing 5.11 is defensible. c_ced_required: 5.5.A.2 directly requires students to explain the two requirements for a successful collision. d_caution: caution is null, but the body's wording ('Only a small fraction...') does not match the CED's point-earning wording ('In most reactions, only a small fraction...'). A caution (or the 'in most reactions' qualifier in the body) is needed. The labels are close paraphrases, so the main defect is the missing qualifier. Rejected on a_factual and d_caution.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists and describes the three specific types of catalysis mechanisms detailed in Essential Knowledge statements 5.11.A.3, 5.11.A.4, and 5.11.A.5 of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.11 is the correct placement, and 5.11.A.3\u20135 support the three listed examples. The body overstates what all three do: for catalysts that bind reactants, 5.11.A.3 says, \u201cThere is often a new reaction intermediate,\u201d not that every such pathway introduces one. It also does not state that this type always introduces new elementary reactions. No caution qualifies the body's categorical \u201ceach.\u201d"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.11 covers all three examples, and EK 5.11.A.3\u20135 supports the item descriptions. But the body incorrectly says each pathway introduces new intermediates and elementary reactions. For binding to reactants, 5.11.A.3 says there is \u201coften a new reaction intermediate\u201d; it does not require one in every case or state that this pathway always introduces new elementary reactions. The unqualified claim needs correction, not merely a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Maxwell-Boltzmann distribution curve as described in EK 5.5.A.3, including its axes, the activation energy marker, the qualitative estimate of the fraction of collisions with sufficient energy, and the temperature dependence."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.5.A.3 says the Maxwell-Boltzmann curve describes the distribution of particle energies and can be used to estimate qualitatively the fraction of collisions with sufficient energy to react and how that fraction depends on temperature. CED 5.6.A.3 defines activation energy, and 5.6.A.4 connects temperature to the proportion of collisions energetic enough to reach the transition state. The entry describes sufficient energy, not a guarantee of reaction; 5.5.A.2 also requires favorable orientation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 5.5.A.3, which says the Maxwell-Boltzmann distribution 'describes the distribution of particle energies' and can give 'a qualitative estimate of the fraction of collisions with sufficient energy to lead to a reaction, and also how that fraction depends on temperature.' The activation-energy marker is consistent with 5.5.A.2 and 5.6.A.3. The axis labels and the direction of the temperature effect are not spelled out in the CED, but they are correct chemistry and do not contradict it. b_topic_codes: owner 5.5 is correct, since 5.5.A.3 is the first place the curve is required. The 5.6 code is not supported. Topic 5.6 (5.6.A.1\u20135.6.A.4) covers reaction energy profiles and the Arrhenius relationship, and never names or uses the Maxwell-Boltzmann curve. 5.6.A.4 states the temperature dependence in words, but that is not the curve the entry depicts, so 5.6 does not use this diagram. c_ced_required: 5.5.A.3 explicitly requires students to use this distribution to estimate the fraction of energetic collisions and how it depends on temperature. d_caution: The body paraphrases the CED wording that earns the point, and the extra details (axes, direction of the temperature effect) are correct and do not replace the required wording, so no caution is needed."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 5.5.A.3, which says the Maxwell-Boltzmann curve 'describes the distribution of particle energies' and gives 'a qualitative estimate of the fraction of collisions with sufficient energy to lead to a reaction, and also how that fraction depends on temperature.' The items are consistent with the CED. The axis labels and the 'higher temperature puts a larger fraction beyond' direction are standard chemistry that the CED does not state, but they are correct. b_topic_codes: owner 5.5 is correct, since 5.5.A.3 is the first place the CED names the Maxwell-Boltzmann curve. Including 5.6 is not supported. The CED names the curve only in 5.5.A.3. 5.6.A.4 discusses temperature and the fraction of energetic collisions but never mentions the curve, so 5.6 does not use this entry. c_ced_required: 5.5.A.3 requires students to use the curve qualitatively to estimate the fraction of collisions with sufficient energy and how it depends on temperature. d_caution: the wording is a close paraphrase of 5.5.A.2 and 5.5.A.3, and the body states the qualitative limitation, so no caution is needed. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

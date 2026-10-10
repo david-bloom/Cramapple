@@ -1,0 +1,1761 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u6-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of an endothermic process is highly accurate and directly mirrors the language in EK 6.1.A.3, which states: 'for endothermic reactions, the system gains energy from the surroundings by heat transfer to or work done on the system.' The topic codes are appropriate as endothermic processes are central to 6.1, 6.2, 6.6, and 6.7."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 6.1.A.3 says the system \u201cincreases (endothermic reaction)\u201d in energy and \u201cgains energy from the surroundings by heat transfer to or work done on the system.\u201d Topic 6.1 first requires the concept; 6.2 uses endothermic energy diagrams, 6.6 addresses endothermic reaction enthalpy and energy transfer, and 6.7 distinguishes endothermic reactions using bond energies. The wording closely follows the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 6.1.A.3: \"for endothermic reactions, the system gains energy from the surroundings by heat transfer to or work done on the system\" and \"the energy of the system either decreases (exothermic reaction), increases (endothermic reaction)\". The entry's paraphrase (\"as heat transfer\" vs. the CED's \"by heat transfer\") does not change the meaning. b_topic_codes: owner 6.1 is where the term is first introduced (6.1.A.2 defines endothermic processes). The other codes each use it: 6.2 (6.2.A.1, energy diagrams showing the endothermic nature of a process), 6.6 (6.6.A.2, thermal energy transferred from the surroundings in an endothermic reaction), and 6.7 (6.7.A.2, a reaction is endothermic when energy required exceeds energy released). c_ced_required: 6.1.A.2 and 6.1.A.3 require students to describe and apply endothermic processes. d_caution: The entry's wording is essentially the CED's own wording, so the point-earning language is present and no caution is needed. ced_evidence cites 6.1.A.3 accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of an exothermic process is highly accurate and directly supported by EK 6.1.A.3, which states that 'for exothermic reactions, the energy lost by the reacting species (system) is gained by the surroundings, as heat transfer from or work done by the system.' The topic codes are correct and relevant to Unit 6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.1 first requires this distinction. CED 6.1.A.3 states that in an exothermic reaction, the system\u2019s energy decreases and energy is gained by the surroundings \u201cas heat transfer from or work done by the system.\u201d CED 6.1.A.2 also applies endothermic and exothermic descriptions to physical processes. Topics 6.2, 6.6, and 6.7 use the exothermic distinction in energy diagrams, reaction enthalpy, and bond-energy estimates, respectively. The wording closely follows the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 6.1.A.3, which says that when a reaction occurs 'the energy of the system either decreases (exothermic reaction)' and that for exothermic reactions 'the energy lost by the reacting species (system) is gained by the surroundings, as heat transfer from or work done by the system.' The body states the same thing in different words, with no factual error. b_topic_codes: owner 6.1 is the first unit topic that introduces exothermic processes (6.1.A.2, 6.1.A.3). The other codes each use the concept: 6.2.A.1 (energy diagrams showing 'the endothermic or exothermic nature of that process'), 6.6.A.1 and 6.6.A.2 (exothermic reaction, heat released for negative values), and 6.7.A.2 ('If the energy released is greater than the energy required, the reaction is exothermic'). c_ced_required: 6.1.A.2 requires students to describe energy changes as 'endothermic and exothermic processes', and 6.1.A.3 requires them to apply the decrease-in-system-energy convention. d_caution: the entry's definition is a faithful paraphrase of the CED, and the CED's own wording ('energy of the system decreases', 'energy lost ... to the surroundings') is what the body carries, so no caution is needed. Hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components of an energy diagram as required by Topic 6.2 (LO 6.2.A, EK 6.2.A.1), which specifies representing physical or chemical processes with an energy diagram showing their endothermic or exothermic nature."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 6.2.A requires students to represent a physical or chemical transformation with an energy diagram; 6.2.A.1 says the diagram shows its \u201cendothermic or exothermic nature.\u201d The initial and final energy levels and their direction of change serve that purpose. CED 6.1.A.3 confirms that system energy decreases for an exothermic reaction and increases for an endothermic reaction. Topic 6.2 is the correct owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body, items, and sign convention match the CED. Topic 6.1.A.3 states that in an exothermic reaction the energy of the system decreases, so products lower than reactants means exothermic and products higher means endothermic. The Suggested Skill 3.A requires correct scale and units, which supports the labelled energy axis. b_topic_codes: Energy diagrams are introduced in Topic 6.2 (6.2.A, 6.2.A.1), and no other unit topic in these pages uses them, so owner 6.2 and topic_codes [\"6.2\"] are correct. c_ced_required: Learning objective 6.2.A asks students to 'Represent a chemical or physical transformation with an energy diagram', and 6.2.A.1 states 'A physical or chemical process can be described with an energy diagram that shows the endothermic or exothermic nature of that process'. d_caution: The entry paraphrases 6.2.A.1 rather than quoting it, but its meaning is the point-earning meaning (an energy diagram showing endothermic/exothermic nature), so no caution is needed.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the content of Essential Knowledge 6.1.A.4, which states that solution formation can be exothermic or endothermic depending on the relative strengths of intermolecular/interparticle interactions before and after the dissolution process. The caution is highly relevant to AP Chemistry free-response questions where students are expected to justify thermodynamic claims using particulate-level interactions rather than just macroscopic observations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.1, EK 6.1.A.4 states: \u201cThe formation of a solution may be an exothermic or endothermic process, depending on the relative strengths of intermolecular/interparticle interactions before and after the dissolution process.\u201d The body accurately restates this requirement. The caution correctly directs students to those interaction strengths when justifying the claim."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 6.1.A.4 in substance: \"The formation of a solution may be an exothermic or endothermic process, depending on the relative strengths of intermolecular/interparticle interactions before and after the dissolution process.\" The entry narrows this to dissolving, which is a valid instance of solution formation, and keeps the same dependency on interaction strengths before and after. No formula or list is involved. b_topic_codes: 6.1.A.4 appears under Topic 6.1, so owner_topic_code 6.1 is where this unit first requires it, and topic_codes [\"6.1\"] is correct. Dissolution reappears later in 6.4.A.7, but that is a calorimetry application, not the first requirement. c_ced_required: 6.1.A.4 is an essential-knowledge statement that students must understand and apply, so the entry is CED-required. d_caution: The caution, \"Justify the claim by comparing interaction strengths before and after dissolving, not just by stating the temperature change,\" is present and correct. It matches the Topic 6.1 suggested skill (6.D, justifying a claim with chemical principles) and the CED's framing of the reason as interaction strengths. The CED does say temperature changes indicate energy changes (6.1.A.1), so the caution is a reasoning-quality instruction rather than a claim that temperature is wrong. hooks: none provided, so no hook evaluation is required.",
+            "reasons_note": "See reasons above."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'heat transfer' (or 'heat exchange' / 'transfer of energy as heat') based on the exact wording in Essential Knowledge 6.3.A.2. The topic codes are correct, as the concept is introduced in Topic 6.3 and applied to calorimetry calculations in Topic 6.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.3 first requires this concept: 6.3.A.2 says, \u201cCollisions between particles in thermal contact can result in the transfer of energy\u201d and calls the process \u201cheat transfer,\u201d \u201cheat exchange,\u201d or \u201ctransfer of energy as heat.\u201d Topic 6.4 also uses it: 6.4.A.1 addresses heat transferred between two bodies and measured by calorimetry. The entry\u2019s wording is consistent with the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 6.3.A.2, which says collisions between particles in thermal contact transfer energy and that this process is called 'heat transfer,' 'heat exchange,' or 'transfer of energy as heat.' The title and body carry the same synonyms. b_topic_codes: 6.3.A.2 is the defining statement, and 6.4.A.1 uses the concept ('the amount of heat transferred between two bodies'), so owner 6.3 and topics 6.3/6.4 are acceptable. c_ced_required: 6.3.A.2 is an essential-knowledge statement that students must know. d_caution: The body paraphrases the CED but changes its modality. CED says collisions 'can result in the transfer of energy'; the entry says the transfer 'results from collisions', which states it as always true. No caution is given (caution is null) to flag that the CED wording differs. The entry needs either the CED modality ('can result in') or a caution noting the CED phrasing, so d_caution fails and the entry is rejected."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED definition in 6.3.A.2: \"Collisions between particles in thermal contact can result in the transfer of energy. This process is called 'heat transfer,' 'heat exchange,' or 'transfer of energy as heat.'\" The body's wording (\"energy that results from collisions between particles in thermal contact\") is a definitional paraphrase. It drops the CED's hedge \"can result in,\" but as a definition it does not misstate the content. b_topic_codes: 6.3 is the first unit topic that defines heat transfer (6.3.A.2). 6.4 uses the term in 6.4.A.1 (\"The amount of heat transferred between two bodies may be quantified by the heat transfer equation\"), so listing 6.4 is valid. c_ced_required: 6.3.A.2 explicitly requires students to know the three names for this process, so the entry is required content. d_caution: All three CED names ('heat transfer', 'heat exchange', 'transfer of energy as heat') appear in the title and body, so the point-earning terminology is present. The paraphrased body does not change any required term, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the heat transfer equation q = mc\u0394T as explicitly required by Topic 6.4 (specifically EK 6.4.A.1). The caution is highly relevant to AP Chemistry calorimetry problems where students frequently make the mistake of using only the solute mass instead of the total solution mass."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.4, EK 6.4.A.1 explicitly gives the heat transfer equation, \u201cq = mc\u0394T.\u201d LO 6.4.A requires calculating heat from the amount of substance, heat capacity, and temperature change. The caution correctly directs students to use the mass of the substance whose temperature change is measured; it does not change the CED formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 6.4.A.1 gives \"EQN: q = mc\u0394T,\" and the entry matches it symbol for symbol. b_topic_codes: 6.4.A.1 is the topic where this equation first appears in the Unit 6 pages, and topic 6.4 is the only topic code listed, so the owner and topic codes are correct. c_ced_required: LO 6.4.A requires students to \"Calculate the heat q absorbed or released by a system undergoing heating/cooling based on the amount of the substance, the heat capacity, and the change in temperature,\" which requires applying q = mc\u0394T. d_caution: the entry's wording matches the CED wording, so no caution is strictly needed. The caution is correct: the CED says the calculation is based on the amount of the substance undergoing the temperature change, and sig-fig attention is part of 5.F. It adds guidance without contradicting the CED, so it is kept as true."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of thermal equilibrium is highly accurate to EK 6.3.A.3, which states that 'At thermal equilibrium, the average kinetic energy of both bodies is the same, and hence, their temperatures are the same.' The caution is extremely relevant for AP Chemistry, as students are frequently required to explain thermal equilibrium on the macroscopic scale using particulate-level descriptions (collisions and kinetic energy) rather than just stating that temperatures equalize."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.3 first requires this concept: 6.3.A.3 states that thermal equilibrium is reached as particles continue to collide and that both bodies then have the same average kinetic energy and temperature. Topic 6.6 also uses it: 6.6.A.2 says products exchange energy with the surroundings to reach thermal equilibrium. The caution correctly reflects 6.3.A.1\u20133."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 6.3.A.3 ('Eventually, thermal equilibrium is reached as the particles continue to collide. At thermal equilibrium, the average kinetic energy of both bodies is the same, and hence, their temperatures are the same'). The body paraphrases this accurately. The ced_evidence quote is verbatim from 6.3.A.3. b_topic_codes: owner 6.3 is the first unit topic that requires the concept (6.3.A.3). The additional code 6.6 is valid because 6.6.A.2 uses the term directly: 'they exchange energy with the surroundings to reach thermal equilibrium.' c_ced_required: Learning objective 6.3.A ('Explain the relationship between the transfer of thermal energy and molecular collisions') and 6.3.A.3 require students to apply thermal equilibrium in terms of collisions and average kinetic energy. d_caution: The body wording is a paraphrase, not the CED's exact phrasing. The caution ('The warmer body's particles have greater average kinetic energy before equilibrium; explain in terms of particle collisions and average kinetic energy') is consistent with 6.3.A.1 ('The particles in a warmer body have a greater average kinetic energy than those in a cooler body') and 6.3.A.2 (collisions transfer energy). It is present and correct in substance."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the first law of thermodynamics as stated in EK 6.4.A.2 ('The first law of thermodynamics states that energy is conserved in chemical and physical processes.'). The topic codes are correct, as the concept is introduced in Topic 6.4 and referenced again in Topic 6.9 (EK 6.9.B.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 6.4.A.2: \u201cThe first law of thermodynamics states that energy is conserved in chemical and physical processes.\u201d Topic 6.4 first requires it, and 6.9.B.1 applies it: \u201cBecause total energy is conserved (first law of thermodynamics)\u2026\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'Energy is conserved in chemical and physical processes.' matches the CED essential knowledge 6.4.A.2: 'The first law of thermodynamics states that energy is conserved in chemical and physical processes.' The title supplies the law's name, and the body keeps the substantive claim intact. No formula or list is involved. b_topic_codes: 6.4 is the first unit topic that states the first law (6.4.A.2); topics 6.1 to 6.3 do not. 6.9 uses it in 6.9.B.1: 'Because total energy is conserved (first law of thermodynamics)...', so 6.9 is a valid secondary code. c_ced_required: 6.4.A.2 is an essential-knowledge statement in the CED pages that students must know and apply. d_caution: The entry's wording is the CED's point-earning content (energy is conserved in chemical and physical processes), so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects EK 6.4.A.6 ('Chemical systems change their energy through three main processes: heating/cooling, phase transitions, and chemical reactions') and EK 6.1.A.2. The descriptions of how energy changes in each process are fully supported by EK 6.4.A.4, EK 6.5.A.1, and EK 6.1.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The three processes are required by 6.4.A.6 and are introduced as examples in 6.1.A.2, so the topic codes are appropriate. However, the chemical-reactions item omits a required possibility: 6.1.A.3 says the system\u2019s energy \u201ceither decreases (exothermic reaction), increases (endothermic reaction), or remains the same.\u201d No wording caution is otherwise needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The items match 6.4.A.6 in order: \u201cheating/cooling, phase transitions, and chemical reactions.\u201d Their energy directions agree with 6.4.A.4, 6.5.A.1, and 6.1.A.3. Topic 6.1 first introduces these as examples in 6.1.A.2; topic 6.4 explicitly names them as the three main processes. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The three processes match 6.4.A.6 ('heating/cooling, phase transitions, and chemical reactions') in order. 'Heating raises the system's energy; cooling lowers it' matches 6.4.A.4. 'Melting and boiling raise... freezing and condensing lower' matches 6.5.A.1 (solid-to-liquid and liquid-to-gas increase energy; liquid-to-solid and gas-to-liquid decrease it). 'The system's energy decreases (exothermic) or increases (endothermic)' matches 6.1.A.3. The body's endo/exo framing matches 6.1.A.2. Minor incompleteness: 6.1.A.3 also allows the energy to 'remain the same', which the item omits. This does not make the stated definitions wrong. b_topic_codes: 6.1.A.2 names heating/cooling, phase changes, and chemical transformations as endo/exo processes, so 6.1 is where it first appears in the unit. 6.1 and 6.4 both use it (6.4.A.6). c_ced_required: 6.4.A.6 requires students to know these three energy-change processes. d_caution: The entry's wording for the three processes is the CED's own wording from 6.4.A.6, so no caution is needed. ced_evidence quotes the CED accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately distinguishes between specific heat capacity and molar heat capacity, which is directly supported by EK 6.4.A.5 ('The specific heat capacity of a substance and the molar heat capacity are both used in energy calculations') and EK 6.4.A.1 (which introduces the equation q = mc\u0394T)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.4 states that \u201cthe specific heat capacity of a substance and the molar heat capacity are both used in energy calculations\u201d (6.4.A.5) and gives \u201cq = mc\u0394T\u201d (6.4.A.1). The per-mass versus per-mole distinction is correct and relevant to using those capacities. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (6.4.A.5) states that 'the specific heat capacity of a substance and the molar heat capacity are both used in energy calculations.' The body says the same. The definitions are correct: specific heat is per unit mass with c in q = mc\u0394T, and molar heat capacity is per mole. The body adds no incorrect claim. b_topic_codes: 6.4.A.5 appears in Topic 6.4 (Heat Capacity and Calorimetry), and no other unit topic uses it in this set, so owner_topic_code 6.4 is correct and the topic_codes list is correct. c_ced_required: 6.4.A.5 requires students to know that both heat capacities are used in energy calculations, so the entry covers a required statement. d_caution: The entry's wording ('both are used in energy calculations') matches the CED's point-earning wording, so no caution is needed and caution: null is correct. The per-mass and per-mole definitions are standard and do not conflict with the CED."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Essential Knowledge 6.4.A.3 from the CED: 'The transfer of a given amount of thermal energy will not produce the same temperature change in equal masses of matter with differing specific heat capacities.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 6.4.A.3 states: \u201cThe transfer of a given amount of thermal energy will not produce the same temperature change in equal masses of matter with differing specific heat capacities.\u201d The entry accurately restates this required Topic 6.4 knowledge; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 6.4.A.3, which states that 'the transfer of a given amount of thermal energy will not produce the same temperature change in equal masses of matter with differing specific heat capacities.' The body's 'produces different temperature changes' is logically equivalent to that wording for equal masses with different specific heats. No symbols or formulas are involved. b_topic_codes: 6.4.A.3 is the first place this principle appears in the unit (6.1 through 6.3 do not state it), and it sits under Topic 6.4, so owner_topic_code '6.4' and topic_codes ['6.4'] are correct. c_ced_required: Learning objective 6.4.A asks students to calculate q from the amount of substance, heat capacity, and \u0394T, and essential knowledge 6.4.A.3 states the principle directly, so a student must apply it. d_caution: The entry paraphrases the CED rather than quoting it verbatim, but the paraphrase carries the same meaning, so no caution is needed and the null caution is correct. The ced_evidence field quotes the CED line accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of EK 6.4.A.7 regarding temperature changes in dissolution calorimetry and their relationship to exothermic and endothermic processes. The topic codes are correct and relevant."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "6.4.A.7 explicitly states that if the calorimeter mixture\u2019s temperature increases, dissolution releases thermal energy (exothermic); if it decreases, dissolution absorbs thermal energy (endothermic). Topic 6.4 first requires this temperature-based interpretation. Topic 6.1 also addresses exothermic and endothermic solution formation in 6.1.A.4. The entry\u2019s wording preserves the CED\u2019s meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 6.4.A.7 exactly in substance: 'If the temperature of the mixture increases, thermal energy is released by the dissolution process (exothermic). If the temperature of the mixture decreases, thermal energy is absorbed by the dissolution process (endothermic).' The entry's direction convention is correct. b_topic_codes: The specific rule for reading dissolution-calorimetry temperature changes is first required in 6.4 (6.4.A.7), so owner 6.4 is correct. 6.1 is listed as a topic_code and uses the same energy-direction reasoning (6.1.A.1 'Temperature changes in a system indicate energy changes'; 6.1.A.3 exothermic/endothermic definitions), so the secondary code is justified. c_ced_required: 6.4.A.7 is an essential-knowledge statement that requires students to determine the direction of energy flow in dissolution calorimetry from the temperature change of the mixture, so the entry is required content. d_caution: The entry's wording ('energy released' / 'energy absorbed', 'exothermic' / 'endothermic') tracks the CED phrasing closely, so no caution is needed and caution null is correct. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the thermodynamic conventions and temperature behavior of phase changes as explicitly stated in EK 6.5.A.1: 'Energy must be transferred to a system to cause a substance to melt (or boil)... Likewise, a system releases energy when it freezes (or condenses)... The temperature of a pure substance remains constant during a phase change.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.5, EK 6.5.A.1 states that energy must be transferred to a system to melt or boil, that a system releases energy when it freezes or condenses, and that \u201cThe temperature of a pure substance remains constant during a phase change.\u201d The entry accurately paraphrases these required points; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 6.5.A.1: \"Energy must be transferred to a system to cause a substance to melt (or boil). The energy of the system therefore increases as the system undergoes a solid-to-liquid (or liquid-to-gas) phase transition... a system releases energy when it freezes (or condenses)... The temperature of a pure substance remains constant during a phase change.\" Melting/boiling absorb energy, freezing/condensing release it, and the constant-temperature statement for a pure substance are all stated correctly. b_topic_codes: The energy direction and constant-temperature content for phase transitions first appears as required content in 6.5 (6.4.A.6 mentions phase transitions only as one of three energy-change processes, without the direction or constant-temperature requirement). owner_topic_code 6.5 and topic_codes [6.5] are correct. c_ced_required: 6.5.A.1 and its learning objective 6.5.A.1 (\"Explain changes in the heat q absorbed or released by a system undergoing a phase transition\") require students to apply this. d_caution: The entry's wording (\"stays constant\", \"system energy increases\") is essentially the CED wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula q = n * Delta H is mathematically correct and directly represents the calculations required by Learning Objectives 6.5.A and 6.6.A, which ask students to calculate or explain changes in heat q based on the amount of substance in moles and the molar enthalpy of the phase transition or reaction. The caution correctly addresses sign conventions for endothermic and exothermic processes."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula applies the relationship required by 6.5.A, which links heat q for a phase transition to the amount in moles and the molar enthalpy, and by 6.6.A, which requires calculating q for a reaction from moles and molar enthalpy of reaction. Topic 6.5 requires it first. The sign caution agrees with 6.5.A.1: energy is transferred to a system to melt or boil and released when it freezes or condenses; 6.6.A.1 likewise identifies positive enthalpy values with absorbed heat and negative values with released heat."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula q = n\u00b7\u0394H_molar matches the CED's wording in 6.5.A ('the heat q absorbed or released by a system undergoing a phase transition based on the amount of the substance in moles and the molar enthalpy of the phase transition') and 6.6.A ('the heat q absorbed or released ... in relationship to the amount of the reacting substance in moles and the molar enthalpy of reaction'). The symbols q, n and \u0394H_molar correspond to those terms. b_topic_codes: 6.5 is the first unit topic to require this (6.5 precedes 6.6), and both 6.5 and 6.6 use it in their learning objectives. c_ced_required: Learning objectives 6.5.A and 6.6.A both require students to calculate q from moles and molar enthalpy. d_caution: The caution matches 6.6.A.1 ('released (for negative values) or absorbed (for positive values)') and 6.5.A.1 (energy must be transferred to melt or boil, so the energy of the system increases). The caution is present and correct, which satisfies the requirement. It is consistent with 6.5.A.2 (condensation enthalpy is the negative of vaporization enthalpy).",
+            "}": ""
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 6.5.A.2, which states that the energy absorbed during a phase change is equal to the energy released during a complementary phase change in the opposite direction, and specifically mentions that the molar enthalpy of condensation is equal to the negative of the molar enthalpy of vaporization."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.5, EK 6.5.A.2 states that energy absorbed during a phase change equals energy released during the complementary change in the opposite direction. It explicitly says condensation enthalpy is the negative of vaporization enthalpy and applies the same relationship to melting and freezing. The entry needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 6.5.A.2 states that 'the energy absorbed during a phase change is equal to the energy released during a complementary phase change in the opposite direction' and that 'the molar enthalpy of condensation of a substance is equal to the negative of its molar enthalpy of vaporization.' The body matches this. Its parenthetical that freezing is the negative of fusion is not stated as a sign rule, but CED 6.5.A.2 says fusion is used to calculate 'the energy released when freezing a substance,' so it is consistent and physically correct. b_topic_codes: phase-change energy is taught in Topic 6.5 (Energy of Phase Changes), which is the only topic listed and the first place this content appears in Unit 6. c_ced_required: 6.5.A.1 and 6.5.A.2 require students to apply the relationship between the energies of complementary phase changes, and 6.5.A.1 names the heat q absorbed or released in a phase transition based on moles and molar enthalpy. d_caution: the body restates the CED's own wording and sign relationship with equivalent meaning, so the point-earning wording is preserved and no caution is needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the sign convention of enthalpy changes as defined in EK 6.6.A.1 ('released (for negative values) or absorbed (for positive values)'). The caution addresses a common student error regarding the sign of enthalpy change when observing temperature changes in calorimetry."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "6.6.A.1 states that reaction enthalpy gives heat energy \u201creleased (for negative values) or absorbed (for positive values)\u201d at constant pressure. Topic 6.6 first requires this sign convention; 6.7 uses it to distinguish exothermic from endothermic reactions, 6.8 calculates reaction enthalpies, and 6.9 requires reversing an enthalpy change\u2019s sign when a reaction is reversed. The caution is consistent with 6.6.A.2, which says an exothermic reaction transfers thermal energy to the surroundings, provided the measured warming is attributable to the reaction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 6.6.A.1 almost verbatim: enthalpy change gives heat 'released (for negative values) or absorbed (for positive values)' at constant pressure. No formula or list is involved, so nothing else can be wrong. b_topic_codes: 6.6 is the first unit topic that requires the sign convention for enthalpy of reaction (6.6.A.1). 6.7 (6.7.A.1-2 use the energy released minus energy required to set the sign), 6.8 (\u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants) and 6.9 (6.9.B.1 sums step enthalpies) all report and interpret the sign of a reaction enthalpy, so the topic_codes list is valid. c_ced_required: 6.6.A.1 requires students to apply the negative/positive convention, so the entry is required content. d_caution: The body wording is the CED's own wording, so no caution is strictly needed. The caution is present and correct: 6.6.A.2 says thermal energy is transferred to the surroundings in an exothermic reaction, so a measured temperature rise in the surroundings means exothermic and a negative \u0394H. The caution is consistent with the CED and does no harm."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the direction of thermal energy transfer for exothermic and endothermic reactions as specified in EK 6.6.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The directions of thermal energy transfer match 6.6.A.2: energy is transferred \u201cto the surroundings\u201d in an exothermic reaction and \u201cfrom the surroundings\u201d in an endothermic reaction. However, topic 6.1 first requires this direction convention: 6.1.A.3 says the system loses energy to the surroundings in an exothermic reaction and gains energy from the surroundings in an endothermic reaction. The owner_topic_code should therefore be 6.1; 6.6 is also a valid topic code."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body accurately paraphrases 6.6.A.2: \u201cThermal energy is transferred to the surroundings ... in an exothermic reaction\u201d and \u201cfrom the surroundings ... in an endothermic reaction.\u201d No caution is needed for \u201cflows\u201d as a paraphrase of \u201cis transferred.\u201d However, 6.6 is not where the unit first requires this direction of heat transfer: 6.1.A.3 states that in an exothermic reaction energy is gained by the surroundings through heat transfer from the system, and that in an endothermic reaction the system gains energy through heat transfer from the surroundings. The owner_topic_code should therefore be 6.1."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the standard enthalpy of reaction formula from standard enthalpies of formation, which is explicitly required and provided as an equation in Topic 6.8 (Essential Knowledge 6.8.A.1: 'EQN: \u0394H\u00b0reaction = \u03a3\u0394Hf \u00b0products \u2212 \u03a3\u0394Hf \u00b0reactants')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.8, essential knowledge 6.8.A.1, gives the same equation: \u201c\u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants.\u201d Learning objective 6.8.A requires students to calculate enthalpy changes from standard enthalpies of formation. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED equation verbatim in substance: 6.8.A.1 reads \"EQN: \u0394H\u00b0reaction = \u03a3\u0394Hf \u00b0products \u2212 \u03a3\u0394Hf \u00b0reactants\". Symbols (\u0394H\u00b0reaction, \u03a3\u0394Hf\u00b0 for products and reactants, minus sign, products minus reactants) are correct. b_topic_codes: 6.8 is the first topic where enthalpies of formation appear, and topic 6.8 is the only topic_codes entry and uses this equation. c_ced_required: LO 6.8.A (\"Calculate the enthalpy change for a chemical or physical process based on the standard enthalpies of formation\") and EK 6.8.A.1 require students to apply this relation. d_caution: The entry wording is the CED's own equation, so the point-earning wording is reproduced and no caution is needed. Null caution is correct. Hooks: none supplied, so no hook evaluation applies."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for calculating the enthalpy of a reaction from average bond energies as required by Topic 6.7 (LO 6.7.A, EK 6.7.A.2). The caution correctly addresses common student pitfalls such as accounting for coefficients and interpreting the sign of the energy change."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.7.A requires calculating reaction enthalpy from average bond energies. The formula matches 6.7.A.2: energy required to break reactant bonds and energy released in forming product bonds are each estimated by adding their bond energies. The caution correctly reflects its statement that a reaction is exothermic when energy released is greater than energy required. Topic 6.7 is the first topic requiring this calculation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED never prints this equation. It gives the qualitative logic in 6.7.A.2: \"the average energy required to break all of the bonds in the reactant molecules can be estimated by adding up the average bond energies... the average energy released in forming the bonds in the product molecules can be estimated. If the energy released is greater than the energy required, the reaction is exothermic.\" Energy required (broken) minus energy released (formed) is the sign-consistent rearrangement of that logic, so the formula is correct. The '\u2248' matches the CED's 'can be estimated'. Symbols and order are correct. b_topic_codes: Topic 6.7 (Bond Enthalpies) is where bond-energy calculations first appear, and 6.7.A is the only topic listed. c_ced_required: Learning objective 6.7.A reads \"Calculate the enthalpy change of a reaction based on the average bond energies of bonds broken and formed in the reaction,\" and the Preparing for the AP Exam text names this calculation as a tested skill. d_caution: The caution's exothermic rule matches 6.7.A.2 verbatim in substance. The counting instruction (all bonds in all reactant molecules, coefficients from the balanced equation) is supported by the Preparing for the AP Exam text, which says students struggle to count bonds broken and made. The caution is present where the wording differs from the CED's point-earning phrasing."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential principles of Hess's law as explicitly detailed in Essential Knowledge 6.9.B.2 (i, ii, and iii) of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.9.B.2 calls these the \u201cessential principles of Hess\u2019s law\u201d and lists them in this order: reversing a reaction reverses the sign of its enthalpy change; multiplying a reaction by c multiplies its enthalpy change by c; and adding reactions adds their enthalpy changes. The caution correctly directs students to verify that the equations yield the overall reaction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and the three items match 6.9.B.2 in order and content. (i) 'When a reaction is reversed, the enthalpy change stays constant in magnitude but becomes reversed in mathematical sign' maps to 'Reverse a reaction'. (ii) 'When a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c' maps to 'Multiply a reaction by a factor c'. (iii) 'When two (or more) reactions are added to obtain an overall reaction, the individual enthalpy changes ... are added' maps to 'Add reactions to get an overall reaction'. The ced_evidence cite is accurate. No formula is present. b_topic_codes: Topic 6.9 (Hess's Law) is the only topic that states these principles, and the owner code 6.9 is the first and only place they are required in this unit. c_ced_required: 6.9.B.2 is an essential-knowledge statement that begins 'The following are essential principles of Hess's law', and it sits under learning objective 6.9.B ('Explain the relationship between the enthalpy of a chemical or physical process and the sum of the enthalpies of the individual steps'). d_caution: The entry wording is essentially the CED wording, so no caution is strictly required. The caution, 'Check that the manipulated equations actually sum to the target overall equation before adding the \u0394H values', is consistent with 6.9.B.1 ('the enthalpy change of the overall process is equal to the sum of the enthalpy changes of the individual steps'). It is correct and adds no contradiction, so its presence is acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 6.9.B.1, which states that 'at constant pressure, the enthalpy change of the overall process is equal to the sum of the enthalpy changes of the individual steps' due to the conservation of energy."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.9.B.1 states that, because total energy is conserved, \u201cat constant pressure, the enthalpy change of the overall process is equal to the sum of the enthalpy changes of the individual steps.\u201d Topic 6.9 is the first topic in this unit to require this relationship. The entry\u2019s wording matches the CED closely, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 6.9.B.1: \"at constant pressure, the enthalpy change of the overall process is equal to the sum of the enthalpy changes of the individual steps,\" and it cites the conservation of total energy as the reason, which the CED also gives (\"Because total energy is conserved (first law of thermodynamics)\"). No formula or list is involved, so there is nothing else to check. b_topic_codes: Topic 6.9 (Hess's Law) is the only topic that requires this principle in Unit 6, and owner_topic_code and topic_codes both correctly list 6.9. c_ced_required: Learning objective 6.9.B, \"Explain the relationship between the enthalpy of a chemical or physical process and the sum of the enthalpies of the individual steps,\" requires students to apply this relationship. d_caution: The entry's wording is essentially the CED's own wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-01-wrong-formula",
+    "control": "wrong formula (reactants minus products; CED 6.8.A.1 reads 'EQN: \u0394H\u00b0reaction = \u03a3\u0394Hf \u00b0products \u2212 \u03a3\u0394Hf \u00b0reactants')",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula in the entry is factually incorrect. It lists reactants minus products: \\sum \\Delta H_f^\\circ(\\text{reactants}) - \\sum \\Delta H_f^\\circ(\\text{products}). However, the CED under Topic 6.8 (Essential Knowledge 6.8.A.1) explicitly states the formula as: \u0394H\u00b0reaction = \u03a3\u0394Hf \u00b0products \u2212 \u03a3\u0394Hf \u00b0reactants (products minus reactants)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula in the entry is factually incorrect because it subtracts products from reactants: \\Delta H^\\circ_{reaction} = \\sum \\Delta H_f^\\circ(\\text{reactants}) - \\sum \\Delta H_f^\\circ(\\text{products}). According to the CED (Topic 6.8, 6.8.A.1), the correct formula is products minus reactants: \\Delta H^\\circ_{reaction} = \\sum \\Delta H_f^\\circ(\\text{products}) - \\sum \\Delta H_f^\\circ(\\text{reactants})."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 6.8, EK 6.8.A.1 gives the opposite order: \u201c\u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants.\u201d The entry incorrectly subtracts products from reactants. Topic 6.8 is the correct owner and the formula is required, but no caution flags the incorrect sign convention; a caution would not make the reversed formula correct."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 6.8, EK 6.8.A.1 gives \u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants. The entry reverses products and reactants, giving the wrong sign. Topic 6.8 is the correct owner, and LO 6.8.A requires this calculation. A caution would not correct the erroneous formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-02-excluded",
+    "control": "explicitly excluded by the CED (6.6 Exclusion Statement: 'The technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam.')",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry introduces the formula relating enthalpy and internal energy (\\Delta H = \\Delta E + P\\Delta V). However, Topic 6.6 contains an explicit Exclusion Statement: 'The technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam.' Therefore, this formula and distinction are not required and are explicitly excluded from the AP Chemistry curriculum."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and distinction between enthalpy and internal energy are explicitly excluded from the AP Chemistry Exam. Under Topic 6.6, the Exclusion Statement states: 'The technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam. Most reactions studied at the AP level are carried out at constant pressure, where the enthalpy change of the process is equal to the heat (and by extension, the energy) of reaction.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The equation is presented without its constant-pressure condition and is not a formula stated in the CED. Topic 6.6 instead says that, at constant pressure, enthalpy change equals the heat of reaction. Its exclusion statement explicitly says, \u201cThe technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam.\u201d No Unit 6 topic requires this distinction, and the entry has no caution identifying it as outside the assessed content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula is stated without the constant-pressure and pressure\u2013volume-work conditions needed for \u0394H = \u0394E + P\u0394V. More importantly, Topic 6.6 explicitly excludes this distinction: \u201cThe technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam.\u201d Its required content instead states that \u201cthe enthalpy change of a reaction gives the amount of heat energy released ... or absorbed ... at constant pressure\u201d (6.6.A.1). Thus 6.6 does not require students to apply this formula, and the entry has no caution flagging the distinction as excluded."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-04-wrong-member",
+    "control": "wrong list member (CED 6.9.B.2 ii: 'When a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c' \u2014 control says divided)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Item 2 contains a factual error: it states that when a reaction is multiplied by a factor c, the enthalpy change is divided by c. However, CED 6.9.B.2.ii explicitly states: 'When a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "In item 2, the meaning states '\u0394H is divided by c', which is factually incorrect. According to CED 6.9.B.2.ii, 'When a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The second item contradicts 6.9.B.2(ii): \u201cWhen a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c,\u201d not divided by c. The other two items match 6.9.B.2(i) and (iii). Topic 6.9 is the correct placement, and 6.9.B.2 requires these Hess\u2019s law rules. No wording caution is needed; the error is substantive."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The second item contradicts 6.9.B.2(ii): \u201cWhen a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c,\u201d not divided by c. The reversal and addition rules match 6.9.B.2(i) and (iii). Topic 6.9 requires these rules; no separate wording caution is needed.",
+              "hooks": []
+            }
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-03-wrong-owner",
+    "control": "wrong owner topic (bond-enthalpy estimate belongs to 6.7, LO 6.7.A 'Calculate the enthalpy change of a reaction based on the average bond energies of bonds broken and formed'; 6.8 is enthalpy of formation)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '6.8' (Enthalpy of Formation), but this formula and its CED evidence (6.7.A.2) belong to Topic 6.7 (Bond Enthalpies)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '6.8' (Enthalpy of Formation), but this formula and its associated CED evidence (6.7.A.2) belong to Topic 6.7 (Bond Enthalpies). The owner_topic_code should be '6.7'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula correctly expresses the bond-energy calculation described in 6.7.A.2: add the energies required to break reactant bonds and account for the energy released when product bonds form. The owner and topic code should be 6.7, not 6.8. Objective 6.7.A requires calculating reaction enthalpy from \u201cthe average bond energies of bonds broken and formed\u201d; Topic 6.8 instead uses \u201cstandard enthalpies of formation.\u201d No caution is needed for this wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula correctly expresses 6.7.A.2: the energy required to break reactant bonds is added, as is the energy released when product bonds form; the difference gives the reaction enthalpy estimate. Learning objective 6.7.A requires students to calculate enthalpy change from average bond energies. The entry is misclassified: 6.7, not 6.8, is where this is first required. Topic 6.8 instead uses 'standard enthalpies of formation' (6.8.A.1). No caution is needed for the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-06-other-unit",
+    "control": "content from another unit (Gibbs free energy is Unit 9 thermodynamics; no 'Gibbs', 'entropy', or '\u0394G' appears anywhere on CED pages 114-129)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for Gibbs free energy change (\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ) is not part of Unit 6 (Thermochemistry) in the AP Chemistry CED. Unit 6 covers enthalpy, heat transfer, calorimetry, bond enthalpies, and Hess's Law. Gibbs free energy and entropy are introduced in Unit 9 (Thermodynamics), so this entry is not required or appropriate for Unit 6."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula for Gibbs free energy change (\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ) is not part of Unit 6 (Thermochemistry). The CED Unit 6 pages focus on enthalpy (\\Delta H), heat transfer (q), calorimetry, bond enthalpies, and Hess's Law. Gibbs free energy and entropy (\\Delta S) are introduced in Unit 9 (Applications of Thermodynamics), as noted in the Unit 6 overview: 'In subsequent units, the application of thermodynamics will determine the favorability of a reaction occurring.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Gibbs free energy equation is chemically valid, but it is not stated or required in these Unit 6 pages. Topic 6.6 instead states that \u201cthe enthalpy change of a reaction gives the amount of heat energy released ... or absorbed ... at constant pressure\u201d (6.6.A.1). Neither 6.6 nor another listed Unit 6 topic uses this formula, so the owner and topic code are unsupported. No wording caution is applicable; a caution would not make the formula required."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The equation is scientifically valid, but these CED pages do not state it. Topic 6.6 requires students to calculate heat from the molar enthalpy of reaction; 6.6.A.1 says, \u201cThe enthalpy change of a reaction gives the amount of heat energy released ... or absorbed ... by a chemical reaction at constant pressure.\u201d It does not require Gibbs free energy, entropy, or \u0394G\u00b0 = \u0394H\u00b0 \u2212 T\u0394S\u00b0. No alternative CED wording of this formula calls for a caution; the issue is that the entry is outside the provided Unit 6 requirements."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u6-05-bad-hook",
+    "control": "hook expansion wrong (entry is correct per CED 6.4.A.1 'EQN: q = mc\u0394T'; hook expands m as molar mass, but m is mass of the substance)",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "q is em-cat": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "q is em-cat": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula q = mc\u0394T is explicitly required by 6.4.A.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "q is em-cat",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The expansion of 'm' is incorrect; in the heat transfer equation q = mc\u0394T, 'm' represents the mass of the substance (typically in grams), not its molar mass."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula q = mc\u0394T is explicitly required by Topic 6.4 (6.4.A.1) and is factually correct."
+            },
+            "hooks": [
+              {
+                "hook_text": "q is em-cat",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion incorrectly defines 'm' as 'molar mass of the substance (g/mol)'. In the heat transfer equation q = mc\u0394T, 'm' represents the mass of the substance (typically in grams), not its molar mass."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "q is em-cat": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.4, EK 6.4.A.1 explicitly gives the heat transfer equation as \u201cq = mc\u0394T\u201d and requires calculating heat from the amount of substance, heat capacity, and temperature change. The entry reproduces that equation and needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "q is em-cat",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion incorrectly defines m as molar mass (g/mol). In q = mc\u0394T, m is mass; EK 6.4.A.3 refers to \u201cequal masses,\u201d while EK 6.4.A.5 distinguishes specific heat capacity from molar heat capacity. The hook recalls a CED-required formula, but its mnemonic wording is not the point-earning equation and it has no caution clarifying that distinction."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.4, EK 6.4.A.1 explicitly gives the heat transfer equation as \u201cq = mc\u0394T.\u201d The entry reproduces it exactly, and no caution is needed."
+            },
+            "hooks": [
+              {
+                "hook_text": "q is em-cat",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion incorrectly defines m as molar mass (g/mol). LO 6.4.A calls for the \u201camount of the substance, the heat capacity, and the change in temperature\u201d; in q = mc\u0394T, m is the substance\u2019s mass, not its molar mass. The hook recalls a required formula, but its non-point-earning mnemonic has no caution clarifying the correct meaning."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "q is em-cat": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'q = mc\u0394T' matches the CED equation exactly ('EQN: q = mc\u0394T', Topic 6.4, EK 6.4.A.1). b_topic_codes: 6.4 is the first unit-6 topic that uses the heat transfer equation, and the equation sits under 6.4.A.1, so owner and topic_codes are correct. c_ced_required: LO 6.4.A requires students to 'Calculate the heat q absorbed or released by a system ... based on the amount of the substance, the heat capacity, and the change in temperature', and EK 6.4.A.1 gives the heat transfer equation. d_caution: The entry body uses the CED wording, so no caution is needed on the entry itself. The symbol meanings are not stated on the entry, which is why the hook's m-definition matters (see below)."
+          },
+          "hooks": [
+            {
+              "hook_text": "q is em-cat",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The cue 'm' is defined as 'molar mass of the substance (g/mol)'. In q = mc\u0394T the m is the mass of the substance, and 6.4.A.1 and 6.4.A.5 keep molar heat capacity separate from specific heat capacity. Molar mass is a different quantity and would give wrong units and wrong calculations. The '-at (\u0394T)' cue is also an unclear, non-standard mnemonic cue, though its meaning (\u0394T, change in temperature) is correct. f_admissible: The hook does recall a formula structure the CED requires, but its expansion misdefines a symbol and its wording ('q is em-cat') differs from the CED point-earning wording (q = mc\u0394T, m = mass). That requires a caution, and caution is null. Fails on both counts."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'q = mc\u0394T' matches the CED formula in 6.4.A.1 ('EQN: q = mc\u0394T.'), with the same symbols and order. b_topic_codes: The heat transfer equation first appears in Topic 6.4 (6.4.A.1), and 6.4 is the only listed topic code, so both the owner code and the topic list are correct. c_ced_required: 6.4.A.1 states 'The amount of heat transferred between two bodies may be quantified by the heat transfer equation: q = mc\u0394T', and LO 6.4.A requires calculating q from the amount of substance, heat capacity, and \u0394T. d_caution: The entry uses the CED's exact wording, so no caution is needed and the null caution is correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "q is em-cat",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The cue 'm' is mapped to 'molar mass of the substance (g/mol)', which contradicts the entry and the CED. In q = mc\u0394T, m is the mass of the substance, and 6.4.A.1 says 'the amount of the substance' with heat capacity, not molar mass. The order (m, c, \u0394T) and the meanings of c and \u0394T are correct. f_admissible: The formula structure is required by 6.4.A.1, so a mnemonic for it is an allowable kind of hook. However, the hook text 'q is em-cat' is not the point-earning wording, and caution is null. The hook also carries the incorrect 'molar mass' expansion. A correct caution is required, and it is missing."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

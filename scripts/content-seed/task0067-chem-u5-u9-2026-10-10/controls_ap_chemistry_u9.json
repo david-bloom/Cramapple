@@ -1,0 +1,21 @@
+[
+  {"candidate_id": "ctrl-chem-u9-01-wrong-formula", "control": "wrong formula (sign flipped: CED 9.9.A.3 reads 'EQN: ΔGo = −nFEo', planted as +nFE°)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.9", "topic_codes": ["9.9"], "kind": "formula",
+   "title": "Standard free energy from standard cell potential", "body": "\\Delta G^\\circ = +nFE^\\circ", "items": [], "caution": null, "ced_evidence": "9.9.A.3", "hooks": []},
+  {"candidate_id": "ctrl-chem-u9-02-excluded", "control": "explicitly excluded by the CED (9.8 Exclusion Statement: 'Labeling an electrode as positive or negative will not be assessed on the AP Exam.')", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.8", "topic_codes": ["9.8"], "kind": "convention",
+   "title": "Positive and negative electrode signs", "body": "In a galvanic cell the anode is the negative electrode and the cathode is the positive electrode; in an electrolytic cell the anode is positive and the cathode is negative.", "items": [], "caution": null, "ced_evidence": "9.8.A.3", "hooks": []},
+  {"candidate_id": "ctrl-chem-u9-03-wrong-owner", "control": "wrong owner topic (standard entropy change from absolute entropies is 9.2: 'EQN: ΔSoreaction = ΣSoproducts − ΣSoreactants' under 9.2.A.1, not 9.3)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.3", "topic_codes": ["9.3"], "kind": "formula",
+   "title": "Standard entropy change from absolute entropies", "body": "\\Delta S^\\circ_{reaction} = \\sum S^\\circ_{products} - \\sum S^\\circ_{reactants}", "items": [], "caution": null, "ced_evidence": "9.2.A.1", "hooks": []},
+  {"candidate_id": "ctrl-chem-u9-04-wrong-list", "control": "wrong list member (9.3.A.6 table: ΔH° >0, ΔS° >0 is favored at 'high T' and ΔH° <0, ΔS° <0 at 'low T'; planted with high/low swapped)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.3", "topic_codes": ["9.3"], "kind": "list_sequence",
+   "title": "Temperatures at which a process is thermodynamically favored, by signs of ΔH° and ΔS°", "body": "The signs of ΔH° and ΔS° predict the temperature conditions under which ΔG° < 0.", "items": [{"label": "ΔH° < 0, ΔS° > 0", "meaning": "favored at all T"}, {"label": "ΔH° > 0, ΔS° < 0", "meaning": "favored at no T"}, {"label": "ΔH° > 0, ΔS° > 0", "meaning": "favored at low T"}, {"label": "ΔH° < 0, ΔS° < 0", "meaning": "favored at high T"}], "caution": null, "ced_evidence": "9.3.A.6", "hooks": []},
+  {"candidate_id": "ctrl-chem-u9-05-bad-hook", "control": "hook expansion inverted (entry is correct per 9.8.A.3 'oxidation occurs at the anode and reduction occurs at the cathode'; hook maps AN OX to reduction and RED CAT to oxidation)", "control_target": "hook",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.8", "topic_codes": ["9.8"], "kind": "convention",
+   "title": "Anode and cathode", "body": "In every electrochemical cell, galvanic or electrolytic, oxidation occurs at the anode and reduction occurs at the cathode.", "items": [], "caution": null, "ced_evidence": "9.8.A.3",
+   "hooks": [{"kind": "acronym", "hook_text": "AN OX / RED CAT", "expands_to": [{"cue": "AN OX", "means": "reduction occurs at the anode"}, {"cue": "RED CAT", "means": "oxidation occurs at the cathode"}], "when_to_use": "when deciding which half-reaction happens at which electrode", "caution": null, "source_note": "public-domain-common"}]},
+  {"candidate_id": "ctrl-chem-u9-06-other-unit", "control": "content from another unit (Henderson-Hasselbalch is Unit 8 buffers; Unit 9 pages 168-185 contain no pKa/buffer text, and 9.5.A.2 relates only K and ΔG°: 'EQN: ΔG° = −RT ln K')", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 9, "owner_topic_code": "9.5", "topic_codes": ["9.5"], "kind": "formula",
+   "title": "Henderson-Hasselbalch equation", "body": "\\text{pH} = \\text{p}K_a + \\log\\frac{[A^-]}{[HA]}", "items": [], "caution": null, "ced_evidence": "9.5.A.2", "hooks": []}
+]

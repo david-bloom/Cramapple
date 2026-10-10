@@ -10,6 +10,9 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
 - APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
+- APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
+- APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
+- APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2036,6 +2039,80 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). Claude recommended "generate practice MCQs for the thin Unit 1 topics, starting with 1.2 and 1.8, through the normal pipeline"; David answered: "do all of your recommendations".  
+**Related:** batch `scripts/content-seed/chem-u1-mcq-1-2-1-8-2026-10-10/` (branch `claude/chem-u1-mcq-1-2-1-8`, commit `f04bdc8d`), `publish_mcq_batch.py`, `DECISION-0099`/`0101`/`0102`, `APPROVAL-0134` (the earlier set-aside of bank duplicates).  
+**Decision:** Approved
+
+**Scope:** publish 9 generate-and-select practice MCQs (no hand edits).
+- **1.2 Mass Spectra of Elements:** `apchem-mcq-080`, `081` + `sv-081-v1`, `082` + `sv-082-v1`.
+- **1.8 Valence Electrons and Ionic Compounds:** `apchem-mcq-083` + `sv-083-v1`, `084` + `sv-084-v1`.
+- Before this, both topics had zero practice MCQs in Production; their only MCQs were the Open Hand teaching items.
+
+**Gates passed:**
+- Controls 6/6 caught; keys re-derived 9/9 (`recompute.py`).
+- Skill votes validated (4 of 4 on every seed except `080`, 3 of 4).
+- CED exclusions respected; compared against all 200 published Chemistry MCQs.
+- Two first seeds that copied the Open Hand items were set aside, as under APPROVAL-0134; one 1.2 slot stays escalated.
+
+**Noted:**
+- **Key distribution:** A1 B4 C3 D1, hash-placed and not reshuffled.
+- **No Development load:** Dev's schema has drifted (no `content_review_decisions.tutor_decision`; skill-grid and manifest rows missing). The safety step is the Production rehearsal, rolled back.
+- **Plan file:** `plan_publish.json` md5 `cf0781b3…`.
+
+**Rollback:** set the 9 items and their versions to `retired` by `content_key` (`apchem-mcq-080`–`084`, `apchem-sv-081-v1`–`084-v1`).
+
+## APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), on the recommendation "fix the extraction prompt, then re-run every Chemistry formula entry through the pipeline": "Go ahead with 5".  
+**Related:** `scripts/content-seed/task0067-chem-formula-symbols-2026-10-10/README.md`; `APPROVAL-0147`, `APPROVAL-0148`.  
+**Decision:** Approved
+
+**Scope:**
+- Re-extract all 46 AP Chemistry `formula` entries with REQUIRED symbol definitions in `items` (meanings + units) and use conditions in `caution`, then re-check them (two checkers + veto; 3/3 symbol-defect controls caught).
+- Write the 44 accepted rows in place on the unique key, changing only body/items/caution plus a `fmt=` provenance note. Topic tags, ids and hooks are unchanged.
+- Two rows (Unit 1 Coulomb's law; Unit 8 conjugate pair Ka·Kb = Kw) were not accepted and keep their current version.
+- Applied to Development (44 rows) and Production (37 rows; Unit 8 is not in Production).
+
+**Verified:** Development 44/46 and Production 37/38 formulas carry symbol definitions; QA checks 4–7 ok in both; the RPC serves the new `items`.
+
+**Rollback:** the prior body/caution for each row is in the batch's `out/current_formulas_dev.json` (Development values; the Production rows were loaded from the same SQL), with `items = '[]'`. Restore by the same unique key.
+
+## APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). After learning that only Units 1 and 4 were in Production, he said: "Chemistry should have all units. Those were built as a beta." Then, on the plan to promote Units 2–3 and build 5–9 for one Production approval: "I approve".  
+**Related:** Units 2–3 batch `scripts/content-seed/ap-chemistry-reference-u2-u3-2026-10-10/` (branch `claude/task-0067-production-records`, commits `383d41c5`, `1fed307c`, handoff `docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`); Units 5–9 batch `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`; `APPROVAL-0140`, `APPROVAL-0147`.  
+**Decision:** Approved
+
+**Units 2–3, loaded 2026-10-10:**
+- Source: that batch's committed `out/load_ap_chemistry_u2.sql` (md5 `225c2ee9…`, 21 entries) and `out/load_ap_chemistry_u3.sql` (md5 `35b3547d…`, 32 entries), as regenerated after the Product Owner–directed correction pass. Before loading, the entry keys (owner topic, kind, title) were compared with Development: identical, 21/21 and 32/32. No hooks; no open escalations in this batch.
+- Production now has AP Chemistry Units 1–4 = 26 / 21 / 32 / 22.
+- QA checks 1–8 ok. `get_topic_point_guides` probes match Development: 2.6 → 4, 3.4 → 4, Unit 2 → 21, Unit 3 → 32.
+
+**Units 5–9:** to be loaded unit by unit after each Development batch completes. Each unit needs controls 6/6 caught, both checkers plus the veto, the Development load and QA. Any unit with open escalations loads only its accepted rows; escalations wait for a Product Owner decision. Each load is recorded as an amendment below.
+
+**Amendment (same day), Units 5, 6, 7, 9 loaded:** each Development batch passed (controls 6/6 caught, both checkers plus the Haiku veto, the Development load, QA checks 4–7 ok). Each loaded to Production from its generated `out/load_ap_chemistry_u<n>.sql` in `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`, with no edits, and the Production counts matched Development:
+- Unit 5: 27 entries + 1 hook (md5 `ca7d8ba2…`)
+- Unit 6: 20 entries (md5 `5caf7385…`)
+- Unit 7: 20 entries (md5 `a0c0acb5…`)
+- Unit 9: 23 entries + 1 hook "An Ox, Red Cat" (md5 `75336ff8…`)
+
+QA checks 4–7 ok in Production after each load. **Unit 8 is held in Development** (29 entries): round 2 loaded two content duplicates (pKa, pKw), and the five escalations cover Henderson–Hasselbalch, Kb, buffer, titration curve, and weak base + strong acid. It needs a Product Owner decision before Production. Escalations awaiting decision: Unit 5 ×3, Unit 6 ×1, Unit 7 ×1 (Kp), Unit 8 ×5, Unit 9 ×1 (batch READMEs `out/README_u<n>.md`). Batch cost about $8.73 (Unit 5 $1.78, Unit 6 $1.21, Unit 7 $1.40, Unit 8 $2.79, Unit 9 $1.55).
+
+**Amendment 2 (same day), Unit 8 and the escalations (`DECISION-0113`):** Unit 8 loaded to Production complete. The steps, in order:
+1. Original batch SQL
+2. Its 7 formula symbol-definition updates
+3. Retire the 2 duplicates
+4. The round-3 rows
+
+Nine escalated rows were re-extracted, checked and loaded to Development and Production (`task0067-chem-escalations-r3-2026-10-10`). Production equals Development: U1 26 · U2 21 · U3 32 · U4 22 · U5 29 · U6 20 · U7 21 · U8 32 · U9 24 = **227 published AP Chemistry entries, all nine units**. QA checks 1–8 ok; RPC counts identical. No AP Chemistry escalation is open: catalysis types stays out (failed on content); Unit 6 thermal-energy-flow was dropped.
+
+**Rollback (any unit):** `update app.unit_reference_entries set status='retired' where subject_key='ap_chemistry' and unit_number = <n> and source_note like '%batch=<batch id>%';` (retire hooks first when present).
 
 ## APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production
 

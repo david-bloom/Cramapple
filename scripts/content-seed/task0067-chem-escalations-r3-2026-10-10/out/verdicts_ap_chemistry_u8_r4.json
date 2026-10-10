@@ -1,0 +1,116 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u8-r4-005",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula, symbols, definitions, and exclusion statements perfectly match the CED for Topic 8.9 (Henderson-Hasselbalch Equation) and Topic 8.4 (Acid-Base Reactions and Buffers)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and symbol definitions match 8.9.A.1: \u201cpH = pKa + log([A\u2212]/[HA]).\u201d The caution correctly reflects both 8.9.A.1 exclusion statements. However, 8.4.A.2 first requires use of the equation: \u201cthe pH can be determined from the Henderson-Hasselbalch (H\u2212H) equation (see 8.9.A.1).\u201d Under the specified first-requirement rule, the owner topic should be 8.4, not 8.9; both listed topic codes are relevant."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and symbol definitions match 8.9.A.1: \u201cpH = pKa + log([A\u2212]/[HA]).\u201d The caution correctly reflects both exclusion statements in 8.9.A.1. However, the owner should be 8.4, where 8.4.A.2 first requires using the Henderson\u2013Hasselbalch equation to determine buffer pH and points to 8.9.A.1. Both listed topic codes are appropriate."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r4-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components and interpretation of a titration curve as described in Topic 8.5 (specifically 8.5.A.1, 8.5.A.2, 8.5.A.3, and 8.5.A.4), including the axes, equivalence point, and half-equivalence point."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.5 is the first topic requiring interpretation of titration curves. CED 8.5.A.1 describes a curve as \u201cplotting pH against the volume of titrant added.\u201d CED 8.5.A.2 states the equivalence-point mole relationship for monoprotic acids or bases; 8.5.A.3 states that at half-equivalence [HA] = [A\u2212] and pH = pKa; and 8.5.A.4 supports the stated equivalence-point pH distinctions. The caution correctly distinguishes the two points."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and items match the CED. 8.5.A.1 defines a titration curve as 'plotting pH against the volume of titrant added', so the axes are correct. The equivalence-point item matches 8.5.A.2 (moles of titrant equal moles of analyte for monoprotic acids/bases). The pH-at-equivalence statements match 8.5.A.4 (neutral for strong-strong, basic for weak acid, acidic for weak base). The half-equivalence item matches 8.5.A.3 (pH = pKa when [HA] = [A\u2212]). Minor note: the half-equivalence item is written only for a weak acid, while the body and 8.5.A.3 cover weak acids and bases. This narrows the content but does not make it false. The only formula, pH = pKa, has its symbols defined. b_topic_codes: 8.5 is the first unit where titration curves and the half-equivalence point are required (8.5.A.1, 8.5.A.3), and it is the sole code listed. c_ced_required: 8.5.A.1 and 8.5.A.3 require students to read the titration curve, find the half-equivalence point, and use pH = pKa. d_caution: The caution ('Do not confuse the half-equivalence point (pH = pKa) with the equivalence point') is correct and needed. It matches the CED's distinction between 8.5.A.2 and 8.5.A.3. ced_evidence cites the correct statements. hooks: none, so no hook checks apply."
+          }
+        }
+      ]
+    }
+  }
+]

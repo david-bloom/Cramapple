@@ -1,0 +1,124 @@
+[
+  {
+    "owner_topic_code": "1.1",
+    "topic_codes": [
+      "1.1"
+    ],
+    "kind": "formula",
+    "title": "Avogadro's number",
+    "body": "N_A = 6.022 \\times 10^{23}\\ \\mathrm{mol^{-1}}",
+    "items": [
+      {
+        "label": "N_A",
+        "meaning": "Avogadro's number: the number of constituent particles (atoms, molecules, or formula units) per mole of a pure substance (mol^-1)"
+      }
+    ],
+    "caution": "It links moles of a pure sample to the number of constituent particles (or formula units), so the particle count is moles multiplied by N_A.",
+    "ced_evidence": "1.1.A.2 Avogadro's number (NA = 6.022 \u00d7 10^23 mol\u22121)",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u1-r9-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.1",
+    "topic_codes": [
+      "1.1"
+    ],
+    "kind": "formula",
+    "title": "Moles from mass and molar mass",
+    "body": "n = \\frac{m}{M}",
+    "items": [
+      {
+        "label": "n",
+        "meaning": "amount of substance (mol)"
+      },
+      {
+        "label": "m",
+        "meaning": "mass of the sample (g)"
+      },
+      {
+        "label": "M",
+        "meaning": "molar mass of the substance (g/mol), numerically equal to the average mass in amu of one particle or formula unit"
+      }
+    ],
+    "caution": "Use mass in grams with molar mass in g/mol so that the units cancel to give moles.",
+    "ced_evidence": "1.1.A EQN: n = m/M",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u1-r9-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.2",
+    "topic_codes": [
+      "1.2"
+    ],
+    "kind": "formula",
+    "title": "Average atomic mass from isotope data",
+    "body": "\\bar{m} = \\sum_i m_i f_i",
+    "items": [
+      {
+        "label": "\\bar{m}",
+        "meaning": "average atomic mass of the element (amu)"
+      },
+      {
+        "label": "\\sum_i",
+        "meaning": "sum over all isotopes of the element"
+      },
+      {
+        "label": "m_i",
+        "meaning": "mass of isotope i (amu)"
+      },
+      {
+        "label": "f_i",
+        "meaning": "relative abundance of isotope i as a fraction (percent abundance divided by 100); the fractions sum to 1"
+      }
+    ],
+    "caution": "The CED describes this as a weighted average of isotopic masses using each isotope's mass and relative abundance, giving an estimate. Mass spectra of single elements with singly charged monatomic ions are the only ones assessed.",
+    "ced_evidence": "1.2.A.2 weighted average of the isotopic masses using the mass of each isotope and its relative abundance",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u1-r9-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "1.5",
+    "topic_codes": [
+      "1.5",
+      "1.6",
+      "1.7"
+    ],
+    "kind": "formula",
+    "title": "Coulomb's law",
+    "body": "F_{\\text{coulombic}} \\propto \\frac{q_1 q_2}{r^2}",
+    "items": [
+      {
+        "label": "F_coulombic",
+        "meaning": "electrostatic force between two charged particles (attractive for opposite charges, repulsive for like charges)"
+      },
+      {
+        "label": "q_1",
+        "meaning": "charge of the first particle (e.g., nuclear charge or electron charge)"
+      },
+      {
+        "label": "q_2",
+        "meaning": "charge of the second particle"
+      },
+      {
+        "label": "r",
+        "meaning": "distance between the two particles (e.g., electron-to-nucleus distance)"
+      }
+    ],
+    "caution": "This is a proportionality, not an equality: force increases with larger charges and decreases with the square of the distance. The CED applies it qualitatively to ionization energy, via distance from the nucleus and effective (shielded) nuclear charge.",
+    "ced_evidence": "1.5.A.2 \"EQN: Fcoulombic \u221d q1q2/r^2\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u1-r9-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 1,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]
