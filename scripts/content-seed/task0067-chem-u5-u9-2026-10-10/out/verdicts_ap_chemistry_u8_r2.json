@@ -1,0 +1,829 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u8-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 8.1.A.3 and 8.1.A.4 regarding the temperature dependence of Kw and the definition of a neutral solution where pH = pOH, which only equals 7.0 at 25\u00b0C."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1 states: \u201cIn pure water, pH = pOH is called a neutral solution. At 25\u00b0C ... pH = pOH = 7.0\u201d (8.1.A.3). It also states that Kw is temperature dependent and \u201cthe pH of pure, neutral water will deviate from 7.0 at temperatures other than 25\u00b0C\u201d (8.1.A.4). The entry accurately restates required content; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.1.A.3 states 'In pure water, pH = pOH is called a neutral solution. At 25\u00b0C, pKw = 14.0 and thus pH = pOH = 7.0.' CED 8.1.A.4 states 'The value of Kw is temperature dependent, so the pH of pure, neutral water will deviate from 7.0 at temperatures other than 25\u00b0C.' The body matches both statements. The word 'only' in 'only at 25\u00b0C' is a fair reading of 8.1.A.4, since 7.0 is the stated value at 25\u00b0C and the CED says it deviates elsewhere. b_topic_codes: 8.1 is the topic whose objectives 8.1.A.3 and 8.1.A.4 first require this, and topic_codes ['8.1'] is the only topic that uses it. c_ced_required: 8.1.A.3\u20138.1.A.4 require students to apply the neutral pH = pOH relationship and the temperature dependence of Kw. d_caution: the body paraphrases the CED closely and the point-earning wording is not materially different, so no caution is needed and caution is null, which is correct. The entry has no hooks."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 8.2.A.2, which states that the concentration of OH- in a strong base solution is equal to the initial concentration of a group I hydroxide and double the initial concentration of a group II hydroxide. The caution correctly warns students about the common mistake of confusing pOH and pH."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.2, EK 8.2.A.2 states that strong bases \u201ccompletely dissociate\u201d and that [OH\u2212] is \u201cequal to the initial concentration of a group I hydroxide and double the initial concentration of a group II hydroxide.\u201d The caution correctly applies Topic 8.1\u2019s pOH = \u2212log[OH\u2212] and pH + pOH = 14 at 25\u00b0C."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.2.A.2 states that strong bases such as group I and II hydroxides 'completely dissociate to produce hydroxide ions' and that '[OH\u2212] is equal to the initial concentration of a group I hydroxide and double the initial concentration of a group II hydroxide.' The body matches this exactly. b_topic_codes: 8.2 is the topic where strong acid and strong base pH/pOH calculations are first required (8.2.A.1 and 8.2.A.2), so owner 8.2 and topic_codes [8.2] are correct. c_ced_required: LO 8.2.A ('Calculate pH and pOH based on concentrations of all species in a solution of a strong acid or a strong base') and 8.2.A.2 require this relationship. d_caution: the caution correctly warns that \u2212log[OH\u2212] yields pOH, not pH. CED 8.1.A.3 gives 'pKw = 14 = pH + pOH at 25\u00b0C,' so the conversion is valid. The CED's own wording ('the pOH (and pH) of the strong base solution is easily calculated') does not state the conversion explicitly, so the caution is a correct and useful addition rather than a substitute for the CED point-earning wording."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula pKb = -log Kb is explicitly required in Topic 8.3 (specifically 8.3.A.4) of the AP Chemistry CED. The topic codes are accurate and the formula is factually correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.3.A.4: \u201cEQN: pKb = \u2212log Kb.\u201d Topic 8.3 first requires it; the 8.7.A learning objective also refers to \u201cthe pKb of the conjugate base.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'pK_b = -\\log K_b' matches the CED equation in 8.3.A.4, 'EQN: pKb = \u2212log Kb'. The symbols, sign, and log base are correct, and the formula has no list or ordering to get wrong. b_topic_codes: 8.3.A.4 is the first place pKb is defined, and it sits in Topic 8.3, so owner_topic_code 8.3 is correct. Topic 8.7 uses it in 8.7.A ('the pKa of the conjugate acid or the pKb of the conjugate base'), so the 8.7 code is also valid. c_ced_required: 8.3.A.4 requires students to define and apply pKb in relation to Kb and the pH of weak base solutions, and 8.7.A requires its use for predicting protonation state. This is a required CED equation, not trivia. d_caution: The entry uses the CED's own wording and notation ('pKb = \u2212log Kb'), so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the acid ionization constant (Ka) and pKa is factually correct and matches the equations explicitly provided in Topic 8.3 (8.3.A.2) of the AP Chemistry CED. The topic codes are accurate and represent the topics where Ka and pKa are applied."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3 first requires both equations: 8.3.A.2 gives Ka = [H3O+][A\u2212]/[HA] and pKa = \u2212log Ka. The listed later topics use weak-acid equilibrium or pKa in acid\u2013base mixtures, titrations, protonation-state predictions, and the Henderson\u2013Hasselbalch equation. The entry matches the CED wording and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives the same formula and symbols under 8.3.A.2: \"EQN: Ka = [H3O+][A\u2212]/[HA]\" and \"EQN: pKa = \u2212log Ka\". The entry's numerator, denominator, and pKa definition match, with no reordering or symbol changes. b_topic_codes: owner 8.3 is correct because 8.3.A.2 is the first statement that introduces Ka. The other codes are supported: 8.5 (8.5.A.3 uses \"pKa can be determined from the pH at the half-equivalence point\"), 8.7 (8.7.A.1 compares \"solution pH < acid pKa\"), and 8.9 (8.9.A.1 relates pH to pKa). 8.4 is the weakest fit: its statements (8.4.A.2, 8.4.A.3) refer to the Henderson-Hasselbalch equation, which depends on pKa, but they never state Ka itself. The code is defensible as indirect use but is not a direct one. c_ced_required: 8.3.A.2 says \"The equilibrium constant for this reaction is Ka, often reported as pKa,\" and the topic requires students to determine pH from Ka/pKa, so the formula is required. d_caution: the entry wording matches the CED wording, so no caution is needed and caution null is correct. accept: all elements pass; the 8.4 linkage is indirect but acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the water autoionization constant equations ($K_w = [H_3O^+][OH^-] = 1.0 \\times 10^{-14}$ at $25^\\circ\\text{C}$ and $pK_w = 14 = pH + pOH$ at $25^\\circ\\text{C}$) as explicitly required in Topic 8.1 (EK 8.1.A.2 and 8.1.A.3)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formulas match 8.1.A.2, \u201cKw = [H3O+][OH\u2212] = 1.0 \u00d7 10\u221214 at 25\u00b0C,\u201d and 8.1.A.3, \u201cpKw = 14 = pH + pOH at 25\u00b0C.\u201d Topic 8.1 first requires them; 8.2 applies pH and pOH to strong acids and bases, and 8.3.A.6 uses Kw for conjugate acid\u2013base pairs. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The Kw expression and value match 8.1.A.2 (\"Kw = [H3O+][OH\u2212] = 1.0 \u00d7 10\u221214 at 25\u00b0C\") and the pKw relation matches 8.1.A.3 (\"pKw = 14 = pH + pOH at 25\u00b0C\"). Symbols and order are correct. b_topic_codes: 8.1 is the first unit topic that requires Kw (8.1.A.2). 8.1 and 8.3 (8.3.A.6, Kw = Ka \u00d7 Kb) use it explicitly. 8.2 uses pH + pOH = 14 only implicitly, in the 8.2.A.2 statement that strong-base pOH and pH are \"easily calculated\", so the 8.2 code is defensible but weak. c_ced_required: 8.1.A.2 and 8.1.A.3 require students to apply Kw and pKw = 14 = pH + pOH. d_caution: The entry body places \"at 25\u00b0C\" only on the Kw equation. The CED attaches \"at 25\u00b0C\" to the pKw = 14 line as well, and 8.1.A.4 states that Kw is temperature dependent, so pKw = 14 holds only at 25\u00b0C. With caution null, the 25\u00b0C scope of the pKw line is not carried by any caution, so the wording does not earn the point as written. A caution stating that pH + pOH = 14 holds only at 25\u00b0C (Kw changes with temperature, 8.1.A.4) is required."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.1.A.2 gives 'EQN: Kw = [H3O+][OH\u2212] = 1.0 \u00d7 10\u221214 at 25\u00b0C', and 8.1.A.3 gives 'EQN: pKw = 14 = pH + pOH at 25\u00b0C'. The body matches these symbols, values, and the 25\u00b0C condition. b_topic_codes: owner 8.1 is the first topic that requires Kw (8.1.A.2 'Water autoionizes with an equilibrium constant Kw'). 8.2 uses pH/pOH calculations for strong acids and bases (8.2.A.1\u20138.2.A.2), which depend on the pKw = pH + pOH relation. 8.3 uses Kw through 8.3.A.6 'Kw = Ka \u00d7 Kb; pKw = pKa + pKb'. All three codes are unit 8 topics that use it. c_ced_required: 8.1.A.2 and 8.1.A.3 directly require students to know and apply Kw and pKw = pH + pOH at 25\u00b0C. d_caution: the entry wording matches the CED equation wording (H3O+, 1.0 \u00d7 10\u221214 at 25\u00b0C, pKw = 14 = pH + pOH), so no caution is needed. The entry's ced_evidence cites 8.1.A.2, which is the correct source line. No hooks are present, so no hook judgments apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the base ionization constant, Kb, is factually correct and matches the equation provided in Topic 8.3 (EK 8.3.A.4) of the AP Chemistry CED: 'EQN: Kb = [OH\u2212][HB+]/[B]'. The topic codes are appropriate as weak base equilibria are introduced in Topic 8.3 and applied in Topic 8.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.3.A.4: \u201cKb = [OH\u2212][HB+]/[B].\u201d Topic 8.3 first requires it. Topic 8.4 also uses weak-base equilibrium: 8.4.A.2 says that, when a weak acid and strong base are equimolar, pH can be determined from \u201cA\u2212(aq) + H2O(l) \u21cc HA(aq) + OH\u2212(aq).\u201d The entry uses the CED\u2019s formula wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The CED gives the same expression in 8.3.A.4 (\"EQN: Kb = [OH\u2212][HB+]/[B]\"), with the same symbols, numerator/denominator placement, and definition (B = un-ionized base, HB+ = conjugate acid). b_topic_codes: owner_topic_code 8.3 is correct, since 8.3.A.4 is the first place Kb is required. The topic_codes entry 8.4 fails. 8.4 never names or uses Kb; its A\u2212/HB+ equilibria (8.4.A.2, 8.4.A.3) are written as reactions without a Kb expression. Kb is applied there only implicitly, through the conjugate-pair relation in 8.3.A.6, which 8.4 does not state. Remove 8.4 or cite it only if the entry is explicitly tied to 8.4's hydrolysis equilibria. c_ced_required: 8.3.A.4 requires students to know the weak-base equilibrium and the Kb expression, and to relate pKb to base strength and pH, so this is required. d_caution: the entry wording matches the CED's wording, so no caution is needed and caution null is correct.",
+            "_note": "Rejection rests solely on the 8.4 topic code; the body, owner code, CED requirement and caution are sound."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula matches the CED exactly. 8.3.A.4 states 'EQN: Kb = [OH\u2212][HB+]/[B]', with the same symbols and the same numerator/denominator order. b_topic_codes: owner_topic_code 8.3 is correct, since 8.3.A.4 is the first place Kb is required. The topic_codes entry 8.4 fails. Topic 8.4 (8.4.A.2 and 8.4.A.3) describes the equimolar weak-acid/weak-base equilibria, which are governed by Kb, but it never names Kb or this expression. The only CED statement that requires the Kb expression is 8.3.A.4, so 8.4 does not use it as written. Removing 8.4 or citing 8.4 with an explicit justification would be needed. c_ced_required: 8.3.A.4 requires students to define and apply Kb for a weak base, so this is required content. d_caution: The entry wording is identical to the CED, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-008",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the three cases of mixing a weak base and a strong acid as described in Essential Knowledge 8.4.A.3, including the specific equations and methods for calculating pH in each scenario."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 8.4.A.3 requires the three listed cases and says the reactants \u201cwill react quantitatively,\u201d but represents the reaction as B(aq) + H3O+(aq) \u21cc HB+(aq) + H2O(l). The entry substitutes a one-way arrow without a caution explaining the departure. Topic 8.4 first requires the cases; 8.5.A.2 and 8.5.A.4 apply them to titrations."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 8.4.A.3 supports all three cases, and 8.5.A.4 applies them to titrations. However, the entry writes B(aq) + H3O+(aq) \u2192 HB+(aq) + H2O(l), whereas 8.4.A.3 represents that reaction with an equilibrium arrow (\u21cc), even while saying it reacts quantitatively. The body also says pH depends on which species is left in excess, but the equimolar case has neither reactant in excess. No caution addresses these departures."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-009",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components and interpretation of a titration curve as detailed in Topic 8.5 (specifically 8.5.A.1, 8.5.A.2, 8.5.A.3, and 8.5.A.4). The caution directly addresses a common student misconception highlighted in the CED's 'Preparing for the AP Exam' section on page 143, where students confuse the equivalence and half-equivalence points."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The diagram is required by 8.5.A.1, which defines a titration curve as pH plotted against volume of titrant added. Topic 8.7 also uses the equivalence-point pH to select an indicator (8.7.A.3). However, 8.5.A.2 limits the equal-moles rule to titrations of monoprotic acids or bases; the entry states it without that qualification. At half-equivalence, [HA] = [A\u2212] is the weak-acid example in 8.5.A.3, not the notation for a weak-base titration, whose pair is B/HB+ (8.3.A.4). The caution correctly distinguishes half-equivalence from equivalence but does not fix those errors."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The CED limits the equal-moles equivalence-point rule to \u201ctitrations of monoprotic acids or bases\u201d (8.5.A.2); the entry states it without that restriction despite the topic covering polyprotic titrations. At half-equivalence, the CED says the two members of the conjugate pair have equal concentrations and gives [HA] = [A\u2212] specifically \u201cfor a weak acid\u201d (8.5.A.3). A weak-base titration instead has equal concentrations of B and HB+. The caution is too absolute: 8.5.A.3 establishes pH = pKa at half-equivalence, not that the equivalence-point pH can never numerically equal pKa. Topic 8.7 uses equivalence-point pH to select an indicator (8.7.A.3)."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the three pieces of information that can be determined from a polyprotic acid titration curve as explicitly stated in EK 8.5.A.5: the number of acidic protons, the major species present at any point, and the pKa associated with each proton."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.5.A.5 states that polyprotic-acid titration curves can determine the number of acidic protons and identify the major species along the curve and the pKa associated with each proton in a weak polyprotic acid. The entry follows that content and order. Topic 8.5 is correct, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.5.A.5 states 'For polyprotic acids, titration curves can be used to determine the number of acidic protons. In doing so, the major species present at any point along the curve can be identified, along with the pKa associated with each proton in a weak polyprotic acid.' The entry's three items (number of acidic protons, major species, pKa of each proton) match these members in the same order, and the meanings track the CED wording. b_topic_codes: 8.5 is the Acid-Base Titrations topic where 8.5.A.5 sits, and the entry uses only 8.5. c_ced_required: 8.5.A.5 requires students to read these three pieces of information from a polyprotic titration curve. The entry does not ask for polyprotic species concentrations, which the exclusion statement removes from the AP Exam, so it stays within scope. d_caution: the entry's wording is close to the CED's, with 'weak' carried in the meaning field rather than the label. The point is earned by the concept, so no caution is required and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the equations relating Ka, Kb, and Kw for a conjugate acid-base pair as explicitly required in Topic 8.3 (EK 8.3.A.6: 'Kw = Ka \u00d7 Kb' and 'pKw = pKa + pKb')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.3.A.6 gives both equations exactly: \u201cKw = Ka \u00d7 Kb\u201d and \u201cpKw = pKa + pKb\u201d for a conjugate acid-base pair. Topic 8.3 first requires the relationship; it also applies to the conjugate-species equilibria in 8.4.A.2\u20133 and the weak-acid/base titrations in 8.5.A.3\u20134. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: CED 8.3.A.6 states 'Kw = Ka \u00d7 Kb' and 'pKw = pKa + pKb' for any conjugate acid-base pair; the body, symbols and pairing match. b_topic_codes: owner 8.3 is correct, since 8.3.A.6 is the first place the relation is required. The extra codes fail. 8.5 uses pKa only at the half-equivalence point (8.5.A.3, 'pH = pKa'), and no 8.5 statement uses Kw = Ka \u00d7 Kb. 8.4 (8.4.A.2) involves the hydrolysis equilibrium A\u2212 + H2O \u21cc HA + OH\u2212, but the CED does not state the Ka/Kb/Kw relation in any 8.4 learning objective or essential knowledge statement, so it is not a topic that uses this entry as written. c_ced_required: 8.3.A.6 requires students to apply the Kw = Ka \u00d7 Kb relation, so this is satisfied. d_caution: the body wording matches the CED wording exactly, so no caution is needed and none is present. hooks: none supplied.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.3.A.6 states 'For any conjugate acid-base pair, the acid ionization constant and base ionization constant are related by Kw: EQN: Kw = Ka \u00d7 Kb; EQN: pKw = pKa + pKb.' The body matches the symbols, order, and sign convention exactly. b_topic_codes: 8.3 is the owner and is where 8.3.A.6 first appears. 8.4 and 8.5 also use the relation implicitly, since 8.4.A.2 (equimolar weak acid/strong base case, A\u2212 + H2O \u21cc HA + OH\u2212) and 8.5.A.4 (basic pH at the weak-acid equivalence point) require Kb derived from a known Ka. The CED does not restate Kw = KaKb in those topics, so this is an acceptable but implicit use. c_ced_required: 8.3.A.6 directly requires students to apply the relation. d_caution: the entry's wording is the CED's wording, so no caution is needed. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-011",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines a buffer solution and its mechanism of action based directly on the essential knowledge statement 8.8.A.1. The topic codes are appropriate as Topic 8.8 is 'Properties of Buffers', and Topics 8.9 and 8.10 build directly upon buffer systems."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 8.8.A.1: \u201cA buffer solution contains a large concentration of both members in a conjugate acid-base pair. The conjugate acid reacts with added base and the conjugate base reacts with added acid.\u201d That statement also identifies these reactions as responsible for stabilizing pH. Topic 8.8 first requires this definition; 8.9.A.1 applies it to buffer pH, and 8.10.A.1\u20132 applies it to buffer capacity. No caution is needed because the entry preserves the CED\u2019s meaning."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 8.8.A.1 ('A buffer solution contains a large concentration of both members in a conjugate acid-base pair. The conjugate acid reacts with added base and the conjugate base reacts with added acid. These reactions are responsible for the ability of a buffer to stabilize pH.'). The entry's paraphrase is accurate. b_topic_codes: Fails. The owner_topic_code is 8.8, but the unit first requires the buffer concept in Topic 8.4. CED 8.4.A.2 states 'If the weak acid is in excess, then a buffer solution is formed, and the pH can be determined from the Henderson-Hasselbalch (H-H) equation,' and 8.4.A.3 repeats this for weak bases. Topic 8.4 comes before 8.8 and is absent from topic_codes, so the owner and topic_codes list are wrong. The 8.9 and 8.10 entries are valid because both topics use buffers (8.9.A.1, 8.10.A.1). c_ced_required: 8.8.A.1 directly requires this definition. d_caution: The paraphrase keeps the same point-earning content ('large concentration of both members', 'conjugate acid reacts with added base', 'conjugate base reacts with added acid', 'stabilizes pH'), so no caution is needed. Fix: set owner_topic_code to 8.4 and add 8.4 to topic_codes, or justify keeping 8.8 as the owner with 8.4 listed.",
+            "items": []
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.8.A.1, which states that 'A buffer solution contains a large concentration of both members in a conjugate acid-base pair. The conjugate acid reacts with added base and the conjugate base reacts with added acid. These reactions are responsible for the ability of a buffer to stabilize pH.' No factual error. b_topic_codes: Buffers are first required in Topic 8.4. LO 8.4.A.2 states 'If the weak acid is in excess, then a buffer solution is formed', and 8.4.A.3 repeats this for weak bases. The owner_topic_code of 8.8 is therefore not where the unit first requires the concept. 8.8 is where the defining property is taught, but the owner should be 8.4 or the entry should justify 8.8 as first. The listed topic_codes 8.8, 8.9 and 8.10 each use buffers (8.9.A.1 for the H-H pH relation, 8.10.A.1 for buffer capacity), so those entries are acceptable. c_ced_required: LO 8.8.A ('Explain the relationship between the ability of a buffer to stabilize pH and the reactions that occur when an acid or a base is added') requires this content. d_caution: The entry is a close paraphrase of 8.8.A.1 ('members of' vs 'members in'; 'stabilizes' vs 'stabilize'). The meaning is identical, so no caution is required and caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge in 8.9.A.1, which explains that adding small amounts of acid or base to a buffered solution does not significantly change the ratio of [A-]/[HA] and thus results in a much smaller pH change than in an unbuffered solution."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.9.A.1 states that adding small amounts of acid or base to a buffered solution \u201cdoes not significantly change the ratio of [A\u2212]/[HA]\u201d and that the pH change is \u201cmuch less than it would have been in the absence of the buffer.\u201d Topic 8.9 is the correct owner and only listed topic. The wording matches the CED closely, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 8.9.A.1 on p. 157: 'Adding small amounts of acid or base to a buffered solution does not significantly change the ratio of [A\u2212]/[HA] and thus does not significantly change the solution pH. The change in pH on addition of acid or base to a buffered solution is therefore much less than it would have been in the absence of the buffer.' The ratio symbol and the claim are correct; the entry is a faithful condensation. b_topic_codes: 8.9 is the topic where this statement is stated (8.9.A.1). Buffer capacity is treated in 8.8 and 8.10, but the specific 'small additions barely change pH because the [A\u2212]/[HA] ratio is unchanged' claim appears only under 8.9. Only 8.9 is listed, which is correct. c_ced_required: 8.9.A.1 is essential knowledge under LO 8.9.A and states this relation directly. The entry is qualitative and does not require the excluded computation of the pH change (the exclusion statement on p. 157 is respected). d_caution: The entry wording is essentially the CED wording, and it states the qualitative point that earns credit, so no caution is needed. The entry has no caution, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r2-012",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The Henderson-Hasselbalch equation is factually correct and is first introduced in Topic 8.4 (under 8.4.A.2, which references 8.9.A.1) and explicitly defined in Topic 8.9 (8.9.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.9.A.1: \u201cpH = pKa + log([A\u2212]/[HA]).\u201d Topic 8.4 first requires its use: 8.4.A.2 says buffer pH \u201ccan be determined from the Henderson-Hasselbalch (H\u2212H) equation (see 8.9.A.1).\u201d Topic 8.5 uses pH and pKa relationships in titrations; 8.9 states the equation; and 8.10.A.1 states that keeping the component concentration ratio constant keeps buffer pH the same. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula matches the CED exactly. 8.9.A.1 states \"EQN: pH = pKa + log([A\u2212]/[HA])\", and the symbols, order, and ratio direction agree. b_topic_codes: owner 8.4 is correct as the first unit topic to invoke the equation, since 8.4.A.2 cites \"the Henderson-Hasselbalch (H\u2212H) equation (see 8.9.A.1)\". 8.9 is correct. 8.4 is also supported by 8.4.A.3. 8.5 is weakly supported: 8.5.A.3 uses only the special case \"pH = pKa when the conjugate acid and base have equal concentrations\", not the equation itself. 8.10 is not supported by any of its statements (8.10.A.1 and 8.10.A.2 discuss buffer capacity and concentration ratios without naming or applying the H-H equation). Because the entry lists 8.10 as a topic that uses it, b fails. c_ced_required: 8.9.A.1 requires students to identify buffer pH from the pKa and the conjugate-pair ratio, so the equation is required. d_caution: the CED wording matches the body, so no caution is needed and true is correct. Hooks: none present."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED equation exactly. 8.9.A.1 states \"EQN: pH = pKa + log([A\u2212]/[HA])\", and the symbols, ratio orientation, and log are correct. b_topic_codes: The equation is defined in 8.9.A.1, so 8.9 is the topic that owns it, not 8.4. Topic 8.4 (8.4.A.2 and 8.4.A.3) only names the H-H equation and points to \"(see 8.9.A.1)\", so 8.4 is a consumer, not the origin. The listed topic 8.10 fails: 8.10.A.1 and 8.10.A.2 address buffer capacity and the ratio of conjugate components, and do not require pH calculation with this equation. Topic 8.5 is a weak fit: 8.5.A.3 uses pH = pKa at the half-equivalence point, which is a special case of the equation but is not the equation itself. Owner should be 8.9, and 8.10 should be removed. c_ced_required: 8.9.A.1 requires \"Identify the pH of a buffer solution based on the identity and concentrations of the conjugate acid-base pair\", and the equation is the stated relation, so this is required. d_caution: The CED wording is the same equation, so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

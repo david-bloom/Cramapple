@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u9-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 9.1.A.1 regarding the dispersal of matter and entropy changes. The caution correctly warns against using the vague term 'disorder' which is often penalized on the AP Exam in favor of 'dispersal of matter/energy'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.1.A.1 states that \u201cEntropy increases when matter becomes more dispersed,\u201d including the listed phase changes and gas expansion at constant temperature. It also says entropy \u201cgenerally increases\u201d when gas-phase products have more total moles than gas-phase reactants. The entry preserves that qualification, and its caution appropriately warns against treating the gas-moles rule as absolute."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 9.1.A.1 on every point. It states that entropy increases when matter becomes more dispersed, gives the solid-to-liquid and liquid-to-gas examples, and gives the gas expansion at constant temperature. It also gives the gas-phase rule with the correct direction: products' total moles greater than reactants' total moles. The entry has no formula or items, so the formula checks do not apply. b_topic_codes: 9.1.A.1 is the first place this unit requires the dispersal concept, so owner 9.1 is correct, and topic_codes ['9.1'] is the only topic that uses it here. c_ced_required: Learning Objective 9.1.A ('Identify the sign and relative magnitude of the entropy change associated with chemical or physical processes') requires students to apply this dispersal and gas-moles reasoning, so the content is required. d_caution: The CED says 'generally' for the gas-moles rule and frames the concept in terms of dispersal. The caution repeats the 'generally' qualifier correctly and steers students away from vague 'disorder' wording, which the CED does not use. The caution is present and accurate. ced_evidence: Both quoted phrases appear verbatim in 9.1.A.1. hooks: none present, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,303 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u7-r9-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the property of the equilibrium constant when stoichiometric coefficients are multiplied by a factor, as specified in Essential Knowledge 7.6.A.2. All symbols in the formula are defined correctly, and the caution addresses a common student error (multiplying K by c instead of raising it to the power of c) while also referencing 7.6.A.4 regarding Q."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 7.6 is the relevant topic. EK 7.6.A.2 states, \u201cWhen the stoichiometric coefficients of a reaction are multiplied by a factor c, K is raised to the power c.\u201d The formula and all three symbol definitions match. The caution correctly distinguishes exponentiation from multiplication and reflects EK 7.6.A.4: \u201call valid algebraic manipulations of K also apply to Q.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body K_new = K^c matches 7.6.A.2: \"When the stoichiometric coefficients of a reaction are multiplied by a factor c, K is raised to the power c.\" All three items (K_new, K, c) are defined, every symbol in the formula is covered, and the meanings are correct. No units apply. b_topic_codes: 7.6 is the topic that introduces this manipulation (7.6.A.2), and topic_codes lists only 7.6, which is correct. c_ced_required: 7.6.A.2 requires students to apply this rule, and the LO 7.6.A asks students to represent multistep processes using the constituent K expressions. d_caution: The entry states the rule in the CED's own wording (\"K is raised to the power c\"). The caution, \"it does not multiply K by c,\" is correct and is a useful guard against a common error. Its reference to 7.6.A.4 is accurate: \"all valid algebraic manipulations of K also apply to Q.\""
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u7-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the property of equilibrium constants when reactions are added together, as specified in Essential Knowledge 7.6.A.3: 'When reactions are added together, the K of the resulting overall reaction is the product of the K\u2019s for the reactions that were summed.' All symbols in the formula are defined correctly, and the caution appropriately warns against adding the K values."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 7.6.A.3 states, \u201cWhen reactions are added together, the K of the resulting overall reaction is the product of the K\u2019s for the reactions that were summed.\u201d The formula correctly shows this for two reactions, and the items define every symbol. The caution correctly extends the product to additional reactions; 7.6.A.4 also states that \u201call valid algebraic manipulations of K also apply to Q.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula K_overall = K1\u00b7K2 matches 7.6.A.3: \"When reactions are added together, the K of the resulting overall reaction is the product of the K's for the reactions that were summed.\" The three items define every symbol in the formula (K_overall, K1, K2) with correct meanings, and no extra symbols appear. The CED gives no units for K, so none are required. b_topic_codes: 7.6 is the topic where the summed-reaction rule appears (7.6.A.3), and the entry lists only 7.6. c_ced_required: Learning objective 7.6.A asks students to \"Represent a multistep process with an overall equilibrium expression, using the constituent K expressions for each individual reaction,\" which requires applying this rule. d_caution: The CED uses \"product,\" not the formula, so the caution (K values multiply, not add; extend to more than two steps) is needed and correct. Its reference to 7.6.A.4 (\"all valid algebraic manipulations of K also apply to Q\") matches the CED. The ced_evidence quote is accurate to 7.6.A.3."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u7-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula, symbols, and definitions are completely accurate and match the CED's presentation of the law of mass action in Topic 7.3. The caution correctly incorporates the exclusion statements and rules regarding solids/liquids from 7.3.A.1 and 7.3.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 7.3.A.1 gives this expression for Kc and Qc; every symbol in the formula is defined correctly. It states that Qc describes concentrations at any time and that Kc = Qc at equilibrium. Topic 7.3.A.2 supports omitting solids and pure liquids, and the 7.3 exclusion statement supports the caution about Kc\u2013Kp conversion. Topic 7.3 first requires the expression; 7.4, 7.6, 7.7, and 7.10 use it to calculate K, manipulate K or Q, predict equilibrium composition, or compare Q with K."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body K_c = [C]^c[D]^d / [A]^a[B]^b matches the law of mass action as stated in 7.3.A.1 (\"the law of mass action indicates that the equilibrium expression for (Kc, Qc) is ... [C]^c[D]^d / [A]^a[B]^b\"). All nine symbols (K_c, [C], c, [D], d, [A], a, [B], b) are defined, and each exponent is correctly tied to its stoichiometric coefficient. Units are given as mol/L, the standard concentration unit implied for Kc. The Qc note (same form, concentrations at any time) matches 7.3.A.1 (\"The reaction quotient Qc describes the relative concentrations of reaction species at any time\"). b_topic_codes: 7.3 is the first unit topic that requires the expression (7.1 and 7.2 do not). 7.4 (7.4.A.1 determining K from equilibrium measurements), 7.6 (7.6.A.4 K and Q share identical mathematical form), 7.7 (7.7.A.2 comparing Q with K) and 7.10 (7.10.A.1 Q vs K) all use it. c_ced_required: 7.3.A.1 explicitly requires students to \"Represent the reaction quotient Qc ... and the corresponding equilibrium expressions Kc = Qc.\" d_caution: The caution matches 7.3.A.1 and 7.3.A.2. It states Kc = Qc only at equilibrium, excludes solids and pure liquids (7.3.A.2), notes the Kp/partial-pressure form for gas-phase reactions, and carries the exclusion statement that Kc/Kp conversion is not assessed. hooks: none supplied, so no hook judgments apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u7-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the property of the equilibrium constant when a reaction is reversed, as stated in Essential Knowledge 7.6.A.1 ('When a reaction is reversed, K is inverted.'). All symbols in the formula are clearly defined, and the caution correctly references 7.6.A.4 regarding the applicability of these manipulations to Q."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula expresses 7.6.A.1: \u201cWhen a reaction is reversed, K is inverted.\u201d Both symbols are defined correctly. Topic 7.6 is where this property is required. The caution accurately reflects 7.6.A.4: \u201call valid algebraic manipulations of K also apply to Q.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula K_reverse = 1/K_forward matches CED 7.6.A.1, \"When a reaction is reversed, K is inverted.\" Both symbols are defined in items with correct meanings (equilibrium constant for the reversed reaction; for the original reaction as written). No unit constraints are stated or implied for K, so none are needed. b_topic_codes: 7.6.A.1 appears only in Topic 7.6 (Properties of the Equilibrium Constant), so owner_topic_code 7.6 and topic_codes [7.6] are correct. c_ced_required: 7.6.A.1 is essential knowledge under learning objective 7.6.A (\"Represent a multistep process with an overall equilibrium expression, using the constituent K expressions for each individual reaction\"). Reversing a reaction and inverting K is a required application. d_caution: The entry's wording (a reciprocal formula) differs from the CED wording (\"K is inverted\"). The caution is present and correct: CED 7.6.A.4 states that \"the expressions for K and Q have identical mathematical forms, all valid algebraic manipulations of K also apply to Q.\" The caution does not restate the 'inverted' wording, but it does not contradict the CED and the formula itself is the point-earning equivalent.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u7-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the solubility-product constant ($K_{sp}$) expression for the dissolution of a salt, which is required by Topic 7.11 (7.11.A.1, 7.11.A.2) and Topic 7.12 (7.12.A.1). All symbols in the formula are correctly defined with appropriate units, and the caution correctly references Topic 7.3 (7.3.A.2) regarding the exclusion of solids from equilibrium expressions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The balanced dissolution and exponents follow the equilibrium-expression form in 7.3.A.1; 7.3.A.2 says to omit solids. Topic 7.11.A.1 identifies Ksp as the solubility-product constant, and 7.12.A.1 uses Ksp to calculate the common-ion effect. The precipitation caution follows 7.7.A.2: when Q > K, products are consumed\u2014in this dissolution reaction, ions form solid. The CED does not specify units for Ksp."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body K_sp = [A^(m+)]^a [B^(n-)]^b is the correct law-of-mass-action form for A_aB_b(s) \u21cc aA^(m+)(aq) + bB^(n-)(aq), and the CED names Ksp as 'the solubility-product constant' (7.11.A.1). Every symbol in the expression (A^(m+), a, m, B^(n-), b, n, K_sp) is defined in items, with no extras. Concentrations in mol/L are implied by the molar solubility work in 7.11.A.2 and 7.11.A.4. One item says K_sp is 'unitless in AP use.' The pages do not state this, but it is a standard AP convention and is consistent with 7.11.A.3 treating K_sp as a value compared to 1, so it is not an error. b_topic_codes: 7.11 is the first unit where Ksp appears (7.11.A.1). 7.12 is correctly listed because its 7.12.A.1 says common-ion solubility 'can be ... calculated from the Ksp for the dissolution process.' c_ced_required: 7.11.A.4 requires calculating Ksp from molar solubility and 7.11.A.2 requires calculating solubility from Ksp, and both need this expression. d_caution: the caution correctly cites 7.3.A.2 ('does not include substances whose concentrations ... are independent of the amount, such as for solids and pure liquids'), so omitting the solid is supported. The Q > Ksp \u2192 precipitation statement is correct and follows from 7.7.A.2 (Q > K means net consumption of products, i.e., the solid forms)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

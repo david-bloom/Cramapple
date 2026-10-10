@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u2-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for formal charge is factually correct and all symbols (FC, V, N, B) are fully defined with correct units. Topic 2.6 is the correct owner topic as it covers 'Resonance and Formal Charge'. The CED explicitly requires calculating and using formal charge in EK 2.6.A.2 ('The octet rule and formal charge can be used as criteria...') and in the Unit 2 'Preparing for the AP Exam' section ('calculating and connecting formal charges in Lewis structures'). The caution correctly notes that while the calculation is required, the formula itself is not printed on the AP Chemistry Equation Sheet."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and all four symbol definitions are correct. Topic 2.6 is where the unit first requires formal charge. Essential Knowledge 2.6.A.2 says, \u201cThe octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model.\u201d The Unit 2 exam guidance also calls for \u201ccalculating and connecting formal charges in Lewis structures.\u201d The caution correctly notes that the CED does not print the expression and that formal charge is used with the octet rule to evaluate valid diagrams."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: FC = V - N - B/2 is the standard formal-charge expression, and the items define all three symbols (V = valence electrons of the free neutral atom, N = nonbonding electrons on the atom, B = bonding electrons around the atom, with B/2 = number of bonds). The unit (e) is correct. b_topic_codes: Unit 2 Topic 2.6 (Resonance and Formal Charge) is where formal charge is first required, via LO 2.6.A and EK 2.6.A.2 ('The octet rule and formal charge can be used as criteria...'). Topic 2.5 Lewis diagrams (EK 2.5.A.1) does not mention formal charge, and no other topic_codes entry is needed. c_ced_required: EK 2.6.A.2 requires using formal charge to choose among valid Lewis diagrams, and the Unit 2 'Preparing for the AP Exam' text requires 'calculating and connecting formal charges in Lewis structures'. d_caution: the CED does not print this expression, so the entry wording is not the point-earning wording; the caution states this and correctly limits use to valid diagrams with the correct valence electron count, notes that charges sum to the overall charge, and notes that formal charges are not real atomic charges. Its reference to 2.6.A.2 matches the CED."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

@@ -90,6 +90,11 @@ function mapRpcError(rpcMessage: string | undefined): RpcErrorMapping {
       };
     case "response_already_submitted":
       return { status: 409, body: { error: "response_already_submitted" } };
+    // TASK-0069: refusals raised by app.response_versions_guard_submission
+    // inside the submit transaction (Codex re-QA P3 follow-up).
+    case "transcript_confirmation_required":
+    case "photo_required":
+      return { status: 409, body: { error: code } };
     default:
       return { status: 500, body: { error: "submit_response_failed" } };
   }

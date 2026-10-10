@@ -776,7 +776,8 @@ Deno.test("Biology targeted-drill routes to the combined selector with the sessi
   );
 
   assertEquals(status, 200);
-  assertEquals(rpcCalls, [{
+  const appendCalls = rpcCalls.filter((c) => c.name === "append_learning_session_items");
+  assertEquals(rpcCalls.filter((c) => c.name !== "append_learning_session_items"), [{
     schema: "app",
     name: "select_biology_practice_items",
     params: {
@@ -790,6 +791,15 @@ Deno.test("Biology targeted-drill routes to the combined selector with the sessi
     Record<string, unknown>
   >;
   assertEquals(item.length, 1);
+  // The served page is recorded for the question experience (APPROVAL-0145).
+  assertEquals(appendCalls, [{
+    schema: "app",
+    name: "append_learning_session_items",
+    params: {
+      p_learning_session_id: SESSION_ID,
+      p_content_item_version_ids: [item[0].content_item_version_id],
+    },
+  }]);
   assertEquals(item[0].item_type, "mcq");
   assertEquals(item[0].choices, [{
     choice_key: "A",
@@ -881,7 +891,8 @@ Deno.test("Statistics Home MCQ session routes to the combined selector and hides
   );
 
   assertEquals(status, 200);
-  assertEquals(rpcCalls, [{
+  const appendCalls = rpcCalls.filter((c) => c.name === "append_learning_session_items");
+  assertEquals(rpcCalls.filter((c) => c.name !== "append_learning_session_items"), [{
     schema: "app",
     name: "select_ordinary_combined_practice_items",
     params: {
@@ -895,6 +906,15 @@ Deno.test("Statistics Home MCQ session routes to the combined selector and hides
     Record<string, unknown>
   >;
   assertEquals(items.length, 1);
+  // The served page is recorded for the question experience (APPROVAL-0145).
+  assertEquals(appendCalls, [{
+    schema: "app",
+    name: "append_learning_session_items",
+    params: {
+      p_learning_session_id: SESSION_ID,
+      p_content_item_version_ids: [items[0].content_item_version_id],
+    },
+  }]);
   assertEquals(items[0].item_type, "mcq");
   assertEquals(items[0].choices, [{
     choice_key: "A",
