@@ -85,8 +85,9 @@ Each left a test behind. `build_eye_sheet.py` makes the pass a command.
 2. ~~**Production load**~~ **DONE** — `APPROVAL-0159`, all four batches. Production: 39 published
    figures, 17 families, 47 uses, 43 entries, 0 drafts, identical to Development by digest.
    Verified as an authenticated student, draft row invisible, cross-subject sharing working.
-   **The one thing left: a signed-in human look in the live app.** The renderer is published and
-   the RPC serves the rows, but nobody has watched the two halves work together in a browser. Four loaders are
+   **Partly closed:** the Product Owner confirmed the Deep Dive notes render correctly in the live
+   signed-in app on 2026-10-11, after the template fix that shipped with this work. Still unseen
+   by anyone: one of the new FIGURES actually drawn in a reference pane or notes sheet. Four loaders are
    generated and applied to Development:
    `out/load_lane_a_gaps.sql`, `out/load_lane_b_arrows.sql`, `out/load_lane_b_particulate.sql`,
    `out/load_lane_b_fields.sql`. `--workdir /Users/davidbloom` is PRODUCTION; confirm the ref in the

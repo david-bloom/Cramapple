@@ -2142,7 +2142,9 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
     topic with no figure returns `[]` (AP Biology 1.1).
   - **A planted draft figure was NOT visible to the student.** The probe ran inside a transaction
     that was rolled back, and left nothing behind.
-- **Still to be seen by a human:** a signed-in look at one of these topics in the live app.
+- **Still to be seen by a human:** a signed-in look at one of these AP Statistics topics with a
+  figure drawn in it. The notes template itself was confirmed live by the Product Owner on
+  2026-10-11; a `density_curve` figure has not yet been reported as seen.
 
 ## APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches
 
@@ -2198,9 +2200,11 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
   - **A planted draft figure was NOT visible to the student** while the real figure still was. The
     probe ran inside a transaction that was rolled back; confirmed afterwards that it left nothing
     behind.
-- **Still to be seen by a human:** a signed-in look at one of these topics in the live app. The
-  renderer is published and the RPC serves the rows, but the two halves have not been watched
-  working together in a browser by a person.
+- **Seen by a human, 2026-10-11.** The Product Owner confirmed against the live signed-in app that
+  the Deep Dive notes render correctly after the template fix that shipped with this work. What
+  that confirms is the notes TEMPLATE and the page it sits on. **Narrower item still open:** no
+  one has yet reported seeing one of the new FIGURES drawn in a reference pane or notes sheet, so
+  the renderer and the served rows are each verified, but not yet watched working together.
 
 ## APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus
 
