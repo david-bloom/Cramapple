@@ -116,20 +116,18 @@ That is seven new families, not six, once `kinematic_panels` is counted separate
 whether the three-panel case is a mode of `xy_series` or its own family is an implementation call best
 made while writing it.
 
-**The thing to know before approving:** `app.figures` constrains `family` with a hard-coded CHECK —
+**Resolved, 2026-10-11 (`DECISION-0115`).** `app.figures` used to constrain `family` with a
+hard-coded CHECK over the six pilot families, which would have made every new family a migration and
+this batch a Hard Gate schema deploy rather than a content load. That CHECK is now an
+`app.figure_families` lookup table plus `figures_family_fkey`: **a new family is a one-row insert in
+the same load as its figures.** The guarantee that mattered is kept — an unseeded family fails at
+insert, in the loader, rather than rendering nothing in a student's pane — and what no constraint can
+check is whether the renderer exists, so `renderer_note` records where each family is implemented and
+the mandatory `alt` stays the fallback. Applied to Development and verified; Production is an open
+Hard Gate but is not needed there until a new-family figure is promoted.
 
-```sql
-constraint figures_family_check check (family in (
-  'mb_distribution', 'energy_profile', 'stick_spectrum',
-  'pe_vs_distance', 'approach_equilibrium', 'titration_curve'))
-```
-
-so **every new family requires a migration**. Unlike the AP Chemistry figures batch, which could be
-seeded as data once the tables existed, this batch is a **schema change plus data**, in both
-environments, and therefore a Hard Gate deploy rather than a content load. It also means the
-renderer's family names and the constraint have to move together, and that a family added in
-Development and forgotten in Production fails loudly on insert rather than silently — which is the
-right failure, and worth keeping.
+So this batch is **seven family rows plus fifteen figure rows plus their uses** — data, in one load,
+per the protocol's §6 route.
 
 ## 7. Verification this batch will need (unchanged, three gates)
 

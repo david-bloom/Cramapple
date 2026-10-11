@@ -167,6 +167,13 @@ was caught. Matching on title keeps the migration portable without weakening the
 
 Include a guard that raises if any figure ends up with no use, so a batch cannot ship dead rows.
 
+**A new renderer family is a row, not a migration** (`DECISION-0115`). Insert it into
+`app.figure_families` — `family_key`, `title`, `summary` and a `renderer_note` saying where it is
+implemented — in the same load as the figures that use it. `figures_family_fkey` rejects a family that
+was never seeded, so the failure lands in the loader rather than in a student's reference pane. What
+the foreign key cannot check is whether the renderer exists: seeding `boxplot` without writing a
+boxplot renderer still fails at render time, which is why the mandatory `alt` is the fallback.
+
 Apply to Development first, verify there, then Production under a Hard Gate approval.
 
 ## 7. Production (Hard Gate every time)
@@ -224,8 +231,11 @@ warning every student about a problem they will not hit is noise.
 
   > **CORRECTION (2026-10-11).** Classified against each entry's published `kind` and authored
   > `items[]` rather than its title, it is **twelve entries and fifteen figures**, needing **seven**
-  > new families — and, because `figures_family_check` hard-codes the family list, **a migration**:
-  > this batch is a schema change plus data, not a content load. The "unattributed boxplot" does not
+  > new families. It was going to need **a migration** too, because `figures_family_check` hard-coded
+  > the family list — `DECISION-0115` replaced that CHECK with an `app.figure_families` lookup and a
+  > foreign key, so **a new family is now a one-row insert in the same load as its figures** and the
+  > batch is a content load again. An unknown family still fails at insert rather than rendering
+  > nothing. The "unattributed boxplot" does not
   > exist (Statistics' Boxplot 1.8 is attributed and already among the seven), Precalculus' "Residual
   > plot" is published as `kind='vocabulary'` with no labelled parts, and three entries need more than
   > one figure each. See `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md`.
@@ -240,6 +250,9 @@ v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 `../architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` still governs, and TASK-0006's five owner
 decisions remain formally open — this protocol records what was approved and built for Lane A
 reference diagrams specifically.
+
+v1.3 (2026-10-11): §6 and the §9 correction record `DECISION-0115` — a renderer family is a row in
+`app.figure_families`, not a CHECK, so adding one is an insert rather than a migration.
 
 v1.2 (2026-10-11): a §9 correction recording that the remaining Lane A work is twelve entries and
 fifteen figures, needs seven new renderer families, and requires a migration because the family list is

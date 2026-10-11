@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
 - DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
 - DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
 - DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
@@ -64,6 +65,49 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
+
+- **Date:** 2026-10-11
+- **Decided by:** David Bloom (Product Owner), in session. Asked why the family list was hard-coded, then: "do (c) - lookup table with FK".
+- **Context:** `app.figures.family` was constrained by `figures_family_check`, a CHECK over the six
+  families the AP Chemistry pilot happened to need. **No reason was ever recorded** — the constraint
+  carries no comment, and neither `LANE_A_PILOT_RESULTS_2026_10_10.md`,
+  `LANE_A_FIGURE_DISPLAY_DESIGN_2026_10_10.md`, `FIGURE_PRODUCTION_PROTOCOL.md` nor
+  `architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` mentions it. It was written alongside
+  `status in (...)` and the two `jsonb_typeof` checks as house style for an enumerable text column,
+  which closed a list that was always going to grow. The cost surfaced in planning the next Lane A
+  batch: seven new families, so the constraint would have turned a content load into a Hard Gate
+  schema deploy, repeatedly.
+- **Decisions:**
+  1. **Keep the enforcement, change its shape.** `family` is a dispatch key, not a value — the
+     renderer looks it up directly, so a figure whose family nobody implements does not draw a
+     slightly wrong chart, it draws nothing, and a published row that passes RLS and renders nothing
+     is exactly this project's recurring silent-absence failure. The guarantee worth keeping is
+     "an unknown family fails loudly at insert, not quietly in a student's pane."
+  2. **`app.figure_families` (`family_key` primary key, `title`, `summary`, `renderer_note`) plus
+     `figures_family_fkey`,** replacing the CHECK. Adding a family is now a one-row insert in the
+     same load as its figures; no migration, no Hard Gate schema deploy.
+  3. **`on delete restrict`, `on update cascade`.** A family in use cannot be deleted, so the lookup
+     cannot be emptied from under published figures; renaming propagates to the figure rows, which is
+     the only safe way to rename a key those rows already carry — the renderers still have to be
+     renamed to match.
+  4. **Locked down like `app.subject_reference_aliases`:** RLS enabled and forced, no policies, no
+     `anon`/`authenticated` grants. Nothing student-facing reads it — the figure views already expose
+     `family` as text — and foreign-key checks are run by the system rather than under RLS, so
+     `service_role` still inserts figures without any select grant.
+  5. **Record what neither form can promise.** Enforcement of the *name* lives in the database; the
+     drawing lives in the app's TypeScript and in `scripts/lane-a-pilot/render.py`. Seeding a family
+     whose renderer does not exist still fails at render time, so `renderer_note` records where each
+     family is implemented, and a figure's mandatory `alt` (≥ 80 characters) remains the fallback when
+     the drawing cannot arrive.
+- **Consequences:** `FIGURE_PRODUCTION_PROTOCOL.md` §9's correction and
+  `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md` §6 are revised: the remaining Lane A batch
+  is **a content load again**, not a schema change. Applied to Development 2026-10-11 and verified;
+  **Production is an open Hard Gate** — it is not needed there until a figure with a new family is
+  promoted, but the environments should converge before that.
+- **Rollback:** re-add the CHECK over the families then in use and drop the foreign key; the lookup
+  table can be left in place or dropped once nothing references it.
 
 ## DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
 
