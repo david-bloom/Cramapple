@@ -6,6 +6,9 @@
 
 **Nothing in this session reached Production.** Everything is in Development and on the branch.
 
+**UPDATE:** the TypeScript port is done and proved (`ap-prep-blueprint#11`). The one step left
+before a student can see any of this is the **Lovable publish**.
+
 ## 1. What is done
 
 **Ten new figures, five new families, thirteen further published entries covered.** The suite went
@@ -67,15 +70,12 @@ Each left a test behind. `build_eye_sheet.py` makes the pass a command.
 
 ## 5. NEXT, in order
 
-1. **TEACH THE APP THE FOUR NEW FAMILIES.** *(blocking, and the trap this lane has already paid
-   for once)* `FIGURE_FAMILIES` in `src/lib/topic-content.ts` is a whitelist and `mapFigure`
-   returns `null` for anything else, so **all ten figures currently render nothing.** Port
-   `arrow_diagram`, `particulate_box`, `field_map` and `circuit_symbols` to
-   `src/lib/figures/render.ts` in `david-bloom/ap-prep-blueprint` (geometry in `geometryFor`,
-   drawing in `renderFigure` — it mirrors the Python). Prove the port by **parity, not inspection**:
-   render all 39 figures at all three layouts in both and diff. The last batch agreed 45/45 only
-   after four formatting differences were found that way. Then **publish in Lovable**, which is a
-   separate step from merging.
+1. ~~**TEACH THE APP THE FOUR NEW FAMILIES.**~~ **DONE** — `david-bloom/ap-prep-blueprint#11`,
+   **117 of 117 figure/layout pairs byte-identical across all 17 families**, 985 app tests passing,
+   `tsc` clean. The check is now a command (`export_for_parity.py` here,
+   `tests/figure-parity.ts` there) and its first run found four drifts in figures already live in
+   Production — two in each renderer, all fixed. **What remains is the LOVABLE PUBLISH, which is a
+   separate step from merging, and until it happens none of this reaches a student.**
 2. **Production load** — a Hard Gate needing an approval naming each batch. Four loaders are
    generated and applied to Development:
    `out/load_lane_a_gaps.sql`, `out/load_lane_b_arrows.sql`, `out/load_lane_b_particulate.sql`,
