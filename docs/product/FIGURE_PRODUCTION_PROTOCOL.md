@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1.6, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.7, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -239,6 +239,33 @@ boxplot renderer still fails at render time, which is why the mandatory `alt` is
 
 Apply to Development first, verify there, then Production under a Hard Gate approval.
 
+**And teach the app the family in the same breath.** `FIGURE_FAMILIES` in
+`src/lib/topic-content.ts` is a whitelist and `mapFigure` returns `null` for anything else, so a
+figure whose family the client does not know is **silently dropped**. Nine AP Statistics figures sat
+in Production invisible for exactly this reason. Port the family to `src/lib/figures/render.ts` and
+prove the port by **parity, not inspection**.
+
+> **THE PARITY CHECK IS A COMMAND (2026-10-11).** It had only ever been run by hand.
+>
+> ```bash
+> python3 -I scripts/lane-a-pilot/export_for_parity.py        # specs + every SVG, 3 layouts
+> deno run --unstable-sloppy-imports --allow-read \
+>     tests/figure-parity.ts <this-repo>/scripts/lane-a-pilot/out/parity   # in the app repo
+> ```
+>
+> Run it over **every** family, not just the new one: its first run found four drifts in figures
+> already live in Production, two in each renderer. The app's `catalogue.ts` is generated too, by
+> `build_catalogue_ts.py`, because a catalogue that has drifted from `specs.json` looks exactly like
+> one that has not.
+>
+> **Keep `hypot` out of anything that becomes a coordinate.** Python's `math.hypot` and JavaScript's
+> `Math.hypot` are both carefully written and need not agree in the last bit, while an explicit
+> `sqrt(a*a + b*b)` is IEEE-identical in both — that is what let 900-step traced field lines match
+> exactly. The same care is why `pyFixed` exists on the TypeScript side: Python rounds half to even,
+> `toFixed` rounds half away from zero, and only an exact binary tie is a real tie.
+>
+> **Merging is not publishing.** Until the app is published in Lovable, nothing reaches a student.
+
 ## 7. Production (Hard Gate every time)
 
 Verify **as a real authenticated student**, not as `service_role`: RLS is the thing being tested,
@@ -296,8 +323,9 @@ warning every student about a problem they will not hit is noise.
 > Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
 > Ten new figures across five new families (`arrow_diagram`, `particulate_box`, `field_map`,
 > `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
-> are **in Development only — Production is still a Hard Gate and the app has not been taught the new
-> families, so none of them would render yet.** The rest of the Lane A gap is classified but not
+> are **in Development only — Production is still a Hard Gate.** The app HAS now been taught the four
+> new families (`ap-prep-blueprint#11`), at **117 of 117 figure/layout pairs byte-identical across
+> all 17 families**, so the one step left before a student sees anything is the Lovable publish. The rest of the Lane A gap is classified but not
 > built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
@@ -336,6 +364,10 @@ warning every student about a problem they will not hit is noise.
   production-eligible until an entry exists.
 
 ## Change note
+
+v1.7 (2026-10-11): §6 gains the parity command, the instruction to run it over every family rather
+than the new one, and the rule that `hypot` stays out of anything that becomes a coordinate. §9
+records that the app now knows the four Lane B families.
 
 v1.6 (2026-10-11): §9 records that Lane B is built bar AP Biology, and §4c gains the rule that a
 control must be a mistake a reader can SEE -- a control that only reordered a figure's isoline radii
