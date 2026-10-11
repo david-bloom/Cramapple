@@ -3,29 +3,32 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 10,
+  "figures": 20,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [
-    "stats-chi-square-shapes"
+    "precalc-concavity",
+    "precalc-zero-of-a-function",
+    "calcab-scale-hides-behaviour-wide",
+    "calcab-scale-hides-behaviour-zoom"
   ],
-  "wall_seconds": 134.3,
+  "wall_seconds": 242.1,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 110,
-      "prompt": 162998,
-      "completion": 94732,
-      "seconds": 629.4000000000001
+      "calls": 135,
+      "prompt": 186265,
+      "completion": 119383,
+      "seconds": 776.5
     },
     "openai/gpt-6.1-sol": {
-      "calls": 110,
-      "prompt": 130079,
-      "completion": 11993,
-      "seconds": 458.6
+      "calls": 135,
+      "prompt": 151699,
+      "completion": 14369,
+      "seconds": 553.9
     }
   },
   "detail": {
-    "stats-normal-curve": {
+    "precalc-residual-plot": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,264 +43,332 @@
         }
       }
     },
-    "stats-standard-normal": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-empirical-rule": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-normal-area": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-chi-square-shapes": {
+    "precalc-concavity": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text says each curve rises and then falls, but the df = 2 curve does not rise.",
-              "why": "For 2 degrees of freedom, the chi-square density is f(x) = (1/2)e^(-x/2) for x \u2265 0. It peaks at x = 0 and decreases monotonically, unlike the df = 4 and df = 10 curves, which rise to interior peaks before falling."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text states that 'Each one rises and then falls away...', which is incorrect for the curve with 2 degrees of freedom.",
-              "why": "A chi-square distribution with 2 degrees of freedom is equivalent to an exponential distribution ($f(x) = 0.5e^{-x/2}$ for $x \\ge 0$). It is strictly decreasing from its maximum at $x=0$ and does not rise."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-critical-value-z": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-pvalue-right-tail": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-pvalue-left-tail": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-pvalue-two-tailed": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-normal-relative-position": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-D1-95-band-is-not-95": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The band labelled 95% spans z = \u22121.5 to 1.5 instead of \u22122 to 2.",
-              "why": "For a standard normal distribution, the area within 1.5 standard deviations is approximately 86.6%, not 95%. The shading and area check therefore contradict the 95% label and the alt text stating that this band extends two standard deviations on either side."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The second shaded band (representing 95% of the distribution) is drawn from -1.5 to 1.5 standard deviations.",
-              "why": "According to the empirical rule, approximately 95% of the observations lie within 2 standard deviations of the mean (from -2.0 to 2.0), not 1.5. Drawing the band from -1.5 to 1.5 is mathematically incorrect and misrepresents the standard normal distribution."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-D2-height-read-as-probability": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and note incorrectly equate density at a value with the probability of that exact value.",
-              "why": "For a continuous normal random variable, the probability of any exact value is 0. The curve's height is a probability density; probabilities are areas over intervals, not heights at individual points."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and note state that the density (the height of the curve at a single value) is the probability of getting exactly that value.",
-              "why": "For any continuous random variable, the probability of obtaining any exact single value is 0. The height of the curve represents probability density, not the probability of that specific value. Stating otherwise introduces a major statistical misconception."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-D3-less-than-shaded-on-the-right": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The figure identifies the shaded right-hand tail as the p-value for a less-than alternative.",
-              "why": "For Ha: < at z = 1.4, the p-value is P(Z \u2264 1.4) \u2248 0.9192, the area to the left. The shaded right-hand area, P(Z \u2265 1.4) \u2248 0.0808, is the p-value for a greater-than alternative. Thus the subtitle, alt text, and stated p-value contradict the title and the entry's definition."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The figure incorrectly associates a 'less-than' alternative hypothesis with the right-hand tail (area above the statistic).",
-              "why": "For a less-than alternative hypothesis (Ha: <), the p-value is the area to the left of (below) the test statistic, not the area to the right (above) it. The figure shades the region from 1.4 to infinity and labels it as the p-value for 'Ha: less than', which is statistically incorrect and contradicts the authored reference entry."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-D4-critical-value-shades-the-tails": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the central region is shaded and the tails are unshaded, but the drawing parameters shade the two tails outside \u00b11.96 instead.",
-              "why": "The shaded regions contain approximately 5% of the total area, not the 95% confidence region described in the alt text."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text contradicts the visual shading of the figure.",
-              "why": "The 'shade' parameters define shading for the two tails (from -infinity to -1.96, and from 1.96 to infinity), whereas the alt text describes the central region as shaded and the two tails as unshaded."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-D5-chi-square-called-symmetric": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and note claim that the curves are symmetric and defined for negative values.",
-              "why": "Chi-square distributions with 2, 4, and 10 degrees of freedom are right-skewed and have no support at negative values. The parameters specify chi-square curves on x = 0 to 22, not symmetric curves extending to both sides of zero."
+              "what": "The alt text says the curve is rising throughout the region left of zero.",
+              "why": "The plotted polynomial is y = x\u00b3 \u2212 x, whose slope is 3x\u00b2 \u2212 1. It decreases on \u22121/\u221a3 < x < 0, even though it remains concave down there."
             },
             {
-              "what": "The alt text says each curve rises and then falls.",
-              "why": "The chi-square density with 2 degrees of freedom has its maximum at zero and decreases monotonically; it does not rise before falling."
+              "what": "The alt text describes a plotted interval from \u22123 to 3.",
+              "why": "The drawing parameters specify an x interval from \u22122 to 2, so the alt text describes a different interval."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-zero-of-a-function": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The figure includes a horizontal asymptote at y = 0 (defined in 'asymptotes_y').",
+              "why": "A quadratic function (here, y = x^2 - x - 2) does not have a horizontal asymptote. Depicting or labeling y = 0 as an asymptote is mathematically incorrect and teaches students a false concept about quadratic functions and asymptotes."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-aroc-concavity": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-inflection-point": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-even-multiplicity-zero": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-hole": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-transformations-additive": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-transformations-multiplicative": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-degree-from-points": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-sequence": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-exponential-shape": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-log-reflection": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-sinusoid-concavity": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-tangent-reflections": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-secant-graph": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-cosecant-graph": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "precalc-cotangent-graph": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "calcab-scale-hides-behaviour-wide": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text says the whole near-origin feature is about four ten-thousandths tall.",
+              "why": "The turning points occur at x = \u00b1\u221a(0.01/3), with y-values approximately \u00b10.0003849. The full vertical extent is therefore approximately 0.0007698, or eight ten-thousandths. Four ten-thousandths is only its height relative to the x-axis."
+            },
+            {
+              "what": "The alt text asserts that a limit read from this picture alone would be wrong.",
+              "why": "The hidden turning points do not make the apparent limit at the origin incorrect: lim(x\u21920) (x\u00b3 \u2212 0.01x) = 0, consistent with the plotted curve. The figure supports caution about graph-based estimates, not a claim that such a limit estimate necessarily fails."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "calcab-scale-hides-behaviour-zoom": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle says the window is a thousand times smaller, but the alt text describes approximately 13-fold horizontal narrowing and 10,000-fold vertical narrowing.",
+              "why": "These scale factors do not support a 1,000-fold reduction: neither dimension shrinks by that factor, and the window area would shrink by approximately 130,000-fold. The figure gives students inconsistent quantitative descriptions of the zoom."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P1-tangent-zero-actually-crosses": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The plotted polynomial does not have the claimed double zero or x-axis tangency at x = 1.",
+              "why": "The supplied coefficients give f(1) = 2, not 0. Thus the curve cannot touch the x-axis there, contrary to the subtitle, alt text, and 'tangent here' label."
+            },
+            {
+              "what": "The alt text claims a zero and axis crossing at x = \u22122 that the polynomial does not have.",
+              "why": "Evaluating the supplied polynomial at x = \u22122 gives a nonzero value under either ascending or descending coefficient order."
             }
           ],
           "confidence": "high"
@@ -306,8 +377,108 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The note and alt text contain false statistical statements.",
-              "why": "The note states that the distribution is 'Symmetric about its mean, and defined for negative values as well as positive', and the alt text states that 'Each curve extends to both sides of zero and is symmetric about its centre'. Chi-square distributions are only defined for non-negative values (x >= 0) and are skewed right, not symmetric."
+              "what": "The polynomial coefficients [2.0, 1.0, -2.0, 1.0]",
+              "why": "These coefficients do not represent the polynomial (x - 1)^2 * (x + 2) = x^3 - 3x + 2. Instead, they plot a curve that does not touch the x-axis at x = 1 (where it has a value of 2) and does not cross at x = -2. This directly contradicts the alt text, the 'tangent here' mark, and the x-axis ticks."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P2-inside-shift-stated-backwards": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note says an input shift goes the same way as its sign, and the alt text says adding a negative number inside shifts the graph left.",
+              "why": "For g(x) = f(x + h), the horizontal shift is \u2212h, opposite the sign inside. The plotted f(x \u2212 2) = 0.5(x \u2212 2)^2 has its vertex at (2, 0), so it shifts right two units, not left."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note 'Inside the function, the shift goes the SAME way as the sign' and the alt text statement 'adding a negative number inside shifts the graph left' are mathematically incorrect.",
+              "why": "For a horizontal translation $f(x + h)$, the graph shifts by $-h$ units. Thus, subtracting a number (e.g., $f(x - 2)$) shifts the graph to the right (positive direction), which is the opposite of the sign. The note and alt text assert the opposite of this mathematical fact and contradict the plotted curve $f(x - 2)$ which is correctly shifted to the right."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P3-hole-called-a-value": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note states that the function is defined at x = 2 with r(2) = 4, and the final sentence of the alt text says the open circle marks that function value.",
+              "why": "The open circle at (2, 4) represents a hole: the function is undefined at x = 2, although its limit there is 4. These statements contradict the hole and the subtitle and incorrectly equate a limit with a function value."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "Contradiction regarding whether the function is defined at x = 2",
+              "why": "The subtitle states 'the function is not defined there' and the alt text states 'where it is undefined'. However, the note states 'The function is defined at x = 2, where r(2) = 4' and the alt text states 'The circle marks the value the function takes at x equals two, namely four.' A rational function with a hole at x = 2 is undefined at x = 2, so stating it is defined there and takes the value 4 is mathematically incorrect and contradicts the subtitle."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P4-sequence-drawn-as-a-curve": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The drawing parameters include a polynomial curve in addition to the seven discrete points.",
+              "why": "A continuous curve assigns plotted values between whole-number inputs, contradicting the subtitle, alt text, and note that the points are not joined and that the sequence has no values between consecutive whole numbers."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The figure parameters include a continuous curve (`curves` with polynomial coefficients `[1.0, 2.0]`) in addition to the discrete points.",
+              "why": "This will draw a continuous line through the points, which directly contradicts the title, subtitle, alt text, and note which all explicitly state that the graph is a set of discrete points and must not be joined by a line or curve."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P5-cotangent-given-an-excluded-band": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note and alt text falsely state that cotangent's range excludes values strictly between \u22121 and 1.",
+              "why": "Cotangent has range all real numbers, unlike secant and cosecant. The plotted function cot(\u03b8) equals 0 at \u03b8 = \u00b1\u03c0/2 and takes every value between \u22121 and 1."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note and alt text state that the range of the cotangent graph excludes everything strictly between -1 and 1, similar to secant and cosecant.",
+              "why": "This is mathematically incorrect. The range of the cotangent function is all real numbers, i.e., (-\\infty, \\infty), and it takes values between -1 and 1 (for example, \\cot(\\pi/2) = 0). Only secant and cosecant have ranges that exclude the interval (-1, 1)."
             }
           ],
           "confidence": "high"

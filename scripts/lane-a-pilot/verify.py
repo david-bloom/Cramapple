@@ -1403,6 +1403,17 @@ def p_function_plot(sid, s, svg):
         ck(sid, "the text says the difference is scale, not accuracy",
            "scale" in s["alt"].lower())
 
+    # A declared horizontal asymptote is a CLAIM about the function, drawn
+    # dashed and labelled like one. A parabola was given y = 0 as an asymptote
+    # purely to get a line on the axis, which tells a student the parabola
+    # flattens towards zero. It does not. If it is drawn, it has to be true.
+    for h in p.get("asymptotes_y", []):
+        lo, hi = p["x_range"]
+        far = [ev(0, lo - 40 * (hi - lo)), ev(0, hi + 40 * (hi - lo))]
+        approaches = any(v is not None and abs(v - h["y"]) < 1e-3 for v in far)
+        ck(sid, f"the declared horizontal asymptote y = {h['y']:g} is one the function approaches",
+           approaches, "the function does not tend to it; the frame already draws the axis")
+
     if "sequence_check" in p:
         ck(sid, "a sequence is drawn as discrete points, with no curve joining them",
            not g["curves"] and len(g["dots"]) > 1,
