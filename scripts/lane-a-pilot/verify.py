@@ -48,17 +48,23 @@ def p_mb(sid, s, svg):
            f"mode={mode:.3f} expected={th/2:.3f}  (the SPEED distribution peaks elsewhere)")
         area = integrate(lambda E: R.mb_density(E, th), 1e-9, th * 60)
         ck(sid, f"MB normalised to 1 ({ser['label']})", abs(area - 1) < 0.01, f"integral={area:.4f}")
-    ea0 = p["markers"][0]["x"]
+    # A qualitative distribution has no marker at all (AP Physics 2 teaches the
+    # shape, not an activation energy), so the tail comparisons are made about
+    # the shared mode instead when there is nothing marked.
+    marks = p.get("markers", [])
+    ea0 = marks[0]["x"] if marks else max(ser["theta"] for ser in p["series"]) / 2
+    ck(sid, "a marker, if drawn, is inside the plotted energy range",
+       all(0 < m["x"] < p["x_max"] for m in marks))
     if len(p["series"]) > 1:
         tails = [(ser["theta"], integrate(lambda E, t=ser["theta"]: R.mb_density(E, t), ea0, ea0 + 60 * ser["theta"]))
                  for ser in p["series"]]
         tails.sort()
-        ck(sid, "hotter -> larger fraction beyond Ea",
+        ck(sid, "hotter -> larger fraction in the high-energy tail",
            all(tails[i][1] < tails[i + 1][1] for i in range(len(tails) - 1)),
            f"tails={[round(t,4) for _,t in tails]}")
-    if len(p["markers"]) > 1:
+    if len(marks) > 1:
         th = p["series"][0]["theta"]
-        xs_m = sorted(m["x"] for m in p["markers"])
+        xs_m = sorted(m["x"] for m in marks)
         t_lo = integrate(lambda E: R.mb_density(E, th), xs_m[0], xs_m[0] + 60 * th)
         t_hi = integrate(lambda E: R.mb_density(E, th), xs_m[-1], xs_m[-1] + 60 * th)
         ck(sid, "lower Ea -> larger fraction (catalysis)", t_lo > t_hi, f"{t_lo:.4f} vs {t_hi:.4f}")
@@ -322,7 +328,192 @@ def p_boxplot(sid, s, svg):
        g["x_range"][0] <= f["whisk_lo"] and max([f["whisk_hi"]] + f["outliers"]) <= g["x_range"][1])
 
 
-PROPS = {"categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
+def p_xy_series(sid, s, svg):
+    """The PV diagram, the loop potential and the residual plot share a family
+    but not a science, so each asserts its own facts from the same points."""
+    p = s["params"]
+    g = R.FAMILIES["xy_series"](p)
+
+    if "pv_const" in p:                       # PV figure 1: the isotherm
+        pv = p["pv_const"]
+        pts = p["series"][0]["points"]
+        ck(sid, "PV is constant along the isotherm",
+           all(abs(x * y - pv) < 1e-9 for x, y in pts),
+           f"worst={max(abs(x*y-pv) for x, y in pts):.3g}")
+        ck(sid, "pressure falls as volume rises",
+           all(pts[i + 1][1] < pts[i][1] for i in range(len(pts) - 1)))
+        # The shaded area IS the work, so check it against the integral rather
+        # than trusting the fill: W = integral of P dV = PV*ln(V2/V1).
+        a, b = p["work_interval"]
+        exact = pv * math.log(b / a)
+        trap = sum((pts[i + 1][0] - pts[i][0]) * (pts[i][1] + pts[i + 1][1]) / 2
+                   for i in range(len(pts) - 1))
+        ck(sid, "the shaded area equals the work integral", abs(trap - exact) / exact < 2e-4,
+           f"shaded={trap:.4f} exact={exact:.4f}")
+        ck(sid, "the note says the area is a magnitude, per the entry's caution",
+           any(w in (s.get("note") or "").lower() for w in ("magnitude", "absolute")))
+
+    if "gamma" in p:                          # PV figure 2: the four processes
+        gamma, P0, V0 = p["gamma"], p["p0"], p["v0"]
+        by = {sr["label"].split(" ")[0]: sr["points"] for sr in p["series"]}
+        ck(sid, "isovolumetric is a vertical line",
+           len({round(x, 9) for x, _ in by["isovolumetric"]}) == 1)
+        ck(sid, "isobaric is a horizontal line",
+           len({round(y, 9) for _, y in by["isobaric"]}) == 1)
+        ck(sid, "isothermal keeps PV constant",
+           all(abs(x * y - P0 * V0) < 1e-9 for x, y in by["isothermal"]))
+        ck(sid, "adiabatic keeps PV^gamma constant",
+           all(abs(x * y ** 1 * 0 + y * x ** gamma - P0 * V0 ** gamma) < 1e-7
+               for x, y in by["adiabatic"]))
+        ck(sid, "all four processes start from the same state",
+           all(abs(pts[0][0] - V0) < 1e-9 and abs(pts[0][1] - P0) < 1e-9
+               for k, pts in by.items() if k != "isovolumetric" or True))
+        # The distinguishing fact: through one point the adiabat is steeper.
+        iso_slope = -P0 / V0
+        adi_slope = -gamma * P0 / V0
+        ck(sid, "the adiabat is steeper than the isotherm at the shared point",
+           abs(adi_slope) > abs(iso_slope), f"adiabat={adi_slope:.3f} isotherm={iso_slope:.3f}")
+        ck(sid, "the adiabat lies below the isotherm as the gas expands",
+           all(ya < yi + 1e-12 for (_, ya), (_, yi)
+               in zip(by["adiabatic"][1:], by["isothermal"][1:])))
+
+    if any(h["y"] == 0.0 for h in p.get("hlines", [])) and "pv_const" not in p:
+        pts = p["series"][0]["points"]
+        if p["series"][0].get("kind") == "scatter":      # residual plot
+            xs = [x for x, _ in pts]
+            rs = [y for _, y in pts]
+            ck(sid, "residuals sum to about zero", abs(sum(rs)) < 0.35 * max(abs(r) for r in rs),
+               f"sum={sum(rs):.3f}")
+            ck(sid, "residuals fall on both sides of zero",
+               any(r > 0 for r in rs) and any(r < 0 for r in rs))
+            mx, mr = sum(xs) / len(xs), sum(rs) / len(rs)
+            cov = sum((x - mx) * (r - mr) for x, r in zip(xs, rs))
+            sx_ = math.sqrt(sum((x - mx) ** 2 for x in xs))
+            sr_ = math.sqrt(sum((r - mr) ** 2 for r in rs))
+            # "Without pattern" is the entry's own justification for the model,
+            # so a trend against x would contradict the figure's whole point.
+            ck(sid, "no linear trend in the residuals", abs(cov / (sx_ * sr_)) < 0.25,
+               f"r={cov / (sx_ * sr_):.3f}")
+            # A strict +,-,+,- alternation is ALSO a pattern, which both model
+            # readers caught and this test originally did not: it only looked
+            # for a trend. "Without pattern" has to mean more than "no slope".
+            runs, cur = [], 1
+            for i in range(1, len(rs)):
+                if (rs[i] > 0) == (rs[i - 1] > 0):
+                    cur += 1
+                else:
+                    runs.append(cur)
+                    cur = 1
+            runs.append(cur)
+            ck(sid, "signs do not alternate perfectly, which would be a pattern too",
+               max(runs) >= 2, f"runs={runs}")
+            ck(sid, "no long run of same-sign residuals either", max(runs) <= 3, f"runs={runs}")
+            ck(sid, "a zero reference line is drawn", "residual = 0" in svg or "= 0" in svg)
+        else:                                            # potential around a loop
+            ck(sid, "the loop returns to the potential it started at",
+               abs(pts[-1][1] - pts[0][1]) < 1e-9, f"start={pts[0][1]} end={pts[-1][1]}")
+            rises = sum(max(0.0, pts[i + 1][1] - pts[i][1]) for i in range(len(pts) - 1))
+            drops = sum(max(0.0, pts[i][1] - pts[i + 1][1]) for i in range(len(pts) - 1))
+            ck(sid, "rises and drops cancel: Kirchhoff's loop rule",
+               abs(rises - drops) < 1e-9, f"rises={rises} drops={drops}")
+            ck(sid, "position never goes backwards along the loop",
+               all(pts[i + 1][0] >= pts[i][0] for i in range(len(pts) - 1)))
+            # Both model readers caught element names sitting under the flat
+            # wire rather than under the step they name, so it is a check now.
+            steps = [pts[i + 1][0] for i in range(len(pts) - 1)
+                     if abs(pts[i + 1][1] - pts[i][1]) > 1e-9]
+            named = [x for x, lbl in p.get("x_ticks", []) if lbl.lower() != "end"]
+            ck(sid, "each element's tick sits at the step it names",
+               all(any(abs(x - sxp) < 1e-6 for sxp in steps) for x in named),
+               f"ticks={named} steps={steps}")
+
+    gx0, gx1 = g["x_range"]
+    gy0, gy1 = g["y_range"]
+    for sr in p["series"]:
+        ck(sid, "every plotted point is inside the axes",
+           all(gx0 - 1e-9 <= x <= gx1 + 1e-9 and gy0 - 1e-9 <= y <= gy1 + 1e-9
+               for x, y in sr["points"]))
+
+
+def p_kinematic_panels(sid, s, svg):
+    """The three panels must be ONE motion. Each authored label is a calculus
+    relationship between them, so each is checked numerically rather than
+    assumed from having drawn a parabola above a line."""
+    p = s["params"]
+    g = R.FAMILIES["kinematic_panels"](p)
+    x0, v0, a, t1 = p["x0"], p["v0"], p["a"], p["t_max"]
+    xf = lambda t: x0 + v0 * t + 0.5 * a * t * t
+    vf = lambda t: v0 + a * t
+    pan = {q["key"]: q for q in g["panels"]}
+    ck(sid, "three panels: x, v and a", set(pan) == {"x", "v", "a"})
+
+    h = 1e-5
+    for t in (0.5, 2.0, 3.0, 4.5):
+        ck(sid, f"slope of x-t equals v at t={t}",
+           abs((xf(t + h) - xf(t - h)) / (2 * h) - vf(t)) < 1e-4)
+        ck(sid, f"slope of v-t equals a at t={t}",
+           abs((vf(t + h) - vf(t - h)) / (2 * h) - a) < 1e-4)
+
+    t0, t2 = 2.0, 4.0
+    n = 20000
+    area_v = sum(vf(t0 + (i + 0.5) * (t2 - t0) / n) * (t2 - t0) / n for i in range(n))
+    ck(sid, "area under v-t is the displacement", abs(area_v - (xf(t2) - xf(t0))) < 1e-6,
+       f"area={area_v:.6f} dx={xf(t2) - xf(t0):.6f}")
+    ck(sid, "area under a-t is the change in velocity",
+       abs(a * (t2 - t0) - (vf(t2) - vf(t0))) < 1e-9)
+
+    shades = p.get("shades", [])
+    ck(sid, "an area is shaded on both the v-t and the a-t panel",
+       {sh["panel"] for sh in shades} == {"v", "a"}, f"{[sh['panel'] for sh in shades]}")
+    for sh in shades:
+        ck(sid, f"the shaded interval on {sh['panel']}-t is inside the time axis",
+           0 <= sh["t0"] < sh["t1"] <= t1)
+        band = next(q for q in g["panels"] if q["key"] == sh["panel"])
+        ck(sid, f"the {sh['panel']}-t panel shows zero, so there is a baseline to shade to",
+           band["y_range"][0] <= 0 <= band["y_range"][1], f"range={band['y_range']}")
+    # Declared coverage is not rendered coverage: count the shapes, do not
+    # trust the spec. Each shade must actually produce a filled region.
+    drawn = R.render(s, "expanded").count('fill-opacity="0.6"')
+    ck(sid, "every requested area is actually drawn", drawn == len(shades),
+       f"drawn={drawn} requested={len(shades)}")
+    for an in p.get("annotations", []):
+        want = vf(an["t"]) if an["panel"] == "x" else a
+        ck(sid, f"the drawn tangent on {an['panel']}-t has the true slope",
+           abs(an["slope"] - want) < 1e-9, f"drawn={an['slope']} true={want}")
+        # The DRAWN slope, read back off the SVG. The check above compares the
+        # spec's number with the maths; this one catches the renderer turning a
+        # correct number into a wrong line, which is what an inverted data-to-
+        # screen conversion did -- two near-vertical dashes off the canvas.
+        lay = R.LAYOUTS["expanded"]
+        gg = R.FAMILIES["kinematic_panels"](p)
+        pan_i = [q["key"] for q in gg["panels"]].index(an["panel"])
+        phh = lay["H"] - lay["T"] - lay["B"]
+        gap = phh * 0.07
+        bh = (phh - gap * (len(gg["panels"]) - 1)) / len(gg["panels"])
+        py0, py1 = gg["panels"][pan_i]["y_range"]
+        pww = lay["W"] - lay["L"] - lay["R"]
+        want_screen = an["slope"] * (bh / (py1 - py0)) / (pww / p["t_max"])
+        dashed = [m.group(1) for m in re.finditer(r'<line([^>]*)/>', R.render(s, "expanded"))
+                  if 'stroke-dasharray="6 4"' in m.group(1)]
+        got = []
+        for at in dashed:
+            x1_, y1_, x2_, y2_ = (float(re.search(rf'\b{k}="(-?[\d.]+)"', at).group(1))
+                                  for k in ("x1", "y1", "x2", "y2"))
+            if abs(x2_ - x1_) > 1e-9:
+                got.append(-(y2_ - y1_) / (x2_ - x1_))
+        ck(sid, f"the tangent DRAWN on {an['panel']}-t has the true slope on screen",
+           any(abs(gv - want_screen) < 0.02 for gv in got),
+           f"drawn={[round(v,3) for v in got]} expected={want_screen:.3f}")
+        ck(sid, f"the {an['panel']}-t annotation sits on its own curve",
+           abs(an["y"] - (xf(an["t"]) if an["panel"] == "x" else vf(an["t"]))) < 1e-9)
+    for q in g["panels"]:
+        lo, hi = q["y_range"]
+        ck(sid, f"the {q['key']} curve stays inside its panel",
+           all(lo - 1e-9 <= y <= hi + 1e-9 for _, y in q["pts"]))
+
+
+PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
+         "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
          "pe_vs_distance": p_pe, "approach_equilibrium": p_equilibrium, "titration_curve": p_titration}
@@ -433,6 +624,23 @@ def main() -> int:
                 # clearance from the edge, not merely a non-negative coordinate.
                 if not (8 <= float(mx) <= cw - 8 and 0 <= float(my) <= chh):
                     offenders.append(("rotated", mx, my))
+            # Lines and circles too, not only text. The original pilot defect
+            # was an ARROW rendered off-canvas, and a text-only check would have
+            # missed it -- as it missed a mis-converted tangent slope that drew
+            # two near-vertical dashed lines straight off the bottom edge.
+            for tag, xs_, ys_ in (
+                ("line", ("x1", "x2"), ("y1", "y2")),
+                ("circle", ("cx",), ("cy",)),
+            ):
+                for mm in re.finditer(rf"<{tag}([^>]*)/>", lsvg):
+                    at = mm.group(1)
+                    pts_x = [float(re.search(rf'\b{a}="(-?[\d.]+)"', at).group(1))
+                             for a in xs_ if re.search(rf'\b{a}="(-?[\d.]+)"', at)]
+                    pts_y = [float(re.search(rf'\b{a}="(-?[\d.]+)"', at).group(1))
+                             for a in ys_ if re.search(rf'\b{a}="(-?[\d.]+)"', at)]
+                    if any(v < -0.5 or v > cw + 0.5 for v in pts_x) or \
+                       any(v < -0.5 or v > chh + 0.5 for v in pts_y):
+                        offenders.append((tag, pts_x, pts_y))
             ck(sid, f"nothing is drawn outside the {lay_name} canvas", not offenders,
                f"{offenders[:4]} canvas={cw}x{chh}")
 

@@ -1,25 +1,27 @@
 {
-  "entries": 20,
-  "families": 11,
+  "entries": 26,
+  "families": 13,
   "family_names": [
     "approach_equilibrium",
     "boxplot",
     "categorical_bars",
     "dotplot",
     "energy_profile",
+    "kinematic_panels",
     "mb_distribution",
     "pe_vs_distance",
     "pie_chart",
     "stem_leaf",
     "stick_spectrum",
-    "titration_curve"
+    "titration_curve",
+    "xy_series"
   ],
-  "checks_run": 934,
+  "checks_run": 1241,
   "checks_failed": 0,
   "failures": [],
-  "total_render_ms": 139.53,
-  "mean_render_ms": 6.977,
-  "entries_covered": 16,
+  "total_render_ms": 213.5,
+  "mean_render_ms": 8.212,
+  "entries_covered": 21,
   "coverage": {
     "Maxwell-Boltzmann energy distribution": {
       "figures": [
@@ -151,6 +153,47 @@
       "authored_labels": 3,
       "covered": 3,
       "missing": []
+    },
+    "Pressure\u2013volume (PV) diagram": {
+      "figures": [
+        "phys2-pv-isotherm-work",
+        "phys2-pv-special-processes"
+      ],
+      "authored_labels": 8,
+      "covered": 8,
+      "missing": []
+    },
+    "Graph of electric potential versus position in a loop": {
+      "figures": [
+        "phys2-potential-around-loop"
+      ],
+      "authored_labels": 4,
+      "covered": 4,
+      "missing": []
+    },
+    "Residual plot": {
+      "figures": [
+        "precalc-residual-plot"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": []
+    },
+    "Maxwell\u2013Boltzmann distribution (qualitative)": {
+      "figures": [
+        "phys2-mb-qualitative"
+      ],
+      "authored_labels": 3,
+      "covered": 3,
+      "missing": []
+    },
+    "Reading x(t), v(t), a(t) graphs": {
+      "figures": [
+        "physcmech-xva-graphs"
+      ],
+      "authored_labels": 4,
+      "covered": 4,
+      "missing": []
     }
   },
   "unpublished_figures": [
@@ -160,116 +203,152 @@
     "chem-mb-energy": {
       "family": "mb_distribution",
       "entry": "Maxwell-Boltzmann energy distribution",
-      "render_ms": 1.765,
-      "bytes": 32257
+      "render_ms": 1.539,
+      "bytes": 32276
     },
     "chem-energy-profile-single": {
       "family": "energy_profile",
       "entry": "Single-step reaction energy profile",
-      "render_ms": 0.144,
-      "bytes": 4562
+      "render_ms": 0.135,
+      "bytes": 4563
     },
     "chem-energy-profile-multistep": {
       "family": "energy_profile",
       "entry": "Multistep reaction energy profile",
-      "render_ms": 0.178,
-      "bytes": 7145
+      "render_ms": 0.183,
+      "bytes": 7146
     },
     "chem-energy-diagram-process": {
       "family": "energy_profile",
       "entry": "Energy diagram for a physical or chemical process",
-      "render_ms": 0.064,
-      "bytes": 3301
+      "render_ms": 0.061,
+      "bytes": 3302
     },
     "chem-mass-spectrum": {
       "family": "stick_spectrum",
       "entry": "Mass spectrum of a single element",
-      "render_ms": 0.058,
-      "bytes": 4235
+      "render_ms": 0.065,
+      "bytes": 4237
     },
     "chem-pes": {
       "family": "stick_spectrum",
       "entry": "Photoelectron spectrum (PES)",
-      "render_ms": 0.049,
+      "render_ms": 0.063,
       "bytes": 4357
     },
     "chem-pe-internuclear": {
       "family": "pe_vs_distance",
       "entry": "Potential energy vs. internuclear distance graph",
-      "render_ms": 0.976,
-      "bytes": 20367
+      "render_ms": 0.906,
+      "bytes": 20384
     },
     "chem-approach-equilibrium": {
       "family": "approach_equilibrium",
       "entry": "Graphs showing the approach to equilibrium",
-      "render_ms": 0.716,
-      "bytes": 20213
+      "render_ms": 0.738,
+      "bytes": 20230
     },
     "chem-titration": {
       "family": "titration_curve",
       "entry": "Titration curve (pH vs. volume of titrant)",
-      "render_ms": 1.028,
-      "bytes": 24577
+      "render_ms": 1.045,
+      "bytes": 24581
     },
     "chem-approach-equilibrium-rate": {
       "family": "approach_equilibrium",
       "entry": "Graphs showing the approach to equilibrium",
-      "render_ms": 0.751,
-      "bytes": 20255
+      "render_ms": 0.75,
+      "bytes": 20272
     },
     "stats-bar-chart": {
       "family": "categorical_bars",
       "entry": "Bar chart",
-      "render_ms": 0.048,
-      "bytes": 3777
+      "render_ms": 0.052,
+      "bytes": 3779
     },
     "stats-pie-chart": {
       "family": "pie_chart",
       "entry": "Pie chart",
-      "render_ms": 0.029,
+      "render_ms": 0.031,
       "bytes": 2094
     },
     "stats-dotplot": {
       "family": "dotplot",
       "entry": "Dotplot",
-      "render_ms": 0.046,
+      "render_ms": 0.047,
       "bytes": 4417
     },
     "stats-histogram": {
       "family": "categorical_bars",
       "entry": "Histogram",
-      "render_ms": 0.083,
-      "bytes": 5007
+      "render_ms": 0.067,
+      "bytes": 5009
     },
     "stats-stem-leaf": {
       "family": "stem_leaf",
       "entry": "Stem-and-leaf plot",
-      "render_ms": 0.031,
+      "render_ms": 0.033,
       "bytes": 3243
     },
     "stats-boxplot": {
       "family": "boxplot",
       "entry": "Boxplot",
-      "render_ms": 0.046,
+      "render_ms": 0.045,
       "bytes": 3395
     },
     "stats-two-cat-side-by-side": {
       "family": "categorical_bars",
       "entry": "Graphs for two categorical variables",
-      "render_ms": 0.055,
-      "bytes": 4191
+      "render_ms": 0.058,
+      "bytes": 4201
     },
     "stats-two-cat-segmented": {
       "family": "categorical_bars",
       "entry": "Graphs for two categorical variables",
-      "render_ms": 0.056,
-      "bytes": 4947
+      "render_ms": 0.064,
+      "bytes": 4956
     },
     "stats-two-cat-mosaic": {
       "family": "categorical_bars",
       "entry": "Graphs for two categorical variables",
       "render_ms": 0.054,
-      "bytes": 4934
+      "bytes": 4943
+    },
+    "phys2-pv-isotherm-work": {
+      "family": "xy_series",
+      "entry": "Pressure\u2013volume (PV) diagram",
+      "render_ms": 0.28,
+      "bytes": 9425
+    },
+    "phys2-pv-special-processes": {
+      "family": "xy_series",
+      "entry": "Pressure\u2013volume (PV) diagram",
+      "render_ms": 0.225,
+      "bytes": 7762
+    },
+    "phys2-potential-around-loop": {
+      "family": "xy_series",
+      "entry": "Graph of electric potential versus position in a loop",
+      "render_ms": 0.05,
+      "bytes": 4396
+    },
+    "precalc-residual-plot": {
+      "family": "xy_series",
+      "entry": "Residual plot",
+      "render_ms": 0.054,
+      "bytes": 4354
+    },
+    "phys2-mb-qualitative": {
+      "family": "mb_distribution",
+      "entry": "Maxwell\u2013Boltzmann distribution (qualitative)",
+      "render_ms": 0.99,
+      "bytes": 20883
+    },
+    "physcmech-xva-graphs": {
+      "family": "kinematic_panels",
+      "entry": "Reading x(t), v(t), a(t) graphs",
+      "render_ms": 0.966,
+      "bytes": 25450
     }
   }
 }

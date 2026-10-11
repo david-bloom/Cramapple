@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus (2026-10-11)
 - APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production (2026-10-11)
 - APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK — DECISION-0115 (2026-10-11)
 - APPROVAL-0155 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
@@ -2088,6 +2089,57 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus
+
+**Date:** 2026-10-11
+**Approved By:** David Bloom (2026-10-11 Claude session): "deploy the remaining six to production".
+**Related:** `docs/product/LANE_A_COMPLETE_2026_10_11.md`; `FIGURE_PRODUCTION_PROTOCOL.md` v1.4;
+`DECISION-0115`/`APPROVAL-0156` (families as data); `APPROVAL-0157` (the AP Statistics nine);
+`ap-prep-blueprint` PR #10 (the renderer port without which none of these draw).
+**Decision:** Approved and applied.
+
+**What was deployed:** `scripts/lane-a-pilot/out/load_lane_a_rest_figures.sql` — **two new family rows
+(`xy_series`, `kinematic_panels`), six figures and six uses** — with the CLI pinned to the Production
+link (ref confirmed `pcntajvbdfqhbeewmdry` before the write). A third family, `mb_distribution`, was
+**reused without being re-introduced**: AP Physics 2's qualitative distribution is drawn by the AP
+Chemistry batch's renderer. **No schema change, no function change**: `get_topic_point_guides` hashes
+`25b6e08c84e5db9fac69741f93efa054` before and after.
+
+**With this, every Lane A entry in the corpus has a figure.**
+
+**Production pre-state:** 11 families, 19 figures, 19 uses; AP Physics 2 9.4, Physics C Mechanics 1.3
+and Precalculus 2.6 all returned `[]`.
+
+**Verification, as an authenticated student (never `service_role`):**
+
+| Check | Result |
+|---|---|
+| Physics 2 topic 9.1 / 9.4 / 11.6 | the distribution / both PV figures / the loop |
+| Physics 2 Unit 9 roll-up | 3 |
+| Physics C Mechanics 1.3 | the three-panel figure |
+| Precalculus 2.6 | the residual plot (on a **vocabulary** entry, §6-resolved by kind) |
+| Topics with no figure (Physics 2 10.3, Physics C Mech 2.2, Precalc 1.1) | `[]` |
+| AP Statistics, Chemistry, Biology | unchanged (2, 1, 0) |
+| Draft row invisible | `physcmech-xva-graphs` set to `draft` dropped 1.3 to `[]`; rolled back |
+| Dead figures | 0 |
+| Re-apply | idempotent |
+| **Cross-environment** | 13 families, 25 figures, 25 published, 25 uses and a content checksum of `56517690778` — **identical in both** |
+
+**Gates:** property tests 1,241 checks / 0 failed; a human legibility pass that found four defects
+invisible to the tests, including shaded areas that silently did not render at all; two non-Anthropic
+readers with five planted controls, **controls 5/5 rejected**, and two further real defects found by the
+readers and fixed. Full record in the batch document.
+
+**Student visibility, stated plainly.** These figures — and the nine AP Statistics ones from
+`APPROVAL-0157` — are **not yet visible to any student**. The client whitelists the figure families it
+knows and silently drops the rest, so until `ap-prep-blueprint` PR #10 is merged *and the app is
+published in Lovable*, every figure outside AP Chemistry is filtered out of the payload before it can be
+drawn. Nothing breaks; nothing shows.
+
+**Rollback:** `update app.figures set status = 'retired' where subject_key in ('ap_physics_2',
+'ap_physics_c_mechanics', 'ap_precalculus');` — the RPC's `figures` key returns `[]` for those topics
+and no function, schema or family row is touched.
 
 ## APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production
 
