@@ -17,7 +17,7 @@ test suite. If any control is accepted, the batch is void.
 """
 from __future__ import annotations
 
-import argparse, copy, json, os, pathlib, sys, time
+import argparse, copy, json, os, pathlib, re, sys, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -191,7 +191,244 @@ def physics_controls(specs: dict) -> dict:
     return c
 
 
-CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls}
+def gaps_controls(specs: dict) -> dict:
+    """Controls for the Lane A gap batch (the entries outside kind='diagram').
+
+    Three of the five -- G2, G3, G5 -- pass verify.py cleanly, which is what
+    measures whether the readers add anything over the suite.
+    """
+    c = {}
+
+    # G1 the stated work contradicts the area. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-work-force-displacement"])
+    s["note"] = "Area = 24 J: the rectangle is 16 J and the triangle is 8 J."
+    s["alt"] = s["alt"].replace("32 joules in total", "24 joules in total")
+    c["CONTROL-G1-work-area-contradicts-note"] = s
+
+    # G2 the extrapolated temperature is labelled -173 on the axis while the
+    # line still reaches zero at -273. The tick text is not a property, so this
+    # PASSES verify.py and teaches a wrong absolute zero.
+    s = copy.deepcopy(specs["phys2-zero-pressure-temperature"])
+    s["params"]["x_ticks"] = [[-273.15, "\u2212173"], [-150.0, "\u2212150"],
+                              [0.0, "0"], [100.0, "100"]]
+    s["params"]["series"][0]["marks"][0]["label"] = "P = 0 at \u2212173 \u00b0C"
+    s["alt"] = s["alt"].replace("minus 273 degrees", "minus 173 degrees")
+    c["CONTROL-G2-zero-pressure-mislabelled"] = s
+
+    # G3 the classic misconception asserted in the figure's own text: that the
+    # HEIGHT of the force curve reads off the work. The points are untouched,
+    # so this PASSES verify.py.
+    s = copy.deepcopy(specs["phys-work-force-displacement"])
+    s["subtitle"] = "Read the height of the curve to get the work done so far"
+    s["alt"] = s["alt"].replace(
+        "Reading a value off the curve gives a force, not a work; only the area is the work.",
+        "Reading the height of the curve at any displacement gives the work done up to that point.")
+    c["CONTROL-G3-work-read-as-height"] = s
+
+    # G4 the "ohmic" element is bent, so it has no constant resistance while
+    # still being called ohmic. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys2-ohmic-iv"])
+    for sr in s["params"]["series"]:
+        if sr["label"] == "ohmic element":
+            sr["points"] = [[v, round(0.20 * (v / 5.0) ** 0.7, 6)]
+                            for v in (0.0, 1.25, 2.5, 3.75, 5.0)]
+    c["CONTROL-G4-ohmic-element-is-bent"] = s
+
+    # G5 the catalysed barrier put ABOVE the uncatalysed one: a catalyst shown
+    # RAISING the activation energy. p_mb compares marker POSITIONS, not which
+    # position is labelled catalysed, so this PASSES verify.py.
+    s = copy.deepcopy(specs["chem-mb-catalysis"])
+    s["params"]["markers"] = [{"x": 1.9, "label": "Ea", "caption": "uncatalysed"},
+                              {"x": 3.4, "label": "Ea'", "caption": "catalysed"}]
+    c["CONTROL-G5-catalyst-raises-activation-energy"] = s
+
+    return c
+
+
+def arrow_controls(specs: dict) -> dict:
+    """Controls for the Lane B arrow grammar.
+
+    B2, B3 and B5 pass verify.py cleanly. All three are LABEL errors, which is
+    the shape of mistake this grammar is most exposed to: the geometry is
+    generated from magnitudes and angles and is therefore self-consistent by
+    construction, while the words beside it are free to say anything.
+    """
+    c = {}
+
+    # B1 the forces no longer balance, while the text still says they do.
+    # verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    for a in s["params"]["arrows"]:
+        if a["label"].startswith("rope"):
+            a["magnitude"], a["label"] = 3.5, "rope 3.5 N"
+    c["CONTROL-B1-free-body-does-not-balance"] = s
+
+    # B2 the normal force's LABEL says 10.0 N while the arrow is drawn at
+    # 8.7 N. The suite reads magnitudes, not words, so this PASSES.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    for a in s["params"]["arrows"]:
+        if a["label"].startswith("normal"):
+            a["label"] = "normal 10.0 N"
+    s["alt"] = s["alt"].replace("8.7 newtons", "10.0 newtons")
+    c["CONTROL-B2-normal-force-mislabelled"] = s
+
+    # B3 the SHORTEST arrow labelled the LARGEST magnitude, which contradicts
+    # the entry's whole claim that length is proportional to magnitude. The
+    # geometry is untouched, so this PASSES verify.py.
+    s = copy.deepcopy(specs["phys-vector-arrows"])
+    for a in s["params"]["arrows"]:
+        if a["label"] == "3.0 m/s":
+            a["label"] = "9.0 m/s"
+    s["alt"] = s["alt"].replace("labelled 3.0 metres per second", "labelled 9.0 metres per second")
+    c["CONTROL-B3-shortest-arrow-largest-label"] = s
+
+    # B4 the weight drawn AND its two components drawn beside it: the exact
+    # error "Whole forces only" names. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    s["params"]["arrows"] += [
+        {"label": "weight along slope 5.0 N", "magnitude": 5.0, "angle_deg": 210},
+        {"label": "weight across slope 8.7 N", "magnitude": 8.660254, "angle_deg": 300},
+    ]
+    c["CONTROL-B4-weight-drawn-with-its-components"] = s
+
+    # B5 the axis labelled PERPENDICULAR to the incline while the dashed line
+    # is still drawn parallel to it. The suite does not read the axis label
+    # against its angle, so this PASSES.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    s["params"]["axis"] = {"angle_deg": 30.0, "label": "y axis, across the incline"}
+    c["CONTROL-B5-axis-labelled-across-but-drawn-along"] = s
+
+    return c
+
+
+def particulate_controls(specs: dict) -> dict:
+    """Controls for the Lane B particulate batch.
+
+    P2, P3 and P5 pass verify.py cleanly. Like the arrow grammar, the geometry
+    is generated from counts and is self-consistent by construction, so the
+    errors that survive the suite are the ones stated in words beside it.
+    """
+    c = {}
+
+    # P1 atoms are not conserved: two waters become one. CAUGHT by the suite.
+    s = copy.deepcopy(specs["chem-particulate-balanced-equation"])
+    s["params"]["panels"][1]["species"] = [{"key": "H2O", "count": 1}]
+    s["params"]["panels"][1]["caption"] = "1 H\u2082O"
+    c["CONTROL-P1-atoms-not-conserved"] = s
+
+    # P2 concentration redefined as the AMOUNT of solute rather than the ratio,
+    # in the figure's own note. The counts are untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-particulate-solution"])
+    s["note"] = "The box with more solute particles is the more concentrated, whatever its volume."
+    s["alt"] = s["alt"].replace(
+        "Both boxes are equally full, so what differs between them is the proportion of solute, "
+        "not how much liquid there is.",
+        "The right-hand box is more concentrated because it contains more solute particles in total.")
+    c["CONTROL-P2-concentration-as-amount"] = s
+
+    # P3 the classic equilibrium misconception, asserted in the figure's text:
+    # that the reaction stops. The counts are untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-particulate-reversible"])
+    s["subtitle"] = "A \u21cc B: at equilibrium the forward reaction has stopped"
+    s["alt"] = s["alt"].replace(
+        "The reactant has not run out: some A is still present, which is what distinguishes "
+        "equilibrium from a reaction that goes to completion.",
+        "Once equilibrium is reached the forward reaction has stopped, so no more A turns into B.")
+    c["CONTROL-P3-equilibrium-means-reaction-stopped"] = s
+
+    # P4 the equilibrium counts no longer give the stated K. CAUGHT.
+    s = copy.deepcopy(specs["chem-particulate-reversible"])
+    s["params"]["panels"][1]["species"] = [{"key": "A", "count": 8}, {"key": "B", "count": 8}]
+    s["params"]["panels"][1]["caption"] = "8 A, 8 B"
+    c["CONTROL-P4-counts-do-not-give-stated-k"] = s
+
+    # P5 the electrons described as belonging to the nearest ion, which is the
+    # opposite of delocalized. The drawing is untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-sea-of-electrons"])
+    s["alt"] = s["alt"].replace(
+        "The dots are not drawn on or beside any particular ion: they are spread across the whole "
+        "box, because in a metal the valence electrons are delocalized and belong to the solid as "
+        "a whole rather than to individual atoms.",
+        "Each dot sits beside the ion it belongs to, because every valence electron stays with its "
+        "own metal atom.")
+    s["note"] = "Each electron stays with the ion it came from."
+    c["CONTROL-P5-electrons-localized-on-ions"] = s
+
+    return c
+
+
+def field_controls(specs: dict) -> dict:
+    """Controls for the Lane B field-map and circuit-symbol batch.
+
+    F2, F3 and F5 pass verify.py cleanly.
+    """
+    c = {}
+
+    # F1 two LIKE charges, while the text still says lines arrive at the
+    # negative one. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-electric-field-map"])
+    s["params"]["charges"] = [{"q": 1.0, "x": 0.28, "y": 0.5},
+                              {"q": 1.0, "x": 0.72, "y": 0.5}]
+    c["CONTROL-F1-two-like-charges-called-a-dipole"] = s
+
+    # F2 the field described as pointing towards INCREASING potential, which
+    # is backwards. The geometry is untouched, so this PASSES.
+    s = copy.deepcopy(specs["phys2-equipotential-map"])
+    s["note"] = "Field vectors point towards higher potential, up the potential hill."
+    s["alt"] = s["alt"].replace("points towards lower potential",
+                                "points towards higher potential")
+    c["CONTROL-F2-field-points-up-the-potential-hill"] = s
+
+    # F3 the figure's text licensing crossing field lines. PASSES the suite,
+    # because nothing about the drawn lines changed.
+    s = copy.deepcopy(specs["phys-electric-field-map"])
+    s["note"] = "Where the field is strong the lines may cross one another."
+    s["alt"] = s["alt"].replace(
+        "No two lines ever cross, because the field has only one direction at each point.",
+        "Close to the charges the lines cross one another, which is how a strong field is shown.")
+    c["CONTROL-F3-field-lines-may-cross"] = s
+
+    # F4 the isolines equally spaced in RADIUS while the figure's own note
+    # says each is a fixed step lower in potential. For a point charge V goes
+    # as 1/r, so equal radius steps are not equal potential steps. The suite
+    # checks that potential falls outwards, not that the steps are equal, so
+    # this PASSES it -- and unlike the control it replaces, a student can see
+    # the claim and act on it.
+    #
+    # The control it replaces listed the same four isoline radii in a shuffled
+    # ORDER. That draws the same four circles, so the picture a student sees is
+    # identical and nothing false is taught. gemini-3.5-flash accepted it and
+    # was right to; the control was the defect, not the reader. A control has
+    # to be a mistake the figure can actually make to someone reading it.
+    s = copy.deepcopy(specs["phys2-equipotential-map"])
+    s["params"]["isoline_radii"] = [0.14, 0.24, 0.34, 0.44]
+    s["note"] = "Equally spaced circles, so each one is the same step lower in potential than the last."
+    s["alt"] = s["alt"].replace(
+        "every point on one circle is at the same potential, and the potential falls as the circles "
+        "get larger",
+        "every point on one circle is at the same potential, and because the circles are equally "
+        "spaced the potential falls by the same amount from each circle to the next")
+    c["CONTROL-F4-equal-radii-read-as-equal-potential-steps"] = s
+
+    # F5 the ammeter marked V and the voltmeter marked A. Both letters are
+    # still present and still distinct, so this PASSES the suite while telling
+    # a student the wrong symbol for each meter.
+    s = copy.deepcopy(specs["phys2-circuit-symbols"])
+    for sy in s["params"]["symbols"]:
+        if sy["label"].startswith("Ammeter"):
+            sy["letter"] = "V"
+        elif sy["label"].startswith("Voltmeter"):
+            sy["letter"] = "A"
+    c["CONTROL-F5-meter-letters-swapped"] = s
+
+    return c
+
+
+CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
+                "lane-a-gaps": gaps_controls,
+                "lane-b-arrows": arrow_controls,
+                "lane-b-particulate": particulate_controls,
+                "lane-b-fields": field_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
@@ -236,14 +473,46 @@ def main() -> int:
     if not specs:
         raise SystemExit(f"no figures with prefix {args.prefix!r}")
     entries = {k: v for k, v in json.load(open(args.entries)).items() if not k.startswith("_")}
-    items = {**specs, **CONTROL_SETS[args.controls or args.prefix](allspecs)}
+    ctl_specs = CONTROL_SETS[args.controls or args.prefix](allspecs)
+
+    # A control has to be a mistake a READER can see. One control changed only
+    # the order of a figure's isoline radii: the same four circles are drawn,
+    # so the picture is identical and nothing false is taught. A reader
+    # accepted it, correctly, and voided a batch that was sound. Refuse to run
+    # a control whose rendered output is a pure reordering of the original's
+    # elements, or whose text is unchanged when its drawing is.
+    import render as _R
+    for cid, cs in ctl_specs.items():
+        base = allspecs.get(cs["figure_id"])
+        if not base:
+            continue
+        a, b = _R.render(base), _R.render(cs)
+        if a == b:
+            raise SystemExit(f"control {cid} renders identically to {cs['figure_id']}: "
+                             f"it tests nothing")
+        # Whole elements, not fragments: splitting on ">" shreds each tag into
+        # an attribute part and a text part, so two figures that swap the
+        # CONTENTS of two elements compare equal and a real control is refused.
+        els = lambda v: sorted(re.findall(r"<[^>]+>[^<]*", v))
+        if els(a) == els(b) and \
+           (cs.get("alt"), cs.get("note"), cs.get("subtitle")) == \
+           (base.get("alt"), base.get("note"), base.get("subtitle")):
+            raise SystemExit(
+                f"control {cid} only REORDERS what {cs['figure_id']} draws and says nothing "
+                f"different: a student sees the same figure, so accepting it is correct and "
+                f"the control would void the batch for no reason")
+
+    items = {**specs, **ctl_specs}
     if args.only:
         items = {k: v for k, v in items.items() if args.only in k}
 
     log_dir = HERE / "out" / "ced_check_logs"
     out, t0 = {}, time.time()
     for sid, spec in items.items():
-        entry = entries.get(spec["entry_title"], {})
+        # Keyed by subject AND title: two published entries are both called
+        # "Vector arrow representation", so a title-only lookup would show the
+        # reader the wrong subject's claim.
+        entry = entries.get(f"{spec.get('subject_key')}::{spec['entry_title']}", {})
         user = prompt_for(sid, spec, entry)
         out[sid] = {"is_control": sid.startswith("CONTROL"), "verdicts": {}}
         for m in models:

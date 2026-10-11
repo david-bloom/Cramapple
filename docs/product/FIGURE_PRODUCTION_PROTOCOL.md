@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.7, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -37,6 +37,13 @@ shape.
    Anything spatial or schematic — particulate models, circuits, cell diagrams, apparatus — is
    Lane B and stops here. The existing classification of all 41 published diagram entries is in
    the assessment document.
+
+   > **`kind` IS NOT THE FILTER (2026-10-11).** `kind='diagram'` says what an entry is *about*,
+   > not whether it is drawable. "Residual plot" is `vocabulary`, "Work from a force-displacement
+   > graph" is `convention`, "Displacement from area under v–t graph" is `formula`. Lane A was
+   > scoped to the `diagram` column and left about 24 chart-shaped entries behind. Classify on the
+   > content — *is this a chart drawn from data or a function?* — and record the verdict durably,
+   > or the next session re-derives it.
 2. **Count the families, not the figures.** Six renderers covered ten Chemistry figures. If a
    batch needs a new renderer per figure, it is probably not Lane A.
 3. **Confirm the entries are published,** in Production, by title. Development and Production hold
@@ -59,6 +66,16 @@ Three rules that are not negotiable:
   constraint. It is what a student reads in a pasted document, and what a screen reader gets.
 - **`labels` live on the figure, not the entry.** A second consumer inherits them without
   re-deriving.
+
+  > **AND THEY MAY BE THE CONTRACT (`DECISION-0116`, 2026-10-11).** When the published entry
+  > authors no `items[]`, the figure's own `labels` are that entry's contract — route (b) of the
+  > handoff's §3.2, ruled by the Product Owner over ~19 entries. Three conditions, all gated:
+  > the **use** declares it (`labels_carry_contract` plus a `contract_note` naming the entry and
+  > why its body supports the labels — it is a property of the use, not of the figure, because one
+  > figure serves entries that do and do not author parts); every carried label is also in
+  > `covers`; and the figure goes through §4c **with the entry's body in the prompt**, since that
+  > reader gate is the only thing standing where the reference-pack checkers do not. An entry with
+  > no `items[]` and no declaration fails.
 - **Disclose the data.** `synthetic: true` renders ILLUSTRATIVE on the figure; `false` renders
   FROM DATA and *requires* a `values_note` saying what is sourced. If you cannot trace a number to
   a source, it is illustrative. The pilot's photoelectron spectrum was marked measured, a checker
@@ -97,6 +114,20 @@ labelled part. **Declared coverage is not rendered coverage.**
 > batch adds entries, add their published `items[]` to the fixture in the same change — and take
 > them from the environment, not from a candidate artifact, unless the digest matches (§6).
 
+> **ADDITION (2026-10-11, v1.5).** Three further holes in this gate are closed. **Coverage is owed
+> to every entry a figure is *used by*,** not only the one it was authored against: a figure
+> legitimately serves two entries and the RPC does not filter by `subject_key`, so the second
+> entry's parts went unchecked. **The fixture's `items_md5` is recomputed on every run,** so a
+> retyped or edited `items[]` fails rather than quietly redefining what coverage asserts. And an
+> entry with an empty `items[]` no longer merely prints a note — it must be declared under
+> `DECISION-0116` or it fails. That third check failed on its first run against the **published**
+> residual plot, which promised three labelled parts with an empty `covers`.
+>
+> **Coverage matches label strings exactly.** Two entries that author the same relationship in
+> different words ("Area under v vs. t" against "Area under v–t curve") need **both** wordings in
+> `covers` while `labels` keeps the one set the figure draws. Do not assume a shared figure is a
+> free `figure_uses` row until the strings have been compared.
+
 ### 4b. Look at it — legibility
 
 The tests cannot see. Every defect below passed a green suite and was found by eye:
@@ -111,7 +142,18 @@ The tests cannot see. Every defect below passed a green suite and was found by e
 | Title running off the canvas | compact is 340 units wide |
 
 Check at the **real widths**, not in isolation: 272–460px (reference pane), ~680px (question
-centre), ~980px (expanded). The `/dev-figures` and `/dev-qx-harness` local routes exist for this.
+centre), ~980px (expanded). The `/dev-figures` and `/dev-qx-harness` local routes exist for this,
+and **`build_eye_sheet.py` builds the contact sheet** — every named figure at all four containers
+on one page — so the pass is a command rather than a page rebuilt from scratch each time:
+
+```bash
+python3 -I build_eye_sheet.py --prefix "chem-mb-" --out out/eye_mb.html
+python3 -I serve.py   # http://localhost:5191/eye_mb.html
+```
+
+Its first run found a defect a green suite could not see: the compact layout drew **two**
+activation-energy barriers and named only one, because a marker's label was dropped for every
+marker past the first while its line was still drawn. A dropped label leaves an unexplained line.
 
 > **ADDITION (2026-10-11).** Two of this table's defects — the overprinting pair — were still in the
 > renderer months after being recorded here as found. Describing a defect is not fixing it, and an eye
@@ -134,6 +176,20 @@ barrier rate-determining when it was not; and a nitrogen PES with 2s=3 and 2p=2 
 still summed to Z. All three were caught.
 
 **Any control accepted voids the batch.** Cost: **$0.18 for eleven figures**, about $0.016 each.
+
+> **A CONTROL MUST BE A MISTAKE A READER CAN SEE (2026-10-11).** One control shuffled the ORDER of a
+> figure's isoline radii. That draws the same four circles, so the picture a student sees is identical
+> and nothing false is taught — a reader accepted it, correctly, and voided a batch that was sound.
+> The control was the defect, not the reader. `ced_check.py` now refuses to run a control whose
+> rendered output is a pure reordering of the original's elements with no change to its text. Note the
+> obvious form of that guard is also wrong: splitting the SVG on `>` shreds each tag into an attribute
+> part and a text part, so a control that swaps the CONTENTS of two elements compares equal and is
+> rejected though it is real. Compare whole elements.
+>
+> The errors that survive a green suite are overwhelmingly **stated in words**: the geometry is
+> generated from the parameters and is self-consistent by construction, while the title, subtitle,
+> note and alt beside it are free to say anything. Three of the five controls in each Lane B batch
+> were of exactly that kind, and all were caught.
 
 Two findings worth carrying forward:
 
@@ -182,6 +238,33 @@ the foreign key cannot check is whether the renderer exists: seeding `boxplot` w
 boxplot renderer still fails at render time, which is why the mandatory `alt` is the fallback.
 
 Apply to Development first, verify there, then Production under a Hard Gate approval.
+
+**And teach the app the family in the same breath.** `FIGURE_FAMILIES` in
+`src/lib/topic-content.ts` is a whitelist and `mapFigure` returns `null` for anything else, so a
+figure whose family the client does not know is **silently dropped**. Nine AP Statistics figures sat
+in Production invisible for exactly this reason. Port the family to `src/lib/figures/render.ts` and
+prove the port by **parity, not inspection**.
+
+> **THE PARITY CHECK IS A COMMAND (2026-10-11).** It had only ever been run by hand.
+>
+> ```bash
+> python3 -I scripts/lane-a-pilot/export_for_parity.py        # specs + every SVG, 3 layouts
+> deno run --unstable-sloppy-imports --allow-read \
+>     tests/figure-parity.ts <this-repo>/scripts/lane-a-pilot/out/parity   # in the app repo
+> ```
+>
+> Run it over **every** family, not just the new one: its first run found four drifts in figures
+> already live in Production, two in each renderer. The app's `catalogue.ts` is generated too, by
+> `build_catalogue_ts.py`, because a catalogue that has drifted from `specs.json` looks exactly like
+> one that has not.
+>
+> **Keep `hypot` out of anything that becomes a coordinate.** Python's `math.hypot` and JavaScript's
+> `Math.hypot` are both carefully written and need not agree in the last bit, while an explicit
+> `sqrt(a*a + b*b)` is IEEE-identical in both — that is what let 900-step traced field lines match
+> exactly. The same care is why `pyFixed` exists on the TypeScript side: Python rounds half to even,
+> `toFixed` rounds half away from zero, and only an exact binary tie is a real tie.
+>
+> **Merging is not publishing.** Until the app is published in Lovable, nothing reaches a student.
 
 ## 7. Production (Hard Gate every time)
 
@@ -235,6 +318,16 @@ warning every student about a problem they will not hit is noise.
 > **The remaining work in both lanes, the labelling problems underneath it, and an execution plan are
 > in `docs/handoffs/LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md`.** Read it before starting either
 > lane. The list below is the pilot's original open set and is kept for history.
+>
+> **UPDATE (2026-10-11, later the same day).** That handoff's §2a and §2e are closed and **all of
+> Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
+> Ten new figures across five new families (`arrow_diagram`, `particulate_box`, `field_map`,
+> `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
+> are **in Development only — Production is still a Hard Gate.** The app HAS now been taught the four
+> new families (`ap-prep-blueprint#11`), at **117 of 117 figure/layout pairs byte-identical across
+> all 17 families**, so the one step left before a student sees anything is the Lovable publish. The rest of the Lane A gap is classified but not
+> built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
+> `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
 - **No human expert has reviewed the illustrative values.** Two model readers accepted them with
   the controls gate passing, which is meaningful evidence but not a subject expert's sign-off.
@@ -271,6 +364,19 @@ warning every student about a problem they will not hit is noise.
   production-eligible until an entry exists.
 
 ## Change note
+
+v1.7 (2026-10-11): §6 gains the parity command, the instruction to run it over every family rather
+than the new one, and the rule that `hypot` stays out of anything that becomes a coordinate. §9
+records that the app now knows the four Lane B families.
+
+v1.6 (2026-10-11): §9 records that Lane B is built bar AP Biology, and §4c gains the rule that a
+control must be a mistake a reader can SEE -- a control that only reordered a figure's isoline radii
+drew the same picture, was correctly accepted, and voided a sound batch.
+
+v1.5 (2026-10-11): `DECISION-0116` in §3 — a figure's `labels` may be the contract for an entry that
+authors no `items[]`, declared per use and gated. §2 records that `kind` is not the lane filter. §4a
+gains coverage for every used entry, a fixture digest check, and the exact-string warning for shared
+figures. §4b gains `build_eye_sheet.py`.
 
 v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 (`APPROVAL-0153`). Supersedes nothing; the four-lane model in

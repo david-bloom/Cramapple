@@ -3,29 +3,27 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 6,
+  "figures": 3,
   "controls": 5,
   "controls_leaked": [],
-  "flagged": [
-    "precalc-residual-plot"
-  ],
-  "wall_seconds": 106.5,
+  "flagged": [],
+  "wall_seconds": 71.0,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 53,
-      "prompt": 103749,
-      "completion": 47585,
-      "seconds": 303.3
+      "calls": 95,
+      "prompt": 148313,
+      "completion": 84108,
+      "seconds": 544.9000000000001
     },
     "openai/gpt-6.1-sol": {
-      "calls": 53,
-      "prompt": 75744,
-      "completion": 5867,
-      "seconds": 222.79999999999998
+      "calls": 95,
+      "prompt": 116761,
+      "completion": 10978,
+      "seconds": 408.90000000000003
     }
   },
   "detail": {
-    "phys2-pv-isotherm-work": {
+    "phys-electric-field-map": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,7 +38,7 @@
         }
       }
     },
-    "phys2-pv-special-processes": {
+    "phys2-equipotential-map": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -55,7 +53,7 @@
         }
       }
     },
-    "phys2-potential-around-loop": {
+    "phys2-circuit-symbols": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -70,65 +68,15 @@
         }
       }
     },
-    "precalc-residual-plot": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The note says a funnel-shaped residual plot means the model is the wrong shape.",
-              "why": "A funnel shape indicates nonconstant residual variance, not necessarily an incorrect functional form. The model\u2019s mean relationship can be correctly specified even when residuals fan out."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "phys2-mb-qualitative": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "physcmech-xva-graphs": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P1-pv-work-sign-inverted": {
+    "CONTROL-F1-two-like-charges-called-a-dipole": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text incorrectly state that work done ON the gas is positive during expansion.",
-              "why": "The path expands from V = 1 to V = 3 at positive pressure, so work on the gas is W_on = -\u222bP dV < 0. The shaded area represents its magnitude, or the positive work done BY the gas. These statements also contradict the figure's own note."
+              "what": "The title, subtitle, and alt text describe opposite charges, but both source charges have q = +1.0.",
+              "why": "The parameters produce two equal positive charges, not a dipole. Field lines point away from both charges rather than leaving the left charge and arriving at the right charge."
             }
           ],
           "confidence": "high"
@@ -137,23 +85,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text contradict the note and contain a physical error regarding the sign of work.",
-              "why": "The subtitle states 'work done ON the gas, positive as it expands' and the alt text states 'work done on the gas, which is positive here because the gas expands'. However, when a gas expands, the work done ON the gas is negative ($W = -\\int P dV$). The note correctly states that 'W on the gas is negative' during expansion, which directly contradicts the subtitle and alt text."
+              "what": "The charges in the parameters both have a charge of 1.0 (positive).",
+              "why": "The title, subtitle, and alt text all state that the figure shows two opposite charges (one positive, one negative) where lines leave the positive charge and arrive at the negative one. Having both charges positive (q = 1.0) will produce a field map of two like charges (repelling), which directly contradicts the text and teaches the student incorrect physics."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P2-loop-net-change-nonzero-claim": {
+    "CONTROL-F2-field-points-up-the-potential-hill": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text says the loop ends one volt higher than it started because the battery adds energy on each trip.",
-              "why": "The plotted potential starts and ends at 0 V: +12 \u2212 8 \u2212 4 = 0 V, not +1 V. The alt text contradicts the parameters, the note, and the entry\u2019s zero-net-change statement. Battery energy input does not imply a net potential increase around a closed loop."
+              "what": "The alt text and note incorrectly state that field vectors point toward higher potential.",
+              "why": "For the positive point charge shown, potential decreases with distance. The outward electric field vectors therefore point toward lower potential, consistent with E = \u2212\u2207V and the entry's stated field direction."
             }
           ],
           "confidence": "high"
@@ -162,27 +110,77 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text contains the statement: 'ending one volt higher than it started, because the battery adds energy on each trip around the loop.'",
-              "why": "This is physically incorrect (electric potential is a state function, so a complete trip around a closed loop must have a net potential change of zero) and directly contradicts the actual plotted data (which starts and ends at 0.0 V), the subtitle ('the net change is zero'), and the note ('+12 \u2212 8 \u2212 4 = 0')."
+              "what": "The note and alt text state that electric field vectors point towards higher potential ('up the potential hill').",
+              "why": "Electric field vectors point in the direction of decreasing electric potential (down the potential hill, away from a positive charge). This is a physical error and contradicts the reference entry's labelled parts which correctly state that field vectors point in the direction of decreasing potential."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P3-residual-trend-claimed-and-misread": {
+    "CONTROL-F3-field-lines-may-cross": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text says the residuals rise steadily from left to right in a clear upward trend.",
-              "why": "The plotted residuals repeatedly rise and fall, with no clear upward trend. This also contradicts the subtitle's description of no pattern."
+              "what": "The note and alt text claim that field lines may cross near charges and that crossing indicates a strong field.",
+              "why": "Electric field lines cannot cross at a point where the field has a defined direction: crossing would assign multiple directions to the field at that point. Greater field strength is indicated by closer line spacing, not crossing."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note and alt text state that electric field lines can cross to show a strong field.",
+              "why": "Electric field lines can never cross. If they crossed, it would mean the electric field at the intersection point has two different directions, which is physically impossible. A strong field is represented by a higher density of lines (lines packed closely together), not by lines crossing."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-F4-equal-radii-read-as-equal-potential-steps": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note and alt text claim that equally spaced circles represent equal decreases in potential.",
+              "why": "For a point charge, V = kq/r, so equal radial spacing does not give equal potential differences. At radii 0.14, 0.24, 0.34, and 0.44, successive potential drops are approximately 2.976kq, 1.225kq, and 0.668kq, respectively."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The assertion in the alt text and note that 'because the circles are equally spaced the potential falls by the same amount from each circle to the next' is physically incorrect.",
+              "why": "For a point charge, the electric potential is inversely proportional to the distance from the charge ($V = kq/r$). If the isolines represent equal steps in potential, the spacing between the circles must increase as the distance from the charge increases. If the circles are equally spaced, the potential difference between successive circles decreases as you move outward, rather than remaining constant."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-F5-meter-letters-swapped": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The symbol labelled \u201cAmmeter (A)\u201d contains the letter V.",
+              "why": "A circle marked V denotes a voltmeter, not an ammeter; the label and alt text contradict the drawing parameters."
             },
             {
-              "what": "The alt text says a clear upward trend in residuals justifies the model as an appropriate fit.",
-              "why": "A systematic trend in residuals indicates that the model misses structure in the data, rather than supporting an appropriate fit."
+              "what": "The symbol labelled \u201cVoltmeter (V)\u201d contains the letter A.",
+              "why": "A circle marked A denotes an ammeter, not a voltmeter; the label and alt text contradict the drawing parameters."
             }
           ],
           "confidence": "high"
@@ -191,58 +189,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text description of the residual plot's pattern and its interpretation is statistically incorrect and contradicts the actual data.",
-              "why": "The alt text states that the points 'rise steadily from left to right in a clear upward trend, which is what justifies the model as an appropriate fit.' First, the actual data points provided in the parameters do not show an upward trend; they are randomly scattered. Second, statistically, a clear upward trend in a residual plot indicates a systematic error (non-zero slope in residuals), meaning the model is *not* an appropriate fit. A good fit is justified by a random scatter with no pattern, as correctly stated in the subtitle."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P4-mb-temperature-labels-swapped": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The temperature labels are reversed: \u201chotter gas\u201d has theta = 0.8, while \u201ccooler gas\u201d has theta = 1.6.",
-              "why": "With theta as the Maxwell\u2013Boltzmann energy scale, the larger theta produces the broader, lower peak shifted toward higher energy. Thus the curve labelled \u201ccooler gas\u201d has the hotter distribution, contradicting the labels and alt text."
-            }
-          ],
-          "confidence": "medium"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The temperature parameters ('theta') for the two gases are inverted.",
-              "why": "The 'hotter gas' is assigned a parameter value of theta = 0.8, while the 'cooler gas' is assigned theta = 1.6. Since theta represents the temperature parameter (scale parameter kT), this causes the 'hotter gas' curve to be plotted as narrower and shifted to the left (characteristic of a colder gas) and the 'cooler gas' to be plotted as broader and shifted to the right (characteristic of a hotter gas). This contradicts the labels and physical reality."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P5-tangent-slope-wrong": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The tangent on the velocity panel is drawn with slope 3.0 and labelled \"slope = a\", but the acceleration is 1.5.",
-              "why": "For v(t) = 2.0 + 1.5t, dv/dt = 1.5. A tangent with slope 3.0 is inconsistent with both the velocity graph and the acceleration panel."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The slope of the tangent on the velocity panel at t = 3.0 is set to 3.0.",
-              "why": "The acceleration is defined as a = 1.5, so the slope of the velocity-time graph (which represents acceleration) must be 1.5, not 3.0."
+              "what": "The letters inside the meter symbols for the Ammeter and Voltmeter are swapped.",
+              "why": "The Ammeter (labeled 'Ammeter (A)') is configured with the letter 'V', while the Voltmeter (labeled 'Voltmeter (V)') is configured with the letter 'A'. This will result in the symbols being drawn incorrectly and contradicting their labels."
             }
           ],
           "confidence": "high"

@@ -11,7 +11,7 @@ Exit code 1 if any check fails. Timings are written to out/results.json.
 """
 from __future__ import annotations
 
-import argparse, json, math, os, re, sys, time
+import argparse, hashlib, json, math, os, re, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render as R  # noqa: E402
@@ -23,6 +23,18 @@ OUT = os.path.join(HERE, "out")
 
 fails: list[str] = []
 checks = 0
+
+
+def ekey(subject: str | None, title: str) -> str:
+    """Entries are identified by SUBJECT AND TITLE, never by title alone.
+
+    Two published entries are both called "Vector arrow representation" -- AP
+    Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key drops
+    one of them and silently asserts the survivor's items[] for both. The same
+    concept authored twice in sibling subjects is the norm in this corpus, not
+    an accident, so the composite key is the right one everywhere.
+    """
+    return f"{subject}::{title}"
 
 
 def ck(spec_id: str, name: str, ok: bool, detail: str = "") -> None:
@@ -353,6 +365,85 @@ def p_xy_series(sid, s, svg):
         ck(sid, "the note says the area is a magnitude, per the entry's caution",
            any(w in (s.get("note") or "").lower() for w in ("magnitude", "absolute")))
 
+    if "work_area_check" in p:                # work as the area under F(x)
+        pts = p["series"][0]["points"]
+        trap = sum((pts[i + 1][0] - pts[i][0]) * (pts[i][1] + pts[i + 1][1]) / 2
+                   for i in range(len(pts) - 1))
+        want = p["work_area_check"]
+        ck(sid, "the shaded area is the work the note states",
+           abs(trap - want) < 1e-9, f"area={trap:.4f} stated={want}")
+        ck(sid, "the stated work appears in the figure's own text",
+           f"{want:.0f}" in (s.get("note") or "") and f"{want:.0f}" in s["alt"])
+        # A force that never goes negative keeps "area = work" honest without
+        # the sign discussion the entry does not author.
+        ck(sid, "the force stays non-negative, so the area is unsigned",
+           all(y >= 0 for _, y in pts))
+        ck(sid, "the shaded series is the one actually filled",
+           bool(p["series"][0].get("fill_under")))
+
+    if "zero_pressure_check" in p:            # extrapolating P-T back to P = 0
+        want = p["zero_pressure_check"]
+        meas = [sr for sr in p["series"] if sr["label"] == "measured"][0]["points"]
+        # The measured points must be collinear, or "extend the line" is a
+        # fiction, and the line they define must hit P = 0 where the figure says.
+        (x1, y1), (x2, y2) = meas[0], meas[-1]
+        slope = (y2 - y1) / (x2 - x1)
+        ck(sid, "the measured points are collinear",
+           all(abs(y - (y1 + slope * (x - x1))) < 1e-9 for x, y in meas))
+        ck(sid, "pressure rises with temperature", slope > 0)
+        root = x1 - y1 / slope
+        ck(sid, "the measured line reaches zero pressure at the stated temperature",
+           abs(root - want) < 0.01, f"root={root:.3f} stated={want}")
+        ext = [sr for sr in p["series"] if sr["label"] == "extended line"][0]["points"]
+        ck(sid, "the drawn extension starts exactly at that zero-pressure point",
+           abs(ext[0][0] - want) < 1e-9 and abs(ext[0][1]) < 1e-9, f"{ext[0]}")
+        ck(sid, "the extension is continuous with the measured line",
+           all(abs(y - (y1 + slope * (x - x1))) < 1e-9 for x, y in ext))
+        # The whole point of the entry is that the value is NOT measured there.
+        ck(sid, "the extension is drawn dashed, not as data",
+           [sr for sr in p["series"] if sr["label"] == "extended line"][0]["style"] == "dashed")
+        ck(sid, "no measured point lies in the extrapolated region",
+           all(x >= 0 for x, _ in meas))
+
+    if "ohmic_check" in p:                    # ohmic vs non-ohmic I-V
+        r_ohm = p["ohmic_check"]   # not `R`: that is the render module
+        oh = [sr for sr in p["series"] if sr["label"] == "ohmic element"][0]
+        non = [sr for sr in p["series"] if sr["label"] == "non-ohmic element"][0]
+        ck(sid, "the ohmic line passes through the origin",
+           abs(oh["points"][0][0]) < 1e-12 and abs(oh["points"][0][1]) < 1e-12)
+        ratios = [v / i for v, i in oh["points"][1:]]
+        ck(sid, "the ohmic element has one constant resistance",
+           max(ratios) - min(ratios) < 1e-9, f"spread={max(ratios)-min(ratios):.3g}")
+        ck(sid, "that constant resistance is the one stated",
+           abs(ratios[0] - r_ohm) < 1e-9, f"{ratios[0]} != {r_ohm}")
+        # R = 1/slope, not the slope: the figure must say so, because reading
+        # the slope AS the resistance is the standard error on this graph.
+        slope = oh["points"][-1][1] / oh["points"][-1][0]
+        ck(sid, "resistance is one over the slope, and the text says so",
+           abs(1 / slope - r_ohm) < 1e-9 and "1/slope" in (s.get("note") or ""),
+           f"slope={slope:.4f} 1/slope={1/slope:.3f}")
+        nr = [v / i for v, i in non["points"][1:]]
+        ck(sid, "the non-ohmic element has no single resistance",
+           max(nr) / min(nr) > 1.5, f"ratio spread {min(nr):.2f}..{max(nr):.2f}")
+        ck(sid, "the non-ohmic element also starts at the origin",
+           abs(non["points"][0][0]) < 1e-12 and abs(non["points"][0][1]) < 1e-12)
+        # A reader at gate 4c caught the alt text claiming the non-ohmic curve
+        # "climbs away from" the straight line: the gap in fact peaks near 2.5 V
+        # and then closes. Assert what the text may claim -- that the curve
+        # FLATTENS, so equal steps of potential difference add less current, and
+        # that its resistance therefore rises -- not that it diverges.
+        npts = non["points"]
+        incr = [(npts[i + 1][1] - npts[i][1]) / (npts[i + 1][0] - npts[i][0])
+                for i in range(len(npts) - 1)]
+        ck(sid, "the non-ohmic curve flattens, as its text says",
+           all(incr[i + 1] < incr[i] + 1e-12 for i in range(len(incr) - 1)),
+           f"slopes={[round(i,4) for i in incr]}")
+        ck(sid, "its resistance rises, so the ratio keeps climbing",
+           all(nr[i + 1] > nr[i] for i in range(len(nr) - 1)),
+           f"V/I={[round(r,2) for r in nr]}")
+        ck(sid, "the text does not claim the two lines keep diverging",
+           "climbs away" not in s["alt"] and "diverg" not in s["alt"].lower())
+
     if "gamma" in p:                          # PV figure 2: the four processes
         gamma, P0, V0 = p["gamma"], p["p0"], p["v0"]
         by = {sr["label"].split(" ")[0]: sr["points"] for sr in p["series"]}
@@ -377,7 +468,11 @@ def p_xy_series(sid, s, svg):
            all(ya < yi + 1e-12 for (_, ya), (_, yi)
                in zip(by["adiabatic"][1:], by["isothermal"][1:])))
 
-    if any(h["y"] == 0.0 for h in p.get("hlines", [])) and "pv_const" not in p:
+    # Keyed on an explicit params marker, like every other block here. It used
+    # to key on "has a zero line and is not the PV figure", which quietly
+    # claimed every later zero-line chart -- the work-area and P-T figures both
+    # arrived and were asked to obey Kirchhoff's loop rule.
+    if "loop_check" in p or p["series"][0].get("kind") == "scatter":
         pts = p["series"][0]["points"]
         if p["series"][0].get("kind") == "scatter":      # residual plot
             xs = [x for x, _ in pts]
@@ -512,7 +607,423 @@ def p_kinematic_panels(sid, s, svg):
            all(lo - 1e-9 <= y <= hi + 1e-9 for _, y in q["pts"]))
 
 
+def p_arrow_diagram(sid, s, svg):
+    """What a wrong arrow diagram violates.
+
+    These are drawing conventions rather than science, but they are no less
+    checkable: an arrow twice as long as another claims twice the magnitude
+    whether or not its author meant it to.
+    """
+    p = s["params"]
+    g = R.FAMILIES["arrow_diagram"](p)
+    vs = g["vectors"]
+
+    ck(sid, "every arrow has a magnitude and a direction", len(vs) >= 2 and
+       all(v["magnitude"] > 0 for v in vs))
+
+    if p.get("proportionality_check"):
+        # ONE constant of proportionality, which is the entry's own claim.
+        # Checked as a ratio between every pair, not against the scale the
+        # family computed, or it would only be testing its own arithmetic.
+        ks = [v["frac"] / v["magnitude"] for v in vs]
+        ck(sid, "one scale for every arrow: length is proportional to magnitude",
+           max(ks) - min(ks) < 1e-12, f"scales={[round(k,6) for k in ks]}")
+        big = max(vs, key=lambda v: v["magnitude"])
+        ck(sid, "the longest arrow is the largest magnitude",
+           all(v["frac"] <= big["frac"] + 1e-12 for v in vs))
+        # The drawn angle must BE the stated angle: a figure that rounds an
+        # arrow to the nearest convenient direction teaches that direction.
+        for v, a in zip(vs, p["arrows"]):
+            ck(sid, f"the drawn angle for '{v['label']}' is the angle specified",
+               abs(v["angle"] - (float(a["angle_deg"]) % 360.0)) < 1e-9)
+
+    if p.get("equilibrium_check"):
+        rx = sum(v["magnitude"] * math.cos(math.radians(v["angle"])) for v in vs)
+        ry = sum(v["magnitude"] * math.sin(math.radians(v["angle"])) for v in vs)
+        mag = max(v["magnitude"] for v in vs)
+        ck(sid, "the forces sum to zero, as the figure's text claims",
+           abs(rx) < 1e-6 * mag and abs(ry) < 1e-6 * mag,
+           f"resultant=({rx:.6f}, {ry:.6f})")
+        ck(sid, "the text says the forces balance",
+           any(w in (s.get("note") or "").lower() + s["alt"].lower()
+               for w in ("add to zero", "equilibrium", "at rest")))
+
+    if p.get("whole_forces_check"):
+        # "Whole forces only" is the entry's own labelled part, and the error it
+        # forbids is drawing a force AND its components, which counts that force
+        # twice. The first version of this check compared an arrow's magnitude
+        # against another's projection, and fired on the normal force -- whose
+        # magnitude EQUALS the weight's projection whenever the block is in
+        # equilibrium across the slope. That is physics, not a drawing error.
+        #
+        # What a decomposition actually looks like is three arrows drawn
+        # together where two perpendicular ones SUM to the third.
+        def comp(v):
+            return (v["magnitude"] * math.cos(math.radians(v["angle"])),
+                    v["magnitude"] * math.sin(math.radians(v["angle"])))
+        tol = 1e-6 * max(v["magnitude"] for v in vs)
+        bad = []
+        for i, a in enumerate(vs):
+            for j, b in enumerate(vs):
+                if j <= i:
+                    continue
+                perp = abs(abs(((a["angle"] - b["angle"] + 180) % 360) - 180) - 90) < 1e-6
+                if not perp:
+                    continue
+                ax_, ay_ = comp(a)
+                bx_, by_ = comp(b)
+                for c in vs:
+                    if c is a or c is b:
+                        continue
+                    cx_, cy_ = comp(c)
+                    if abs(ax_ + bx_ - cx_) < tol and abs(ay_ + by_ - cy_) < tol:
+                        bad.append(f"{a['label']} + {b['label']} is {c['label']}")
+        ck(sid, "whole forces only: no force is drawn beside its own components",
+           not bad, "; ".join(sorted(set(bad))[:3]))
+        ck(sid, "every arrow starts at the dot", bool(g["dot"]))
+
+    # Same-direction forces must not be drawn on top of each other: that is the
+    # entry's labelled part, and it is the one thing an offset of zero breaks.
+    groups = {}
+    for v in vs:
+        groups.setdefault(round(v["angle"], 6), []).append(v)
+    for ang, grp in groups.items():
+        if len(grp) > 1:
+            offs = sorted(v["offset"] for v in grp)
+            ck(sid, f"forces at {ang:g} deg are drawn side by side, not overlapping",
+               all(offs[i + 1] - offs[i] > 0.5 for i in range(len(offs) - 1)),
+               f"offsets={offs}")
+    # A reader at gate 4c caught the tension the ENTRY itself authors: "all
+    # force arrows originate at the dot" and "same-direction forces are drawn
+    # side by side, not overlapping" cannot both hold exactly. The sideways
+    # shift is a drafting device, so it is bounded -- an arrow stays visibly
+    # anchored to the dot -- and any figure using it must say so in its text
+    # rather than claim every arrow starts precisely there.
+    if any(v["offset"] for v in vs):
+        ck(sid, "a side-by-side shift stays small enough to read as one origin",
+           all(abs(v["offset"]) <= 1.0 for v in vs),
+           f"offsets={[v['offset'] for v in vs]}")
+        ck(sid, "the text explains the sideways shift rather than denying it",
+           ("either side" in s["alt"] or "side by side" in s["alt"])
+           and "starts at that dot" not in s["alt"],
+           "alt must not claim every arrow starts precisely at the dot")
+
+
+def _on_segment(atom, a, b, tol: float = 0.35) -> bool:
+    """Does `atom` sit on the line from a to b, within a fraction of its radius?"""
+    ax, ay = a
+    bx_, by_ = b
+    dx, dy = bx_ - ax, by_ - ay
+    L2 = dx * dx + dy * dy
+    if L2 < 1e-12:
+        return False
+    t = ((atom["x"] - ax) * dx + (atom["y"] - ay) * dy) / L2
+    if not (0.08 < t < 0.92):
+        return False
+    px, py = ax + t * dx, ay + t * dy
+    return math.hypot(atom["x"] - px, atom["y"] - py) < atom["r"] * tol
+
+
+def p_particulate_box(sid, s, svg):
+    """Counts, ratios and conservation: what a wrong particulate box violates.
+
+    These are the entries' own labelled parts, not decoration. "Atom
+    conservation" is a labelled part of the balanced-equation entry, and it is
+    exactly machine-checkable once a species knows its atoms.
+    """
+    p = s["params"]
+    g = R.FAMILIES["particulate_box"](p)
+    pans = g["panels_pb"]
+
+    ck(sid, "every panel has particles in it", all(pan["particles"] for pan in pans))
+    # A bond must join two atoms of the SAME molecule and must not be drawn
+    # through a third: water was drawn H-H with the oxygen on the line.
+    for pan in pans:
+        for d in pan["particles"]:
+            for bf in d.get("bonds", []):
+                others = [e for e in pan["particles"]
+                          if e is not d and e["species"] == d["species"]
+                          and math.hypot(e["x"] - bf[0], e["y"] - bf[1]) < 1e-9]
+                ck(sid, f"each bond in '{pan['label']}' ends on an atom of its own molecule",
+                   bool(others), f"{d['el']} bond ends at {bf}")
+                through = [e for e in pan["particles"]
+                           if e is not d and e not in others
+                           and _on_segment(e, (d["x"], d["y"]), bf)]
+                ck(sid, f"no bond in '{pan['label']}' is drawn through another atom",
+                   not through, f"{[e['el'] for e in through]} lies on a bond")
+    # A particle drawn outside its own box is not in the picture at all.
+    for pan in pans:
+        out = [d for d in pan["particles"]
+               if not (-0.02 <= d["x"] <= 1.02 and -0.02 <= d["y"] <= 1.02)]
+        ck(sid, f"every particle in '{pan['label']}' is inside its box", not out,
+           f"{len(out)} stray")
+
+    if p.get("atom_conservation_check"):
+        # The entry's own labelled part. Counted from the species' declared
+        # atoms, so it checks the chemistry rather than the circle count.
+        before, after = pans[0]["atoms"], pans[-1]["atoms"]
+        ck(sid, "every element is conserved across the arrow", before == after,
+           f"before={before} after={after}")
+        ck(sid, "the reaction actually rearranges something",
+           pans[0]["counts"] != pans[-1]["counts"],
+           "reactants and products are the same molecules")
+        ck(sid, "no element appears in the products that was not in the reactants",
+           set(after) <= set(before))
+        for el, n in before.items():
+            ck(sid, f"the figure's text states the {el} count", str(n) in (s.get("note") or ""))
+
+    if p.get("phase_check"):
+        by = {pan["label"]: pan for pan in pans}
+        ck(sid, "all three phases are drawn", set(by) == {"solid", "liquid", "gas"})
+        ck(sid, "solid and liquid hold comparable molar volume: the same count in the same box",
+           len(by["solid"]["particles"]) == len(by["liquid"]["particles"]),
+           f"solid={len(by['solid']['particles'])} liquid={len(by['liquid']['particles'])}")
+        ck(sid, "the gas is far sparser than either condensed phase",
+           len(by["gas"]["particles"]) * 2 < len(by["solid"]["particles"]),
+           f"gas={len(by['gas']['particles'])}")
+        ck(sid, "the solid is the regular arrangement and the liquid is not",
+           by["solid"]["mode"] == "lattice" and by["liquid"]["mode"] == "close")
+        # Spacing, measured rather than asserted: mean nearest-neighbour
+        # distance must actually be larger in the gas, or "far apart" is a word
+        # in the caption that the drawing does not keep.
+        def nn(pan):
+            pts = [(d["x"], d["y"]) for d in pan["particles"]]
+            return sum(min(math.hypot(a[0] - b[0], a[1] - b[1])
+                           for b in pts if b is not a) for a in pts) / len(pts)
+        # "Regular" versus "irregular" is the only difference between those two
+        # panels, so it is measured rather than asserted by a mode name: the
+        # spread of nearest-neighbour distances is near zero in a lattice and
+        # must be clearly non-zero in the liquid.
+        def disorder(pan):
+            pts = [(d["x"], d["y"]) for d in pan["particles"]]
+            ds = [min(math.hypot(a[0] - b[0], a[1] - b[1]) for b in pts if b is not a)
+                  for a in pts]
+            m = sum(ds) / len(ds)
+            return (sum((d - m) ** 2 for d in ds) / len(ds)) ** 0.5 / m
+        ck(sid, "the solid's arrangement is regular", disorder(by["solid"]) < 0.02,
+           f"spread={disorder(by['solid']):.4f}")
+        ck(sid, "the liquid's arrangement is visibly irregular, not a lattice",
+           disorder(by["liquid"]) > 0.12,
+           f"spread={disorder(by['liquid']):.4f} -- too close to a lattice to read as a liquid")
+        ck(sid, "gas particles really are further apart than liquid particles",
+           nn(by["gas"]) > nn(by["liquid"]) * 1.4,
+           f"gas={nn(by['gas']):.3f} liquid={nn(by['liquid']):.3f}")
+        # A gas must show no arrangement at all. Stepping evenly through the
+        # grid put all five on one diagonal, which reads as a pattern -- so
+        # check they are not close to collinear, by the area of the triangle
+        # each triple spans relative to the box.
+        gp = [(d["x"], d["y"]) for d in by["gas"]["particles"]]
+        tri = max(abs((b[0]-a[0])*(c[1]-a[1]) - (c[0]-a[0])*(b[1]-a[1])) / 2
+                  for i, a in enumerate(gp) for j, b in enumerate(gp[i+1:], i+1)
+                  for c in gp[j+1:])
+        ck(sid, "the gas shows no arrangement: its particles are not collinear",
+           tri > 0.02, f"largest triangle spans {tri:.4f} of the box")
+
+    if p.get("solution_check"):
+        tot = p["solution_check"]["total"]
+        for pan in pans:
+            ck(sid, f"'{pan['label']}' holds the stated total number of particles",
+               sum(pan["counts"].values()) == tot,
+               f"{sum(pan['counts'].values())} != {tot}")
+        fracs = [pan["counts"].get("solute", 0) / tot for pan in pans]
+        ck(sid, "the concentrated solution really is more concentrated",
+           fracs[-1] > fracs[0], f"{fracs}")
+        ck(sid, "both boxes are equally full, so the ratio is what differs",
+           len({sum(pan["counts"].values()) for pan in pans}) == 1)
+        # "Dissolved" means surrounded by solvent. Filling the cells in the
+        # order the species were listed clumped every solute particle into the
+        # top rows -- undissolved solute, in a figure about solutions -- so the
+        # nearest neighbour of each solute particle must be solvent.
+        for pan in pans:
+            sol = [d for d in pan["particles"] if d["species"] == "solute"]
+            clumped = []
+            for a in sol:
+                nearest = min((b for b in pan["particles"] if b is not a),
+                              key=lambda b: math.hypot(a["x"] - b["x"], a["y"] - b["y"]))
+                if nearest["species"] == "solute":
+                    clumped.append(a)
+            ck(sid, f"every solute particle in '{pan['label']}' is surrounded by solvent",
+               not clumped, f"{len(clumped)} of {len(sol)} sit next to another solute")
+
+    if p.get("equilibrium_k_check"):
+        c = p["equilibrium_k_check"]
+        eq = pans[c["panel"]]["counts"]
+        num, den = eq.get(c["numerator"], 0), eq.get(c["denominator"], 0)
+        ck(sid, "some reactant remains at equilibrium, so it is not completion",
+           den > 0, "an empty reactant box is a reaction that went to completion")
+        ck(sid, "the particle counts at equilibrium give the stated K",
+           den > 0 and abs(num / den - c["k"]) < 1e-9,
+           f"{num}/{den} != {c['k']}")
+        ck(sid, "the total number of particles is unchanged by the reaction",
+           sum(pans[0]["counts"].values()) == sum(eq.values()),
+           "A becomes B one for one, so the count cannot change")
+        ck(sid, "the figure's text shows how K is read off the counts",
+           f"{num}/{den}" in (s.get("note") or ""))
+
+    if p.get("same_matter_check"):
+        # A reader at gate 4c read the parameters and found species A declared
+        # with atoms {"A": 1} and B with {"B": 1}: as data, one element turning
+        # into another. A one-for-one conversion has to be the same matter in
+        # two forms, and the figure has to say which.
+        comps = {json.dumps(sp_["atoms"], sort_keys=True) for sp_ in p["species"].values()}
+        ck(sid, "a one-for-one conversion keeps the same matter in both forms",
+           len(comps) == 1, f"species declare different compositions: {sorted(comps)}")
+        ck(sid, "the text says what kind of change this is",
+           "isomer" in (s["subtitle"] + s["caption"] + s["alt"]).lower(),
+           "two particle types converting one for one needs naming, or it reads as transmutation")
+
+    if p.get("sea_check"):
+        pan = pans[0]
+        ck(sid, "the ions are in a regular array", pan["mode"] == "lattice")
+        ck(sid, "the ions are drawn as positive",
+           all(d.get("symbol") == "+" for d in pan["particles"]))
+        ck(sid, "there are more electrons drawn than ions, and they are free",
+           len(pan["background"]) > len(pan["particles"]),
+           "delocalized electrons must not be one-per-ion, which is what a bond looks like")
+        # Delocalized means not attached: no electron may sit on an ion.
+        close = [b for b in pan["background"]
+                 for d in pan["particles"]
+                 if math.hypot(b["x"] - d["x"], b["y"] - d["y"]) < d["r"] * 0.8]
+        ck(sid, "no electron is drawn sitting on an ion", not close,
+           f"{len(close)} electrons overlap an ion core")
+
+
+def _seg_cross(a, b, c, d) -> bool:
+    def o(p, q, r):
+        return (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
+    o1, o2, o3, o4 = o(a, b, c), o(a, b, d), o(c, d, a), o(c, d, b)
+    return (o1 > 0) != (o2 > 0) and (o3 > 0) != (o4 > 0)
+
+
+def p_field_map(sid, s, svg):
+    """The facts a wrong field map violates, taken from the entries' own labels."""
+    p = s["params"]
+    g = R.FAMILIES["field_map"](p)
+    ch = p["charges"]
+
+    for v in g["fm_vectors"]:
+        ex, ey = R._fm_field(ch, v["x"], v["y"])
+        m = math.hypot(ex, ey)
+        ck(sid, "every drawn vector points along the computed field",
+           abs(v["ux"] - ex / m) < 1e-9 and abs(v["uy"] - ey / m) < 1e-9)
+
+    if p.get("dipole_check"):
+        pos = [c for c in ch if c["q"] > 0]
+        neg = [c for c in ch if c["q"] < 0]
+        lines = g["fm_lines"]
+        ck(sid, "field lines are drawn", len(lines) >= 6)
+        # The entry's own labelled part: lines point away from positive and
+        # toward negative.
+        starts_ok = all(any(math.hypot(L[0][0] - c["x"], L[0][1] - c["y"]) < 0.05 for c in pos)
+                        for L in lines)
+        ck(sid, "every field line begins on a positive charge", starts_ok)
+        ends = [L[-1] for L in lines]
+        on_neg = sum(1 for e in ends
+                     if any(math.hypot(e[0] - c["x"], e[1] - c["y"]) < 0.06 for c in neg))
+        ck(sid, "field lines end on the negative charge", on_neg >= len(lines) * 0.6,
+           f"{on_neg} of {len(lines)} reach it; the rest leave the frame")
+        # Lines never cross: the field has ONE direction at each point, and a
+        # map that crosses is asserting two.
+        crossings = 0
+        for i in range(len(lines)):
+            for j in range(i + 1, len(lines)):
+                A, B = lines[i][::6], lines[j][::6]
+                for k in range(len(A) - 1):
+                    for l in range(len(B) - 1):
+                        if _seg_cross(A[k], A[k + 1], B[l], B[l + 1]):
+                            crossings += 1
+        ck(sid, "no two field lines cross", crossings == 0, f"{crossings} crossings")
+        ck(sid, "the figure's text says why they cannot cross",
+           "cross" in (s.get("note") or "").lower())
+        # Spacing stands for magnitude: the field must be stronger where the
+        # lines are closer, which is the claim the picture makes.
+        near = [v for v in g["fm_vectors"]
+                if min(math.hypot(v["x"] - c["x"], v["y"] - c["y"]) for c in ch) < 0.26]
+        far = [v for v in g["fm_vectors"]
+               if min(math.hypot(v["x"] - c["x"], v["y"] - c["y"]) for c in ch) > 0.38]
+        if near and far:
+            ck(sid, "the field really is stronger near the charges",
+               min(v["mag"] for v in near) > max(v["mag"] for v in far),
+               f"near>={min(v['mag'] for v in near):.3f} far<={max(v['mag'] for v in far):.3f}")
+
+    if p.get("isoline_check"):
+        isos = g["fm_isolines"]
+        ck(sid, "isolines are drawn", len(isos) >= 3)
+        # An isoline is a line of EQUAL potential: sample right round it.
+        for iso in isos:
+            vs = [R._fm_potential(ch, iso["cx"] + iso["r"] * math.cos(t * math.pi / 8),
+                                  iso["cy"] + iso["r"] * math.sin(t * math.pi / 8))
+                  for t in range(16)]
+            ck(sid, f"potential is constant along the isoline at r={iso['r']}",
+               max(vs) - min(vs) < 1e-9, f"spread={max(vs)-min(vs):.3g}")
+        rs = [iso["r"] for iso in isos]
+        ck(sid, "the isolines are drawn at increasing radius", rs == sorted(rs))
+        ck(sid, "potential falls as the isolines get larger",
+           all(isos[i]["v"] > isos[i + 1]["v"] for i in range(len(isos) - 1)),
+           f"V={[round(i['v'],3) for i in isos]}")
+        # The entry's labelled parts: perpendicular, and no component ALONG.
+        worst = 0.0
+        for v in g["fm_vectors"]:
+            c = ch[0]
+            tx, ty = -(v["y"] - c["y"]), (v["x"] - c["x"])      # tangent to the circle
+            tm = math.hypot(tx, ty)
+            if tm < 1e-9:
+                continue
+            worst = max(worst, abs(v["ux"] * tx / tm + v["uy"] * ty / tm))
+        ck(sid, "every field vector is perpendicular to its isoline",
+           worst < 1e-9, f"largest component along an isoline = {worst:.3g}")
+        ck(sid, "field vectors point towards lower potential",
+           all(R._fm_potential(ch, v["x"] + v["ux"] * 0.01, v["y"] + v["uy"] * 0.01)
+               < R._fm_potential(ch, v["x"], v["y"]) for v in g["fm_vectors"]))
+        ck(sid, "the figure's text states that no work is done along an isoline",
+           "no work" in (s.get("note") or "").lower() + s["alt"].lower())
+
+
+def p_circuit_symbols(sid, s, svg):
+    """A symbol key is right when every symbol the entry names is present,
+    distinct, and drawn the way the entry defines it."""
+    p = s["params"]
+    g = R.FAMILIES["circuit_symbols"](p)
+    cells = g["cs_cells"]
+    if not p.get("symbol_sheet_check"):
+        return
+    ck(sid, "every labelled part of the entry has a cell",
+       [c["label"] for c in cells] == s["labels"],
+       f"{[c['label'] for c in cells]}")
+    ck(sid, "no label is repeated", len({c["label"] for c in cells}) == len(cells))
+    # Two meters share one glyph and are told apart ONLY by their letter, so a
+    # missing letter would draw the ammeter and the voltmeter identically.
+    meters = [sy for sy in p["symbols"] if sy["glyph"] == "meter"]
+    ck(sid, "each meter carries the letter that distinguishes it",
+       all(sy.get("letter") for sy in meters)
+       and len({sy["letter"] for sy in meters}) == len(meters),
+       f"{[sy.get('letter') for sy in meters]}")
+    # Checked in the DRAWING, not only in the spec: the letter was declared
+    # correctly and then dropped on the way to the canvas, so the ammeter and
+    # the voltmeter rendered as two identical empty circles while this gate
+    # read the parameters and passed.
+    for sy in meters:
+        ck(sid, f"the {sy['label']} really is drawn with its letter",
+           f">{sy['letter']}</text>" in svg, "the circle renders empty without it")
+    var = [c for c in cells if c["variable"]]
+    ck(sid, "exactly one cell shows the variable-element notation", len(var) == 1)
+    # The entry defines a variable element as a STANDARD symbol plus the
+    # diagonal arrow, so it must reuse a glyph that appears elsewhere in the
+    # sheet rather than be a shape of its own.
+    ck(sid, "the variable element is a standard symbol with an arrow across it",
+       bool(var) and var[0]["base"] in {c["glyph"] for c in cells if not c["variable"]},
+       "it must reuse a symbol the sheet already shows")
+    ck(sid, "the figure's text says the arrow is a notation, not a component",
+       "notation" in (s.get("note") or "").lower())
+    ck(sid, "every cell is drawn and labelled",
+       svg.count("</text>") >= len(cells))
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
+    "arrow_diagram": p_arrow_diagram,
+    "particulate_box": p_particulate_box,
+    "field_map": p_field_map,
+    "circuit_symbols": p_circuit_symbols,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
@@ -628,6 +1139,24 @@ def main() -> int:
             # was an ARROW rendered off-canvas, and a text-only check would have
             # missed it -- as it missed a mis-converted tangent slope that drew
             # two near-vertical dashed lines straight off the bottom edge.
+            # <path> too. Field lines and arrowheads are paths, and a check
+            # that reads only text, lines and circles cannot see a curve that
+            # leaves the canvas -- which is the defect this gate exists for.
+            for pm in re.finditer(r'<path[^>]*\sd="([^"]*)"', lsvg):
+                d_ = pm.group(1)
+                # Only straight-segment paths are parsed: in an arc command the
+                # radii and the two flags are not coordinates, and reading every
+                # number as an alternating x/y flagged the pie chart's wedges
+                # for its own sweep flags. An arc path is simply not checked
+                # here, and the geometry tests cover those families instead.
+                if re.search(r'[AaCcQqSsTt]', d_):
+                    continue
+                nums = [float(t) for t in re.findall(r'-?\d+(?:\.\d+)?', d_)]
+                pxs, pys = nums[0::2], nums[1::2]
+                if any(v < -0.5 or v > cw + 0.5 for v in pxs) or \
+                   any(v < -0.5 or v > chh + 0.5 for v in pys):
+                    offenders.append(("path", round(min(pxs or [0]), 1),
+                                      round(max(pxs or [0]), 1)))
             for tag, xs_, ys_ in (
                 ("line", ("x1", "x2"), ("y1", "y2")),
                 ("circle", ("cx",), ("cy",)),
@@ -703,6 +1232,24 @@ def main() -> int:
                 ck(sid, f"{which} axis is not drawn, so its meaning is in the alt text",
                    any(w in alt or w[:-1] in alt or w + "s" in alt for w in words),
                    f"none of {words} appears in alt")
+        # Glyphs the figure font does not carry. U+2225 PARALLEL TO renders as a
+        # plain "I" in Helvetica, so "F-parallel" reached the eye pass reading
+        # "FI" -- a different symbol, stated to a student as fact. Caught by eye
+        # at 460px; a check now, because the next one will not be noticed.
+        UNDRAWABLE = {"\u2225": "PARALLEL TO", "\u2016": "DOUBLE VERTICAL LINE",
+                      "\u29f8": "BIG SOLIDUS", "\u2a2f": "VECTOR CROSS PRODUCT"}
+        drawn = " ".join(str(x) for x in (
+            spec.get("title", ""), spec.get("short_title", ""), spec.get("subtitle", ""),
+            spec.get("caption", ""), spec.get("x_label", ""), spec.get("y_label", ""),
+            spec.get("note", "") or "", " ".join(spec.get("labels", [])),
+            " ".join(str(t) for _, t in spec["params"].get("x_ticks", []) or []),
+            " ".join(m.get("label", "") for sr in spec["params"].get("series", []) or []
+                     for m in sr.get("marks", []) or []),
+            " ".join(h.get("label", "") for h in spec["params"].get("hlines", []) or []),
+        ))
+        bad = sorted({f"{g} ({n})" for g, n in UNDRAWABLE.items() if g in drawn})
+        ck(sid, "every drawn string uses glyphs the figure font can render", not bad, f"{bad}")
+
         ck(sid, "has accessible title and description", "<title" in svg and "<desc" in svg and len(spec["alt"]) > 80)
         ck(sid, "illustrative data is disclosed",
            (not spec.get("synthetic")) or "illustrative" in (svg + spec["alt"]).lower())
@@ -714,16 +1261,37 @@ def main() -> int:
         if not spec.get("reference_entry_id"):
             unpublished.append(sid)
             continue
-        by_entry.setdefault(spec["entry_title"], {"specs": [], "covers": set()})
-        by_entry[spec["entry_title"]]["specs"].append(sid)
-        by_entry[spec["entry_title"]]["covers"].update(spec.get("covers", []))
+        # Coverage is owed to EVERY entry this figure is used by, not only to the
+        # one it was authored against. One figure legitimately serves two entries
+        # -- the same concept is authored twice in sibling subjects, and the RPC
+        # does not filter a figure by subject_key -- and the second entry's
+        # labelled parts went unchecked while only `entry_title` was read here.
+        uses = [u for u in spec.get("used_by", []) if u.get("title")]
+        used_titles = [ekey(u.get("subject_key") or spec.get("subject_key"), u["title"])
+                       for u in uses]
+        # Carrying the contract is a property of the USE, not of the figure: the
+        # kinematics panels serve an entry with four authored parts AND two
+        # formula entries with none, so one figure-level flag could only be
+        # wrong for one of them.
+        for u in uses or [{"title": spec["entry_title"],
+                           "labels_carry_contract": spec.get("labels_carry_contract")}]:
+            t = ekey(u.get("subject_key") or spec.get("subject_key"), u["title"])
+            by_entry.setdefault(t, {"specs": [], "covers": set(), "labels": set(),
+                                    "carriers": []})
+            by_entry[t]["specs"].append(sid)
+            by_entry[t]["covers"].update(spec.get("covers", []))
+            by_entry[t]["labels"].update(spec.get("labels", []))
+            if u.get("labels_carry_contract") or spec.get("labels_carry_contract"):
+                by_entry[t]["carriers"].append(sid)
         results[sid] = {"family": spec["family"], "entry": spec["entry_title"],
+                        "used_by": used_titles,
                         "render_ms": round(ms, 3), "bytes": len(svg.encode())}
 
     # Coverage is a property of the ENTRY, not of one figure: an entry whose
     # labelled parts span two charts is covered only when both are rendered.
     coverage = {}
     for title, agg in by_entry.items():
+        # `title` is the composite key; its readable half is after the "::".
         authored = [i.get("label") for i in ((entries.get(title) or {}).get("items") or [])]
         # A missing fixture is not a clean pass. An entry the corpus really does
         # author with no labelled parts is a legitimate state, though -- a
@@ -732,13 +1300,55 @@ def main() -> int:
         ck(title, "authored items[] are present to check against",
            "items" in (entries.get(title) or {}),
            f"entry absent from or stripped in {os.path.basename(args.entries)}")
-        if "items" in (entries.get(title) or {}) and not authored:
-            print(f"  note: {title} is authored with no labelled parts; "
-                  f"coverage asserts nothing for it")
+        # The fixture stands in for Production, so it has to be provably the
+        # array that was read from there: md5(label>>meaning joined on '|'),
+        # the digest the fixture was built by. A retyped or edited items[]
+        # changes the digest and fails here instead of quietly redefining
+        # what the coverage gate asserts.
+        ent = entries.get(title) or {}
+        if "items_md5" in ent:
+            calc = hashlib.md5("|".join(
+                f"{i.get('label','')}\u00bb{i.get('meaning','')}"
+                for i in (ent.get("items") or [])).encode()).hexdigest()
+            ck(title, "fixture items[] still match their recorded digest",
+               calc == ent["items_md5"], f"{calc} != {ent['items_md5']}")
+        if "body_md5" in ent:
+            ck(title, "fixture body still matches its recorded digest",
+               hashlib.md5((ent.get("body") or "").encode()).hexdigest() == ent["body_md5"])
+        # DECISION-0116 (Product Owner, 2026-10-11): when the entry authors no
+        # labelled parts, the FIGURE'S OWN `labels` are the contract. That used
+        # to print a note and assert nothing, which is how ~19 candidate entries
+        # could have carried figures that promised nothing. Route (b) is now a
+        # deliberate, per-figure declaration with a gate behind it, because the
+        # figures table is a side door into the corpus that the reference-pack
+        # checkers do not watch -- see the handoff's SS3.2.
+        carries = "items" in (entries.get(title) or {}) and not authored
+        if carries:
+            ck(title, "a figure declares it carries the contract (DECISION-0116)",
+               bool(agg["carriers"]),
+               "entry authors no items[]; set labels_carry_contract on its figure")
+            ck(title, "the carried contract is non-empty", bool(agg["labels"]),
+               "a figure carrying the contract must declare labelled parts")
+            # Self-declared, but not self-serving: `covers` is what the coverage
+            # gate reads and `labels` is what the student is promised, so a
+            # figure may not promise a part it does not also declare it draws.
+            uncovered = sorted(l for l in agg["labels"] if l not in agg["covers"])
+            ck(title, "every carried label is also declared covered", not uncovered,
+               f"labels not in covers: {uncovered}")
+            # DECISION-0116 makes the two-reader gate the only check standing
+            # where the reference-pack checkers do not, and ced_check.py shows
+            # the reader the entry's `body` as its claim. With no body in the
+            # fixture that prompt said "claim: (not available)" -- the reader
+            # would be judging the figure against nothing at all.
+            ck(title, "the entry's claim is in the fixture for the reader gate",
+               bool((entries.get(title) or {}).get("body")),
+               "route (b) needs the published body in prod_entries.json")
         missing = [a for a in authored if a not in agg["covers"]]
         ck(title, "every authored labelled part is covered", not missing, f"missing={missing}")
         coverage[title] = {"figures": agg["specs"], "authored_labels": len(authored),
-                           "covered": len(authored) - len(missing), "missing": missing}
+                           "covered": len(authored) - len(missing), "missing": missing,
+                           "contract": "figure_labels" if carries else "entry_items",
+                           "carried_labels": sorted(agg["labels"]) if carries else []}
 
     # Copy notes: the notice fires only when a figure is actually in the copy,
     # and every figure survives the export as text even when the drawing does not.

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
 - DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
 - DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
 - DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
@@ -65,6 +66,42 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
+
+- **Date:** 2026-10-11
+- **Decided by:** David Bloom (Product Owner), in session, asked as the handoff's open decision 1 of 5.
+  Options put were (a) author the entry's `items[]` first through the reference-pack pipeline and its
+  checkers, or (b) let the figure's own `labels` carry the parts. Answer: **(b)**.
+- **Context:** `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md` §3.2. Of roughly 24 chart-shaped
+  entries outside `kind='diagram'`, **19 author no labelled parts at all.** The coverage gate (protocol
+  §4a) checks a figure's `covers` against the entry's `items[]`, so for those entries it asserted
+  nothing: `verify.py` printed a note and moved on. The handoff states the risk of (b) plainly — the
+  `figures` table is a side door into the corpus that the reference-pack checkers do not watch — and
+  asked for one ruling because it governs ~19 entries rather than the single residual plot that had
+  already been built this way.
+- **Decisions:**
+  1. **Route (b).** When a published entry authors no `items[]`, the figure's own `labels` are that
+     entry's contract. The entry does not have to be re-authored first.
+  2. **It is declared, not assumed.** A use that carries the contract says so
+     (`labels_carry_contract` with a `contract_note` naming the entry and why its body supports the
+     labels). Silence is not route (b); an entry with no `items[]` and no declaration **fails**.
+  3. **It is a property of the USE, not of the figure.** One figure serves several entries —
+     `physcmech-xva-graphs` serves an entry with four authored parts and two formula entries with
+     none — so a figure-level flag could only ever be right for one of them.
+  4. **The carried contract is gated.** Every carried label must also be declared covered, so a
+     figure cannot promise the student a part it does not claim to draw; and the existing
+     canvas-overflow and overprint checks then assert it is really rendered, at all three layouts.
+  5. **The two-reader gate (§4c) still applies, with the entry's body in the prompt.** That is the
+     only thing standing where the reference-pack checkers do not, so it is not optional for a
+     figure taking route (b).
+- **Found on the first run.** The gate failed immediately against the one figure that had already
+  taken route (b): the **published** AP Precalculus residual plot declared three labelled parts and
+  an empty `covers`, so the coverage gate asserted nothing for it. Fixed in the same change.
+- **Records:** `scripts/lane-a-pilot/verify.py`, `FIGURE_PRODUCTION_PROTOCOL.md` v1.5.
+- **Still open from the same handoff:** §3.3 (alias, normalise or accept the three cross-subject
+  duplicate entries), §4.4 (commission, license or schematic for the four AP Biology structures),
+  and the standing item that no human subject expert has reviewed any batch's illustrative values.
 
 ## DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
 

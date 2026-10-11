@@ -2,6 +2,7 @@
   "_note": "Lane A figure catalogue. Each figure is a FIRST-CLASS OBJECT with its own figure_id, title, caption and labels, so the same figure can be recalled and shown in more than one place: beside a reference entry, beside a question, or on its own. `used_by` lists those places; it is a list, not a single owner. `covers` records which of a linked entry's authored items[] labels this figure renders, and verify.py checks it per entry. `layout` is chosen by the container at render time: compact (272-460px side pane), full (~680px question pane), expanded (enlarge control, notes sheet single column).",
   "chem-mb-energy": {
     "entry_title": "Maxwell-Boltzmann energy distribution",
+    "subject_key": "ap_chemistry",
     "family": "mb_distribution",
     "title": "Maxwell–Boltzmann energy distribution",
     "subtitle": "Raising the temperature increases the fraction of particles beyond Ea",
@@ -57,15 +58,25 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "a8b1c71d-23ad-40f7-8d4f-2ae84cfe5e97",
         "title": "Maxwell-Boltzmann energy distribution",
         "role": "primary"
+      },
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "19f8ed7e-e164-4eba-b6ab-572f2493d5ab",
+        "title": "Maxwell-Boltzmann distribution",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 3.5 is a vocabulary entry with no items[]; this figure's six labels are the contract (DECISION-0116, route b)."
       }
     ],
     "caption": "Raising the temperature increases the fraction of particles beyond Ea"
   },
   "chem-mb-catalysis": {
-    "entry_title": "Maxwell-Boltzmann distribution (catalysis)",
+    "entry_title": "How a catalyst increases rate",
     "family": "mb_distribution",
     "title": "Maxwell–Boltzmann distribution: effect of a catalyst",
     "subtitle": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature",
@@ -76,8 +87,11 @@
     "synthetic": true,
     "y_tick_fmt": "{:.2f}",
     "covers": [
-      "x-axis",
-      "y-axis"
+      "Distribution curve at a fixed temperature",
+      "Uncatalysed activation energy (Ea)",
+      "Catalysed activation energy (Ea′)",
+      "Area beyond the catalysed barrier",
+      "Same temperature, same curve"
     ],
     "params": {
       "x_max": 8.0,
@@ -101,19 +115,33 @@
         }
       ]
     },
-    "reference_entry_id": null,
-    "unpublished": "No published app.unit_reference_entries row with this title in Production (read 2026-10-10). It exists only as a seed candidate. The nearest published rows are the Unit 5 convention 'How a catalyst increases rate' and the Unit 3 vocabulary 'Maxwell-Boltzmann distribution'. Kept as a figure, excluded from coverage, and not production-eligible until an entry exists for it.",
+    "reference_entry_id": "db0cffb5-ecb9-48a7-b3ff-0ec4808064eb",
     "figure_id": "chem-mb-catalysis",
     "short_title": "Catalyst lowers Ea",
     "labels": [
-      "x-axis",
-      "y-axis"
+      "Distribution curve at a fixed temperature",
+      "Uncatalysed activation energy (Ea)",
+      "Catalysed activation energy (Ea′)",
+      "Area beyond the catalysed barrier",
+      "Same temperature, same curve"
     ],
-    "used_by": [],
-    "caption": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature"
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "db0cffb5-ecb9-48a7-b3ff-0ec4808064eb",
+        "title": "How a catalyst increases rate",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 5.11 'How a catalyst increases rate' is a convention with no authored items[], so this figure's labels are the contract (DECISION-0116, route b). The entry's body names the lower-activation-energy path, which is what the two barriers draw."
+      }
+    ],
+    "caption": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature",
+    "subject_key": "ap_chemistry"
   },
   "chem-energy-profile-single": {
     "entry_title": "Single-step reaction energy profile",
+    "subject_key": "ap_chemistry",
     "family": "energy_profile",
     "title": "Single-step reaction energy profile",
     "subtitle": "Reactants, one transition state, products",
@@ -180,6 +208,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "72fc0712-93d5-4726-994d-9bf32533650f",
         "title": "Single-step reaction energy profile",
         "role": "primary"
@@ -189,6 +218,7 @@
   },
   "chem-energy-profile-multistep": {
     "entry_title": "Multistep reaction energy profile",
+    "subject_key": "ap_chemistry",
     "family": "energy_profile",
     "title": "Multistep reaction energy profile",
     "subtitle": "Each elementary step contributes its own barrier; the largest sets the rate",
@@ -267,6 +297,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "c091c61d-b604-49ef-9458-1a3e2c9ec4c8",
         "title": "Multistep reaction energy profile",
         "role": "primary"
@@ -276,6 +307,7 @@
   },
   "chem-energy-diagram-process": {
     "entry_title": "Energy diagram for a physical or chemical process",
+    "subject_key": "ap_chemistry",
     "family": "energy_profile",
     "title": "Energy diagram for a process",
     "subtitle": "Products below reactants means energy is released: the process is exothermic",
@@ -325,6 +357,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "7991d5a2-d11c-4c64-8379-8db7ef71308a",
         "title": "Energy diagram for a physical or chemical process",
         "role": "primary"
@@ -334,6 +367,7 @@
   },
   "chem-mass-spectrum": {
     "entry_title": "Mass spectrum of a single element",
+    "subject_key": "ap_chemistry",
     "family": "stick_spectrum",
     "title": "Mass spectrum of a single element",
     "subtitle": "Magnesium: one peak per isotope, height set by natural abundance",
@@ -384,6 +418,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "e45e865a-a13f-4848-8298-7ea6b63cfb28",
         "title": "Mass spectrum of a single element",
         "role": "primary"
@@ -393,6 +428,7 @@
   },
   "chem-pes": {
     "entry_title": "Photoelectron spectrum (PES)",
+    "subject_key": "ap_chemistry",
     "family": "stick_spectrum",
     "title": "Photoelectron spectrum",
     "subtitle": "Nitrogen (1s2 2s2 2p3): one peak per subshell, height set by electron count",
@@ -453,6 +489,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "45ccd905-8e06-4861-b1b1-c121f3fbc738",
         "title": "Photoelectron spectrum (PES)",
         "role": "primary"
@@ -462,6 +499,7 @@
   },
   "chem-pe-internuclear": {
     "entry_title": "Potential energy vs. internuclear distance graph",
+    "subject_key": "ap_chemistry",
     "family": "pe_vs_distance",
     "title": "Potential energy vs. internuclear distance",
     "subtitle": "The minimum gives the bond length; the well depth gives the bond energy",
@@ -515,6 +553,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "48325bcd-4ae7-4cec-a868-5f31235955b7",
         "title": "Potential energy vs. internuclear distance graph",
         "role": "primary"
@@ -524,6 +563,7 @@
   },
   "chem-approach-equilibrium": {
     "entry_title": "Graphs showing the approach to equilibrium",
+    "subject_key": "ap_chemistry",
     "family": "approach_equilibrium",
     "title": "Approach to equilibrium",
     "subtitle": "Concentrations change, then level off (figure 1 of 2)",
@@ -570,6 +610,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "813d1348-e951-4e53-8a39-46ccd1c4f3a6",
         "title": "Graphs showing the approach to equilibrium",
         "role": "primary"
@@ -579,6 +620,7 @@
   },
   "chem-titration": {
     "entry_title": "Titration curve (pH vs. volume of titrant)",
+    "subject_key": "ap_chemistry",
     "family": "titration_curve",
     "title": "Titration curve",
     "subtitle": "Weak acid with strong base: pH = pKa at the half-equivalence point",
@@ -616,6 +658,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "b9240e57-3a72-482f-ac24-44a82a3147bb",
         "title": "Titration curve (pH vs. volume of titrant)",
         "role": "primary"
@@ -625,6 +668,7 @@
   },
   "chem-approach-equilibrium-rate": {
     "entry_title": "Graphs showing the approach to equilibrium",
+    "subject_key": "ap_chemistry",
     "family": "approach_equilibrium",
     "title": "Approach to equilibrium: rates",
     "subtitle": "Forward and reverse rates converge and become equal (figure 2 of 2)",
@@ -671,6 +715,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
         "id": "813d1348-e951-4e53-8a39-46ccd1c4f3a6",
         "title": "Graphs showing the approach to equilibrium",
         "role": "primary"
@@ -721,6 +766,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "1e69860e-9cb2-4add-b5e7-56de57ffb923",
         "title": "Bar chart",
         "role": "primary"
@@ -771,6 +817,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "8d7ba653-9267-4fc9-a64f-3fb8cd3608fe",
         "title": "Pie chart",
         "role": "primary"
@@ -844,6 +891,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "a6dd4719-38b4-4c22-b75b-340fd8d723d4",
         "title": "Dotplot",
         "role": "primary"
@@ -904,6 +952,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "2ca6c106-f421-4f7e-bc35-b8c11af3d372",
         "title": "Histogram",
         "role": "primary"
@@ -962,6 +1011,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "43b3f12b-0dd3-4daf-b0f6-5394af5a58f6",
         "title": "Stem-and-leaf plot",
         "role": "primary"
@@ -1038,6 +1088,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "02a70186-bee3-4a13-9eb3-996261c84820",
         "title": "Boxplot",
         "role": "primary"
@@ -1094,6 +1145,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "fb53d02f-e227-4a5c-b5aa-557ed879de0d",
         "title": "Graphs for two categorical variables",
         "role": "primary"
@@ -1151,6 +1203,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "fb53d02f-e227-4a5c-b5aa-557ed879de0d",
         "title": "Graphs for two categorical variables",
         "role": "primary"
@@ -1209,6 +1262,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_statistics",
         "id": "fb53d02f-e227-4a5c-b5aa-557ed879de0d",
         "title": "Graphs for two categorical variables",
         "role": "primary"
@@ -2253,6 +2307,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
         "id": "4b5054c8-56fc-40fb-a004-5f5516484c8e",
         "title": "Pressure–volume (PV) diagram",
         "role": "primary"
@@ -3648,6 +3703,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
         "id": "4b5054c8-56fc-40fb-a004-5f5516484c8e",
         "title": "Pressure–volume (PV) diagram",
         "role": "primary"
@@ -3779,7 +3835,8 @@
             }
           ]
         }
-      ]
+      ],
+      "loop_check": true
     },
     "figure_id": "phys2-potential-around-loop",
     "reference_entry_id": "c4897673-8f4c-4895-8ef0-8572f1075a3b",
@@ -3788,6 +3845,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
         "id": "c4897673-8f4c-4895-8ef0-8572f1075a3b",
         "title": "Graph of electric potential versus position in a loop",
         "role": "primary"
@@ -3809,7 +3867,11 @@
     "note": "A curve, or a long run of residuals with the same sign, says the model is the wrong shape; a funnel says the spread is not constant. Either is a pattern.",
     "synthetic": true,
     "y_tick_fmt": "{:.0f}",
-    "covers": [],
+    "covers": [
+      "Residual (actual − predicted)",
+      "Zero line",
+      "No pattern"
+    ],
     "labels": [
       "Residual (actual − predicted)",
       "Zero line",
@@ -3890,9 +3952,12 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_precalculus",
         "id": "f1659a1b-9d7e-4e3e-9e70-4c02d9e7cbaf",
         "title": "Residual plot",
-        "role": "primary"
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 2.6 'Residual plot' is published as kind='vocabulary' with no authored items[], so this figure's own labels are the entry's contract (DECISION-0116, route b). All three are drawn and described in the alt text."
       }
     ],
     "subject_key": "ap_precalculus",
@@ -3943,6 +4008,7 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
         "id": "73860b56-1513-465a-adc7-fea8937b8799",
         "title": "Maxwell–Boltzmann distribution (qualitative)",
         "role": "primary"
@@ -3967,7 +4033,11 @@
       "Slope of tangent on x–t graph",
       "Slope of tangent on v–t graph",
       "Area under v–t curve",
-      "Area under a–t curve"
+      "Area under a–t curve",
+      "Slope of tangent on x vs. t",
+      "Slope of tangent on v vs. t",
+      "Area under v vs. t",
+      "Area under a vs. t"
     ],
     "labels": [
       "Slope of tangent on x–t graph",
@@ -4023,12 +4093,1497 @@
     "used_by": [
       {
         "kind": "reference_entry",
+        "subject_key": "ap_physics_c_mechanics",
         "id": "40401fd7-a30d-419c-9ffd-4bf0e28f4589",
         "title": "Reading x(t), v(t), a(t) graphs",
         "role": "primary"
+      },
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_1",
+        "id": "5e5c40a0-ee09-4392-bed9-c6ff6fc351ea",
+        "title": "Slope and area relationships on motion graphs",
+        "role": "secondary"
+      },
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_c_mechanics",
+        "id": "9a401f23-a30e-4bdb-a9c1-5301c91e8e7a",
+        "title": "Displacement from area under v–t graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "The formula entry authors no items[]; the v-t panel and its shaded area are the contract (DECISION-0116, route b)."
+      },
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_c_mechanics",
+        "id": "dde13c1a-e316-4df1-ad15-b1c17d2eb697",
+        "title": "Change in velocity from area under a–t graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "The formula entry authors no items[]; the a-t panel and its shaded area are the contract (DECISION-0116, route b)."
       }
     ],
     "subject_key": "ap_physics_c_mechanics",
     "entry_kind": "diagram"
+  },
+  "phys-work-force-displacement": {
+    "entry_title": "Work from a force-displacement graph",
+    "subject_key": "ap_physics_1",
+    "family": "xy_series",
+    "figure_id": "phys-work-force-displacement",
+    "title": "Work as the area under a force-displacement graph",
+    "short_title": "Work is the area",
+    "subtitle": "Only the component of force along the motion counts",
+    "caption": "The component of the force along the motion, against displacement. The force is constant for the first 2 m, then falls steadily to zero at 6 m; the shaded area is the work it does.",
+    "x_label": "displacement along the motion (m)",
+    "y_label": "force component along the motion (N)",
+    "alt": "A graph of the component of a force along the direction of motion, against displacement. The force holds steady at 8 newtons from 0 to 2 metres, then falls in a straight line to zero at 6 metres. The whole region between that line and the horizontal axis is shaded, because the area under the graph is the work the force does: 16 joules from the flat part and 16 more from the triangle, 32 joules in total. Reading a value off the curve gives a force, not a work; only the area is the work. Illustrative data.",
+    "note": "Area = 32 J: the rectangle is 16 J and the triangle is 16 J.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.0f}",
+    "labels": [
+      "Force component along the motion",
+      "Displacement along the motion",
+      "Shaded area is the work done"
+    ],
+    "covers": [
+      "Force component along the motion",
+      "Displacement along the motion",
+      "Shaded area is the work done"
+    ],
+    "params": {
+      "x_range": [
+        -0.3,
+        6.6
+      ],
+      "y_range": [
+        -0.9,
+        9.6
+      ],
+      "y_ticks": [
+        0,
+        2,
+        4,
+        6,
+        8
+      ],
+      "work_area_check": 32.0,
+      "series": [
+        {
+          "label": "force along the motion",
+          "style": "solid",
+          "fill_under": true,
+          "points": [
+            [
+              0.0,
+              8.0
+            ],
+            [
+              2.0,
+              8.0
+            ],
+            [
+              6.0,
+              0.0
+            ]
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "b70693d3-b75c-48aa-8027-ee0735d3ca9d",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_1",
+        "id": "b70693d3-b75c-48aa-8027-ee0735d3ca9d",
+        "title": "Work from a force-displacement graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 1 3.2 is a convention with no authored items[]; the curve, the displacement axis and the shaded area are the contract (DECISION-0116, route b). The entry's body says work equals the area under the curve, which is exactly what is shaded."
+      },
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_c_mechanics",
+        "id": "f327782a-c11e-480d-8621-6bc4b4e25fd9",
+        "title": "Work as area under an F∥ vs. displacement graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics C Mechanics 3.2 authors the same convention in different words with no items[]; one figure serves both (DECISION-0116, route b). The RPC does not filter a figure by subject_key."
+      }
+    ]
+  },
+  "phys2-zero-pressure-temperature": {
+    "entry_title": "Zero-pressure temperature from a P–T graph",
+    "subject_key": "ap_physics_2",
+    "family": "xy_series",
+    "figure_id": "phys2-zero-pressure-temperature",
+    "title": "Finding the zero-pressure temperature by extrapolation",
+    "short_title": "Extrapolate to P = 0",
+    "subtitle": "The line is extended well past the measurements to reach zero pressure",
+    "caption": "Pressure of a fixed amount of gas held at constant volume, measured between 0 °C and 100 °C, with the straight line extended backwards until the pressure reaches zero.",
+    "x_label": "temperature (°C)",
+    "y_label": "pressure (kPa)",
+    "alt": "A graph of the pressure of a fixed sample of gas at constant volume against its temperature in degrees Celsius. Five measured points from 0 to 100 degrees lie on a rising straight line. That line is continued as a dashed extension far to the left, beyond any measurement, until it crosses zero pressure at about minus 273 degrees Celsius, which is the zero-pressure temperature. The point is reached by extending the line, not by measuring there: no gas stays a gas that cold. Illustrative data.",
+    "note": "No measurement is taken near −273 °C; the temperature is read off the extended line.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.0f}",
+    "labels": [
+      "Measured pressure at each temperature",
+      "Extrapolation beyond the measurements",
+      "Zero-pressure temperature"
+    ],
+    "covers": [
+      "Measured pressure at each temperature",
+      "Extrapolation beyond the measurements",
+      "Zero-pressure temperature"
+    ],
+    "params": {
+      "x_range": [
+        -300.0,
+        130.0
+      ],
+      "y_range": [
+        -14.0,
+        152.0
+      ],
+      "y_ticks": [
+        0,
+        50,
+        100,
+        150
+      ],
+      "x_ticks": [
+        [
+          -273.15,
+          "−273"
+        ],
+        [
+          -150.0,
+          "−150"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          100.0,
+          "100"
+        ]
+      ],
+      "zero_pressure_check": -273.15,
+      "series": [
+        {
+          "label": "extended line",
+          "style": "dashed",
+          "points": [
+            [
+              -273.15,
+              0.0
+            ],
+            [
+              0.0,
+              100.0
+            ]
+          ],
+          "marks": [
+            {
+              "x": -273.15,
+              "y": 0.0,
+              "label": "P = 0 at −273 °C",
+              "place": "above"
+            }
+          ]
+        },
+        {
+          "label": "measured",
+          "style": "solid",
+          "points": [
+            [
+              0.0,
+              100.0
+            ],
+            [
+              25.0,
+              109.1524803221673
+            ],
+            [
+              50.0,
+              118.30496064433463
+            ],
+            [
+              75.0,
+              127.4574409665019
+            ],
+            [
+              100.0,
+              136.60992128866926
+            ]
+          ]
+        }
+      ],
+      "hlines": [
+        {
+          "y": 0.0,
+          "label": "zero pressure"
+        }
+      ]
+    },
+    "reference_entry_id": "4c2873ad-c13c-4b2c-9ced-113deba34f24",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
+        "id": "4c2873ad-c13c-4b2c-9ced-113deba34f24",
+        "title": "Zero-pressure temperature from a P–T graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 2 9.2 is a convention with no authored items[]; the measured points, the extended line and the zero-pressure temperature it reaches are the contract (DECISION-0116, route b). The entry's body names extrapolation, which is why the extension is drawn dashed and the note says no measurement is taken there."
+      }
+    ]
+  },
+  "phys2-ohmic-iv": {
+    "entry_title": "Ohmic materials and the I–ΔV graph",
+    "subject_key": "ap_physics_2",
+    "family": "xy_series",
+    "figure_id": "phys2-ohmic-iv",
+    "title": "Current against potential difference: ohmic and non-ohmic",
+    "short_title": "Ohmic is straight",
+    "subtitle": "A straight line through the origin is what makes an element ohmic",
+    "caption": "Current against potential difference for two elements. The ohmic one is a straight line through the origin of slope 0.040 A/V, so its resistance is 25 Ω; the other bends, so no single resistance describes it.",
+    "x_label": "potential difference ΔV (V)",
+    "y_label": "current I (A)",
+    "alt": "A graph of current against potential difference for two circuit elements, both starting at the origin. The ohmic element gives a straight line: doubling the potential difference doubles the current, so the ratio is fixed and the resistance is constant at 25 ohms. The second element's line rises steeply at first and then flattens, so equal steps in potential difference add less and less current; its ratio of potential difference to current keeps climbing and no single resistance describes it. The resistance of the ohmic element is one divided by the slope, not the slope itself. Illustrative data.",
+    "note": "Resistance is 1/slope here: the slope is 0.040 A/V, so R = 25 Ω.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.2f}",
+    "labels": [
+      "Ohmic element: a straight line through the origin",
+      "Resistance is one over the slope",
+      "Non-ohmic element: the line bends"
+    ],
+    "covers": [
+      "Ohmic element: a straight line through the origin",
+      "Resistance is one over the slope",
+      "Non-ohmic element: the line bends"
+    ],
+    "params": {
+      "x_range": [
+        -0.35,
+        5.6
+      ],
+      "y_range": [
+        -0.035,
+        0.3
+      ],
+      "y_ticks": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25
+      ],
+      "ohmic_check": 25.0,
+      "series": [
+        {
+          "label": "ohmic element",
+          "style": "solid",
+          "points": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.25,
+              0.05
+            ],
+            [
+              2.5,
+              0.1
+            ],
+            [
+              3.75,
+              0.15
+            ],
+            [
+              5.0,
+              0.2
+            ]
+          ],
+          "marks": [
+            {
+              "x": 5.0,
+              "y": 0.2,
+              "label": "slope = 1/R",
+              "place": "above"
+            }
+          ]
+        },
+        {
+          "label": "non-ohmic element",
+          "style": "dashed",
+          "points": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.5,
+              0.065309
+            ],
+            [
+              1.0,
+              0.09899
+            ],
+            [
+              1.75,
+              0.138489
+            ],
+            [
+              2.5,
+              0.171536
+            ],
+            [
+              3.25,
+              0.20078
+            ],
+            [
+              4.0,
+              0.227419
+            ],
+            [
+              4.5,
+              0.244073
+            ],
+            [
+              5.0,
+              0.26
+            ]
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "b4fbc3ed-a55d-40f4-b7e7-0e7da6e9d58e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_physics_2",
+        "id": "b4fbc3ed-a55d-40f4-b7e7-0e7da6e9d58e",
+        "title": "Ohmic materials and the I–ΔV graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 2 11.3 is a convention with no authored items[]; the straight ohmic line, the bending non-ohmic one and the slope-to-resistance relation are the contract (DECISION-0116, route b). The entry's body says the resistance is found from the slope, so the figure states R = 1/slope rather than leaving the student to assume the slope IS the resistance."
+      }
+    ]
+  },
+  "phys-vector-arrows": {
+    "entry_title": "Vector arrow representation",
+    "subject_key": "ap_physics_1",
+    "family": "arrow_diagram",
+    "figure_id": "phys-vector-arrows",
+    "title": "Drawing a vector as an arrow",
+    "short_title": "Arrow = direction + length",
+    "subtitle": "Direction is where it points; length is proportional to magnitude",
+    "caption": "Three velocities drawn from one point on a single scale: 6.0 m/s east, 3.0 m/s north and 4.5 m/s south-west. The 3.0 arrow is exactly half the length of the 6.0 arrow because the scale is the same for all three.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Three velocity vectors drawn as arrows from a single common point. One points right, labelled 6.0 metres per second; one points straight up, labelled 3.0 metres per second; one points down and to the left, labelled 4.5 metres per second. Each arrow points in the direction of its velocity, and the arrows are drawn to one scale, so the 3.0 arrow is exactly half the length of the 6.0 arrow and the 4.5 arrow is three quarters of it. Length carries the magnitude and nothing else: a longer arrow is a larger velocity, not a different kind of quantity. Illustrative data.",
+    "note": "One scale for all three: half the magnitude is half the length.",
+    "synthetic": true,
+    "labels": [
+      "Arrow direction",
+      "Arrow length"
+    ],
+    "covers": [
+      "Arrow direction",
+      "Arrow length"
+    ],
+    "params": {
+      "dot": true,
+      "unit_note": "drawn to one scale: 6.0 m/s is the longest arrow",
+      "arrows": [
+        {
+          "label": "6.0 m/s",
+          "magnitude": 6.0,
+          "angle_deg": 0
+        },
+        {
+          "label": "3.0 m/s",
+          "magnitude": 3.0,
+          "angle_deg": 90
+        },
+        {
+          "label": "4.5 m/s",
+          "magnitude": 4.5,
+          "angle_deg": 215
+        }
+      ],
+      "proportionality_check": true
+    },
+    "reference_entry_id": "2af9af8c-9948-4b5d-9e53-92b7a50219c0",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "2af9af8c-9948-4b5d-9e53-92b7a50219c0",
+        "title": "Vector arrow representation",
+        "role": "primary",
+        "subject_key": "ap_physics_1"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "7259c96e-bbab-4e49-a1d0-b1be3c075686",
+        "title": "Vector arrow representation",
+        "role": "secondary",
+        "subject_key": "ap_physics_c_mechanics"
+      }
+    ]
+  },
+  "phys-free-body-diagram": {
+    "entry_title": "Free-body diagram (FBD)",
+    "subject_key": "ap_physics_1",
+    "family": "arrow_diagram",
+    "figure_id": "phys-free-body-diagram",
+    "title": "Free-body diagram of a block on an incline",
+    "short_title": "Free-body diagram",
+    "subtitle": "Every force on the block, drawn whole, acting at one dot",
+    "caption": "A block held at rest on a 30 degree incline by a rope. Four forces act on it: its weight, the normal force from the surface, the rope's 2.0 N pull up the slope and 3.0 N of friction up the slope. The dashed line is the chosen axis, parallel to the incline.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A free-body diagram for a block at rest on a thirty-degree incline. A single dot stands for the block, and every force the environment exerts on it acts at that dot. The weight, 10.0 newtons, points straight down and is the longest arrow. The normal force, 8.7 newtons, points away from the surface at right angles to it. The rope's pull, 2.0 newtons, and friction, 3.0 newtons, both point up the slope, so they are drawn just to either side of the dot rather than one on top of the other; that sideways shift is a drawing convention to keep both readable and does not mean they act anywhere else. A dashed line through the dot marks the chosen axis, parallel to the incline. Only whole forces are drawn: the weight appears once, and its components along and across the slope are not drawn beside it. The four forces add to zero, which is why the block stays at rest. Illustrative data.",
+    "note": "The four add to zero, which is what holding the block at rest means.",
+    "synthetic": true,
+    "labels": [
+      "Dot",
+      "Force arrows",
+      "Same-direction forces",
+      "Whole forces only",
+      "Coordinate axis"
+    ],
+    "covers": [
+      "Dot",
+      "Force arrows",
+      "Same-direction forces",
+      "Whole forces only",
+      "Coordinate axis"
+    ],
+    "params": {
+      "dot": true,
+      "axis": {
+        "angle_deg": 30.0,
+        "label": "incline axis"
+      },
+      "unit_note": "forces in newtons; same-direction forces are drawn side by side",
+      "arrows": [
+        {
+          "label": "weight 10.0 N",
+          "magnitude": 10.0,
+          "angle_deg": 270
+        },
+        {
+          "label": "normal 8.7 N",
+          "magnitude": 8.660254,
+          "angle_deg": 120.0
+        },
+        {
+          "label": "rope 2.0 N",
+          "magnitude": 2.0,
+          "angle_deg": 30.0,
+          "offset": 0.85
+        },
+        {
+          "label": "friction 3.0 N",
+          "magnitude": 3.0,
+          "angle_deg": 30.0,
+          "offset": -0.85
+        }
+      ],
+      "proportionality_check": true,
+      "equilibrium_check": true,
+      "whole_forces_check": true
+    },
+    "reference_entry_id": "c40f4d68-9bdc-4b11-b7ac-8f361f8b42c1",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "c40f4d68-9bdc-4b11-b7ac-8f361f8b42c1",
+        "title": "Free-body diagram (FBD)",
+        "role": "primary",
+        "subject_key": "ap_physics_1"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "b92edff8-33f6-43eb-be38-70ca5c05622e",
+        "title": "Free-body diagram",
+        "role": "secondary",
+        "subject_key": "ap_physics_c_mechanics"
+      }
+    ]
+  },
+  "chem-particulate-phases": {
+    "entry_title": "Particulate model of solid, liquid, and gas",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-phases",
+    "title": "Particulate model of the three phases",
+    "short_title": "Solid, liquid, gas",
+    "subtitle": "Same particles, same box: arrangement and spacing are what differ",
+    "caption": "Sixteen identical particles in a solid, a liquid and a gas. The solid and the liquid hold the same number in the same box because their molar volumes are comparable; the gas box holds far fewer, because the particles are much further apart.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Three boxes of the same size, each holding identical round particles. In the solid the sixteen particles sit in a regular grid, touching, in rows and columns. In the liquid the same sixteen are still in close contact but their arrangement is irregular, with no repeating pattern. In the gas only five particles are shown in the same box, spread far apart with large empty gaps between them. Solid and liquid take comparable space for the same amount of matter; the gas is mostly empty space. Illustrative data.",
+    "note": "Solid and liquid hold the same count in the same box; the gas does not.",
+    "synthetic": true,
+    "labels": [
+      "Solid (crystalline or amorphous)",
+      "Liquid",
+      "Gas"
+    ],
+    "covers": [
+      "Solid (crystalline or amorphous)",
+      "Liquid",
+      "Gas"
+    ],
+    "params": {
+      "elements": {
+        "P": {
+          "r": 0.085,
+          "fill": "#B9B9B9"
+        }
+      },
+      "species": {
+        "p": {
+          "atoms": {
+            "P": 1
+          },
+          "parts": [
+            {
+              "el": "P",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "the same particle in all three boxes",
+      "phase_check": true,
+      "panels": [
+        {
+          "label": "solid",
+          "mode": "lattice",
+          "caption": "regular, in contact",
+          "species": [
+            {
+              "key": "p",
+              "count": 16
+            }
+          ]
+        },
+        {
+          "label": "liquid",
+          "mode": "close",
+          "caption": "irregular, in contact",
+          "species": [
+            {
+              "key": "p",
+              "count": 16
+            }
+          ]
+        },
+        {
+          "label": "gas",
+          "mode": "sparse",
+          "caption": "far apart, free",
+          "species": [
+            {
+              "key": "p",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "7ab165e4-1b94-494b-96a3-d8439bd1cae8",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "7ab165e4-1b94-494b-96a3-d8439bd1cae8",
+        "title": "Particulate model of solid, liquid, and gas",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-balanced-equation": {
+    "entry_title": "Particulate representation of a balanced equation",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-balanced-equation",
+    "title": "A balanced equation as particles",
+    "short_title": "Atoms are conserved",
+    "subtitle": "2 H₂ + O₂ → 2 H₂O: the atoms before and after are the same atoms",
+    "caption": "Two hydrogen molecules and one oxygen molecule become two water molecules. Four hydrogen atoms and two oxygen atoms go in, and four hydrogen atoms and two oxygen atoms come out: the particles are rearranged, not created or destroyed.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes with an arrow from the first to the second. The first box holds two hydrogen molecules, each a pair of small pale circles joined by a bond, and one oxygen molecule, a pair of larger dark circles joined by a bond. The second box holds two water molecules, each one large dark oxygen atom with two small pale hydrogen atoms bonded to it. Count the atoms and they match: four hydrogen and two oxygen on each side. Nothing appears in the second box that was not in the first; the same atoms have been rearranged into different molecules. Illustrative data.",
+    "note": "4 H and 2 O before; 4 H and 2 O after.",
+    "synthetic": true,
+    "labels": [
+      "Reactant particles",
+      "Product particles",
+      "Atom conservation"
+    ],
+    "covers": [
+      "Reactant particles",
+      "Product particles",
+      "Atom conservation"
+    ],
+    "params": {
+      "elements": {
+        "H": {
+          "r": 0.04,
+          "fill": "#E6E6E2",
+          "symbol": ""
+        },
+        "O": {
+          "r": 0.062,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "H2": {
+          "atoms": {
+            "H": 2
+          },
+          "parts": [
+            {
+              "el": "H",
+              "dx": -0.26,
+              "dy": 0
+            },
+            {
+              "el": "H",
+              "dx": 0.26,
+              "dy": 0
+            }
+          ]
+        },
+        "O2": {
+          "atoms": {
+            "O": 2
+          },
+          "parts": [
+            {
+              "el": "O",
+              "dx": -0.3,
+              "dy": 0
+            },
+            {
+              "el": "O",
+              "dx": 0.3,
+              "dy": 0
+            }
+          ]
+        },
+        "H2O": {
+          "atoms": {
+            "H": 2,
+            "O": 1
+          },
+          "center": 0,
+          "parts": [
+            {
+              "el": "O",
+              "dx": 0,
+              "dy": 0
+            },
+            {
+              "el": "H",
+              "dx": -0.34,
+              "dy": 0.26
+            },
+            {
+              "el": "H",
+              "dx": 0.34,
+              "dy": 0.26
+            }
+          ]
+        }
+      },
+      "arrow_after": 0,
+      "unit_note": "small pale circles are hydrogen atoms; large dark circles are oxygen",
+      "atom_conservation_check": true,
+      "panels": [
+        {
+          "label": "before",
+          "mode": "close",
+          "caption": "2 H₂ + O₂",
+          "species": [
+            {
+              "key": "H2",
+              "count": 2
+            },
+            {
+              "key": "O2",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "label": "after",
+          "mode": "close",
+          "caption": "2 H₂O",
+          "species": [
+            {
+              "key": "H2O",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "68ac3a82-3876-4ad4-9baa-5929f29a557e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "68ac3a82-3876-4ad4-9baa-5929f29a557e",
+        "title": "Particulate representation of a balanced equation",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-solution": {
+    "entry_title": "Particulate representation of a solution",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-solution",
+    "title": "A solution drawn as particles",
+    "short_title": "Solute among solvent",
+    "subtitle": "Same box, same total: only the ratio of solute to solvent changes",
+    "caption": "Two solutions of the same solute. Each box holds 24 particles in all; the dilute one has 1 solute particle among 23 solvent particles, the concentrated one has 6 among 18. Concentration is the ratio, not the amount of solute alone.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes of the same size, each holding twenty-four particles in close contact. Pale circles are solvent and dark circles are solute. The left box has one dark solute particle among twenty-three pale solvent particles; the right box has six dark among eighteen pale. Both boxes are equally full, so what differs between them is the proportion of solute, not how much liquid there is. The solute particles are surrounded by solvent particles rather than clumped together, which is what being dissolved means. Illustrative data.",
+    "note": "Both boxes hold 24 particles: concentration is the ratio.",
+    "synthetic": true,
+    "labels": [
+      "Interactions between components",
+      "Concentrations of components"
+    ],
+    "covers": [
+      "Interactions between components",
+      "Concentrations of components"
+    ],
+    "params": {
+      "elements": {
+        "W": {
+          "r": 0.052,
+          "fill": "#E6E6E2"
+        },
+        "S": {
+          "r": 0.062,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "water": {
+          "atoms": {
+            "W": 1
+          },
+          "parts": [
+            {
+              "el": "W",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        },
+        "solute": {
+          "atoms": {
+            "S": 1
+          },
+          "parts": [
+            {
+              "el": "S",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "dark circles are solute; pale circles are solvent",
+      "solution_check": {
+        "total": 24
+      },
+      "panels": [
+        {
+          "label": "dilute",
+          "mode": "close",
+          "caption": "1 solute in 24",
+          "species": [
+            {
+              "key": "solute",
+              "count": 1
+            },
+            {
+              "key": "water",
+              "count": 23
+            }
+          ],
+          "mix": true
+        },
+        {
+          "label": "concentrated",
+          "mode": "close",
+          "caption": "6 solute in 24",
+          "species": [
+            {
+              "key": "solute",
+              "count": 6
+            },
+            {
+              "key": "water",
+              "count": 18
+            }
+          ],
+          "mix": true
+        }
+      ]
+    },
+    "reference_entry_id": "d37d97c1-2617-41da-9dea-0fd2c30517f4",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d37d97c1-2617-41da-9dea-0fd2c30517f4",
+        "title": "Particulate representation of a solution",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-reversible": {
+    "entry_title": "Particulate model of a reversible reaction",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-reversible",
+    "title": "A reversible reaction before and at equilibrium",
+    "short_title": "Counts give K",
+    "subtitle": "A ⇌ B, an isomerisation: at equilibrium the counts stop changing, and their ratio is K",
+    "caption": "Sixteen molecules of form A at the start; at equilibrium 4 A and 12 B. A and B are two forms of the same molecule, so every particle that changes becomes one of the other form and the total stays at sixteen. K = [B]/[A] = 12/4 = 3.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes with an arrow from the first to the second. The first box holds sixteen pale particles of form A and no B. The second box, at equilibrium, holds four pale A particles and twelve dark B particles, sixteen in all. A and B are two forms of the same molecule, an isomerisation, so each particle that reacts simply becomes one particle of the other form and no matter is created or destroyed. The reactant has not run out: some A is still present, which is what distinguishes equilibrium from a reaction that goes to completion. The equilibrium constant is read straight off the counts as twelve divided by four, which is three. Illustrative data.",
+    "note": "K = [B]/[A] = 12/4 = 3; A is still present at equilibrium.",
+    "synthetic": true,
+    "labels": [
+      "Prior to equilibrium",
+      "At equilibrium",
+      "Equilibrium constant"
+    ],
+    "covers": [
+      "Prior to equilibrium",
+      "At equilibrium",
+      "Equilibrium constant"
+    ],
+    "params": {
+      "elements": {
+        "A": {
+          "r": 0.058,
+          "fill": "#E6E6E2"
+        },
+        "B": {
+          "r": 0.058,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "A": {
+          "atoms": {
+            "unit": 1
+          },
+          "parts": [
+            {
+              "el": "A",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        },
+        "B": {
+          "atoms": {
+            "unit": 1
+          },
+          "parts": [
+            {
+              "el": "B",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "arrow_after": 0,
+      "unit_note": "pale circles are form A; dark circles are form B",
+      "equilibrium_k_check": {
+        "k": 3.0,
+        "numerator": "B",
+        "denominator": "A",
+        "panel": 1
+      },
+      "panels": [
+        {
+          "label": "start",
+          "mode": "close",
+          "caption": "16 A, no B",
+          "species": [
+            {
+              "key": "A",
+              "count": 16
+            }
+          ],
+          "mix": true
+        },
+        {
+          "label": "at equilibrium",
+          "mode": "close",
+          "caption": "4 A, 12 B",
+          "species": [
+            {
+              "key": "A",
+              "count": 4
+            },
+            {
+              "key": "B",
+              "count": 12
+            }
+          ],
+          "mix": true
+        }
+      ],
+      "same_matter_check": true
+    },
+    "reference_entry_id": "37483d41-df45-4fbb-b25d-5576ae625746",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "37483d41-df45-4fbb-b25d-5576ae625746",
+        "title": "Particulate model of a reversible reaction",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-sea-of-electrons": {
+    "entry_title": "Sea-of-electrons model of metallic bonding",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-sea-of-electrons",
+    "title": "Sea-of-electrons model of a metal",
+    "short_title": "Ions in an electron sea",
+    "subtitle": "A regular array of positive ions, with the valence electrons belonging to none of them",
+    "caption": "Nine positive metal ions in a regular array, with delocalized valence electrons drawn as small dots spread between them rather than attached to any one ion.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A box holding nine large pale circles in a regular three-by-three array, each marked with a plus sign to show it is a positive metal ion. Between and around them are many small dark dots standing for the valence electrons. The dots are not drawn on or beside any particular ion: they are spread across the whole box, because in a metal the valence electrons are delocalized and belong to the solid as a whole rather than to individual atoms. That is what lets a metal conduct and deform without breaking. Illustrative data.",
+    "note": "The electrons are drawn between the ions, not attached to them.",
+    "synthetic": true,
+    "labels": [
+      "Positive metal ions",
+      "Delocalized valence electrons"
+    ],
+    "covers": [
+      "Positive metal ions",
+      "Delocalized valence electrons"
+    ],
+    "params": {
+      "elements": {
+        "M": {
+          "r": 0.072,
+          "fill": "#B9B9B9",
+          "symbol": "+"
+        },
+        "e": {
+          "r": 0.018,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "ion": {
+          "atoms": {
+            "M": 1
+          },
+          "parts": [
+            {
+              "el": "M",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "plus signs mark the ion cores; small dots are delocalized electrons",
+      "sea_check": true,
+      "panels": [
+        {
+          "label": "metallic solid",
+          "mode": "lattice",
+          "species": [
+            {
+              "key": "ion",
+              "count": 9
+            }
+          ],
+          "background": [
+            {
+              "key": "e",
+              "count": 26
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "f3ca54f4-6c92-4a72-a9c7-356338385eab",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "f3ca54f4-6c92-4a72-a9c7-356338385eab",
+        "title": "Sea-of-electrons model of metallic bonding",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "phys-electric-field-map": {
+    "entry_title": "Electric field map and field line diagram",
+    "subject_key": "ap_physics_2",
+    "family": "field_map",
+    "figure_id": "phys-electric-field-map",
+    "title": "Electric field of two opposite charges",
+    "short_title": "Field lines and vectors",
+    "subtitle": "Lines leave the positive charge and arrive at the negative one",
+    "caption": "A dipole: equal and opposite charges. Field lines run from the positive charge to the negative one, and sample field vectors show the field's direction and relative strength at particular points. The lines crowd where the field is strong.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A map of the electric field around two equal and opposite point charges, the positive one on the left and the negative one on the right. Curved field lines leave the positive charge in every direction and curve round to arrive at the negative charge, each carrying one arrowhead showing which way the field points. Separate straight arrows at sample points show the field vector there: longer where the field is stronger, and always tangent to the line through that point. The lines are packed closely near the charges, where the field is strong, and spread far apart at the edges, where it is weak. No two lines ever cross, because the field has only one direction at each point. Illustrative data.",
+    "note": "Lines never cross: the field has one direction at each point.",
+    "synthetic": true,
+    "labels": [
+      "Field vector",
+      "Field line",
+      "Source charges"
+    ],
+    "covers": [
+      "Field vector",
+      "Field line",
+      "Source charges",
+      "Field map vectors",
+      "Field lines"
+    ],
+    "params": {
+      "charges": [
+        {
+          "q": 1.0,
+          "x": 0.28,
+          "y": 0.5
+        },
+        {
+          "q": -1.0,
+          "x": 0.72,
+          "y": 0.5
+        }
+      ],
+      "field_lines": true,
+      "lines_per_unit_charge": 10,
+      "vector_points": [
+        [
+          0.0833,
+          0.0833
+        ],
+        [
+          0.25,
+          0.0833
+        ],
+        [
+          0.4167,
+          0.0833
+        ],
+        [
+          0.5833,
+          0.0833
+        ],
+        [
+          0.75,
+          0.0833
+        ],
+        [
+          0.9167,
+          0.0833
+        ],
+        [
+          0.0833,
+          0.25
+        ],
+        [
+          0.25,
+          0.25
+        ],
+        [
+          0.4167,
+          0.25
+        ],
+        [
+          0.5833,
+          0.25
+        ],
+        [
+          0.75,
+          0.25
+        ],
+        [
+          0.9167,
+          0.25
+        ],
+        [
+          0.0833,
+          0.4167
+        ],
+        [
+          0.4167,
+          0.4167
+        ],
+        [
+          0.5833,
+          0.4167
+        ],
+        [
+          0.9167,
+          0.4167
+        ],
+        [
+          0.0833,
+          0.5833
+        ],
+        [
+          0.4167,
+          0.5833
+        ],
+        [
+          0.5833,
+          0.5833
+        ],
+        [
+          0.9167,
+          0.5833
+        ],
+        [
+          0.0833,
+          0.75
+        ],
+        [
+          0.25,
+          0.75
+        ],
+        [
+          0.4167,
+          0.75
+        ],
+        [
+          0.5833,
+          0.75
+        ],
+        [
+          0.75,
+          0.75
+        ],
+        [
+          0.9167,
+          0.75
+        ],
+        [
+          0.0833,
+          0.9167
+        ],
+        [
+          0.25,
+          0.9167
+        ],
+        [
+          0.4167,
+          0.9167
+        ],
+        [
+          0.5833,
+          0.9167
+        ],
+        [
+          0.75,
+          0.9167
+        ],
+        [
+          0.9167,
+          0.9167
+        ]
+      ],
+      "unit_note": "arrows are sample field vectors; grey curves are field lines",
+      "dipole_check": true
+    },
+    "reference_entry_id": "89f685f9-d749-4bba-9114-15f9fec5bbb3",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "89f685f9-d749-4bba-9114-15f9fec5bbb3",
+        "title": "Electric field map and field line diagram",
+        "role": "primary",
+        "subject_key": "ap_physics_2"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "f4b83c5d-5509-45df-987f-b0a932fcd1d9",
+        "title": "Electric field map and field line diagram",
+        "role": "secondary",
+        "subject_key": "ap_physics_c_em"
+      }
+    ]
+  },
+  "phys2-equipotential-map": {
+    "entry_title": "Equipotential (isoline) map",
+    "subject_key": "ap_physics_2",
+    "family": "field_map",
+    "figure_id": "phys2-equipotential-map",
+    "title": "Equipotentials and field vectors around a point charge",
+    "short_title": "Isolines cross at 90°",
+    "subtitle": "The field meets every isoline at a right angle",
+    "caption": "A single positive charge. The dashed circles are isolines, each one a set of points at the same potential; the arrows are field vectors. Each arrow points straight outwards, at right angles to the isoline it crosses, and towards lower potential.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A map around a single positive point charge. Four dashed circles centred on the charge are isolines of electric potential: every point on one circle is at the same potential, and the potential falls as the circles get larger. Straight arrows placed between the circles are electric field vectors. Each arrow points directly away from the charge, so where it meets an isoline it crosses at a right angle, and it points towards lower potential. Because no arrow has any component along a circle, moving a charge around an isoline takes no work at all. The arrows are longer close to the charge, where the field is stronger. Illustrative data.",
+    "note": "No field component runs along an isoline, so no work is done moving along one.",
+    "synthetic": true,
+    "labels": [
+      "Isolines",
+      "Isolines vs. field vectors",
+      "Field direction",
+      "Field along an isoline"
+    ],
+    "covers": [
+      "Isolines",
+      "Isolines vs. field vectors",
+      "Field direction",
+      "Field along an isoline"
+    ],
+    "params": {
+      "charges": [
+        {
+          "q": 1.0,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "isoline_radii": [
+        0.14,
+        0.24,
+        0.34,
+        0.44
+      ],
+      "vector_points": [
+        [
+          0.69,
+          0.5
+        ],
+        [
+          0.6344,
+          0.6344
+        ],
+        [
+          0.5,
+          0.69
+        ],
+        [
+          0.3656,
+          0.6344
+        ],
+        [
+          0.31,
+          0.5
+        ],
+        [
+          0.3656,
+          0.3656
+        ],
+        [
+          0.5,
+          0.31
+        ],
+        [
+          0.6344,
+          0.3656
+        ],
+        [
+          0.79,
+          0.5
+        ],
+        [
+          0.7051,
+          0.7051
+        ],
+        [
+          0.5,
+          0.79
+        ],
+        [
+          0.2949,
+          0.7051
+        ],
+        [
+          0.21,
+          0.5
+        ],
+        [
+          0.2949,
+          0.2949
+        ],
+        [
+          0.5,
+          0.21
+        ],
+        [
+          0.7051,
+          0.2949
+        ],
+        [
+          0.89,
+          0.5
+        ],
+        [
+          0.7758,
+          0.7758
+        ],
+        [
+          0.5,
+          0.89
+        ],
+        [
+          0.2242,
+          0.7758
+        ],
+        [
+          0.11,
+          0.5
+        ],
+        [
+          0.2242,
+          0.2242
+        ],
+        [
+          0.5,
+          0.11
+        ],
+        [
+          0.7758,
+          0.2242
+        ]
+      ],
+      "unit_note": "dashed circles are isolines; arrows are field vectors",
+      "isoline_check": true
+    },
+    "reference_entry_id": "bfb3e93d-9979-47f9-ac53-853b16d3ba50",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "bfb3e93d-9979-47f9-ac53-853b16d3ba50",
+        "title": "Equipotential (isoline) map",
+        "role": "primary",
+        "subject_key": "ap_physics_2"
+      }
+    ]
+  },
+  "phys2-circuit-symbols": {
+    "entry_title": "Circuit schematic symbols",
+    "subject_key": "ap_physics_2",
+    "family": "circuit_symbols",
+    "figure_id": "phys2-circuit-symbols",
+    "title": "Circuit schematic symbols",
+    "short_title": "Schematic symbols",
+    "subtitle": "The standard symbols, and what a diagonal arrow across one means",
+    "caption": "The eight symbols used to draw circuit schematics. The last is not a ninth component: it is any standard symbol with a diagonal strikethrough arrow, which is how a variable element is written.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A key of eight circuit schematic symbols, each drawn with its name beneath it. The battery is a long thin line beside a short thick one. The bulb is a circle with a cross inside it. The switch is a gap in the wire with a hinged arm lifted away from its contact. The capacitor is two equal parallel plates with a gap between them. The resistor is a zigzag. The ammeter is a circle marked A and the voltmeter a circle marked V. The last cell shows a resistor with a diagonal arrow struck through it: that arrow, over any standard symbol, is what makes the element variable, so it is a notation rather than a separate component. Illustrative data.",
+    "note": "The diagonal arrow is a notation, not a ninth component: it makes any symbol variable.",
+    "synthetic": true,
+    "labels": [
+      "Battery",
+      "Bulb",
+      "Switch",
+      "Capacitor",
+      "Resistor",
+      "Ammeter (A)",
+      "Voltmeter (V)",
+      "Variable element"
+    ],
+    "covers": [
+      "Battery",
+      "Bulb",
+      "Switch",
+      "Capacitor",
+      "Resistor",
+      "Ammeter (A)",
+      "Voltmeter (V)",
+      "Variable element"
+    ],
+    "params": {
+      "columns": 4,
+      "unit_note": "a diagonal arrow across any symbol marks a variable element",
+      "symbol_sheet_check": true,
+      "symbols": [
+        {
+          "glyph": "battery",
+          "label": "Battery"
+        },
+        {
+          "glyph": "bulb",
+          "label": "Bulb"
+        },
+        {
+          "glyph": "switch",
+          "label": "Switch"
+        },
+        {
+          "glyph": "capacitor",
+          "label": "Capacitor"
+        },
+        {
+          "glyph": "resistor",
+          "label": "Resistor"
+        },
+        {
+          "glyph": "meter",
+          "label": "Ammeter (A)",
+          "letter": "A"
+        },
+        {
+          "glyph": "meter",
+          "label": "Voltmeter (V)",
+          "letter": "V"
+        },
+        {
+          "glyph": "resistor",
+          "label": "Variable element",
+          "variable": true,
+          "base": "resistor"
+        }
+      ]
+    },
+    "reference_entry_id": "e731906b-267f-4bce-82cc-42bb10beb92d",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "e731906b-267f-4bce-82cc-42bb10beb92d",
+        "title": "Circuit schematic symbols",
+        "role": "primary",
+        "subject_key": "ap_physics_2"
+      }
+    ]
   }
 }

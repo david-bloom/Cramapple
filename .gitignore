@@ -41,3 +41,10 @@ docs/research/DRAWN_RESPONSE_FRQs_v1.1_images/*.png
 
 # Compiled local diagnostic binaries (rebuild via `swiftc vision_ocr.swift -o vision_ocr`)
 scripts/vercel-gateway-check/vision_ocr
+
+# Parity-check artefacts: 117 SVGs plus the exported specs, regenerated in one
+# command by export_for_parity.py and consumed by the app repo. Committing them
+# would double this directory for no gain -- the check is the artefact.
+scripts/lane-a-pilot/out/parity/
+scripts/lane-a-pilot/out/ts_sheet.html
+scripts/lane-a-pilot/out/eye_*.html

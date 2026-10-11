@@ -21,6 +21,7 @@ from typing import Callable
 
 # ---------------------------------------------------------------- palette ---
 BG, INK, GRAY, LIGHT, GRID = "#FAFAF8", "#151515", "#6E6E6E", "#B9B9B9", "#D8D8D3"
+MINUS = "\u2212"  # an f-string expression may not contain a backslash escape
 
 # One spec, three sizes. SVG text scales with the image, so a figure drawn at
 # 980 units and displayed in a 332px pane renders its 11.5-unit labels at 3.9px.
@@ -634,6 +635,338 @@ def f_kinematic_panels(p: dict) -> dict:
             "x_range": (0, t1), "y_range": (0, 1), "hide_y_ticks": True}
 
 
+def f_arrow_diagram(p: dict) -> dict:
+    """Vectors drawn as arrows from a common origin: the first Lane B grammar.
+
+    Not a chart. There is no quantity on an axis, so it renders in the bare
+    frame; what it asserts instead is a drawing CONVENTION -- an arrow's
+    direction is the vector's direction and its length is proportional to the
+    magnitude, with ONE constant of proportionality shared by every arrow in
+    the figure. That constant is the whole teaching point of both entries this
+    serves, so it is computed here, once, rather than left to each arrow.
+
+    Angles are degrees counter-clockwise from the positive x axis, the
+    convention the entries use. The renderer flips to screen coordinates; no
+    spec ever sees a negative y.
+
+    `side_by_side` is the free-body diagram's own labelled part: two forces in
+    the same direction must not be drawn on top of each other, so an arrow may
+    carry a perpendicular offset in arrow-widths. It shifts where the arrow is
+    DRAWN, never its direction or length, which is why the property tests still
+    read the magnitudes and angles straight from the spec.
+    """
+    arrows = []
+    mags = [float(a["magnitude"]) for a in p["arrows"]]
+    if min(mags) <= 0:
+        raise ValueError("an arrow with no magnitude is not a vector")
+    longest = max(mags)
+    for a in p["arrows"]:
+        m = float(a["magnitude"])
+        arrows.append({
+            "label": a["label"],
+            "magnitude": m,
+            "angle": float(a["angle_deg"]) % 360.0,
+            # One shared scale: the ratio of any two drawn lengths is the ratio
+            # of their magnitudes, which is what "proportional" has to mean.
+            "frac": m / longest,
+            "offset": float(a.get("offset", 0.0)),
+            "caption": a.get("caption"),
+        })
+    axis = None
+    if p.get("axis"):
+        axis = {"angle": float(p["axis"]["angle_deg"]) % 360.0,
+                "label": p["axis"]["label"]}
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "vectors": arrows, "dot": bool(p.get("dot", True)), "axis": axis,
+            "unit_note": p.get("unit_note"),
+            "x_range": (-1.0, 1.0), "y_range": (-1.0, 1.0)}
+
+
+def _hyp(a: float, b: float) -> float:
+    """sqrt(a*a + b*b), spelled out.
+
+    NOT math.hypot: these values become drawn coordinates, and the app's
+    renderer must agree byte for byte. Python's hypot and JavaScript's are both
+    carefully written and need not agree in the last bit, while an explicit
+    multiply-add-sqrt is IEEE-identical in both.
+    """
+    return math.sqrt(a * a + b * b)
+
+
+def _pb_jitter(seed: int, i: int) -> tuple[float, float]:
+    """Deterministic pseudo-jitter. A particulate box must not be random: the
+    figure is re-rendered on every page load and the suite asserts that two
+    renders are byte-identical, so the scatter is a pure function of (panel,
+    index) rather than anything drawn from a global RNG.
+    """
+    h = (seed * 1103515245 + i * 12345 + 1013904223) & 0x7FFFFFFF
+    return (((h >> 7) & 1023) / 1023.0 - 0.5, ((h >> 17) & 1023) / 1023.0 - 0.5)
+
+
+def f_particulate_box(p: dict) -> dict:
+    """Particles in a box: the second Lane B grammar.
+
+    Coloured circles in a panel, with counts, spacing and arrangement carrying
+    the meaning. Five AP Chemistry entries are this one picture with different
+    contents -- phases, a solution, a balanced equation, a reversible reaction
+    and metallic bonding -- which is the test for whether a family earns its
+    place.
+
+    A species is a MOLECULE: a list of atoms at fixed offsets, so the figure
+    knows how many atoms of each element it has drawn. That is what makes atom
+    conservation machine-checkable rather than a matter of counting circles by
+    eye, and atom conservation is the balanced-equation entry's own labelled
+    part.
+
+    Arrangement modes, which are the phase entry's labelled parts:
+      lattice  regular rows and columns, touching          (crystalline solid)
+      close    in contact but irregular                    (liquid, amorphous)
+      sparse   far apart, same box                         (gas)
+    """
+    els = p["elements"]
+    specs = p["species"]
+    panels = []
+    cap = max(sum(int(sp["count"]) for sp in pan["species"]) for pan in p["panels"])
+    for pi, pan in enumerate(p["panels"]):
+        mode = pan.get("mode", "close")
+        units = []
+        for sp in pan["species"]:
+            units += [sp["key"]] * int(sp["count"])
+        n = len(units)
+        if pan.get("mix"):
+            # Filling cells in the order the species are listed put all six
+            # solute particles in the top two rows -- a clump, which is what
+            # UNdissolved looks like, while the alt text said each was
+            # surrounded by solvent. Spread each species evenly through the
+            # sequence instead (Bresenham), deterministically.
+            counts = [(sp["key"], int(sp["count"])) for sp in pan["species"]]
+            placed = {k: 0 for k, _ in counts}
+            units = []
+            for i in range(n):
+                # the species furthest behind its own share of the slots so far
+                key = max(counts, key=lambda kc: (i + 1) * kc[1] / n - placed[kc[0]])[0]
+                placed[key] += 1
+                units.append(key)
+        if n == 0:
+            raise ValueError(f"panel {pan['label']!r} has no particles")
+        # ONE grid shared by every panel, sized by the fullest one, so three
+        # boxes of the same size are directly comparable -- which is the whole
+        # claim of the phases figure. A sparse panel then STRIDES across that
+        # grid instead of filling its first cells: sizing the grid to its own
+        # count and normalising back to the box left the gas no further apart
+        # than the liquid, while the caption said "far apart".
+        cols = max(1, int(math.ceil(math.sqrt(cap))))
+        rows = max(1, int(math.ceil(cap / cols)))
+        # A constant stride across the grid lands the gas on a straight
+        # diagonal, which is a pattern -- the one thing a gas must not show.
+        # Spread the cells deterministically instead: order them by a hash and
+        # take the first n, so the scatter is reproducible but not a line.
+        sparse_cells = None
+        if mode == "sparse":
+            # Farthest-point selection: start at a hash-chosen cell, then
+            # repeatedly take the cell furthest from everything already taken.
+            # A constant stride put the gas on a straight diagonal, and a
+            # hash-ordered pick clumped two of them together so the gas was no
+            # further apart than the liquid. This is deterministic AND spread.
+            def ctr(c):
+                return ((c % cols + 0.5) / cols, (c // cols + 0.5) / rows)
+            start = int(abs(_pb_jitter(7 * (pi + 1), 0)[0]) * (cols * rows)) % (cols * rows)
+            chosen = [start]
+            while len(chosen) < n:
+                best, bestd = None, -1.0
+                for c in range(cols * rows):
+                    if c in chosen:
+                        continue
+                    d = min(_hyp(ctr(c)[0] - ctr(k)[0], ctr(c)[1] - ctr(k)[1])
+                            for k in chosen)
+                    if d > bestd + 1e-12:
+                        best, bestd = c, d
+                chosen.append(best)
+            sparse_cells = sorted(chosen)
+        # 0.17 left the liquid looking like the solid at every width: the eye
+        # could not tell "irregular" from "regular", which is the only thing
+        # those two panels differ by. The suite now measures the disorder too.
+        jit = {"lattice": 0.0, "close": 0.40, "sparse": 0.34}[mode]
+        drawn = []
+        for i, key in enumerate(units):
+            cell = sparse_cells[i] if sparse_cells is not None else i
+            cx = (cell % cols + 0.5) / cols
+            cy = (cell // cols + 0.5) / rows
+            dx, dy = _pb_jitter(pi + 1, i)
+            cx += dx * jit / cols
+            cy += dy * jit / rows
+            parts = specs[key]["parts"]
+            # Every atom bonds to the molecule's CENTRE atom, not to the atom
+            # before it. Joining first to last drew water as H-H with the
+            # oxygen sitting on the line between them -- a bond that does not
+            # exist, in a figure whose whole job is to be read literally.
+            ctr = specs[key].get("center", 0)
+            pos = [(cx + at["dx"] / cols * 0.5, cy + at["dy"] / rows * 0.5) for at in parts]
+            for ai, at in enumerate(parts):
+                drawn.append({"el": at["el"], "x": pos[ai][0], "y": pos[ai][1],
+                              "r": els[at["el"]]["r"], "fill": els[at["el"]]["fill"],
+                              "symbol": els[at["el"]].get("symbol", ""),
+                              "species": key,
+                              "bonds": [pos[ctr]] if (len(parts) > 1 and ai != ctr) else []})
+        free = []
+        for bg in pan.get("background", []):
+            # Spread over the WHOLE box on a grid of their own. Stepping these
+            # along the particle grid sent most of them past the right edge and
+            # below the bottom, where the renderer dropped them: a "sea" of
+            # twenty-six electrons arrived as eight, in rows.
+            m = int(bg["count"])
+            bcols = max(1, int(math.ceil(math.sqrt(m * 1.6))))
+            brows = max(1, int(math.ceil(m / bcols)))
+            for k in range(m):
+                dx, dy = _pb_jitter(100 + pi, k)
+                ex = min(0.96, max(0.04, (k % bcols + 0.5) / bcols + dx * 0.55 / bcols))
+                ey = min(0.94, max(0.06, (k // bcols + 0.5) / brows + dy * 0.55 / brows))
+                # Delocalized means not attached to any one ion, so an electron
+                # that lands on an ion core is pushed clear of it rather than
+                # drawn on top -- which would read as a bond.
+                for d in drawn:
+                    sep = _hyp(ex - d["x"], ey - d["y"])
+                    if sep < d["r"] * 1.25:
+                        if sep < 1e-9:
+                            ex, ey = ex + d["r"] * 1.3, ey
+                        else:
+                            f = d["r"] * 1.3 / sep
+                            ex = min(0.97, max(0.03, d["x"] + (ex - d["x"]) * f))
+                            ey = min(0.96, max(0.04, d["y"] + (ey - d["y"]) * f))
+                free.append({"el": bg["key"], "x": ex, "y": ey,
+                             "r": els[bg["key"]]["r"], "fill": els[bg["key"]]["fill"],
+                             "symbol": els[bg["key"]].get("symbol", "")})
+        atoms = {}
+        for sp in pan["species"]:
+            for el, k in specs[sp["key"]]["atoms"].items():
+                atoms[el] = atoms.get(el, 0) + k * int(sp["count"])
+        panels.append({"label": pan["label"], "mode": mode, "particles": drawn,
+                       "background": free, "caption": pan.get("caption"),
+                       "counts": {sp["key"]: int(sp["count"]) for sp in pan["species"]},
+                       "atoms": atoms})
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "panels_pb": panels, "arrow_after": p.get("arrow_after"),
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+def _fm_field(charges: list, x: float, y: float) -> tuple[float, float]:
+    """Coulomb superposition in box coordinates, k = 1.
+
+    The field is COMPUTED, not sketched. Every property the entries name --
+    lines leaving positive and arriving at negative, spacing standing for
+    magnitude, isolines meeting the field at right angles -- is then a fact
+    about this function rather than about how carefully someone drew curves.
+    """
+    ex = ey = 0.0
+    for c in charges:
+        dx, dy = x - c["x"], y - c["y"]
+        r2 = dx * dx + dy * dy
+        if r2 < 1e-9:
+            continue
+        r = math.sqrt(r2)
+        ex += c["q"] * dx / (r2 * r)
+        ey += c["q"] * dy / (r2 * r)
+    return ex, ey
+
+
+def _fm_potential(charges: list, x: float, y: float) -> float:
+    v = 0.0
+    for c in charges:
+        r = _hyp(x - c["x"], y - c["y"])
+        v += c["q"] / max(r, 1e-6)
+    return v
+
+
+def f_field_map(p: dict) -> dict:
+    """Electric field maps and equipotential maps: one geometry, two readings.
+
+    Field lines and isolines are complementary representations of the same
+    field -- the AP Physics 2 entry says exactly that, and either can be built
+    from the other -- so they are one family. Lines are traced by stepping
+    along the computed field; isolines for a single charge are circles, which
+    makes "perpendicular to the field everywhere" exact rather than
+    approximate.
+    """
+    ch = p["charges"]
+    lines, vectors, isos = [], [], []
+
+    if p.get("field_lines"):
+        per = p.get("lines_per_unit_charge", 8)
+        for c in ch:
+            if c["q"] <= 0:
+                continue
+            n = max(1, int(round(per * c["q"])))
+            for i in range(n):
+                a = 2 * math.pi * (i + 0.5) / n
+                x, y = c["x"] + 0.035 * math.cos(a), c["y"] + 0.035 * math.sin(a)
+                pts = [(x, y)]
+                for _ in range(900):
+                    ex, ey = _fm_field(ch, x, y)
+                    m = _hyp(ex, ey)
+                    if m < 1e-9:
+                        break
+                    x, y = x + 0.004 * ex / m, y + 0.004 * ey / m
+                    if not (0.0 <= x <= 1.0 and 0.0 <= y <= 1.0):
+                        # Stop exactly ON the box edge. A 2% margin put real
+                        # ink outside the frame the figure draws, and the
+                        # canvas check could not see it because field lines
+                        # are <path> elements.
+                        pts.append((min(1.0, max(0.0, x)), min(1.0, max(0.0, y))))
+                        break
+                    if any(q["q"] < 0 and _hyp(x - q["x"], y - q["y"]) < 0.035 for q in ch):
+                        pts.append((x, y))
+                        break
+                    pts.append((x, y))
+                lines.append(pts)
+
+    for gx, gy in p.get("vector_points", []):
+        ex, ey = _fm_field(ch, gx, gy)
+        m = _hyp(ex, ey)
+        if m < 1e-12:
+            continue
+        vectors.append({"x": gx, "y": gy, "ux": ex / m, "uy": ey / m, "mag": m})
+
+    for r in p.get("isoline_radii", []):
+        c = ch[0]
+        isos.append({"cx": c["x"], "cy": c["y"], "r": r,
+                     "v": _fm_potential(ch, c["x"] + r, c["y"])})
+
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "fm_charges": ch, "fm_lines": lines, "fm_vectors": vectors,
+            "fm_isolines": isos, "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+def f_circuit_symbols(p: dict) -> dict:
+    """A symbol library, drawn as a legend sheet rather than as a circuit.
+
+    AP Physics 2 11.2 authors eight labelled parts and every one of them is a
+    SYMBOL, not a component in a working circuit. Drawing a circuit that
+    happens to contain them would teach the circuit; what the entry asks for is
+    the key. Each cell is one symbol with its name under it, and the variable
+    element is deliberately the standard symbol plus the diagonal arrow, which
+    is the entry's own definition of it.
+    """
+    cells = []
+    for i, sym in enumerate(p["symbols"]):
+        cells.append({"glyph": sym["glyph"], "label": sym["label"],
+                      "variable": bool(sym.get("variable")),
+                      "base": sym.get("base"), "index": i,
+                      # Carried through: the ammeter and the voltmeter are the
+                      # SAME glyph and are told apart only by this letter.
+                      # Dropping it drew two identical empty circles.
+                      "letter": sym.get("letter", "")})
+    known = {"battery", "bulb", "switch", "capacitor", "resistor", "meter", "wire"}
+    for c in cells:
+        if c["glyph"] not in known:
+            raise ValueError(f"no drawing for circuit symbol {c['glyph']!r}")
+    cols = p.get("columns", 4)
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "cs_cells": cells, "cs_cols": cols, "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -648,6 +981,10 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "boxplot": f_boxplot,
     "xy_series": f_xy_series,
     "kinematic_panels": f_kinematic_panels,
+    "arrow_diagram": f_arrow_diagram,
+    "particulate_box": f_particulate_box,
+    "field_map": f_field_map,
+    "circuit_symbols": f_circuit_symbols,
 }
 
 
@@ -764,9 +1101,16 @@ def render(spec: dict, layout: str = "expanded") -> str:
 
     o = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-        f'role="img" aria-labelledby="ttl desc" font-family="Helvetica Neue, Arial, sans-serif">',
-        f'<title id="ttl">{esc(spec["title"])}</title>',
-        f'<desc id="desc">{esc(spec["alt"])}</desc>',
+        # The ids are per FIGURE, not the literals "ttl"/"desc". Several of
+        # these SVGs are inline on one page -- the notes sheet shows a figures
+        # section -- and repeating id="ttl" is invalid and points every
+        # figure's accessible name at whichever one parsed first. The app's
+        # renderer already did this; the parity check found that this one did
+        # not.
+        f'role="img" aria-labelledby="{spec["figure_id"]}-t {spec["figure_id"]}-d" '
+        f'font-family="Helvetica Neue, Arial, sans-serif">',
+        f'<title id="{spec["figure_id"]}-t">{esc(spec["title"])}</title>',
+        f'<desc id="{spec["figure_id"]}-d">{esc(spec["alt"])}</desc>',
         f'<rect width="{W}" height="{H}" fill="{BG}"/>',
     ]
     # gridlines
@@ -896,6 +1240,273 @@ def render(spec: dict, layout: str = "expanded") -> str:
         anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
         o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
                  f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # circuit symbol sheet
+    if g.get("cs_cells"):
+        cells, cols = g["cs_cells"], g["cs_cols"]
+        rows_n = int(math.ceil(len(cells) / cols))
+        cw_ = pw / cols
+        chh_ = ph / rows_n
+        sw_ = max(1.3, SW * 0.9)
+        for c in cells:
+            r_, q_ = divmod(c["index"], cols)
+            ox = L + q_ * cw_ + cw_ / 2
+            oy = T + r_ * chh_ + chh_ * 0.42
+            half = min(cw_ * 0.30, chh_ * 0.26)
+            lead = half * 0.52
+            def wire(x1, x2, yy=None):
+                yy = oy if yy is None else yy
+                o.append(f'<line x1="{x1:.1f}" y1="{yy:.1f}" x2="{x2:.1f}" y2="{yy:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}" stroke-linecap="round"/>')
+            glyph = c["base"] or c["glyph"]
+            if glyph == "resistor":
+                wire(ox - half, ox - half + lead)
+                zig, n_ = [], 6
+                for k in range(n_ + 1):
+                    zx = ox - half + lead + k * (2 * (half - lead)) / n_
+                    zy = oy + (0 if k in (0, n_) else (half * 0.40 if k % 2 else -half * 0.40))
+                    zig.append(f"{zx:.1f},{zy:.1f}")
+                o.append(f'<path d="M {" L ".join(zig)}" fill="none" stroke="{INK}" '
+                         f'stroke-width="{sw_:.1f}" stroke-linejoin="round"/>')
+                wire(ox + half - lead, ox + half)
+            elif glyph == "battery":
+                wire(ox - half, ox - half * 0.30)
+                for dx_, hh_, wd in ((-half * 0.30, half * 0.62, sw_ * 1.5),
+                                     (half * 0.02, half * 0.30, sw_ * 1.5)):
+                    o.append(f'<line x1="{ox + dx_:.1f}" y1="{oy - hh_:.1f}" '
+                             f'x2="{ox + dx_:.1f}" y2="{oy + hh_:.1f}" stroke="{INK}" '
+                             f'stroke-width="{wd:.1f}"/>')
+                wire(ox + half * 0.02, ox + half)
+            elif glyph == "capacitor":
+                wire(ox - half, ox - half * 0.16)
+                for dx_ in (-half * 0.16, half * 0.16):
+                    o.append(f'<line x1="{ox + dx_:.1f}" y1="{oy - half*0.58:.1f}" '
+                             f'x2="{ox + dx_:.1f}" y2="{oy + half*0.58:.1f}" stroke="{INK}" '
+                             f'stroke-width="{sw_*1.5:.1f}"/>')
+                wire(ox + half * 0.16, ox + half)
+            elif glyph == "bulb":
+                rr = half * 0.52
+                wire(ox - half, ox - rr)
+                o.append(f'<circle cx="{ox:.1f}" cy="{oy:.1f}" r="{rr:.1f}" fill="none" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                k = rr * 0.707
+                for sx_, sy_ in ((-k, -k), (-k, k)):
+                    o.append(f'<line x1="{ox + sx_:.1f}" y1="{oy + sy_:.1f}" '
+                             f'x2="{ox - sx_:.1f}" y2="{oy - sy_:.1f}" stroke="{INK}" '
+                             f'stroke-width="{sw_*0.8:.1f}"/>')
+                wire(ox + rr, ox + half)
+            elif glyph == "switch":
+                wire(ox - half, ox - half * 0.42)
+                o.append(f'<line x1="{ox - half*0.42:.1f}" y1="{oy:.1f}" '
+                         f'x2="{ox + half*0.34:.1f}" y2="{oy - half*0.62:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}" stroke-linecap="round"/>')
+                for dx_ in (-half * 0.42, half * 0.42):
+                    o.append(f'<circle cx="{ox + dx_:.1f}" cy="{oy:.1f}" r="{sw_*1.1:.1f}" '
+                             f'fill="{INK}"/>')
+                wire(ox + half * 0.42, ox + half)
+            elif glyph == "meter":
+                rr = half * 0.52
+                wire(ox - half, ox - rr)
+                o.append(f'<circle cx="{ox:.1f}" cy="{oy:.1f}" r="{rr:.1f}" fill="none" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                o.append(f'<text x="{ox:.1f}" y="{oy + FM*0.36:.1f}" text-anchor="middle" '
+                         f'font-size="{FM:.1f}" fill="{INK}">{esc(c.get("letter", ""))}</text>')
+                wire(ox + rr, ox + half)
+            if c["variable"]:
+                # The entry's own definition: the standard symbol with a
+                # diagonal strikethrough arrow across it.
+                x1_, y1_ = ox - half * 0.78, oy + half * 0.86
+                x2_, y2_ = ox + half * 0.78, oy - half * 0.86
+                o.append(f'<line x1="{x1_:.1f}" y1="{y1_:.1f}" x2="{x2_:.1f}" y2="{y2_:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                ang = math.atan2(y2_ - y1_, x2_ - x1_)
+                hd = half * 0.30
+                o.append(f'<path d="M {x2_:.1f},{y2_:.1f} '
+                         f'L {x2_ - hd*math.cos(ang-0.45):.1f},{y2_ - hd*math.sin(ang-0.45):.1f} '
+                         f'L {x2_ - hd*math.cos(ang+0.45):.1f},{y2_ - hd*math.sin(ang+0.45):.1f} Z" '
+                         f'fill="{INK}"/>')
+            for li, ltxt in enumerate(wrap(c["label"], max(10, int(cw_ / (FM * 0.52))))):
+                o.append(f'<text x="{ox:.1f}" y="{T + r_*chh_ + chh_*0.80 + li*FM*1.15:.1f}" '
+                         f'text-anchor="middle" font-size="{FM*0.95:.1f}" fill="{INK}">'
+                         f'{esc(ltxt)}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+    # electric field / equipotential maps
+    if g.get("fm_charges") is not None and (g.get("fm_lines") or g.get("fm_vectors")
+                                            or g.get("fm_isolines")):
+        side = min(pw, ph)
+        bx = L + (pw - side) / 2
+        by = T + (ph - side) / 2
+        o.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{side:.1f}" height="{side:.1f}" '
+                 f'fill="{BG}" stroke="{GRID}" stroke-width="1.2"/>')
+        fx = lambda u: bx + u * side
+        fy = lambda v: by + v * side
+        for iso in g.get("fm_isolines", []):
+            o.append(f'<circle cx="{fx(iso["cx"]):.1f}" cy="{fy(iso["cy"]):.1f}" '
+                     f'r="{iso["r"]*side:.1f}" fill="none" stroke="{GRAY}" '
+                     f'stroke-width="1.1" stroke-dasharray="5 4"/>')
+        for pts in g.get("fm_lines", []):
+            d = "M " + " L ".join(f"{fx(x):.1f},{fy(y):.1f}" for x, y in pts)
+            o.append(f'<path d="{d}" fill="none" stroke="{GRAY}" stroke-width="{SW*0.72:.1f}"/>')
+            # One arrowhead per line, at its midpoint, so direction is readable
+            # without an arrow every few units turning the map into hatching.
+            mi = len(pts) // 2
+            if mi > 1:
+                (x0_, y0_), (x1_, y1_) = pts[mi - 1], pts[mi]
+                ang = math.atan2(fy(y1_) - fy(y0_), fx(x1_) - fx(x0_))
+                hx, hy = fx(x1_), fy(y1_)
+                hd = max(4.0, side * 0.022)
+                o.append(f'<path d="M {hx:.1f},{hy:.1f} '
+                         f'L {hx - hd*math.cos(ang - 0.42):.1f},{hy - hd*math.sin(ang - 0.42):.1f} '
+                         f'L {hx - hd*math.cos(ang + 0.42):.1f},{hy - hd*math.sin(ang + 0.42):.1f} Z" '
+                         f'fill="{GRAY}"/>')
+        vmax = max((v["mag"] for v in g.get("fm_vectors", [])), default=1.0)
+        for v in g.get("fm_vectors", []):
+            ln = side * 0.052 * (0.45 + 0.55 * min(1.0, (v["mag"] / vmax) ** 0.4))
+            x0_, y0_ = fx(v["x"]), fy(v["y"])
+            x1_, y1_ = x0_ + v["ux"] * ln, y0_ + v["uy"] * ln
+            o.append(f'<line x1="{x0_:.1f}" y1="{y0_:.1f}" x2="{x1_:.1f}" y2="{y1_:.1f}" '
+                     f'stroke="{INK}" stroke-width="{SW*0.8:.1f}"/>')
+            hd = max(3.0, ln * 0.34)
+            ang = math.atan2(v["uy"], v["ux"])
+            o.append(f'<path d="M {x1_:.1f},{y1_:.1f} '
+                     f'L {x1_ - hd*math.cos(ang - 0.45):.1f},{y1_ - hd*math.sin(ang - 0.45):.1f} '
+                     f'L {x1_ - hd*math.cos(ang + 0.45):.1f},{y1_ - hd*math.sin(ang + 0.45):.1f} Z" '
+                     f'fill="{INK}"/>')
+        for c in g["fm_charges"]:
+            r = max(5.0, side * 0.038)
+            o.append(f'<circle cx="{fx(c["x"]):.1f}" cy="{fy(c["y"]):.1f}" r="{r:.1f}" '
+                     f'fill="{BG}" stroke="{INK}" stroke-width="1.6"/>')
+            sign = "+" if c["q"] > 0 else MINUS
+            o.append(f'<text x="{fx(c["x"]):.1f}" y="{fy(c["y"]) + r*0.42:.1f}" '
+                     f'text-anchor="middle" font-size="{r*1.35:.1f}" fill="{INK}">'
+                     f'{sign}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+    # particulate panels
+    if g.get("panels_pb"):
+        pans = g["panels_pb"]
+        npan = len(pans)
+        gap = pw * (0.055 if npan > 1 else 0)
+        arrow_w = pw * 0.07 if g.get("arrow_after") is not None else 0.0
+        bw = (pw - gap * (npan - 1) - arrow_w) / npan
+        # Room under each box for its label, and above for nothing: the caption
+        # belongs to the figure, not to the panel.
+        lab_h = FM * 1.9 + (FN * 1.5 if any(pan.get("caption") for pan in pans) else 0.0)
+        bh = min(ph - lab_h, bw * 1.25)
+        by = T + max(0.0, (ph - lab_h - bh) / 2)
+        for pi, pan in enumerate(pans):
+            bx = L + pi * (bw + gap) + (arrow_w if (g.get("arrow_after") is not None
+                                                    and pi > g["arrow_after"]) else 0.0)
+            o.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{bw:.1f}" height="{bh:.1f}" '
+                     f'fill="{BG}" stroke="{GRID}" stroke-width="1.2"/>')
+            scale = min(bw, bh)
+            for d in pan["background"]:
+                px, py = bx + d["x"] * bw, by + d["y"] * bh
+                if not (bx + 2 <= px <= bx + bw - 2 and by + 2 <= py <= by + bh - 2):
+                    continue
+                o.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{max(1.4, d["r"]*scale):.1f}" '
+                         f'fill="{d["fill"]}"/>')
+            for d in pan["particles"]:
+                px, py = bx + d["x"] * bw, by + d["y"] * bh
+                for bf in d.get("bonds", []):
+                    fx_, fy_ = bx + bf[0] * bw, by + bf[1] * bh
+                    o.append(f'<line x1="{fx_:.1f}" y1="{fy_:.1f}" x2="{px:.1f}" y2="{py:.1f}" '
+                             f'stroke="{INK}" stroke-width="{max(1.1, scale*0.012):.1f}"/>')
+                o.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{max(1.8, d["r"]*scale):.1f}" '
+                         f'fill="{d["fill"]}" stroke="{INK}" stroke-width="1"/>')
+                # Drawn at EVERY layout: the plus sign is what makes the circle
+                # an ion rather than an atom, and the entry's first labelled
+                # part is "positive metal ions". It vanished at compact, where
+                # the alt text still said each one was marked with a plus.
+                if d.get("symbol") and d["r"] * scale >= FM * 0.7:
+                    o.append(f'<text x="{px:.1f}" y="{py + FM*0.34:.1f}" text-anchor="middle" '
+                             f'font-size="{FM*0.86:.1f}" fill="{BG}">{esc(d["symbol"])}</text>')
+            o.append(f'<text x="{bx + bw/2:.1f}" y="{by + bh + FM*1.3:.1f}" text-anchor="middle" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(pan["label"])}</text>')
+            if pan.get("caption") and SHOW_ANN:
+                o.append(f'<text x="{bx + bw/2:.1f}" y="{by + bh + FM*2.6:.1f}" '
+                         f'text-anchor="middle" font-size="{FN*0.92:.1f}" fill="{GRAY}">'
+                         f'{esc(pan["caption"])}</text>')
+        if g.get("arrow_after") is not None:
+            ai = g["arrow_after"]
+            ax0 = L + (ai + 1) * (bw + gap) - gap + arrow_w * 0.18
+            ay = by + bh / 2
+            o.append(f'<line x1="{ax0:.1f}" y1="{ay:.1f}" x2="{ax0 + arrow_w*0.52:.1f}" '
+                     f'y2="{ay:.1f}" stroke="{INK}" stroke-width="{SW:.1f}"/>')
+            hd = arrow_w * 0.22
+            o.append(f'<path d="M {ax0 + arrow_w*0.64:.1f},{ay:.1f} '
+                     f'L {ax0 + arrow_w*0.64 - hd:.1f},{ay - hd*0.46:.1f} '
+                     f'L {ax0 + arrow_w*0.64 - hd:.1f},{ay + hd*0.46:.1f} Z" fill="{INK}"/>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+    # vector / free-body arrows
+    if g.get("vectors"):
+        cx, cy = L + pw / 2, T + ph / 2
+        # Leave room for the tip label on the longest arrow in every direction,
+        # so a figure is not clipped merely because its biggest vector points at
+        # the corner. The label, not the arrow, sets the radius.
+        longest = min(pw, ph) * (0.30 if SHOW_ANN else 0.34)
+        head = max(5.0, longest * 0.11)
+        if g.get("axis"):
+            aa = math.radians(g["axis"]["angle"])
+            ax, ay = math.cos(aa), -math.sin(aa)
+            ext = min(pw, ph) * 0.46
+            o.append(f'<line x1="{cx - ax*ext:.1f}" y1="{cy - ay*ext:.1f}" '
+                     f'x2="{cx + ax*ext:.1f}" y2="{cy + ay*ext:.1f}" stroke="{GRID}" '
+                     f'stroke-width="1.1" stroke-dasharray="5 5"/>')
+            # Anchor the label at whichever END of the axis leaves room for it.
+            # Flipping only the x coordinate put the label at the far end's x
+            # with the near end's y, straight on top of the normal-force label.
+            albl = g["axis"]["label"]
+            alw = 0.55 * FN * len(albl)
+            best = None
+            for sgn in (1.0, -1.0):
+                ex, ey = cx + ax * ext * sgn, cy + ay * ext * sgn
+                anc = "start" if ax * sgn >= 0 else "end"
+                lx0 = ex + (6 if anc == "start" else -6)
+                left = lx0 if anc == "start" else lx0 - alw
+                fits = left >= 4 and left + alw <= W - 4 and 4 <= ey - 5 <= H - 4
+                if fits:
+                    best = (lx0, ey - 5, anc)
+                    break
+                if best is None:
+                    best = (max(4.0, min(lx0, W - 4 - alw)), ey - 5, "start")
+            o.append(f'<text x="{best[0]:.1f}" y="{best[1]:.1f}" font-size="{FN:.1f}" '
+                     f'text-anchor="{best[2]}" fill="{GRAY}">{esc(albl)}</text>')
+        for v in g["vectors"]:
+            ang = math.radians(v["angle"])
+            ux, uy = math.cos(ang), -math.sin(ang)       # SVG y grows downward
+            px, py = -uy, ux                             # unit perpendicular
+            off = v["offset"] * head * 0.95
+            bx_, by_ = cx + px * off, cy + py * off
+            ln = longest * v["frac"]
+            tx, ty = bx_ + ux * ln, by_ + uy * ln
+            # Stop the shaft where the head begins, or the stroke pokes through
+            # the point of the arrowhead at the compact stroke width.
+            sx_, sy_ = bx_ + ux * max(0.0, ln - head * 0.92), by_ + uy * max(0.0, ln - head * 0.92)
+            o.append(f'<line x1="{bx_:.1f}" y1="{by_:.1f}" x2="{sx_:.1f}" y2="{sy_:.1f}" '
+                     f'stroke="{INK}" stroke-width="{SW:.1f}" stroke-linecap="round"/>')
+            hw = head * 0.42
+            o.append(f'<path d="M {tx:.1f},{ty:.1f} '
+                     f'L {tx - ux*head + px*hw:.1f},{ty - uy*head + py*hw:.1f} '
+                     f'L {tx - ux*head - px*hw:.1f},{ty - uy*head - py*hw:.1f} Z" fill="{INK}"/>')
+            # The label takes the arrow's whole perpendicular offset, not a
+            # fraction of it: at compact the fraction left "rope 4.0 N" and
+            # "friction 1.0 N" overprinting even though their arrows did not.
+            lsep = off * 2.4 if off else 0.0
+            lx, ly = tx + ux * 9 + px * lsep, ty + uy * 9 + py * lsep
+            anc = "start" if ux > 0.18 else ("end" if ux < -0.18 else "middle")
+            o.append(f'<text x="{lx:.1f}" y="{ly + (FM*0.9 if uy > 0.3 else (-FM*0.25 if uy < -0.3 else FM*0.35)):.1f}" '
+                     f'text-anchor="{anc}" font-size="{FM:.1f}" fill="{INK}">{esc(v["label"])}</text>')
+        if g.get("dot"):
+            # Drawn last: every arrow starts here, so the dot must sit on top.
+            o.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{max(3.0, head*0.34):.1f}" fill="{INK}"/>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
     # stem-and-leaf rows
     if g.get("text_rows"):
         rows = g["text_rows"]
@@ -927,9 +1538,16 @@ def render(spec: dict, layout: str = "expanded") -> str:
     for s in g.get("sticks", []):
         o.append(f'<line x1="{sx(s["x"]):.1f}" y1="{sy(0):.1f}" x2="{sx(s["x"]):.1f}" y2="{sy(s["y"]):.1f}" '
                  f'stroke="{INK}" stroke-width="{max(4, SW*2.7):.1f}" stroke-linecap="butt"/>')
-        if s["label"] and SHOW_ANN:
+        if s["label"]:
+            # Adjacent peaks sit about 58 units apart, so a full "25Mg 10.00%"
+            # overprints its neighbour at compact. Dropping the label there
+            # leaves a spectrum of unidentified sticks, which is worse: compact
+            # keeps the isotope and the value stays readable off the y axis.
+            # The app's renderer already did this; the parity check found that
+            # this one did not.
+            lbl = s["label"] if SHOW_ANN else s["label"].split(" ")[0]
             o.append(f'<text x="{sx(s["x"]):.1f}" y="{sy(s["y"])-10:.1f}" text-anchor="middle" '
-                     f'font-size="{FM}" fill="{INK}">{esc(s["label"])}</text>')
+                     f'font-size="{FM}" fill="{INK}">{esc(lbl)}</text>')
     # curves
     for c in g["curves"]:
         d = "M " + " L ".join(f'{sx(x):.1f},{sy(y):.1f}' for x, y in c["pts"])
@@ -941,7 +1559,13 @@ def render(spec: dict, layout: str = "expanded") -> str:
                  f'stroke="{INK}" stroke-width="1.2" stroke-dasharray="3 4"/>')
         for txt, yy, fsz, extra in ((v.get("label"), T + 22, FN * 1.45, ' font-style="italic"'),
                                     (v.get("caption"), T + 40, FN, '')):
-            if not txt or not (SHOW_ANN or vi == 0):
+            # The marker's LINE is drawn unconditionally, so dropping its label
+            # leaves an unexplained dashed line on the canvas: at compact the
+            # catalysis figure showed two barriers and named only one, which is
+            # the whole teaching point lost. The short label now survives every
+            # layout for every marker; only the longer caption still drops.
+            is_label = bool(extra)
+            if not txt or not (is_label or SHOW_ANN or vi == 0):
                 continue
             # Past the midpoint the caption has to hang to the LEFT of its
             # marker, or it runs off the canvas -- which is where "equilibrium
@@ -950,7 +1574,11 @@ def render(spec: dict, layout: str = "expanded") -> str:
             xx = sx(v["x"]) - 8 if flip else sx(v["x"]) + 8
             anc = ' text-anchor="end"' if flip else ''
             col = INK if extra else GRAY
-            o.append(f'<text x="{xx:.1f}" y="{yy}" font-size="{fsz:.1f}"{extra}{anc} fill="{col}">{esc(txt)}</text>')
+            # One decimal, like every other coordinate in this file. It used to
+            # print the raw value, so a y that happened to be an int rendered
+            # as "116" here and "116.0" three lines above -- which the parity
+            # check against the app's renderer reported as a difference.
+            o.append(f'<text x="{xx:.1f}" y="{yy:.1f}" font-size="{fsz:.1f}"{extra}{anc} fill="{col}">{esc(txt)}</text>')
     # point marks
     for m in g.get("marks", []):
         px, py = sx(m["x"]), sy(m["y"])
