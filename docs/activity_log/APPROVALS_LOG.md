@@ -6,7 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0155 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK — DECISION-0115 (2026-10-11)
+- APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK — DECISION-0115 (2026-10-11)
 - APPROVAL-0155 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
 - APPROVAL-0154 — Reference Packs for Eight Subjects to Production: 776 Entries + 7 Hooks, Units 1-3 (2026-10-11)
 - APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill) (2026-10-10)
@@ -2088,7 +2088,7 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
 
-## APPROVAL-0155 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK
+## APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK
 
 **Date:** 2026-10-11
 **Approved By:** David Bloom (2026-10-11 Claude session): "deploy it to production now", having chosen the
@@ -2099,6 +2099,13 @@ design earlier the same session ("do (c) - lookup table with FK").
 `docs/product/LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md` §6; `APPROVAL-0153` (the figures
 this constrains).
 **Decision:** Approved and applied.
+
+**Number note:** this entry was written as `APPROVAL-0155` while the deploy was running. `PR #411`
+(`codex/google-login-client-repair-record`) merged first and had already claimed `APPROVAL-0155` for the
+`/login` Google OAuth client repair, so this one is renumbered to **`APPROVAL-0156`** per this log's
+convention that the later-merging branch renumbers. Content unchanged; only the id moved. The open-PR
+check that is supposed to catch this was run before numbering and came back empty — the collision was
+caught at merge time instead, by reading `main`.
 
 **What was deployed:** one migration, applied to Development earlier the same day and then to Production
 with the CLI pinned to the Production link (`--workdir /Users/davidbloom`, project ref confirmed as
