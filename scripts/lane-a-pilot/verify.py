@@ -709,8 +709,188 @@ def p_arrow_diagram(sid, s, svg):
            "alt must not claim every arrow starts precisely at the dot")
 
 
+def _on_segment(atom, a, b, tol: float = 0.35) -> bool:
+    """Does `atom` sit on the line from a to b, within a fraction of its radius?"""
+    ax, ay = a
+    bx_, by_ = b
+    dx, dy = bx_ - ax, by_ - ay
+    L2 = dx * dx + dy * dy
+    if L2 < 1e-12:
+        return False
+    t = ((atom["x"] - ax) * dx + (atom["y"] - ay) * dy) / L2
+    if not (0.08 < t < 0.92):
+        return False
+    px, py = ax + t * dx, ay + t * dy
+    return math.hypot(atom["x"] - px, atom["y"] - py) < atom["r"] * tol
+
+
+def p_particulate_box(sid, s, svg):
+    """Counts, ratios and conservation: what a wrong particulate box violates.
+
+    These are the entries' own labelled parts, not decoration. "Atom
+    conservation" is a labelled part of the balanced-equation entry, and it is
+    exactly machine-checkable once a species knows its atoms.
+    """
+    p = s["params"]
+    g = R.FAMILIES["particulate_box"](p)
+    pans = g["panels_pb"]
+
+    ck(sid, "every panel has particles in it", all(pan["particles"] for pan in pans))
+    # A bond must join two atoms of the SAME molecule and must not be drawn
+    # through a third: water was drawn H-H with the oxygen on the line.
+    for pan in pans:
+        for d in pan["particles"]:
+            for bf in d.get("bonds", []):
+                others = [e for e in pan["particles"]
+                          if e is not d and e["species"] == d["species"]
+                          and math.hypot(e["x"] - bf[0], e["y"] - bf[1]) < 1e-9]
+                ck(sid, f"each bond in '{pan['label']}' ends on an atom of its own molecule",
+                   bool(others), f"{d['el']} bond ends at {bf}")
+                through = [e for e in pan["particles"]
+                           if e is not d and e not in others
+                           and _on_segment(e, (d["x"], d["y"]), bf)]
+                ck(sid, f"no bond in '{pan['label']}' is drawn through another atom",
+                   not through, f"{[e['el'] for e in through]} lies on a bond")
+    # A particle drawn outside its own box is not in the picture at all.
+    for pan in pans:
+        out = [d for d in pan["particles"]
+               if not (-0.02 <= d["x"] <= 1.02 and -0.02 <= d["y"] <= 1.02)]
+        ck(sid, f"every particle in '{pan['label']}' is inside its box", not out,
+           f"{len(out)} stray")
+
+    if p.get("atom_conservation_check"):
+        # The entry's own labelled part. Counted from the species' declared
+        # atoms, so it checks the chemistry rather than the circle count.
+        before, after = pans[0]["atoms"], pans[-1]["atoms"]
+        ck(sid, "every element is conserved across the arrow", before == after,
+           f"before={before} after={after}")
+        ck(sid, "the reaction actually rearranges something",
+           pans[0]["counts"] != pans[-1]["counts"],
+           "reactants and products are the same molecules")
+        ck(sid, "no element appears in the products that was not in the reactants",
+           set(after) <= set(before))
+        for el, n in before.items():
+            ck(sid, f"the figure's text states the {el} count", str(n) in (s.get("note") or ""))
+
+    if p.get("phase_check"):
+        by = {pan["label"]: pan for pan in pans}
+        ck(sid, "all three phases are drawn", set(by) == {"solid", "liquid", "gas"})
+        ck(sid, "solid and liquid hold comparable molar volume: the same count in the same box",
+           len(by["solid"]["particles"]) == len(by["liquid"]["particles"]),
+           f"solid={len(by['solid']['particles'])} liquid={len(by['liquid']['particles'])}")
+        ck(sid, "the gas is far sparser than either condensed phase",
+           len(by["gas"]["particles"]) * 2 < len(by["solid"]["particles"]),
+           f"gas={len(by['gas']['particles'])}")
+        ck(sid, "the solid is the regular arrangement and the liquid is not",
+           by["solid"]["mode"] == "lattice" and by["liquid"]["mode"] == "close")
+        # Spacing, measured rather than asserted: mean nearest-neighbour
+        # distance must actually be larger in the gas, or "far apart" is a word
+        # in the caption that the drawing does not keep.
+        def nn(pan):
+            pts = [(d["x"], d["y"]) for d in pan["particles"]]
+            return sum(min(math.hypot(a[0] - b[0], a[1] - b[1])
+                           for b in pts if b is not a) for a in pts) / len(pts)
+        # "Regular" versus "irregular" is the only difference between those two
+        # panels, so it is measured rather than asserted by a mode name: the
+        # spread of nearest-neighbour distances is near zero in a lattice and
+        # must be clearly non-zero in the liquid.
+        def disorder(pan):
+            pts = [(d["x"], d["y"]) for d in pan["particles"]]
+            ds = [min(math.hypot(a[0] - b[0], a[1] - b[1]) for b in pts if b is not a)
+                  for a in pts]
+            m = sum(ds) / len(ds)
+            return (sum((d - m) ** 2 for d in ds) / len(ds)) ** 0.5 / m
+        ck(sid, "the solid's arrangement is regular", disorder(by["solid"]) < 0.02,
+           f"spread={disorder(by['solid']):.4f}")
+        ck(sid, "the liquid's arrangement is visibly irregular, not a lattice",
+           disorder(by["liquid"]) > 0.12,
+           f"spread={disorder(by['liquid']):.4f} -- too close to a lattice to read as a liquid")
+        ck(sid, "gas particles really are further apart than liquid particles",
+           nn(by["gas"]) > nn(by["liquid"]) * 1.4,
+           f"gas={nn(by['gas']):.3f} liquid={nn(by['liquid']):.3f}")
+        # A gas must show no arrangement at all. Stepping evenly through the
+        # grid put all five on one diagonal, which reads as a pattern -- so
+        # check they are not close to collinear, by the area of the triangle
+        # each triple spans relative to the box.
+        gp = [(d["x"], d["y"]) for d in by["gas"]["particles"]]
+        tri = max(abs((b[0]-a[0])*(c[1]-a[1]) - (c[0]-a[0])*(b[1]-a[1])) / 2
+                  for i, a in enumerate(gp) for j, b in enumerate(gp[i+1:], i+1)
+                  for c in gp[j+1:])
+        ck(sid, "the gas shows no arrangement: its particles are not collinear",
+           tri > 0.02, f"largest triangle spans {tri:.4f} of the box")
+
+    if p.get("solution_check"):
+        tot = p["solution_check"]["total"]
+        for pan in pans:
+            ck(sid, f"'{pan['label']}' holds the stated total number of particles",
+               sum(pan["counts"].values()) == tot,
+               f"{sum(pan['counts'].values())} != {tot}")
+        fracs = [pan["counts"].get("solute", 0) / tot for pan in pans]
+        ck(sid, "the concentrated solution really is more concentrated",
+           fracs[-1] > fracs[0], f"{fracs}")
+        ck(sid, "both boxes are equally full, so the ratio is what differs",
+           len({sum(pan["counts"].values()) for pan in pans}) == 1)
+        # "Dissolved" means surrounded by solvent. Filling the cells in the
+        # order the species were listed clumped every solute particle into the
+        # top rows -- undissolved solute, in a figure about solutions -- so the
+        # nearest neighbour of each solute particle must be solvent.
+        for pan in pans:
+            sol = [d for d in pan["particles"] if d["species"] == "solute"]
+            clumped = []
+            for a in sol:
+                nearest = min((b for b in pan["particles"] if b is not a),
+                              key=lambda b: math.hypot(a["x"] - b["x"], a["y"] - b["y"]))
+                if nearest["species"] == "solute":
+                    clumped.append(a)
+            ck(sid, f"every solute particle in '{pan['label']}' is surrounded by solvent",
+               not clumped, f"{len(clumped)} of {len(sol)} sit next to another solute")
+
+    if p.get("equilibrium_k_check"):
+        c = p["equilibrium_k_check"]
+        eq = pans[c["panel"]]["counts"]
+        num, den = eq.get(c["numerator"], 0), eq.get(c["denominator"], 0)
+        ck(sid, "some reactant remains at equilibrium, so it is not completion",
+           den > 0, "an empty reactant box is a reaction that went to completion")
+        ck(sid, "the particle counts at equilibrium give the stated K",
+           den > 0 and abs(num / den - c["k"]) < 1e-9,
+           f"{num}/{den} != {c['k']}")
+        ck(sid, "the total number of particles is unchanged by the reaction",
+           sum(pans[0]["counts"].values()) == sum(eq.values()),
+           "A becomes B one for one, so the count cannot change")
+        ck(sid, "the figure's text shows how K is read off the counts",
+           f"{num}/{den}" in (s.get("note") or ""))
+
+    if p.get("same_matter_check"):
+        # A reader at gate 4c read the parameters and found species A declared
+        # with atoms {"A": 1} and B with {"B": 1}: as data, one element turning
+        # into another. A one-for-one conversion has to be the same matter in
+        # two forms, and the figure has to say which.
+        comps = {json.dumps(sp_["atoms"], sort_keys=True) for sp_ in p["species"].values()}
+        ck(sid, "a one-for-one conversion keeps the same matter in both forms",
+           len(comps) == 1, f"species declare different compositions: {sorted(comps)}")
+        ck(sid, "the text says what kind of change this is",
+           "isomer" in (s["subtitle"] + s["caption"] + s["alt"]).lower(),
+           "two particle types converting one for one needs naming, or it reads as transmutation")
+
+    if p.get("sea_check"):
+        pan = pans[0]
+        ck(sid, "the ions are in a regular array", pan["mode"] == "lattice")
+        ck(sid, "the ions are drawn as positive",
+           all(d.get("symbol") == "+" for d in pan["particles"]))
+        ck(sid, "there are more electrons drawn than ions, and they are free",
+           len(pan["background"]) > len(pan["particles"]),
+           "delocalized electrons must not be one-per-ion, which is what a bond looks like")
+        # Delocalized means not attached: no electron may sit on an ion.
+        close = [b for b in pan["background"]
+                 for d in pan["particles"]
+                 if math.hypot(b["x"] - d["x"], b["y"] - d["y"]) < d["r"] * 0.8]
+        ck(sid, "no electron is drawn sitting on an ion", not close,
+           f"{len(close)} electrons overlap an ion core")
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
     "arrow_diagram": p_arrow_diagram,
+    "particulate_box": p_particulate_box,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,

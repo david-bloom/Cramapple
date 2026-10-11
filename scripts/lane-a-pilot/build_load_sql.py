@@ -37,6 +37,15 @@ FAMILIES = {
         "side by side rather than one on top of the other. The first Lane B grammar: it asserts a "
         "drawing convention rather than a quantity on an axis, so it renders in the bare frame.",
     ),
+    "particulate_box": (
+        "Particulate boxes",
+        "Coloured circles in a panel, with counts, spacing and arrangement carrying the meaning: "
+        "phases, solutions, balanced equations, reversible reactions and metallic bonding as one "
+        "picture with different contents. A species is a molecule with declared atoms at fixed "
+        "offsets, which is what makes atom conservation machine-checkable rather than a matter of "
+        "counting circles by eye. Placement is a pure function of (panel, index), never random, "
+        "because the figure is re-rendered on every page load.",
+    ),
     "categorical_bars": (
         "Categorical and binned bars",
         "Bar chart, histogram, side-by-side, segmented and mosaic, as five modes of one "

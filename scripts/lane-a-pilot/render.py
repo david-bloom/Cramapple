@@ -681,6 +681,163 @@ def f_arrow_diagram(p: dict) -> dict:
             "x_range": (-1.0, 1.0), "y_range": (-1.0, 1.0)}
 
 
+def _pb_jitter(seed: int, i: int) -> tuple[float, float]:
+    """Deterministic pseudo-jitter. A particulate box must not be random: the
+    figure is re-rendered on every page load and the suite asserts that two
+    renders are byte-identical, so the scatter is a pure function of (panel,
+    index) rather than anything drawn from a global RNG.
+    """
+    h = (seed * 1103515245 + i * 12345 + 1013904223) & 0x7FFFFFFF
+    return (((h >> 7) & 1023) / 1023.0 - 0.5, ((h >> 17) & 1023) / 1023.0 - 0.5)
+
+
+def f_particulate_box(p: dict) -> dict:
+    """Particles in a box: the second Lane B grammar.
+
+    Coloured circles in a panel, with counts, spacing and arrangement carrying
+    the meaning. Five AP Chemistry entries are this one picture with different
+    contents -- phases, a solution, a balanced equation, a reversible reaction
+    and metallic bonding -- which is the test for whether a family earns its
+    place.
+
+    A species is a MOLECULE: a list of atoms at fixed offsets, so the figure
+    knows how many atoms of each element it has drawn. That is what makes atom
+    conservation machine-checkable rather than a matter of counting circles by
+    eye, and atom conservation is the balanced-equation entry's own labelled
+    part.
+
+    Arrangement modes, which are the phase entry's labelled parts:
+      lattice  regular rows and columns, touching          (crystalline solid)
+      close    in contact but irregular                    (liquid, amorphous)
+      sparse   far apart, same box                         (gas)
+    """
+    els = p["elements"]
+    specs = p["species"]
+    panels = []
+    cap = max(sum(int(sp["count"]) for sp in pan["species"]) for pan in p["panels"])
+    for pi, pan in enumerate(p["panels"]):
+        mode = pan.get("mode", "close")
+        units = []
+        for sp in pan["species"]:
+            units += [sp["key"]] * int(sp["count"])
+        n = len(units)
+        if pan.get("mix"):
+            # Filling cells in the order the species are listed put all six
+            # solute particles in the top two rows -- a clump, which is what
+            # UNdissolved looks like, while the alt text said each was
+            # surrounded by solvent. Spread each species evenly through the
+            # sequence instead (Bresenham), deterministically.
+            counts = [(sp["key"], int(sp["count"])) for sp in pan["species"]]
+            placed = {k: 0 for k, _ in counts}
+            units = []
+            for i in range(n):
+                # the species furthest behind its own share of the slots so far
+                key = max(counts, key=lambda kc: (i + 1) * kc[1] / n - placed[kc[0]])[0]
+                placed[key] += 1
+                units.append(key)
+        if n == 0:
+            raise ValueError(f"panel {pan['label']!r} has no particles")
+        # ONE grid shared by every panel, sized by the fullest one, so three
+        # boxes of the same size are directly comparable -- which is the whole
+        # claim of the phases figure. A sparse panel then STRIDES across that
+        # grid instead of filling its first cells: sizing the grid to its own
+        # count and normalising back to the box left the gas no further apart
+        # than the liquid, while the caption said "far apart".
+        cols = max(1, int(math.ceil(math.sqrt(cap))))
+        rows = max(1, int(math.ceil(cap / cols)))
+        # A constant stride across the grid lands the gas on a straight
+        # diagonal, which is a pattern -- the one thing a gas must not show.
+        # Spread the cells deterministically instead: order them by a hash and
+        # take the first n, so the scatter is reproducible but not a line.
+        sparse_cells = None
+        if mode == "sparse":
+            # Farthest-point selection: start at a hash-chosen cell, then
+            # repeatedly take the cell furthest from everything already taken.
+            # A constant stride put the gas on a straight diagonal, and a
+            # hash-ordered pick clumped two of them together so the gas was no
+            # further apart than the liquid. This is deterministic AND spread.
+            def ctr(c):
+                return ((c % cols + 0.5) / cols, (c // cols + 0.5) / rows)
+            start = int(abs(_pb_jitter(7 * (pi + 1), 0)[0]) * (cols * rows)) % (cols * rows)
+            chosen = [start]
+            while len(chosen) < n:
+                best, bestd = None, -1.0
+                for c in range(cols * rows):
+                    if c in chosen:
+                        continue
+                    d = min(math.hypot(ctr(c)[0] - ctr(k)[0], ctr(c)[1] - ctr(k)[1])
+                            for k in chosen)
+                    if d > bestd + 1e-12:
+                        best, bestd = c, d
+                chosen.append(best)
+            sparse_cells = sorted(chosen)
+        # 0.17 left the liquid looking like the solid at every width: the eye
+        # could not tell "irregular" from "regular", which is the only thing
+        # those two panels differ by. The suite now measures the disorder too.
+        jit = {"lattice": 0.0, "close": 0.40, "sparse": 0.34}[mode]
+        drawn = []
+        for i, key in enumerate(units):
+            cell = sparse_cells[i] if sparse_cells is not None else i
+            cx = (cell % cols + 0.5) / cols
+            cy = (cell // cols + 0.5) / rows
+            dx, dy = _pb_jitter(pi + 1, i)
+            cx += dx * jit / cols
+            cy += dy * jit / rows
+            parts = specs[key]["parts"]
+            # Every atom bonds to the molecule's CENTRE atom, not to the atom
+            # before it. Joining first to last drew water as H-H with the
+            # oxygen sitting on the line between them -- a bond that does not
+            # exist, in a figure whose whole job is to be read literally.
+            ctr = specs[key].get("center", 0)
+            pos = [(cx + at["dx"] / cols * 0.5, cy + at["dy"] / rows * 0.5) for at in parts]
+            for ai, at in enumerate(parts):
+                drawn.append({"el": at["el"], "x": pos[ai][0], "y": pos[ai][1],
+                              "r": els[at["el"]]["r"], "fill": els[at["el"]]["fill"],
+                              "symbol": els[at["el"]].get("symbol", ""),
+                              "species": key,
+                              "bonds": [pos[ctr]] if (len(parts) > 1 and ai != ctr) else []})
+        free = []
+        for bg in pan.get("background", []):
+            # Spread over the WHOLE box on a grid of their own. Stepping these
+            # along the particle grid sent most of them past the right edge and
+            # below the bottom, where the renderer dropped them: a "sea" of
+            # twenty-six electrons arrived as eight, in rows.
+            m = int(bg["count"])
+            bcols = max(1, int(math.ceil(math.sqrt(m * 1.6))))
+            brows = max(1, int(math.ceil(m / bcols)))
+            for k in range(m):
+                dx, dy = _pb_jitter(100 + pi, k)
+                ex = min(0.96, max(0.04, (k % bcols + 0.5) / bcols + dx * 0.55 / bcols))
+                ey = min(0.94, max(0.06, (k // bcols + 0.5) / brows + dy * 0.55 / brows))
+                # Delocalized means not attached to any one ion, so an electron
+                # that lands on an ion core is pushed clear of it rather than
+                # drawn on top -- which would read as a bond.
+                for d in drawn:
+                    sep = math.hypot(ex - d["x"], ey - d["y"])
+                    if sep < d["r"] * 1.25:
+                        if sep < 1e-9:
+                            ex, ey = ex + d["r"] * 1.3, ey
+                        else:
+                            f = d["r"] * 1.3 / sep
+                            ex = min(0.97, max(0.03, d["x"] + (ex - d["x"]) * f))
+                            ey = min(0.96, max(0.04, d["y"] + (ey - d["y"]) * f))
+                free.append({"el": bg["key"], "x": ex, "y": ey,
+                             "r": els[bg["key"]]["r"], "fill": els[bg["key"]]["fill"],
+                             "symbol": els[bg["key"]].get("symbol", "")})
+        atoms = {}
+        for sp in pan["species"]:
+            for el, k in specs[sp["key"]]["atoms"].items():
+                atoms[el] = atoms.get(el, 0) + k * int(sp["count"])
+        panels.append({"label": pan["label"], "mode": mode, "particles": drawn,
+                       "background": free, "caption": pan.get("caption"),
+                       "counts": {sp["key"]: int(sp["count"]) for sp in pan["species"]},
+                       "atoms": atoms})
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "panels_pb": panels, "arrow_after": p.get("arrow_after"),
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -696,6 +853,7 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "xy_series": f_xy_series,
     "kinematic_panels": f_kinematic_panels,
     "arrow_diagram": f_arrow_diagram,
+    "particulate_box": f_particulate_box,
 }
 
 
@@ -944,6 +1102,64 @@ def render(spec: dict, layout: str = "expanded") -> str:
         anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
         o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
                  f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # particulate panels
+    if g.get("panels_pb"):
+        pans = g["panels_pb"]
+        npan = len(pans)
+        gap = pw * (0.055 if npan > 1 else 0)
+        arrow_w = pw * 0.07 if g.get("arrow_after") is not None else 0.0
+        bw = (pw - gap * (npan - 1) - arrow_w) / npan
+        # Room under each box for its label, and above for nothing: the caption
+        # belongs to the figure, not to the panel.
+        lab_h = FM * 1.9 + (FN * 1.5 if any(pan.get("caption") for pan in pans) else 0.0)
+        bh = min(ph - lab_h, bw * 1.25)
+        by = T + max(0.0, (ph - lab_h - bh) / 2)
+        for pi, pan in enumerate(pans):
+            bx = L + pi * (bw + gap) + (arrow_w if (g.get("arrow_after") is not None
+                                                    and pi > g["arrow_after"]) else 0.0)
+            o.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{bw:.1f}" height="{bh:.1f}" '
+                     f'fill="{BG}" stroke="{GRID}" stroke-width="1.2"/>')
+            scale = min(bw, bh)
+            for d in pan["background"]:
+                px, py = bx + d["x"] * bw, by + d["y"] * bh
+                if not (bx + 2 <= px <= bx + bw - 2 and by + 2 <= py <= by + bh - 2):
+                    continue
+                o.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{max(1.4, d["r"]*scale):.1f}" '
+                         f'fill="{d["fill"]}"/>')
+            for d in pan["particles"]:
+                px, py = bx + d["x"] * bw, by + d["y"] * bh
+                for bf in d.get("bonds", []):
+                    fx_, fy_ = bx + bf[0] * bw, by + bf[1] * bh
+                    o.append(f'<line x1="{fx_:.1f}" y1="{fy_:.1f}" x2="{px:.1f}" y2="{py:.1f}" '
+                             f'stroke="{INK}" stroke-width="{max(1.1, scale*0.012):.1f}"/>')
+                o.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{max(1.8, d["r"]*scale):.1f}" '
+                         f'fill="{d["fill"]}" stroke="{INK}" stroke-width="1"/>')
+                # Drawn at EVERY layout: the plus sign is what makes the circle
+                # an ion rather than an atom, and the entry's first labelled
+                # part is "positive metal ions". It vanished at compact, where
+                # the alt text still said each one was marked with a plus.
+                if d.get("symbol") and d["r"] * scale >= FM * 0.7:
+                    o.append(f'<text x="{px:.1f}" y="{py + FM*0.34:.1f}" text-anchor="middle" '
+                             f'font-size="{FM*0.86:.1f}" fill="{BG}">{esc(d["symbol"])}</text>')
+            o.append(f'<text x="{bx + bw/2:.1f}" y="{by + bh + FM*1.3:.1f}" text-anchor="middle" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(pan["label"])}</text>')
+            if pan.get("caption") and SHOW_ANN:
+                o.append(f'<text x="{bx + bw/2:.1f}" y="{by + bh + FM*2.6:.1f}" '
+                         f'text-anchor="middle" font-size="{FN*0.92:.1f}" fill="{GRAY}">'
+                         f'{esc(pan["caption"])}</text>')
+        if g.get("arrow_after") is not None:
+            ai = g["arrow_after"]
+            ax0 = L + (ai + 1) * (bw + gap) - gap + arrow_w * 0.18
+            ay = by + bh / 2
+            o.append(f'<line x1="{ax0:.1f}" y1="{ay:.1f}" x2="{ax0 + arrow_w*0.52:.1f}" '
+                     f'y2="{ay:.1f}" stroke="{INK}" stroke-width="{SW:.1f}"/>')
+            hd = arrow_w * 0.22
+            o.append(f'<path d="M {ax0 + arrow_w*0.64:.1f},{ay:.1f} '
+                     f'L {ax0 + arrow_w*0.64 - hd:.1f},{ay - hd*0.46:.1f} '
+                     f'L {ax0 + arrow_w*0.64 - hd:.1f},{ay + hd*0.46:.1f} Z" fill="{INK}"/>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
     # vector / free-body arrows
     if g.get("vectors"):
         cx, cy = L + pw / 2, T + ph / 2

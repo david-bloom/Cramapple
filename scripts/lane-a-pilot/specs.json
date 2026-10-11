@@ -4619,5 +4619,539 @@
         "subject_key": "ap_physics_c_mechanics"
       }
     ]
+  },
+  "chem-particulate-phases": {
+    "entry_title": "Particulate model of solid, liquid, and gas",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-phases",
+    "title": "Particulate model of the three phases",
+    "short_title": "Solid, liquid, gas",
+    "subtitle": "Same particles, same box: arrangement and spacing are what differ",
+    "caption": "Sixteen identical particles in a solid, a liquid and a gas. The solid and the liquid hold the same number in the same box because their molar volumes are comparable; the gas box holds far fewer, because the particles are much further apart.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Three boxes of the same size, each holding identical round particles. In the solid the sixteen particles sit in a regular grid, touching, in rows and columns. In the liquid the same sixteen are still in close contact but their arrangement is irregular, with no repeating pattern. In the gas only five particles are shown in the same box, spread far apart with large empty gaps between them. Solid and liquid take comparable space for the same amount of matter; the gas is mostly empty space. Illustrative data.",
+    "note": "Solid and liquid hold the same count in the same box; the gas does not.",
+    "synthetic": true,
+    "labels": [
+      "Solid (crystalline or amorphous)",
+      "Liquid",
+      "Gas"
+    ],
+    "covers": [
+      "Solid (crystalline or amorphous)",
+      "Liquid",
+      "Gas"
+    ],
+    "params": {
+      "elements": {
+        "P": {
+          "r": 0.085,
+          "fill": "#B9B9B9"
+        }
+      },
+      "species": {
+        "p": {
+          "atoms": {
+            "P": 1
+          },
+          "parts": [
+            {
+              "el": "P",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "the same particle in all three boxes",
+      "phase_check": true,
+      "panels": [
+        {
+          "label": "solid",
+          "mode": "lattice",
+          "caption": "regular, in contact",
+          "species": [
+            {
+              "key": "p",
+              "count": 16
+            }
+          ]
+        },
+        {
+          "label": "liquid",
+          "mode": "close",
+          "caption": "irregular, in contact",
+          "species": [
+            {
+              "key": "p",
+              "count": 16
+            }
+          ]
+        },
+        {
+          "label": "gas",
+          "mode": "sparse",
+          "caption": "far apart, free",
+          "species": [
+            {
+              "key": "p",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "7ab165e4-1b94-494b-96a3-d8439bd1cae8",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "7ab165e4-1b94-494b-96a3-d8439bd1cae8",
+        "title": "Particulate model of solid, liquid, and gas",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-balanced-equation": {
+    "entry_title": "Particulate representation of a balanced equation",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-balanced-equation",
+    "title": "A balanced equation as particles",
+    "short_title": "Atoms are conserved",
+    "subtitle": "2 H₂ + O₂ → 2 H₂O: the atoms before and after are the same atoms",
+    "caption": "Two hydrogen molecules and one oxygen molecule become two water molecules. Four hydrogen atoms and two oxygen atoms go in, and four hydrogen atoms and two oxygen atoms come out: the particles are rearranged, not created or destroyed.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes with an arrow from the first to the second. The first box holds two hydrogen molecules, each a pair of small pale circles joined by a bond, and one oxygen molecule, a pair of larger dark circles joined by a bond. The second box holds two water molecules, each one large dark oxygen atom with two small pale hydrogen atoms bonded to it. Count the atoms and they match: four hydrogen and two oxygen on each side. Nothing appears in the second box that was not in the first; the same atoms have been rearranged into different molecules. Illustrative data.",
+    "note": "4 H and 2 O before; 4 H and 2 O after.",
+    "synthetic": true,
+    "labels": [
+      "Reactant particles",
+      "Product particles",
+      "Atom conservation"
+    ],
+    "covers": [
+      "Reactant particles",
+      "Product particles",
+      "Atom conservation"
+    ],
+    "params": {
+      "elements": {
+        "H": {
+          "r": 0.04,
+          "fill": "#E6E6E2",
+          "symbol": ""
+        },
+        "O": {
+          "r": 0.062,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "H2": {
+          "atoms": {
+            "H": 2
+          },
+          "parts": [
+            {
+              "el": "H",
+              "dx": -0.26,
+              "dy": 0
+            },
+            {
+              "el": "H",
+              "dx": 0.26,
+              "dy": 0
+            }
+          ]
+        },
+        "O2": {
+          "atoms": {
+            "O": 2
+          },
+          "parts": [
+            {
+              "el": "O",
+              "dx": -0.3,
+              "dy": 0
+            },
+            {
+              "el": "O",
+              "dx": 0.3,
+              "dy": 0
+            }
+          ]
+        },
+        "H2O": {
+          "atoms": {
+            "H": 2,
+            "O": 1
+          },
+          "center": 0,
+          "parts": [
+            {
+              "el": "O",
+              "dx": 0,
+              "dy": 0
+            },
+            {
+              "el": "H",
+              "dx": -0.34,
+              "dy": 0.26
+            },
+            {
+              "el": "H",
+              "dx": 0.34,
+              "dy": 0.26
+            }
+          ]
+        }
+      },
+      "arrow_after": 0,
+      "unit_note": "small pale circles are hydrogen atoms; large dark circles are oxygen",
+      "atom_conservation_check": true,
+      "panels": [
+        {
+          "label": "before",
+          "mode": "close",
+          "caption": "2 H₂ + O₂",
+          "species": [
+            {
+              "key": "H2",
+              "count": 2
+            },
+            {
+              "key": "O2",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "label": "after",
+          "mode": "close",
+          "caption": "2 H₂O",
+          "species": [
+            {
+              "key": "H2O",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "68ac3a82-3876-4ad4-9baa-5929f29a557e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "68ac3a82-3876-4ad4-9baa-5929f29a557e",
+        "title": "Particulate representation of a balanced equation",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-solution": {
+    "entry_title": "Particulate representation of a solution",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-solution",
+    "title": "A solution drawn as particles",
+    "short_title": "Solute among solvent",
+    "subtitle": "Same box, same total: only the ratio of solute to solvent changes",
+    "caption": "Two solutions of the same solute. Each box holds 24 particles in all; the dilute one has 1 solute particle among 23 solvent particles, the concentrated one has 6 among 18. Concentration is the ratio, not the amount of solute alone.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes of the same size, each holding twenty-four particles in close contact. Pale circles are solvent and dark circles are solute. The left box has one dark solute particle among twenty-three pale solvent particles; the right box has six dark among eighteen pale. Both boxes are equally full, so what differs between them is the proportion of solute, not how much liquid there is. The solute particles are surrounded by solvent particles rather than clumped together, which is what being dissolved means. Illustrative data.",
+    "note": "Both boxes hold 24 particles: concentration is the ratio.",
+    "synthetic": true,
+    "labels": [
+      "Interactions between components",
+      "Concentrations of components"
+    ],
+    "covers": [
+      "Interactions between components",
+      "Concentrations of components"
+    ],
+    "params": {
+      "elements": {
+        "W": {
+          "r": 0.052,
+          "fill": "#E6E6E2"
+        },
+        "S": {
+          "r": 0.062,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "water": {
+          "atoms": {
+            "W": 1
+          },
+          "parts": [
+            {
+              "el": "W",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        },
+        "solute": {
+          "atoms": {
+            "S": 1
+          },
+          "parts": [
+            {
+              "el": "S",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "dark circles are solute; pale circles are solvent",
+      "solution_check": {
+        "total": 24
+      },
+      "panels": [
+        {
+          "label": "dilute",
+          "mode": "close",
+          "caption": "1 solute in 24",
+          "species": [
+            {
+              "key": "solute",
+              "count": 1
+            },
+            {
+              "key": "water",
+              "count": 23
+            }
+          ],
+          "mix": true
+        },
+        {
+          "label": "concentrated",
+          "mode": "close",
+          "caption": "6 solute in 24",
+          "species": [
+            {
+              "key": "solute",
+              "count": 6
+            },
+            {
+              "key": "water",
+              "count": 18
+            }
+          ],
+          "mix": true
+        }
+      ]
+    },
+    "reference_entry_id": "d37d97c1-2617-41da-9dea-0fd2c30517f4",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d37d97c1-2617-41da-9dea-0fd2c30517f4",
+        "title": "Particulate representation of a solution",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-particulate-reversible": {
+    "entry_title": "Particulate model of a reversible reaction",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-particulate-reversible",
+    "title": "A reversible reaction before and at equilibrium",
+    "short_title": "Counts give K",
+    "subtitle": "A ⇌ B, an isomerisation: at equilibrium the counts stop changing, and their ratio is K",
+    "caption": "Sixteen molecules of form A at the start; at equilibrium 4 A and 12 B. A and B are two forms of the same molecule, so every particle that changes becomes one of the other form and the total stays at sixteen. K = [B]/[A] = 12/4 = 3.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Two boxes with an arrow from the first to the second. The first box holds sixteen pale particles of form A and no B. The second box, at equilibrium, holds four pale A particles and twelve dark B particles, sixteen in all. A and B are two forms of the same molecule, an isomerisation, so each particle that reacts simply becomes one particle of the other form and no matter is created or destroyed. The reactant has not run out: some A is still present, which is what distinguishes equilibrium from a reaction that goes to completion. The equilibrium constant is read straight off the counts as twelve divided by four, which is three. Illustrative data.",
+    "note": "K = [B]/[A] = 12/4 = 3; A is still present at equilibrium.",
+    "synthetic": true,
+    "labels": [
+      "Prior to equilibrium",
+      "At equilibrium",
+      "Equilibrium constant"
+    ],
+    "covers": [
+      "Prior to equilibrium",
+      "At equilibrium",
+      "Equilibrium constant"
+    ],
+    "params": {
+      "elements": {
+        "A": {
+          "r": 0.058,
+          "fill": "#E6E6E2"
+        },
+        "B": {
+          "r": 0.058,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "A": {
+          "atoms": {
+            "unit": 1
+          },
+          "parts": [
+            {
+              "el": "A",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        },
+        "B": {
+          "atoms": {
+            "unit": 1
+          },
+          "parts": [
+            {
+              "el": "B",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "arrow_after": 0,
+      "unit_note": "pale circles are form A; dark circles are form B",
+      "equilibrium_k_check": {
+        "k": 3.0,
+        "numerator": "B",
+        "denominator": "A",
+        "panel": 1
+      },
+      "panels": [
+        {
+          "label": "start",
+          "mode": "close",
+          "caption": "16 A, no B",
+          "species": [
+            {
+              "key": "A",
+              "count": 16
+            }
+          ],
+          "mix": true
+        },
+        {
+          "label": "at equilibrium",
+          "mode": "close",
+          "caption": "4 A, 12 B",
+          "species": [
+            {
+              "key": "A",
+              "count": 4
+            },
+            {
+              "key": "B",
+              "count": 12
+            }
+          ],
+          "mix": true
+        }
+      ],
+      "same_matter_check": true
+    },
+    "reference_entry_id": "37483d41-df45-4fbb-b25d-5576ae625746",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "37483d41-df45-4fbb-b25d-5576ae625746",
+        "title": "Particulate model of a reversible reaction",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
+  },
+  "chem-sea-of-electrons": {
+    "entry_title": "Sea-of-electrons model of metallic bonding",
+    "subject_key": "ap_chemistry",
+    "family": "particulate_box",
+    "figure_id": "chem-sea-of-electrons",
+    "title": "Sea-of-electrons model of a metal",
+    "short_title": "Ions in an electron sea",
+    "subtitle": "A regular array of positive ions, with the valence electrons belonging to none of them",
+    "caption": "Nine positive metal ions in a regular array, with delocalized valence electrons drawn as small dots spread between them rather than attached to any one ion.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A box holding nine large pale circles in a regular three-by-three array, each marked with a plus sign to show it is a positive metal ion. Between and around them are many small dark dots standing for the valence electrons. The dots are not drawn on or beside any particular ion: they are spread across the whole box, because in a metal the valence electrons are delocalized and belong to the solid as a whole rather than to individual atoms. That is what lets a metal conduct and deform without breaking. Illustrative data.",
+    "note": "The electrons are drawn between the ions, not attached to them.",
+    "synthetic": true,
+    "labels": [
+      "Positive metal ions",
+      "Delocalized valence electrons"
+    ],
+    "covers": [
+      "Positive metal ions",
+      "Delocalized valence electrons"
+    ],
+    "params": {
+      "elements": {
+        "M": {
+          "r": 0.072,
+          "fill": "#B9B9B9",
+          "symbol": "+"
+        },
+        "e": {
+          "r": 0.018,
+          "fill": "#151515"
+        }
+      },
+      "species": {
+        "ion": {
+          "atoms": {
+            "M": 1
+          },
+          "parts": [
+            {
+              "el": "M",
+              "dx": 0,
+              "dy": 0
+            }
+          ]
+        }
+      },
+      "unit_note": "plus signs mark the ion cores; small dots are delocalized electrons",
+      "sea_check": true,
+      "panels": [
+        {
+          "label": "metallic solid",
+          "mode": "lattice",
+          "species": [
+            {
+              "key": "ion",
+              "count": 9
+            }
+          ],
+          "background": [
+            {
+              "key": "e",
+              "count": 26
+            }
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "f3ca54f4-6c92-4a72-a9c7-356338385eab",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "f3ca54f4-6c92-4a72-a9c7-356338385eab",
+        "title": "Sea-of-electrons model of metallic bonding",
+        "role": "primary",
+        "subject_key": "ap_chemistry"
+      }
+    ]
   }
 }

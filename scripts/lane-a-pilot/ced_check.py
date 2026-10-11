@@ -301,9 +301,66 @@ def arrow_controls(specs: dict) -> dict:
     return c
 
 
+def particulate_controls(specs: dict) -> dict:
+    """Controls for the Lane B particulate batch.
+
+    P2, P3 and P5 pass verify.py cleanly. Like the arrow grammar, the geometry
+    is generated from counts and is self-consistent by construction, so the
+    errors that survive the suite are the ones stated in words beside it.
+    """
+    c = {}
+
+    # P1 atoms are not conserved: two waters become one. CAUGHT by the suite.
+    s = copy.deepcopy(specs["chem-particulate-balanced-equation"])
+    s["params"]["panels"][1]["species"] = [{"key": "H2O", "count": 1}]
+    s["params"]["panels"][1]["caption"] = "1 H\u2082O"
+    c["CONTROL-P1-atoms-not-conserved"] = s
+
+    # P2 concentration redefined as the AMOUNT of solute rather than the ratio,
+    # in the figure's own note. The counts are untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-particulate-solution"])
+    s["note"] = "The box with more solute particles is the more concentrated, whatever its volume."
+    s["alt"] = s["alt"].replace(
+        "Both boxes are equally full, so what differs between them is the proportion of solute, "
+        "not how much liquid there is.",
+        "The right-hand box is more concentrated because it contains more solute particles in total.")
+    c["CONTROL-P2-concentration-as-amount"] = s
+
+    # P3 the classic equilibrium misconception, asserted in the figure's text:
+    # that the reaction stops. The counts are untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-particulate-reversible"])
+    s["subtitle"] = "A \u21cc B: at equilibrium the forward reaction has stopped"
+    s["alt"] = s["alt"].replace(
+        "The reactant has not run out: some A is still present, which is what distinguishes "
+        "equilibrium from a reaction that goes to completion.",
+        "Once equilibrium is reached the forward reaction has stopped, so no more A turns into B.")
+    c["CONTROL-P3-equilibrium-means-reaction-stopped"] = s
+
+    # P4 the equilibrium counts no longer give the stated K. CAUGHT.
+    s = copy.deepcopy(specs["chem-particulate-reversible"])
+    s["params"]["panels"][1]["species"] = [{"key": "A", "count": 8}, {"key": "B", "count": 8}]
+    s["params"]["panels"][1]["caption"] = "8 A, 8 B"
+    c["CONTROL-P4-counts-do-not-give-stated-k"] = s
+
+    # P5 the electrons described as belonging to the nearest ion, which is the
+    # opposite of delocalized. The drawing is untouched, so this PASSES.
+    s = copy.deepcopy(specs["chem-sea-of-electrons"])
+    s["alt"] = s["alt"].replace(
+        "The dots are not drawn on or beside any particular ion: they are spread across the whole "
+        "box, because in a metal the valence electrons are delocalized and belong to the solid as "
+        "a whole rather than to individual atoms.",
+        "Each dot sits beside the ion it belongs to, because every valence electron stays with its "
+        "own metal atom.")
+    s["note"] = "Each electron stays with the ion it came from."
+    c["CONTROL-P5-electrons-localized-on-ions"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
-                "lane-b-arrows": arrow_controls}
+                "lane-b-arrows": arrow_controls,
+                "lane-b-particulate": particulate_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

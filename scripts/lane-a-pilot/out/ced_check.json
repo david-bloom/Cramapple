@@ -3,29 +3,29 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 2,
+  "figures": 5,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [
-    "phys-free-body-diagram"
+    "chem-particulate-reversible"
   ],
-  "wall_seconds": 91.1,
+  "wall_seconds": 91.2,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 69,
-      "prompt": 118610,
-      "completion": 64733,
-      "seconds": 412.7000000000001
+      "calls": 79,
+      "prompt": 128805,
+      "completion": 71854,
+      "seconds": 462.9000000000001
     },
     "openai/gpt-6.1-sol": {
-      "calls": 69,
-      "prompt": 89569,
-      "completion": 8280,
-      "seconds": 304.49999999999994
+      "calls": 79,
+      "prompt": 99016,
+      "completion": 9314,
+      "seconds": 345.49999999999994
     }
   },
   "detail": {
-    "phys-vector-arrows": {
+    "chem-particulate-phases": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,15 +40,45 @@
         }
       }
     },
-    "phys-free-body-diagram": {
+    "chem-particulate-balanced-equation": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "chem-particulate-solution": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "chem-particulate-reversible": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The rope and friction arrows are offset from the center-of-mass dot by +1.15 and \u22121.15, despite the subtitle and alt text saying every force starts at that dot.",
-              "why": "These offsets place the arrows side by side but move their origins off the dot, contradicting the entry\u2019s explicit requirement and caution that every force arrow originate on the center-of-mass dot."
+              "what": "The specified A \u21cc B reaction changes one atom type into another.",
+              "why": "The parameters define A as one A atom and B as one B atom. Changing 16 A particles into 4 A and 12 B therefore fails to conserve each element. An ordinary reversible chemical reaction cannot convert one element into another; A and B would need compatible elemental compositions."
             }
           ],
           "confidence": "high"
@@ -60,19 +90,109 @@
         }
       }
     },
-    "CONTROL-B1-free-body-does-not-balance": {
+    "chem-sea-of-electrons": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P1-atoms-not-conserved": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text labels the rope's pull as 2.0 N, but the drawn arrow is 3.5 N.",
-              "why": "Both the arrow's magnitude and its label specify 3.5 N, contradicting the alt text."
+              "what": "The after panel contains only one H\u2082O molecule, not the two required by the balanced equation.",
+              "why": "The parameters produce 4 H and 2 O atoms before but only 2 H and 1 O atom after. This violates atom conservation and contradicts the subtitle, alt text, and note, which assert two water molecules and equal atom counts."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The 'after' panel is configured with only 1 H\u2082O molecule instead of 2.",
+              "why": "This violates atom conservation (4 H and 2 O before, but only 2 H and 1 O after), which directly contradicts the chemical equation, the title, the subtitle, the note, and the alt text claiming that the atoms before and after are the same."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P2-concentration-as-amount": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note states that the box with more solute particles is more concentrated, whatever its volume.",
+              "why": "Concentration depends on the amount of solute relative to solution volume, not the total solute count alone. More solute particles imply greater concentration here because the boxes have equal volumes; that conclusion does not hold regardless of volume."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note states: 'The box with more solute particles is the more concentrated, whatever its volume.'",
+              "why": "This statement is scientifically incorrect. Concentration is the ratio of solute to volume. If the volume of the box with more solute particles were significantly larger, its concentration would be lower than the box with fewer solute particles in a much smaller volume. Therefore, concentration does depend on volume."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P3-equilibrium-means-reaction-stopped": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle and alt text state that the forward reaction stops at equilibrium and no more A turns into B.",
+              "why": "Chemical equilibrium is dynamic: the forward and reverse reactions continue at equal rates. The particle counts remain constant because there is no net change, not because the forward reaction stops."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle and alt text state that 'at equilibrium the forward reaction has stopped' and 'no more A turns into B'.",
+              "why": "Chemical equilibrium is dynamic. The forward and reverse reactions do not stop; instead, they continue to occur at equal rates, resulting in no net change in concentrations."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P4-counts-do-not-give-stated-k": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The stated equilibrium constant is K = 3, but the equilibrium panel contains 8 A and 8 B.",
+              "why": "For A \u21cc B, K = [B]/[A]. The drawn equilibrium counts give K = 8/8 = 1, not 12/4 = 3."
             },
             {
-              "what": "The figure claims the four forces sum to zero and the block is in equilibrium, but the parameters produce a net force of 1.5 N up the incline.",
-              "why": "The downhill component of the 10.0 N weight is 10.0 sin(30\u00b0) = 5.0 N. The rope and friction provide 3.5 + 3.0 = 6.5 N uphill. The normal balances the perpendicular weight component, leaving 1.5 N uphill, so these forces do not maintain rest."
+              "what": "The alt text describes four A particles and twelve B particles at equilibrium, contradicting the drawn counts.",
+              "why": "The exact parameters specify eight particles of each species in the equilibrium panel."
             }
           ],
           "confidence": "high"
@@ -81,23 +201,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "contradiction in rope force magnitude and equilibrium state",
-              "why": "The drawing parameters specify a rope force of 3.5 N, whereas the alt text states it is 2.0 N. Furthermore, with a 10.0 N weight on a 30-degree incline, the component of weight pulling down the slope is 5.0 N. To be in equilibrium, the upward forces (rope + friction) must sum to 5.0 N. The alt text's values (2.0 N + 3.0 N = 5.0 N) achieve this, but the drawing parameters (3.5 N + 3.0 N = 6.5 N) do not, violating the equilibrium claim."
+              "what": "contradiction between the drawn particle counts and the text/labels",
+              "why": "The drawing parameters for the equilibrium panel specify 8 A and 8 B particles (caption '8 A, 8 B'), which gives K = 1. However, the alt text, note, and equilibrium_k_check assert that there are 4 A and 12 B particles, giving K = 3. This will result in a figure where the visual counts do not match the mathematical explanation."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-B2-normal-force-mislabelled": {
+    "CONTROL-P5-electrons-localized-on-ions": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The normal-force label and alt text say 10.0 N, but its drawn magnitude is 8.660254 N.",
-              "why": "For equilibrium on this 30-degree incline, the normal force must be 10.0 cos(30\u00b0) \u2248 8.66 N, since the rope and friction act parallel to the incline. The drawn magnitude is correct, but the stated 10.0 N contradicts it and would not produce equilibrium."
+              "what": "The alt text says each valence electron belongs to and stays with its own metal atom; the note likewise says each electron stays with its original ion.",
+              "why": "Metallic bonding involves delocalized valence electrons that are not tied to individual atoms or ions. These statements contradict the entry, subtitle, and drawing parameters, which identify the dots as delocalized electrons. The alt text also falsely attributes metallic conduction and deformation to localized electrons."
             }
           ],
           "confidence": "high"
@@ -106,87 +226,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The normal force label and alt text state the force is '10.0 N', while the actual magnitude parameter is '8.660254'.",
-              "why": "For a block of weight 10.0 N in equilibrium on a 30-degree incline, the normal force must be 10.0 * cos(30\u00b0) \u2248 8.66 N. Labeling it as 10.0 N is physically incorrect and contradicts the equilibrium state of the system."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-B3-shortest-arrow-largest-label": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The upward arrow is labelled 9.0 m/s but has a drawing magnitude of 3.0.",
-              "why": "On the shared scale, its length is half that of the 6.0 m/s arrow, so it represents 3.0 m/s, not 9.0 m/s. The label and alt text contradict the drawn magnitude and teach an incorrect relationship between arrow length and vector magnitude."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The arrow labeled '9.0 m/s' is drawn with a magnitude of 3.0, making it shorter than the arrow labeled '6.0 m/s' (which has a magnitude of 6.0).",
-              "why": "This directly contradicts the core claim of the figure that the length of a vector arrow is proportional to its magnitude. On a single scale, a 9.0 m/s vector must be longer than a 6.0 m/s vector, not half its length."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-B4-weight-drawn-with-its-components": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The diagram includes weight-component arrows alongside the full weight arrow.",
-              "why": "The arrows labelled 'weight along slope 5.0 N' and 'weight across slope 8.7 N' contradict the entry's whole-forces-only caution and the alt text's claim that these components are not drawn. They are not additional environmental forces."
-            },
-            {
-              "what": "The figure claims that every displayed arrow is a whole force and that the displayed forces balance, but it draws six arrows rather than the stated four.",
-              "why": "The weight, normal, rope, and friction balance to rounding precision. Adding the two displayed weight components counts gravity twice, giving a net force of approximately 10 N downward rather than zero."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The drawing parameters include arrows for 'weight along slope 5.0 N' and 'weight across slope 8.7 N'.",
-              "why": "These are components of the weight force. The authored reference entry's claim, caution, and the figure's alt text explicitly state that only whole forces should be depicted and that force components must not be drawn. Including them contradicts the FBD rules and the alt text."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-B5-axis-labelled-across-but-drawn-along": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The coordinate axis is labeled \"y axis, across the incline\" but is drawn at 30\u00b0, parallel to the incline.",
-              "why": "The rope and friction arrows also point at 30\u00b0, along the slope. An axis across the incline would be perpendicular to this direction, at 120\u00b0 (or 300\u00b0). The axis label therefore contradicts the drawing parameters and the alt text."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The axis label 'y axis, across the incline' contradicts its angle of 30.0 degrees and the alt text description.",
-              "why": "An angle of 30.0 degrees is parallel to (along) the incline, not 'across' (perpendicular to) it. The alt text correctly states that the axis is 'parallel to the incline', making the label 'across the incline' contradictory and physically incorrect."
+              "what": "The alt text and the note state that 'Each electron stays with the ion it came from' and 'every valence electron stays with its own metal atom.'",
+              "why": "This is chemically incorrect and directly contradicts the concept of metallic bonding. In the sea-of-electrons model, valence electrons are delocalized and free to move throughout the entire lattice, rather than being bound to or staying next to their parent metal ions."
             }
           ],
           "confidence": "high"
