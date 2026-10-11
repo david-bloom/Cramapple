@@ -3,29 +3,29 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 6,
+  "figures": 4,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [
-    "precalc-residual-plot"
+    "phys2-ohmic-iv"
   ],
-  "wall_seconds": 106.5,
+  "wall_seconds": 100.1,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 53,
-      "prompt": 103749,
-      "completion": 47585,
-      "seconds": 303.3
+      "calls": 62,
+      "prompt": 111696,
+      "completion": 56670,
+      "seconds": 359.1000000000001
     },
     "openai/gpt-6.1-sol": {
-      "calls": 53,
-      "prompt": 75744,
-      "completion": 5867,
-      "seconds": 222.79999999999998
+      "calls": 62,
+      "prompt": 83021,
+      "completion": 7165,
+      "seconds": 267.09999999999997
     }
   },
   "detail": {
-    "phys2-pv-isotherm-work": {
+    "chem-mb-catalysis": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,7 +40,7 @@
         }
       }
     },
-    "phys2-pv-special-processes": {
+    "phys-work-force-displacement": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -55,7 +55,7 @@
         }
       }
     },
-    "phys2-potential-around-loop": {
+    "phys2-zero-pressure-temperature": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -70,15 +70,15 @@
         }
       }
     },
-    "precalc-residual-plot": {
+    "phys2-ohmic-iv": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The note says a funnel-shaped residual plot means the model is the wrong shape.",
-              "why": "A funnel shape indicates nonconstant residual variance, not necessarily an incorrect functional form. The model\u2019s mean relationship can be correctly specified even when residuals fan out."
+              "what": "The alt text says the non-ohmic curve climbs away from the straight line as potential difference rises, but the separation eventually decreases.",
+              "why": "At 2.5 V, the non-ohmic current exceeds the ohmic current by 0.071536 A; at 5.0 V, the difference is only 0.060 A. The curve remains above the straight line but moves closer to it over the higher-voltage portion."
             }
           ],
           "confidence": "high"
@@ -90,99 +90,19 @@
         }
       }
     },
-    "phys2-mb-qualitative": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "physcmech-xva-graphs": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P1-pv-work-sign-inverted": {
+    "CONTROL-G1-work-area-contradicts-note": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text incorrectly state that work done ON the gas is positive during expansion.",
-              "why": "The path expands from V = 1 to V = 3 at positive pressure, so work on the gas is W_on = -\u222bP dV < 0. The shaded area represents its magnitude, or the positive work done BY the gas. These statements also contradict the figure's own note."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The subtitle and alt text contradict the note and contain a physical error regarding the sign of work.",
-              "why": "The subtitle states 'work done ON the gas, positive as it expands' and the alt text states 'work done on the gas, which is positive here because the gas expands'. However, when a gas expands, the work done ON the gas is negative ($W = -\\int P dV$). The note correctly states that 'W on the gas is negative' during expansion, which directly contradicts the subtitle and alt text."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P2-loop-net-change-nonzero-claim": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the loop ends one volt higher than it started because the battery adds energy on each trip.",
-              "why": "The plotted potential starts and ends at 0 V: +12 \u2212 8 \u2212 4 = 0 V, not +1 V. The alt text contradicts the parameters, the note, and the entry\u2019s zero-net-change statement. Battery energy input does not imply a net potential increase around a closed loop."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text contains the statement: 'ending one volt higher than it started, because the battery adds energy on each trip around the loop.'",
-              "why": "This is physically incorrect (electric potential is a state function, so a complete trip around a closed loop must have a net potential change of zero) and directly contradicts the actual plotted data (which starts and ends at 0.0 V), the subtitle ('the net change is zero'), and the note ('+12 \u2212 8 \u2212 4 = 0')."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P3-residual-trend-claimed-and-misread": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the residuals rise steadily from left to right in a clear upward trend.",
-              "why": "The plotted residuals repeatedly rise and fall, with no clear upward trend. This also contradicts the subtitle's description of no pattern."
+              "what": "The alt text states a total work of 24 J, although its stated contributions are 16 J + 16 J.",
+              "why": "The rectangle contributes (2 m)(8 N) = 16 J, and the triangle contributes \u00bd(4 m)(8 N) = 16 J, so the total work is 32 J."
             },
             {
-              "what": "The alt text says a clear upward trend in residuals justifies the model as an appropriate fit.",
-              "why": "A systematic trend in residuals indicates that the model misses structure in the data, rather than supporting an appropriate fit."
+              "what": "The note labels the triangle as 8 J and the total area as 24 J.",
+              "why": "The plotted triangle has a base of 4 m and a height of 8 N, giving 16 J, not 8 J. Including the 16 J rectangle gives 32 J total."
             }
           ],
           "confidence": "high"
@@ -191,48 +111,52 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text description of the residual plot's pattern and its interpretation is statistically incorrect and contradicts the actual data.",
-              "why": "The alt text states that the points 'rise steadily from left to right in a clear upward trend, which is what justifies the model as an appropriate fit.' First, the actual data points provided in the parameters do not show an upward trend; they are randomly scattered. Second, statistically, a clear upward trend in a residual plot indicates a systematic error (non-zero slope in residuals), meaning the model is *not* an appropriate fit. A good fit is justified by a random scatter with no pattern, as correctly stated in the subtitle."
+              "what": "The calculated work (area under the curve) in the note and alt text is mathematically incorrect and contradicts the graph's data points.",
+              "why": "The graph has a rectangle from x = 0 to 2 with height 8 (area = 16) and a triangle from x = 2 to 6 with height 8 (area = 0.5 * 4 * 8 = 16), giving a total area of 32. However, the note states the total area is 24 J (with the triangle being 8 J), and the alt text states '16 joules from the flat part and 16 more from the triangle, 24 joules in total' which is mathematically inconsistent (16 + 16 = 32, not 24)."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P4-mb-temperature-labels-swapped": {
+    "CONTROL-G2-zero-pressure-mislabelled": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The temperature labels are reversed: \u201chotter gas\u201d has theta = 0.8, while \u201ccooler gas\u201d has theta = 1.6.",
-              "why": "With theta as the Maxwell\u2013Boltzmann energy scale, the larger theta produces the broader, lower peak shifted toward higher energy. Thus the curve labelled \u201ccooler gas\u201d has the hotter distribution, contradicting the labels and alt text."
+              "what": "The x-axis tick, intercept annotation, and alt text report \u2212173 \u00b0C, but the plotted zero-pressure intercept is \u2212273.15 \u00b0C.",
+              "why": "The measured points and dashed extension follow P = 100(T + 273.15)/273.15, which reaches zero at \u2212273.15 \u00b0C, not \u2212173 \u00b0C. The labels misidentify the absolute-zero temperature by about 100 \u00b0C."
+            },
+            {
+              "what": "The alt text states that no gas stays a gas at about \u2212173 \u00b0C.",
+              "why": "This is false: \u2212173 \u00b0C is about 100 K, and substances such as helium can remain gaseous at that temperature. Whether a substance condenses depends on the substance and pressure."
             }
           ],
-          "confidence": "medium"
+          "confidence": "high"
         },
         "google/gemini-3.5-flash": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The temperature parameters ('theta') for the two gases are inverted.",
-              "why": "The 'hotter gas' is assigned a parameter value of theta = 0.8, while the 'cooler gas' is assigned theta = 1.6. Since theta represents the temperature parameter (scale parameter kT), this causes the 'hotter gas' curve to be plotted as narrower and shifted to the left (characteristic of a colder gas) and the 'cooler gas' to be plotted as broader and shifted to the right (characteristic of a hotter gas). This contradicts the labels and physical reality."
+              "what": "The zero-pressure temperature (absolute zero) is incorrectly labeled as \u2212173 \u00b0C instead of \u2212273.15 \u00b0C.",
+              "why": "Absolute zero is approximately \u2212273.15 \u00b0C. Labeling it as \u2212173 \u00b0C in the tick labels, the series mark, and the alt text is scientifically incorrect and would teach students a false value for absolute zero."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P5-tangent-slope-wrong": {
+    "CONTROL-G3-work-read-as-height": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The tangent on the velocity panel is drawn with slope 3.0 and labelled \"slope = a\", but the acceleration is 1.5.",
-              "why": "For v(t) = 2.0 + 1.5t, dv/dt = 1.5. A tangent with slope 3.0 is inconsistent with both the velocity graph and the acceleration panel."
+              "what": "The subtitle and alt text incorrectly say that the curve's height gives the work done up to that displacement.",
+              "why": "The height gives the force component in newtons. Work done so far is the accumulated area under the force-displacement curve, in joules. At 6 m, the height is zero, but the accumulated work is 32 J."
             }
           ],
           "confidence": "high"
@@ -241,8 +165,62 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The slope of the tangent on the velocity panel at t = 3.0 is set to 3.0.",
-              "why": "The acceleration is defined as a = 1.5, so the slope of the velocity-time graph (which represents acceleration) must be 1.5, not 3.0."
+              "what": "The subtitle and alt text state that reading the height of the curve gives the work done so far.",
+              "why": "The height of the curve represents the force (in Newtons) at that displacement, not the work done (in Joules). The work done is represented by the area under the curve up to that point. For example, at a displacement of 6 meters, the height of the curve is 0 N, but the work done is 32 J."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-G4-ohmic-element-is-bent": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The series labelled \u201cohmic element\u201d is not a straight line and does not have constant resistance of 25 \u03a9.",
+              "why": "For R = 25 \u03a9, I must equal \u0394V/25, giving currents of 0.050, 0.100, and 0.150 A at 1.25, 2.5, and 3.75 V. The plotted currents are instead 0.075786, 0.123114, and 0.163521 A. Thus \u0394V/I changes across the series, and doubling the voltage does not double the current, contrary to the label and alt text."
+            },
+            {
+              "what": "The note incorrectly describes the plotted ohmic series as having a slope of 0.040 A/V.",
+              "why": "Only the origin-to-endpoint secant has that slope; the plotted series has varying slopes. Although resistance is correctly identified as the reciprocal of slope for an ohmic I\u2013\u0394V line, these points do not form such a line."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The 'ohmic element' series points do not form a straight line.",
+              "why": "For an ohmic element with a resistance of 25 ohms (slope of 0.04 A/V), the current at 1.25 V should be 0.05 A, at 2.5 V should be 0.10 A, and at 3.75 V should be 0.15 A. Instead, the plotted points are [1.25, 0.075786], [2.5, 0.123114], and [3.75, 0.163521], which creates a curved line. This contradicts the definition of an ohmic element, the claim, and the alt text which states that the ohmic element gives a straight line."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-G5-catalyst-raises-activation-energy": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The catalysed activation-energy marker is at 3.4, above the uncatalysed marker at 1.9.",
+              "why": "This depicts a higher activation energy and fewer particles above the barrier for the catalysed reaction, contradicting the subtitle, alt text, note, and entry\u2019s lower-activation-energy explanation."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The activation energy markers are reversed.",
+              "why": "The catalysed activation energy (Ea') is set at x = 3.4, which is higher than the uncatalysed activation energy (Ea) at x = 1.9. A catalyst lowers the activation energy, so the catalysed barrier should be to the left (lower value) of the uncatalysed barrier."
             }
           ],
           "confidence": "high"

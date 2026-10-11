@@ -191,7 +191,62 @@ def physics_controls(specs: dict) -> dict:
     return c
 
 
-CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls}
+def gaps_controls(specs: dict) -> dict:
+    """Controls for the Lane A gap batch (the entries outside kind='diagram').
+
+    Three of the five -- G2, G3, G5 -- pass verify.py cleanly, which is what
+    measures whether the readers add anything over the suite.
+    """
+    c = {}
+
+    # G1 the stated work contradicts the area. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-work-force-displacement"])
+    s["note"] = "Area = 24 J: the rectangle is 16 J and the triangle is 8 J."
+    s["alt"] = s["alt"].replace("32 joules in total", "24 joules in total")
+    c["CONTROL-G1-work-area-contradicts-note"] = s
+
+    # G2 the extrapolated temperature is labelled -173 on the axis while the
+    # line still reaches zero at -273. The tick text is not a property, so this
+    # PASSES verify.py and teaches a wrong absolute zero.
+    s = copy.deepcopy(specs["phys2-zero-pressure-temperature"])
+    s["params"]["x_ticks"] = [[-273.15, "\u2212173"], [-150.0, "\u2212150"],
+                              [0.0, "0"], [100.0, "100"]]
+    s["params"]["series"][0]["marks"][0]["label"] = "P = 0 at \u2212173 \u00b0C"
+    s["alt"] = s["alt"].replace("minus 273 degrees", "minus 173 degrees")
+    c["CONTROL-G2-zero-pressure-mislabelled"] = s
+
+    # G3 the classic misconception asserted in the figure's own text: that the
+    # HEIGHT of the force curve reads off the work. The points are untouched,
+    # so this PASSES verify.py.
+    s = copy.deepcopy(specs["phys-work-force-displacement"])
+    s["subtitle"] = "Read the height of the curve to get the work done so far"
+    s["alt"] = s["alt"].replace(
+        "Reading a value off the curve gives a force, not a work; only the area is the work.",
+        "Reading the height of the curve at any displacement gives the work done up to that point.")
+    c["CONTROL-G3-work-read-as-height"] = s
+
+    # G4 the "ohmic" element is bent, so it has no constant resistance while
+    # still being called ohmic. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys2-ohmic-iv"])
+    for sr in s["params"]["series"]:
+        if sr["label"] == "ohmic element":
+            sr["points"] = [[v, round(0.20 * (v / 5.0) ** 0.7, 6)]
+                            for v in (0.0, 1.25, 2.5, 3.75, 5.0)]
+    c["CONTROL-G4-ohmic-element-is-bent"] = s
+
+    # G5 the catalysed barrier put ABOVE the uncatalysed one: a catalyst shown
+    # RAISING the activation energy. p_mb compares marker POSITIONS, not which
+    # position is labelled catalysed, so this PASSES verify.py.
+    s = copy.deepcopy(specs["chem-mb-catalysis"])
+    s["params"]["markers"] = [{"x": 1.9, "label": "Ea", "caption": "uncatalysed"},
+                              {"x": 3.4, "label": "Ea'", "caption": "catalysed"}]
+    c["CONTROL-G5-catalyst-raises-activation-energy"] = s
+
+    return c
+
+
+CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
+                "lane-a-gaps": gaps_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

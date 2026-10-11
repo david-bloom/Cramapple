@@ -415,6 +415,22 @@ def p_xy_series(sid, s, svg):
            max(nr) / min(nr) > 1.5, f"ratio spread {min(nr):.2f}..{max(nr):.2f}")
         ck(sid, "the non-ohmic element also starts at the origin",
            abs(non["points"][0][0]) < 1e-12 and abs(non["points"][0][1]) < 1e-12)
+        # A reader at gate 4c caught the alt text claiming the non-ohmic curve
+        # "climbs away from" the straight line: the gap in fact peaks near 2.5 V
+        # and then closes. Assert what the text may claim -- that the curve
+        # FLATTENS, so equal steps of potential difference add less current, and
+        # that its resistance therefore rises -- not that it diverges.
+        npts = non["points"]
+        incr = [(npts[i + 1][1] - npts[i][1]) / (npts[i + 1][0] - npts[i][0])
+                for i in range(len(npts) - 1)]
+        ck(sid, "the non-ohmic curve flattens, as its text says",
+           all(incr[i + 1] < incr[i] + 1e-12 for i in range(len(incr) - 1)),
+           f"slopes={[round(i,4) for i in incr]}")
+        ck(sid, "its resistance rises, so the ratio keeps climbing",
+           all(nr[i + 1] > nr[i] for i in range(len(nr) - 1)),
+           f"V/I={[round(r,2) for r in nr]}")
+        ck(sid, "the text does not claim the two lines keep diverging",
+           "climbs away" not in s["alt"] and "diverg" not in s["alt"].lower())
 
     if "gamma" in p:                          # PV figure 2: the four processes
         gamma, P0, V0 = p["gamma"], p["p0"], p["v0"]
