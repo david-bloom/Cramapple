@@ -87,6 +87,16 @@ Also assert geometry — every annotation and curve inside the axes. This exists
 annotation placed beyond `r_max` rendered off-canvas while the figure still claimed to show that
 labelled part. **Declared coverage is not rendered coverage.**
 
+> **ADDITION (2026-10-11).** Coverage is checked against a committed fixture of the published
+> entries, `scripts/lane-a-pilot/prod_entries.json`, which carries each entry's authored `items[]`;
+> `verify.py --entries` defaults to it. **An entry with no `items[]` fails rather than passing.**
+> This exists because the default pointed at a scratch path outside the repository: once that file
+> was gone, the gate ran over an empty set and reported a clean pass, which is how the ten published
+> Chemistry figures came to have an unenforced coverage gate behind them. Re-run on the recovered
+> fixture, all 38 authored labelled parts across the nine published entries are covered. When a
+> batch adds entries, add their published `items[]` to the fixture in the same change — and take
+> them from the environment, not from a candidate artifact, unless the digest matches (§6).
+
 ### 4b. Look at it — legibility
 
 The tests cannot see. Every defect below passed a green suite and was found by eye:
@@ -222,3 +232,7 @@ v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 `../architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` still governs, and TASK-0006's five owner
 decisions remain formally open — this protocol records what was approved and built for Lane A
 reference diagrams specifically.
+
+v1.1 (2026-10-11): one addition in §4a, recording that the label-coverage gate checks against a
+committed fixture of the published entries and fails on a missing one. No policy changed; the
+addition closes a hole in how §4a was enforced, not in what it requires.

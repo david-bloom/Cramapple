@@ -167,12 +167,15 @@ PROPS = {"mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spe
 # ------------------------------------------------------------------- main ---
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--entries", default="/tmp/lane_a_chem.json")
+    ap.add_argument("--entries", default=os.path.join(HERE, "prod_entries.json"))
     args = ap.parse_args()
 
     specs = {k: v for k, v in json.load(open(os.path.join(HERE, "specs.json"))).items()
              if not k.startswith("_")}
-    entries = json.load(open(args.entries)) if os.path.exists(args.entries) else {}
+    # The coverage gate is only as real as this file. It used to default to a
+    # scratch path outside the repository, so once that file was gone the gate
+    # passed with nothing to check -- refuse to run rather than report that.
+    entries = {k: v for k, v in json.load(open(args.entries)).items() if not k.startswith("_")}
     os.makedirs(OUT, exist_ok=True)
 
     results, by_entry, unpublished, t_all = {}, {}, [], time.perf_counter()
@@ -252,6 +255,9 @@ def main() -> int:
     coverage = {}
     for title, agg in by_entry.items():
         authored = [i.get("label") for i in ((entries.get(title) or {}).get("items") or [])]
+        # An entry with no authored labels is a missing fixture, not a clean pass.
+        ck(title, "authored items[] are present to check against", bool(authored),
+           f"entry absent from or stripped in {os.path.basename(args.entries)}")
         missing = [a for a in authored if a not in agg["covers"]]
         ck(title, "every authored labelled part is covered", not missing, f"missing={missing}")
         coverage[title] = {"figures": agg["specs"], "authored_labels": len(authored),
