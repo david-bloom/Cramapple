@@ -16,6 +16,7 @@ import argparse, json, math, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render as R  # noqa: E402
 import export_figures as X  # noqa: E402
+import build_clipboard_test as C  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
@@ -296,6 +297,15 @@ def main() -> int:
         for lab in f["labels"]:
             ck("export", f"{f['figure_id']} keeps the label '{lab[:28]}' as text", lab in t)
     ck("export", "the export carries a Figures heading", ">Figures</h2>" in h and t.startswith("Figures"))
+
+    # The historical paste-comparison page intentionally includes an inline
+    # SVG control even though production never does. Exercise its separate
+    # builder so an export API change cannot leave the fixture crashing.
+    control_h, control_t, control_svgs = C.comparison_figure_section(allf[:2])
+    ck("clipboard fixture", "inline-SVG comparison variant still builds",
+       control_h.count("<svg") == 2 and len(control_svgs) == 2)
+    ck("clipboard fixture", "comparison variant keeps the text fallback",
+       all(f["title"] in control_t and f["alt"] in control_t for f in allf[:2]))
 
     total_ms = (time.perf_counter() - t_all) * 1000
     fams = sorted({s["family"] for s in specs.values()})

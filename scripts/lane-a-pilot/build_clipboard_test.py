@@ -51,13 +51,34 @@ def notes_prose() -> tuple[str, str]:
     return h, "\n".join(t)
 
 
+def comparison_figure_section(figs: list[dict]) -> tuple[str, str, list[str]]:
+    """Build the intentionally unsafe inline-SVG control used by this fixture.
+
+    Production ``figures_section`` accepts only a figure-to-PNG mapping and
+    deliberately never emits inline SVG.  This page still needs an inline-SVG
+    variant so the settled Google Docs comparison remains reproducible, so add
+    the SVG only in this local test fixture while reusing the production text
+    fallback for every other part of each figure.
+    """
+    svgs = [R.render(f, "full") for f in figs]
+    marker = f'<p style="{P}"><b>What the figure shows.</b>'
+    blocks = []
+    for fig, svg in zip(figs, svgs):
+        block = X.figure_block(fig, None)
+        if marker not in block:
+            raise ValueError(f"figure export marker missing for {fig['figure_id']}")
+        blocks.append(block.replace(marker, f'<p style="{P}">{svg}</p>{marker}', 1))
+    _, plain = X.figures_section(figs)
+    return f'<h2 style="{H2}">Figures</h2>' + "".join(blocks), plain, svgs
+
+
 def main() -> None:
     specs = {k: v for k, v in json.load(open(os.path.join(HERE, "specs.json"))).items()
              if not k.startswith("_")}
     figs = [specs["chem-titration"], specs["chem-approach-equilibrium"]]
 
     prose_h, prose_t = notes_prose()
-    fig_h, fig_t = X.figures_section(figs, "full")
+    fig_h, fig_t, svgs = comparison_figure_section(figs)
     html_inline = prose_h + fig_h
     plain = prose_t + "\n" + fig_t
 
@@ -70,7 +91,6 @@ def main() -> None:
                       f'<p style="{P}"><b>Labelled parts.</b></p><ul>'
                       + "".join(f'<li style="{P}">{X.esc(l)}</li>' for l in f["labels"]) + "</ul>")
 
-    svgs = [R.render(f, "full") for f in figs]
     payload = {"inline": html_inline, "textonly": text_only, "plain": plain,
                "svgs": svgs, "titles": [f["title"] for f in figs],
                "alts": [f["alt"] for f in figs], "captions": [f["caption"] for f in figs],
