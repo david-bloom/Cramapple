@@ -298,7 +298,10 @@ def main() -> int:
     log_dir = HERE / "out" / "ced_check_logs"
     out, t0 = {}, time.time()
     for sid, spec in items.items():
-        entry = entries.get(spec["entry_title"], {})
+        # Keyed by subject AND title: two published entries are both called
+        # "Vector arrow representation", so a title-only lookup would show the
+        # reader the wrong subject's claim.
+        entry = entries.get(f"{spec.get('subject_key')}::{spec['entry_title']}", {})
         user = prompt_for(sid, spec, entry)
         out[sid] = {"is_control": sid.startswith("CONTROL"), "verdicts": {}}
         for m in models:

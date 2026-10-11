@@ -25,6 +25,18 @@ fails: list[str] = []
 checks = 0
 
 
+def ekey(subject: str | None, title: str) -> str:
+    """Entries are identified by SUBJECT AND TITLE, never by title alone.
+
+    Two published entries are both called "Vector arrow representation" -- AP
+    Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key drops
+    one of them and silently asserts the survivor's items[] for both. The same
+    concept authored twice in sibling subjects is the norm in this corpus, not
+    an accident, so the composite key is the right one everywhere.
+    """
+    return f"{subject}::{title}"
+
+
 def ck(spec_id: str, name: str, ok: bool, detail: str = "") -> None:
     global checks
     checks += 1
@@ -821,14 +833,15 @@ def main() -> int:
         # does not filter a figure by subject_key -- and the second entry's
         # labelled parts went unchecked while only `entry_title` was read here.
         uses = [u for u in spec.get("used_by", []) if u.get("title")]
-        used_titles = [u["title"] for u in uses]
+        used_titles = [ekey(u.get("subject_key") or spec.get("subject_key"), u["title"])
+                       for u in uses]
         # Carrying the contract is a property of the USE, not of the figure: the
         # kinematics panels serve an entry with four authored parts AND two
         # formula entries with none, so one figure-level flag could only be
         # wrong for one of them.
         for u in uses or [{"title": spec["entry_title"],
                            "labels_carry_contract": spec.get("labels_carry_contract")}]:
-            t = u["title"]
+            t = ekey(u.get("subject_key") or spec.get("subject_key"), u["title"])
             by_entry.setdefault(t, {"specs": [], "covers": set(), "labels": set(),
                                     "carriers": []})
             by_entry[t]["specs"].append(sid)
@@ -844,6 +857,7 @@ def main() -> int:
     # labelled parts span two charts is covered only when both are rendered.
     coverage = {}
     for title, agg in by_entry.items():
+        # `title` is the composite key; its readable half is after the "::".
         authored = [i.get("label") for i in ((entries.get(title) or {}).get("items") or [])]
         # A missing fixture is not a clean pass. An entry the corpus really does
         # author with no labelled parts is a legitimate state, though -- a

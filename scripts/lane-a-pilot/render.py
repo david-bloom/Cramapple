@@ -634,6 +634,53 @@ def f_kinematic_panels(p: dict) -> dict:
             "x_range": (0, t1), "y_range": (0, 1), "hide_y_ticks": True}
 
 
+def f_arrow_diagram(p: dict) -> dict:
+    """Vectors drawn as arrows from a common origin: the first Lane B grammar.
+
+    Not a chart. There is no quantity on an axis, so it renders in the bare
+    frame; what it asserts instead is a drawing CONVENTION -- an arrow's
+    direction is the vector's direction and its length is proportional to the
+    magnitude, with ONE constant of proportionality shared by every arrow in
+    the figure. That constant is the whole teaching point of both entries this
+    serves, so it is computed here, once, rather than left to each arrow.
+
+    Angles are degrees counter-clockwise from the positive x axis, the
+    convention the entries use. The renderer flips to screen coordinates; no
+    spec ever sees a negative y.
+
+    `side_by_side` is the free-body diagram's own labelled part: two forces in
+    the same direction must not be drawn on top of each other, so an arrow may
+    carry a perpendicular offset in arrow-widths. It shifts where the arrow is
+    DRAWN, never its direction or length, which is why the property tests still
+    read the magnitudes and angles straight from the spec.
+    """
+    arrows = []
+    mags = [float(a["magnitude"]) for a in p["arrows"]]
+    if min(mags) <= 0:
+        raise ValueError("an arrow with no magnitude is not a vector")
+    longest = max(mags)
+    for a in p["arrows"]:
+        m = float(a["magnitude"])
+        arrows.append({
+            "label": a["label"],
+            "magnitude": m,
+            "angle": float(a["angle_deg"]) % 360.0,
+            # One shared scale: the ratio of any two drawn lengths is the ratio
+            # of their magnitudes, which is what "proportional" has to mean.
+            "frac": m / longest,
+            "offset": float(a.get("offset", 0.0)),
+            "caption": a.get("caption"),
+        })
+    axis = None
+    if p.get("axis"):
+        axis = {"angle": float(p["axis"]["angle_deg"]) % 360.0,
+                "label": p["axis"]["label"]}
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "vectors": arrows, "dot": bool(p.get("dot", True)), "axis": axis,
+            "unit_note": p.get("unit_note"),
+            "x_range": (-1.0, 1.0), "y_range": (-1.0, 1.0)}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -648,6 +695,7 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "boxplot": f_boxplot,
     "xy_series": f_xy_series,
     "kinematic_panels": f_kinematic_panels,
+    "arrow_diagram": f_arrow_diagram,
 }
 
 
@@ -896,6 +944,52 @@ def render(spec: dict, layout: str = "expanded") -> str:
         anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
         o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
                  f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # vector / free-body arrows
+    if g.get("vectors"):
+        cx, cy = L + pw / 2, T + ph / 2
+        # Leave room for the tip label on the longest arrow in every direction,
+        # so a figure is not clipped merely because its biggest vector points at
+        # the corner. The label, not the arrow, sets the radius.
+        longest = min(pw, ph) * (0.30 if SHOW_ANN else 0.34)
+        head = max(5.0, longest * 0.11)
+        if g.get("axis"):
+            aa = math.radians(g["axis"]["angle"])
+            ax, ay = math.cos(aa), -math.sin(aa)
+            ext = min(pw, ph) * 0.46
+            o.append(f'<line x1="{cx - ax*ext:.1f}" y1="{cy - ay*ext:.1f}" '
+                     f'x2="{cx + ax*ext:.1f}" y2="{cy + ay*ext:.1f}" stroke="{GRID}" '
+                     f'stroke-width="1.1" stroke-dasharray="5 5"/>')
+            o.append(f'<text x="{cx + ax*ext + (6 if ax >= 0 else -6):.1f}" '
+                     f'y="{cy + ay*ext - 5:.1f}" font-size="{FN:.1f}" '
+                     f'text-anchor="{"start" if ax >= 0 else "end"}" fill="{GRAY}">'
+                     f'{esc(g["axis"]["label"])}</text>')
+        for v in g["vectors"]:
+            ang = math.radians(v["angle"])
+            ux, uy = math.cos(ang), -math.sin(ang)       # SVG y grows downward
+            px, py = -uy, ux                             # unit perpendicular
+            off = v["offset"] * head * 0.95
+            bx_, by_ = cx + px * off, cy + py * off
+            ln = longest * v["frac"]
+            tx, ty = bx_ + ux * ln, by_ + uy * ln
+            # Stop the shaft where the head begins, or the stroke pokes through
+            # the point of the arrowhead at the compact stroke width.
+            sx_, sy_ = bx_ + ux * max(0.0, ln - head * 0.92), by_ + uy * max(0.0, ln - head * 0.92)
+            o.append(f'<line x1="{bx_:.1f}" y1="{by_:.1f}" x2="{sx_:.1f}" y2="{sy_:.1f}" '
+                     f'stroke="{INK}" stroke-width="{SW:.1f}" stroke-linecap="round"/>')
+            hw = head * 0.42
+            o.append(f'<path d="M {tx:.1f},{ty:.1f} '
+                     f'L {tx - ux*head + px*hw:.1f},{ty - uy*head + py*hw:.1f} '
+                     f'L {tx - ux*head - px*hw:.1f},{ty - uy*head - py*hw:.1f} Z" fill="{INK}"/>')
+            lx, ly = tx + ux * 9 + px * off * 0.4, ty + uy * 9 + py * off * 0.4
+            anc = "start" if ux > 0.18 else ("end" if ux < -0.18 else "middle")
+            o.append(f'<text x="{lx:.1f}" y="{ly + (FM*0.9 if uy > 0.3 else (-FM*0.25 if uy < -0.3 else FM*0.35)):.1f}" '
+                     f'text-anchor="{anc}" font-size="{FM:.1f}" fill="{INK}">{esc(v["label"])}</text>')
+        if g.get("dot"):
+            # Drawn last: every arrow starts here, so the dot must sit on top.
+            o.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{max(3.0, head*0.34):.1f}" fill="{INK}"/>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
     # stem-and-leaf rows
     if g.get("text_rows"):
         rows = g["text_rows"]

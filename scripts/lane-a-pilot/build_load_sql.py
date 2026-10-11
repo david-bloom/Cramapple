@@ -169,11 +169,12 @@ def main() -> int:
     for sid, s in specs.items():
         uses = s.get("used_by") or [{"title": s["entry_title"], "role": "primary"}]
         for u in uses:
-            e = entries.get(u["title"])
+            e = entries.get(f"{u.get('subject_key') or s.get('subject_key')}::{u['title']}")
             if e is None:
                 raise SystemExit(
-                    f"{sid}: use {u['title']!r} is not in prod_entries.json, so its subject and "
-                    f"kind cannot be resolved. Add the published entry to the fixture first.")
+                    f"{sid}: use {u['title']!r} ({u.get('subject_key') or s.get('subject_key')}) "
+                    f"is not in prod_entries.json, so its kind cannot be resolved. Add the "
+                    f"published entry to the fixture first.")
             L.append("insert into app.figure_uses (figure_id, reference_entry_id, role)")
             L.append(f"select {q(sid)}, e.reference_entry_id, {q(u.get('role', 'primary'))}")
             L.append("  from app.unit_reference_entries e")
