@@ -682,6 +682,17 @@ def f_arrow_diagram(p: dict) -> dict:
             "x_range": (-1.0, 1.0), "y_range": (-1.0, 1.0)}
 
 
+def _hyp(a: float, b: float) -> float:
+    """sqrt(a*a + b*b), spelled out.
+
+    NOT math.hypot: these values become drawn coordinates, and the app's
+    renderer must agree byte for byte. Python's hypot and JavaScript's are both
+    carefully written and need not agree in the last bit, while an explicit
+    multiply-add-sqrt is IEEE-identical in both.
+    """
+    return math.sqrt(a * a + b * b)
+
+
 def _pb_jitter(seed: int, i: int) -> tuple[float, float]:
     """Deterministic pseudo-jitter. A particulate box must not be random: the
     figure is re-rendered on every page load and the suite asserts that two
@@ -766,7 +777,7 @@ def f_particulate_box(p: dict) -> dict:
                 for c in range(cols * rows):
                     if c in chosen:
                         continue
-                    d = min(math.hypot(ctr(c)[0] - ctr(k)[0], ctr(c)[1] - ctr(k)[1])
+                    d = min(_hyp(ctr(c)[0] - ctr(k)[0], ctr(c)[1] - ctr(k)[1])
                             for k in chosen)
                     if d > bestd + 1e-12:
                         best, bestd = c, d
@@ -814,7 +825,7 @@ def f_particulate_box(p: dict) -> dict:
                 # that lands on an ion core is pushed clear of it rather than
                 # drawn on top -- which would read as a bond.
                 for d in drawn:
-                    sep = math.hypot(ex - d["x"], ey - d["y"])
+                    sep = _hyp(ex - d["x"], ey - d["y"])
                     if sep < d["r"] * 1.25:
                         if sep < 1e-9:
                             ex, ey = ex + d["r"] * 1.3, ey
@@ -862,7 +873,7 @@ def _fm_field(charges: list, x: float, y: float) -> tuple[float, float]:
 def _fm_potential(charges: list, x: float, y: float) -> float:
     v = 0.0
     for c in charges:
-        r = math.hypot(x - c["x"], y - c["y"])
+        r = _hyp(x - c["x"], y - c["y"])
         v += c["q"] / max(r, 1e-6)
     return v
 
@@ -892,7 +903,7 @@ def f_field_map(p: dict) -> dict:
                 pts = [(x, y)]
                 for _ in range(900):
                     ex, ey = _fm_field(ch, x, y)
-                    m = math.hypot(ex, ey)
+                    m = _hyp(ex, ey)
                     if m < 1e-9:
                         break
                     x, y = x + 0.004 * ex / m, y + 0.004 * ey / m
@@ -903,7 +914,7 @@ def f_field_map(p: dict) -> dict:
                         # are <path> elements.
                         pts.append((min(1.0, max(0.0, x)), min(1.0, max(0.0, y))))
                         break
-                    if any(q["q"] < 0 and math.hypot(x - q["x"], y - q["y"]) < 0.035 for q in ch):
+                    if any(q["q"] < 0 and _hyp(x - q["x"], y - q["y"]) < 0.035 for q in ch):
                         pts.append((x, y))
                         break
                     pts.append((x, y))
@@ -911,7 +922,7 @@ def f_field_map(p: dict) -> dict:
 
     for gx, gy in p.get("vector_points", []):
         ex, ey = _fm_field(ch, gx, gy)
-        m = math.hypot(ex, ey)
+        m = _hyp(ex, ey)
         if m < 1e-12:
             continue
         vectors.append({"x": gx, "y": gy, "ux": ex / m, "uy": ey / m, "mag": m})
@@ -1090,9 +1101,16 @@ def render(spec: dict, layout: str = "expanded") -> str:
 
     o = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-        f'role="img" aria-labelledby="ttl desc" font-family="Helvetica Neue, Arial, sans-serif">',
-        f'<title id="ttl">{esc(spec["title"])}</title>',
-        f'<desc id="desc">{esc(spec["alt"])}</desc>',
+        # The ids are per FIGURE, not the literals "ttl"/"desc". Several of
+        # these SVGs are inline on one page -- the notes sheet shows a figures
+        # section -- and repeating id="ttl" is invalid and points every
+        # figure's accessible name at whichever one parsed first. The app's
+        # renderer already did this; the parity check found that this one did
+        # not.
+        f'role="img" aria-labelledby="{spec["figure_id"]}-t {spec["figure_id"]}-d" '
+        f'font-family="Helvetica Neue, Arial, sans-serif">',
+        f'<title id="{spec["figure_id"]}-t">{esc(spec["title"])}</title>',
+        f'<desc id="{spec["figure_id"]}-d">{esc(spec["alt"])}</desc>',
         f'<rect width="{W}" height="{H}" fill="{BG}"/>',
     ]
     # gridlines
@@ -1520,9 +1538,16 @@ def render(spec: dict, layout: str = "expanded") -> str:
     for s in g.get("sticks", []):
         o.append(f'<line x1="{sx(s["x"]):.1f}" y1="{sy(0):.1f}" x2="{sx(s["x"]):.1f}" y2="{sy(s["y"]):.1f}" '
                  f'stroke="{INK}" stroke-width="{max(4, SW*2.7):.1f}" stroke-linecap="butt"/>')
-        if s["label"] and SHOW_ANN:
+        if s["label"]:
+            # Adjacent peaks sit about 58 units apart, so a full "25Mg 10.00%"
+            # overprints its neighbour at compact. Dropping the label there
+            # leaves a spectrum of unidentified sticks, which is worse: compact
+            # keeps the isotope and the value stays readable off the y axis.
+            # The app's renderer already did this; the parity check found that
+            # this one did not.
+            lbl = s["label"] if SHOW_ANN else s["label"].split(" ")[0]
             o.append(f'<text x="{sx(s["x"]):.1f}" y="{sy(s["y"])-10:.1f}" text-anchor="middle" '
-                     f'font-size="{FM}" fill="{INK}">{esc(s["label"])}</text>')
+                     f'font-size="{FM}" fill="{INK}">{esc(lbl)}</text>')
     # curves
     for c in g["curves"]:
         d = "M " + " L ".join(f'{sx(x):.1f},{sy(y):.1f}' for x, y in c["pts"])
@@ -1549,7 +1574,11 @@ def render(spec: dict, layout: str = "expanded") -> str:
             xx = sx(v["x"]) - 8 if flip else sx(v["x"]) + 8
             anc = ' text-anchor="end"' if flip else ''
             col = INK if extra else GRAY
-            o.append(f'<text x="{xx:.1f}" y="{yy}" font-size="{fsz:.1f}"{extra}{anc} fill="{col}">{esc(txt)}</text>')
+            # One decimal, like every other coordinate in this file. It used to
+            # print the raw value, so a y that happened to be an int rendered
+            # as "116" here and "116.0" three lines above -- which the parity
+            # check against the app's renderer reported as a difference.
+            o.append(f'<text x="{xx:.1f}" y="{yy:.1f}" font-size="{fsz:.1f}"{extra}{anc} fill="{col}">{esc(txt)}</text>')
     # point marks
     for m in g.get("marks", []):
         px, py = sx(m["x"]), sy(m["y"])
