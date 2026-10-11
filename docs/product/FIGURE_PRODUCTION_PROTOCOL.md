@@ -251,8 +251,10 @@ warning every student about a problem they will not hit is noise.
   > passed, loaded to Development, Production still a Hard Gate
   > (`LANE_A_STATISTICS_BATCH_2026_10_11.md`). **Five entries and six figures remain** — AP Physics 2
   > ×3, AP Physics C: Mechanics ×1, AP Precalculus ×1 — needing two further families. That batch also
-  > found seven layout defects **in the already-published figures**, and the app's TypeScript renderer
-  > still has all seven.
+  > found seven layout defects, four of them affecting already-published figures. **Three of those were
+  > real in the app's TypeScript renderer and are fixed** (`ap-prep-blueprint` PR #6, not yet
+  > published); the other defects existed only in the Python pilot renderer, which is worth stating
+  > because the two renderers drift and the student only ever sees the TypeScript one.
 - **One figure has no home.** `chem-mb-catalysis` draws a real teaching point but no published
   entry matches it; the nearest are a Unit 5 convention and a Unit 3 vocabulary entry. It is not
   production-eligible until an entry exists.

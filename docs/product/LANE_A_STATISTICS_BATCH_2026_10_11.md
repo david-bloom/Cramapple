@@ -100,11 +100,21 @@ null`), so `on conflict` has to repeat that predicate or Postgres cannot match t
 ## 4. What is still open
 
 - **Production is a Hard Gate** and this batch has not crossed it.
-- **The app's TypeScript renderer has the same seven layout defects**, and fixing `render.py` does not
-  fix what a student sees. The published chemistry figures are affected today: at the reference pane's
-  width their y-axis title is clipped, the mass spectrum's peak labels overprint, and the legend sits
-  on the x-axis title. **This is the highest-value follow-up in the lane** and it is a frontend change,
-  not a content one.
+- **The app's TypeScript renderer — now fixed, in `ap-prep-blueprint` PR #6, not yet published.**
+
+  **A correction to what this document first said.** It claimed the frontend had all seven defects.
+  It had **three**. Checked against the actual TypeScript rather than assumed from the Python:
+  the mass spectrum already truncated its peak labels at compact (`s.label.split(" ")[0]`) and marker
+  captions already dropped a line each, so neither overprinted for students; and the stem-and-leaf
+  family does not exist there. The three that were real, and did affect the ten published chemistry
+  figures at the reference pane's width, are the clipped rotated y-axis title (in every figure), the
+  legend overprinting the x-axis title, and long notes and captions running off the canvas.
+
+  All three are fixed, and **both defect classes are now tests in the app's own suite** — nothing
+  drawn outside the canvas at any layout, no two labels overprinting — which fail on the pre-fix
+  renderer and pass after. Verified in the browser at 332px and 680px, not only in jsdom; tsc clean,
+  898/898 tests. **Publishing in Lovable is a separate step and has not happened**, so students still
+  see the old rendering until the app is published.
 - **Five Lane A entries remain**: AP Physics 2 ×3 (Maxwell–Boltzmann qualitative, which needs no new
   family; the PV diagram, which needs two figures; electric potential versus position), AP Physics C:
   Mechanics ×1 (x(t), v(t), a(t) as one three-panel figure) and AP Precalculus ×1 (the residual plot,
