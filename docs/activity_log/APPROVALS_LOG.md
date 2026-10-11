@@ -2126,6 +2126,23 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - **Ordering:** the app must be merged (`ap-prep-blueprint#12`) and **published** before the load.
   `FIGURE_FAMILIES` is a whitelist, so loading first puts rows in Production that render nothing.
 - **Rollback:** `update app.figures set status = 'retired' where family = 'density_curve';`
+- **APPLIED AND VERIFIED, 2026-10-11.** The app was merged (`ap-prep-blueprint#12`) and
+  **published** first; the live `Figure-*.js` bundle carries `density_curve` and the live
+  stylesheet carries the notes-template fix that shipped with it. Production
+  (`pcntajvbdfqhbeewmdry`) now holds **49 published figures** (was 39), **18 families** (was 17),
+  **57 uses** over **51 published entries**, **0 drafts**, **0 figures with no use**, **0 uses
+  pointing at an unpublished entry**. Development and Production are **identical**: `md5` over
+  `figure_id|family|status` is `c5838db8…` in both.
+- **Verified as a real authenticated student (§7), not `service_role`,** through
+  `get_topic_point_guides`:
+  - AP Statistics 2.11 serves **5** figures, 3.6 serves **3** (one per authored item of a single
+    entry, which is coverage asserted per entry rather than per figure), 3.14 serves 1, 3.3
+    serves 1.
+  - A pre-existing topic is unchanged (AP Chemistry 1.2 still serves `chem-mass-spectrum`), and a
+    topic with no figure returns `[]` (AP Biology 1.1).
+  - **A planted draft figure was NOT visible to the student.** The probe ran inside a transaction
+    that was rolled back, and left nothing behind.
+- **Still to be seen by a human:** a signed-in look at one of these topics in the live app.
 
 ## APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches
 
