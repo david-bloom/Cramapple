@@ -4,14 +4,18 @@
 **Executes:** `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md`. **Governed by:**
 `FIGURE_PRODUCTION_PROTOCOL.md` v1.6.
 
-**Nothing in this session reached Production.** Everything is in Development and on the branch.
+**UPDATE, same day: this is now LIVE IN PRODUCTION** under `APPROVAL-0159`, and the app is
+published. 39 published figures, 17 families, 47 uses over 43 entries; Development and Production
+hash identically. Verified as a real authenticated student, including that a planted draft stays
+invisible. The one thing left undone is a human signed-in look in the browser.
 
-**UPDATE:** the TypeScript port is done and proved (`ap-prep-blueprint#11`). The one step left
-before a student can see any of this is the **Lovable publish**.
+The TypeScript port is merged (`ap-prep-blueprint#11`) and **published** — the live `Figure-*.js`
+bundle carries all four new families and the per-figure `aria-labelledby` ids — and the four
+batches are **loaded to Production** (`APPROVAL-0159`).
 
 ## 1. What is done
 
-**Ten new figures, five new families, thirteen further published entries covered.** The suite went
+**Fourteen new figures and four new families, over thirteen further published entries.** (Ten of the fourteen use the four new families; the other four — three `xy_series` and `chem-mb-catalysis` — use families that already existed.) The suite went
 from 26 figures / 21 entries / 1 241 checks to **39 figures / 43 entries / 17 families / 2 091
 checks, 0 failed**.
 
@@ -74,9 +78,15 @@ Each left a test behind. `build_eye_sheet.py` makes the pass a command.
    **117 of 117 figure/layout pairs byte-identical across all 17 families**, 985 app tests passing,
    `tsc` clean. The check is now a command (`export_for_parity.py` here,
    `tests/figure-parity.ts` there) and its first run found four drifts in figures already live in
-   Production — two in each renderer, all fixed. **What remains is the LOVABLE PUBLISH, which is a
-   separate step from merging, and until it happens none of this reaches a student.**
-2. **Production load** — a Hard Gate needing an approval naming each batch. Four loaders are
+   Production — two in each renderer, all fixed. **Merged and PUBLISHED** (2026-10-11): the live
+   bundle at `app.cramapple.com` carries all four families. The 25 published figures are visually
+   unchanged by it — no live figure has more than one captioned marker, which was the only rule that
+   moved — and every one of them gains correct per-figure accessible ids.
+2. ~~**Production load**~~ **DONE** — `APPROVAL-0159`, all four batches. Production: 39 published
+   figures, 17 families, 47 uses, 43 entries, 0 drafts, identical to Development by digest.
+   Verified as an authenticated student, draft row invisible, cross-subject sharing working.
+   **The one thing left: a signed-in human look in the live app.** The renderer is published and
+   the RPC serves the rows, but nobody has watched the two halves work together in a browser. Four loaders are
    generated and applied to Development:
    `out/load_lane_a_gaps.sql`, `out/load_lane_b_arrows.sql`, `out/load_lane_b_particulate.sql`,
    `out/load_lane_b_fields.sql`. `--workdir /Users/davidbloom` is PRODUCTION; confirm the ref in the

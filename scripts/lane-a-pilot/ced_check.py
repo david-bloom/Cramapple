@@ -424,11 +424,76 @@ def field_controls(specs: dict) -> dict:
     return c
 
 
+def density_controls(specs: dict) -> dict:
+    """Controls for the AP Statistics density batch.
+
+    D2, D3 and D5 pass verify.py cleanly.
+    """
+    c = {}
+
+    # D1 the middle band narrowed to +/-1.5 while the text still calls it 95%.
+    # The area check CATCHES this.
+    s = copy.deepcopy(specs["stats-empirical-rule"])
+    for sh in s["params"]["shade"]:
+        if sh["from"] == -2.0:
+            sh["from"], sh["to"] = -1.5, 1.5
+    s["params"]["area_checks"][1]["from"] = -1.5
+    s["params"]["area_checks"][1]["to"] = 1.5
+    c["CONTROL-D1-95-band-is-not-95"] = s
+
+    # D2 the classic misreading, asserted in the figure's own text: that the
+    # HEIGHT of the curve at a value is the probability of that value. The
+    # geometry is untouched, so this PASSES.
+    s = copy.deepcopy(specs["stats-normal-area"])
+    s["note"] = "Total area is 1, and the height of the curve at a value is the density, the probability of that value."
+    s["alt"] = s["alt"].replace(
+        "The height of the curve is a density, not a probability: at any single value the curve "
+        "has a height but the interval has no width, so the probability of exactly that value is "
+        "zero.",
+        "The height of the curve at any single value is the density, which is the probability of "
+        "getting exactly that value.")
+    c["CONTROL-D2-height-read-as-probability"] = s
+
+    # D3 the right-tail figure relabelled as the LESS-THAN alternative while
+    # still shading the right tail. The shading is untouched, so this PASSES
+    # the suite and tells a student to shade the wrong side.
+    s = copy.deepcopy(specs["stats-pvalue-right-tail"])
+    s["title"] = "p-value for Ha: less than"
+    s["short_title"] = "Ha: <, right tail"
+    s["subtitle"] = "For a less-than alternative the p-value is the area above the statistic"
+    s["labels"] = ["Ha: <"]
+    s["covers"] = ["Ha: <"]
+    s["alt"] = s["alt"].replace("greater-than form", "less-than form")
+    s["caption"] = s["caption"].replace("\u201cgreater than\u201d", "\u201cless than\u201d")
+    c["CONTROL-D3-less-than-shaded-on-the-right"] = s
+
+    # D4 the critical value's shading moved to the TAILS while the text still
+    # says the middle C%. verify.py CATCHES this.
+    s = copy.deepcopy(specs["stats-critical-value-z"])
+    s["params"]["shade"] = [{"from": None, "to": -1.96}, {"from": 1.96, "to": None}]
+    c["CONTROL-D4-critical-value-shades-the-tails"] = s
+
+    # D5 the chi-square family described as symmetric and able to go negative.
+    # The curves are untouched, so this PASSES.
+    s = copy.deepcopy(specs["stats-chi-square-shapes"])
+    s["note"] = "Symmetric about its mean, and defined for negative values as well as positive."
+    s["alt"] = s["alt"].replace(
+        "Every curve lies entirely to the right of zero, because a chi-square statistic is a sum "
+        "of squares and can never be negative.",
+        "Each curve extends to both sides of zero and is symmetric about its centre.")
+    s["alt"] = s["alt"].replace(
+        "so all three are skewed right rather than symmetric", "so all three are symmetric")
+    c["CONTROL-D5-chi-square-called-symmetric"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
                 "lane-b-particulate": particulate_controls,
-                "lane-b-fields": field_controls}
+                "lane-b-fields": field_controls,
+                "stats-density": density_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

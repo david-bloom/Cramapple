@@ -967,6 +967,111 @@ def f_circuit_symbols(p: dict) -> dict:
             "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
 
 
+def _normal_pdf(x: float, mu: float, sigma: float) -> float:
+    z = (x - mu) / sigma
+    return math.exp(-0.5 * z * z) / (sigma * math.sqrt(2.0 * math.pi))
+
+
+def _chi2_pdf(x: float, df: int) -> float:
+    """Chi-square density, restricted to EVEN degrees of freedom.
+
+    With df even, k = df/2 is an integer, so gamma(k) is (k-1)! exactly and the
+    x**(k-1) term is a repeated multiplication. Both are then identical in
+    Python and JavaScript; `pow` with a float exponent need not be, and these
+    values become drawn coordinates.
+    """
+    if df % 2 or df < 2:
+        raise ValueError("density_curve draws chi-square for EVEN df only")
+    if x < 0:
+        return 0.0
+    # NOT `x <= 0`. With df = 2 the chi-square IS an exponential, whose density
+    # at zero is 1/2, and zeroing it drew a near-vertical spike from the axis
+    # that read as an asymptote. For df > 2 the x**(k-1) factor makes the
+    # density zero at zero on its own. "Takes only positive values" is about
+    # the SUPPORT, not about the density at the boundary.
+    k = df // 2
+    g = 1.0
+    for i in range(2, k):
+        g *= i
+    num = 1.0
+    for _ in range(k - 1):
+        num *= x
+    den = 1.0
+    for _ in range(k):
+        den *= 2.0
+    return num * math.exp(-x / 2.0) / (den * g)
+
+
+def f_density_curve(p: dict) -> dict:
+    """Probability density curves, with the area under them shaded.
+
+    One family for most of what AP Statistics draws: the normal curve, the
+    standard normal, the empirical rule's bands, probability as an area, a
+    critical value bounding the middle C%, the tail a p-value lives in, and the
+    chi-square family's skew. The entries differ; the geometry does not.
+
+    It emits only `curves` and `areas`, which the renderer already draws, so
+    the family adds no drawing code -- and the claim it makes, that a shaded
+    region IS a probability, is checked against the integral rather than
+    trusted to the fill.
+    """
+    x0, x1 = p["x_range"]
+    n = p.get("samples", 600)
+    xs = [x0 + (x1 - x0) * i / n for i in range(n + 1)]
+
+    def dens(c, x):
+        if c["kind"] == "normal":
+            return _normal_pdf(x, c["mu"], c["sigma"])
+        return _chi2_pdf(x, c["df"])
+
+    curves, legend = [], []
+    for c in p["curves"]:
+        style = c.get("style", "solid")
+        pts = [(x, dens(c, x)) for x in xs]
+        curves.append({"pts": pts, "style": style,
+                       "color": INK if style == "solid" else GRAY})
+        if c.get("label"):
+            legend.append((c["label"], style))
+
+    # Shading belongs to the first curve unless a band names another.
+    areas = []
+    for sh in p.get("shade", []):
+        c = p["curves"][sh.get("curve", 0)]
+        a = x0 if sh.get("from") is None else sh["from"]
+        b = x1 if sh.get("to") is None else sh["to"]
+        pts = [(x, dens(c, x)) for x in xs if a <= x <= b]
+        if not pts:
+            continue
+        areas.append({"pts": pts, "x0": pts[0][0],
+                      "fill": sh.get("fill", LIGHT), "op": sh.get("op", 0.55)})
+
+    marks = []
+    for m in p.get("marks", []):
+        c = p["curves"][m.get("curve", 0)]
+        marks.append({"x": m["x"], "y": m.get("y", dens(c, m["x"])),
+                      "label": m["label"], "place": m.get("place", "above")})
+
+    vlines = [{"x": v["x"], "label": v.get("label"), "caption": v.get("caption")}
+              for v in p.get("vlines", [])]
+
+    ymax = max(y for c in curves for _, y in c["pts"]) * 1.18
+    # Free text placed in DATA coordinates. The empirical rule's three nested
+    # bands were shaded and unlabelled, so nothing said which was 68, 95 or
+    # 99.7 -- the three parts the entry actually authors.
+    texts = [{"x": t["x"], "y": t["y"], "label": t["label"],
+              "anchor": t.get("anchor", "middle")} for t in p.get("texts", [])]
+    out = {"curves": curves, "areas": areas, "marks": marks, "vlines": vlines,
+           "texts": texts, "legend": legend, "x_range": (x0, x1), "y_range": (0.0, ymax)}
+    if "x_ticks" in p:
+        out["x_ticks"] = [(v, lbl) for v, lbl in p["x_ticks"]]
+    if p.get("hide_y_ticks", True):
+        # A density axis is a density, not a count, and its numbers teach
+        # nothing: the entries are about the AREA. The axis label carries the
+        # meaning and the y ticks would only invite reading heights.
+        out["hide_y_ticks"] = True
+    return out
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -985,6 +1090,7 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "particulate_box": f_particulate_box,
     "field_map": f_field_map,
     "circuit_symbols": f_circuit_symbols,
+    "density_curve": f_density_curve,
 }
 
 
@@ -1126,6 +1232,10 @@ def render(spec: dict, layout: str = "expanded") -> str:
              " ".join(f'L {sx(x):.1f},{sy(y):.1f}' for x, y in a["pts"]) +
              f' L {sx(a["pts"][-1][0]):.1f},{sy(0):.1f} Z')
         o.append(f'<path d="{d}" fill="{a["fill"]}" fill-opacity="{a["op"]}"/>')
+    # free text in data coordinates (band labels, mostly)
+    for t in g.get("texts", []):
+        o.append(f'<text x="{sx(t["x"]):.1f}" y="{sy(t["y"]):.1f}" text-anchor="{t["anchor"]}" '
+                 f'font-size="{FM:.1f}" fill="{INK}">{esc(t["label"])}</text>')
     # stacked panels: x(t), v(t), a(t) sharing one time axis. Each panel gets
     # its own y mapping inside a band of the plot area, its own baseline, and
     # its own name at the left -- the shared x axis is drawn once, below.

@@ -321,11 +321,18 @@ warning every student about a problem they will not hit is noise.
 >
 > **UPDATE (2026-10-11, later the same day).** That handoff's §2a and §2e are closed and **all of
 > Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
-> Ten new figures across five new families (`arrow_diagram`, `particulate_box`, `field_map`,
-> `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
+> Fourteen new figures cover **thirteen further published entries**: ten on four new families
+> (`arrow_diagram`, `particulate_box`, `field_map`, `circuit_symbols`) and four on families that
+> already existed (three `xy_series`, plus `chem-mb-catalysis` becoming eligible at last), and
 > are **in Development only — Production is still a Hard Gate.** The app HAS now been taught the four
 > new families (`ap-prep-blueprint#11`), at **117 of 117 figure/layout pairs byte-identical across
-> all 17 families**, so the one step left before a student sees anything is the Lovable publish. The rest of the Lane A gap is classified but not
+> all 17 families**, the app is **published**, and all four batches are **LIVE IN PRODUCTION**
+> (`APPROVAL-0159`): 39 published figures, 17 families, 47 uses over 43 entries, identical to
+> Development by digest and verified as a real authenticated student. **The AP Statistics
+> `density_curve` batch followed under `APPROVAL-0160`**: 10 more figures over 8 entries, so
+> Production now holds **49 published figures and 18 families**, again identical to Development.
+> The AP Biology four remain blocked on the §4.4 decision, and the rest of the Lane A gap —
+> `function_plot` above all — is classified but not built. The rest of the Lane A gap is classified but not
 > built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 

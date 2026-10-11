@@ -5585,5 +5585,1018 @@
         "subject_key": "ap_physics_2"
       }
     ]
+  },
+  "stats-normal-curve": {
+    "entry_title": "Normal distribution",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-normal-curve",
+    "title": "The normal distribution",
+    "short_title": "Bell, symmetric",
+    "subtitle": "One peak at the mean, and the two sides are mirror images",
+    "caption": "A normal curve with mean 60 and standard deviation 10. The peak sits at the mean, the curve is symmetric about it, and the standard deviation is the distance from the mean to where the curve changes from bending down to bending up.",
+    "x_label": "value",
+    "y_label": "relative likelihood (density)",
+    "alt": "A smooth bell-shaped curve over a horizontal value axis, with mean 60 and standard deviation 10. It has a single peak, at the mean, and the half to the left of the mean is a mirror image of the half to the right, so the mean and the median sit at the same place. The curve never touches the axis but gets very low beyond about 30 and 90. Marks at 50 and 70 show one standard deviation either side of the mean: those are the points where the curve stops bending downwards and starts bending upwards, which is what the standard deviation measures on this picture. The vertical axis is a density, not a count, so heights are not probabilities; areas are. Illustrative data.",
+    "note": "The mean, median and mode coincide: the curve is symmetric.",
+    "synthetic": true,
+    "labels": [
+      "Bell-shaped with a single peak",
+      "Symmetric about the mean",
+      "Centre at the mean μ",
+      "Spread set by the standard deviation σ"
+    ],
+    "covers": [
+      "Bell-shaped with a single peak",
+      "Symmetric about the mean",
+      "Centre at the mean μ",
+      "Spread set by the standard deviation σ"
+    ],
+    "params": {
+      "x_range": [
+        25.0,
+        95.0
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 60.0,
+          "sigma": 10.0
+        }
+      ],
+      "x_ticks": [
+        [
+          40.0,
+          "40"
+        ],
+        [
+          50.0,
+          "μ−σ"
+        ],
+        [
+          60.0,
+          "μ"
+        ],
+        [
+          70.0,
+          "μ+σ"
+        ],
+        [
+          80.0,
+          "80"
+        ]
+      ],
+      "marks": [
+        {
+          "x": 60.0,
+          "label": "peak at the mean",
+          "place": "above"
+        }
+      ],
+      "normal_shape_check": {
+        "mu": 60.0,
+        "sigma": 10.0
+      }
+    },
+    "reference_entry_id": "a0f68d18-0323-4f53-8ded-0d475d22de2f",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "a0f68d18-0323-4f53-8ded-0d475d22de2f",
+        "title": "Normal distribution",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.11 is a vocabulary entry with no authored items[]; the bell shape, the symmetry, the centre at the mean and the spread set by sigma are the contract (DECISION-0116, route b). Every one is named in the entry's own body."
+      }
+    ]
+  },
+  "stats-standard-normal": {
+    "entry_title": "Standard normal distribution",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-standard-normal",
+    "title": "The standard normal distribution",
+    "short_title": "Mean 0, SD 1",
+    "subtitle": "The same curve, with the axis measured in standard deviations",
+    "caption": "The normal curve with mean 0 and standard deviation 1. The horizontal axis is z, the number of standard deviations from the mean, so z = 1 is one standard deviation above it.",
+    "x_label": "z-score",
+    "y_label": "relative likelihood (density)",
+    "alt": "A bell-shaped curve centred on zero, with the horizontal axis marked at minus three, minus two, minus one, zero, one, two and three. This is the standard normal distribution: the normal distribution whose mean is zero and whose standard deviation is one. Because the axis counts standard deviations rather than measuring the original units, any normal distribution becomes this one once each value is converted to a z-score, which is what makes a single table or calculator function serve them all. Illustrative data.",
+    "note": "Any normal distribution becomes this one once its values are turned into z-scores.",
+    "synthetic": true,
+    "labels": [
+      "Mean of 0",
+      "Standard deviation of 1",
+      "Horizontal axis counts standard deviations"
+    ],
+    "covers": [
+      "Mean of 0",
+      "Standard deviation of 1",
+      "Horizontal axis counts standard deviations"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "marks": [
+        {
+          "x": 0.0,
+          "label": "z = 0 is the mean",
+          "place": "above"
+        }
+      ],
+      "normal_shape_check": {
+        "mu": 0.0,
+        "sigma": 1.0
+      },
+      "standard_normal_check": true
+    },
+    "reference_entry_id": "55f83887-6949-4f9a-9338-215628ac447b",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "55f83887-6949-4f9a-9338-215628ac447b",
+        "title": "Standard normal distribution",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.11 is a vocabulary entry with no authored items[]; the mean of 0, the standard deviation of 1 and the axis counting standard deviations are the contract (DECISION-0116, route b), and the entry's body states all three."
+      }
+    ]
+  },
+  "stats-empirical-rule": {
+    "entry_title": "Empirical rule (68–95–99.7 rule)",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-empirical-rule",
+    "title": "The empirical rule on a normal curve",
+    "short_title": "68, 95, 99.7",
+    "subtitle": "How much of a normal distribution lies within 1, 2 and 3 standard deviations",
+    "caption": "Three nested bands on the standard normal curve: about 68% of the area lies within one standard deviation of the mean, about 95% within two, and about 99.7% within three.",
+    "x_label": "z-score",
+    "y_label": "relative likelihood (density)",
+    "alt": "A normal curve with three nested shaded bands centred on the mean. The darkest band runs from one standard deviation below the mean to one above and holds about 68 per cent of the area. The next band extends to two standard deviations either side and holds about 95 per cent in total, not 95 per cent on top of the 68. The widest extends to three standard deviations and holds about 99.7 per cent. Each figure is the whole area from the left edge of that band to its right edge, so the bands contain one another rather than sitting side by side. About 0.3 per cent of the area lies beyond three standard deviations altogether. Illustrative data.",
+    "note": "Each percentage is the WHOLE area inside that band, not an extra slice.",
+    "synthetic": true,
+    "labels": [
+      "Within 1 SD of the mean",
+      "Within 2 SD of the mean",
+      "Within 3 SD of the mean"
+    ],
+    "covers": [
+      "Within 1 SD of the mean",
+      "Within 2 SD of the mean",
+      "Within 3 SD of the mean"
+    ],
+    "params": {
+      "x_range": [
+        -3.8,
+        3.8
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": -3.0,
+          "to": 3.0,
+          "op": 0.16
+        },
+        {
+          "from": -2.0,
+          "to": 2.0,
+          "op": 0.3
+        },
+        {
+          "from": -1.0,
+          "to": 1.0,
+          "op": 0.55
+        }
+      ],
+      "area_checks": [
+        {
+          "from": -1.0,
+          "to": 1.0,
+          "expect": 0.6827,
+          "tol": 0.004,
+          "says": "68"
+        },
+        {
+          "from": -2.0,
+          "to": 2.0,
+          "expect": 0.9545,
+          "tol": 0.004,
+          "says": "95"
+        },
+        {
+          "from": -3.0,
+          "to": 3.0,
+          "expect": 0.9973,
+          "tol": 0.004,
+          "says": "99.7"
+        }
+      ],
+      "nested_bands_check": true,
+      "texts": [
+        {
+          "x": 0.0,
+          "y": 0.145,
+          "label": "68%"
+        },
+        {
+          "x": 1.5,
+          "y": 0.052,
+          "label": "95%"
+        },
+        {
+          "x": -2.42,
+          "y": 0.0098,
+          "label": "99.7%"
+        }
+      ]
+    },
+    "reference_entry_id": "547d478a-506d-4978-889c-4b484f8f1fe8",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "547d478a-506d-4978-889c-4b484f8f1fe8",
+        "title": "Empirical rule (68–95–99.7 rule)",
+        "role": "primary",
+        "subject_key": "ap_statistics"
+      }
+    ]
+  },
+  "stats-normal-area": {
+    "entry_title": "Probability as area under the normal curve",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-normal-area",
+    "title": "Probability is the area under the curve",
+    "short_title": "Area is probability",
+    "subtitle": "The probability of an interval is the area above it; the whole area is 1",
+    "caption": "The shaded region runs from one standard deviation below the mean to half a standard deviation above it. Its area, about 0.53, IS the probability that the variable falls in that interval. The entire area under the curve is 1.",
+    "x_label": "z-score",
+    "y_label": "relative likelihood (density)",
+    "alt": "A normal curve with the region between one standard deviation below the mean and half a standard deviation above it shaded. The area of that shaded region is about 0.53, and that number IS the probability that a randomly chosen value falls between those two points. The height of the curve is a density, not a probability: at any single value the curve has a height but the interval has no width, so the probability of exactly that value is zero. The whole area under the curve, from far left to far right, is exactly 1, because the variable must take some value. Illustrative data.",
+    "note": "Total area is 1. The height is a density; only an AREA is a probability.",
+    "synthetic": true,
+    "labels": [
+      "Area over an interval is its probability",
+      "Total area under the curve is 1",
+      "Height is a density, not a probability"
+    ],
+    "covers": [
+      "Area over an interval is its probability",
+      "Total area under the curve is 1",
+      "Height is a density, not a probability"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": -1.0,
+          "to": 0.5
+        }
+      ],
+      "vlines": [
+        {
+          "x": -1.0,
+          "label": "−1"
+        },
+        {
+          "x": 0.5,
+          "label": "0.5"
+        }
+      ],
+      "area_checks": [
+        {
+          "from": -1.0,
+          "to": 0.5,
+          "expect": 0.5328,
+          "tol": 0.004,
+          "says": "0.53"
+        }
+      ],
+      "total_area_check": true
+    },
+    "reference_entry_id": "5cab13ca-aead-4c62-a86b-6dba543c9043",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "5cab13ca-aead-4c62-a86b-6dba543c9043",
+        "title": "Probability as area under the normal curve",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.11 is a convention with no authored items[]; that an interval's area is its probability, that the total area is 1 and that a height is a density are the contract (DECISION-0116, route b). The entry's body states the first two outright."
+      }
+    ]
+  },
+  "stats-chi-square-shapes": {
+    "entry_title": "Shape of chi-square distributions",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-chi-square-shapes",
+    "title": "Chi-square distributions by degrees of freedom",
+    "short_title": "Skew falls with df",
+    "subtitle": "Positive values only, skewed right, and less so as the degrees of freedom rise",
+    "caption": "Chi-square densities for 2, 4 and 10 degrees of freedom. All three live entirely to the right of zero and trail off to the right. The 2-degree curve is highest at the left edge; the others peak at 2 and at 8, and the skew falls as the degrees of freedom rise.",
+    "x_label": "chi-square statistic",
+    "y_label": "relative likelihood (density)",
+    "alt": "Three chi-square density curves on one pair of axes, for 2, 4 and 10 degrees of freedom. Every curve lies entirely to the right of zero, because a chi-square statistic is a sum of squares and can never be negative. The curve for 2 degrees of freedom is at its highest where the axis starts and falls away from there; the other two rise to a peak and then fall, with the peak further right the more degrees of freedom there are. All three trail off slowly to the right, so all three are skewed right rather than symmetric, and the right skew becomes less pronounced as the degrees of freedom increase: the curve for 10 degrees of freedom is much closer to symmetric than the one for 2. Illustrative data.",
+    "note": "Never negative, always skewed right, and less skewed as df grows.",
+    "synthetic": true,
+    "labels": [
+      "Positive values only",
+      "Skewed right",
+      "Skew falls as degrees of freedom rise"
+    ],
+    "covers": [
+      "Positive values only",
+      "Skewed right",
+      "Skew falls as degrees of freedom rise"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        22.0
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 10,
+          "label": "df = 10",
+          "style": "solid"
+        },
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "label": "df = 4",
+          "style": "dashed"
+        },
+        {
+          "kind": "chi_square",
+          "df": 2,
+          "label": "df = 2",
+          "style": "dashed"
+        }
+      ],
+      "chi_square_check": true
+    },
+    "reference_entry_id": "2c566181-d0df-47ae-a65d-52d837dc08d9",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "2c566181-d0df-47ae-a65d-52d837dc08d9",
+        "title": "Shape of chi-square distributions",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 3.14 is a convention with no authored items[]; positive support, right skew and the skew falling as df rises are the contract (DECISION-0116, route b), and the entry's body states all three."
+      }
+    ]
+  },
+  "stats-critical-value-z": {
+    "entry_title": "Critical value z*",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-critical-value-z",
+    "title": "The critical value z* bounds the middle C%",
+    "short_title": "z* bounds the middle",
+    "subtitle": "For 95% confidence, z* = 1.96 and 2.5% is left in each tail",
+    "caption": "On the standard normal curve, −z* and z* cut off the middle 95%. The remaining 5% is split evenly between the two tails, 2.5% in each, which is what makes z* = 1.96 for 95% confidence.",
+    "x_label": "z-score",
+    "y_label": "relative likelihood (density)",
+    "alt": "A standard normal curve with the central region between minus 1.96 and plus 1.96 shaded. That shaded middle holds 95 per cent of the area, which is the confidence level. The two unshaded tails beyond those points hold the remaining 5 per cent, split evenly as 2.5 per cent in each, because the curve is symmetric. The critical value z star is the positive one of those two boundary points: it is defined by the area it leaves in the middle, so a higher confidence level pushes z star further out, not closer in. Illustrative data.",
+    "note": "95% in the middle leaves 2.5% in each tail, so z* = 1.96.",
+    "synthetic": true,
+    "labels": [
+      "−z* and z* are the boundaries",
+      "The middle C% lies between them",
+      "The rest is split evenly between the two tails"
+    ],
+    "covers": [
+      "−z* and z* are the boundaries",
+      "The middle C% lies between them",
+      "The rest is split evenly between the two tails"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": -1.96,
+          "to": 1.96
+        }
+      ],
+      "vlines": [
+        {
+          "x": -1.96,
+          "label": "−z*",
+          "caption": "−1.96"
+        },
+        {
+          "x": 1.96,
+          "label": "z*",
+          "caption": "1.96"
+        }
+      ],
+      "area_checks": [
+        {
+          "from": -1.96,
+          "to": 1.96,
+          "expect": 0.95,
+          "tol": 0.004,
+          "says": "95"
+        }
+      ],
+      "symmetric_tails_check": {
+        "z": 1.96
+      }
+    },
+    "reference_entry_id": "d7defc26-d09e-4838-9db3-13cd6e5aab2f",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d7defc26-d09e-4838-9db3-13cd6e5aab2f",
+        "title": "Critical value z*",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 3.3 is a vocabulary entry with no authored items[]; the two boundaries, the middle C% between them and the even split of the remainder are the contract (DECISION-0116, route b). The entry's body defines z* by exactly that middle area."
+      }
+    ]
+  },
+  "stats-pvalue-right-tail": {
+    "entry_title": "p-value by direction of the alternative (z-test)",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-pvalue-right-tail",
+    "title": "p-value for Ha: greater than",
+    "short_title": "Ha: >, right tail",
+    "subtitle": "The p-value is the area at or above the observed statistic",
+    "caption": "For an alternative of the form “greater than”, the p-value is the area in the RIGHT tail, from the observed test statistic outwards. Here z = 1.4 and the p-value is about 0.081.",
+    "x_label": "z, the test statistic",
+    "y_label": "relative likelihood (density)",
+    "alt": "A standard normal null distribution with the region from the observed test statistic of 1.4 rightwards shaded. The p-value for an alternative hypothesis of the greater-than form is that right-hand tail area alone, about 0.081. It is the probability of getting a result at least as far above the null value as the one observed, if the null hypothesis were true. Only one tail is counted, because only results in that direction count as evidence for this alternative. Illustrative data.",
+    "note": "One tail only: p ≈ 0.081 for z = 1.4.",
+    "synthetic": true,
+    "labels": [
+      "Ha: >"
+    ],
+    "covers": [
+      "Ha: >"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": 1.4,
+          "to": null
+        }
+      ],
+      "vlines": [
+        {
+          "x": 1.4,
+          "label": "z = 1.4"
+        }
+      ],
+      "area_checks": [
+        {
+          "from": 1.4,
+          "to": null,
+          "expect": 0.0808,
+          "tol": 0.004,
+          "says": "0.081"
+        }
+      ],
+      "tail_check": {
+        "side": "right",
+        "z": 1.4
+      }
+    },
+    "reference_entry_id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+        "title": "p-value by direction of the alternative (z-test)",
+        "role": "primary",
+        "subject_key": "ap_statistics"
+      }
+    ]
+  },
+  "stats-pvalue-left-tail": {
+    "entry_title": "p-value by direction of the alternative (z-test)",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-pvalue-left-tail",
+    "title": "p-value for Ha: less than",
+    "short_title": "Ha: <, left tail",
+    "subtitle": "The p-value is the area at or below the observed statistic",
+    "caption": "For an alternative of the form “less than”, the p-value is the area in the LEFT tail, from the observed test statistic outwards. Here z = −1.4 and the p-value is about 0.081.",
+    "x_label": "z, the test statistic",
+    "y_label": "relative likelihood (density)",
+    "alt": "A standard normal null distribution with the region from the observed test statistic of minus 1.4 leftwards shaded. The p-value for an alternative hypothesis of the less-than form is that left-hand tail area alone, about 0.081. It is the probability of getting a result at least as far below the null value as the one observed, if the null hypothesis were true. The direction of the shading follows the direction of the alternative, not the sign of the statistic. Illustrative data.",
+    "note": "One tail only, on the side the alternative names: p ≈ 0.081.",
+    "synthetic": true,
+    "labels": [
+      "Ha: <"
+    ],
+    "covers": [
+      "Ha: <"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": null,
+          "to": -1.4
+        }
+      ],
+      "vlines": [
+        {
+          "x": -1.4,
+          "label": "z = −1.4"
+        }
+      ],
+      "area_checks": [
+        {
+          "from": null,
+          "to": -1.4,
+          "expect": 0.0808,
+          "tol": 0.004,
+          "says": "0.081"
+        }
+      ],
+      "tail_check": {
+        "side": "left",
+        "z": -1.4
+      }
+    },
+    "reference_entry_id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+        "title": "p-value by direction of the alternative (z-test)",
+        "role": "secondary",
+        "subject_key": "ap_statistics"
+      }
+    ]
+  },
+  "stats-pvalue-two-tailed": {
+    "entry_title": "p-value by direction of the alternative (z-test)",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-pvalue-two-tailed",
+    "title": "p-value for Ha: not equal",
+    "short_title": "Ha: ≠, both tails",
+    "subtitle": "Both tails are counted, so the p-value doubles",
+    "caption": "For an alternative of the form “not equal”, the p-value is BOTH tails beyond the observed magnitude. With |z| = 1.4 each tail is about 0.081, so the p-value is about 0.162.",
+    "x_label": "z, the test statistic",
+    "y_label": "relative likelihood (density)",
+    "alt": "A standard normal null distribution with two shaded tails, one beyond minus 1.4 and one beyond plus 1.4. For an alternative hypothesis of the not-equal form the p-value is the sum of both, about 0.162, because a result far from the null value in either direction counts as evidence against it. Each tail on its own is about 0.081, so the two-sided p-value is exactly twice the one-sided one for the same magnitude of statistic. Reporting only one tail here would halve the p-value and overstate the evidence. Illustrative data.",
+    "note": "Both tails: 0.081 each, so p ≈ 0.162, twice the one-sided value.",
+    "synthetic": true,
+    "labels": [
+      "Ha: \\ne"
+    ],
+    "covers": [
+      "Ha: \\ne"
+    ],
+    "params": {
+      "x_range": [
+        -3.6,
+        3.6
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 0.0,
+          "sigma": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.0,
+          "−3"
+        ],
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "shade": [
+        {
+          "from": null,
+          "to": -1.4
+        },
+        {
+          "from": 1.4,
+          "to": null
+        }
+      ],
+      "vlines": [
+        {
+          "x": -1.4,
+          "label": "−|z|"
+        },
+        {
+          "x": 1.4,
+          "label": "|z|"
+        }
+      ],
+      "area_checks": [
+        {
+          "from": null,
+          "to": -1.4,
+          "expect": 0.0808,
+          "tol": 0.004,
+          "says": "0.081"
+        },
+        {
+          "from": 1.4,
+          "to": null,
+          "expect": 0.0808,
+          "tol": 0.004,
+          "says": "0.081"
+        }
+      ],
+      "two_tailed_check": {
+        "z": 1.4
+      }
+    },
+    "reference_entry_id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "bc094c8e-f783-4dee-ab59-192c17e2ef97",
+        "title": "p-value by direction of the alternative (z-test)",
+        "role": "secondary",
+        "subject_key": "ap_statistics"
+      }
+    ]
+  },
+  "stats-normal-relative-position": {
+    "entry_title": "Comparing relative position in normal distributions",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "figure_id": "stats-normal-relative-position",
+    "title": "Comparing relative position in two normal distributions",
+    "short_title": "Same z, same percentile",
+    "subtitle": "Different mean and spread, but one z-score fixes the same relative position",
+    "caption": "Two normal distributions: one with mean 60 and standard deviation 10, the other with mean 75 and standard deviation 5. A value of 70 in the first and 80 in the second are both one standard deviation above their own mean, so both sit at the same percentile, about the 84th.",
+    "x_label": "value",
+    "y_label": "relative likelihood (density)",
+    "alt": "Two normal curves on the same axis. The wider one has mean 60 and standard deviation 10; the narrower, taller one has mean 75 and standard deviation 5. A mark at 70 on the first and a mark at 80 on the second each sit exactly one standard deviation above their own distribution's mean. The raw values differ by 10, and the distributions differ in both centre and spread, yet the two marks describe the same relative position: each has about 84 per cent of its own distribution below it. That is what a z-score measures, and it is why a percentile can be compared between two different normal distributions while a raw value cannot. Illustrative data.",
+    "note": "70 here and 80 there are both z = 1, so both are at about the 84th percentile.",
+    "synthetic": true,
+    "labels": [
+      "Two distributions with different mean and spread",
+      "The same z-score in each",
+      "The same percentile in each"
+    ],
+    "covers": [
+      "Two distributions with different mean and spread",
+      "The same z-score in each",
+      "The same percentile in each"
+    ],
+    "params": {
+      "x_range": [
+        25.0,
+        100.0
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 75.0,
+          "sigma": 5.0,
+          "label": "mean 75, SD 5",
+          "style": "solid"
+        },
+        {
+          "kind": "normal",
+          "mu": 60.0,
+          "sigma": 10.0,
+          "label": "mean 60, SD 10",
+          "style": "dashed"
+        }
+      ],
+      "x_ticks": [
+        [
+          40.0,
+          "40"
+        ],
+        [
+          60.0,
+          "60"
+        ],
+        [
+          70.0,
+          "70"
+        ],
+        [
+          75.0,
+          "75"
+        ],
+        [
+          80.0,
+          "80"
+        ],
+        [
+          95.0,
+          "95"
+        ]
+      ],
+      "marks": [
+        {
+          "curve": 1,
+          "x": 70.0,
+          "label": "70 is z = 1",
+          "place": "above"
+        },
+        {
+          "curve": 0,
+          "x": 80.0,
+          "label": "80 is z = 1",
+          "place": "above"
+        }
+      ],
+      "same_z_check": [
+        {
+          "curve": 1,
+          "x": 70.0
+        },
+        {
+          "curve": 0,
+          "x": 80.0
+        }
+      ]
+    },
+    "reference_entry_id": "2cdd4013-d67f-4768-9d11-a65d7da87d57",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "2cdd4013-d67f-4768-9d11-a65d7da87d57",
+        "title": "Comparing relative position in normal distributions",
+        "role": "primary",
+        "subject_key": "ap_statistics",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.11 is a convention with no authored items[]; the two differing distributions, the shared z-score and the percentile it fixes are the contract (DECISION-0116, route b). The entry's body is about comparing relative position within AND between normal distributions, which is what the two curves and the single shared z show."
+      }
+    ]
   }
 }

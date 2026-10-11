@@ -1,12 +1,13 @@
 {
-  "entries": 39,
-  "families": 17,
+  "entries": 49,
+  "families": 18,
   "family_names": [
     "approach_equilibrium",
     "arrow_diagram",
     "boxplot",
     "categorical_bars",
     "circuit_symbols",
+    "density_curve",
     "dotplot",
     "energy_profile",
     "field_map",
@@ -20,12 +21,12 @@
     "titration_curve",
     "xy_series"
   ],
-  "checks_run": 2091,
+  "checks_run": 2619,
   "checks_failed": 0,
   "failures": [],
-  "total_render_ms": 290.09,
-  "mean_render_ms": 7.438,
-  "entries_covered": 43,
+  "total_render_ms": 633.47,
+  "mean_render_ms": 12.928,
+  "entries_covered": 51,
   "coverage": {
     "ap_chemistry::Maxwell-Boltzmann energy distribution": {
       "figures": [
@@ -503,6 +504,113 @@
       "missing": [],
       "contract": "entry_items",
       "carried_labels": []
+    },
+    "ap_statistics::Normal distribution": {
+      "figures": [
+        "stats-normal-curve"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Bell-shaped with a single peak",
+        "Centre at the mean \u03bc",
+        "Spread set by the standard deviation \u03c3",
+        "Symmetric about the mean"
+      ]
+    },
+    "ap_statistics::Standard normal distribution": {
+      "figures": [
+        "stats-standard-normal"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Horizontal axis counts standard deviations",
+        "Mean of 0",
+        "Standard deviation of 1"
+      ]
+    },
+    "ap_statistics::Empirical rule (68\u201395\u201399.7 rule)": {
+      "figures": [
+        "stats-empirical-rule"
+      ],
+      "authored_labels": 3,
+      "covered": 3,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
+    },
+    "ap_statistics::Probability as area under the normal curve": {
+      "figures": [
+        "stats-normal-area"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Area over an interval is its probability",
+        "Height is a density, not a probability",
+        "Total area under the curve is 1"
+      ]
+    },
+    "ap_statistics::Shape of chi-square distributions": {
+      "figures": [
+        "stats-chi-square-shapes"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Positive values only",
+        "Skew falls as degrees of freedom rise",
+        "Skewed right"
+      ]
+    },
+    "ap_statistics::Critical value z*": {
+      "figures": [
+        "stats-critical-value-z"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "The middle C% lies between them",
+        "The rest is split evenly between the two tails",
+        "\u2212z* and z* are the boundaries"
+      ]
+    },
+    "ap_statistics::p-value by direction of the alternative (z-test)": {
+      "figures": [
+        "stats-pvalue-right-tail",
+        "stats-pvalue-left-tail",
+        "stats-pvalue-two-tailed"
+      ],
+      "authored_labels": 3,
+      "covered": 3,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
+    },
+    "ap_statistics::Comparing relative position in normal distributions": {
+      "figures": [
+        "stats-normal-relative-position"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "The same percentile in each",
+        "The same z-score in each",
+        "Two distributions with different mean and spread"
+      ]
     }
   },
   "unpublished_figures": [],
@@ -514,7 +622,7 @@
         "ap_chemistry::Maxwell-Boltzmann energy distribution",
         "ap_chemistry::Maxwell-Boltzmann distribution"
       ],
-      "render_ms": 1.448,
+      "render_ms": 1.485,
       "bytes": 32326
     },
     "chem-mb-catalysis": {
@@ -523,7 +631,7 @@
       "used_by": [
         "ap_chemistry::How a catalyst increases rate"
       ],
-      "render_ms": 0.841,
+      "render_ms": 0.848,
       "bytes": 19445
     },
     "chem-energy-profile-single": {
@@ -532,7 +640,7 @@
       "used_by": [
         "ap_chemistry::Single-step reaction energy profile"
       ],
-      "render_ms": 0.117,
+      "render_ms": 0.116,
       "bytes": 4661
     },
     "chem-energy-profile-multistep": {
@@ -541,7 +649,7 @@
       "used_by": [
         "ap_chemistry::Multistep reaction energy profile"
       ],
-      "render_ms": 0.173,
+      "render_ms": 0.188,
       "bytes": 7256
     },
     "chem-energy-diagram-process": {
@@ -559,7 +667,7 @@
       "used_by": [
         "ap_chemistry::Mass spectrum of a single element"
       ],
-      "render_ms": 0.061,
+      "render_ms": 0.064,
       "bytes": 4303
     },
     "chem-pes": {
@@ -568,7 +676,7 @@
       "used_by": [
         "ap_chemistry::Photoelectron spectrum (PES)"
       ],
-      "render_ms": 0.048,
+      "render_ms": 0.049,
       "bytes": 4383
     },
     "chem-pe-internuclear": {
@@ -577,7 +685,7 @@
       "used_by": [
         "ap_chemistry::Potential energy vs. internuclear distance graph"
       ],
-      "render_ms": 0.952,
+      "render_ms": 0.946,
       "bytes": 20458
     },
     "chem-approach-equilibrium": {
@@ -586,7 +694,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.708,
+      "render_ms": 0.741,
       "bytes": 20324
     },
     "chem-titration": {
@@ -595,7 +703,7 @@
       "used_by": [
         "ap_chemistry::Titration curve (pH vs. volume of titrant)"
       ],
-      "render_ms": 1.038,
+      "render_ms": 1.027,
       "bytes": 24631
     },
     "chem-approach-equilibrium-rate": {
@@ -604,7 +712,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.734,
+      "render_ms": 0.79,
       "bytes": 20386
     },
     "stats-bar-chart": {
@@ -613,7 +721,7 @@
       "used_by": [
         "ap_statistics::Bar chart"
       ],
-      "render_ms": 0.05,
+      "render_ms": 0.055,
       "bytes": 3833
     },
     "stats-pie-chart": {
@@ -622,7 +730,7 @@
       "used_by": [
         "ap_statistics::Pie chart"
       ],
-      "render_ms": 0.027,
+      "render_ms": 0.031,
       "bytes": 2148
     },
     "stats-dotplot": {
@@ -631,7 +739,7 @@
       "used_by": [
         "ap_statistics::Dotplot"
       ],
-      "render_ms": 0.047,
+      "render_ms": 0.052,
       "bytes": 4463
     },
     "stats-histogram": {
@@ -640,7 +748,7 @@
       "used_by": [
         "ap_statistics::Histogram"
       ],
-      "render_ms": 0.057,
+      "render_ms": 0.063,
       "bytes": 5063
     },
     "stats-stem-leaf": {
@@ -649,7 +757,7 @@
       "used_by": [
         "ap_statistics::Stem-and-leaf plot"
       ],
-      "render_ms": 0.031,
+      "render_ms": 0.035,
       "bytes": 3297
     },
     "stats-boxplot": {
@@ -658,7 +766,7 @@
       "used_by": [
         "ap_statistics::Boxplot"
       ],
-      "render_ms": 0.039,
+      "render_ms": 0.04,
       "bytes": 3441
     },
     "stats-two-cat-side-by-side": {
@@ -676,7 +784,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.067,
+      "render_ms": 0.065,
       "bytes": 5042
     },
     "stats-two-cat-mosaic": {
@@ -685,7 +793,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.06,
+      "render_ms": 0.061,
       "bytes": 5017
     },
     "phys2-pv-isotherm-work": {
@@ -694,7 +802,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.26,
+      "render_ms": 0.287,
       "bytes": 9507
     },
     "phys2-pv-special-processes": {
@@ -703,7 +811,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.206,
+      "render_ms": 0.219,
       "bytes": 7860
     },
     "phys2-potential-around-loop": {
@@ -712,7 +820,7 @@
       "used_by": [
         "ap_physics_2::Graph of electric potential versus position in a loop"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.048,
       "bytes": 4498
     },
     "precalc-residual-plot": {
@@ -730,7 +838,7 @@
       "used_by": [
         "ap_physics_2::Maxwell\u2013Boltzmann distribution (qualitative)"
       ],
-      "render_ms": 0.902,
+      "render_ms": 0.885,
       "bytes": 20957
     },
     "physcmech-xva-graphs": {
@@ -742,7 +850,7 @@
         "ap_physics_c_mechanics::Displacement from area under v\u2013t graph",
         "ap_physics_c_mechanics::Change in velocity from area under a\u2013t graph"
       ],
-      "render_ms": 0.929,
+      "render_ms": 0.928,
       "bytes": 25524
     },
     "phys-work-force-displacement": {
@@ -752,7 +860,7 @@
         "ap_physics_1::Work from a force-displacement graph",
         "ap_physics_c_mechanics::Work as area under an F\u2225 vs. displacement graph"
       ],
-      "render_ms": 0.052,
+      "render_ms": 0.049,
       "bytes": 4339
     },
     "phys2-zero-pressure-temperature": {
@@ -761,7 +869,7 @@
       "used_by": [
         "ap_physics_2::Zero-pressure temperature from a P\u2013T graph"
       ],
-      "render_ms": 0.051,
+      "render_ms": 0.067,
       "bytes": 4697
     },
     "phys2-ohmic-iv": {
@@ -770,7 +878,7 @@
       "used_by": [
         "ap_physics_2::Ohmic materials and the I\u2013\u0394V graph"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.056,
       "bytes": 4945
     },
     "phys-vector-arrows": {
@@ -790,7 +898,7 @@
         "ap_physics_1::Free-body diagram (FBD)",
         "ap_physics_c_mechanics::Free-body diagram"
       ],
-      "render_ms": 0.03,
+      "render_ms": 0.029,
       "bytes": 3315
     },
     "chem-particulate-phases": {
@@ -799,7 +907,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of solid, liquid, and gas"
       ],
-      "render_ms": 0.196,
+      "render_ms": 0.188,
       "bytes": 5785
     },
     "chem-particulate-balanced-equation": {
@@ -808,7 +916,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a balanced equation"
       ],
-      "render_ms": 0.05,
+      "render_ms": 0.051,
       "bytes": 4088
     },
     "chem-particulate-solution": {
@@ -817,7 +925,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a solution"
       ],
-      "render_ms": 0.116,
+      "render_ms": 0.118,
       "bytes": 6488
     },
     "chem-particulate-reversible": {
@@ -826,7 +934,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of a reversible reaction"
       ],
-      "render_ms": 0.131,
+      "render_ms": 0.088,
       "bytes": 5366
     },
     "chem-sea-of-electrons": {
@@ -835,7 +943,7 @@
       "used_by": [
         "ap_chemistry::Sea-of-electrons model of metallic bonding"
       ],
-      "render_ms": 0.108,
+      "render_ms": 0.113,
       "bytes": 4822
     },
     "phys-electric-field-map": {
@@ -845,7 +953,7 @@
         "ap_physics_2::Electric field map and field line diagram",
         "ap_physics_c_em::Electric field map and field line diagram"
       ],
-      "render_ms": 1.843,
+      "render_ms": 2.017,
       "bytes": 27010
     },
     "phys2-equipotential-map": {
@@ -854,7 +962,7 @@
       "used_by": [
         "ap_physics_2::Equipotential (isoline) map"
       ],
-      "render_ms": 0.091,
+      "render_ms": 0.1,
       "bytes": 6250
     },
     "phys2-circuit-symbols": {
@@ -863,8 +971,98 @@
       "used_by": [
         "ap_physics_2::Circuit schematic symbols"
       ],
-      "render_ms": 0.063,
+      "render_ms": 0.071,
       "bytes": 5951
+    },
+    "stats-normal-curve": {
+      "family": "density_curve",
+      "entry": "Normal distribution",
+      "used_by": [
+        "ap_statistics::Normal distribution"
+      ],
+      "render_ms": 0.506,
+      "bytes": 11909
+    },
+    "stats-standard-normal": {
+      "family": "density_curve",
+      "entry": "Standard normal distribution",
+      "used_by": [
+        "ap_statistics::Standard normal distribution"
+      ],
+      "render_ms": 0.488,
+      "bytes": 12152
+    },
+    "stats-empirical-rule": {
+      "family": "density_curve",
+      "entry": "Empirical rule (68\u201395\u201399.7 rule)",
+      "used_by": [
+        "ap_statistics::Empirical rule (68\u201395\u201399.7 rule)"
+      ],
+      "render_ms": 1.167,
+      "bytes": 25859
+    },
+    "stats-normal-area": {
+      "family": "density_curve",
+      "entry": "Probability as area under the normal curve",
+      "used_by": [
+        "ap_statistics::Probability as area under the normal curve"
+      ],
+      "render_ms": 0.566,
+      "bytes": 14287
+    },
+    "stats-chi-square-shapes": {
+      "family": "density_curve",
+      "entry": "Shape of chi-square distributions",
+      "used_by": [
+        "ap_statistics::Shape of chi-square distributions"
+      ],
+      "render_ms": 1.787,
+      "bytes": 29258
+    },
+    "stats-critical-value-z": {
+      "family": "density_curve",
+      "entry": "Critical value z*",
+      "used_by": [
+        "ap_statistics::Critical value z*"
+      ],
+      "render_ms": 0.738,
+      "bytes": 17202
+    },
+    "stats-pvalue-right-tail": {
+      "family": "density_curve",
+      "entry": "p-value by direction of the alternative (z-test)",
+      "used_by": [
+        "ap_statistics::p-value by direction of the alternative (z-test)"
+      ],
+      "render_ms": 0.647,
+      "bytes": 14799
+    },
+    "stats-pvalue-left-tail": {
+      "family": "density_curve",
+      "entry": "p-value by direction of the alternative (z-test)",
+      "used_by": [
+        "ap_statistics::p-value by direction of the alternative (z-test)"
+      ],
+      "render_ms": 0.631,
+      "bytes": 14815
+    },
+    "stats-pvalue-two-tailed": {
+      "family": "density_curve",
+      "entry": "p-value by direction of the alternative (z-test)",
+      "used_by": [
+        "ap_statistics::p-value by direction of the alternative (z-test)"
+      ],
+      "render_ms": 0.79,
+      "bytes": 17705
+    },
+    "stats-normal-relative-position": {
+      "family": "density_curve",
+      "entry": "Comparing relative position in normal distributions",
+      "used_by": [
+        "ap_statistics::Comparing relative position in normal distributions"
+      ],
+      "render_ms": 0.929,
+      "bytes": 21203
     }
   }
 }
