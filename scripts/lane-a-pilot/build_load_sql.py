@@ -37,6 +37,16 @@ FAMILIES = {
         "side by side rather than one on top of the other. The first Lane B grammar: it asserts a "
         "drawing convention rather than a quantity on an axis, so it renders in the bare frame.",
     ),
+    "function_plot": (
+        "Function plots",
+        "A typed function drawn over a domain with one feature marked: concavity, a zero, an "
+        "inflection point, a hole, a tangency, a transformation, an asymptote, a sequence's "
+        "discrete points, or the same function at two scales. Functions carry numeric parameters "
+        "rather than expression strings, polynomials go through Horner and exponentials through "
+        "exp, so the two renderers agree byte for byte. A curve BREAKS where its function is "
+        "undefined or leaves the window, because a line drawn through an asymptote asserts a value "
+        "the function does not take.",
+    ),
     "density_curve": (
         "Probability density curves",
         "Normal and chi-square densities with the area under them shaded: the normal curve, the "
@@ -143,6 +153,10 @@ def main() -> int:
     ap.add_argument("--subject", default=None,
                     help="single subject; omit when the batch spans subjects and each spec carries its own")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--family", default=None,
+                    help="restrict the batch to one renderer family. A prefix is a name, not a "
+                         "batch: 'precalc-' also catches the residual plot, which belongs to an "
+                         "earlier one.")
     ap.add_argument("--entries", default="prod_entries.json",
                     help="fixture giving each used entry its subject_key and kind")
     ap.add_argument("--batch", default=None, help="source_note batch tag")
@@ -154,6 +168,8 @@ def main() -> int:
     prefixes = tuple(x.strip() for x in args.prefix.split(",") if x.strip())
     specs = {k: v for k, v in json.load(open(HERE / "specs.json")).items()
              if k.startswith(prefixes)}
+    if args.family:
+        specs = {k: v for k, v in specs.items() if v["family"] == args.family}
     entries = {k: v for k, v in json.load(open(HERE / args.entries)).items()
                if not k.startswith("_")}
     if not specs:

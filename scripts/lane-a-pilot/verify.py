@@ -1348,6 +1348,61 @@ def p_function_plot(sid, s, svg):
         ck(sid, f"no point is drawn inside the excluded range ({gap[0]:g}, {gap[1]:g})",
            not inside, f"{len(inside)} points inside the gap")
 
+    if "degree_points_check" in p:
+        d = p["degree_points_check"]
+        ck(sid, "the stated number of points is drawn", len(g["dots"]) == d["degree"] + 1,
+           f"{len(g['dots'])} points for degree {d['degree']}")
+        ck(sid, "their inputs are distinct", len({round(x, 9) for x in d["xs"]}) == len(d["xs"]))
+        ck(sid, "every point really lies on the drawn polynomial",
+           all(any(abs(dot["x"] - x) < 1e-9 and abs(dot["y"] - ev(0, x)) < 1e-9
+                   for dot in g["dots"]) for x in d["xs"]))
+        ck(sid, "the polynomial is of the stated degree",
+           len(p["curves"][0]["coeffs"]) - 1 == d["degree"],
+           f"{len(p['curves'][0]['coeffs']) - 1} != {d['degree']}")
+        # "degree n OR LESS" is the entry's claim, and the usual misreading is
+        # that n + 1 points fix the degree exactly.
+        ck(sid, "the text says the degree is an upper bound, not an exact value",
+           "or less" in (s.get("note") or "").lower() + s["alt"].lower())
+
+    if "decreasing_between_check" in p:
+        for lo, hi in p["decreasing_between_check"]["intervals"]:
+            xs = [lo + (hi - lo) * i / 120 for i in range(121)]
+            ys = [ev(0, x) for x in xs]
+            ck(sid, f"the graph falls the whole way across [{lo:.2f}, {hi:.2f}]",
+               all(a is not None and b is not None and a > b for a, b in zip(ys, ys[1:])),
+               "a branch that turns is not 'decreasing between consecutive asymptotes'")
+        ck(sid, "the text says it decreases rather than turning",
+           "decreasing" in (s.get("note") or "").lower() + s["alt"].lower())
+
+    if "window_pair_check" in p:
+        w = p["window_pair_check"]
+        # The first version counted turning points and asserted the wide window
+        # had none. That was the CHECK being wrong, not the figure: the turning
+        # points exist at every scale. What the entry claims is that scale can
+        # HIDE them, so what has to be measured is whether the feature is big
+        # enough to see in this window.
+        lo, hi = -0.4, 0.4
+        xs = [lo + (hi - lo) * i / 8000 for i in range(8001)]
+        ys = [ev(0, x) for x in xs]
+        turns = [i for i in range(1, len(ys) - 1)
+                 if (ys[i] - ys[i - 1]) * (ys[i + 1] - ys[i]) < 0]
+        ck(sid, "the function really does turn twice, at every scale", len(turns) == 2,
+           f"counted {len(turns)}")
+        feature = max(ys[i] for i in turns) - min(ys[i] for i in turns)
+        span = p["y_range"][1] - p["y_range"][0]
+        frac = feature / span
+        if w["visible"]:
+            ck(sid, "in this window the feature fills enough of the frame to be seen",
+               frac > 0.2, f"it spans {frac:.3f} of the height")
+        else:
+            # Thinner than the drawn line: not "hard to see", invisible.
+            ck(sid, "in this window the feature is thinner than the line that draws it",
+               frac < 0.002, f"it spans {frac:.5f} of the height")
+        ck(sid, "both windows draw one and the same function",
+           p["curves"][0]["coeffs"] == w["coeffs"], "the pair proves nothing otherwise")
+        ck(sid, "the text says the difference is scale, not accuracy",
+           "scale" in s["alt"].lower())
+
     if "sequence_check" in p:
         ck(sid, "a sequence is drawn as discrete points, with no curve joining them",
            not g["curves"] and len(g["dots"]) > 1,

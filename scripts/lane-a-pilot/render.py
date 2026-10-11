@@ -1140,6 +1140,10 @@ def f_function_plot(p: dict) -> dict:
     n = p.get("samples", 600)
     xs = [x0 + (x1 - x0) * i / n for i in range(n + 1)]
 
+    # Nothing is drawn outside the declared window. A per-curve `y_clip` on its
+    # MAGNITUDE is not enough: a logarithm diving to -4.9 passes |y| <= 5 and
+    # still leaves a frame whose floor is -1. The window is the authority.
+    win = p.get("y_range")
     curves, legend = [], []
     for c in p["curves"]:
         style = c.get("style", "solid")
@@ -1147,6 +1151,8 @@ def f_function_plot(p: dict) -> dict:
         pieces: list[list[tuple[float, float]]] = []
         for x in xs:
             y = _fp_eval(c, x)
+            if y is not None and win is not None and not (win[0] <= y <= win[1]):
+                y = None
             if y is None or (c.get("y_clip") is not None and abs(y) > c["y_clip"]):
                 if len(run) > 1:
                     pieces.append(run)
