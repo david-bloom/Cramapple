@@ -325,8 +325,10 @@ warning every student about a problem they will not hit is noise.
 > `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
 > are **in Development only — Production is still a Hard Gate.** The app HAS now been taught the four
 > new families (`ap-prep-blueprint#11`), at **117 of 117 figure/layout pairs byte-identical across
-> all 17 families**, and the app is **published** — the live bundle carries all four. The one step
-> left is the Production load, a Hard Gate: Production still holds only the original 25 figures. The rest of the Lane A gap is classified but not
+> all 17 families**, the app is **published**, and all four batches are **LIVE IN PRODUCTION**
+> (`APPROVAL-0159`): 39 published figures, 17 families, 47 uses over 43 entries, identical to
+> Development by digest and verified as a real authenticated student. The AP Biology four remain
+> blocked on the §4.4 decision, and the rest of the Lane A gap is classified but not built. The rest of the Lane A gap is classified but not
 > built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
