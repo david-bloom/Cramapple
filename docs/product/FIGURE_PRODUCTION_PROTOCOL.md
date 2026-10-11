@@ -221,6 +221,14 @@ warning every student about a problem they will not hit is noise.
   contains none.
 - **Thirteen Lane A entries remain** outside Chemistry: Statistics 7, Physics 4, Precalculus 1,
   plus one unattributed boxplot. Expect five or six further families.
+
+  > **CORRECTION (2026-10-11).** Classified against each entry's published `kind` and authored
+  > `items[]` rather than its title, it is **twelve entries and fifteen figures**, needing **seven**
+  > new families — and, because `figures_family_check` hard-codes the family list, **a migration**:
+  > this batch is a schema change plus data, not a content load. The "unattributed boxplot" does not
+  > exist (Statistics' Boxplot 1.8 is attributed and already among the seven), Precalculus' "Residual
+  > plot" is published as `kind='vocabulary'` with no labelled parts, and three entries need more than
+  > one figure each. See `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md`.
 - **One figure has no home.** `chem-mb-catalysis` draws a real teaching point but no published
   entry matches it; the nearest are a Unit 5 convention and a Unit 3 vocabulary entry. It is not
   production-eligible until an entry exists.
@@ -232,6 +240,10 @@ v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 `../architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` still governs, and TASK-0006's five owner
 decisions remain formally open — this protocol records what was approved and built for Lane A
 reference diagrams specifically.
+
+v1.2 (2026-10-11): a §9 correction recording that the remaining Lane A work is twelve entries and
+fifteen figures, needs seven new renderer families, and requires a migration because the family list is
+a CHECK constraint. Classification: `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md`.
 
 v1.1 (2026-10-11): one addition in §4a, recording that the label-coverage gate checks against a
 committed fixture of the published entries and fails on a missing one. No policy changed; the
