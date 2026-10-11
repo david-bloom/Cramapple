@@ -331,8 +331,11 @@ warning every student about a problem they will not hit is noise.
 > Development by digest and verified as a real authenticated student. **The AP Statistics
 > `density_curve` batch followed under `APPROVAL-0160`**: 10 more figures over 8 entries, so
 > Production now holds **49 published figures and 18 families**, again identical to Development.
-> The AP Biology four remain blocked on the §4.4 decision, and the rest of the Lane A gap —
-> `function_plot` above all — is classified but not built. The rest of the Lane A gap is classified but not
+> **Confirmed drawing in the live app by the Product Owner on 2026-10-11**: AP Statistics 2.11
+> (five figures), 3.6 (three p-value tails on one entry), AP Chemistry 4.3 and AP Physics 1 2.2.
+> `field_map`, `circuit_symbols` and the three `xy_series` gap figures pass every gate but have
+> not been looked at. The AP Biology four remain blocked on the §4.4 decision, and the rest of the
+> Lane A gap — `function_plot` above all — is classified but not built. The rest of the Lane A gap is classified but not
 > built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 

@@ -85,9 +85,11 @@ Each left a test behind. `build_eye_sheet.py` makes the pass a command.
 2. ~~**Production load**~~ **DONE** — `APPROVAL-0159`, all four batches. Production: 39 published
    figures, 17 families, 47 uses, 43 entries, 0 drafts, identical to Development by digest.
    Verified as an authenticated student, draft row invisible, cross-subject sharing working.
-   **Partly closed:** the Product Owner confirmed the Deep Dive notes render correctly in the live
-   signed-in app on 2026-10-11, after the template fix that shipped with this work. Still unseen
-   by anyone: one of the new FIGURES actually drawn in a reference pane or notes sheet. Four loaders are
+   **CLOSED 2026-10-11.** The Product Owner confirmed in the live signed-in app that the notes
+   template renders correctly AND that the figures draw: AP Statistics 2.11 (five figures), 3.6
+   (three p-value tails on one entry), AP Chemistry 4.3 (particulate) and AP Physics 1 2.2 (the
+   free-body diagram, which is a cross-subject shared figure). `field_map`, `circuit_symbols` and
+   the three `xy_series` gap figures have still not been looked at by anyone. Four loaders are
    generated and applied to Development:
    `out/load_lane_a_gaps.sql`, `out/load_lane_b_arrows.sql`, `out/load_lane_b_particulate.sql`,
    `out/load_lane_b_fields.sql`. `--workdir /Users/davidbloom` is PRODUCTION; confirm the ref in the
