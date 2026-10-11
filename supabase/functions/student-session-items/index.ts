@@ -19,6 +19,12 @@
 //      approved MCQ, a numeric-answer cell that is excluded, an untagged source, or
 //      a candidate withheld by the media gate) it returns `item: null` with a
 //      reason so the client never makes a false "same skill" claim.
+//   3. CURRENT MCQ ANSWER: POST
+//      { learning_session_id, current_mcq_answer: { content_item_version_id } }
+//      — returns the answer metadata for exactly one published MCQ in the
+//      session's exam pack. The client keeps this response in memory and uses
+//      it only to make the current question feel instant; authoritative
+//      attempt persistence and grading still run through the normal chain.
 //
 // Why this is here instead of a role grant on storage-sign-url: content-assets
 // is a private bucket that also holds authoring/reviewer-only material, so
@@ -482,6 +488,26 @@ export async function handleStudentSessionItems(
     );
   }
 
+  const currentMcqAnswer = input.current_mcq_answer ?? input.currentMcqAnswer;
+  const currentMcqAnswerRequested = currentMcqAnswer != null;
+  const currentMcqAnswerVersionId = currentMcqAnswerRequested
+    ? asUuid(
+      (currentMcqAnswer as Record<string, unknown>)
+        ?.content_item_version_id ??
+        (currentMcqAnswer as Record<string, unknown>)
+          ?.contentItemVersionId,
+    )
+    : null;
+  if (currentMcqAnswerRequested && !currentMcqAnswerVersionId) {
+    return respond(
+      {
+        error: "missing_required_fields",
+        required: ["current_mcq_answer.content_item_version_id"],
+      },
+      { status: 400 },
+    );
+  }
+
   const profileResult = await authenticate(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
@@ -523,6 +549,78 @@ export async function handleStudentSessionItems(
     const sessionExamCode = typeof embeddedPack?.exam_code === "string"
       ? embeddedPack.exam_code
       : null;
+
+    // ── Current-question MCQ answer preload ────────────────────────────────
+    // This is deliberately a separate, one-version request. The ordinary
+    // queue still prefetches up to ten questions without their answer fields,
+    // so the browser holds an answer only for the question currently shown.
+    if (currentMcqAnswerRequested) {
+      const { data: version, error: versionError } = await service
+        .schema("app")
+        .from("content_item_versions")
+        .select(
+          "id, status, content_items!inner(exam_pack_version_id, item_type, status)",
+        )
+        .eq("id", currentMcqAnswerVersionId)
+        .maybeSingle();
+      if (versionError || !version) {
+        return respond({ error: "current_mcq_not_found" }, { status: 404 });
+      }
+      const contentItem = Array.isArray(version.content_items)
+        ? version.content_items[0]
+        : version.content_items;
+      if (
+        !contentItem ||
+        contentItem.exam_pack_version_id !== session.exam_pack_version_id
+      ) {
+        return respond({ error: "session_content_mismatch" }, { status: 409 });
+      }
+      if (
+        version.status !== "published" ||
+        contentItem.status !== "published" ||
+        contentItem.item_type !== "mcq"
+      ) {
+        return respond({ error: "current_mcq_not_available" }, { status: 409 });
+      }
+
+      const { data: choices, error: choicesError } = await service
+        .schema("app")
+        .from("mcq_choices")
+        .select("choice_key, choice_text, is_correct, rationale")
+        .eq("content_item_version_id", currentMcqAnswerVersionId)
+        .order("choice_key", { ascending: true });
+      if (choicesError) {
+        return respond({ error: "current_mcq_answer_failed" }, { status: 500 });
+      }
+      const answerChoices = ((choices ?? []) as Array<{
+        choice_key: string;
+        choice_text: string;
+        is_correct: boolean;
+        rationale: string | null;
+      }>).map((choice) => ({
+        choice_key: choice.choice_key,
+        choice_text: choice.choice_text,
+        is_correct: choice.is_correct === true,
+        rationale: choice.rationale ?? null,
+      }));
+      if (
+        answerChoices.length < 2 ||
+        answerChoices.filter((choice) => choice.is_correct === true).length !== 1
+      ) {
+        return respond({ error: "current_mcq_answer_invalid" }, { status: 409 });
+      }
+
+      return respond({
+        status: "ok",
+        function: "student-session-items",
+        result: {
+          mode: "current_mcq_answer",
+          learning_session_id: learningSessionId,
+          content_item_version_id: currentMcqAnswerVersionId,
+          choices: answerChoices,
+        },
+      });
+    }
 
     // ── Confirm-transfer branch (Course Mode §7.1) ──────────────────────────
     if (confirmTransferRequested) {

@@ -377,6 +377,116 @@ Deno.test("unauthorized caller is rejected", async () => {
 });
 
 /* -------------------------------------------------------------------------- */
+/* Current-question MCQ answer preload                                        */
+/* -------------------------------------------------------------------------- */
+
+const CURRENT_ANSWER_CHOICES = [
+  {
+    content_item_version_id: SOURCE_VERSION_ID,
+    choice_key: "A",
+    choice_text: "First choice",
+    is_correct: false,
+    rationale: "This misses the key distinction.",
+  },
+  {
+    content_item_version_id: SOURCE_VERSION_ID,
+    choice_key: "B",
+    choice_text: "Second choice",
+    is_correct: true,
+    rationale: "This applies the definition correctly.",
+  },
+];
+
+Deno.test("current MCQ answer returns one in-pack published key", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      sourceVersion: {
+        id: SOURCE_VERSION_ID,
+        status: "published",
+        content_items: {
+          exam_pack_version_id: "epv1",
+          item_type: "mcq",
+          status: "published",
+        },
+      },
+      choices: CURRENT_ANSWER_CHOICES,
+    },
+    {
+      learning_session_id: SESSION_ID,
+      current_mcq_answer: { content_item_version_id: SOURCE_VERSION_ID },
+    },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals(result.mode, "current_mcq_answer");
+  assertEquals(result.content_item_version_id, SOURCE_VERSION_ID);
+  assertEquals(result.choices, CURRENT_ANSWER_CHOICES.map(({
+    choice_key,
+    choice_text,
+    is_correct,
+    rationale,
+  }) => ({ choice_key, choice_text, is_correct, rationale })));
+});
+
+Deno.test("current MCQ answer rejects a cross-pack or non-MCQ item", async () => {
+  for (const contentItems of [
+    { exam_pack_version_id: "other-pack", item_type: "mcq", status: "published" },
+    { exam_pack_version_id: "epv1", item_type: "frq", status: "published" },
+  ]) {
+    const { status, json } = await call(
+      {
+        session: ACTIVE_SESSION,
+        sourceVersion: {
+          id: SOURCE_VERSION_ID,
+          status: "published",
+          content_items: contentItems,
+        },
+        choices: CURRENT_ANSWER_CHOICES,
+      },
+      {
+        learning_session_id: SESSION_ID,
+        current_mcq_answer: { content_item_version_id: SOURCE_VERSION_ID },
+      },
+    );
+    assertEquals(status, 409);
+    assertEquals(
+      json.error,
+      contentItems.exam_pack_version_id === "epv1"
+        ? "current_mcq_not_available"
+        : "session_content_mismatch",
+    );
+  }
+});
+
+Deno.test("current MCQ answer refuses an invalid answer set", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      sourceVersion: {
+        id: SOURCE_VERSION_ID,
+        status: "published",
+        content_items: {
+          exam_pack_version_id: "epv1",
+          item_type: "mcq",
+          status: "published",
+        },
+      },
+      choices: CURRENT_ANSWER_CHOICES.map((choice) => ({
+        ...choice,
+        is_correct: false,
+      })),
+    },
+    {
+      learning_session_id: SESSION_ID,
+      current_mcq_answer: { content_item_version_id: SOURCE_VERSION_ID },
+    },
+  );
+  assertEquals(status, 409);
+  assertEquals(json.error, "current_mcq_answer_invalid");
+});
+
+/* -------------------------------------------------------------------------- */
 /* Unrelated ordinary queue paths are unchanged by the refactor                */
 /* -------------------------------------------------------------------------- */
 

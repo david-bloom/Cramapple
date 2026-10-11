@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
 - APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch: 10 Figures, 1 New Renderer Family, 8 Published Entries
 - APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches: 14 Figures, 4 New Renderer Families, 24 Uses Across 7 Subjects
 - APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus (2026-10-11)
@@ -2091,6 +2092,24 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
+
+- **Date:** 2026-10-11
+- **Granted by:** David Bloom (Product Owner), in session. After discussing the latency and accepting
+  the browser-inspection risk, David directed: "preload answers for the current question and retain in
+  memory."
+- **Approved scope:** implement and open reviewable backend and app PRs for `TASK-0071`: a narrow
+  authenticated function response for one published MCQ in the active session's exam pack; one answer
+  retained in React memory; immediate local feedback; the existing server grade/persist/read-back chain
+  continuing in the background; fallback to server-only behavior if preload fails.
+- **Risk accepted:** a technically capable student can inspect the in-memory/current-question response.
+  This is accepted because Cramapple is a study system and the client result does not directly affect an
+  external grade or exam score.
+- **Not approved:** any Production Edge Function deploy, Lovable/Vercel app publish, database grant,
+  schema change or multi-question answer payload. Production remains a separate Hard Gate.
+- **Rollback:** remove the client preload/local-feedback path and the additive function branch; the prior
+  server-only grading flow remains intact.
 
 ## APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch
 

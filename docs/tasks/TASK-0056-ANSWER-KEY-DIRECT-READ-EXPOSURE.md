@@ -11,6 +11,12 @@
 **Blocks:** `TASK-0051`'s Production gate
 **Area:** Security / answer-key exposure / scoring integrity
 
+> **Scoped amendment — 2026-10-11 (`DECISION-0117`, `TASK-0071`):** the direct table/view grants
+> closed by this task remain closed. A signed-in student may now receive answer metadata for exactly
+> the current published MCQ through the ownership- and exam-pack-scoped `student-session-items`
+> function so feedback can render without waiting for the grading round trip. The answer is retained
+> in client memory only; the server remains authoritative for attempts and mastery.
+
 ## Outcome
 
 No student or anonymous caller can read an answer key except through an intended path. Those paths are
@@ -63,7 +69,7 @@ does not touch them. Production has had zero student attempts, so there is no si
 | `content_item_versions.explanation` | Post-submission only | The grading response |
 | `frq_criteria.evidence_requirements / accepted_variants / minimum_fix` | Recorded hint | The hint flow (records use) and the Open Hand RPC |
 | `frq_criteria.learner_facing_text / points_possible / criterion_key` | Student-visible | Unchanged (served as parts) |
-| `mcq_choices.is_correct / rationale` | Never student-readable | Unchanged (already revoked) |
+| `mcq_choices.is_correct / rationale` | No direct read; current-question delivery allowed | `student-session-items` for one current MCQ (`DECISION-0117`); otherwise unchanged |
 | `canonical_answer_spans.*` | Never student-readable | Unchanged (already revoked) |
 
 `help_text`: **classified student-visible (step 1).** In Production, 254 published versions carry it, and it is generic coaching ("Correct the first invalid mathematical step, then recompute…"), not answer content. It keeps its grant.

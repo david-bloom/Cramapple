@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
 - DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
 - DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
 - DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
@@ -66,6 +67,31 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
+
+- **Date:** 2026-10-11
+- **Decided by:** David Bloom (Product Owner), in session: "preload answers for the current question
+  and retain in memory." David explicitly stated that exposing an answer through browser tools is an
+  accepted product risk for this study system.
+- **Context:** submitting an MCQ waits for the remote grade/persist/read-back chain before the student
+  sees whether the answer is correct. That delay is unnecessary when the current question's answer can
+  be present locally before the click.
+- **Decisions:**
+  1. A signed-in student may receive the answer metadata for **exactly one current published MCQ** in
+     their active session's exam pack.
+  2. The ordinary multi-question serving page stays answer-free. The client clears the prior answer
+     when the current item changes and retains the new answer in React memory only.
+  3. Local feedback is responsive presentation, not authoritative grading. The existing server chain
+     still owns attempt persistence, scoring and mastery; navigation waits for that write, and a failed
+     write is surfaced with retry.
+  4. Direct grants on answer-bearing tables and views remain revoked. This narrowly amends
+     `DECISION-0089`'s statement that answers are delivered only after submission; it does not reopen
+     the direct-read exposure that `TASK-0056` closed.
+  5. A preload failure falls back to the existing server-only behavior rather than blocking practice.
+- **Implementation:** `TASK-0071-CURRENT-MCQ-ANSWER-PRELOAD.md`.
+- **Deployment:** not approved by this decision. Production function deploy and app publish remain a
+  separate Hard Gate.
 
 ## DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
 
