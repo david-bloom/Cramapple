@@ -1,7 +1,8 @@
 # Lane A: the last six figures, and the lane is complete (2026-10-11)
 
-**STATUS:** CURRENT. **Loaded to Development and verified. Production is an open Hard Gate** for these
-six; the nine AP Statistics figures went up earlier today under `APPROVAL-0157`.
+**STATUS:** CURRENT. **LIVE IN PRODUCTION 2026-10-11 (`APPROVAL-0158`)**, with the nine AP Statistics
+figures from `APPROVAL-0157`. **Every Lane A entry in the corpus now has a figure**, and the two
+environments hold identical figure content. Not yet visible to students: see §5.
 
 **Scope:** the five Lane A entries outside AP Chemistry and AP Statistics — AP Physics 2 ×3, AP Physics
 C: Mechanics ×1, AP Precalculus ×1 — as **six figures** across **two new renderer families**. With this
@@ -108,7 +109,8 @@ gains `items[]`, this figure's `covers` should be revisited against them.**
 
 ## 5. What is left in the lane
 
-- **Production for these six** — an open Hard Gate.
+- ~~Production for these six~~ — **done** (`APPROVAL-0158`): 13 families, 25 figures, 25 uses, matching
+  Development exactly.
 - **`chem-mb-catalysis` still has no home.** Unchanged since the pilot: the figure draws a real teaching
   point but no published entry matches it, so it is not production-eligible.
 - **No human expert has reviewed the illustrative values** in any batch. Unchanged.
