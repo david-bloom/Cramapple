@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch: 10 Figures, 1 New Renderer Family, 8 Published Entries
 - APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches: 10 Figures, 4 New Renderer Families, 24 Uses Across 7 Subjects
 - APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus (2026-10-11)
 - APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production (2026-10-11)
@@ -2090,6 +2091,41 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch
+
+- **Date:** 2026-10-11
+- **Granted by:** David Bloom (Product Owner), in session: "Approved", on a proposal that stated
+  the sequence explicitly as app publish first, then the load.
+- **Gate:** `FIGURE_PRODUCTION_PROTOCOL.md` §7, Production Hard Gate. A new batch is a new gate;
+  `APPROVAL-0159` does not cover this one.
+- **Scope — one batch:** `stats-density-2026-10-11`, `out/load_stats_density.sql`. **10 figures**,
+  **1 new renderer family** (`density_curve`), **10 uses** over **8 published AP Statistics
+  entries**:
+  - 2.11 — Normal distribution; Standard normal distribution; Probability as area under the normal
+    curve; Empirical rule (68–95–99.7 rule); Comparing relative position in normal distributions.
+  - 3.3 — Critical value z*.
+  - 3.6 — p-value by direction of the alternative (z-test), served by **three** figures, one per
+    authored item (`Ha: >`, `Ha: <`, `Ha: \ne`). Coverage is asserted per entry, not per figure.
+  - 3.14 — Shape of chi-square distributions.
+- **Deliberately NOT in scope:** AP Statistics 3.6 "Simulated p-value". A simulated null
+  distribution is a dotplot of simulated statistics, not a density curve; it belongs with
+  `dotplot` and is recorded as open in `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`.
+- **Gates passed before this approval was sought:**
+  - §4a: 2 619 checks, 0 failed, over 49 figures and 18 families. Every shaded band is checked
+    against the **integral** of its density and against the figure's own text.
+  - §4b: the eye pass at all four real widths, which found the `df = 2` curve spiking from the
+    axis, the axis label running to the edge of a 340-unit canvas, and three nested bands shaded
+    with nothing saying which was which.
+  - §4c: two non-Anthropic readers, **5 of 5 planted controls rejected**, three of which pass the
+    property suite cleanly. Both readers then flagged the same real error in the alt text, which
+    was corrected with checks left behind.
+  - §6 parity: **147 of 147 figure/layout pairs byte-identical** across all 18 families.
+- **Pre-flight, read-only, before any write:** all 10 natural keys resolved against Production and
+  each returned exactly one published entry.
+- **Ordering:** the app must be merged (`ap-prep-blueprint#12`) and **published** before the load.
+  `FIGURE_FAMILIES` is a whitelist, so loading first puts rows in Production that render nothing.
+- **Rollback:** `update app.figures set status = 'retired' where family = 'density_curve';`
 
 ## APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches
 
