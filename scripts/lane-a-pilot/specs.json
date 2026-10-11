@@ -3802,7 +3802,8 @@
             }
           ]
         }
-      ]
+      ],
+      "loop_check": true
     },
     "figure_id": "phys2-potential-around-loop",
     "reference_entry_id": "c4897673-8f4c-4895-8ef0-8572f1075a3b",
@@ -4085,5 +4086,351 @@
     ],
     "subject_key": "ap_physics_c_mechanics",
     "entry_kind": "diagram"
+  },
+  "phys-work-force-displacement": {
+    "entry_title": "Work from a force-displacement graph",
+    "subject_key": "ap_physics_1",
+    "family": "xy_series",
+    "figure_id": "phys-work-force-displacement",
+    "title": "Work as the area under a force-displacement graph",
+    "short_title": "Work is the area",
+    "subtitle": "Only the component of force along the motion counts",
+    "caption": "The component of the force along the motion, against displacement. The force is constant for the first 2 m, then falls steadily to zero at 6 m; the shaded area is the work it does.",
+    "x_label": "displacement along the motion (m)",
+    "y_label": "force component along the motion (N)",
+    "alt": "A graph of the component of a force along the direction of motion, against displacement. The force holds steady at 8 newtons from 0 to 2 metres, then falls in a straight line to zero at 6 metres. The whole region between that line and the horizontal axis is shaded, because the area under the graph is the work the force does: 16 joules from the flat part and 16 more from the triangle, 32 joules in total. Reading a value off the curve gives a force, not a work; only the area is the work. Illustrative data.",
+    "note": "Area = 32 J: the rectangle is 16 J and the triangle is 16 J.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.0f}",
+    "labels": [
+      "Force component along the motion",
+      "Displacement along the motion",
+      "Shaded area is the work done"
+    ],
+    "covers": [
+      "Force component along the motion",
+      "Displacement along the motion",
+      "Shaded area is the work done"
+    ],
+    "params": {
+      "x_range": [
+        -0.3,
+        6.6
+      ],
+      "y_range": [
+        -0.9,
+        9.6
+      ],
+      "y_ticks": [
+        0,
+        2,
+        4,
+        6,
+        8
+      ],
+      "work_area_check": 32.0,
+      "series": [
+        {
+          "label": "force along the motion",
+          "style": "solid",
+          "fill_under": true,
+          "points": [
+            [
+              0.0,
+              8.0
+            ],
+            [
+              2.0,
+              8.0
+            ],
+            [
+              6.0,
+              0.0
+            ]
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "b70693d3-b75c-48aa-8027-ee0735d3ca9d",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "b70693d3-b75c-48aa-8027-ee0735d3ca9d",
+        "title": "Work from a force-displacement graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 1 3.2 is a convention with no authored items[]; the curve, the displacement axis and the shaded area are the contract (DECISION-0116, route b). The entry's body says work equals the area under the curve, which is exactly what is shaded."
+      },
+      {
+        "kind": "reference_entry",
+        "id": "f327782a-c11e-480d-8621-6bc4b4e25fd9",
+        "title": "Work as area under an F∥ vs. displacement graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics C Mechanics 3.2 authors the same convention in different words with no items[]; one figure serves both (DECISION-0116, route b). The RPC does not filter a figure by subject_key."
+      }
+    ]
+  },
+  "phys2-zero-pressure-temperature": {
+    "entry_title": "Zero-pressure temperature from a P–T graph",
+    "subject_key": "ap_physics_2",
+    "family": "xy_series",
+    "figure_id": "phys2-zero-pressure-temperature",
+    "title": "Finding the zero-pressure temperature by extrapolation",
+    "short_title": "Extrapolate to P = 0",
+    "subtitle": "The line is extended well past the measurements to reach zero pressure",
+    "caption": "Pressure of a fixed amount of gas held at constant volume, measured between 0 °C and 100 °C, with the straight line extended backwards until the pressure reaches zero.",
+    "x_label": "temperature (°C)",
+    "y_label": "pressure (kPa)",
+    "alt": "A graph of the pressure of a fixed sample of gas at constant volume against its temperature in degrees Celsius. Five measured points from 0 to 100 degrees lie on a rising straight line. That line is continued as a dashed extension far to the left, beyond any measurement, until it crosses zero pressure at about minus 273 degrees Celsius, which is the zero-pressure temperature. The point is reached by extending the line, not by measuring there: no gas stays a gas that cold. Illustrative data.",
+    "note": "No measurement is taken near −273 °C; the temperature is read off the extended line.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.0f}",
+    "labels": [
+      "Measured pressure at each temperature",
+      "Extrapolation beyond the measurements",
+      "Zero-pressure temperature"
+    ],
+    "covers": [
+      "Measured pressure at each temperature",
+      "Extrapolation beyond the measurements",
+      "Zero-pressure temperature"
+    ],
+    "params": {
+      "x_range": [
+        -300.0,
+        130.0
+      ],
+      "y_range": [
+        -14.0,
+        152.0
+      ],
+      "y_ticks": [
+        0,
+        50,
+        100,
+        150
+      ],
+      "x_ticks": [
+        [
+          -273.15,
+          "−273"
+        ],
+        [
+          -150.0,
+          "−150"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          100.0,
+          "100"
+        ]
+      ],
+      "zero_pressure_check": -273.15,
+      "series": [
+        {
+          "label": "extended line",
+          "style": "dashed",
+          "points": [
+            [
+              -273.15,
+              0.0
+            ],
+            [
+              0.0,
+              100.0
+            ]
+          ],
+          "marks": [
+            {
+              "x": -273.15,
+              "y": 0.0,
+              "label": "P = 0 at −273 °C",
+              "place": "above"
+            }
+          ]
+        },
+        {
+          "label": "measured",
+          "style": "solid",
+          "points": [
+            [
+              0.0,
+              100.0
+            ],
+            [
+              25.0,
+              109.1524803221673
+            ],
+            [
+              50.0,
+              118.30496064433463
+            ],
+            [
+              75.0,
+              127.4574409665019
+            ],
+            [
+              100.0,
+              136.60992128866926
+            ]
+          ]
+        }
+      ],
+      "hlines": [
+        {
+          "y": 0.0,
+          "label": "zero pressure"
+        }
+      ]
+    },
+    "reference_entry_id": "4c2873ad-c13c-4b2c-9ced-113deba34f24",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "4c2873ad-c13c-4b2c-9ced-113deba34f24",
+        "title": "Zero-pressure temperature from a P–T graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 2 9.2 is a convention with no authored items[]; the measured points, the extended line and the zero-pressure temperature it reaches are the contract (DECISION-0116, route b). The entry's body names extrapolation, which is why the extension is drawn dashed and the note says no measurement is taken there."
+      }
+    ]
+  },
+  "phys2-ohmic-iv": {
+    "entry_title": "Ohmic materials and the I–ΔV graph",
+    "subject_key": "ap_physics_2",
+    "family": "xy_series",
+    "figure_id": "phys2-ohmic-iv",
+    "title": "Current against potential difference: ohmic and non-ohmic",
+    "short_title": "Ohmic is straight",
+    "subtitle": "A straight line through the origin is what makes an element ohmic",
+    "caption": "Current against potential difference for two elements. The ohmic one is a straight line through the origin of slope 0.040 A/V, so its resistance is 25 Ω; the other bends, so no single resistance describes it.",
+    "x_label": "potential difference ΔV (V)",
+    "y_label": "current I (A)",
+    "alt": "A graph of current against potential difference for two circuit elements, both starting at the origin. The ohmic element gives a straight line: doubling the potential difference doubles the current, so the ratio is fixed and the resistance is constant at 25 ohms. The second element's line curves and flattens as the potential difference rises, climbing away from the straight line, so its ratio of potential difference to current keeps changing and no single resistance describes it. The resistance of the ohmic element is one divided by the slope, not the slope itself. Illustrative data.",
+    "note": "Resistance is 1/slope here: the slope is 0.040 A/V, so R = 25 Ω.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.2f}",
+    "labels": [
+      "Ohmic element: a straight line through the origin",
+      "Resistance is one over the slope",
+      "Non-ohmic element: the line bends"
+    ],
+    "covers": [
+      "Ohmic element: a straight line through the origin",
+      "Resistance is one over the slope",
+      "Non-ohmic element: the line bends"
+    ],
+    "params": {
+      "x_range": [
+        -0.35,
+        5.6
+      ],
+      "y_range": [
+        -0.035,
+        0.3
+      ],
+      "y_ticks": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25
+      ],
+      "ohmic_check": 25.0,
+      "series": [
+        {
+          "label": "ohmic element",
+          "style": "solid",
+          "points": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.25,
+              0.05
+            ],
+            [
+              2.5,
+              0.1
+            ],
+            [
+              3.75,
+              0.15
+            ],
+            [
+              5.0,
+              0.2
+            ]
+          ],
+          "marks": [
+            {
+              "x": 5.0,
+              "y": 0.2,
+              "label": "slope = 1/R",
+              "place": "above"
+            }
+          ]
+        },
+        {
+          "label": "non-ohmic element",
+          "style": "dashed",
+          "points": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.5,
+              0.065309
+            ],
+            [
+              1.0,
+              0.09899
+            ],
+            [
+              1.75,
+              0.138489
+            ],
+            [
+              2.5,
+              0.171536
+            ],
+            [
+              3.25,
+              0.20078
+            ],
+            [
+              4.0,
+              0.227419
+            ],
+            [
+              4.5,
+              0.244073
+            ],
+            [
+              5.0,
+              0.26
+            ]
+          ]
+        }
+      ]
+    },
+    "reference_entry_id": "b4fbc3ed-a55d-40f4-b7e7-0e7da6e9d58e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "b4fbc3ed-a55d-40f4-b7e7-0e7da6e9d58e",
+        "title": "Ohmic materials and the I–ΔV graph",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Physics 2 11.3 is a convention with no authored items[]; the straight ohmic line, the bending non-ohmic one and the slope-to-resistance relation are the contract (DECISION-0116, route b). The entry's body says the resistance is found from the slope, so the figure states R = 1/slope rather than leaving the student to assume the slope IS the resistance."
+      }
+    ]
   }
 }

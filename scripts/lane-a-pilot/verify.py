@@ -353,6 +353,69 @@ def p_xy_series(sid, s, svg):
         ck(sid, "the note says the area is a magnitude, per the entry's caution",
            any(w in (s.get("note") or "").lower() for w in ("magnitude", "absolute")))
 
+    if "work_area_check" in p:                # work as the area under F(x)
+        pts = p["series"][0]["points"]
+        trap = sum((pts[i + 1][0] - pts[i][0]) * (pts[i][1] + pts[i + 1][1]) / 2
+                   for i in range(len(pts) - 1))
+        want = p["work_area_check"]
+        ck(sid, "the shaded area is the work the note states",
+           abs(trap - want) < 1e-9, f"area={trap:.4f} stated={want}")
+        ck(sid, "the stated work appears in the figure's own text",
+           f"{want:.0f}" in (s.get("note") or "") and f"{want:.0f}" in s["alt"])
+        # A force that never goes negative keeps "area = work" honest without
+        # the sign discussion the entry does not author.
+        ck(sid, "the force stays non-negative, so the area is unsigned",
+           all(y >= 0 for _, y in pts))
+        ck(sid, "the shaded series is the one actually filled",
+           bool(p["series"][0].get("fill_under")))
+
+    if "zero_pressure_check" in p:            # extrapolating P-T back to P = 0
+        want = p["zero_pressure_check"]
+        meas = [sr for sr in p["series"] if sr["label"] == "measured"][0]["points"]
+        # The measured points must be collinear, or "extend the line" is a
+        # fiction, and the line they define must hit P = 0 where the figure says.
+        (x1, y1), (x2, y2) = meas[0], meas[-1]
+        slope = (y2 - y1) / (x2 - x1)
+        ck(sid, "the measured points are collinear",
+           all(abs(y - (y1 + slope * (x - x1))) < 1e-9 for x, y in meas))
+        ck(sid, "pressure rises with temperature", slope > 0)
+        root = x1 - y1 / slope
+        ck(sid, "the measured line reaches zero pressure at the stated temperature",
+           abs(root - want) < 0.01, f"root={root:.3f} stated={want}")
+        ext = [sr for sr in p["series"] if sr["label"] == "extended line"][0]["points"]
+        ck(sid, "the drawn extension starts exactly at that zero-pressure point",
+           abs(ext[0][0] - want) < 1e-9 and abs(ext[0][1]) < 1e-9, f"{ext[0]}")
+        ck(sid, "the extension is continuous with the measured line",
+           all(abs(y - (y1 + slope * (x - x1))) < 1e-9 for x, y in ext))
+        # The whole point of the entry is that the value is NOT measured there.
+        ck(sid, "the extension is drawn dashed, not as data",
+           [sr for sr in p["series"] if sr["label"] == "extended line"][0]["style"] == "dashed")
+        ck(sid, "no measured point lies in the extrapolated region",
+           all(x >= 0 for x, _ in meas))
+
+    if "ohmic_check" in p:                    # ohmic vs non-ohmic I-V
+        r_ohm = p["ohmic_check"]   # not `R`: that is the render module
+        oh = [sr for sr in p["series"] if sr["label"] == "ohmic element"][0]
+        non = [sr for sr in p["series"] if sr["label"] == "non-ohmic element"][0]
+        ck(sid, "the ohmic line passes through the origin",
+           abs(oh["points"][0][0]) < 1e-12 and abs(oh["points"][0][1]) < 1e-12)
+        ratios = [v / i for v, i in oh["points"][1:]]
+        ck(sid, "the ohmic element has one constant resistance",
+           max(ratios) - min(ratios) < 1e-9, f"spread={max(ratios)-min(ratios):.3g}")
+        ck(sid, "that constant resistance is the one stated",
+           abs(ratios[0] - r_ohm) < 1e-9, f"{ratios[0]} != {r_ohm}")
+        # R = 1/slope, not the slope: the figure must say so, because reading
+        # the slope AS the resistance is the standard error on this graph.
+        slope = oh["points"][-1][1] / oh["points"][-1][0]
+        ck(sid, "resistance is one over the slope, and the text says so",
+           abs(1 / slope - r_ohm) < 1e-9 and "1/slope" in (s.get("note") or ""),
+           f"slope={slope:.4f} 1/slope={1/slope:.3f}")
+        nr = [v / i for v, i in non["points"][1:]]
+        ck(sid, "the non-ohmic element has no single resistance",
+           max(nr) / min(nr) > 1.5, f"ratio spread {min(nr):.2f}..{max(nr):.2f}")
+        ck(sid, "the non-ohmic element also starts at the origin",
+           abs(non["points"][0][0]) < 1e-12 and abs(non["points"][0][1]) < 1e-12)
+
     if "gamma" in p:                          # PV figure 2: the four processes
         gamma, P0, V0 = p["gamma"], p["p0"], p["v0"]
         by = {sr["label"].split(" ")[0]: sr["points"] for sr in p["series"]}
@@ -377,7 +440,11 @@ def p_xy_series(sid, s, svg):
            all(ya < yi + 1e-12 for (_, ya), (_, yi)
                in zip(by["adiabatic"][1:], by["isothermal"][1:])))
 
-    if any(h["y"] == 0.0 for h in p.get("hlines", [])) and "pv_const" not in p:
+    # Keyed on an explicit params marker, like every other block here. It used
+    # to key on "has a zero line and is not the PV figure", which quietly
+    # claimed every later zero-line chart -- the work-area and P-T figures both
+    # arrived and were asked to obey Kirchhoff's loop rule.
+    if "loop_check" in p or p["series"][0].get("kind") == "scatter":
         pts = p["series"][0]["points"]
         if p["series"][0].get("kind") == "scatter":      # residual plot
             xs = [x for x, _ in pts]
@@ -703,6 +770,24 @@ def main() -> int:
                 ck(sid, f"{which} axis is not drawn, so its meaning is in the alt text",
                    any(w in alt or w[:-1] in alt or w + "s" in alt for w in words),
                    f"none of {words} appears in alt")
+        # Glyphs the figure font does not carry. U+2225 PARALLEL TO renders as a
+        # plain "I" in Helvetica, so "F-parallel" reached the eye pass reading
+        # "FI" -- a different symbol, stated to a student as fact. Caught by eye
+        # at 460px; a check now, because the next one will not be noticed.
+        UNDRAWABLE = {"\u2225": "PARALLEL TO", "\u2016": "DOUBLE VERTICAL LINE",
+                      "\u29f8": "BIG SOLIDUS", "\u2a2f": "VECTOR CROSS PRODUCT"}
+        drawn = " ".join(str(x) for x in (
+            spec.get("title", ""), spec.get("short_title", ""), spec.get("subtitle", ""),
+            spec.get("caption", ""), spec.get("x_label", ""), spec.get("y_label", ""),
+            spec.get("note", "") or "", " ".join(spec.get("labels", [])),
+            " ".join(str(t) for _, t in spec["params"].get("x_ticks", []) or []),
+            " ".join(m.get("label", "") for sr in spec["params"].get("series", []) or []
+                     for m in sr.get("marks", []) or []),
+            " ".join(h.get("label", "") for h in spec["params"].get("hlines", []) or []),
+        ))
+        bad = sorted({f"{g} ({n})" for g, n in UNDRAWABLE.items() if g in drawn})
+        ck(sid, "every drawn string uses glyphs the figure font can render", not bad, f"{bad}")
+
         ck(sid, "has accessible title and description", "<title" in svg and "<desc" in svg and len(spec["alt"]) > 80)
         ck(sid, "illustrative data is disclosed",
            (not spec.get("synthetic")) or "illustrative" in (svg + spec["alt"]).lower())
@@ -763,6 +848,9 @@ def main() -> int:
                 for i in (ent.get("items") or [])).encode()).hexdigest()
             ck(title, "fixture items[] still match their recorded digest",
                calc == ent["items_md5"], f"{calc} != {ent['items_md5']}")
+        if "body_md5" in ent:
+            ck(title, "fixture body still matches its recorded digest",
+               hashlib.md5((ent.get("body") or "").encode()).hexdigest() == ent["body_md5"])
         # DECISION-0116 (Product Owner, 2026-10-11): when the entry authors no
         # labelled parts, the FIGURE'S OWN `labels` are the contract. That used
         # to print a note and assert nothing, which is how ~19 candidate entries
@@ -783,6 +871,14 @@ def main() -> int:
             uncovered = sorted(l for l in agg["labels"] if l not in agg["covers"])
             ck(title, "every carried label is also declared covered", not uncovered,
                f"labels not in covers: {uncovered}")
+            # DECISION-0116 makes the two-reader gate the only check standing
+            # where the reference-pack checkers do not, and ced_check.py shows
+            # the reader the entry's `body` as its claim. With no body in the
+            # fixture that prompt said "claim: (not available)" -- the reader
+            # would be judging the figure against nothing at all.
+            ck(title, "the entry's claim is in the fixture for the reader gate",
+               bool((entries.get(title) or {}).get("body")),
+               "route (b) needs the published body in prod_entries.json")
         missing = [a for a in authored if a not in agg["covers"]]
         ck(title, "every authored labelled part is covered", not missing, f"missing={missing}")
         coverage[title] = {"figures": agg["specs"], "authored_labels": len(authored),
