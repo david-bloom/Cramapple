@@ -25,6 +25,24 @@ Production with real charges. Work A0 below removes that constraint first.
 
 ## Work items (in suggested order)
 
+### Production repair — `/login` Google client mismatch (complete 2026-10-10/11)
+
+This was a narrow incident repair, not completion of Work A below. The published `/login` page used Google Identity Services
+with `VITE_GOOGLE_CLIENT_ID=158405956539-ocd20mf4i260gig8uhotbhj9p6aek228.apps.googleusercontent.com`. Google Cloud identifies
+that credential as a **Desktop** OAuth client, so browser sign-in failed before Supabase with `401 invalid_client` and
+`no registered origin`. The existing `Cramapple_Supabase` **Web application** client
+`158405956539-1j6r2bit7ej1p2oavbftuddc2ukhhj3c.apps.googleusercontent.com` already had the required origins
+(`cramapple.com`, `www.cramapple.com`, `app.cramapple.com`) and the Production Supabase callback.
+
+Lovable marketing commit `4aa50678966d0a420d1cbeb6fa2b57f3a67f0c0d` changed only `VITE_GOOGLE_CLIENT_ID` to the Web
+client. Typecheck passed, 85 tests in 10 files passed, and the production build passed. David explicitly approved the
+Production publish (`APPROVAL-0154`). The live `/login` bundle then contained the Web client ID, rendered the Google button
+without browser console errors, and David completed Google login successfully. No Google Cloud setting, Supabase setting,
+secret, UI, or other application file changed.
+
+**Still open:** Work A is specifically Google sign-in on `/checkout`, including its nonce/FedCM requirements and verified-email
+checkout behavior. This `/login` repair does not satisfy that done condition.
+
 ### A0. A Dev-pointed frontend for checkout testing (do first)
 Make the marketing build switchable to the Dev Supabase project and Stripe test keys (a separate Lovable preview or
 branch/env), so the Elements flow, wallets and the new-student path can be tested with test cards before Production.

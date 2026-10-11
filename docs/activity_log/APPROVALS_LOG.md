@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0154 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
 - APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill) (2026-10-10)
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111 (2026-10-10)
@@ -2276,6 +2277,30 @@ Nine escalated rows were re-extracted, checked and loaded to Development and Pro
 
 **Rollback:** none needed; docs only.
 
+## APPROVAL-0154 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID
+
+**Date:** 2026-10-10
+
+**Approved By:** David Bloom, after the preview change and verification results were reported: "I approve publishing this commit to Production."
+
+**Related:** `TASK-0058`, Lovable marketing project `61dd6602-6991-4561-b418-e988bb7c8a0b`, Lovable commit `4aa50678966d0a420d1cbeb6fa2b57f3a67f0c0d`
+
+**Decision:** Approved and executed
+
+**Approved scope:** publish the one-line `.env` change replacing the Google Desktop OAuth client ID
+`158405956539-ocd20mf4i260gig8uhotbhj9p6aek228.apps.googleusercontent.com` with the existing registered Web application client
+ID `158405956539-1j6r2bit7ej1p2oavbftuddc2ukhhj3c.apps.googleusercontent.com`. No Google Cloud configuration, Supabase
+configuration, secret, UI, or other application-file change was authorized or made.
+
+**Evidence:** typecheck passed; 85 tests in 10 files passed; production build passed; Lovable deployment
+`428d147a-102f-4e0a-8930-16a25b5889a5`; live bundle `/assets/login-BRb5p0X7.js` contains the Web client ID; Google button
+rendered with no console warnings/errors; David confirmed successful Google login in Production.
+
+**Scope boundary:** `/login` only. This approval does not execute or close TASK-0058 Work A for Google sign-in on `/checkout`.
+
+**Rollback:** republish the preceding Lovable marketing commit. Do not restore the Desktop client ID except as part of an
+explicit incident rollback, because it deterministically returns `invalid_client` for browser-origin sign-in.
+
 ## APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105
 
 **Date:** 2026-10-08  
@@ -2319,4 +2344,3 @@ Nine escalated rows were re-extracted, checked and loaded to Development and Pro
 **Evidence:** as `authenticated`, `prompt_json` reads null through the view and the revoked RPCs raise permission errors in both environments; page 2 of the new selector returns items for the AP Statistics test student in Production.
 
 **Rollback:** re-grant the revoked privileges and redeploy the previous `student-session-items` version; the new functions can be dropped without data loss.
-
