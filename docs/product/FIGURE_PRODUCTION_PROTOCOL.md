@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.5, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -37,6 +37,13 @@ shape.
    Anything spatial or schematic — particulate models, circuits, cell diagrams, apparatus — is
    Lane B and stops here. The existing classification of all 41 published diagram entries is in
    the assessment document.
+
+   > **`kind` IS NOT THE FILTER (2026-10-11).** `kind='diagram'` says what an entry is *about*,
+   > not whether it is drawable. "Residual plot" is `vocabulary`, "Work from a force-displacement
+   > graph" is `convention`, "Displacement from area under v–t graph" is `formula`. Lane A was
+   > scoped to the `diagram` column and left about 24 chart-shaped entries behind. Classify on the
+   > content — *is this a chart drawn from data or a function?* — and record the verdict durably,
+   > or the next session re-derives it.
 2. **Count the families, not the figures.** Six renderers covered ten Chemistry figures. If a
    batch needs a new renderer per figure, it is probably not Lane A.
 3. **Confirm the entries are published,** in Production, by title. Development and Production hold
@@ -59,6 +66,16 @@ Three rules that are not negotiable:
   constraint. It is what a student reads in a pasted document, and what a screen reader gets.
 - **`labels` live on the figure, not the entry.** A second consumer inherits them without
   re-deriving.
+
+  > **AND THEY MAY BE THE CONTRACT (`DECISION-0116`, 2026-10-11).** When the published entry
+  > authors no `items[]`, the figure's own `labels` are that entry's contract — route (b) of the
+  > handoff's §3.2, ruled by the Product Owner over ~19 entries. Three conditions, all gated:
+  > the **use** declares it (`labels_carry_contract` plus a `contract_note` naming the entry and
+  > why its body supports the labels — it is a property of the use, not of the figure, because one
+  > figure serves entries that do and do not author parts); every carried label is also in
+  > `covers`; and the figure goes through §4c **with the entry's body in the prompt**, since that
+  > reader gate is the only thing standing where the reference-pack checkers do not. An entry with
+  > no `items[]` and no declaration fails.
 - **Disclose the data.** `synthetic: true` renders ILLUSTRATIVE on the figure; `false` renders
   FROM DATA and *requires* a `values_note` saying what is sourced. If you cannot trace a number to
   a source, it is illustrative. The pilot's photoelectron spectrum was marked measured, a checker
@@ -97,6 +114,20 @@ labelled part. **Declared coverage is not rendered coverage.**
 > batch adds entries, add their published `items[]` to the fixture in the same change — and take
 > them from the environment, not from a candidate artifact, unless the digest matches (§6).
 
+> **ADDITION (2026-10-11, v1.5).** Three further holes in this gate are closed. **Coverage is owed
+> to every entry a figure is *used by*,** not only the one it was authored against: a figure
+> legitimately serves two entries and the RPC does not filter by `subject_key`, so the second
+> entry's parts went unchecked. **The fixture's `items_md5` is recomputed on every run,** so a
+> retyped or edited `items[]` fails rather than quietly redefining what coverage asserts. And an
+> entry with an empty `items[]` no longer merely prints a note — it must be declared under
+> `DECISION-0116` or it fails. That third check failed on its first run against the **published**
+> residual plot, which promised three labelled parts with an empty `covers`.
+>
+> **Coverage matches label strings exactly.** Two entries that author the same relationship in
+> different words ("Area under v vs. t" against "Area under v–t curve") need **both** wordings in
+> `covers` while `labels` keeps the one set the figure draws. Do not assume a shared figure is a
+> free `figure_uses` row until the strings have been compared.
+
 ### 4b. Look at it — legibility
 
 The tests cannot see. Every defect below passed a green suite and was found by eye:
@@ -111,7 +142,18 @@ The tests cannot see. Every defect below passed a green suite and was found by e
 | Title running off the canvas | compact is 340 units wide |
 
 Check at the **real widths**, not in isolation: 272–460px (reference pane), ~680px (question
-centre), ~980px (expanded). The `/dev-figures` and `/dev-qx-harness` local routes exist for this.
+centre), ~980px (expanded). The `/dev-figures` and `/dev-qx-harness` local routes exist for this,
+and **`build_eye_sheet.py` builds the contact sheet** — every named figure at all four containers
+on one page — so the pass is a command rather than a page rebuilt from scratch each time:
+
+```bash
+python3 -I build_eye_sheet.py --prefix "chem-mb-" --out out/eye_mb.html
+python3 -I serve.py   # http://localhost:5191/eye_mb.html
+```
+
+Its first run found a defect a green suite could not see: the compact layout drew **two**
+activation-energy barriers and named only one, because a marker's label was dropped for every
+marker past the first while its line was still drawn. A dropped label leaves an unexplained line.
 
 > **ADDITION (2026-10-11).** Two of this table's defects — the overprinting pair — were still in the
 > renderer months after being recorded here as found. Describing a defect is not fixing it, and an eye
@@ -271,6 +313,11 @@ warning every student about a problem they will not hit is noise.
   production-eligible until an entry exists.
 
 ## Change note
+
+v1.5 (2026-10-11): `DECISION-0116` in §3 — a figure's `labels` may be the contract for an entry that
+authors no `items[]`, declared per use and gated. §2 records that `kind` is not the lane filter. §4a
+gains coverage for every used entry, a fixture digest check, and the exact-string warning for shared
+figures. §4b gains `build_eye_sheet.py`.
 
 v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 (`APPROVAL-0153`). Supersedes nothing; the four-lane model in
