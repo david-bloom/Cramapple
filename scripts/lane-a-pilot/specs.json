@@ -6598,5 +6598,433 @@
         "contract_note": "AP Statistics 2.11 is a convention with no authored items[]; the two differing distributions, the shared z-score and the percentile it fixes are the contract (DECISION-0116, route b). The entry's body is about comparing relative position within AND between normal distributions, which is what the two curves and the single shared z show."
       }
     ]
+  },
+  "precalc-concavity": {
+    "entry_title": "Concave up and concave down",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-concavity",
+    "title": "Concave up and concave down",
+    "short_title": "Which way it bends",
+    "subtitle": "Concave up where the rate of change is increasing, down where it is decreasing",
+    "caption": "One cubic. To the left of the origin the curve bends downwards — its slope is falling — and to the right it bends upwards, where the slope is rising. Concavity is about how the SLOPE changes, not whether the curve goes up or down.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a cubic function over the interval from minus three to three. To the left of zero the curve is concave down: it bends downwards, and although it is rising its slope is getting smaller. To the right of zero it is concave up: it bends upwards and its slope is getting larger. The two halves are labelled. Concavity describes how the RATE OF CHANGE is changing, not whether the function itself is increasing or decreasing, which is why a curve can be rising and concave down at the same time.",
+    "note": "A curve can rise while bending downwards: concavity is about the slope, not the value.",
+    "synthetic": true,
+    "labels": [
+      "Concave down where the rate of change is decreasing",
+      "Concave up where the rate of change is increasing"
+    ],
+    "covers": [
+      "Concave down where the rate of change is decreasing",
+      "Concave up where the rate of change is increasing"
+    ],
+    "params": {
+      "x_range": [
+        -2.0,
+        2.0
+      ],
+      "y_range": [
+        -7.5,
+        7.5
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ]
+      ],
+      "y_ticks": [
+        -6,
+        -3,
+        0,
+        3,
+        6
+      ],
+      "texts": [
+        {
+          "x": -1.25,
+          "y": 4.6,
+          "label": "concave down"
+        },
+        {
+          "x": 1.25,
+          "y": -4.6,
+          "label": "concave up"
+        }
+      ],
+      "concavity_check": {
+        "down": [
+          -1.8,
+          -0.3
+        ],
+        "up": [
+          0.3,
+          1.8
+        ]
+      }
+    },
+    "reference_entry_id": "1afda553-77ff-440f-9451-f506e447b6d7",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "1afda553-77ff-440f-9451-f506e447b6d7",
+        "title": "Concave up and concave down",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.1 is a convention with no authored items[]; the two concavity regions, named by how the rate of change moves, are the contract (DECISION-0116, route b). The entry's body defines both."
+      }
+    ]
+  },
+  "precalc-zero-of-a-function": {
+    "entry_title": "Zero of a function",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-zero-of-a-function",
+    "title": "A zero of a function",
+    "short_title": "Where it crosses",
+    "subtitle": "An input whose output is zero: where the graph meets the x-axis",
+    "caption": "The graph crosses the x-axis at x = −1 and x = 2. Each of those inputs is a zero: the output there is exactly 0, which is what the crossing shows.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a quadratic that crosses the horizontal axis twice, at x equals minus one and x equals two, with both crossings marked. A zero of a function is an input whose output is zero, so on a graph it is exactly where the curve meets the x-axis. Between the two zeros the curve dips below the axis, so the output is negative there; outside them it is positive. A zero is an INPUT value, not a point: the points here are (minus one, zero) and (two, zero).",
+    "note": "A zero is the input, not the point: here they are x = −1 and x = 2.",
+    "synthetic": true,
+    "labels": [
+      "Output is zero there",
+      "The graph meets the x-axis"
+    ],
+    "covers": [
+      "Output is zero there",
+      "The graph meets the x-axis"
+    ],
+    "params": {
+      "x_range": [
+        -2.5,
+        3.5
+      ],
+      "y_range": [
+        -3.5,
+        8.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            -2.0,
+            -1.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        -2,
+        0,
+        2,
+        4,
+        6
+      ],
+      "asymptotes_y": [
+        {
+          "y": 0.0,
+          "label": "y = 0"
+        }
+      ],
+      "marks": [
+        {
+          "x": -1.0,
+          "label": "zero at x = −1",
+          "place": "above"
+        },
+        {
+          "x": 2.0,
+          "label": "zero at x = 2",
+          "place": "above"
+        }
+      ],
+      "zeros_check": [
+        -1.0,
+        2.0
+      ]
+    },
+    "reference_entry_id": "24042b7d-a6e0-48b9-902d-034b2411953d",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "24042b7d-a6e0-48b9-902d-034b2411953d",
+        "title": "Zero of a function",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.1 is a vocabulary entry with no authored items[]; that the output is zero there and that this is where the graph meets the x-axis are the contract (DECISION-0116, route b), and the entry's body states both."
+      }
+    ]
+  },
+  "precalc-aroc-concavity": {
+    "entry_title": "Concavity from changing average rates of change",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-aroc-concavity",
+    "title": "Concavity read from average rates of change",
+    "short_title": "Secants get steeper",
+    "subtitle": "Equal-width intervals, and the average rate of change rises across them",
+    "caption": "Three secants over equal-width intervals of one unit. Their slopes are 1, 3 and 5: the average rate of change increases from interval to interval, which is what makes this graph concave up.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "A parabola with three dashed secant lines drawn over three touching intervals of equal width, from zero to one, one to two, and two to three. The secants get steeper from left to right: their slopes are one, three and five. Because the average rate of change over equal-width intervals is increasing, the graph is concave up. This is the definition of concavity that does not need calculus: compare average rates over equal intervals rather than looking at the bend by eye.",
+    "note": "Slopes 1, 3, 5 over equal intervals: increasing, so concave up.",
+    "synthetic": true,
+    "labels": [
+      "Equal-width intervals",
+      "Average rate of change is increasing",
+      "So the graph is concave up"
+    ],
+    "covers": [
+      "Equal-width intervals",
+      "Average rate of change is increasing",
+      "So the graph is concave up"
+    ],
+    "params": {
+      "x_range": [
+        -0.25,
+        3.4
+      ],
+      "y_range": [
+        -1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        3,
+        6,
+        9,
+        12
+      ],
+      "secants": [
+        {
+          "from": 0.0,
+          "to": 1.0
+        },
+        {
+          "from": 1.0,
+          "to": 2.0
+        },
+        {
+          "from": 2.0,
+          "to": 3.0
+        }
+      ],
+      "texts": [
+        {
+          "x": 0.5,
+          "y": 2.3,
+          "label": "slope 1"
+        },
+        {
+          "x": 1.5,
+          "y": 5.1,
+          "label": "slope 3"
+        },
+        {
+          "x": 2.5,
+          "y": 9.2,
+          "label": "slope 5"
+        }
+      ],
+      "secant_slopes_check": [
+        1.0,
+        3.0,
+        5.0
+      ],
+      "points": [
+        {
+          "x": 0.0,
+          "y": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0
+        },
+        {
+          "x": 2.0,
+          "y": 4.0
+        },
+        {
+          "x": 3.0,
+          "y": 9.0
+        }
+      ]
+    },
+    "reference_entry_id": "246e35a9-6bca-4fa1-bf32-2d90398e3bb5",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "246e35a9-6bca-4fa1-bf32-2d90398e3bb5",
+        "title": "Concavity from changing average rates of change",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.3 is a convention with no authored items[]; the equal-width intervals, the increasing average rate of change and the concavity it implies are the contract (DECISION-0116, route b). The entry's body is exactly that chain."
+      }
+    ]
+  },
+  "precalc-inflection-point": {
+    "entry_title": "Point of inflection",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-inflection-point",
+    "title": "A point of inflection",
+    "short_title": "Where the bend flips",
+    "subtitle": "The input where the graph changes concavity",
+    "caption": "The same cubic, with the point of inflection at the origin marked. To its left the graph is concave down; to its right, concave up. The inflection point is where the rate of change stops decreasing and starts increasing.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a cubic with a single marked point at the origin, labelled as the point of inflection. To the left of that point the curve is concave down and to the right it is concave up, so the marked point is where the concavity changes. It is not a maximum or a minimum: the function is increasing on both sides of it. What switches there is the direction of the bend, which is the same as saying the rate of change stops decreasing and starts increasing.",
+    "note": "Not a maximum or minimum: the function is increasing on both sides.",
+    "synthetic": true,
+    "labels": [
+      "Concavity changes there",
+      "The rate of change switches between decreasing and increasing"
+    ],
+    "covers": [
+      "Concavity changes there",
+      "The rate of change switches between decreasing and increasing"
+    ],
+    "params": {
+      "x_range": [
+        -2.0,
+        2.0
+      ],
+      "y_range": [
+        -8.0,
+        8.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            1.0,
+            0.0,
+            0.6
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ]
+      ],
+      "y_ticks": [
+        -6,
+        -3,
+        0,
+        3,
+        6
+      ],
+      "marks": [
+        {
+          "x": 0.0,
+          "label": "point of inflection",
+          "place": "above"
+        }
+      ],
+      "concavity_check": {
+        "down": [
+          -1.8,
+          -0.3
+        ],
+        "up": [
+          0.3,
+          1.8
+        ]
+      },
+      "inflection_check": 0.0
+    },
+    "reference_entry_id": "d52051ba-415c-46f6-b48e-4b524e59eeb8",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d52051ba-415c-46f6-b48e-4b524e59eeb8",
+        "title": "Point of inflection",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.4 is a vocabulary entry with no authored items[]; the change of concavity and the switch in the rate of change are the contract (DECISION-0116, route b), and the entry's body gives both as one definition."
+      }
+    ]
   }
 }

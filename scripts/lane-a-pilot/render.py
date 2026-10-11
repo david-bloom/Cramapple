@@ -1072,6 +1072,137 @@ def f_density_curve(p: dict) -> dict:
     return out
 
 
+def _fp_eval(c: dict, x: float) -> float | None:
+    """Evaluate one typed function at x. None means "not defined here".
+
+    Functions are TYPED with numeric parameters, never parsed from a string:
+    a spec cannot smuggle in an expression, and the two renderers evaluate the
+    same arithmetic in the same order. Exponentials are written with exp(k*x)
+    rather than b**x because `pow` with a float exponent need not agree between
+    Python and JavaScript, while exp does -- the same reasoning as the
+    chi-square density.
+    """
+    k = c["kind"]
+    if k == "polynomial":
+        y = 0.0
+        for a in reversed(c["coeffs"]):          # Horner: exact, order fixed
+            y = y * x + a
+        return y
+    if k == "exponential":                        # a*exp(r*x) + d
+        return c["a"] * math.exp(c["r"] * x) + c.get("d", 0.0)
+    if k == "logarithm":                          # a*ln(x)/ln_base + d, x > 0
+        if x <= 0:
+            return None
+        return c["a"] * math.log(x) / c.get("ln_base", 1.0) + c.get("d", 0.0)
+    if k == "sine":                               # a*sin(b*x + p) + d
+        return c["a"] * math.sin(c["b"] * x + c.get("p", 0.0)) + c.get("d", 0.0)
+    if k == "identity":
+        return x
+    if k in ("tangent", "secant", "cosecant", "cotangent"):
+        t = c.get("b", 1.0) * x
+        co, si = math.cos(t), math.sin(t)
+        cut = c.get("cut", 12.0)                  # clip the blow-up near a pole
+        if k == "tangent":
+            if abs(co) < 1e-12:
+                return None
+            y = c.get("a", 1.0) * si / co
+        elif k == "secant":
+            if abs(co) < 1e-12:
+                return None
+            y = c.get("a", 1.0) / co
+        elif k == "cosecant":
+            if abs(si) < 1e-12:
+                return None
+            y = c.get("a", 1.0) / si
+        else:
+            if abs(si) < 1e-12:
+                return None
+            y = c.get("a", 1.0) * co / si
+        return y if abs(y) <= cut else None
+    raise ValueError(f"function_plot has no kind {k!r}")
+
+
+def f_function_plot(p: dict) -> dict:
+    """A function drawn over a domain, with one feature marked.
+
+    Fifteen AP Precalculus and AP Calculus AB entries are this one picture:
+    concavity, a zero, an inflection point, a hole, a tangency, a reflection,
+    an asymptote, a transformation, a sequence's discrete points. The entries
+    differ; the geometry does not. AP Precalculus has no `kind='diagram'`
+    entries at all, which is why the original lane filter left the whole
+    subject with a single figure.
+
+    A curve BREAKS where its function is undefined -- at a pole, left of a
+    logarithm's domain -- rather than being joined across the gap, because a
+    line drawn through an asymptote asserts a value the function does not take.
+    """
+    x0, x1 = p["x_range"]
+    n = p.get("samples", 600)
+    xs = [x0 + (x1 - x0) * i / n for i in range(n + 1)]
+
+    curves, legend = [], []
+    for c in p["curves"]:
+        style = c.get("style", "solid")
+        run: list[tuple[float, float]] = []
+        pieces: list[list[tuple[float, float]]] = []
+        for x in xs:
+            y = _fp_eval(c, x)
+            if y is None or (c.get("y_clip") is not None and abs(y) > c["y_clip"]):
+                if len(run) > 1:
+                    pieces.append(run)
+                run = []
+                continue
+            run.append((x, y))
+        if len(run) > 1:
+            pieces.append(run)
+        for piece in pieces:
+            curves.append({"pts": piece, "style": style,
+                           "color": INK if style == "solid" else GRAY})
+        if c.get("label"):
+            legend.append((c["label"], style))
+
+    def at(ci: int, x: float) -> float:
+        y = _fp_eval(p["curves"][ci], x)
+        if y is None:
+            raise ValueError(f"curve {ci} is not defined at {x}")
+        return y
+
+    # A secant is just a two-point curve, so it needs no primitive of its own.
+    for sc in p.get("secants", []):
+        a, b = sc["from"], sc["to"]
+        ci = sc.get("curve", 0)
+        # Dashed so it reads as a chord rather than part of the function, but
+        # in INK: in grey it disappeared against the curve it is drawn across,
+        # which left "the secants get steeper" invisible.
+        curves.append({"pts": [(a, at(ci, a)), (b, at(ci, b))], "style": "dashed",
+                       "color": INK})
+
+    marks = [{"x": m["x"], "y": m.get("y", at(m.get("curve", 0), m["x"])),
+              "label": m["label"], "place": m.get("place", "above")}
+             for m in p.get("marks", [])]
+    dots = [{"x": d["x"], "y": d["y"]} for d in p.get("points", [])]
+    # An OPEN circle is a point the graph does not take: a hole. Filling it
+    # would assert the opposite of what the entry is about.
+    open_dots = [{"x": d["x"], "y": d["y"]} for d in p.get("open_points", [])]
+    vlines = [{"x": v, "label": None, "caption": None} for v in p.get("asymptotes_x", [])]
+    hlines = [{"y": h["y"], "label": h["label"]} for h in p.get("asymptotes_y", [])]
+    texts = [{"x": t["x"], "y": t["y"], "label": t["label"],
+              "anchor": t.get("anchor", "middle")} for t in p.get("texts", [])]
+
+    ys = [y for c in curves for _, y in c["pts"]] + [d["y"] for d in dots + open_dots]
+    yr = p.get("y_range") or (min(ys) - (max(ys) - min(ys)) * 0.12,
+                              max(ys) + (max(ys) - min(ys)) * 0.12)
+    out = {"curves": curves, "areas": [], "marks": marks, "dots": dots,
+           "open_dots": open_dots, "vlines": vlines, "hlines": hlines,
+           "texts": texts, "legend": legend,
+           "x_range": (x0, x1), "y_range": (yr[0], yr[1])}
+    if "x_ticks" in p:
+        out["x_ticks"] = [(v, lbl) for v, lbl in p["x_ticks"]]
+    if "y_ticks" in p:
+        out["y_ticks"] = p["y_ticks"]
+    return out
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -1091,6 +1222,7 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "field_map": f_field_map,
     "circuit_symbols": f_circuit_symbols,
     "density_curve": f_density_curve,
+    "function_plot": f_function_plot,
 }
 
 
@@ -1314,6 +1446,10 @@ def render(spec: dict, layout: str = "expanded") -> str:
     for d in g.get("dots", []):
         o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.2, SW*2.1):.1f}" '
                  f'fill="{INK}" fill-opacity="0.9"/>')
+    # open circles: a point the graph does NOT take, such as a hole
+    for d in g.get("open_dots", []):
+        o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.4, SW*2.2):.1f}" '
+                 f'fill="{BG}" stroke="{INK}" stroke-width="{max(1.4, SW*0.8):.1f}"/>')
     # boxplot glyphs: box Q1-Q3, median line, whiskers, outlier marks
     for bx in g.get("boxes", []):
         yc, hh = bx["yc"], bx["h"] / 2

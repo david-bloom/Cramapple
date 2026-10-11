@@ -1206,12 +1206,166 @@ def p_density_curve(sid, s, svg):
            f"percentiles={[round(v,5) for v in pcts]}")
 
 
+def p_function_plot(sid, s, svg):
+    """What a wrong function plot violates.
+
+    These entries are about the SHAPE of a graph, so the checks are about
+    shape: measured concavity, a zero that really is a zero, a tangency that
+    touches without crossing, a hole the curve does not take, a secant whose
+    slope is the stated average rate of change. Measured from the function the
+    renderer actually evaluates, never asserted.
+    """
+    p = s["params"]
+    g = R.FAMILIES["function_plot"](p)
+    ev = lambda ci, x: R._fp_eval(p["curves"][ci], x)
+
+    ck(sid, "something is drawn", bool(g["curves"]) or bool(g["dots"]))
+    for c in g["curves"]:
+        ck(sid, "every drawn point is inside the plotted range",
+           all(g["y_range"][0] - 1e-9 <= y <= g["y_range"][1] + 1e-9 for _, y in c["pts"]),
+           "a curve leaves the axes")
+
+    def second_diff(ci, x, h=1e-3):
+        a, b, c_ = ev(ci, x - h), ev(ci, x), ev(ci, x + h)
+        return None if None in (a, b, c_) else a - 2 * b + c_
+
+    if "concavity_check" in p:
+        for name, (lo, hi) in p["concavity_check"].items():
+            xs = [lo + (hi - lo) * i / 20 for i in range(21)]
+            d2 = [second_diff(0, x) for x in xs]
+            ok = all(v is not None and (v > 0 if name == "up" else v < 0) for v in d2)
+            ck(sid, f"the graph really is concave {name} on [{lo}, {hi}]", ok,
+               f"second differences: {[None if v is None else round(v, 6) for v in d2[:4]]}")
+        ck(sid, "the text names both concavities",
+           "concave up" in s["alt"].lower() and "concave down" in s["alt"].lower())
+
+    if "inflection_check" in p:
+        x = p["inflection_check"]
+        left, right = second_diff(0, x - 0.4), second_diff(0, x + 0.4)
+        ck(sid, "concavity really changes sign at the marked point",
+           left is not None and right is not None and left * right < 0,
+           f"second differences {left} and {right}")
+        # Not an extremum: the classic confusion this figure exists to prevent.
+        slope = (ev(0, x + 1e-4) - ev(0, x - 1e-4)) / 2e-4
+        ck(sid, "the inflection point is not a maximum or a minimum", abs(slope) > 1e-6,
+           f"slope there is {slope:.2e}")
+
+    if "zeros_check" in p:
+        for z in p["zeros_check"]:
+            ck(sid, f"x = {z} really is a zero", abs(ev(0, z)) < 1e-9, f"f({z}) = {ev(0, z)}")
+        ck(sid, "every zero is marked on the figure",
+           all(any(abs(m["x"] - z) < 1e-9 for m in p.get("marks", [])) for z in p["zeros_check"]))
+        ck(sid, "the text says a zero is an input, not a point",
+           "input" in s["alt"].lower())
+
+    if "secant_slopes_check" in p:
+        want = p["secant_slopes_check"]
+        got = [(ev(sc.get("curve", 0), sc["to"]) - ev(sc.get("curve", 0), sc["from"]))
+               / (sc["to"] - sc["from"]) for sc in p["secants"]]
+        ck(sid, "each secant's slope is the stated average rate of change",
+           all(abs(a - b) < 1e-9 for a, b in zip(got, want)), f"{got} vs {want}")
+        widths = [round(sc["to"] - sc["from"], 9) for sc in p["secants"]]
+        ck(sid, "the intervals really are equal width", len(set(widths)) == 1, f"{widths}")
+        ck(sid, "the slopes are increasing, which is what makes it concave up",
+           all(got[i] < got[i + 1] for i in range(len(got) - 1)), f"{got}")
+        for v in want:
+            ck(sid, f"the figure states the slope {v:g}",
+               f"{v:g}" in (s.get("note") or "") + " ".join(
+                   t["label"] for t in p.get("texts", [])))
+
+    if "tangency_check" in p:
+        a = p["tangency_check"]["x"]
+        ck(sid, f"the graph touches zero at x = {a}", abs(ev(0, a)) < 1e-9)
+        # Tangent means it does NOT cross: same sign either side.
+        lo, hi = ev(0, a - 0.3), ev(0, a + 0.3)
+        ck(sid, "the output signs are the same either side, so it does not cross",
+           lo * hi > 0, f"f({a}-0.3)={lo:.4f}, f({a}+0.3)={hi:.4f}")
+        slope = (ev(0, a + 1e-4) - ev(0, a - 1e-4)) / 2e-4
+        ck(sid, "the graph is tangent there: the slope is zero", abs(slope) < 1e-6,
+           f"slope {slope:.2e}")
+        other = p["tangency_check"].get("crosses")
+        if other is not None:
+            lo2, hi2 = ev(0, other - 0.3), ev(0, other + 0.3)
+            ck(sid, f"the odd-multiplicity zero at x = {other} DOES cross", lo2 * hi2 < 0,
+               "the contrast is the whole point")
+
+    if "hole_check" in p:
+        h = p["hole_check"]
+        pt = [d for d in g["open_dots"] if abs(d["x"] - h["x"]) < 1e-9]
+        ck(sid, "the hole is drawn as an OPEN circle", len(pt) == 1,
+           "a filled dot asserts the opposite of a hole")
+        ck(sid, "the open circle sits at the limit the function approaches",
+           bool(pt) and abs(pt[0]["y"] - h["y"]) < 1e-9, f"{pt}")
+        # The limit from both sides is that value, which is the entry's formula.
+        near = [ev(0, h["x"] - 1e-5), ev(0, h["x"] + 1e-5)]
+        ck(sid, "both one-sided limits approach it",
+           all(v is not None and abs(v - h["y"]) < 1e-3 for v in near), f"{near}")
+        ck(sid, "no filled point is drawn at the hole",
+           not any(abs(d["x"] - h["x"]) < 1e-9 for d in g["dots"]))
+
+    if "monotone_check" in p:
+        want = p["monotone_check"]
+        lo, hi = p["x_range"]
+        xs = [lo + (hi - lo) * i / 200 for i in range(201)]
+        ys = [ev(0, x) for x in xs]
+        if want == "increasing":
+            ck(sid, "the function is increasing everywhere drawn",
+               all(ys[i] < ys[i + 1] for i in range(len(ys) - 1)))
+        else:
+            ck(sid, "the function is decreasing everywhere drawn",
+               all(ys[i] > ys[i + 1] for i in range(len(ys) - 1)))
+        d2 = [second_diff(0, x) for x in xs[1:-1]]
+        ck(sid, "its concavity never changes, so it has no point of inflection",
+           all(v > 0 for v in d2) or all(v < 0 for v in d2))
+        ck(sid, "and it has no maximum or minimum inside the window",
+           not any((ys[i] - ys[i - 1]) * (ys[i + 1] - ys[i]) < 0 for i in range(1, len(ys) - 1)))
+
+    if "reflection_check" in p:
+        r = p["reflection_check"]
+        # (s, t) on one curve means (t, s) on the other: that IS the reflection.
+        for x in r["sample_x"]:
+            y = ev(r["a"], x)
+            back = ev(r["b"], y)
+            ck(sid, f"reflecting ({x:g}, {y:g}) over y = x lands back on the other curve",
+               back is not None and abs(back - x) < 1e-6, f"got {back}")
+        ck(sid, "the mirror line y = x is drawn",
+           any(c.get("kind") == "identity" for c in p["curves"]))
+
+    if "asymptote_check" in p:
+        for xa in p.get("asymptotes_x", []):
+            near = ev(0, xa + p["asymptote_check"].get("eps", 1e-3))
+            ck(sid, f"the function really blows up at the asymptote x = {xa:g}",
+               near is None or abs(near) > p["asymptote_check"].get("big", 50.0),
+               f"value just past it is {near}")
+        ck(sid, "the curve is broken at each asymptote, not drawn through it",
+           len(g["curves"]) >= len(p.get("asymptotes_x", [])),
+           "a line through an asymptote asserts a value the function does not take")
+
+    if "range_gap_check" in p:
+        gap = p["range_gap_check"]
+        ys = [y for c in g["curves"] for _, y in c["pts"]]
+        inside = [y for y in ys if gap[0] + 1e-9 < y < gap[1] - 1e-9]
+        ck(sid, f"no point is drawn inside the excluded range ({gap[0]:g}, {gap[1]:g})",
+           not inside, f"{len(inside)} points inside the gap")
+
+    if "sequence_check" in p:
+        ck(sid, "a sequence is drawn as discrete points, with no curve joining them",
+           not g["curves"] and len(g["dots"]) > 1,
+           "joining them asserts values between the whole numbers")
+        xs = sorted(d["x"] for d in g["dots"])
+        ck(sid, "its inputs are the whole numbers",
+           all(abs(x - round(x)) < 1e-12 for x in xs) and xs[0] >= 0)
+        ck(sid, "the text says why it is points rather than a curve",
+           "discrete" in s["alt"].lower())
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
     "arrow_diagram": p_arrow_diagram,
     "particulate_box": p_particulate_box,
     "field_map": p_field_map,
     "circuit_symbols": p_circuit_symbols,
     "density_curve": p_density_curve,
+    "function_plot": p_function_plot,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
