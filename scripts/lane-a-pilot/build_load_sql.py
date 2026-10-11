@@ -37,6 +37,15 @@ FAMILIES = {
         "side by side rather than one on top of the other. The first Lane B grammar: it asserts a "
         "drawing convention rather than a quantity on an axis, so it renders in the bare frame.",
     ),
+    "density_curve": (
+        "Probability density curves",
+        "Normal and chi-square densities with the area under them shaded: the normal curve, the "
+        "standard normal, the empirical rule's nested bands, probability as an area, a critical "
+        "value bounding the middle C%, the tail a p-value lives in, and the chi-square family's "
+        "skew. Chi-square is drawn for EVEN degrees of freedom only, so its gamma is an exact "
+        "factorial and the two renderers agree byte for byte. What a shaded band claims is checked "
+        "against the integral, not trusted to the fill.",
+    ),
     "circuit_symbols": (
         "Circuit schematic symbol key",
         "The standard schematic symbols drawn as a legend sheet rather than as a working circuit, "

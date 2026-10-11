@@ -59,7 +59,7 @@ filter left the entire subject with one figure.
 
 | Entries | Family | Note |
 |---|---|---|
-| Stats 2.11 ×4 (Normal distribution, Standard normal, Probability as area, Empirical rule), 3.14 Shape of chi-square, 3.3 Critical value z*, 3.6 p-value by direction, 3.6 Simulated p-value | **`density_curve`** | the handoff's §2c. A bell curve with a shaded interval, a skewed family by degrees of freedom, and tail shading. **Eight entries, the most-used idea in the subject.** |
+| ~~Stats 2.11 ×4, 3.14 Shape of chi-square, 3.3 Critical value z*, 3.6 p-value by direction~~ | **`density_curve`** | **BUILT 2026-10-11** — 10 figures over **8** entries (2.11 ×5 including Comparing relative position, 3.14, 3.3, and 3.6's three directions as three figures on one entry). In Development; `ap-prep-blueprint#12` ports it at 147/147 parity. **Stats 3.6 Simulated p-value is NOT in it**: a simulated null distribution is a dotplot of simulated statistics, not a density curve, and belongs with `dotplot`. |
 | Stats 2.12 ×4 (Sampling distribution, Randomization distribution, CLT, Simulating a sampling distribution) | `density_curve` + panels | the CLT entry needs the *narrowing with n* comparison, which is a panel set rather than one curve |
 | Stats 2.8 ×2 (Valid discrete probability distribution, Cumulative probability distribution) | discrete probability chart | spikes summing to 1, and the step function beside it |
 | Chem 5.3 Linear plot that identifies reaction order (3 items) | **three linearised panels** | [A], ln[A], 1/[A] against t. The teaching point is *which one is straight*, so three separate figures would destroy it — same argument as `kinematic_panels` |
@@ -108,8 +108,9 @@ the difference between this list and the keyword scan.
 
 ## 8. Suggested order
 
-1. **`density_curve`** — 8 entries immediately, up to 12 with §3's sampling-distribution rows, in
-   the subject with the most traffic.
+1. ~~**`density_curve`**~~ **BUILT** (2026-10-11): 10 figures, 8 entries. The §3 sampling-distribution
+   rows (2.12 ×4) are still open and are the natural extension — the CLT entry needs a *narrowing
+   with n* comparison, which is a panel set rather than one curve.
 2. **`function_plot`** — 15 entries, and it is the only thing that gives AP Precalculus and AP
    Calculus AB any figures at all.
 3. The §4 extensions and the §5 reuse checks — cheap, and two may be single rows.

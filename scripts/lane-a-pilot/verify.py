@@ -1019,11 +1019,199 @@ def p_circuit_symbols(sid, s, svg):
        svg.count("</text>") >= len(cells))
 
 
+def p_density_curve(sid, s, svg):
+    """A density curve's claim is about AREA, so the areas are integrated.
+
+    Every shaded band declares the probability it is supposed to be, and that
+    number is checked against the integral of the density over the band AND
+    against the figure's own text. A fill that does not mean what the caption
+    says is the characteristic failure of this family.
+    """
+    p = s["params"]
+    g = R.FAMILIES["density_curve"](p)
+    lo, hi = p["x_range"]
+
+    def dens(c, x):
+        return (R._normal_pdf(x, c["mu"], c["sigma"]) if c["kind"] == "normal"
+                else R._chi2_pdf(x, c["df"]))
+
+    for ci, c in enumerate(p["curves"]):
+        # Wide limits, not the drawn window: a density that only integrates to
+        # 1 inside the frame is not a density.
+        a, b = (c["mu"] - 12 * c["sigma"], c["mu"] + 12 * c["sigma"]) if c["kind"] == "normal" \
+            else (1e-9, 60.0 + 12.0 * c["df"])
+        tot = integrate(lambda x, c=c: dens(c, x), a, b)
+        ck(sid, f"curve {ci} is a density: it integrates to 1", abs(tot - 1) < 2e-3,
+           f"integral={tot:.5f}")
+        ck(sid, f"curve {ci} is never negative",
+           all(y >= 0 for _, y in g["curves"][ci]["pts"]))
+
+    for chk in p.get("area_checks", []):
+        a = lo if chk.get("from") is None else chk["from"]
+        b = hi if chk.get("to") is None else chk["to"]
+        # Integrate to the real tail, not to the edge of the frame, or a
+        # one-sided p-value is silently short by whatever the window cut off.
+        c = p["curves"][chk.get("curve", 0)]
+        if chk.get("from") is None:
+            a = c["mu"] - 12 * c["sigma"] if c["kind"] == "normal" else 1e-9
+        if chk.get("to") is None:
+            b = c["mu"] + 12 * c["sigma"] if c["kind"] == "normal" else 60.0 + 12.0 * c["df"]
+        got = integrate(lambda x, c=c: dens(c, x), a, b)
+        ck(sid, f"the shaded area from {chk.get('from')} to {chk.get('to')} is the stated probability",
+           abs(got - chk["expect"]) < chk["tol"], f"area={got:.4f} stated={chk['expect']}")
+        ck(sid, f"the figure's text states {chk['says']}",
+           chk["says"] in (s.get("note") or "") + s["caption"] + s["alt"],
+           "a probability the picture shows must be readable without measuring it")
+
+    if p.get("total_area_check"):
+        ck(sid, "the text says the total area is 1",
+           "total area" in (s.get("note") or "").lower() + s["alt"].lower()
+           and " 1" in (s.get("note") or "") + s["alt"])
+        ck(sid, "the text distinguishes a density from a probability",
+           "density" in s["alt"].lower() and "height" in s["alt"].lower())
+
+    if "normal_shape_check" in p:
+        mu, sig = p["normal_shape_check"]["mu"], p["normal_shape_check"]["sigma"]
+        xs = [lo + (hi - lo) * i / 4000 for i in range(4001)]
+        peak = max(xs, key=lambda x: R._normal_pdf(x, mu, sig))
+        ck(sid, "the curve peaks at the mean", abs(peak - mu) < (hi - lo) / 2000,
+           f"peak={peak:.4f} mu={mu}")
+        ck(sid, "the curve is symmetric about the mean",
+           all(abs(R._normal_pdf(mu - t, mu, sig) - R._normal_pdf(mu + t, mu, sig)) < 1e-12
+               for t in (0.3 * sig, sig, 2 * sig, 3 * sig)))
+        # sigma is the distance to the inflection point, which is what the
+        # entry means by "spread set by the standard deviation".
+        d2 = lambda x: (R._normal_pdf(x + 1e-4, mu, sig) - 2 * R._normal_pdf(x, mu, sig)
+                        + R._normal_pdf(x - 1e-4, mu, sig))
+        ck(sid, "the curve changes its bend exactly one standard deviation from the mean",
+           d2(mu + 0.8 * sig) < 0 < d2(mu + 1.2 * sig),
+           "the inflection point is not at mu + sigma")
+        ck(sid, "it is unimodal: the density rises then falls, once",
+           sum(1 for i in range(1, len(xs) - 1)
+               if R._normal_pdf(xs[i], mu, sig) > R._normal_pdf(xs[i - 1], mu, sig)
+               and R._normal_pdf(xs[i], mu, sig) > R._normal_pdf(xs[i + 1], mu, sig)) == 1)
+
+    if p.get("standard_normal_check"):
+        c = p["curves"][0]
+        ck(sid, "the standard normal really has mean 0 and standard deviation 1",
+           c["mu"] == 0.0 and c["sigma"] == 1.0, f"mu={c['mu']} sigma={c['sigma']}")
+        ck(sid, "the axis is labelled in standard deviations, not raw units",
+           "standard deviation" in s["x_label"].lower() or s["x_label"].strip().startswith("z"))
+
+    if p.get("nested_bands_check"):
+        bands = [(sh["from"], sh["to"]) for sh in p["shade"]]
+        # Each band must CONTAIN the next, or "95%" reads as a slice sitting
+        # beside the 68% rather than including it -- the standard misreading.
+        for i in range(len(bands) - 1):
+            ck(sid, f"band {i} contains band {i+1}",
+               bands[i][0] <= bands[i + 1][0] and bands[i][1] >= bands[i + 1][1],
+               f"{bands[i]} does not contain {bands[i+1]}")
+        ck(sid, "the text says each percentage is the whole area inside its band",
+           "whole area" in (s.get("note") or "").lower() or "not an extra" in (s.get("note") or "").lower())
+
+    if "symmetric_tails_check" in p:
+        z = p["symmetric_tails_check"]["z"]
+        c = p["curves"][0]
+        left = integrate(lambda x: dens(c, x), c["mu"] - 12 * c["sigma"], -z)
+        right = integrate(lambda x: dens(c, x), z, c["mu"] + 12 * c["sigma"])
+        ck(sid, "the two tails left outside z* are equal", abs(left - right) < 1e-6,
+           f"{left:.5f} vs {right:.5f}")
+        ck(sid, "the shaded region is the MIDDLE, not the tails",
+           p["shade"][0]["from"] == -z and p["shade"][0]["to"] == z)
+
+    if "tail_check" in p:
+        t = p["tail_check"]
+        sh = p["shade"][0]
+        if t["side"] == "right":
+            ck(sid, "the shading runs from the statistic to the right tail",
+               sh.get("from") == t["z"] and sh.get("to") is None, f"{sh}")
+        else:
+            ck(sid, "the shading runs from the left tail to the statistic",
+               sh.get("to") == t["z"] and sh.get("from") is None, f"{sh}")
+        ck(sid, "exactly one tail is shaded", len(p["shade"]) == 1)
+
+    if "two_tailed_check" in p:
+        z = p["two_tailed_check"]["z"]
+        ck(sid, "both tails are shaded", len(p["shade"]) == 2)
+        c = p["curves"][0]
+        one = integrate(lambda x: dens(c, x), z, c["mu"] + 12 * c["sigma"])
+        both = 2 * one
+        ck(sid, "the two-sided p-value is exactly twice the one-sided one",
+           abs(both - 2 * one) < 1e-12 and abs(both - 0.1616) < 0.008, f"2x{one:.4f}={both:.4f}")
+        ck(sid, "the text says the two-sided value is twice the one-sided",
+           "twice" in (s.get("note") or "").lower() + s["alt"].lower())
+
+    if "chi_square_check" in p:
+        dfs = [c["df"] for c in p["curves"]]
+        ck(sid, "every chi-square curve has even degrees of freedom, so its gamma is exact",
+           all(df % 2 == 0 for df in dfs), f"{dfs}")
+        for ci, c in enumerate(p["curves"]):
+            # The support is positive: nothing to the LEFT of zero. At zero
+            # itself df = 2 has density 1/2, because that case is an
+            # exponential -- asserting zero there is what produced a spike.
+            ck(sid, f"df={c['df']} has no density left of zero",
+               R._chi2_pdf(-1.0, c["df"]) == 0.0 and R._chi2_pdf(-1e-9, c["df"]) == 0.0)
+            ck(sid, f"df={c['df']} is finite at zero, not asymptotic",
+               R._chi2_pdf(0.0, c["df"]) < 1.0)
+            ck(sid, f"df={c['df']} never turns negative",
+               all(R._chi2_pdf(x / 10.0, c["df"]) >= 0 for x in range(0, 220)))
+        # Right-skewed, and LESS so as df rises: the entry's own claim. Measured
+        # as the standardised third moment, not asserted.
+        def skew(df):
+            m, v = float(df), 2.0 * df
+            sd = math.sqrt(v)
+            return integrate(lambda x, df=df: ((x - m) / sd) ** 3 * R._chi2_pdf(x, df),
+                             1e-9, m + 14 * sd)
+        sk = [(c["df"], skew(c["df"])) for c in p["curves"]]
+        ck(sid, "every chi-square curve is skewed right", all(v > 0.2 for _, v in sk),
+           f"{[(d, round(v,3)) for d, v in sk]}")
+        ordered = sorted(sk)
+        ck(sid, "the skew falls as the degrees of freedom rise",
+           all(ordered[i][1] > ordered[i + 1][1] for i in range(len(ordered) - 1)),
+           f"{[(d, round(v,3)) for d, v in ordered]}")
+        # Both readers at gate 4c caught the alt text saying every curve "rises
+        # and then falls". A chi-square with df = 2 is an exponential: it is at
+        # its highest where the axis starts and only falls. The mode is at
+        # max(df - 2, 0), so the text has to match which curves actually rise.
+        xs_m = [lo + (hi - lo) * i / 4000 for i in range(4001)]
+        modes = {c["df"]: max(xs_m, key=lambda x, c=c: R._chi2_pdf(x, c["df"]))
+                 for c in p["curves"]}
+        for df, m in modes.items():
+            ck(sid, f"df={df} peaks where theory says, at max(df-2, 0)",
+               abs(m - max(df - 2, 0)) < (hi - lo) / 1000, f"mode at {m:.3f}")
+        if any(m < 1e-9 for m in modes.values()):
+            ck(sid, "the text does not claim every curve rises to a peak",
+               "each one rises" not in s["alt"].lower(),
+               "a df=2 chi-square is an exponential: it never rises")
+            ck(sid, "the text says which curve is highest at the left edge",
+               "highest where the axis starts" in s["alt"]
+               or "highest at the left" in s["caption"])
+
+    if "same_z_check" in p:
+        zs = []
+        for m in p["same_z_check"]:
+            c = p["curves"][m["curve"]]
+            zs.append((m["x"] - c["mu"]) / c["sigma"])
+        ck(sid, "the marked values are at the SAME z-score in their own distributions",
+           max(zs) - min(zs) < 1e-12, f"z-scores={zs}")
+        ck(sid, "the two distributions really do differ",
+           len({(c["mu"], c["sigma"]) for c in p["curves"]}) == len(p["curves"]))
+        # Same z in a normal distribution IS the same percentile, which is the
+        # entry's point; check it rather than assert it.
+        pcts = []
+        for m in p["same_z_check"]:
+            c = p["curves"][m["curve"]]
+            pcts.append(integrate(lambda x, c=c: dens(c, x), c["mu"] - 12 * c["sigma"], m["x"]))
+        ck(sid, "and therefore at the same percentile", max(pcts) - min(pcts) < 1e-6,
+           f"percentiles={[round(v,5) for v in pcts]}")
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
     "arrow_diagram": p_arrow_diagram,
     "particulate_box": p_particulate_box,
     "field_map": p_field_map,
     "circuit_symbols": p_circuit_symbols,
+    "density_curve": p_density_curve,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
