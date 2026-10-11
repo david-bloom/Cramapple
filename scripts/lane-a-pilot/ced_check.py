@@ -245,8 +245,65 @@ def gaps_controls(specs: dict) -> dict:
     return c
 
 
+def arrow_controls(specs: dict) -> dict:
+    """Controls for the Lane B arrow grammar.
+
+    B2, B3 and B5 pass verify.py cleanly. All three are LABEL errors, which is
+    the shape of mistake this grammar is most exposed to: the geometry is
+    generated from magnitudes and angles and is therefore self-consistent by
+    construction, while the words beside it are free to say anything.
+    """
+    c = {}
+
+    # B1 the forces no longer balance, while the text still says they do.
+    # verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    for a in s["params"]["arrows"]:
+        if a["label"].startswith("rope"):
+            a["magnitude"], a["label"] = 3.5, "rope 3.5 N"
+    c["CONTROL-B1-free-body-does-not-balance"] = s
+
+    # B2 the normal force's LABEL says 10.0 N while the arrow is drawn at
+    # 8.7 N. The suite reads magnitudes, not words, so this PASSES.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    for a in s["params"]["arrows"]:
+        if a["label"].startswith("normal"):
+            a["label"] = "normal 10.0 N"
+    s["alt"] = s["alt"].replace("8.7 newtons", "10.0 newtons")
+    c["CONTROL-B2-normal-force-mislabelled"] = s
+
+    # B3 the SHORTEST arrow labelled the LARGEST magnitude, which contradicts
+    # the entry's whole claim that length is proportional to magnitude. The
+    # geometry is untouched, so this PASSES verify.py.
+    s = copy.deepcopy(specs["phys-vector-arrows"])
+    for a in s["params"]["arrows"]:
+        if a["label"] == "3.0 m/s":
+            a["label"] = "9.0 m/s"
+    s["alt"] = s["alt"].replace("labelled 3.0 metres per second", "labelled 9.0 metres per second")
+    c["CONTROL-B3-shortest-arrow-largest-label"] = s
+
+    # B4 the weight drawn AND its two components drawn beside it: the exact
+    # error "Whole forces only" names. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    s["params"]["arrows"] += [
+        {"label": "weight along slope 5.0 N", "magnitude": 5.0, "angle_deg": 210},
+        {"label": "weight across slope 8.7 N", "magnitude": 8.660254, "angle_deg": 300},
+    ]
+    c["CONTROL-B4-weight-drawn-with-its-components"] = s
+
+    # B5 the axis labelled PERPENDICULAR to the incline while the dashed line
+    # is still drawn parallel to it. The suite does not read the axis label
+    # against its angle, so this PASSES.
+    s = copy.deepcopy(specs["phys-free-body-diagram"])
+    s["params"]["axis"] = {"angle_deg": 30.0, "label": "y axis, across the incline"}
+    c["CONTROL-B5-axis-labelled-across-but-drawn-along"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
-                "lane-a-gaps": gaps_controls}
+                "lane-a-gaps": gaps_controls,
+                "lane-b-arrows": arrow_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

@@ -959,10 +959,25 @@ def render(spec: dict, layout: str = "expanded") -> str:
             o.append(f'<line x1="{cx - ax*ext:.1f}" y1="{cy - ay*ext:.1f}" '
                      f'x2="{cx + ax*ext:.1f}" y2="{cy + ay*ext:.1f}" stroke="{GRID}" '
                      f'stroke-width="1.1" stroke-dasharray="5 5"/>')
-            o.append(f'<text x="{cx + ax*ext + (6 if ax >= 0 else -6):.1f}" '
-                     f'y="{cy + ay*ext - 5:.1f}" font-size="{FN:.1f}" '
-                     f'text-anchor="{"start" if ax >= 0 else "end"}" fill="{GRAY}">'
-                     f'{esc(g["axis"]["label"])}</text>')
+            # Anchor the label at whichever END of the axis leaves room for it.
+            # Flipping only the x coordinate put the label at the far end's x
+            # with the near end's y, straight on top of the normal-force label.
+            albl = g["axis"]["label"]
+            alw = 0.55 * FN * len(albl)
+            best = None
+            for sgn in (1.0, -1.0):
+                ex, ey = cx + ax * ext * sgn, cy + ay * ext * sgn
+                anc = "start" if ax * sgn >= 0 else "end"
+                lx0 = ex + (6 if anc == "start" else -6)
+                left = lx0 if anc == "start" else lx0 - alw
+                fits = left >= 4 and left + alw <= W - 4 and 4 <= ey - 5 <= H - 4
+                if fits:
+                    best = (lx0, ey - 5, anc)
+                    break
+                if best is None:
+                    best = (max(4.0, min(lx0, W - 4 - alw)), ey - 5, "start")
+            o.append(f'<text x="{best[0]:.1f}" y="{best[1]:.1f}" font-size="{FN:.1f}" '
+                     f'text-anchor="{best[2]}" fill="{GRAY}">{esc(albl)}</text>')
         for v in g["vectors"]:
             ang = math.radians(v["angle"])
             ux, uy = math.cos(ang), -math.sin(ang)       # SVG y grows downward
@@ -980,7 +995,11 @@ def render(spec: dict, layout: str = "expanded") -> str:
             o.append(f'<path d="M {tx:.1f},{ty:.1f} '
                      f'L {tx - ux*head + px*hw:.1f},{ty - uy*head + py*hw:.1f} '
                      f'L {tx - ux*head - px*hw:.1f},{ty - uy*head - py*hw:.1f} Z" fill="{INK}"/>')
-            lx, ly = tx + ux * 9 + px * off * 0.4, ty + uy * 9 + py * off * 0.4
+            # The label takes the arrow's whole perpendicular offset, not a
+            # fraction of it: at compact the fraction left "rope 4.0 N" and
+            # "friction 1.0 N" overprinting even though their arrows did not.
+            lsep = off * 2.4 if off else 0.0
+            lx, ly = tx + ux * 9 + px * lsep, ty + uy * 9 + py * lsep
             anc = "start" if ux > 0.18 else ("end" if ux < -0.18 else "middle")
             o.append(f'<text x="{lx:.1f}" y="{ly + (FM*0.9 if uy > 0.3 else (-FM*0.25 if uy < -0.3 else FM*0.35)):.1f}" '
                      f'text-anchor="{anc}" font-size="{FM:.1f}" fill="{INK}">{esc(v["label"])}</text>')

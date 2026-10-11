@@ -29,6 +29,14 @@ HERE = pathlib.Path(__file__).resolve().parent
 # The families this batch introduces, with where each one is implemented, so a
 # family seeded without a renderer is findable rather than silently blank.
 FAMILIES = {
+    "arrow_diagram": (
+        "Vector and free-body arrows",
+        "Arrows from a common origin, each at a stated angle with its length proportional to its "
+        "magnitude on ONE scale shared by every arrow in the figure. Carries an optional chosen "
+        "coordinate axis, and a perpendicular offset so two forces in the same direction are drawn "
+        "side by side rather than one on top of the other. The first Lane B grammar: it asserts a "
+        "drawing convention rather than a quantity on an axis, so it renders in the bare frame.",
+    ),
     "categorical_bars": (
         "Categorical and binned bars",
         "Bar chart, histogram, side-by-side, segmented and mosaic, as five modes of one "

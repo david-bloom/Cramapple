@@ -900,5 +900,115 @@
     "items": [],
     "items_md5": "d41d8cd98f00b204e9800998ecf8427e"
   },
+  "ap_physics_1::Free-body diagram (FBD)": {
+    "title": "Free-body diagram (FBD)",
+    "reference_entry_id": "c40f4d68-9bdc-4b11-b7ac-8f361f8b42c1",
+    "subject_key": "ap_physics_1",
+    "unit_number": 2,
+    "owner_topic_code": "2.2",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "A single-object or single-system diagram that shows every force the environment exerts on it, drawn as separate straight arrows starting on the center-of-mass dot.",
+    "body_md5": "5b46a4a8dfaf99e1bb33bfb0df32ba28",
+    "caution": "Draw each force as its own straight arrow originating on the dot and pointing in the direction of the force, and draw forces in the same direction side by side rather than overlapping (Topic 2.2 boundary statement). Depict the forces exerted on the object, not their components.",
+    "items": [
+      {
+        "label": "Dot",
+        "meaning": "Represents the object or system's center of mass; all force arrows originate here."
+      },
+      {
+        "label": "Force arrows",
+        "meaning": "Each force exerted on the object by the environment is its own straight arrow starting on the dot and pointing in the direction of the force."
+      },
+      {
+        "label": "Same-direction forces",
+        "meaning": "Forces pointing the same way are drawn side by side, not overlapping."
+      },
+      {
+        "label": "Whole forces only",
+        "meaning": "Depict the forces themselves, not force components."
+      },
+      {
+        "label": "Coordinate axis",
+        "meaning": "Choose one axis parallel to the direction of acceleration (e.g., parallel to an incline) to simplify translating the diagram to algebra."
+      }
+    ],
+    "items_md5": "8fbe9bbe2f6115041060c7e47ccac974"
+  },
+  "ap_physics_1::Vector arrow representation": {
+    "title": "Vector arrow representation",
+    "reference_entry_id": "2af9af8c-9948-4b5d-9e53-92b7a50219c0",
+    "subject_key": "ap_physics_1",
+    "unit_number": 1,
+    "owner_topic_code": "1.1",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "A vector is drawn as an arrow whose direction is the vector's direction and whose length is proportional to its magnitude.",
+    "body_md5": "665e499832b9812f7afb894d6f1e18b9",
+    "items": [
+      {
+        "label": "Arrow direction",
+        "meaning": "Direction of the vector"
+      },
+      {
+        "label": "Arrow length",
+        "meaning": "Proportional to the magnitude of the vector"
+      }
+    ],
+    "items_md5": "01ccf2f13e637c51f41798195fe237bb"
+  },
+  "ap_physics_c_mechanics::Free-body diagram": {
+    "title": "Free-body diagram",
+    "reference_entry_id": "b92edff8-33f6-43eb-be38-70ca5c05622e",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 2,
+    "owner_topic_code": "2.2",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "A diagram of a single object or system showing every force exerted on it by the environment.",
+    "body_md5": "a348007c36891fb8cf9b1fd845c45404",
+    "caution": "On the AP exam draw individual forces only, not force components, on the free-body diagram.",
+    "items": [
+      {
+        "label": "Dot",
+        "meaning": "Represents the center of mass; all force vectors originate here"
+      },
+      {
+        "label": "Force arrows",
+        "meaning": "Each force exerted by the environment is drawn as its own straight arrow pointing in the direction of the force"
+      },
+      {
+        "label": "Same-direction forces",
+        "meaning": "Drawn side by side, not overlapping"
+      },
+      {
+        "label": "Coordinate axis",
+        "meaning": "One axis chosen parallel to the direction of acceleration (e.g., along an incline)"
+      }
+    ],
+    "items_md5": "9b21d2350e73967ce59497cccfb06df2"
+  },
+  "ap_physics_c_mechanics::Vector arrow representation": {
+    "title": "Vector arrow representation",
+    "reference_entry_id": "7259c96e-bbab-4e49-a1d0-b1be3c075686",
+    "subject_key": "ap_physics_c_mechanics",
+    "unit_number": 1,
+    "owner_topic_code": "1.1",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "A vector is drawn as an arrow whose direction is the vector's direction and whose length is proportional to its magnitude.",
+    "body_md5": "665e499832b9812f7afb894d6f1e18b9",
+    "items": [
+      {
+        "label": "Arrow direction",
+        "meaning": "Direction of the vector"
+      },
+      {
+        "label": "Arrow length",
+        "meaning": "Proportional to the vector's magnitude"
+      }
+    ],
+    "items_md5": "c0209f216b025f48553109dd5c5f31b7"
+  },
   "_note": "Published app.unit_reference_entries rows (kind='diagram', subject ap_chemistry) in PRODUCTION (pcntajvbdfqhbeewmdry), read 2026-10-10; items[] restored 2026-10-11. Each entry's items[] is the exact published array: it was selected from this repository's batch candidate artifacts by matching md5(label»meaning joined on '|') against the same digest computed in Production, so no content was retyped. items_md5 records that digest; re-run the Production query in FIGURE_PRODUCTION_PROTOCOL.md section 2 to re-confirm. verify.py asserts label coverage per ENTRY against these arrays, so stripping them silently voids that gate. EXTENDED 2026-10-11: every entry now carries its published `body` (and `caution` where set) and a `body_md5`, because ced_check.py puts the body in the reader prompt as the entry's claim and it was resolving to '(not available)'. DECISION-0116 makes that prompt the only gate standing where the reference-pack checkers do not watch, so a route-(b) figure cannot be reviewed without it. The twelve AP Statistics and Physics entries added in the later batches carried no items_md5 at all; all 36 were re-read from Production on 2026-10-11, their stored items[] compared byte for byte (none had drifted), and the digests recorded. KEYED BY SUBJECT 2026-10-11: the key is now 'subject_key::title'. Two published entries share the title 'Vector arrow representation' -- AP Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key silently dropped one of them and the coverage gate would have asserted the survivor's items[] for both."
 }

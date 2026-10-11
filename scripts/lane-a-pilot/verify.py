@@ -607,7 +607,110 @@ def p_kinematic_panels(sid, s, svg):
            all(lo - 1e-9 <= y <= hi + 1e-9 for _, y in q["pts"]))
 
 
+def p_arrow_diagram(sid, s, svg):
+    """What a wrong arrow diagram violates.
+
+    These are drawing conventions rather than science, but they are no less
+    checkable: an arrow twice as long as another claims twice the magnitude
+    whether or not its author meant it to.
+    """
+    p = s["params"]
+    g = R.FAMILIES["arrow_diagram"](p)
+    vs = g["vectors"]
+
+    ck(sid, "every arrow has a magnitude and a direction", len(vs) >= 2 and
+       all(v["magnitude"] > 0 for v in vs))
+
+    if p.get("proportionality_check"):
+        # ONE constant of proportionality, which is the entry's own claim.
+        # Checked as a ratio between every pair, not against the scale the
+        # family computed, or it would only be testing its own arithmetic.
+        ks = [v["frac"] / v["magnitude"] for v in vs]
+        ck(sid, "one scale for every arrow: length is proportional to magnitude",
+           max(ks) - min(ks) < 1e-12, f"scales={[round(k,6) for k in ks]}")
+        big = max(vs, key=lambda v: v["magnitude"])
+        ck(sid, "the longest arrow is the largest magnitude",
+           all(v["frac"] <= big["frac"] + 1e-12 for v in vs))
+        # The drawn angle must BE the stated angle: a figure that rounds an
+        # arrow to the nearest convenient direction teaches that direction.
+        for v, a in zip(vs, p["arrows"]):
+            ck(sid, f"the drawn angle for '{v['label']}' is the angle specified",
+               abs(v["angle"] - (float(a["angle_deg"]) % 360.0)) < 1e-9)
+
+    if p.get("equilibrium_check"):
+        rx = sum(v["magnitude"] * math.cos(math.radians(v["angle"])) for v in vs)
+        ry = sum(v["magnitude"] * math.sin(math.radians(v["angle"])) for v in vs)
+        mag = max(v["magnitude"] for v in vs)
+        ck(sid, "the forces sum to zero, as the figure's text claims",
+           abs(rx) < 1e-6 * mag and abs(ry) < 1e-6 * mag,
+           f"resultant=({rx:.6f}, {ry:.6f})")
+        ck(sid, "the text says the forces balance",
+           any(w in (s.get("note") or "").lower() + s["alt"].lower()
+               for w in ("add to zero", "equilibrium", "at rest")))
+
+    if p.get("whole_forces_check"):
+        # "Whole forces only" is the entry's own labelled part, and the error it
+        # forbids is drawing a force AND its components, which counts that force
+        # twice. The first version of this check compared an arrow's magnitude
+        # against another's projection, and fired on the normal force -- whose
+        # magnitude EQUALS the weight's projection whenever the block is in
+        # equilibrium across the slope. That is physics, not a drawing error.
+        #
+        # What a decomposition actually looks like is three arrows drawn
+        # together where two perpendicular ones SUM to the third.
+        def comp(v):
+            return (v["magnitude"] * math.cos(math.radians(v["angle"])),
+                    v["magnitude"] * math.sin(math.radians(v["angle"])))
+        tol = 1e-6 * max(v["magnitude"] for v in vs)
+        bad = []
+        for i, a in enumerate(vs):
+            for j, b in enumerate(vs):
+                if j <= i:
+                    continue
+                perp = abs(abs(((a["angle"] - b["angle"] + 180) % 360) - 180) - 90) < 1e-6
+                if not perp:
+                    continue
+                ax_, ay_ = comp(a)
+                bx_, by_ = comp(b)
+                for c in vs:
+                    if c is a or c is b:
+                        continue
+                    cx_, cy_ = comp(c)
+                    if abs(ax_ + bx_ - cx_) < tol and abs(ay_ + by_ - cy_) < tol:
+                        bad.append(f"{a['label']} + {b['label']} is {c['label']}")
+        ck(sid, "whole forces only: no force is drawn beside its own components",
+           not bad, "; ".join(sorted(set(bad))[:3]))
+        ck(sid, "every arrow starts at the dot", bool(g["dot"]))
+
+    # Same-direction forces must not be drawn on top of each other: that is the
+    # entry's labelled part, and it is the one thing an offset of zero breaks.
+    groups = {}
+    for v in vs:
+        groups.setdefault(round(v["angle"], 6), []).append(v)
+    for ang, grp in groups.items():
+        if len(grp) > 1:
+            offs = sorted(v["offset"] for v in grp)
+            ck(sid, f"forces at {ang:g} deg are drawn side by side, not overlapping",
+               all(offs[i + 1] - offs[i] > 0.5 for i in range(len(offs) - 1)),
+               f"offsets={offs}")
+    # A reader at gate 4c caught the tension the ENTRY itself authors: "all
+    # force arrows originate at the dot" and "same-direction forces are drawn
+    # side by side, not overlapping" cannot both hold exactly. The sideways
+    # shift is a drafting device, so it is bounded -- an arrow stays visibly
+    # anchored to the dot -- and any figure using it must say so in its text
+    # rather than claim every arrow starts precisely there.
+    if any(v["offset"] for v in vs):
+        ck(sid, "a side-by-side shift stays small enough to read as one origin",
+           all(abs(v["offset"]) <= 1.0 for v in vs),
+           f"offsets={[v['offset'] for v in vs]}")
+        ck(sid, "the text explains the sideways shift rather than denying it",
+           ("either side" in s["alt"] or "side by side" in s["alt"])
+           and "starts at that dot" not in s["alt"],
+           "alt must not claim every arrow starts precisely at the dot")
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
+    "arrow_diagram": p_arrow_diagram,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,

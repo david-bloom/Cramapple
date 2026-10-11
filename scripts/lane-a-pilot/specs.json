@@ -4476,5 +4476,148 @@
         "contract_note": "AP Physics 2 11.3 is a convention with no authored items[]; the straight ohmic line, the bending non-ohmic one and the slope-to-resistance relation are the contract (DECISION-0116, route b). The entry's body says the resistance is found from the slope, so the figure states R = 1/slope rather than leaving the student to assume the slope IS the resistance."
       }
     ]
+  },
+  "phys-vector-arrows": {
+    "entry_title": "Vector arrow representation",
+    "subject_key": "ap_physics_1",
+    "family": "arrow_diagram",
+    "figure_id": "phys-vector-arrows",
+    "title": "Drawing a vector as an arrow",
+    "short_title": "Arrow = direction + length",
+    "subtitle": "Direction is where it points; length is proportional to magnitude",
+    "caption": "Three velocities drawn from one point on a single scale: 6.0 m/s east, 3.0 m/s north and 4.5 m/s south-west. The 3.0 arrow is exactly half the length of the 6.0 arrow because the scale is the same for all three.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "Three velocity vectors drawn as arrows from a single common point. One points right, labelled 6.0 metres per second; one points straight up, labelled 3.0 metres per second; one points down and to the left, labelled 4.5 metres per second. Each arrow points in the direction of its velocity, and the arrows are drawn to one scale, so the 3.0 arrow is exactly half the length of the 6.0 arrow and the 4.5 arrow is three quarters of it. Length carries the magnitude and nothing else: a longer arrow is a larger velocity, not a different kind of quantity. Illustrative data.",
+    "note": "One scale for all three: half the magnitude is half the length.",
+    "synthetic": true,
+    "labels": [
+      "Arrow direction",
+      "Arrow length"
+    ],
+    "covers": [
+      "Arrow direction",
+      "Arrow length"
+    ],
+    "params": {
+      "dot": true,
+      "unit_note": "drawn to one scale: 6.0 m/s is the longest arrow",
+      "arrows": [
+        {
+          "label": "6.0 m/s",
+          "magnitude": 6.0,
+          "angle_deg": 0
+        },
+        {
+          "label": "3.0 m/s",
+          "magnitude": 3.0,
+          "angle_deg": 90
+        },
+        {
+          "label": "4.5 m/s",
+          "magnitude": 4.5,
+          "angle_deg": 215
+        }
+      ],
+      "proportionality_check": true
+    },
+    "reference_entry_id": "2af9af8c-9948-4b5d-9e53-92b7a50219c0",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "2af9af8c-9948-4b5d-9e53-92b7a50219c0",
+        "title": "Vector arrow representation",
+        "role": "primary",
+        "subject_key": "ap_physics_1"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "7259c96e-bbab-4e49-a1d0-b1be3c075686",
+        "title": "Vector arrow representation",
+        "role": "secondary",
+        "subject_key": "ap_physics_c_mechanics"
+      }
+    ]
+  },
+  "phys-free-body-diagram": {
+    "entry_title": "Free-body diagram (FBD)",
+    "subject_key": "ap_physics_1",
+    "family": "arrow_diagram",
+    "figure_id": "phys-free-body-diagram",
+    "title": "Free-body diagram of a block on an incline",
+    "short_title": "Free-body diagram",
+    "subtitle": "Every force on the block, drawn whole, acting at one dot",
+    "caption": "A block held at rest on a 30 degree incline by a rope. Four forces act on it: its weight, the normal force from the surface, the rope's 2.0 N pull up the slope and 3.0 N of friction up the slope. The dashed line is the chosen axis, parallel to the incline.",
+    "x_label": "",
+    "y_label": "",
+    "alt": "A free-body diagram for a block at rest on a thirty-degree incline. A single dot stands for the block, and every force the environment exerts on it acts at that dot. The weight, 10.0 newtons, points straight down and is the longest arrow. The normal force, 8.7 newtons, points away from the surface at right angles to it. The rope's pull, 2.0 newtons, and friction, 3.0 newtons, both point up the slope, so they are drawn just to either side of the dot rather than one on top of the other; that sideways shift is a drawing convention to keep both readable and does not mean they act anywhere else. A dashed line through the dot marks the chosen axis, parallel to the incline. Only whole forces are drawn: the weight appears once, and its components along and across the slope are not drawn beside it. The four forces add to zero, which is why the block stays at rest. Illustrative data.",
+    "note": "The four add to zero, which is what holding the block at rest means.",
+    "synthetic": true,
+    "labels": [
+      "Dot",
+      "Force arrows",
+      "Same-direction forces",
+      "Whole forces only",
+      "Coordinate axis"
+    ],
+    "covers": [
+      "Dot",
+      "Force arrows",
+      "Same-direction forces",
+      "Whole forces only",
+      "Coordinate axis"
+    ],
+    "params": {
+      "dot": true,
+      "axis": {
+        "angle_deg": 30.0,
+        "label": "incline axis"
+      },
+      "unit_note": "forces in newtons; same-direction forces are drawn side by side",
+      "arrows": [
+        {
+          "label": "weight 10.0 N",
+          "magnitude": 10.0,
+          "angle_deg": 270
+        },
+        {
+          "label": "normal 8.7 N",
+          "magnitude": 8.660254,
+          "angle_deg": 120.0
+        },
+        {
+          "label": "rope 2.0 N",
+          "magnitude": 2.0,
+          "angle_deg": 30.0,
+          "offset": 0.85
+        },
+        {
+          "label": "friction 3.0 N",
+          "magnitude": 3.0,
+          "angle_deg": 30.0,
+          "offset": -0.85
+        }
+      ],
+      "proportionality_check": true,
+      "equilibrium_check": true,
+      "whole_forces_check": true
+    },
+    "reference_entry_id": "c40f4d68-9bdc-4b11-b7ac-8f361f8b42c1",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "c40f4d68-9bdc-4b11-b7ac-8f361f8b42c1",
+        "title": "Free-body diagram (FBD)",
+        "role": "primary",
+        "subject_key": "ap_physics_1"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "b92edff8-33f6-43eb-be38-70ca5c05622e",
+        "title": "Free-body diagram",
+        "role": "secondary",
+        "subject_key": "ap_physics_c_mechanics"
+      }
+    ]
   }
 }

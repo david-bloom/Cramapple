@@ -3,29 +3,29 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 4,
+  "figures": 2,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [
-    "phys2-ohmic-iv"
+    "phys-free-body-diagram"
   ],
-  "wall_seconds": 100.1,
+  "wall_seconds": 91.1,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 62,
-      "prompt": 111696,
-      "completion": 56670,
-      "seconds": 359.1000000000001
+      "calls": 69,
+      "prompt": 118610,
+      "completion": 64733,
+      "seconds": 412.7000000000001
     },
     "openai/gpt-6.1-sol": {
-      "calls": 62,
-      "prompt": 83021,
-      "completion": 7165,
-      "seconds": 267.09999999999997
+      "calls": 69,
+      "prompt": 89569,
+      "completion": 8280,
+      "seconds": 304.49999999999994
     }
   },
   "detail": {
-    "chem-mb-catalysis": {
+    "phys-vector-arrows": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,45 +40,15 @@
         }
       }
     },
-    "phys-work-force-displacement": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "phys2-zero-pressure-temperature": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "phys2-ohmic-iv": {
+    "phys-free-body-diagram": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text says the non-ohmic curve climbs away from the straight line as potential difference rises, but the separation eventually decreases.",
-              "why": "At 2.5 V, the non-ohmic current exceeds the ohmic current by 0.071536 A; at 5.0 V, the difference is only 0.060 A. The curve remains above the straight line but moves closer to it over the higher-voltage portion."
+              "what": "The rope and friction arrows are offset from the center-of-mass dot by +1.15 and \u22121.15, despite the subtitle and alt text saying every force starts at that dot.",
+              "why": "These offsets place the arrows side by side but move their origins off the dot, contradicting the entry\u2019s explicit requirement and caution that every force arrow originate on the center-of-mass dot."
             }
           ],
           "confidence": "high"
@@ -90,19 +60,19 @@
         }
       }
     },
-    "CONTROL-G1-work-area-contradicts-note": {
+    "CONTROL-B1-free-body-does-not-balance": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text states a total work of 24 J, although its stated contributions are 16 J + 16 J.",
-              "why": "The rectangle contributes (2 m)(8 N) = 16 J, and the triangle contributes \u00bd(4 m)(8 N) = 16 J, so the total work is 32 J."
+              "what": "The alt text labels the rope's pull as 2.0 N, but the drawn arrow is 3.5 N.",
+              "why": "Both the arrow's magnitude and its label specify 3.5 N, contradicting the alt text."
             },
             {
-              "what": "The note labels the triangle as 8 J and the total area as 24 J.",
-              "why": "The plotted triangle has a base of 4 m and a height of 8 N, giving 16 J, not 8 J. Including the 16 J rectangle gives 32 J total."
+              "what": "The figure claims the four forces sum to zero and the block is in equilibrium, but the parameters produce a net force of 1.5 N up the incline.",
+              "why": "The downhill component of the 10.0 N weight is 10.0 sin(30\u00b0) = 5.0 N. The rope and friction provide 3.5 + 3.0 = 6.5 N uphill. The normal balances the perpendicular weight component, leaving 1.5 N uphill, so these forces do not maintain rest."
             }
           ],
           "confidence": "high"
@@ -111,27 +81,77 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The calculated work (area under the curve) in the note and alt text is mathematically incorrect and contradicts the graph's data points.",
-              "why": "The graph has a rectangle from x = 0 to 2 with height 8 (area = 16) and a triangle from x = 2 to 6 with height 8 (area = 0.5 * 4 * 8 = 16), giving a total area of 32. However, the note states the total area is 24 J (with the triangle being 8 J), and the alt text states '16 joules from the flat part and 16 more from the triangle, 24 joules in total' which is mathematically inconsistent (16 + 16 = 32, not 24)."
+              "what": "contradiction in rope force magnitude and equilibrium state",
+              "why": "The drawing parameters specify a rope force of 3.5 N, whereas the alt text states it is 2.0 N. Furthermore, with a 10.0 N weight on a 30-degree incline, the component of weight pulling down the slope is 5.0 N. To be in equilibrium, the upward forces (rope + friction) must sum to 5.0 N. The alt text's values (2.0 N + 3.0 N = 5.0 N) achieve this, but the drawing parameters (3.5 N + 3.0 N = 6.5 N) do not, violating the equilibrium claim."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-G2-zero-pressure-mislabelled": {
+    "CONTROL-B2-normal-force-mislabelled": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The x-axis tick, intercept annotation, and alt text report \u2212173 \u00b0C, but the plotted zero-pressure intercept is \u2212273.15 \u00b0C.",
-              "why": "The measured points and dashed extension follow P = 100(T + 273.15)/273.15, which reaches zero at \u2212273.15 \u00b0C, not \u2212173 \u00b0C. The labels misidentify the absolute-zero temperature by about 100 \u00b0C."
+              "what": "The normal-force label and alt text say 10.0 N, but its drawn magnitude is 8.660254 N.",
+              "why": "For equilibrium on this 30-degree incline, the normal force must be 10.0 cos(30\u00b0) \u2248 8.66 N, since the rope and friction act parallel to the incline. The drawn magnitude is correct, but the stated 10.0 N contradicts it and would not produce equilibrium."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The normal force label and alt text state the force is '10.0 N', while the actual magnitude parameter is '8.660254'.",
+              "why": "For a block of weight 10.0 N in equilibrium on a 30-degree incline, the normal force must be 10.0 * cos(30\u00b0) \u2248 8.66 N. Labeling it as 10.0 N is physically incorrect and contradicts the equilibrium state of the system."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-B3-shortest-arrow-largest-label": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The upward arrow is labelled 9.0 m/s but has a drawing magnitude of 3.0.",
+              "why": "On the shared scale, its length is half that of the 6.0 m/s arrow, so it represents 3.0 m/s, not 9.0 m/s. The label and alt text contradict the drawn magnitude and teach an incorrect relationship between arrow length and vector magnitude."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The arrow labeled '9.0 m/s' is drawn with a magnitude of 3.0, making it shorter than the arrow labeled '6.0 m/s' (which has a magnitude of 6.0).",
+              "why": "This directly contradicts the core claim of the figure that the length of a vector arrow is proportional to its magnitude. On a single scale, a 9.0 m/s vector must be longer than a 6.0 m/s vector, not half its length."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-B4-weight-drawn-with-its-components": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The diagram includes weight-component arrows alongside the full weight arrow.",
+              "why": "The arrows labelled 'weight along slope 5.0 N' and 'weight across slope 8.7 N' contradict the entry's whole-forces-only caution and the alt text's claim that these components are not drawn. They are not additional environmental forces."
             },
             {
-              "what": "The alt text states that no gas stays a gas at about \u2212173 \u00b0C.",
-              "why": "This is false: \u2212173 \u00b0C is about 100 K, and substances such as helium can remain gaseous at that temperature. Whether a substance condenses depends on the substance and pressure."
+              "what": "The figure claims that every displayed arrow is a whole force and that the displayed forces balance, but it draws six arrows rather than the stated four.",
+              "why": "The weight, normal, rope, and friction balance to rounding precision. Adding the two displayed weight components counts gravity twice, giving a net force of approximately 10 N downward rather than zero."
             }
           ],
           "confidence": "high"
@@ -140,23 +160,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The zero-pressure temperature (absolute zero) is incorrectly labeled as \u2212173 \u00b0C instead of \u2212273.15 \u00b0C.",
-              "why": "Absolute zero is approximately \u2212273.15 \u00b0C. Labeling it as \u2212173 \u00b0C in the tick labels, the series mark, and the alt text is scientifically incorrect and would teach students a false value for absolute zero."
+              "what": "The drawing parameters include arrows for 'weight along slope 5.0 N' and 'weight across slope 8.7 N'.",
+              "why": "These are components of the weight force. The authored reference entry's claim, caution, and the figure's alt text explicitly state that only whole forces should be depicted and that force components must not be drawn. Including them contradicts the FBD rules and the alt text."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-G3-work-read-as-height": {
+    "CONTROL-B5-axis-labelled-across-but-drawn-along": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text incorrectly say that the curve's height gives the work done up to that displacement.",
-              "why": "The height gives the force component in newtons. Work done so far is the accumulated area under the force-displacement curve, in joules. At 6 m, the height is zero, but the accumulated work is 32 J."
+              "what": "The coordinate axis is labeled \"y axis, across the incline\" but is drawn at 30\u00b0, parallel to the incline.",
+              "why": "The rope and friction arrows also point at 30\u00b0, along the slope. An axis across the incline would be perpendicular to this direction, at 120\u00b0 (or 300\u00b0). The axis label therefore contradicts the drawing parameters and the alt text."
             }
           ],
           "confidence": "high"
@@ -165,62 +185,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text state that reading the height of the curve gives the work done so far.",
-              "why": "The height of the curve represents the force (in Newtons) at that displacement, not the work done (in Joules). The work done is represented by the area under the curve up to that point. For example, at a displacement of 6 meters, the height of the curve is 0 N, but the work done is 32 J."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G4-ohmic-element-is-bent": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The series labelled \u201cohmic element\u201d is not a straight line and does not have constant resistance of 25 \u03a9.",
-              "why": "For R = 25 \u03a9, I must equal \u0394V/25, giving currents of 0.050, 0.100, and 0.150 A at 1.25, 2.5, and 3.75 V. The plotted currents are instead 0.075786, 0.123114, and 0.163521 A. Thus \u0394V/I changes across the series, and doubling the voltage does not double the current, contrary to the label and alt text."
-            },
-            {
-              "what": "The note incorrectly describes the plotted ohmic series as having a slope of 0.040 A/V.",
-              "why": "Only the origin-to-endpoint secant has that slope; the plotted series has varying slopes. Although resistance is correctly identified as the reciprocal of slope for an ohmic I\u2013\u0394V line, these points do not form such a line."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The 'ohmic element' series points do not form a straight line.",
-              "why": "For an ohmic element with a resistance of 25 ohms (slope of 0.04 A/V), the current at 1.25 V should be 0.05 A, at 2.5 V should be 0.10 A, and at 3.75 V should be 0.15 A. Instead, the plotted points are [1.25, 0.075786], [2.5, 0.123114], and [3.75, 0.163521], which creates a curved line. This contradicts the definition of an ohmic element, the claim, and the alt text which states that the ohmic element gives a straight line."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G5-catalyst-raises-activation-energy": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The catalysed activation-energy marker is at 3.4, above the uncatalysed marker at 1.9.",
-              "why": "This depicts a higher activation energy and fewer particles above the barrier for the catalysed reaction, contradicting the subtitle, alt text, note, and entry\u2019s lower-activation-energy explanation."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The activation energy markers are reversed.",
-              "why": "The catalysed activation energy (Ea') is set at x = 3.4, which is higher than the uncatalysed activation energy (Ea) at x = 1.9. A catalyst lowers the activation energy, so the catalysed barrier should be to the left (lower value) of the uncatalysed barrier."
+              "what": "The axis label 'y axis, across the incline' contradicts its angle of 30.0 degrees and the alt text description.",
+              "why": "An angle of 30.0 degrees is parallel to (along) the incline, not 'across' (perpendicular to) it. The alt text correctly states that the axis is 'parallel to the incline', making the label 'across the incline' contradictory and physically incorrect."
             }
           ],
           "confidence": "high"
