@@ -91,12 +91,19 @@ def jq(v) -> str:
     return q(json.dumps(v, ensure_ascii=False)) + "::jsonb"
 
 
+def e_subject(entry: dict, spec: dict, args) -> str:
+    """The subject of the ENTRY being linked, which is not always the figure's."""
+    return entry.get("subject_key") or spec.get("subject_key") or args.subject
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--prefix", required=True)
     ap.add_argument("--subject", default=None,
                     help="single subject; omit when the batch spans subjects and each spec carries its own")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--entries", default="prod_entries.json",
+                    help="fixture giving each used entry its subject_key and kind")
     ap.add_argument("--batch", default=None, help="source_note batch tag")
     ap.add_argument("--entry-kind", default="diagram",
                     help="the kind of the reference entries these figures attach to")
@@ -106,6 +113,8 @@ def main() -> int:
     prefixes = tuple(x.strip() for x in args.prefix.split(",") if x.strip())
     specs = {k: v for k, v in json.load(open(HERE / "specs.json")).items()
              if k.startswith(prefixes)}
+    entries = {k: v for k, v in json.load(open(HERE / args.entries)).items()
+               if not k.startswith("_")}
     if not specs:
         raise SystemExit(f"no specs with prefix {args.prefix!r}")
 
@@ -150,18 +159,33 @@ def main() -> int:
     L.append("")
 
     L.append("-- 3. Where each figure is shown, resolved by natural key (protocol §6).")
+    # A figure may serve SEVERAL entries -- the same concept is authored twice in
+    # sibling subjects, and the RPC does not filter a figure by subject_key -- so
+    # every entry in `used_by` gets a row, not just the primary one. Each use
+    # resolves against that entry's OWN subject and kind, read from the fixture,
+    # because the second entry is routinely in a different subject from the
+    # figure's provenance.
+    n_uses = 0
     for sid, s in specs.items():
-        L.append("insert into app.figure_uses (figure_id, reference_entry_id, role)")
-        L.append(f"select {q(sid)}, e.reference_entry_id, 'primary'")
-        L.append("  from app.unit_reference_entries e")
-        L.append(f" where e.subject_key = {q(s.get('subject_key') or args.subject)} "
-                 f"and e.kind = {q(s.get('entry_kind', args.entry_kind))}")
-        L.append(f"   and e.title = {q(s['entry_title'])} and e.status = 'published'")
-        # The unique index is PARTIAL (`where reference_entry_id is not null`,
-        # because the question target is nullable), so the conflict target has
-        # to repeat that predicate or Postgres cannot match the index.
-        L.append("on conflict (figure_id, reference_entry_id) "
-                 "where reference_entry_id is not null do nothing;")
+        uses = s.get("used_by") or [{"title": s["entry_title"], "role": "primary"}]
+        for u in uses:
+            e = entries.get(u["title"])
+            if e is None:
+                raise SystemExit(
+                    f"{sid}: use {u['title']!r} is not in prod_entries.json, so its subject and "
+                    f"kind cannot be resolved. Add the published entry to the fixture first.")
+            L.append("insert into app.figure_uses (figure_id, reference_entry_id, role)")
+            L.append(f"select {q(sid)}, e.reference_entry_id, {q(u.get('role', 'primary'))}")
+            L.append("  from app.unit_reference_entries e")
+            L.append(f" where e.subject_key = {q(e_subject(e, s, args))} "
+                     f"and e.kind = {q(e.get('kind') or s.get('entry_kind', args.entry_kind))}")
+            L.append(f"   and e.title = {q(u['title'])} and e.status = 'published'")
+            # The unique index is PARTIAL (`where reference_entry_id is not null`,
+            # because the question target is nullable), so the conflict target has
+            # to repeat that predicate or Postgres cannot match the index.
+            L.append("on conflict (figure_id, reference_entry_id) "
+                     "where reference_entry_id is not null do nothing;")
+            n_uses += 1
     L.append("")
 
     ids = ", ".join(q(k) for k in specs)
