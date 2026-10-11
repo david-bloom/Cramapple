@@ -6,8 +6,11 @@
 
 **Nothing in this session reached Production.** Everything is in Development and on the branch.
 
-**UPDATE:** the TypeScript port is done and proved (`ap-prep-blueprint#11`). The one step left
-before a student can see any of this is the **Lovable publish**.
+**UPDATE:** the TypeScript port is done and proved (`ap-prep-blueprint#11`, merged), and the app is
+**PUBLISHED** — verified live at `app.cramapple.com`, where the shipped `Figure-*.js` bundle carries
+all four new families and the per-figure `aria-labelledby` ids. The renderer can now draw them.
+**Production's database still holds only the 25 original figures**, so nothing a student sees has
+changed yet; the Production load is the remaining gate.
 
 ## 1. What is done
 
@@ -74,9 +77,13 @@ Each left a test behind. `build_eye_sheet.py` makes the pass a command.
    **117 of 117 figure/layout pairs byte-identical across all 17 families**, 985 app tests passing,
    `tsc` clean. The check is now a command (`export_for_parity.py` here,
    `tests/figure-parity.ts` there) and its first run found four drifts in figures already live in
-   Production — two in each renderer, all fixed. **What remains is the LOVABLE PUBLISH, which is a
-   separate step from merging, and until it happens none of this reaches a student.**
-2. **Production load** — a Hard Gate needing an approval naming each batch. Four loaders are
+   Production — two in each renderer, all fixed. **Merged and PUBLISHED** (2026-10-11): the live
+   bundle at `app.cramapple.com` carries all four families. The 25 published figures are visually
+   unchanged by it — no live figure has more than one captioned marker, which was the only rule that
+   moved — and every one of them gains correct per-figure accessible ids.
+2. **Production load** — a Hard Gate needing an approval naming each batch. **This is now the only
+   thing standing between the work and a student:** the app can draw the four new families, and
+   Production's `app.figures` has none of them (25 figures, 13 families, read 2026-10-11). Four loaders are
    generated and applied to Development:
    `out/load_lane_a_gaps.sql`, `out/load_lane_b_arrows.sql`, `out/load_lane_b_particulate.sql`,
    `out/load_lane_b_fields.sql`. `--workdir /Users/davidbloom` is PRODUCTION; confirm the ref in the
