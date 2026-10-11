@@ -15,7 +15,7 @@ batches are **loaded to Production** (`APPROVAL-0159`).
 
 ## 1. What is done
 
-**Ten new figures, five new families, thirteen further published entries covered.** The suite went
+**Fourteen new figures and four new families, over thirteen further published entries.** (Ten of the fourteen use the four new families; the other four — three `xy_series` and `chem-mb-catalysis` — use families that already existed.) The suite went
 from 26 figures / 21 entries / 1 241 checks to **39 figures / 43 entries / 17 families / 2 091
 checks, 0 failed**.
 

@@ -7,7 +7,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 Most recent entries (full chronological list follows below):
 
 - APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch: 10 Figures, 1 New Renderer Family, 8 Published Entries
-- APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches: 10 Figures, 4 New Renderer Families, 24 Uses Across 7 Subjects
+- APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches: 14 Figures, 4 New Renderer Families, 24 Uses Across 7 Subjects
 - APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus (2026-10-11)
 - APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production (2026-10-11)
 - APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK — DECISION-0115 (2026-10-11)
@@ -2144,8 +2144,11 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
      `particulate_box`.
   4. `lane-b-fields-2026-10-11` — `out/load_lane_b_fields.sql`. 3 figures, 4 uses, families
      `field_map` and `circuit_symbols`.
-- **Totals:** 10 new figures, 4 new renderer families, 24 `figure_uses` rows over 13 published
-  entries in 7 subjects. Four of the uses are cross-subject, which the RPC permits because the
+- **Totals:** **14** new figures, 4 new renderer families, 24 `figure_uses` rows over 13 published
+  entries in 7 subjects. (Corrected from "10" after review: ten is the count of figures using the
+  four NEW families; the Lane A gap batch adds four more on existing families — three `xy_series`
+  plus `chem-mb-catalysis`. The batch breakdown above reconciles to 14, and Production went from
+  25 published figures to 39.) Four of the uses are cross-subject, which the RPC permits because the
   `figures` key does not filter on `f.subject_key`.
 - **Gates passed before this approval was sought:**
   - §4a: 2 091 property and layout checks, 0 failed, over 39 figures and 17 families.

@@ -321,8 +321,9 @@ warning every student about a problem they will not hit is noise.
 >
 > **UPDATE (2026-10-11, later the same day).** That handoff's §2a and §2e are closed and **all of
 > Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
-> Ten new figures across five new families (`arrow_diagram`, `particulate_box`, `field_map`,
-> `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
+> Fourteen new figures cover **thirteen further published entries**: ten on four new families
+> (`arrow_diagram`, `particulate_box`, `field_map`, `circuit_symbols`) and four on families that
+> already existed (three `xy_series`, plus `chem-mb-catalysis` becoming eligible at last), and
 > are **in Development only — Production is still a Hard Gate.** The app HAS now been taught the four
 > new families (`ap-prep-blueprint#11`), at **117 of 117 figure/layout pairs byte-identical across
 > all 17 families**, the app is **published**, and all four batches are **LIVE IN PRODUCTION**
