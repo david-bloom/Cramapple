@@ -123,8 +123,9 @@ this batch a Hard Gate schema deploy rather than a content load. That CHECK is n
 the same load as its figures.** The guarantee that mattered is kept — an unseeded family fails at
 insert, in the loader, rather than rendering nothing in a student's pane — and what no constraint can
 check is whether the renderer exists, so `renderer_note` records where each family is implemented and
-the mandatory `alt` stays the fallback. Applied to Development and verified; Production is an open
-Hard Gate but is not needed there until a new-family figure is promoted.
+the mandatory `alt` stays the fallback. Applied to Development and **to Production the same day
+(`APPROVAL-0155`)**, verified in both, with the two environments' column, constraint and seed
+signatures hashing identically.
 
 So this batch is **seven family rows plus fifteen figure rows plus their uses** — data, in one load,
 per the protocol's §6 route.
