@@ -1,7 +1,7 @@
 # Lane A: the AP Statistics figures (2026-10-11)
 
-**STATUS:** CURRENT. **Loaded to Development and verified. Production is an open Hard Gate** — it has
-not been applied there and needs the Product Owner's approval.
+**STATUS:** CURRENT. **LIVE IN PRODUCTION 2026-10-11 (`APPROVAL-0157`)** — nine figures, five family
+rows and nine uses, verified in both environments, which now hold identical figure content.
 
 **Scope:** all seven AP Statistics Lane A reference entries, as **nine figures** across **five new
 renderer families**. Built to `FIGURE_PRODUCTION_PROTOCOL.md` (v1.3); classification in
@@ -99,7 +99,8 @@ null`), so `on conflict` has to repeat that predicate or Postgres cannot match t
 
 ## 4. What is still open
 
-- **Production is a Hard Gate** and this batch has not crossed it.
+- ~~Production is a Hard Gate~~ — **done** (`APPROVAL-0157`). The figures render for students through
+  the **unfixed** frontend renderer until `ap-prep-blueprint` PR #6 is merged and published.
 - **The app's TypeScript renderer — now fixed, in `ap-prep-blueprint` PR #6, not yet published.**
 
   **A correction to what this document first said.** It claimed the frontend had all seven defects.
