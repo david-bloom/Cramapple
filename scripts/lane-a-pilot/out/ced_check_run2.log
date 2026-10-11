@@ -1,0 +1,40 @@
+  chem-mb-energy                                       gpt-6.1-sol        accept
+  chem-mb-energy                                       gemini-3.5-flash   accept
+  chem-mb-catalysis                                    gpt-6.1-sol        accept
+  chem-mb-catalysis                                    gemini-3.5-flash   accept
+  chem-energy-profile-single                           gpt-6.1-sol        accept
+  chem-energy-profile-single                           gemini-3.5-flash   accept
+  chem-energy-profile-multistep                        gpt-6.1-sol        accept
+  chem-energy-profile-multistep                        gemini-3.5-flash   accept
+  chem-energy-diagram-process                          gpt-6.1-sol        accept
+  chem-energy-diagram-process                          gemini-3.5-flash   accept
+  chem-mass-spectrum                                   gpt-6.1-sol        accept
+  chem-mass-spectrum                                   gemini-3.5-flash   accept
+  chem-pes                                             gpt-6.1-sol        reject
+  chem-pes                                             gemini-3.5-flash   accept
+  chem-pe-internuclear                                 gpt-6.1-sol        accept
+  chem-pe-internuclear                                 gemini-3.5-flash   accept
+  chem-approach-equilibrium                            gpt-6.1-sol        accept
+  chem-approach-equilibrium                            gemini-3.5-flash   accept
+  chem-titration                                       gpt-6.1-sol        accept
+  chem-titration                                       gemini-3.5-flash   accept
+  chem-approach-equilibrium-rate                       gpt-6.1-sol        accept
+  chem-approach-equilibrium-rate                       gemini-3.5-flash   accept
+  CONTROL-1-titration-pka-at-equivalence               gpt-6.1-sol        reject
+  CONTROL-1-titration-pka-at-equivalence               gemini-3.5-flash   reject
+  CONTROL-2-mb-temperature-labels-swapped              gpt-6.1-sol        reject
+  CONTROL-2-mb-temperature-labels-swapped              gemini-3.5-flash   reject
+  CONTROL-3-mass-spectrum-abundances-swapped           gpt-6.1-sol        reject
+  CONTROL-3-mass-spectrum-abundances-swapped           gemini-3.5-flash   reject
+  CONTROL-4-multistep-rate-determining-contradiction   gpt-6.1-sol        reject
+  CONTROL-4-multistep-rate-determining-contradiction   gemini-3.5-flash   reject
+  CONTROL-5-pes-wrong-subshell-electron-counts         gpt-6.1-sol        reject
+  CONTROL-5-pes-wrong-subshell-electron-counts         gemini-3.5-flash   reject
+
+controls: 5/5 correctly rejected
+figures: 10/11 accepted by both readers
+  FLAGGED chem-pes
+    [gpt-6.1-sol] The nitrogen 2p binding energy is given as 1.45 MJ/mol despite the values being marked non-illustrative.
+wall: 159.8s
+  google/gemini-3.5-flash: 16 calls, 11507 in / 12040 out
+  openai/gpt-6.1-sol: 16 calls, 11050 in / 2234 out
