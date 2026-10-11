@@ -2142,7 +2142,10 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
     topic with no figure returns `[]` (AP Biology 1.1).
   - **A planted draft figure was NOT visible to the student.** The probe ran inside a transaction
     that was rolled back, and left nothing behind.
-- **Still to be seen by a human:** a signed-in look at one of these topics in the live app.
+- **SEEN DRAWN, BY A HUMAN, 2026-10-11.** The Product Owner confirmed against the live signed-in
+  app: **AP Statistics 2.11 renders five figures** and **3.6 renders the three p-value tails**.
+  The 3.6 case is the one worth noting — three figures serving ONE entry, one per authored item —
+  which is coverage asserted per entry rather than per figure, working end to end in a browser.
 
 ## APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches
 
@@ -2198,9 +2201,15 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
   - **A planted draft figure was NOT visible to the student** while the real figure still was. The
     probe ran inside a transaction that was rolled back; confirmed afterwards that it left nothing
     behind.
-- **Still to be seen by a human:** a signed-in look at one of these topics in the live app. The
-  renderer is published and the RPC serves the rows, but the two halves have not been watched
-  working together in a browser by a person.
+- **SEEN DRAWN, BY A HUMAN, 2026-10-11.** The Product Owner confirmed against the live signed-in
+  app that the figures render: **AP Chemistry 4.3** (`particulate_box`, the balanced-equation
+  panels and the arrow between them) and **AP Physics 1 2.2** (`arrow_diagram`, the free-body
+  diagram). The Physics 1 2.2 case also confirms a **cross-subject shared figure** drawing for the
+  subject it was not authored under. The renderer and the served rows are no longer verified only
+  separately; they have been watched working together.
+- **Not yet seen drawn:** `field_map` and `circuit_symbols` (AP Physics 2 10.3, 10.5, 11.2 and
+  AP Physics C: E&M 8.3), and the three `xy_series` Lane A gap figures (AP Physics 1 3.2,
+  AP Physics 2 9.2 and 11.3). Everything about them is verified except a person looking.
 
 ## APPROVAL-0158 — Deploy the Last Six Lane A Figures to Production: AP Physics 2, Physics C Mechanics, Precalculus
 
