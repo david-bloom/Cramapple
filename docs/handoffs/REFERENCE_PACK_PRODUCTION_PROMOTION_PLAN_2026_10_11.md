@@ -1,7 +1,10 @@
 # Reference Packs: Production Promotion Plan (8 Batches, 776 Entries, 7 Hooks)
 
-**STATUS:** Awaiting Product Owner approval. **Nothing has been written to Production.** Every number
-below was read from the live databases on 2026-10-11, not from a prior document.
+**STATUS:** **APPROVED AND APPLIED, 2026-10-11 (`APPROVAL-0154`).** David approved all eight batches and
+chose to promote the duplicate AP Physics 1 hooks as-is, fixing the repetition in serving. Production went
+**307 → 1,083 published entries and 6 → 13 published hooks**, equal to Development. §8 below records the
+verification run. Everything above §8 is the pre-approval plan, kept as written so the evidence that
+justified the apply can be read separately from the result.
 
 **DATE:** 2026-10-11 (America/New_York)
 
@@ -12,7 +15,7 @@ below was read from the live databases on 2026-10-11, not from a prior document.
 **GOVERNING PROTOCOL:** `docs/product/MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md`.
 Precedent: `APPROVAL-0140` (the system), `APPROVAL-0147`/`0148`/`0149` (AP Chemistry).
 
-**REQUESTED APPROVAL ID:** `APPROVAL-0154` (next free; no open PR claims it).
+**APPROVAL ID:** `APPROVAL-0154` (recorded in `docs/activity_log/APPROVALS_LOG.md`).
 
 ---
 
@@ -117,12 +120,21 @@ Per `FIGURE_PRODUCTION_PROTOCOL.md` §7 and the reference protocol:
 9. **Hook duplication, Physics 1 topic 1.5** — see §6.
 10. **Checksum Production against Development** per subject, with the same expression used in §3.
 
-**Rollback:** `update app.unit_reference_entries set status = 'retired' where source_note like
-'%batch=<name>%';` per batch, plus the same for the 7 hooks. The RPC's `reference[]`/`memoryHooks[]`
-go empty for those subjects and no function or schema change is reverted.
+**Rollback:** per batch, **retire the hooks first and then the entries** — protocol §5 step 5 notes a guard
+that requires that order:
 
-**Ledger:** `apply_migration` stamps its own version rather than the committed filename; correct the
-`schema_migrations` row to the filename afterwards.
+```sql
+update app.topic_memory_hooks set status = 'retired'
+where reference_entry_id in (select reference_entry_id from app.unit_reference_entries
+                             where source_note like '%batch=<name>%');
+update app.unit_reference_entries set status = 'retired' where source_note like '%batch=<name>%';
+```
+
+The RPC's `reference[]`/`memoryHooks[]` go empty for those subjects and no function or schema change is
+reverted.
+
+**Ledger:** not applicable in the end — the loaders are plain `db query` data files, not migrations, so no
+`schema_migrations` row was written and there was no `apply_migration` version stamp to correct.
 
 ## 6. One thing to decide before approving
 
@@ -155,3 +167,42 @@ this closes for these eight subjects.
 **Not in scope:** follow-up **F1** — the anonymous BYOQ path reads the `public.unit_reference_entries`
 and `public.topic_memory_hooks` views rather than this RPC, so a signed-out visitor will still see
 nothing for aliased Calculus BC. Promotion does not change that either way.
+
+---
+
+## 8. What actually happened (2026-10-11)
+
+**Applied:** 23 loader files, from the eight batches, via
+`supabase db query --linked --workdir /Users/davidbloom -f <absolute path>` against Production
+(`pcntajvbdfqhbeewmdry`). The home-directory CLI link is the one that points at Production, so the
+repository's own link stayed on Development throughout and never had to be repointed.
+
+One thing worth recording for the next person: `-f` resolves **relative to `--workdir`**, not to the shell's
+current directory. The first attempt therefore failed 23 times with `failed to read SQL file` and wrote
+nothing at all — a harmless failure, but only because it failed before connecting. Pass absolute paths.
+
+**Results:**
+
+| Check | Result |
+|---|---|
+| Per-batch counts and checksums in Production | equal to Development, batch for batch (95/51/99/102/69/113/145/102) |
+| Production totals | 307 → **1,083** published entries; 6 → **13** published hooks |
+| 38 authenticated-student probes, before vs after | 29 changed, 9 byte-identical |
+| Controls (4 × AP Chemistry, 3 × AP Statistics Unit 1) | identical payload md5, all 7 |
+| A topic with no entries (`ap_biology` 1.99) | still an empty `reference[]`, identical md5 |
+| AP Calculus BC inheritance | Unit 1 roll-up 0 → 24, topic 1.2 → 3, topic 2.2 → 5, equal to AB; **0 BC rows exist** |
+| AP Calculus BC Unit 6 | still 0, correct — AB has nothing there |
+| Planted `draft` row | invisible to the student RPC (`draft_leaked = 0`), transaction rolled back, 0 probe rows left |
+| Idempotency | two loaders re-applied; 1,083 / 13 unchanged |
+| QA script checks 1-8 | all `ok = true` |
+
+Probes ran as an authenticated student via `request.jwt.claims`, never `service_role`. The RPC needs only a
+non-null `auth.uid()`, so a synthetic uuid was used and no real account was touched.
+
+**Two pre-existing rows seen in passing:** Production holds 1,085 rows against 1,083 published — two
+`retired` AP Chemistry rows (`pKa` 8.3 and `pKw, pH and pOH at 25°C` 8.1) created 2026-10-10, the duplicates
+`APPROVAL-0148`'s amendment 2 retired. Not from this work.
+
+**Accepted and open:** AP Physics 1 topic 1.5 returns `memoryHooks` of length 3, all three `hookText` equal
+to `SOH-CAH-TOA`. Measured in the live payload, not inferred. De-duplication by `hookText` is a front-end
+follow-up by the Product Owner's decision.
