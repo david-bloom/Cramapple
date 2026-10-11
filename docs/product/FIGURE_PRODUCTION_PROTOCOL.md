@@ -113,6 +113,13 @@ The tests cannot see. Every defect below passed a green suite and was found by e
 Check at the **real widths**, not in isolation: 272–460px (reference pane), ~680px (question
 centre), ~980px (expanded). The `/dev-figures` and `/dev-qx-harness` local routes exist for this.
 
+> **ADDITION (2026-10-11).** Two of this table's defects — the overprinting pair — were still in the
+> renderer months after being recorded here as found. Describing a defect is not fixing it, and an eye
+> pass does not repeat itself. Both classes are now **checks**: every label's estimated box must lie
+> inside the canvas at all three layouts, and no two labels may overlap. On their first run they found
+> six further overflows, several in published figures. The eye is still required — it found all seven
+> defects in the AP Statistics batch first — but what it finds should leave a test behind.
+
 ### 4c. Model review — the illustrative values
 
 One step, **two readers of different non-Anthropic families**, one round, no veto, no patch loop.
@@ -239,6 +246,13 @@ warning every student about a problem they will not hit is noise.
   > exist (Statistics' Boxplot 1.8 is attributed and already among the seven), Precalculus' "Residual
   > plot" is published as `kind='vocabulary'` with no labelled parts, and three entries need more than
   > one figure each. See `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md`.
+  >
+  > **UPDATE (2026-10-11).** AP Statistics is built: nine figures, five families, all three gates
+  > passed, loaded to Development, Production still a Hard Gate
+  > (`LANE_A_STATISTICS_BATCH_2026_10_11.md`). **Five entries and six figures remain** — AP Physics 2
+  > ×3, AP Physics C: Mechanics ×1, AP Precalculus ×1 — needing two further families. That batch also
+  > found seven layout defects **in the already-published figures**, and the app's TypeScript renderer
+  > still has all seven.
 - **One figure has no home.** `chem-mb-catalysis` draws a real teaching point but no published
   entry matches it; the nearest are a Unit 5 convention and a Unit 3 vocabulary entry. It is not
   production-eligible until an entry exists.
@@ -250,6 +264,10 @@ v1 (2026-10-11): written from the AP Chemistry pilot and its Production deploy
 `../architecture/VISUAL_STIMULUS_AND_RENDERING_SYSTEM.md` still governs, and TASK-0006's five owner
 decisions remain formally open — this protocol records what was approved and built for Lane A
 reference diagrams specifically.
+
+v1.4 (2026-10-11): §9 records the AP Statistics batch, and §4b gains two checks that now enforce
+what the eye used to have to catch — nothing drawn outside the canvas, and no two labels overprinting.
+Both found defects in published figures on their first run.
 
 v1.3 (2026-10-11): §6 and the §9 correction record `DECISION-0115` — a renderer family is a row in
 `app.figure_families`, not a CHECK, so adding one is an insert rather than a migration.

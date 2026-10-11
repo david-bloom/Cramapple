@@ -3,27 +3,27 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 1,
-  "controls": 0,
+  "figures": 9,
+  "controls": 5,
   "controls_leaked": [],
   "flagged": [],
-  "wall_seconds": 8.3,
+  "wall_seconds": 126.9,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 17,
-      "prompt": 12300,
-      "completion": 12747,
-      "seconds": 89.2
+      "calls": 31,
+      "prompt": 21793,
+      "completion": 25100,
+      "seconds": 165.8
     },
     "openai/gpt-6.1-sol": {
-      "calls": 17,
-      "prompt": 11804,
-      "completion": 2309,
-      "seconds": 79.0
+      "calls": 31,
+      "prompt": 20888,
+      "completion": 3496,
+      "seconds": 129.5
     }
   },
   "detail": {
-    "chem-pes": {
+    "stats-bar-chart": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -34,6 +34,259 @@
         "google/gemini-3.5-flash": {
           "verdict": "accept",
           "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-pie-chart": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-dotplot": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-histogram": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-stem-leaf": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-boxplot": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-two-cat-side-by-side": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-two-cat-segmented": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-two-cat-mosaic": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-S1-pie-forty-percent-called-half": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle and alt text claim that 50% of students take the bus and that its slice is half the circle.",
+              "why": "The counts total 60 students, with 24 taking the bus. The bus relative frequency is 24/60 = 40%, not 50%, so its slice occupies 40% of the circle. The percentages listed in the alt text also sum to 110%, contradicting its claim that they total 100%."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "Contradiction between drawing parameters and text descriptions (subtitle and alt text)",
+              "why": "The drawing parameters specify a count of 24 for 'Bus' out of a total of 60, which is 40%. However, the subtitle and alt text claim that 'Bus' is 50% (half the circle). Additionally, the percentages listed in the alt text (50%, 30%, 20%, 10%) sum to 110%, which is mathematically impossible for a pie chart."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-S2-boxplot-whisker-claimed-at-maximum": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text and note incorrectly claim there are no outliers and that the right whisker reaches 62 minutes.",
+              "why": "Q1 = 18 and Q3 = 30, so the IQR is 12 minutes. The upper outlier fence is 30 + 1.5(12) = 48 minutes. Both 58 and 62 minutes are outliers; the right whisker should end at 36 minutes, the largest non-outlier. The claimed whisker endpoint also contradicts the subtitle's statement that whiskers extend to extreme non-outliers."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The figure and its description claim there are no outliers and extend the right whisker to the maximum value of 62.",
+              "why": "For this dataset, Q1 is 18 and Q3 is 30, giving an Interquartile Range (IQR) of 12. The upper outlier boundary is Q3 + 1.5 * IQR = 30 + 1.5 * 12 = 48. The values 58 and 62 are greater than 48, making them outliers. The right whisker should only extend to 36 (the largest non-outlier value), and 58 and 62 should be plotted as individual outlier symbols."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-S3-histogram-unequal-bins-claimed-equal": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text and note claim six 10-minute bins, but the bin widths are 10, 10, 15, 10, 5, and 10 minutes.",
+              "why": "The supplied edges define unequal intervals, not six equal intervals of 10 minutes."
+            },
+            {
+              "what": "The alt text places the peak in the 20\u201330 minute bin.",
+              "why": "The bar with the largest count, 15 adults, spans 20\u201335 minutes; no 20\u201330 minute bin is drawn."
+            },
+            {
+              "what": "The width annotation labels bin 2 as 'bin width = 10 min'.",
+              "why": "Bin 2 spans 20\u201335 minutes and is 15 minutes wide, not 10."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The bin edges in the drawing parameters ([0, 10, 20, 35, 45, 50, 60]) create bins of unequal widths (10, 10, 15, 10, 5, and 10 minutes).",
+              "why": "This contradicts the alt text, which states there are 'six bins of ten minutes', and the note, which states 'Bin width is 10 minutes here'."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-S4-segmented-alt-contradicts-the-table": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text incorrectly states that sophomores are 45% playing a school sport and 55% not playing.",
+              "why": "The sophomore counts are 40 playing and 20 not playing, totaling 60. Their shares are therefore approximately 66.7% and 33.3%, not 45% and 55%."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text contradicts the data in the drawing parameters for the Sophomore category.",
+              "why": "The alt text states the sophomore proportions are 45% and 55%, but the drawing parameters (40 'Plays a school sport' and 20 'Does not' out of 60 total sophomores) result in proportions of 66.7% and 33.3%."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-S5-mosaic-drawn-with-equal-widths": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The figure is labelled a mosaic plot and claims that bar widths represent group sizes, but the parameters specify a segmented chart without group-size-dependent widths.",
+              "why": "The column totals are correctly 40, 60, and 50, but segment heights alone encode within-group proportions. Without widths proportional to those totals, the sophomore bar is not widest and tile areas do not represent joint relative frequencies among all 150 students."
+            }
+          ],
+          "confidence": "medium"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The chart is drawn with \"mode\": \"segmented\"",
+              "why": "This mode produces a standard segmented bar chart where all bars have equal widths. This directly contradicts the title ('Mosaic plot'), subtitle ('A segmented bar chart whose bar widths show how big each category is'), and alt text ('here the bar widths differ'), which describe a mosaic plot with variable bar widths proportional to the group sizes."
+            }
+          ],
           "confidence": "high"
         }
       }

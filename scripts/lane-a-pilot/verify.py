@@ -11,7 +11,7 @@ Exit code 1 if any check fails. Timings are written to out/results.json.
 """
 from __future__ import annotations
 
-import argparse, json, math, os, sys, time
+import argparse, json, math, os, re, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render as R  # noqa: E402
@@ -161,7 +161,170 @@ def p_titration(sid, s, svg):
     ck(sid, "half-equivalence precedes equivalence", half < p["v_eq"])
 
 
-PROPS = {"mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
+def p_categorical_bars(sid, s, svg):
+    """The distinctions between these displays ARE the teaching points.
+
+    A bar chart whose bars touch is a histogram, and a histogram whose bars are
+    separated says the variable is categorical. A segmented bar chart and a
+    mosaic plot differ in exactly one way, the bar widths. So each of those is
+    asserted rather than trusted to the drawing code.
+    """
+    p = s["params"]
+    g = R.FAMILIES["categorical_bars"](p)
+    bars = g["bars"]
+    mode = p["mode"]
+
+    if mode == "bar":
+        ck(sid, "one bar per category", len(bars) == len(p["categories"]))
+        gaps = [bars[i + 1]["x0"] - bars[i]["x1"] for i in range(len(bars) - 1)]
+        ck(sid, "bars are SEPARATED: the variable is categorical",
+           all(gp > 1e-9 for gp in gaps), f"gaps={gaps}")
+        ck(sid, "bar heights are the frequencies",
+           [b["y1"] for b in bars] == list(p["counts"]))
+        ck(sid, "every bar starts at zero", all(b["y0"] == 0 for b in bars))
+
+    elif mode == "histogram":
+        edges, counts = p["bin_edges"], p["counts"]
+        ck(sid, "one bar per bin", len(bars) == len(counts))
+        gaps = [abs(bars[i + 1]["x0"] - bars[i]["x1"]) for i in range(len(bars) - 1)]
+        ck(sid, "bars are CONTIGUOUS: the variable is quantitative",
+           all(gp < 1e-9 for gp in gaps), f"gaps={gaps}")
+        ck(sid, "bins are in increasing order",
+           all(edges[i + 1] > edges[i] for i in range(len(edges) - 1)))
+        ck(sid, "bar heights are the bin frequencies",
+           [b["y1"] for b in bars] == list(counts))
+        widths = [round(edges[i + 1] - edges[i], 9) for i in range(len(counts))]
+        ck(sid, "equal bin widths, so height alone carries frequency",
+           len(set(widths)) == 1, f"widths={widths}")
+        if "measure" in p:
+            m, w = g["xmeasure"], widths[0]
+            ck(sid, "the bin-width annotation spans exactly one bin",
+               abs((m["x1"] - m["x0"]) - w) < 1e-9)
+            ck(sid, "the bin-width annotation sits inside the plot",
+               g["y_range"][0] <= m["y"] <= g["y_range"][1])
+
+    elif mode == "grouped":
+        levels, table = p["levels"], p["table"]
+        ck(sid, "one bar per category and level",
+           len(bars) == len(levels) * len(p["categories"]))
+        ck(sid, "bar heights are the table counts",
+           sorted(b["y1"] for b in bars) == sorted(v for row in table for v in row))
+        # Bars pair up inside a category and the categories stay apart.
+        k = len(levels)
+        groups = [bars[i * k:(i + 1) * k] for i in range(len(p["categories"]))]
+        ck(sid, "a gap separates the categories",
+           all(groups[i + 1][0]["x0"] - groups[i][-1]["x1"] > 1e-9 for i in range(len(groups) - 1)))
+
+    elif mode in ("segmented", "mosaic"):
+        levels, table = p["levels"], p["table"]
+        cats = p["categories"]
+        totals = [sum(table[j][i] for j in range(len(levels))) for i in range(len(cats))]
+        grand = sum(totals)
+        per_cat = [bars[i * len(levels):(i + 1) * len(levels)] for i in range(len(cats))]
+        for i, col in enumerate(per_cat):
+            ck(sid, f"segments of {cats[i]} fill the bar exactly",
+               abs(col[-1]["y1"] - 1.0) < 1e-9 and abs(col[0]["y0"]) < 1e-9,
+               f"top={col[-1]['y1']}")
+            ck(sid, f"segment heights are the conditional proportions ({cats[i]})",
+               all(abs((col[j]["y1"] - col[j]["y0"]) - table[j][i] / totals[i]) < 1e-9
+                   for j in range(len(levels))))
+            ck(sid, f"segments stack without gap or overlap ({cats[i]})",
+               all(abs(col[j + 1]["y0"] - col[j]["y1"]) < 1e-9 for j in range(len(col) - 1)))
+        widths = [round(col[0]["x1"] - col[0]["x0"], 9) for col in per_cat]
+        if mode == "mosaic":
+            # The one thing that makes it a mosaic and not a segmented chart.
+            ck(sid, "bar WIDTHS are proportional to the category totals",
+               all(abs(widths[i] / sum(widths) - totals[i] / grand) < 1e-6 for i in range(len(cats))),
+               f"widths={widths} totals={totals}")
+            ck(sid, "widths actually differ, so the plot is not a segmented chart in disguise",
+               len(set(widths)) > 1, f"widths={widths}")
+        else:
+            ck(sid, "bar widths are EQUAL: a segmented chart hides category size",
+               max(widths) - min(widths) < 1e-9, f"widths={widths}")
+
+
+def p_pie(sid, s, svg):
+    p = s["params"]
+    g = R.FAMILIES["pie_chart"](p)
+    w = g["wedges"]
+    ck(sid, "one slice per category", len(w) == len(p["categories"]))
+    ck(sid, "slices sum to exactly 360 degrees",
+       abs(sum(x["sweep"] for x in w) - 360.0) < 1e-9, f"sum={sum(x['sweep'] for x in w)}")
+    ck(sid, "all slices together are 100% of the area",
+       abs(sum(x["frac"] for x in w) - 1.0) < 1e-12)
+    total = sum(p["counts"])
+    ck(sid, "each slice's angle is its relative frequency",
+       all(abs(x["sweep"] / 360.0 - c / total) < 1e-12 for x, c in zip(w, p["counts"])))
+    ck(sid, "slices do not overlap and leave no gap",
+       all(abs(w[i + 1]["start"] - (w[i]["start"] + w[i]["sweep"])) < 1e-9 for i in range(len(w) - 1)))
+
+
+def p_dotplot(sid, s, svg):
+    p = s["params"]
+    g = R.FAMILIES["dotplot"](p)
+    vals = p["values"]
+    ck(sid, "one dot per observation", len(g["dots"]) == len(vals), f"{len(g['dots'])} vs {len(vals)}")
+    ck(sid, "a dot's position is its value",
+       sorted(d["x"] for d in g["dots"]) == sorted(vals))
+    for v in set(vals):
+        col = [d for d in g["dots"] if d["x"] == v]
+        ck(sid, f"stack at {v} is as tall as the count",
+           max(d["y"] for d in col) == vals.count(v))
+        ck(sid, f"stack at {v} has no gap", sorted(d["y"] for d in col) == list(range(1, len(col) + 1)))
+    ck(sid, "every dot is inside the plot",
+       all(g["x_range"][0] <= d["x"] <= g["x_range"][1] and g["y_range"][0] <= d["y"] <= g["y_range"][1]
+           for d in g["dots"]))
+
+
+def p_stem_leaf(sid, s, svg):
+    p = s["params"]
+    g = R.FAMILIES["stem_leaf"](p)
+    div = p.get("stem_div", 10)
+    rows = g["rows"]
+    ck(sid, "every leaf is a single digit",
+       all(0 <= l < div for _, leaves in rows for l in leaves))
+    ck(sid, "stems are in order", [st for st, _ in rows] == sorted(st for st, _ in rows))
+    ck(sid, "leaves are in order within each stem",
+       all(leaves == sorted(leaves) for _, leaves in rows))
+    rebuilt = sorted(st * div + l for st, leaves in rows for l in leaves)
+    ck(sid, "the plot reconstructs the data exactly", rebuilt == sorted(p["values"]),
+       f"rebuilt={rebuilt}")
+    ck(sid, "no stem is skipped, so gaps in the data stay visible",
+       [st for st, _ in rows] == list(range(rows[0][0], rows[-1][0] + 1)))
+    ck(sid, "a key is present: without it 52 cannot be told from 5.2", bool(p.get("key", "").strip()))
+
+
+def p_boxplot(sid, s, svg):
+    p = s["params"]
+    g = R.FAMILIES["boxplot"](p)
+    b, f = g["boxes"][0], g["summary"]
+    vals = sorted(p["values"])
+    ck(sid, "box spans Q1 to Q3", b["q1"] == f["q1"] and b["q3"] == f["q3"] and f["q1"] < f["q3"])
+    ck(sid, "median line lies inside the box", f["q1"] <= f["med"] <= f["q3"])
+    ck(sid, "quartiles follow the AP halves convention",
+       f["q1"] == R.median(vals[:len(vals) // 2]) and
+       f["q3"] == R.median(vals[len(vals) // 2 + (len(vals) % 2):]))
+    ck(sid, "fences are 1.5 IQR beyond the quartiles",
+       abs(f["hi_fence"] - (f["q3"] + 1.5 * f["iqr"])) < 1e-9 and
+       abs(f["lo_fence"] - (f["q1"] - 1.5 * f["iqr"])) < 1e-9)
+    ck(sid, "outliers are exactly the values beyond a fence",
+       f["outliers"] == [v for v in vals if v < f["lo_fence"] or v > f["hi_fence"]])
+    # The error the entry's own label exists to prevent.
+    ck(sid, "whiskers stop at the extreme NON-outliers, not at the fences",
+       f["whisk_hi"] in vals and f["whisk_lo"] in vals and
+       f["whisk_hi"] <= f["hi_fence"] and f["whisk_lo"] >= f["lo_fence"],
+       f"whiskers={f['whisk_lo']}..{f['whisk_hi']} fences={f['lo_fence']}..{f['hi_fence']}")
+    if f["outliers"]:
+        ck(sid, "with outliers present the whisker is short of the maximum",
+           f["whisk_hi"] < f["max"], f"whisk_hi={f['whisk_hi']} max={f['max']}")
+        ck(sid, "every outlier is drawn", len(b["outliers"]) == len(f["outliers"]))
+    ck(sid, "the whole glyph is inside the value axis",
+       g["x_range"][0] <= f["whisk_lo"] and max([f["whisk_hi"]] + f["outliers"]) <= g["x_range"][1])
+
+
+PROPS = {"categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
+         "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
+         "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
          "pe_vs_distance": p_pe, "approach_equilibrium": p_equilibrium, "titration_curve": p_titration}
 
 
@@ -232,8 +395,106 @@ def main() -> int:
         for c in geo["curves"]:
             ck(sid, "curve stays inside the plotted range",
                all(gy0 - 1e-9 <= y <= gy1 + 1e-9 for _, y in c["pts"]), "a curve leaves the axes")
-        ck(sid, "x axis label is visible", spec["x_label"].upper()[:18] in svg.upper())
-        ck(sid, "y axis label is visible", spec["y_label"].upper()[:18] in svg.upper())
+        # Not every Lane A figure is a Cartesian chart. A pie chart and a
+        # stem-and-leaf plot draw no axes at all, and a dotplot and a boxplot
+        # draw no y axis, so demanding both labels on the canvas would fail
+        # them for being drawn correctly. What must hold instead: an axis that
+        # IS drawn carries its label, and an axis that is NOT drawn has its
+        # meaning carried in the alt text, which is where a reader who never
+        # sees the picture gets it.
+        # Nothing may be drawn outside the canvas, at ANY layout. The data
+        # geometry checks above cannot see this: they work in data coordinates,
+        # while a title, an axis label or a tick is placed in canvas units. It
+        # is here because the compact layout centred the rotated y-axis title on
+        # x=0, so half of it rendered off the left edge -- in every figure,
+        # including the ten already published. A green suite said nothing.
+        for lay_name, lay_cfg in R.LAYOUTS.items():
+            lsvg = R.render(spec, lay_name)
+            cw, chh = lay_cfg["W"], lay_cfg["H"]
+            offenders = []
+            for tm in re.finditer(r'<text([^>]*)>([^<]*)</text>', lsvg):
+                at, tx = tm.group(1), tm.group(2).strip()
+                fx = re.search(r'\bx="(-?[\d.]+)"', at)
+                fy = re.search(r'\by="(-?[\d.]+)"', at)
+                if not (fx and fy and tx):
+                    continue
+                fsz = re.search(r'font-size="([\d.]+)"', at)
+                size = float(fsz.group(1)) if fsz else 11.0
+                anc = re.search(r'text-anchor="(\w+)"', at)
+                a = anc.group(1) if anc else "start"
+                wdt = 0.55 * size * len(tx)
+                lx = float(fx.group(1)) - (wdt / 2 if a == "middle" else wdt if a == "end" else 0)
+                # The EXTENT has to fit, not just the anchor: a centred x-axis
+                # title whose anchor sits mid-canvas can still run off both ends.
+                if lx < 0 or lx + wdt > cw or not (0 <= float(fy.group(1)) <= chh):
+                    offenders.append((tx[:24], round(lx, 1), round(lx + wdt, 1)))
+            for mx, my in re.findall(r'transform="translate\((-?[\d.]+),\s*(-?[\d.]+)\)', lsvg):
+                # A rotated label is centred on this point, so it needs real
+                # clearance from the edge, not merely a non-negative coordinate.
+                if not (8 <= float(mx) <= cw - 8 and 0 <= float(my) <= chh):
+                    offenders.append(("rotated", mx, my))
+            ck(sid, f"nothing is drawn outside the {lay_name} canvas", not offenders,
+               f"{offenders[:4]} canvas={cw}x{chh}")
+
+            # Overprinting is the other defect the eye keeps finding and the
+            # suite kept missing: "catalyseduncatalysed" and "25Mg 10.00 26Mg
+            # 11.01%" both shipped through a green run. Estimate each label's
+            # box and assert no two collide. Helvetica digits and lower case
+            # average about 0.55em, which is close enough to catch a real
+            # overlap without flagging a kerning-width near miss.
+            boxes = []
+            for m in re.finditer(r'<text([^>]*)>([^<]*)</text>', lsvg):
+                attrs, txt = m.group(1), m.group(2).strip()
+                if not txt:
+                    continue
+                if "translate(" in attrs:
+                    # A rotated axis title: same box, width and height swapped.
+                    tm = re.search(r'translate\((-?[\d.]+),\s*(-?[\d.]+)\)', attrs)
+                    fsz_r = re.search(r'font-size="([\d.]+)"', attrs)
+                    if tm:
+                        szr = float(fsz_r.group(1)) if fsz_r else 11.0
+                        cx, cy = float(tm.group(1)), float(tm.group(2))
+                        hh = 0.55 * szr * len(txt) / 2
+                        boxes.append((cx - szr * 0.6, cy - hh, cx + szr * 0.6, cy + hh, txt))
+                    continue
+                fx = re.search(r'\bx="(-?[\d.]+)"', attrs)
+                fy = re.search(r'\by="(-?[\d.]+)"', attrs)
+                fsz = re.search(r'font-size="([\d.]+)"', attrs)
+                if not (fx and fy):
+                    continue
+                size = float(fsz.group(1)) if fsz else 11.0
+                wdt = 0.55 * size * len(txt)
+                anc = re.search(r'text-anchor="(\w+)"', attrs)
+                a = anc.group(1) if anc else "start"
+                x = float(fx.group(1)) - (wdt / 2 if a == "middle" else wdt if a == "end" else 0)
+                y = float(fy.group(1))
+                boxes.append((x, y - size * 0.78, x + wdt, y + size * 0.22, txt))
+            clashes = []
+            for i in range(len(boxes)):
+                for j in range(i + 1, len(boxes)):
+                    a, b = boxes[i], boxes[j]
+                    ox = min(a[2], b[2]) - max(a[0], b[0])
+                    oy = min(a[3], b[3]) - max(a[1], b[1])
+                    if ox > 1.5 and oy > 1.5:
+                        clashes.append(f"{a[4]!r}~{b[4]!r}")
+            ck(sid, f"no two labels overprint at {lay_name}", not clashes, "; ".join(clashes[:3]))
+
+        bare = geo.get("frame") == "bare"
+        no_y = geo.get("hide_y_axis", False)
+        for which, drawn in (("x", not bare), ("y", not bare and not no_y)):
+            lab = spec[f"{which}_label"].strip()
+            if drawn:
+                ck(sid, f"{which} axis label is visible", lab.upper()[:18] in svg.upper())
+            elif lab:
+                # Compare bare words: "stem (tens digit)" must match an alt that
+                # says "the stems ... are the tens digits", so punctuation is
+                # stripped and a stem-of-the-word match counts.
+                words = [w for w in "".join(c if c.isalnum() else " " for c in lab.lower()).split()
+                         if len(w) >= 4]
+                alt = spec["alt"].lower()
+                ck(sid, f"{which} axis is not drawn, so its meaning is in the alt text",
+                   any(w in alt or w[:-1] in alt or w + "s" in alt for w in words),
+                   f"none of {words} appears in alt")
         ck(sid, "has accessible title and description", "<title" in svg and "<desc" in svg and len(spec["alt"]) > 80)
         ck(sid, "illustrative data is disclosed",
            (not spec.get("synthetic")) or "illustrative" in (svg + spec["alt"]).lower())
