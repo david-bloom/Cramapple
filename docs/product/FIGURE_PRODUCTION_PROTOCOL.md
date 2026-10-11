@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1.5, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.6, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -177,6 +177,20 @@ still summed to Z. All three were caught.
 
 **Any control accepted voids the batch.** Cost: **$0.18 for eleven figures**, about $0.016 each.
 
+> **A CONTROL MUST BE A MISTAKE A READER CAN SEE (2026-10-11).** One control shuffled the ORDER of a
+> figure's isoline radii. That draws the same four circles, so the picture a student sees is identical
+> and nothing false is taught — a reader accepted it, correctly, and voided a batch that was sound.
+> The control was the defect, not the reader. `ced_check.py` now refuses to run a control whose
+> rendered output is a pure reordering of the original's elements with no change to its text. Note the
+> obvious form of that guard is also wrong: splitting the SVG on `>` shreds each tag into an attribute
+> part and a text part, so a control that swaps the CONTENTS of two elements compares equal and is
+> rejected though it is real. Compare whole elements.
+>
+> The errors that survive a green suite are overwhelmingly **stated in words**: the geometry is
+> generated from the parameters and is self-consistent by construction, while the title, subtitle,
+> note and alt beside it are free to say anything. Three of the five controls in each Lane B batch
+> were of exactly that kind, and all were caught.
+
 Two findings worth carrying forward:
 
 - **A newer model was worse, confidently.** `gemini-3.8-flash` accepted a control with *high
@@ -277,6 +291,15 @@ warning every student about a problem they will not hit is noise.
 > **The remaining work in both lanes, the labelling problems underneath it, and an execution plan are
 > in `docs/handoffs/LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md`.** Read it before starting either
 > lane. The list below is the pilot's original open set and is kept for history.
+>
+> **UPDATE (2026-10-11, later the same day).** That handoff's §2a and §2e are closed and **all of
+> Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
+> Ten new figures across five new families (`arrow_diagram`, `particulate_box`, `field_map`,
+> `circuit_symbols`, plus three `xy_series` figures) cover **thirteen further published entries**, and
+> are **in Development only — Production is still a Hard Gate and the app has not been taught the new
+> families, so none of them would render yet.** The rest of the Lane A gap is classified but not
+> built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
+> `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
 - **No human expert has reviewed the illustrative values.** Two model readers accepted them with
   the controls gate passing, which is meaningful evidence but not a subject expert's sign-off.
@@ -313,6 +336,10 @@ warning every student about a problem they will not hit is noise.
   production-eligible until an entry exists.
 
 ## Change note
+
+v1.6 (2026-10-11): §9 records that Lane B is built bar AP Biology, and §4c gains the rule that a
+control must be a mistake a reader can SEE -- a control that only reordered a figure's isoline radii
+drew the same picture, was correctly accepted, and voided a sound batch.
 
 v1.5 (2026-10-11): `DECISION-0116` in §3 — a figure's `labels` may be the contract for an entry that
 authors no `items[]`, declared per use and gated. §2 records that `kind` is not the lane filter. §4a
