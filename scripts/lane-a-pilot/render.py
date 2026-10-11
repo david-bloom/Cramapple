@@ -941,7 +941,13 @@ def render(spec: dict, layout: str = "expanded") -> str:
                  f'stroke="{INK}" stroke-width="1.2" stroke-dasharray="3 4"/>')
         for txt, yy, fsz, extra in ((v.get("label"), T + 22, FN * 1.45, ' font-style="italic"'),
                                     (v.get("caption"), T + 40, FN, '')):
-            if not txt or not (SHOW_ANN or vi == 0):
+            # The marker's LINE is drawn unconditionally, so dropping its label
+            # leaves an unexplained dashed line on the canvas: at compact the
+            # catalysis figure showed two barriers and named only one, which is
+            # the whole teaching point lost. The short label now survives every
+            # layout for every marker; only the longer caption still drops.
+            is_label = bool(extra)
+            if not txt or not (is_label or SHOW_ANN or vi == 0):
                 continue
             # Past the midpoint the caption has to hang to the LEFT of its
             # marker, or it runs off the canvas -- which is where "equilibrium

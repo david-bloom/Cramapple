@@ -60,12 +60,20 @@
         "id": "a8b1c71d-23ad-40f7-8d4f-2ae84cfe5e97",
         "title": "Maxwell-Boltzmann energy distribution",
         "role": "primary"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "19f8ed7e-e164-4eba-b6ab-572f2493d5ab",
+        "title": "Maxwell-Boltzmann distribution",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 3.5 is a vocabulary entry with no items[]; this figure's six labels are the contract (DECISION-0116, route b)."
       }
     ],
     "caption": "Raising the temperature increases the fraction of particles beyond Ea"
   },
   "chem-mb-catalysis": {
-    "entry_title": "Maxwell-Boltzmann distribution (catalysis)",
+    "entry_title": "How a catalyst increases rate",
     "family": "mb_distribution",
     "title": "Maxwell–Boltzmann distribution: effect of a catalyst",
     "subtitle": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature",
@@ -76,8 +84,11 @@
     "synthetic": true,
     "y_tick_fmt": "{:.2f}",
     "covers": [
-      "x-axis",
-      "y-axis"
+      "Distribution curve at a fixed temperature",
+      "Uncatalysed activation energy (Ea)",
+      "Catalysed activation energy (Ea′)",
+      "Area beyond the catalysed barrier",
+      "Same temperature, same curve"
     ],
     "params": {
       "x_max": 8.0,
@@ -101,16 +112,28 @@
         }
       ]
     },
-    "reference_entry_id": null,
-    "unpublished": "No published app.unit_reference_entries row with this title in Production (read 2026-10-10). It exists only as a seed candidate. The nearest published rows are the Unit 5 convention 'How a catalyst increases rate' and the Unit 3 vocabulary 'Maxwell-Boltzmann distribution'. Kept as a figure, excluded from coverage, and not production-eligible until an entry exists for it.",
+    "reference_entry_id": "db0cffb5-ecb9-48a7-b3ff-0ec4808064eb",
     "figure_id": "chem-mb-catalysis",
     "short_title": "Catalyst lowers Ea",
     "labels": [
-      "x-axis",
-      "y-axis"
+      "Distribution curve at a fixed temperature",
+      "Uncatalysed activation energy (Ea)",
+      "Catalysed activation energy (Ea′)",
+      "Area beyond the catalysed barrier",
+      "Same temperature, same curve"
     ],
-    "used_by": [],
-    "caption": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature"
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "db0cffb5-ecb9-48a7-b3ff-0ec4808064eb",
+        "title": "How a catalyst increases rate",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 5.11 'How a catalyst increases rate' is a convention with no authored items[], so this figure's labels are the contract (DECISION-0116, route b). The entry's body names the lower-activation-energy path, which is what the two barriers draw."
+      }
+    ],
+    "caption": "A catalyst lowers Ea, so more particles clear the barrier at the same temperature",
+    "subject_key": "ap_chemistry"
   },
   "chem-energy-profile-single": {
     "entry_title": "Single-step reaction energy profile",
@@ -3809,7 +3832,11 @@
     "note": "A curve, or a long run of residuals with the same sign, says the model is the wrong shape; a funnel says the spread is not constant. Either is a pattern.",
     "synthetic": true,
     "y_tick_fmt": "{:.0f}",
-    "covers": [],
+    "covers": [
+      "Residual (actual − predicted)",
+      "Zero line",
+      "No pattern"
+    ],
     "labels": [
       "Residual (actual − predicted)",
       "Zero line",
@@ -3892,7 +3919,9 @@
         "kind": "reference_entry",
         "id": "f1659a1b-9d7e-4e3e-9e70-4c02d9e7cbaf",
         "title": "Residual plot",
-        "role": "primary"
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 2.6 'Residual plot' is published as kind='vocabulary' with no authored items[], so this figure's own labels are the entry's contract (DECISION-0116, route b). All three are drawn and described in the alt text."
       }
     ],
     "subject_key": "ap_precalculus",
@@ -3967,7 +3996,11 @@
       "Slope of tangent on x–t graph",
       "Slope of tangent on v–t graph",
       "Area under v–t curve",
-      "Area under a–t curve"
+      "Area under a–t curve",
+      "Slope of tangent on x vs. t",
+      "Slope of tangent on v vs. t",
+      "Area under v vs. t",
+      "Area under a vs. t"
     ],
     "labels": [
       "Slope of tangent on x–t graph",
@@ -4026,6 +4059,28 @@
         "id": "40401fd7-a30d-419c-9ffd-4bf0e28f4589",
         "title": "Reading x(t), v(t), a(t) graphs",
         "role": "primary"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "5e5c40a0-ee09-4392-bed9-c6ff6fc351ea",
+        "title": "Slope and area relationships on motion graphs",
+        "role": "secondary"
+      },
+      {
+        "kind": "reference_entry",
+        "id": "9a401f23-a30e-4bdb-a9c1-5301c91e8e7a",
+        "title": "Displacement from area under v–t graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "The formula entry authors no items[]; the v-t panel and its shaded area are the contract (DECISION-0116, route b)."
+      },
+      {
+        "kind": "reference_entry",
+        "id": "dde13c1a-e316-4df1-ad15-b1c17d2eb697",
+        "title": "Change in velocity from area under a–t graph",
+        "role": "secondary",
+        "labels_carry_contract": true,
+        "contract_note": "The formula entry authors no items[]; the a-t panel and its shaded area are the contract (DECISION-0116, route b)."
       }
     ],
     "subject_key": "ap_physics_c_mechanics",

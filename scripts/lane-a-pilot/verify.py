@@ -11,7 +11,7 @@ Exit code 1 if any check fails. Timings are written to out/results.json.
 """
 from __future__ import annotations
 
-import argparse, json, math, os, re, sys, time
+import argparse, hashlib, json, math, os, re, sys, time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render as R  # noqa: E402
@@ -714,10 +714,29 @@ def main() -> int:
         if not spec.get("reference_entry_id"):
             unpublished.append(sid)
             continue
-        by_entry.setdefault(spec["entry_title"], {"specs": [], "covers": set()})
-        by_entry[spec["entry_title"]]["specs"].append(sid)
-        by_entry[spec["entry_title"]]["covers"].update(spec.get("covers", []))
+        # Coverage is owed to EVERY entry this figure is used by, not only to the
+        # one it was authored against. One figure legitimately serves two entries
+        # -- the same concept is authored twice in sibling subjects, and the RPC
+        # does not filter a figure by subject_key -- and the second entry's
+        # labelled parts went unchecked while only `entry_title` was read here.
+        uses = [u for u in spec.get("used_by", []) if u.get("title")]
+        used_titles = [u["title"] for u in uses]
+        # Carrying the contract is a property of the USE, not of the figure: the
+        # kinematics panels serve an entry with four authored parts AND two
+        # formula entries with none, so one figure-level flag could only be
+        # wrong for one of them.
+        for u in uses or [{"title": spec["entry_title"],
+                           "labels_carry_contract": spec.get("labels_carry_contract")}]:
+            t = u["title"]
+            by_entry.setdefault(t, {"specs": [], "covers": set(), "labels": set(),
+                                    "carriers": []})
+            by_entry[t]["specs"].append(sid)
+            by_entry[t]["covers"].update(spec.get("covers", []))
+            by_entry[t]["labels"].update(spec.get("labels", []))
+            if u.get("labels_carry_contract") or spec.get("labels_carry_contract"):
+                by_entry[t]["carriers"].append(sid)
         results[sid] = {"family": spec["family"], "entry": spec["entry_title"],
+                        "used_by": used_titles,
                         "render_ms": round(ms, 3), "bytes": len(svg.encode())}
 
     # Coverage is a property of the ENTRY, not of one figure: an entry whose
@@ -732,13 +751,44 @@ def main() -> int:
         ck(title, "authored items[] are present to check against",
            "items" in (entries.get(title) or {}),
            f"entry absent from or stripped in {os.path.basename(args.entries)}")
-        if "items" in (entries.get(title) or {}) and not authored:
-            print(f"  note: {title} is authored with no labelled parts; "
-                  f"coverage asserts nothing for it")
+        # The fixture stands in for Production, so it has to be provably the
+        # array that was read from there: md5(label>>meaning joined on '|'),
+        # the digest the fixture was built by. A retyped or edited items[]
+        # changes the digest and fails here instead of quietly redefining
+        # what the coverage gate asserts.
+        ent = entries.get(title) or {}
+        if "items_md5" in ent:
+            calc = hashlib.md5("|".join(
+                f"{i.get('label','')}\u00bb{i.get('meaning','')}"
+                for i in (ent.get("items") or [])).encode()).hexdigest()
+            ck(title, "fixture items[] still match their recorded digest",
+               calc == ent["items_md5"], f"{calc} != {ent['items_md5']}")
+        # DECISION-0116 (Product Owner, 2026-10-11): when the entry authors no
+        # labelled parts, the FIGURE'S OWN `labels` are the contract. That used
+        # to print a note and assert nothing, which is how ~19 candidate entries
+        # could have carried figures that promised nothing. Route (b) is now a
+        # deliberate, per-figure declaration with a gate behind it, because the
+        # figures table is a side door into the corpus that the reference-pack
+        # checkers do not watch -- see the handoff's SS3.2.
+        carries = "items" in (entries.get(title) or {}) and not authored
+        if carries:
+            ck(title, "a figure declares it carries the contract (DECISION-0116)",
+               bool(agg["carriers"]),
+               "entry authors no items[]; set labels_carry_contract on its figure")
+            ck(title, "the carried contract is non-empty", bool(agg["labels"]),
+               "a figure carrying the contract must declare labelled parts")
+            # Self-declared, but not self-serving: `covers` is what the coverage
+            # gate reads and `labels` is what the student is promised, so a
+            # figure may not promise a part it does not also declare it draws.
+            uncovered = sorted(l for l in agg["labels"] if l not in agg["covers"])
+            ck(title, "every carried label is also declared covered", not uncovered,
+               f"labels not in covers: {uncovered}")
         missing = [a for a in authored if a not in agg["covers"]]
         ck(title, "every authored labelled part is covered", not missing, f"missing={missing}")
         coverage[title] = {"figures": agg["specs"], "authored_labels": len(authored),
-                           "covered": len(authored) - len(missing), "missing": missing}
+                           "covered": len(authored) - len(missing), "missing": missing,
+                           "contract": "figure_labels" if carries else "entry_items",
+                           "carried_labels": sorted(agg["labels"]) if carries else []}
 
     # Copy notes: the notice fires only when a figure is actually in the copy,
     # and every figure survives the export as text even when the drawing does not.
