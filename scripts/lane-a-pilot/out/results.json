@@ -1,13 +1,15 @@
 {
-  "entries": 36,
-  "families": 15,
+  "entries": 39,
+  "families": 17,
   "family_names": [
     "approach_equilibrium",
     "arrow_diagram",
     "boxplot",
     "categorical_bars",
+    "circuit_symbols",
     "dotplot",
     "energy_profile",
+    "field_map",
     "kinematic_panels",
     "mb_distribution",
     "particulate_box",
@@ -18,12 +20,12 @@
     "titration_curve",
     "xy_series"
   ],
-  "checks_run": 1885,
+  "checks_run": 2091,
   "checks_failed": 0,
   "failures": [],
-  "total_render_ms": 225.12,
-  "mean_render_ms": 6.253,
-  "entries_covered": 39,
+  "total_render_ms": 298.32,
+  "mean_render_ms": 7.649,
+  "entries_covered": 43,
   "coverage": {
     "ap_chemistry::Maxwell-Boltzmann energy distribution": {
       "figures": [
@@ -461,6 +463,46 @@
       "missing": [],
       "contract": "entry_items",
       "carried_labels": []
+    },
+    "ap_physics_2::Electric field map and field line diagram": {
+      "figures": [
+        "phys-electric-field-map"
+      ],
+      "authored_labels": 3,
+      "covered": 3,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
+    },
+    "ap_physics_c_em::Electric field map and field line diagram": {
+      "figures": [
+        "phys-electric-field-map"
+      ],
+      "authored_labels": 2,
+      "covered": 2,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
+    },
+    "ap_physics_2::Equipotential (isoline) map": {
+      "figures": [
+        "phys2-equipotential-map"
+      ],
+      "authored_labels": 4,
+      "covered": 4,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
+    },
+    "ap_physics_2::Circuit schematic symbols": {
+      "figures": [
+        "phys2-circuit-symbols"
+      ],
+      "authored_labels": 8,
+      "covered": 8,
+      "missing": [],
+      "contract": "entry_items",
+      "carried_labels": []
     }
   },
   "unpublished_figures": [],
@@ -472,7 +514,7 @@
         "ap_chemistry::Maxwell-Boltzmann energy distribution",
         "ap_chemistry::Maxwell-Boltzmann distribution"
       ],
-      "render_ms": 1.494,
+      "render_ms": 1.513,
       "bytes": 32276
     },
     "chem-mb-catalysis": {
@@ -481,7 +523,7 @@
       "used_by": [
         "ap_chemistry::How a catalyst increases rate"
       ],
-      "render_ms": 0.81,
+      "render_ms": 0.886,
       "bytes": 19383
     },
     "chem-energy-profile-single": {
@@ -490,7 +532,7 @@
       "used_by": [
         "ap_chemistry::Single-step reaction energy profile"
       ],
-      "render_ms": 0.115,
+      "render_ms": 0.129,
       "bytes": 4563
     },
     "chem-energy-profile-multistep": {
@@ -499,7 +541,7 @@
       "used_by": [
         "ap_chemistry::Multistep reaction energy profile"
       ],
-      "render_ms": 0.177,
+      "render_ms": 0.181,
       "bytes": 7146
     },
     "chem-energy-diagram-process": {
@@ -517,7 +559,7 @@
       "used_by": [
         "ap_chemistry::Mass spectrum of a single element"
       ],
-      "render_ms": 0.052,
+      "render_ms": 0.054,
       "bytes": 4237
     },
     "chem-pes": {
@@ -526,7 +568,7 @@
       "used_by": [
         "ap_chemistry::Photoelectron spectrum (PES)"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.048,
       "bytes": 4357
     },
     "chem-pe-internuclear": {
@@ -535,7 +577,7 @@
       "used_by": [
         "ap_chemistry::Potential energy vs. internuclear distance graph"
       ],
-      "render_ms": 0.922,
+      "render_ms": 0.92,
       "bytes": 20384
     },
     "chem-approach-equilibrium": {
@@ -544,7 +586,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.721,
+      "render_ms": 0.739,
       "bytes": 20230
     },
     "chem-titration": {
@@ -553,7 +595,7 @@
       "used_by": [
         "ap_chemistry::Titration curve (pH vs. volume of titrant)"
       ],
-      "render_ms": 0.995,
+      "render_ms": 0.993,
       "bytes": 24581
     },
     "chem-approach-equilibrium-rate": {
@@ -562,7 +604,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.721,
+      "render_ms": 0.735,
       "bytes": 20272
     },
     "stats-bar-chart": {
@@ -571,7 +613,7 @@
       "used_by": [
         "ap_statistics::Bar chart"
       ],
-      "render_ms": 0.052,
+      "render_ms": 0.055,
       "bytes": 3779
     },
     "stats-pie-chart": {
@@ -580,7 +622,7 @@
       "used_by": [
         "ap_statistics::Pie chart"
       ],
-      "render_ms": 0.031,
+      "render_ms": 0.04,
       "bytes": 2094
     },
     "stats-dotplot": {
@@ -589,7 +631,7 @@
       "used_by": [
         "ap_statistics::Dotplot"
       ],
-      "render_ms": 0.046,
+      "render_ms": 0.063,
       "bytes": 4417
     },
     "stats-histogram": {
@@ -598,7 +640,7 @@
       "used_by": [
         "ap_statistics::Histogram"
       ],
-      "render_ms": 0.056,
+      "render_ms": 0.061,
       "bytes": 5009
     },
     "stats-stem-leaf": {
@@ -607,7 +649,7 @@
       "used_by": [
         "ap_statistics::Stem-and-leaf plot"
       ],
-      "render_ms": 0.033,
+      "render_ms": 0.032,
       "bytes": 3243
     },
     "stats-boxplot": {
@@ -616,7 +658,7 @@
       "used_by": [
         "ap_statistics::Boxplot"
       ],
-      "render_ms": 0.042,
+      "render_ms": 0.04,
       "bytes": 3395
     },
     "stats-two-cat-side-by-side": {
@@ -634,7 +676,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.062,
+      "render_ms": 0.059,
       "bytes": 4956
     },
     "stats-two-cat-mosaic": {
@@ -643,7 +685,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.058,
       "bytes": 4943
     },
     "phys2-pv-isotherm-work": {
@@ -652,7 +694,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.271,
+      "render_ms": 0.267,
       "bytes": 9425
     },
     "phys2-pv-special-processes": {
@@ -661,7 +703,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.207,
+      "render_ms": 0.22,
       "bytes": 7762
     },
     "phys2-potential-around-loop": {
@@ -670,7 +712,7 @@
       "used_by": [
         "ap_physics_2::Graph of electric potential versus position in a loop"
       ],
-      "render_ms": 0.05,
+      "render_ms": 0.071,
       "bytes": 4396
     },
     "precalc-residual-plot": {
@@ -679,7 +721,7 @@
       "used_by": [
         "ap_precalculus::Residual plot"
       ],
-      "render_ms": 0.047,
+      "render_ms": 0.048,
       "bytes": 4354
     },
     "phys2-mb-qualitative": {
@@ -688,7 +730,7 @@
       "used_by": [
         "ap_physics_2::Maxwell\u2013Boltzmann distribution (qualitative)"
       ],
-      "render_ms": 0.891,
+      "render_ms": 0.879,
       "bytes": 20883
     },
     "physcmech-xva-graphs": {
@@ -700,7 +742,7 @@
         "ap_physics_c_mechanics::Displacement from area under v\u2013t graph",
         "ap_physics_c_mechanics::Change in velocity from area under a\u2013t graph"
       ],
-      "render_ms": 0.924,
+      "render_ms": 1.033,
       "bytes": 25450
     },
     "phys-work-force-displacement": {
@@ -710,7 +752,7 @@
         "ap_physics_1::Work from a force-displacement graph",
         "ap_physics_c_mechanics::Work as area under an F\u2225 vs. displacement graph"
       ],
-      "render_ms": 0.06,
+      "render_ms": 0.055,
       "bytes": 4233
     },
     "phys2-zero-pressure-temperature": {
@@ -719,7 +761,7 @@
       "used_by": [
         "ap_physics_2::Zero-pressure temperature from a P\u2013T graph"
       ],
-      "render_ms": 0.051,
+      "render_ms": 0.057,
       "bytes": 4579
     },
     "phys2-ohmic-iv": {
@@ -728,7 +770,7 @@
       "used_by": [
         "ap_physics_2::Ohmic materials and the I\u2013\u0394V graph"
       ],
-      "render_ms": 0.056,
+      "render_ms": 0.061,
       "bytes": 4895
     },
     "phys-vector-arrows": {
@@ -738,7 +780,7 @@
         "ap_physics_1::Vector arrow representation",
         "ap_physics_c_mechanics::Vector arrow representation"
       ],
-      "render_ms": 0.027,
+      "render_ms": 0.031,
       "bytes": 2395
     },
     "phys-free-body-diagram": {
@@ -748,7 +790,7 @@
         "ap_physics_1::Free-body diagram (FBD)",
         "ap_physics_c_mechanics::Free-body diagram"
       ],
-      "render_ms": 0.029,
+      "render_ms": 0.033,
       "bytes": 3233
     },
     "chem-particulate-phases": {
@@ -757,7 +799,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of solid, liquid, and gas"
       ],
-      "render_ms": 0.186,
+      "render_ms": 0.172,
       "bytes": 5699
     },
     "chem-particulate-balanced-equation": {
@@ -766,7 +808,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a balanced equation"
       ],
-      "render_ms": 0.049,
+      "render_ms": 0.054,
       "bytes": 3958
     },
     "chem-particulate-solution": {
@@ -775,7 +817,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a solution"
       ],
-      "render_ms": 0.119,
+      "render_ms": 0.127,
       "bytes": 6394
     },
     "chem-particulate-reversible": {
@@ -784,7 +826,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of a reversible reaction"
       ],
-      "render_ms": 0.087,
+      "render_ms": 0.091,
       "bytes": 5264
     },
     "chem-sea-of-electrons": {
@@ -793,8 +835,36 @@
       "used_by": [
         "ap_chemistry::Sea-of-electrons model of metallic bonding"
       ],
-      "render_ms": 0.103,
+      "render_ms": 0.102,
       "bytes": 4744
+    },
+    "phys-electric-field-map": {
+      "family": "field_map",
+      "entry": "Electric field map and field line diagram",
+      "used_by": [
+        "ap_physics_2::Electric field map and field line diagram",
+        "ap_physics_c_em::Electric field map and field line diagram"
+      ],
+      "render_ms": 1.667,
+      "bytes": 26924
+    },
+    "phys2-equipotential-map": {
+      "family": "field_map",
+      "entry": "Equipotential (isoline) map",
+      "used_by": [
+        "ap_physics_2::Equipotential (isoline) map"
+      ],
+      "render_ms": 0.084,
+      "bytes": 6164
+    },
+    "phys2-circuit-symbols": {
+      "family": "circuit_symbols",
+      "entry": "Circuit schematic symbols",
+      "used_by": [
+        "ap_physics_2::Circuit schematic symbols"
+      ],
+      "render_ms": 0.062,
+      "bytes": 5873
     }
   }
 }

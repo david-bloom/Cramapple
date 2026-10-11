@@ -17,7 +17,7 @@ test suite. If any control is accepted, the batch is void.
 """
 from __future__ import annotations
 
-import argparse, copy, json, os, pathlib, sys, time
+import argparse, copy, json, os, pathlib, re, sys, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -357,10 +357,78 @@ def particulate_controls(specs: dict) -> dict:
     return c
 
 
+def field_controls(specs: dict) -> dict:
+    """Controls for the Lane B field-map and circuit-symbol batch.
+
+    F2, F3 and F5 pass verify.py cleanly.
+    """
+    c = {}
+
+    # F1 two LIKE charges, while the text still says lines arrive at the
+    # negative one. verify.py CATCHES this.
+    s = copy.deepcopy(specs["phys-electric-field-map"])
+    s["params"]["charges"] = [{"q": 1.0, "x": 0.28, "y": 0.5},
+                              {"q": 1.0, "x": 0.72, "y": 0.5}]
+    c["CONTROL-F1-two-like-charges-called-a-dipole"] = s
+
+    # F2 the field described as pointing towards INCREASING potential, which
+    # is backwards. The geometry is untouched, so this PASSES.
+    s = copy.deepcopy(specs["phys2-equipotential-map"])
+    s["note"] = "Field vectors point towards higher potential, up the potential hill."
+    s["alt"] = s["alt"].replace("points towards lower potential",
+                                "points towards higher potential")
+    c["CONTROL-F2-field-points-up-the-potential-hill"] = s
+
+    # F3 the figure's text licensing crossing field lines. PASSES the suite,
+    # because nothing about the drawn lines changed.
+    s = copy.deepcopy(specs["phys-electric-field-map"])
+    s["note"] = "Where the field is strong the lines may cross one another."
+    s["alt"] = s["alt"].replace(
+        "No two lines ever cross, because the field has only one direction at each point.",
+        "Close to the charges the lines cross one another, which is how a strong field is shown.")
+    c["CONTROL-F3-field-lines-may-cross"] = s
+
+    # F4 the isolines equally spaced in RADIUS while the figure's own note
+    # says each is a fixed step lower in potential. For a point charge V goes
+    # as 1/r, so equal radius steps are not equal potential steps. The suite
+    # checks that potential falls outwards, not that the steps are equal, so
+    # this PASSES it -- and unlike the control it replaces, a student can see
+    # the claim and act on it.
+    #
+    # The control it replaces listed the same four isoline radii in a shuffled
+    # ORDER. That draws the same four circles, so the picture a student sees is
+    # identical and nothing false is taught. gemini-3.5-flash accepted it and
+    # was right to; the control was the defect, not the reader. A control has
+    # to be a mistake the figure can actually make to someone reading it.
+    s = copy.deepcopy(specs["phys2-equipotential-map"])
+    s["params"]["isoline_radii"] = [0.14, 0.24, 0.34, 0.44]
+    s["note"] = "Equally spaced circles, so each one is the same step lower in potential than the last."
+    s["alt"] = s["alt"].replace(
+        "every point on one circle is at the same potential, and the potential falls as the circles "
+        "get larger",
+        "every point on one circle is at the same potential, and because the circles are equally "
+        "spaced the potential falls by the same amount from each circle to the next")
+    c["CONTROL-F4-equal-radii-read-as-equal-potential-steps"] = s
+
+    # F5 the ammeter marked V and the voltmeter marked A. Both letters are
+    # still present and still distinct, so this PASSES the suite while telling
+    # a student the wrong symbol for each meter.
+    s = copy.deepcopy(specs["phys2-circuit-symbols"])
+    for sy in s["params"]["symbols"]:
+        if sy["label"].startswith("Ammeter"):
+            sy["letter"] = "V"
+        elif sy["label"].startswith("Voltmeter"):
+            sy["letter"] = "A"
+    c["CONTROL-F5-meter-letters-swapped"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
-                "lane-b-particulate": particulate_controls}
+                "lane-b-particulate": particulate_controls,
+                "lane-b-fields": field_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
@@ -405,7 +473,36 @@ def main() -> int:
     if not specs:
         raise SystemExit(f"no figures with prefix {args.prefix!r}")
     entries = {k: v for k, v in json.load(open(args.entries)).items() if not k.startswith("_")}
-    items = {**specs, **CONTROL_SETS[args.controls or args.prefix](allspecs)}
+    ctl_specs = CONTROL_SETS[args.controls or args.prefix](allspecs)
+
+    # A control has to be a mistake a READER can see. One control changed only
+    # the order of a figure's isoline radii: the same four circles are drawn,
+    # so the picture is identical and nothing false is taught. A reader
+    # accepted it, correctly, and voided a batch that was sound. Refuse to run
+    # a control whose rendered output is a pure reordering of the original's
+    # elements, or whose text is unchanged when its drawing is.
+    import render as _R
+    for cid, cs in ctl_specs.items():
+        base = allspecs.get(cs["figure_id"])
+        if not base:
+            continue
+        a, b = _R.render(base), _R.render(cs)
+        if a == b:
+            raise SystemExit(f"control {cid} renders identically to {cs['figure_id']}: "
+                             f"it tests nothing")
+        # Whole elements, not fragments: splitting on ">" shreds each tag into
+        # an attribute part and a text part, so two figures that swap the
+        # CONTENTS of two elements compare equal and a real control is refused.
+        els = lambda v: sorted(re.findall(r"<[^>]+>[^<]*", v))
+        if els(a) == els(b) and \
+           (cs.get("alt"), cs.get("note"), cs.get("subtitle")) == \
+           (base.get("alt"), base.get("note"), base.get("subtitle")):
+            raise SystemExit(
+                f"control {cid} only REORDERS what {cs['figure_id']} draws and says nothing "
+                f"different: a student sees the same figure, so accepting it is correct and "
+                f"the control would void the batch for no reason")
+
+    items = {**specs, **ctl_specs}
     if args.only:
         items = {k: v for k, v in items.items() if args.only in k}
 

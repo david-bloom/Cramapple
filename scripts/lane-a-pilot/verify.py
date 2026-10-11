@@ -888,9 +888,142 @@ def p_particulate_box(sid, s, svg):
            f"{len(close)} electrons overlap an ion core")
 
 
+def _seg_cross(a, b, c, d) -> bool:
+    def o(p, q, r):
+        return (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
+    o1, o2, o3, o4 = o(a, b, c), o(a, b, d), o(c, d, a), o(c, d, b)
+    return (o1 > 0) != (o2 > 0) and (o3 > 0) != (o4 > 0)
+
+
+def p_field_map(sid, s, svg):
+    """The facts a wrong field map violates, taken from the entries' own labels."""
+    p = s["params"]
+    g = R.FAMILIES["field_map"](p)
+    ch = p["charges"]
+
+    for v in g["fm_vectors"]:
+        ex, ey = R._fm_field(ch, v["x"], v["y"])
+        m = math.hypot(ex, ey)
+        ck(sid, "every drawn vector points along the computed field",
+           abs(v["ux"] - ex / m) < 1e-9 and abs(v["uy"] - ey / m) < 1e-9)
+
+    if p.get("dipole_check"):
+        pos = [c for c in ch if c["q"] > 0]
+        neg = [c for c in ch if c["q"] < 0]
+        lines = g["fm_lines"]
+        ck(sid, "field lines are drawn", len(lines) >= 6)
+        # The entry's own labelled part: lines point away from positive and
+        # toward negative.
+        starts_ok = all(any(math.hypot(L[0][0] - c["x"], L[0][1] - c["y"]) < 0.05 for c in pos)
+                        for L in lines)
+        ck(sid, "every field line begins on a positive charge", starts_ok)
+        ends = [L[-1] for L in lines]
+        on_neg = sum(1 for e in ends
+                     if any(math.hypot(e[0] - c["x"], e[1] - c["y"]) < 0.06 for c in neg))
+        ck(sid, "field lines end on the negative charge", on_neg >= len(lines) * 0.6,
+           f"{on_neg} of {len(lines)} reach it; the rest leave the frame")
+        # Lines never cross: the field has ONE direction at each point, and a
+        # map that crosses is asserting two.
+        crossings = 0
+        for i in range(len(lines)):
+            for j in range(i + 1, len(lines)):
+                A, B = lines[i][::6], lines[j][::6]
+                for k in range(len(A) - 1):
+                    for l in range(len(B) - 1):
+                        if _seg_cross(A[k], A[k + 1], B[l], B[l + 1]):
+                            crossings += 1
+        ck(sid, "no two field lines cross", crossings == 0, f"{crossings} crossings")
+        ck(sid, "the figure's text says why they cannot cross",
+           "cross" in (s.get("note") or "").lower())
+        # Spacing stands for magnitude: the field must be stronger where the
+        # lines are closer, which is the claim the picture makes.
+        near = [v for v in g["fm_vectors"]
+                if min(math.hypot(v["x"] - c["x"], v["y"] - c["y"]) for c in ch) < 0.26]
+        far = [v for v in g["fm_vectors"]
+               if min(math.hypot(v["x"] - c["x"], v["y"] - c["y"]) for c in ch) > 0.38]
+        if near and far:
+            ck(sid, "the field really is stronger near the charges",
+               min(v["mag"] for v in near) > max(v["mag"] for v in far),
+               f"near>={min(v['mag'] for v in near):.3f} far<={max(v['mag'] for v in far):.3f}")
+
+    if p.get("isoline_check"):
+        isos = g["fm_isolines"]
+        ck(sid, "isolines are drawn", len(isos) >= 3)
+        # An isoline is a line of EQUAL potential: sample right round it.
+        for iso in isos:
+            vs = [R._fm_potential(ch, iso["cx"] + iso["r"] * math.cos(t * math.pi / 8),
+                                  iso["cy"] + iso["r"] * math.sin(t * math.pi / 8))
+                  for t in range(16)]
+            ck(sid, f"potential is constant along the isoline at r={iso['r']}",
+               max(vs) - min(vs) < 1e-9, f"spread={max(vs)-min(vs):.3g}")
+        rs = [iso["r"] for iso in isos]
+        ck(sid, "the isolines are drawn at increasing radius", rs == sorted(rs))
+        ck(sid, "potential falls as the isolines get larger",
+           all(isos[i]["v"] > isos[i + 1]["v"] for i in range(len(isos) - 1)),
+           f"V={[round(i['v'],3) for i in isos]}")
+        # The entry's labelled parts: perpendicular, and no component ALONG.
+        worst = 0.0
+        for v in g["fm_vectors"]:
+            c = ch[0]
+            tx, ty = -(v["y"] - c["y"]), (v["x"] - c["x"])      # tangent to the circle
+            tm = math.hypot(tx, ty)
+            if tm < 1e-9:
+                continue
+            worst = max(worst, abs(v["ux"] * tx / tm + v["uy"] * ty / tm))
+        ck(sid, "every field vector is perpendicular to its isoline",
+           worst < 1e-9, f"largest component along an isoline = {worst:.3g}")
+        ck(sid, "field vectors point towards lower potential",
+           all(R._fm_potential(ch, v["x"] + v["ux"] * 0.01, v["y"] + v["uy"] * 0.01)
+               < R._fm_potential(ch, v["x"], v["y"]) for v in g["fm_vectors"]))
+        ck(sid, "the figure's text states that no work is done along an isoline",
+           "no work" in (s.get("note") or "").lower() + s["alt"].lower())
+
+
+def p_circuit_symbols(sid, s, svg):
+    """A symbol key is right when every symbol the entry names is present,
+    distinct, and drawn the way the entry defines it."""
+    p = s["params"]
+    g = R.FAMILIES["circuit_symbols"](p)
+    cells = g["cs_cells"]
+    if not p.get("symbol_sheet_check"):
+        return
+    ck(sid, "every labelled part of the entry has a cell",
+       [c["label"] for c in cells] == s["labels"],
+       f"{[c['label'] for c in cells]}")
+    ck(sid, "no label is repeated", len({c["label"] for c in cells}) == len(cells))
+    # Two meters share one glyph and are told apart ONLY by their letter, so a
+    # missing letter would draw the ammeter and the voltmeter identically.
+    meters = [sy for sy in p["symbols"] if sy["glyph"] == "meter"]
+    ck(sid, "each meter carries the letter that distinguishes it",
+       all(sy.get("letter") for sy in meters)
+       and len({sy["letter"] for sy in meters}) == len(meters),
+       f"{[sy.get('letter') for sy in meters]}")
+    # Checked in the DRAWING, not only in the spec: the letter was declared
+    # correctly and then dropped on the way to the canvas, so the ammeter and
+    # the voltmeter rendered as two identical empty circles while this gate
+    # read the parameters and passed.
+    for sy in meters:
+        ck(sid, f"the {sy['label']} really is drawn with its letter",
+           f">{sy['letter']}</text>" in svg, "the circle renders empty without it")
+    var = [c for c in cells if c["variable"]]
+    ck(sid, "exactly one cell shows the variable-element notation", len(var) == 1)
+    # The entry defines a variable element as a STANDARD symbol plus the
+    # diagonal arrow, so it must reuse a glyph that appears elsewhere in the
+    # sheet rather than be a shape of its own.
+    ck(sid, "the variable element is a standard symbol with an arrow across it",
+       bool(var) and var[0]["base"] in {c["glyph"] for c in cells if not c["variable"]},
+       "it must reuse a symbol the sheet already shows")
+    ck(sid, "the figure's text says the arrow is a notation, not a component",
+       "notation" in (s.get("note") or "").lower())
+    ck(sid, "every cell is drawn and labelled",
+       svg.count("</text>") >= len(cells))
+
+
 PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
     "arrow_diagram": p_arrow_diagram,
     "particulate_box": p_particulate_box,
+    "field_map": p_field_map,
+    "circuit_symbols": p_circuit_symbols,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,
@@ -1006,6 +1139,24 @@ def main() -> int:
             # was an ARROW rendered off-canvas, and a text-only check would have
             # missed it -- as it missed a mis-converted tangent slope that drew
             # two near-vertical dashed lines straight off the bottom edge.
+            # <path> too. Field lines and arrowheads are paths, and a check
+            # that reads only text, lines and circles cannot see a curve that
+            # leaves the canvas -- which is the defect this gate exists for.
+            for pm in re.finditer(r'<path[^>]*\sd="([^"]*)"', lsvg):
+                d_ = pm.group(1)
+                # Only straight-segment paths are parsed: in an arc command the
+                # radii and the two flags are not coordinates, and reading every
+                # number as an alternating x/y flagged the pie chart's wedges
+                # for its own sweep flags. An arc path is simply not checked
+                # here, and the geometry tests cover those families instead.
+                if re.search(r'[AaCcQqSsTt]', d_):
+                    continue
+                nums = [float(t) for t in re.findall(r'-?\d+(?:\.\d+)?', d_)]
+                pxs, pys = nums[0::2], nums[1::2]
+                if any(v < -0.5 or v > cw + 0.5 for v in pxs) or \
+                   any(v < -0.5 or v > chh + 0.5 for v in pys):
+                    offenders.append(("path", round(min(pxs or [0]), 1),
+                                      round(max(pxs or [0]), 1)))
             for tag, xs_, ys_ in (
                 ("line", ("x1", "x2"), ("y1", "y2")),
                 ("circle", ("cx",), ("cy",)),

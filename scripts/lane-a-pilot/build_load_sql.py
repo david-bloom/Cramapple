@@ -37,6 +37,21 @@ FAMILIES = {
         "side by side rather than one on top of the other. The first Lane B grammar: it asserts a "
         "drawing convention rather than a quantity on an axis, so it renders in the bare frame.",
     ),
+    "circuit_symbols": (
+        "Circuit schematic symbol key",
+        "The standard schematic symbols drawn as a legend sheet rather than as a working circuit, "
+        "each in its own cell with its name beneath it. A variable element is the standard symbol "
+        "with a diagonal strikethrough arrow across it, which is a notation rather than a separate "
+        "component.",
+    ),
+    "field_map": (
+        "Electric field and equipotential maps",
+        "Field lines traced by stepping along the field COMPUTED from point charges, sample field "
+        "vectors, and isolines of potential. Field lines and isolines are complementary readings of "
+        "one field, so they are one family: lines never cross, they run from positive to negative, "
+        "and an isoline meets the field at a right angle because the geometry is computed rather "
+        "than sketched.",
+    ),
     "particulate_box": (
         "Particulate boxes",
         "Coloured circles in a panel, with counts, spacing and arrangement carrying the meaning: "

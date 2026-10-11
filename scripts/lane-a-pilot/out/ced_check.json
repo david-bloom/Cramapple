@@ -3,29 +3,27 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 5,
+  "figures": 3,
   "controls": 5,
   "controls_leaked": [],
-  "flagged": [
-    "chem-particulate-reversible"
-  ],
-  "wall_seconds": 91.2,
+  "flagged": [],
+  "wall_seconds": 71.0,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 79,
-      "prompt": 128805,
-      "completion": 71854,
-      "seconds": 462.9000000000001
+      "calls": 95,
+      "prompt": 148313,
+      "completion": 84108,
+      "seconds": 544.9000000000001
     },
     "openai/gpt-6.1-sol": {
-      "calls": 79,
-      "prompt": 99016,
-      "completion": 9314,
-      "seconds": 345.49999999999994
+      "calls": 95,
+      "prompt": 116761,
+      "completion": 10978,
+      "seconds": 408.90000000000003
     }
   },
   "detail": {
-    "chem-particulate-phases": {
+    "phys-electric-field-map": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -40,7 +38,7 @@
         }
       }
     },
-    "chem-particulate-balanced-equation": {
+    "phys2-equipotential-map": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -55,7 +53,7 @@
         }
       }
     },
-    "chem-particulate-solution": {
+    "phys2-circuit-symbols": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -70,50 +68,15 @@
         }
       }
     },
-    "chem-particulate-reversible": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The specified A \u21cc B reaction changes one atom type into another.",
-              "why": "The parameters define A as one A atom and B as one B atom. Changing 16 A particles into 4 A and 12 B therefore fails to conserve each element. An ordinary reversible chemical reaction cannot convert one element into another; A and B would need compatible elemental compositions."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "chem-sea-of-electrons": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P1-atoms-not-conserved": {
+    "CONTROL-F1-two-like-charges-called-a-dipole": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The after panel contains only one H\u2082O molecule, not the two required by the balanced equation.",
-              "why": "The parameters produce 4 H and 2 O atoms before but only 2 H and 1 O atom after. This violates atom conservation and contradicts the subtitle, alt text, and note, which assert two water molecules and equal atom counts."
+              "what": "The title, subtitle, and alt text describe opposite charges, but both source charges have q = +1.0.",
+              "why": "The parameters produce two equal positive charges, not a dipole. Field lines point away from both charges rather than leaving the left charge and arriving at the right charge."
             }
           ],
           "confidence": "high"
@@ -122,23 +85,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The 'after' panel is configured with only 1 H\u2082O molecule instead of 2.",
-              "why": "This violates atom conservation (4 H and 2 O before, but only 2 H and 1 O after), which directly contradicts the chemical equation, the title, the subtitle, the note, and the alt text claiming that the atoms before and after are the same."
+              "what": "The charges in the parameters both have a charge of 1.0 (positive).",
+              "why": "The title, subtitle, and alt text all state that the figure shows two opposite charges (one positive, one negative) where lines leave the positive charge and arrive at the negative one. Having both charges positive (q = 1.0) will produce a field map of two like charges (repelling), which directly contradicts the text and teaches the student incorrect physics."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P2-concentration-as-amount": {
+    "CONTROL-F2-field-points-up-the-potential-hill": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The note states that the box with more solute particles is more concentrated, whatever its volume.",
-              "why": "Concentration depends on the amount of solute relative to solution volume, not the total solute count alone. More solute particles imply greater concentration here because the boxes have equal volumes; that conclusion does not hold regardless of volume."
+              "what": "The alt text and note incorrectly state that field vectors point toward higher potential.",
+              "why": "For the positive point charge shown, potential decreases with distance. The outward electric field vectors therefore point toward lower potential, consistent with E = \u2212\u2207V and the entry's stated field direction."
             }
           ],
           "confidence": "high"
@@ -147,23 +110,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The note states: 'The box with more solute particles is the more concentrated, whatever its volume.'",
-              "why": "This statement is scientifically incorrect. Concentration is the ratio of solute to volume. If the volume of the box with more solute particles were significantly larger, its concentration would be lower than the box with fewer solute particles in a much smaller volume. Therefore, concentration does depend on volume."
+              "what": "The note and alt text state that electric field vectors point towards higher potential ('up the potential hill').",
+              "why": "Electric field vectors point in the direction of decreasing electric potential (down the potential hill, away from a positive charge). This is a physical error and contradicts the reference entry's labelled parts which correctly state that field vectors point in the direction of decreasing potential."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P3-equilibrium-means-reaction-stopped": {
+    "CONTROL-F3-field-lines-may-cross": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text state that the forward reaction stops at equilibrium and no more A turns into B.",
-              "why": "Chemical equilibrium is dynamic: the forward and reverse reactions continue at equal rates. The particle counts remain constant because there is no net change, not because the forward reaction stops."
+              "what": "The note and alt text claim that field lines may cross near charges and that crossing indicates a strong field.",
+              "why": "Electric field lines cannot cross at a point where the field has a defined direction: crossing would assign multiple directions to the field at that point. Greater field strength is indicated by closer line spacing, not crossing."
             }
           ],
           "confidence": "high"
@@ -172,27 +135,52 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text state that 'at equilibrium the forward reaction has stopped' and 'no more A turns into B'.",
-              "why": "Chemical equilibrium is dynamic. The forward and reverse reactions do not stop; instead, they continue to occur at equal rates, resulting in no net change in concentrations."
+              "what": "The note and alt text state that electric field lines can cross to show a strong field.",
+              "why": "Electric field lines can never cross. If they crossed, it would mean the electric field at the intersection point has two different directions, which is physically impossible. A strong field is represented by a higher density of lines (lines packed closely together), not by lines crossing."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-P4-counts-do-not-give-stated-k": {
+    "CONTROL-F4-equal-radii-read-as-equal-potential-steps": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The stated equilibrium constant is K = 3, but the equilibrium panel contains 8 A and 8 B.",
-              "why": "For A \u21cc B, K = [B]/[A]. The drawn equilibrium counts give K = 8/8 = 1, not 12/4 = 3."
+              "what": "The note and alt text claim that equally spaced circles represent equal decreases in potential.",
+              "why": "For a point charge, V = kq/r, so equal radial spacing does not give equal potential differences. At radii 0.14, 0.24, 0.34, and 0.44, successive potential drops are approximately 2.976kq, 1.225kq, and 0.668kq, respectively."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The assertion in the alt text and note that 'because the circles are equally spaced the potential falls by the same amount from each circle to the next' is physically incorrect.",
+              "why": "For a point charge, the electric potential is inversely proportional to the distance from the charge ($V = kq/r$). If the isolines represent equal steps in potential, the spacing between the circles must increase as the distance from the charge increases. If the circles are equally spaced, the potential difference between successive circles decreases as you move outward, rather than remaining constant."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-F5-meter-letters-swapped": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The symbol labelled \u201cAmmeter (A)\u201d contains the letter V.",
+              "why": "A circle marked V denotes a voltmeter, not an ammeter; the label and alt text contradict the drawing parameters."
             },
             {
-              "what": "The alt text describes four A particles and twelve B particles at equilibrium, contradicting the drawn counts.",
-              "why": "The exact parameters specify eight particles of each species in the equilibrium panel."
+              "what": "The symbol labelled \u201cVoltmeter (V)\u201d contains the letter A.",
+              "why": "A circle marked A denotes an ammeter, not a voltmeter; the label and alt text contradict the drawing parameters."
             }
           ],
           "confidence": "high"
@@ -201,33 +189,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "contradiction between the drawn particle counts and the text/labels",
-              "why": "The drawing parameters for the equilibrium panel specify 8 A and 8 B particles (caption '8 A, 8 B'), which gives K = 1. However, the alt text, note, and equilibrium_k_check assert that there are 4 A and 12 B particles, giving K = 3. This will result in a figure where the visual counts do not match the mathematical explanation."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-P5-electrons-localized-on-ions": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says each valence electron belongs to and stays with its own metal atom; the note likewise says each electron stays with its original ion.",
-              "why": "Metallic bonding involves delocalized valence electrons that are not tied to individual atoms or ions. These statements contradict the entry, subtitle, and drawing parameters, which identify the dots as delocalized electrons. The alt text also falsely attributes metallic conduction and deformation to localized electrons."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and the note state that 'Each electron stays with the ion it came from' and 'every valence electron stays with its own metal atom.'",
-              "why": "This is chemically incorrect and directly contradicts the concept of metallic bonding. In the sea-of-electrons model, valence electrons are delocalized and free to move throughout the entire lattice, rather than being bound to or staying next to their parent metal ions."
+              "what": "The letters inside the meter symbols for the Ammeter and Voltmeter are swapped.",
+              "why": "The Ammeter (labeled 'Ammeter (A)') is configured with the letter 'V', while the Voltmeter (labeled 'Voltmeter (V)') is configured with the letter 'A'. This will result in the symbols being drawn incorrectly and contradicting their labels."
             }
           ],
           "confidence": "high"

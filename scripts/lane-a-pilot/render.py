@@ -21,6 +21,7 @@ from typing import Callable
 
 # ---------------------------------------------------------------- palette ---
 BG, INK, GRAY, LIGHT, GRID = "#FAFAF8", "#151515", "#6E6E6E", "#B9B9B9", "#D8D8D3"
+MINUS = "\u2212"  # an f-string expression may not contain a backslash escape
 
 # One spec, three sizes. SVG text scales with the image, so a figure drawn at
 # 980 units and displayed in a 332px pane renders its 11.5-unit labels at 3.9px.
@@ -838,6 +839,123 @@ def f_particulate_box(p: dict) -> dict:
             "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
 
 
+def _fm_field(charges: list, x: float, y: float) -> tuple[float, float]:
+    """Coulomb superposition in box coordinates, k = 1.
+
+    The field is COMPUTED, not sketched. Every property the entries name --
+    lines leaving positive and arriving at negative, spacing standing for
+    magnitude, isolines meeting the field at right angles -- is then a fact
+    about this function rather than about how carefully someone drew curves.
+    """
+    ex = ey = 0.0
+    for c in charges:
+        dx, dy = x - c["x"], y - c["y"]
+        r2 = dx * dx + dy * dy
+        if r2 < 1e-9:
+            continue
+        r = math.sqrt(r2)
+        ex += c["q"] * dx / (r2 * r)
+        ey += c["q"] * dy / (r2 * r)
+    return ex, ey
+
+
+def _fm_potential(charges: list, x: float, y: float) -> float:
+    v = 0.0
+    for c in charges:
+        r = math.hypot(x - c["x"], y - c["y"])
+        v += c["q"] / max(r, 1e-6)
+    return v
+
+
+def f_field_map(p: dict) -> dict:
+    """Electric field maps and equipotential maps: one geometry, two readings.
+
+    Field lines and isolines are complementary representations of the same
+    field -- the AP Physics 2 entry says exactly that, and either can be built
+    from the other -- so they are one family. Lines are traced by stepping
+    along the computed field; isolines for a single charge are circles, which
+    makes "perpendicular to the field everywhere" exact rather than
+    approximate.
+    """
+    ch = p["charges"]
+    lines, vectors, isos = [], [], []
+
+    if p.get("field_lines"):
+        per = p.get("lines_per_unit_charge", 8)
+        for c in ch:
+            if c["q"] <= 0:
+                continue
+            n = max(1, int(round(per * c["q"])))
+            for i in range(n):
+                a = 2 * math.pi * (i + 0.5) / n
+                x, y = c["x"] + 0.035 * math.cos(a), c["y"] + 0.035 * math.sin(a)
+                pts = [(x, y)]
+                for _ in range(900):
+                    ex, ey = _fm_field(ch, x, y)
+                    m = math.hypot(ex, ey)
+                    if m < 1e-9:
+                        break
+                    x, y = x + 0.004 * ex / m, y + 0.004 * ey / m
+                    if not (0.0 <= x <= 1.0 and 0.0 <= y <= 1.0):
+                        # Stop exactly ON the box edge. A 2% margin put real
+                        # ink outside the frame the figure draws, and the
+                        # canvas check could not see it because field lines
+                        # are <path> elements.
+                        pts.append((min(1.0, max(0.0, x)), min(1.0, max(0.0, y))))
+                        break
+                    if any(q["q"] < 0 and math.hypot(x - q["x"], y - q["y"]) < 0.035 for q in ch):
+                        pts.append((x, y))
+                        break
+                    pts.append((x, y))
+                lines.append(pts)
+
+    for gx, gy in p.get("vector_points", []):
+        ex, ey = _fm_field(ch, gx, gy)
+        m = math.hypot(ex, ey)
+        if m < 1e-12:
+            continue
+        vectors.append({"x": gx, "y": gy, "ux": ex / m, "uy": ey / m, "mag": m})
+
+    for r in p.get("isoline_radii", []):
+        c = ch[0]
+        isos.append({"cx": c["x"], "cy": c["y"], "r": r,
+                     "v": _fm_potential(ch, c["x"] + r, c["y"])})
+
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "fm_charges": ch, "fm_lines": lines, "fm_vectors": vectors,
+            "fm_isolines": isos, "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+def f_circuit_symbols(p: dict) -> dict:
+    """A symbol library, drawn as a legend sheet rather than as a circuit.
+
+    AP Physics 2 11.2 authors eight labelled parts and every one of them is a
+    SYMBOL, not a component in a working circuit. Drawing a circuit that
+    happens to contain them would teach the circuit; what the entry asks for is
+    the key. Each cell is one symbol with its name under it, and the variable
+    element is deliberately the standard symbol plus the diagonal arrow, which
+    is the entry's own definition of it.
+    """
+    cells = []
+    for i, sym in enumerate(p["symbols"]):
+        cells.append({"glyph": sym["glyph"], "label": sym["label"],
+                      "variable": bool(sym.get("variable")),
+                      "base": sym.get("base"), "index": i,
+                      # Carried through: the ammeter and the voltmeter are the
+                      # SAME glyph and are told apart only by this letter.
+                      # Dropping it drew two identical empty circles.
+                      "letter": sym.get("letter", "")})
+    known = {"battery", "bulb", "switch", "capacitor", "resistor", "meter", "wire"}
+    for c in cells:
+        if c["glyph"] not in known:
+            raise ValueError(f"no drawing for circuit symbol {c['glyph']!r}")
+    cols = p.get("columns", 4)
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "cs_cells": cells, "cs_cols": cols, "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -854,6 +972,8 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "kinematic_panels": f_kinematic_panels,
     "arrow_diagram": f_arrow_diagram,
     "particulate_box": f_particulate_box,
+    "field_map": f_field_map,
+    "circuit_symbols": f_circuit_symbols,
 }
 
 
@@ -1102,6 +1222,150 @@ def render(spec: dict, layout: str = "expanded") -> str:
         anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
         o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
                  f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # circuit symbol sheet
+    if g.get("cs_cells"):
+        cells, cols = g["cs_cells"], g["cs_cols"]
+        rows_n = int(math.ceil(len(cells) / cols))
+        cw_ = pw / cols
+        chh_ = ph / rows_n
+        sw_ = max(1.3, SW * 0.9)
+        for c in cells:
+            r_, q_ = divmod(c["index"], cols)
+            ox = L + q_ * cw_ + cw_ / 2
+            oy = T + r_ * chh_ + chh_ * 0.42
+            half = min(cw_ * 0.30, chh_ * 0.26)
+            lead = half * 0.52
+            def wire(x1, x2, yy=None):
+                yy = oy if yy is None else yy
+                o.append(f'<line x1="{x1:.1f}" y1="{yy:.1f}" x2="{x2:.1f}" y2="{yy:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}" stroke-linecap="round"/>')
+            glyph = c["base"] or c["glyph"]
+            if glyph == "resistor":
+                wire(ox - half, ox - half + lead)
+                zig, n_ = [], 6
+                for k in range(n_ + 1):
+                    zx = ox - half + lead + k * (2 * (half - lead)) / n_
+                    zy = oy + (0 if k in (0, n_) else (half * 0.40 if k % 2 else -half * 0.40))
+                    zig.append(f"{zx:.1f},{zy:.1f}")
+                o.append(f'<path d="M {" L ".join(zig)}" fill="none" stroke="{INK}" '
+                         f'stroke-width="{sw_:.1f}" stroke-linejoin="round"/>')
+                wire(ox + half - lead, ox + half)
+            elif glyph == "battery":
+                wire(ox - half, ox - half * 0.30)
+                for dx_, hh_, wd in ((-half * 0.30, half * 0.62, sw_ * 1.5),
+                                     (half * 0.02, half * 0.30, sw_ * 1.5)):
+                    o.append(f'<line x1="{ox + dx_:.1f}" y1="{oy - hh_:.1f}" '
+                             f'x2="{ox + dx_:.1f}" y2="{oy + hh_:.1f}" stroke="{INK}" '
+                             f'stroke-width="{wd:.1f}"/>')
+                wire(ox + half * 0.02, ox + half)
+            elif glyph == "capacitor":
+                wire(ox - half, ox - half * 0.16)
+                for dx_ in (-half * 0.16, half * 0.16):
+                    o.append(f'<line x1="{ox + dx_:.1f}" y1="{oy - half*0.58:.1f}" '
+                             f'x2="{ox + dx_:.1f}" y2="{oy + half*0.58:.1f}" stroke="{INK}" '
+                             f'stroke-width="{sw_*1.5:.1f}"/>')
+                wire(ox + half * 0.16, ox + half)
+            elif glyph == "bulb":
+                rr = half * 0.52
+                wire(ox - half, ox - rr)
+                o.append(f'<circle cx="{ox:.1f}" cy="{oy:.1f}" r="{rr:.1f}" fill="none" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                k = rr * 0.707
+                for sx_, sy_ in ((-k, -k), (-k, k)):
+                    o.append(f'<line x1="{ox + sx_:.1f}" y1="{oy + sy_:.1f}" '
+                             f'x2="{ox - sx_:.1f}" y2="{oy - sy_:.1f}" stroke="{INK}" '
+                             f'stroke-width="{sw_*0.8:.1f}"/>')
+                wire(ox + rr, ox + half)
+            elif glyph == "switch":
+                wire(ox - half, ox - half * 0.42)
+                o.append(f'<line x1="{ox - half*0.42:.1f}" y1="{oy:.1f}" '
+                         f'x2="{ox + half*0.34:.1f}" y2="{oy - half*0.62:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}" stroke-linecap="round"/>')
+                for dx_ in (-half * 0.42, half * 0.42):
+                    o.append(f'<circle cx="{ox + dx_:.1f}" cy="{oy:.1f}" r="{sw_*1.1:.1f}" '
+                             f'fill="{INK}"/>')
+                wire(ox + half * 0.42, ox + half)
+            elif glyph == "meter":
+                rr = half * 0.52
+                wire(ox - half, ox - rr)
+                o.append(f'<circle cx="{ox:.1f}" cy="{oy:.1f}" r="{rr:.1f}" fill="none" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                o.append(f'<text x="{ox:.1f}" y="{oy + FM*0.36:.1f}" text-anchor="middle" '
+                         f'font-size="{FM:.1f}" fill="{INK}">{esc(c.get("letter", ""))}</text>')
+                wire(ox + rr, ox + half)
+            if c["variable"]:
+                # The entry's own definition: the standard symbol with a
+                # diagonal strikethrough arrow across it.
+                x1_, y1_ = ox - half * 0.78, oy + half * 0.86
+                x2_, y2_ = ox + half * 0.78, oy - half * 0.86
+                o.append(f'<line x1="{x1_:.1f}" y1="{y1_:.1f}" x2="{x2_:.1f}" y2="{y2_:.1f}" '
+                         f'stroke="{INK}" stroke-width="{sw_:.1f}"/>')
+                ang = math.atan2(y2_ - y1_, x2_ - x1_)
+                hd = half * 0.30
+                o.append(f'<path d="M {x2_:.1f},{y2_:.1f} '
+                         f'L {x2_ - hd*math.cos(ang-0.45):.1f},{y2_ - hd*math.sin(ang-0.45):.1f} '
+                         f'L {x2_ - hd*math.cos(ang+0.45):.1f},{y2_ - hd*math.sin(ang+0.45):.1f} Z" '
+                         f'fill="{INK}"/>')
+            for li, ltxt in enumerate(wrap(c["label"], max(10, int(cw_ / (FM * 0.52))))):
+                o.append(f'<text x="{ox:.1f}" y="{T + r_*chh_ + chh_*0.80 + li*FM*1.15:.1f}" '
+                         f'text-anchor="middle" font-size="{FM*0.95:.1f}" fill="{INK}">'
+                         f'{esc(ltxt)}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+    # electric field / equipotential maps
+    if g.get("fm_charges") is not None and (g.get("fm_lines") or g.get("fm_vectors")
+                                            or g.get("fm_isolines")):
+        side = min(pw, ph)
+        bx = L + (pw - side) / 2
+        by = T + (ph - side) / 2
+        o.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{side:.1f}" height="{side:.1f}" '
+                 f'fill="{BG}" stroke="{GRID}" stroke-width="1.2"/>')
+        fx = lambda u: bx + u * side
+        fy = lambda v: by + v * side
+        for iso in g.get("fm_isolines", []):
+            o.append(f'<circle cx="{fx(iso["cx"]):.1f}" cy="{fy(iso["cy"]):.1f}" '
+                     f'r="{iso["r"]*side:.1f}" fill="none" stroke="{GRAY}" '
+                     f'stroke-width="1.1" stroke-dasharray="5 4"/>')
+        for pts in g.get("fm_lines", []):
+            d = "M " + " L ".join(f"{fx(x):.1f},{fy(y):.1f}" for x, y in pts)
+            o.append(f'<path d="{d}" fill="none" stroke="{GRAY}" stroke-width="{SW*0.72:.1f}"/>')
+            # One arrowhead per line, at its midpoint, so direction is readable
+            # without an arrow every few units turning the map into hatching.
+            mi = len(pts) // 2
+            if mi > 1:
+                (x0_, y0_), (x1_, y1_) = pts[mi - 1], pts[mi]
+                ang = math.atan2(fy(y1_) - fy(y0_), fx(x1_) - fx(x0_))
+                hx, hy = fx(x1_), fy(y1_)
+                hd = max(4.0, side * 0.022)
+                o.append(f'<path d="M {hx:.1f},{hy:.1f} '
+                         f'L {hx - hd*math.cos(ang - 0.42):.1f},{hy - hd*math.sin(ang - 0.42):.1f} '
+                         f'L {hx - hd*math.cos(ang + 0.42):.1f},{hy - hd*math.sin(ang + 0.42):.1f} Z" '
+                         f'fill="{GRAY}"/>')
+        vmax = max((v["mag"] for v in g.get("fm_vectors", [])), default=1.0)
+        for v in g.get("fm_vectors", []):
+            ln = side * 0.052 * (0.45 + 0.55 * min(1.0, (v["mag"] / vmax) ** 0.4))
+            x0_, y0_ = fx(v["x"]), fy(v["y"])
+            x1_, y1_ = x0_ + v["ux"] * ln, y0_ + v["uy"] * ln
+            o.append(f'<line x1="{x0_:.1f}" y1="{y0_:.1f}" x2="{x1_:.1f}" y2="{y1_:.1f}" '
+                     f'stroke="{INK}" stroke-width="{SW*0.8:.1f}"/>')
+            hd = max(3.0, ln * 0.34)
+            ang = math.atan2(v["uy"], v["ux"])
+            o.append(f'<path d="M {x1_:.1f},{y1_:.1f} '
+                     f'L {x1_ - hd*math.cos(ang - 0.45):.1f},{y1_ - hd*math.sin(ang - 0.45):.1f} '
+                     f'L {x1_ - hd*math.cos(ang + 0.45):.1f},{y1_ - hd*math.sin(ang + 0.45):.1f} Z" '
+                     f'fill="{INK}"/>')
+        for c in g["fm_charges"]:
+            r = max(5.0, side * 0.038)
+            o.append(f'<circle cx="{fx(c["x"]):.1f}" cy="{fy(c["y"]):.1f}" r="{r:.1f}" '
+                     f'fill="{BG}" stroke="{INK}" stroke-width="1.6"/>')
+            sign = "+" if c["q"] > 0 else MINUS
+            o.append(f'<text x="{fx(c["x"]):.1f}" y="{fy(c["y"]) + r*0.42:.1f}" '
+                     f'text-anchor="middle" font-size="{r*1.35:.1f}" fill="{INK}">'
+                     f'{sign}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
     # particulate panels
     if g.get("panels_pb"):
         pans = g["panels_pb"]
