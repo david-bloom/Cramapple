@@ -103,9 +103,9 @@ Most recent entries (full chronological list follows below):
      the drawing cannot arrive.
 - **Consequences:** `FIGURE_PRODUCTION_PROTOCOL.md` §9's correction and
   `LANE_A_REMAINING_ENTRIES_CLASSIFICATION_2026_10_11.md` §6 are revised: the remaining Lane A batch
-  is **a content load again**, not a schema change. Applied to Development 2026-10-11 and verified;
-  **Production is an open Hard Gate** — it is not needed there until a figure with a new family is
-  promoted, but the environments should converge before that.
+  is **a content load again**, not a schema change. Applied to Development and then to
+  **Production the same day (`APPROVAL-0156`)**, verified in both; the two environments' column,
+  constraint and seed signatures hash identically (`e549ee74…`).
 - **Rollback:** re-add the CHECK over the families then in use and drop the foreign key; the lookup
   table can be left in place or dropped once nothing references it.
 
