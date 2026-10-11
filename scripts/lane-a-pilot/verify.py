@@ -255,9 +255,16 @@ def main() -> int:
     coverage = {}
     for title, agg in by_entry.items():
         authored = [i.get("label") for i in ((entries.get(title) or {}).get("items") or [])]
-        # An entry with no authored labels is a missing fixture, not a clean pass.
-        ck(title, "authored items[] are present to check against", bool(authored),
+        # A missing fixture is not a clean pass. An entry the corpus really does
+        # author with no labelled parts is a legitimate state, though -- a
+        # vocabulary entry can host a figure -- so test for the KEY, not for a
+        # non-empty list, or such an entry could never pass.
+        ck(title, "authored items[] are present to check against",
+           "items" in (entries.get(title) or {}),
            f"entry absent from or stripped in {os.path.basename(args.entries)}")
+        if "items" in (entries.get(title) or {}) and not authored:
+            print(f"  note: {title} is authored with no labelled parts; "
+                  f"coverage asserts nothing for it")
         missing = [a for a in authored if a not in agg["covers"]]
         ck(title, "every authored labelled part is covered", not missing, f"missing={missing}")
         coverage[title] = {"figures": agg["specs"], "authored_labels": len(authored),
