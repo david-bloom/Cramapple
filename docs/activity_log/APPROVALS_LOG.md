@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production (2026-10-11)
 - APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK — DECISION-0115 (2026-10-11)
 - APPROVAL-0155 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
 - APPROVAL-0154 — Reference Packs for Eight Subjects to Production: 776 Entries + 7 Hooks, Units 1-3 (2026-10-11)
@@ -2087,6 +2088,54 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0157 — Deploy the Nine AP Statistics Lane A Figures to Production
+
+**Date:** 2026-10-11
+**Approved By:** David Bloom (2026-10-11 Claude session): "deploy the statistics figures to production".
+**Related:** `docs/product/LANE_A_STATISTICS_BATCH_2026_10_11.md` (the batch record and its three gates);
+`FIGURE_PRODUCTION_PROTOCOL.md` v1.4; `DECISION-0115` / `APPROVAL-0156` (families as data, which is why
+this was a content load); `APPROVAL-0153` (the chemistry figures this extends).
+**Decision:** Approved and applied.
+
+**What was deployed:** `scripts/lane-a-pilot/out/load_ap_statistics_figures.sql` — **five renderer family
+rows, nine figures and nine uses** — applied with the CLI pinned to the Production link
+(`--workdir /Users/davidbloom`, ref confirmed `pcntajvbdfqhbeewmdry` before the write). **No schema
+change and no function change:** `get_topic_point_guides` hashes `25b6e08c84e5db9fac69741f93efa054`
+before and after. Entries were resolved by natural key, so the same file ran unchanged in both
+environments.
+
+**Production pre-state:** 6 families, 10 figures, 10 uses, 0 AP Statistics figures; a student asking for
+AP Statistics 1.4 or Unit 1 got `[]`.
+
+**Verification, as an authenticated student (never `service_role`):**
+
+| Check | Result |
+|---|---|
+| Topic 1.4 | `stats-bar-chart`, `stats-pie-chart` |
+| Topic 1.5 | `stats-dotplot`, `stats-histogram`, `stats-stem-leaf` |
+| Topic 1.8 | `stats-boxplot` |
+| Topic 2.1 | the three two-categorical-variable figures |
+| Unit 1 / Unit 2 roll-ups | 6 and 3 |
+| A topic with no figure (1.7) | `[]` |
+| AP Chemistry 5.5 and Unit 5, AP Biology 1.1 | unchanged (1, 3, 0) |
+| Draft row is invisible | setting `stats-boxplot` to `draft` dropped topic 1.8 to `[]`; rolled back |
+| Dead figures | 0 |
+| Re-apply | idempotent |
+| **Cross-environment** | 11 families, 19 figures, 19 published, 19 uses and AP Statistics content checksum `18008704230` — **identical in both** |
+
+**Gates, from the batch record:** property tests 934 checks / 0 failed; a human legibility pass at
+272–460px, 680px and 980px that found seven defects and fixed them; two non-Anthropic model readers with
+five planted controls — **controls 5/5 rejected, figures 9/9 accepted**, $0.25.
+
+**Student-visible consequence, stated plainly.** The app renders `figures[]` today, so these nine
+figures are live for students now. They render through the **unfixed** frontend renderer until
+`ap-prep-blueprint` PR #6 is merged and published: at the reference pane's width the rotated y-axis
+title is clipped and the legend overprints the x-axis title. That affects the ten chemistry figures
+already live as well, so this deploy does not introduce the defect, but it does widen its reach.
+
+**Rollback:** `update app.figures set status = 'retired' where subject_key = 'ap_statistics';` — the
+RPC's `figures` key returns `[]` for those topics, and no function, schema or family row is touched.
 
 ## APPROVAL-0156 — Deploy `app.figure_families` + `figures_family_fkey` to Production, Replacing the Hard-Coded Family CHECK
 

@@ -38,15 +38,15 @@ LAYOUTS = {
     "compact":  {"W": 340, "H": 344, "L": 46, "R": 14, "T": 78, "B": 86,
                  "f": {"title": 15, "sub": 0, "axis": 13, "tick": 11, "ann": 12,
                        "mark": 11, "legend": 11, "note": 0, "flag": 0},
-                 "annotations": False, "stroke": 2.0},
+                 "annotations": False, "stroke": 2.0, "ylab_dx": 33},
     "full":     {"W": 680, "H": 440, "L": 84, "R": 44, "T": 76, "B": 92,
                  "f": {"title": 17, "sub": 12, "axis": 12, "tick": 10.5, "ann": 11,
                        "mark": 11, "legend": 11, "note": 10, "flag": 9.5},
-                 "annotations": True, "stroke": 2.3},
+                 "annotations": True, "stroke": 2.3, "ylab_dx": 46},
     "expanded": {"W": 980, "H": 620, "L": 112, "R": 60, "T": 104, "B": 128,
                  "f": {"title": 20, "sub": 12.5, "axis": 12.5, "tick": 10.5, "ann": 11.5,
                        "mark": 11.5, "legend": 11.5, "note": 10.5, "flag": 10},
-                 "annotations": True, "stroke": 2.6},
+                 "annotations": True, "stroke": 2.6, "ylab_dx": 46},
 }
 W, H = 980, 620
 L, R, T, B = 112, 60, 104, 128
@@ -123,6 +123,57 @@ def nice_ticks(lo: float, hi: float, target: int = 6) -> list[float]:
 
 def smoothstep(t: float) -> float:
     return t * t * (3 - 2 * t)
+
+
+def median(xs: list[float]) -> float:
+    s = sorted(xs)
+    n = len(s)
+    return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2
+
+
+def five_number(values: list[float]) -> dict:
+    """Five-number summary, quartiles by the AP convention.
+
+    Q1 is the median of the lower half and Q3 the median of the upper half, with
+    the overall median EXCLUDED from both halves when n is odd. AP Statistics
+    teaches this split, and a boxplot drawn with a different quartile rule puts
+    the box edges somewhere the student's own calculation will not land.
+
+    Also returns the 1.5*IQR fences, the whisker ends (the most extreme values
+    that are NOT outliers -- not the fences themselves, which is the error the
+    entry's "whisker ends when outliers exist" label exists to prevent) and the
+    outliers.
+    """
+    s = sorted(values)
+    n = len(s)
+    med = median(s)
+    half = n // 2
+    lower, upper = s[:half], s[half + (n % 2):]
+    q1, q3 = median(lower), median(upper)
+    iqr = q3 - q1
+    lo_fence, hi_fence = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+    inliers = [v for v in s if lo_fence <= v <= hi_fence]
+    return {"min": s[0], "q1": q1, "med": med, "q3": q3, "max": s[-1],
+            "iqr": iqr, "lo_fence": lo_fence, "hi_fence": hi_fence,
+            "whisk_lo": min(inliers), "whisk_hi": max(inliers),
+            "outliers": [v for v in s if v < lo_fence or v > hi_fence], "n": n}
+
+
+def stem_leaf_rows(values: list[int], stem_div: int = 10) -> list[tuple[int, list[int]]]:
+    """Split each value into stem = value // stem_div and leaf = value % stem_div.
+
+    Every leaf is therefore a single digit when stem_div is 10, which is what the
+    entry's "Leaf" label claims, and both stems and leaves come out ordered,
+    which is what "Ordering" claims. Stems with no leaves are kept so the gaps
+    in the distribution are visible rather than silently closed up.
+    """
+    if any(v < 0 for v in values):
+        raise ValueError("stem-and-leaf here assumes non-negative values")
+    stems = {}
+    for v in sorted(values):
+        stems.setdefault(v // stem_div, []).append(v % stem_div)
+    lo, hi = min(stems), max(stems)
+    return [(s, sorted(stems.get(s, []))) for s in range(lo, hi + 1)]
 
 
 # --------------------------------------------------------- family builders --
@@ -270,6 +321,206 @@ def f_titration_curve(p: dict) -> dict:
             "x_range": (0, v1), "y_range": (0, 14)}
 
 
+# --------------------------------------------- AP Statistics family builders --
+# These five cover AP Statistics' seven Lane A entries. The distinctions they
+# draw ARE the teaching points, so each one is pinned by a property:
+#   bar chart     bars SEPARATED, because the variable is categorical
+#   histogram     bars CONTIGUOUS and bins ordered, because it is quantitative
+#   segmented     equal-width bars, each segment set summing to the whole
+#   mosaic        bar widths PROPORTIONAL to the column marginals
+#   dotplot       one dot per observation, stacked at equal values
+#   stem-and-leaf single-digit leaves that reconstruct the data exactly
+#   boxplot       whiskers to the extreme NON-outliers, not to the fences
+
+def _bar_fill(i: int, n: int) -> tuple[str, float]:
+    """Monochrome fills that stay distinguishable in the reference pane.
+
+    Colour is not available (the figures are deliberately monochrome), and a
+    legend swatch heavier than the thing it labels was a real defect in the
+    pilot, so levels differ by value: solid ink, then light grey with an ink
+    edge, then mid grey.
+    """
+    return [(INK, 1.0), (LIGHT, 1.0), (GRAY, 1.0), (LIGHT, 0.45)][i % 4]
+
+
+def f_categorical_bars(p: dict) -> dict:
+    """Bar chart, histogram, side-by-side, segmented and mosaic.
+
+    One family, five modes, because the geometry is the same rectangle machinery
+    and only the x placement and the stacking differ. `mode` picks:
+
+      bar        one bar per category, separated by a gap
+      histogram  one bar per ordered bin, edge to edge with no gap
+      grouped    one bar per (category, level), grouped with a gap between
+                 categories (the side-by-side bar chart)
+      segmented  one bar per category, levels stacked to the full height
+      mosaic     as segmented, but each bar's WIDTH is its share of the total
+    """
+    mode = p["mode"]
+    bars, legend, xticks = [], [], []
+
+    if mode == "histogram":
+        edges, counts = p["bin_edges"], p["counts"]
+        if len(edges) != len(counts) + 1:
+            raise ValueError("histogram needs one more edge than counts")
+        if any(edges[i + 1] <= edges[i] for i in range(len(counts))):
+            raise ValueError("histogram bin edges must increase")
+        for i, c in enumerate(counts):
+            bars.append({"x0": edges[i], "x1": edges[i + 1], "y0": 0, "y1": c,
+                         "fill": INK, "op": 1.0, "edge": BG})
+        xticks = [(e, p.get("tick_fmt", "{:g}").format(e)) for e in edges]
+        ymax = max(counts)
+        out = {"x_range": (edges[0], edges[-1]), "y_range": (0, ymax * 1.18), "x_ticks": xticks}
+        if "measure" in p:          # the bin-width annotation
+            m = p["measure"]
+            out["xmeasure"] = {"x0": edges[m["bin"]], "x1": edges[m["bin"] + 1],
+                               "y": ymax * 1.08, "label": m["label"]}
+
+    elif mode == "bar":
+        cats, counts = p["categories"], p["counts"]
+        gap = p.get("gap", 0.34)    # a real gap: the variable is categorical
+        for i, (c, v) in enumerate(zip(cats, counts)):
+            bars.append({"x0": i + gap / 2, "x1": i + 1 - gap / 2, "y0": 0, "y1": v,
+                         "fill": INK, "op": 1.0, "edge": None,
+                         "label": p.get("value_fmt", "{:g}").format(v)})
+            xticks.append((i + 0.5, c))
+        out = {"x_range": (0, len(cats)), "y_range": (0, max(counts) * 1.20), "x_ticks": xticks}
+
+    elif mode == "grouped":
+        cats, levels, table = p["categories"], p["levels"], p["table"]
+        k = len(levels)
+        gap, inner = p.get("gap", 0.30), p.get("inner", 0.04)
+        for i, c in enumerate(cats):
+            w = (1 - gap) / k
+            for j, lv in enumerate(levels):
+                x0 = i + gap / 2 + j * w
+                fill, op = _bar_fill(j, k)
+                bars.append({"x0": x0 + inner / 2, "x1": x0 + w - inner / 2, "y0": 0,
+                             "y1": table[j][i], "fill": fill, "op": op,
+                             "edge": INK if fill != INK else None})
+            xticks.append((i + 0.5, c))
+        legend = [(lv, "solid" if j == 0 else "swatch" + str(j)) for j, lv in enumerate(levels)]
+        out = {"x_range": (0, len(cats)), "y_range": (0, max(max(r) for r in table) * 1.20),
+               "x_ticks": xticks}
+
+    elif mode in ("segmented", "mosaic"):
+        cats, levels, table = p["categories"], p["levels"], p["table"]
+        totals = [sum(table[j][i] for j in range(len(levels))) for i in range(len(cats))]
+        grand = sum(totals)
+        gap = p.get("gap", 0.06)
+        # Mosaic: width is the column's share of the grand total. Segmented:
+        # every bar the same width. That single difference is the distinction
+        # between the two displays, and the property test pins it.
+        widths = ([t / grand for t in totals] if mode == "mosaic"
+                  else [1 / len(cats)] * len(cats))
+        x = 0.0
+        for i, c in enumerate(cats):
+            w = widths[i]
+            y = 0.0
+            for j, lv in enumerate(levels):
+                frac = table[j][i] / totals[i]      # conditional proportion
+                fill, op = _bar_fill(j, len(levels))
+                bars.append({"x0": x + gap * w / 2, "x1": x + w - gap * w / 2,
+                             "y0": y, "y1": y + frac, "fill": fill, "op": op,
+                             "edge": INK if fill != INK else None,
+                             "label": p.get("value_fmt", "{:.0%}").format(frac)
+                             if frac >= p.get("label_floor", 0.12) else None})
+                y += frac
+            # The n= suffix is what the group size is FOR in a mosaic, but at
+            # 272px three of them collide, so it is opt-in and off by default.
+            show_n = mode == "mosaic" and p.get("width_in_tick", False)
+            xticks.append((x + w / 2, f'{c} (n={totals[i]})' if show_n else c))
+            x += w
+        legend = [(lv, "solid" if j == 0 else "swatch" + str(j)) for j, lv in enumerate(levels)]
+        out = {"x_range": (0, 1), "y_range": (0, 1), "x_ticks": xticks,
+               "y_ticks": [0, 0.25, 0.5, 0.75, 1.0]}
+    else:
+        raise ValueError(f"unknown categorical_bars mode: {mode}")
+
+    out.update({"curves": [], "areas": [], "bars": bars, "legend": legend,
+                "bars_contiguous": mode in ("histogram", "segmented", "mosaic")})
+    return out
+
+
+def f_pie_chart(p: dict) -> dict:
+    """Slices whose angles are the relative frequencies, summing to exactly 360.
+
+    Drawn in a frame with no axes. Starts at twelve o'clock and goes clockwise,
+    which is the convention a student will have seen.
+    """
+    cats, counts = p["categories"], p["counts"]
+    total = sum(counts)
+    wedges, start = [], 0.0
+    for i, (c, v) in enumerate(zip(cats, counts)):
+        sweep = 360.0 * v / total
+        fill, op = _bar_fill(i, len(cats))
+        wedges.append({"start": start, "sweep": sweep, "label": c,
+                       "frac": v / total, "count": v,
+                       "fill": fill, "op": op, "edge": INK})
+        start += sweep
+    return {"curves": [], "areas": [], "wedges": wedges, "legend": [],
+            "frame": "bare", "total": total,
+            "x_range": (0, 1), "y_range": (0, 1)}
+
+
+def f_dotplot(p: dict) -> dict:
+    """One dot per observation, stacked where values repeat.
+
+    Takes raw `values`, not stack heights, so "a dot is one observation" is a
+    property of the drawing rather than a claim in the caption: the test counts
+    the dots and compares with len(values).
+    """
+    values = p["values"]
+    dots, stacks = [], {}
+    for v in sorted(values):
+        stacks[v] = stacks.get(v, 0) + 1
+        dots.append({"x": v, "y": stacks[v]})
+    lo, hi = min(values), max(values)
+    pad = p.get("pad", 0.5)
+    return {"curves": [], "areas": [], "dots": dots, "legend": [],
+            "x_range": (lo - pad, hi + pad), "y_range": (0, max(stacks.values()) + 1),
+            "x_ticks": [(v, p.get("tick_fmt", "{:g}").format(v))
+                        for v in p.get("tick_values", sorted(stacks))],
+            "hide_y_axis": True, "n": len(values)}
+
+
+def f_stem_leaf(p: dict) -> dict:
+    """A stem-and-leaf plot: typography on a rule, not a chart.
+
+    Shares none of the axis machinery, so it renders in the bare frame. The key
+    line ("5 | 2 means 52") is part of the plot, not decoration -- without it the
+    reader cannot tell 52 from 5.2.
+    """
+    rows = stem_leaf_rows(p["values"], p.get("stem_div", 10))
+    text_rows = [{"stem": str(s), "leaves": " ".join(str(l) for l in leaves)}
+                 for s, leaves in rows]
+    return {"curves": [], "areas": [], "text_rows": text_rows, "legend": [],
+            "frame": "bare", "key": p["key"], "rows": rows,
+            "x_range": (0, 1), "y_range": (0, 1)}
+
+
+def f_boxplot(p: dict) -> dict:
+    """A horizontal boxplot of the five-number summary, with outliers marked.
+
+    Derived from raw `values` by five_number(), so the box edges, the median
+    line, the whisker ends and the outlier marks are all computed rather than
+    positioned by hand -- which is what lets the properties check the rule the
+    entry states, that the whiskers stop at the most extreme non-outlier.
+    """
+    s = five_number(p["values"])
+    lo, hi = s["whisk_lo"], s["max"] if s["outliers"] else s["whisk_hi"]
+    span = (hi - lo) or 1
+    x0 = p.get("x_min", lo - span * 0.12)
+    x1 = p.get("x_max", hi + span * 0.12)
+    box = {"q1": s["q1"], "med": s["med"], "q3": s["q3"],
+           "whisk_lo": s["whisk_lo"], "whisk_hi": s["whisk_hi"],
+           "outliers": s["outliers"], "yc": 0.52, "h": p.get("height", 0.30)}
+    return {"curves": [], "areas": [], "boxes": [box], "legend": [],
+            "summary": s, "hide_y_axis": True,
+            "x_range": (x0, x1), "y_range": (0, 1),
+            "x_ticks": [(v, p.get("tick_fmt", "{:g}").format(v)) for v in p["tick_values"]]}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -277,6 +528,11 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "pe_vs_distance": f_pe_vs_distance,
     "approach_equilibrium": f_approach_equilibrium,
     "titration_curve": f_titration_curve,
+    "categorical_bars": f_categorical_bars,
+    "pie_chart": f_pie_chart,
+    "dotplot": f_dotplot,
+    "stem_leaf": f_stem_leaf,
+    "boxplot": f_boxplot,
 }
 
 
@@ -298,6 +554,20 @@ def wrap(text: str, per_line: int) -> list[str]:
     return out
 
 
+def text_w(t: str, size: float) -> float:
+    """Approximate rendered width. 0.55em per character is close enough for
+    Helvetica digits and lower case, and it is the same constant verify.py uses,
+    so a label that the suite calls off-canvas is one this code also avoided."""
+    return 0.55 * size * len(t)
+
+
+def fit(t: str, size: float, maxw: float, floor: float = 7.5) -> float:
+    """Shrink until it fits, never below `floor`."""
+    while size > floor and text_w(t, size) > maxw:
+        size -= 0.5
+    return size
+
+
 def esc(s: str) -> str:
     return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
@@ -316,6 +586,28 @@ def render(spec: dict, layout: str = "expanded") -> str:
     y0, y1 = g["y_range"]
     pw, ph = W - L - R, H - T - B
     rev = g.get("x_reversed", False)
+    # A pie chart and a stem-and-leaf plot have no axes to draw. They still get
+    # the title, subtitle, ILLUSTRATIVE flag and note, so only the frame goes.
+    bare = g.get("frame") == "bare"
+    no_y = g.get("hide_y_axis", False)
+
+    # The left margin has to fit the widest y tick label plus the rotated axis
+    # title, or they overprint. A percentage axis ("100%") is far wider than the
+    # chemistry batch's "0.25", which is why a fixed margin survived that batch
+    # and collided on the very first AP Statistics figure.
+    tick_w = 0.0
+    if not bare and not no_y and not g.get("hide_y_ticks"):
+        ylabels = [spec.get("y_tick_fmt", "{:.0f}").format(v)
+                   for v in (g.get("y_ticks") or nice_ticks(y0, y1))]
+        tick_w = 0.55 * FK * max((len(t) for t in ylabels), default=1)
+        need = 10 + tick_w + FA * 1.6 + 6
+        if need > L:
+            L = int(math.ceil(need))
+            pw = W - L - R
+    # Place the rotated title clear of the tick labels rather than at a fixed
+    # inset: "100%" is twice as wide as "0.25", and a constant that fits one
+    # runs the title straight through the other.
+    ylab_dx = L - max(FA * 0.62, L - 10 - tick_w - FA * 0.78)
 
     def sx(x):
         t = (x - x0) / (x1 - x0)
@@ -332,9 +624,10 @@ def render(spec: dict, layout: str = "expanded") -> str:
         f'<rect width="{W}" height="{H}" fill="{BG}"/>',
     ]
     # gridlines
-    for y in (g.get("y_ticks") or nice_ticks(y0, y1)):
-        if y0 < y < y1:
-            o.append(f'<line x1="{L}" y1="{sy(y):.1f}" x2="{L+pw}" y2="{sy(y):.1f}" stroke="{GRID}" stroke-width="0.8"/>')
+    if not bare and not no_y:
+        for y in (g.get("y_ticks") or nice_ticks(y0, y1)):
+            if y0 < y < y1:
+                o.append(f'<line x1="{L}" y1="{sy(y):.1f}" x2="{L+pw}" y2="{sy(y):.1f}" stroke="{GRID}" stroke-width="0.8"/>')
     # shaded areas
     for a in g.get("areas", []):
         if not a["pts"]:
@@ -343,6 +636,91 @@ def render(spec: dict, layout: str = "expanded") -> str:
              " ".join(f'L {sx(x):.1f},{sy(y):.1f}' for x, y in a["pts"]) +
              f' L {sx(a["pts"][-1][0]):.1f},{sy(0):.1f} Z')
         o.append(f'<path d="{d}" fill="{a["fill"]}" fill-opacity="{a["op"]}"/>')
+    # bars: bar chart, histogram, side-by-side, segmented, mosaic
+    for bar in g.get("bars", []):
+        bx0, bx1 = sx(bar["x0"]), sx(bar["x1"])
+        by0, by1 = sy(bar["y0"]), sy(bar["y1"])
+        edge = f' stroke="{bar["edge"]}" stroke-width="1.1"' if bar.get("edge") else ""
+        o.append(f'<rect x="{min(bx0,bx1):.1f}" y="{min(by0,by1):.1f}" '
+                 f'width="{abs(bx1-bx0):.1f}" height="{abs(by1-by0):.1f}" '
+                 f'fill="{bar["fill"]}" fill-opacity="{bar["op"]}"{edge}/>')
+        if bar.get("label") and SHOW_ANN:
+            # Inside a tall dark segment, outside a short or pale one.
+            inside = abs(by1 - by0) > FM * 2.4
+            fill = BG if (inside and bar["fill"] == INK) else INK
+            yy = (by0 + by1) / 2 + FM * 0.36 if inside else min(by0, by1) - 6
+            o.append(f'<text x="{(bx0+bx1)/2:.1f}" y="{yy:.1f}" text-anchor="middle" '
+                     f'font-size="{FM}" fill="{fill}">{esc(bar["label"])}</text>')
+    # a measured horizontal span, for the histogram's bin width
+    if g.get("xmeasure") and SHOW_ANN:
+        m = g["xmeasure"]
+        ax0, ax1, ay = sx(m["x0"]), sx(m["x1"]), sy(m["y"])
+        o.append(f'<line x1="{ax0:.1f}" y1="{ay:.1f}" x2="{ax1:.1f}" y2="{ay:.1f}" stroke="{GRAY}" stroke-width="1.1"/>')
+        for xx in (ax0, ax1):
+            o.append(f'<line x1="{xx:.1f}" y1="{ay-5:.1f}" x2="{xx:.1f}" y2="{ay+5:.1f}" stroke="{GRAY}" stroke-width="1.1"/>')
+        o.append(f'<text x="{(ax0+ax1)/2:.1f}" y="{ay-9:.1f}" text-anchor="middle" font-size="{FN}" fill="{INK}">{esc(m["label"])}</text>')
+    # dotplot: one circle per observation
+    for d in g.get("dots", []):
+        o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.2, SW*2.1):.1f}" '
+                 f'fill="{INK}" fill-opacity="0.9"/>')
+    # boxplot glyphs: box Q1-Q3, median line, whiskers, outlier marks
+    for bx in g.get("boxes", []):
+        yc, hh = bx["yc"], bx["h"] / 2
+        top, bot, mid = sy(yc + hh), sy(yc - hh), sy(yc)
+        q1, q3, md = sx(bx["q1"]), sx(bx["q3"]), sx(bx["med"])
+        wl, wh = sx(bx["whisk_lo"]), sx(bx["whisk_hi"])
+        o.append(f'<rect x="{q1:.1f}" y="{top:.1f}" width="{q3-q1:.1f}" height="{bot-top:.1f}" '
+                 f'fill="{LIGHT}" fill-opacity="0.45" stroke="{INK}" stroke-width="{SW*0.8:.1f}"/>')
+        o.append(f'<line x1="{md:.1f}" y1="{top:.1f}" x2="{md:.1f}" y2="{bot:.1f}" stroke="{INK}" stroke-width="{SW*1.3:.1f}"/>')
+        for a, b in ((wl, q1), (q3, wh)):
+            o.append(f'<line x1="{a:.1f}" y1="{mid:.1f}" x2="{b:.1f}" y2="{mid:.1f}" stroke="{INK}" stroke-width="{SW*0.9:.1f}"/>')
+        for xx in (wl, wh):
+            o.append(f'<line x1="{xx:.1f}" y1="{sy(yc+hh*0.58):.1f}" x2="{xx:.1f}" y2="{sy(yc-hh*0.58):.1f}" '
+                     f'stroke="{INK}" stroke-width="{SW*0.9:.1f}"/>')
+        for ov in bx["outliers"]:
+            ox = sx(ov)
+            o.append(f'<text x="{ox:.1f}" y="{mid + FM*0.42:.1f}" text-anchor="middle" '
+                     f'font-size="{FM*1.5:.1f}" fill="{INK}">*</text>')
+    # pie wedges
+    for w in g.get("wedges", []):
+        cx, cy = L + pw / 2, T + ph / 2
+        rad = min(pw, ph) * 0.44
+        a0 = math.radians(w["start"] - 90)
+        a1 = math.radians(w["start"] + w["sweep"] - 90)
+        px0, py0 = cx + rad * math.cos(a0), cy + rad * math.sin(a0)
+        px1, py1 = cx + rad * math.cos(a1), cy + rad * math.sin(a1)
+        large = 1 if w["sweep"] > 180 else 0
+        o.append(f'<path d="M {cx:.1f},{cy:.1f} L {px0:.1f},{py0:.1f} '
+                 f'A {rad:.1f},{rad:.1f} 0 {large} 1 {px1:.1f},{py1:.1f} Z" '
+                 f'fill="{w["fill"]}" fill-opacity="{w["op"]}" stroke="{w["edge"]}" stroke-width="1.2"/>')
+        am = math.radians(w["start"] + w["sweep"] / 2 - 90)
+        lr = rad * (1.24 if SHOW_ANN else 1.16)
+        lx, ly = cx + lr * math.cos(am), cy + lr * math.sin(am)
+        anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
+        o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
+                 f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # stem-and-leaf rows
+    if g.get("text_rows"):
+        rows = g["text_rows"]
+        mono = 'font-family="SFMono-Regular, Menlo, Consolas, monospace"'
+        # Fill the canvas. Capping the row height at the base font left the
+        # expanded view, which is what the enlarge control opens, as a postage
+        # stamp of text in a mostly empty 980x620 frame.
+        widest = max((len(r["leaves"]) for r in rows), default=1) + 4
+        rh = min(ph / (len(rows) + 2.2), pw * 0.92 / max(widest, 1) * 1.55)
+        fs = rh * 0.62
+        sx0 = L + pw * 0.26
+        for i, r in enumerate(rows):
+            yy = T + rh * (i + 1)
+            o.append(f'<text x="{sx0:.1f}" y="{yy:.1f}" text-anchor="end" font-size="{fs:.1f}" '
+                     f'{mono} fill="{INK}">{esc(r["stem"])}</text>')
+            o.append(f'<line x1="{sx0+fs*0.55:.1f}" y1="{yy-rh*0.60:.1f}" x2="{sx0+fs*0.55:.1f}" y2="{yy+rh*0.16:.1f}" '
+                     f'stroke="{GRAY}" stroke-width="1.1"/>')
+            o.append(f'<text x="{sx0+fs*1.15:.1f}" y="{yy:.1f}" font-size="{fs:.1f}" {mono} '
+                     f'fill="{INK}" letter-spacing="0.12em">{esc(r["leaves"])}</text>')
+        kf = max(FN, fs * 0.52)
+        o.append(f'<text x="{max(6, sx0 - text_w(g["key"], kf)):.1f}" y="{T + rh*(len(rows)+1.8):.1f}" '
+                 f'font-size="{kf:.1f}" fill="{GRAY}">{esc(g["key"])}</text>')
     # horizontal reference lines
     for hl in g.get("hlines", []):
         o.append(f'<line x1="{L}" y1="{sy(hl["y"]):.1f}" x2="{L+pw}" y2="{sy(hl["y"]):.1f}" '
@@ -352,7 +730,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
     for s in g.get("sticks", []):
         o.append(f'<line x1="{sx(s["x"]):.1f}" y1="{sy(0):.1f}" x2="{sx(s["x"]):.1f}" y2="{sy(s["y"]):.1f}" '
                  f'stroke="{INK}" stroke-width="{max(4, SW*2.7):.1f}" stroke-linecap="butt"/>')
-        if s["label"]:
+        if s["label"] and SHOW_ANN:
             o.append(f'<text x="{sx(s["x"]):.1f}" y="{sy(s["y"])-10:.1f}" text-anchor="middle" '
                      f'font-size="{FM}" fill="{INK}">{esc(s["label"])}</text>')
     # curves
@@ -361,13 +739,21 @@ def render(spec: dict, layout: str = "expanded") -> str:
         dash = ' stroke-dasharray="11 6"' if c["style"] == "dashed" else ""
         o.append(f'<path d="{d}" fill="none" stroke="{c["color"]}" stroke-width="{SW}" stroke-linecap="round"{dash}/>')
     # vertical markers
-    for v in g.get("vlines", []):
+    for vi, v in enumerate(g.get("vlines", [])):
         o.append(f'<line x1="{sx(v["x"]):.1f}" y1="{T}" x2="{sx(v["x"]):.1f}" y2="{sy(y0):.1f}" '
                  f'stroke="{INK}" stroke-width="1.2" stroke-dasharray="3 4"/>')
-        if v.get("label"):
-            o.append(f'<text x="{sx(v["x"])+8:.1f}" y="{T+22}" font-size="{FN*1.45:.1f}" font-style="italic" fill="{INK}">{esc(v["label"])}</text>')
-        if v.get("caption"):
-            o.append(f'<text x="{sx(v["x"])+8:.1f}" y="{T+40}" font-size="{FN}" fill="{GRAY}">{esc(v["caption"])}</text>')
+        for txt, yy, fsz, extra in ((v.get("label"), T + 22, FN * 1.45, ' font-style="italic"'),
+                                    (v.get("caption"), T + 40, FN, '')):
+            if not txt or not (SHOW_ANN or vi == 0):
+                continue
+            # Past the midpoint the caption has to hang to the LEFT of its
+            # marker, or it runs off the canvas -- which is where "equilibrium
+            # established" went at compact.
+            flip = sx(v["x"]) + 8 + text_w(txt, fsz) > W - 6
+            xx = sx(v["x"]) - 8 if flip else sx(v["x"]) + 8
+            anc = ' text-anchor="end"' if flip else ''
+            col = INK if extra else GRAY
+            o.append(f'<text x="{xx:.1f}" y="{yy}" font-size="{fsz:.1f}"{extra}{anc} fill="{col}">{esc(txt)}</text>')
     # point marks
     for m in g.get("marks", []):
         px, py = sx(m["x"]), sy(m["y"])
@@ -390,21 +776,25 @@ def render(spec: dict, layout: str = "expanded") -> str:
             o.append(f'<line x1="{px-5:.1f}" y1="{yy:.1f}" x2="{px+5:.1f}" y2="{yy:.1f}" stroke="{GRAY}" stroke-width="1.1"/>')
         o.append(f'<text x="{px+9:.1f}" y="{(ya+yb)/2+4:.1f}" font-size="{FN}" fill="{INK}">{esc(a["label"])}</text>')
     # axes
-    o += [
-        f'<line x1="{L}" y1="{T}" x2="{L}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>',
-        f'<line x1="{L}" y1="{sy(y0):.1f}" x2="{L+pw}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>',
-        f'<text x="{L+pw/2:.1f}" y="{sy(y0)+(54 if SHOW_ANN else 40):.1f}" text-anchor="middle" font-size="{FA}" font-weight="700" '
-        f'fill="{INK}" letter-spacing="0.08em">{esc(spec["x_label"].upper())}</text>',
-        f'<text transform="translate({L-46},{T+ph/2:.1f}) rotate(-90)" text-anchor="middle" font-size="{FA}" '
-        f'font-weight="700" fill="{INK}" letter-spacing="0.08em">{esc(spec["y_label"].upper())}</text>',
-    ]
-    if not g.get("hide_y_ticks"):
+    if not bare:
+        if not no_y:
+            o.append(f'<line x1="{L}" y1="{T}" x2="{L}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>')
+        o.append(f'<line x1="{L}" y1="{sy(y0):.1f}" x2="{L+pw}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>')
+        xt = spec["x_label"].upper()
+        cx_title = L + pw / 2
+        xf = fit(xt, FA, 2 * min(cx_title, W - cx_title) - 10)
+        o.append(f'<text x="{L+pw/2:.1f}" y="{sy(y0)+(54 if SHOW_ANN else 40):.1f}" text-anchor="middle" font-size="{xf:.1f}" font-weight="700" '
+                 f'fill="{INK}" letter-spacing="0.08em">{esc(xt)}</text>')
+        if not no_y:
+            o.append(f'<text transform="translate({L-ylab_dx},{T+ph/2:.1f}) rotate(-90)" text-anchor="middle" font-size="{FA}" '
+                     f'font-weight="700" fill="{INK}" letter-spacing="0.08em">{esc(spec["y_label"].upper())}</text>')
+    if not bare and not no_y and not g.get("hide_y_ticks"):
         for y in g.get("y_ticks") or nice_ticks(y0, y1):
             lbl = spec.get("y_tick_fmt", "{:.0f}").format(y)
             o.append(f'<line x1="{L-5}" y1="{sy(y):.1f}" x2="{L}" y2="{sy(y):.1f}" stroke="{GRAY}" stroke-width="0.9"/>')
             o.append(f'<text x="{L-10}" y="{sy(y)+4:.1f}" text-anchor="end" font-size="{FK}" fill="{GRAY}">{lbl}</text>')
     # x ticks: plain values, or (position, label) pairs when the axis is transformed
-    for tk in (g["x_ticks"] if "x_ticks" in g else nice_ticks(x0, x1)):
+    for tk in ([] if bare else (g["x_ticks"] if "x_ticks" in g else nice_ticks(x0, x1))):
         pos, lbl = tk if isinstance(tk, (tuple, list)) else (tk, spec.get("x_tick_fmt", "{:.0f}").format(tk))
         o.append(f'<line x1="{sx(pos):.1f}" y1="{sy(y0):.1f}" x2="{sx(pos):.1f}" y2="{sy(y0)+5:.1f}" stroke="{GRAY}" stroke-width="0.9"/>')
         o.append(f'<text x="{sx(pos):.1f}" y="{sy(y0)+22:.1f}" text-anchor="middle" font-size="{FK}" fill="{GRAY}">{esc(lbl)}</text>')
@@ -421,12 +811,40 @@ def render(spec: dict, layout: str = "expanded") -> str:
         o.append(f'<text x="{W-R}" y="{T-58}" text-anchor="end" font-size="{FG}" font-weight="700" '
                  f'fill="{GRAY}" letter-spacing="0.1em">{"ILLUSTRATIVE" if spec.get("synthetic") else "FROM DATA"}</text>')
     if spec.get("note") and FO:
-        o.append(f'<text x="{W-R}" y="{H-16}" text-anchor="end" font-size="{FO}" fill="{GRAY}">{esc(spec["note"])}</text>')
-    for i, (lbl, style) in enumerate(g.get("legend", [])):
-        ox, ly = L + i * (230 if SHOW_ANN else 148), H - (46 if SHOW_ANN else 12)
+        nf = fit(spec["note"], FO, W - R - L)
+        o.append(f'<text x="{W-R}" y="{H-16}" text-anchor="end" font-size="{nf:.1f}" fill="{GRAY}">{esc(spec["note"])}</text>')
+    # Above the plot, under the subtitle. The bottom band already holds the
+    # x-axis title and the note, and a legend placed there overprinted one or
+    # the other at every size that draws both. Items are laid out by their
+    # measured width: a fixed stride pushed "Higher temperature" off a compact
+    # canvas.
+    leg = g.get("legend", [])
+    if leg:
+        sw_w = 26 if SHOW_ANN else 18
+        pad = 10 if SHOW_ANN else 7
+        gapl = 22 if SHOW_ANN else 14
+        legf = FL
+        while legf > 7.5 and (L + sum(sw_w + pad + text_w(t, legf) + gapl for t, _ in leg)
+                              - gapl > W - R):
+            legf -= 0.5
+    lx_cursor = L
+    for i, (lbl, style) in enumerate(leg):
+        ly = T - (12 if SHOW_ANN else 10)
+        ox = lx_cursor
+        lx_cursor += sw_w + pad + text_w(lbl, legf) + gapl
+        if style.startswith("swatch") or style == "solid" and g.get("bars"):
+            # A filled series needs a filled key. A line swatch beside a bar
+            # chart reads as a different mark than the one it labels.
+            j = int(style[6:]) if style.startswith("swatch") else 0
+            fill, op = _bar_fill(j, 4)
+            edge = f' stroke="{INK}" stroke-width="1"' if fill != INK else ""
+            o.append(f'<rect x="{ox:.1f}" y="{ly-11}" width="{sw_w}" height="{11 if SHOW_ANN else 9}" '
+                     f'fill="{fill}" fill-opacity="{op}"{edge}/>')
+            o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
+            continue
         dash = ' stroke-dasharray="11 6"' if style == "dashed" else ""
         col = GRAY if style == "dashed" else INK
-        o.append(f'<line x1="{ox}" y1="{ly-4}" x2="{ox+(34 if SHOW_ANN else 22)}" y2="{ly-4}" stroke="{col}" stroke-width="{SW}"{dash}/>')
-        o.append(f'<text x="{ox+(44 if SHOW_ANN else 28)}" y="{ly}" font-size="{FL}" fill="{INK}">{esc(lbl)}</text>')
+        o.append(f'<line x1="{ox:.1f}" y1="{ly-4}" x2="{ox+sw_w:.1f}" y2="{ly-4}" stroke="{col}" stroke-width="{SW}"{dash}/>')
+        o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
     o.append("</svg>")
     return "\n".join(o)

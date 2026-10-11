@@ -24,9 +24,12 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "content-seed" / "task0067-reference-pilot-2026-10-09"))
 from gateway import chat_json  # noqa: E402
 
-MODELS = ["openai/gpt-6.1-sol", "google/gemini-3.8-flash"]
+# The ratified slate. gemini-3.8-flash is deliberately NOT here: section 4c of
+# the protocol records that the newer model accepted a control with high
+# confidence and voided its batch, while 3.5-flash scored 5/5.
+MODELS = ["openai/gpt-6.1-sol", "google/gemini-3.5-flash"]
 
-SYSTEM = """You review scientific figures for an AP Chemistry study product.
+SYSTEM = """You review figures for an AP study product (chemistry, statistics or physics).
 
 You are given one figure described as: the authored reference entry it illustrates
 (its claim and its labelled parts), and the exact parameters the figure was drawn
@@ -36,7 +39,7 @@ parameters ARE the figure.
 Judge one thing only: would a student who reads this figure learn something false?
 
 Reject if any of these hold:
-- a numeric value is chemically or physically wrong for what it claims to be
+- a numeric value is wrong for what it claims to be (chemically, physically or statistically)
 - a label contradicts the numbers it describes
 - the stated relationship between series is not the relationship the numbers produce
 - the title, subtitle or alt text asserts something the parameters do not show
@@ -88,6 +91,55 @@ def controls(specs: dict) -> dict:
     return c
 
 
+def stats_controls(specs: dict) -> dict:
+    """Five deliberately wrong AP Statistics figures, each changing one thing.
+
+    Four of the five (S1, S2, S4, S5) pass verify.py cleanly, because they are
+    prose contradicting the drawing rather than bad geometry. That is the point:
+    they measure whether a reader adds anything over the property suite.
+    """
+    c = {}
+
+    # S1 the subtitle calls 40% "half". Prose only, so the suite passes it.
+    s = copy.deepcopy(specs["stats-pie-chart"])
+    s["subtitle"] = "Half of the students take the bus, so that slice is half the circle"
+    s["alt"] = s["alt"].replace("bus 40%", "bus 50%, which is half the circle")
+    c["CONTROL-S1-pie-forty-percent-called-half"] = s
+
+    # S2 claims the whisker reaches the maximum and denies the outliers that
+    # the same values produce. Prose only; the suite passes it.
+    s = copy.deepcopy(specs["stats-boxplot"])
+    s["note"] = "The right whisker reaches the maximum value of 62 minutes; there are no outliers."
+    s["alt"] = ("A horizontal boxplot of the nightly homework times of 22 students. The box runs from "
+                "the first quartile at 18 minutes to the third quartile at 30 minutes, with the median "
+                "line inside it at 22.5 minutes. The whiskers run all the way out to the minimum of 12 "
+                "minutes and the maximum of 62 minutes, because no value in this data set is an outlier. "
+                "Illustrative data.")
+    c["CONTROL-S2-boxplot-whisker-claimed-at-maximum"] = s
+
+    # S3 unequal bins while the note still claims a 10-minute width. This one
+    # the property suite DOES catch.
+    s = copy.deepcopy(specs["stats-histogram"])
+    s["params"]["bin_edges"] = [0, 10, 20, 35, 45, 50, 60]
+    c["CONTROL-S3-histogram-unequal-bins-claimed-equal"] = s
+
+    # S4 the sophomore split is changed in the data but not in the alt text.
+    s = copy.deepcopy(specs["stats-two-cat-segmented"])
+    s["params"]["table"] = [[24, 40, 30], [16, 20, 20]]
+    c["CONTROL-S4-segmented-alt-contradicts-the-table"] = s
+
+    # S5 drawn as a segmented chart with equal widths while the title, caption
+    # and alt all say mosaic with widths showing group size. Suite passes it,
+    # because as a segmented chart the geometry is correct.
+    s = copy.deepcopy(specs["stats-two-cat-mosaic"])
+    s["params"]["mode"] = "segmented"
+    c["CONTROL-S5-mosaic-drawn-with-equal-widths"] = s
+    return c
+
+
+CONTROL_SETS = {"chem-": controls, "stats-": stats_controls}
+
+
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
     parts = "\n".join(f"  - {i.get('label')}: {i.get('meaning')}" for i in (entry.get("items") or []))
     return f"""AUTHORED REFERENCE ENTRY
@@ -114,16 +166,20 @@ EXACT DRAWING PARAMETERS
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", default=",".join(MODELS))
-    ap.add_argument("--entries", default="/tmp/lane_a_chem.json")
+    ap.add_argument("--entries", default=str(HERE / "prod_entries.json"))
+    ap.add_argument("--prefix", default="chem-", help="which batch to review")
     ap.add_argument("--only", default=None)
     ap.add_argument("--max-tokens", type=int, default=4000,
                     help="Reasoning models spend budget before emitting JSON; 1200 truncated them.")
     args = ap.parse_args()
     models = [m.strip() for m in args.models.split(",") if m.strip()]
 
-    specs = {k: v for k, v in json.load(open(HERE / "specs.json")).items() if not k.startswith("_")}
-    entries = json.load(open(args.entries)) if os.path.exists(args.entries) else {}
-    items = {**specs, **controls(specs)}
+    allspecs = {k: v for k, v in json.load(open(HERE / "specs.json")).items() if not k.startswith("_")}
+    specs = {k: v for k, v in allspecs.items() if k.startswith(args.prefix)}
+    if not specs:
+        raise SystemExit(f"no figures with prefix {args.prefix!r}")
+    entries = {k: v for k, v in json.load(open(args.entries)).items() if not k.startswith("_")}
+    items = {**specs, **CONTROL_SETS[args.prefix](allspecs)}
     if args.only:
         items = {k: v for k, v in items.items() if args.only in k}
 
