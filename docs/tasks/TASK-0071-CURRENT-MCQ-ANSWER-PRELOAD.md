@@ -1,11 +1,12 @@
 # TASK-0071 — Preload the Current MCQ Answer for Instant Feedback
 
-**Status:** Code complete; backend and frontend PRs pending review. Production untouched.
+**Status:** Code complete; app PR [#14](https://github.com/david-bloom/ap-prep-blueprint/pull/14) merged with CI green, backend PR [#421](https://github.com/david-bloom/Cramapple/pull/421) open and mergeable with all checks green. Production untouched.
 **Tier:** Standard implementation; **Hard Gate** for any Production function deploy or app publish.
 **Owner:** Codex session. **Product Owner:** David Bloom.
 **Date opened:** 2026-10-11
 **Decision:** `DECISION-0117`
 **Approval:** `APPROVAL-0161` (implementation only; not Production)
+**Session close:** `docs/handoffs/SESSION_CLOSE_2026_10_11_CURRENT_MCQ_ANSWER_PRELOAD.md`
 **Related:** `TASK-0053` (distractor-specific feedback), `TASK-0056` (direct-read closure)
 
 ## Outcome
@@ -70,3 +71,8 @@ errors across the project, overwhelmingly formatting violations. No bulk formatt
 Remove the client's `current_mcq_answer` request and local optimistic feedback state, then remove the
 matching function branch. With either side absent, the existing server-only grading path remains the
 fallback.
+
+## Next action
+
+Review and merge backend PR #421. The coordinated Production Edge Function deploy and app publish require
+a new, explicit Hard-Gate approval.
