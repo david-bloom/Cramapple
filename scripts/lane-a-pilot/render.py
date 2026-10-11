@@ -187,16 +187,21 @@ def f_mb_distribution(p: dict) -> dict:
         curves.append({"pts": pts, "style": s.get("style", "solid"),
                        "color": INK if s.get("style", "solid") == "solid" else GRAY})
         legend.append((s["label"], s.get("style", "solid")))
-    for m in p["markers"]:
+    # Markers are OPTIONAL. AP Physics 2's entry is purely qualitative -- axes
+    # and the shape of the curve -- and has no activation energy in it, so an
+    # unexplained dashed line and a shaded tail would assert a concept the
+    # entry never mentions.
+    for m in p.get("markers", []):
         vlines.append({"x": m["x"], "label": m["label"], "caption": m.get("caption", "")})
-    # Shade beyond the first marker, largest series area underneath.
-    ea = p["markers"][0]["x"]
-    order = sorted(range(len(p["series"])), key=lambda i: -p["series"][i]["theta"])
-    for rank, i in enumerate(order):
-        s = p["series"][i]
-        pts = [(x, mb_density(x, s["theta"])) for x in xs if x >= ea]
-        areas.append({"pts": pts, "x0": ea, "fill": LIGHT if rank == 0 else INK,
-                      "op": 0.5 if rank == 0 else 0.16})
+    if p.get("markers"):
+        # Shade beyond the first marker, largest series area underneath.
+        ea = p["markers"][0]["x"]
+        order = sorted(range(len(p["series"])), key=lambda i: -p["series"][i]["theta"])
+        for rank, i in enumerate(order):
+            s = p["series"][i]
+            pts = [(x, mb_density(x, s["theta"])) for x in xs if x >= ea]
+            areas.append({"pts": pts, "x0": ea, "fill": LIGHT if rank == 0 else INK,
+                          "op": 0.5 if rank == 0 else 0.16})
     ymax = max(y for c in curves for _, y in c["pts"]) * 1.12
     return {"curves": curves, "areas": areas, "vlines": vlines, "legend": legend,
             "x_range": (0, p["x_max"]), "y_range": (0, ymax)}
@@ -521,6 +526,114 @@ def f_boxplot(p: dict) -> dict:
             "x_ticks": [(v, p.get("tick_fmt", "{:g}").format(v)) for v in p["tick_values"]]}
 
 
+# -------------------------------------------- physics family builders (Lane A) --
+
+def isotherm_p(v: float, pv: float) -> float:
+    """Boyle's law along an isotherm: P = (nRT)/V, so PV is constant."""
+    return pv / v
+
+
+def adiabat_p(v: float, k: float, gamma: float) -> float:
+    """Adiabatic (quasi-static, ideal gas): P*V^gamma = constant.
+
+    gamma > 1, so an adiabat through a point is STEEPER than the isotherm
+    through the same point -- the one fact that distinguishes the two curves by
+    eye, and the one the properties pin.
+    """
+    return k / v ** gamma
+
+
+def f_xy_series(p: dict) -> dict:
+    """A general x-y chart: curves from explicit points, scatter, an optional
+    shaded area under one curve, a zero line, and point markers.
+
+    Covers the PV diagram (isotherm and the four special processes), electric
+    potential around a circuit loop, and the residual plot. These are different
+    sciences but one geometry, which is the test for whether a family earns its
+    place: the alternative was three renderers drawing the same axes.
+    """
+    curves, dots, marks, areas, hlines, legend = [], [], [], [], [], []
+    for sr in p["series"]:
+        kind = sr.get("kind", "line")
+        pts = [(float(x), float(y)) for x, y in sr["points"]]
+        if kind == "scatter":
+            dots.extend({"x": x, "y": y} for x, y in pts)
+        else:
+            style = sr.get("style", "solid")
+            curves.append({"pts": pts, "style": style,
+                           "color": INK if style == "solid" else GRAY})
+            if sr.get("label"):
+                legend.append((sr["label"], style))
+        if sr.get("fill_under"):
+            areas.append({"pts": pts, "x0": pts[0][0], "fill": LIGHT, "op": 0.55})
+        for m in sr.get("marks", []):
+            marks.append({"x": m["x"], "y": m["y"], "label": m["label"],
+                          "place": m.get("place", "above")})
+    for h in p.get("hlines", []):
+        hlines.append({"y": h["y"], "label": h["label"]})
+    xs = [x for c in curves for x, _ in c["pts"]] + [d["x"] for d in dots]
+    ys = [y for c in curves for _, y in c["pts"]] + [d["y"] for d in dots]
+    xr = p.get("x_range") or (min(xs) - (max(xs) - min(xs)) * 0.08,
+                              max(xs) + (max(xs) - min(xs)) * 0.08)
+    pad = (max(ys) - min(ys)) * 0.16 or 1
+    yr = p.get("y_range") or (min(ys) - pad, max(ys) + pad)
+    out = {"curves": curves, "areas": areas, "dots": dots, "marks": marks,
+           "hlines": hlines, "legend": legend,
+           "x_range": tuple(xr), "y_range": tuple(yr)}
+    if p.get("hide_axis_numbers"):
+        # A qualitative PV diagram teaches shape, not readings: unlabelled axes
+        # are the convention, and invented numbers would imply a measurement.
+        out["x_ticks"] = []
+        out["hide_y_ticks"] = True
+    if "x_ticks" in p:
+        out["x_ticks"] = [(v, lbl) for v, lbl in p["x_ticks"]]
+    if "y_ticks" in p:
+        out["y_ticks"] = p["y_ticks"]
+    return out
+
+
+def f_kinematic_panels(p: dict) -> dict:
+    """Three stacked panels sharing one time axis: x(t), v(t), a(t).
+
+    Deliberately NOT three figures. Every labelled part of the entry is about
+    the relationship BETWEEN the panels -- the slope of a tangent on x-t is the
+    value on v-t, the area under v-t is the change on x-t -- and three separate
+    figures would destroy exactly the thing being taught.
+
+    The curves are generated from ONE motion (constant acceleration), so the
+    three panels are consistent by construction rather than by three hand-drawn
+    sketches that happen to look related.
+    """
+    x0, v0, a = p["x0"], p["v0"], p["a"]
+    t1 = p["t_max"]
+    ts = [i * t1 / 400 for i in range(401)]
+    xf = lambda t: x0 + v0 * t + 0.5 * a * t * t
+    vf = lambda t: v0 + a * t
+    af = lambda t: a
+    shades = p.get("shades", [])
+    panels = []
+    for key, fn, lab in (("x", xf, p["x_label_panel"]),
+                         ("v", vf, p["v_label_panel"]),
+                         ("a", af, p["a_label_panel"])):
+        pts = [(t, fn(t)) for t in ts]
+        ys = [y for _, y in pts]
+        pad = (max(ys) - min(ys)) * 0.22 or (abs(ys[0]) * 0.6 or 1)
+        lo, hi = min(ys) - pad, max(ys) + pad
+        # An area is shaded down to the zero line, so a panel that carries one
+        # must SHOW zero. Without this the v-t panel spanned 2 to 11, had no
+        # baseline to shade to, and silently drew nothing -- while the figure
+        # went on claiming "area under v-t curve" as a labelled part it covered.
+        if any(sh["panel"] == key for sh in shades):
+            lo = min(lo, 0.0)
+            hi = max(hi, 0.0)
+        panels.append({"key": key, "label": lab, "pts": pts, "y_range": (lo, hi),
+                       "annotations": [x for x in p.get("annotations", []) if x["panel"] == key]})
+    return {"curves": [], "areas": [], "legend": [], "panels": panels,
+            "motion": {"x0": x0, "v0": v0, "a": a, "t_max": t1},
+            "shades": shades,
+            "x_range": (0, t1), "y_range": (0, 1), "hide_y_ticks": True}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -533,6 +646,8 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "dotplot": f_dotplot,
     "stem_leaf": f_stem_leaf,
     "boxplot": f_boxplot,
+    "xy_series": f_xy_series,
+    "kinematic_panels": f_kinematic_panels,
 }
 
 
@@ -609,6 +724,37 @@ def render(spec: dict, layout: str = "expanded") -> str:
     # runs the title straight through the other.
     ylab_dx = L - max(FA * 0.62, L - 10 - tick_w - FA * 0.78)
 
+    # The legend sits above the plot, so its height is part of the top margin.
+    # Four thermodynamic processes do not fit on one 340-unit row at a readable
+    # size, and stacking the overflow row upward printed it over the subtitle.
+    leg = g.get("legend", [])
+    sw_w = 26 if SHOW_ANN else 18
+    leg_pad = 10 if SHOW_ANN else 7
+    leg_gap = 22 if SHOW_ANN else 14
+    legf = FL
+    rows_leg: list[list] = []
+    if leg:
+        item_w = lambda t, f: sw_w + leg_pad + text_w(t, f) + leg_gap
+        while legf > 9 and L + sum(item_w(t, legf) for t, _ in leg) - leg_gap > W - R:
+            legf -= 0.5
+        cur, cw_ = [], L
+        for it in leg:
+            w_ = item_w(it[0], legf)
+            if cur and cw_ + w_ - leg_gap > W - R:
+                rows_leg.append(cur)
+                cur, cw_ = [], L
+            cur.append(it)
+            cw_ += w_
+        if cur:
+            rows_leg.append(cur)
+    leg_row_h = legf + 7
+    # The title block stays where it is; only the plot and the legend move down,
+    # so a wrapped legend opens a gap between the subtitle and the axes instead
+    # of pushing the whole figure into its own heading.
+    T0 = T
+    T += max(0, len(rows_leg) - 1) * leg_row_h
+    ph = H - T - B
+
     def sx(x):
         t = (x - x0) / (x1 - x0)
         return L + (1 - t if rev else t) * pw
@@ -636,6 +782,57 @@ def render(spec: dict, layout: str = "expanded") -> str:
              " ".join(f'L {sx(x):.1f},{sy(y):.1f}' for x, y in a["pts"]) +
              f' L {sx(a["pts"][-1][0]):.1f},{sy(0):.1f} Z')
         o.append(f'<path d="{d}" fill="{a["fill"]}" fill-opacity="{a["op"]}"/>')
+    # stacked panels: x(t), v(t), a(t) sharing one time axis. Each panel gets
+    # its own y mapping inside a band of the plot area, its own baseline, and
+    # its own name at the left -- the shared x axis is drawn once, below.
+    if g.get("panels"):
+        pn = g["panels"]
+        gap = ph * 0.07
+        bh = (ph - gap * (len(pn) - 1)) / len(pn)
+        for pi, pan in enumerate(pn):
+            top = T + pi * (bh + gap)
+            py0, py1 = pan["y_range"]
+            psy = lambda v, top=top, py0=py0, py1=py1: top + bh - (v - py0) / (py1 - py0) * bh
+            zero = psy(0) if py0 <= 0 <= py1 else None
+            o.append(f'<rect x="{L}" y="{top:.1f}" width="{pw}" height="{bh:.1f}" fill="none" stroke="{GRID}" stroke-width="0.8"/>')
+            if zero is not None:
+                o.append(f'<line x1="{L}" y1="{zero:.1f}" x2="{L+pw}" y2="{zero:.1f}" stroke="{GRID}" stroke-width="1"/>')
+            # the shaded interval, drawn on the panel it belongs to
+            for sh in (g.get("shades", []) if SHOW_ANN else []):
+                if sh["panel"] != pan["key"]:
+                    continue
+                seg = [(x, y) for x, y in pan["pts"] if sh["t0"] <= x <= sh["t1"]]
+                if seg and zero is not None:
+                    d = (f'M {sx(seg[0][0]):.1f},{zero:.1f} ' +
+                         " ".join(f'L {sx(x):.1f},{psy(y):.1f}' for x, y in seg) +
+                         f' L {sx(seg[-1][0]):.1f},{zero:.1f} Z')
+                    o.append(f'<path d="{d}" fill="{LIGHT}" fill-opacity="0.6"/>')
+                    o.append(f'<text x="{sx((sh["t0"]+sh["t1"])/2):.1f}" y="{(zero + psy(seg[len(seg)//2][1]))/2 + 4:.1f}" '
+                             f'text-anchor="middle" font-size="{FN}" fill="{INK}">{esc(sh["label"])}</text>')
+            d = "M " + " L ".join(f'{sx(x):.1f},{psy(y):.1f}' for x, y in pan["pts"])
+            o.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="{SW}" stroke-linecap="round"/>')
+            o.append(f'<text x="{L+6}" y="{top+FM+4:.1f}" font-size="{FM*1.05:.1f}" font-weight="700" fill="{INK}">{esc(pan["label"])}</text>')
+            for an in (pan["annotations"] if SHOW_ANN else []):
+                ax, ay = sx(an["t"]), psy(an["y"])
+                if an.get("tangent"):
+                    # A drawn tangent, so "slope of the tangent" is something the
+                    # student can see rather than a phrase in the caption.
+                    #
+                    # Converting a data slope to a screen slope: dx scales by
+                    # pw/(x1-x0) and dy by bh/(py1-py0), and screen y runs
+                    # downward. Getting that ratio upside down drew the tangents
+                    # as near-vertical lines straight off the canvas.
+                    half = pw * 0.10
+                    m = an["slope"] * (bh / (py1 - py0)) / (pw / (x1 - x0))
+                    # Keep the segment inside its own panel even where the curve
+                    # is steep: shorten it rather than let it escape the band.
+                    if abs(m) * half > bh * 0.42:
+                        half = bh * 0.42 / abs(m) if m else half
+                    o.append(f'<line x1="{ax-half:.1f}" y1="{ay + m*half:.1f}" x2="{ax+half:.1f}" y2="{ay - m*half:.1f}" '
+                             f'stroke="{GRAY}" stroke-width="1.4" stroke-dasharray="6 4"/>')
+                o.append(f'<circle cx="{ax:.1f}" cy="{ay:.1f}" r="3.6" fill="{INK}"/>')
+                o.append(f'<text x="{ax:.1f}" y="{ay-11:.1f}" text-anchor="middle" font-size="{FM}" fill="{INK}">{esc(an["label"])}</text>')
+
     # bars: bar chart, histogram, side-by-side, segmented, mosaic
     for bar in g.get("bars", []):
         bx0, bx1 = sx(bar["x0"]), sx(bar["x1"])
@@ -740,7 +937,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
         o.append(f'<path d="{d}" fill="none" stroke="{c["color"]}" stroke-width="{SW}" stroke-linecap="round"{dash}/>')
     # vertical markers
     for vi, v in enumerate(g.get("vlines", [])):
-        o.append(f'<line x1="{sx(v["x"]):.1f}" y1="{T}" x2="{sx(v["x"]):.1f}" y2="{sy(y0):.1f}" '
+        o.append(f'<line x1="{sx(v["x"]):.1f}" y1="{T:.1f}" x2="{sx(v["x"]):.1f}" y2="{sy(y0):.1f}" '
                  f'stroke="{INK}" stroke-width="1.2" stroke-dasharray="3 4"/>')
         for txt, yy, fsz, extra in ((v.get("label"), T + 22, FN * 1.45, ' font-style="italic"'),
                                     (v.get("caption"), T + 40, FN, '')):
@@ -778,7 +975,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
     # axes
     if not bare:
         if not no_y:
-            o.append(f'<line x1="{L}" y1="{T}" x2="{L}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>')
+            o.append(f'<line x1="{L}" y1="{T:.1f}" x2="{L}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>')
         o.append(f'<line x1="{L}" y1="{sy(y0):.1f}" x2="{L+pw}" y2="{sy(y0):.1f}" stroke="{INK}" stroke-width="1.2"/>')
         xt = spec["x_label"].upper()
         cx_title = L + pw / 2
@@ -786,7 +983,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
         o.append(f'<text x="{L+pw/2:.1f}" y="{sy(y0)+(54 if SHOW_ANN else 40):.1f}" text-anchor="middle" font-size="{xf:.1f}" font-weight="700" '
                  f'fill="{INK}" letter-spacing="0.08em">{esc(xt)}</text>')
         if not no_y:
-            o.append(f'<text transform="translate({L-ylab_dx},{T+ph/2:.1f}) rotate(-90)" text-anchor="middle" font-size="{FA}" '
+            o.append(f'<text transform="translate({L-ylab_dx:.1f},{T+ph/2:.1f}) rotate(-90)" text-anchor="middle" font-size="{FA}" '
                      f'font-weight="700" fill="{INK}" letter-spacing="0.08em">{esc(spec["y_label"].upper())}</text>')
     if not bare and not no_y and not g.get("hide_y_ticks"):
         for y in g.get("y_ticks") or nice_ticks(y0, y1):
@@ -800,15 +997,15 @@ def render(spec: dict, layout: str = "expanded") -> str:
         o.append(f'<text x="{sx(pos):.1f}" y="{sy(y0)+22:.1f}" text-anchor="middle" font-size="{FK}" fill="{GRAY}">{esc(lbl)}</text>')
     # furniture
     o += [
-        *[f'<text x="{L}" y="{(T-58 if FS else T-46) + i * (FT + 3):.1f}" font-size="{FT}" font-weight="700" '
+        *[f'<text x="{L}" y="{(T0-58 if FS else T0-46) + i * (FT + 3):.1f}" font-size="{FT}" font-weight="700" '
           f'fill="{INK}" letter-spacing="0.03em">{esc(ln)}</text>'
           for i, ln in enumerate(wrap(spec.get("short_title", spec["title"]).upper(),
                                       26 if not SHOW_ANN else 60))],
     ]
     if FS:
-        o.append(f'<text x="{L}" y="{T-34}" font-size="{FS}" fill="{GRAY}">{esc(spec["subtitle"])}</text>')
+        o.append(f'<text x="{L}" y="{T0-34}" font-size="{FS}" fill="{GRAY}">{esc(spec["subtitle"])}</text>')
     if FG:
-        o.append(f'<text x="{W-R}" y="{T-58}" text-anchor="end" font-size="{FG}" font-weight="700" '
+        o.append(f'<text x="{W-R}" y="{T0-58}" text-anchor="end" font-size="{FG}" font-weight="700" '
                  f'fill="{GRAY}" letter-spacing="0.1em">{"ILLUSTRATIVE" if spec.get("synthetic") else "FROM DATA"}</text>')
     if spec.get("note") and FO:
         nf = fit(spec["note"], FO, W - R - L)
@@ -818,33 +1015,28 @@ def render(spec: dict, layout: str = "expanded") -> str:
     # the other at every size that draws both. Items are laid out by their
     # measured width: a fixed stride pushed "Higher temperature" off a compact
     # canvas.
-    leg = g.get("legend", [])
-    if leg:
-        sw_w = 26 if SHOW_ANN else 18
-        pad = 10 if SHOW_ANN else 7
-        gapl = 22 if SHOW_ANN else 14
-        legf = FL
-        while legf > 7.5 and (L + sum(sw_w + pad + text_w(t, legf) + gapl for t, _ in leg)
-                              - gapl > W - R):
-            legf -= 0.5
-    lx_cursor = L
-    for i, (lbl, style) in enumerate(leg):
-        ly = T - (12 if SHOW_ANN else 10)
-        ox = lx_cursor
-        lx_cursor += sw_w + pad + text_w(lbl, legf) + gapl
-        if style.startswith("swatch") or style == "solid" and g.get("bars"):
-            # A filled series needs a filled key. A line swatch beside a bar
-            # chart reads as a different mark than the one it labels.
-            j = int(style[6:]) if style.startswith("swatch") else 0
-            fill, op = _bar_fill(j, 4)
-            edge = f' stroke="{INK}" stroke-width="1"' if fill != INK else ""
-            o.append(f'<rect x="{ox:.1f}" y="{ly-11}" width="{sw_w}" height="{11 if SHOW_ANN else 9}" '
-                     f'fill="{fill}" fill-opacity="{op}"{edge}/>')
-            o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
-            continue
-        dash = ' stroke-dasharray="11 6"' if style == "dashed" else ""
-        col = GRAY if style == "dashed" else INK
-        o.append(f'<line x1="{ox:.1f}" y1="{ly-4}" x2="{ox+sw_w:.1f}" y2="{ly-4}" stroke="{col}" stroke-width="{SW}"{dash}/>')
-        o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
+    pad = leg_pad
+    for ri, row in enumerate(rows_leg):
+        lx_cursor = L
+        for lbl, style in row:
+            # The top margin already reserved room for every row, so the rows
+            # stack upward from just above the plot without reaching the title.
+            ly = T - (12 if SHOW_ANN else 10) - (len(rows_leg) - 1 - ri) * leg_row_h
+            ox = lx_cursor
+            lx_cursor += sw_w + leg_pad + text_w(lbl, legf) + leg_gap
+            if style.startswith("swatch") or style == "solid" and g.get("bars"):
+                # A filled series needs a filled key. A line swatch beside a bar
+                # chart reads as a different mark than the one it labels.
+                j = int(style[6:]) if style.startswith("swatch") else 0
+                fill, op = _bar_fill(j, 4)
+                edge = f' stroke="{INK}" stroke-width="1"' if fill != INK else ""
+                o.append(f'<rect x="{ox:.1f}" y="{ly-11:.1f}" width="{sw_w}" height="{11 if SHOW_ANN else 9}" '
+                         f'fill="{fill}" fill-opacity="{op}"{edge}/>')
+                o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly:.1f}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
+                continue
+            dash = ' stroke-dasharray="11 6"' if style == "dashed" else ""
+            col = GRAY if style == "dashed" else INK
+            o.append(f'<line x1="{ox:.1f}" y1="{ly-4:.1f}" x2="{ox+sw_w:.1f}" y2="{ly-4:.1f}" stroke="{col}" stroke-width="{SW}"{dash}/>')
+            o.append(f'<text x="{ox+sw_w+pad:.1f}" y="{ly:.1f}" font-size="{legf:.1f}" fill="{INK}">{esc(lbl)}</text>')
     o.append("</svg>")
     return "\n".join(o)

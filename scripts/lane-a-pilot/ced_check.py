@@ -137,7 +137,61 @@ def stats_controls(specs: dict) -> dict:
     return c
 
 
-CONTROL_SETS = {"chem-": controls, "stats-": stats_controls}
+def physics_controls(specs: dict) -> dict:
+    """Five deliberately wrong physics / precalculus figures.
+
+    Four of the five (P1, P2, P3, P4) pass verify.py cleanly: they are prose
+    contradicting a correct drawing, or a label swap the geometry checks cannot
+    see. P5 is caught by the suite, which is the control that confirms the two
+    gates are not simply duplicating each other.
+    """
+    c = {}
+
+    # P1 the sign of the work, which the entry's own caution rules on.
+    s = copy.deepcopy(specs["phys2-pv-isotherm-work"])
+    s["subtitle"] = "Area under the path is the work done ON the gas, positive as it expands"
+    s["alt"] = s["alt"].replace(
+        "its area is the magnitude of the work for the process",
+        "its area is the work done on the gas, which is positive here because the gas expands")
+    c["CONTROL-P1-pv-work-sign-inverted"] = s
+
+    # P2 the alt denies the loop rule the drawing obeys.
+    s = copy.deepcopy(specs["phys2-potential-around-loop"])
+    s["alt"] = s["alt"].replace(
+        "returning to zero. The trace ends at the same potential it started at, because the net "
+        "change around a closed loop is zero.",
+        "ending one volt higher than it started, because the battery adds energy on each trip "
+        "around the loop.")
+    c["CONTROL-P2-loop-net-change-nonzero-claim"] = s
+
+    # P3 claims a trend in residuals that have none -- and the absence of a
+    # pattern is the entry's entire justification for the model.
+    s = copy.deepcopy(specs["precalc-residual-plot"])
+    s["alt"] = s["alt"].replace(
+        "with no curve, no fanning and no trend across the plot. That absence of a pattern is what "
+        "justifies the model as an appropriate fit.",
+        "rising steadily from left to right in a clear upward trend, which is what justifies the "
+        "model as an appropriate fit.")
+    c["CONTROL-P3-residual-trend-claimed-and-misread"] = s
+
+    # P4 temperature labels swapped against their thetas. The suite sorts by
+    # theta, so it passes; a reader should see the hotter gas drawn as the
+    # taller, narrower curve.
+    s = copy.deepcopy(specs["phys2-mb-qualitative"])
+    s["params"]["series"][0]["label"] = "hotter gas"
+    s["params"]["series"][1]["label"] = "cooler gas"
+    c["CONTROL-P4-mb-temperature-labels-swapped"] = s
+
+    # P5 the drawn tangent does not have the slope it claims.
+    s = copy.deepcopy(specs["physcmech-xva-graphs"])
+    for an in s["params"]["annotations"]:
+        if an["panel"] == "v":
+            an["slope"] = 3.0          # a is 1.5
+    c["CONTROL-P5-tangent-slope-wrong"] = s
+    return c
+
+
+CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
@@ -167,7 +221,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", default=",".join(MODELS))
     ap.add_argument("--entries", default=str(HERE / "prod_entries.json"))
-    ap.add_argument("--prefix", default="chem-", help="which batch to review")
+    ap.add_argument("--prefix", default="chem-",
+                    help="comma-separated figure id prefixes for the batch")
+    ap.add_argument("--controls", default=None, help="which control set (defaults to --prefix)")
     ap.add_argument("--only", default=None)
     ap.add_argument("--max-tokens", type=int, default=4000,
                     help="Reasoning models spend budget before emitting JSON; 1200 truncated them.")
@@ -175,11 +231,12 @@ def main() -> int:
     models = [m.strip() for m in args.models.split(",") if m.strip()]
 
     allspecs = {k: v for k, v in json.load(open(HERE / "specs.json")).items() if not k.startswith("_")}
-    specs = {k: v for k, v in allspecs.items() if k.startswith(args.prefix)}
+    prefixes = tuple(x.strip() for x in args.prefix.split(",") if x.strip())
+    specs = {k: v for k, v in allspecs.items() if k.startswith(prefixes)}
     if not specs:
         raise SystemExit(f"no figures with prefix {args.prefix!r}")
     entries = {k: v for k, v in json.load(open(args.entries)).items() if not k.startswith("_")}
-    items = {**specs, **CONTROL_SETS[args.prefix](allspecs)}
+    items = {**specs, **CONTROL_SETS[args.controls or args.prefix](allspecs)}
     if args.only:
         items = {k: v for k, v in items.items() if args.only in k}
 

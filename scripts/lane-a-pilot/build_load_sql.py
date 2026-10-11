@@ -49,6 +49,18 @@ FAMILIES = {
         "Typography on a rule rather than a chart: stems and single-digit leaves, both ordered, "
         "with a key, reconstructing the original data exactly.",
     ),
+    "xy_series": (
+        "General x-y series",
+        "Curves from explicit points, scatter, an optional shaded area under one curve and a zero "
+        "line. Carries the PV diagram, electric potential around a circuit loop and the residual "
+        "plot: different sciences, one geometry.",
+    ),
+    "kinematic_panels": (
+        "Stacked kinematic panels",
+        "Three panels sharing one time axis -- position, velocity and acceleration of a single "
+        "motion -- with drawn tangents and shaded areas, because every labelled part of the entry "
+        "is a relationship BETWEEN the panels.",
+    ),
     "boxplot": (
         "Boxplot",
         "The five-number summary as a box from Q1 to Q3 with a median line, whiskers to the most "
@@ -56,6 +68,12 @@ FAMILIES = {
     ),
 }
 RENDERER_NOTE = "scripts/lane-a-pilot/render.py; the app's figure renderer"
+
+# Seeded by the TASK-0006 migration and already in both environments. A batch
+# may reuse one without introducing it -- AP Physics 2's qualitative
+# distribution is drawn by the chemistry batch's mb_distribution renderer.
+PREEXISTING = {"mb_distribution", "energy_profile", "stick_spectrum",
+               "pe_vs_distance", "approach_equilibrium", "titration_curve"}
 
 
 def q(v) -> str:
@@ -76,19 +94,24 @@ def jq(v) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--prefix", required=True)
-    ap.add_argument("--subject", required=True)
+    ap.add_argument("--subject", default=None,
+                    help="single subject; omit when the batch spans subjects and each spec carries its own")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--batch", default=None, help="source_note batch tag")
     ap.add_argument("--entry-kind", default="diagram",
                     help="the kind of the reference entries these figures attach to")
     args = ap.parse_args()
+    args.batch = args.batch or (args.prefix.split(",")[0].rstrip("-") + "-figures-2026-10-11")
 
+    prefixes = tuple(x.strip() for x in args.prefix.split(",") if x.strip())
     specs = {k: v for k, v in json.load(open(HERE / "specs.json")).items()
-             if k.startswith(args.prefix)}
+             if k.startswith(prefixes)}
     if not specs:
         raise SystemExit(f"no specs with prefix {args.prefix!r}")
 
     fams = sorted({s["family"] for s in specs.values()})
-    missing = [f for f in fams if f not in FAMILIES]
+    new_fams = [f for f in fams if f not in PREEXISTING]
+    missing = [f for f in new_fams if f not in FAMILIES]
     if missing:
         raise SystemExit(f"no catalogue entry for families: {missing}")
 
@@ -97,8 +120,9 @@ def main() -> int:
          "-- Entries are resolved by natural key, so this file is portable between environments.",
          "", "begin;", ""]
 
-    L.append("-- 1. The renderer families this batch needs (DECISION-0115: a row, not a CHECK).")
-    for f in fams:
+    L.append("-- 1. The renderer families this batch INTRODUCES (DECISION-0115: a row, not a CHECK).")
+    L.append(f"-- Reused without introducing: {', '.join(sorted(set(fams) & PREEXISTING)) or 'none'}")
+    for f in new_fams:
         title, summary = FAMILIES[f]
         L.append("insert into app.figure_families (family_key, title, summary, renderer_note)")
         L.append(f"values ({q(f)}, {q(title)}, {q(summary)}, {q(RENDERER_NOTE)})")
@@ -111,7 +135,7 @@ def main() -> int:
             "x_tick_fmt, status, source_note, published_at")
     for sid, s in specs.items():
         vals = ", ".join([
-            q(sid), q(args.subject), q(s["family"]), q(s["title"]), q(s.get("short_title")),
+            q(sid), q(s.get("subject_key") or args.subject), q(s["family"]), q(s["title"]), q(s.get("short_title")),
             q(s.get("subtitle", "")), q(s.get("caption")), q(s["alt"]),
             q(s["x_label"]), q(s["y_label"]), q(s.get("note")),
             q(bool(s.get("synthetic", True))), q(s.get("values_note")),
@@ -130,7 +154,8 @@ def main() -> int:
         L.append("insert into app.figure_uses (figure_id, reference_entry_id, role)")
         L.append(f"select {q(sid)}, e.reference_entry_id, 'primary'")
         L.append("  from app.unit_reference_entries e")
-        L.append(f" where e.subject_key = {q(args.subject)} and e.kind = {q(args.entry_kind)}")
+        L.append(f" where e.subject_key = {q(s.get('subject_key') or args.subject)} "
+                 f"and e.kind = {q(s.get('entry_kind', args.entry_kind))}")
         L.append(f"   and e.title = {q(s['entry_title'])} and e.status = 'published'")
         # The unique index is PARTIAL (`where reference_entry_id is not null`,
         # because the question target is nullable), so the conflict target has
@@ -161,11 +186,14 @@ def main() -> int:
         "",
     ]
 
+    subs = sorted({sp.get("subject_key") or args.subject for sp in specs.values()})
+    if any(x is None for x in subs):
+        raise SystemExit("a spec has no subject_key and --subject was not given")
     out = HERE / args.out
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(L))
     print(f"wrote {out.relative_to(HERE.parent.parent)}: {len(specs)} figures, "
-          f"{len(fams)} families ({', '.join(fams)})")
+          f"{len(new_fams)} new families ({', '.join(new_fams) or 'none'}); subjects: {', '.join(subs)}")
     return 0
 
 

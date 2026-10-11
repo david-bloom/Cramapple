@@ -3,27 +3,29 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 9,
+  "figures": 6,
   "controls": 5,
   "controls_leaked": [],
-  "flagged": [],
-  "wall_seconds": 126.9,
+  "flagged": [
+    "precalc-residual-plot"
+  ],
+  "wall_seconds": 106.5,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 31,
-      "prompt": 21793,
-      "completion": 25100,
-      "seconds": 165.8
+      "calls": 53,
+      "prompt": 103749,
+      "completion": 47585,
+      "seconds": 303.3
     },
     "openai/gpt-6.1-sol": {
-      "calls": 31,
-      "prompt": 20888,
-      "completion": 3496,
-      "seconds": 129.5
+      "calls": 53,
+      "prompt": 75744,
+      "completion": 5867,
+      "seconds": 222.79999999999998
     }
   },
   "detail": {
-    "stats-bar-chart": {
+    "phys2-pv-isotherm-work": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -38,7 +40,7 @@
         }
       }
     },
-    "stats-pie-chart": {
+    "phys2-pv-special-processes": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -53,7 +55,7 @@
         }
       }
     },
-    "stats-dotplot": {
+    "phys2-potential-around-loop": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -68,7 +70,27 @@
         }
       }
     },
-    "stats-histogram": {
+    "precalc-residual-plot": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note says a funnel-shaped residual plot means the model is the wrong shape.",
+              "why": "A funnel shape indicates nonconstant residual variance, not necessarily an incorrect functional form. The model\u2019s mean relationship can be correctly specified even when residuals fan out."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "phys2-mb-qualitative": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -83,7 +105,7 @@
         }
       }
     },
-    "stats-stem-leaf": {
+    "physcmech-xva-graphs": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -98,75 +120,15 @@
         }
       }
     },
-    "stats-boxplot": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-two-cat-side-by-side": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-two-cat-segmented": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-two-cat-mosaic": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-S1-pie-forty-percent-called-half": {
+    "CONTROL-P1-pv-work-sign-inverted": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text claim that 50% of students take the bus and that its slice is half the circle.",
-              "why": "The counts total 60 students, with 24 taking the bus. The bus relative frequency is 24/60 = 40%, not 50%, so its slice occupies 40% of the circle. The percentages listed in the alt text also sum to 110%, contradicting its claim that they total 100%."
+              "what": "The subtitle and alt text incorrectly state that work done ON the gas is positive during expansion.",
+              "why": "The path expands from V = 1 to V = 3 at positive pressure, so work on the gas is W_on = -\u222bP dV < 0. The shaded area represents its magnitude, or the positive work done BY the gas. These statements also contradict the figure's own note."
             }
           ],
           "confidence": "high"
@@ -175,23 +137,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "Contradiction between drawing parameters and text descriptions (subtitle and alt text)",
-              "why": "The drawing parameters specify a count of 24 for 'Bus' out of a total of 60, which is 40%. However, the subtitle and alt text claim that 'Bus' is 50% (half the circle). Additionally, the percentages listed in the alt text (50%, 30%, 20%, 10%) sum to 110%, which is mathematically impossible for a pie chart."
+              "what": "The subtitle and alt text contradict the note and contain a physical error regarding the sign of work.",
+              "why": "The subtitle states 'work done ON the gas, positive as it expands' and the alt text states 'work done on the gas, which is positive here because the gas expands'. However, when a gas expands, the work done ON the gas is negative ($W = -\\int P dV$). The note correctly states that 'W on the gas is negative' during expansion, which directly contradicts the subtitle and alt text."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-S2-boxplot-whisker-claimed-at-maximum": {
+    "CONTROL-P2-loop-net-change-nonzero-claim": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note incorrectly claim there are no outliers and that the right whisker reaches 62 minutes.",
-              "why": "Q1 = 18 and Q3 = 30, so the IQR is 12 minutes. The upper outlier fence is 30 + 1.5(12) = 48 minutes. Both 58 and 62 minutes are outliers; the right whisker should end at 36 minutes, the largest non-outlier. The claimed whisker endpoint also contradicts the subtitle's statement that whiskers extend to extreme non-outliers."
+              "what": "The alt text says the loop ends one volt higher than it started because the battery adds energy on each trip.",
+              "why": "The plotted potential starts and ends at 0 V: +12 \u2212 8 \u2212 4 = 0 V, not +1 V. The alt text contradicts the parameters, the note, and the entry\u2019s zero-net-change statement. Battery energy input does not imply a net potential increase around a closed loop."
             }
           ],
           "confidence": "high"
@@ -200,31 +162,27 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The figure and its description claim there are no outliers and extend the right whisker to the maximum value of 62.",
-              "why": "For this dataset, Q1 is 18 and Q3 is 30, giving an Interquartile Range (IQR) of 12. The upper outlier boundary is Q3 + 1.5 * IQR = 30 + 1.5 * 12 = 48. The values 58 and 62 are greater than 48, making them outliers. The right whisker should only extend to 36 (the largest non-outlier value), and 58 and 62 should be plotted as individual outlier symbols."
+              "what": "The alt text contains the statement: 'ending one volt higher than it started, because the battery adds energy on each trip around the loop.'",
+              "why": "This is physically incorrect (electric potential is a state function, so a complete trip around a closed loop must have a net potential change of zero) and directly contradicts the actual plotted data (which starts and ends at 0.0 V), the subtitle ('the net change is zero'), and the note ('+12 \u2212 8 \u2212 4 = 0')."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-S3-histogram-unequal-bins-claimed-equal": {
+    "CONTROL-P3-residual-trend-claimed-and-misread": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note claim six 10-minute bins, but the bin widths are 10, 10, 15, 10, 5, and 10 minutes.",
-              "why": "The supplied edges define unequal intervals, not six equal intervals of 10 minutes."
+              "what": "The alt text says the residuals rise steadily from left to right in a clear upward trend.",
+              "why": "The plotted residuals repeatedly rise and fall, with no clear upward trend. This also contradicts the subtitle's description of no pattern."
             },
             {
-              "what": "The alt text places the peak in the 20\u201330 minute bin.",
-              "why": "The bar with the largest count, 15 adults, spans 20\u201335 minutes; no 20\u201330 minute bin is drawn."
-            },
-            {
-              "what": "The width annotation labels bin 2 as 'bin width = 10 min'.",
-              "why": "Bin 2 spans 20\u201335 minutes and is 15 minutes wide, not 10."
+              "what": "The alt text says a clear upward trend in residuals justifies the model as an appropriate fit.",
+              "why": "A systematic trend in residuals indicates that the model misses structure in the data, rather than supporting an appropriate fit."
             }
           ],
           "confidence": "high"
@@ -233,48 +191,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The bin edges in the drawing parameters ([0, 10, 20, 35, 45, 50, 60]) create bins of unequal widths (10, 10, 15, 10, 5, and 10 minutes).",
-              "why": "This contradicts the alt text, which states there are 'six bins of ten minutes', and the note, which states 'Bin width is 10 minutes here'."
+              "what": "The alt text description of the residual plot's pattern and its interpretation is statistically incorrect and contradicts the actual data.",
+              "why": "The alt text states that the points 'rise steadily from left to right in a clear upward trend, which is what justifies the model as an appropriate fit.' First, the actual data points provided in the parameters do not show an upward trend; they are randomly scattered. Second, statistically, a clear upward trend in a residual plot indicates a systematic error (non-zero slope in residuals), meaning the model is *not* an appropriate fit. A good fit is justified by a random scatter with no pattern, as correctly stated in the subtitle."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-S4-segmented-alt-contradicts-the-table": {
+    "CONTROL-P4-mb-temperature-labels-swapped": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text incorrectly states that sophomores are 45% playing a school sport and 55% not playing.",
-              "why": "The sophomore counts are 40 playing and 20 not playing, totaling 60. Their shares are therefore approximately 66.7% and 33.3%, not 45% and 55%."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text contradicts the data in the drawing parameters for the Sophomore category.",
-              "why": "The alt text states the sophomore proportions are 45% and 55%, but the drawing parameters (40 'Plays a school sport' and 20 'Does not' out of 60 total sophomores) result in proportions of 66.7% and 33.3%."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-S5-mosaic-drawn-with-equal-widths": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The figure is labelled a mosaic plot and claims that bar widths represent group sizes, but the parameters specify a segmented chart without group-size-dependent widths.",
-              "why": "The column totals are correctly 40, 60, and 50, but segment heights alone encode within-group proportions. Without widths proportional to those totals, the sophomore bar is not widest and tile areas do not represent joint relative frequencies among all 150 students."
+              "what": "The temperature labels are reversed: \u201chotter gas\u201d has theta = 0.8, while \u201ccooler gas\u201d has theta = 1.6.",
+              "why": "With theta as the Maxwell\u2013Boltzmann energy scale, the larger theta produces the broader, lower peak shifted toward higher energy. Thus the curve labelled \u201ccooler gas\u201d has the hotter distribution, contradicting the labels and alt text."
             }
           ],
           "confidence": "medium"
@@ -283,8 +216,33 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The chart is drawn with \"mode\": \"segmented\"",
-              "why": "This mode produces a standard segmented bar chart where all bars have equal widths. This directly contradicts the title ('Mosaic plot'), subtitle ('A segmented bar chart whose bar widths show how big each category is'), and alt text ('here the bar widths differ'), which describe a mosaic plot with variable bar widths proportional to the group sizes."
+              "what": "The temperature parameters ('theta') for the two gases are inverted.",
+              "why": "The 'hotter gas' is assigned a parameter value of theta = 0.8, while the 'cooler gas' is assigned theta = 1.6. Since theta represents the temperature parameter (scale parameter kT), this causes the 'hotter gas' curve to be plotted as narrower and shifted to the left (characteristic of a colder gas) and the 'cooler gas' to be plotted as broader and shifted to the right (characteristic of a hotter gas). This contradicts the labels and physical reality."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P5-tangent-slope-wrong": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The tangent on the velocity panel is drawn with slope 3.0 and labelled \"slope = a\", but the acceleration is 1.5.",
+              "why": "For v(t) = 2.0 + 1.5t, dv/dt = 1.5. A tangent with slope 3.0 is inconsistent with both the velocity graph and the acceleration panel."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The slope of the tangent on the velocity panel at t = 3.0 is set to 3.0.",
+              "why": "The acceleration is defined as a = 1.5, so the slope of the velocity-time graph (which represents acceleration) must be 1.5, not 3.0."
             }
           ],
           "confidence": "high"
