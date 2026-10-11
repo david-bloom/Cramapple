@@ -14,6 +14,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
 - APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
 - APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
+- APPROVAL-0152 — Deploy TASK-0070 (Shared Reference Serving) to Production: `app.subject_reference_aliases` + `get_topic_point_guides` Union, Calculus BC Reads AB Units 1-8 (2026-10-10)
 - APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)

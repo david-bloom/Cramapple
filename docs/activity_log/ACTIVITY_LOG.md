@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0070 Deployed to Production: Calculus BC Can Now Read AB's Reference Content (2026-10-10): David authorised the deploy (APPROVAL-0152). Applied `app.subject_reference_aliases` (one row: `ap_calculus_bc` reads `ap_calculus_ab`, units 1-8) and the `CREATE OR REPLACE` of `get_topic_point_guides` to Production. Verified: Production's function definition now hashes identically to Development's, the alias table has RLS on and no policies (only the definer function reads it), and no regression for the subjects that have content — AP Chemistry unit 1 returns 26 reference entries and 1 hook, AP Statistics unit 1 returns 80, topic 1.2 returns 2. **No student-visible change today:** Production holds no Calculus reference entries at all (0 rows for either AB or BC), so the sharing branch has nothing to serve until a Calculus pack is published; the deploy is infrastructure ahead of that content. The branch itself was proven on Development, which does have AB content: BC unit 1 returns all 24 of AB's entries, every one carrying `sharedFromSubjectKey = ap_calculus_ab`, and BC unit 10 correctly returns 0 because it is outside the alias range. `apply_migration` stamped its own version (`20261011012939`) rather than the committed filename, so the ledger row was corrected to `20261010170000` — renaming the file instead would have ordered it after the pending TASK-0006 figures migrations, which build on it. Rollback remains `delete from app.subject_reference_aliases;`. **Next Owner:** David Bloom. **Next Required Action:** decide whether to deploy the TASK-0006 figures migrations, which replace the same function body again.
 - /question Rebuilt to the Core Product Canvas and Merged to the App's main; AP Chemistry Reference Content Live for All Nine Units; Lovable Guardrails in Place (2026-10-10): After four failed Lovable rounds, the cause was found: Lovable built a second standalone `/question` page and edited mock files the live page never loads, and reviews were diff-only. Set up a local clone with a development-only visual harness, then rebuilt `/question` to the Core Product canvas boards and David's amendments (left pane = grade/score, right = information; one shared three-control top bar also used by BYOQ; Hint-gated panes in independent practice, recorded as guided help; Deep Dive Notes; revisit marks; Show another / Try myself; hand-drawn responses; 16px text). Two independent QA sweeps (Codex, then Lovable) passed; ap-prep-blueprint PR #1 merged (`1715994`). Added CI on every push to main, design-rule tests, and Lovable project knowledge; removed ~150 dead app files; updated the canvas boards (version 17) and marked the build handoff partly superseded. Backend for the question experience (APPROVAL-0145 and amendments, DECISION-0114) and AP Chemistry reference packs for units 1-9 (APPROVAL-0147-0151, DECISION-0112/0113) are live in Production. Unblocked Cramapple PRs #398/#400/#403/#404 (brought up to date with main; all merged). **Not yet published:** the new `/question` waits on David's signed-in checks in the Lovable preview; app PR #3 (cleanup into main + h1 fallback) is open. See `docs/handoffs/SESSION_CLOSE_2026_10_10_QUESTION_PAGE_AND_CHEMISTRY.md`. **Next Owner:** David Bloom. **Next Required Action:** merge app PR #3, run the signed-in checks, publish in Lovable, then send Lovable the stand-down prompt.
 - TASK-0070 Opened and Applied to Development: Calculus BC Serves AB's Shared Reference Content, No Duplicate Rows (2026-10-10): David asked why BC needed its own units 1-3 pack; it did not — AB and BC share one CED, BC's units 1-5 topic sets are identical and 6-8 a superset, and only `subject_key` keying made BC serve nothing. Duplicating was rejected because the same duplication in `topic_explainers` has already drifted (all 81 shared AB/BC explainers differ; units 1-8 AB 35 of 81 repaired against BC 85 of 87), so copying would have hidden the same divergence and required mirroring today's 43 corrections. Shipped a general `app.subject_reference_aliases` table plus an RPC union with three guards (own row wins, unit range, requesting subject's taxonomy). No content row created, copied or deleted. Verified against a 30-probe pre-change baseline: 23 of 30 payloads byte-identical once the additive key is stripped, the 7 that differ are exactly BC units 1-3, both guards exercised and rolled back, alias table unreadable by `authenticated`, migration idempotent, all 8 QA checks ok. AB's stale explainers recorded as F2; anonymous BYOQ sharing as F1. Code change, so the PR goes to David; Production untouched.
 - Extractor Prompt Fixed for Boundary Statements, Skills and Exam-Prep Text; Pipeline Scripts Given a Canonical Template (2026-10-10): the seven unit 1-3 entries that had to be dropped rather than corrected all came from CED sections that are not course content — Exclusion/Boundary Statements, SUGGESTED SKILL lists, "Preparing for the AP Exam", ILLUSTRATIVE EXAMPLES alone. New protocol §1.2 names the admissible source, keeps a boundary statement's legitimate use in a `caution`, and makes an LO/EK citation a hard gate; `extract.py` and `check.py` (b)(c) now enforce it. Scripts moved to a canonical baseline at `scripts/content-seed/reference-pack-template/` so prompt lessons stop being lost between batches. Verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2: all three previously-inadmissible entries gone, no entry citing a non-LO/EK section. Test extractions not loaded; no batch re-run; Production untouched.
@@ -423,6 +424,52 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0070 Deployed to Production — 2026-10-10
+
+**Authorisation.** David: "deploy task 0070" (APPROVAL-0152). The migration had been applied to
+Development on 2026-10-10 and held; Production was untouched until now.
+
+**What was applied** (`supabase/migrations/20261010170000_task0070_shared_reference_serving.sql`,
+verbatim): `app.subject_reference_aliases` with its four check constraints, RLS enabled and forced
+and no policies, seeded with the single row `ap_calculus_bc` reads `ap_calculus_ab` units 1-8; and a
+`CREATE OR REPLACE` of `public.get_topic_point_guides` whose `published_reference` CTE unions the
+requesting subject's rows with alias-sourced rows under three guards (own row wins, unit range, the
+requesting subject's own taxonomy must contain the owner topic). No content row was created, copied
+or modified.
+
+**Preconditions checked first.** `app.subject_reference_aliases` absent, `app.taxonomy_source_versions`
+and `app.unit_reference_entries` present, AP Calculus BC has one taxonomy source version, three
+Calculus subjects registered, and zero Calculus reference rows.
+
+**Verification.**
+
+- Production's `get_topic_point_guides` now hashes to `70c93d71fceb7d0ed058fa27b1d4dab5`, byte-identical
+  to Development's.
+- Alias table: 1 row, RLS on, 0 policies — only the SECURITY DEFINER function reads it.
+- No regression, queried as a real authenticated student rather than `service_role`: AP Chemistry
+  unit 1 returns 26 reference entries and 1 memory hook, topic 1.2 returns 2; AP Statistics unit 1
+  returns 80.
+- The sharing branch itself cannot be exercised in Production, because it holds no Calculus reference
+  entries. It was proven on Development, which runs the identical function: AB unit 1 has 24 entries,
+  BC unit 1 returns all 24, all 24 carry `sharedFromSubjectKey = ap_calculus_ab`, and BC unit 10
+  returns 0 — correctly outside the 1-8 alias range.
+
+**Student impact today: none.** Production has 0 Calculus reference rows for AB and BC alike, so BC
+students see no change until a Calculus reference pack is published. This deploy removes the blocker
+rather than delivering content.
+
+**Migration ledger.** `apply_migration` stamped version `20261011012939` instead of the committed
+filename. The ledger row was corrected to `20261010170000`. The documented remedy is to rename the
+local file, but that would have ordered TASK-0070 *after* the pending TASK-0006 figures migrations
+(`20261010210000`-`210200`), which replace the same function and depend on this one.
+
+**Rollback.** `delete from app.subject_reference_aliases;` — the unioned branch then matches nothing
+and the function returns exactly its previous payload. No schema change needs reverting for that.
+
+**Open.** The TASK-0006 Lane A figures migrations are applied to Development only and replace this
+same function body a third time, adding a `figures` key. Deploying them to Production is a separate
+decision.
+
 ## TASK-0070: Calculus BC Serves AB's Shared Reference Content — 2026-10-10
 
 **The question.** David, on reviewing the proposed Calculus BC re-key: *"why do we need a separate reference
