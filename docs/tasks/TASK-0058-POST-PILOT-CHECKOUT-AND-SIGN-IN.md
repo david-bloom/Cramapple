@@ -36,7 +36,7 @@ that credential as a **Desktop** OAuth client, so browser sign-in failed before 
 
 Lovable marketing commit `4aa50678966d0a420d1cbeb6fa2b57f3a67f0c0d` changed only `VITE_GOOGLE_CLIENT_ID` to the Web
 client. Typecheck passed, 85 tests in 10 files passed, and the production build passed. David explicitly approved the
-Production publish (`APPROVAL-0154`). The live `/login` bundle then contained the Web client ID, rendered the Google button
+Production publish (`APPROVAL-0155`). The live `/login` bundle then contained the Web client ID, rendered the Google button
 without browser console errors, and David completed Google login successfully. No Google Cloud setting, Supabase setting,
 secret, UI, or other application file changed.
 

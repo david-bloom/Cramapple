@@ -6,7 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0154 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
+- APPROVAL-0155 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID (2026-10-10)
 - APPROVAL-0154 — Reference Packs for Eight Subjects to Production: 776 Entries + 7 Hooks, Units 1-3 (2026-10-11)
 - APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill) (2026-10-10)
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
@@ -2360,7 +2360,7 @@ Nine escalated rows were re-extracted, checked and loaded to Development and Pro
 
 **Rollback:** none needed; docs only.
 
-## APPROVAL-0154 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID
+## APPROVAL-0155 — Publish the `/login` Google OAuth Client Repair: Replace the Desktop Client ID With the Existing Registered Web Client ID
 
 **Date:** 2026-10-10
 
