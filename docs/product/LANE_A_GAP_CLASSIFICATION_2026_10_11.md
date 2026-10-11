@@ -47,10 +47,15 @@ it is the highest-leverage thing left in Lane A by a wide margin.
 | Precalc 3.11 | Graph features of secant, cosecant, cotangent | list_sequence (3) | asymptotes, range gaps |
 | Calc AB 1.3 | Graphs can miss important behavior | convention | **one function at two scales** |
 
-`function_plot` needs: an expression evaluated over a domain, asymptotes, open/closed circles,
-tangency, marked points, secant lines, a second panel at a different window, and shading for
-concavity. Calc AB 1.3 is the one that pins the design — it is two windows on the same function,
-which is the entry's whole claim.
+`function_plot` needs: a function evaluated over a domain, asymptotes, open/closed circles,
+tangency, marked points, secant lines, a second window on the same function, and labelled
+concavity. Calc AB 1.3 is the one that pinned the design — two windows on one function.
+
+> **BUILT 2026-10-11.** Not an *expression* evaluated over a domain: functions are TYPED with
+> numeric parameters, because a parsed string cannot be evaluated identically in Python and
+> JavaScript and the two renderers must agree byte for byte. The window pair became two figures
+> on one entry rather than two panels in one figure, which is the same per-entry coverage the
+> p-value directions use.
 
 **Precalculus has no `kind='diagram'` entries at all**, which is exactly why Lane A's original
 filter left the entire subject with one figure.
@@ -111,8 +116,8 @@ the difference between this list and the keyword scan.
 1. ~~**`density_curve`**~~ **BUILT** (2026-10-11): 10 figures, 8 entries. The §3 sampling-distribution
    rows (2.12 ×4) are still open and are the natural extension — the CLT entry needs a *narrowing
    with n* comparison, which is a panel set rather than one curve.
-2. **`function_plot`** — 15 entries, and it is the only thing that gives AP Precalculus and AP
-   Calculus AB any figures at all.
+2. ~~**`function_plot`**~~ **BUILT** (2026-10-11): 19 figures over all 15 entries, in Development.
+   AP Precalculus goes from 1 covered entry to 15, AP Calculus AB from 0 to 1.
 3. The §4 extensions and the §5 reuse checks — cheap, and two may be single rows.
 4. §3's remaining families (linearised panels, spectrum band, discrete probability).
 
