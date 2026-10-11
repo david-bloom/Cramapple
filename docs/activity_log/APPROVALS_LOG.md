@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0154 — Reference Packs for Eight Subjects to Production: 776 Entries + 7 Hooks, Units 1-3 (2026-10-11)
 - APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill) (2026-10-10)
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111 (2026-10-10)
@@ -2084,6 +2085,88 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0154 — Reference Packs for Eight Subjects to Production: 776 Entries + 7 Hooks, Units 1-3
+
+**Date:** 2026-10-11
+**Approved By:** David Bloom (2026-10-11 Claude session), asked to approve the eight named batches and to
+choose how the duplicate AP Physics 1 hooks should go up: "Approve all eight batches" and "Promote as-is,
+fix in serving".
+**Related:** plan and evidence `docs/handoffs/REFERENCE_PACK_PRODUCTION_PROMOTION_PLAN_2026_10_11.md`
+(PR #410); batches under `scripts/content-seed/`; handoff
+`docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`; protocol
+`docs/product/MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md` §5; `APPROVAL-0140`,
+`APPROVAL-0147`/`0148`/`0149` (AP Chemistry), `APPROVAL-0152` (TASK-0070 aliasing).
+**Decision:** Approved and applied the same day.
+
+**Scope — the eight batches by name,** per this log's rule that Development is shared and a row count is
+not an identifier:
+
+| Batch | Subject | Units | Entries | Hooks |
+|---|---|---|---:|---:|
+| `ap-biology-reference-u1-u3-2026-10-10` | AP Biology | 1-3 | 95 | 0 |
+| `ap-calculus-ab-reference-u1-u3-2026-10-10` | AP Calculus AB | 1-3 | 51 | 2 |
+| `ap-physics-1-reference-u1-u3-2026-10-10` | AP Physics 1 | 1-3 | 99 | 3 |
+| `ap-physics-2-reference-u9-u11-2026-10-10` | AP Physics 2 | 9-11 | 102 | 0 |
+| `ap-physics-c-em-reference-u8-u10-2026-10-10` | AP Physics C: E&M | 8-10 | 69 | 0 |
+| `ap-physics-c-mechanics-reference-u1-u3-2026-10-10` | AP Physics C: Mechanics | 1-3 | 113 | 0 |
+| `ap-precalculus-reference-u1-u3-2026-10-10` | AP Precalculus | 1-3 | 145 | 2 |
+| `ap-statistics-reference-u2-u3-2026-10-10` | AP Statistics | 2-3 | 102 | 0 |
+| **Total** | | | **776** | **7** |
+
+Applied from each batch's committed `out/load_*.sql` with no edits, 23 files, via
+`supabase db query` against Production. **Production went 307 → 1,083 published entries and 6 → 13
+published hooks**, equal to Development.
+
+**Pre-approval evidence (what made this safe to apply):**
+- Every committed loader was parsed (829 natural keys across all 25 files, 0 conflicting duplicates) and
+  reduced to an order-independent checksum over `(owner_topic_code, kind, title, body)` per subject, then
+  compared with the same expression computed inside Development. **All eight in-scope subjects matched on
+  both count and checksum.** This is what establishes that the 43 escalation corrections were regenerated
+  into the loaders rather than applied as one-off Development updates, so the load could not ship
+  pre-correction text.
+- `md5(pg_get_functiondef('public.get_topic_point_guides'))` was already identical in both environments
+  (`25b6e08c84e5db9fac69741f93efa054`), so **no schema change, no function change and no deploy** was part
+  of this approval. Data only.
+- All 776 rows were `published` in Development with no draft or retired rows in these batches; the 7
+  rejected escalations were never loaded.
+
+**Post-apply verification:**
+- Per-batch counts and checksums in Production equal Development, batch for batch (95/51/99/102/69/113/145/102).
+- 38 `get_topic_point_guides` probes were captured **before** the apply and re-run after, as an authenticated
+  student (`request.jwt.claims`), never `service_role`. 29 changed, 9 byte-identical. Every control held:
+  all four AP Chemistry probes, all three AP Statistics Unit 1 probes, and both deliberately empty probes
+  returned the identical payload md5.
+- A topic with no entries still returns an empty `reference[]` (`ap_biology` 1.99, unchanged md5).
+- **AP Calculus BC inherits with zero rows of its own:** BC Unit 1 roll-up 0 → 24 and 1.2 → 3, 2.2 → 5,
+  equal to AB topic for topic, through `app.subject_reference_aliases`; `count(*)` for subject
+  `ap_calculus_bc` in `app.unit_reference_entries` is **0**. BC Unit 6 stays empty, correctly.
+- A planted `draft` row was invisible to the student RPC (`draft_leaked = 0`) and the transaction was rolled
+  back; 0 probe rows remain.
+- Idempotency: two loaders re-applied; published counts did not move (1,083 / 13).
+- QA script `scripts/qa/unit_reference_and_memory_hooks_qa.sql` checks 1-8 all `ok = true` in Production.
+
+**Known and accepted:** AP Physics 1 topic 1.5 serves **SOH-CAH-TOA three times** — three hooks with
+identical text on three different entries (the sine, cosine and tangent formula rows), and the RPC's
+`published_hooks` CTE does not de-duplicate. Measured in the live payload: `memoryHooks` length 3, all
+three `hookText` equal. The Product Owner chose to promote as-is and fix it where it renders, so
+**de-duplication by `hookText` is an open front-end follow-up**, not a content defect.
+
+**Excluded on purpose:** `load_ap_calculus_bc_u1_u3_rekey.sql` (the copy-rows approach `TASK-0070`
+superseded with aliasing — applying it would create the duplicate rows that task exists to avoid) and the
+AP Chemistry batches (already live; their committed loader is now *behind* Production because
+`APPROVAL-0149` re-extracted symbol definitions into 10 rows afterwards — loader checksum `120224130068`
+versus `117253531577` in both environments, so Production must not be "repaired" from the file).
+
+**Rollback:** per batch, retire the hooks first and then the entries — the guard requires that order:
+`update app.topic_memory_hooks set status = 'retired' where reference_entry_id in (select reference_entry_id
+from app.unit_reference_entries where source_note like '%batch=<name>%');` then
+`update app.unit_reference_entries set status = 'retired' where source_note like '%batch=<name>%';`
+`reference[]`/`memoryHooks[]` go empty for those subjects and no function or schema change is reverted.
+
+**Not in scope:** follow-up **F1** — the anonymous BYOQ path reads the `public.unit_reference_entries` and
+`public.topic_memory_hooks` views rather than this RPC, so a signed-out visitor still sees nothing for
+aliased AP Calculus BC. Unchanged by this approval.
 
 ## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
 
