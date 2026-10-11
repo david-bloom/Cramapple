@@ -225,6 +225,17 @@ warning every student about a problem they will not hit is noise.
 
 ## 9. What is still open
 
+> **CURRENT AS OF 2026-10-11.** Every published `kind='diagram'` entry that is Lane A now has a
+> figure, in every subject: 25 figures and 13 families live in Production (`APPROVAL-0153`, `0157`,
+> `0158`), identical in Development. **But `kind='diagram'` was the wrong filter for the lane** — about
+> 24 chart-shaped entries live in `vocabulary`, `convention`, `formula` and `list_sequence`, and only
+> one of them (AP Precalculus' residual plot) was ever caught. Three of those need no new renderer at
+> all, and three need only a `figure_uses` row.
+>
+> **The remaining work in both lanes, the labelling problems underneath it, and an execution plan are
+> in `docs/handoffs/LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md`.** Read it before starting either
+> lane. The list below is the pilot's original open set and is kept for history.
+
 - **No human expert has reviewed the illustrative values.** Two model readers accepted them with
   the controls gate passing, which is meaningful evidence but not a subject expert's sign-off.
 - **The readers never see pixels.** They judge parameters and text, so they verify the chemistry,
