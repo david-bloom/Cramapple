@@ -1452,10 +1452,6 @@ def render(spec: dict, layout: str = "expanded") -> str:
     for d in g.get("dots", []):
         o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.2, SW*2.1):.1f}" '
                  f'fill="{INK}" fill-opacity="0.9"/>')
-    # open circles: a point the graph does NOT take, such as a hole
-    for d in g.get("open_dots", []):
-        o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.4, SW*2.2):.1f}" '
-                 f'fill="{BG}" stroke="{INK}" stroke-width="{max(1.4, SW*0.8):.1f}"/>')
     # boxplot glyphs: box Q1-Q3, median line, whiskers, outlier marks
     for bx in g.get("boxes", []):
         yc, hh = bx["yc"], bx["h"] / 2
@@ -1805,6 +1801,13 @@ def render(spec: dict, layout: str = "expanded") -> str:
         d = "M " + " L ".join(f'{sx(x):.1f},{sy(y):.1f}' for x, y in c["pts"])
         dash = ' stroke-dasharray="11 6"' if c["style"] == "dashed" else ""
         o.append(f'<path d="{d}" fill="none" stroke="{c["color"]}" stroke-width="{SW}" stroke-linecap="round"{dash}/>')
+    # open circles: a point the graph does NOT take, such as a hole. Painted
+    # AFTER the curves on purpose -- before them the curve's stroke runs
+    # straight through the white interior, and the gap the circle is there to
+    # show disappears.
+    for d in g.get("open_dots", []):
+        o.append(f'<circle cx="{sx(d["x"]):.1f}" cy="{sy(d["y"]):.1f}" r="{max(3.4, SW*2.2):.1f}" '
+                 f'fill="{BG}" stroke="{INK}" stroke-width="{max(1.4, SW*0.8):.1f}"/>')
     # vertical markers
     for vi, v in enumerate(g.get("vlines", [])):
         o.append(f'<line x1="{sx(v["x"]):.1f}" y1="{T:.1f}" x2="{sx(v["x"]):.1f}" y2="{sy(y0):.1f}" '
