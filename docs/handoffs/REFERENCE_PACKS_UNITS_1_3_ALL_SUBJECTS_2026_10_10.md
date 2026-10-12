@@ -1,6 +1,18 @@
 # Reference Packs, Units 1-3, All Ten Subjects — Session Record
 
-**STATUS:** Development complete for 25 new unit batches. Production untouched and still a Hard Gate.
+**STATUS:** Historical build record, with current Production correction below. Development completed
+25 new unit batches; the original "Production untouched" status was superseded by later promotions.
+
+> **PRODUCTION CORRECTION, verified 2026-10-12:** All currently published reference packs are in
+> Production. AP Chemistry was promoted under `APPROVAL-0147` / `0148` / `0149`; the eight other
+> batches under `APPROVAL-0154`. Development and Production match on 1,083 reference entries and
+> 13 hooks across 33 stored subject-unit groups, including content hashes. Calculus BC inherits AB
+> through the Production alias (`APPROVAL-0152`), rather than holding duplicate rows. This confirms
+> the built batches, not full-course coverage outside Chemistry. Promotion evidence:
+> `REFERENCE_PACK_PRODUCTION_PROMOTION_PLAN_2026_10_11.md`; current verification:
+> `../qa/REFERENCE_PACK_PARITY_AND_HOOK_HELP_POLICY_2026_10_12.md`. The dated counts and
+> Development-only statements below describe the original run, not current availability.
+
 All 50 escalations are dispositioned: 43 corrected and loaded, 7 rejected as having no LO/EK basis (sections 11
 and 12). The Calculus BC question is answered and closed by TASK-0070 (section 14): BC serves AB's shared
 reference content, with no duplicate rows. Development is shared and another session loaded into it

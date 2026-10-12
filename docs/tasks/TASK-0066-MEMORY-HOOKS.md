@@ -19,13 +19,17 @@ written in CED language, and the hook says so when the two differ.
 
 ## Decisions this task executes (`DECISION-0104`)
 
+**Placement amendment, 2026-10-12:** `DECISION-0118` / `APPROVAL-0164` permits published,
+directly relevant hooks in hints, post-miss feedback, and student-requested targeted help. This records
+the approved policy; it does not claim that the new help template or agent is implemented.
+
 | # | Decision | Approved as |
 | --- | --- | --- |
 | D1 | Grain | Topic-owned (`owner_topic_code`) with `topic_codes[]`, unit roll-up, no skill grain. |
 | D2 | Inclusion rule | CED point-bearing sequences, lists, formula structures, sign conventions; **amended** to add labelled parts of a CED-required diagram. |
 | D3 | Data model | Option B: `app.topic_memory_hooks` + public view + `get_topic_point_guides` returns `memoryHooks[]`. **Amended by `DECISION-0105`:** `reference_entry_id` (required, FK to `app.unit_reference_entries`); no `topic_codes[]` on the hook; scope and unit roll-up come from the entry. |
 | D4 | Songs | Out of v1. No lyrics, no audio. |
-| D5 | Surfaces | Deep Dive "Remember it" block, unit-reference "Memory hooks" list, Open Hand reference pane. Not hints, not post-miss feedback. |
+| D5 | Surfaces | Deep Dive "Remember it" block, unit-reference "Memory hooks" list, Open Hand reference pane. **Amended by `DECISION-0118`:** relevant published hooks are also permitted in hints, post-miss feedback, and "I don't get it" / "I'm stuck" help, with their expansion and caution. Pre-submission use remains recorded assistance. |
 | D6 | Pilot | AP Statistics Unit 1 + AP Chemistry Unit 4, at most 8 hooks, before any wider survey. |
 | D7 | Priority | Not launch gating. Schema lands on the key `TASK-0054` settles. |
 
@@ -86,9 +90,12 @@ written in CED language, and the hook says so when the two differ.
 
 ## Out of scope
 
-Songs and audio of any kind; hooks inside hints or post-miss feedback (separate decision; hint
-use is counted); a subject-wide survey beyond the two pilot units; new diagram rendering; any
+Songs and audio of any kind; a subject-wide survey beyond the two pilot units; new diagram rendering; any
 change to `topic_explainers` free-text fields.
+
+The former exclusion of hooks from hints and post-miss feedback is superseded by `DECISION-0118`.
+Building the new targeted-help surface is a separate implementation slice; the existing assistance
+and answer-disclosure contracts still apply.
 
 ## Data, security, integration impact
 
@@ -112,8 +119,11 @@ Independent re-read of the Development rows against the CED fact packs; row-limi
 
 ## Approval state
 
-Scope approved (`APPROVAL-0136`). Production apply, Production publish, and Lovable publish: not
-approved, each a separate Hard Gate.
+Original scope approved (`APPROVAL-0136`); pilot Production migration, content, and Lovable publish
+approved and shipped under `APPROVAL-0140`; subsequent published batches under `APPROVAL-0147` /
+`0148` / `0149` and `APPROVAL-0154` bring the live hook total to 13. The placement-policy amendment
+is approved by `APPROVAL-0164` (`DECISION-0118`). Future implementation and releases retain their
+normal gates; this documentation change is not a frontend/backend deployment approval.
 
 ## Implementation summary / Test results
 

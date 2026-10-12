@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help; Assistance Timing Rules Stay in Force
 - DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
 - DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
 - DECISION-0115 — A Figure's Renderer Family Is Data, Not Schema: `app.figure_families` Lookup Plus Foreign Key Replaces the Hard-Coded CHECK
@@ -67,6 +68,17 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help
+
+- **Date:** 2026-10-12
+- **Decided by:** David Bloom (Product Owner), in session: "All reference packs should be in production. Update the rule about using hooks and hints."
+- **Context:** After trying the Chemistry and Calculus targeted-help prototypes, David approved replacing the hook-placement exclusion in `DECISION-0104` D5.
+- **Decision:** Checked, published memory hooks may appear in hints, post-miss feedback, and "I don't get it" / "I'm stuck" help when their linked reference entry directly addresses the current question or missing concept. Include the expansion, applicable conditions, and caution; connect the hook to the concept or answer move. Omit irrelevant or unavailable hooks rather than inventing unchecked content.
+- **Assistance:** Opening help before a graded Practice submission remains recorded assistance (`APPROVAL-0130`) and does not qualify that attempt as unassisted under `DECISION-0074`. Help opened after submission does not retroactively alter independence. Existing Practice answer-disclosure, unscored Worked Example, and ungraded BYOQ boundaries remain.
+- **Supersedes:** `DECISION-0104` D5's exclusion of hooks from hints and post-miss feedback only. Reference linkage, content checking, inclusion, rights, and no-songs rules remain.
+- **Verification:** Live read-only queries confirm all 1,083 published reference entries and 13 hooks match between Development and Production; Calculus BC inherits AB via its Production alias. No promotion was needed. Evidence: `docs/qa/REFERENCE_PACK_PARITY_AND_HOOK_HELP_POLICY_2026_10_12.md`.
+- **Execution:** `APPROVAL-0164` records the rule amendment. This session updates documentation only; the new help template, agent, and Production releases require separate implementation/release scope.
 
 ## DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
 
@@ -280,6 +292,11 @@ Most recent entries (full chronological list follows below):
 - **Consequences:** `TASK-0066` is unblocked and sequenced with `TASK-0067`; `APPROVAL-0137` records the scope approval; the Open Hand reference pane's vocabulary section gains a structured source once the pilot lands.
 
 ## DECISION-0104 — Memory Hooks Approved as Proposed (D1–D7): Topic-Owned Grain, CED Point-Bearing Inclusion Rule, Option B Table, Songs Out of v1, Three Surfaces, Stats Unit 1 + Chem Unit 4 Pilot; Amended to Include Diagram Parts
+
+> **D5 AMENDMENT, 2026-10-12:** `DECISION-0118` / `APPROVAL-0164` supersedes the hint/post-miss
+> exclusion below. Relevant published hooks are now allowed in hints, post-miss feedback, and
+> student-requested targeted help, with the existing assistance and answer-disclosure rules.
+> The original decision remains below as its dated record.
 
 - **Date:** 2026-10-08
 - **Decided by:** David Bloom (Product Owner): "Approve D1-D7 as recommended and open the task", and, relaying Micah Bloom, "Micah was also interested in memory hooks for formulas and parts of diagrams. Why not include those?"

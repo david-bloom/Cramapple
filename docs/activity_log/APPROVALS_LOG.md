@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help (Documentation Only)
 - APPROVAL-0163 — Production Load of the `function_plot` Batch (19 Figures, AP Precalculus and AP Calculus AB), and Repair of Three Rows That Had Drifted From Their Gate-4c Corrections
 - APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
 - APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
@@ -132,6 +133,31 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help
+
+**Date:** 2026-10-12
+**Approved By:** David Bloom (Product Owner), in session: "All reference packs should be in production. Update the rule about using hooks and hints."
+**Related:** `DECISION-0118`, `DECISION-0104` D5, `TASK-0066`, `TASK-0067`, `APPROVAL-0130`, `DECISION-0074`.
+**Decision:** Approved; documentation-only recording of the placement amendment.
+
+### Approved scope
+
+Permit relevant, checked, published hooks in hints, post-miss feedback, and student-requested
+"I don't get it" / "I'm stuck" help; preserve their reference linkage, expansion, applicable conditions,
+and cautions. Pre-submission use remains assistance; post-submission help does not retroactively
+alter independence. Preserve existing Practice answer-disclosure and BYOQ boundaries.
+
+Update the protocol, proposal, task, decision/activity records, and current-state pointers. Verify that
+all built reference packs are already in Production. Live read-only checks confirmed 1,083 published
+entries and 13 hooks equal to Development; no load or deployment was needed.
+
+### Execution boundary
+
+This approval records a policy change. It does not publish unchecked hooks, change mastery/scoring,
+or approve implementation/deployment of the new help template or agent.
+
+**Evidence:** `docs/qa/REFERENCE_PACK_PARITY_AND_HOOK_HELP_POLICY_2026_10_12.md`.
 
 ## APPROVAL-0119 — Parent Payment Short Links: New Table, New `resolve-parent-link` Function, Two Function Changes (Production)
 
