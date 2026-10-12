@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1.7, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.8, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -320,7 +320,33 @@ warning every student about a problem they will not hit is noise.
 > lane. The list below is the pilot's original open set and is kept for history.
 >
 > **UPDATE (2026-10-11, later the same day).** That handoff's §2a and §2e are closed and **all of
-> Lane B is built except the four AP Biology structures**, which remain blocked on the §4.4 decision.
+> Lane B is built except FIVE entries**, not four.
+>
+> **CORRECTION (2026-10-11).** This document, and the session close, said "Lane B is built except
+> the four AP Biology structures" several times. That is wrong. **AP Chemistry 9.8 "Electrochemical
+> cell diagram" has no figure either, and is blocked on nothing.** The handoff's §1 inventory counted
+> 18 Lane B entries (AP Chemistry 6: five particulate plus the cell diagram), but its §4 execution
+> plan — §4.1 arrows 4, §4.2 particulate 5, §4.3 fields 4, §4.4 Biology 4 — adds to 17. The cell
+> diagram fell between the inventory and the plan, and the claim was then repeated from §4 without
+> being reconciled against the database. **Lane B is 13 of 18 entries: four blocked on §4.4, one
+> simply missed.**
+>
+> The query that settles it, and which should be run before any claim of completeness:
+>
+> ```sql
+> select e.subject_key, e.owner_topic_code, e.title
+>   from app.unit_reference_entries e
+>  where e.status = 'published' and e.kind = 'diagram'
+>    and not exists (select 1 from app.figure_uses u
+>                     where u.reference_entry_id = e.reference_entry_id);
+> ```
+>
+> AP Chemistry 9.8 authors four labelled parts — electrodes (anode and cathode), half-cell
+> solutions, salt bridge, and a measuring device — so it needs its own small grammar: two vessels,
+> a bridge, a meter, and labelled electron and ion flow. Properties worth asserting: oxidation at
+> the anode and reduction at the cathode, electrons running anode to cathode through the external
+> circuit, and ion flow through the bridge in the direction that keeps each half-cell neutral.
+> A wrong cell diagram gets all three backwards.
 > Fourteen new figures cover **thirteen further published entries**: ten on four new families
 > (`arrow_diagram`, `particulate_box`, `field_map`, `circuit_symbols`) and four on families that
 > already existed (three `xy_series`, plus `chem-mb-catalysis` becoming eligible at last), and
@@ -378,6 +404,11 @@ warning every student about a problem they will not hit is noise.
 v1.7 (2026-10-11): §6 gains the parity command, the instruction to run it over every family rather
 than the new one, and the rule that `hypot` stays out of anything that becomes a coordinate. §9
 records that the app now knows the four Lane B families.
+
+v1.8 (2026-10-11): §9 corrects "Lane B is built bar AP Biology" to the truth — FIVE entries have no
+figure, not four: AP Chemistry 9.8's electrochemical cell diagram fell between the handoff's
+inventory and its execution plan and was never built. §9 now carries the query that settles any
+claim of completeness.
 
 v1.6 (2026-10-11): §9 records that Lane B is built bar AP Biology, and §4c gains the rule that a
 control must be a mistake a reader can SEE -- a control that only reordered a figure's isoline radii
