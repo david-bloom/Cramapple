@@ -387,8 +387,14 @@ warning every student about a problem they will not hit is noise.
 > asserted the anode loses mass when the figure names no electrode material. The port is at
 > **219/219 figure/layout pairs byte-identical across 23 families** (`ap-prep-blueprint#15`), which
 > also caught that the app painted open circles BEFORE the curves, so `precalc-hole`'s hole was
-> filled in by the curve's own stroke at every size. **Loaded to Development**; Production is a
-> separate Hard Gate and needs its own approval. 73 figures, 71 published entries covered.
+> filled in by the curve's own stroke at every size. 73 figures, 71 published entries covered.
+> **LIVE IN PRODUCTION 2026-10-12 (`APPROVAL-0162`)**: 54 published figures, 22 families, 62 uses
+> over 56 entries, byte-identical to Development by digest, and the §9 settling query moved 5 → 0.
+> The app was merged AND published first, and the live bundle checked for all four family keys
+> before the load — `FIGURE_FAMILIES` is a whitelist, so loading first puts rows in Production that
+> render nothing. Verified as a real authenticated student: each topic serves its own figure, a
+> topic with no figure returns 0, AP Statistics 2.11 still serves its 5, and a planted draft stayed
+> invisible before being rolled back.
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
 - **No human expert has reviewed the illustrative values.** Two model readers accepted them with
