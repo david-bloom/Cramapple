@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0163 — Production Load of the `function_plot` Batch (19 Figures, AP Precalculus and AP Calculus AB), and Repair of Three Rows That Had Drifted From Their Gate-4c Corrections
 - APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
 - APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
 - APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch: 10 Figures, 1 New Renderer Family, 8 Published Entries
@@ -2093,6 +2094,63 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0163 — Production Load of the `function_plot` Batch (19 Figures, AP Precalculus and AP Calculus AB), and Repair of Three Rows That Had Drifted From Their Gate-4c Corrections
+
+- **Date:** 2026-10-12
+- **Granted by:** David Bloom (Product Owner), in session: "I approve the function_plot Production
+  load", after the session-close document recorded that this finished batch had never been loaded.
+- **Scope:** load `scripts/lane-a-pilot/out/load_function_plot.sql` into Production
+  (`pcntajvbdfqhbeewmdry`): 19 figures on the `function_plot` family over 15 published entries.
+  **These are the first figures of any kind for AP Precalculus and AP Calculus AB.**
+
+### A defect found while preparing the load, and why it matters more than the load
+
+The committed load file was **stale**. It had been generated *before* the batch's gate-4c
+corrections, and `insert ... on conflict (figure_id) do nothing` means re-running a load never
+updates a row that already exists. So:
+
+- **Development was serving three rows that gate 4c had rejected**, and had been since that batch
+  was loaded. The corrections existed only in `specs.json`.
+- The three are precisely the three the readers flagged: `precalc-concavity` (alt described a
+  plotted interval of −3 to 3 for a figure whose window is −2 to 2, and said the curve rises
+  throughout the left-hand region), `calcab-scale-hides-behaviour-wide` (alt mis-stated the size of
+  the near-origin feature and over-claimed about reading a limit from the picture), and
+  `calcab-scale-hides-behaviour-zoom` (subtitle said "a thousand times smaller" when the window is
+  about 13× narrower horizontally and 10,000× finer vertically).
+
+Both environments were brought to the authored source rather than to each other: Production was
+loaded from the **regenerated** file, and Development's three rows were updated in place. Verified
+by comparing `md5(alt)` and `md5(subtitle)` for all 19 rows in each environment against
+`specs.json`: **19/19 match exactly in both.**
+
+**The general trap, now worth a protocol note:** a generated load file is a snapshot, and
+`do nothing` makes a re-run a no-op rather than a repair. Regenerate before loading, and verify
+content against the authored source rather than against the other environment — comparing the two
+environments to each other would have shown them agreeing on the wrong text.
+
+### Also fixed
+
+The load file carried `batch=precalc-,calcab-figures-2026-10-11`, the malformed tag from the
+`--batch`/`--prefix` bug fixed under `APPROVAL-0162`. Regenerated as
+`batch=function-plot-2026-10-11`.
+
+### Verification on Production
+
+- Counts moved 54 → **73 published figures**, 22 → **23 families**, 62 → **81 uses**, 56 → **71
+  entries covered**. Production and Development now hold the same totals.
+- All 19 `function_plot` rows match `specs.json` by `md5(alt)` and `md5(subtitle)`.
+- **As a real authenticated student**, not `service_role`: all 14 AP Precalculus and AP Calculus AB
+  topics that own a `function_plot` figure return figures (1 to 3 each). The RLS path and the
+  planted-draft behaviour for this same function were proven under `APPROVAL-0162` earlier the same
+  day and are unchanged by a content load.
+
+### Gates
+
+This batch's three gates were run when it was built: property suite 0 failed, the eye pass at all
+three widths, and gate 4c with 5/5 controls rejected — whose flags are exactly the corrections that
+had failed to reach the database until now. The TypeScript port is at byte parity and was already
+live in the app, so no publish was needed before this load.
 
 ## APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
 
