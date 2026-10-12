@@ -389,7 +389,10 @@ warning every student about a problem they will not hit is noise.
 > also caught that the app painted open circles BEFORE the curves, so `precalc-hole`'s hole was
 > filled in by the curve's own stroke at every size. 73 figures, 71 published entries covered.
 > **LIVE IN PRODUCTION 2026-10-12 (`APPROVAL-0162`)**: 54 published figures, 22 families, 62 uses
-> over 56 entries, byte-identical to Development by digest, and the §9 settling query moved 5 → 0.
+> over 56 entries, and the §9 settling query moved 5 → 0. The **five loaded rows** are
+> byte-identical to Development by digest; the two environments as a WHOLE are not, and saying so
+> loosely would hide the next item — **`function_plot`'s 19 figures over 15 entries are still
+> Development-only**, which is why AP Precalculus and AP Calculus AB have no figure in Production.
 > The app was merged AND published first, and the live bundle checked for all four family keys
 > before the load — `FIGURE_FAMILIES` is a whitelist, so loading first puts rows in Production that
 > render nothing. Verified as a real authenticated student: each topic serves its own figure, a
