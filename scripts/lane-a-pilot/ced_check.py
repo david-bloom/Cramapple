@@ -544,13 +544,80 @@ def function_plot_controls(specs: dict) -> dict:
     return c
 
 
+def laneb_gap_controls(specs: dict) -> dict:
+    """Controls for the five Lane B gap figures.
+
+    These three families are built so that the DRAWING cannot be wrong -- the
+    DNA pairing is derived, the membrane's geometry follows from the kind of
+    inclusion, every arrow in the cell follows from which side the anode is on.
+    So the errors a reader has to catch here are the ones that live in the gap
+    between a correct drawing and the words wrapped around it, which is exactly
+    where a property test cannot go. G2, G3 and G4 pass verify.py cleanly.
+    """
+    c = {}
+
+    # G1 the double helix described as parallel rather than antiparallel, which
+    # is the entry's whole second item. verify.py CATCHES this.
+    s = copy.deepcopy(specs["bio-dna-antiparallel"])
+    s["alt"] = s["alt"].replace(
+        "The arrowheads point opposite ways: the top strand's 3' end is on the right and the "
+        "bottom strand's 3' end is on the left, which is what antiparallel means.",
+        "The arrowheads point the same way, because both strands run from their 5' end on the "
+        "left to their 3' end on the right.")
+    s["note"] = "Both strands run 5' to 3' in the same direction."
+    c["CONTROL-G1-strands-called-parallel"] = s
+
+    # G2 the proton gradient reversed in the text: high in the matrix, low
+    # outside. The drawing is untouched, so this PASSES the suite -- and it
+    # reverses the direction ATP synthase actually runs.
+    s = copy.deepcopy(specs["bio-mitochondrion"])
+    s["alt"] = s["alt"].replace(
+        "it has the lower proton concentration and the higher pH",
+        "it has the high proton concentration and the lower pH")
+    s["alt"] = s["alt"].replace(
+        "The narrow region between the two membranes holds the high proton concentration.",
+        "The narrow region between the two membranes holds the lower proton concentration.")
+    s["note"] = "Protons high in the matrix, low outside the inner membrane."
+    s["params"]["labels_at"][0]["label"] = "intermembrane space \u2014 low H\u207a"
+    s["params"]["labels_at"][1]["label"] = "matrix \u2014 Krebs cycle, high H\u207a"
+    c["CONTROL-G2-proton-gradient-reversed"] = s
+
+    # G3 the carbohydrate chains said to be on the cytoplasmic face, while the
+    # figure draws every one of them on the extracellular face. The geometry is
+    # untouched, so this PASSES.
+    s = copy.deepcopy(specs["bio-fluid-mosaic"])
+    s["alt"] = s["alt"].replace(
+        "both carbohydrate chains are on the extracellular face, never the cytoplasmic one",
+        "both carbohydrate chains are on the cytoplasmic face, never the extracellular one")
+    s["note"] = "Heads to the water, tails to each other; the sugar chains are all on the inside face."
+    c["CONTROL-G3-sugars-put-on-the-inside-face"] = s
+
+    # G4 the anode moved to the right-hand half-cell, so every derived arrow
+    # follows it -- but the labels still call the LEFT electrode the anode. The
+    # electrons now run toward the electrode labelled "anode -- oxidation".
+    # Everything the suite checks is internally consistent, so this PASSES.
+    s = copy.deepcopy(specs["chem-electrochemical-cell"])
+    s["params"]["anode_side"] = "right"
+    c["CONTROL-G4-anode-label-on-the-cathode"] = s
+
+    # G5 each granum drawn as a single thylakoid, which denies that a granum is
+    # a STACK of them -- the entry's own distinction. verify.py CATCHES this.
+    s = copy.deepcopy(specs["bio-chloroplast"])
+    s["params"]["discs_per_stack"] = 1
+    s["params"]["unit_note"] = "each granum is a single thylakoid disc"
+    c["CONTROL-G5-granum-drawn-as-one-disc"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
                 "lane-b-particulate": particulate_controls,
                 "lane-b-fields": field_controls,
                 "stats-density": density_controls,
-                "function-plot": function_plot_controls}
+                "function-plot": function_plot_controls,
+                "lane-b-gaps": laneb_gap_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

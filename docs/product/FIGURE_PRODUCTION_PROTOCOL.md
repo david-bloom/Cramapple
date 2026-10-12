@@ -1,6 +1,6 @@
 # Figure Production Protocol (TASK-0006 Lane A)
 
-**Status:** v1.8, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
+**Status:** v1.9, 2026-10-11. Written from the AP Chemistry pilot, which is live in Production
 (`APPROVAL-0153`). Covers Lane A only — charts drawn deterministically from a spec. Lane B
 (spatial and schematic diagrams) and Lane D (generative images) are out of scope and unchanged.
 
@@ -174,6 +174,15 @@ what measures whether the readers add anything over the suite. The pilot's contr
 the tests were: temperature labels swapped against their thetas; an alt text calling the first
 barrier rate-determining when it was not; and a nitrogen PES with 2s=3 and 2p=2 electrons that
 still summed to Z. All three were caught.
+
+**A family that cannot draw a wrong picture still needs this gate, and its controls must be TEXT
+controls.** The four families built for the Lane B gaps derive every relation they assert — the DNA
+partner base and its hydrogen-bond count, each membrane inclusion's geometry from its kind, every
+arrow in the cell from which side the anode is on — so a geometry control is one the renderer simply
+refuses to draw, and tests nothing. All the remaining risk is in the caption and the alt text, which
+is where the readers look: a reversed proton gradient, sugar chains moved to the cytoplasmic face,
+the anode label left sitting under the cathode. Those three passed the suite cleanly and both
+readers rejected all five.
 
 **Any control accepted voids the batch.** Cost: **$0.18 for eleven figures**, about $0.016 each.
 
@@ -360,9 +369,26 @@ warning every student about a problem they will not hit is noise.
 > **Confirmed drawing in the live app by the Product Owner on 2026-10-11**: AP Statistics 2.11
 > (five figures), 3.6 (three p-value tails on one entry), AP Chemistry 4.3 and AP Physics 1 2.2.
 > `field_map`, `circuit_symbols` and the three `xy_series` gap figures pass every gate but have
-> not been looked at. The AP Biology four remain blocked on the §4.4 decision, and the rest of the
-> Lane A gap — `function_plot` above all — is classified but not built. The rest of the Lane A gap is classified but not
+> not been looked at. The rest of the Lane A gap is classified but not
 > built: `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`. Next steps and traps:
+>
+> **UPDATE (2026-10-11), the five Lane B gaps are closed.** The §4.4 question — whether the four AP
+> Biology structure entries and AP Chemistry 9.8 could be drawn honestly by this renderer at all —
+> was settled by the Product Owner with "build it properly". Four new families do it:
+> `organelle` (chloroplast grana, mitochondrion cristae), `dna_ladder`, `membrane_bilayer` and
+> `electrochemical_cell`. All four are built so that the DRAWING cannot be wrong: the DNA spec names
+> one strand and the partner base and its hydrogen-bond count are derived; each membrane inclusion's
+> geometry follows from its kind; every arrow in the cell follows from which side the anode is on.
+> That design moves the risk into the WORDS, which is exactly where §4c reads. Gates: **3,848
+> property checks, 0 failed**; a gate 4b pass at all three widths that found four real defects (a
+> label laid across the hydrogen bonds it named, cristae floating free of their membrane, a bare
+> glycolipid head with no tails, three labels overprinting in the cell); **gate 4c 5/5 controls
+> rejected and 5/5 figures accepted by both readers**, after one fair flag — the cell's alt text
+> asserted the anode loses mass when the figure names no electrode material. The port is at
+> **219/219 figure/layout pairs byte-identical across 23 families** (`ap-prep-blueprint#15`), which
+> also caught that the app painted open circles BEFORE the curves, so `precalc-hole`'s hole was
+> filled in by the curve's own stroke at every size. **Loaded to Development**; Production is a
+> separate Hard Gate and needs its own approval. 73 figures, 71 published entries covered.
 > `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`.
 
 - **No human expert has reviewed the illustrative values.** Two model readers accepted them with
@@ -401,14 +427,18 @@ warning every student about a problem they will not hit is noise.
 
 ## Change note
 
-v1.7 (2026-10-11): §6 gains the parity command, the instruction to run it over every family rather
-than the new one, and the rule that `hypot` stays out of anything that becomes a coordinate. §9
-records that the app now knows the four Lane B families.
+v1.9 (2026-10-11): §9 records the five Lane B gaps closed — four new families, the §4.4 "build it
+properly" ruling, and the open-circle paint-order bug the parity run found in the app. §4c gains the
+rule that a batch whose families cannot draw a wrong picture needs TEXT controls.
 
 v1.8 (2026-10-11): §9 corrects "Lane B is built bar AP Biology" to the truth — FIVE entries have no
 figure, not four: AP Chemistry 9.8's electrochemical cell diagram fell between the handoff's
 inventory and its execution plan and was never built. §9 now carries the query that settles any
 claim of completeness.
+
+v1.7 (2026-10-11): §6 gains the parity command, the instruction to run it over every family rather
+than the new one, and the rule that `hypot` stays out of anything that becomes a coordinate. §9
+records that the app now knows the four Lane B families.
 
 v1.6 (2026-10-11): §9 records that Lane B is built bar AP Biology, and §4c gains the rule that a
 control must be a mistake a reader can SEE -- a control that only reordered a figure's isoline radii

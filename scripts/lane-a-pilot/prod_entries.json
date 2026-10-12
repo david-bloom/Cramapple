@@ -1490,5 +1490,121 @@
     "items": [],
     "items_md5": "d41d8cd98f00b204e9800998ecf8427e"
   },
+  "ap_biology::Antiparallel DNA double helix": {
+    "title": "Antiparallel DNA double helix",
+    "reference_entry_id": "e9ff7419-4068-4afe-bc80-9333db2f848d",
+    "subject_key": "ap_biology",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "DNA drawn as two nucleotide strands running in opposite 5' to 3' orientation, paired by hydrogen bonds between bases.",
+    "body_md5": "3fb34b8464d755ade0369bfad4ded7be",
+    "items": [
+      {
+        "label": "Two strands of nucleotides",
+        "meaning": "Form the double helix"
+      },
+      {
+        "label": "Opposite 5' to 3' orientation",
+        "meaning": "The strands are antiparallel"
+      },
+      {
+        "label": "A–T pairs",
+        "meaning": "Joined by hydrogen bonds"
+      },
+      {
+        "label": "C–G pairs",
+        "meaning": "Joined by hydrogen bonds"
+      }
+    ],
+    "items_md5": "992062fab9b94a8031ac48297014cd39"
+  },
+  "ap_biology::Chloroplast structure and where photosynthetic reactions occur": {
+    "title": "Chloroplast structure and where photosynthetic reactions occur",
+    "reference_entry_id": "c001bb6b-8db4-48dd-94d8-1fd6584f8bbf",
+    "subject_key": "ap_biology",
+    "unit_number": 3,
+    "owner_topic_code": "3.4",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "Labelled regions of the chloroplast and the reactions located in each.",
+    "body_md5": "11cba27707fd5fe7ab41e8ab28109f8c",
+    "items": [
+      {
+        "label": "Stroma",
+        "meaning": "Fluid within the inner chloroplast membrane and outside the thylakoid; site of carbon fixation (Calvin cycle) reactions"
+      },
+      {
+        "label": "Thylakoid membranes",
+        "meaning": "Contain chlorophyll pigments organized into two photosystems, plus electron transport proteins"
+      },
+      {
+        "label": "Grana",
+        "meaning": "Stacks of thylakoids; site of the light reactions"
+      }
+    ],
+    "items_md5": "b5d5b862dd79bcb19db98751dbcd64f9"
+  },
+  "ap_biology::Fluid mosaic model of the plasma membrane": {
+    "title": "Fluid mosaic model of the plasma membrane",
+    "reference_entry_id": "e51d792b-002e-4b09-9ccb-3fffca938492",
+    "subject_key": "ap_biology",
+    "unit_number": 2,
+    "owner_topic_code": "2.3",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "Labelled parts of the membrane diagram students must read and describe.",
+    "body_md5": "a56e98dc867d7919e95e65de5686a1b7",
+    "items": [
+      {
+        "label": "Phospholipid bilayer",
+        "meaning": "Hydrophilic phosphate regions face aqueous surroundings; hydrophobic fatty acid tails face each other in the interior"
+      },
+      {
+        "label": "Embedded proteins",
+        "meaning": "Hydrophilic, hydrophobic, or both; hydrophobic regions contact the fatty acids"
+      },
+      {
+        "label": "Steroids (e.g., cholesterol in vertebrate animals)",
+        "meaning": "Embedded in the phospholipid framework"
+      },
+      {
+        "label": "Glycoproteins",
+        "meaning": "Embedded components that move within the membrane"
+      },
+      {
+        "label": "Glycolipids",
+        "meaning": "Embedded components that move within the membrane"
+      }
+    ],
+    "items_md5": "72b8c5a40e86356e9dae2b1bf5a54bc7"
+  },
+  "ap_biology::Mitochondrion: regions and functions in respiration": {
+    "title": "Mitochondrion: regions and functions in respiration",
+    "reference_entry_id": "d5412f1b-1c95-4f20-89ca-5327dbb0ca7a",
+    "subject_key": "ap_biology",
+    "unit_number": 3,
+    "owner_topic_code": "3.5",
+    "lane": "B",
+    "kind": "diagram",
+    "body": "Labelled mitochondrial parts and the processes associated with each.",
+    "body_md5": "ab8522b5e5d2fb60901473c29c6039e5",
+    "items": [
+      {
+        "label": "Matrix",
+        "meaning": "Site of the Krebs cycle; lower proton concentration and higher pH"
+      },
+      {
+        "label": "Inner mitochondrial membrane",
+        "meaning": "Contains the ETC and ATP synthase; folding increases surface area so more ATP can be synthesized"
+      },
+      {
+        "label": "Intermembrane space / outside the inner membrane",
+        "meaning": "Region of high proton concentration"
+      }
+    ],
+    "items_md5": "00bf0f05aefacc49b5d0944fdbb6bc12"
+  },
   "_note": "Published app.unit_reference_entries rows (kind='diagram', subject ap_chemistry) in PRODUCTION (pcntajvbdfqhbeewmdry), read 2026-10-10; items[] restored 2026-10-11. Each entry's items[] is the exact published array: it was selected from this repository's batch candidate artifacts by matching md5(label»meaning joined on '|') against the same digest computed in Production, so no content was retyped. items_md5 records that digest; re-run the Production query in FIGURE_PRODUCTION_PROTOCOL.md section 2 to re-confirm. verify.py asserts label coverage per ENTRY against these arrays, so stripping them silently voids that gate. EXTENDED 2026-10-11: every entry now carries its published `body` (and `caution` where set) and a `body_md5`, because ced_check.py puts the body in the reader prompt as the entry's claim and it was resolving to '(not available)'. DECISION-0116 makes that prompt the only gate standing where the reference-pack checkers do not watch, so a route-(b) figure cannot be reviewed without it. The twelve AP Statistics and Physics entries added in the later batches carried no items_md5 at all; all 36 were re-read from Production on 2026-10-11, their stored items[] compared byte for byte (none had drifted), and the digests recorded. KEYED BY SUBJECT 2026-10-11: the key is now 'subject_key::title'. Two published entries share the title 'Vector arrow representation' -- AP Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key silently dropped one of them and the coverage gate would have asserted the survivor's items[] for both."
 }
