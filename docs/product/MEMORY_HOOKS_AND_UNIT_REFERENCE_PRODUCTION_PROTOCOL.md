@@ -1,12 +1,13 @@
 # Memory Hooks and Unit Reference Production Protocol
 
 STATUS: CURRENT
-DATE: 2026-10-10 (§1.1 ownership rule and §1.2 admissible-source rules added; see the change note at the end)
+DATE: 2026-10-12 (§1.3 permits relevant hooks in hints and targeted help; see the change note at the end)
 OWNER: Product Owner / Learning Quality. Executed by a Claude session.
 GOVERNS: `app.unit_reference_entries` (formulas, vocabulary, lists/sequences, conventions, diagrams) and
 `app.topic_memory_hooks` (acronyms, acrostics, phrases, formula sentences, visual cues, diagram parts).
 RECORDS: `DECISION-0104` (hooks), `DECISION-0105` (reference content is the companion), `DECISION-0107`
-(CED-named hooks, veto model, and rule 2 on ownership), `APPROVAL-0140` (first Production ship). Tasks
+(CED-named hooks, veto model, and rule 2 on ownership), `DECISION-0118` / `APPROVAL-0164`
+(hooks in hints and targeted help), `APPROVAL-0140` (first Production ship). Tasks
 `TASK-0066`, `TASK-0067`. The §1.1 ownership rule codifies `DECISION-0107` rule 2 plus the Product Owner's
 rulings of 2026-10-10; it introduces no new policy and so carries no new decision id.
 FIRST RUN: `scripts/content-seed/task0067-reference-pilot-2026-10-09/README.md` (AP Statistics Unit 1,
@@ -104,9 +105,31 @@ could only be dropped, not corrected: three came from boundary statements, two f
 from "Preparing for the AP Exam", and one from illustrative examples alone. The rule is enforced in the
 template scripts' prompts (§3) and by checker check (c).
 
-Never: songs or lyrics (`DECISION-0104` D4); hooks inside hints or post-miss feedback (D5); hand
-edits to a generated row; a publisher's novel phrasing (common mnemonics in general circulation are
+Never: songs or lyrics (`DECISION-0104` D4); hand edits to a generated row; a publisher's novel phrasing
+(common mnemonics in general circulation are
 `public-domain-common`; original ones are `cramapple-authored`).
+
+### 1.3 Hooks in hints and targeted help
+
+**Approved 2026-10-12 by David Bloom (`DECISION-0118`, `APPROVAL-0164`).** This supersedes
+`DECISION-0104` D5's exclusion of hooks from hints and post-miss feedback.
+
+Published, checked memory hooks may be used in hints, post-miss feedback, and student-requested
+"I don't get it" / "I'm stuck" help, in addition to the existing Deep Dive, unit-reference, and
+Open Hand surfaces. Select a hook only when its linked reference entry directly helps with the
+current question or the specific missing concept. Show its expansion, applicable conditions, and
+`caution` when present; connect it back to the formula, concept, or point-earning answer move.
+An irrelevant hook or the absence of a vetted hook is a reason to omit it. The placement change does
+not authorize inventing or publishing unchecked hooks.
+
+Opening this support before a graded Practice submission counts as assistance under the existing
+hint-use recording and mastery rules (`APPROVAL-0130`, `DECISION-0074`). Opening it only after
+submission does not retroactively change the independence of the submitted attempt. Worked
+Examples remain unscored. A pre-submission hint must respect the existing answer-disclosure
+boundary; BYOQ help retains its existing ungraded, no-canonical-answer boundary.
+
+This is a content-placement policy approval. The new help template, agent integration, and any
+Production frontend/backend deployment require their own implementation scope and release approval.
 
 ## 2. Inputs, checked before the run
 
@@ -203,6 +226,14 @@ renderer (formulas currently display as LaTeX source in monospace); `TASK-0054`'
 both tables should adopt together when it lands.
 
 ## Change note
+
+**2026-10-12 — §1.3 replaces the hint/post-miss exclusion.** David directed: "All reference packs
+should be in production. Update the rule about using hooks and hints." The placement rule now permits
+directly relevant, published hooks in hints, post-miss feedback, and targeted student-requested help,
+with their reference linkage and cautions. Assistance timing, mastery, answer-disclosure, and content
+checking rules remain in force. Live read-only verification found all 1,083 published reference entries
+and 13 published hooks equal between Development and Production; no content promotion was needed.
+Evidence: `docs/qa/REFERENCE_PACK_PARITY_AND_HOOK_HELP_POLICY_2026_10_12.md`.
 
 **2026-10-10 — §1.1 ownership rule added.** The previous wording, "owned by the topic that first requires
 it", was read by the checkers as *earliest mention* and produced most of the ownership escalations in the

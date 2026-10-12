@@ -1,6 +1,12 @@
 # Memory Hooks: Mnemonics, Acronyms, Phrases, and Songs as a Content Element
 
-STATUS: APPROVED 2026-10-08 — D1–D7 approved as recommended by David Bloom (`DECISION-0104`, `APPROVAL-0136`), with the §12 amendment. Execution: `tasks/TASK-0066-MEMORY-HOOKS.md`. Nothing is built or published yet.
+STATUS: APPROVED 2026-10-08, amended 2026-10-12 — D1–D7 approved by David Bloom (`DECISION-0104`, `APPROVAL-0136`), with the §12 amendment; D5's hint/post-miss exclusion superseded by `DECISION-0118` / `APPROVAL-0164`. Execution: `tasks/TASK-0066-MEMORY-HOOKS.md`.
+
+> **CURRENT-STATE CORRECTION, 2026-10-12:** The original proposal below records its 2026-10-08
+> scope and rationale. The system is now built and published: 1,083 reference entries and 13 hooks
+> match between Development and Production. Relevant, checked hooks are now permitted in hints,
+> post-miss feedback, and student-requested targeted help; see the production protocol §1.3.
+> The new help template and agent are not implemented by this policy update.
 DATE: 2026-10-08
 OWNER: Product Owner (David Bloom). Idea source: Micah Bloom (co-founder, marketing / go-to-market).
 RELATED: `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 (skill scaffolds, "memory aid" element, grain OPEN);
@@ -106,6 +112,10 @@ already have fields.
    (`APPROVAL-0130`); pushing hooks into the hint path changes what a hint is and what the
    assistance events mean. Defer to a separate decision.
 
+   **Superseded 2026-10-12 (`DECISION-0118`):** relevant published hooks may now appear in those
+   surfaces and in "I don't get it" / "I'm stuck" help. Existing pre-submission assistance recording,
+   mastery, answer-disclosure, expansion, and caution rules still apply (production protocol §1.3).
+
 Each surface must carry the one-line caution with the hook when the CED wording differs from
 the hook ("Say it in IMF terms on the exam, not as 'like dissolves like'").
 
@@ -165,7 +175,7 @@ this document changes the schema.
 | D2 | Inclusion rule | CED point-bearing sequences, lists, formula structures, sign conventions only (§3). |
 | D3 | Data model | Option B table + view + RPC extension (§7). |
 | D4 | Songs | Out of v1; text hooks only (§4). |
-| D5 | Surfaces | Deep Dive block, unit reference list, Open Hand pane; not hints (§6). |
+| D5 | Surfaces | Original recommendation: Deep Dive block, unit reference list, Open Hand pane; not hints (§6). **Amended 2026-10-12 by `DECISION-0118`:** relevant published hooks also allowed in hints, post-miss feedback, and targeted help. |
 | D6 | Pilot | AP Statistics Unit 1 (the Deep Dive pilot unit) plus AP Chemistry Unit 4 (OIL RIG already live), ≤ 8 hooks total, before any wider survey. |
 | D7 | Priority | Not launch gating. Sequence after `TASK-0054`'s FK decision so the table lands on the right key. |
 
