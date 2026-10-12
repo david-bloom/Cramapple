@@ -6598,5 +6598,1830 @@
         "contract_note": "AP Statistics 2.11 is a convention with no authored items[]; the two differing distributions, the shared z-score and the percentile it fixes are the contract (DECISION-0116, route b). The entry's body is about comparing relative position within AND between normal distributions, which is what the two curves and the single shared z show."
       }
     ]
+  },
+  "precalc-concavity": {
+    "entry_title": "Concave up and concave down",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-concavity",
+    "title": "Concave up and concave down",
+    "short_title": "Which way it bends",
+    "subtitle": "Concave up where the rate of change is increasing, down where it is decreasing",
+    "caption": "One cubic. To the left of the origin the curve bends downwards — its slope is falling — and to the right it bends upwards, where the slope is rising. Concavity is about how the SLOPE changes, not whether the curve goes up or down.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a cubic function over the interval from minus two to two. To the left of zero the curve is concave down: it bends downwards throughout, even though it rises at first, flattens, turns and falls. To the right of zero it is concave up: it bends upwards throughout, falling at first and then rising. The two halves are labelled. Concavity describes how the RATE OF CHANGE is changing, not whether the function itself is increasing or decreasing, which is why a curve can be rising and concave down at the same time, and falling and concave down as well.",
+    "note": "A curve can rise while bending downwards: concavity is about the slope, not the value.",
+    "synthetic": true,
+    "labels": [
+      "Concave down where the rate of change is decreasing",
+      "Concave up where the rate of change is increasing"
+    ],
+    "covers": [
+      "Concave down where the rate of change is decreasing",
+      "Concave up where the rate of change is increasing"
+    ],
+    "params": {
+      "x_range": [
+        -2.0,
+        2.0
+      ],
+      "y_range": [
+        -7.5,
+        7.5
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            -1.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ]
+      ],
+      "y_ticks": [
+        -6,
+        -3,
+        0,
+        3,
+        6
+      ],
+      "texts": [
+        {
+          "x": -1.25,
+          "y": 4.6,
+          "label": "concave down"
+        },
+        {
+          "x": 1.25,
+          "y": -4.6,
+          "label": "concave up"
+        }
+      ],
+      "concavity_check": {
+        "down": [
+          -1.8,
+          -0.3
+        ],
+        "up": [
+          0.3,
+          1.8
+        ]
+      }
+    },
+    "reference_entry_id": "1afda553-77ff-440f-9451-f506e447b6d7",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "1afda553-77ff-440f-9451-f506e447b6d7",
+        "title": "Concave up and concave down",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.1 is a convention with no authored items[]; the two concavity regions, named by how the rate of change moves, are the contract (DECISION-0116, route b). The entry's body defines both."
+      }
+    ]
+  },
+  "precalc-zero-of-a-function": {
+    "entry_title": "Zero of a function",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-zero-of-a-function",
+    "title": "A zero of a function",
+    "short_title": "Where it crosses",
+    "subtitle": "An input whose output is zero: where the graph meets the x-axis",
+    "caption": "The graph crosses the x-axis at x = −1 and x = 2. Each of those inputs is a zero: the output there is exactly 0, which is what the crossing shows.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a quadratic that crosses the horizontal axis twice, at x equals minus one and x equals two, with both crossings marked. A zero of a function is an input whose output is zero, so on a graph it is exactly where the curve meets the x-axis. Between the two zeros the curve dips below the axis, so the output is negative there; outside them it is positive. A zero is an INPUT value, not a point: the points here are (minus one, zero) and (two, zero).",
+    "note": "A zero is the input, not the point: here they are x = −1 and x = 2.",
+    "synthetic": true,
+    "labels": [
+      "Output is zero there",
+      "The graph meets the x-axis"
+    ],
+    "covers": [
+      "Output is zero there",
+      "The graph meets the x-axis"
+    ],
+    "params": {
+      "x_range": [
+        -2.5,
+        3.5
+      ],
+      "y_range": [
+        -3.5,
+        8.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            -2.0,
+            -1.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        -2,
+        0,
+        2,
+        4,
+        6
+      ],
+      "marks": [
+        {
+          "x": -1.0,
+          "label": "zero at x = −1",
+          "place": "above"
+        },
+        {
+          "x": 2.0,
+          "label": "zero at x = 2",
+          "place": "above"
+        }
+      ],
+      "zeros_check": [
+        -1.0,
+        2.0
+      ]
+    },
+    "reference_entry_id": "24042b7d-a6e0-48b9-902d-034b2411953d",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "24042b7d-a6e0-48b9-902d-034b2411953d",
+        "title": "Zero of a function",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.1 is a vocabulary entry with no authored items[]; that the output is zero there and that this is where the graph meets the x-axis are the contract (DECISION-0116, route b), and the entry's body states both."
+      }
+    ]
+  },
+  "precalc-aroc-concavity": {
+    "entry_title": "Concavity from changing average rates of change",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-aroc-concavity",
+    "title": "Concavity read from average rates of change",
+    "short_title": "Secants get steeper",
+    "subtitle": "Equal-width intervals, and the average rate of change rises across them",
+    "caption": "Three secants over equal-width intervals of one unit. Their slopes are 1, 3 and 5: the average rate of change increases from interval to interval, which is what makes this graph concave up.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "A parabola with three dashed secant lines drawn over three touching intervals of equal width, from zero to one, one to two, and two to three. The secants get steeper from left to right: their slopes are one, three and five. Because the average rate of change over equal-width intervals is increasing, the graph is concave up. This is the definition of concavity that does not need calculus: compare average rates over equal intervals rather than looking at the bend by eye.",
+    "note": "Slopes 1, 3, 5 over equal intervals: increasing, so concave up.",
+    "synthetic": true,
+    "labels": [
+      "Equal-width intervals",
+      "Average rate of change is increasing",
+      "So the graph is concave up"
+    ],
+    "covers": [
+      "Equal-width intervals",
+      "Average rate of change is increasing",
+      "So the graph is concave up"
+    ],
+    "params": {
+      "x_range": [
+        -0.25,
+        3.4
+      ],
+      "y_range": [
+        -1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          3.0,
+          "3"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        3,
+        6,
+        9,
+        12
+      ],
+      "secants": [
+        {
+          "from": 0.0,
+          "to": 1.0
+        },
+        {
+          "from": 1.0,
+          "to": 2.0
+        },
+        {
+          "from": 2.0,
+          "to": 3.0
+        }
+      ],
+      "texts": [
+        {
+          "x": 0.5,
+          "y": 2.3,
+          "label": "slope 1"
+        },
+        {
+          "x": 1.5,
+          "y": 5.1,
+          "label": "slope 3"
+        },
+        {
+          "x": 2.5,
+          "y": 9.2,
+          "label": "slope 5"
+        }
+      ],
+      "secant_slopes_check": [
+        1.0,
+        3.0,
+        5.0
+      ],
+      "points": [
+        {
+          "x": 0.0,
+          "y": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0
+        },
+        {
+          "x": 2.0,
+          "y": 4.0
+        },
+        {
+          "x": 3.0,
+          "y": 9.0
+        }
+      ]
+    },
+    "reference_entry_id": "246e35a9-6bca-4fa1-bf32-2d90398e3bb5",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "246e35a9-6bca-4fa1-bf32-2d90398e3bb5",
+        "title": "Concavity from changing average rates of change",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.3 is a convention with no authored items[]; the equal-width intervals, the increasing average rate of change and the concavity it implies are the contract (DECISION-0116, route b). The entry's body is exactly that chain."
+      }
+    ]
+  },
+  "precalc-inflection-point": {
+    "entry_title": "Point of inflection",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-inflection-point",
+    "title": "A point of inflection",
+    "short_title": "Where the bend flips",
+    "subtitle": "The input where the graph changes concavity",
+    "caption": "The same cubic, with the point of inflection at the origin marked. To its left the graph is concave down; to its right, concave up. The inflection point is where the rate of change stops decreasing and starts increasing.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a cubic with a single marked point at the origin, labelled as the point of inflection. To the left of that point the curve is concave down and to the right it is concave up, so the marked point is where the concavity changes. It is not a maximum or a minimum: the function is increasing on both sides of it. What switches there is the direction of the bend, which is the same as saying the rate of change stops decreasing and starts increasing.",
+    "note": "Not a maximum or minimum: the function is increasing on both sides.",
+    "synthetic": true,
+    "labels": [
+      "Concavity changes there",
+      "The rate of change switches between decreasing and increasing"
+    ],
+    "covers": [
+      "Concavity changes there",
+      "The rate of change switches between decreasing and increasing"
+    ],
+    "params": {
+      "x_range": [
+        -2.0,
+        2.0
+      ],
+      "y_range": [
+        -8.0,
+        8.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            1.0,
+            0.0,
+            0.6
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ]
+      ],
+      "y_ticks": [
+        -6,
+        -3,
+        0,
+        3,
+        6
+      ],
+      "marks": [
+        {
+          "x": 0.0,
+          "label": "point of inflection",
+          "place": "above"
+        }
+      ],
+      "concavity_check": {
+        "down": [
+          -1.8,
+          -0.3
+        ],
+        "up": [
+          0.3,
+          1.8
+        ]
+      },
+      "inflection_check": 0.0
+    },
+    "reference_entry_id": "d52051ba-415c-46f6-b48e-4b524e59eeb8",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d52051ba-415c-46f6-b48e-4b524e59eeb8",
+        "title": "Point of inflection",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.4 is a vocabulary entry with no authored items[]; the change of concavity and the switch in the rate of change are the contract (DECISION-0116, route b), and the entry's body gives both as one definition."
+      }
+    ]
+  },
+  "precalc-even-multiplicity-zero": {
+    "entry_title": "Even-multiplicity zeros",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-even-multiplicity-zero",
+    "title": "A zero of even multiplicity",
+    "short_title": "Touch, don't cross",
+    "subtitle": "The graph is tangent to the axis there, and the sign does not change",
+    "caption": "f(x) = (x + 2)(x − 1)². At x = −2 the zero is simple and the graph crosses the axis. At x = 1 the zero is doubled: the graph touches the axis and turns back, so the output keeps the same sign either side.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of a cubic with two zeros. At x equals minus two the curve passes straight through the horizontal axis, going from negative to positive, because that zero has multiplicity one. At x equals one the curve comes down to the axis, touches it, and turns back upwards without crossing: that zero has multiplicity two. Either side of x equals one the output is positive, so the sign does not change there, and the curve is tangent to the axis at that point rather than cutting it. Even multiplicity means touch; odd multiplicity means cross.",
+    "note": "Even multiplicity: touch and turn back. Odd multiplicity: cross.",
+    "synthetic": true,
+    "labels": [
+      "Tangent to the x-axis at the even-multiplicity zero",
+      "Output signs are the same either side of it",
+      "An odd-multiplicity zero crosses instead"
+    ],
+    "covers": [
+      "Tangent to the x-axis at the even-multiplicity zero",
+      "Output signs are the same either side of it",
+      "An odd-multiplicity zero crosses instead"
+    ],
+    "params": {
+      "x_range": [
+        -2.6,
+        2.0
+      ],
+      "y_range": [
+        -9.0,
+        6.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            2.0,
+            -3.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ]
+      ],
+      "y_ticks": [
+        -6,
+        -3,
+        0,
+        3
+      ],
+      "marks": [
+        {
+          "x": 1.0,
+          "label": "tangent here",
+          "place": "below"
+        }
+      ],
+      "tangency_check": {
+        "x": 1.0,
+        "crosses": -2.0
+      }
+    },
+    "reference_entry_id": "fe889b2d-068f-448c-b024-970cd223ba8b",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "fe889b2d-068f-448c-b024-970cd223ba8b",
+        "title": "Even-multiplicity zeros",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.5 is a convention with no authored items[]; the tangency, the unchanged sign either side, and the contrast with a crossing zero are the contract (DECISION-0116, route b). The entry's body states the first two; the third is the contrast that makes them legible and is drawn."
+      }
+    ]
+  },
+  "precalc-hole": {
+    "entry_title": "Location of a hole",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-hole",
+    "title": "A hole in a rational function",
+    "short_title": "Hole at (2, 4)",
+    "subtitle": "The limit exists from both sides, but the function is not defined there",
+    "caption": "r(x) = (x² − 4)/(x − 2) simplifies to x + 2 everywhere except x = 2, where it is undefined. Inputs close to 2 give outputs close to 4, so the hole is at (2, 4), drawn as an open circle.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "A straight line rising from lower left to upper right, with a single open circle at the point two comma four. The function is a rational expression whose numerator and denominator share a factor, so it equals x plus two everywhere except at x equals two, where it is undefined. Inputs just below and just above two both give outputs arbitrarily close to four, so the limit from each side is four and the hole sits at the point two comma four. The circle is drawn open, not filled, because the function does not take that value: a filled dot would say the opposite.",
+    "note": "Open circle: the limit is 4, but r(2) does not exist.",
+    "synthetic": true,
+    "labels": [
+      "The limit from both sides",
+      "The hole sits at that point",
+      "The function is undefined there"
+    ],
+    "covers": [
+      "The limit from both sides",
+      "The hole sits at that point",
+      "The function is undefined there"
+    ],
+    "params": {
+      "x_range": [
+        -1.0,
+        5.0
+      ],
+      "y_range": [
+        0.0,
+        8.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            2.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          4.0,
+          "4"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "open_points": [
+        {
+          "x": 2.0,
+          "y": 4.0
+        }
+      ],
+      "texts": [
+        {
+          "x": 2.0,
+          "y": 5.0,
+          "label": "hole at (2, 4)"
+        }
+      ],
+      "hole_check": {
+        "x": 2.0,
+        "y": 4.0
+      }
+    },
+    "reference_entry_id": "4a6389a5-ecad-4073-b9dc-34d62be40699",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "4a6389a5-ecad-4073-b9dc-34d62be40699",
+        "title": "Location of a hole",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.10 is a formula entry with no authored items[]; the two-sided limit, the point the hole sits at, and the function being undefined there are the contract (DECISION-0116, route b). The entry's formula states exactly that chain."
+      }
+    ]
+  },
+  "precalc-transformations-additive": {
+    "entry_title": "Additive and multiplicative transformations",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-transformations-additive",
+    "title": "Additive transformations translate the graph",
+    "short_title": "Translations",
+    "subtitle": "f(x) + k moves it vertically; f(x + h) moves it horizontally by −h",
+    "caption": "The parent f(x) = 0.5x² with two additive transformations. Adding 3 to the OUTPUT lifts the graph three units. Adding −2 to the INPUT moves it two units to the right — the opposite direction to the sign, which is the part students misread.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "Three parabolas. The solid one is the parent function, one half x squared, with its vertex at the origin. One dashed curve is the same shape lifted three units, which is the parent with three added to its output. The other dashed curve is the same shape moved two units to the RIGHT, which is the parent with minus two added to its input. A change to the output moves the graph the way the sign reads; a change to the input moves it the opposite way, so adding a negative number inside shifts right rather than left.",
+    "note": "Inside the function, the shift goes the OPPOSITE way to the sign.",
+    "synthetic": true,
+    "labels": [
+      "g(x) = f(x) + k",
+      "g(x) = f(x + h)"
+    ],
+    "covers": [
+      "g(x) = f(x) + k",
+      "g(x) = f(x + h)"
+    ],
+    "params": {
+      "x_range": [
+        -2.6,
+        4.2
+      ],
+      "y_range": [
+        -1.0,
+        12.5
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "label": "f(x)",
+          "style": "solid"
+        },
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            3.0,
+            0.0,
+            0.5
+          ],
+          "label": "f(x) + 3",
+          "style": "dashed"
+        },
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            2.0,
+            -2.0,
+            0.5
+          ],
+          "label": "f(x − 2)",
+          "style": "dashed"
+        }
+      ],
+      "x_ticks": [
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          4.0,
+          "4"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        3,
+        6,
+        9,
+        12
+      ]
+    },
+    "reference_entry_id": "f134c4f9-d381-4108-a27e-cd03a881780e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "f134c4f9-d381-4108-a27e-cd03a881780e",
+        "title": "Additive and multiplicative transformations",
+        "role": "primary",
+        "subject_key": "ap_precalculus"
+      }
+    ]
+  },
+  "precalc-transformations-multiplicative": {
+    "entry_title": "Additive and multiplicative transformations",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-transformations-multiplicative",
+    "title": "Multiplicative transformations stretch and reflect",
+    "short_title": "Dilations",
+    "subtitle": "a f(x) scales vertically; f(bx) scales horizontally by 1/b",
+    "caption": "The same parent with two multiplicative transformations. Multiplying the OUTPUT by −1 reflects the graph over the x-axis. Multiplying the INPUT by 2 compresses it horizontally by a factor of one half — again the reciprocal, not the factor itself.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "Three curves sharing a vertex at the origin. The solid one is the parent, one half x squared. One dashed curve is its mirror image below the horizontal axis, which is the parent multiplied by minus one: a vertical dilation with a reflection. The other dashed curve is much narrower than the parent, which is the parent with its input multiplied by two: a horizontal dilation by a factor of one half. A factor applied to the output scales the graph by that factor; a factor applied to the input scales it by the RECIPROCAL, so multiplying the input by two makes the graph half as wide, not twice as wide.",
+    "note": "Inside the function, the factor acts as its RECIPROCAL.",
+    "synthetic": true,
+    "labels": [
+      "g(x) = a f(x), a ≠ 0",
+      "g(x) = f(bx), b ≠ 0"
+    ],
+    "covers": [
+      "g(x) = a f(x), a ≠ 0",
+      "g(x) = f(bx), b ≠ 0"
+    ],
+    "params": {
+      "x_range": [
+        -2.6,
+        2.6
+      ],
+      "y_range": [
+        -4.5,
+        14.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "label": "f(x)",
+          "style": "solid"
+        },
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            -0.5
+          ],
+          "label": "−f(x)",
+          "style": "dashed"
+        },
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            0.0,
+            2.0
+          ],
+          "label": "f(2x)",
+          "style": "dashed"
+        }
+      ],
+      "x_ticks": [
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        -4,
+        0,
+        4,
+        8,
+        12
+      ]
+    },
+    "reference_entry_id": "f134c4f9-d381-4108-a27e-cd03a881780e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "f134c4f9-d381-4108-a27e-cd03a881780e",
+        "title": "Additive and multiplicative transformations",
+        "role": "secondary",
+        "subject_key": "ap_precalculus"
+      }
+    ]
+  },
+  "precalc-degree-from-points": {
+    "entry_title": "Points determine polynomial degree",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-degree-from-points",
+    "title": "How many points fix a polynomial's degree",
+    "short_title": "n + 1 points",
+    "subtitle": "Four points with distinct inputs are modelled by a cubic — degree 3 or less",
+    "caption": "Four points with distinct x values, and the cubic through them. In general n + 1 points with distinct inputs are modelled by a polynomial of degree n or less: four points give degree 3 or less, not necessarily exactly 3.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "Four marked points with distinct horizontal positions, at x equals minus one, zero, one and two, with a single smooth cubic curve passing through all four. Four points with distinct inputs determine a polynomial of degree three or less. Degree three OR LESS matters: if the four points happened to lie on a straight line, the polynomial through them would be degree one, and the count of points sets an upper bound on the degree rather than fixing it exactly.",
+    "note": "n + 1 points give degree n or LESS — an upper bound, not an exact degree.",
+    "synthetic": true,
+    "labels": [
+      "Four points with distinct inputs",
+      "A polynomial of degree 3 or less fits them"
+    ],
+    "covers": [
+      "Four points with distinct inputs",
+      "A polynomial of degree 3 or less fits them"
+    ],
+    "params": {
+      "x_range": [
+        -1.6,
+        2.4
+      ],
+      "y_range": [
+        -1.6,
+        12.0
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            1.0,
+            -2.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -1.0,
+          "−1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        3,
+        6,
+        9
+      ],
+      "points": [
+        {
+          "x": -1.0,
+          "y": 2.0
+        },
+        {
+          "x": 0.0,
+          "y": 1.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0
+        },
+        {
+          "x": 2.0,
+          "y": 5.0
+        }
+      ],
+      "degree_points_check": {
+        "degree": 3,
+        "xs": [
+          -1.0,
+          0.0,
+          1.0,
+          2.0
+        ]
+      }
+    },
+    "reference_entry_id": "54bde8a6-eb98-4afc-9695-d632ceefe410",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "54bde8a6-eb98-4afc-9695-d632ceefe410",
+        "title": "Points determine polynomial degree",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 1.13 is a convention with no authored items[]; the four distinct inputs and the degree-3-or-less polynomial through them are the contract (DECISION-0116, route b), which is the entry's body with n = 3."
+      }
+    ]
+  },
+  "precalc-sequence": {
+    "entry_title": "Sequence",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-sequence",
+    "title": "A sequence is a function on the whole numbers",
+    "short_title": "Discrete points",
+    "subtitle": "Its graph is a set of points, not a curve",
+    "caption": "The sequence aₙ = 2n + 1 for n = 0 to 6. The graph is seven separate points. There is nothing between them to draw: the sequence has no value at n = 1.5.",
+    "x_label": "n",
+    "y_label": "aₙ",
+    "alt": "Seven separate dots rising steadily from left to right, at horizontal positions zero through six and heights one, three, five, seven, nine, eleven and thirteen. This is the graph of a sequence, which is a function whose inputs are the whole numbers. The dots are not joined, because the sequence has no value between consecutive whole numbers: there is no term at n equals one and a half. Drawing a line through them would assert values the sequence does not have, which is the difference between a sequence and a function on the real numbers. The graph is therefore discrete.",
+    "note": "Not joined: there is no term between consecutive whole numbers.",
+    "synthetic": true,
+    "labels": [
+      "Inputs are the whole numbers",
+      "The graph is a set of discrete points"
+    ],
+    "covers": [
+      "Inputs are the whole numbers",
+      "The graph is a set of discrete points"
+    ],
+    "params": {
+      "x_range": [
+        -0.6,
+        6.6
+      ],
+      "y_range": [
+        0.0,
+        15.0
+      ],
+      "curves": [],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          6.0,
+          "6"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "points": [
+        {
+          "x": 0.0,
+          "y": 1.0
+        },
+        {
+          "x": 1.0,
+          "y": 3.0
+        },
+        {
+          "x": 2.0,
+          "y": 5.0
+        },
+        {
+          "x": 3.0,
+          "y": 7.0
+        },
+        {
+          "x": 4.0,
+          "y": 9.0
+        },
+        {
+          "x": 5.0,
+          "y": 11.0
+        },
+        {
+          "x": 6.0,
+          "y": 13.0
+        }
+      ],
+      "sequence_check": true
+    },
+    "reference_entry_id": "d376d652-0f35-45c9-80ae-b7cd543f49f2",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d376d652-0f35-45c9-80ae-b7cd543f49f2",
+        "title": "Sequence",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 2.1 is a vocabulary entry with no authored items[]; the whole-number inputs and the discrete graph are the contract (DECISION-0116, route b), and the entry's body gives both."
+      }
+    ]
+  },
+  "precalc-exponential-shape": {
+    "entry_title": "Shape and extrema of exponential functions",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-exponential-shape",
+    "title": "The shape of an exponential function",
+    "short_title": "No turns, no flex",
+    "subtitle": "Always increasing or always decreasing, always one way concave, and no extremum",
+    "caption": "f(x) = 2ˣ. It rises everywhere, bends upwards everywhere, and never turns: an exponential has no maximum, no minimum and no point of inflection, and its graph approaches the x-axis without reaching it.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of two to the power x, rising from near zero on the left to eight on the right. It increases at every point and is concave up at every point, so it never turns around and never changes the direction of its bend. That is why an exponential function has no maximum, no minimum and no point of inflection, except that a maximum and minimum do exist if you restrict it to a closed interval, where they occur at the endpoints. The dashed line at y equals zero is a horizontal asymptote: the curve approaches it without ever reaching it.",
+    "note": "Extrema only on a closed interval, and then only at its endpoints.",
+    "synthetic": true,
+    "labels": [
+      "Always increasing",
+      "Always concave up",
+      "No extremum and no point of inflection"
+    ],
+    "covers": [
+      "Always increasing",
+      "Always concave up",
+      "No extremum and no point of inflection"
+    ],
+    "params": {
+      "x_range": [
+        -2.2,
+        3.0
+      ],
+      "y_range": [
+        -0.8,
+        9.0
+      ],
+      "curves": [
+        {
+          "kind": "exponential",
+          "a": 1.0,
+          "r": 0.6931471805599453
+        }
+      ],
+      "x_ticks": [
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        2,
+        4,
+        6,
+        8
+      ],
+      "asymptotes_y": [
+        {
+          "y": 0.0,
+          "label": "y = 0"
+        }
+      ],
+      "monotone_check": "increasing"
+    },
+    "reference_entry_id": "d2bf8807-b7b1-4c56-bb29-4f726d9fab2e",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "d2bf8807-b7b1-4c56-bb29-4f726d9fab2e",
+        "title": "Shape and extrema of exponential functions",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 2.3 is a convention with no authored items[]; monotonicity, a single concavity and the absence of extrema or inflection are the contract (DECISION-0116, route b), and the entry's body lists exactly those three."
+      }
+    ]
+  },
+  "precalc-log-reflection": {
+    "entry_title": "Graph and ordered pairs of log vs. exponential",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-log-reflection",
+    "title": "A logarithm is its exponential reflected over y = x",
+    "short_title": "Mirror in y = x",
+    "subtitle": "If (s, t) lies on bˣ then (t, s) lies on logᵇ x",
+    "caption": "f(x) = 2ˣ and g(x) = log₂ x, with the line y = x between them. Each curve is the other's mirror image in that line, so every ordered pair on one appears with its coordinates swapped on the other: (1, 2) on the exponential becomes (2, 1) on the logarithm.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "Two curves and a straight diagonal line. The steeply rising curve is two to the power x; the slowly rising one is the logarithm base two of x; the diagonal is the line y equals x. The two curves are mirror images of each other in that diagonal. Reflecting a point over y equals x swaps its coordinates, so a point at one comma two on the exponential corresponds to a point at two comma one on the logarithm. That is what makes the two functions inverses: the exponential's outputs are the logarithm's inputs and the other way round. The logarithm is drawn only for positive inputs, because that is its whole domain.",
+    "note": "Reflecting over y = x swaps the coordinates: (s, t) becomes (t, s).",
+    "synthetic": true,
+    "labels": [
+      "Each is the other's reflection over y = x",
+      "Swapping an ordered pair's coordinates",
+      "The logarithm is defined only for positive inputs"
+    ],
+    "covers": [
+      "Each is the other's reflection over y = x",
+      "Swapping an ordered pair's coordinates",
+      "The logarithm is defined only for positive inputs"
+    ],
+    "params": {
+      "x_range": [
+        -1.0,
+        5.0
+      ],
+      "y_range": [
+        -1.0,
+        5.0
+      ],
+      "curves": [
+        {
+          "kind": "exponential",
+          "a": 1.0,
+          "r": 0.6931471805599453,
+          "y_clip": 5.0,
+          "label": "2ˣ",
+          "style": "solid"
+        },
+        {
+          "kind": "logarithm",
+          "a": 1.0,
+          "ln_base": 0.6931471805599453,
+          "label": "log₂ x",
+          "style": "solid",
+          "y_clip": 5.0
+        },
+        {
+          "kind": "identity",
+          "label": "y = x",
+          "style": "dashed"
+        }
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          1.0,
+          "1"
+        ],
+        [
+          2.0,
+          "2"
+        ],
+        [
+          4.0,
+          "4"
+        ]
+      ],
+      "y_ticks": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "points": [
+        {
+          "x": 1.0,
+          "y": 2.0
+        },
+        {
+          "x": 2.0,
+          "y": 1.0
+        }
+      ],
+      "reflection_check": {
+        "a": 0,
+        "b": 1,
+        "sample_x": [
+          0.0,
+          1.0,
+          2.0
+        ]
+      }
+    },
+    "reference_entry_id": "9ab564fd-a3e3-4b30-b925-5d06cf13b05b",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "9ab564fd-a3e3-4b30-b925-5d06cf13b05b",
+        "title": "Graph and ordered pairs of log vs. exponential",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 2.10 is a convention with no authored items[]; the reflection, the swapped ordered pair and the logarithm's positive domain are the contract (DECISION-0116, route b). The entry's body states the first two; the third is why only half the plane carries a logarithm and is drawn."
+      }
+    ]
+  },
+  "precalc-sinusoid-concavity": {
+    "entry_title": "Concavity of sinusoidal graphs",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-sinusoid-concavity",
+    "title": "A sinusoid alternates concavity",
+    "short_title": "Bend flips each half",
+    "subtitle": "Concave down over each crest, concave up over each trough",
+    "caption": "y = sin x over two full periods. Between 0 and π the graph is concave down; between π and 2π it is concave up; and the pattern repeats. The bend flips at every point where the curve crosses its midline.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The sine curve drawn over two full periods, from zero to four pi. Over the first hump, between zero and pi, the graph is concave down: it bends downwards throughout, even while it is rising on the way up to the crest. Between pi and two pi it is concave up, bending upwards throughout. The pattern then repeats. The concavity changes exactly where the curve crosses its midline, at zero, pi, two pi, three pi and four pi, and those crossings are the points of inflection. Rising and falling is not the same as concave up and down: the curve is rising and concave down on the first quarter period.",
+    "note": "The bend flips at each midline crossing — those are the inflection points.",
+    "synthetic": true,
+    "labels": [
+      "Concave down over a crest",
+      "Concave up over a trough",
+      "Alternating as x increases"
+    ],
+    "covers": [
+      "Concave down over a crest",
+      "Concave up over a trough",
+      "Alternating as x increases"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        12.566370614359172
+      ],
+      "y_range": [
+        -1.45,
+        1.45
+      ],
+      "curves": [
+        {
+          "kind": "sine",
+          "a": 1.0,
+          "b": 1.0
+        }
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          3.141592653589793,
+          "π"
+        ],
+        [
+          6.283185307179586,
+          "2π"
+        ],
+        [
+          9.42477796076938,
+          "3π"
+        ],
+        [
+          12.566370614359172,
+          "4π"
+        ]
+      ],
+      "y_ticks": [
+        -1,
+        0,
+        1
+      ],
+      "texts": [
+        {
+          "x": 1.5707963267948966,
+          "y": 1.28,
+          "label": "concave down"
+        },
+        {
+          "x": 4.71238898038469,
+          "y": -1.28,
+          "label": "concave up"
+        }
+      ],
+      "concavity_check": {
+        "down": [
+          0.35,
+          2.78
+        ],
+        "up": [
+          3.5,
+          5.93
+        ]
+      }
+    },
+    "reference_entry_id": "8fe2fbde-4f65-4e48-adf8-498afc73e71f",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "8fe2fbde-4f65-4e48-adf8-498afc73e71f",
+        "title": "Concavity of sinusoidal graphs",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 3.5 is a convention with no authored items[]; the concavity over a crest, over a trough, and the alternation as x increases are the contract (DECISION-0116, route b), which is the entry's body."
+      }
+    ]
+  },
+  "precalc-tangent-reflections": {
+    "entry_title": "Reflections in tangent transformations",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-tangent-reflections",
+    "title": "A negative coefficient reflects the tangent graph",
+    "short_title": "a < 0 flips it",
+    "subtitle": "a tan θ with a < 0 is the graph reflected over the x-axis",
+    "caption": "y = tan θ and y = −tan θ on one pair of axes. The negative outside coefficient reflects the graph over the x-axis. A negative coefficient INSIDE, tan(bθ) with b < 0, reflects over the y-axis instead — which for tangent gives the same curve, because tangent is an odd function.",
+    "x_label": "θ",
+    "y_label": "y",
+    "alt": "Two sets of tangent branches between vertical dashed asymptotes. The solid branches rise from bottom left to top right between consecutive asymptotes; the dashed branches are their mirror image in the horizontal axis, falling instead of rising. That mirror image is y equals minus tangent theta: a negative coefficient outside the function reflects the graph over the x-axis. A negative coefficient inside, as in tangent of b theta with b negative, reflects over the y-axis instead; for tangent those two reflections happen to produce the same curve, because tangent is an odd function, so minus tangent theta and tangent of minus theta are equal. The curves are broken at each asymptote rather than drawn through it, because the function has no value there.",
+    "note": "For tangent the two reflections coincide: tan(−θ) = −tan θ.",
+    "synthetic": true,
+    "labels": [
+      "a < 0 reflects the graph over the x-axis",
+      "b < 0 reflects it over the y-axis",
+      "Vertical asymptotes where cosine is zero"
+    ],
+    "covers": [
+      "a < 0 reflects the graph over the x-axis",
+      "b < 0 reflects it over the y-axis",
+      "Vertical asymptotes where cosine is zero"
+    ],
+    "params": {
+      "x_range": [
+        -4.71238898038469,
+        4.71238898038469
+      ],
+      "y_range": [
+        -4.0,
+        4.0
+      ],
+      "curves": [
+        {
+          "kind": "tangent",
+          "a": 1.0,
+          "b": 1.0,
+          "cut": 4.0,
+          "label": "tan θ",
+          "style": "solid"
+        },
+        {
+          "kind": "tangent",
+          "a": -1.0,
+          "b": 1.0,
+          "cut": 4.0,
+          "label": "−tan θ",
+          "style": "dashed"
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.141592653589793,
+          "−π"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          3.141592653589793,
+          "π"
+        ]
+      ],
+      "y_ticks": [
+        -3,
+        0,
+        3
+      ],
+      "asymptotes_x": [
+        -4.71238897938469,
+        -1.5707963267948966,
+        1.5707963267948966,
+        4.71238897938469
+      ],
+      "asymptote_check": {
+        "eps": 0.02,
+        "big": 20.0
+      }
+    },
+    "reference_entry_id": "f5fbae12-ce05-4c76-b0ca-1b02e4fe2ba2",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "f5fbae12-ce05-4c76-b0ca-1b02e4fe2ba2",
+        "title": "Reflections in tangent transformations",
+        "role": "primary",
+        "subject_key": "ap_precalculus",
+        "labels_carry_contract": true,
+        "contract_note": "AP Precalculus 3.8 is a convention with no authored items[]; the two reflections are the contract (DECISION-0116, route b). Only a < 0 is drawn: b < 0 produces the same curve for tangent, so it is carried in the figure's text instead of drawn twice, which the protocol allows and which is more honest than two identical curves. The asymptotes are drawn because the reflection is unreadable without them."
+      }
+    ]
+  },
+  "precalc-secant-graph": {
+    "entry_title": "Graph features of secant, cosecant, and cotangent",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-secant-graph",
+    "title": "The secant graph",
+    "short_title": "sec: gaps at ±1",
+    "subtitle": "Vertical asymptotes where cosine is zero, and no values between −1 and 1",
+    "caption": "y = sec θ. It has a vertical asymptote wherever cos θ = 0, and its range is everything at or beyond 1 in each direction: no point of the graph lies strictly between −1 and 1.",
+    "x_label": "θ",
+    "y_label": "y",
+    "alt": "The secant graph, drawn as separate U-shaped branches between vertical dashed asymptotes. Each asymptote sits where the cosine is zero, because secant is one over cosine and dividing by zero has no value. Every branch opens away from the horizontal axis, and no part of the graph lies strictly between minus one and one: the range is everything at or below minus one together with everything at or above one. The branches are broken at the asymptotes rather than joined across them.",
+    "note": "Range: (−∞, −1] ∪ [1, ∞). Nothing strictly between.",
+    "synthetic": true,
+    "labels": [
+      "Secant"
+    ],
+    "covers": [
+      "Secant"
+    ],
+    "params": {
+      "x_range": [
+        -4.71238898038469,
+        4.71238898038469
+      ],
+      "y_range": [
+        -6.0,
+        6.0
+      ],
+      "curves": [
+        {
+          "kind": "secant",
+          "a": 1.0,
+          "b": 1.0,
+          "cut": 6.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.141592653589793,
+          "−π"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          3.141592653589793,
+          "π"
+        ]
+      ],
+      "y_ticks": [
+        -4,
+        -1,
+        0,
+        1,
+        4
+      ],
+      "asymptotes_x": [
+        -1.5707963267948966,
+        1.5707963267948966
+      ],
+      "asymptote_check": {
+        "eps": 0.02,
+        "big": 20.0
+      },
+      "range_gap_check": [
+        -1.0,
+        1.0
+      ]
+    },
+    "reference_entry_id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+        "title": "Graph features of secant, cosecant, and cotangent",
+        "role": "primary",
+        "subject_key": "ap_precalculus"
+      }
+    ]
+  },
+  "precalc-cosecant-graph": {
+    "entry_title": "Graph features of secant, cosecant, and cotangent",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-cosecant-graph",
+    "title": "The cosecant graph",
+    "short_title": "csc: gaps at ±1",
+    "subtitle": "Vertical asymptotes where sine is zero, and the same excluded band",
+    "caption": "y = csc θ. Its asymptotes sit where sin θ = 0 — at 0 and at every multiple of π — and like the secant it takes no value strictly between −1 and 1.",
+    "x_label": "θ",
+    "y_label": "y",
+    "alt": "The cosecant graph, drawn as separate U-shaped branches between vertical dashed asymptotes. The asymptotes sit where the sine is zero, which is at zero and at every multiple of pi, because cosecant is one over sine. As with the secant, no part of the graph lies strictly between minus one and one. The difference between the two is only where the asymptotes fall: the secant's are where cosine vanishes, the cosecant's where sine does, which is a quarter period apart.",
+    "note": "Same excluded band as the secant; the asymptotes sit a quarter period away.",
+    "synthetic": true,
+    "labels": [
+      "Cosecant"
+    ],
+    "covers": [
+      "Cosecant"
+    ],
+    "params": {
+      "x_range": [
+        -4.71238898038469,
+        4.71238898038469
+      ],
+      "y_range": [
+        -6.0,
+        6.0
+      ],
+      "curves": [
+        {
+          "kind": "cosecant",
+          "a": 1.0,
+          "b": 1.0,
+          "cut": 6.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.141592653589793,
+          "−π"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          3.141592653589793,
+          "π"
+        ]
+      ],
+      "y_ticks": [
+        -4,
+        -1,
+        0,
+        1,
+        4
+      ],
+      "asymptotes_x": [
+        -3.141592653589793,
+        0.0,
+        3.141592653589793
+      ],
+      "asymptote_check": {
+        "eps": 0.02,
+        "big": 20.0
+      },
+      "range_gap_check": [
+        -1.0,
+        1.0
+      ]
+    },
+    "reference_entry_id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+        "title": "Graph features of secant, cosecant, and cotangent",
+        "role": "secondary",
+        "subject_key": "ap_precalculus"
+      }
+    ]
+  },
+  "precalc-cotangent-graph": {
+    "entry_title": "Graph features of secant, cosecant, and cotangent",
+    "subject_key": "ap_precalculus",
+    "family": "function_plot",
+    "figure_id": "precalc-cotangent-graph",
+    "title": "The cotangent graph",
+    "short_title": "cot: always falling",
+    "subtitle": "Asymptotes where tangent is zero, and decreasing between consecutive ones",
+    "caption": "y = cot θ. Its asymptotes sit where tan θ = 0, and between any two consecutive asymptotes the graph falls the whole way — unlike the secant and cosecant, it takes every real value.",
+    "x_label": "θ",
+    "y_label": "y",
+    "alt": "The cotangent graph, drawn as separate branches between vertical dashed asymptotes. Each branch starts high on the left of its interval and falls steadily to low on the right, so the function is decreasing between consecutive asymptotes rather than turning. The asymptotes sit where the tangent is zero, which is at zero and at every multiple of pi. Unlike the secant and the cosecant there is no excluded band: a cotangent branch passes through every real value between its two asymptotes.",
+    "note": "Decreasing between consecutive asymptotes, and no excluded range.",
+    "synthetic": true,
+    "labels": [
+      "Cotangent"
+    ],
+    "covers": [
+      "Cotangent"
+    ],
+    "params": {
+      "x_range": [
+        -4.71238898038469,
+        4.71238898038469
+      ],
+      "y_range": [
+        -6.0,
+        6.0
+      ],
+      "curves": [
+        {
+          "kind": "cotangent",
+          "a": 1.0,
+          "b": 1.0,
+          "cut": 6.0
+        }
+      ],
+      "x_ticks": [
+        [
+          -3.141592653589793,
+          "−π"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          3.141592653589793,
+          "π"
+        ]
+      ],
+      "y_ticks": [
+        -4,
+        0,
+        4
+      ],
+      "asymptotes_x": [
+        -3.141592653589793,
+        0.0,
+        3.141592653589793
+      ],
+      "asymptote_check": {
+        "eps": 0.02,
+        "big": 20.0
+      },
+      "decreasing_between_check": {
+        "intervals": [
+          [
+            -2.891592653589793,
+            -0.25
+          ],
+          [
+            0.25,
+            2.891592653589793
+          ]
+        ]
+      }
+    },
+    "reference_entry_id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "9e39925b-c0f3-4e68-8cba-646e47d7a175",
+        "title": "Graph features of secant, cosecant, and cotangent",
+        "role": "secondary",
+        "subject_key": "ap_precalculus"
+      }
+    ]
+  },
+  "calcab-scale-hides-behaviour-wide": {
+    "entry_title": "Graphs can miss important behavior",
+    "subject_key": "ap_calculus_ab",
+    "family": "function_plot",
+    "figure_id": "calcab-scale-hides-behaviour-wide",
+    "title": "The same function, seen at the usual scale",
+    "short_title": "Looks monotonic",
+    "subtitle": "At this window f(x) = x³ − 0.01x looks like it only ever rises",
+    "caption": "f(x) = x³ − 0.01x over −2 ≤ x ≤ 2. At this scale the graph appears to rise steadily through the origin with no turning points at all. Nothing here suggests otherwise.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of x cubed minus one hundredth of x, drawn over the interval from minus two to two with the vertical axis running from about minus eight to eight. At this scale it looks exactly like a plain cubic rising steadily through the origin, with no flat part and no turning points. The behaviour near the origin is far too small to see: the whole feature is about eight ten-thousandths tall, which at this scale is thinner than the drawn line. A shape read off this picture alone would be wrong, and that is the point: a graph is evidence about a function rather than proof, so an estimate taken from one should be treated with care.",
+    "note": "Nothing visible near the origin — at this scale the feature is thinner than the line.",
+    "synthetic": true,
+    "labels": [
+      "At this scale the graph looks monotonic"
+    ],
+    "covers": [
+      "At this scale the graph looks monotonic"
+    ],
+    "params": {
+      "x_range": [
+        -2.0,
+        2.0
+      ],
+      "y_range": [
+        -8.5,
+        8.5
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            -0.01,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -2.0,
+          "−2"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          2.0,
+          "2"
+        ]
+      ],
+      "y_ticks": [
+        -8,
+        -4,
+        0,
+        4,
+        8
+      ],
+      "window_pair_check": {
+        "visible": false,
+        "coeffs": [
+          0.0,
+          -0.01,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "reference_entry_id": "8435ffea-a48c-4905-a38a-3dea62a8f6f5",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "8435ffea-a48c-4905-a38a-3dea62a8f6f5",
+        "title": "Graphs can miss important behavior",
+        "role": "primary",
+        "subject_key": "ap_calculus_ab",
+        "labels_carry_contract": true,
+        "contract_note": "AP Calculus AB 1.3 is a convention with no authored items[]; the pair of windows IS the contract (DECISION-0116, route b). This figure carries the claim that scale can hide behaviour; its partner carries what the hidden behaviour actually is."
+      }
+    ]
+  },
+  "calcab-scale-hides-behaviour-zoom": {
+    "entry_title": "Graphs can miss important behavior",
+    "subject_key": "ap_calculus_ab",
+    "family": "function_plot",
+    "figure_id": "calcab-scale-hides-behaviour-zoom",
+    "title": "The same function, zoomed in near the origin",
+    "short_title": "It turns twice",
+    "subtitle": "The same function over a window 13 times narrower and 10,000 times finer",
+    "caption": "The identical function over −0.15 ≤ x ≤ 0.15, with the vertical axis ten thousand times finer. There are two turning points, at about x = ±0.058, and a stretch where the function decreases — none of which the wide view showed.",
+    "x_label": "x",
+    "y_label": "y",
+    "alt": "The graph of the same function, x cubed minus one hundredth of x, over a window about thirteen times narrower horizontally and ten thousand times finer vertically. Now a local maximum and a local minimum are plainly visible, at about x equals minus zero point zero five eight and plus zero point zero five eight, with the function decreasing between them. This is the behaviour the wide view could not show. Both pictures are of the same function and both are accurate; only the scale differs, which is why a graph-based estimate of a limit or of a shape should be treated with care rather than trusted.",
+    "y_tick_fmt": "{:.4f}",
+    "note": "Same function, same accuracy — only the scale differs.",
+    "synthetic": true,
+    "labels": [
+      "Zoomed in, the same graph turns twice"
+    ],
+    "covers": [
+      "Zoomed in, the same graph turns twice"
+    ],
+    "params": {
+      "x_range": [
+        -0.15,
+        0.15
+      ],
+      "y_range": [
+        -0.00085,
+        0.00085
+      ],
+      "curves": [
+        {
+          "kind": "polynomial",
+          "coeffs": [
+            0.0,
+            -0.01,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "x_ticks": [
+        [
+          -0.1,
+          "−0.1"
+        ],
+        [
+          0.0,
+          "0"
+        ],
+        [
+          0.1,
+          "0.1"
+        ]
+      ],
+      "y_ticks": [
+        -0.0008,
+        -0.0004,
+        0.0,
+        0.0004,
+        0.0008
+      ],
+      "window_pair_check": {
+        "visible": true,
+        "coeffs": [
+          0.0,
+          -0.01,
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "reference_entry_id": "8435ffea-a48c-4905-a38a-3dea62a8f6f5",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "id": "8435ffea-a48c-4905-a38a-3dea62a8f6f5",
+        "title": "Graphs can miss important behavior",
+        "role": "secondary",
+        "subject_key": "ap_calculus_ab",
+        "labels_carry_contract": true,
+        "contract_note": "The partner window. AP Calculus AB 1.3 authors no items[]; this figure carries what the wide view hides (DECISION-0116, route b)."
+      }
+    ]
   }
 }

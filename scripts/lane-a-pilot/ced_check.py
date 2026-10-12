@@ -488,12 +488,69 @@ def density_controls(specs: dict) -> dict:
     return c
 
 
+def function_plot_controls(specs: dict) -> dict:
+    """Controls for the AP Precalculus / Calculus AB function_plot batch.
+
+    F2, F3 and F5 pass verify.py cleanly.
+    """
+    c = {}
+
+    # P1 the "even multiplicity" zero made simple, so the graph CROSSES where
+    # the figure says it is tangent. verify.py CATCHES this.
+    s = copy.deepcopy(specs["precalc-even-multiplicity-zero"])
+    s["params"]["curves"][0]["coeffs"] = [2.0, 1.0, -2.0, 1.0]   # (x+2)(x-1)(x-?) no longer tangent
+    c["CONTROL-P1-tangent-zero-actually-crosses"] = s
+
+    # P2 the transformation rule stated backwards in the figure's own text:
+    # f(x + h) said to move the graph h units in the SAME direction as the
+    # sign. The curves are untouched, so this PASSES.
+    s = copy.deepcopy(specs["precalc-transformations-additive"])
+    s["note"] = "Inside the function, the shift goes the SAME way as the sign."
+    s["alt"] = s["alt"].replace(
+        "A change to the output moves the graph the way the sign reads; a change to the input "
+        "moves it the opposite way, so adding a negative number inside shifts right rather than "
+        "left.",
+        "A change to the input moves the graph the way the sign reads, so adding a negative number "
+        "inside shifts the graph left.")
+    c["CONTROL-P2-inside-shift-stated-backwards"] = s
+
+    # P3 the hole described as a point the function DOES take. The open circle
+    # is untouched, so this PASSES the suite while contradicting the drawing.
+    s = copy.deepcopy(specs["precalc-hole"])
+    s["note"] = "The function is defined at x = 2, where r(2) = 4."
+    s["alt"] = s["alt"].replace(
+        "The circle is drawn open, not filled, because the function does not take that value: a "
+        "filled dot would say the opposite.",
+        "The circle marks the value the function takes at x equals two, namely four.")
+    c["CONTROL-P3-hole-called-a-value"] = s
+
+    # P4 the sequence joined into a curve, which asserts values between the
+    # whole numbers. verify.py CATCHES this.
+    s = copy.deepcopy(specs["precalc-sequence"])
+    s["params"]["curves"] = [{"kind": "polynomial", "coeffs": [1.0, 2.0]}]
+    c["CONTROL-P4-sequence-drawn-as-a-curve"] = s
+
+    # P5 the cotangent described as having the same excluded band as the
+    # secant and cosecant, which it does not. The curve is untouched: PASSES.
+    s = copy.deepcopy(specs["precalc-cotangent-graph"])
+    s["note"] = "Range excludes everything strictly between \u22121 and 1, as for secant and cosecant."
+    s["alt"] = s["alt"].replace(
+        "Unlike the secant and the cosecant there is no excluded band: a cotangent branch passes "
+        "through every real value between its two asymptotes.",
+        "Like the secant and the cosecant, no part of the graph lies strictly between minus one "
+        "and one.")
+    c["CONTROL-P5-cotangent-given-an-excluded-band"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
                 "lane-b-particulate": particulate_controls,
                 "lane-b-fields": field_controls,
-                "stats-density": density_controls}
+                "stats-density": density_controls,
+                "function-plot": function_plot_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

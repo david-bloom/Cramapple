@@ -1,4 +1,11 @@
-# Session close: Lane A gaps closed, Lane B built (bar AP Biology)
+# Session close: Lane A gaps closed, Lane B built (13 of 18 entries)
+
+> **CORRECTED 2026-10-11.** This was titled "Lane B built (bar AP Biology)" and said so throughout.
+> Wrong: **five** published `kind='diagram'` entries have no figure, not four. **AP Chemistry 9.8
+> "Electrochemical cell diagram" is unbuilt and blocked on nothing.** The handoff's §1 counted 18
+> Lane B entries; its §4 plan covers 17. The cell diagram fell between them and the claim was
+> repeated from the plan without being checked against the database. See
+> `FIGURE_PRODUCTION_PROTOCOL.md` §9 for the query that settles it.
 
 **STATUS:** CURRENT, 2026-10-11. Branch `claude/lane-a-gaps-and-lane-b-build`.
 **Executes:** `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md`. **Governed by:**
