@@ -22,6 +22,7 @@ written in CED language, and the hook says so when the two differ.
 **Placement amendment, 2026-10-12:** `DECISION-0118` / `APPROVAL-0164` permits published,
 directly relevant hooks in hints, post-miss feedback, and student-requested targeted help. This records
 the approved policy; it does not claim that the new help template or agent is implemented.
+Placement slice: branch `codex/hook-help-policy`, [PR #426](https://github.com/david-bloom/Cramapple/pull/426).
 
 | # | Decision | Approved as |
 | --- | --- | --- |

@@ -4,6 +4,7 @@ STATUS: CURRENT
 DATE: 2026-10-12 (America/New_York)
 OWNER: Codex / Product Owner David Bloom
 BRANCH: `codex/hook-help-policy`
+PR: https://github.com/david-bloom/Cramapple/pull/426
 GOVERNING DECISION: `DECISION-0118` / `APPROVAL-0164`
 SCOPE: Read-only content verification and documentation of the owner-approved placement rule.
 
