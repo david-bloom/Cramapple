@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
 - APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
 - APPROVAL-0160 — Production Load of the AP Statistics `density_curve` Batch: 10 Figures, 1 New Renderer Family, 8 Published Entries
 - APPROVAL-0159 — Production Load of the Lane A Gap and Lane B Figure Batches: 14 Figures, 4 New Renderer Families, 24 Uses Across 7 Subjects
@@ -2092,6 +2093,78 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
+
+- **Date:** 2026-10-12
+- **Granted by:** David Bloom (Product Owner), in session: "I approve the prod load", after the
+  batch's three gates, the byte-parity port and the Development load were reported.
+- **Scope:** load `scripts/lane-a-pilot/out/load_lane_b_gaps.sql` into Production
+  (`pcntajvbdfqhbeewmdry`). Five figures over five published reference entries, introducing four
+  renderer families.
+
+| Subject · topic | Entry | Figure | Family |
+|---|---|---|---|
+| AP Biology 1.6 | Antiparallel DNA double helix | `bio-dna-antiparallel` | `dna_ladder` |
+| AP Biology 2.3 | Fluid mosaic model of the plasma membrane | `bio-fluid-mosaic` | `membrane_bilayer` |
+| AP Biology 3.4 | Chloroplast structure and where photosynthetic reactions occur | `bio-chloroplast` | `organelle` |
+| AP Biology 3.5 | Mitochondrion: regions and functions in respiration | `bio-mitochondrion` | `organelle` |
+| AP Chemistry 9.8 | Electrochemical cell diagram | `chem-electrochemical-cell` | `electrochemical_cell` |
+
+### The §4.4 decision this executes
+
+The open question was whether these five could be drawn honestly by a parameterised renderer or
+whether they needed commissioned artwork. David's ruling was **"build it properly"**. The four
+families are grammars rather than illustrations, and each DERIVES what it asserts: the DNA spec
+names one strand and the partner base plus its hydrogen-bond count follow from the pairing rule;
+each membrane inclusion's geometry follows from its kind; every arrow in the cell follows from which
+side the anode is on. A mispaired base, a sugar chain on the cytoplasmic face and an electron arrow
+pointing into the anode are all unrepresentable.
+
+### Gates (all passed before the load)
+
+- **§4a** 3,848 property checks, 0 failed. 73 figures, 71 published entries, 23 renderer families.
+- **§4b** eye pass at 272 / 460 / 680 / 980px, which found four real defects, all fixed: a label laid
+  across the hydrogen bonds it named, cristae drawn floating free of the membrane they are folds of,
+  a glycolipid drawn as a bare head with no fatty acid tails, and three overprinting labels in the
+  cell. A byte-digest sweep confirmed the other 68 figures × 3 layouts render identically to before.
+- **§4c** **5/5 controls correctly rejected, 5/5 figures accepted by both non-Anthropic readers.**
+  One fair flag was fixed first: the cell's alt text asserted the anode loses mass when the figure
+  names no electrode material or half-reaction. Because these families cannot draw a wrong picture,
+  all five controls are TEXT controls and three pass the property suite cleanly — now protocol v1.9 §4c.
+- **Parity** `ap-prep-blueprint#15`: **219/219 figure/layout pairs byte-identical across 23
+  families**. That run also caught a live defect in code already on app `main` — open circles were
+  painted BEFORE the curves, so `precalc-hole`'s hole was filled in by the curve's own stroke at
+  every size. Fixed in the same PR.
+
+### Order of operations
+
+The app was merged (`ap-prep-blueprint#15`) **and published** before this load. `FIGURE_FAMILIES` is
+a whitelist in the renderer, so loading first would have put rows in Production that render nothing.
+Verified against the live bundle `/assets/Figure-puuBQBLU.js` on `app.cramapple.com` before loading:
+all four family keys present, `.545` (the electrode height) present, and the open-circle emit at
+offset 50934 now following the curve emit at 50886.
+
+### Verification on Production, after the load
+
+- Counts moved 49 → **54 published figures**, 18 → **22 families**, 57 → **62 uses**, 51 → **56
+  entries covered**. No unpublished figure rows exist.
+- The §9 settling query — published `kind='diagram'` entries with no figure — moved **5 → 0**.
+- The five figure rows are **byte-identical to Development by digest**
+  (`8eb686059acfe6097db3e25a3e62a61a`, n=5), and each `figure_uses` row resolved by natural key to
+  the intended subject and topic code.
+- **As a real authenticated student** (`set local role authenticated` with a profile's JWT claims,
+  not `service_role`): each of the five topics serves exactly its own figure and family; AP Biology
+  1.1, which has no figure, returns 0 cleanly; AP Statistics 2.11 still serves its 5, so no
+  regression. A **planted draft figure** on Biology 3.4 was invisible to that student — the student
+  saw only `bio-chloroplast` — and the probe was rolled back (0 rows left).
+
+### Not covered by this approval
+
+Only the five figures above. The ~81 chart-shaped entries living in `vocabulary` / `convention` /
+`formula` / `list_sequence` are classified in `LANE_A_GAP_CLASSIFICATION_2026_10_11.md` and remain
+unbuilt; `field_map`, `circuit_symbols` and the three `xy_series` gap figures pass every gate but
+have still not been looked at by a human.
 
 ## APPROVAL-0161 — Implement Current-MCQ Answer Preload and In-Memory Instant Feedback (Code/PRs Only; Production Not Approved)
 
