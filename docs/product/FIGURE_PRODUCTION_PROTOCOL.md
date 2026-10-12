@@ -275,6 +275,16 @@ prove the port by **parity, not inspection**.
 >
 > **Merging is not publishing.** Until the app is published in Lovable, nothing reaches a student.
 
+
+**Regenerate the load file immediately before loading, and verify against `specs.json` rather than
+against the other environment.** A generated load file is a snapshot of the specs at the moment it
+was written, and every load uses `insert ... on conflict (figure_id) do nothing`, so re-running one
+is a **no-op, not a repair**. The `function_plot` batch was loaded to Development from a file
+generated *before* its gate-4c corrections, and three rows served rejected text until
+`APPROVAL-0163` found it — the corrections had reached `specs.json` and stopped there. Comparing the
+two environments to each other would not have caught it; they would have agreed on the wrong text.
+Compare `md5(alt)` and `md5(subtitle)` per figure against the authored source instead.
+
 ## 7. Production (Hard Gate every time)
 
 Verify **as a real authenticated student**, not as `service_role`: RLS is the thing being tested,
