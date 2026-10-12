@@ -2161,7 +2161,11 @@ offset 50934 now following the curve emit at 50886.
 
 ### Not covered by this approval
 
-Only the five figures above. The ~81 chart-shaped entries living in `vocabulary` / `convention` /
+Only the five figures above. In particular **`function_plot` (19 figures over 15 entries, AP
+Precalculus and AP Calculus AB) is built, gated, ported and merged but has never been loaded to
+Production** — it is the whole of the current Development/Production difference (Dev 73 figures /
+23 families / 81 uses / 71 entries; Prod 54 / 22 / 62 / 56). Those two subjects therefore still have
+no figure live. Loading it is a separate Hard Gate needing its own approval. The ~81 chart-shaped entries living in `vocabulary` / `convention` /
 `formula` / `list_sequence` are classified in `LANE_A_GAP_CLASSIFICATION_2026_10_11.md` and remain
 unbuilt; `field_map`, `circuit_symbols` and the three `xy_series` gap figures pass every gate but
 have still not been looked at by a human.
