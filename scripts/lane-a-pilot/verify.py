@@ -1425,13 +1425,258 @@ def p_function_plot(sid, s, svg):
            "discrete" in s["alt"].lower())
 
 
-PROPS = {"xy_series": p_xy_series, "kinematic_panels": p_kinematic_panels,
+def p_organelle(sid, s, svg):
+    """A labelled-region diagram is right when every region the entry authors
+    is present, enclosed by the right boundary, and named where it is."""
+    p = s["params"]
+    g = R.FAMILIES["organelle"](p)
+    out, inn = g["org_outer"], g["org_inner"]
+
+    ck(sid, "there are two membranes, an outer and an inner", bool(out) and bool(inn))
+    ck(sid, "the inner membrane is strictly inside the outer one",
+       inn["x"] > out["x"] and inn["y"] > out["y"]
+       and inn["x"] + inn["w"] < out["x"] + out["w"]
+       and inn["y"] + inn["h"] < out["y"] + out["h"],
+       "a double-membraned organelle needs one boundary inside the other")
+
+    if p["mode"] == "grana":
+        st = g["org_stacks"]
+        ck(sid, "thylakoid discs are drawn", len(st) >= 8)
+        ck(sid, "they are organised into stacks, which is what a granum is",
+           len({round(d["x"], 6) for d in st}) == int(p["stacks"])
+           and len(st) == int(p["stacks"]) * int(p["discs_per_stack"]))
+        ck(sid, "every disc sits inside the inner membrane",
+           all(d["x"] >= inn["x"] and d["x"] + d["w"] <= inn["x"] + inn["w"]
+               and d["y"] >= inn["y"] and d["y"] + d["h"] <= inn["y"] + inn["h"] for d in st),
+           "a thylakoid outside the stroma is not in the chloroplast")
+        ck(sid, "the text puts the light reactions in the membranes and the Calvin cycle in the stroma",
+           "stroma" in s["alt"].lower() and "calvin" in s["alt"].lower()
+           and "light reaction" in s["alt"].lower())
+    else:
+        fo = g["org_folds"]
+        ck(sid, "the inner membrane is folded into cristae", len(fo) >= 3)
+        ck(sid, "the folds alternate, so the membrane really doubles back",
+           all((fo[i]["y0"] > fo[i]["y1"]) != (fo[i + 1]["y0"] > fo[i + 1]["y1"])
+               for i in range(len(fo) - 1)),
+           "folds all the same way are a comb, not cristae")
+        ck(sid, "every fold is attached to the inner membrane it is a fold of",
+           all(abs(f["y0"] - inn["y"]) < 1e-9
+               or abs(f["y0"] - (inn["y"] + inn["h"])) < 1e-9 for f in fo),
+           "a crista floating free of the membrane is a box, not a fold")
+        ck(sid, "every fold stays inside the inner membrane",
+           all(inn["y"] <= min(f["y0"], f["y1"]) and max(f["y0"], f["y1"]) <= inn["y"] + inn["h"]
+               for f in fo))
+        # A label with a membrane drawn through it is unreadable, and that is a
+        # defect the renderer cannot see. The folds are built to leave one band
+        # clear right across the matrix; check they really do, and that the
+        # matrix label is in it.
+        lo = inn["y"] + inn["h"] * R.CLEAR_BAND[0]
+        hi = inn["y"] + inn["h"] * R.CLEAR_BAND[1]
+        ck(sid, "no fold crosses the clear band across the matrix",
+           all(max(f["y0"], f["y1"]) <= lo or min(f["y0"], f["y1"]) >= hi for f in fo),
+           "a crista drawn through the matrix label makes the label unreadable")
+        inband = [l for l in p.get("labels_at", []) if lo <= l["y"] <= hi]
+        ck(sid, "the matrix label sits in that clear band",
+           len(inband) == 1 and "matrix" in inband[0]["label"].lower())
+        # The entry's own claim about WHY the folding matters.
+        ck(sid, "the text says the folding increases area, and why that matters",
+           "area" in s["alt"].lower() and "atp" in s["alt"].lower())
+        ck(sid, "the text puts high protons outside the inner membrane and low in the matrix",
+           "high proton" in s["alt"].lower() and ("lower proton" in s["alt"].lower()
+                                                  or "low h" in (s.get("note") or "").lower()))
+
+    if "region_check" in p:
+        # Labels AND the figure's own note: protocol §3 says a labelled part may
+        # be visible in the drawing or carried in its text, and a 43-character
+        # label pushed outside the organelle it belongs to is worse than a
+        # short one plus a note.
+        said = " ".join(l["label"].lower() for l in p.get("labels_at", []))
+        said += " " + (p.get("unit_note") or "").lower()
+        for region in p["region_check"]["regions"]:
+            ck(sid, f"the region '{region}' is named on the figure", region.lower() in said,
+               "a labelled-region diagram has to label its regions")
+        ck(sid, "every label sits inside the outer membrane or just above it",
+           all(0.0 <= l["y"] <= 1.0 and 0.0 <= l["x"] <= 1.0 for l in p["labels_at"]))
+
+
+def p_dna_ladder(sid, s, svg):
+    """Four claims, all of them relations: two strands, opposite orientation,
+    A-T pairs and C-G pairs. Each one is checked as a relation."""
+    p = s["params"]
+    g = R.FAMILIES["dna_ladder"](p)
+    rungs, strands = g["dna_rungs"], g["dna_strands"]
+
+    ck(sid, "there are exactly two strands", len(strands) == 2)
+    ck(sid, "the two strands run in opposite directions",
+       strands[0]["left_to_right"] != strands[1]["left_to_right"],
+       "antiparallel is the whole entry; two arrows the same way deny it")
+    ck(sid, "each strand's 5' end faces the other's 3' end",
+       (strands[0]["five_prime_x"] < 0.5) != (strands[1]["five_prime_x"] < 0.5),
+       "both 5' ends at the same end of the molecule is parallel, not antiparallel")
+    ck(sid, "every rung joins one base on each strand",
+       all(abs(r["y_top"] - strands[0]["y"]) < 1e-9
+           and abs(r["y_bot"] - strands[1]["y"]) < 1e-9 for r in rungs))
+    ck(sid, "every base pairs with its one correct partner",
+       all(R.PAIRING[r["top"]] == r["bottom"] for r in rungs),
+       "a mispaired base is the one error this figure must not be able to make")
+    ck(sid, "both kinds of pair are shown, so neither rule is asserted alone",
+       {frozenset((r["top"], r["bottom"])) for r in rungs}
+       == {frozenset(("A", "T")), frozenset(("C", "G"))})
+    ck(sid, "A-T pairs are drawn with two hydrogen bonds and C-G with three",
+       all(len(r["bonds"]) == R.HBONDS[frozenset((r["top"], r["bottom"]))] for r in rungs))
+    ck(sid, "the bonds sit in the gap between the two bases, joining them",
+       all(all(r["y_top"] + r["h"] <= b["y0"] + 1e-9
+               and b["y1"] <= r["y_bot"] - r["h"] + 1e-9 for b in r["bonds"])
+           for r in rungs))
+    ck(sid, "no two rungs overlap",
+       all(rungs[i]["x"] + rungs[i]["w"] / 2 <= rungs[i + 1]["x"] - rungs[i + 1]["w"] / 2 + 1e-9
+           for i in range(len(rungs) - 1)))
+    # The bonds are the content of the middle band. A label laid across them
+    # hides exactly what it claims to name, and no renderer check sees that.
+    lo = rungs[0]["y_top"] + rungs[0]["h"]
+    hi = rungs[0]["y_bot"] - rungs[0]["h"]
+    ck(sid, "no label is laid across the hydrogen bonds",
+       all(not (lo - 0.02 <= l["y"] <= hi + 0.02) for l in p.get("labels_at", [])),
+       "a caption printed over the bonds hides the thing it is naming")
+    ck(sid, "the text says the strands are antiparallel and names both pairings",
+       "antiparallel" in s["alt"].lower()
+       and "adenine" in s["alt"].lower() and "thymine" in s["alt"].lower()
+       and "cytosine" in s["alt"].lower() and "guanine" in s["alt"].lower())
+
+
+def p_membrane_bilayer(sid, s, svg):
+    """Every part of this entry is defined by where it sits, so every check
+    here is about position."""
+    p = s["params"]
+    g = R.FAMILIES["membrane_bilayer"](p)
+    heads, tails, incl, chains = g["mb_heads"], g["mb_tails"], g["mb_incl"], g["mb_chains"]
+    ht, hb, mid = R.BILAYER["head_top"], R.BILAYER["head_bot"], R.BILAYER["mid"]
+
+    rows = sorted({round(h["y"], 6) for h in heads})
+    ck(sid, "the phospholipids form two leaflets, not one layer", len(rows) == 2)
+    ck(sid, "both head rows face outward, away from the interior",
+       rows[0] < mid < rows[1],
+       "heads are hydrophilic: they face the water on each side")
+    ck(sid, "every tail runs inward, from its head toward the other leaflet",
+       all((t["y0"] < mid) == (t["y1"] <= mid + 1e-9) for t in tails)
+       and all(min(t["y0"], t["y1"]) >= ht - 1e-9
+               and max(t["y0"], t["y1"]) <= hb + 1e-9 for t in tails),
+       "a tail pointing into the water is the opposite of hydrophobic")
+    ck(sid, "the tails of the two leaflets meet in the interior",
+       abs(max(t["y1"] for t in tails if t["y0"] < mid) - mid) < 0.02
+       and abs(min(t["y1"] for t in tails if t["y0"] > mid) - mid) < 0.02)
+
+    prot = [b for b in incl if b["kind"] in ("protein", "glycoprotein")]
+    ster = [b for b in incl if b["kind"] == "steroid"]
+    glyp = [b for b in incl if b["kind"] == "glycoprotein"]
+    glyl = [b for b in incl if b["kind"] == "glycolipid"]
+    ck(sid, "proteins cross the whole bilayer", bool(prot) and
+       all(b["y"] < ht and b["y"] + b["h"] > hb for b in prot),
+       "a protein that reaches only one surface cannot have its hydrophobic "
+       "region in contact with the fatty acids on both sides")
+    ck(sid, "the steroid sits among the tails and reaches neither surface",
+       bool(ster) and all(b["y"] > ht and b["y"] + b["h"] < hb for b in ster),
+       "cholesterol is embedded in the phospholipid framework, not floating "
+       "in the water")
+    ck(sid, "both a glycoprotein and a glycolipid are present",
+       len(glyp) == 1 and len(glyl) == 1)
+    ck(sid, "each carbohydrate chain is attached to one of them",
+       len(chains) == len(glyp) + len(glyl)
+       and {c["kind"] for c in chains} == {"glycoprotein", "glycolipid"})
+    ck(sid, "every carbohydrate chain is on the same face, outside the bilayer",
+       bool(chains) and all(all(n["y"] + n["r"] < ht for n in c["nodes"]) for c in chains),
+       "a sugar chain drawn on the cytoplasmic face points the wrong way out "
+       "of the cell")
+    ck(sid, "the glycolipid has fatty acid tails, like the lipid it is",
+       all(sum(1 for t in tails
+               if abs(t["x0"] - (b["x"] + b["w"] / 2)) < 0.012) >= 2 for b in glyl),
+       "a sugar chain on a bare head is a bead, not a membrane lipid")
+    ck(sid, "no phospholipid is drawn through an inclusion",
+       all(not any(b["x"] < h["x"] < b["x"] + b["w"] for b in incl) for h in heads))
+    ck(sid, "the text says which face is outside and that the parts move",
+       "extracellular" in s["alt"].lower() and "cytoplasm" in s["alt"].lower()
+       and "move" in s["alt"].lower())
+
+
+def p_electrochemical_cell(sid, s, svg):
+    """Every arrow in a cell diagram is a direction claim, and a diagram that
+    points one of them the wrong way teaches the wrong chemistry."""
+    p = s["params"]
+    g = R.FAMILIES["electrochemical_cell"](p)
+    cells, meter, bridge = g["ec_cells"], g["ec_meter"], g["ec_bridge"]
+    el, ions, wires = g["ec_electron"], g["ec_ions"], g["ec_wires"]
+    by_role = {c["role"]: c for c in cells}
+
+    ck(sid, "there are two half-cells, one anode and one cathode",
+       len(cells) == 2 and set(by_role) == {"anode", "cathode"})
+    ck(sid, "each half-cell has one electrode dipping into its solution",
+       all(c["electrode"]["y"] < c["level"]
+           and c["electrode"]["y"] + c["electrode"]["h"] > c["level"] for c in cells),
+       "an electrode that does not reach the solution is not in the circuit")
+    ck(sid, "each electrode stays inside its own beaker",
+       all(c["beaker"]["x"] < c["electrode"]["x"]
+           and c["electrode"]["x"] + c["electrode"]["w"]
+           < c["beaker"]["x"] + c["beaker"]["w"] for c in cells))
+    ck(sid, "the solution fills the beaker below its surface",
+       all(abs(c["solution"]["y"] - c["level"]) < 1e-9
+           and abs((c["solution"]["y"] + c["solution"]["h"])
+                   - (c["beaker"]["y"] + c["beaker"]["h"])) < 1e-9 for c in cells))
+
+    a_x = by_role["anode"]["electrode_x"]
+    c_x = by_role["cathode"]["electrode_x"]
+    ck(sid, "the electrons travel from the anode to the cathode",
+       (el["x1"] - el["x0"]) * (c_x - a_x) > 0,
+       "oxidation releases the electrons, so they leave the anode -- "
+       "an arrow the other way is the single commonest error on this diagram")
+    ck(sid, "the electron arrow is in the external circuit, not in the solution",
+       el["y0"] < min(c["level"] for c in cells)
+       and min(a_x, c_x) <= el["x0"] <= max(a_x, c_x))
+    ck(sid, "the measuring device sits on the wire between the two electrodes",
+       min(a_x, c_x) < meter["x"] < max(a_x, c_x)
+       and abs(meter["y"] - wires[1]["y0"]) < 1e-9)
+    ck(sid, "the wire runs from one electrode to the other through it",
+       abs(wires[0]["x0"] - min(a_x, c_x)) < 1e-9
+       and abs(wires[-1]["x0"] - max(a_x, c_x)) < 1e-9)
+
+    ck(sid, "both ends of the salt bridge are below the solution surface",
+       all(bridge["y_dip"] > c["level"] for c in cells),
+       "a bridge ending in the air carries no ions")
+    ck(sid, "the salt bridge is in the solutions and touches neither electrode",
+       all(not (c["electrode"]["x"] <= x <= c["electrode"]["x"] + c["electrode"]["w"])
+           for c in cells for x in (bridge["x_left"], bridge["x_right"]))
+       and bridge["x_left"] < 0.5 < bridge["x_right"],
+       "a bridge touching an electrode would short the cell")
+    ck(sid, "the bridge rises above the liquid between the beakers",
+       bridge["y_top"] < min(c["level"] for c in cells))
+
+    for ion in ions:
+        want = c_x if ion["to"] == "cathode" else a_x
+        ck(sid, f"the {ion['to']}-bound ions move toward the {ion['to']}",
+           (ion["x1"] - ion["x0"]) * (want - 0.5) > 0,
+           "ion flow the wrong way would charge the half-cells instead of "
+           "keeping them neutral")
+    ck(sid, "the two ion flows are in opposite directions",
+       (ions[0]["x1"] - ions[0]["x0"]) * (ions[1]["x1"] - ions[1]["x0"]) < 0)
+
+    said = " ".join(l["label"].lower() for l in p.get("labels_at", []))
+    ck(sid, "the anode is labelled with oxidation and the cathode with reduction",
+       "anode" in said and "oxidation" in said
+       and "cathode" in said and "reduction" in said)
+    ck(sid, "the text says the bridge keeps the half-cells neutral",
+       "neutral" in s["alt"].lower())
+
+
+PROPS = {"xy_series": p_xy_series,
+    "dna_ladder": p_dna_ladder,
+    "membrane_bilayer": p_membrane_bilayer,
+    "electrochemical_cell": p_electrochemical_cell, "kinematic_panels": p_kinematic_panels,
     "arrow_diagram": p_arrow_diagram,
     "particulate_box": p_particulate_box,
     "field_map": p_field_map,
     "circuit_symbols": p_circuit_symbols,
     "density_curve": p_density_curve,
     "function_plot": p_function_plot,
+    "organelle": p_organelle,
          "categorical_bars": p_categorical_bars, "pie_chart": p_pie, "dotplot": p_dotplot,
          "stem_leaf": p_stem_leaf, "boxplot": p_boxplot,
          "mb_distribution": p_mb, "energy_profile": p_energy_profile, "stick_spectrum": p_stick,

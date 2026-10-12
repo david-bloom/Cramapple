@@ -117,6 +117,41 @@ FAMILIES = {
         "The five-number summary as a box from Q1 to Q3 with a median line, whiskers to the most "
         "extreme non-outliers, and outliers beyond the 1.5 IQR fences marked separately.",
     ),
+    "organelle": (
+        "Double-membraned organelle regions",
+        "A chloroplast or a mitochondrion drawn as LABELLED REGIONS rather than as an anatomical "
+        "illustration: an outer and an inner membrane, and inside the inner one either stacks of "
+        "thylakoid discs (the grana) or flat-tipped folds of the membrane itself (the cristae). "
+        "The entries these serve author regions and the process that happens in each, so the "
+        "contract is whether each region is present, enclosed by the right boundary and named "
+        "where it is. The cristae leave one band clear right across the matrix, so the matrix "
+        "label is never drawn over.",
+    ),
+    "dna_ladder": (
+        "DNA as a paired, antiparallel ladder",
+        "Two sugar-phosphate backbones with base pairs as rungs, drawn flat rather than helical. "
+        "The spec names ONE strand's bases and the renderer derives the partner from the pairing "
+        "rule and the number of hydrogen bonds from the pair, so a mispaired base cannot be "
+        "drawn. One orientation flag sets both direction arrowheads, so the two strands cannot "
+        "be made to run the same way.",
+    ),
+    "membrane_bilayer": (
+        "Fluid mosaic membrane in cross-section",
+        "Two leaflets of phospholipids -- hydrophilic heads facing the water on both sides, "
+        "hydrophobic tails meeting in the interior -- with proteins, steroids, glycoproteins and "
+        "glycolipids embedded in them. Each inclusion's geometry follows from its KIND: a protein "
+        "crosses both leaflets, a steroid sits among the tails and reaches neither surface, and "
+        "every carbohydrate chain is drawn on the extracellular face. The spec chooses the kind "
+        "and the x position, never the y.",
+    ),
+    "electrochemical_cell": (
+        "Galvanic cell diagram",
+        "Two half-cells with an electrode in each, an external circuit through a measuring "
+        "device, and a salt bridge whose ends are below both solution surfaces and touch neither "
+        "electrode. Every direction is DERIVED from one fact, which side the anode is on: "
+        "electrons leave the anode through the wire, cations move toward the cathode and anions "
+        "toward the anode, so no arrow in the figure can contradict another.",
+    ),
 }
 RENDERER_NOTE = "scripts/lane-a-pilot/render.py; the app's figure renderer"
 
@@ -207,8 +242,11 @@ def main() -> int:
             q(bool(s.get("synthetic", True))), q(s.get("values_note")),
             jq(s.get("labels", [])), jq(s["params"]),
             q(s.get("y_tick_fmt")), q(s.get("x_tick_fmt")),
-            "'published'", q("cramapple-authored; batch=" + args.prefix.rstrip("-") +
-                             "-figures-2026-10-11"), "now()",
+            # --batch, not the prefix. Earlier batches were named by a single
+            # prefix so the two agreed by accident; this one spans two, and the
+            # rows went out tagged "bio-,chem-electro-figures-..." until the
+            # argument that exists for this was actually read.
+            "'published'", q("cramapple-authored; batch=" + args.batch), "now()",
         ])
         L.append(f"insert into app.figures ({cols})")
         L.append(f"values ({vals})")

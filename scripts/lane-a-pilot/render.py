@@ -1209,6 +1209,302 @@ def f_function_plot(p: dict) -> dict:
     return out
 
 
+# Fraction of the inner membrane's height left free of cristae, so a label
+# can cross the matrix without a fold running through it.
+CLEAR_BAND = (0.42, 0.58)
+
+
+def f_organelle(p: dict) -> dict:
+    """A double-membraned organelle as labelled regions: the chloroplast and
+    the mitochondrion.
+
+    Deliberately NOT an anatomical drawing. Every labelled part these two
+    entries author is a REGION and the process that happens in it -- stroma,
+    grana, thylakoid membranes; matrix, inner membrane, intermembrane space --
+    so the contract is "is each region present, enclosed by the right boundary,
+    and labelled", which a grammar satisfies exactly and an illustration only
+    satisfies incidentally. The two organelles differ in one thing, the shape of
+    the inner membrane system, so they are one family with a mode.
+
+    Geometry is in a 0..1 box, like the particulate and field families.
+    """
+    mode = p["mode"]
+    if mode not in ("grana", "cristae"):
+        raise ValueError("organelle draws 'grana' (chloroplast) or 'cristae' (mitochondrion)")
+    outer = {"x": 0.04, "y": 0.10, "w": 0.92, "h": 0.80, "r": 0.30}
+    inner = {"x": outer["x"] + 0.045, "y": outer["y"] + 0.055,
+             "w": outer["w"] - 0.09, "h": outer["h"] - 0.11, "r": 0.26}
+    stacks, folds = [], []
+    if mode == "grana":
+        # Stacks of thylakoids, evenly spaced inside the inner membrane.
+        n = int(p.get("stacks", 4))
+        discs = int(p.get("discs_per_stack", 4))
+        for i in range(n):
+            cx = inner["x"] + inner["w"] * (i + 0.5) / n
+            for d in range(discs):
+                h = 0.030
+                gap = 0.014
+                total = discs * h + (discs - 1) * gap
+                y0 = inner["y"] + inner["h"] / 2 - total / 2 + d * (h + gap)
+                stacks.append({"x": cx - 0.075, "y": y0, "w": 0.15, "h": h})
+    else:
+        # Cristae: folds of the inner membrane, which is what makes its area
+        # larger than the outer one -- the entry's own point about ATP yield.
+        # Each fold is a flat-tipped finger, not a spike: a spike reads as a
+        # dart thrown into the matrix, which is not what a crista is. The depths
+        # are chosen so that folds from the top stop above CLEAR_BAND and folds
+        # from the bottom stop below it, leaving a band right across the matrix
+        # that no fold crosses -- that is where the matrix label can sit without
+        # a line running through it. p_organelle asserts the band is really clear.
+        n = int(p.get("folds", 5))
+        for i in range(n):
+            cx = inner["x"] + inner["w"] * (i + 0.5) / n
+            up = i % 2 == 0
+            # The base sits ON the inner membrane, not near it: a crista that
+            # floats free of the membrane it is a fold of is just a box.
+            folds.append({"x": cx, "y0": inner["y"] + (0.0 if up else inner["h"]),
+                          "y1": inner["y"] + inner["h"] * (CLEAR_BAND[0] if up else CLEAR_BAND[1]),
+                          "w": inner["w"] / n * 0.44})
+    labels = [{"x": l["x"], "y": l["y"], "label": l["label"],
+               "anchor": l.get("anchor", "middle")} for l in p.get("labels_at", [])]
+    leaders = [{"x0": l["x"], "y0": l["y"], "x1": l["to"][0], "y1": l["to"][1]}
+               for l in p.get("labels_at", []) if l.get("to")]
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "org_outer": outer, "org_inner": inner, "org_stacks": stacks,
+            "org_folds": folds, "org_labels": labels, "org_leaders": leaders,
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+# A base pairs with exactly one other base, and the number of hydrogen bonds
+# that join them is a property of the pair, not a drawing choice.
+PAIRING = {"A": "T", "T": "A", "C": "G", "G": "C"}
+HBONDS = {frozenset(("A", "T")): 2, frozenset(("C", "G")): 3}
+
+
+def f_dna_ladder(p: dict) -> dict:
+    """Two nucleotide strands, paired base to base, running in opposite
+    directions.
+
+    The entry authors four things -- two strands, opposite 5' to 3' orientation,
+    A-T pairs and C-G pairs -- and all four are *relations*, not shapes. So the
+    spec names one strand's bases and the renderer DERIVES the other from the
+    pairing rule: a figure that cannot draw a wrong pair cannot ship one. The
+    direction arrows are derived the same way, from a single orientation flag.
+
+    Geometry is in a 0..1 box.
+    """
+    bases = [b.upper() for b in p["strand"]]
+    for b in bases:
+        if b not in PAIRING:
+            raise ValueError(f"{b!r} is not a DNA base")
+    n = len(bases)
+    if n < 4:
+        raise ValueError("a ladder needs at least four base pairs to read as one")
+    y_top, y_bot = 0.30, 0.70          # the two sugar-phosphate backbones
+    bh = 0.105                          # height of a base block
+    x0, x1 = 0.09, 0.91
+    step = (x1 - x0) / n
+    rungs = []
+    for i, b in enumerate(bases):
+        cx = x0 + step * (i + 0.5)
+        partner = PAIRING[b]
+        nb = HBONDS[frozenset((b, partner))]
+        # The hydrogen bonds are drawn in the gap BETWEEN the two base blocks,
+        # evenly spread, so two of them and three of them are told apart at a
+        # glance -- which is the only visible difference between A-T and C-G.
+        g0, g1 = y_top + bh, y_bot - bh
+        bonds = [{"x": cx - 0.030 + 0.060 * (j + 0.5) / nb, "y0": g0, "y1": g1}
+                 for j in range(nb)]
+        rungs.append({"x": cx, "top": b, "bottom": partner,
+                      "y_top": y_top, "y_bot": y_bot, "h": bh,
+                      "w": step * 0.58, "bonds": bonds})
+    # One flag decides both arrows, so they cannot be made to agree.
+    top_left_to_right = bool(p.get("top_strand_left_to_right", True))
+    strands = [
+        {"y": y_top, "x0": x0, "x1": x1, "left_to_right": top_left_to_right,
+         "five_prime_x": x0 if top_left_to_right else x1,
+         "three_prime_x": x1 if top_left_to_right else x0},
+        {"y": y_bot, "x0": x0, "x1": x1, "left_to_right": not top_left_to_right,
+         "five_prime_x": x1 if top_left_to_right else x0,
+         "three_prime_x": x0 if top_left_to_right else x1},
+    ]
+    labels = [{"x": l["x"], "y": l["y"], "label": l["label"],
+               "anchor": l.get("anchor", "middle")} for l in p.get("labels_at", [])]
+    leaders = [{"x0": l["x"], "y0": l["y"], "x1": l["to"][0], "y1": l["to"][1]}
+               for l in p.get("labels_at", []) if l.get("to")]
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "dna_rungs": rungs, "dna_strands": strands,
+            "dna_labels": labels, "dna_leaders": leaders,
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+# Where the bilayer sits in the 0..1 box. The extracellular side is ABOVE it,
+# which is what makes "the sugar chains are all on one side" a thing you can
+# see rather than a thing the caption claims.
+BILAYER = {"head_top": 0.40, "head_bot": 0.62, "head_r": 0.021, "mid": 0.51}
+
+
+def f_membrane_bilayer(p: dict) -> dict:
+    """The fluid mosaic membrane as a bilayer with named things embedded in it.
+
+    The entry's five parts are a bilayer plus four kinds of inclusion, and each
+    one is defined by WHERE it sits: a transmembrane protein crosses both
+    leaflets, a steroid sits among the tails, and the carbohydrate of a
+    glycoprotein or a glycolipid is on the outside face. So position is the
+    content here, and every inclusion's geometry is derived from its kind --
+    the spec chooses the kind and the x, never the y.
+
+    Geometry is in a 0..1 box.
+    """
+    ht, hb, hr, mid = (BILAYER["head_top"], BILAYER["head_bot"],
+                       BILAYER["head_r"], BILAYER["mid"])
+    incl, chains = [], []
+    for it in p.get("inclusions", []):
+        kind, cx = it["kind"], float(it["x"])
+        if kind in ("protein", "glycoprotein"):
+            w = float(it.get("w", 0.075))
+            box = {"x": cx - w / 2, "y": ht - 0.055, "w": w, "h": (hb - ht) + 0.11,
+                   "r": 0.02, "kind": kind}
+        elif kind == "steroid":
+            # Among the fatty-acid tails, inside the bilayer: never poking out
+            # into the water on either side.
+            w = float(it.get("w", 0.026))
+            box = {"x": cx - w / 2, "y": ht + hr + 0.012, "w": w,
+                   "h": (hb - hr - 0.012) - (ht + hr + 0.012), "r": 0.012, "kind": kind}
+        elif kind == "glycolipid":
+            box = {"x": cx - hr, "y": ht - hr, "w": hr * 2, "h": hr * 2,
+                   "r": hr, "kind": kind}
+        else:
+            raise ValueError(f"unknown membrane inclusion {kind!r}")
+        incl.append(box)
+        if kind in ("glycoprotein", "glycolipid"):
+            # A branched carbohydrate, drawn upward from the top of the
+            # inclusion -- so on the extracellular face, for both kinds.
+            base_y = box["y"]
+            stem = 0.055
+            segs = [{"x0": cx, "y0": base_y, "x1": cx, "y1": base_y - stem}]
+            nodes = [{"x": cx, "y": base_y - stem, "r": 0.013}]
+            for dx in (-0.038, 0.038):
+                segs.append({"x0": cx, "y0": base_y - stem,
+                             "x1": cx + dx, "y1": base_y - stem - 0.042})
+                nodes.append({"x": cx + dx, "y": base_y - stem - 0.042, "r": 0.013})
+            chains.append({"segments": segs, "nodes": nodes, "kind": kind})
+    # Phospholipids fill the rest of both leaflets. One is dropped wherever an
+    # inclusion stands, rather than drawn through it.
+    n = int(p.get("lipids", 26))
+    heads, tails = [], []
+    # A glycolipid IS a lipid: it sits in the leaflet with fatty acid tails like
+    # its neighbours, and the sugar chain is what makes it a glyco- one. Drawn
+    # as a bare head it reads as a bead stuck on the surface.
+    for b in incl:
+        if b["kind"] == "glycolipid":
+            cx = b["x"] + b["w"] / 2
+            for dx in (-0.007, 0.007):
+                tails.append({"x0": cx + dx, "y0": ht + hr,
+                              "x1": cx + dx * 1.6, "y1": mid - 0.004})
+    for i in range(n):
+        cx = 0.03 + (0.94) * (i + 0.5) / n
+        if any(b["x"] - 0.012 <= cx <= b["x"] + b["w"] + 0.012 for b in incl):
+            continue
+        for y, sgn in ((ht, 1.0), (hb, -1.0)):
+            heads.append({"x": cx, "y": y, "r": hr})
+            for dx in (-0.007, 0.007):
+                tails.append({"x0": cx + dx, "y0": y + sgn * hr,
+                              "x1": cx + dx * 1.6, "y1": mid - sgn * 0.004})
+    labels = [{"x": l["x"], "y": l["y"], "label": l["label"],
+               "anchor": l.get("anchor", "middle")} for l in p.get("labels_at", [])]
+    leaders = [{"x0": l["x"], "y0": l["y"], "x1": l["to"][0], "y1": l["to"][1]}
+               for l in p.get("labels_at", []) if l.get("to")]
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "mb_heads": heads, "mb_tails": tails, "mb_incl": incl,
+            "mb_chains": chains, "mb_labels": labels, "mb_leaders": leaders,
+            "mb_side_labels": p.get("side_labels", []),
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
+def f_electrochemical_cell(p: dict) -> dict:
+    """A galvanic cell drawn as the four things the entry says a cell diagram
+    is read for: the electrodes, the two half-cell solutions, the salt bridge
+    and the measuring device.
+
+    The whole point of the entry is DIRECTION -- which electrode is the anode,
+    which way the electrons go, which way the ions go -- so the spec states one
+    fact, which side the anode is on, and every arrow is derived from it.
+    Electrons always leave the anode; cations always move toward the cathode.
+    Nothing here can be drawn inconsistently with itself.
+
+    Geometry is in a 0..1 box.
+    """
+    anode_side = p.get("anode_side", "left")
+    if anode_side not in ("left", "right"):
+        raise ValueError("anode_side is 'left' or 'right'")
+    beaker_y0, beaker_y1 = 0.44, 0.93
+    level = 0.54                              # the solution surface
+    wire_y = 0.13
+    cells = []
+    for side, bx0, bx1 in (("left", 0.05, 0.42), ("right", 0.58, 0.95)):
+        ex = (bx0 + bx1) / 2
+        role = "anode" if side == anode_side else "cathode"
+        cells.append({
+            "side": side, "role": role,
+            "beaker": {"x": bx0, "y": beaker_y0, "w": bx1 - bx0, "h": beaker_y1 - beaker_y0},
+            "solution": {"x": bx0, "y": level, "w": bx1 - bx0, "h": beaker_y1 - level},
+            "level": level,
+            "electrode": {"x": ex - 0.026, "y": 0.215, "w": 0.052, "h": 0.545},
+            "electrode_x": ex,
+            "label": p.get(f"{role}_label", role),
+            "solution_label": p.get(f"{role}_solution", ""),
+        })
+    lx = [c for c in cells if c["side"] == "left"][0]["electrode_x"]
+    rx = [c for c in cells if c["side"] == "right"][0]["electrode_x"]
+    meter = {"x": 0.5, "y": wire_y, "r": 0.052, "glyph": p.get("meter", "V"),
+             "label": p.get("meter_label", "voltmeter")}
+    wires = [{"x0": lx, "y0": 0.215, "x1": lx, "y1": wire_y},
+             {"x0": lx, "y0": wire_y, "x1": meter["x"] - meter["r"], "y1": wire_y},
+             {"x0": meter["x"] + meter["r"], "y0": wire_y, "x1": rx, "y1": wire_y},
+             {"x0": rx, "y0": wire_y, "x1": rx, "y1": 0.215}]
+    # Electrons leave the anode and travel the external circuit to the cathode.
+    a_x = lx if anode_side == "left" else rx
+    c_x = rx if anode_side == "left" else lx
+    sgn = 1.0 if c_x > a_x else -1.0
+    # Below the wire, not above it: above, its label and the meter's label are
+    # both competing for the same strip of sky and they overprint.
+    e_arrow = {"x0": a_x + sgn * 0.085, "y0": wire_y + 0.075,
+               "x1": a_x + sgn * 0.185, "y1": wire_y + 0.075,
+               "label": "e\u207b", "to": "cathode"}
+    # The bridge dips below the surface in both beakers and touches neither
+    # electrode: it joins the SOLUTIONS, which is what lets charge balance.
+    bx_l, bx_r = lx + 0.115, rx - 0.115
+    bridge = {"x_left": bx_l, "x_right": bx_r, "y_top": 0.355, "y_dip": level + 0.15}
+    # Stacked, not side by side: two labels centred on the same line, one of
+    # them pointing each way, print straight through each other.
+    ions = [{"x0": 0.5, "y0": 0.265,
+             "x1": 0.5 + (0.085 if c_x > 0.5 else -0.085), "y1": 0.265,
+             "label": "cations \u2192 cathode", "to": "cathode"},
+            {"x0": 0.5, "y0": 0.335,
+             "x1": 0.5 + (0.085 if a_x > 0.5 else -0.085), "y1": 0.335,
+             "label": "anions \u2192 anode", "to": "anode"}]
+    # `ann` marks a label the compact size drops. 340 units is not enough for
+    # every phrase this diagram wants to say, and the compact rule is that only
+    # what carries the teaching point survives.
+    labels = [{"x": l["x"], "y": l["y"], "label": l["label"],
+               "anchor": l.get("anchor", "middle"), "ann": bool(l.get("ann"))}
+              for l in p.get("labels_at", [])]
+    leaders = [{"x0": l["x"], "y0": l["y"], "x1": l["to"][0], "y1": l["to"][1],
+                "ann": bool(l.get("ann"))}
+               for l in p.get("labels_at", []) if l.get("to")]
+    return {"curves": [], "areas": [], "legend": [], "frame": "bare",
+            "ec_cells": cells, "ec_meter": meter, "ec_wires": wires,
+            "ec_electron": e_arrow, "ec_bridge": bridge, "ec_ions": ions,
+            "ec_bridge_label": p.get("bridge_label", "salt bridge"),
+            "ec_labels": labels, "ec_leaders": leaders,
+            "unit_note": p.get("unit_note"),
+            "x_range": (0.0, 1.0), "y_range": (0.0, 1.0)}
+
+
 FAMILIES: dict[str, Callable[[dict], dict]] = {
     "mb_distribution": f_mb_distribution,
     "energy_profile": f_energy_profile,
@@ -1229,6 +1525,10 @@ FAMILIES: dict[str, Callable[[dict], dict]] = {
     "circuit_symbols": f_circuit_symbols,
     "density_curve": f_density_curve,
     "function_plot": f_function_plot,
+    "organelle": f_organelle,
+    "dna_ladder": f_dna_ladder,
+    "membrane_bilayer": f_membrane_bilayer,
+    "electrochemical_cell": f_electrochemical_cell,
 }
 
 
@@ -1488,6 +1788,196 @@ def render(spec: dict, layout: str = "expanded") -> str:
         anchor = "start" if math.cos(am) > 0.12 else ("end" if math.cos(am) < -0.12 else "middle")
         o.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" font-size="{FM}" fill="{INK}">'
                  f'{esc(w["label"])} {w["frac"]*100:.0f}%</text>')
+    # organelle: outer envelope, inner membrane, and the region labels
+    if g.get("org_outer"):
+        ox, oy = L, T
+        X = lambda u: ox + u * pw
+        Y = lambda v: oy + v * ph
+        for box, sw_, fill in ((g["org_outer"], SW, BG), (g["org_inner"], SW * 0.9, BG)):
+            o.append(f'<rect x="{X(box["x"]):.1f}" y="{Y(box["y"]):.1f}" '
+                     f'width="{box["w"]*pw:.1f}" height="{box["h"]*ph:.1f}" '
+                     f'rx="{box["r"]*min(pw, ph)*0.5:.1f}" fill="{fill}" stroke="{INK}" '
+                     f'stroke-width="{sw_:.1f}"/>')
+        for st in g.get("org_stacks", []):
+            o.append(f'<rect x="{X(st["x"]):.1f}" y="{Y(st["y"]):.1f}" '
+                     f'width="{st["w"]*pw:.1f}" height="{st["h"]*ph:.1f}" rx="{min(pw,ph)*0.012:.1f}" '
+                     f'fill="{LIGHT}" fill-opacity="0.75" stroke="{INK}" stroke-width="1"/>')
+        for fo in g.get("org_folds", []):
+            o.append(f'<path d="M {X(fo["x"]-fo["w"]/2):.1f},{Y(fo["y0"]):.1f} '
+                     f'L {X(fo["x"]-fo["w"]/2):.1f},{Y(fo["y1"]):.1f} '
+                     f'L {X(fo["x"]+fo["w"]/2):.1f},{Y(fo["y1"]):.1f} '
+                     f'L {X(fo["x"]+fo["w"]/2):.1f},{Y(fo["y0"]):.1f}" fill="none" '
+                     f'stroke="{INK}" stroke-width="{SW*0.9:.1f}" stroke-linejoin="round"/>')
+        for ld in g.get("org_leaders", []):
+            o.append(f'<line x1="{X(ld["x0"]):.1f}" y1="{Y(ld["y0"]):.1f}" '
+                     f'x2="{X(ld["x1"]):.1f}" y2="{Y(ld["y1"]):.1f}" stroke="{GRAY}" '
+                     f'stroke-width="1"/>')
+        for lb in g.get("org_labels", []):
+            o.append(f'<text x="{X(lb["x"]):.1f}" y="{Y(lb["y"]):.1f}" text-anchor="{lb["anchor"]}" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(lb["label"])}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+    # DNA: two backbones, base blocks, and the hydrogen bonds between them
+    if g.get("dna_rungs"):
+        ox, oy = L, T
+        X = lambda u: ox + u * pw
+        Y = lambda v: oy + v * ph
+        for st in g["dna_strands"]:
+            o.append(f'<line x1="{X(st["x0"]):.1f}" y1="{Y(st["y"]):.1f}" '
+                     f'x2="{X(st["x1"]):.1f}" y2="{Y(st["y"]):.1f}" stroke="{INK}" '
+                     f'stroke-width="{SW*1.2:.1f}" stroke-linecap="round"/>')
+            # The arrowhead is the 5' to 3' direction, drawn at the 3' end.
+            tipx = st["three_prime_x"]
+            back = -0.028 if st["left_to_right"] else 0.028
+            o.append(f'<path d="M {X(tipx):.1f},{Y(st["y"]):.1f} '
+                     f'L {X(tipx+back):.1f},{Y(st["y"]-0.030):.1f} '
+                     f'L {X(tipx+back):.1f},{Y(st["y"]+0.030):.1f} Z" fill="{INK}"/>')
+            for which, xx in (("5'", st["five_prime_x"]), ("3'", st["three_prime_x"])):
+                dx = -0.035 if xx < 0.5 else 0.035
+                o.append(f'<text x="{X(xx+dx):.1f}" y="{Y(st["y"]+0.016):.1f}" '
+                         f'text-anchor="middle" font-size="{FM:.1f}" fill="{INK}">{which}</text>')
+        for r in g["dna_rungs"]:
+            for b, yb in ((r["top"], r["y_top"]), (r["bottom"], r["y_bot"] - r["h"])):
+                o.append(f'<rect x="{X(r["x"]-r["w"]/2):.1f}" y="{Y(yb):.1f}" '
+                         f'width="{r["w"]*pw:.1f}" height="{r["h"]*ph:.1f}" '
+                         f'rx="{min(pw,ph)*0.010:.1f}" fill="{LIGHT}" fill-opacity="0.7" '
+                         f'stroke="{INK}" stroke-width="1"/>')
+                o.append(f'<text x="{X(r["x"]):.1f}" y="{Y(yb+r["h"]*0.70):.1f}" '
+                         f'text-anchor="middle" font-size="{FM:.1f}" fill="{INK}">{b}</text>')
+            for bd in r["bonds"]:
+                o.append(f'<line x1="{X(bd["x"]):.1f}" y1="{Y(bd["y0"]):.1f}" '
+                         f'x2="{X(bd["x"]):.1f}" y2="{Y(bd["y1"]):.1f}" stroke="{GRAY}" '
+                         f'stroke-width="1" stroke-dasharray="2 2"/>')
+        for ld in g.get("dna_leaders", []):
+            o.append(f'<line x1="{X(ld["x0"]):.1f}" y1="{Y(ld["y0"]):.1f}" '
+                     f'x2="{X(ld["x1"]):.1f}" y2="{Y(ld["y1"]):.1f}" stroke="{GRAY}" '
+                     f'stroke-width="1"/>')
+        for lb in g.get("dna_labels", []):
+            o.append(f'<text x="{X(lb["x"]):.1f}" y="{Y(lb["y"]):.1f}" text-anchor="{lb["anchor"]}" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(lb["label"])}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+
+    # membrane: the bilayer and the things embedded in it
+    if g.get("mb_heads"):
+        ox, oy = L, T
+        X = lambda u: ox + u * pw
+        Y = lambda v: oy + v * ph
+        for t in g["mb_tails"]:
+            o.append(f'<line x1="{X(t["x0"]):.1f}" y1="{Y(t["y0"]):.1f}" '
+                     f'x2="{X(t["x1"]):.1f}" y2="{Y(t["y1"]):.1f}" stroke="{GRAY}" '
+                     f'stroke-width="1"/>')
+        for h in g["mb_heads"]:
+            o.append(f'<circle cx="{X(h["x"]):.1f}" cy="{Y(h["y"]):.1f}" '
+                     f'r="{h["r"]*min(pw,ph):.1f}" fill="{BG}" stroke="{INK}" stroke-width="1"/>')
+        for b in g["mb_incl"]:
+            fill = LIGHT if b["kind"] == "steroid" else BG
+            o.append(f'<rect x="{X(b["x"]):.1f}" y="{Y(b["y"]):.1f}" '
+                     f'width="{b["w"]*pw:.1f}" height="{b["h"]*ph:.1f}" '
+                     f'rx="{b["r"]*min(pw,ph):.1f}" fill="{fill}" stroke="{INK}" '
+                     f'stroke-width="{SW*0.8:.1f}"/>')
+        for ch in g["mb_chains"]:
+            for sg in ch["segments"]:
+                o.append(f'<line x1="{X(sg["x0"]):.1f}" y1="{Y(sg["y0"]):.1f}" '
+                         f'x2="{X(sg["x1"]):.1f}" y2="{Y(sg["y1"]):.1f}" stroke="{INK}" '
+                         f'stroke-width="1"/>')
+            for nd in ch["nodes"]:
+                o.append(f'<circle cx="{X(nd["x"]):.1f}" cy="{Y(nd["y"]):.1f}" '
+                         f'r="{nd["r"]*min(pw,ph):.1f}" fill="{BG}" stroke="{INK}" '
+                         f'stroke-width="1"/>')
+        for sl in g.get("mb_side_labels", []):
+            o.append(f'<text x="{X(sl["x"]):.1f}" y="{Y(sl["y"]):.1f}" '
+                     f'text-anchor="{sl.get("anchor","start")}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(sl["label"])}</text>')
+        for ld in g.get("mb_leaders", []):
+            o.append(f'<line x1="{X(ld["x0"]):.1f}" y1="{Y(ld["y0"]):.1f}" '
+                     f'x2="{X(ld["x1"]):.1f}" y2="{Y(ld["y1"]):.1f}" stroke="{GRAY}" '
+                     f'stroke-width="1"/>')
+        for lb in g.get("mb_labels", []):
+            o.append(f'<text x="{X(lb["x"]):.1f}" y="{Y(lb["y"]):.1f}" text-anchor="{lb["anchor"]}" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(lb["label"])}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+
+    # electrochemical cell: two half-cells, the external circuit and the bridge
+    if g.get("ec_cells"):
+        ox, oy = L, T
+        X = lambda u: ox + u * pw
+        Y = lambda v: oy + v * ph
+        for c in g["ec_cells"]:
+            sol, bk = c["solution"], c["beaker"]
+            o.append(f'<rect x="{X(sol["x"]):.1f}" y="{Y(sol["y"]):.1f}" '
+                     f'width="{sol["w"]*pw:.1f}" height="{sol["h"]*ph:.1f}" '
+                     f'fill="{LIGHT}" fill-opacity="0.7"/>')
+            # Open-topped: a beaker with a lid is a sealed vessel.
+            o.append(f'<path d="M {X(bk["x"]):.1f},{Y(bk["y"]):.1f} '
+                     f'L {X(bk["x"]):.1f},{Y(bk["y"]+bk["h"]):.1f} '
+                     f'L {X(bk["x"]+bk["w"]):.1f},{Y(bk["y"]+bk["h"]):.1f} '
+                     f'L {X(bk["x"]+bk["w"]):.1f},{Y(bk["y"]):.1f}" fill="none" '
+                     f'stroke="{INK}" stroke-width="{SW:.1f}" stroke-linejoin="round"/>')
+            o.append(f'<line x1="{X(bk["x"]):.1f}" y1="{Y(c["level"]):.1f}" '
+                     f'x2="{X(bk["x"]+bk["w"]):.1f}" y2="{Y(c["level"]):.1f}" '
+                     f'stroke="{GRAY}" stroke-width="1"/>')
+            e = c["electrode"]
+            o.append(f'<rect x="{X(e["x"]):.1f}" y="{Y(e["y"]):.1f}" '
+                     f'width="{e["w"]*pw:.1f}" height="{e["h"]*ph:.1f}" '
+                     f'fill="{LIGHT}" fill-opacity="0.85" stroke="{INK}" stroke-width="{SW*0.9:.1f}"/>')
+        br = g["ec_bridge"]
+        o.append(f'<path d="M {X(br["x_left"]):.1f},{Y(br["y_dip"]):.1f} '
+                 f'L {X(br["x_left"]):.1f},{Y(br["y_top"]):.1f} '
+                 f'L {X(br["x_right"]):.1f},{Y(br["y_top"]):.1f} '
+                 f'L {X(br["x_right"]):.1f},{Y(br["y_dip"]):.1f}" fill="none" '
+                 f'stroke="{GRAY}" stroke-width="{SW*2.2:.1f}" stroke-linejoin="round" '
+                 f'stroke-linecap="round" stroke-opacity="0.9"/>')
+        for w in g["ec_wires"]:
+            o.append(f'<line x1="{X(w["x0"]):.1f}" y1="{Y(w["y0"]):.1f}" '
+                     f'x2="{X(w["x1"]):.1f}" y2="{Y(w["y1"]):.1f}" stroke="{INK}" '
+                     f'stroke-width="{SW*0.9:.1f}"/>')
+        mt = g["ec_meter"]
+        o.append(f'<circle cx="{X(mt["x"]):.1f}" cy="{Y(mt["y"]):.1f}" '
+                 f'r="{mt["r"]*min(pw,ph):.1f}" fill="{BG}" stroke="{INK}" '
+                 f'stroke-width="{SW:.1f}"/>')
+        o.append(f'<text x="{X(mt["x"]):.1f}" y="{Y(mt["y"])+FM*0.36:.1f}" '
+                 f'text-anchor="middle" font-size="{FM*1.05:.1f}" fill="{INK}">'
+                 f'{esc(mt["glyph"])}</text>')
+        # The ion arrows and their captions go together: at compact the captions
+        # are dropped, and three unexplained arrows are worse than two fewer.
+        # The electron arrow stays, because "e-" is two characters wide.
+        for ar in [g["ec_electron"]] + (g["ec_ions"] if SHOW_ANN else []):
+            # Every one of these arrows is horizontal, so the head is two
+            # points back from the tip: no trigonometry, and nothing for a
+            # port to round differently.
+            hx = min(pw, ph) * 0.024
+            ax0, ay0 = X(ar["x0"]), Y(ar["y0"])
+            ax1, ay1 = X(ar["x1"]), Y(ar["y1"])
+            back = -hx if ax1 > ax0 else hx
+            o.append(f'<line x1="{ax0:.1f}" y1="{ay0:.1f}" x2="{ax1+back*0.6:.1f}" '
+                     f'y2="{ay1:.1f}" stroke="{INK}" stroke-width="{SW*0.9:.1f}"/>')
+            o.append(f'<path d="M {ax1:.1f},{ay1:.1f} L {ax1+back:.1f},{ay1-hx*0.62:.1f} '
+                     f'L {ax1+back:.1f},{ay1+hx*0.62:.1f} Z" fill="{INK}"/>')
+            if SHOW_ANN or ar is g["ec_electron"]:
+                mx = (ar["x0"] + ar["x1"]) / 2
+                o.append(f'<text x="{X(mx):.1f}" y="{Y(ar["y0"])-FO*0.55:.1f}" '
+                         f'text-anchor="middle" font-size="{FO:.1f}" fill="{GRAY}">'
+                         f'{esc(ar["label"])}</text>')
+        for ld in g.get("ec_leaders", []):
+            if ld.get("ann") and not SHOW_ANN:
+                continue
+            o.append(f'<line x1="{X(ld["x0"]):.1f}" y1="{Y(ld["y0"]):.1f}" '
+                     f'x2="{X(ld["x1"]):.1f}" y2="{Y(ld["y1"]):.1f}" stroke="{GRAY}" '
+                     f'stroke-width="1"/>')
+        for lb in g.get("ec_labels", []):
+            if lb.get("ann") and not SHOW_ANN:
+                continue
+            o.append(f'<text x="{X(lb["x"]):.1f}" y="{Y(lb["y"]):.1f}" text-anchor="{lb["anchor"]}" '
+                     f'font-size="{FM:.1f}" fill="{INK}">{esc(lb["label"])}</text>')
+        if g.get("unit_note") and SHOW_ANN:
+            o.append(f'<text x="{L:.1f}" y="{T + ph + FO*1.4:.1f}" font-size="{FO:.1f}" '
+                     f'fill="{GRAY}">{esc(g["unit_note"])}</text>')
+
     # circuit symbol sheet
     if g.get("cs_cells"):
         cells, cols = g["cs_cells"], g["cs_cols"]
