@@ -5,7 +5,7 @@
 **Tier:** Standard implementation; Hard-Gate release
 **Date:** 2026-10-12
 **Branch:** codex/question-report-email (Cramapple backend and ap-prep-blueprint App)
-**PR:** Pending creation
+**PR:** https://github.com/david-bloom/Cramapple/pull/428 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/17 (App)
 
 ## Authorization
 
