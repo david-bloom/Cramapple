@@ -49,3 +49,13 @@ Cleanup was attempted through the Supabase tool and was declined. A read-only cl
 Backend PR #428 and App PR #17 remain draft; no merges, Production migrations/deployments or Lovable publication occurred. Automatic approval review rejected changing the App PR out of draft because it interpreted “there is no review” as forbidding that review/release-state change. This is a tool-action restriction, not an owner-requested product review or a requirement for broader database permissions. The earlier account-creation restriction was resolved by the owner's explicit approval. The earlier inbox-test dependency above is superseded by this verified result.
 
 The owner then requested preserving More help and ending the session. No notification release or cleanup continuation is authorized by that documentation-only closeout. Next continuation should be limited to the requested notification release/cleanup; More help is separately paused.
+
+## Resumption verification (2026-10-13)
+
+Owner restated the simple optional-note reporting request and accepted either email or admin delivery, whichever is easier. Existing email implementation was retained. Read current backend/App PRs and App/Lovable main; the feature remained unmerged and absent from Lovable main. App PR #17 had one import conflict with main's Formula renderer; resolved by preserving both imports and merging current main into the existing feature branch.
+
+App checkpoint `5e2491b62a5a641a17e33d148b74e720f60c1dec`: `npx vitest run` on question-issue-report, question-experience-render, question-design-rules and formula-rendering passes (4 files / 51 tests); `npx tsc --noEmit`, `npm run build` and `git diff --check` pass. Diff against main contains only the report control, report client, existing interactive tests and question-pane wiring. This is a fresh source/build verification, not a new browser or inbox test. Earlier desktop/phone and inbox evidence remains as documented above.
+
+The temporary checkout initially lacked main's new katex dependency. `npm ci` revealed an already-stale npm lockfile; `npm install --ignore-scripts --package-lock=false --no-audit --no-fund` installed declared dependencies for validation without changing committed package/lockfiles. No new product dependencies were introduced.
+
+Production release approval remains pending. No new email, database/secret change, merge, publication or test-account cleanup occurred in this continuation.

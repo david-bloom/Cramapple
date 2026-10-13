@@ -32,8 +32,16 @@ Implementation is authorized by the owner's explicit request. No claim of succes
 
 ## Implementation checkpoint
 
-See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and Development state. All App tests/build/typecheck and backend handler/database checks pass. Full signed-in inbox test awaits a specifically authorized test account or an existing account; automatic approval review rejected creating an Auth fixture without that authorization. Production remains unchanged.
+See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and Development state. App tests/build/typecheck and backend handler/database checks passed. Signed-in Development inbox delivery was subsequently verified and approved by David, as recorded below. Production release remains pending.
 
 ## Owner confirmation and session end (2026-10-13)
 
 The owner approved the test account, confirmed receipt of the correct notification email, and specified no additional review and simple notification-only scope. See the QA record’s closeout correction: one delivery, no duplicate retry, foreign-session rejection, cleanup declined/account remains, local credentials removed. Both PRs remain draft and Production is unchanged. No new database rights were requested. The More help documentation-only closeout does not resume this separate release.
+
+## Resumed session (2026-10-13)
+
+David requested starting a session for this exact feature, emphasizing a simple notification with an optional note. Asked whether email or the admin portal was preferred, he answered: “email or the admin portal- whichever is easier.” Continue the already-built email path; no category selection or new admin workflow is needed.
+
+The existing App PR conflicted with main's new Formula import. The conflict was resolved by retaining both imports and merging App main `2bb35c6825b84691f8e6d701601a6d1f0cfff9be` into the existing feature branch. App checkpoint: `5e2491b62a5a641a17e33d148b74e720f60c1dec`. The diff against current main remains the four report-feature files only. Focused report/question rendering/design/formula tests: 4 files, 51 tests pass; TypeScript and build pass. No lockfile changes were made. Initial dependency checks encountered the existing stale npm lockfile; installing declared dependencies without changing lockfiles enabled validation.
+
+No Production migration, endpoint deployment, PR merge, or Lovable publication is authorized by the session-start request alone. Next owner: David, for explicit Production release approval. After approval, release the two recorded migrations and report-question endpoint before publishing the App, checking the actual publication delta for unrelated work. Keep the separate More help demo paused and leave the previously declined test-account cleanup untouched.
