@@ -15,7 +15,9 @@ AP Chemistry Unit 4; 102 entries, 3 hooks, $20.29).
 
 ## 1. What this produces, and what it never produces
 
-A **reference entry** is one thing a student may look up for a topic: a formula (LaTeX), a vocabulary
+A **reference entry** is one thing a student may look up for a topic: a formula (LaTeX — write
+division as `\frac{}{}`, never an inline slash; see the Equation presentation rule in
+`docs/new_design/CONTENT_AND_PEDAGOGY.md` for the four cases that keep the slash), a vocabulary
 term with its CED definition, an ordered list or sequence, a sign or direction convention, or the
 labelled parts of a diagram the CED requires. It is owned by one topic (`owner_topic_code`) and lists
 every later topic in the unit that reuses it (`topic_codes`). Ownership follows the rule in §1.1.
@@ -221,9 +223,12 @@ directory holding `pdftotext -layout` output of the CED PDF.
 
 Statistics Unit 2 and Chemistry Unit 5 next (the pilot subjects), then Biology Units 1–3 (day-1 subject),
 then the remaining subjects by active-student count. One unit per run; two units per session is fine.
-Open design items that do not block content: row limits for the pane's "Look up" block; a formula
-renderer (formulas currently display as LaTeX source in monospace); `TASK-0054`'s taxonomy FK, which
-both tables should adopt together when it lands.
+Open design items that do not block content: row limits for the pane's "Look up" block; `TASK-0054`'s
+taxonomy FK, which both tables should adopt together when it lands. **The formula renderer is no longer
+an open design item**: as of 2026-10-12 the rule is that a surface which cannot render LaTeX may not show
+it, and equations render with KaTeX (`docs/new_design/CONTENT_AND_PEDAGOGY.md`, Equation presentation).
+The renderer is not yet built in the app, so published formulas still reach students as monospace source
+until it ships — that is now a defect being tracked, not an accepted state.
 
 ## Change note
 

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0119 — Equation Presentation: a Quotient of Compound Expressions Is Stacked, Four Conventional Slashes Are Kept, and a Surface That Cannot Render LaTeX May Not Show It; Rendered Equations Use KaTeX's Own Faces, Amending the STIX Two Math Rule
 - DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help; Assistance Timing Rules Stay in Force
 - DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
 - DECISION-0116 — When a Published Entry Authors No `items[]`, the Figure's Own `labels` Are the Contract (Route b); Carried Per Use, Gated in `verify.py`
@@ -68,6 +69,22 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0119 — Equation Presentation: Compound Quotients Stack, Four Conventional Slashes Are Kept, and LaTeX Is Rendered or Not Shown
+
+- **Date:** 2026-10-12
+- **Decided by:** David Bloom (Product Owner), in session: "start a cramapple session focused on equation presentation. Equations with division should be stacked, not separated with /", then "use katex default fonts, write the rule first".
+- **Context:** David raised this from a prototype screenshot. Investigation found the premise was half right and the halves live in different places. In `app.unit_reference_entries`, authors already write division as `\frac{}{}`: of 327 formula entries (325 published), 144 use `\frac` and exactly four contain a slash, all four legitimate (`t_{1/2}`, `d/7`, `b^{1/k}`, the unit `m/s`). There were **no** content violations. The defect was that the app never rendered any of it — `ReferencePane.jsx` shows formula bodies as plain monospace text, so 308 published formulas reach students as raw backslashes. Separately, question and teaching prose (stems, choices, rationales, FRQ criteria, explainers, briefs) carries **zero** LaTeX and writes real compound quotients inline, e.g. `(x²−4)/(x−2)` and `(214 - 190)/(6 - 5)`.
+- **Decision:**
+  1. A quotient whose numerator or denominator is a compound expression is **stacked**, never written inline with a slash.
+  2. Four cases **keep** the slash, because stacking them reads as an error: compound units (`m/s`, `g/mol`, `mol/L`); Leibniz derivative notation (`dy/dx`); single-symbol quotients and simple reciprocals (`kq/r²`, `1/2`); and fractions inside an argument, subscript or exponent (`sin(7π/6)`, `t_{1/2}`, `b^{1/k}`).
+  3. The slash in a score (`1 / 1`, `— / 1`) is not division and is untouched.
+  4. Mathematics is authored as LaTeX, and **a surface that cannot render it may not show it**. Printing LaTeX source to a student is a defect, not a fallback.
+  5. Rendered equations use **KaTeX in its own bundled faces**. David chose this against a side-by-side rendering of real published formulas; forcing STIX Two Math over KaTeX degrades its metrics, which are tuned for its own faces.
+- **Amends:** `docs/new_design/VISUAL_IDENTITY.md` ("STIX Two Math is reserved for set mathematics"), annotated in place per the `docs/INDEX.md` annotate-don't-rewrite rule. STIX Two Math still owns mathematical characters set in prose, which KaTeX does not touch.
+- **Evidence:** macro survey over the 308 published LaTeX formulas found 74 distinct macros, including `\begin`/`\end` environments, `\oint`, `\binom` and `\mathcal` — a hand-rolled subset renderer would have silently broken a long tail, which is why KaTeX rather than a bespoke renderer. Side-by-side rendering: `docs/product/EQUATION_PRESENTATION_RENDERING_COMPARISON_2026_10_12.html` (KaTeX rendered all sampled bodies with zero errors).
+- **Scope and what is NOT decided:** this records the rule and the renderer choice only. The KaTeX renderer is **not yet built** in the app, so published formulas still reach students as monospace source until it ships — now a tracked defect, not an accepted state. The prose retrofit is **not** authorised here. Its true size, measured 2026-10-12: 7,214 prose rows contain a slash, but 969 are unit-like and 553 are Leibniz notation; the unambiguous violations are the **402 rows matching `(compound)/(compound)`** (1,013 with a parenthesised numerator over anything) — sampled and confirmed to be real rational functions. Earlier drafts of this session quoted table sizes (4,400 stems, 11,456 choices) as the scope, which overstated it by two orders of magnitude. The retrofit and needs its own task record, a notation decision for surfaces that carry no LaTeX today, and a Production hard gate.
+- **Execution:** documentation only. No Production write, no migration, no app change in this decision.
 
 ## DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help
 
