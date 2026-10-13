@@ -1,6 +1,6 @@
 # Question-pane issue reports with email
 
-**Status:** Approved — implementation and inbox test complete; Production release pending
+**Status:** Approved — released to Production; live report and inbox delivery verified
 **Owner:** David Bloom / Codex conductor
 **Tier:** Standard implementation; Hard-Gate release
 **Date:** 2026-10-12
@@ -33,7 +33,7 @@ Implementation is authorized by the owner's explicit request. No claim of succes
 
 ## Implementation checkpoint
 
-See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and Development state. App tests/build/typecheck and backend handler/database checks passed. Signed-in Development inbox delivery was subsequently verified and approved by David, as recorded below. Production release remains pending.
+See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and deployment evidence. App tests/build/typecheck and backend handler/database checks passed. Development and Production signed-in inbox delivery are verified. The Production release is complete, as recorded below.
 
 ## Owner confirmation and session end (2026-10-13)
 
@@ -46,3 +46,11 @@ David requested starting a session for this exact feature, emphasizing a simple 
 The existing App PR conflicted with main's new Formula import. The conflict was resolved by retaining both imports and merging App main `2bb35c6825b84691f8e6d701601a6d1f0cfff9be` into the existing feature branch. App checkpoint: `5e2491b62a5a641a17e33d148b74e720f60c1dec`. The diff against current main remains the four report-feature files only. Focused report/question rendering/design/formula tests: 4 files, 51 tests pass; TypeScript and build pass. No lockfile changes were made. Initial dependency checks encountered the existing stale npm lockfile; installing declared dependencies without changing lockfiles enabled validation.
 
 The session-start request alone did not authorize Production. David subsequently explicitly approved release on October 13, as recorded in the header. Next action: apply the two reporting migrations and deploy report-question before merging/publishing the App; verify the publication delta and live report flow. Keep the separate More help demo paused and leave the previously declined test-account cleanup untouched.
+
+## Production outcome (2026-10-13)
+
+Production migrations are recorded under `20261013131208` and `20261013131212`, with identical bodies to the Development migrations. `report-question` v1 is active with JWT verification. App PR #17 merged as `ba3305577bc398a8f4c3c88a6e8a2984b95a7d2d`, its main CI passed, and Lovable publication `3a048eb0-4f4e-4ce1-be67-27853c84b4d5` is live on `app.cramapple.com`.
+
+Verified the actual signed-in Production question page: the old notice is gone, the report link opens one optional-comment form, and a blank-comment send succeeds. Receipt `e1c93811-1d03-4cd0-94cf-e97b6efa8845` is sent with exactly one delivery attempt; Gmail message `1a13568619a38891` arrived in the owner's inbox with the authoritative Calculus question and “No comment added.” No student answer/identity appears in the email. Screenshot and complete evidence are in the QA record.
+
+Release scope is complete. Next owner: David, to receive ordinary student reports and decide any content fixes. The declined Development test-account cleanup remains separately open; More help remains paused. No further deployment approval is needed for the release just completed.

@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-12 (America/New_York)
 **Scope:** Owner-requested question-pane report link; separate from the paused More help demo.
-**State:** Built and tested; Development backend deployed; signed-in inbox delivery verified; Production release and test-account cleanup pending.
+**State:** Released to Production; live blank-comment report and owner-inbox delivery verified. Previously declined Development test-account cleanup remains separate.
 
 ## Result
 
@@ -60,7 +60,7 @@ The temporary checkout initially lacked main's new katex dependency. `npm ci` re
 
 Production release approval remains pending. No new email, database/secret change, merge, publication or test-account cleanup occurred in this continuation.
 
-## Approved Production release (2026-10-13, in progress)
+## Approved Production release (2026-10-13, verified)
 
 David explicitly approved: “I Approve releasing this to production”. This approval covers the two existing PRs and their reporting-backend/App release. Production project identity was live-verified as Cramapple - Production, `pcntajvbdfqhbeewmdry`.
 
@@ -69,3 +69,14 @@ Applied the two unchanged migration bodies in Production as ledger versions `202
 Deployed `report-question` version 1 with the CLI's API bundle from the task worktree and explicit Production project ref. Live function is ACTIVE and retains `verify_jwt=true`. Read-only permission checks confirm RLS enabled, anon read denied, authenticated insert/reservation denied, and service-role reservation permitted. Production OPTIONS from `https://app.cramapple.com` returns 200 and the matching allow-origin header.
 
 App PR #17 merged as `ba3305577bc398a8f4c3c88a6e8a2984b95a7d2d`; Lovable reflects that same source. The pre-publication production HTML already includes its Formula asset, confirming the formula renderer was present in the published baseline. The App PR's diff against that current main contains only four report-feature files. App publication and authenticated report verification are next; no test-account creation/cleanup or More help change is included.
+
+Publication and live verification subsequently completed:
+
+- Merged App main CI: success. Lovable deployment `3a048eb0-4f4e-4ce1-be67-27853c84b4d5` initially returned pending, then its actual `app.cramapple.com/question` UI was verified with the new report link and without the old saved-work text.
+- Opened a separate tab in the owner's existing authenticated browser session. One optional textarea and Send report were visible; no required category. Sent one report with the note left empty; the UI showed “Thanks — your report has been sent.” No answer was submitted, graded or changed.
+- Production receipt `e1c93811-1d03-4cd0-94cf-e97b6efa8845`: question version `f13536f0-6e46-4c8c-84ab-71b49c9fa12b`, `mode=practice`, `subject=ap-calculus-ab`, note length 0, `notification_state=sent`, `delivery_attempts=1`, notified at `2026-10-13 13:16:34 UTC`.
+- Gmail message `1a13568619a38891` arrived at `2026-10-13 09:16:35 America/New_York` in the owner's Inbox. Plain text matches the served secant-slope question, exact version, practice mode, “No comment added.” and receipt reference. Student identity and answers are absent.
+- Unauthenticated Production POST returns 401. Security advisors show only the expected [RLS-enabled/no-policy informational notice](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy) for this service-only receipt table; no browser grant/policy was opened.
+- [Production success screenshot](evidence/question-report-production-success.png) preserves the visible confirmation and surrounding question page. Original Development desktop/375px, retry/no-duplicate and foreign-session evidence remains applicable; no new account or cleanup was needed.
+
+The reporting release is verified. More help remains paused and the previously declined Development cleanup remains untouched.
