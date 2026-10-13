@@ -1,11 +1,11 @@
 # Question-pane issue reports with email
 
-**Status:** Approved — implementation scope; release requires verified delivery and review
+**Status:** Approved — implementation built; release requires verified delivery and review
 **Owner:** David Bloom / Codex conductor
 **Tier:** Standard implementation; Hard-Gate release
 **Date:** 2026-10-12
 **Branch:** codex/question-report-email (Cramapple backend and ap-prep-blueprint App)
-**PR:** Pending
+**PR:** Pending creation
 
 ## Authorization
 
@@ -29,3 +29,7 @@ App main/Lovable checkpoint 89888d6; text in src/screens/question-experience/Que
 ## Release boundary
 
 Implementation is authorized by the owner's explicit request. No claim of successful publication, delivery or Done until actual end-to-end evidence. Production publication must account for pending unrelated App changes; do not publish those as an incidental part of this task.
+
+## Implementation checkpoint
+
+See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and Development state. All App tests/build/typecheck and backend handler/database checks pass. Full signed-in inbox test awaits a specifically authorized test account or an existing account; automatic approval review rejected creating an Auth fixture without that authorization. Production remains unchanged.
