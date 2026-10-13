@@ -1,6 +1,6 @@
 # TASK-0072 — Raise figure text to the reading floor (DECISION-0120)
 
-**Status:** **Open, not started.** Measurement is done; no code or content change has been made.
+**Status:** **Notes page done, pending review** — `ap-prep-blueprint` PR #20, one column so each figure gets the whole row. Scoped by David 2026-10-13 to the notes page only; not launch blocking; the floor need not hold on a phone. The reference pane, the dialog and sub-1130px widths are **out of scope and still below the floor.**
 **Tier:** Standard for the build; **Hard-Gate** for the Production figure reload.
 **Owner:** unassigned. **Product Owner:** David Bloom.
 **Branch / PR:** none yet.
@@ -148,11 +148,37 @@ Measured 2026-10-13 at a 1440px desktop viewport, against the smallest in-scope 
 far enough on some surface, the fallback is a type bump on the in-scope roles only — cheap now that ticks
 are exempt — but that is a second choice, not the plan.
 
-## Open questions for the Product Owner
+## Scope — RULED, 2026-10-13
 
-1. **Is this launch-blocking?** The figures are live and have been since 2026-10-12. Nobody reported them;
-   they were found by measurement, not by a student.
-2. **Is the floor expected to hold on a phone?** Scale cannot deliver it there at any preset.
+David: **"not launch blocking, and the floor doesn't need to hold on phone. Fix on the notes page only."**
+
+So: the notes sheet is in scope; the reference pane, the expanded dialog and phone widths are not.
+
+### What shipped for the notes page
+
+The notes sheet draws figures at the `full` preset (viewBox 680), so the floor needs a 989px slot. The
+two-column grid was halving it. One column, measured in the harness:
+
+| Viewport | Two columns (before) | One column (after) |
+|---|---|---|
+| 1440 | 638px slot → 10.3px | **1296px → 21.0px** |
+| 1280 | 558px slot → 9.0px | **1136px → 18.4px** |
+| 1100 | 956px → 15.5px | 956px → 15.5px (already one column) |
+| 768 | 672px → 10.9px | 672px → 10.9px (already one column) |
+
+A design-rule test holds the single column; the regression would be one line of CSS.
+
+### What remains below the floor, deliberately
+
+- **Viewports below ~1130px**, where the sheet is itself narrower than 989px. It is already single-column
+  there, so scale has nothing left to give. Closing this would need a type bump on the in-scope roles.
+- **The reference pane** (~324px; needs 495px even at `compact`) and **the expanded dialog**, both out of
+  scope by the ruling above.
+- **Everything on a phone**, by the same ruling.
+
+**A correction worth keeping:** the first measurement of the notes page reported it as already passing. That
+was wrong — it used viewBox 340 (`compact`), while the sheet renders `layout="full"` (680). Always read the
+preset off the calling component rather than assuming it from the surface.
 
 ## Definition of done
 
