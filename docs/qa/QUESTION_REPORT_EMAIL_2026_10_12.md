@@ -59,3 +59,13 @@ App checkpoint `5e2491b62a5a641a17e33d148b74e720f60c1dec`: `npx vitest run` on q
 The temporary checkout initially lacked main's new katex dependency. `npm ci` revealed an already-stale npm lockfile; `npm install --ignore-scripts --package-lock=false --no-audit --no-fund` installed declared dependencies for validation without changing committed package/lockfiles. No new product dependencies were introduced.
 
 Production release approval remains pending. No new email, database/secret change, merge, publication or test-account cleanup occurred in this continuation.
+
+## Approved Production release (2026-10-13, in progress)
+
+David explicitly approved: “I Approve releasing this to production”. This approval covers the two existing PRs and their reporting-backend/App release. Production project identity was live-verified as Cramapple - Production, `pcntajvbdfqhbeewmdry`.
+
+Applied the two unchanged migration bodies in Production as ledger versions `20261013131208_question_issue_reports` and `20261013131212_question_issue_reports_worked_examples`. Source files were renamed to those actual recorded Production versions; their original Development versions remain documented above and preserved in earlier Git commits. No duplicate migration bodies were added to the current source tree.
+
+Deployed `report-question` version 1 with the CLI's API bundle from the task worktree and explicit Production project ref. Live function is ACTIVE and retains `verify_jwt=true`. Read-only permission checks confirm RLS enabled, anon read denied, authenticated insert/reservation denied, and service-role reservation permitted. Production OPTIONS from `https://app.cramapple.com` returns 200 and the matching allow-origin header.
+
+App PR #17 merged as `ba3305577bc398a8f4c3c88a6e8a2984b95a7d2d`; Lovable reflects that same source. The pre-publication production HTML already includes its Formula asset, confirming the formula renderer was present in the published baseline. The App PR's diff against that current main contains only four report-feature files. App publication and authenticated report verification are next; no test-account creation/cleanup or More help change is included.
