@@ -1,5 +1,12 @@
 # Cramapple Visual Identity — canonical
 
+> **This file is a SNAPSHOT and has drifted from the canonical copy.** Canon is
+> `docs/new_design/VISUAL_IDENTITY.md` in the Cramapple repository; read it when the two disagree.
+> Known drift as of 2026-10-13: the fixed 1440x900 never-scrolls plate rule below is **SUPERSEDED** —
+> the plate has been responsive since 2026-09-26 (one-pager row D3). Colour, type, corner, motion, mark
+> and iconography remain current. Re-syncing this snapshot is its own change, not done here.
+
+
 Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. See `README.md` in this folder for what changed and why.
 
 **The plate.** Every template is a fixed 1440×900 frame that never scrolls and never has a collapsed region. `overflow: hidden` at the frame, a 70px orange masthead, a 48px breadcrumb bar, then a three-column grid — 352px / fluid / 324px with 20px gaps inside 40px gutters — and a single 10px caption line at the bottom. **Content is sized to fit; it is never made reachable by scrolling or expanding.** If something does not fit, cut copy or restructure the layout. This is a hard rule and the most common way to break the system.
@@ -21,6 +28,24 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal appears only as one accent rule inside the deep dive.
 
 **Type.** Bungee is the wordmark and nothing else. Passion One sets pane titles, scores and overlay titles at 22–32px; it is used at display sizes only, never for prose. Source Sans 3 does all reading and all controls. STIX Two Math is reserved for set mathematics. **Body copy never goes below 16px** — chrome (breadcrumb 13px, counts 12px, eyebrows 12px, the plate caption 10px) is the only exception, and never for content a student must read to answer. Eyebrows are 12px, 700 weight, uppercase, `.15em` tracking.
+
+**Sizing what a student reads — the floor is the smallest glyph, not the element.** The 16px floor is a
+*reading* rule: it binds on the smallest character a student must read to answer, measured in rendered
+pixels on screen, not on the nominal size of the element containing it. When you build anything with
+mathematics, a chart or a diagram in it:
+
+- **Mathematics** renders in display style (`\displaystyle`) so a fraction's numerator and denominator
+  are not shrunk to 0.7×; base 1.3em, giving ~21px digits against 16px prose. A one-symbol label beside
+  its meaning renders *compact* (inline style) instead, or a lone `\sum_i` towers over its own
+  definition line.
+- **Figures, charts and diagrams** author their text in SVG user units and are then scaled to their
+  container, so **the authored size and the rendered size must both clear the floor.** Do not copy the
+  existing published figures as a reference for type size: they were measured in 2026-10 at 99.8% of
+  labels below 16px and 87.1% below 12px, and that is an open defect (`DECISION-0120`), not the standard.
+- **Exempt:** chrome (breadcrumb 13px, counts 12px, eyebrows 12px, plate caption 10px), and the
+  subordinate characters of ordinary maths typography — subscripts, superscripts, limits.
+
+Check it by measuring the rendered output, never by eye or from the source numbers.
 
 **Backgrounds and imagery.** Paper white plates on a `--paper-100` desk; chrome bars in `--paper-050`. Graphics are the question's own data — a scatterplot, a table — drawn as inline SVG on a `--purple-tint-05` field with a `--purple-rule` border, axis labels in `--purple-500`. Influence points and other called-out marks are yellow. There is no photography, no illustration, no gradient, and no texture anywhere in the product.
 

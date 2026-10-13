@@ -33,6 +33,35 @@ Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and elimin
 
 **Type.** Bungee is the wordmark and nothing else. Passion One sets pane titles, scores and overlay titles at 22–32px; it is used at display sizes only, never for prose. Source Sans 3 does all reading and all controls. STIX Two Math is reserved for set mathematics. *(AMENDED 2026-10-12: **rendered** equations use KaTeX's own bundled faces, not STIX Two Math. Chosen by David on a side-by-side rendering of real published formulas — KaTeX's spacing is tuned for its own faces, and forcing STIX Two Math over it degrades the metrics. STIX Two Math still owns mathematical characters set in prose, which KaTeX does not touch. Rule: `CONTENT_AND_PEDAGOGY.md`, Equation presentation.)* **Body copy never goes below 16px** — chrome (breadcrumb 13px, counts 12px, eyebrows 12px, the plate caption 10px) is the only exception, and never for content a student must read to answer. Eyebrows are 12px, 700 weight, uppercase, `.15em` tracking.
 
+**Sizing what a student reads — the floor is the smallest glyph, not the element.** The 16px floor
+above is a *reading* rule, so it binds on the smallest character a student must read to answer, measured
+in rendered pixels on screen. It does not bind on the nominal size of the thing containing it. This
+distinction is not pedantic; it is the whole rule, and both times it has been missed the result shipped:
+
+- **Mathematics.** A formula is content a student must read. KaTeX's inline style renders a fraction's
+  numerator and denominator at `size3` (0.7×), so a formula whose container was 17px put its digits at
+  about 12px. Raising the container cannot fix this, because the shrink is relative to it — the source
+  is rendered in **display style** (`\displaystyle`), which removes the shrink, at a 1.3em base. A
+  fraction's digits then measure ~21px against 16px prose. A one-symbol label (`\sum_i` beside its
+  meaning) renders *compact*, in inline style: display style there makes a full-height operator with its
+  index set beneath, towering over the line it labels.
+- **Figures and graphs.** Figure text is authored in SVG user units and then scaled to its container, so
+  the authored number is not the rendered size. Both must clear the floor. **The published figures do
+  not**: measured across 47 figures and 526 labels, **99.8% render below 16px and 87.1% below 12px**
+  (median 9.8px, smallest 8px) — that is smaller than the maths the Product Owner rejected as unreadable.
+  The authored scale in `lib/figures/render.ts` is itself under the floor (`tick: 10.5`, `mark: 11`), so
+  this is not an artefact of one layout width. **Open, not fixed**; see `DECISION-0120`.
+
+Exempt, because they are not content a student reads to answer: chrome (breadcrumb 13px, counts 12px,
+eyebrows 12px, the plate caption 10px), and the subordinate characters of ordinary maths typography —
+subscripts, superscripts and limits, which sit near 0.7× by convention and are read as part of the
+expression rather than on their own.
+
+**How to check it.** Never by eye alone and never from the source numbers. Render the thing, then measure
+the computed size of every element that paints a glyph, excluding spacers, and take the minimum. For an
+SVG, multiply the authored `font-size` by the rendered-width-to-viewBox ratio. Three separate bugs here
+were invisible to the test suite and to reading the markup, and visible in one measurement.
+
 **Backgrounds and imagery.** Paper white plates on a `--paper-100` desk; chrome bars in `--paper-050`. Graphics are the question's own data — a scatterplot, a table — drawn as inline SVG on a `--purple-tint-05` field with a `--purple-rule` border, axis labels in `--purple-500`. Influence points and other called-out marks are yellow. There is no photography, no illustration, no gradient, and no texture anywhere in the product.
 
 **Depth and transparency.** Shadows are wide, soft, and low-opacity (`0 12px 30px rgba(20,40,50,.07)`), read as paper lift rather than elevation levels. The feedback card is the one purple-cast shadow. Transparency appears only as flat color tints (`--purple-tint-06`) and the modal scrim (`--scrim`); there is no blur, no glass, no protection gradient.
