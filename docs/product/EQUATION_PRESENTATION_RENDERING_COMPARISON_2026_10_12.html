@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Equation Presentation</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Passion+One:wght@700;900&family=STIX+Two+Math&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+:root{
+  --orange-050:#fff7ed;--orange-100:#ffedd4;--orange-500:#ff6900;--orange-600:#f54900;--orange-700:#ca3500;
+  --maroon-500:#a63d51;--maroon-600:#8a2f3f;
+  --clay-500:#a6553c;
+  --ink-900:#16202a;--ink-700:#2f3d49;--ink-500:#5b6b78;--ink-400:#7d8c98;
+  --paper-000:#ffffff;--paper-050:#f7f6f3;--paper-100:#efedea;
+  --rule-200:#eceae6;--rule-300:#dedbd5;--rule-400:#c7c3bb;
+  --font-display:'Passion One',system-ui,sans-serif;
+  --font-body:'Source Sans 3',system-ui,sans-serif;
+  --font-math:'STIX Two Math','Times New Roman',serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper-050);color:var(--ink-900);font-family:var(--font-body);font-size:16px;line-height:24px}
+.wrap{max-width:860px;margin:0 auto;padding:40px 16px 96px}
+h1{font-family:var(--font-display);font-weight:900;font-size:44px;line-height:44px;margin:0 0 6px}
+.lede{font-size:19px;line-height:27px;color:var(--ink-700);margin:0 0 10px}
+.meta{font-size:13px;color:var(--ink-400);margin:0 0 36px}
+h2{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:30px;margin:48px 0 4px}
+.sub{color:var(--ink-500);margin:0 0 18px;font-size:16px}
+.eyebrow{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--ink-400);margin:0 0 8px}
+.card{background:var(--paper-000);border:1px solid var(--rule-300);border-radius:4px;padding:20px 22px;margin:0 0 14px}
+.card.bad{border-left:4px solid var(--maroon-500)}
+.card.good{border-left:4px solid var(--orange-500)}
+.ttl{font-weight:600;font-size:16px;margin:0 0 10px;color:var(--ink-900)}
+.subj{font-size:12px;color:var(--ink-400);font-weight:400;margin-left:8px;letter-spacing:.02em}
+.raw{font-family:var(--font-mono);font-size:14px;line-height:22px;color:var(--ink-700);background:var(--paper-100);padding:10px 12px;border-radius:3px;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.math{font-size:19px;padding:6px 0;overflow-x:auto}
+.stix .katex{font-family:var(--font-math)!important}
+.stix .katex .mathnormal,.stix .katex .mathit{font-family:var(--font-math)!important;font-style:italic}
+.grid{display:grid;gap:14px}
+@media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}}
+.verdict{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:3px 8px;border-radius:3px;margin-bottom:10px}
+.v-bad{background:#f6eaec;color:var(--maroon-600)}
+.v-good{background:var(--orange-050);color:var(--orange-700)}
+.v-keep{background:#f8efec;color:var(--clay-500)}
+.note{font-size:15px;color:var(--ink-500);margin:8px 0 0}
+hr.rule{border:0;border-top:1px solid var(--rule-400);margin:0}
+.prose{font-size:17px;line-height:30px}
+.prose .katex{font-size:1.02em}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule-200);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-400);font-weight:700}
+td.k{font-family:var(--font-mono);font-size:13.5px;white-space:nowrap}
+.cap{font-size:13px;color:var(--ink-400);margin:14px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Equation presentation</h1>
+<p class="lede">Three renderings of the same real Production content, so the choice can be made by eye rather than by description.</p>
+<p class="meta">Cramapple &middot; 12 October 2026 &middot; Formulas below are verbatim <code>app.unit_reference_entries</code> bodies from Production &mdash; nothing invented.</p>
+<hr class="rule">
+
+<h2>1. What a student sees today</h2>
+<p class="sub">325 published formulas; 308 of them contain raw LaTeX. The app prints the source as monospace text.</p>
+<div id="s-current" class="grid"></div>
+
+<h2>2. KaTeX, default fonts</h2>
+<p class="sub">The same bodies, rendered. Division stacks because the content already says <code>\frac</code>.</p>
+<div id="s-katex" class="grid"></div>
+
+<h2>3. KaTeX, forced to STIX Two Math</h2>
+<p class="sub">The design system reserves STIX Two Math for mathematics. This overrides KaTeX's own faces to honour that &mdash; note the metrics shift slightly, since KaTeX's spacing is tuned for its bundled fonts.</p>
+<div id="s-stix" class="grid stix"></div>
+
+<h2>4. The slash problem in prose</h2>
+<p class="sub">Question stems, choices, rationales and criteria carry <strong>no LaTeX at all</strong> &mdash; zero backslashes across all of them. These are real Production strings.</p>
+<div id="s-prose" class="grid"></div>
+
+<h2>5. Where the line falls</h2>
+<p class="sub">Not every slash is a violation. The proposed rule, applied to real strings.</p>
+<div class="card">
+<table>
+<thead><tr><th>Production string</th><th>Rendering</th><th>Call</th></tr></thead>
+<tbody id="s-table"></tbody>
+</table>
+<p class="cap">Stack a quotient when its numerator or denominator is a compound expression. Leave units, derivative notation and simple reciprocals inline &mdash; that is standard AP and College Board convention, and stacking them would read as wrong.</p>
+</div>
+
+</div>
+<script>
+const FORMULAS = [
+  {t:"Sample mean", s:"AP Statistics · Unit 1", b:String.raw`\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i`},
+  {t:"Combined (pooled) proportion", s:"AP Statistics · Unit 3", b:String.raw`\hat{p}_c = \frac{n_1\hat{p}_1 + n_2\hat{p}_2}{n_1 + n_2}`},
+  {t:"Newton's second law", s:"AP Physics 1 · Unit 2", b:String.raw`\vec{a}_{cm}=\frac{\sum \vec{F}_{ext}}{m_{sys}}`},
+  {t:"Acid ionization constant, Ka", s:"AP Chemistry · Unit 8", b:String.raw`K_a = \frac{[H_3O^+][A^-]}{[HA]}`},
+  {t:"Rate of conductive energy transfer", s:"AP Physics 2 · Unit 9", b:String.raw`\frac{Q}{\Delta t} = \frac{kA\Delta T}{L}`},
+  {t:"Average rate of change as a difference quotient", s:"AP Calculus AB · Unit 2", b:String.raw`\frac{f(a+h)-f(a)}{h}\quad\text{or}\quad\frac{f(x)-f(a)}{x-a}`},
+  {t:"Derivative of arcsin x", s:"AP Calculus AB · Unit 3", b:String.raw`\frac{d}{dx}\left[\arcsin x\right]=\frac{1}{\sqrt{1-x^{2}}}`},
+  {t:"Parallel-plate capacitance", s:"AP Physics C: E&M · Unit 10", b:String.raw`C = \frac{\kappa \varepsilon_0 A}{d}`},
+  {t:"Potential energy change from a conservative force", s:"AP Physics C: Mechanics · Unit 3", b:String.raw`\Delta U = -\int_{a}^{b} \vec{F}_{cf}\cdot d\vec{r}`},
+  {t:"Average atomic mass from isotope data", s:"AP Chemistry · Unit 1", b:String.raw`\bar{m} = \sum_i m_i f_i`}
+];
+
+const PROSE = [
+  {src:"AP Calculus AB stem",
+   before:"What is lim(x→2) (x²−4)/(x−2)?",
+   afterPre:"What is ", afterTex:String.raw`\lim_{x\to 2}\frac{x^{2}-4}{x-2}`, afterPost:"?"},
+  {src:"AP Statistics rationale",
+   before:"so the estimate is (214 - 190)/(6 - 5) = 24 thousand per hour",
+   afterPre:"so the estimate is ", afterTex:String.raw`\frac{214-190}{6-5}=24`, afterPost:" thousand per hour"},
+  {src:"AP Physics 1 rationale",
+   before:"Average acceleration = (8-2 m/s)/3 s = 2 m/s².",
+   afterPre:"Average acceleration = ", afterTex:String.raw`\frac{8-2\ \text{m/s}}{3\ \text{s}} = 2\ \text{m/s}^2`, afterPost:"."},
+  {src:"AP Chemistry worked step (from the screenshot)",
+   before:"M = 0.30 mol / 0.150 L = 2.0 mol/L",
+   afterPre:"", afterTex:String.raw`M = \frac{0.30\ \text{mol}}{0.150\ \text{L}} = 2.0\ \text{mol/L}`, afterPost:""}
+];
+
+const TABLE = [
+  {raw:"34 g/mol", tex:String.raw`34\ \text{g/mol}`, call:"Keep inline", cls:"v-keep", why:"compound unit"},
+  {raw:"2.0 m/s^2", tex:String.raw`2.0\ \text{m/s}^2`, call:"Keep inline", cls:"v-keep", why:"compound unit"},
+  {raw:"dy/dx", tex:String.raw`\frac{dy}{dx}`, call:"Keep inline", cls:"v-keep", why:"Leibniz notation; universally inline in AP"},
+  {raw:"sin(7π/6) = −1/2", tex:String.raw`\sin(7\pi/6) = -\tfrac{1}{2}`, call:"Keep inline", cls:"v-keep", why:"argument fraction and simple reciprocal"},
+  {raw:"kq/r²", tex:String.raw`\frac{kq}{r^{2}}`, call:"Keep inline", cls:"v-keep", why:"single-symbol numerator and denominator"},
+  {raw:"(x²−4)/(x−2)", tex:String.raw`\frac{x^{2}-4}{x-2}`, call:"Stack", cls:"v-good", why:"compound numerator and denominator"},
+  {raw:"(3 - t)/(t^2 - 16)", tex:String.raw`\frac{3-t}{t^{2}-16}`, call:"Stack", cls:"v-good", why:"compound numerator and denominator"},
+  {raw:"(214 - 190)/(6 - 5)", tex:String.raw`\frac{214-190}{6-5}`, call:"Stack", cls:"v-good", why:"compound numerator and denominator"},
+  {raw:"V1 x P2/P1", tex:String.raw`V_1 \cdot \frac{P_2}{P_1}`, call:"Judgement", cls:"v-keep", why:"reads fine either way; stack when it sits on its own line"}
+];
+
+function tex(src, display){
+  const el = document.createElement('span');
+  try { katex.render(src, el, {displayMode: !!display, throwOnError:false, strict:false}); }
+  catch(e){ el.textContent = src; }
+  return el;
+}
+
+window.addEventListener('load', () => {
+  const cur = document.getElementById('s-current');
+  FORMULAS.forEach(f => {
+    const d = document.createElement('div');
+    d.className = 'card bad';
+    d.innerHTML = '<div class="verdict v-bad">As shipped</div><p class="ttl">'+f.t+'<span class="subj">'+f.s+'</span></p>';
+    const pre = document.createElement('div'); pre.className='raw'; pre.textContent = f.b;
+    d.appendChild(pre); cur.appendChild(d);
+  });
+
+  [['s-katex',false],['s-stix',true]].forEach(([id]) => {
+    const host = document.getElementById(id);
+    FORMULAS.forEach(f => {
+      const d = document.createElement('div');
+      d.className = 'card good';
+      d.innerHTML = '<p class="ttl">'+f.t+'<span class="subj">'+f.s+'</span></p>';
+      const m = document.createElement('div'); m.className='math';
+      m.appendChild(tex(f.b, true));
+      d.appendChild(m); host.appendChild(d);
+    });
+  });
+
+  const pr = document.getElementById('s-prose');
+  PROSE.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'card';
+    d.innerHTML = '<div class="eyebrow">'+p.src+'</div>';
+    const b = document.createElement('div'); b.className='raw'; b.textContent = p.before;
+    const lab1 = document.createElement('div'); lab1.className='verdict v-bad'; lab1.textContent='As shipped';
+    const lab2 = document.createElement('div'); lab2.className='verdict v-good'; lab2.style.marginTop='14px'; lab2.textContent='Stacked';
+    const a = document.createElement('p'); a.className='prose'; a.style.margin='8px 0 0';
+    if(p.afterPre) a.appendChild(document.createTextNode(p.afterPre));
+    a.appendChild(tex(p.afterTex,false));
+    if(p.afterPost) a.appendChild(document.createTextNode(p.afterPost));
+    d.appendChild(lab1); d.appendChild(b); d.appendChild(lab2); d.appendChild(a);
+    pr.appendChild(d);
+  });
+
+  const tb = document.getElementById('s-table');
+  TABLE.forEach(r => {
+    const tr = document.createElement('tr');
+    const c1 = document.createElement('td'); c1.className='k'; c1.textContent = r.raw;
+    const c2 = document.createElement('td'); c2.appendChild(tex(r.tex,false));
+    const c3 = document.createElement('td');
+    c3.innerHTML = '<span class="verdict '+r.cls+'" style="margin:0">'+r.call+'</span><div class="note" style="margin-top:6px">'+r.why+'</div>';
+    tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tb.appendChild(tr);
+  });
+});
+</script>
+</body>
+</html>

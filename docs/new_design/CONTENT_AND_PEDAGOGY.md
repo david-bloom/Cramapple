@@ -16,6 +16,21 @@ The copy rules and the pedagogy rules. The second set are design rules, not sugg
 
 **No emoji, ever.** Glyph vocabulary is ✓ ✕ ↻ ? ▸ ▼ ⌂ / · and the em dash. Typographic symbols only.
 
+## Equation presentation
+
+**A quotient of compound expressions is stacked, never written on one line with a slash.** Write the difference quotient as a stacked fraction, not as `(f(a+h)-f(a))/h`. A numerator or denominator is compound once it carries more than a single symbol — `(214 - 190)/(6 - 5)`, `(x²-4)/(x-2)` and `(3 - t)/(t² - 16)` are all wrong inline and right only stacked. This is the form the student meets on the exam, and a one-line quotient makes them resolve the precedence before they can read the mathematics.
+
+**Four things keep the slash**, because they are conventional and stacking them reads as an error:
+
+1. **Compound units** — `m/s`, `g/mol`, `mol/L`, `m/s²`. A unit is a name, not a division to perform.
+2. **Leibniz derivative notation** — `dy/dx`, `d/dx`. Universally inline in AP mathematics.
+3. **Single-symbol quotients and simple reciprocals** — `kq/r²`, `1/2`, `1/r²`.
+4. **Fractions inside an argument, subscript or exponent** — `sin(7π/6)`, `t_{1/2}`, `b^{1/k}`.
+
+The slash in a score (`1 / 1`, `— / 1`) is not division and this rule does not touch it.
+
+**Mathematics is authored as LaTeX, and a surface that cannot render it may not show it.** Formula bodies are LaTeX source. Printing that source to a student is a defect, not a fallback: through 2026-10-12 the reference pane did exactly that, and 308 published formulas reached students as raw monospace backslashes. Equations render with KaTeX in its own bundled faces (see `VISUAL_IDENTITY.md`, Type).
+
 ## Pedagogy rules (these are design rules, not copy suggestions)
 
 **The hint economy.** A hint is never free and never silent. Three states, always in this order:
