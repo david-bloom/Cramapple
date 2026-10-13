@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
 - DECISION-0119 — Equation Presentation: a Quotient of Compound Expressions Is Stacked, Four Conventional Slashes Are Kept, and a Surface That Cannot Render LaTeX May Not Show It; Rendered Equations Use KaTeX's Own Faces, Amending the STIX Two Math Rule
 - DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help; Assistance Timing Rules Stay in Force
 - DECISION-0117 — The Current MCQ Answer May Be Preloaded Into Client Memory for Instant Feedback; Direct Database Reads Stay Closed and Server Persistence Remains Authoritative
@@ -69,6 +70,22 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0120 — The Size Floor Binds on the Smallest Rendered Glyph, Not the Element
+
+- **Date:** 2026-10-13
+- **Decided by:** David Bloom (Product Owner), in session: "Document this size standard for future equations, graphs and other visuals", after confirming the enlarged mathematics in Production ("it looks much better").
+- **Context:** `DECISION-0119`'s renderer shipped and rendered correctly, but the Product Owner's first reaction in Production was that the mathematics was too small to read. The cause was not the font size set on the container: KaTeX's inline style renders a fraction's numerator and denominator at `size3` (0.7×), so a 17px container produced ~12px digits, and raising the container could not fix it because the shrink is relative to it. The same question — what size does the student actually see — had never been asked of the figures.
+- **Decision:**
+  1. `VISUAL_IDENTITY.md`'s 16px floor is a **reading** rule and binds on the **smallest character a student must read to answer, measured in rendered pixels on screen**, not on the nominal size of the element containing it.
+  2. **Mathematics** renders in display style (`\displaystyle`) at a 1.3em base, putting a fraction's digits at ~21px against 16px prose. A one-symbol label renders *compact* (inline style), because display style there produces a full-height operator with its index beneath it.
+  3. **Figure and graph text** is authored in SVG user units and then scaled to its container; **both the authored size and the rendered size must clear the floor.**
+  4. **Exempt**, as not content read to answer: chrome (breadcrumb 13px, counts 12px, eyebrows 12px, plate caption 10px), and the subordinate characters of ordinary maths typography — subscripts, superscripts and limits, which sit near 0.7× by convention.
+  5. Compliance is established by **measurement, not inspection**: render it, measure every element that paints a glyph excluding spacers, take the minimum; for an SVG multiply the authored `font-size` by rendered-width ÷ viewBox-width.
+- **Measured state at the time of deciding:** mathematics now complies (fraction digits ~20.8px, subscripts 14.6px, symbol labels 17.6px against 16px prose). **The published figures do not.** Across 47 rendered figures and 526 labels: **99.8% render below 16px, 87.1% below 12px**, median 9.8px, smallest 8px — smaller than the mathematics that was rejected as unreadable. The authored scale in the app's `lib/figures/render.ts` is itself under the floor (`tick: 10.5`, `mark: 11`, `axis: 12`), so this is not an artefact of one layout width.
+- **Scope and what is NOT decided:** the figure remediation is **open**. It is not authorised here, and it is not a one-line change — enlarging type inside a fixed viewBox costs layout room, so it needs its own task, a pass over the affected families, and the three-gate figure verification (`property tests, eyes, model readers`) rather than a global constant bump. The 73 published figures stay as they are until then.
+- **Execution:** documentation only. No Production write, no migration, no app change.
+
 
 ## DECISION-0119 — Equation Presentation: Compound Quotients Stack, Four Conventional Slashes Are Kept, and LaTeX Is Rendered or Not Shown
 

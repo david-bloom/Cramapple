@@ -39,7 +39,7 @@ decision that was on record.
 | App rebuild plan / gap analysis | `product/APP_REBUILD_MIGRATION_PLAN.md` | Authoritative architecture; §11 decision statuses annotated in place (mostly resolved 2026-09-26). |
 | Decisions closed 2026-09-26 | `product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` ("DECIDED, 2026-09-26") | The decision log for the rebuild policy calls. |
 | Execution of rebuild §7–§11 | `tasks/TASK-0047-APP-REBUILD-SECTIONS-7-11.md` | Frontend commits live in Lovable `56cae479`, not this repo. |
-| **Design system (canonical)** | `new_design/` (`README.md`, `VISUAL_IDENTITY.md`, `TOKENS.md`, `CONTENT_AND_PEDAGOGY.md`) | Orange/light/Bungee, square, zero-motion. Fixed-plate rule SUPERSEDED (responsive). Copy, pedagogy and **equation presentation** rules live in `CONTENT_AND_PEDAGOGY.md`. |
+| **Design system (canonical)** | `new_design/` (`README.md`, `VISUAL_IDENTITY.md`, `TOKENS.md`, `CONTENT_AND_PEDAGOGY.md`) | Orange/light/Bungee, square, zero-motion. Fixed-plate rule SUPERSEDED (responsive). Copy, pedagogy and **equation presentation** rules live in `CONTENT_AND_PEDAGOGY.md`; the **minimum size for anything a student reads** (maths, figures, graphs) is in `VISUAL_IDENTITY.md` under "Sizing what a student reads" (`DECISION-0120`). |
 | Session modes / consolidation | `product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` | One mode "Learn." Course Mode is retired as a *mode*. |
 | Mastery rule | `activity_log/DECISIONS_LOG.md` → `DECISION-0074` | 2 MCQ + 1 FRQ, no pre-submission hint; unbuilt. |
 | Student interaction schema | `product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` | Plan only; hard-gated on hint-use definition. |

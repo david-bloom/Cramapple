@@ -29,7 +29,7 @@ The copy rules and the pedagogy rules. The second set are design rules, not sugg
 
 The slash in a score (`1 / 1`, `— / 1`) is not division and this rule does not touch it.
 
-**Mathematics is authored as LaTeX, and a surface that cannot render it may not show it.** Formula bodies are LaTeX source. Printing that source to a student is a defect, not a fallback: through 2026-10-12 the reference pane did exactly that, and 308 published formulas reached students as raw monospace backslashes. Equations render with KaTeX in its own bundled faces (see `VISUAL_IDENTITY.md`, Type).
+**Mathematics is authored as LaTeX, and a surface that cannot render it may not show it.** Formula bodies are LaTeX source. Printing that source to a student is a defect, not a fallback: through 2026-10-12 the reference pane did exactly that, and 308 published formulas reached students as raw monospace backslashes. Equations render with KaTeX in its own bundled faces, in display style so a fraction's numerator and denominator are not shrunk to 0.7× — see `VISUAL_IDENTITY.md`, "Sizing what a student reads", which governs the size of every visual, not only mathematics.
 
 ## Pedagogy rules (these are design rules, not copy suggestions)
 
