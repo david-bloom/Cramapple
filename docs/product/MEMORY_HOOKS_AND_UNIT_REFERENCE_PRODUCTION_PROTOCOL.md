@@ -227,8 +227,10 @@ Open design items that do not block content: row limits for the pane's "Look up"
 taxonomy FK, which both tables should adopt together when it lands. **The formula renderer is no longer
 an open design item**: as of 2026-10-12 the rule is that a surface which cannot render LaTeX may not show
 it, and equations render with KaTeX (`docs/new_design/CONTENT_AND_PEDAGOGY.md`, Equation presentation).
-The renderer is not yet built in the app, so published formulas still reach students as monospace source
-until it ships — that is now a defect being tracked, not an accepted state.
+The renderer shipped on 2026-10-13 (`ap-prep-blueprint` PR #16, `2bb35c6`): formula bodies and their
+symbol labels now render as mathematics on the reference pane, the question experience and the deep-dive
+notes. All 321 distinct published bodies render cleanly and ship as a test fixture, so an entry whose LaTeX
+will not parse now fails CI rather than reaching a student as source.
 
 ## Change note
 
