@@ -1,6 +1,6 @@
 # Question-pane issue reports with email
 
-**Status:** Approved — implementation built; release requires verified delivery and review
+**Status:** Approved — implementation and inbox test complete; Production release pending
 **Owner:** David Bloom / Codex conductor
 **Tier:** Standard implementation; Hard-Gate release
 **Date:** 2026-10-12
@@ -33,3 +33,7 @@ Implementation is authorized by the owner's explicit request. No claim of succes
 ## Implementation checkpoint
 
 See `docs/qa/QUESTION_REPORT_EMAIL_2026_10_12.md` for exact tests and Development state. All App tests/build/typecheck and backend handler/database checks pass. Full signed-in inbox test awaits a specifically authorized test account or an existing account; automatic approval review rejected creating an Auth fixture without that authorization. Production remains unchanged.
+
+## Owner confirmation and session end (2026-10-13)
+
+The owner approved the test account, confirmed receipt of the correct notification email, and specified no additional review and simple notification-only scope. See the QA record’s closeout correction: one delivery, no duplicate retry, foreign-session rejection, cleanup declined/account remains, local credentials removed. Both PRs remain draft and Production is unchanged. No new database rights were requested. The More help documentation-only closeout does not resume this separate release.

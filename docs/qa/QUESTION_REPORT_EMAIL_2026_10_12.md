@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-12 (America/New_York)
 **Scope:** Owner-requested question-pane report link; separate from the paused More help demo.
-**State:** Built and tested; Development backend deployed; signed-in inbox check and Production release pending.
+**State:** Built and tested; Development backend deployed; signed-in inbox delivery verified; Production release and test-account cleanup pending.
 
 ## Result
 
@@ -10,7 +10,7 @@ The question-pane copy is replaced with “See something wrong or confusing?” 
 
 The browser sends exact question version, explicit session, mode, request UUID and optional comment. It sends no draft, grades, identity or URL. The server validates authentication, disallows anonymous Auth users, checks allowed origins and length limits, and reserves a private receipt atomically. A served question must belong to the caller's session. Session-free worked examples reuse the teaching pool's published-item, active-pack and subject-entitlement/staff access checks. Subject and question text are derived from the database, not trusted browser text.
 
-Lo​ops template `cmv60vlfy0gwl0j0rtl3wqscb` (“11 Question Issue Report”) is published in the existing account. Subject, questionId, question, mode, comment and reportId are the exact variable contract. The server recipient is the existing owner inbox dbloom01@gmail.com; neither destination nor template is student-selectable. Existing LOOPS_SECRET_KEY is present in Development and Production; no secret was copied or rotated.
+Loops template `cmv60vlfy0gwl0j0rtl3wqscb` (“11 Question Issue Report”) is published in the existing account. Subject, questionId, question, mode, comment and reportId are the exact variable contract. The server recipient is the existing owner inbox dbloom01@gmail.com; neither destination nor template is student-selectable. Existing LOOPS_SECRET_KEY is present in Development and Production; no secret was copied or rotated.
 
 Receipts use a per-user transaction lock, 10 new reports/hour, five maximum delivery attempts, 30-second lease, immutable retry payload and the same Loops idempotency key. Retries stop after 23 hours (inside Loops' 24-hour idempotency period). An unconfirmed send never displays success. There is no background retry or schedule.
 
@@ -37,3 +37,15 @@ Development report-question Edge Function deployed with platform JWT verificatio
 Automatic approval review rejected creating a persistent temporary Development Auth account, password/identity and associated sessions without specific permission. The owner has been asked to authorize a temporary account plus cleanup or use an existing account for the full signed-in send. No such account was created. The unauthenticated check and rollback-only database assertions do not replace inbox certification.
 
 Production publication must also account for other App main changes since its last publish; those are not incidentally authorized by this reporting request. Do not report live completion until the selected release is verified.
+
+## Verified email and closeout correction (2026-10-13)
+
+The owner explicitly approved the temporary Development test account and then confirmed: “Test email received. Looks good.” He also said there is no additional review and that this is a simple student issue notification service, nothing more. No new database rights were requested or required; the existing access was sufficient.
+
+An authenticated Development request returned 200 with report receipt bafb00b5-aa2a-490d-802e-02568b86f10b. Retrying the identical request returned 200 with the same receipt and no second send. A foreign-session request returned 403. The database showed one sent receipt and one delivery attempt. Gmail message 1a1330b379c0199c was received in the owner's inbox; its plain-text body contained the authoritative Biology question, practice mode, exact question version, QA comment and receipt reference, with no student identity or answers. This verifies provider delivery, not Production publication.
+
+Cleanup was attempted through the Supabase tool and was declined. A read-only closeout check confirmed the temporary Development account/session remain. The local temporary credential/password files were removed; no credential is committed. Scoped cleanup identifiers: Development project wmgjsdkphcyhngaffbqf; QA auth user add78f2f-d524-4b8b-b5c3-4d48fcc0b539; QA session 985583da-aedc-4ca2-b65d-057040f5f922. Do not treat cleanup as completed or work around the declined deletion through another API.
+
+Backend PR #428 and App PR #17 remain draft; no merges, Production migrations/deployments or Lovable publication occurred. Automatic approval review rejected changing the App PR out of draft because it interpreted “there is no review” as forbidding that review/release-state change. This is a tool-action restriction, not an owner-requested product review or a requirement for broader database permissions. The earlier account-creation restriction was resolved by the owner's explicit approval. The earlier inbox-test dependency above is superseded by this verified result.
+
+The owner then requested preserving More help and ending the session. No notification release or cleanup continuation is authorized by that documentation-only closeout. Next continuation should be limited to the requested notification release/cleanup; More help is separately paused.
