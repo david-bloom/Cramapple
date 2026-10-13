@@ -54,3 +54,7 @@ Production migrations are recorded under `20261013131208` and `20261013131212`, 
 Verified the actual signed-in Production question page: the old notice is gone, the report link opens one optional-comment form, and a blank-comment send succeeds. Receipt `e1c93811-1d03-4cd0-94cf-e97b6efa8845` is sent with exactly one delivery attempt; Gmail message `1a13568619a38891` arrived in the owner's inbox with the authoritative Calculus question and “No comment added.” No student answer/identity appears in the email. Screenshot and complete evidence are in the QA record.
 
 Release scope is complete. Next owner: David, to receive ordinary student reports and decide any content fixes. The declined Development test-account cleanup remains separately open; More help remains paused. No further deployment approval is needed for the release just completed.
+
+## Source-page URL follow-up
+
+David subsequently requested including the URL from which the form was submitted. This amends the original URL exclusion only for sanitized question-route context. See [WORK-QUESTION-REPORT-SOURCE-URL](WORK-QUESTION-REPORT-SOURCE-URL.md) for the bounded follow-up, active branch and verification.
