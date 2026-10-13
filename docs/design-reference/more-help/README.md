@@ -16,7 +16,7 @@ mkdir more-help-restored
 tar -xzf docs/design-reference/more-help/live-demo-source.tar.gz -C more-help-restored
 ```
 
-The restored README, package scripts and `.openai/hosting.json` describe the existing Sites runtime and project. Dependency installation and model calls are not needed to reopen the HTML mock. Do not create another Sites project or deploy merely to look at a screenshot.
+The archived README predates the owner’s pause; the current restart handoff supersedes its earlier invitation/top-up next actions. The restored package scripts and `.openai/hosting.json` describe the existing Sites runtime and project. Dependency installation and model calls are not needed to reopen the HTML mock. Do not create another Sites project or deploy merely to look at a screenshot.
 
 ![Original scripted help mock](scripted-help-preview.jpg)
 
