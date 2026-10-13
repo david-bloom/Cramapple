@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f54900">
+<title>Cramapple | A little help. Then your turn.</title>
+<meta name="description" content="Try two interactive Cramapple study-help demos: calculus and chemistry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#f54900;--ink:#26231f;--paper:#fbfaf7;--line:#ddd8ce;--muted:#655f55;--soft:#fff0e5;--green:#216440;--blue:#244d78;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.5 'Source Sans 3',Arial,sans-serif}button,input{font:inherit}button{cursor:pointer;border-radius:0}button:disabled{cursor:default;opacity:.45}button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}[hidden]{display:none!important}
+header{border-bottom:1px solid var(--line);background:var(--white)}.top{max-width:1180px;margin:auto;padding:19px 28px;display:flex;align-items:center;justify-content:space-between;gap:15px}.logo{font:23px/1.2 Bungee,Arial,sans-serif;color:var(--orange);letter-spacing:-1px}.demo-tag{font-size:14px;border:1px solid var(--line);padding:4px 10px;color:var(--muted)}main{max-width:1180px;margin:auto;padding:36px 28px 26px}.eyebrow{text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:1.6px;color:#9a3104}.intro h1{font-size:clamp(28px,4vw,43px);line-height:1.15;letter-spacing:-1.2px;margin:7px 0 10px}.intro p{color:var(--muted);margin:0;max-width:660px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 22px}.tabs{display:flex;gap:0}.tab{padding:10px 21px;background:var(--white);border:1px solid var(--line);font-weight:600}.tab+.tab{border-left:0}.tab[aria-selected=true]{background:var(--ink);color:var(--white);border-color:var(--ink)}.quiet{border:0;background:transparent;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:8px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--white);border:1px solid var(--line)}.panel-head{padding:15px 23px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}.panel-head span{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700}.phase{color:var(--muted)}.panel-body{padding:24px}.topic{font-size:14px;color:var(--muted);margin:0 0 9px}h2{font-size:25px;line-height:1.2;margin:0 0 17px}h3{font-size:20px;line-height:1.3;margin:0 0 8px}.question{font-size:21px;line-height:1.5;margin:0 0 22px}.question mark{background:transparent;color:inherit;padding:0 2px}.question.highlight mark{background:#ffdfb9;box-decoration-break:clone;-webkit-box-decoration-break:clone}.question.highlight mark[data-clue=quantity]{background:#e7eef7}.clue-note{font-size:14px;color:var(--muted);margin:-8px 0 17px}.formula{font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.5;overflow-wrap:anywhere}.choices{border:0;padding:0;margin:0 0 18px;display:grid;gap:9px}.choices legend{font-size:14px;color:var(--muted);margin-bottom:9px}.choice{position:relative;display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:13px 15px;cursor:pointer;min-height:54px}.choice:has(input:checked){border:2px solid var(--ink);padding:12px 14px;background:#f5f3ee}.choice:has(input:disabled){cursor:default}.choice input{accent-color:var(--orange);width:18px;height:18px;margin:0}.letter{font-weight:700}.choice.correct{background:#edf6ef;border-color:var(--green)}.choice-tag{margin-left:auto;color:var(--green);font-size:13px;font-weight:600}.actions{display:flex;flex-wrap:wrap;gap:10px}.primary{background:var(--orange);border:1px solid var(--orange);color:var(--white);padding:12px 18px;font-weight:600;min-height:48px}.secondary{background:var(--white);color:var(--ink);border:1px solid var(--ink);padding:11px 17px;font-weight:600;min-height:48px}.small-btn{background:var(--white);color:var(--ink);border:1px solid var(--line);padding:9px 12px;min-height:44px}.small-btn[aria-pressed=true]{background:var(--ink);color:var(--white);border-color:var(--ink)}.notice{padding:12px 15px;background:#f3f1ec;margin:0 0 17px;font-size:16px;border-left:3px solid var(--ink)}.notice.success{background:#edf6ef;border-color:var(--green)}.notice p{margin:0}.helper-empty{padding:34px 27px 30px}.helper-empty .big-question{font:46px/1 Georgia,serif;color:var(--orange);margin-bottom:18px}.helper-empty p{margin:0;color:var(--muted)}.helper-empty .mini{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;font-size:15px}.help-opening{font-size:18px;margin:0 0 18px}.facts{display:grid;gap:0;border-top:1px solid var(--line);margin:0 0 19px}.fact{padding:13px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:28px 1fr;gap:9px}.fact-num{color:#a83404;font-weight:700}.fact-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);display:block;margin-bottom:2px}.fact p{margin:0}.source{margin-top:6px!important;color:var(--muted);font-size:13px}.step{padding:17px;background:var(--soft);margin:0 0 17px}.step p{margin:0 0 11px}.step .actions{gap:7px}.step-feedback{font-size:15px;margin:12px 0 0!important}.worked{border-left:3px solid var(--orange);padding:0 0 0 15px;margin:19px 0}.worked p{margin:8px 0}.answer-line{font-size:22px;font-weight:700}.followups{border-top:1px solid var(--line);padding-top:18px}.followups p{margin:0 0 10px}.followup-buttons{display:flex;flex-wrap:wrap;gap:8px}.detail{padding:17px;background:#f4f2ed;margin-top:12px}.detail p{margin:8px 0 0}.detail .formula{margin-top:9px}.memory{font-size:22px;color:#a83404;font-weight:700}.diagram{width:100%;height:auto;max-height:200px;margin:12px 0 0}.transfer{margin-top:22px}.transfer .panel-body{padding:23px}.transfer-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.transfer p{margin:0 0 16px}.transfer legend{font-size:16px;color:var(--ink)}.transfer .choices{grid-template-columns:repeat(2,minmax(0,1fr));max-width:640px}.transfer .choice{font-size:17px}.finish{padding:20px;background:#edf6ef;border-left:3px solid var(--green);margin:18px 0 0}.finish p{margin:5px 0 0}.finish h3{color:var(--green)}footer{max-width:1180px;margin:0 auto;padding:0 28px 24px;color:var(--muted);font-size:13px}.footer-rule{border-top:1px solid var(--line);padding-top:15px}.fraction{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;line-height:1.25;margin:0 5px}.fraction span:first-child{border-bottom:1px solid var(--ink);padding:0 7px 3px}.fraction span:last-child{padding:3px 7px 0}.subtle{font-size:14px;color:var(--muted)}
+@media(max-width:780px){main{padding:24px 18px}.top{padding:17px 18px}.workspace{grid-template-columns:1fr}.panel-body{padding:20px}.panel-head{padding:13px 20px}.intro h1{font-size:33px}.question{font-size:20px}.toolbar{margin:22px 0 18px}.tab{padding:10px 16px}.helper-empty{padding:24px 20px}.helper-empty .big-question{display:none}.transfer .choices{grid-template-columns:1fr}footer{padding:0 18px 22px}.demo-tag{font-size:12px}.logo{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo" aria-label="Cramapple">Cram Apple</div><span class="demo-tag">Study help · interactive demo</span></div></header>
+<main>
+<div class="intro"><div class="eyebrow">Get unstuck. Earn the next point.</div><h1>A little help. Then your turn.</h1><p>Try the question. If it doesn’t click, we’ll connect the clues and help with the part that’s missing.</p></div>
+<div class="toolbar"><div class="tabs" role="tablist" aria-label="Choose a demo"><button type="button" class="tab" role="tab" id="tab-calc" aria-controls="demo" aria-selected="true" data-subject="calc">Calculus</button><button type="button" class="tab" role="tab" id="tab-chem" aria-controls="demo" aria-selected="false" tabindex="-1" data-subject="chem">Chemistry</button></div><button type="button" class="quiet" id="restart">Start over</button></div>
+<div id="demo" role="tabpanel" aria-labelledby="tab-calc">
+<div class="workspace">
+<section class="panel" aria-labelledby="question-title"><div class="panel-head"><span>Your question</span><span class="phase" id="attempt-phase">Try it first</span></div><div class="panel-body"><p class="topic" id="topic"></p><h2 id="question-title"></h2><p class="question" id="question"></p><p class="clue-note" id="clue-note" hidden>Highlighted: the task and the quantities that matter.</p><form id="answer-form"><fieldset class="choices" id="choices"><legend>Choose an answer</legend></fieldset><div id="feedback" role="status" aria-live="polite" hidden></div><div class="actions"><button type="submit" class="primary" id="submit" disabled>Check my answer</button><button type="button" class="secondary" id="stuck">I don’t get it</button></div></form></div></section>
+<section class="panel" aria-labelledby="help-title"><div class="panel-head"><span id="help-title">A little help</span><span class="phase" id="help-phase">When you need it</span></div><div id="help-content"><div class="helper-empty"><div class="big-question" aria-hidden="true">?</div><h2>“I don’t get it” is enough.</h2><p>You don’t need to know what to ask. Tap the button and we’ll start with the useful clues in this question.</p><p class="mini">One small step at a time. You can always ask us to show you.</p></div></div></section>
+</div>
+<section class="panel transfer" id="transfer" aria-labelledby="transfer-title" hidden><div class="panel-head"><span>Your turn</span><span class="phase">Fresh question · help closed</span></div><div class="panel-body"><div class="transfer-head"><h2 id="transfer-title">Can you use it on a new question?</h2></div><p id="transfer-question"></p><form id="transfer-form"><fieldset class="choices" id="transfer-choices"><legend>Choose an answer without looking back at the explanation.</legend></fieldset><button type="submit" class="primary" id="transfer-submit" disabled>Check this one</button><div id="transfer-feedback" role="status" aria-live="polite" hidden></div></form><div class="finish" id="finish" hidden><h3>You used it on a fresh question.</h3><p id="finish-text"></p><div class="actions" style="margin-top:15px"><button type="button" class="secondary" id="other-subject">Try the chemistry demo</button><button type="button" class="quiet" id="review-help">Review the help</button></div></div></div></section>
+</div>
+</main>
+<footer><div class="footer-rule">Demo only · explanations are scripted for these questions · no live AI · answers aren’t saved</div></footer>
+<script>
+(() => {
+ 'use strict';
+ const $ = id => document.getElementById(id);
+ const letters = ['A','B','C','D'];
+ const lessons = {
+  calc: {
+   topic:'Calculus · Average rate of change', title:'Water in a tank',
+   question:'The volume of water in a tank is <span class="formula">V(t) = t² + 4t</span> liters, where t is measured in minutes. What is the <mark>average rate of change</mark> of the volume from <mark data-clue="quantity">t = 1 to t = 5 minutes</mark>?',
+   choices:['40 liters/min','10 liters/min','14 liters/min','45 liters/min'], correct:1,
+   rationales:[
+    '40 is the total increase in water. To get a rate per minute, we also need the elapsed time.',
+    '10 liters per minute is the average rate. Let’s connect the information so you can see why.',
+    '14 liters per minute is the instantaneous rate at t = 5. The question asks for the average over the whole interval, using total change divided by elapsed time.',
+    '45 liters is the final volume. A rate needs the change in volume divided by the elapsed time.'
+   ],
+   opening:'We need the change in water <strong>per minute</strong>, averaged over the whole interval.',
+   facts:[
+    ['The rule','Average rate = change in volume ÷ elapsed time.','Reference: average rate of change'],
+    ['The water change','V(1) = 1² + 4(1) = 5 L<br>V(5) = 5² + 4(5) = 45 L<br>So the tank gains 45 − 5 = <strong>40 L</strong>.','From the function in the question'],
+    ['The time interval','Start at 1 minute. End at 5 minutes. Use <strong>end minus start</strong>.','From “t = 1 to t = 5”']
+   ],
+   step:'How many minutes passed from t = 1 to t = 5?', stepOptions:['4 minutes','5 minutes','6 minutes'],stepCorrect:0,
+   stepWrong:'The clock starts at 1, not 0. Subtract the start time from the end time: 5 − 1.',
+   stepAnswer:'5 − 1 = 4 minutes.',
+   solution:'<p>The tank gains <strong>40 liters over 4 minutes</strong>.</p><div class="formula"><span class="fraction"><span>V(5) − V(1)</span><span>5 − 1</span></span> = <span class="fraction"><span>45 − 5</span><span>4</span></span> = 10</div><p class="answer-line">B · 10 liters per minute</p><p>This is an average over the interval. The actual rate can change along the way.</p>',
+   details:[
+    {label:'Why divide?',title:'Total change → change per minute',body:'<p>Think of average speed: distance ÷ time. Here, 40 liters were added during 4 minutes. Dividing by 4 tells us the average increase for one minute.</p><p><strong>40 L ÷ 4 min = 10 L/min.</strong> The units tell you what the answer means.</p>'},
+    {label:'How do I calculate V(5)?',title:'Replace every t with 5',body:'<div class="formula">V(5) = 5² + 4 × 5<br>= 25 + 20<br>= 45 liters</div><p>5² means 5 × 5, which is 25. Calculate the square and the multiplication before adding.</p>'},
+    {label:'Help me remember',title:'Change in water over change in time',body:'<p class="memory">End minus start. Top and bottom.</p><div class="formula"><span class="fraction"><span>V(end) − V(start)</span><span>end − start</span></span></div><p>Keep the subtraction in the same direction. Volume change goes on top; elapsed time goes underneath.</p>'},
+    {label:'Show it visually',title:'40 liters added over 4 minutes',body:'<svg class="diagram" viewBox="0 0 440 190" role="img" aria-label="The volume rises from 5 liters at minute 1 to 45 liters at minute 5. The total change is 40 liters over 4 minutes."><path d="M48 20V153H392" stroke="#655f55" fill="none"/><path d="M72 136Q175 108 350 38" stroke="#26231f" stroke-width="3" fill="none"/><path d="M72 136L350 38" stroke="#f54900" stroke-width="2" stroke-dasharray="6 4" fill="none"/><path d="M72 136H350V38" stroke="#244d78" fill="none" stroke-width="2"/><circle cx="72" cy="136" r="5" fill="#f54900"/><circle cx="350" cy="38" r="5" fill="#f54900"/><text x="64" y="174" font-size="15" fill="#26231f">1 min</text><text x="330" y="174" font-size="15" fill="#26231f">5 min</text><text x="8" y="138" font-size="15" fill="#26231f">5 L</text><text x="304" y="25" font-size="15" fill="#26231f">45 L</text><text x="162" y="127" font-size="15" fill="#244d78">4 minutes</text><text x="360" y="92" font-size="15" fill="#244d78">40 L</text></svg><p>The dashed line connects the endpoints. Its slope is the average rate: rise ÷ run = 40 ÷ 4.</p>'}
+   ],
+   transfer:'The volume in a different tank is W(t) = t² + 2t liters. What is its average rate of change from t = 1 to t = 3 minutes?',
+   transferChoices:['12 liters/min','8 liters/min','6 liters/min','15 liters/min'],transferCorrect:2,
+   transferWrong:['12 liters is the total increase. For a rate, divide by the elapsed time. Try again.','8 liters/min is the instantaneous rate at t = 3. This asks for the average over the interval. Try again.','','15 liters is the ending volume. Use the change in volume over the elapsed time. Try again.'],
+   transferSolution:'W(1) = 3 L and W(3) = 15 L. The rate is (15 − 3) ÷ (3 − 1) = 6 L/min.',
+   finish:'You found the change in volume, divided by elapsed time, and selected the answer with rate units.'
+  },
+  chem: {
+   topic:'Chemistry · Molarity', title:'How concentrated is it?',
+   question:'A solution contains <mark data-clue="quantity">0.30 mol of NaCl</mark> in a <mark data-clue="quantity">total solution volume of 150 mL</mark>. What is the <mark>molarity</mark> of the solution?',
+   choices:['0.0020 M','2.0 M','0.50 M','45 M'],correct:1,
+   rationales:[
+    '0.0020 comes from dividing 0.30 by 150. But molarity needs liters, not milliliters.',
+    '2.0 M is the molarity. Let’s connect the units and the formula so you can see why.',
+    '0.50 comes from 0.150 ÷ 0.30. That gives liters per mole; molarity is moles per liter.',
+    '45 comes from multiplying 0.30 by 150. Molarity asks for moles divided by liters of solution.'
+   ],
+   opening:'Molarity tells us how many <strong>moles of solute per liter of solution</strong>. The units are the key.',
+   facts:[
+    ['The rule','Molarity = moles of solute ÷ liters of solution.','Reference: molarity, M = n / V'],
+    ['The amount of solute','We already have <strong>0.30 mol NaCl</strong>. No mass conversion is needed.','From the amount in the question'],
+    ['The volume conversion','The total solution volume is 150 mL.<br><strong>1,000 mL = 1 L</strong>, so divide mL by 1,000.','Reference: metric volume conversion']
+   ],
+   step:'What is 150 mL in liters?',stepOptions:['0.150 L','150 L','1.50 L'],stepCorrect:0,
+   stepWrong:'There are 1,000 milliliters in one liter. Divide 150 by 1,000; the number should get smaller.',
+   stepAnswer:'150 ÷ 1,000 = 0.150 liters.',
+   solution:'<p>Use <strong>0.30 mol</strong> and <strong>0.150 L</strong>.</p><div class="formula">M = <span class="fraction"><span>0.30 mol</span><span>0.150 L</span></span> = 2.0 mol/L</div><p class="answer-line">B · 2.0 M</p><p>M is shorthand for mol/L. The volume is the total solution volume, not just the water you added.</p>',
+   details:[
+    {label:'Why convert to liters?',title:'M means moles per liter',body:'<p>Dividing 0.30 mol by 150 mL gives 0.0020 <strong>mol/mL</strong>. That is a different unit from M.</p><p>One liter contains 1,000 milliliters. So 0.0020 mol/mL is 2.0 mol/L. Converting the volume to liters first keeps the units right.</p>'},
+    {label:'How does the formula work?',title:'How much solute in one liter?',body:'<p>0.150 L holds 0.30 mol. To express that concentration for a full liter, divide the amount by 0.150.</p><div class="formula">0.30 ÷ 0.150 = 2.0</div><p>A solution with the same concentration would contain 2.0 mol in 1.0 L. We’re describing the concentration, not adding water.</p>'},
+    {label:'Help me remember',title:'Moles on top. Liters below.',body:'<p class="memory">Molarity = moles per liter.</p><div class="formula">M = mol ÷ L</div><p>“Per” means divide. Before using the formula, check that your volume is in liters.</p><p><strong>mL → L:</strong> divide by 1,000. The number gets smaller because liters are bigger units.</p>'},
+    {label:'Show it visually',title:'Same amount, different volume',body:'<svg class="diagram" viewBox="0 0 440 185" role="img" aria-label="0.30 moles in 0.150 liters is more concentrated than the same 0.30 moles in 0.300 liters. The concentrations are 2.0 M and 1.0 M."><path d="M48 22V117H157V22M270 22V117H379V22" stroke="#655f55" stroke-width="2" fill="none"/><path d="M49 72H156V116H49ZM271 27H378V116H271Z" fill="#e7eef7"/><g fill="#f54900"><circle cx="68" cy="87" r="4"/><circle cx="91" cy="88" r="4"/><circle cx="116" cy="84" r="4"/><circle cx="139" cy="99" r="4"/><circle cx="77" cy="104" r="4"/><circle cx="108" cy="104" r="4"/><circle cx="285" cy="42" r="4"/><circle cx="320" cy="55" r="4"/><circle cx="359" cy="38" r="4"/><circle cx="347" cy="89" r="4"/><circle cx="296" cy="96" r="4"/><circle cx="369" cy="108" r="4"/></g><text x="102" y="141" text-anchor="middle" font-size="15" fill="#26231f">0.30 mol / 0.150 L</text><text x="325" y="141" text-anchor="middle" font-size="15" fill="#26231f">0.30 mol / 0.300 L</text><text x="102" y="167" text-anchor="middle" font-size="18" fill="#26231f">2.0 M</text><text x="325" y="167" text-anchor="middle" font-size="18" fill="#26231f">1.0 M</text></svg><p>Same moles in twice the volume means half the molarity. Dots represent equal amounts of dissolved solute.</p>'}
+   ],
+   transfer:'A different solution contains 0.20 mol of NaCl in a total solution volume of 500 mL. What is its molarity?',
+   transferChoices:['0.00040 M','2.5 M','100 M','0.40 M'],transferCorrect:3,
+   transferWrong:['That uses milliliters in the denominator. Convert the solution volume to liters, then try again.','That divides liters by moles. Molarity is moles divided by liters. Try again.','That multiplies moles by the volume in mL. Molarity is moles divided by liters. Try again.',''],
+   transferSolution:'500 mL = 0.500 L. M = 0.20 mol ÷ 0.500 L = 0.40 M.',
+   finish:'You converted milliliters to liters and used moles per liter on a fresh problem.'
+  }
+ };
+ let subject = new URLSearchParams(location.search).get('subject') === 'chem' ? 'chem' : 'calc';
+ let state;
+ function choicesHTML(options,name){return options.map((text,i)=>`<label class="choice" data-index="${i}"><input type="radio" name="${name}" value="${i}"><span class="letter">${letters[i]}</span><span>${text}</span></label>`).join('');}
+ function start(next){
+  subject=next;state={selection:null,submitted:false,help:false,solved:false,detail:null,transferStarted:false,transferSelection:null,transferDone:false,transferTries:0};
+  const d=lessons[subject];
+  $('answer-form').querySelector('[data-next-question]')?.remove();
+  document.querySelectorAll('[data-subject]').forEach(b=>{const active=b.dataset.subject===subject;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});
+  $('demo').setAttribute('aria-labelledby','tab-'+subject);
+  $('topic').textContent=d.topic;$('question-title').textContent=d.title;$('question').innerHTML=d.question;$('question').classList.remove('highlight');$('clue-note').hidden=true;
+  $('choices').innerHTML='<legend>Choose an answer</legend>'+choicesHTML(d.choices,'answer');
+  $('submit').disabled=true;$('submit').hidden=false;$('stuck').disabled=false;$('stuck').textContent='I don’t get it';$('feedback').hidden=true;
+  $('attempt-phase').textContent='Try it first';$('help-phase').textContent='When you need it';
+  $('help-content').innerHTML='<div class="helper-empty"><div class="big-question" aria-hidden="true">?</div><h2>“I don’t get it” is enough.</h2><p>You don’t need to know what to ask. Tap the button and we’ll start with the useful clues in this question.</p><p class="mini">One small step at a time. You can always ask us to show you.</p></div>';
+  $('transfer').hidden=true;$('finish').hidden=true;$('transfer-feedback').hidden=true;
+  $('other-subject').textContent=subject==='calc'?'Try the chemistry demo':'Try the calculus demo';
+ }
+ function notice(el,text,success=false){el.className='notice'+(success?' success':'');el.innerHTML='<p>'+text+'</p>';el.hidden=false;}
+ function openHelp(){
+  if(state.transferStarted){$('transfer').hidden=true;state.transferStarted=false;}
+  state.help=true;$('question').classList.add('highlight');$('clue-note').hidden=false;$('help-phase').textContent='Connect the clues';$('attempt-phase').textContent='With help';$('stuck').textContent='Help is open';$('stuck').disabled=true;
+  if(state.submitted)notice($('feedback'),'Your original answer: '+letters[state.selection]+'. Let’s connect the clues.',state.selection===lessons[subject].correct);
+  renderHelp();
+  if(matchMedia('(max-width:780px)').matches)$('help-title').scrollIntoView({block:'start'});
+ }
+ function renderHelp(){
+  const d=lessons[subject];
+  const rationale=state.submitted?'<div class="notice"><p>'+d.rationales[state.selection]+'</p></div>':'';
+  const facts=d.facts.map((f,i)=>`<div class="fact"><span class="fact-num">${i+1}</span><div><span class="fact-label">${f[0]}</span><p>${f[1]}</p><p class="source">${f[2]}</p></div></div>`).join('');
+  const step=state.solved?`<div class="worked"><h3>Put the pieces together</h3>${d.solution}</div>`:`<div class="step"><h3>One small step</h3><p>${d.step}</p><div class="actions">${d.stepOptions.map((text,i)=>`<button type="button" class="small-btn" data-step="${i}">${text}</button>`).join('')}<button type="button" class="quiet" data-show-step>Show me</button></div><p class="step-feedback" id="step-feedback" role="status" aria-live="polite" hidden></p></div>`;
+  const details=`<div class="followups"><p><strong>Still missing a piece?</strong> Pick the part that feels unclear.</p><div class="followup-buttons">${d.details.map((x,i)=>`<button type="button" class="small-btn" data-detail="${i}" aria-pressed="${state.detail===i}" aria-controls="detail-content">${x.label}</button>`).join('')}</div><div class="detail" id="detail-content" ${state.detail===null?'hidden':''}>${state.detail===null?'':'<h3>'+d.details[state.detail].title+'</h3>'+d.details[state.detail].body}</div></div>`;
+  $('help-content').innerHTML=`<div class="panel-body"><p class="help-opening">${d.opening}</p>${rationale}<div class="facts">${facts}</div>${step}${details}<div class="actions" style="margin-top:20px"><button type="button" class="primary" data-transfer>${state.solved?'Try a fresh question':'Got it — try a fresh question'}</button>${state.solved?'':'<button type="button" class="quiet" data-full-solution>Show the whole solution</button>'}</div></div>`;
+  $('help-content').querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{
+   if(Number(b.dataset.step)===d.stepCorrect){state.solved=true;renderHelp();markAnswer();}
+   else{const f=$('step-feedback');f.textContent=d.stepWrong;f.hidden=false;b.setAttribute('aria-pressed','true');}
+  }));
+  $('help-content').querySelector('[data-show-step]')?.addEventListener('click',()=>{state.solved=true;renderHelp();markAnswer();});
+  $('help-content').querySelector('[data-full-solution]')?.addEventListener('click',()=>{state.solved=true;renderHelp();markAnswer();});
+  $('help-content').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>{state.detail=state.detail===Number(b.dataset.detail)?null:Number(b.dataset.detail);renderHelp();$('help-content').querySelector(`[data-detail="${b.dataset.detail}"]`).focus();}));
+  $('help-content').querySelector('[data-transfer]').addEventListener('click',startTransfer);
+ }
+ function markAnswer(){
+  const row=$('choices').querySelector(`[data-index="${lessons[subject].correct}"]`);row.classList.add('correct');
+  if(!row.querySelector('.choice-tag'))row.insertAdjacentHTML('beforeend','<span class="choice-tag">Correct answer</span>');
+  $('choices').querySelectorAll('input').forEach(x=>x.disabled=true);$('submit').hidden=true;
+ }
+ function startTransfer(){
+  const d=lessons[subject];state.transferStarted=true;state.transferSelection=null;state.transferDone=false;state.transferTries=0;
+  $('choices').querySelectorAll('input').forEach(x=>x.disabled=true);$('submit').hidden=true;
+  $('transfer-question').textContent=d.transfer;$('transfer-choices').innerHTML='<legend>Choose an answer without looking back at the explanation.</legend>'+choicesHTML(d.transferChoices,'transfer');
+  $('transfer-submit').disabled=true;$('transfer-submit').hidden=false;$('transfer-feedback').hidden=true;$('finish').hidden=true;$('transfer').hidden=false;
+  $('question').classList.remove('highlight');$('clue-note').hidden=true;$('help-phase').textContent='Closed for your turn';
+  $('help-content').innerHTML='<div class="helper-empty"><h2>You’ve got the next one.</h2><p>The explanation is closed while you try a fresh question. Use the idea you just worked on.</p><button type="button" class="quiet" id="reopen-help" style="margin-top:14px">I need to go back to the help</button></div>';
+  $('reopen-help').addEventListener('click',openHelp);$('transfer-title').scrollIntoView({block:'start'});
+ }
+ document.querySelectorAll('[data-subject]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.subject)));
+ document.querySelector('.tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();start(e.key==='Home'?'calc':e.key==='End'?'chem':subject==='calc'?'chem':'calc');$('tab-'+subject).focus();}});
+ $('restart').addEventListener('click',()=>{start(subject);$('question-title').scrollIntoView({block:'start'});});
+ $('choices').addEventListener('change',e=>{state.selection=Number(e.target.value);$('submit').disabled=false;});
+ $('answer-form').addEventListener('submit',e=>{
+  e.preventDefault();if(state.selection===null||state.submitted)return;state.submitted=true;
+  const correct=state.selection===lessons[subject].correct;
+  notice($('feedback'),correct?'Correct · B. Want to see why it works, or try a fresh question?':'Not quite. Tap “I don’t get it” and we’ll work through the useful clues.',correct);
+  $('choices').querySelectorAll('input').forEach(x=>x.disabled=true);$('submit').hidden=true;$('attempt-phase').textContent='Answer checked';
+  if(correct){$('stuck').textContent='Show me why';const b=document.createElement('button');b.type='button';b.className='primary';b.dataset.nextQuestion='';b.textContent='Try a fresh question';b.addEventListener('click',startTransfer);$('answer-form').querySelector('.actions').prepend(b);}
+  if(state.help)renderHelp();
+ });
+ $('stuck').addEventListener('click',openHelp);
+ $('transfer-choices').addEventListener('change',e=>{state.transferSelection=Number(e.target.value);$('transfer-submit').disabled=false;});
+ $('transfer-form').addEventListener('submit',e=>{
+  e.preventDefault();if(state.transferSelection===null||state.transferDone)return;
+  const d=lessons[subject];state.transferTries++;
+  if(state.transferSelection===d.transferCorrect){
+   state.transferDone=true;$('transfer-submit').hidden=true;$('transfer-choices').querySelectorAll('input').forEach(x=>x.disabled=true);
+   $('transfer-choices').querySelector(`[data-index="${d.transferCorrect}"]`).classList.add('correct');
+   notice($('transfer-feedback'),'Correct · '+d.transferSolution,true);$('transfer-feedback').style.marginTop='18px';
+   $('finish-text').textContent=d.finish+(state.transferTries>1?' You revised after feedback.':'');$('finish').hidden=false;
+  }else{
+   notice($('transfer-feedback'),d.transferWrong[state.transferSelection]);$('transfer-feedback').style.marginTop='18px';
+   const help=document.createElement('button');help.type='button';help.className='quiet';help.textContent='Go back to the help';help.addEventListener('click',openHelp);$('transfer-feedback').append(help);
+  }
+ });
+ $('other-subject').addEventListener('click',()=>{start(subject==='calc'?'chem':'calc');$('question-title').scrollIntoView({block:'start'});});
+ $('review-help').addEventListener('click',openHelp);
+ start(subject);
+})();
+</script>
+</body>
+</html>
