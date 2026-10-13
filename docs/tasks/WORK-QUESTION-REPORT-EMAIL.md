@@ -6,6 +6,7 @@
 **Date:** 2026-10-12
 **Branch:** codex/question-report-email (Cramapple backend and ap-prep-blueprint App)
 **PR:** https://github.com/david-bloom/Cramapple/pull/428 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/17 (App)
+**Production approval:** David Bloom, 2026-10-13: “I Approve releasing this to production”. This follows the explicit request to approve merging/releasing these two PRs, the reporting backend and App publication.
 
 ## Authorization
 
@@ -44,4 +45,4 @@ David requested starting a session for this exact feature, emphasizing a simple 
 
 The existing App PR conflicted with main's new Formula import. The conflict was resolved by retaining both imports and merging App main `2bb35c6825b84691f8e6d701601a6d1f0cfff9be` into the existing feature branch. App checkpoint: `5e2491b62a5a641a17e33d148b74e720f60c1dec`. The diff against current main remains the four report-feature files only. Focused report/question rendering/design/formula tests: 4 files, 51 tests pass; TypeScript and build pass. No lockfile changes were made. Initial dependency checks encountered the existing stale npm lockfile; installing declared dependencies without changing lockfiles enabled validation.
 
-No Production migration, endpoint deployment, PR merge, or Lovable publication is authorized by the session-start request alone. Next owner: David, for explicit Production release approval. After approval, release the two recorded migrations and report-question endpoint before publishing the App, checking the actual publication delta for unrelated work. Keep the separate More help demo paused and leave the previously declined test-account cleanup untouched.
+The session-start request alone did not authorize Production. David subsequently explicitly approved release on October 13, as recorded in the header. Next action: apply the two reporting migrations and deploy report-question before merging/publishing the App; verify the publication delta and live report flow. Keep the separate More help demo paused and leave the previously declined test-account cleanup untouched.
