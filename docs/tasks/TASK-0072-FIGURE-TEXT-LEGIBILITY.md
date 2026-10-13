@@ -104,12 +104,55 @@ a chart and are what collide first when type grows — they repeat along both ax
 would have forced fewer gradations, rotated labels or a wider plot area. Leaving them where they are means
 the enlargement is confined to a handful of labels per figure, which is a resize rather than a redesign.
 
+## Lever — RULED, 2026-10-13: scale, not type size
+
+David, asked whether to raise the rendered scale or the type scale: **"Scale please."**
+
+### What "scale" can and cannot mean here
+
+`figures.css` sets `.ca-figure-svg svg { width: 100%; height: auto }`, so a figure's rendered scale is
+**entirely** `container width ÷ viewBox width`. Two consequences that constrain the work:
+
+- **Shrinking the viewBox achieves nothing.** If every coordinate and font-size is multiplied by *k* and
+  the viewBox with them, rendered px = (font·*k*) × (container / *k*·W) = font × container / W. Identical.
+  A uniform re-authoring at a smaller viewBox is a no-op on screen.
+- **Therefore scale means one thing only: display the figure in a wider slot.** It is a layout change, not
+  a renderer change, and it costs nothing in collisions — which is exactly why it is the right lever.
+
+### The slot widths it requires
+
+Measured 2026-10-13 at a 1440px desktop viewport, against the smallest in-scope label per preset:
+
+| Preset | viewBox | Slot today | Scale today | Smallest in-scope label today | **Slot needed for 16px** |
+|---|---|---|---|---|---|
+| `compact` | 340 | 302px | 0.888 | 9.8px | **495px** (+64%) |
+| `full` | 680 | 648px | 0.953 | 10.5px | **989px** (+53%) |
+| `expanded` | 980 | — | — | — | **1363px** |
+
+### Where that is and is not achievable
+
+- **Notes sheet — achievable, and probably already close.** `.ca-notes-figure-grid` is a single column
+  below the breakpoint and two columns above it, inside a sheet with `max-width: 1440px`. A `compact`
+  figure given a single column of ~760px renders at scale 2.2, putting its smallest in-scope label near
+  24px — comfortably over the floor. **Check the two-column mode: it may halve the slot back under the
+  threshold**, in which case the figures want one column, or a wider breakpoint.
+- **Reference pane — not achievable.** The pane is ~324px and needs 495px. No amount of scale fits a
+  `compact` figure there. The existing expand-to-dialog affordance (`.ca-figure-open`, `Figure.tsx`
+  `layout="expanded"`) is the escape hatch; confirm the dialog clears 1363px on a desktop, or that it
+  uses `full` rather than `expanded` at narrow widths.
+- **Phone — not achievable by scale.** Below ~495px of viewport there is no slot wide enough for any
+  preset. Either the dialog carries it, or the floor cannot be met on a phone and that needs saying out
+  loud rather than discovering later.
+
+**Consequence for the type scale:** none of the above edits `render.ts`. If the slots cannot be widened
+far enough on some surface, the fallback is a type bump on the in-scope roles only — cheap now that ticks
+are exempt — but that is a second choice, not the plan.
+
 ## Open questions for the Product Owner
 
-1. **Scale or type size?** Raising the rendered scale lifts every label at once without re-laying-out the
-   figure; editing the type scale does not. Measure both before committing.
-2. **Is this launch-blocking?** The figures are live and have been since 2026-10-12. Nobody reported them;
+1. **Is this launch-blocking?** The figures are live and have been since 2026-10-12. Nobody reported them;
    they were found by measurement, not by a student.
+2. **Is the floor expected to hold on a phone?** Scale cannot deliver it there at any preset.
 
 ## Definition of done
 
