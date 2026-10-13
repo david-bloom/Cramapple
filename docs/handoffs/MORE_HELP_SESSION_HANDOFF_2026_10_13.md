@@ -4,7 +4,7 @@
 **Owner / next decision:** David Bloom, after Micah/Orly feedback
 **State:** Paused by explicit owner instruction; documentation only in this closeout
 **Branch:** codex/more-help-session-handoff
-**PR:** Pending
+**PR:** https://github.com/david-bloom/Cramapple/pull/430
 **Canonical decisions:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Mock/source bundle:** [README](../design-reference/more-help/README.md)
 
@@ -89,3 +89,7 @@ No Production migration, report-endpoint deployment, App merge or Lovable publis
 - The separate issue-report release/cleanup without its own requested continuation.
 
 **Next owner and action:** David supplies the kids' feedback and an explicit restart instruction. The next implementation session starts from this handoff, not a fresh demo build.
+
+## Documentation synchronization
+
+The complete handoff/artifact bundle is preserved on `codex/more-help-session-handoff`, PR #430. Automatic approval review rejected the attempted documentation-only merge into main because it required explicit merge approval; no merge occurred and no alternative merge path was attempted. Future sessions should open this branch/PR directly until it is promoted. This is not a demo deployment or a new product review gate.
