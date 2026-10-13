@@ -5,7 +5,7 @@
 **Tier:** Standard implementation; Hard-Gate Production release within the approved reporting service
 **Date:** 2026-10-13
 **Branch:** codex/question-report-source-url (Cramapple backend and ap-prep-blueprint App)
-**PR:** Pending creation
+**PR:** https://github.com/david-bloom/Cramapple/pull/431 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/18 (App)
 **Related:** WORK-QUESTION-REPORT-EMAIL; original released backend PR #428 and App PR #17
 
 ## Owner request and authorization
