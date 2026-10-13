@@ -2,7 +2,7 @@ import { requireAuthedUser } from "../_shared/auth.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse } from "../_shared/http.ts";
 import { sendLoopsTransactional } from "../_shared/loops-transactional.ts";
-import { type Receipt, reportQuestion } from "./handler.ts";
+import { type Receipt, reportEmailComment, reportQuestion } from "./handler.ts";
 
 // Non-secret owner destination/template, kept server-side and overridable for QA.
 const recipient = Deno.env.get("QUESTION_REPORT_EMAIL")?.trim() ||
@@ -41,7 +41,7 @@ Deno.serve((req) =>
       if (error) throw new Error("reservation_failed");
       return data as Receipt;
     },
-    send: (receipt) =>
+    send: (receipt, sourceUrl) =>
       sendLoopsTransactional({
         transactionalId: template,
         email: recipient,
@@ -50,7 +50,7 @@ Deno.serve((req) =>
           questionId: receipt.questionId!,
           question: receipt.question!,
           mode: receipt.mode!,
-          comment: receipt.comment || "No comment added.",
+          comment: reportEmailComment(receipt, sourceUrl),
           reportId: receipt.id!,
         },
       }, `question-report-${receipt.id}`),

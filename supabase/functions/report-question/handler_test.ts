@@ -1,4 +1,10 @@
-import { type Receipt, type ReportDeps, reportQuestion } from "./handler.ts";
+import {
+  type Receipt,
+  type ReportDeps,
+  reportEmailComment,
+  reportQuestion,
+  reportSourceUrl,
+} from "./handler.ts";
 const uid = "11111111-1111-4111-8111-111111111111";
 const input = {
   requestId: uid,
@@ -137,4 +143,61 @@ Deno.test("worked examples accept a null session and reject a practice session",
     400,
   );
   equal(other.calls, []);
+});
+
+Deno.test("source page is passed to email without changing the stored note", async () => {
+  const t = setup();
+  const sourceUrl =
+    "https://app.cramapple.com/question?mode=practice&type=mcq&topic=%222.1%22";
+  t.deps.reserve = async (_, body) => {
+    equal(body.comment, "");
+    return { state: "reserved", id: uid, comment: "" };
+  };
+  t.deps.send = async (receipt, source) => {
+    equal(source, sourceUrl);
+    equal(
+      reportEmailComment(receipt, source),
+      `No comment added.\n\nSubmitted from: ${sourceUrl}`,
+    );
+  };
+  equal(
+    (await reportQuestion(t.request({ ...input, sourceUrl }), t.deps)).status,
+    200,
+  );
+});
+
+Deno.test("source URLs retain route context but omit tokens and fragments", () => {
+  equal(
+    reportSourceUrl(
+      "https://app.cramapple.com/question?topic=2.1&token=secret#access_token=secret",
+    ),
+    "https://app.cramapple.com/question?topic=2.1",
+  );
+  equal(
+    reportEmailComment(
+      { comment: "This step is confusing." },
+      "https://app.cramapple.com/question",
+    ),
+    "This step is confusing.\n\nSubmitted from: https://app.cramapple.com/question",
+  );
+});
+
+Deno.test("untrusted or malformed source URLs never reserve or send", async () => {
+  for (
+    const sourceUrl of [
+      "https://evil.example/question",
+      "javascript:alert(1)",
+      "https://app.cramapple.com/login",
+      "https://user:secret@app.cramapple.com/question",
+      7,
+      "x".repeat(2049),
+    ]
+  ) {
+    const t = setup();
+    equal(
+      (await reportQuestion(t.request({ ...input, sourceUrl }), t.deps)).status,
+      400,
+    );
+    equal(t.calls, []);
+  }
 });
