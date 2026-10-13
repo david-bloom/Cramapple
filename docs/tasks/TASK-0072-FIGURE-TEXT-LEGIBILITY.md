@@ -70,15 +70,46 @@ Consequences for how this is done:
   small); the ~402-row prose retrofit from `DECISION-0119`; any change to the mathematics renderer, which
   now complies.
 
+## Which labels are in scope — RULED, 2026-10-13
+
+David, asked whether the floor binds on every label or only the meaningful ones: **"only meaningful labels -
+axis titles and annotations, not ticks"**.
+
+Reading that across the renderer's type roles. Correct this table if the edges are wrong; `note` and `flag`
+were not named either way and are read here as chrome:
+
+| Role | In scope | Why |
+|---|---|---|
+| `title`, `sub` | yes | names the figure |
+| `axis` | yes | named by David |
+| `ann` | yes | named by David |
+| `mark` | yes | a data label explains a value; same kind of thing as an annotation |
+| `legend` | yes | identifies which series is which; unreadable legend = unreadable figure |
+| `tick` | **no** | a scale gradation, read against the axis rather than on its own |
+| `note`, `flag` | **no** (assumed) | source/footnote chrome |
+
+### What the ruling does and does not change
+
+**It does not shrink the gap.** Annotations and data marks are authored at essentially the same size as
+ticks, so the binding minimum barely moves:
+
+| Preset | tick (exempt) | smallest in-scope | gap to 16px |
+|---|---|---|---|
+| `compact` | 11 | **11** (`mark`, `legend`) | identical to tick — no change |
+| `full` | 10.5 | **11** (`ann`, `mark`, `legend`) | 0.5 better |
+| `expanded` | 10.5 | **11.5** (`ann`, `mark`, `legend`) | 1.0 better |
+
+**It substantially reduces the layout risk, which is the real benefit.** Tick labels are the densest text on
+a chart and are what collide first when type grows — they repeat along both axes, so enlarging them is what
+would have forced fewer gradations, rotated labels or a wider plot area. Leaving them where they are means
+the enlargement is confined to a handful of labels per figure, which is a resize rather than a redesign.
+
 ## Open questions for the Product Owner
 
-1. **Does the floor apply to every label in a figure, or only to the ones carrying meaning?** A tick label is
-   arguably closer to chrome than to body copy, while an axis title and a data annotation plainly are not.
-   `DECISION-0120` exempts chrome and maths subordinates but does not rule on tick labels. This single answer
-   decides whether the task is a resize or a redesign.
-2. **Scale or type size?** See 3 above — worth measuring before committing.
-3. **Is this launch-blocking?** The figures are live and have been since 2026-10-12. They are legible enough
-   that nobody reported them; they were found by measurement, not by a student.
+1. **Scale or type size?** Raising the rendered scale lifts every label at once without re-laying-out the
+   figure; editing the type scale does not. Measure both before committing.
+2. **Is this launch-blocking?** The figures are live and have been since 2026-10-12. Nobody reported them;
+   they were found by measurement, not by a student.
 
 ## Definition of done
 

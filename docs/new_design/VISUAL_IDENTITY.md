@@ -53,9 +53,12 @@ distinction is not pedantic; it is the whole rule, and both times it has been mi
   this is not an artefact of one layout width. **Open, not fixed**; see `DECISION-0120` and `TASK-0072`.
 
 Exempt, because they are not content a student reads to answer: chrome (breadcrumb 13px, counts 12px,
-eyebrows 12px, the plate caption 10px), and the subordinate characters of ordinary maths typography —
+eyebrows 12px, the plate caption 10px); the subordinate characters of ordinary maths typography —
 subscripts, superscripts and limits, which sit near 0.7× by convention and are read as part of the
-expression rather than on their own.
+expression rather than on their own; and, **in a figure, the tick labels** — a gradation is read against
+its axis rather than on its own (David, 2026-10-13: *"only meaningful labels - axis titles and
+annotations, not ticks"*). A figure's title, subtitle, axis titles, annotations, data labels and legend
+are **in** scope: they name or explain the content.
 
 **How to check it.** Never by eye alone and never from the source numbers. Render the thing, then measure
 the computed size of every element that paints a glyph, excluding spacers, and take the minimum. For an
