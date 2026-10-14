@@ -3,7 +3,7 @@
 **Status:** Approved
 **Date:** 2026-10-13 (America/New_York)
 **Owner:** David Bloom
-**Execution:** David confirmed real Calculus AB/BC and Chemistry questions in app.cramapple.com. Claude QA found runtime permission defects; remediation and owner decisions are in the [disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md). David chose targeted disclosure checks plus human red-team QA, separate delivery/attempt limits and preparation of the demo's Anthropic Gateway path. Development v5 is active but needs a Gateway key and real-generation verification. App is draft; Production unchanged. See [production work order](../tasks/WORK-MORE-HELP-PRODUCTION.md).
+**Execution:** David confirmed real Calculus AB/BC and Chemistry questions in app.cramapple.com. Claude QA found runtime permission defects; remediation and owner decisions are in the [disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md). David chose targeted disclosure checks plus human red-team QA, separate delivery/attempt limits and preparation of the demo's Anthropic Gateway path. Development Gateway key is configured. [First live QA](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md) produced AB help with a conceptual-subpart disclosure concern; BC failed validation and Chemistry was not called. Release remains blocked. App is draft; Production unchanged. See [production work order](../tasks/WORK-MORE-HELP-PRODUCTION.md).
 **Canonical repository:** david-bloom/Cramapple
 **Restart handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 **Preserved mocks/source:** [More help artifact bundle](../design-reference/more-help/README.md)

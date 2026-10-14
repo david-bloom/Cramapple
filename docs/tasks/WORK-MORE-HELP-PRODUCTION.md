@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — Claude QA remediation implemented; follow-up QA, Gateway setup and real generation pending
+**Status:** In Progress — Gateway key configured; first live QA found AB subpart disclosure and BC validation failure; release blocked
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -9,6 +9,8 @@
 **PR:** https://github.com/david-bloom/Cramapple/pull/435 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/21 (App)
 **Governing design:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
+
+**Latest execution:** [Gateway live QA, October 14](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md). Backend PR #435 is merged; app PR #21 remains draft. Two provider calls attempted; Chemistry stopped before invocation. Three expired QA entitlements temporarily extended then restored. Earlier missing-key/no-success checkpoints below are historical.
 
 ## Owner direction and approval state
 

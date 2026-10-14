@@ -1,5 +1,7 @@
 # More help — paused demo and restart handoff
 
+**Latest execution:** [October 14 Gateway live QA](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md): key configured, AB generated but appears to disclose a conceptual subpart, BC validation failed, Chemistry not called. Test entitlements restored; release blocked. This supersedes earlier runtime/key checkpoints below.
+
 **Date:** 2026-10-13 (America/New_York)
 **Owner / next decision:** David Bloom, after Micah/Orly feedback
 **State at original closeout:** Paused by explicit owner instruction; documentation only in that closeout

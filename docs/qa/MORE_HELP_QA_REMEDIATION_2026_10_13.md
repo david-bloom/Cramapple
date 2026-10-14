@@ -1,5 +1,7 @@
 # More help — Lovable QA disposition and Claude review checkpoint
 
+**Historical checkpoint:** The code/version counts below record the first Lovable remediation. See [Claude disposition](MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md) and [October 14 live Gateway QA](MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md) for later fixes and observed remaining failures.
+
 **Date:** 2026-10-13 (America/New_York)
 **Status:** Remediation implemented; fresh independent QA pending; production release held
 **Original review:** [Owner-supplied Lovable QA](QA_MORE_HELP_LOVABLE_2026_10_13.md), proposed FAIL on app `24fd79f` / backend `ad405dc2`
