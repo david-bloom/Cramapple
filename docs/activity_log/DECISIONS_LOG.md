@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
 - DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
 - DECISION-0119 — Equation Presentation: a Quotient of Compound Expressions Is Stacked, Four Conventional Slashes Are Kept, and a Surface That Cannot Render LaTeX May Not Show It; Rendered Equations Use KaTeX's Own Faces, Amending the STIX Two Math Rule
@@ -71,6 +72,20 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists
+
+- **Date:** 2026-10-14
+- **Decided by:** David Bloom (Product Owner), in session: "Go with option A", after the `TASK-0074` Gateway pilot.
+- **Context:** `TASK-0073` drafted ten edits to rubric lines (`app.frq_criteria.learner_facing_text`) as stacked LaTeX. The production grader loads that column into the model prompt and persists the model's explanation, so an edit that is only presentation could change grading or leak markup. `TASK-0074` ran 53 valid grading calls (synthetic criteria, Development, through the AI Gateway to `gpt-5.4-mini`). Plain and LaTeX rubrics gave the same decision in 8 of 9 cells; one borderline cell differed (permutation p = 0.40) and one string leaked `\,\mathrm{...}`. Stray control characters appeared in both rubric forms. The pilot neither proves LaTeX safe nor harmful.
+- **Decision:**
+  1. The ten rubric-line edits are **dropped**. Rubric rows keep their current plain text.
+  2. Text that the grader reads is not edited for presentation unless a mitigation has been verified: the smallest is to keep the grader-facing text byte-for-byte and store any typeset form separately, proven by a prompt byte-equality test (follow-up review, section 5).
+  3. No claim is made that a generic LaTeX stripper preserves grading semantics; none is to be built without per-row semantic checks and a separately approved bounded verification.
+  4. Phase 1 (21 MCQ rows, already applied) is unaffected, as multiple-choice scoring is deterministic and reads no rubric text.
+- **Amends:** `DECISION-0121` item 8 (the pilot scope) by removing the rubric rows from it. `DECISION-0121`'s notation and rendering rules are otherwise unchanged.
+- **Open:** whether to strip control characters from model-written strings before storing them (a separate, semantics-neutral hygiene item, needs its own approval); whether typeset rubric display is worth M1.
+- **Execution:** documentation only. No Production write, no grading deployment. Evidence: `scripts/grader_latex_test/RESULTS_2026_10_14.md` and `FOLLOWUP_REVIEW_2026_10_14.md`.
 
 ## DECISION-0121 — Prose Quotients: Stack Only When Displayed, Keep the Slash Inside a Sentence; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C
 

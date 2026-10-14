@@ -1,11 +1,11 @@
 # TASK-0074 — Test whether the FRQ grader handles LaTeX in rubric text
 
-**Status:** Gateway experiment executed within the cap — NOT SAFE AS IS in this pilot; rubric rollout on hold. One final repeated observation awaits a separate one-attempt approval.
+**Status:** Complete — 2026-10-14. Result: **not safe as is** in this pilot (one borderline cell changed decision; one stray-markup string). The Product Owner chose Option A: the ten rubric rows stay in plain text. No mitigation built or deployed.
 **Call approval (recorded before any run):** up to **54** real model calls (3 criteria × 3 responses × 2 rubric forms × 3 repeats), **Development only**, synthetic criteria only, no Production grading data read or written. Failed or retried calls count against the cap; the run stops at 54.
 **Tier:** Standard for the analysis, harness and tests; **Hard-Gate** for any call that spends Production model budget or reads or writes Production grading data.
 **Owner:** unassigned. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/task-0074-run` / [PR #445](https://github.com/david-bloom/Cramapple/pull/445).
-**Blocks:** `TASK-0073` Phase 2 (the 10 rubric-line edits). Phase 1 (MCQ rows) does not depend on this.
+**Blocks:** nothing now. `TASK-0073` Phase 2 (the 10 rubric-line edits) is **dropped** by the Product Owner's Option A decision (`DECISION-0122`).
 **Related:** `DECISION-0121`, `DECISION-0119`, `TASK-0073`, the independent QA of 2026-10-14.
 
 ## Why this exists
@@ -50,6 +50,14 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
 - **2026-10-14, attempt 2 approved before execution:** David explicitly approved a fresh bounded allowance of up to **54 additional OpenAI calls** in the current Codex chat, using the existing environment key, `gpt-5.4-mini`, high reasoning, 3,000 max output tokens and the unchanged 3-item × 3-response × 2-form × 3-repeat plan. Failures count; stop at first failure. Preserve attempt 1; attempt 2 uses `scripts/grader_latex_test/results-2026-10-14-attempt-2.jsonl` as its own persistent counter. No Production data, database writes, purchases or grading deployment. Exact harness source: PR #445 `407306e4eb31c3e6f89c31befbb59fbf19218891`.
 
 - **2026-10-14, attempt 1: no data.** A temporary Dev-only function (`tmp-latex-grader-test`, JWT-protected, one model call per request, prompt text and request body copied verbatim from `grading-contract.ts`) was deployed to the Development project and the driver (`scripts/grader_latex_test/`) ran the full 54-trial plan. **All 54 calls were refused by OpenAI with HTTP 429 "You have no credits remaining"** (the Development grader key's account has no balance). No grade or explanation was produced, so none of the three questions is answered. The driver did not stop on the first failure, so the 54-call cap is formally spent; it now stops on the first failure. A re-run needs credit on the key and a fresh cap from the Product Owner. The temporary function should be deleted after the real run.
+
+## Outcome (2026-10-14)
+
+- **Result:** see `scripts/grader_latex_test/RESULTS_2026_10_14.md` (Codex, commit `c4f89731`) and the separate review `scripts/grader_latex_test/FOLLOWUP_REVIEW_2026_10_14.md` (Claude). Counts independently reproduced.
+- **What is and is not established:** plain and LaTeX rubrics gave identical decisions in 8 of 9 cells; the one differing cell (`com/vague`) is statistically indistinguishable from run-to-run noise (permutation p = 0.40) and has confounds beyond LaTeX. One string leaked `\,\mathrm{...}`. Stray control characters appear in both rubric forms and are not a LaTeX signature. The pilot neither proves LaTeX safe nor proves it harmful.
+- **Decision:** Option A. Leave the ten rubric rows in plain text (`DECISION-0122`). If typeset rubric display is ever wanted, the smallest mitigation is to keep the grader-facing text byte-for-byte and store the typeset form separately, verified by a prompt byte-equality test; a generic LaTeX stripper is not certified. Details in the follow-up review.
+- **Open, separate and unauthorized:** stripping control characters from model-written strings before storing them (semantics-neutral, needs its own approval); the one missing observation (`csc/vague/latex` repeat 3) is not needed.
+- **Cleanup:** the temporary Development helper was deleted; `evaluate-attempt` v52 unchanged.
 
 ## Method
 
