@@ -1,12 +1,26 @@
 # More help — paused demo and restart handoff
 
+**Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Three approved live FRQs now return valid help for AB, BC and Chemistry; the observed subpart disclosure is absent. Broader independent/release QA remains open. Earlier failed-run statements below are historical.
+
+**Latest execution:** [October 14 Gateway live QA](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md): key configured, AB generated but appears to disclose a conceptual subpart, BC validation failed, Chemistry not called. Test entitlements restored; release blocked. This supersedes earlier runtime/key checkpoints below.
+
 **Date:** 2026-10-13 (America/New_York)
 **Owner / next decision:** David Bloom, after Micah/Orly feedback
-**State:** Paused by explicit owner instruction; documentation only in this closeout
+**State at original closeout:** Paused by explicit owner instruction; documentation only in that closeout
 **Branch:** codex/more-help-session-handoff
 **PR:** https://github.com/david-bloom/Cramapple/pull/430
 **Canonical decisions:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Mock/source bundle:** [README](../design-reference/more-help/README.md)
+
+## Resumed production preparation — October 13
+
+David reported very positive student feedback and explicitly confirmed **real Calculus AB/BC and Chemistry questions in app.cramapple.com**. The wait-for-feedback and paused Sites state below are historical. See [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md) for current implementation and live-state evidence. Backend PR #435 is implemented in Development; app PR #21 is draft and unpublished. Approved actual-generation tests failed on exhausted OpenAI API credits. Production is unchanged. The latest request is [Claude adversarial code-review QA](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md), including the owner's API-versus-subscription question. No Site audience change or invitation has occurred.
+
+PR #430 has landed on `main`; its former remote branch is gone. Read this handoff on `main`, retaining the original branch/PR as historical provenance. The documentation-synchronization section below records the earlier blocked merge, not the current GitHub state.
+
+## Latest Claude QA remediation
+
+Claude’s independent FAIL identified missing runtime-role grants. These are fixed and verified under service_role. David selected targeted disclosure checks plus human red-team QA, separate delivery/request limits and the demo’s Anthropic Gateway path. Development v5 is prepared but needs its Gateway key; Production is unchanged. See the [current disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md) for exact code/migration identities, passed rollback tests, private app snapshot and remaining release gates. Earlier resumed-orientation/provider/test counts below are historical.
 
 ## What is preserved
 
