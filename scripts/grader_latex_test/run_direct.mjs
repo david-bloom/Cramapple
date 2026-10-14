@@ -65,7 +65,11 @@ const done = () => (existsSync(OUT) ? readFileSync(OUT, "utf8").split("\n").filt
 const trials = [];
 for (let rep = 1; rep <= 3; rep++) for (const item of fx.items) for (const resp of ["correct", "wrong", "vague"]) for (const form of ["plain", "latex"]) trials.push({ rep, item: item.id, resp, form });
 if (trials.length !== CAP) throw new Error("trial plan is " + trials.length);
-for (const t of trials.slice(done())) {
+// Resume by successful observation, not by line count: a failed attempt has no result, so its trial must be retried.
+// The attempt cap (CAP) still counts every line, failures included.
+const okKey = (t) => `${t.rep}|${t.item}|${t.resp}|${t.form}`;
+const okDone = new Set((existsSync(OUT) ? readFileSync(OUT, "utf8").split("\n").filter(Boolean) : []).map((l) => JSON.parse(l)).filter((r) => r.result?.parsed).map(okKey));
+for (const t of trials.filter((x) => !okDone.has(okKey(x)))) {
   if (done() >= CAP) break;
   const item = fx.items.find((i) => i.id === t.item);
   const criteria = item.criteria[t.form];

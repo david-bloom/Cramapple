@@ -14,7 +14,7 @@ first failure.
     node analyze.mjs results.jsonl
 
 Use the same model the Development grader uses (`gpt-5.4-mini`, high reasoning effort, 3000 max output tokens).
-Do not delete `results.jsonl` between runs: it is the call counter. A restart resumes where it stopped.
+Do not delete `results.jsonl` between runs: it is the call counter. A restart retries any trial that has no successful result (a failed attempt is not skipped), and the 54-attempt cap counts failed attempts too.
 
 `run.mjs` is the variant that goes through a temporary Development edge function and needs no local key.
 
