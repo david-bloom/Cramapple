@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Pilot on Chemistry and Calculus AB Units 1–3 (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
 - DECISION-0119 — Equation Presentation: a Quotient of Compound Expressions Is Stacked, Four Conventional Slashes Are Kept, and a Surface That Cannot Render LaTeX May Not Show It; Rendered Equations Use KaTeX's Own Faces, Amending the STIX Two Math Rule
 - DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help; Assistance Timing Rules Stay in Force
@@ -70,6 +71,22 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0121 — Prose Quotients: Stack Only When Displayed, Keep the Slash Inside a Sentence; Pilot on Chemistry and Calculus AB Units 1–3
+
+- **Date:** 2026-10-14
+- **Decided by:** David Bloom (Product Owner), in session: "I approve option 2 for Units 1–3 in chemistry and calculus AB only. This will give us enough material to determine if it is a good approach."
+- **Context:** `DECISION-0119` says a compound quotient is stacked. Applied literally to question and teaching prose it stacks mid-sentence (`Let f(x) = (x²−x−6)/(x²−4). Which statement…`), which is chunky in running text. The session close of 2026-10-13 left this undecided and said to decide it before editing any rows.
+- **Decision:**
+  1. In question and teaching prose, a compound quotient that **stands alone on its own line** (a displayed expression) is stacked.
+  2. A compound quotient **inside a sentence** keeps the slash, written with explicit grouping.
+  3. The four `DECISION-0119` exceptions and the score slash are unchanged.
+  4. This applies to prose only. Reference-pack formulas remain stacked, as `DECISION-0119` already requires.
+  5. Notation for stacked prose maths is LaTeX in `$…$` delimiters, reusing `mathSpan`/`MathText`. Content is **authored, not transformed**: no regex or render-time rewrite.
+  6. The first pass is a **pilot**: `ap_chemistry` and `ap_calculus_ab`, units 1–3 only, run in Development, QA'd independently, before anything widens.
+- **Amends:** `DECISION-0119` for prose surfaces only; that decision's rule is otherwise unchanged. Annotate-don't-rewrite applies.
+- **Open:** whether display-only stacking reads well in the app is what the pilot tests. The pilot's Production size is unmeasured (see `TASK-0073`).
+- **Execution:** documentation only. No Production write, no migration, no app change in this decision. Work is tracked in `TASK-0073`.
 
 ## DECISION-0120 — The Size Floor Binds on the Smallest Rendered Glyph, Not the Element
 
