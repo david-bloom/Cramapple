@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
+
 - More help Gateway fix verification (2026-10-14): owner approved bounded QA; three of six permitted calls returned validated 200 responses for AB, BC and Chemistry. Observed AB subpart answer withheld and answer-bearing fact excluded; BC valid; Chemistry now covered. All three receipts delivered and QA entitlement dates restored. Development v7, 22 backend tests/typecheck pass; independent/full release QA still open. [Verification](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md).
 
 - More help first Anthropic Gateway live QA (2026-10-14): key present; owner explicitly approved three bounded calls. AB generated with a conceptual-subpart disclosure concern; BC failed validation; Chemistry not called. Two calls attempted, failed BC receipt not delivered. Three QA entitlements temporarily extended then restored. Backend #435 merged; app #21 draft. Release blocked. [Evidence](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md).
@@ -448,6 +450,21 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## LaTeX Prose Rollout Scoped to a Pilot (2026-10-14)
+
+David ruled the open design question from the 2026-10-13 session close: **display-only stacking** for compound
+quotients in prose, slash kept inside sentences (`DECISION-0121`, amending `DECISION-0119` for prose only).
+A read-only Production count showed the problem is about 1% of prose and concentrated in math-heavy courses, so he
+approved author-forward plus a targeted backfill, with a pilot on Precalculus and Physics C (`TASK-0073`).
+Prose maths is `\(…\)` inline and `\[…\]` display, not `$…$`, because published prose already uses `$` as
+currency. Method: deterministic detection, one Sonnet-class draft per row, a validator that builds the edited
+text itself so only the maths can change, then review. 33 edits are drafted across three subjects; none is applied.
+The prose renderer is merged in `ap-prep-blueprint` (PR #22) and not yet published. Production writes of the content
+edits remain a Hard Gate.
+
+**Finding that matters:** the app's `.env` points at the Production database, so a Development copy cannot be viewed
+in any app page; the dev harness renders the real components from sample data instead.
 
 ## 2026-10-14 — More help Gateway fixes verified on three live FRQs
 

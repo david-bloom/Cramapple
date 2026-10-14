@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
 - DECISION-0119 — Equation Presentation: a Quotient of Compound Expressions Is Stacked, Four Conventional Slashes Are Kept, and a Surface That Cannot Render LaTeX May Not Show It; Rendered Equations Use KaTeX's Own Faces, Amending the STIX Two Math Rule
 - DECISION-0118 — Relevant Published Memory Hooks May Be Used in Hints, Post-Miss Feedback, and Student-Requested Targeted Help; Assistance Timing Rules Stay in Force
@@ -70,6 +71,26 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0121 — Prose Quotients: Stack Only When Displayed, Keep the Slash Inside a Sentence; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C
+
+- **Date:** 2026-10-14
+- **Decided by:** David Bloom (Product Owner), in session: first "I approve option 2 for Units 1–3 in chemistry and calculus AB only. This will give us enough material to determine if it is a good approach."
+- **Context:** `DECISION-0119` says a compound quotient is stacked. Applied literally to question and teaching prose it stacks mid-sentence (`Let f(x) = (x²−x−6)/(x²−4). Which statement…`), which is chunky in running text. The session close of 2026-10-13 left this undecided and said to decide it before editing any rows.
+- **Decision:**
+  1. In question and teaching prose, a compound quotient that **stands alone on its own line** (a displayed expression) is stacked.
+  2. A compound quotient **inside a sentence** keeps the slash, written with explicit grouping.
+  3. The four `DECISION-0119` exceptions and the score slash are unchanged.
+  4. This applies to prose only. Reference-pack formulas remain stacked, as `DECISION-0119` already requires.
+  5. Notation for prose maths is LaTeX in **`\(…\)` (inline) and `\[…\]` (display)**, not `$…$`. About 70 published prose rows already contain `$` as currency (mostly AP Statistics), so `$…$` would swallow the words between two prices; a backslash never occurs in prose. Absolute value is written `\lvert x\rvert`, never `|x|`, because a bare pipe on consecutive lines is read as a table. Content is **authored, not transformed**: no regex or render-time rewrite.
+  6. **Author forward:** all new question and teaching prose is authored with the display-only rule in LaTeX. This costs nothing extra and stops the problem growing.
+  7. **Backfill only where it hurts:** math-heavy courses where a fraction is central to the question (Precalculus, Physics C, Calculus). Chemistry, Biology and Statistics are not backfilled unless a specific item is raised.
+  8. The first backfill is a **pilot on `ap_precalculus` and `ap_physics_c_em` / `ap_physics_c_mechanics`**, drafted from a read-only Production read, QA'd independently, and visually QA'd by the Product Owner before anything widens. Production writes remain a Hard Gate.
+- **Revision same day:** a read-only Production count found the pilot slice thin (Calc AB units 7–8: about 9 loose hits; Chemistry 8–9: none; Chemistry units 1–3: 25 of 197 items have a hit). The overall problem is about 1% of prose and concentrated in math-heavy courses. David then approved author-forward plus a targeted backfill and chose Precalculus and Physics C first ("I approve 1 and 3. Do precalculus and physics c first.").
+- **Rulings on the pilot drafts (2026-10-14):** a field that is a single worked equation counts as standing alone and is stacked; Precalculus answer choices written as "the square root of 3" keep their wording; `1/(…)` reciprocals with a compound denominator are stacked; inner simple quotients (`√3/2`, `1/2`) stay as slashes inside a stacked fraction.
+- **Amends:** `DECISION-0119` for prose surfaces only; that decision's rule is otherwise unchanged. Annotate-don't-rewrite applies.
+- **Open:** whether display-only stacking reads well in the app is what the pilot tests. The pilot's Production size is unmeasured (see `TASK-0073`).
+- **Execution:** documentation only. No Production write, no migration, no app change in this decision. Work is tracked in `TASK-0073`.
 
 ## DECISION-0120 — The Size Floor Binds on the Smallest Rendered Glyph, Not the Element
 
