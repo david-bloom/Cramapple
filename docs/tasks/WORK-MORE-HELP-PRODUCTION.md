@@ -6,7 +6,7 @@
 **Priority:** Owner-requested next production slice
 **Created Date:** 2026-10-13 (America/New_York)
 **Branch:** `codex/more-help-production`
-**PR:** https://github.com/david-bloom/Cramapple/pull/435
+**PR:** https://github.com/david-bloom/Cramapple/pull/435 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/21 (App)
 **Governing design:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 
@@ -123,3 +123,11 @@ Open risks: destination ambiguity; durable pre-submission assistance; answer-dis
 - Automatic approval review initially rejected the real-generation test as insufficient authorization for OpenAI transmission. David then explicitly approved sending selected Cramapple-authored question text/published reference facts with empty work fields, and no real student identity/history/work, to the existing OpenAI backend for Development QA. The authorized test is running; no success claim yet.
 
 Remaining before release: actual-generation outcome, independent QA, desktop/phone visual check, exact publication delta and Production rollout/smoke. No new scope approval is needed for this confirmed slice.
+
+## Live-generation result and release hold
+
+The explicitly approved Development QA authenticated the disposable fixture account and invoked the real More help endpoint for one served question in each of Calculus AB, Calculus BC and Chemistry, with empty work/focus. All three returned HTTP 503 `help_unavailable`. A second run after adding non-sensitive provider-code diagnostics established the upstream error: **HTTP 429 `credit_balance_exhausted`** (Development function logs, 2026-10-14 00:20:12–14 UTC / October 13 8:20 PM New York). No successful generation is verified. Do not keep retrying unchanged credit state, silently substitute a scripted response or automatically pay/top up.
+
+Development function v2 is active with the diagnostic-only addition; logs contain status/error code only, not prompts, student work, credentials or provider bodies. Full App suite now passes: **114 files / 1,092 tests**. App PR #21 CI passes. Backend PR #435's test and Vercel checks pass; Vercel Agent Review is pending. Independent read-only source QA was requested through the existing Lovable project's plan-mode review, with no implementation/publication authorization to that reviewer.
+
+Production remains unchanged. Release requires a functioning authorized model connection, successful real-generation QA and the remaining review/visual/smoke evidence. Existing grading/billing/account secrets were not changed in response to the credit failure.

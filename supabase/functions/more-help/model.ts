@@ -50,6 +50,16 @@ export async function generateHelp(
     throw new HelpError("help_connection_failed", 503);
   }
   if (!response.ok) {
+    let errorCode = "unknown";
+    try {
+      errorCode = String(
+        object(object(await response.json()).error).code ?? "unknown",
+      );
+    } catch { /* no provider body logged */ }
+    console.warn("[more-help] provider request failed", {
+      status: response.status,
+      code: errorCode,
+    });
     throw new HelpError(
       response.status === 402 ? "help_connection_failed" : "help_unavailable",
       503,
