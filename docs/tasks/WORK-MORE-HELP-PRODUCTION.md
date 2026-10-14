@@ -6,7 +6,7 @@
 **Priority:** Owner-requested next production slice
 **Created Date:** 2026-10-13 (America/New_York)
 **Branch:** `codex/more-help-production`
-**PR:** Pending creation
+**PR:** https://github.com/david-bloom/Cramapple/pull/435
 **Governing design:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 
@@ -106,3 +106,5 @@ Open risks: destination ambiguity; durable pre-submission assistance; answer-dis
 **Next owner/action:** David answers the already-presented app-versus-demo scope question; Codex continues the appropriate implementation path using these verified seams and completes the release checks. Do not reconstruct the prior mock or restart broad repository discovery.
 
 **Recommended implementation prompt:** Continue WORK-MORE-HELP-PRODUCTION using David's confirmed destination. For the app, implement the durable assistance and authoritative context contract first, then the accepted two-pane template and bounded generation. Preserve answers/grades, respect pre-submission answer disclosure, use vetted references/hooks, and complete Development/Preview plus independent QA before the exact production rollout. For the demo, use the saved existing Sites project/version and verify current access/real generation without changing audience or paying automatically.
+
+**Documentation synchronization:** PR #435 preserves this In Progress work order and restart records on `codex/more-help-production`. Documentation links and whitespace checks pass. No release completion is implied.
