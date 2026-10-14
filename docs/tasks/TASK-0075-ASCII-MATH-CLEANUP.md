@@ -1,6 +1,6 @@
 # TASK-0075 — Clean up ASCII-notation maths in questions and lesson notes
 
-**Status:** In progress — read-only inventory done 2026-10-14; waiting on the Product Owner's scope and notation rulings (below) before anything is drafted. No Production write.
+**Status:** In progress — rulings received 2026-10-14 (`DECISION-0123`). Drafting Tier A (383 answer-choice rows) next; Tier B (all 1,664 in-scope rows) follows. No Production write without the Product Owner's explicit approval of each batch.
 **Tier:** Standard for the inventory and drafting; **Hard-Gate** for any Production write (same gate as `TASK-0073`).
 **Owner:** unassigned. **Product Owner:** David Bloom.
 **Branch / PR:** none yet.
@@ -90,6 +90,13 @@ pointer to where lesson notes are stored is needed before they can be inventorie
 
 Whatever is chosen, each Production write uses the Phase 1 transaction pattern (exact before-text guards, versions pinned,
 taxonomy labels captured and restored, post-write verification) and needs the Product Owner's explicit approval first.
+
+## Rulings received (2026-10-14, `DECISION-0123`)
+
+1. **Scope:** start with the 383 answer-choice rows (Tier A), then do all 1,664 in-scope rows (Tier B). FRQ stems and stimuli stay out until the grader-read risk is solved; rubric text stays out (`DECISION-0122`); version explanations stay out.
+2. **Notation:** LaTeX everywhere (`\(…\)` inline, `\[…\]` display on its own line).
+3. **Units and powers of ten:** the recommendation is approved. Exponents are converted (`\mathrm{m/s^2}`); compound units keep their slash (`DECISION-0119`).
+4. **Lesson notes:** the Product Owner asked what they are. They are the Deep Dive Notes page a student opens from a question (Core idea, What to understand, Mini example, Weak answer, Vocabulary, Formulas and rules). Their storage is not yet located, so they stay out of scope until it is.
 
 ## Risks to carry forward
 

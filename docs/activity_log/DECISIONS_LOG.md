@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0123 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
 - DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
@@ -72,6 +73,20 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0123 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
+
+- **Date:** 2026-10-14
+- **Decided by:** David Bloom (Product Owner), in session, answering the four rulings requested in `TASK-0075`: "Scope: start with 383 then do the 1,664. Notation: latex everywhere. Units: I approve your recommendation."
+- **Context:** the read-only inventory found 2,585 published rows with ASCII maths (`6*pi`, `sqrt(k/m)`, `e^2`, `9E_s`, `epsilon_0`), of which 1,664 are in scope: multiple-choice choices, rationales, stems and stimuli. Rubric text (`DECISION-0122`), FRQ stems and stimuli (the grader's prompt includes them) and version explanations (no student surface) are out.
+- **Decision:**
+  1. **Tier A:** convert the 383 answer-choice rows first. **Tier B:** then the remaining in-scope rows (1,664 in total).
+  2. **Notation:** LaTeX everywhere, `\(…\)` inline and `\[…\]` display on its own line, as `DECISION-0121` item 5. Ordinary words that match a pattern (`gamma rays`, `delta` as a name) are left alone.
+  3. **Units and powers of ten:** exponents are converted, e.g. `\mathrm{m/s^2}`; compound units keep their slash (`DECISION-0119`).
+  4. **Process:** each batch is drafted by stating the exact span and its LaTeX, validated deterministically, independently QA'd, visually QA'd by the Product Owner, and written with the Phase 1 transaction pattern (exact before-text guards, versions pinned, taxonomy labels captured and restored, post-write verification). **Each Production write needs the Product Owner's explicit approval.**
+  5. **Order for Tier B:** Physics C E&M, Physics C Mechanics, Physics 1, Physics 2, Precalculus, Chemistry, Statistics, Biology, with Calculus last.
+- **Open:** the storage location of the Deep Dive lesson notes (not found by table name); bracket-free quotient choices (such as `4πR²/ρ`) that the regex inventory cannot find; FRQ stems and stimuli, until the grader-read risk is solved.
+- **Execution:** documentation only in this decision. Work is tracked in `TASK-0075`.
 
 ## DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists
 
