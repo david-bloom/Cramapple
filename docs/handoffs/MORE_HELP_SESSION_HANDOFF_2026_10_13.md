@@ -14,6 +14,10 @@ David reported very positive student feedback and explicitly confirmed **real Ca
 
 PR #430 has landed on `main`; its former remote branch is gone. Read this handoff on `main`, retaining the original branch/PR as historical provenance. The documentation-synchronization section below records the earlier blocked merge, not the current GitHub state.
 
+## Latest Claude QA remediation
+
+Claude’s independent FAIL identified missing runtime-role grants. These are fixed and verified under service_role. David selected targeted disclosure checks plus human red-team QA, separate delivery/request limits and the demo’s Anthropic Gateway path. Development v5 is prepared but needs its Gateway key; Production is unchanged. See the [current disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md) for exact code/migration identities, passed rollback tests, private app snapshot and remaining release gates. Earlier resumed-orientation/provider/test counts below are historical.
+
 ## What is preserved
 
 - Owner-approved name, mission, both entry paths, immediate focused-help behavior, two-pane layout, content grounding, hook rule and the FRQ-engine reuse opportunity.

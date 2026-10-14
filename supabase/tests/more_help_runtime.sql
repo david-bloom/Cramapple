@@ -34,41 +34,41 @@ begin
  insert into app.attempts(id,user_id,learning_session_id,exam_pack_version_id,content_item_version_id,attempt_mode)
  values(draft,u,s,pack,q,'frq');
  r:=public.reserve_question_help_delivery(u,rid,s,q,repeat('a',64));
- if r->>'state'<>'reserved' or (r->>'generation')::integer<>1 then raise exception 'Reserve failed: %',r; end if;
+ if (r->>'state') is distinct from 'reserved' or ((r->>'generation')::integer) is distinct from 1 then raise exception 'Reserve failed: %',r; end if;
  if (select pre_submit_hint_count from app.attempts where id=draft)<>0 or public.has_question_help(s,q) then raise exception 'Reservation coached/disclosed prematurely'; end if;
  perform public.fail_question_help(u,rid,1);
  if (select request_state from app.question_help_receipts where user_id=u and request_id=rid)<>'failed' then raise exception 'Failure did not persist'; end if;
  r:=public.reserve_question_help_delivery(u,rid,s,q,repeat('a',64));
- if r->>'state'<>'reserved' or (r->>'generation')::integer<>2 then raise exception 'Retry did not reuse receipt'; end if;
+ if (r->>'state') is distinct from 'reserved' or ((r->>'generation')::integer) is distinct from 2 then raise exception 'Retry did not reuse receipt'; end if;
  perform public.fail_question_help(u,rid,1);
  if (select request_state from app.question_help_receipts where user_id=u and request_id=rid)<>'working' then raise exception 'Stale worker released retry'; end if;
  r:=public.commit_question_help(u,rid,1);
- if r->>'error'<>'delivery_expired' then raise exception 'Stale worker committed retry'; end if;
+ if (r->>'error') is distinct from 'delivery_expired' then raise exception 'Stale worker committed retry'; end if;
  r:=public.commit_question_help(u,rid,2);
- if r->>'state'<>'delivered' or not public.has_question_help(s,q) then raise exception 'Commit failed: %',r; end if;
+ if (r->>'state') is distinct from 'delivered' or not public.has_question_help(s,q) then raise exception 'Commit failed: %',r; end if;
  if (select pre_submit_hint_count from app.attempts where id=draft)<>1 or
    (select assistance_state from app.attempts where id=draft)<>'coached' then raise exception 'Existing draft not coached exactly once'; end if;
  r:=public.reserve_question_help_delivery(u,rid,s,q,repeat('a',64));
- if r->>'error'<>'request_already_used' then raise exception 'Delivered duplicate accepted'; end if;
+ if (r->>'error') is distinct from 'request_already_used' then raise exception 'Delivered duplicate accepted'; end if;
  insert into app.attempts(id,user_id,learning_session_id,exam_pack_version_id,content_item_version_id,attempt_mode)
  values(future,u,s,pack,q,'frq');
  if (select pre_submit_hint_count from app.attempts where id=future)<>1 then raise exception 'Future draft missed receipt'; end if;
  update app.attempts set status='submitted',submitted_at=clock_timestamp() where id=draft;
  rid:=gen_random_uuid(); r:=public.reserve_question_help_delivery(u,rid,s,q,repeat('a',64));
  r:=public.commit_question_help(u,rid,1);
- if r->>'state'<>'delivered' or (select count(*) from app.attempt_assistance_events where attempt_id=draft and source='more_help')<>1
+ if (r->>'state') is distinct from 'delivered' or (select count(*) from app.attempt_assistance_events where attempt_id=draft and source='more_help')<>1
    or (select count(*) from app.attempt_assistance_events where attempt_id=future and source='more_help')<>1 then raise exception 'Post-help changed submitted/doubled existing events'; end if;
  r:=public.reserve_question_help_delivery(u,lease_rid,s,q,repeat('a',64));
  update app.question_help_receipts set lease_until=clock_timestamp()-interval '1 second' where user_id=u and request_id=lease_rid;
  r:=public.reserve_question_help_delivery(u,lease_rid,s,q,repeat('a',64));
- if (r->>'generation')::integer<>2 then raise exception 'Expired lease not recovered'; end if;
+ if ((r->>'generation')::integer) is distinct from 2 then raise exception 'Expired lease not recovered'; end if;
  r:=public.commit_question_help(u,lease_rid,1);
- if r->>'error'<>'delivery_expired' then raise exception 'Expired worker committed newer lease'; end if;
+ if (r->>'error') is distinct from 'delivery_expired' then raise exception 'Expired worker committed newer lease'; end if;
  perform public.fail_question_help(u,lease_rid,1);
  if (select request_state from app.question_help_receipts where user_id=u and request_id=lease_rid)<>'working' then raise exception 'Expired worker invalidated newer lease'; end if;
  perform public.fail_question_help(u,lease_rid,2);
  r:=public.reserve_question_help_delivery(gen_random_uuid(),gen_random_uuid(),s,q,repeat('a',64));
- if r->>'error'<>'question_not_owned' then raise exception 'Foreign session accepted'; end if;
+ if (r->>'error') is distinct from 'question_not_owned' then raise exception 'Foreign session accepted'; end if;
  insert into app.learning_sessions(user_id,exam_pack_version_id,entry_path,session_mode,available_minutes,practice_format)
  values(u,pack,'topic','focused',10,'short_frq') returning id into fresh;
  insert into app.attempts(user_id,learning_session_id,exam_pack_version_id,content_item_version_id,attempt_mode)
@@ -89,7 +89,20 @@ do $$
 declare r jsonb; rid uuid:=gen_random_uuid(); u uuid:=current_setting('more_help.qa_user')::uuid;
 begin
  r:=public.reserve_question_help_delivery(u,rid,current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
- if r->>'state'<>'reserved' then raise exception '30 failures consumed delivered-help allowance: %',r; end if;
+ if (r->>'state') is distinct from 'reserved' then raise exception '30 failures consumed delivered-help allowance: %',r; end if;
+ perform public.fail_question_help(u,rid,1);
+end $$;
+reset role;
+-- Test the exact allowance boundary: 29 permits one reservation; 30 refuses.
+update app.question_help_receipts set request_state='failed',delivered_at=null,lease_until=null where user_id=current_setting('more_help.qa_user')::uuid;
+update app.question_help_receipts set request_state='delivered',delivered_at=clock_timestamp(),lease_until=null
+where id in (select id from app.question_help_receipts where user_id=current_setting('more_help.qa_user')::uuid and input_hash=repeat('b',64) order by id limit 29);
+set local role service_role;
+do $$
+declare r jsonb; rid uuid:=gen_random_uuid(); u uuid:=current_setting('more_help.qa_user')::uuid;
+begin
+ r:=public.reserve_question_help_delivery(u,rid,current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
+ if (r->>'state') is distinct from 'reserved' then raise exception '29 deliveries blocked the last allowance slot: %',r; end if;
  perform public.fail_question_help(u,rid,1);
 end $$;
 reset role;
@@ -101,21 +114,25 @@ do $$
 declare r jsonb;
 begin
  r:=public.reserve_question_help_delivery(current_setting('more_help.qa_user')::uuid,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
- if r->>'error'<>'rate_limited' or (r->>'retryAfterSeconds')::numeric<=0 then raise exception 'Delivered allowance failed: %',r; end if;
+ if (r->>'error') is distinct from 'rate_limited' or coalesce((r->>'retryAfterSeconds')::numeric,0)<=0 then raise exception 'Delivered allowance failed: %',r; end if;
 end $$;
 reset role;
 update app.question_help_receipts set request_state='failed',delivered_at=null,lease_until=null where user_id=current_setting('more_help.qa_user')::uuid;
+delete from app.question_help_calls where user_id=current_setting('more_help.qa_user')::uuid;
 insert into app.question_help_receipts(user_id,request_id,learning_session_id,content_item_version_id,input_hash,request_state,lease_until)
 select current_setting('more_help.qa_user')::uuid,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,
- repeat('c',64),'failed',null from generate_series(1,90);
+ repeat('c',64),'failed',null from generate_series(1,89);
 insert into app.question_help_calls(receipt_id,user_id,generation,attempted_at)
 select id,user_id,1,now()-interval '2 hours' from app.question_help_receipts where user_id=current_setting('more_help.qa_user')::uuid and input_hash=repeat('c',64);
 set local role service_role;
 do $$
-declare r jsonb;
+declare r jsonb; rid uuid:=gen_random_uuid(); u uuid:=current_setting('more_help.qa_user')::uuid;
 begin
- r:=public.reserve_question_help_delivery(current_setting('more_help.qa_user')::uuid,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
- if r->>'error'<>'attempt_rate_limited' or (r->>'retryAfterSeconds')::numeric<=0 then raise exception 'Attempt cost cap failed: %',r; end if;
+ r:=public.reserve_question_help_delivery(u,rid,current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
+ if (r->>'state') is distinct from 'reserved' then raise exception '89 attempts blocked final cost slot: %',r; end if;
+ perform public.fail_question_help(u,rid,1);
+ r:=public.reserve_question_help_delivery(u,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
+ if (r->>'error') is distinct from 'attempt_rate_limited' or coalesce((r->>'retryAfterSeconds')::numeric,0)<=0 then raise exception 'Attempt cost cap failed: %',r; end if;
 end $$;
 reset role;
 delete from app.question_help_calls where user_id=current_setting('more_help.qa_user')::uuid;
@@ -126,7 +143,7 @@ do $$
 declare r jsonb;
 begin
  r:=public.reserve_question_help_delivery(current_setting('more_help.qa_user')::uuid,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
- if r->>'error'<>'attempt_rate_limited' or (r->>'retryAfterSeconds')::numeric>60 then raise exception 'Burst cap failed: %',r; end if;
+ if (r->>'error') is distinct from 'attempt_rate_limited' or (coalesce((r->>'retryAfterSeconds')::numeric,61)>60 or coalesce((r->>'retryAfterSeconds')::numeric,0)<=0) then raise exception 'Burst cap failed: %',r; end if;
 end $$;
 reset role;
 update app.subject_entitlements set status='revoked' where user_id=current_setting('more_help.qa_user')::uuid;
@@ -135,7 +152,7 @@ do $$
 declare r jsonb;
 begin
  r:=public.reserve_question_help_delivery(current_setting('more_help.qa_user')::uuid,gen_random_uuid(),current_setting('more_help.qa_session')::uuid,current_setting('more_help.qa_version')::uuid,repeat('a',64));
- if r->>'error'<>'entitlement_required' then raise exception 'Entitlement gate failed: %',r; end if;
+ if (r->>'error') is distinct from 'entitlement_required' then raise exception 'Entitlement gate failed: %',r; end if;
 end $$;
 select jsonb_build_object('runtime_role','service_role','reserve_commit_fail_retry',true,'existing_future_drafts',true,
  'submitted_attempt_preserved',true,'fresh_session_independent',true,'foreign_and_entitlement_denied',true,

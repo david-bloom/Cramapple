@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — Development implementation; independent QA and real generation pending
+**Status:** In Progress — Claude QA remediation implemented; follow-up QA, Gateway setup and real generation pending
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -18,7 +18,7 @@ This supersedes the previous wait-for-feedback state for production preparation.
 
 David subsequently confirmed: “add More help to real Calculus AB/BC and Chemistry questions in app.cramapple.com”. This confirms the real-app target and authorizes implementation and the requested production rollout within this work order, after relevant verification. No additional confirmation is required for the same scope. The separate two-question Sites demo remains untouched.
 
-Implementation currently reuses the existing grading backend and OpenAI API connection. Its exhausted credits block actual generation. David has challenged using an API instead of his subscription; provider/billing architecture is explicitly included in the new Claude review, rather than treated as settled. No credentials, billing purchase or provider switch has been performed. Pre-submission help uses answer-free context and guides the setup; post-grade help uses the existing recorded grade. A durable delivered receipt precedes disclosure and coaches future attempts on the same served question without changing old grades. Help text and unsaved work are not newly retained in the database; only request/assistance metadata is stored with the owning session/account.
+David selected preparation of the demo's Anthropic Gateway path after Claude QA. More help now targets the saved demo's exact gateway endpoint/model; no OpenAI fallback. Gateway key setup is missing and real generation remains unverified. Existing grading provider/secrets are unchanged. David selected targeted explicit pre-submit disclosure checks plus human red-team QA, and separate delivered-help versus attempted-call limits. No key creation, credit purchase or billable model call occurred. Pre-submission help guides setup; post-grade help uses existing confirmed grading, while uncertain results get an honest pending-review error. A durable delivered receipt precedes disclosure and coaches future attempts without changing old grades. Only request/assistance metadata is newly stored.
 
 ## Product goal and proposed app scope
 
@@ -33,7 +33,7 @@ Deliver the accepted two-pane More help experience from the current real questio
 - Start with current-question information and current grading. A broader persistent student-history selection/retention change remains a separate decision; sparse history does not justify a diagnosis.
 - Chemistry reference packs cover Units 1–9. Calculus AB packs cover Units 1–3, with BC inheriting AB; do not advertise unsupported later-unit coverage. Determine availability by relevant vetted sources, not subject name alone.
 
-Out of scope: BYOQ changes, subject-launch/entitlement changes, mastery-rule changes, new content generation, unbounded chat, email invitations, payment/provider changes, new Site creation and unrelated figure/prose remediation.
+Out of scope: BYOQ changes, subject-launch/entitlement changes, mastery-rule changes, new content generation, unbounded chat, email invitations, payment changes and provider changes beyond the selected More help Gateway adapter, new Site creation and unrelated figure/prose remediation.
 
 ## Verified current sources and access
 
@@ -88,12 +88,12 @@ Required QA:
 
 ## QA result, risks and Done decision
 
-**Implementation Summary:** Authenticated bounded backend, delivery/assistance metadata and real-question More help UI implemented on the two PRs. Development v4 is active; app remains an unpublished draft PR.
-**Test Results:** App 115 files / 1,101 tests, TypeScript and build pass; backend 9 Deno tests and typecheck pass. Development transactional assistance/security assertions pass. Scripted local desktop/phone layout check passed; no successful actual generation.
-**QA Result:** Earlier independent Lovable source review proposed FAIL on older SHAs. Remediation is committed; the requested fresh Claude adversarial review is prepared, not yet run.
+**Implementation Summary:** Development v5 is active with Claude QA fixes and the prepared Anthropic Gateway adapter; key setup is missing. App remains an unpublished draft PR.
+**Test Results:** App 115 files / 1,102 tests, TypeScript and build pass; backend 18 tests/typecheck pass. Role-correct Development SQL passed and rolled back, including permissions, quotas and stale-worker fencing. No successful actual generation.
+**QA Result:** Claude proposed FAIL/BLOCKED, identifying a real service-role grant bug. The [disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md) records fixes, owner decisions and evidence limits. Independent follow-up, private app review and human/live generation QA remain pending.
 **Done Decision:** Not made. Production remains unchanged; release is held on real generation and QA.
 
-Open risks: delivery/assistance concurrency and real submission paths; prompt-only answer-disclosure boundary; provider/subscription architecture and exhausted API credits; Calculus later-unit grounding gaps; preservation of unsaved work and existing grades; unrelated changes in any publication delta.
+Open risks: delivery/assistance concurrency and real submission paths; semantic answer leakage beyond targeted checks; missing Gateway setup and existing grading API credits; Calculus later-unit grounding gaps; preservation of unsaved work and existing grades; unrelated changes in any publication delta.
 
 ## Handoff packet
 
@@ -103,7 +103,7 @@ Open risks: delivery/assistance concurrency and real submission paths; prompt-on
 
 **Do not touch:** Unrelated dirty files in the primary checkout; prior test-account cleanup; auth/payments/email configuration; Sites audience/credits; other subjects or mastery policy.
 
-**Next owner/action:** Claude runs the [requested adversarial review](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md). Resolve its findings and the provider/credit blocker, verify actual generation, then complete the authorized production release checks. Do not reconstruct the prior mock or restart broad repository discovery.
+**Next owner/action:** Supply private app access/snapshot for Claude to run the [requested adversarial review](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md). Resolve its findings and the provider/credit blocker, verify actual generation, then complete the authorized production release checks. Do not reconstruct the prior mock or restart broad repository discovery.
 
 **Recommended continuation:** Start with the Claude prompt and the exact current code SHAs below. Preserve answers/grades, respect pre-submission answer disclosure, use vetted references/hooks, and complete Development/Preview plus independent QA before the exact production rollout. The Sites demo is not this implementation target.
 
@@ -143,3 +143,11 @@ The earlier Lovable plan-mode review inspected older backend `ad405dc2` and app 
 Development migration `20261014005146_more_help_delivery_commit` is applied under its exact committed filename. It preserves/revokes the old reservation RPC and adds a lease/state/hash delivery contract. Metadata reservation alone no longer coaches attempts. `commit_question_help` marks existing/future unsubmitted attempts only after valid generation and before disclosure; failures permit bounded retries without assistance. Development function v4 is ACTIVE with JWT verification and uses the new RPCs. This update made no model call and does not resolve exhausted credits.
 
 Final local checks: app **115 files / 1,101 tests**, TypeScript and build pass; backend **9 tests** and typecheck pass. Rolled-back Development SQL assertions pass private grants, entitlement/foreign ownership denial, same-receipt retry, duplicate denial, failed-generation independence, existing/future draft coaching, submitted-attempt preservation and fresh-session independence. Desktop/phone screenshots used a scripted local fixture; they do not establish live explanation quality. No Production changes, merge or app publication have occurred.
+
+## Latest checkpoint — Claude findings acted on
+
+The preceding implementation/version/test counts are historical. Current backend code `d2959e596185522e98227a62b73e9b7255ed22f9` and app `172c540d2c67cef90aba3e341f961377d13854ec` address the [Claude report](../qa/QA_MORE_HELP_CLAUDE_ADVERSARIAL_2026_10_13.md); [full disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md) records each finding and the three owner-selected policies. Four exact Development migration versions are now applied: `20261014001227`, `20261014005146`, `20261014014023`, `20261014015127`. Function v5 is ACTIVE with JWT verification. No Production mutation or app publication.
+
+David explicitly authorized executing the initially declined rollback test using the existing QA account. [Runtime SQL](../../supabase/tests/more_help_runtime.sql) passed under service_role, including grants, delivery/fail/retry, current/future coaching, submitted preservation, foreign/entitlement denial, fresh-session independence, generation fencing, failed-versus-delivered allowance and attempt/burst limits. Transaction rolled back. App 1,102 tests and backend 18 tests/typechecks/build pass. No model call was made. Private app source snapshot and follow-up instructions are available locally; source was not published into this public repo.
+
+Next: install an existing server-owned AI_GATEWAY_API_KEY securely in Development, prepare/verify unchanged approved MCQ fixtures there, obtain controlled real-generation/human red-team QA and independent app review, then complete the already authorized release checks. The previous OpenAI credit problem still affects Development grading; More help's new path needs its own working Gateway connection. Disposable QA-account cleanup remains separate/pending; no deletion is inferred from authorization to run its rolled-back tests.
