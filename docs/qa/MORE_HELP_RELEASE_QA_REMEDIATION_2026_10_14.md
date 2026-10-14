@@ -4,8 +4,8 @@
 **Status:** Confirmed code defects remediated; Development v9 deployed; independent/live release QA still pending
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
 **Backend code:** `6e2de1b110fd7a4b06969fee8bc97be76567fc21`
-**App code:** `d5ba602e6caae177a3197859835af7da1f37ddf6`
-**Draft PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), [private app #24](https://github.com/david-bloom/ap-prep-blueprint/pull/24)
+**App code:** `c5c26997ea1f378cb4aba8b1741165f21d8703a6`
+**Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
 
 ## Findings and action
 
@@ -20,7 +20,7 @@
 
 ## Executed validation
 
-26 backend tests and Deno index typecheck pass. App full suite: 118 files / 1,133 tests pass; TypeScript and build pass. Regressions cover F1 fields, F2 examples/allowed setup, F3 variants, delivered-request acknowledgement, lost-response recovery, edit/revert reuse and the actual QxView practice-to-review transition. A test-fixture grading shape was corrected to the real typed shape; no implementation weakening or typecheck bypass was used.
+26 backend tests and Deno index typecheck pass. App full suite: 119 files / 1,142 tests pass; TypeScript and build pass. Regressions cover F1 fields, F2 examples/allowed setup, F3 variants, delivered-request acknowledgement, lost-response recovery, edit/revert reuse and the actual QxView practice-to-review transition. A test-fixture grading shape was corrected to the real typed shape; no implementation weakening or typecheck bypass was used.
 
 React lifecycle review: stable served-question/version key, component-scoped bounded response cache, no shared mutable module state or browser storage, existing focus/dialog semantics retained. Current/future assistance and locked-grade authority remain in the existing database/RPC contracts.
 
@@ -35,7 +35,9 @@ Development more-help v9 ACTIVE, JWT verification true, deployed from the backen
 - **N3 reachable state retention addressed locally:** state transitions reset comparison tabs, typed draft, MCQ selection, revision/error and photo-control flags, while More help remains mounted. Three new mounted interaction regressions cover FRQ comparison/draft reset, same-question MCQ selection reset and photo availability after a disabled preparation; the pending-help grading-transition regression still passes. Real signed-in browser verification remains open.
 - **N4 supplied rate conclusions covered:** `0/0`, `indeterminate` and `gives no rate` now receive the same rate-specific source/output filter. MVT and Chemistry/general conceptual boundaries remain human-dependent; no universal protection is claimed.
 
-Current validation: 26 backend tests and typecheck; 118 app files / 1,133 tests, typecheck and build pass. No model, grading or photo provider calls were made. Photo preparation in these local tests is mocked; this is not provider/browser evidence.
+Concurrent main updates are preserved: backend documentation merged from `b7c51219`; app main `2563209751c618e52aa69ccc392ea1d9ecf780e2` includes merged #23/#24. App phase reset is in new draft #25, code change `d5ba602e`, integrated checkpoint pinned above. No force push or merge/publication performed by this remediation.
+
+Current validation: 26 backend tests and typecheck; 119 app files / 1,142 tests, typecheck and build pass. No model, grading or photo provider calls were made. Photo preparation in these local tests is mocked; this is not provider/browser evidence.
 
 Development v9 was deployed from backend `6e2de1b1`. `get_edge_function` returned all nine deployed entrypoint/dependency files; every name/content matched the exact upload graph byte-for-byte, with no missing or extra files. JWT verification is enabled; bundle SHA-256 is pinned above. This is producer source/deployment verification, available for independent repetition. No database writes, migrations, Production change or app publication occurred.
 
