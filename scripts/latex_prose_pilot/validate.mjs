@@ -63,7 +63,10 @@ function build(rec) {
   for (const r of rec.replacements ?? []) {
     const occ = r.occurrence ?? 1;
     let idx = -1;
-    for (let k = 0; k < occ; k++) idx = rec.original.indexOf(r.find, idx + 1);
+    for (let k = 0; k < occ; k++) {
+      idx = rec.original.indexOf(r.find, idx + 1);
+      if (idx === -1) break; // out of range: do not wrap round to the first match
+    }
     if (!r.find || idx === -1) { errors.push(`find not in original: ${JSON.stringify(r.find)}`); continue; }
     if (r.kind !== "inline" && r.kind !== "display") { errors.push(`bad kind: ${r.kind}`); continue; }
     spans.push({ ...r, start: idx, end: idx + r.find.length });
