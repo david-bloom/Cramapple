@@ -13,7 +13,7 @@ Run an independent, adversarial follow-up release QA pass for **More help on rea
 
 | Surface | Remediation checkpoint | Relevant PRs |
 | --- | --- | --- |
-| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `6e2de1b110fd7a4b06969fee8bc97be76567fc21`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), draft; #435/#439 merged |
+| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `6e2de1b110fd7a4b06969fee8bc97be76567fc21`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), open; #435/#439 merged |
 | Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-followup-fixes`; integrated app code `c5c26997ea1f378cb4aba8b1741165f21d8703a6`; current main base `2563209751c618e52aa69ccc392ea1d9ecf780e2`; phase-reset change `d5ba602e` | [#25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft; #21/#23/#24 merged |
 
 Verify current PR and main heads. If they advanced, review the relevant delta and state exactly which commits your verdict covers. Start with each remediation diff against the reviewed base, then trace its interaction with the merged feature. Documentation-only commits can follow the pinned code checkpoint. Do not review only main or an old Lovable base.
