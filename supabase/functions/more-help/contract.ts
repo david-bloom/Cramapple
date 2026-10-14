@@ -66,9 +66,25 @@ export function parseInput(raw: unknown): HelpInput {
 // Target the observed conceptual rate trap, not every numeric/choice overlap.
 export function conceptualRateTrap(stem: string) {
   return /\baverage\s+(?:velocity|rate)\b/i.test(stem) &&
-    /\bexplain\s+why\b/i.test(stem) &&
-    /\b(?:does\s+not\s+work|cannot\s+give\s+a\s+value)\b/i.test(stem);
+    /\b(?:explain|justify|why)\b/i.test(stem) &&
+    /\b(?:does\s+not\s+work|doesn't\s+work|cannot\s+(?:give|be\s+(?:found|computed|calculated|defined))|(?:is|are)\s+not\s+defined|undefined|does\s+not\s+exist)\b/i
+      .test(stem);
 }
+function sourceVisibleCopy(source: Source): string {
+  const fields = [source.title, source.body, source.caution];
+  for (const item of source.items.map(object)) {
+    fields.push(text(item.label), text(item.meaning));
+  }
+  for (const hook of source.memoryHooks.map(object)) {
+    fields.push(text(hook.hookText), text(hook.whenToUse), text(hook.caution));
+    for (const expansion of list(hook.expandsTo).map(object)) {
+      fields.push(text(expansion.cue), text(expansion.means));
+    }
+  }
+  return fields.filter(Boolean).join("\n");
+}
+const RATE_CONCLUSION =
+  /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
 export function helpContext(raw: unknown, input: HelpInput) {
   const r = object(raw),
     item = object(r.item),
@@ -123,7 +139,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
     })).filter((s) => s.id && s.body)
     // The observed convention is the requested conceptual answer, including
     // when rendered verbatim as a checked fact. Keep broader limit guidance.
-    .filter((s) => !rateTrap || !/\bundefined\b/i.test(s.title + " " + s.body))
+    .filter((s) => !rateTrap || !RATE_CONCLUSION.test(sourceVisibleCopy(s)))
     .slice(0, 12);
   if (!sources.length) throw new HelpError("reference_unavailable", 422);
   if (
@@ -270,11 +286,19 @@ export function validateHelp(
         "explicit_answer",
       );
     }
+    // Explicit conclusions/choice disclosures, never equality with given values.
     if (
-      conceptualRateTrap(stem) &&
-      /\bundefined\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i
+      /\b(?:choice\s+|option\s+)?[A-E]\s+(?:(?:is|looks|seems)\s+(?:right|correct|wrong|incorrect)|remains\b)|\b(?:eliminate|rule\s+out)\s+(?:(?:choice|option)s?\s+)?[A-E]\b|\bmatching\s+\(?[A-E]\)?|\b(?:the\s+)?result\s+you\s+(?:want|need)\s*(?:is|equals|:|=)|\b(?:therefore|thus|so)\b[^.!?\n]{0,70}\b(?:limit|derivative|velocity|moles|molecules|atoms|result|value)\s*(?:is|equals|=)\s*[+-]?(?:\d|\.)/i
         .test(copy)
     ) {
+      throw new HelpError(
+        "answer_disclosure",
+        502,
+        undefined,
+        "explicit_answer",
+      );
+    }
+    if (conceptualRateTrap(stem) && RATE_CONCLUSION.test(copy)) {
       throw new HelpError(
         "answer_disclosure",
         502,
