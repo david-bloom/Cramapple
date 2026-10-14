@@ -28,15 +28,33 @@ Deno.serve((req) =>
       if (error) throw new HelpError("question_not_owned", 403);
       return data;
     },
-    reserve: async (userId, input) => {
-      const { data, error } = await service.rpc("reserve_question_help", {
-        p_user_id: userId,
-        p_request_id: input.requestId,
-        p_session_id: input.sessionId,
-        p_version_id: input.questionId,
-      });
+    reserve: async (userId, input, fingerprint) => {
+      const { data, error } = await service.rpc(
+        "reserve_question_help_delivery",
+        {
+          p_user_id: userId,
+          p_request_id: input.requestId,
+          p_session_id: input.sessionId,
+          p_version_id: input.questionId,
+          p_input_hash: fingerprint,
+        },
+      );
       if (error) throw new HelpError("reservation_failed", 503);
       return data;
+    },
+    commit: async (userId, input) => {
+      const { data, error } = await service.rpc("commit_question_help", {
+        p_user_id: userId,
+        p_request_id: input.requestId,
+      });
+      if (error) throw new HelpError("assistance_commit_failed", 503);
+      return data;
+    },
+    fail: async (userId, input) => {
+      await service.rpc("fail_question_help", {
+        p_user_id: userId,
+        p_request_id: input.requestId,
+      });
     },
     generate: (context) =>
       generateHelp(

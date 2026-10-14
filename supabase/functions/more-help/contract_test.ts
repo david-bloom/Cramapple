@@ -27,6 +27,8 @@ const source = {
   items: [],
   caution: null,
   memoryHooks: [],
+  ownerTopicCode: "2.1",
+  topicCodes: ["2.1"],
 };
 const raw = {
   session: { learningSessionId: input.sessionId },
@@ -122,6 +124,8 @@ function deps(
     json: (v, status) => new Response(JSON.stringify(v), { status }),
     load: () => Promise.resolve(raw),
     reserve,
+    commit: () => Promise.resolve({ state: "delivered" }),
+    fail: () => Promise.resolve(),
     generate: () => Promise.resolve(output),
   };
 }
@@ -148,14 +152,14 @@ Deno.test("auth and reservation failures never invoke generation", async () => {
   }
   assertEquals(calls, 0);
 });
-Deno.test("failed provider preserves durable assistance acknowledgement; errors disclose no work", async () => {
+Deno.test("failed provider records no assistance; errors disclose no work", async () => {
   const response = await moreHelp(request(), {
     ...deps(),
     generate: () => Promise.reject(new Error("private token and work")),
   });
   assertEquals(await response.json(), {
     error: "help_unavailable",
-    assistanceRecorded: true,
+    assistanceRecorded: false,
   });
 });
 Deno.test("model request uses store=false, strict source enum and bounded timeout/output; incomplete rejected", async () => {
@@ -193,4 +197,22 @@ Deno.test("model request uses store=false, strict source enum and bounded timeou
     failed = e instanceof HelpError;
   }
   assertEquals(failed, true);
+});
+
+Deno.test("generated content is withheld if durable delivery acknowledgement fails", async () => {
+  let failed = false;
+  const response = await moreHelp(request(), {
+    ...deps(),
+    commit: () => Promise.resolve({ error: "delivery_expired" }),
+    fail: () => {
+      failed = true;
+      return Promise.resolve();
+    },
+  });
+  assertEquals(response.status, 503);
+  assertEquals(failed, true);
+  assertEquals(await response.json(), {
+    error: "assistance_commit_failed",
+    assistanceRecorded: false,
+  });
 });

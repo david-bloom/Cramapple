@@ -11,11 +11,18 @@ export type Dependencies = {
   originAllowed: (req: Request) => boolean;
   json: (body: unknown, status: number, req: Request) => Response;
   load: (input: HelpInput, req: Request) => Promise<unknown>;
-  reserve: (userId: string, input: HelpInput) => Promise<Row>;
+  reserve: (
+    userId: string,
+    input: HelpInput,
+    fingerprint: string,
+  ) => Promise<Row>;
+  commit: (userId: string, input: HelpInput) => Promise<Row>;
+  fail: (userId: string, input: HelpInput) => Promise<void>;
   generate: (context: ReturnType<typeof helpContext>) => Promise<unknown>;
 };
 export async function moreHelp(req: Request, deps: Dependencies) {
   let assistanceRecorded = false;
+  let reservation: { userId: string; input: HelpInput } | null = null;
   try {
     if (!deps.originAllowed(req)) {
       return deps.json({ error: "origin_not_allowed" }, 403, req);
@@ -41,7 +48,14 @@ export async function moreHelp(req: Request, deps: Dependencies) {
     const context = helpContext(await deps.load(input, req), input);
     // No model call or helpful reference disclosure until the durable receipt
     // and the server's ownership/entitlement gates succeed.
-    const receipt = object(await deps.reserve(user.id, input));
+    const digest = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(JSON.stringify(input)),
+    );
+    const fingerprint = Array.from(new Uint8Array(digest)).map((b) =>
+      b.toString(16).padStart(2, "0")
+    ).join("");
+    const receipt = object(await deps.reserve(user.id, input, fingerprint));
     if (receipt.state !== "reserved") {
       const code = typeof receipt.error === "string"
         ? receipt.error
@@ -55,8 +69,13 @@ export async function moreHelp(req: Request, deps: Dependencies) {
           : 403,
       );
     }
-    assistanceRecorded = true;
+    reservation = { userId: user.id, input };
     const result = await deps.generate(context);
+    const committed = object(await deps.commit(user.id, input));
+    if (committed.state !== "delivered") {
+      throw new HelpError("assistance_commit_failed", 503);
+    }
+    assistanceRecorded = true;
     return deps.json(
       {
         ok: true,
@@ -68,6 +87,11 @@ export async function moreHelp(req: Request, deps: Dependencies) {
       req,
     );
   } catch (error) {
+    if (reservation && !assistanceRecorded) {
+      try {
+        await deps.fail(reservation.userId, reservation.input);
+      } catch { /* lease expiry keeps retry safe */ }
+    }
     const e = error instanceof HelpError
       ? error
       : new HelpError("help_unavailable", 503);

@@ -23,6 +23,8 @@ export type Source = {
   items: unknown[];
   caution: string | null;
   memoryHooks: unknown[];
+  ownerTopicCode: string;
+  topicCodes: string[];
 };
 export class HelpError extends Error {
   constructor(public code: string, public status: number) {
@@ -82,6 +84,10 @@ export function helpContext(raw: unknown, input: HelpInput) {
       items: list(e.items),
       caution: text(e.caution) || null,
       memoryHooks: list(e.memoryHooks),
+      ownerTopicCode: text(e.ownerTopicCode),
+      topicCodes: list(e.topicCodes).filter((code): code is string =>
+        typeof code === "string"
+      ),
     })).filter((s) => s.id && s.body).slice(0, 12);
   if (!sources.length) throw new HelpError("reference_unavailable", 422);
   if (
