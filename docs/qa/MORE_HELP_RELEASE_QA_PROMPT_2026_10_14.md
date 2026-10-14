@@ -1,6 +1,6 @@
 # More help — independent release QA prompt
 
-**Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v8; 26 backend / 1,130 app tests pass. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Write a new follow-up report rather than overwrite the first.
+**Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v9; 26 backend / 1,133 app tests pass. Review the preserved Claude follow-up report and N1–N4 remediation, especially setup false positives and answer-control resets alongside pending help. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Write a new follow-up report rather than overwrite the first.
 
 **Date:** 2026-10-14 (America/New_York)
 **Purpose:** Independent follow-up review of the draft remediation and remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
@@ -13,8 +13,8 @@ Run an independent, adversarial follow-up release QA pass for **More help on rea
 
 | Surface | Remediation checkpoint | Relevant PRs |
 | --- | --- | --- |
-| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `c8a978b315b50d19ad43e01c368d389f0c088468`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), draft; #435/#439 merged |
-| Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-release-remediation`; app code `75b036b26ff39537d338ad87336b5746965e299e`; reviewed base `75c0b18aa4df9176194d8ec170dc8418d670d6f7` | [#24](https://github.com/david-bloom/ap-prep-blueprint/pull/24), draft; #21 merged |
+| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `6e2de1b110fd7a4b06969fee8bc97be76567fc21`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), draft; #435/#439 merged |
+| Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-release-remediation`; app code `d5ba602e6caae177a3197859835af7da1f37ddf6`; reviewed base `75c0b18aa4df9176194d8ec170dc8418d670d6f7` | [#24](https://github.com/david-bloom/ap-prep-blueprint/pull/24), draft; #21 merged |
 
 Verify current PR and main heads. If they advanced, review the relevant delta and state exactly which commits your verdict covers. Start with each remediation diff against the reviewed base, then trace its interaction with the merged feature. Documentation-only commits can follow the pinned code checkpoint. Do not review only main or an old Lovable base.
 
@@ -27,6 +27,7 @@ Follow session-start and AGENTS instructions. Route through `docs/INDEX.md`; rea
 - `docs/qa/QA_MORE_HELP_LOVABLE_2026_10_13.md` and `QA_MORE_HELP_CLAUDE_ADVERSARIAL_2026_10_13.md` — preserved original failures
 - `docs/qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md`
 - `docs/qa/QA_MORE_HELP_RELEASE_2026_10_14.md` — original Claude FAIL report, preserved unchanged
+- `docs/qa/QA_MORE_HELP_RELEASE_FOLLOWUP_2026_10_14.md` — Claude follow-up FAIL/N1 report, preserved unchanged
 - `docs/qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md` — F1–F6 disposition and exact proposed fixtures/calls
 - `docs/qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md` and `MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md` — failed first run and subsequent producer verification
 
@@ -36,11 +37,11 @@ Older draft/missing-key/no-generation statements are historical. Verify live sta
 
 Last verified October 14:
 
-- Development Supabase: `wmgjsdkphcyhngaffbqf`, more-help v8 ACTIVE, JWT verification enabled, bundle SHA-256 `adaad334be1cf61b7075a74935e9e472af21afc69b9d69750f7ebccdb0c53287`, deployed from backend code `c8a978b3…`. Independently verify bundle/source correspondence where tooling permits; metadata alone is not that proof.
+- Development Supabase: `wmgjsdkphcyhngaffbqf`, more-help v9 ACTIVE, JWT verification enabled, bundle SHA-256 `246085a5eec94872dae2b290be3c98b90588481737972f1245ce54eacf8c07e0`, deployed from backend code `6e2de1b1…`. Independently verify bundle/source correspondence where tooling permits; metadata alone is not that proof. The producer subsequently compared all nine returned deployed source files byte-for-byte with the v9 upload graph; independently repeat this comparison.
 - Four Development migrations: `20261014001227`, `20261014005146`, `20261014014023`, `20261014015127`. Their committed filenames must match the ledger.
 - Production Supabase: `pcntajvbdfqhbeewmdry`. Read-only checks found **no More help function and none of these four migrations**. Secret names `AI_GATEWAY_API_KEY` and `ALLOWED_ORIGINS` are present; presence does not prove valid values or working access. Never print values.
 - Lovable app project: `56cae479-f7c9-4988-b536-56538c38ee4e` was last observed published/ready with source `75c0b18…`. The app remediation is a draft PR and has not been published. Determine the actual source/environment of any browser page tested.
-- Current producer regressions: 26 backend tests/typecheck and 118 app test files / 1,130 tests, typecheck and build passed. Original role-correct rolled-back SQL verified permissions, delivery/failure/retry, stale-worker fencing, current/future draft coaching, submitted preservation, foreign/entitlement denial and exact delivery/attempt quota boundaries; it was not rerun against a database during this remediation.
+- Current producer regressions: 26 backend tests/typecheck and 118 app test files / 1,133 tests, typecheck and build passed. Original role-correct rolled-back SQL verified permissions, delivery/failure/retry, stale-worker fencing, current/future draft coaching, submitted preservation, foreign/entitlement denial and exact delivery/attempt quota boundaries; it was not rerun against a database during this remediation.
 - Three real **unanswered FRQ** Gateway calls returned 200 for AB, BC and Chemistry; each has one delivered receipt and one attempted call. The observed AB conceptual answer was absent after the fix. All three had **empty work/focus and no existing draft**. They do not prove MCQ, after-grade, revision, real submission/photo or browser behavior.
 - Development's last inventory had no published MCQs for these subjects. Confirm current inventory. If absent, identify a minimal unchanged mirror of approved Production MCQs and its serving/label prerequisites; prepare the fixture plan without publishing or changing bank content.
 - Existing grading still uses its separate OpenAI connection. Its earlier credit failure was not retested by the successful Gateway help calls. Verify grading availability separately; do not assume the Gateway key fixes it.
@@ -80,6 +81,8 @@ Backend: `supabase/functions/more-help/{index,handler,contract,model,diagnostics
 
 App: `src/components/session/MoreHelp.tsx`, `src/lib/more-help.ts`, `src/screens/question-experience/QuestionExperience.jsx`, `src/screens/parts/FrqPhotoPanel.jsx`, `src/styles/question-experience.css`, More help tests and real grading helpers.
 
+Reproduce all six N1 legitimate setup strings from the preserved follow-up report; they must pass while the original five disclosures fail. Check case, word boundaries, labelled/parenthesized choices and generated follow-ups. Mount same-question practice → review → practice transitions: comparison answers default closed after scoring, draft/choice controls reset, photo availability resets and pending More help remains accessible. Keep local simulated checks distinct from signed-in browser observations.
+
 Specifically challenge invoker runtime privileges under service_role, client/RPC grants, generation fencing, allowance-versus-attempt accounting, sanitized copy/allowlisted metadata, one-hook selection, math spans and content-free diagnostics. Owner-role SQL is insufficient for runtime permissions. Do not add SECURITY DEFINER merely to bypass a missing grant.
 
 Run existing checks if dependencies are available: backend `deno test supabase/functions/more-help/contract_test.ts` and `deno check supabase/functions/more-help/index.ts`; app `node_modules/.bin/vitest run`, `node_modules/.bin/tsc --noEmit`, `npm run build`. Prefer a small reproducer that fails for the alleged defect over tests mirroring implementation. Do not install new infrastructure, weaken security or make a load-testing project to obtain a green result.
@@ -98,4 +101,4 @@ Return:
 4. The **minimum ordered release checklist**: remaining QA, verified MCQ/grading prerequisites, four Production migrations, exact Edge bundle/JWT/origin/Gateway setup verification, exact app publication version and delta, signed-in Production smoke and a workable rollback plan. Do not call an old unfenced function-only redeploy a working rollback.
 5. Separate mandatory release gates from later work such as pilot lock scaling, broad load certification or test-account cleanup. Do not make recovery of the lost original BC response a blocker when current behavior has been verified.
 
-Save the new report as `docs/qa/QA_MORE_HELP_RELEASE_FOLLOWUP_2026_10_14.md` on an isolated review branch (use a later date or suffix if that file already exists), or return the complete report if repository writing is unavailable. Preserve the original `QA_MORE_HELP_RELEASE_2026_10_14.md` byte-for-byte. Do not publish private app source/full authored outputs. Do not claim a release occurred because PRs merged, CI passed or a project reports published.
+Save the new report as `docs/qa/QA_MORE_HELP_RELEASE_FOLLOWUP_2_2026_10_14.md` on an isolated review branch (use a later date or suffix if that file already exists), or return the complete report if repository writing is unavailable. Preserve both `QA_MORE_HELP_RELEASE_2026_10_14.md` and `QA_MORE_HELP_RELEASE_FOLLOWUP_2026_10_14.md` byte-for-byte. Do not publish private app source/full authored outputs. Do not claim a release occurred because PRs merged, CI passed or a project reports published.
