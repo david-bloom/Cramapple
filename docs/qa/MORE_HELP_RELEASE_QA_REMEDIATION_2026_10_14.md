@@ -4,7 +4,7 @@
 **Status:** Confirmed code defects remediated; Development v8 deployed; independent/live release QA still pending
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
 **Backend code:** `c8a978b315b50d19ad43e01c368d389f0c088468`
-**App code:** `bee6a0fb302dff715b06c04df9021e713ce13488`
+**App code:** `75b036b26ff39537d338ad87336b5746965e299e`
 
 ## Findings and action
 
@@ -14,7 +14,7 @@
 | F2 — ordinary verdict/elimination/numeric phrasing | Confirmed coverage gap. Widened explicit tripwires to reject all five supplied examples in every generated-copy field, including follow-ups. This implements the existing targeted-plus-human decision, not a new blanket choice/number equality policy. Given values and setup guidance remain allowed; post-grade explanations retain permitted disclosure. Human red-team remains required. |
 | F3 — sibling rate phrasing | Partially addressed. Explain/justify, cannot be found/computed, not defined and other observed synonyms now receive rate-specific protection across all visible source fields. MVT and Chemistry/general conceptual subparts still rely on the per-subpart instruction plus human QA; no universal semantic classifier is claimed. |
 | F4 — lost response / edit-revert | Addressed. Received responses have a bounded, per-mounted-question in-memory cache; a response received during an edit can be reused after reverting. No browser-storage/transcript retention. A lost delivered response gets explicit daily-allowance copy and an explicit “Request new help” action; close/reopen cannot automatically mint a new request. Exact already-delivered requests acknowledge durable assistance without a new model call. “Charged” means allowance consumption here; no monetary student charge was demonstrated. |
-| F5 — submit during loading | Addressed. TaskPane lifetime is keyed by served question/version, rather than practice/review state. Pending help survives grading; an earlier before-phase response is identified as setup guidance, without claiming it used later grading. QxView transition regression proves it remains available without a second request. Existing grades remain server-authoritative. |
+| F5 — submit during loading | Addressed. TaskPane lifetime is keyed by served question/version, rather than practice/review state. Pending help survives grading; an earlier before-phase response is identified as setup guidance, without claiming it used later grading. QxView transition regression proves it remains available without a second request; an explicit scored-answer action remains available even when there are no generated follow-ups. Existing grades remain server-authoritative. |
 | F6 — glyph measurement | Still open. The independent reviewer reported no measurement, not a confirmed rendered-size defect. Signed-in Development browser measurement remains part of QA. |
 
 ## Executed validation
