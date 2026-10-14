@@ -4,8 +4,8 @@
 **Status:** Confirmed code defects remediated; Development v10 deployed; independent/live release QA still pending
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
 **Backend code:** `8c437bd4d96456e3693fcee067412e532774d1da`
-**App code:** `c5c26997ea1f378cb4aba8b1741165f21d8703a6`
-**Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
+**App code:** `e1d49d9ed4ed1be1e14897c6db967f9d49b5042b` (phase reset plus nested-fraction fix)
+**Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), merged; [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
 
 ## Findings and action
 
@@ -16,7 +16,11 @@
 | F3 — sibling rate phrasing | Partially addressed. Explain/justify, cannot be found/computed, not defined and other observed synonyms now receive rate-specific protection across all visible source fields. MVT and Chemistry/general conceptual subparts still rely on the per-subpart instruction plus human QA; no universal semantic classifier is claimed. |
 | F4 — lost response / edit-revert | Addressed. Received responses have a bounded, per-mounted-question in-memory cache; a response received during an edit can be reused after reverting. No browser-storage/transcript retention. A lost delivered response gets explicit daily-allowance copy and an explicit “Request new help” action; close/reopen cannot automatically mint a new request. Exact already-delivered requests acknowledge durable assistance without a new model call. “Charged” means allowance consumption here; no monetary student charge was demonstrated. |
 | F5 — submit during loading | Addressed. TaskPane lifetime is keyed by served question/version, rather than practice/review state. Pending help survives grading; an earlier before-phase response is identified as setup guidance, without claiming it used later grading. QxView transition regression proves it remains available without a second request; an explicit scored-answer action remains available even when there are no generated follow-ups. Existing grades remain server-authoritative. |
-| F6 — glyph measurement | Still open. The independent reviewer reported no measurement, not a confirmed rendered-size defect. Signed-in Development browser measurement remains part of QA. |
+| F6 — glyph measurement | Local browser pass found innermost nested fraction digits at 11.7px; More help now opts into display-sized fractions, measuring 23.4px in the tested expressions. [Browser evidence](MORE_HELP_BROWSER_QA_2026_10_14.md) covers actual components with mocked transport/scoring at 1280/375 CSS px. Authenticated served-content measurement remains open. |
+
+## Latest follow-up action
+
+[Local browser QA and action record](MORE_HELP_BROWSER_QA_2026_10_14.md): N3 controls, pending-help retention and keyboard/layout checks executed in real components with synthetic transport/scoring. Additional nested-fraction fix is pushed to draft app #25. Current app validation: 119 files / 1,144 tests, TypeScript and build pass. Backend #442 merged externally; no new deployment. These producer checks do not close the independent/live release gates. Earlier counts/checkpoints below remain historical evidence.
 
 ## Executed validation
 
