@@ -68,6 +68,9 @@ export async function moreHelp(req: Request, deps: Dependencies) {
       const code = typeof receipt.error === "string"
         ? receipt.error
         : "reservation_failed";
+      // An exact owned/fingerprinted request that is already delivered still
+      // carries its durable assistance, even when the response was lost.
+      if (code === "request_already_used") assistanceRecorded = true;
       throw new HelpError(
         code,
         ["rate_limited", "attempt_rate_limited", "retry_exhausted"].includes(
