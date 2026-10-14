@@ -5,6 +5,25 @@ export const object = (v: unknown): Row =>
   v && typeof v === "object" && !Array.isArray(v) ? v as Row : {};
 const text = (v: unknown) => typeof v === "string" ? v : "";
 const list = (v: unknown): unknown[] => Array.isArray(v) ? v : [];
+// Keywords ignore case, but an unlabelled choice must be an uppercase standalone
+// letter. The article "a" and starts of words like "exponents" are not choices.
+const CHOICE_REFERENCE = String
+  .raw`(?:\b(?:choice|option)s?\s+([A-E])\b|\(([A-E])\)|\b([A-E])\b)`;
+const CHOICE_DISCLOSURES = [
+  `${CHOICE_REFERENCE}\\s+(?:(?:is|looks|seems)\\s+(?:right\\b|correct\\b|wrong\\b|incorrect\\b|(?:the\\s+)?best\\s+(?:choice|option)\\b)|remains\\b|works\\s+here\\b)`,
+  `\\b(?:eliminate|rule\\s+out|matching|go\\s+with)\\s+${CHOICE_REFERENCE}`,
+  `\\bonly\\s+${CHOICE_REFERENCE}\\s+fits\\b`,
+  `\\bthe\\s+answer\\s+lies\\s+in\\s+${CHOICE_REFERENCE}`,
+  `\\bis\\s+${CHOICE_REFERENCE}\\s+correct\\s*\\?`,
+];
+function explicitChoiceDisclosure(copy: string): boolean {
+  return CHOICE_DISCLOSURES.some((pattern) =>
+    [...copy.matchAll(new RegExp(pattern, "gi"))].some((match) =>
+      Boolean(match[1] || match[2]) ||
+      Boolean(match[3] && match[3] === match[3].toUpperCase())
+    )
+  );
+}
 export const SUBJECTS = ["ap-calculus-ab", "ap-calculus-bc", "ap-chemistry"];
 export type HelpInput = {
   requestId: string;
@@ -66,9 +85,25 @@ export function parseInput(raw: unknown): HelpInput {
 // Target the observed conceptual rate trap, not every numeric/choice overlap.
 export function conceptualRateTrap(stem: string) {
   return /\baverage\s+(?:velocity|rate)\b/i.test(stem) &&
-    /\bexplain\s+why\b/i.test(stem) &&
-    /\b(?:does\s+not\s+work|cannot\s+give\s+a\s+value)\b/i.test(stem);
+    /\b(?:explain|justify|why)\b/i.test(stem) &&
+    /\b(?:does\s+not\s+work|doesn't\s+work|cannot\s+(?:give|be\s+(?:found|computed|calculated|defined))|(?:is|are)\s+not\s+defined|undefined|does\s+not\s+exist)\b/i
+      .test(stem);
 }
+function sourceVisibleCopy(source: Source): string {
+  const fields = [source.title, source.body, source.caution];
+  for (const item of source.items.map(object)) {
+    fields.push(text(item.label), text(item.meaning));
+  }
+  for (const hook of source.memoryHooks.map(object)) {
+    fields.push(text(hook.hookText), text(hook.whenToUse), text(hook.caution));
+    for (const expansion of list(hook.expandsTo).map(object)) {
+      fields.push(text(expansion.cue), text(expansion.means));
+    }
+  }
+  return fields.filter(Boolean).join("\n");
+}
+const RATE_CONCLUSION =
+  /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
 export function helpContext(raw: unknown, input: HelpInput) {
   const r = object(raw),
     item = object(r.item),
@@ -123,7 +158,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
     })).filter((s) => s.id && s.body)
     // The observed convention is the requested conceptual answer, including
     // when rendered verbatim as a checked fact. Keep broader limit guidance.
-    .filter((s) => !rateTrap || !/\bundefined\b/i.test(s.title + " " + s.body))
+    .filter((s) => !rateTrap || !RATE_CONCLUSION.test(sourceVisibleCopy(s)))
     .slice(0, 12);
   if (!sources.length) throw new HelpError("reference_unavailable", 422);
   if (
@@ -270,11 +305,20 @@ export function validateHelp(
         "explicit_answer",
       );
     }
+    // Explicit conclusions/choice disclosures, never equality with given values.
     if (
-      conceptualRateTrap(stem) &&
-      /\bundefined\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i
+      explicitChoiceDisclosure(copy) ||
+      /\b(?:the\s+)?result\s+you\s+(?:want|need)\s*(?:is|equals|:|=)|\b(?:therefore|thus)\b[^.!?\n]{0,70}\b(?:limit|derivative|velocity|moles|molecules|atoms|result)\s*(?:is|equals|=)\s*[+-]?(?:\d|\.)/i
         .test(copy)
     ) {
+      throw new HelpError(
+        "answer_disclosure",
+        502,
+        undefined,
+        "explicit_answer",
+      );
+    }
+    if (conceptualRateTrap(stem) && RATE_CONCLUSION.test(copy)) {
       throw new HelpError(
         "answer_disclosure",
         502,
