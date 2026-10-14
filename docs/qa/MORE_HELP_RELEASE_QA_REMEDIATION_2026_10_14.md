@@ -1,9 +1,9 @@
 # More help — release QA disposition and next test plan
 
 **Date:** 2026-10-14 (America/New_York)
-**Status:** Confirmed code defects remediated; Development v9 deployed; independent/live release QA still pending
+**Status:** Confirmed code defects remediated; Development v10 deployed; independent/live release QA still pending
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
-**Backend code:** `6e2de1b110fd7a4b06969fee8bc97be76567fc21`
+**Backend code:** `8c437bd4d96456e3693fcee067412e532774d1da`
 **App code:** `c5c26997ea1f378cb4aba8b1741165f21d8703a6`
 **Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
 
@@ -24,7 +24,7 @@
 
 React lifecycle review: stable served-question/version key, component-scoped bounded response cache, no shared mutable module state or browser storage, existing focus/dialog semantics retained. Current/future assistance and locked-grade authority remain in the existing database/RPC contracts.
 
-Development more-help v9 ACTIVE, JWT verification true, deployed from the backend checkpoint above; bundle SHA-256 `246085a5eec94872dae2b290be3c98b90588481737972f1245ce54eacf8c07e0`. No migrations, Production mutation, Lovable publication or new model/grading/photo calls in this remediation. The original report and original failed/successful live evidence remain intact. Producer fixes do not constitute an independent PASS.
+Development more-help v10 ACTIVE, JWT verification true, deployed from the backend checkpoint above; bundle SHA-256 `20c84b8c4dd2a2f1c81b1f4473f7d9dedc5b9c50f3a89e30884357b18d3a6aee`. No migrations, Production mutation, Lovable publication or new model/grading/photo calls in this remediation. The original report and original failed/successful live evidence remain intact. Producer fixes do not constitute an independent PASS.
 
 ## Claude follow-up: N1–N4 (original preserved)
 
@@ -39,7 +39,11 @@ Concurrent main updates are preserved: backend documentation merged from `b7c512
 
 Current validation: 26 backend tests and typecheck; 119 app files / 1,142 tests, typecheck and build pass. No model, grading or photo provider calls were made. Photo preparation in these local tests is mocked; this is not provider/browser evidence.
 
-Development v9 was deployed from backend `6e2de1b1`. `get_edge_function` returned all nine deployed entrypoint/dependency files; every name/content matched the exact upload graph byte-for-byte, with no missing or extra files. JWT verification is enabled; bundle SHA-256 is pinned above. This is producer source/deployment verification, available for independent repetition. No database writes, migrations, Production change or app publication occurred.
+Development v10 was deployed from backend `8c437bd4`. `get_edge_function` returned all nine deployed entrypoint/dependency files; every name/content matched the exact upload graph byte-for-byte, with no missing or extra files. JWT verification is enabled; bundle SHA-256 is pinned above. This is producer source/deployment verification, available for independent repetition. No database writes, migrations, Production change or app publication occurred.
+
+## PR #442 review blocker — restored rate predicate
+
+GitHub reported BLOCKED despite passing checks and a branch current with main. Main requires all review conversations resolved; the unresolved Vercel thread identified a real missing `zero denominator` / `zero change` alternative. Restored that targeted predicate and added four regressions for spelled/numeric zero, checking both source filtering and generated-copy validation on sibling rate stems. All 26 backend tests and typecheck pass. Development v10 is active with JWT verification; all nine returned source files match the upload graph. No paid call, database write or Production change. The PR conversation can be resolved after this fix is published; release QA gates remain separate.
 
 ## Concrete Development MCQ mirror proposal — not executed
 

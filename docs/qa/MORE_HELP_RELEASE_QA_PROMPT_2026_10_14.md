@@ -1,6 +1,6 @@
 # More help — independent release QA prompt
 
-**Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v9; 26 backend / 1,142 app tests pass. Review the preserved Claude follow-up report and N1–N4 remediation, especially setup false positives and answer-control resets alongside pending help. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Write a new follow-up report rather than overwrite the first.
+**Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v10; 26 backend / 1,142 app tests pass. Review the preserved Claude follow-up report and N1–N4 remediation, especially setup false positives and answer-control resets alongside pending help. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Write a new follow-up report rather than overwrite the first.
 
 **Date:** 2026-10-14 (America/New_York)
 **Purpose:** Independent follow-up review of the draft remediation and remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
@@ -13,7 +13,7 @@ Run an independent, adversarial follow-up release QA pass for **More help on rea
 
 | Surface | Remediation checkpoint | Relevant PRs |
 | --- | --- | --- |
-| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `6e2de1b110fd7a4b06969fee8bc97be76567fc21`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), open; #435/#439 merged |
+| Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `8c437bd4d96456e3693fcee067412e532774d1da`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), open; #435/#439 merged |
 | Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-followup-fixes`; integrated app code `c5c26997ea1f378cb4aba8b1741165f21d8703a6`; current main base `2563209751c618e52aa69ccc392ea1d9ecf780e2`; phase-reset change `d5ba602e` | [#25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft; #21/#23/#24 merged |
 
 Verify current PR and main heads. If they advanced, review the relevant delta and state exactly which commits your verdict covers. Start with each remediation diff against the reviewed base, then trace its interaction with the merged feature. Documentation-only commits can follow the pinned code checkpoint. Do not review only main or an old Lovable base.
@@ -37,7 +37,7 @@ Older draft/missing-key/no-generation statements are historical. Verify live sta
 
 Last verified October 14:
 
-- Development Supabase: `wmgjsdkphcyhngaffbqf`, more-help v9 ACTIVE, JWT verification enabled, bundle SHA-256 `246085a5eec94872dae2b290be3c98b90588481737972f1245ce54eacf8c07e0`, deployed from backend code `6e2de1b1…`. Independently verify bundle/source correspondence where tooling permits; metadata alone is not that proof. The producer subsequently compared all nine returned deployed source files byte-for-byte with the v9 upload graph; independently repeat this comparison.
+- Development Supabase: `wmgjsdkphcyhngaffbqf`, more-help v10 ACTIVE, JWT verification enabled, bundle SHA-256 `20c84b8c4dd2a2f1c81b1f4473f7d9dedc5b9c50f3a89e30884357b18d3a6aee`, deployed from backend code `8c437bd4…`. Independently verify bundle/source correspondence where tooling permits; metadata alone is not that proof. The producer subsequently compared all nine returned deployed source files byte-for-byte with the v10 upload graph; independently repeat this comparison.
 - Four Development migrations: `20261014001227`, `20261014005146`, `20261014014023`, `20261014015127`. Their committed filenames must match the ledger.
 - Production Supabase: `pcntajvbdfqhbeewmdry`. Read-only checks found **no More help function and none of these four migrations**. Secret names `AI_GATEWAY_API_KEY` and `ALLOWED_ORIGINS` are present; presence does not prove valid values or working access. Never print values.
 - Lovable app project: `56cae479-f7c9-4988-b536-56538c38ee4e` was last observed published/ready with source `75c0b18…`. The app remediation is a draft PR and has not been published. Determine the actual source/environment of any browser page tested.

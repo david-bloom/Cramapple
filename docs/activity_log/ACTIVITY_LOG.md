@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help PR #442 blocker (2026-10-14): unresolved Vercel conversation required resolution; all checks passed and branch was current. Confirmed missing zero-denominator/zero-change predicate, restored it with four regressions; 26 tests/typecheck pass. Development v10 source graph matches upload; no paid calls, database writes or Production changes. [Disposition](../qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md).
 - More help Claude follow-up QA remediation (2026-10-14): preserved follow-up e365d52b unchanged; fixed N1 setup false positives, added N2 explicit choice tripwires, reset N3 answer controls without losing pending help and covered N4 supplied rate conclusions. Backend 6e2de1b1 / integrated app c5c26997; 26 backend / 1,142 app tests, typechecks/build pass. Development v9 source graph matches deployed files byte-for-byte. No database writes, paid calls or Production changes; independent/browser/human QA and prior fixture/call decisions remain pending. [Disposition](../qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md). Concurrent main changes preserved; original app #24 had merged externally, so phase reset is new draft #25.
 - More help Claude release QA remediation (2026-10-14): preserved Claude report e5850eda; fixed whole-source leak scans, wider targeted disclosure checks, sibling rate phrasing, delivered-request recovery and grading-transition lifetime. 26 backend / 1,130 app tests, typecheck/build pass; Development v8 deployed. Prepared a pinned 3-MCQ Development mirror and 12-call synthetic-work Gateway QA plan; writes/calls await separate authorization. F6 and wider semantic/browser/grading coverage remain open. [Disposition](../qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md).
 
@@ -457,6 +458,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-14 — More help PR #442 review blocker
+
+Owner asked why #442 was blocked. GitHub showed MERGEABLE/BLOCKED; required `test` and all Vercel checks passed, branch behind count zero, no required approval missing. Main requires conversation resolution. One unresolved Vercel thread correctly identified the removed zero-denominator/zero-change alternative. Restored it in backend 8c437bd4 and added spelled/numeric-zero regressions covering sources and generated copy. All 26 backend tests/typecheck pass. Deployed Development v10, JWT verification true, bundle `20c84b8c4dd2a2f1c81b1f4473f7d9dedc5b9c50f3a89e30884357b18d3a6aee`; all nine retrieved source files equal upload. No paid model/grading/photo calls, database writes or Production changes. Publish fix before resolving the addressed conversation; no PR merge performed. Full release gates remain open.
+
 
 ## 2026-10-14 — More help Claude follow-up findings remediated
 
