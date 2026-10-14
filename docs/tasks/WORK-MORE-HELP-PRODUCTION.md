@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — conceptual-subpart/validation fixes deployed to Development v7; bounded live verification pending; release blocked
+**Status:** In Progress — observed Gateway issues fixed and three sampled live FRQs pass; independent/full release QA remains open
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -16,7 +16,7 @@
 
 David requested fixing the AB subpart disclosure, BC output validation and missing Chemistry live coverage. Backend `9ac7ee3a` is deployed as JWT-verified Development v7. It filters the observed answer-bearing reference before submission, rejects the observed conceptual conclusion patterns, protects each subpart in the model instructions and preserves graded review. Output limits are now explicit in schema descriptions and system instructions; local validation remains mandatory and reports only fixed diagnostic categories. 22 backend tests/typecheck pass. Offline replay of the exact old AB output is rejected. No app changes, migrations or Production changes.
 
-The original BC response was not retained, so its precise root cause is still unproven. Chemistry success remains unverified. A renewed approval request is pending for up to six bounded empty-work QA requests through the same Gateway; do not treat the older three-call approval as unlimited retries. The approved real-app release scope remains unchanged.
+The [approved fix verification](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) used three of six allowed empty-work calls: AB, BC and Chemistry all returned 200 with validated help and delivered receipts. The observed AB conceptual answer is absent. All three QA entitlements were restored. Original BC root cause remains unproven because its output was not retained. These samples are producer evidence; the broader independent/release matrix remains open. The approved real-app release scope is unchanged.
 
 ## Owner direction and approval state
 

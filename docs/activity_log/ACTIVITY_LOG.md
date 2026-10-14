@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help Gateway fix verification (2026-10-14): owner approved bounded QA; three of six permitted calls returned validated 200 responses for AB, BC and Chemistry. Observed AB subpart answer withheld and answer-bearing fact excluded; BC valid; Chemistry now covered. All three receipts delivered and QA entitlement dates restored. Development v7, 22 backend tests/typecheck pass; independent/full release QA still open. [Verification](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md).
+
 - More help first Anthropic Gateway live QA (2026-10-14): key present; owner explicitly approved three bounded calls. AB generated with a conceptual-subpart disclosure concern; BC failed validation; Chemistry not called. Two calls attempted, failed BC receipt not delivered. Three QA entitlements temporarily extended then restored. Backend #435 merged; app #21 draft. Release blocked. [Evidence](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md).
 
 - More help Claude QA remediation (2026-10-13): confirmed and fixed the runtime-role permission defect; owner selected targeted disclosure + human QA, separate delivery/request limits and Anthropic Gateway preparation. Role-correct SQL passed with the QA account and rolled back; 1,102 app / 18 backend tests pass. Gateway key, live QA, MCQ fixtures and private app follow-up pending; Production unchanged. [Disposition](../qa/MORE_HELP_CLAUDE_QA_DISPOSITION_2026_10_13.md).
@@ -446,6 +448,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-14 — More help Gateway fixes verified on three live FRQs
+
+More help Gateway fix verification (2026-10-14): owner approved bounded QA; three of six permitted calls returned validated 200 responses for AB, BC and Chemistry. Observed AB subpart answer withheld and answer-bearing fact excluded; BC valid; Chemistry now covered. All three receipts delivered and QA entitlement dates restored. Development v7, 22 backend tests/typecheck pass; independent/full release QA still open. [Verification](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md).
+
 
 ## 2026-10-14 — More help first live Gateway QA
 

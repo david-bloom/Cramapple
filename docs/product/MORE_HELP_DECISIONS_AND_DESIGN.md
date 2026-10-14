@@ -1,6 +1,6 @@
 # More help — decisions, design and demo contract
 
-**Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Bounded live verification is pending; BC/Chemistry success and release readiness are not yet certified.
+**Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Three approved live FRQs now return valid help for AB, BC and Chemistry; the observed subpart disclosure is absent. Broader independent/release QA remains open. Earlier failed-run statements below are historical.
 
 **Status:** Approved
 **Date:** 2026-10-13 (America/New_York)
