@@ -32,8 +32,8 @@ slice before QA signs off.
 1. **Detect.** A deterministic query lists candidate rows per surface. Exceptions are excluded by rule, not by model:
    compound units, Leibniz notation, single-symbol quotients, fractions inside an argument/subscript/exponent, scores.
 2. **Draft.** One model call per row (Sonnet 5.5, medium effort). The model classifies each candidate as display
-   (stands alone on a line, stacked) or inline (inside a sentence, slash kept) and writes the edit in `$…$`
-   delimiters, `\frac{}{}`. Any row it is unsure of is **flagged and left unedited**.
+   (stands alone on a line, stacked) or inline (inside a sentence, slash kept) and writes the edit in `\(…\)` (inline)
+   or `\[…\]` (display), with `\frac{}{}`. Any row it is unsure of is **flagged and left unedited**.
 3. **Validate.** Every edit must (a) parse in KaTeX with no error, (b) differ from the original only inside
    the math delimiters, and (c) convert back, with `stripProseMath` and the fraction rewritten as a slash, to the original text exactly.
 4. **Review.** The Product Owner reviews the diff. An independent QA pass (Opus or Codex) reviews the pilot before

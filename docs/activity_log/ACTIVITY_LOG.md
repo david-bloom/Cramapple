@@ -449,7 +449,7 @@ David ruled the open design question from the 2026-10-13 session close: **displa
 quotients in prose, slash kept inside sentences (`DECISION-0121`, amending `DECISION-0119` for prose only). He
 approved a pilot on `ap_chemistry` and `ap_calculus_ab`, units 1–3 (`TASK-0073`), with an independent Opus or
 Codex QA before anything widens. Method: deterministic detection, one Sonnet-class draft per row, a three-part
-validator (KaTeX parses; only `$…$` changed; round-trips to the original), then review. Documentation only.
+validator (KaTeX parses; only the math delimiters changed; round-trips to the original), then review. Documentation only.
 
 **Finding that matters:** the Development database holds 389 items against Production's 4,368, so Dev counts understate the problem. Read-only Production counts showed the last two units of Chemistry and Calculus AB nearly empty of candidates, and the whole problem thin and concentrated. Scope was revised accordingly.
 
