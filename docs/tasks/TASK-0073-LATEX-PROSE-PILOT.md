@@ -1,6 +1,6 @@
-# TASK-0073 — LaTeX in question and teaching prose: pilot (Chemistry and Calculus AB, units 1–3)
+# TASK-0073 — LaTeX in question and teaching prose: pilot (Precalculus and Physics C)
 
-**Status:** Open — scoped and approved by the Product Owner 2026-10-14; no content drafted yet.
+**Status:** Open — scope revised and approved by the Product Owner 2026-10-14 ("I approve 1 and 3. Do precalculus and physics c first."); no content drafted yet. The Product Owner will do visual QA.
 **Tier:** Standard for drafting and validation in Development; **Hard-Gate** for any Production content write.
 **Owner:** Claude session. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/latex-prose-pilot`.
@@ -15,8 +15,10 @@ on a slice small enough to review row by row. The pilot is a test of the approac
 
 ## Scope
 
-Subjects `ap_chemistry` and `ap_calculus_ab`, units 1–3 only. Not `ap_calculus_bc`, which inherits AB reference
-entries by alias but has its own prose rows. Surfaces: `content_item_versions.stem` and `.explanation`,
+Subjects `ap_precalculus`, `ap_physics_c_em` and `ap_physics_c_mechanics`, all published units. Read-only Production
+counts, 2026-10-14 (published items; fields with a slash next to a bracket, an **upper bound** that includes
+rule-exempt units): Precalculus U1 108/85, U2 97/45, U3 98/47; Physics C E&M U8 57/66, U9 33/18, U10 30/14;
+Physics C Mechanics U1 22/5, U2 27/15, U3 44/18. Out of scope: Calculus AB/BC, Chemistry and every other subject. Surfaces: `content_item_versions.stem` and `.explanation`,
 `mcq_choices.choice_text` and `.rationale`, `frq_criteria.learner_facing_text`, `topic_explainers` (five columns),
 `topic_point_briefs.what_it_is`.
 
@@ -47,9 +49,10 @@ slice before QA signs off.
 
 ## Known gaps at open
 
-- **Production counts are not yet measured for this slice.** The handoff's 415 / 1,044 figures are Production. The
-  Development database available to this session holds 389 content items against Production's 4,368 stem rows, and a
-  loose Development count (a slash adjacent to a bracket) finds **zero** Chemistry hits and a handful of Calculus AB
-  hits. The pilot may be much smaller in Development than in Production, and Chemistry may contribute nothing.
+- The hit counts are a loose upper bound. The rule-applying detector in Method step 1 gives the real number.
 - No renderer exists yet for prose surfaces. `MathText` is reusable but stems, choices, rationales and criteria must
-  each opt in (`ap-prep-blueprint`). Drafted content cannot be seen typeset until that lands.
+  each opt in. The Product Owner's visual QA needs this first, so it is the first build step.
+- `ap-prep-blueprint` is not reachable as a GitHub repository from the session that opened this task; the app is
+  edited through its Lovable project (`56cae479`). Confirm the edit path before building.
+- Author-forward (`DECISION-0121` item 6) needs the prose rule stated in the authoring guidance, done in
+  `docs/new_design/CONTENT_AND_PEDAGOGY.md`.
