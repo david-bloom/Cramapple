@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — session orientation and release specification; target clarification pending
+**Status:** In Progress — confirmed real-app implementation and production release
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -16,9 +16,9 @@ David requested: “start a cramapple session focused on handoff” and “Stude
 
 This supersedes the previous wait-for-feedback state for production preparation. The positive feedback is David's report about the mock; no individual student quotes, sample size, live-generation success or performance improvement is inferred.
 
-The requested production destination needs clarification: integrate More help into real questions at `app.cramapple.com`, or publish the existing two-question dynamic Sites demo. An asynchronous question presented both options. The working assumption for the specification below is the real Cramapple app, initially Calculus AB/BC and Chemistry. This assumption is not a claim that David selected that option. Implementation and release details depend on the answer.
+David subsequently confirmed: “add More help to real Calculus AB/BC and Chemistry questions in app.cramapple.com”. This confirms the real-app target and authorizes implementation and the requested production rollout within this work order, after relevant verification. No additional confirmation is required for the same scope. The separate two-question Sites demo remains untouched.
 
-The owner has expressed production intent. This work order does not manufacture a separate approval requirement for unchanged design/content. The exact target and release payload must be identified, the required QA completed, and authorization recorded before a live mutation. No implementation, migration, model call, invitation or deployment occurred in this orientation.
+Implementation uses the existing grading backend and OpenAI connection. No new provider, billing change or credential is needed. Pre-submission help uses answer-free context and guides the setup; post-grade help uses the existing recorded grade. A durable receipt precedes disclosure and coaches future attempts on the same served question without changing old grades. Help text and unsaved work are not newly retained in the database; only request/assistance metadata is stored with the owning session/account.
 
 ## Product goal and proposed app scope
 
@@ -108,3 +108,5 @@ Open risks: destination ambiguity; durable pre-submission assistance; answer-dis
 **Recommended implementation prompt:** Continue WORK-MORE-HELP-PRODUCTION using David's confirmed destination. For the app, implement the durable assistance and authoritative context contract first, then the accepted two-pane template and bounded generation. Preserve answers/grades, respect pre-submission answer disclosure, use vetted references/hooks, and complete Development/Preview plus independent QA before the exact production rollout. For the demo, use the saved existing Sites project/version and verify current access/real generation without changing audience or paying automatically.
 
 **Documentation synchronization:** PR #435 preserves this In Progress work order and restart records on `codex/more-help-production`. Documentation links and whitespace checks pass. No release completion is implied.
+
+**Confirmed next action:** Codex implements and verifies the real-app path for Calculus AB/BC and Chemistry; the destination question is resolved. Prior references below to an unanswered destination describe the orientation checkpoint.
