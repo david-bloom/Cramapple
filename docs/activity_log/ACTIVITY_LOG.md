@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help release QA prompt (2026-10-14): owner requested a QA prompt. New packet targets merged backend main 70f4a348 and private app main 75c0b18, separates code/release verdicts, requires subject/type/phase evidence and real submission/visual checks, preserves call/write authorization boundaries and orders remaining Production rollout gates. No reviewer dispatched or runtime changes. [Prompt](../qa/MORE_HELP_RELEASE_QA_PROMPT_2026_10_14.md).
+
 - LaTeX Pilot: Independent QA, Phase 1 Narrowed to MCQ Rows, Grader Test Opened (2026-10-14): Codex QA recommended no write of the first transaction; the Product Owner approved a 21-row MCQ-only Phase 1, dropped the explanation edits and opened `TASK-0074` to test whether the grader handles LaTeX before the 10 rubric edits. No Production write.
 - LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
 
@@ -451,6 +453,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-14 — More help release QA prompt
+
+More help release QA prompt (2026-10-14): owner requested a QA prompt. New packet targets merged backend main 70f4a348 and private app main 75c0b18, separates code/release verdicts, requires subject/type/phase evidence and real submission/visual checks, preserves call/write authorization boundaries and orders remaining Production rollout gates. No reviewer dispatched or runtime changes. [Prompt](../qa/MORE_HELP_RELEASE_QA_PROMPT_2026_10_14.md).
+
 
 ## LaTeX Prose Rollout Scoped to a Pilot (2026-10-14)
 
