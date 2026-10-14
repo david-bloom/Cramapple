@@ -50,23 +50,37 @@ slice before QA signs off.
 ## Renderer (built 2026-10-14, not yet applied)
 
 Patch: `docs/tasks/patches/TASK-0073-ap-prep-blueprint-prose-math.patch`, against `ap-prep-blueprint` at Lovable HEAD
-`4b6fff2`. Adds `src/lib/prose-math.ts`, `src/components/content/ProseMath.tsx`, and wires `ProseMath` into the
+`4b6fff2`. Adds `src/lib/prose-math.ts` and `src/components/content/ProseMath.tsx`, wires `ProseMath` into the
 authored-prose sites of `QuestionExperience.jsx` (stem, stimulus, rubric label and minimum fix, answer-key choice text
-and rationale, and both choice lists).
+and rationale, both choice lists), and adds two dev-harness states, `?state=prose-math` (an MCQ with stacked choices)
+and `?state=prose-math-frq` (a rubric line in display maths), on `/dev-qx-harness`. The harness samples are
+**synthetic**, not published items, so the patch carries no exam content.
 
-- **Verified:** 22 tests pass in a scratch copy against real KaTeX (13 renderer, 9 wiring guard); the wiring guard fails
-  8 of 9 on the unpatched file; the patch applies cleanly to the file as read from the Lovable project.
-- **Not verified:** the full app suite, `tsc --noEmit` and `npm run build` were not run (the scratch copy holds only the
-  files above). The existing `question-experience-render` tests render `QxView`; plain prose returns the string
-  unchanged, so they should be unaffected, but that is reasoned, not run. Run `npx tsc --noEmit -p . && npx vitest run
-  && npm run build` before publishing, as `.github/workflows/ci.yml` requires.
+- **Why a harness and not Development:** the app's `.env` (preview and published alike) points at the **Production**
+  database, so seeding Development would show nothing in any app page. The harness renders the real components from
+  sample data with no database at all.
+- **Verified:** 25 tests pass in a scratch copy against real KaTeX (13 renderer, 9 wiring guard, 3 harness-fixture); the
+  wiring guard fails 8 of 9 on the unpatched file; the patch applies cleanly to the real `QuestionExperience.jsx` and,
+  with line offsets, to a file holding the real `QxHarness.tsx` context.
+- **Not verified:** the harness states were not run in the app, the full suite, `tsc --noEmit` and `npm run build` were
+  not run, and the fixtures were not passed through `normalizeQuestionExperience`. Run `npx tsc --noEmit -p . &&
+  npx vitest run && npm run build` and open `/dev-qx-harness?state=prose-math` before publishing.
 - **Zero change for current content:** a string with no `\(` or `\[` is returned untouched.
-- **Not wired (out of the pilot's columns, or not read):** FRQ comparison answers (`activeVariant.content`,
-  `.explanation`), the grader's per-criterion `reason`, student text (deliberately never parsed), `PromptText`,
-  `RadioOptionRow`, `RubricCriterionRow`, `FeedbackCard`, lesson notes and topic explainers. The pilot's
+- **Not wired:** FRQ comparison answers, the grader's per-criterion `reason`, student text (deliberately never parsed),
+  `PromptText`, `RadioOptionRow`, `RubricCriterionRow`, `FeedbackCard`, lesson notes and topic explainers. The pilot's
   `content_item_versions.explanation` column was not located in the render path and is unconfirmed.
-- **Access:** `ap-prep-blueprint` is not reachable from this session, so the patch has to be applied by someone who
-  has the repo; Lovable syncs to GitHub on push.
+- **Access:** `ap-prep-blueprint` is not reachable from this session, so the patch must be applied by someone with the
+  repo; Lovable syncs to GitHub on push.
+
+## Drafted edits (2026-10-14)
+
+Read-only Production read, drafted into a private review file (published exam text, kept out of this public repo).
+Product Owner rulings applied: whole-field equations are stacked; Precalculus choices keep the wording "the square
+root of 3"; `1/(…)` reciprocals are stacked. Result: **33 edits** (Precalculus 17, Physics C E&M 10, Physics C
+Mechanics 6), 0 hard validator failures, every original hash-checked against Production. Of 324 candidate rows,
+279 are quotients inside a sentence and stay as slashes by design, and 12 are exempt. A static KaTeX preview
+confirmed the rendering and caught three draft defects, all fixed: a trailing period stranded outside display maths,
+a nested fraction that rendered too small, and italic text subscripts. Nothing is applied to any database.
 
 ## Known gaps at open
 

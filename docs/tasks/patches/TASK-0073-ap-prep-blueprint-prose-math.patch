@@ -27,6 +27,51 @@ index 0000000..ca3e2ad
 +    </>
 +  );
 +}
+diff --git a/src/lib/__tests__/prose-math-harness-fixtures.test.ts b/src/lib/__tests__/prose-math-harness-fixtures.test.ts
+new file mode 100644
+index 0000000..98c3389
+--- /dev/null
++++ b/src/lib/__tests__/prose-math-harness-fixtures.test.ts
+@@ -0,0 +1,39 @@
++// The dev harness samples for prose maths (src/dev-harness/QxHarness.tsx, ?state=prose-math and
++// ?state=prose-math-frq) must carry real, parseable prose maths, or the visual check shows nothing.
++import { readFileSync } from "node:fs";
++import katex from "katex";
++import { describe, expect, it } from "vitest";
++import { splitProseMath } from "@/lib/prose-math";
++
++const load = (name: string) =>
++  JSON.parse(readFileSync(new URL(`../question-experience/__fixtures__/${name}`, import.meta.url), "utf8"));
++const parses = (tex: string) => !katex.renderToString(`\\displaystyle ${tex}`, { throwOnError: true, strict: false }).includes("katex-error");
++
++describe("prose-math harness fixtures", () => {
++  it("every MCQ choice is one inline stacked fraction that KaTeX parses", () => {
++    const fx = load("prose-math-mcq.json");
++    expect(fx.mcqChoices).toHaveLength(4);
++    for (const c of fx.mcqChoices) {
++      const segs = splitProseMath(c.choiceText);
++      expect(segs).toHaveLength(1);
++      expect(segs[0].kind).toBe("inline");
++      expect(segs[0].text).toContain("\\frac");
++      expect(parses(segs[0].text)).toBe(true);
++    }
++  });
++
++  it("the FRQ sample has a display-maths rubric line and a plain one", () => {
++    const fx = load("prose-math-frq-review.json");
++    const [c1, c2] = fx.criteria;
++    expect(splitProseMath(c1.learnerFacingText).some((s) => s.kind === "display" && parses(s.text))).toBe(true);
++    expect(splitProseMath(c2.learnerFacingText)).toEqual([{ kind: "text", text: c2.learnerFacingText }]);
++    expect(fx.grading.criterionResults.map((r: { criterionKey: string }) => r.criterionKey)).toEqual(
++      fx.criteria.map((c: { criterionKey: string }) => c.criterionKey),
++    );
++  });
++
++  it("the samples are synthetic and say so", () => {
++    expect(load("prose-math-mcq.json").item.title).toContain("synthetic");
++    expect(load("prose-math-frq-review.json").item.title).toContain("synthetic");
++  });
++});
 diff --git a/src/lib/__tests__/prose-math-wiring.test.ts b/src/lib/__tests__/prose-math-wiring.test.ts
 new file mode 100644
 index 0000000..2b32806
@@ -266,6 +311,231 @@ index 0000000..8134382
 +export function stripProseMath(text: string): string {
 +  return splitProseMath(text).map((s) => s.text).join("");
 +}
+diff --git a/src/lib/question-experience/__fixtures__/prose-math-frq-review.json b/src/lib/question-experience/__fixtures__/prose-math-frq-review.json
+new file mode 100644
+index 0000000..65e59a7
+--- /dev/null
++++ b/src/lib/question-experience/__fixtures__/prose-math-frq-review.json
+@@ -0,0 +1,128 @@
++{
++  "attempt": {
++    "attemptId": "a0a0a0a0-0000-4000-8000-000000000902",
++    "gradedAt": "2026-10-10T02:04:25.651907+00:00",
++    "resultState": "graded",
++    "resultSummary": "You earned 2 of 2 points.",
++    "scorePoints": 2,
++    "scorePossible": 2,
++    "startedAt": "2026-10-10T01:58:25.651907+00:00",
++    "status": "graded",
++    "submittedAt": "2026-10-10T02:03:25.651907+00:00"
++  },
++  "comparisonAnswers": [
++    {
++      "available": true,
++      "explanation": "Sets up the equation and solves for t.",
++      "locked": false,
++      "responseText": "t = ln(30/12)/ln(1.18), about 5.5 hours.",
++      "variant": "full_credit"
++    },
++    {
++      "available": false,
++      "explanation": null,
++      "locked": false,
++      "responseText": null,
++      "variant": "common_mistake"
++    },
++    {
++      "available": false,
++      "explanation": null,
++      "locked": false,
++      "responseText": null,
++      "variant": "vague"
++    }
++  ],
++  "counter": {
++    "index": 1,
++    "total": 3
++  },
++  "criteria": [
++    {
++      "criterionKey": "criterion_1",
++      "judgementKind": "text",
++      "learnerFacingText": "Set the model equal to 30 and solve for t:\n\\[t=\\frac{\\ln(30/12)}{\\ln(1.18)}.\\]",
++      "minimumFix": "Write the equation 12(1.18)^t = 30 and take the natural log of both sides.",
++      "pointsPossible": 1
++    },
++    {
++      "criterionKey": "criterion_2",
++      "judgementKind": "text",
++      "learnerFacingText": "State the time with units.",
++      "minimumFix": "Give t in hours.",
++      "pointsPossible": 1
++    }
++  ],
++  "grading": {
++    "actionHint": null,
++    "confidence": "high",
++    "criterionResults": [
++      {
++        "criterionKey": "criterion_1",
++        "decisionExplanation": "Equation set up and solved correctly.",
++        "evidenceQuote": "t = ln(30/12)/ln(1.18)",
++        "minimumFix": null,
++        "pointsAwarded": 1,
++        "status": "earned"
++      },
++      {
++        "criterionKey": "criterion_2",
++        "decisionExplanation": "Time stated with units.",
++        "evidenceQuote": "about 5.5 hours",
++        "minimumFix": null,
++        "pointsAwarded": 1,
++        "status": "earned"
++      }
++    ],
++    "feedbackPreview": "Full credit.",
++    "gradingResultId": "a0a0a0a0-0000-4000-8000-000000000912",
++    "pointsAvailable": 2,
++    "pointsEarned": 2,
++    "repairHint": null,
++    "status": "graded"
++  },
++  "item": {
++    "contentItemId": "16000000-0000-4000-8000-000000000902",
++    "contentItemVersionId": "16000000-0000-4000-8000-000000000912",
++    "hasStimulusImage": false,
++    "itemType": "frq",
++    "stem": "A culture is modeled by E(t) = 12(1.18)^t, where t is in hours. At what time does the culture reach 30? Show your work.",
++    "stimulus": null,
++    "title": "prose-math harness sample (synthetic, not a published item)"
++  },
++  "mcqChoices": [],
++  "mcqFeedback": null,
++  "memoryHooks": [],
++  "pointsChange": {
++    "criteria": [
++      {
++        "change": "gained",
++        "criterionKey": "criterion_1",
++        "currentStatus": "earned",
++        "previousStatus": "not_yet_earned"
++      }
++    ],
++    "currentAttemptId": "a0a0a0a0-0000-4000-8000-000000000902",
++    "currentPoints": 2,
++    "pointsAvailable": 2,
++    "previousAttemptId": "a0a0a0a0-0000-4000-8000-000000000901",
++    "previousPoints": 1
++  },
++  "priorAttempts": [],
++  "reference": {},
++  "resume": {
++    "action": "continue_draft",
++    "attemptId": "a0a0a0a0-0000-4000-8000-000000000903",
++    "contentItemVersionId": "16000000-0000-4000-8000-000000000914",
++    "ordinal": 2
++  },
++  "session": {
++    "endedAt": null,
++    "entryPath": "self_guided_format",
++    "learningSessionId": "a0a0a0a0-0000-4000-8000-000000000009",
++    "sessionMode": "focused",
++    "startedAt": "2026-10-10T02:38:25.651907+00:00",
++    "status": "active"
++  },
++  "topic": null
++}
+\ No newline at end of file
+diff --git a/src/lib/question-experience/__fixtures__/prose-math-mcq.json b/src/lib/question-experience/__fixtures__/prose-math-mcq.json
+new file mode 100644
+index 0000000..67ec6b6
+--- /dev/null
++++ b/src/lib/question-experience/__fixtures__/prose-math-mcq.json
+@@ -0,0 +1,83 @@
++{
++  "attempt": null,
++  "comparisonAnswers": [
++    {
++      "available": false,
++      "explanation": null,
++      "locked": true,
++      "responseText": null,
++      "variant": "full_credit"
++    },
++    {
++      "available": false,
++      "explanation": null,
++      "locked": true,
++      "responseText": null,
++      "variant": "common_mistake"
++    },
++    {
++      "available": false,
++      "explanation": null,
++      "locked": true,
++      "responseText": null,
++      "variant": "vague"
++    }
++  ],
++  "counter": {
++    "index": 1,
++    "total": 2
++  },
++  "criteria": [],
++  "grading": null,
++  "item": {
++    "contentItemId": "f1dd3e69-87f8-4e86-8035-f5801ff89b99",
++    "contentItemVersionId": "b3bd1255-e9e5-4541-a8aa-d20384691e99",
++    "hasStimulusImage": false,
++    "itemType": "mcq",
++    "stem": "An infinitely long wire has uniform linear charge density lambda > 0. Using Gauss's law with a cylindrical surface of length L, which expression gives the electric field magnitude at a perpendicular distance r from the wire?",
++    "stimulus": null,
++    "title": "prose-math harness sample (synthetic, not a published item)"
++  },
++  "mcqChoices": [
++    {
++      "choiceKey": "A",
++      "choiceText": "\\(\\frac{\\lambda}{2\\pi\\epsilon_0 r}\\)"
++    },
++    {
++      "choiceKey": "B",
++      "choiceText": "\\(\\frac{\\lambda}{4\\pi\\epsilon_0 r^2}\\)"
++    },
++    {
++      "choiceKey": "C",
++      "choiceText": "\\(\\frac{\\lambda L}{2\\pi\\epsilon_0 r}\\)"
++    },
++    {
++      "choiceKey": "D",
++      "choiceText": "\\(\\frac{\\lambda}{\\pi\\epsilon_0 r^2}\\)"
++    }
++  ],
++  "mcqFeedback": null,
++  "memoryHooks": [],
++  "pointsChange": null,
++  "priorAttempts": [],
++  "reference": {},
++  "resume": {
++    "action": "start_item",
++    "attemptId": null,
++    "contentItemVersionId": "b3bd1255-e9e5-4541-a8aa-d20384691e99",
++    "ordinal": 1
++  },
++  "session": {
++    "endedAt": null,
++    "entryPath": "topic",
++    "learningSessionId": "a0a0a0a0-0000-4000-8000-000000000009",
++    "sessionMode": "quick",
++    "startedAt": "2026-10-10T02:38:25.651907+00:00",
++    "status": "active"
++  },
++  "topic": {
++    "subjectKey": "ap-statistics",
++    "topicCode": "1.5",
++    "unitNumber": 1
++  }
++}
+\ No newline at end of file
 diff --git a/src/screens/question-experience/QuestionExperience.jsx b/src/screens/question-experience/QuestionExperience.jsx
 index 15f9ef9..6749126 100644
 --- a/src/screens/question-experience/QuestionExperience.jsx
@@ -334,3 +604,22 @@ index 15f9ef9..6749126 100644
                  </label>
                </div>
              ))}
+diff --git a/src/dev-harness/QxHarness.tsx b/src/dev-harness/QxHarness.tsx
+index 3776ebc..4b3f629 100644
+--- a/src/dev-harness/QxHarness.tsx
++++ b/src/dev-harness/QxHarness.tsx
+@@ -3,4 +3,6 @@ import mcqGraded from "@/lib/question-experience/__fixtures__/mcq-graded.json";
+ import frqRetry from "@/lib/question-experience/__fixtures__/graded-frq-retry.json";
+ import frqDraft from "@/lib/question-experience/__fixtures__/draft-frq-resume.json";
++import proseMathMcq from "@/lib/question-experience/__fixtures__/prose-math-mcq.json";
++import proseMathFrq from "@/lib/question-experience/__fixtures__/prose-math-frq-review.json";
+ import teaching from "@/dev-harness/teaching_chem_1_2.json";
+ import gChem from "@/dev-harness/guides_chem_1_2.json";
+@@ -9,4 +11,7 @@ import gChem from "@/dev-harness/guides_chem_1_2.json";
+     "frq-review": [frqRetry, "practice"],
+     "frq-practice": [frqDraft, "practice"],
++    // DECISION-0121 / TASK-0073: prose maths, \(...\) in choices and \[...\] in a rubric line.
++    "prose-math": [proseMathMcq, "practice"],
++    "prose-math-frq": [proseMathFrq, "practice"],
+   };
+   const [raw, mode] = map[state] ?? map.practice;
