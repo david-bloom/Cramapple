@@ -5,6 +5,7 @@
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
 **Backend code:** `c8a978b315b50d19ad43e01c368d389f0c088468`
 **App code:** `75b036b26ff39537d338ad87336b5746965e299e`
+**Draft PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), [private app #24](https://github.com/david-bloom/ap-prep-blueprint/pull/24)
 
 ## Findings and action
 
