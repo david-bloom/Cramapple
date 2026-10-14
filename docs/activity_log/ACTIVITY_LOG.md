@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- LaTeX Prose Pilot Phase 1 Written to Production (2026-10-14): on the Product Owner's explicit instruction, 21 `mcq_choices` edits (20 choice texts, 1 rationale) across Precalculus, Physics C E&M and Physics C Mechanics were applied in one all-or-nothing transaction (each edit guarded by exact before-text and pinned version; affected labels captured and restored). Second Codex QA findings (statement timeout, choice-to-version pinning) were fixed first. Verified after: 21 edited rows, 11 labels still `validated` and in sync with provenance intact, 0 stale. Deferred: 10 rubric edits (`TASK-0074`); dropped: 3 explanation edits. Private QA branch `qa/latex-prose-pilot` still to be deleted.
 - LaTeX Pilot: Independent QA, Phase 1 Narrowed to MCQ Rows, Grader Test Opened (2026-10-14): Codex QA recommended no write of the first transaction; the Product Owner approved a 21-row MCQ-only Phase 1, dropped the explanation edits and opened `TASK-0074` to test whether the grader handles LaTeX before the 10 rubric edits. No Production write.
 - LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
 
