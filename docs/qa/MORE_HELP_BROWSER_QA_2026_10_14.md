@@ -23,6 +23,10 @@ The app fix adds an opt-in Formula/MathText setting for display-sized fractions,
 
 After the fix, every measured non-script glyph in the synthetic question, nested guide and reference formula is **23.4px**. The reference's ordinary `m_1` / `m_2` subscripts remain **16.38px**. This covers the tested ordinary fraction expressions, not every possible authored macro/style combination. Two regressions cover deep fractions, script preservation and both highlighted/unhighlighted question paths.
 
+## Owner visual confirmation
+
+On 2026-10-14 David confirmed: “Confirmed it renders correctly!” This records owner acceptance of the observed rendering fix. The message does not specify a URL, environment or app version; authenticated served-content measurements and the broader live release matrix are not inferred from it.
+
 ## Executed local browser checks
 
 The real TaskPane, MoreHelp, request library, CSS and KaTeX/fonts were loaded in an isolated localhost fixture. Help transport/receipt reads, issue reporting and photo preparation were mocked. Scoring controls inject an existing typed grading shape; there is no real submission, database, authentication, provider invocation or student data. Fixture files remain outside both repositories at `/private/tmp/cramapple-more-help-browser`; no private app source or authored bank content is copied into this public report.

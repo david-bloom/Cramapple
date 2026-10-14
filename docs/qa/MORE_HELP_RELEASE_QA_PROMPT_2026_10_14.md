@@ -2,6 +2,8 @@
 
 **Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v10; 26 backend / 1,144 app tests pass. Review the preserved Claude follow-up report and N1–N4 remediation, especially setup false positives and answer-control resets alongside pending help. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Challenge the new More help display-fraction setting: innermost digits were 11.7px, now 23.4px in synthetic 1280/375px local browser fixtures. Ordinary scripts remain exempt under the visual rule. Verify source/content/layout preservation and do not count mocked transport/scoring as authenticated QA. Write a new follow-up report rather than overwrite the first.
 
+**Owner visual confirmation:** David confirmed on October 14 that it renders correctly. Treat this as owner acceptance of the observed rendering fix, recorded in the browser QA report; environment/version were not specified. Continue the independent source/content and authenticated/live checks.
+
 **Date:** 2026-10-14 (America/New_York)
 **Purpose:** Independent follow-up review of the draft remediation and remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
 
