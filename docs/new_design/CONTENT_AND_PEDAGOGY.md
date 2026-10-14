@@ -29,7 +29,7 @@ The copy rules and the pedagogy rules. The second set are design rules, not sugg
 
 The slash in a score (`1 / 1`, `— / 1`) is not division and this rule does not touch it.
 
-**In question and teaching prose, stack only a quotient that stands alone on its own line** *(DECISION-0121)*. A compound quotient inside a sentence keeps the slash, written with explicit grouping. New prose is authored this way, with displayed maths in `$…$` and `\frac{}{}`. Existing prose is backfilled only in math-heavy courses where it hurts.
+**In question and teaching prose, stack only a quotient that stands alone on its own line** *(DECISION-0121)*. A compound quotient inside a sentence keeps the slash, written with explicit grouping. New prose is authored this way: displayed maths in `\[…\]`, inline maths in `\(…\)`, with `\frac{}{}` (never `$…$`, which is currency in prose; and `\lvert x\rvert`, never `|x|`). Existing prose is backfilled only in math-heavy courses where it hurts.
 
 **Mathematics is authored as LaTeX, and a surface that cannot render it may not show it.** Formula bodies are LaTeX source. Printing that source to a student is a defect, not a fallback: through 2026-10-12 the reference pane did exactly that, and 308 published formulas reached students as raw monospace backslashes. Equations render with KaTeX in its own bundled faces, in display style so a fraction's numerator and denominator are not shrunk to 0.7× — see `VISUAL_IDENTITY.md`, "Sizing what a student reads", which governs the size of every visual, not only mathematics.
 

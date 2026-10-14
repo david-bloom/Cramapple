@@ -1,0 +1,336 @@
+diff --git a/src/components/content/ProseMath.tsx b/src/components/content/ProseMath.tsx
+new file mode 100644
+index 0000000..ca3e2ad
+--- /dev/null
++++ b/src/components/content/ProseMath.tsx
+@@ -0,0 +1,23 @@
++// Renders question and teaching prose that may carry \( inline \) or \[ display \] maths.
++// Plain prose -- every row published today -- returns the string untouched, so adopting
++// this component on a surface changes nothing until a row actually contains maths.
++import { useMemo } from "react";
++import { Formula } from "@/components/content/Formula";
++import { splitProseMath } from "@/lib/prose-math";
++
++export function ProseMath({ text }: { text: string | null | undefined }) {
++  const parts = useMemo(() => (text ? splitProseMath(text) : []), [text]);
++  if (!text) return null;
++  if (parts.length === 1 && parts[0].kind === "text") return <>{text}</>;
++  return (
++    <>
++      {parts.map((part, i) =>
++        part.kind === "text" ? (
++          <span key={i}>{part.text}</span>
++        ) : (
++          <Formula key={i} tex={part.text} display={part.kind === "display"} />
++        ),
++      )}
++    </>
++  );
++}
+diff --git a/src/lib/__tests__/prose-math-wiring.test.ts b/src/lib/__tests__/prose-math-wiring.test.ts
+new file mode 100644
+index 0000000..2b32806
+--- /dev/null
++++ b/src/lib/__tests__/prose-math-wiring.test.ts
+@@ -0,0 +1,45 @@
++// DECISION-0121: every place QuestionExperience prints AUTHORED question prose goes through
++// ProseMath, so a row carrying \( \) or \[ \] is typeset instead of shown as LaTeX source.
++// A source-level guard: it fails if someone prints one of these fields bare again.
++import { readFileSync } from "node:fs";
++import { describe, expect, it } from "vitest";
++
++const src = readFileSync(
++  new URL("../../screens/question-experience/QuestionExperience.jsx", import.meta.url),
++  "utf8",
++);
++
++const SITES: Array<[string, string]> = [
++  ["stem", "<ProseMath text={item.stem} />"],
++  ["stimulus", "<ProseMath text={item.stimulus} />"],
++  ["rubric criterion label", "<ProseMath text={c.label} />"],
++  ["rubric minimum fix", "<ProseMath text={c.minimumFix} />"],
++  ["answer-key choice text", "<ProseMath text={c.text} />"],
++  ["answer-key rationale", "<ProseMath text={c.rationale} />"],
++];
++
++describe("prose maths wiring in QuestionExperience", () => {
++  it.each(SITES)("%s is rendered through ProseMath", (_name, jsx) => {
++    expect(src).toContain(jsx);
++  });
++
++  it("both the read-only and the selectable choice lists use it", () => {
++    expect(src.match(/<ProseMath text=\{c\.text\} \/><\/span>/g)).toHaveLength(2);
++  });
++
++  it("no authored prose field is printed bare any more", () => {
++    for (const bare of ["{item.stem}", "{item.stimulus}", "{c.label}", "{c.minimumFix}", "{c.rationale}"]) {
++      expect(src).not.toContain(`>${bare}<`);
++      expect(src).not.toContain(` ${bare}</p>`);
++    }
++    expect(src).not.toMatch(/<\/strong> \{c\.text\}/);
++  });
++
++  it("a student's own words and the grader's reason are deliberately NOT parsed as maths", () => {
++    // Student answers and model-written reasons are not authored content; rendering
++    // `\(` in them would let a student's typing change the page.
++    expect(src).not.toContain("<ProseMath text={c.reason}");
++    expect(src).not.toContain("<ProseMath text={exp.attempt");
++    expect(src).not.toContain("<ProseMath text={draft");
++  });
++});
+diff --git a/src/lib/__tests__/prose-math.test.tsx b/src/lib/__tests__/prose-math.test.tsx
+new file mode 100644
+index 0000000..3e9581a
+--- /dev/null
++++ b/src/lib/__tests__/prose-math.test.tsx
+@@ -0,0 +1,114 @@
++// DECISION-0121: prose maths. Inline \( \) and display \[ \] are rendered; `$` is never maths in prose.
++import React from "react";
++import { renderToStaticMarkup } from "react-dom/server";
++import { describe, expect, it } from "vitest";
++import { ProseMath } from "@/components/content/ProseMath";
++import { hasProseMath, splitProseMath, stripProseMath } from "@/lib/prose-math";
++
++/** What the student sees: KaTeX keeps the LaTeX source in a MathML <annotation>, so assert on the visible layer. */
++const visible = (html: string) => html.replace(/<annotation[^>]*>[\s\S]*?<\/annotation>/g, "");
++const html = (text: string) => renderToStaticMarkup(<ProseMath text={text} />);
++
++describe("splitProseMath", () => {
++  it("splits inline and display spans from the prose around them", () => {
++    expect(splitProseMath("Let \\(f(x)=\\frac{x^2-4}{x-2}\\). Find the limit.")).toEqual([
++      { kind: "text", text: "Let " },
++      { kind: "inline", text: "f(x)=\\frac{x^2-4}{x-2}" },
++      { kind: "text", text: ". Find the limit." },
++    ]);
++    expect(splitProseMath("The average rate is\n\\[\\frac{f(b)-f(a)}{b-a}\\]\nover the interval.")).toEqual([
++      { kind: "text", text: "The average rate is\n" },
++      { kind: "display", text: "\\frac{f(b)-f(a)}{b-a}" },
++      { kind: "text", text: "\nover the interval." },
++    ]);
++  });
++
++  it("treats currency as plain text, however many dollar signs there are", () => {
++    // Real published stems and choices (AP Statistics). `$...$` would pair these up.
++    for (const s of [
++      "A raffle ticket pays $10 with probability 0.5, $20 with probability 0.3.",
++      "Mean $850 with SD $120. Calculate a 95% confidence interval.",
++      "$20", "-$0.40", "Omar earns $11,000 above his firm's mean while Lena earns $52,000.",
++    ]) {
++      expect(hasProseMath(s)).toBe(false);
++      expect(splitProseMath(s)).toEqual([{ kind: "text", text: s }]);
++      expect(html(s)).toBe(renderToStaticMarkup(<>{s}</>));
++    }
++  });
++
++  it("keeps an unclosed opener and an empty span literal", () => {
++    expect(splitProseMath("a \\(b without a closer")).toEqual([{ kind: "text", text: "a \\(b without a closer" }]);
++    expect(splitProseMath("a \\(\\) b")).toEqual([{ kind: "text", text: "a \\(\\) b" }]);
++  });
++
++  it("handles several spans and returns nothing for an empty string", () => {
++    expect(splitProseMath("\\(a\\) and \\(b\\)").map((s) => s.kind)).toEqual(["inline", "text", "inline"]);
++    expect(splitProseMath("")).toEqual([]);
++  });
++
++  it("a currency amount beside a real span does not interfere with it", () => {
++    const segs = splitProseMath("It costs $5. Find \\(\\frac{1}{2}\\) of it, or $10.");
++    expect(segs.map((s) => s.kind)).toEqual(["text", "inline", "text"]);
++    expect(segs[0].text).toBe("It costs $5. Find ");
++    expect(segs[2].text).toBe(" of it, or $10.");
++  });
++});
++
++describe("ProseMath", () => {
++  it("returns plain prose untouched, so nothing changes until a row carries maths", () => {
++    const s = "Which statement best describes the trend? (A) rises, (B) falls & flattens";
++    expect(html(s)).toBe(renderToStaticMarkup(<>{s}</>));
++    expect(html(s)).not.toContain("katex");
++  });
++
++  it("renders a compound quotient as a stacked fraction, not as its source", () => {
++    const out = html("Let \\(f(x)=\\frac{x^2-x-6}{x^2-4}\\). Which statement is true?");
++    expect(out).toContain("mfrac");
++    expect(out).toContain("Which statement is true?");
++    expect(visible(out)).not.toContain("\\frac");
++  });
++
++  it("sets display maths on its own line and inline maths in the sentence", () => {
++    const display = html("Average rate:\n\\[\\frac{214-190}{6-5}\\]");
++    expect(display).toContain("katex-display");
++    expect(display).toContain("ca-formula-display");
++    const inline = html("Find \\(\\frac{214-190}{6-5}\\) now");
++    expect(inline).not.toContain("katex-display");
++    expect(inline).toContain("ca-formula-inline");
++  });
++
++  it("renders fractions at full size, not at KaTeX's shrunk script size", () => {
++    // The legibility floor from DECISION-0120: a fraction in text style lands near 12px.
++    const out = html("\\(\\frac{f(a+h)-f(a)}{h}\\)");
++    expect(out).toContain("mfrac");
++    expect(out).not.toContain("mtight");
++    expect(out).not.toContain("size3");
++  });
++
++  it("falls back to the source rather than showing KaTeX red on bad input", () => {
++    const out = html("Bad: \\(\\frac{1}{ \\begin{unterminated\\) end");
++    expect(out).toContain("ca-formula-raw");
++    expect(out).not.toContain("katex-error");
++    expect(out).toContain("Bad:");
++    expect(out).toContain("end");
++  });
++
++  it("renders nothing for an empty or missing value", () => {
++    expect(html("")).toBe("");
++    expect(renderToStaticMarkup(<ProseMath text={null} />)).toBe("");
++    expect(renderToStaticMarkup(<ProseMath text={undefined} />)).toBe("");
++  });
++
++  it("escapes prose text, so authored angle brackets are not injected as HTML", () => {
++    const out = html("if x < 3 and y > 2 then \\(x\\)");
++    expect(out).toContain("&lt;");
++    expect(out).not.toContain("<3");
++  });
++});
++
++describe("stripProseMath", () => {
++  it("removes the delimiters and keeps the source, for the clipboard and assistive text", () => {
++    expect(stripProseMath("Let \\(f(x)=\\frac{1}{x}\\) be given.")).toBe("Let f(x)=\\frac{1}{x} be given.");
++    expect(stripProseMath("costs $5 and $10")).toBe("costs $5 and $10");
++  });
++});
+diff --git a/src/lib/prose-math.ts b/src/lib/prose-math.ts
+new file mode 100644
+index 0000000..8134382
+--- /dev/null
++++ b/src/lib/prose-math.ts
+@@ -0,0 +1,62 @@
++// Mathematics inside question and teaching PROSE (stems, choices, rationales, criteria).
++//
++// DECISION-0121: in prose a compound quotient is stacked only when it stands on its own
++// line; inside a sentence it keeps the slash. So prose needs two notations:
++//   \( ... \)   inline maths, set in line with the sentence
++//   \[ ... \]   display maths, set on its own line
++//
++// Why not `$...$`, which the deep-dive notes use (see MathText in Formula.tsx)? Because
++// published prose already contains `$` as CURRENCY -- about 70 rows, mostly AP Statistics
++// ("pays $10 with probability 0.5, $20 with ..."). Two currency amounts in one string
++// would parse as a maths span and swallow the words between them. A backslash never
++// appears in prose, so `\(` and `\[` cannot collide with anything already published.
++//
++// Authoring note: write absolute value as \lvert x \rvert, never |x|. A stem line holding
++// a bare `|` next to another such line is read as a pipe table by parseStimulusBlocks.
++
++export type ProseSegment = { kind: "text" | "inline" | "display"; text: string };
++
++const PAIRS = [
++  { open: "\\(", close: "\\)", kind: "inline" },
++  { open: "\\[", close: "\\]", kind: "display" },
++] as const;
++
++/** True when the string contains any prose-maths opener. The fast path for plain prose. */
++export function hasProseMath(text: string): boolean {
++  return text.includes("\\(") || text.includes("\\[");
++}
++
++/**
++ * `a \(x\) b` -> [{a},{x,inline},{b}]. An opener with no closer, and an empty span,
++ * stay literal text rather than swallowing the rest of the string.
++ */
++export function splitProseMath(text: string): ProseSegment[] {
++  if (!hasProseMath(text)) return text ? [{ kind: "text", text }] : [];
++  const out: ProseSegment[] = [];
++  let buf = "";
++  let i = 0;
++  while (i < text.length) {
++    const pair = PAIRS.find((p) => text.startsWith(p.open, i));
++    if (pair) {
++      const start = i + pair.open.length;
++      const end = text.indexOf(pair.close, start);
++      const body = end === -1 ? "" : text.slice(start, end).trim();
++      if (end !== -1 && body) {
++        if (buf) out.push({ kind: "text", text: buf });
++        buf = "";
++        out.push({ kind: pair.kind, text: body });
++        i = end + pair.close.length;
++        continue;
++      }
++    }
++    buf += text[i];
++    i += 1;
++  }
++  if (buf) out.push({ kind: "text", text: buf });
++  return out;
++}
++
++/** The string with the delimiters removed and the LaTeX source kept, for the clipboard and aria text. */
++export function stripProseMath(text: string): string {
++  return splitProseMath(text).map((s) => s.text).join("");
++}
+diff --git a/src/screens/question-experience/QuestionExperience.jsx b/src/screens/question-experience/QuestionExperience.jsx
+index 15f9ef9..6749126 100644
+--- a/src/screens/question-experience/QuestionExperience.jsx
++++ b/src/screens/question-experience/QuestionExperience.jsx
+@@ -27,6 +27,7 @@ import { Figure } from '@/components/figures/Figure';
+ import { figuresForEntry } from '@/lib/figures/lookup';
+ import { QuestionIssueReport } from '@/components/session/QuestionIssueReport';
+ import { Formula } from '../../components/content/Formula';
++import { ProseMath } from '../../components/content/ProseMath';
+ 
+ const confirmFn = (message) => (typeof window === 'undefined' ? false : window.confirm(message));
+ 
+@@ -198,10 +199,10 @@ function GradingPane({ exp, state, brief, hint = null }) {
+               <li key={c.key} className="qx-criterion" data-state={s}>
+                 <Mark state={s} />
+                 <div className="qx-criterion-body">
+-                  <p className="qx-criterion-name"><span>{c.label}</span>{c.points !== null && <span className="qx-criterion-points">{pts(c.points)}</span>}</p>
++                  <p className="qx-criterion-name"><span><ProseMath text={c.label} /></span>{c.points !== null && <span className="qx-criterion-points">{pts(c.points)}</span>}</p>
+                   <span className="qx-visually-hidden">{statusWord(s)}</span>
+                   {s !== 'unscored' && c.reason && <p className="qx-criterion-reason">{c.reason}</p>}
+-                  {s === 'lost' && c.minimumFix && <p className="qx-criterion-reason">To earn it: {c.minimumFix}</p>}
++                  {s === 'lost' && c.minimumFix && <p className="qx-criterion-reason">To earn it: <ProseMath text={c.minimumFix} /></p>}
+                 </div>
+               </li>
+             );
+@@ -218,8 +219,8 @@ function GradingPane({ exp, state, brief, hint = null }) {
+                 <Mark state={c.isCorrect ? 'earned' : 'incorrect'} />
+                 <div className="qx-criterion-body">
+                   <p className="qx-criterion-name"><span>{c.key}. {c.isCorrect ? 'Correct answer' : 'Incorrect'}</span>{picked && <span className="qx-pick">Your choice</span>}</p>
+-                  <p className="qx-criterion-reason">{c.text}</p>
+-                  {c.rationale && <p className="qx-criterion-reason qx-rationale">{c.rationale}</p>}
++                  <p className="qx-criterion-reason"><ProseMath text={c.text} /></p>
++                  {c.rationale && <p className="qx-criterion-reason qx-rationale"><ProseMath text={c.rationale} /></p>}
+                 </div>
+               </li>
+             );
+@@ -358,11 +359,11 @@ export function TaskPane({ exp, state, submit, nextLoading = false, progressPend
+     <section className="qx-pane qx-pane-centre" aria-label="Question">
+       <div className="qx-task-head">
+         <p className="qx-eyebrow">{eyebrow}</p>
+-        <p className="qx-question">{item.stem}</p>
++        <p className="qx-question"><ProseMath text={item.stem} /></p>
+       </div>
+       {(item.stimulus || item.media.length > 0 || item.hasStimulusImage) && (
+         <div className="qx-stimulus">
+-          {item.stimulus && <p>{item.stimulus}</p>}
++          {item.stimulus && <p><ProseMath text={item.stimulus} /></p>}
+           {item.media.map((m) => <img key={m.url} src={m.url} alt={m.alt} />)}
+           {state === 'worked' && item.hasStimulusImage && <WorkedFigure subjectKey={exp.topic?.subjectKey} topicCode={exp.topic?.topicCode} />}
+           {state !== 'worked' && item.hasStimulusImage && item.media.length === 0 && <p className="qx-note">This question's figure isn't available right now.</p>}
+@@ -384,7 +385,7 @@ export function TaskPane({ exp, state, submit, nextLoading = false, progressPend
+               return (
+                 <li key={c.key} className="qx-choice" data-picked={mine || undefined}
+                     data-correct={(revealedCorrectKey && c.key === revealedCorrectKey) || undefined}>
+-                  <span className="qx-choice-text"><strong>{c.key}.</strong> {c.text}</span>
++                  <span className="qx-choice-text"><strong>{c.key}.</strong> <ProseMath text={c.text} /></span>
+                   {revealedCorrectKey === c.key && (
+                     // Mark and colour only, never the key's words: the centre
+                     // pane is the task, and the answer key lives on the left
+@@ -407,7 +408,7 @@ export function TaskPane({ exp, state, submit, nextLoading = false, progressPend
+                 <label className="qx-choice-row">
+                   <input type="radio" id={`qx-choice-${c.key}`} name="qx-choice" value={c.key} checked={choice === c.key}
+                     disabled={busy || c.eliminated} onChange={() => setChoice(c.key)} />
+-                  <span className="qx-choice-text"><strong>{c.key}.</strong> {c.text}</span>
++                  <span className="qx-choice-text"><strong>{c.key}.</strong> <ProseMath text={c.text} /></span>
+                 </label>
+               </div>
+             ))}

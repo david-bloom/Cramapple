@@ -82,7 +82,7 @@ Most recent entries (full chronological list follows below):
   2. A compound quotient **inside a sentence** keeps the slash, written with explicit grouping.
   3. The four `DECISION-0119` exceptions and the score slash are unchanged.
   4. This applies to prose only. Reference-pack formulas remain stacked, as `DECISION-0119` already requires.
-  5. Notation for stacked prose maths is LaTeX in `$…$` delimiters, reusing `mathSpan`/`MathText`. Content is **authored, not transformed**: no regex or render-time rewrite.
+  5. Notation for prose maths is LaTeX in **`\(…\)` (inline) and `\[…\]` (display)**, not `$…$`. About 70 published prose rows already contain `$` as currency (mostly AP Statistics), so `$…$` would swallow the words between two prices; a backslash never occurs in prose. Absolute value is written `\lvert x\rvert`, never `|x|`, because a bare pipe on consecutive lines is read as a table. Content is **authored, not transformed**: no regex or render-time rewrite.
   6. **Author forward:** all new question and teaching prose is authored with the display-only rule in LaTeX. This costs nothing extra and stops the problem growing.
   7. **Backfill only where it hurts:** math-heavy courses where a fraction is central to the question (Precalculus, Physics C, Calculus). Chemistry, Biology and Statistics are not backfilled unless a specific item is raised.
   8. The first backfill is a **pilot on `ap_precalculus` and `ap_physics_c_em` / `ap_physics_c_mechanics`**, drafted from a read-only Production read, QA'd independently, and visually QA'd by the Product Owner before anything widens. Production writes remain a Hard Gate.

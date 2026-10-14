@@ -35,7 +35,7 @@ slice before QA signs off.
    (stands alone on a line, stacked) or inline (inside a sentence, slash kept) and writes the edit in `$…$`
    delimiters, `\frac{}{}`. Any row it is unsure of is **flagged and left unedited**.
 3. **Validate.** Every edit must (a) parse in KaTeX with no error, (b) differ from the original only inside
-   `$…$`, and (c) convert back, with `stripMath` and the fraction rewritten as a slash, to the original text exactly.
+   the math delimiters, and (c) convert back, with `stripProseMath` and the fraction rewritten as a slash, to the original text exactly.
 4. **Review.** The Product Owner reviews the diff. An independent QA pass (Opus or Codex) reviews the pilot before
    anything widens.
 5. **Apply to Development only.** Production is a separate Hard Gate and a separate approval.
@@ -47,12 +47,30 @@ slice before QA signs off.
 - A before/after table of every changed row exists for QA.
 - The pilot report answers: how many rows were display vs inline vs flagged, and did stacking read well in the app.
 
+## Renderer (built 2026-10-14, not yet applied)
+
+Patch: `docs/tasks/patches/TASK-0073-ap-prep-blueprint-prose-math.patch`, against `ap-prep-blueprint` at Lovable HEAD
+`4b6fff2`. Adds `src/lib/prose-math.ts`, `src/components/content/ProseMath.tsx`, and wires `ProseMath` into the
+authored-prose sites of `QuestionExperience.jsx` (stem, stimulus, rubric label and minimum fix, answer-key choice text
+and rationale, and both choice lists).
+
+- **Verified:** 22 tests pass in a scratch copy against real KaTeX (13 renderer, 9 wiring guard); the wiring guard fails
+  8 of 9 on the unpatched file; the patch applies cleanly to the file as read from the Lovable project.
+- **Not verified:** the full app suite, `tsc --noEmit` and `npm run build` were not run (the scratch copy holds only the
+  files above). The existing `question-experience-render` tests render `QxView`; plain prose returns the string
+  unchanged, so they should be unaffected, but that is reasoned, not run. Run `npx tsc --noEmit -p . && npx vitest run
+  && npm run build` before publishing, as `.github/workflows/ci.yml` requires.
+- **Zero change for current content:** a string with no `\(` or `\[` is returned untouched.
+- **Not wired (out of the pilot's columns, or not read):** FRQ comparison answers (`activeVariant.content`,
+  `.explanation`), the grader's per-criterion `reason`, student text (deliberately never parsed), `PromptText`,
+  `RadioOptionRow`, `RubricCriterionRow`, `FeedbackCard`, lesson notes and topic explainers. The pilot's
+  `content_item_versions.explanation` column was not located in the render path and is unconfirmed.
+- **Access:** `ap-prep-blueprint` is not reachable from this session, so the patch has to be applied by someone who
+  has the repo; Lovable syncs to GitHub on push.
+
 ## Known gaps at open
 
 - The hit counts are a loose upper bound. The rule-applying detector in Method step 1 gives the real number.
-- No renderer exists yet for prose surfaces. `MathText` is reusable but stems, choices, rationales and criteria must
-  each opt in. The Product Owner's visual QA needs this first, so it is the first build step.
-- `ap-prep-blueprint` is not reachable as a GitHub repository from the session that opened this task; the app is
-  edited through its Lovable project (`56cae479`). Confirm the edit path before building.
+- The prose renderer exists as a patch and is unapplied (see above); visual QA needs it applied and published.
 - Author-forward (`DECISION-0121` item 6) needs the prose rule stated in the authoring guidance, done in
   `docs/new_design/CONTENT_AND_PEDAGOGY.md`.
