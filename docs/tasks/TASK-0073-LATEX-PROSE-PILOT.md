@@ -49,6 +49,8 @@ slice before QA signs off.
 
 ## Renderer (2026-10-14): PR open, not merged or published
 
+> SESSION-CLOSE UPDATE (2026-10-14): the renderer checkpoint below is historical. PR #22's student renderer shipped; PR #23's staff/reason fix is now merged and recorded as published. The Phase 1 outcome below governs the current release state. Both independent QA sweeps and their evidence boundaries are recorded in [the QA session close](../handoffs/LATEX_PILOT_INDEPENDENT_QA_SESSION_CLOSE_2026_10_14.md).
+
 `david-bloom/ap-prep-blueprint` PR #22 (draft), branch `claude/prose-math-renderer`. The patch file in
 `docs/tasks/patches/` is the same change, kept for the record. It adds `src/lib/prose-math.ts` and
 `src/components/content/ProseMath.tsx`, wires `ProseMath` into the authored-prose sites of `QuestionExperience.jsx`
@@ -108,7 +110,13 @@ Phase 1 was written after the second QA and the Product Owner's explicit instruc
 
 ## Known gaps at open
 
+> HISTORICAL opening checklist: renderer merge/publication statements below predate the Phase 1 release. See the current Status and Phase plan/QA outcome above; reviewer/admin screenshot evidence remains outstanding.
+
 - The hit counts are a loose upper bound. The rule-applying detector in Method step 1 gives the real number.
 - The prose renderer is in `ap-prep-blueprint` PR #22 and is not merged or published; visual QA of real content needs both, plus the content edits.
 - Author-forward (`DECISION-0121` item 6) needs the prose rule stated in the authoring guidance, done in
   `docs/new_design/CONTENT_AND_PEDAGOGY.md`.
+
+## Independent QA closeout (2026-10-14)
+
+The [sanitized QA session close](../handoffs/LATEX_PILOT_INDEPENDENT_QA_SESSION_CLOSE_2026_10_14.md) records both Codex sweeps, checked artifact revisions, SELECT-only hash reconstruction, release evidence limits, and the next owner. The full reports contain private exam text and Production evidence; they remain local because their attempted private GitHub export required explicit authorization. No private payload is reproduced in this public repository. The historical recommendations apply to the reviewed files; Phase 1's later corrected write and Phase 2's dropped disposition remain the current outcome. Next owner: David for TASK-0075 scope/notation rulings and any remaining staff screenshots.
