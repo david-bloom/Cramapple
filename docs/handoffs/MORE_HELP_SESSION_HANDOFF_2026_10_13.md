@@ -10,7 +10,7 @@
 
 ## Resumed production preparation — October 13
 
-David has now reported very positive student feedback on the mock design/content and requested moving calculus and chemistry into production. This is the later owner direction: the wait-for-feedback instruction below describes the previous checkpoint. See [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md) for current-source/live-state evidence, the proposed real-app integration and release checks. The destination question (real app versus publishing the two-question live demo) is still pending; no release, new model call, audience change or invitation has occurred in this resumed orientation.
+David reported very positive student feedback and explicitly confirmed **real Calculus AB/BC and Chemistry questions in app.cramapple.com**. The wait-for-feedback and paused Sites state below are historical. See [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md) for current implementation and live-state evidence. Backend PR #435 is implemented in Development; app PR #21 is draft and unpublished. Approved actual-generation tests failed on exhausted OpenAI API credits. Production is unchanged. The latest request is [Claude adversarial code-review QA](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md), including the owner's API-versus-subscription question. No Site audience change or invitation has occurred.
 
 PR #430 has landed on `main`; its former remote branch is gone. Read this handoff on `main`, retaining the original branch/PR as historical provenance. The documentation-synchronization section below records the earlier blocked merge, not the current GitHub state.
 

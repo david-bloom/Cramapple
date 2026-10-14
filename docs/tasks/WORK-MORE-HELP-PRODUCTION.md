@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — confirmed real-app implementation and production release
+**Status:** In Progress — Development implementation; independent QA and real generation pending
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -18,7 +18,7 @@ This supersedes the previous wait-for-feedback state for production preparation.
 
 David subsequently confirmed: “add More help to real Calculus AB/BC and Chemistry questions in app.cramapple.com”. This confirms the real-app target and authorizes implementation and the requested production rollout within this work order, after relevant verification. No additional confirmation is required for the same scope. The separate two-question Sites demo remains untouched.
 
-Implementation uses the existing grading backend and OpenAI connection. No new provider, billing change or credential is needed. Pre-submission help uses answer-free context and guides the setup; post-grade help uses the existing recorded grade. A durable receipt precedes disclosure and coaches future attempts on the same served question without changing old grades. Help text and unsaved work are not newly retained in the database; only request/assistance metadata is stored with the owning session/account.
+Implementation currently reuses the existing grading backend and OpenAI API connection. Its exhausted credits block actual generation. David has challenged using an API instead of his subscription; provider/billing architecture is explicitly included in the new Claude review, rather than treated as settled. No credentials, billing purchase or provider switch has been performed. Pre-submission help uses answer-free context and guides the setup; post-grade help uses the existing recorded grade. A durable delivered receipt precedes disclosure and coaches future attempts on the same served question without changing old grades. Help text and unsaved work are not newly retained in the database; only request/assistance metadata is stored with the owning session/account.
 
 ## Product goal and proposed app scope
 
@@ -69,7 +69,7 @@ The unanswered Practice path also needs an explicit answer-disclosure contract: 
 
 ## Implementation sequence and acceptance criteria
 
-1. Resolve the destination. If the answer is the live demo, follow the existing Sites handoff and current Sites skill; this app integration proposal does not apply. Preserve project identity and audience, and verify one successful real generation before publication.
+1. Destination resolved by owner: real Calculus AB/BC and Chemistry questions in app.cramapple.com. The existing Sites demo stays separate.
 2. For the app, finalize the smallest response/assistance/disclosure contract using current-question context. Implement and test the durable receipt and authenticated context boundary before allowing model calls or UI disclosure.
 3. Add bounded structured generation: short explanation, one next step, exact known reference IDs (1–3), and a small focused-follow-up set. Reject unknown IDs, malformed output and oversized inputs; bound latency and duplicate calls. Do not fabricate a diagnosis, score, history or published hook. Handle missing grounding honestly.
 4. Implement the accepted two-pane template in the existing app, keeping work/grade mounted and preserving stimulus. Desktop side-by-side, phone stacked. Use current semantic tokens, square corners, zero motion and the shared math renderer. The 16px floor applies to the smallest rendered glyph.
@@ -88,28 +88,28 @@ Required QA:
 
 ## QA result, risks and Done decision
 
-**Implementation Summary:** None yet; source/live-state audit and production work order prepared.
-**Test Results:** Read-only checks above; no application tests or successful generation run in this session.
-**QA Result:** Not assessed; no independent implementation QA yet.
-**Done Decision:** Not requested or made. The production feature is unbuilt.
+**Implementation Summary:** Authenticated bounded backend, delivery/assistance metadata and real-question More help UI implemented on the two PRs. Development v4 is active; app remains an unpublished draft PR.
+**Test Results:** App 115 files / 1,101 tests, TypeScript and build pass; backend 9 Deno tests and typecheck pass. Development transactional assistance/security assertions pass. Scripted local desktop/phone layout check passed; no successful actual generation.
+**QA Result:** Earlier independent Lovable source review proposed FAIL on older SHAs. Remediation is committed; the requested fresh Claude adversarial review is prepared, not yet run.
+**Done Decision:** Not made. Production remains unchanged; release is held on real generation and QA.
 
-Open risks: destination ambiguity; durable pre-submission assistance; answer-disclosure boundary; unverified current model/gateway connection; Calculus later-unit grounding gaps; preservation of unsaved work and existing grades; unrelated changes in any publication delta.
+Open risks: delivery/assistance concurrency and real submission paths; prompt-only answer-disclosure boundary; provider/subscription architecture and exhausted API credits; Calculus later-unit grounding gaps; preservation of unsaved work and existing grades; unrelated changes in any publication delta.
 
 ## Handoff packet
 
 **Current source:** This work order, product design, preserved artifact bundle, exact backend/app checkpoints above. Branch/PR belongs to this independently reviewable production-preparation slice.
 
-**Approval state:** Positive mock feedback and production direction recorded. Exact destination unanswered; no live mutation authorized on an inferred target. No request to publish a new demo or send invitations has been inferred.
+**Approval state:** Real-app destination and subject scope explicitly confirmed. Controlled Development OpenAI payload explicitly approved after the initial automatic-review rejection. No request to publish a new demo, send invitations, purchase credits or change provider credentials has been inferred.
 
 **Do not touch:** Unrelated dirty files in the primary checkout; prior test-account cleanup; auth/payments/email configuration; Sites audience/credits; other subjects or mastery policy.
 
-**Next owner/action:** David answers the already-presented app-versus-demo scope question; Codex continues the appropriate implementation path using these verified seams and completes the release checks. Do not reconstruct the prior mock or restart broad repository discovery.
+**Next owner/action:** Claude runs the [requested adversarial review](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md). Resolve its findings and the provider/credit blocker, verify actual generation, then complete the authorized production release checks. Do not reconstruct the prior mock or restart broad repository discovery.
 
-**Recommended implementation prompt:** Continue WORK-MORE-HELP-PRODUCTION using David's confirmed destination. For the app, implement the durable assistance and authoritative context contract first, then the accepted two-pane template and bounded generation. Preserve answers/grades, respect pre-submission answer disclosure, use vetted references/hooks, and complete Development/Preview plus independent QA before the exact production rollout. For the demo, use the saved existing Sites project/version and verify current access/real generation without changing audience or paying automatically.
+**Recommended continuation:** Start with the Claude prompt and the exact current code SHAs below. Preserve answers/grades, respect pre-submission answer disclosure, use vetted references/hooks, and complete Development/Preview plus independent QA before the exact production rollout. The Sites demo is not this implementation target.
 
 **Documentation synchronization:** PR #435 preserves this In Progress work order and restart records on `codex/more-help-production`. Documentation links and whitespace checks pass. No release completion is implied.
 
-**Confirmed next action:** Codex implements and verifies the real-app path for Calculus AB/BC and Chemistry; the destination question is resolved. Prior references below to an unanswered destination describe the orientation checkpoint.
+**Confirmed scope:** Real-app Calculus AB/BC and Chemistry. Earlier implementation/version/test counts below are historical checkpoints; the latest review checkpoint supersedes them.
 
 ## Implementation checkpoint — confirmed app slice
 
@@ -131,3 +131,15 @@ The explicitly approved Development QA authenticated the disposable fixture acco
 Development function v2 is active with the diagnostic-only addition; logs contain status/error code only, not prompts, student work, credentials or provider bodies. Full App suite now passes: **114 files / 1,092 tests**. App PR #21 CI passes. Backend PR #435's test and Vercel checks pass; Vercel Agent Review is pending. Independent read-only source QA was requested through the existing Lovable project's plan-mode review, with no implementation/publication authorization to that reviewer.
 
 Production remains unchanged. Release requires a functioning authorized model connection, successful real-generation QA and the remaining review/visual/smoke evidence. Existing grading/billing/account secrets were not changed in response to the credit failure.
+
+## Latest review checkpoint — October 13
+
+David requested a Claude adversarial code-review QA prompt and questioned API usage versus his subscription. The [standalone prompt](../qa/MORE_HELP_CLAUDE_ADVERSARIAL_QA_PROMPT_2026_10_13.md) reviews backend code `430fe2bda1d279670ea8518ac86d543a16cf3fc2` (PR #435) and app `30a65daed1ee1dd88e74b8f20f904ffffaab410b` (draft PR #21). It includes privacy/authentication, assistance races, real grading paths, answer leakage, content/maths, accessibility and provider/billing architecture. It requests an independent verdict, reproducible findings and explicit infrastructure limits, without deployment or billing actions.
+
+David supplied the original Lovable QA and requested acting on its findings. The [preserved original](../qa/QA_MORE_HELP_LOVABLE_2026_10_13.md) and [remediation disposition](../qa/MORE_HELP_QA_REMEDIATION_2026_10_13.md) distinguish fixed code, residual limits and blocked generation. Additional fixes cover photo preparation/evaluation/retry assistance, one hook even with reused hook IDs, effect-updated status text and server-reported draft context. New tests exercise QxView with real grading helpers and stubbed network for MCQ/typed FRQ, failed-generation independence, reloaded assistance and photo preparation. These do not certify a full authenticated route or live photo evaluation. The task-local disposable QA fixture account remains pending cleanup after a cancelled transaction; unrelated prior test accounts remain untouched.
+
+The earlier Lovable plan-mode review inspected older backend `ad405dc2` and app `24fd79f0`. It proposed FAIL for client assistance propagation, failed-generation coaching/retries, unsanitized copy/excess hooks, math highlighting and live-generation failure. The current source adds client grading propagation, delivery-only server coaching with bounded stable retries, copy sanitization/one relevant hook, intact math segments, and styling in the existing stylesheet. The accepted new template already has owner authorization. These changes still require fresh review; no earlier reviewer verdict is silently overturned.
+
+Development migration `20261014005146_more_help_delivery_commit` is applied under its exact committed filename. It preserves/revokes the old reservation RPC and adds a lease/state/hash delivery contract. Metadata reservation alone no longer coaches attempts. `commit_question_help` marks existing/future unsubmitted attempts only after valid generation and before disclosure; failures permit bounded retries without assistance. Development function v4 is ACTIVE with JWT verification and uses the new RPCs. This update made no model call and does not resolve exhausted credits.
+
+Final local checks: app **115 files / 1,101 tests**, TypeScript and build pass; backend **9 tests** and typecheck pass. Rolled-back Development SQL assertions pass private grants, entitlement/foreign ownership denial, same-receipt retry, duplicate denial, failed-generation independence, existing/future draft coaching, submitted-attempt preservation and fresh-session independence. Desktop/phone screenshots used a scripted local fixture; they do not establish live explanation quality. No Production changes, merge or app publication have occurred.
