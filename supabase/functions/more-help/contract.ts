@@ -95,7 +95,9 @@ export function helpContext(raw: unknown, input: HelpInput) {
     JSON.stringify(sources).length > 32000 || text(item.stem).length > 12000 ||
     text(item.stimulus).length > 10000
   ) throw new HelpError("context_too_large", 422);
-  const after = input.phase === "after" && grading.status === "graded";
+  const draft = object(r.attempt).status === "draft" ||
+    object(r.resume).action === "continue_draft";
+  const after = input.phase === "after" && grading.status === "graded" && !draft;
   return {
     after,
     sources,

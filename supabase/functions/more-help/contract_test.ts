@@ -77,6 +77,13 @@ Deno.test("post-grade uses recorded grade only; client after cannot manufacture 
     helpContext({ ...raw, grading: null }, { ...input, phase: "after" }).after,
     false,
   );
+  const revision = helpContext({ ...raw, attempt: { status: "draft" } }, {
+    ...input,
+    phase: "after",
+  });
+  assertEquals(revision.after, false);
+  assertEquals(revision.grounding.recordedGrade, null);
+  assertEquals(revision.grounding.answerFeedback, null);
 });
 Deno.test("unknown subject, foreign version, missing facts and unavailable visual refuse help", () => {
   for (
@@ -153,10 +160,22 @@ Deno.test("auth and reservation failures never invoke generation", async () => {
   assertEquals(calls, 0);
 });
 Deno.test("failed provider records no assistance; errors disclose no work", async () => {
+  let commits = 0;
+  let failures = 0;
   const response = await moreHelp(request(), {
     ...deps(),
+    commit: () => {
+      commits++;
+      return Promise.resolve({ state: "delivered" });
+    },
+    fail: () => {
+      failures++;
+      return Promise.resolve();
+    },
     generate: () => Promise.reject(new Error("private token and work")),
   });
+  assertEquals(commits, 0);
+  assertEquals(failures, 1);
   assertEquals(await response.json(), {
     error: "help_unavailable",
     assistanceRecorded: false,
