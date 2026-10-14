@@ -2,11 +2,17 @@
 
 **Date:** 2026-10-13 (America/New_York)
 **Owner / next decision:** David Bloom, after Micah/Orly feedback
-**State:** Paused by explicit owner instruction; documentation only in this closeout
+**State at original closeout:** Paused by explicit owner instruction; documentation only in that closeout
 **Branch:** codex/more-help-session-handoff
 **PR:** https://github.com/david-bloom/Cramapple/pull/430
 **Canonical decisions:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Mock/source bundle:** [README](../design-reference/more-help/README.md)
+
+## Resumed production preparation — October 13
+
+David has now reported very positive student feedback on the mock design/content and requested moving calculus and chemistry into production. This is the later owner direction: the wait-for-feedback instruction below describes the previous checkpoint. See [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md) for current-source/live-state evidence, the proposed real-app integration and release checks. The destination question (real app versus publishing the two-question live demo) is still pending; no release, new model call, audience change or invitation has occurred in this resumed orientation.
+
+PR #430 has landed on `main`; its former remote branch is gone. Read this handoff on `main`, retaining the original branch/PR as historical provenance. The documentation-synchronization section below records the earlier blocked merge, not the current GitHub state.
 
 ## What is preserved
 

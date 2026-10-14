@@ -3,7 +3,7 @@
 **Status:** Approved
 **Date:** 2026-10-13 (America/New_York)
 **Owner:** David Bloom
-**Execution:** Paused at the owner's explicit request; wait for Micah/Orly feedback and an explicit restart instruction.
+**Execution:** Production preparation restarted 2026-10-13: David reports very positive mock feedback and requests Calculus/Chemistry in production. Exact destination (real app integration or the saved two-question live demo) is awaiting clarification. See [production work order](../tasks/WORK-MORE-HELP-PRODUCTION.md).
 **Canonical repository:** david-bloom/Cramapple
 **Restart handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 **Preserved mocks/source:** [More help artifact bundle](../design-reference/more-help/README.md)
@@ -97,9 +97,12 @@ Exact lesson facts, source IDs and focused buttons are preserved in [lessons.ts]
 
 ## Kids' feedback and what remains open
 
+**Update, 2026-10-13:** David reports “Student feedback on the mock design and content is very positive” and directs moving calculus and chemistry into production. Treat the mock design/content as accepted on that report; no individual student reactions or live-generation result are inferred. The [production work order](../tasks/WORK-MORE-HELP-PRODUCTION.md) records the current-source audit, proposed app slice, release checks and pending destination question. The pause described below is the prior historical state, superseded for production preparation by this instruction. No demo/app publication occurred in this orientation.
+
+
 David sent screenshots to both kids. He then explicitly said: **“Do not build the demo. If they ask for a live demo I will tell you to restart. For now, do nothing.”** The live build is paused. The current request authorizes documentation/preservation only, not further rendering, invitations, publication, model calls or production implementation.
 
-The intended test when restarted: answer a question, try More help, say whether it helped and what remained confusing. The saved live candidate has a 1–5 helpfulness rating and comments, storing the answer, generated explanation and feedback for David's owner-only `/feedback` view. Screenshot feedback has not yet been supplied in this conversation; do not invent Micah's or Orly's reactions.
+The intended test when restarted: answer a question, try More help, say whether it helped and what remained confusing. The saved live candidate has a 1–5 helpfulness rating and comments, storing the answer, generated explanation and feedback for David's owner-only `/feedback` view. At the original paused checkpoint, screenshot feedback had not yet been supplied. The October 13 update above records David's later positive report; do not invent individual reactions.
 
 Questions for feedback: what specifically helped; which step still failed to click; whether the text was too long; whether the question staying visible helped; whether a hook/visual made the next action clearer; and whether they could then attempt a similar problem. Treat these as test prompts, not a required new research project.
 
