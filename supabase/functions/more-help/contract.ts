@@ -5,6 +5,25 @@ export const object = (v: unknown): Row =>
   v && typeof v === "object" && !Array.isArray(v) ? v as Row : {};
 const text = (v: unknown) => typeof v === "string" ? v : "";
 const list = (v: unknown): unknown[] => Array.isArray(v) ? v : [];
+// Keywords ignore case, but an unlabelled choice must be an uppercase standalone
+// letter. The article "a" and starts of words like "exponents" are not choices.
+const CHOICE_REFERENCE = String
+  .raw`(?:\b(?:choice|option)s?\s+([A-E])\b|\(([A-E])\)|\b([A-E])\b)`;
+const CHOICE_DISCLOSURES = [
+  `${CHOICE_REFERENCE}\\s+(?:(?:is|looks|seems)\\s+(?:right\\b|correct\\b|wrong\\b|incorrect\\b|(?:the\\s+)?best\\s+(?:choice|option)\\b)|remains\\b|works\\s+here\\b)`,
+  `\\b(?:eliminate|rule\\s+out|matching|go\\s+with)\\s+${CHOICE_REFERENCE}`,
+  `\\bonly\\s+${CHOICE_REFERENCE}\\s+fits\\b`,
+  `\\bthe\\s+answer\\s+lies\\s+in\\s+${CHOICE_REFERENCE}`,
+  `\\bis\\s+${CHOICE_REFERENCE}\\s+correct\\s*\\?`,
+];
+function explicitChoiceDisclosure(copy: string): boolean {
+  return CHOICE_DISCLOSURES.some((pattern) =>
+    [...copy.matchAll(new RegExp(pattern, "gi"))].some((match) =>
+      Boolean(match[1] || match[2]) ||
+      Boolean(match[3] && match[3] === match[3].toUpperCase())
+    )
+  );
+}
 export const SUBJECTS = ["ap-calculus-ab", "ap-calculus-bc", "ap-chemistry"];
 export type HelpInput = {
   requestId: string;
@@ -84,7 +103,7 @@ function sourceVisibleCopy(source: Source): string {
   return fields.filter(Boolean).join("\n");
 }
 const RATE_CONCLUSION =
-  /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
+  /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
 export function helpContext(raw: unknown, input: HelpInput) {
   const r = object(raw),
     item = object(r.item),
@@ -288,7 +307,8 @@ export function validateHelp(
     }
     // Explicit conclusions/choice disclosures, never equality with given values.
     if (
-      /\b(?:choice\s+|option\s+)?[A-E]\s+(?:(?:is|looks|seems)\s+(?:right|correct|wrong|incorrect)|remains\b)|\b(?:eliminate|rule\s+out)\s+(?:(?:choice|option)s?\s+)?[A-E]\b|\bmatching\s+\(?[A-E]\)?|\b(?:the\s+)?result\s+you\s+(?:want|need)\s*(?:is|equals|:|=)|\b(?:therefore|thus|so)\b[^.!?\n]{0,70}\b(?:limit|derivative|velocity|moles|molecules|atoms|result|value)\s*(?:is|equals|=)\s*[+-]?(?:\d|\.)/i
+      explicitChoiceDisclosure(copy) ||
+      /\b(?:the\s+)?result\s+you\s+(?:want|need)\s*(?:is|equals|:|=)|\b(?:therefore|thus)\b[^.!?\n]{0,70}\b(?:limit|derivative|velocity|moles|molecules|atoms|result)\s*(?:is|equals|=)\s*[+-]?(?:\d|\.)/i
         .test(copy)
     ) {
       throw new HelpError(

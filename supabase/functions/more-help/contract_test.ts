@@ -647,6 +647,15 @@ Deno.test("plain choice verdicts, eliminations and explicit numeric conclusions 
       "So f'(2) equals 12, matching (B).",
       "The result you want is 12.",
       "Therefore the limit is 3.",
+      "(B) is correct.",
+      "B is the best choice.",
+      "Go with B.",
+      "Option B works here.",
+      "The answer lies in choice B.",
+      "Only D fits.",
+      "Is B correct?",
+      "cHoIcE b is right.",
+      "ELIMINATE option c.",
     ]
   ) {
     for (
@@ -684,6 +693,15 @@ Deno.test("plain choice verdicts, eliminations and explicit numeric conclusions 
       "Use the given 12 grams to set up a conversion.",
       "Compare A and C using the quantities in the stem.",
       "The prompt gives a derivative of 12; identify its units.",
+      "Try matching each term to the power rule.",
+      "Start by matching data in the table to the corresponding units.",
+      "Try matching exponents on both sides.",
+      "Eliminate a common factor first, then differentiate.",
+      "Rule out a sign error by checking the units.",
+      "Since the table gives it, so the value is 3 at x=2; use that as your starting point.",
+      "Matching Data means comparing the given observations.",
+      "ELIMINATE a common factor before applying the rule.",
+      "Check whether AB is correct by applying the formula.",
     ]
   ) {
     assertEquals(
@@ -711,6 +729,9 @@ Deno.test("sibling rate phrasings and answer synonyms receive the same before-ph
         "The rate does not exist.",
         "The rate cannot be computed.",
         "The rate is meaningless.",
+        "The interval has width zero so it gives 0/0.",
+        "The rate is indeterminate.",
+        "The calculation gives no rate.",
       ]
     ) {
       const r = {
