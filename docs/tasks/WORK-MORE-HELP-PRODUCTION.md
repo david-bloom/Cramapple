@@ -10,6 +10,8 @@
 **Governing design:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 
+**Latest release checkpoint (October 14):** Backend #435/#439 and app #21 are merged; CI green. Production read-only checks find no More help function or four task migrations; Gateway key/origin names are present. Lovable reports published/ready with app main source, which does not certify the published feature version. Run the [release QA prompt](../qa/MORE_HELP_RELEASE_QA_PROMPT_2026_10_14.md) before rollout. Earlier draft/missing-key statements below are historical.
+
 **Latest execution:** [Gateway live QA, October 14](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md). Backend PR #435 is merged; app PR #21 remains draft. Two provider calls attempted; Chemistry stopped before invocation. Three expired QA entitlements temporarily extended then restored. Earlier missing-key/no-success checkpoints below are historical.
 
 ## October 14 fixes under live verification
