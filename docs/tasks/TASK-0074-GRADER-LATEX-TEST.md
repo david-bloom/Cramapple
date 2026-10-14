@@ -1,6 +1,7 @@
 # TASK-0074 — Test whether the FRQ grader handles LaTeX in rubric text
 
-**Status:** Open — created 2026-10-14 at the Product Owner's request; nothing run yet.
+**Status:** In progress — Product Owner approved the task and a model-call cap on 2026-10-14.
+**Call approval (recorded before any run):** up to **54** real model calls (3 criteria × 3 responses × 2 rubric forms × 3 repeats), **Development only**, synthetic criteria only, no Production grading data read or written. Failed or retried calls count against the cap; the run stops at 54.
 **Tier:** Standard for the analysis, harness and tests; **Hard-Gate** for any call that spends Production model budget or reads or writes Production grading data.
 **Owner:** unassigned. **Product Owner:** David Bloom.
 **Branch / PR:** none yet.
