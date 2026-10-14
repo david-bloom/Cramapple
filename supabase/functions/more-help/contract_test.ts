@@ -11,7 +11,7 @@ import {
 } from "./contract.ts";
 import { type Dependencies, moreHelp } from "./handler.ts";
 import { generateHelp, HELP_GATEWAY_MODEL, HELP_GATEWAY_URL } from "./model.ts";
-import { rpcFailure } from "./diagnostics.ts";
+import { outputFailure, rpcFailure } from "./diagnostics.ts";
 const input = {
   requestId: "10000000-0000-4000-8000-000000000001",
   sessionId: "10000000-0000-4000-8000-000000000002",
@@ -424,4 +424,156 @@ Deno.test("RPC diagnostics expose only the operation and a SQLSTATE", () => {
   }
   assertEquals(JSON.stringify(logs).includes("private"), false);
   assertEquals(JSON.stringify(logs).includes("42501"), true);
+});
+
+const conceptualStem =
+  "(a) A student proposes an average velocity formula on an interval from t = 2 to t = 2. Explain why this does not work. (b) Estimate velocity using nearby intervals.";
+const limitSource = {
+  ...source,
+  id: "limit",
+  kind: "vocabulary",
+  title: "Instantaneous rate via limits",
+  body: "Use limits of average rates over intervals containing an instant.",
+};
+const answerSource = {
+  ...source,
+  id: "answer-fact",
+  kind: "convention",
+  title: "Average rate is undefined at a single point",
+  body: "It is undefined when the change in time is zero.",
+};
+function conceptualRaw() {
+  return {
+    ...raw,
+    item: { ...raw.item, itemType: "frq", stem: conceptualStem },
+    reference: { vocabulary: [limitSource], convention: [answerSource] },
+  };
+}
+Deno.test("conceptual rate subpart hides its answer-bearing fact from model and returned sources, while graded review retains it", () => {
+  const before = helpContext(conceptualRaw(), input);
+  assertEquals(before.sources.map((s) => s.id), ["limit"]);
+  assertEquals(before.grounding.facts.map((s) => s.id), ["limit"]);
+  assertEquals(typeof before.grounding.coachingBoundary, "string");
+  assertEquals(
+    helpContext(conceptualRaw(), { ...input, phase: "after" }).sources.length,
+    2,
+  );
+  assertThrows(
+    () =>
+      helpContext({
+        ...conceptualRaw(),
+        reference: { convention: [answerSource] },
+      }, input),
+    HelpError,
+  );
+});
+Deno.test("observed conceptual subpart conclusions are withheld; setup questions and post-grade explanations remain usable", () => {
+  for (
+    const leak of [
+      "The formula is undefined.",
+      "The denominator b − a is 0.",
+      "This requires division by zero.",
+      "There is no elapsed time.",
+    ]
+  ) {
+    const e = assertThrows(
+      () =>
+        validateHelp(
+          { ...output, explanation: leak },
+          [source],
+          conceptualStem,
+          true,
+        ),
+      HelpError,
+    );
+    assertEquals(e.code, "answer_disclosure");
+    assertEquals(e.diagnosticReason, "conceptual_subpart");
+    assertEquals(
+      validateHelp(
+        { ...output, explanation: leak },
+        [source],
+        conceptualStem,
+        false,
+      ).explanation,
+      leak,
+    );
+  }
+  const setup =
+    "Identify what each change in the ratio measures, then inspect the proposed interval yourself.";
+  assertEquals(
+    validateHelp(
+      {
+        ...output,
+        explanation: setup,
+        next_step: "Use the given t = 2 to label the interval endpoints.",
+      },
+      [source],
+      conceptualStem,
+      true,
+    ).explanation,
+    setup,
+  );
+});
+Deno.test("invalid text lengths have content-free diagnoses and are never committed or disclosed", async () => {
+  const logs: unknown[] = [];
+  const warn = console.warn;
+  console.warn = (...args) => logs.push(args);
+  let commits = 0, releases = 0;
+  try {
+    const fake = (async () =>
+      new Response(
+        JSON.stringify({
+          choices: [{
+            finish_reason: "stop",
+            message: {
+              content: JSON.stringify({
+                ...output,
+                headline: "SECRET ".repeat(20),
+              }),
+            },
+          }],
+        }),
+      )) as typeof fetch;
+    const response = await moreHelp(request(), {
+      ...deps(),
+      generate: (ctx) =>
+        generateHelp(ctx, "SECRET TOKEN", HELP_GATEWAY_MODEL, fake),
+      commit: async () => {
+        commits++;
+        return { state: "delivered" };
+      },
+      fail: async () => {
+        releases++;
+      },
+    });
+    assertEquals(response.status, 502);
+    assertEquals(await response.json(), {
+      error: "invalid_model_output",
+      assistanceRecorded: false,
+    });
+    assertEquals(commits, 0);
+    assertEquals(releases, 1);
+    assertEquals(JSON.stringify(logs).includes("headline_length"), true);
+    assertEquals(JSON.stringify(logs).includes("SECRET"), false);
+    outputFailure("private provider output");
+    assertEquals(JSON.stringify(logs).includes("private"), false);
+  } finally {
+    console.warn = warn;
+  }
+});
+Deno.test("missing/malformed follow-ups and length limits fail closed with specific safe diagnoses", () => {
+  for (
+    const [follow_ups, reason] of [
+      [null, "follow_ups_type"],
+      [["x".repeat(101)], "follow_up_length"],
+      [[1], "follow_up_type_or_empty"],
+      [["a", "b", "c", "d"], "follow_ups_count"],
+    ] as const
+  ) {
+    const e = assertThrows(
+      () => validateHelp({ ...output, follow_ups }, [source], raw.item.stem),
+      HelpError,
+    );
+    assertEquals(e.diagnosticReason, reason);
+  }
 });

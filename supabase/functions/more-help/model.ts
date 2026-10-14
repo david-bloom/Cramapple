@@ -7,6 +7,8 @@ import {
   validateHelp,
 } from "./contract.ts";
 
+import { outputFailure } from "./diagnostics.ts";
+
 // Exact saved demo model, revalidated against Gateway /v1/models on October 13.
 export const HELP_GATEWAY_MODEL = "anthropic/claude-haiku-5.5";
 export const HELP_GATEWAY_URL =
@@ -69,6 +71,7 @@ export async function generateHelp(
   try {
     raw = object(await response.json());
   } catch {
+    outputFailure("response_json");
     throw new HelpError("invalid_model_output", 502);
   }
   const choice = object(Array.isArray(raw.choices) ? raw.choices[0] : null);
@@ -85,12 +88,20 @@ export async function generateHelp(
       typeof message.content === "string" ? message.content : "",
     );
   } catch {
+    outputFailure("content_json");
     throw new HelpError("invalid_model_output", 502);
   }
-  return validateHelp(
-    decoded,
-    context.sources,
-    context.grounding.question.stem,
-    !context.after,
-  );
+  try {
+    return validateHelp(
+      decoded,
+      context.sources,
+      context.grounding.question.stem,
+      !context.after,
+    );
+  } catch (error) {
+    outputFailure(
+      error instanceof HelpError ? error.diagnosticReason : undefined,
+    );
+    throw error;
+  }
 }
