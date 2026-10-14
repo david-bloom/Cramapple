@@ -6,16 +6,25 @@ import {
   object,
   validateHelp,
 } from "./contract.ts";
+
+// Exact saved demo model, revalidated against Gateway /v1/models on October 13.
+export const HELP_GATEWAY_MODEL = "anthropic/claude-haiku-5.5";
+export const HELP_GATEWAY_URL =
+  "https://ai-gateway.vercel.sh/v1/chat/completions";
+
 export async function generateHelp(
   context: ReturnType<typeof helpContext>,
   apiKey: string | undefined,
-  model: string | undefined,
+  model = HELP_GATEWAY_MODEL,
   doFetch: typeof fetch = fetch,
 ) {
-  if (!apiKey || !model) throw new HelpError("help_not_configured", 503);
+  if (!apiKey) throw new HelpError("help_not_configured", 503);
+  if (model !== HELP_GATEWAY_MODEL) {
+    throw new HelpError("help_not_configured", 503);
+  }
   let response: Response;
   try {
-    response = await doFetch("https://api.openai.com/v1/responses", {
+    response = await doFetch(HELP_GATEWAY_URL, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -24,20 +33,15 @@ export async function generateHelp(
       body: JSON.stringify({
         model,
         store: false,
-        max_output_tokens: 2500,
-        input: [{
-          role: "system",
-          content: [{ type: "input_text", text: HELP_SYSTEM }],
-        }, {
+        max_tokens: 2500,
+        reasoning: { effort: "none" },
+        messages: [{ role: "system", content: HELP_SYSTEM }, {
           role: "user",
-          content: [{
-            type: "input_text",
-            text: JSON.stringify(context.grounding),
-          }],
+          content: JSON.stringify(context.grounding),
         }],
-        text: {
-          format: {
-            type: "json_schema",
+        response_format: {
+          type: "json_schema",
+          json_schema: {
             name: "cramapple_more_help",
             strict: true,
             schema: helpSchema(context.sources.map((s) => s.id)),
@@ -50,42 +54,36 @@ export async function generateHelp(
     throw new HelpError("help_connection_failed", 503);
   }
   if (!response.ok) {
-    let errorCode = "unknown";
-    try {
-      errorCode = String(
-        object(object(await response.json()).error).code ?? "unknown",
-      );
-    } catch { /* no provider body logged */ }
-    console.warn("[more-help] provider request failed", {
+    // Do not log the upstream body, prompt, work, identity or credentials.
+    console.warn("[more-help] gateway request failed", {
       status: response.status,
-      code: errorCode,
     });
     throw new HelpError(
-      response.status === 402 ? "help_connection_failed" : "help_unavailable",
+      [401, 402, 403].includes(response.status)
+        ? "help_provider_unavailable"
+        : "help_unavailable",
       503,
     );
   }
-  const raw = object(await response.json());
-  if (raw.status && raw.status !== "completed") {
-    throw new HelpError("help_incomplete", 502);
+  let raw: Record<string, unknown>;
+  try {
+    raw = object(await response.json());
+  } catch {
+    throw new HelpError("invalid_model_output", 502);
   }
-  let output = typeof raw.output_text === "string" ? raw.output_text : "";
-  if (!output && Array.isArray(raw.output)) {
-    for (const item of raw.output) {
-      const r = object(item);
-      if (r.type === "message" && Array.isArray(r.content)) {
-        for (const part of r.content) {
-          const p = object(part);
-          if (p.type === "output_text" && typeof p.text === "string") {
-            output += p.text;
-          }
-        }
-      }
-    }
+  const choice = object(Array.isArray(raw.choices) ? raw.choices[0] : null);
+  const message = object(choice.message);
+  if (message.refusal || choice.finish_reason === "content_filter") {
+    throw new HelpError("help_refused", 422);
+  }
+  if (choice.finish_reason !== "stop") {
+    throw new HelpError("help_incomplete", 502);
   }
   let decoded: unknown;
   try {
-    decoded = JSON.parse(output);
+    decoded = JSON.parse(
+      typeof message.content === "string" ? message.content : "",
+    );
   } catch {
     throw new HelpError("invalid_model_output", 502);
   }
@@ -93,5 +91,6 @@ export async function generateHelp(
     decoded,
     context.sources,
     context.grounding.question.stem,
+    !context.after,
   );
 }

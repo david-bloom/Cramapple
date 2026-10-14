@@ -16,13 +16,20 @@ export type Dependencies = {
     input: HelpInput,
     fingerprint: string,
   ) => Promise<Row>;
-  commit: (userId: string, input: HelpInput) => Promise<Row>;
-  fail: (userId: string, input: HelpInput) => Promise<void>;
+  commit: (
+    userId: string,
+    input: HelpInput,
+    generation: number,
+  ) => Promise<Row>;
+  fail: (userId: string, input: HelpInput, generation: number) => Promise<void>;
   generate: (context: ReturnType<typeof helpContext>) => Promise<unknown>;
+  preflight?: () => void;
 };
 export async function moreHelp(req: Request, deps: Dependencies) {
   let assistanceRecorded = false;
-  let reservation: { userId: string; input: HelpInput } | null = null;
+  let reservation:
+    | { userId: string; input: HelpInput; generation: number }
+    | null = null;
   try {
     if (!deps.originAllowed(req)) {
       return deps.json({ error: "origin_not_allowed" }, 403, req);
@@ -46,6 +53,7 @@ export async function moreHelp(req: Request, deps: Dependencies) {
     }
     const input = parseInput(parsed);
     const context = helpContext(await deps.load(input, req), input);
+    deps.preflight?.();
     // No model call or helpful reference disclosure until the durable receipt
     // and the server's ownership/entitlement gates succeed.
     const digest = await crypto.subtle.digest(
@@ -62,16 +70,34 @@ export async function moreHelp(req: Request, deps: Dependencies) {
         : "reservation_failed";
       throw new HelpError(
         code,
-        code === "rate_limited"
+        ["rate_limited", "attempt_rate_limited", "retry_exhausted"].includes(
+            code,
+          )
           ? 429
-          : code === "request_already_used"
+          : ["request_already_used", "request_in_progress", "request_conflict"]
+              .includes(code)
           ? 409
-          : 403,
+          : [
+              "question_not_owned",
+              "subject_not_supported",
+              "entitlement_required",
+            ].includes(code)
+          ? 403
+          : code === "invalid_request"
+          ? 400
+          : 503,
+        typeof receipt.retryAfterSeconds === "number"
+          ? Math.max(1, Math.min(86400, receipt.retryAfterSeconds))
+          : undefined,
       );
     }
-    reservation = { userId: user.id, input };
+    const generation = Number(receipt.generation);
+    if (!Number.isInteger(generation) || generation < 1 || generation > 3) {
+      throw new HelpError("reservation_failed", 503);
+    }
+    reservation = { userId: user.id, input, generation };
     const result = await deps.generate(context);
-    const committed = object(await deps.commit(user.id, input));
+    const committed = object(await deps.commit(user.id, input, generation));
     if (committed.state !== "delivered") {
       throw new HelpError("assistance_commit_failed", 503);
     }
@@ -89,13 +115,27 @@ export async function moreHelp(req: Request, deps: Dependencies) {
   } catch (error) {
     if (reservation && !assistanceRecorded) {
       try {
-        await deps.fail(reservation.userId, reservation.input);
+        await deps.fail(
+          reservation.userId,
+          reservation.input,
+          reservation.generation,
+        );
       } catch { /* lease expiry keeps retry safe */ }
     }
     const e = error instanceof HelpError
       ? error
       : new HelpError("help_unavailable", 503);
     // Never print the student's work, token, source context or provider body.
-    return deps.json({ error: e.code, assistanceRecorded }, e.status, req);
+    return deps.json(
+      {
+        error: e.code,
+        assistanceRecorded,
+        ...(e.retryAfterSeconds
+          ? { retryAfterSeconds: e.retryAfterSeconds }
+          : {}),
+      },
+      e.status,
+      req,
+    );
   }
 }

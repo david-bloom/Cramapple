@@ -3,7 +3,8 @@ import { createAnonClient, createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse } from "../_shared/http.ts";
 import { HelpError } from "./contract.ts";
 import { moreHelp } from "./handler.ts";
-import { generateHelp } from "./model.ts";
+import { generateHelp, HELP_GATEWAY_MODEL } from "./model.ts";
+import { rpcFailure } from "./diagnostics.ts";
 const service = createServiceClient();
 const origins = (Deno.env.get("ALLOWED_ORIGINS") || "").split(",").map((s) =>
   s.trim()
@@ -17,7 +18,20 @@ Deno.serve((req) =>
     json: (body, status, req) =>
       jsonResponse(
         body,
-        { status, headers: { "Cache-Control": "no-store" } },
+        {
+          status,
+          headers: {
+            "Cache-Control": "no-store",
+            ...(typeof (body as { retryAfterSeconds?: number })
+                ?.retryAfterSeconds === "number"
+              ? {
+                "Retry-After": String(
+                  (body as { retryAfterSeconds: number }).retryAfterSeconds,
+                ),
+              }
+              : {}),
+          },
+        },
         req,
       ),
     load: async (input, req) => {
@@ -25,7 +39,10 @@ Deno.serve((req) =>
         "get_question_experience",
         { p_learning_session_id: input.sessionId, p_ordinal: input.ordinal },
       );
-      if (error) throw new HelpError("question_not_owned", 403);
+      if (error) {
+        rpcFailure("get_question_experience", error.code);
+        throw new HelpError("question_not_owned", 403);
+      }
       return data;
     },
     reserve: async (userId, input, fingerprint) => {
@@ -39,28 +56,45 @@ Deno.serve((req) =>
           p_input_hash: fingerprint,
         },
       );
-      if (error) throw new HelpError("reservation_failed", 503);
+      if (error) {
+        rpcFailure("reserve_question_help_delivery", error.code);
+        throw new HelpError("reservation_failed", 503);
+      }
       return data;
     },
-    commit: async (userId, input) => {
+    commit: async (userId, input, generation) => {
       const { data, error } = await service.rpc("commit_question_help", {
         p_user_id: userId,
         p_request_id: input.requestId,
+        p_generation: generation,
       });
-      if (error) throw new HelpError("assistance_commit_failed", 503);
+      if (error) {
+        rpcFailure("commit_question_help", error.code);
+        throw new HelpError("assistance_commit_failed", 503);
+      }
       return data;
     },
-    fail: async (userId, input) => {
-      await service.rpc("fail_question_help", {
+    fail: async (userId, input, generation) => {
+      const { error } = await service.rpc("fail_question_help", {
         p_user_id: userId,
         p_request_id: input.requestId,
+        p_generation: generation,
       });
+      if (error) {
+        rpcFailure("fail_question_help", error.code);
+        throw new HelpError("assistance_release_failed", 503);
+      }
+    },
+    preflight: () => {
+      if (!Deno.env.get("AI_GATEWAY_API_KEY")) {
+        throw new HelpError("help_not_configured", 503);
+      }
     },
     generate: (context) =>
       generateHelp(
         context,
-        Deno.env.get("OPENAI_API_KEY"),
-        Deno.env.get("OPENAI_MODEL"),
+        Deno.env.get("AI_GATEWAY_API_KEY"),
+        HELP_GATEWAY_MODEL,
       ),
   })
 );

@@ -27,7 +27,11 @@ export type Source = {
   topicCodes: string[];
 };
 export class HelpError extends Error {
-  constructor(public code: string, public status: number) {
+  constructor(
+    public code: string,
+    public status: number,
+    public retryAfterSeconds?: number,
+  ) {
     super(code);
   }
 }
@@ -81,9 +85,22 @@ export function helpContext(raw: unknown, input: HelpInput) {
       kind: text(e.kind),
       title: text(e.title),
       body: text(e.body),
-      items: list(e.items),
+      items: list(e.items).map(object).map((i) => ({
+        label: text(i.label),
+        meaning: text(i.meaning),
+      })),
       caution: text(e.caution) || null,
-      memoryHooks: list(e.memoryHooks),
+      memoryHooks: list(e.memoryHooks).map(object).map((h) => ({
+        id: text(h.id),
+        kind: text(h.kind),
+        hookText: text(h.hookText),
+        expandsTo: list(h.expandsTo).map(object).map((e) => ({
+          cue: text(e.cue),
+          means: text(e.means),
+        })),
+        whenToUse: text(h.whenToUse),
+        caution: text(h.caution) || null,
+      })).filter((h) => h.id && h.hookText),
       ownerTopicCode: text(e.ownerTopicCode),
       topicCodes: list(e.topicCodes).filter((code): code is string =>
         typeof code === "string"
@@ -97,7 +114,11 @@ export function helpContext(raw: unknown, input: HelpInput) {
   ) throw new HelpError("context_too_large", 422);
   const draft = object(r.attempt).status === "draft" ||
     object(r.resume).action === "continue_draft";
-  const after = input.phase === "after" && grading.status === "graded" && !draft;
+  if (!draft && input.phase === "after" && grading.status === "uncertain") {
+    throw new HelpError("help_grade_pending", 409);
+  }
+  const after = input.phase === "after" && grading.status === "graded" &&
+    !draft;
   return {
     after,
     sources,
@@ -105,7 +126,10 @@ export function helpContext(raw: unknown, input: HelpInput) {
       question: {
         stem: text(item.stem),
         stimulus: text(item.stimulus),
-        choices: list(r.mcqChoices),
+        choices: list(r.mcqChoices).map(object).map((c) => ({
+          key: text(c.choiceKey || c.choice_key || c.key),
+          text: text(c.choiceText || c.choice_text || c.text),
+        })),
         type: text(item.itemType),
       },
       topic: { subject: topic.subjectKey, code: topic.topicCode },
@@ -155,7 +179,12 @@ export function helpSchema(ids: string[]) {
     },
   };
 }
-export function validateHelp(raw: unknown, sources: Source[], stem: string) {
+export function validateHelp(
+  raw: unknown,
+  sources: Source[],
+  stem: string,
+  before = false,
+) {
   const r = object(raw);
   for (
     const [field, max] of [["headline", 100], ["explanation", 1400], [
@@ -168,14 +197,42 @@ export function validateHelp(raw: unknown, sources: Source[], stem: string) {
       (r[field] as string).length > max
     ) throw new HelpError("invalid_model_output", 502);
   }
+  if (before) {
+    const copy = [r.headline, r.explanation, r.next_step, ...list(r.follow_ups)]
+      .join("\n");
+    // Narrow phrasing checks, not numeric/choice-text equality. Given values and
+    // setup guidance must remain usable. This is not a semantic leakage proof.
+    if (
+      /\b(?:the\s+)?(?:(?:correct|final)\s+)?answer\s*(?:is\b|:|=)|\b(?:correct|final)\s+(?:choice|option|value|result)\s*(?:is\b|:|=)/i
+        .test(copy) ||
+      /\b(?:[Ss]elect|[Cc]hoose|[Pp]ick)\s+(?:(?:option|choice)\s+)?\(?[A-E](?:\)|\b)/
+        .test(copy)
+    ) {
+      throw new HelpError("answer_disclosure", 502);
+    }
+  }
   const ids = list(r.source_ids);
   if (
     ids.length < 1 || ids.length > 3 || new Set(ids).size !== ids.length ||
     ids.some((id) => !sources.some((s) => s.id === id))
   ) throw new HelpError("invalid_model_sources", 502);
-  const highlights = list(r.highlights).filter((h) =>
-    typeof h === "string" && h.length > 0 && h.length <= 100 && stem.includes(h)
-  );
+  const math = [
+    ...stem.matchAll(
+      /\$\$[\s\S]*?\$\$|\$[^$\n]+\$|\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g,
+    ),
+  ]
+    .map((m) => [m.index!, m.index! + m[0].length]);
+  const highlights = list(r.highlights).filter((h) => {
+    if (typeof h !== "string" || !h || h.length > 100) return false;
+    let start = stem.indexOf(h);
+    while (start >= 0) {
+      if (!math.some(([a, b]) => start < b && start + h.length > a)) {
+        return true;
+      }
+      start = stem.indexOf(h, start + 1);
+    }
+    return false;
+  }).slice(0, 4);
   const followUps = list(r.follow_ups);
   if (
     followUps.length > 3 ||
