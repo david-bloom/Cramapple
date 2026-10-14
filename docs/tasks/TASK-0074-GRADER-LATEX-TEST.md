@@ -39,6 +39,10 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
    student-visible field? In which fields?
 3. If either answer is yes, what is the smallest safe fix?
 
+## Run log
+
+- **2026-10-14, attempt 1: no data.** A temporary Dev-only function (`tmp-latex-grader-test`, JWT-protected, one model call per request, prompt text and request body copied verbatim from `grading-contract.ts`) was deployed to the Development project and the driver (`scripts/grader_latex_test/`) ran the full 54-trial plan. **All 54 calls were refused by OpenAI with HTTP 429 "You have no credits remaining"** (the Development grader key's account has no balance). No grade or explanation was produced, so none of the three questions is answered. The driver did not stop on the first failure, so the 54-call cap is formally spent; it now stops on the first failure. A re-run needs credit on the key and a fresh cap from the Product Owner. The temporary function should be deleted after the real run.
+
 ## Method
 
 1. Build a small harness in Development, using **synthetic** criteria and responses so no published exam text enters
