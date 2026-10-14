@@ -1,5 +1,7 @@
 # More help — paused demo and restart handoff
 
+**Latest session close:** [October 14 More help handoff](MORE_HELP_SESSION_CLOSE_2026_10_14.md). Backend #442, app #25 and QA docs #448 merged; owner rendering confirmation recorded. Independent/live coverage and Production rollout remain open. Runtime/key/PR statements below are historical checkpoints.
+
 **Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Three approved live FRQs now return valid help for AB, BC and Chemistry; the observed subpart disclosure is absent. Broader independent/release QA remains open. Earlier failed-run statements below are historical.
 
 **Latest execution:** [October 14 Gateway live QA](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md): key configured, AB generated but appears to disclose a conceptual subpart, BC validation failed, Chemistry not called. Test entitlements restored; release blocked. This supersedes earlier runtime/key checkpoints below.
