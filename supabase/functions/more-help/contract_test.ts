@@ -577,3 +577,209 @@ Deno.test("missing/malformed follow-ups and length limits fail closed with speci
     assertEquals(e.diagnosticReason, reason);
   }
 });
+
+Deno.test("rate protection scans caution, item and hook copy before model/client disclosure", () => {
+  const variants = [
+    { caution: "The rate is undefined." },
+    { items: [{ label: "Reason", meaning: "The rate is undefined." }] },
+    { items: [{ label: "Undefined rate", meaning: "Check the interval." }] },
+    {
+      memoryHooks: [{
+        id: "h",
+        hookText: "The rate is undefined.",
+        expandsTo: [],
+      }],
+    },
+    {
+      memoryHooks: [{
+        id: "h",
+        hookText: "Check the interval",
+        caution: "The rate is undefined.",
+        expandsTo: [],
+      }],
+    },
+    {
+      memoryHooks: [{
+        id: "h",
+        hookText: "Check the interval",
+        whenToUse: "The rate is undefined.",
+        expandsTo: [],
+      }],
+    },
+    {
+      memoryHooks: [{
+        id: "h",
+        hookText: "Check the interval",
+        expandsTo: [{ cue: "Undefined rate", means: "Check the interval" }],
+      }],
+    },
+    {
+      memoryHooks: [{
+        id: "h",
+        hookText: "Check the interval",
+        expandsTo: [{ cue: "Rate", means: "The rate is undefined." }],
+      }],
+    },
+  ];
+  for (const fields of variants) {
+    const tainted = { ...limitSource, id: "tainted", ...fields };
+    const r = {
+      ...conceptualRaw(),
+      reference: { vocabulary: [limitSource, tainted] },
+    };
+    const before = helpContext(r, input);
+    assertEquals(before.sources.map((s) => s.id), ["limit"]);
+    assertEquals(
+      JSON.stringify(before.grounding.facts).includes("undefined"),
+      false,
+    );
+    assertEquals(
+      helpContext(r, { ...input, phase: "after" }).sources.length,
+      2,
+    );
+  }
+});
+Deno.test("plain choice verdicts, eliminations and explicit numeric conclusions are rejected without banning given values", () => {
+  for (
+    const copy of [
+      "Choice B is right.",
+      "Eliminate A and C; B remains.",
+      "So f'(2) equals 12, matching (B).",
+      "The result you want is 12.",
+      "Therefore the limit is 3.",
+      "(B) is correct.",
+      "B is the best choice.",
+      "Go with B.",
+      "Option B works here.",
+      "The answer lies in choice B.",
+      "Only D fits.",
+      "Is B correct?",
+      "cHoIcE b is right.",
+      "ELIMINATE option c.",
+    ]
+  ) {
+    for (
+      const field of [
+        "headline",
+        "explanation",
+        "next_step",
+        "follow_ups",
+      ] as const
+    ) {
+      const e = assertThrows(
+        () =>
+          validateHelp(
+            { ...output, [field]: field === "follow_ups" ? [copy] : copy },
+            [source],
+            raw.item.stem,
+            true,
+          ),
+        HelpError,
+      );
+      assertEquals(e.code, "answer_disclosure");
+    }
+    assertEquals(
+      validateHelp(
+        { ...output, explanation: copy },
+        [source],
+        raw.item.stem,
+        false,
+      ).explanation,
+      copy,
+    );
+  }
+  for (
+    const setup of [
+      "Use the given 12 grams to set up a conversion.",
+      "Compare A and C using the quantities in the stem.",
+      "The prompt gives a derivative of 12; identify its units.",
+      "Try matching each term to the power rule.",
+      "Start by matching data in the table to the corresponding units.",
+      "Try matching exponents on both sides.",
+      "Eliminate a common factor first, then differentiate.",
+      "Rule out a sign error by checking the units.",
+      "Since the table gives it, so the value is 3 at x=2; use that as your starting point.",
+      "Matching Data means comparing the given observations.",
+      "ELIMINATE a common factor before applying the rule.",
+      "Check whether AB is correct by applying the formula.",
+    ]
+  ) {
+    assertEquals(
+      validateHelp(
+        { ...output, explanation: setup },
+        [source],
+        raw.item.stem,
+        true,
+      ).explanation,
+      setup,
+    );
+  }
+});
+Deno.test("sibling rate phrasings and answer synonyms receive the same before-phase source boundary", () => {
+  for (
+    const stem of [
+      "Explain why the average rate of change cannot be found on [3,3].",
+      "Explain why the average velocity is not defined on [2,2].",
+      "Justify why the average velocity cannot be computed on this interval.",
+    ]
+  ) {
+    for (
+      const conclusion of [
+        "The rate is not defined.",
+        "The rate does not exist.",
+        "The rate cannot be computed.",
+        "The rate is meaningless.",
+        "The interval has width zero so it gives 0/0.",
+        "The rate is indeterminate.",
+        "The calculation gives no rate.",
+        "A zero denominator prevents computing this rate.",
+        "A 0 denominator prevents computing this rate.",
+        "There is zero change in time.",
+        "There is 0 change in time.",
+      ]
+    ) {
+      const r = {
+        ...conceptualRaw(),
+        item: { ...conceptualRaw().item, stem },
+        reference: {
+          vocabulary: [limitSource, {
+            ...limitSource,
+            id: "answer",
+            caution: conclusion,
+          }],
+        },
+      };
+      assertEquals(helpContext(r, input).sources.map((s) => s.id), ["limit"]);
+      assertEquals(
+        typeof helpContext(r, input).grounding.coachingBoundary,
+        "string",
+      );
+      assertEquals(
+        assertThrows(() =>
+          validateHelp(
+            { ...output, explanation: conclusion },
+            [source],
+            stem,
+            true,
+          ), HelpError).code,
+        "answer_disclosure",
+      );
+    }
+  }
+});
+Deno.test("an exact already-delivered request acknowledges durable assistance without another provider call", async () => {
+  let calls = 0;
+  const response = await moreHelp(request(), {
+    ...deps(async () => ({ error: "request_already_used" })),
+    generate: async () => {
+      calls++;
+      return output;
+    },
+  });
+  assertEquals(response.status, 409);
+  assertEquals(await response.json(), {
+    error: "request_already_used",
+    assistanceRecorded: true,
+  });
+  assertEquals(calls, 0);
+});
