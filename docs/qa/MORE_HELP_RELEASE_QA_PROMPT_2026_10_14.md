@@ -2,21 +2,23 @@
 
 **Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v10; 26 backend / 1,144 app tests pass. Review the preserved Claude follow-up report and N1–N4 remediation, especially setup false positives and answer-control resets alongside pending help. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Challenge the new More help display-fraction setting: innermost digits were 11.7px, now 23.4px in synthetic 1280/375px local browser fixtures. Ordinary scripts remain exempt under the visual rule. Verify source/content/layout preservation and do not count mocked transport/scoring as authenticated QA. Write a new follow-up report rather than overwrite the first.
 
+**Session-close checkpoint:** Backend #442, app #25 and docs #448 are merged. [Handoff](../handoffs/MORE_HELP_SESSION_CLOSE_2026_10_14.md) records exact merged checkpoints, next action and approval boundaries. Verify current heads before review; no Production release is inferred.
+
 **Owner visual confirmation:** David confirmed on October 14 that it renders correctly. Treat this as owner acceptance of the observed rendering fix, recorded in the browser QA report; environment/version were not specified. Continue the independent source/content and authenticated/live checks.
 
 **Date:** 2026-10-14 (America/New_York)
-**Purpose:** Independent follow-up review of the draft remediation and remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
+**Purpose:** Independent follow-up review of the merged remediation and remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
 
 ---
 
-Run an independent, adversarial follow-up release QA pass for **More help on real Calculus AB, Calculus BC and Chemistry questions in app.cramapple.com**. Determine whether the draft remediation fixes Claude's confirmed defects and whether it is ready to merge and release. Challenge producer evidence; do not repeat the author's verdict or treat passing unit tests as an end-to-end certificate.
+Run an independent, adversarial follow-up release QA pass for **More help on real Calculus AB, Calculus BC and Chemistry questions in app.cramapple.com**. Determine whether the merged remediation fixes Claude's confirmed defects and whether it is ready to merge and release. Challenge producer evidence; do not repeat the author's verdict or treat passing unit tests as an end-to-end certificate.
 
 ## 1. Review the exact current code
 
 | Surface | Remediation checkpoint | Relevant PRs |
 | --- | --- | --- |
 | Public backend/docs, `david-bloom/Cramapple` | branch `codex/more-help-release-remediation`; backend code `8c437bd4d96456e3693fcee067412e532774d1da`; reviewed base `70f4a3485916f7ca65e4a6f60c29fed92d92c370` | [#442](https://github.com/david-bloom/Cramapple/pull/442), merged at `953640f3`; #435/#439 merged |
-| Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-followup-fixes`; integrated app code `e1d49d9ed4ed1be1e14897c6db967f9d49b5042b`; current main base `2563209751c618e52aa69ccc392ea1d9ecf780e2`; phase-reset change `d5ba602e`; nested-fraction fix `e1d49d9` | [#25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft; #21/#23/#24 merged |
+| Private app, `david-bloom/ap-prep-blueprint` | branch `codex/more-help-followup-fixes`; integrated app code `e1d49d9ed4ed1be1e14897c6db967f9d49b5042b`; current main base `2563209751c618e52aa69ccc392ea1d9ecf780e2`; phase-reset change `d5ba602e`; nested-fraction fix `e1d49d9` | [#25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), merged at `7b81177`; #21/#23/#24 merged |
 
 Verify current PR and main heads. If they advanced, review the relevant delta and state exactly which commits your verdict covers. Start with each remediation diff against the reviewed base, then trace its interaction with the merged feature. Documentation-only commits can follow the pinned code checkpoint. Do not review only main or an old Lovable base.
 
@@ -43,7 +45,7 @@ Last verified October 14:
 - Development Supabase: `wmgjsdkphcyhngaffbqf`, more-help v10 ACTIVE, JWT verification enabled, bundle SHA-256 `20c84b8c4dd2a2f1c81b1f4473f7d9dedc5b9c50f3a89e30884357b18d3a6aee`, deployed from backend code `8c437bd4…`. Independently verify bundle/source correspondence where tooling permits; metadata alone is not that proof. The producer subsequently compared all nine returned deployed source files byte-for-byte with the v10 upload graph; independently repeat this comparison.
 - Four Development migrations: `20261014001227`, `20261014005146`, `20261014014023`, `20261014015127`. Their committed filenames must match the ledger.
 - Production Supabase: `pcntajvbdfqhbeewmdry`. Read-only checks found **no More help function and none of these four migrations**. Secret names `AI_GATEWAY_API_KEY` and `ALLOWED_ORIGINS` are present; presence does not prove valid values or working access. Never print values.
-- Lovable app project: `56cae479-f7c9-4988-b536-56538c38ee4e` was last observed published/ready with source `75c0b18…`. The app remediation is a draft PR and has not been published. Determine the actual source/environment of any browser page tested.
+- Lovable app project: `56cae479-f7c9-4988-b536-56538c38ee4e` was last observed published/ready with source `75c0b18…`. The app remediation is a merged PR; its publication has not been verified. Determine the actual source/environment of any browser page tested.
 - Current producer regressions: 26 backend tests/typecheck and 119 app test files / 1,144 tests, typecheck and build passed. Original role-correct rolled-back SQL verified permissions, delivery/failure/retry, stale-worker fencing, current/future draft coaching, submitted preservation, foreign/entitlement denial and exact delivery/attempt quota boundaries; it was not rerun against a database during this remediation.
 - Three real **unanswered FRQ** Gateway calls returned 200 for AB, BC and Chemistry; each has one delivered receipt and one attempted call. The observed AB conceptual answer was absent after the fix. All three had **empty work/focus and no existing draft**. They do not prove MCQ, after-grade, revision, real submission/photo or browser behavior.
 - Development's last inventory had no published MCQs for these subjects. Confirm current inventory. If absent, identify a minimal unchanged mirror of approved Production MCQs and its serving/label prerequisites; prepare the fixture plan without publishing or changing bank content.
