@@ -732,6 +732,10 @@ Deno.test("sibling rate phrasings and answer synonyms receive the same before-ph
         "The interval has width zero so it gives 0/0.",
         "The rate is indeterminate.",
         "The calculation gives no rate.",
+        "A zero denominator prevents computing this rate.",
+        "A 0 denominator prevents computing this rate.",
+        "There is zero change in time.",
+        "There is 0 change in time.",
       ]
     ) {
       const r = {
