@@ -26,7 +26,7 @@ Do not delete `results.jsonl` between runs: it is the call counter. A restart re
 
 "Safe as is" needs cross-form agreement no worse than run-to-run agreement and zero markup in persisted strings.
 
-## Latest execution — 2026-10-14
+## Direct attempt 2 — historical (2026-10-14)
 
 [Attempt 2 report](RESULTS_2026_10_14.md): the Product Owner renewed up to 54 calls before execution. The standalone runner stopped on its first HTTP 429 credit refusal, so the fresh counter `results-2026-10-14-attempt-2.jsonl` has **1 attempt, 0 grades, 53 remaining calls**. Preserve both attempts; do not erase the counter or treat analysis `0/0` and zero fields as a successful safety result. A full 54-success matrix needs 54 successful calls in addition to the already-spent failed attempt, requiring separate authorization for any increase beyond the renewed cap. No automatic retry or credit purchase.
 
@@ -40,3 +40,7 @@ The same `openai/gpt-5.4-mini` model is available through Gateway Responses. The
     node analyze.mjs results-2026-10-14-attempt-2.jsonl
 
 The first command is part of the matrix, not an additional smoke call. The ledger retains the failed direct request, so the original renewed cap is 54 total attempts and only 53 Gateway successes fit. No implicit reset or extra allowance. `results-2026-10-14-attempt-2-direct-failure.jsonl` preserves the original failure bytes. The driver reserves before sending, refuses an unresolved outcome, selects missing valid observations and stops on failure. `node run_gateway_test.mjs` checks those controls with every fetch mocked (zero provider calls).
+
+## Gateway result
+
+The existing Gateway produced **53 valid grades**, reaching the 54 renewed attempts when the original refusal is counted. Within-form agreement **50/52**; cross-form **72/78**; **1 markup-bearing minimum_fix**. This fails safe-as-is: keep the ten rubric edits on hold. Only csc/vague/latex rep3 is missing; one extra call remains unapproved. The temporary helper was deleted after the cap. Any later authorized final observation needs its helper redeployed first. See the report for scope and limits.

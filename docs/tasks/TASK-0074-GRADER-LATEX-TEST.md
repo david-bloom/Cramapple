@@ -1,6 +1,6 @@
 # TASK-0074 — Test whether the FRQ grader handles LaTeX in rubric text
 
-**Status:** Blocked — attempt 2 stopped on its first OpenAI credit refusal; no grading data.
+**Status:** Gateway experiment executed within the cap — NOT SAFE AS IS in this pilot; rubric rollout on hold. One final repeated observation awaits a separate one-attempt approval.
 **Call approval (recorded before any run):** up to **54** real model calls (3 criteria × 3 responses × 2 rubric forms × 3 repeats), **Development only**, synthetic criteria only, no Production grading data read or written. Failed or retried calls count against the cap; the run stops at 54.
 **Tier:** Standard for the analysis, harness and tests; **Hard-Gate** for any call that spends Production model budget or reads or writes Production grading data.
 **Owner:** unassigned. **Product Owner:** David Bloom.
@@ -40,6 +40,8 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
 3. If either answer is yes, what is the smallest safe fix?
 
 ## Run log
+
+- **2026-10-14, Gateway result:** **53 valid Gateway grades + 1 failed direct request = 54 renewed attempts**, cap reached. Same OpenAI model, prompts/schema, high reasoning and 3,000-token max via the existing Development key. Within-form agreement **50/52 (96.15%)**; cross-form **72/78 (92.31%)**; center-of-mass vague plain earned 3/3 versus LaTeX not-earned/not-earned/earned. One LaTeX-form `minimum_fix` copies markup and U+007F characters. Safe-as-is gate fails. Keep the ten rubric rows plain; a prompt-facing mitigation remains untested and needs a plan. Only csc/vague/latex rep3 is missing; extra one-attempt approval remains pending. Temporary Development helper deleted; live grader/More help/Production unchanged. [Full evidence](../../scripts/grader_latex_test/RESULTS_2026_10_14.md).
 
 - **2026-10-14, Gateway continuation:** David steered execution to the established Vercel Gateway path (“Why not use the Vercel gateway”). The exact `openai/gpt-5.4-mini` model exists in the live catalog and Responses API compatibility is verified. Reuse the Development Gateway key through the QA-only temporary test function; no local Gateway secret export, no change to evaluate-attempt or More help. Keep the original prompts/schema, high reasoning and 3,000-token cap; restrict serving provider to OpenAI without model fallback. The prior direct failure remains in the same renewed 54-attempt ledger, so **at most 53 further attempts** are allowed. Reserve ledger entries before requests, retry no unknown outcome, stop at first failure, and select missing successful trials rather than blindly skip failed rows. This changes transport within the remaining approved allowance; it does not authorize an extra call.
 
