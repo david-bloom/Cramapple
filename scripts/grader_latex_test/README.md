@@ -25,3 +25,7 @@ Do not delete `results.jsonl` between runs: it is the call counter. A restart re
   `\mathrm`, `\,` or `$`.
 
 "Safe as is" needs cross-form agreement no worse than run-to-run agreement and zero markup in persisted strings.
+
+## Latest execution — 2026-10-14
+
+[Attempt 2 report](RESULTS_2026_10_14.md): the Product Owner renewed up to 54 calls before execution. The standalone runner stopped on its first HTTP 429 credit refusal, so the fresh counter `results-2026-10-14-attempt-2.jsonl` has **1 attempt, 0 grades, 53 remaining calls**. Preserve both attempts; do not erase the counter or treat analysis `0/0` and zero fields as a successful safety result. A full 54-success matrix needs 54 successful calls in addition to the already-spent failed attempt, requiring separate authorization for any increase beyond the renewed cap. No automatic retry or credit purchase.

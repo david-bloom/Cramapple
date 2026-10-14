@@ -100,7 +100,7 @@ The Product Owner split the work:
 | Phase | Rows | State |
 |---|---|---|
 | 1 — MCQ choices and one rationale | 21 | transaction rewritten and dry-run (rolled back); second QA pending; **no Production write yet** |
-| 2 — rubric lines | 10 | blocked on `TASK-0074` |
+| 2 — rubric lines | 10 | blocked on `TASK-0074`; attempt 2 produced no grades (1 credit-refused request, 53 calls remain) |
 | dropped — explanation edits | 3 | no student surface reads that column |
 
 The drafts and the transaction contain published exam text and are kept in a private repository branch, not here.

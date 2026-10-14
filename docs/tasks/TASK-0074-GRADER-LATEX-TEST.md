@@ -1,10 +1,10 @@
 # TASK-0074 — Test whether the FRQ grader handles LaTeX in rubric text
 
-**Status:** In progress — Product Owner approved the task and a model-call cap on 2026-10-14.
+**Status:** Blocked — attempt 2 stopped on its first OpenAI credit refusal; no grading data.
 **Call approval (recorded before any run):** up to **54** real model calls (3 criteria × 3 responses × 2 rubric forms × 3 repeats), **Development only**, synthetic criteria only, no Production grading data read or written. Failed or retried calls count against the cap; the run stops at 54.
 **Tier:** Standard for the analysis, harness and tests; **Hard-Gate** for any call that spends Production model budget or reads or writes Production grading data.
 **Owner:** unassigned. **Product Owner:** David Bloom.
-**Branch / PR:** none yet.
+**Branch / PR:** `claude/task-0074-run` / [PR #445](https://github.com/david-bloom/Cramapple/pull/445).
 **Blocks:** `TASK-0073` Phase 2 (the 10 rubric-line edits). Phase 1 (MCQ rows) does not depend on this.
 **Related:** `DECISION-0121`, `DECISION-0119`, `TASK-0073`, the independent QA of 2026-10-14.
 
@@ -40,6 +40,8 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
 3. If either answer is yes, what is the smallest safe fix?
 
 ## Run log
+
+- **2026-10-14, attempt 2 result: no data.** Executed the README's unchanged standalone runner using the existing environment key with the renewed allowance. The first request (`mech/correct/plain/rep1`) returned HTTP 429 “You have no credits remaining”; the runner stopped immediately. **1/54 renewed attempts used; 53 remain; 0 valid grades.** Ran `analyze.mjs`: within-form and cross-form counts both 0/0, markup 0 fields of 0; these are no-data results, not agreement or markup-safety evidence. No retry, purchase, database write, Production access or deployment. [Execution report](../../scripts/grader_latex_test/RESULTS_2026_10_14.md) and the immutable attempt-2 counter preserve the evidence. A full 54-success matrix cannot fit in the remaining 53 calls; any plan to replace the failed trial and complete all repeats must account for that one spent attempt and obtain authorization for any additional call beyond the renewed cap.
 
 - **2026-10-14, attempt 2 approved before execution:** David explicitly approved a fresh bounded allowance of up to **54 additional OpenAI calls** in the current Codex chat, using the existing environment key, `gpt-5.4-mini`, high reasoning, 3,000 max output tokens and the unchanged 3-item × 3-response × 2-form × 3-repeat plan. Failures count; stop at first failure. Preserve attempt 1; attempt 2 uses `scripts/grader_latex_test/results-2026-10-14-attempt-2.jsonl` as its own persistent counter. No Production data, database writes, purchases or grading deployment. Exact harness source: PR #445 `407306e4eb31c3e6f89c31befbb59fbf19218891`.
 
