@@ -1,5 +1,7 @@
 # More help — Claude QA disposition and owner decisions
 
+**Current fixes:** [Subpart/validation remediation](MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Bounded live verification is pending; BC/Chemistry success and release readiness are not yet certified.
+
 **Latest execution:** [October 14 live Gateway QA](MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md) supersedes the earlier missing-key/no-generation state below. Development key is present; AB generated but disclosed a conceptual subpart, BC failed local validation, Chemistry was not called. Gateway setup is resolved; release remains blocked.
 
 **Date:** 2026-10-13; verification completed 2026-10-14 (America/New_York)

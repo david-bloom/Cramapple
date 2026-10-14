@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — Gateway key configured; first live QA found AB subpart disclosure and BC validation failure; release blocked
+**Status:** In Progress — conceptual-subpart/validation fixes deployed to Development v7; bounded live verification pending; release blocked
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -11,6 +11,12 @@
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
 
 **Latest execution:** [Gateway live QA, October 14](../qa/MORE_HELP_GATEWAY_LIVE_QA_2026_10_14.md). Backend PR #435 is merged; app PR #21 remains draft. Two provider calls attempted; Chemistry stopped before invocation. Three expired QA entitlements temporarily extended then restored. Earlier missing-key/no-success checkpoints below are historical.
+
+## October 14 fixes under live verification
+
+David requested fixing the AB subpart disclosure, BC output validation and missing Chemistry live coverage. Backend `9ac7ee3a` is deployed as JWT-verified Development v7. It filters the observed answer-bearing reference before submission, rejects the observed conceptual conclusion patterns, protects each subpart in the model instructions and preserves graded review. Output limits are now explicit in schema descriptions and system instructions; local validation remains mandatory and reports only fixed diagnostic categories. 22 backend tests/typecheck pass. Offline replay of the exact old AB output is rejected. No app changes, migrations or Production changes.
+
+The original BC response was not retained, so its precise root cause is still unproven. Chemistry success remains unverified. A renewed approval request is pending for up to six bounded empty-work QA requests through the same Gateway; do not treat the older three-call approval as unlimited retries. The approved real-app release scope remains unchanged.
 
 ## Owner direction and approval state
 

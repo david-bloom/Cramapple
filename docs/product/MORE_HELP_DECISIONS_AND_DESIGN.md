@@ -1,5 +1,7 @@
 # More help — decisions, design and demo contract
 
+**Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Bounded live verification is pending; BC/Chemistry success and release readiness are not yet certified.
+
 **Status:** Approved
 **Date:** 2026-10-13 (America/New_York)
 **Owner:** David Bloom
