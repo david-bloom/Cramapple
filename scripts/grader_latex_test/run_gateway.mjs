@@ -6,7 +6,7 @@ const CAP = 54;
 const OUT = process.argv[2];
 const LIMIT = Number(process.argv[3] ?? 53);
 if (!OUT || !Number.isInteger(LIMIT) || LIMIT < 1 || LIMIT > CAP) throw new Error("need preserved ledger path and valid limit");
-const URL = "https://wmgjsdkphcyhngaffbqf.supabase.co/functions/v1/tmp-latex-grader-test";
+const FN_URL = "https://wmgjsdkphcyhngaffbqf.supabase.co/functions/v1/tmp-latex-grader-test";
 const QA_FILE = "/private/tmp/more-help-qa.json";
 const qa = JSON.parse(readFileSync(QA_FILE, "utf8"));
 const publicKey = readFileSync("/private/tmp/more-help-dev-public-key.txt", "utf8").trim();
@@ -25,7 +25,7 @@ const save = rows => {
   renameSync(OUT + ".tmp", OUT);
 };
 async function post(body) {
-  const response = await fetch(URL, {
+  const response = await fetch(FN_URL, {
     method: "POST", headers: { Authorization: "Bearer " + qa.token, apikey: publicKey, "Content-Type": "application/json" },
     body: JSON.stringify(body), signal: AbortSignal.timeout(125000),
   });

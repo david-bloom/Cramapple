@@ -29,3 +29,14 @@ Do not delete `results.jsonl` between runs: it is the call counter. A restart re
 ## Latest execution — 2026-10-14
 
 [Attempt 2 report](RESULTS_2026_10_14.md): the Product Owner renewed up to 54 calls before execution. The standalone runner stopped on its first HTTP 429 credit refusal, so the fresh counter `results-2026-10-14-attempt-2.jsonl` has **1 attempt, 0 grades, 53 remaining calls**. Preserve both attempts; do not erase the counter or treat analysis `0/0` and zero fields as a successful safety result. A full 54-success matrix needs 54 successful calls in addition to the already-spent failed attempt, requiring separate authorization for any increase beyond the renewed cap. No automatic retry or credit purchase.
+
+## Gateway continuation (preferred with the existing Development key)
+
+The same `openai/gpt-5.4-mini` model is available through Gateway Responses. The temporary Development `tmp-latex-grader-test` harness reads its existing `AI_GATEWAY_API_KEY`; the local driver authenticates only as the established QA account, so the Gateway secret never leaves Development. Keep the production grader unchanged. The harness accepts only indices in the immutable synthetic fixture plan and limits providers to OpenAI, with no model fallback.
+
+    cd scripts/grader_latex_test
+    node run_gateway.mjs results-2026-10-14-attempt-2.jsonl 1
+    node run_gateway.mjs results-2026-10-14-attempt-2.jsonl 52
+    node analyze.mjs results-2026-10-14-attempt-2.jsonl
+
+The first command is part of the matrix, not an additional smoke call. The ledger retains the failed direct request, so the original renewed cap is 54 total attempts and only 53 Gateway successes fit. No implicit reset or extra allowance. `results-2026-10-14-attempt-2-direct-failure.jsonl` preserves the original failure bytes. The driver reserves before sending, refuses an unresolved outcome, selects missing valid observations and stops on failure. `node run_gateway_test.mjs` checks those controls with every fetch mocked (zero provider calls).
