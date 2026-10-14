@@ -65,6 +65,40 @@ export function asString(value: unknown) {
   return typeof value === "string" ? value : null;
 }
 
+// Model-written text is stored and shown to students. Models occasionally emit
+// stray control characters: the 2026-10-14 TASK-0074 pilot saw U+001A, U+007F
+// and U+0012/U+0013 around a quoted equation, and an ANSI colour sequence
+// (ESC [ 1 m), in both rubric forms. They do not print, so removing them
+// cannot change what a student reads. An ANSI sequence is removed whole: a
+// lone ESC stripped on its own would leave visible "[1m" junk behind.
+// Tab, newline and carriage return are kept. Written as a code-point loop, not a
+// regex, so the lint rule against control characters in patterns does not apply.
+export function stripStrayControlChars(value: string) {
+  let out = "";
+  for (let i = 0; i < value.length; i++) {
+    const code = value.charCodeAt(i);
+    if (code === 0x1b && value[i + 1] === "[") {
+      // CSI: ESC [ parameter bytes (0x30-0x3F) intermediate bytes (0x20-0x2F) final byte (0x40-0x7E)
+      let j = i + 2;
+      while (j < value.length && value.charCodeAt(j) >= 0x30 && value.charCodeAt(j) <= 0x3f) j++;
+      while (j < value.length && value.charCodeAt(j) >= 0x20 && value.charCodeAt(j) <= 0x2f) j++;
+      if (j < value.length && value.charCodeAt(j) >= 0x40 && value.charCodeAt(j) <= 0x7e) {
+        i = j;
+        continue;
+      }
+    }
+    const strayControl = (code <= 0x08) || code === 0x0b || code === 0x0c ||
+      (code >= 0x0e && code <= 0x1f) || code === 0x7f;
+    if (!strayControl) out += value[i];
+  }
+  return out;
+}
+
+export function asCleanString(value: unknown) {
+  const text = asString(value);
+  return text === null ? null : stripStrayControlChars(text);
+}
+
 export function normalizeCriterionStatus(
   status: unknown,
 ): FeedbackCriterionResult["status"] {
@@ -546,13 +580,19 @@ export function sanitizeModelResult(
       0,
       Math.min(source.points_possible, Number.isFinite(numericPoints) ? numericPoints : 0),
     );
-    let evidence = asString(raw.evidence_quote)?.trim() || null;
+    const rawEvidence = asString(raw.evidence_quote)?.trim() || null;
+    let evidence = asCleanString(raw.evidence_quote)?.trim() || null;
 
     if (awardsCredit(status) && !evidence) {
       status = "unable_to_determine";
       points = 0;
       issues.push({ code: "earned_without_evidence", criterion_key: source.criterion_key });
-    } else if (evidence && enforceGrounding && !evidenceIsGrounded(evidence, response)) {
+    } else if (
+      evidence && enforceGrounding && !evidenceIsGrounded(evidence, response) &&
+      // A quote that matched the student's text only with its control
+      // characters in place (the student pasted them) is still grounded.
+      !(rawEvidence && evidenceIsGrounded(rawEvidence, response))
+    ) {
       // The rejected quote is not persisted here (2026-08-14: an earlier
       // version logged it via a hook for false-alarm classification, but
       // app.grading_results.raw_model_response already retains the full
@@ -591,8 +631,8 @@ export function sanitizeModelResult(
       status,
       points_awarded: points,
       evidence_quote: evidence,
-      decision_explanation: asString(raw.decision_explanation),
-      minimum_fix: asString(raw.minimum_fix) ?? source.minimum_fix,
+      decision_explanation: asCleanString(raw.decision_explanation),
+      minimum_fix: asCleanString(raw.minimum_fix) ?? source.minimum_fix,
     };
   });
 
@@ -645,8 +685,8 @@ export function sanitizeModelResult(
       : "medium" as const,
     uncertainty_reason: uncertain
       ? buildUncertaintyReason(issues.length, abstentionCount)
-      : asString(parsed.uncertainty_reason),
-    student_facing_summary: asString(parsed.student_facing_summary) ??
+      : asCleanString(parsed.uncertainty_reason),
+    student_facing_summary: asCleanString(parsed.student_facing_summary) ??
       "Your response was scored successfully.",
     action_hint: parsed.action_hint === "show_scaffold" ||
         parsed.action_hint === "review_context"
