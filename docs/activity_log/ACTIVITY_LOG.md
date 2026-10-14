@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help Claude release QA remediation (2026-10-14): preserved Claude report e5850eda; fixed whole-source leak scans, wider targeted disclosure checks, sibling rate phrasing, delivered-request recovery and grading-transition lifetime. 26 backend / 1,130 app tests, typecheck/build pass; Development v8 deployed. Prepared a pinned 3-MCQ Development mirror and 12-call synthetic-work Gateway QA plan; writes/calls await separate authorization. F6 and wider semantic/browser/grading coverage remain open. [Disposition](../qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md).
+
 - More help release QA prompt (2026-10-14): owner requested a QA prompt. New packet targets merged backend main 70f4a348 and private app main 75c0b18, separates code/release verdicts, requires subject/type/phase evidence and real submission/visual checks, preserves call/write authorization boundaries and orders remaining Production rollout gates. No reviewer dispatched or runtime changes. [Prompt](../qa/MORE_HELP_RELEASE_QA_PROMPT_2026_10_14.md).
 
 - LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
@@ -452,6 +454,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-14 — More help Claude release findings remediated
+
+More help Claude release QA remediation (2026-10-14): preserved Claude report e5850eda; fixed whole-source leak scans, wider targeted disclosure checks, sibling rate phrasing, delivered-request recovery and grading-transition lifetime. 26 backend / 1,130 app tests, typecheck/build pass; Development v8 deployed. Prepared a pinned 3-MCQ Development mirror and 12-call synthetic-work Gateway QA plan; writes/calls await separate authorization. F6 and wider semantic/browser/grading coverage remain open. [Disposition](../qa/MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md).
+
 
 ## 2026-10-14 — More help release QA prompt
 

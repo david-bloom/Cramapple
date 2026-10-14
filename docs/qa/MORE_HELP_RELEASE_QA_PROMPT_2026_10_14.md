@@ -1,5 +1,7 @@
 # More help — independent release QA prompt
 
+**Follow-up checkpoint:** The [first release report](QA_MORE_HELP_RELEASE_2026_10_14.md) is preserved. Review [the current remediation](MORE_HELP_RELEASE_QA_REMEDIATION_2026_10_14.md) and exact new backend/app code there. Challenge F1 whole-source scanning, F2 wider tripwires, F3 sibling phrasings, F4 explicit fresh-request/cached-response behavior and F5 grading-transition lifetime. Development is now v8; 26 backend / 1,130 app tests pass. The pinned MCQ mirror and 12-call round are proposals, not authorizations or executed evidence. Write a new follow-up report rather than overwrite the first.
+
 **Date:** 2026-10-14 (America/New_York)
 **Purpose:** Final independent review of the merged implementation and the remaining release gates. Paste the prompt below into Claude Code, or into Lovable plan mode with access to both repositories. This document does not dispatch a reviewer or authorize deployment.
 
