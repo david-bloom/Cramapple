@@ -80,6 +80,32 @@ Mechanics 6), 0 hard validator failures, every original hash-checked against Pro
 confirmed the rendering and caught three draft defects, all fixed: a trailing period stranded outside display maths,
 a nested fraction that rendered too small, and italic text subscripts. Nothing is applied to any database.
 
+## Phase plan and QA outcome (2026-10-14)
+
+An independent QA (Codex) reviewed the 33 drafted edits and recommended **do not write** the first transaction. All 33
+were mathematically equivalent and their before-text matched Production, but it found real problems, most of which
+were confirmed independently:
+
+- **A label the transaction missed.** Editing text changes a hash that flips an item's taxonomy labels to `stale`, and
+  every practice-serving function requires `validated`. The transaction now captures every label the trigger can
+  flip and restores it exactly (status, `validated_by`, `validated_at`, `validation_decision_id`), advancing only the
+  hash of labels that were in sync.
+- **Rubric text is read by the grader** (see `TASK-0074`).
+- **Raw LaTeX on staff pages:** reviewer and admin grading pages print these fields. Fixed in `ap-prep-blueprint` PR #23.
+- **The explanation column reaches no student surface**, so those three edits are dropped.
+- **One missed row** (a whole-field quotient with no adjacent bracket) was found and is added.
+
+The Product Owner split the work:
+
+| Phase | Rows | State |
+|---|---|---|
+| 1 — MCQ choices and one rationale | 21 | transaction rewritten and dry-run (rolled back); second QA pending; **no Production write yet** |
+| 2 — rubric lines | 10 | blocked on `TASK-0074` |
+| dropped — explanation edits | 3 | no student surface reads that column |
+
+The drafts and the transaction contain published exam text and are kept in a private repository branch, not here.
+Phase 1 still needs the second QA, the Product Owner's visual review, and an explicit go-ahead before any write.
+
 ## Known gaps at open
 
 - The hit counts are a loose upper bound. The rule-applying detector in Method step 1 gives the real number.
