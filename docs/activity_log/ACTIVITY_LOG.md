@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- LaTeX Pilot: Independent QA, Phase 1 Narrowed to MCQ Rows, Grader Test Opened (2026-10-14): Codex QA recommended no write of the first transaction; the Product Owner approved a 21-row MCQ-only Phase 1, dropped the explanation edits and opened `TASK-0074` to test whether the grader handles LaTeX before the 10 rubric edits. No Production write.
 - LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
 
 - More help Gateway fix verification (2026-10-14): owner approved bounded QA; three of six permitted calls returned validated 200 responses for AB, BC and Chemistry. Observed AB subpart answer withheld and answer-bearing fact excluded; BC valid; Chemistry now covered. All three receipts delivered and QA entitlement dates restored. Development v7, 22 backend tests/typecheck pass; independent/full release QA still open. [Verification](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md).
