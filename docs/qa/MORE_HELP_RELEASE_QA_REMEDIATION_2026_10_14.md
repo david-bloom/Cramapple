@@ -5,7 +5,7 @@
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
 **Backend code:** `8c437bd4d96456e3693fcee067412e532774d1da`
 **App code:** `e1d49d9ed4ed1be1e14897c6db967f9d49b5042b` (phase reset plus nested-fraction fix)
-**Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), merged; [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), draft. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
+**Review PRs:** [backend/docs #442](https://github.com/david-bloom/Cramapple/pull/442), merged; [private app phase reset #25](https://github.com/david-bloom/ap-prep-blueprint/pull/25), merged at `7b81177`. App #24 merged externally before this fix was pushed; it contains the original pending-help/cache changes.
 
 ## Findings and action
 
@@ -17,6 +17,8 @@
 | F4 — lost response / edit-revert | Addressed. Received responses have a bounded, per-mounted-question in-memory cache; a response received during an edit can be reused after reverting. No browser-storage/transcript retention. A lost delivered response gets explicit daily-allowance copy and an explicit “Request new help” action; close/reopen cannot automatically mint a new request. Exact already-delivered requests acknowledge durable assistance without a new model call. “Charged” means allowance consumption here; no monetary student charge was demonstrated. |
 | F5 — submit during loading | Addressed. TaskPane lifetime is keyed by served question/version, rather than practice/review state. Pending help survives grading; an earlier before-phase response is identified as setup guidance, without claiming it used later grading. QxView transition regression proves it remains available without a second request; an explicit scored-answer action remains available even when there are no generated follow-ups. Existing grades remain server-authoritative. |
 | F6 — glyph measurement | Local browser pass found innermost nested fraction digits at 11.7px; More help now opts into display-sized fractions, measuring 23.4px in the tested expressions. [Browser evidence](MORE_HELP_BROWSER_QA_2026_10_14.md) covers actual components with mocked transport/scoring at 1280/375 CSS px. David confirmed correct rendering on October 14; owner visual acceptance is recorded. Authenticated served-content measurement remains open because the confirmation does not specify environment/version. |
+
+**Session close:** QA docs #448 merged at `c06860b3`; owner rendering confirmation recorded. See [current handoff](../handoffs/MORE_HELP_SESSION_CLOSE_2026_10_14.md) for next owner/action and remaining gates. Earlier draft-state statements below are historical.
 
 ## Latest follow-up action
 
