@@ -47,30 +47,28 @@ slice before QA signs off.
 - A before/after table of every changed row exists for QA.
 - The pilot report answers: how many rows were display vs inline vs flagged, and did stacking read well in the app.
 
-## Renderer (built 2026-10-14, not yet applied)
+## Renderer (2026-10-14): PR open, not merged or published
 
-Patch: `docs/tasks/patches/TASK-0073-ap-prep-blueprint-prose-math.patch`, against `ap-prep-blueprint` at Lovable HEAD
-`4b6fff2`. Adds `src/lib/prose-math.ts` and `src/components/content/ProseMath.tsx`, wires `ProseMath` into the
-authored-prose sites of `QuestionExperience.jsx` (stem, stimulus, rubric label and minimum fix, answer-key choice text
-and rationale, both choice lists), and adds two dev-harness states, `?state=prose-math` (an MCQ with stacked choices)
-and `?state=prose-math-frq` (a rubric line in display maths), on `/dev-qx-harness`. The harness samples are
-**synthetic**, not published items, so the patch carries no exam content.
+`david-bloom/ap-prep-blueprint` PR #22 (draft), branch `claude/prose-math-renderer`. The patch file in
+`docs/tasks/patches/` is the same change, kept for the record. It adds `src/lib/prose-math.ts` and
+`src/components/content/ProseMath.tsx`, wires `ProseMath` into the authored-prose sites of `QuestionExperience.jsx`
+(stem, stimulus, rubric label and minimum fix, answer-key choice text and rationale, both choice lists), adds
+`.ca-prose-display` so display maths takes its own line, and adds two dev-harness states, `?state=prose-math` and
+`?state=prose-math-frq`, on `/dev-qx-harness`. The harness samples are **synthetic**, not published items.
 
 - **Why a harness and not Development:** the app's `.env` (preview and published alike) points at the **Production**
   database, so seeding Development would show nothing in any app page. The harness renders the real components from
-  sample data with no database at all.
-- **Verified:** 25 tests pass in a scratch copy against real KaTeX (13 renderer, 9 wiring guard, 3 harness-fixture); the
-  wiring guard fails 8 of 9 on the unpatched file; the patch applies cleanly to the real `QuestionExperience.jsx` and,
-  with line offsets, to a file holding the real `QxHarness.tsx` context.
-- **Not verified:** the harness states were not run in the app, the full suite, `tsc --noEmit` and `npm run build` were
-  not run, and the fixtures were not passed through `normalizeQuestionExperience`. Run `npx tsc --noEmit -p . &&
-  npx vitest run && npm run build` and open `/dev-qx-harness?state=prose-math` before publishing.
+  sample data with no database.
+- **Verified on the branch, with the CI recipe:** `tsc --noEmit` clean; `vitest run` 115 files / 1,109 tests pass;
+  `npm run build` succeeds. Both harness states were run in `vite dev` and screenshotted in headless Chromium.
+- **A defect only the real app showed:** `.ca-formula` is `inline-block`, so a `\[…\]` equation sat beside the words
+  before it. Fixed by `.ca-prose-display`, scoped to prose so reference-pane formulas are unchanged.
 - **Zero change for current content:** a string with no `\(` or `\[` is returned untouched.
 - **Not wired:** FRQ comparison answers, the grader's per-criterion `reason`, student text (deliberately never parsed),
   `PromptText`, `RadioOptionRow`, `RubricCriterionRow`, `FeedbackCard`, lesson notes and topic explainers. The pilot's
   `content_item_versions.explanation` column was not located in the render path and is unconfirmed.
-- **Access:** `ap-prep-blueprint` is not reachable from this session, so the patch must be applied by someone with the
-  repo; Lovable syncs to GitHub on push.
+- **Still to do:** merge and publish through Lovable (a Product Owner action); then the content edits, which remain
+  a Production write behind a Hard Gate.
 
 ## Drafted edits (2026-10-14)
 
@@ -85,6 +83,6 @@ a nested fraction that rendered too small, and italic text subscripts. Nothing i
 ## Known gaps at open
 
 - The hit counts are a loose upper bound. The rule-applying detector in Method step 1 gives the real number.
-- The prose renderer exists as a patch and is unapplied (see above); visual QA needs it applied and published.
+- The prose renderer is in `ap-prep-blueprint` PR #22 and is not merged or published; visual QA of real content needs both, plus the content edits.
 - Author-forward (`DECISION-0121` item 6) needs the prose rule stated in the authoring guidance, done in
   `docs/new_design/CONTENT_AND_PEDAGOGY.md`.

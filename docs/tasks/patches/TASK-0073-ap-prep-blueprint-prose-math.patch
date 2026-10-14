@@ -1,9 +1,9 @@
 diff --git a/src/components/content/ProseMath.tsx b/src/components/content/ProseMath.tsx
 new file mode 100644
-index 0000000..ca3e2ad
+index 0000000..d397d0b
 --- /dev/null
 +++ b/src/components/content/ProseMath.tsx
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,28 @@
 +// Renders question and teaching prose that may carry \( inline \) or \[ display \] maths.
 +// Plain prose -- every row published today -- returns the string untouched, so adopting
 +// this component on a surface changes nothing until a row actually contains maths.
@@ -21,12 +21,40 @@ index 0000000..ca3e2ad
 +        part.kind === "text" ? (
 +          <span key={i}>{part.text}</span>
 +        ) : (
-+          <Formula key={i} tex={part.text} display={part.kind === "display"} />
++          <Formula
++            key={i}
++            tex={part.text}
++            display={part.kind === "display"}
++            className={part.kind === "display" ? "ca-prose-display" : undefined}
++          />
 +        ),
 +      )}
 +    </>
 +  );
 +}
+diff --git a/src/dev-harness/QxHarness.tsx b/src/dev-harness/QxHarness.tsx
+index 8a83e25..5ef8e93 100644
+--- a/src/dev-harness/QxHarness.tsx
++++ b/src/dev-harness/QxHarness.tsx
+@@ -13,6 +13,8 @@ import mcqBefore from "@/lib/question-experience/__fixtures__/mcq-before-submiss
+ import mcqGraded from "@/lib/question-experience/__fixtures__/mcq-graded.json";
+ import frqRetry from "@/lib/question-experience/__fixtures__/graded-frq-retry.json";
+ import frqDraft from "@/lib/question-experience/__fixtures__/draft-frq-resume.json";
++import proseMathMcq from "@/lib/question-experience/__fixtures__/prose-math-mcq.json";
++import proseMathFrq from "@/lib/question-experience/__fixtures__/prose-math-frq-review.json";
+ import teaching from "@/dev-harness/teaching_chem_1_2.json";
+ import gChem from "@/dev-harness/guides_chem_1_2.json";
+ import gStats from "@/dev-harness/guides_stats_1_5.json";
+@@ -196,6 +198,9 @@ export default function QxHarness() {
+     review: [mcqGraded, "practice"],
+     "frq-review": [frqRetry, "practice"],
+     "frq-practice": [frqDraft, "practice"],
++    // DECISION-0121 / TASK-0073: prose maths, \(...\) in choices and \[...\] in a rubric line.
++    "prose-math": [proseMathMcq, "practice"],
++    "prose-math-frq": [proseMathFrq, "practice"],
+   };
+   const [raw, mode] = map[state] ?? map.practice;
+   const exp = normalizeQuestionExperience(raw)!;
 diff --git a/src/lib/__tests__/prose-math-harness-fixtures.test.ts b/src/lib/__tests__/prose-math-harness-fixtures.test.ts
 new file mode 100644
 index 0000000..98c3389
@@ -125,10 +153,10 @@ index 0000000..2b32806
 +});
 diff --git a/src/lib/__tests__/prose-math.test.tsx b/src/lib/__tests__/prose-math.test.tsx
 new file mode 100644
-index 0000000..3e9581a
+index 0000000..2b7b8ce
 --- /dev/null
 +++ b/src/lib/__tests__/prose-math.test.tsx
-@@ -0,0 +1,114 @@
+@@ -0,0 +1,117 @@
 +// DECISION-0121: prose maths. Inline \( \) and display \[ \] are rendered; `$` is never maths in prose.
 +import React from "react";
 +import { renderToStaticMarkup } from "react-dom/server";
@@ -203,9 +231,12 @@ index 0000000..3e9581a
 +    const display = html("Average rate:\n\\[\\frac{214-190}{6-5}\\]");
 +    expect(display).toContain("katex-display");
 +    expect(display).toContain("ca-formula-display");
++    // The app's .ca-formula is inline-block; this class is what puts the equation on its own line.
++    expect(display).toContain("ca-prose-display");
 +    const inline = html("Find \\(\\frac{214-190}{6-5}\\) now");
 +    expect(inline).not.toContain("katex-display");
 +    expect(inline).toContain("ca-formula-inline");
++    expect(inline).not.toContain("ca-prose-display");
 +  });
 +
 +  it("renders fractions at full size, not at KaTeX's shrunk script size", () => {
@@ -604,22 +635,21 @@ index 15f9ef9..6749126 100644
                  </label>
                </div>
              ))}
-diff --git a/src/dev-harness/QxHarness.tsx b/src/dev-harness/QxHarness.tsx
-index 3776ebc..4b3f629 100644
---- a/src/dev-harness/QxHarness.tsx
-+++ b/src/dev-harness/QxHarness.tsx
-@@ -3,4 +3,6 @@ import mcqGraded from "@/lib/question-experience/__fixtures__/mcq-graded.json";
- import frqRetry from "@/lib/question-experience/__fixtures__/graded-frq-retry.json";
- import frqDraft from "@/lib/question-experience/__fixtures__/draft-frq-resume.json";
-+import proseMathMcq from "@/lib/question-experience/__fixtures__/prose-math-mcq.json";
-+import proseMathFrq from "@/lib/question-experience/__fixtures__/prose-math-frq-review.json";
- import teaching from "@/dev-harness/teaching_chem_1_2.json";
- import gChem from "@/dev-harness/guides_chem_1_2.json";
-@@ -9,4 +11,7 @@ import gChem from "@/dev-harness/guides_chem_1_2.json";
-     "frq-review": [frqRetry, "practice"],
-     "frq-practice": [frqDraft, "practice"],
-+    // DECISION-0121 / TASK-0073: prose maths, \(...\) in choices and \[...\] in a rubric line.
-+    "prose-math": [proseMathMcq, "practice"],
-+    "prose-math-frq": [proseMathFrq, "practice"],
-   };
-   const [raw, mode] = map[state] ?? map.practice;
+diff --git a/src/styles/deep-dive.css b/src/styles/deep-dive.css
+index 8550f6d..ff4398f 100644
+--- a/src/styles/deep-dive.css
++++ b/src/styles/deep-dive.css
+@@ -345,6 +345,13 @@
+      denominator are themselves 0.7x and no base size rescues them. */
+   font-size: 1.3em;
+ }
++/* DECISION-0121: display maths inside question prose stands on its own line.
++   `.ca-formula` is inline-block, which would leave a \[...\] equation beside the
++   words before it; this is scoped to prose so reference-pane formulas are unchanged. */
++.ca-formula.ca-prose-display {
++  display: block;
++  margin-block: 6px;
++}
+ /* A stacked fraction is taller than a line of prose; give it room rather than
+    letting it crowd the lines above and below. */
+ .ca-formula-inline {
