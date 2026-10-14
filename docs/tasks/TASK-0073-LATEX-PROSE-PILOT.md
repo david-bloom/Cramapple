@@ -1,6 +1,6 @@
 # TASK-0073 — LaTeX in question and teaching prose: pilot (Precalculus and Physics C)
 
-**Status:** Open — scope revised and approved by the Product Owner 2026-10-14 ("I approve 1 and 3. Do precalculus and physics c first."); no content drafted yet. The Product Owner will do visual QA.
+**Status:** Phase 1 complete (21 MCQ rows written to Production 2026-10-14, verified). Phase 2 (10 rubric lines) **dropped** by the Product Owner (Option A, `DECISION-0122`) after `TASK-0074`. Explanation edits dropped. ASCII-notation cleanup continues separately as `TASK-0075`.
 **Tier:** Standard for drafting and validation in Development; **Hard-Gate** for any Production content write.
 **Owner:** Claude session. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/latex-prose-pilot`.
@@ -99,12 +99,12 @@ The Product Owner split the work:
 
 | Phase | Rows | State |
 |---|---|---|
-| 1 — MCQ choices and one rationale | 21 | transaction rewritten and dry-run (rolled back); second QA pending; **no Production write yet** |
-| 2 — rubric lines | 10 | blocked on `TASK-0074` |
+| 1 — MCQ choices and one rationale | 21 | **Applied to Production 2026-10-14** in one guarded transaction; verified: 21 rows hold the LaTeX, the 11 affected items' labels are still `validated` and in sync with provenance intact, 0 stale. Second QA findings (statement timeout placement, pinning each choice to its version) were fixed first. |
+| 2 — rubric lines | 10 | **Dropped** (Option A, `DECISION-0122`): the grader reads this text and the `TASK-0074` pilot could not show invariance; the rows stay in plain text. Reopening needs a verified mitigation first (follow-up review, section 5). |
 | dropped — explanation edits | 3 | no student surface reads that column |
 
 The drafts and the transaction contain published exam text and are kept in a private repository branch, not here.
-Phase 1 still needs the second QA, the Product Owner's visual review, and an explicit go-ahead before any write.
+Phase 1 was written after the second QA and the Product Owner's explicit instruction; the student view of the edited rows was confirmed from the Product Owner's screenshots of the published app. Reviewer and admin pages render the maths as of `ap-prep-blueprint` PR #23 (merged and published); a screenshot of those pages was not yet received.
 
 ## Known gaps at open
 

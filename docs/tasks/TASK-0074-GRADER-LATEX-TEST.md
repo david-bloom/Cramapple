@@ -1,10 +1,11 @@
 # TASK-0074 — Test whether the FRQ grader handles LaTeX in rubric text
 
-**Status:** Open — created 2026-10-14 at the Product Owner's request; nothing run yet.
+**Status:** Complete — 2026-10-14. Result: **not safe as is** in this pilot (one borderline cell changed decision; one stray-markup string). The Product Owner chose Option A: the ten rubric rows stay in plain text. No mitigation built or deployed.
+**Call approval (recorded before any run):** up to **54** real model calls (3 criteria × 3 responses × 2 rubric forms × 3 repeats), **Development only**, synthetic criteria only, no Production grading data read or written. Failed or retried calls count against the cap; the run stops at 54.
 **Tier:** Standard for the analysis, harness and tests; **Hard-Gate** for any call that spends Production model budget or reads or writes Production grading data.
 **Owner:** unassigned. **Product Owner:** David Bloom.
-**Branch / PR:** none yet.
-**Blocks:** `TASK-0073` Phase 2 (the 10 rubric-line edits). Phase 1 (MCQ rows) does not depend on this.
+**Branch / PR:** `claude/task-0074-run` / [PR #445](https://github.com/david-bloom/Cramapple/pull/445).
+**Blocks:** nothing now. `TASK-0073` Phase 2 (the 10 rubric-line edits) is **dropped** by the Product Owner's Option A decision (`DECISION-0122`).
 **Related:** `DECISION-0121`, `DECISION-0119`, `TASK-0073`, the independent QA of 2026-10-14.
 
 ## Why this exists
@@ -37,6 +38,26 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
 2. Does the model's **explanation or evidence quote** copy the delimiters or LaTeX commands into a persisted,
    student-visible field? In which fields?
 3. If either answer is yes, what is the smallest safe fix?
+
+## Run log
+
+- **2026-10-14, Gateway result:** **53 valid Gateway grades + 1 failed direct request = 54 renewed attempts**, cap reached. Same OpenAI model, prompts/schema, high reasoning and 3,000-token max via the existing Development key. Within-form agreement **50/52 (96.15%)**; cross-form **72/78 (92.31%)**; center-of-mass vague plain earned 3/3 versus LaTeX not-earned/not-earned/earned. One LaTeX-form `minimum_fix` copies markup and U+007F characters. Safe-as-is gate fails. Keep the ten rubric rows plain; a prompt-facing mitigation remains untested and needs a plan. Only csc/vague/latex rep3 is missing; extra one-attempt approval remains pending. Temporary Development helper deleted; live grader/More help/Production unchanged. [Full evidence](../../scripts/grader_latex_test/RESULTS_2026_10_14.md).
+
+- **2026-10-14, Gateway continuation:** David steered execution to the established Vercel Gateway path (“Why not use the Vercel gateway”). The exact `openai/gpt-5.4-mini` model exists in the live catalog and Responses API compatibility is verified. Reuse the Development Gateway key through the QA-only temporary test function; no local Gateway secret export, no change to evaluate-attempt or More help. Keep the original prompts/schema, high reasoning and 3,000-token cap; restrict serving provider to OpenAI without model fallback. The prior direct failure remains in the same renewed 54-attempt ledger, so **at most 53 further attempts** are allowed. Reserve ledger entries before requests, retry no unknown outcome, stop at first failure, and select missing successful trials rather than blindly skip failed rows. This changes transport within the remaining approved allowance; it does not authorize an extra call.
+
+- **2026-10-14, attempt 2 result: no data.** Executed the README's unchanged standalone runner using the existing environment key with the renewed allowance. The first request (`mech/correct/plain/rep1`) returned HTTP 429 “You have no credits remaining”; the runner stopped immediately. **1/54 renewed attempts used; 53 remain; 0 valid grades.** Ran `analyze.mjs`: within-form and cross-form counts both 0/0, markup 0 fields of 0; these are no-data results, not agreement or markup-safety evidence. No retry, purchase, database write, Production access or deployment. [Execution report](../../scripts/grader_latex_test/RESULTS_2026_10_14.md) and the immutable attempt-2 counter preserve the evidence. A full 54-success matrix cannot fit in the remaining 53 calls; any plan to replace the failed trial and complete all repeats must account for that one spent attempt and obtain authorization for any additional call beyond the renewed cap.
+
+- **2026-10-14, attempt 2 approved before execution:** David explicitly approved a fresh bounded allowance of up to **54 additional OpenAI calls** in the current Codex chat, using the existing environment key, `gpt-5.4-mini`, high reasoning, 3,000 max output tokens and the unchanged 3-item × 3-response × 2-form × 3-repeat plan. Failures count; stop at first failure. Preserve attempt 1; attempt 2 uses `scripts/grader_latex_test/results-2026-10-14-attempt-2.jsonl` as its own persistent counter. No Production data, database writes, purchases or grading deployment. Exact harness source: PR #445 `407306e4eb31c3e6f89c31befbb59fbf19218891`.
+
+- **2026-10-14, attempt 1: no data.** A temporary Dev-only function (`tmp-latex-grader-test`, JWT-protected, one model call per request, prompt text and request body copied verbatim from `grading-contract.ts`) was deployed to the Development project and the driver (`scripts/grader_latex_test/`) ran the full 54-trial plan. **All 54 calls were refused by OpenAI with HTTP 429 "You have no credits remaining"** (the Development grader key's account has no balance). No grade or explanation was produced, so none of the three questions is answered. The driver did not stop on the first failure, so the 54-call cap is formally spent; it now stops on the first failure. A re-run needs credit on the key and a fresh cap from the Product Owner. The temporary function should be deleted after the real run.
+
+## Outcome (2026-10-14)
+
+- **Result:** see `scripts/grader_latex_test/RESULTS_2026_10_14.md` (Codex, commit `c4f89731`) and the separate review `scripts/grader_latex_test/FOLLOWUP_REVIEW_2026_10_14.md` (Claude). Counts independently reproduced.
+- **What is and is not established:** plain and LaTeX rubrics gave identical decisions in 8 of 9 cells; the one differing cell (`com/vague`) is statistically indistinguishable from run-to-run noise (permutation p = 0.40) and has confounds beyond LaTeX. One string leaked `\,\mathrm{...}`. Stray control characters appear in both rubric forms and are not a LaTeX signature. The pilot neither proves LaTeX safe nor proves it harmful.
+- **Decision:** Option A. Leave the ten rubric rows in plain text (`DECISION-0122`). If typeset rubric display is ever wanted, the smallest mitigation is to keep the grader-facing text byte-for-byte and store the typeset form separately, verified by a prompt byte-equality test; a generic LaTeX stripper is not certified. Details in the follow-up review.
+- **Open, separate and unauthorized:** stripping control characters from model-written strings before storing them (semantics-neutral, needs its own approval); the one missing observation (`csc/vague/latex` repeat 3) is not needed.
+- **Cleanup:** the temporary Development helper was deleted; `evaluate-attempt` v52 unchanged.
 
 ## Method
 

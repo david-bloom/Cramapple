@@ -1,0 +1,68 @@
+{
+  "exam_name": "AP Synthetic Test Exam",
+  "items": [
+    {
+      "id": "mech",
+      "title": "Net force and acceleration",
+      "stem": "A 5.0 kg block rests on a frictionless horizontal surface. A 25 N force pulls it to the right and a 15 N force pulls it to the left. Find the magnitude and direction of the block's acceleration.",
+      "target": "c1",
+      "criteria": {
+        "plain": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Applies Newton's second law with the net force: a = (25 N − 15 N)/5.0 kg = 2.0 m/s²."},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "States that the acceleration points to the right, toward the larger force."}
+        ],
+        "latex": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Applies Newton's second law with the net force:\n\\[a=\\frac{25\\,\\mathrm{N}-15\\,\\mathrm{N}}{5.0\\,\\mathrm{kg}}=2.0\\,\\mathrm{m/s^2}.\\]"},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "States that the acceleration points to the right, toward the larger force."}
+        ]
+      },
+      "responses": {
+        "correct": "The net force is 25 N − 15 N = 10 N to the right. a = F/m = 10 N / 5.0 kg = 2.0 m/s², directed to the right.",
+        "wrong": "I add the forces: a = (25 N + 15 N)/5.0 kg = 8.0 m/s², directed to the right.",
+        "vague": "You use Newton's second law with the forces and the mass to get the acceleration."
+      }
+    },
+    {
+      "id": "com",
+      "title": "Center of mass of two masses",
+      "stem": "A 6.0 kg mass sits at x = 2.0 m and a 3.0 kg mass sits at x = 5.0 m on the same axis. Find the x-coordinate of the center of mass.",
+      "target": "c1",
+      "criteria": {
+        "plain": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Uses the weighted average of the positions: x_cm = (6.0 kg × 2.0 m + 3.0 kg × 5.0 m)/(6.0 kg + 3.0 kg) = 3.0 m."},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "Measures both positions from the same origin."}
+        ],
+        "latex": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Uses the weighted average of the positions:\n\\[x_{\\mathrm{cm}}=\\frac{6.0\\,\\mathrm{kg}\\times 2.0\\,\\mathrm{m}+3.0\\,\\mathrm{kg}\\times 5.0\\,\\mathrm{m}}{6.0\\,\\mathrm{kg}+3.0\\,\\mathrm{kg}}=3.0\\,\\mathrm{m}.\\]"},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "Measures both positions from the same origin."}
+        ]
+      },
+      "responses": {
+        "correct": "x_cm = (6.0 × 2.0 + 3.0 × 5.0)/(6.0 + 3.0) = 27/9 = 3.0 m, with both positions measured from the same origin.",
+        "wrong": "x_cm = (6.0 × 2.0 + 3.0 × 5.0)/2 = 13.5 m, because there are two masses.",
+        "vague": "Take the weighted average of the two positions."
+      }
+    },
+    {
+      "id": "csc",
+      "title": "Exact value of a reciprocal trig function",
+      "stem": "Evaluate csc(5π/6) exactly.",
+      "target": "c1",
+      "criteria": {
+        "plain": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Rewrites as a reciprocal of sine and evaluates: csc(5π/6) = 1/sin(5π/6) = 1/(1/2) = 2."},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "States the final value in simplest form."}
+        ],
+        "latex": [
+          {"criterion_key": "c1", "points_possible": 1, "learner_facing_text": "Rewrites as a reciprocal of sine and evaluates:\n\\[\\csc(5\\pi/6)=\\frac{1}{\\sin(5\\pi/6)}=\\frac{1}{1/2}=2.\\]"},
+          {"criterion_key": "c2", "points_possible": 1, "learner_facing_text": "States the final value in simplest form."}
+        ]
+      },
+      "responses": {
+        "correct": "csc(5π/6) = 1/sin(5π/6) = 1/(1/2) = 2.",
+        "wrong": "csc(5π/6) = 1/cos(5π/6) = 1/(−√3/2) = −2/√3.",
+        "vague": "Take the reciprocal of the sine of the angle."
+      }
+    }
+  ]
+}
