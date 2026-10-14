@@ -41,6 +41,8 @@ to a student. Mathematically equivalent text is not the same as grading-invarian
 
 ## Run log
 
+- **2026-10-14, attempt 2 approved before execution:** David explicitly approved a fresh bounded allowance of up to **54 additional OpenAI calls** in the current Codex chat, using the existing environment key, `gpt-5.4-mini`, high reasoning, 3,000 max output tokens and the unchanged 3-item × 3-response × 2-form × 3-repeat plan. Failures count; stop at first failure. Preserve attempt 1; attempt 2 uses `scripts/grader_latex_test/results-2026-10-14-attempt-2.jsonl` as its own persistent counter. No Production data, database writes, purchases or grading deployment. Exact harness source: PR #445 `407306e4eb31c3e6f89c31befbb59fbf19218891`.
+
 - **2026-10-14, attempt 1: no data.** A temporary Dev-only function (`tmp-latex-grader-test`, JWT-protected, one model call per request, prompt text and request body copied verbatim from `grading-contract.ts`) was deployed to the Development project and the driver (`scripts/grader_latex_test/`) ran the full 54-trial plan. **All 54 calls were refused by OpenAI with HTTP 429 "You have no credits remaining"** (the Development grader key's account has no balance). No grade or explanation was produced, so none of the three questions is answered. The driver did not stop on the first failure, so the 54-call cap is formally spent; it now stops on the first failure. A re-run needs credit on the key and a fresh cap from the Product Owner. The temporary function should be deleted after the real run.
 
 ## Method
