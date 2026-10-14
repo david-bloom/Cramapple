@@ -8,6 +8,7 @@ Most recent entries (full reverse-chronological list follows below):
 
 - More help release QA prompt (2026-10-14): owner requested a QA prompt. New packet targets merged backend main 70f4a348 and private app main 75c0b18, separates code/release verdicts, requires subject/type/phase evidence and real submission/visual checks, preserves call/write authorization boundaries and orders remaining Production rollout gates. No reviewer dispatched or runtime changes. [Prompt](../qa/MORE_HELP_RELEASE_QA_PROMPT_2026_10_14.md).
 
+- ASCII Maths Cleanup Queued (2026-10-14): published-app screenshots showed ASCII notation (`lambda`, `rho`, `sigma1*(2*pi*r*l)`, `E.dA`) left in stems and lesson notes, plus a bracket-free quotient the pilot detector missed. Product Owner asked to queue it; `TASK-0075` opened (inventory first, notation rulings, then the `TASK-0073` machinery). No Production write.
 - LaTeX Pilot: Independent QA, Phase 1 Narrowed to MCQ Rows, Grader Test Opened (2026-10-14): Codex QA recommended no write of the first transaction; the Product Owner approved a 21-row MCQ-only Phase 1, dropped the explanation edits and opened `TASK-0074` to test whether the grader handles LaTeX before the 10 rubric edits. No Production write.
 - LaTeX Prose Rollout Scoped to a Pilot (2026-10-14): David ruled display-only stacking for prose (`DECISION-0121`). A Production read showed the problem is about 1% of prose and concentrated in math-heavy courses, so he approved author-forward plus a targeted backfill, Precalculus and Physics C first (`TASK-0073`). Documentation only.
 
