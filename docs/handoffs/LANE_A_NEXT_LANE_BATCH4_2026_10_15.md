@@ -59,3 +59,7 @@ CONTROL-P3 twice).
 - deepseek-v4-pro, rerun alone at `--max-tokens 16000` (`out/ced_check_next4_deepseek2.log`): 3/3 figures accepted, 5/5 controls rejected, including CONTROL-P3.
 
 **Gate 4c: PASSED, no controls accepted.** Gemini's two misses stay on record as a reader blind spot (label-to-curve position checks). Remaining before Production: merge ap-prep-blueprint #27 and publish the app, then APPROVALS_LOG entry and David's explicit approval.
+
+## Loaded to Production (2026-10-15, APPROVAL-0176)
+
+Renderer merged (`ap-prep-blueprint` #27, `2fbb345`) and published (APPROVAL-0175); the three figures were then loaded to Production under APPROVAL-0176 and verified (88 published, 96 uses; params/labels equal the fixture; student RPC returns them on 2.15 and 8.5; planted draft invisible). **Still owed:** a signed-in look at Precalculus 2.15 and Chemistry 8.5 in the live app. Rollback: retire the three figures (see the approval).

@@ -74,8 +74,8 @@ filter left the entire subject with one figure.
 
 | Entry | Family | Note |
 |---|---|---|
-| ~~Chem 8.5 Polyprotic acid titration curves (3 items)~~ | `titration_curve` | **BUILT 2026-10-15, not loaded** as `chem-polyprotic-titration` (a diprotic acid, two equivalence points, pKa1 4.0 and pKa2 9.0). Gate 4c is VOID, see `LANE_A_NEXT_LANE_BATCH4_2026_10_15.md` |
-| ~~Precalc 2.15 Semi-log plot (vocabulary) and Using a semi-log plot to justify an exponential model (convention)~~ | `xy_series` | **BUILT 2026-10-15, not loaded** as `precalc-semilog-plot` and `precalc-semilog-justify`, with `y_scale: "log"` added to the family. Gate 4c is VOID, see `LANE_A_NEXT_LANE_BATCH4_2026_10_15.md` |
+| ~~Chem 8.5 Polyprotic acid titration curves (3 items)~~ | `titration_curve` | **LIVE 2026-10-15 (APPROVAL-0176)** as `chem-polyprotic-titration` (a diprotic acid, two equivalence points, pKa1 4.0 and pKa2 9.0). Gate 4c is VOID, see `LANE_A_NEXT_LANE_BATCH4_2026_10_15.md` |
+| ~~Precalc 2.15 Semi-log plot (vocabulary) and Using a semi-log plot to justify an exponential model (convention)~~ | `xy_series` | **LIVE 2026-10-15 (APPROVAL-0176)** as `precalc-semilog-plot` and `precalc-semilog-justify`, with `y_scale: "log"` added to the family. Gate 4c is VOID, see `LANE_A_NEXT_LANE_BATCH4_2026_10_15.md` |
 | ~~Chem 9.1 Entropy increases with temperature~~ | `mb_distribution` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-mb-entropy`, a marker-free two-temperature figure, not a reuse of `chem-mb-energy`: that figure's activation-energy marker and shaded tail are not in the 9.1 entry, and route (b) requires every carried label to be supported by the entry's body |
 | ~~Chem 5.6 Reaction coordinate~~ | `energy_profile` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-reaction-coordinate` (a minimal profile with the axis named), for the same reason as 9.1; `chem-energy-profile-single` belongs to a different 5.6 entry |
 
