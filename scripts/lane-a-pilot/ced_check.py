@@ -667,6 +667,55 @@ def next1_controls(specs: dict) -> dict:
     return c
 
 
+def next2_controls(specs: dict) -> dict:
+    """Controls for batch 2 of the chart-shaped lane: four AP Statistics figures on the
+    bar-chart family. All five pass verify.py cleanly (the family's tests pin geometry,
+    not meaning), so every one measures whether a reader adds anything over the suite."""
+    c = {}
+
+    # M1 the empty bin filled in, while the words still describe a gap: the picture
+    # no longer shows one.
+    s = copy.deepcopy(specs["stats-gap-histogram"])
+    s["params"]["counts"] = [7, 14, 9, 2, 5, 3]
+    c["CONTROL-M1-gap-bin-is-not-empty"] = s
+
+    # M2 a gap defined as the interval holding the MOST data: the drawing is the
+    # same empty bin, the definition is backwards.
+    s = copy.deepcopy(specs["stats-gap-histogram"])
+    s["subtitle"] = "One interval between two values holds the most observations"
+    s["note"] = "A gap is the interval with the most observed data, so it is the tallest bar."
+    s["alt"] = s["alt"].replace(
+        "so the bin from 40 to 50 years has no bar: no customer in the data is between those two ages. That empty interval between two filled ones is a gap.",
+        "so the bin from 20 to 30 years has the tallest bar, which is the gap.")
+    s["params"]["measure"]["label"] = "gap: most data"
+    c["CONTROL-M2-gap-defined-as-the-most-data"] = s
+
+    # M3 the two classes' numbers swapped against their labels: Class A is labelled
+    # as the 40-student class but carries Class B's relative frequencies.
+    s = copy.deepcopy(specs["stats-compare-two-datasets"])
+    s["params"]["table"] = [s["params"]["table"][1], s["params"]["table"][0]]
+    c["CONTROL-M3-class-data-swapped-against-labels"] = s
+
+    # M4 equal distributions, called different.
+    s = copy.deepcopy(specs["stats-association-no"])
+    s["title"] = "Distributions that differ: associated in these data"
+    s["subtitle"] = "The pass rate differs between the two levels"
+    s["note"] = "Compare the distribution of the response within each level of the other variable; here the two differ."
+    s["alt"] = s["alt"].replace("are the same, so in these data the variables are not associated",
+                                "differ, so in these data the variables are associated")
+    c["CONTROL-M4-equal-distributions-called-different"] = s
+
+    # M5 association read as causation: the picture and the data are untouched; the
+    # words add a claim an association cannot support.
+    s = copy.deepcopy(specs["stats-association-yes"])
+    s["note"] = "Students with a part-time job pass less often, which shows that the job causes them to fail."
+    s["alt"] = s["alt"].replace("so in these data the variables are associated.",
+                                "so the part-time job causes the lower pass rate.")
+    c["CONTROL-M5-association-read-as-causation"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
@@ -675,7 +724,8 @@ CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": phys
                 "stats-density": density_controls,
                 "function-plot": function_plot_controls,
                 "lane-b-gaps": laneb_gap_controls,
-                "lane-a-next1": next1_controls}
+                "lane-a-next1": next1_controls,
+                "lane-a-next2": next2_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

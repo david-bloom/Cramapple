@@ -8943,5 +8943,257 @@
         "contract_note": "AP Chemistry 5.6 'Reaction coordinate' is a vocabulary entry with no items[]; its body defines the axis along which reactants are plotted becoming products, which is what the three labels draw at every size (DECISION-0116, route b)."
       }
     ]
+  },
+  "stats-gap-histogram": {
+    "entry_title": "Gap",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "A gap in a histogram",
+    "short_title": "Gap in a histogram",
+    "subtitle": "One interval between two values holds no observations",
+    "caption": "Ages of 38 customers in ten-year bins; the 40 to 50 bin is empty, which is a gap.",
+    "x_label": "age of a customer (years)",
+    "y_label": "number of customers",
+    "alt": "A histogram of the ages of 38 customers in six bins of ten years from 10 to 70. The bar heights are 7, 14, 9, 0, 5 and 3 customers, so the bin from 40 to 50 years has no bar: no customer in the data is between those two ages. That empty interval between two filled ones is a gap. Illustrative data.",
+    "note": "A gap is an interval between two values with no observed data, so the bars on either side of it are separated by an empty bin.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (values of the variable)",
+      "Vertical axis (frequency)",
+      "Gap: an interval with no observed data"
+    ],
+    "labels": [
+      "Horizontal axis (values of the variable)",
+      "Vertical axis (frequency)",
+      "Gap: an interval with no observed data"
+    ],
+    "params": {
+      "mode": "histogram",
+      "bin_edges": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "counts": [
+        7,
+        14,
+        9,
+        0,
+        5,
+        3
+      ],
+      "measure": {
+        "bin": 3,
+        "label": "gap: no data"
+      }
+    },
+    "figure_id": "stats-gap-histogram",
+    "reference_entry_id": "8491e20d-e140-4703-acfb-dbd357b5d515",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "vocabulary",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "8491e20d-e140-4703-acfb-dbd357b5d515",
+        "title": "Gap",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Gap' is a vocabulary entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-compare-two-datasets": {
+    "entry_title": "Comparing categorical data sets",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Comparing two data sets on one categorical variable",
+    "short_title": "Two data sets, one variable",
+    "subtitle": "Relative frequencies, so groups of different sizes can be compared",
+    "caption": "How two classes of different sizes travel to school, as relative frequencies.",
+    "x_label": "how a student travels to school",
+    "y_label": "relative frequency",
+    "alt": "A side-by-side bar chart of relative frequencies for how students travel to school, for two classes. Class A has 40 students: 20% walk, 10% bike, 30% take the bus and 40% go by car. Class B has 25 students: 40% walk, 8% bike, 12% take the bus and 40% go by car. Both classes use the same four categories, so each pair of bars compares the classes. Illustrative data.",
+    "note": "Relative frequencies, not counts, because the classes have 40 and 25 students.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (categories of one variable)",
+      "Vertical axis (relative frequency)",
+      "A bar for each data set within each category"
+    ],
+    "labels": [
+      "Horizontal axis (categories of one variable)",
+      "Vertical axis (relative frequency)",
+      "A bar for each data set within each category"
+    ],
+    "params": {
+      "mode": "grouped",
+      "categories": [
+        "Walk",
+        "Bike",
+        "Bus",
+        "Car"
+      ],
+      "levels": [
+        "Class A (40 students)",
+        "Class B (25 students)"
+      ],
+      "table": [
+        [
+          0.2,
+          0.1,
+          0.3,
+          0.4
+        ],
+        [
+          0.4,
+          0.08,
+          0.12,
+          0.4
+        ]
+      ]
+    },
+    "figure_id": "stats-compare-two-datasets",
+    "reference_entry_id": "ec350677-1116-42de-bfa6-46b8dab49d27",
+    "unit_number": 1,
+    "owner_topic_code": "1.4",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "ec350677-1116-42de-bfa6-46b8dab49d27",
+        "title": "Comparing categorical data sets",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.4 'Comparing categorical data sets' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
+  },
+  "stats-association-yes": {
+    "entry_title": "Judging association from two categorical variables",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Distributions that differ: associated in these data",
+    "short_title": "Associated in these data",
+    "subtitle": "The pass rate differs between the two levels (figure 1 of 2)",
+    "caption": "Exam results for students with and without a part-time job: the two distributions differ.",
+    "x_label": "part-time job",
+    "y_label": "share of the group",
+    "alt": "A segmented bar chart comparing exam results for two groups of students. Among the 50 students with a part-time job, 60% pass and 40% do not. Among the 40 students without one, 80% pass and 20% do not. The two distributions of results differ, so in these data the variables are associated. Illustrative data.",
+    "note": "Compare the distribution of the response within each level of the other variable; here the two differ.",
+    "synthetic": true,
+    "covers": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "labels": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "params": {
+      "mode": "segmented",
+      "categories": [
+        "Has a part-time job",
+        "No part-time job"
+      ],
+      "levels": [
+        "Passes the exam",
+        "Does not pass"
+      ],
+      "table": [
+        [
+          30,
+          32
+        ],
+        [
+          20,
+          8
+        ]
+      ]
+    },
+    "figure_id": "stats-association-yes",
+    "reference_entry_id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+    "unit_number": 2,
+    "owner_topic_code": "2.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+        "title": "Judging association from two categorical variables",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.1 'Judging association from two categorical variables' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
+  },
+  "stats-association-no": {
+    "entry_title": "Judging association from two categorical variables",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Distributions that match: no association in these data",
+    "short_title": "No association in these data",
+    "subtitle": "The pass rate is the same at both levels (figure 2 of 2)",
+    "caption": "Exam results for students with and without a part-time job: the two distributions match.",
+    "x_label": "part-time job",
+    "y_label": "share of the group",
+    "alt": "A segmented bar chart comparing exam results for two groups of students. Among the 50 students with a part-time job, 70% pass and 30% do not. Among the 40 students without one, 70% pass and 30% do not. The two distributions of results are the same, so in these data the variables are not associated. Illustrative data.",
+    "note": "Compare the distribution of the response within each level of the other variable; here the two match.",
+    "synthetic": true,
+    "covers": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "labels": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "params": {
+      "mode": "segmented",
+      "categories": [
+        "Has a part-time job",
+        "No part-time job"
+      ],
+      "levels": [
+        "Passes the exam",
+        "Does not pass"
+      ],
+      "table": [
+        [
+          35,
+          28
+        ],
+        [
+          15,
+          12
+        ]
+      ]
+    },
+    "figure_id": "stats-association-no",
+    "reference_entry_id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+    "unit_number": 2,
+    "owner_topic_code": "2.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+        "title": "Judging association from two categorical variables",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.1 'Judging association from two categorical variables' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
   }
 }
