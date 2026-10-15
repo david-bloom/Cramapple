@@ -1,6 +1,6 @@
 # Next figure lane, batch 1: Chemistry 9.1 and 5.6
 
-**STATUS:** built and verified; **in Development only. Production is a Hard Gate and has no approval yet.**
+**STATUS:** built, verified, and **live in Production** (`APPROVAL-0165`, 2026-10-15). A signed-in look in the real app has not yet been done.
 **DATE:** 2026-10-15. **Ruling:** `DECISION-0123` item 4 (the chart-shaped entries outside `kind='diagram'` are the next lane).
 **Governed by:** `docs/product/FIGURE_PRODUCTION_PROTOCOL.md`; classification in `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`.
 
@@ -39,17 +39,15 @@ body never mentions. Reusing it would assert a concept the entry does not teach.
 
 ## Loaded
 
-Development only, via `out/load_chem_next1_a.sql` and `out/load_chem_next1_b.sql` (tag
+Development first, then Production, via `out/load_chem_next1_a.sql` and `out/load_chem_next1_b.sql` (tag
 `batch=chem-next1-figures-2026-10-15`; two files because the two entries are different kinds). Both figures
 resolve to the intended entries by natural key (5.6 and 9.1). Illustrative values; no human subject expert has
 reviewed them (standing risk, `DECISION-0123` item 3 covers only the earlier named figures).
 
-## To promote
+## Promoted
 
-Production Hard Gate: an `APPROVAL-` entry naming this batch, the two figures and the two uses, with rollback
-`update app.figures set status='retired' where source_note like '%batch=chem-next1-figures-2026-10-15%'`.
-The app already knows both families, so no Lovable publish is needed first; verify as an authenticated
-student on Chemistry 5.6 and 9.1 after the load.
+Loaded to Production under `APPROVAL-0165`; verification and rollback are recorded there. Production now holds 75
+published figures, equal to Development.
 
 ## Next in the lane
 

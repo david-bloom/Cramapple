@@ -150,7 +150,12 @@ Most recent entries (full chronological list follows below):
 - **Pre-load state on Production (read-only, 2026-10-15):** 73 published figures, 23 families, 81 uses; neither figure id present; both entries published with body hashes equal to the gate fixture and `items[]` empty; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`, equal to Development.
 - **Standing risk, not retired:** the figures' illustrative values have not been reviewed by a human subject expert.
 - **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=chem-next1-figures-2026-10-15%';` The RPC's `figures` key for 5.6 and 9.1 returns to its prior value; nothing else is reverted.
-- **Result:** recorded below once verified.
+- **Result (2026-10-15, verified):** both figures are live in Production, loaded from the same generated files as Development.
+  - Counts 73 → **75** published figures, 23 families unchanged, 81 → **83** uses; Production equals Development on all three, and the two rows are digest-identical (`md5` of alt, subtitle, params and labels).
+  - **As a real authenticated student** (synthetic user, never `service_role`): ten probes before and after. Chemistry 5.6 went 1 → 2 figures (`chem-energy-profile-single`, `chem-reaction-coordinate`) and 9.1 went 0 → 1 (`chem-mb-entropy`); the other eight (Chemistry 3.5, 4.3, 5.5, 5.11; AP Statistics 2.11; AP Biology 3.4; AP Precalculus 1.1; AP Physics 2 9.1) have **byte-identical payload md5s**.
+  - A planted `draft` figure on Chemistry 9.1 was invisible to the student, who saw only `chem-mb-entropy`; the probe rolled back leaving 0 rows.
+  - `get_topic_point_guides` unchanged (md5 `25b6e08c84e5db9fac69741f93efa054`, equal in both environments). No Lovable publish was needed because both families were already in the live app.
+  - **Not yet done:** a signed-in look at both figures in the real app, as the Product Owner. Verified by query and contact sheet only.
 
 ## APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help
 

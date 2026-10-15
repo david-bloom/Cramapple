@@ -76,8 +76,8 @@ filter left the entire subject with one figure.
 |---|---|---|
 | Chem 8.5 Polyprotic acid titration curves (3 items) | `titration_curve` | needs a second equivalence point and a second pKa |
 | Precalc 2.15 Semi-log plot (vocabulary) and Using a semi-log plot to justify an exponential model (convention) | `xy_series` | needs a **log y axis**, which the family does not have |
-| ~~Chem 9.1 Entropy increases with temperature~~ | `mb_distribution` | **BUILT 2026-10-15** as `chem-mb-entropy`, a marker-free two-temperature figure, not a reuse of `chem-mb-energy`: that figure's activation-energy marker and shaded tail are not in the 9.1 entry, and route (b) requires every carried label to be supported by the entry's body |
-| ~~Chem 5.6 Reaction coordinate~~ | `energy_profile` | **BUILT 2026-10-15** as `chem-reaction-coordinate` (a minimal profile with the axis named), for the same reason as 9.1; `chem-energy-profile-single` belongs to a different 5.6 entry |
+| ~~Chem 9.1 Entropy increases with temperature~~ | `mb_distribution` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-mb-entropy`, a marker-free two-temperature figure, not a reuse of `chem-mb-energy`: that figure's activation-energy marker and shaded tail are not in the 9.1 entry, and route (b) requires every carried label to be supported by the entry's body |
+| ~~Chem 5.6 Reaction coordinate~~ | `energy_profile` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-reaction-coordinate` (a minimal profile with the axis named), for the same reason as 9.1; `chem-energy-profile-single` belongs to a different 5.6 entry |
 
 **Chem 9.1 and 5.6 may be free `figure_uses` rows** against `chem-mb-energy` and an existing energy
 profile. Check the label strings first — protocol v1.5 §4a — and note both entries author no
