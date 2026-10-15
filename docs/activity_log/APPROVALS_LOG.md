@@ -142,7 +142,9 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## APPROVAL-0173 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `2fbb345`: Log Axis, Text Labels and Diprotic Titration Renderer Capabilities (`#27`)
+## APPROVAL-0175 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `2fbb345`: Log Axis, Text Labels and Diprotic Titration Renderer Capabilities (`#27`)
+
+**ID note:** first logged as `APPROVAL-0173`; renumbered to 0175 because `#457` uses 0173 and 0174 for the question-image approvals.
 
 - **Date:** 2026-10-15
 - **Granted by:** David Bloom (Product Owner), in session: "merge ap-prep-blueprint #27 and publish the app".
