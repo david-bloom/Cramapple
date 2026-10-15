@@ -1,11 +1,13 @@
 # WORK-QUESTION-IMAGE-COMPLETENESS — Required question visuals
 
-**Status:** Proposed implementation plan; pilot source review complete, independent review and browser verification pending.
+**Status:** Four owner-requested visual builds complete locally; independent review and student delivery pending.
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
 **Branch:** `codex/question-image-audit-plan`. **PR:** [#457 — source review](https://github.com/david-bloom/Cramapple/pull/457); [#455 — merged plan and scope](https://github.com/david-bloom/Cramapple/pull/455).
 **Authorization:** David requested a session to find questions needing missing images and plans for identification, rendering, storage and student delivery. Standing Approval Lane 1 covers this read-only work and proposed plan. No new product decision is recorded as approved.
+
+**Build authorization:** David subsequently directed “Build the 4” (2026-10-14). The three Calculus AB graphs and Chemistry particulate diagram identified by the source review are built at `scripts/question-visuals-pilot/`: deterministic JSON source, renderer, 12 SVG/PNG layout pairs, accessible text, exact-version/hash manifest and preview. Eight semantic/layout/artifact tests pass, and all 12 renderings were inspected. The four live published versions' stem/stimulus hashes match the reviewed source. This authorizes the artifact build; it does not record a Production deployment approval or change database image decisions. The code follows deterministic rendering principles; no reference-catalogue rows/families were added. See the build README for interpolation, glyph-size and delivery details.
 
 ## Active pilot scope — owner direction, 2026-10-14
 
@@ -170,8 +172,8 @@ Future authoring/publishing must include an explicit visual-requirement decision
 
 ## Deliverables, ownership and next action
 
-- **Completed:** source orientation, live baseline, reproducible SELECT-only queries, frozen pilot scope, all 91 preliminary per-question source classifications and this proposed execution plan. No full-catalogue semantic audit, independent QA verdict or image repair is claimed.
-- **Next owner: independent subject reviewer / audit conductor.** Adjudicate the four visual-construct concerns, check periodic-table delivery and actual student rendering of tables/FRQ prompts, and resolve the unit scope of ten uncertain candidates separately. Deliver the independently reconciled pilot audit and first exact repair manifest. Preserve all-subject expansion and Physics/Biology leads for later work.
+- **Completed:** source orientation, live baseline, reproducible SELECT-only queries, frozen pilot scope, all 91 preliminary per-question source classifications, and the four requested reproducible visual builds. No full-catalogue semantic audit, independent QA verdict or student deployment is claimed.
+- **Next owner: independent subject reviewer / delivery implementation owner.** Review the four built visuals and accessible text, then attach and verify an authorized Development batch using the exact-version manifest. Student-browser checks and the named Production release remain open. Periodic-table delivery and ten unit-uncertain candidates remain separate follow-ups. Preserve all-subject expansion and Physics/Biology leads for later work.
 - **Then:** subject reviewer validates construct/source sufficiency; implementation owner builds an approved Development pilot; independent QA checks it; David approves the named Production promotion.
 - **Implementation boundaries:** TASK-0006's broader unapproved design is a reference proposal, not blanket approval. Existing figure and Biology-delivery approvals do not authorize new all-subject question writes. Development repair, schema/API changes, paid checker calls and Production changes need their applicable scope approval; no approval question is needed to finish this plan.
 - **Do not touch:** the original checkout's unrelated edits; learner uploads; grading/rubrics; existing Production content; concurrent figure PR #454 or ASCII-math PR #449 (both independently use DECISION-0123). Do not resolve their decision-number collision in this slice.
