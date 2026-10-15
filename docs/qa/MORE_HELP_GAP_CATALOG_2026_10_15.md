@@ -4,6 +4,7 @@
 **Task:** [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md).
 **Owner:** David Bloom / Codex conductor. **Scope:** catalog and read-only verification; no implementation, deployment, database writes or provider calls.
 **Branch:** `codex/work-more-help-gap-catalog`.
+**PR:** [#460](https://github.com/david-bloom/Cramapple/pull/460).
 
 “Needs help” refers here to the approved **More help** feature on real Calculus AB/BC and Chemistry questions. This inventory separates current limitations, evidence gaps, intentional scope and unknown historical causes. An untested path is not a confirmed broken path.
 
