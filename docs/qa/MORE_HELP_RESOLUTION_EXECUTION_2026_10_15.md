@@ -4,6 +4,8 @@
 **Task:** [owner-authorized work order](../tasks/WORK-MORE-HELP-GAP-RESOLUTION.md)
 **Worklist:** [H01–H15](MORE_HELP_GAP_CATALOG_2026_10_15.md)
 
+> Current parallel QA/deployment progress and actual-call accounting supersede older checkpoints below: [reassessment](MORE_HELP_REASSESSMENT_2026_10_15.md).
+
 ## Development QA fixtures
 
 The owner directed resolving the catalog and reference gaps. Three unchanged approved Production MCQs were compared against their prepared private export: item fields, version fields and all four choice/rationale rows still match for every source. Source export SHA-256 `6e100f5b8398bcf678d0c95b9cccf9e649da69a3a67efa15d8e33c49898a3140`.

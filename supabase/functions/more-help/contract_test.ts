@@ -682,6 +682,24 @@ Deno.test("observed conceptual subpart conclusions are withheld; setup questions
     setup,
   );
 });
+Deno.test("observed zero-width headline and rate siblings cannot answer the conceptual subpart", () => {
+  for (const leak of [
+    "Average rate over a zero-width interval: what the formula needs",
+    "A zero-length interval.",
+    "The interval has no duration.",
+    "The interval has zero width.",
+    "A 0-duration interval.",
+  ]) {
+    for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
+      const response = { ...output, [field]: field === "follow_ups" ? [leak] : leak };
+      assertThrows(() => validateHelp(response, [source], conceptualStem, true), HelpError);
+      validateHelp(response, [source], conceptualStem, false);
+    }
+  }
+  validateHelp({ ...output, explanation: "Inspect the interval width and decide whether the denominator is usable." }, [source], conceptualStem, true);
+  const context = helpContext({ ...conceptualRaw(), reference: { vocabulary: [limitSource], convention: [{ ...answerSource, body: "Average rate over a zero-width interval." }] } }, input);
+  assertEquals(context.sources.map((s) => s.id), ["limit"]);
+});
 Deno.test("invalid text lengths have content-free diagnoses and are never committed or disclosed", async () => {
   const logs: unknown[] = [];
   const warn = console.warn;

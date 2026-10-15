@@ -106,7 +106,7 @@ function sourceVisibleCopy(source: Source): string {
   return fields.filter(Boolean).join("\n");
 }
 const RATE_CONCLUSION =
-  /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
+  /\b(?:zero|0)[\s-]+(?:width|length|duration)\b|\b(?:the\s+)?interval\s+(?:has\s+no|has\s+(?:zero|0))\s+(?:width|length|duration)\b|\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
 function continuityStatements(question: string): boolean {
   return /\bstatements?\b/i.test(question) &&
     /\b(?:continuous|continuity|discontinuity)\b/i.test(question) &&

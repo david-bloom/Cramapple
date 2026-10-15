@@ -24,4 +24,28 @@ The corrected migration diff changes exactly `$function$` to `$function$;`. Afte
 
 Reusable read-only evidence scripts: `/private/tmp/more-help-grounding-shape-audit-2026-10-15.sql`, `/private/tmp/more-help-grounding-context-audit-2026-10-15.sql`, `/private/tmp/more-help-grounding-context-audit-2026-10-15.ts`.
 
-Outstanding: signed-in browser lifecycle, controlled provider output, and final release acceptance. Development migration and six RPC assertions are now recorded above.
+Outstanding: actual Development migration/runtime evidence, signed-in browser lifecycle, controlled provider output, and final release acceptance.
+
+## Live output challenge — release FAIL
+
+The conductor's first controlled provider request (`1/12`, saved privately at `/private/tmp/more-help-dev-ab-mcq-output-2026-10-15.json`) returns `ok:true`, `phase:before`, with headline **“Removable discontinuity: limit exists but differs from r(4)”**. The MCQ asks which assertions about existence of the limit, continuity, and a removable discontinuity are true. The headline answers those assessed assertions. Its safe-looking setup instructions below do not remove the disclosure.
+
+**P1, release blocker:** before-submission generated copy discloses the requested conceptual conclusions. The source/migration PASS above does not imply a feature release PASS; this actual behavioral evidence requires remediation and re-QA before release.
+
+Narrow proposed remedy: recognize the full-question continuity/limit statement-selection task, add a specific coaching boundary, and reject affirmative/negative verdicts about the assessed existence/continuity/removable statements across generated headline, explanation, next step, and follow-ups. Preserve generic reference definitions and question text; concept-word occurrence alone is not disclosure. Regression controls should include this exact captured headline and close verdict paraphrases, safe instructions to check the limit and point value separately, and permitted post-grade explanations. This follows the owner-directed targeted-checks-plus-human-review approach and does not require a universal semantic classifier.
+
+### First repair challenge
+
+The added task-specific boundary and validator reject the captured output, and32 local tests pass. Independent deterministic probes still accept these direct same-task headline conclusions: “r is not continuous at t = 4.”, “A removable discontinuity at t = 4.”, “Both I and III are true.”, and “Here, the limit exists.” The P1 remains pending repair of these obvious sibling forms. No additional provider requests were made by this reviewer.
+
+### Revised targeted repair challenge
+
+The four reported sibling forms are now added to the regression controls and rejected in all four generated fields. I reran32 tests successfully and independently checked that five safe conditional/general-definition forms remain accepted (including “If the limit exists, compare it with the recorded value.” and “Check whether r is continuous at t = 4.”). The guard remains task-specific; generic source definitions are unchanged and post-grade verdict controls remain allowed.
+
+**Proposed PASS for the targeted repair and readiness for the next bounded Development replay.** This closes the concrete local validator findings; the original live-behavior release finding remains pending an actual corrected live output and human acceptance. This is not a universal semantic disclosure guarantee. No reviewer provider calls were made.
+
+### Corrected actual Development replay (2/12)
+
+I compared the preserved failed first output with the actual corrected `phase:before`, `ok:true` replay supplied by the conductor. **Proposed PASS for this sample's before-submit assistance boundary.** Its heading asks the student to check the limit and recorded value separately. The explanation gives a general conditional definition (“a limit that exists but differs from the function value is removable”) without asserting that this question satisfies it. The next step asks the student to factor, check cancellation, and compute the limit; it does not supply those results. All three follow-ups ask for checks or conceptual distinctions and do not confirm the requested assertions. The generic reference definitions remain permitted content.
+
+The observed first-output P1 is remediated for this replay and its local regression controls. This assessment is an independent agent semantic review, not human acceptance or a general claim about all future model outputs. Other subject/type/lifecycle, image, grading, and release evidence remain separately required. No reviewer provider calls were made.

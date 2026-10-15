@@ -4,7 +4,7 @@
 **Tier:** Hard-Gate
 **Owner:** Codex conductor; Product Owner David Bloom
 **Created:** 2026-10-15
-**Branch / PR:** `codex/work-more-help-gap-resolution-backend`; baseline catalog [#460](https://github.com/david-bloom/Cramapple/pull/460) is merged. Implementation review PR to follow.
+**Branch / PR:** `codex/work-more-help-gap-resolution-backend`; baseline catalog [#460](https://github.com/david-bloom/Cramapple/pull/460) is merged. Implementation [#464](https://github.com/david-bloom/Cramapple/pull/464) and app [#29](https://github.com/david-bloom/ap-prep-blueprint/pull/29) are draft.
 **Parent task:** [WORK-MORE-HELP-PRODUCTION](WORK-MORE-HELP-PRODUCTION.md)
 **Worklist:** [H01–H15 and reference inventory](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md)
 
@@ -17,6 +17,8 @@ David directed: **“So we need to resolve the 15 issues in pr460 and close the 
 Proceed with source/local investigation, implementation and meaningful tests, concrete Development fixture preparation and the existing bounded synthetic QA proposal. The prepared QA round remains capped at 12 Gateway calls; count all attempts and do not reuse the exhausted separate grading allowance. Content-production model slates, quality escalations and exact Production batches must satisfy the [reference-production protocol](../product/MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md); prepare those concrete packets before any additional gate decision. Do not infer permission to purchase credits, create/change keys, change providers or read real student work.
 
 H13 is a scope disposition: retain current-question help for the three approved subjects. Resolving that catalog entry does not require implementing persistent student history, unbounded chat, BYOQ changes or new subjects. H15 is a historical-uncertainty disposition: document what is unknowable and verify current BC behavior; do not invent the lost response or make its recovery a completion requirement.
+
+David subsequently approved the recommended order and explicitly requested backend/app QA and deployment work and the topic-tagging audit **in parallel** (2026-10-15). The audit prioritizes current selector eligibility and TASK-0076; it does not authorize inferred topic assignments or paid reference production.
 
 ## Execution slices and acceptance
 
