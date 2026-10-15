@@ -741,7 +741,7 @@ def next3_controls(specs: dict) -> dict:
     # K3 the conclusion reversed in the words of a left-skewed figure.
     s = copy.deepcopy(specs["stats-mean-median-left"])
     s["note"] = "In a left-skewed distribution the mean is usually larger than the median."
-    s["subtitle"] = "The long left tail pulls the mean toward larger values (figure 2 of 3)"
+    s["subtitle"] = "The long left tail pulls the mean toward larger values (figure 1 of 3)"
     s["alt"] = s["alt"].replace("so the mean is smaller than the median. The long left tail pulls the mean toward smaller values.", "so the mean is larger than the median. The long left tail pulls the mean toward larger values.")
     c["CONTROL-K3-left-skew-mean-called-larger"] = s
 

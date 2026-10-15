@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
 - APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
 - APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
 - APPROVAL-0168 — Production Deploy of the `more-help` Edge Function (JWT-Verified), Source Identical to Development v10; Secrets Not Changed, App Not Published
@@ -139,6 +140,16 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Yes, fix the order and fix the order on 1.8", after his screenshots showed "Skewed left (figure 2 of 3)" above "Skewed right (figure 1 of 3)" on Statistics 1.6.
+- **Cause:** `get_topic_point_guides` serves figures `order by f.figure_id`, so the left figure always precedes the right one. Changing that ordering would touch every subject's payload, and renaming figure ids would touch fixtures and Production keys, so neither was done.
+- **Scope:** update only the `subtitle` of four figures, in Production (`pcntajvbdfqhbeewmdry`) and Development: `stats-skew-left` and `stats-mean-median-left` become "(figure 1 of 3)"; `stats-skew-right` and `stats-mean-median-right` become "(figure 2 of 3)". The symmetric figures stay "(figure 3 of 3)". No other column, row or function changes. Fixtures (`specs.json`, the `ced_check.py` control copy of the K3 subtitle) are updated to match; `verify.py` still 4,413 checks, 0 failed.
+- **Left first, not right first:** the served order is alphabetical by id, so the numbering follows it. Putting right-skew first would need the ordering change above, which is a separate decision.
+- **Rollback:** restore the four subtitles to the previous numbering (right 1, left 2).
+- **Result:** recorded below once verified.
 
 ## APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
 
