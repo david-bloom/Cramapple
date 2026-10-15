@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0168 — Attach the Four Built Question Visuals to Their Live Student Questions (Production, Existing Private-Image Delivery Contract)
 - APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
 - APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
 - APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
@@ -136,6 +137,18 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0168 — Attach the Four Built Question Visuals to Their Live Student Questions
+
+- **Date:** 2026-10-15 UTC / 2026-10-14 America/New_York.
+- **Granted by:** David Bloom (Product Owner), in session: “attach to live student questions”, after the four deterministic visual builds and preview were provided.
+- **Related work:** `WORK-QUESTION-IMAGE-COMPLETENESS`, PR #457; source and bytes in `scripts/question-visuals-pilot/`.
+- **Decision:** Approved: upload the four checksum-pinned compact PNGs to private Production `content-assets`, attach them to their exact current published question versions, approve the provided accessible text, and record `image_needed=yes` / `image_approval=approved` under the verified Product Owner account. The prior `no_not_needed` flag on the first FRQ is replaced for this owner-requested visual attachment.
+- **Exact versions:** `apcalcab-frq-u13-002` / `d0f2974c-bac9-498d-8173-8a1c88b3d8eb`; `apcalcab-frq-u13g-1-3` / `a59eb1ed-b96e-4d89-94ee-a4a32b309744`; `apcalcab-oht-1.3` / `f1548706-2043-4f7b-9941-c1c6e2724174`; `apchem-oht-3.8` / `b7b068cb-0610-4da7-8565-4290621d402f`. Question-version source MD5s and image SHA-256s are pinned by the build manifest.
+- **Delivery:** use the existing deployed `student-session-items` v40 ordinary and teaching-image paths. Compact PNGs have 2× resolution and retain readable labels on phone widths; larger layout files stay as build artifacts. No responsive frontend change, public-bucket grant, schema migration, function deployment or app publication is included.
+- **Verification:** verify uploaded bytes before an atomic, exact-version/hash-guarded content/metadata transaction; preserve stems, stimuli, answer keys, rubrics and taxonomy labels; check current student-facing read/signing paths. Development contains only one of these four published keys, so do not manufacture three additional Development questions to simulate parity. Source/local checks are not recorded as a fresh independent QA verdict.
+- **Rollback:** restore the original four image paths (all null), remove only this release's four asset-metadata rows, and restore the prior requirement row for `d0f2974c-bac9-498d-8173-8a1c88b3d8eb` while removing the three newly introduced requirement rows. Retain immutable uploaded bytes for audit; do not alter question/scoring content.
+- **Result:** pending execution and verification.
 
 ## APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
 

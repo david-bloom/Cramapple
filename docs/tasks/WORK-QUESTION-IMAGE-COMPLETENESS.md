@@ -9,6 +9,8 @@
 
 **Build authorization:** David subsequently directed “Build the 4” (2026-10-14). The three Calculus AB graphs and Chemistry particulate diagram identified by the source review are built at `scripts/question-visuals-pilot/`: deterministic JSON source, renderer, 12 SVG/PNG layout pairs, accessible text, exact-version/hash manifest and preview. Eight semantic/layout/artifact tests pass, and all 12 renderings were inspected. The four live published versions' stem/stimulus hashes match the reviewed source. This authorizes the artifact build; it does not record a Production deployment approval or change database image decisions. The code follows deterministic rendering principles; no reference-catalogue rows/families were added. See the build README for interpolation, glyph-size and delivery details.
 
+**Production attachment authorization:** David then instructed “attach to live student questions” (`APPROVAL-0168`). The active tier is Hard-Gate and this specific Production operation is authorized: four private compact PNG objects plus exact-version image paths, approved accessibility metadata and image-requirement decisions. Existing question text/scoring stays unchanged; no app/function/schema deployment. Execution and delivery evidence follows before any release-complete claim.
+
 ## Active pilot scope — owner direction, 2026-10-14
 
 David narrowed the next work to **the existing 350 potential candidates, Chemistry and Calculus AB, Units 1–4**, as test subjects. This supersedes the all-subject census and Physics/Biology starting queue as the immediate next action. The wider plan below remains future expansion; it is not this pilot's execution scope.
