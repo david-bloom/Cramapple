@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
 - APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
 - APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help (Documentation Only)
 - APPROVAL-0163 — Production Load of the `function_plot` Batch (19 Figures, AP Precalculus and AP Calculus AB), and Repair of Three Rows That Had Drifted From Their Gate-4c Corrections
@@ -134,6 +135,24 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Approve 1", answering "May I load the four Statistics figures to Production?", after the batch's gates and the Development load were reported.
+- **Scope:** load `scripts/lane-a-pilot/out/load_stats_next2_a.sql`, `_b.sql` and `_c.sql` into Production (`pcntajvbdfqhbeewmdry`). Four figures on three published reference entries, on a renderer family already in Production and in the live app (`categorical_bars`); no new family, no schema or function change.
+
+| Subject · topic | Entry | Figure |
+|---|---|---|
+| AP Statistics 1.6 | Gap | `stats-gap-histogram` |
+| AP Statistics 1.4 | Comparing categorical data sets | `stats-compare-two-datasets` |
+| AP Statistics 2.1 | Judging association from two categorical variables | `stats-association-yes`, `stats-association-no` |
+
+- **Gates (all before the load):** 4a 4,145 checks, 0 failed; 4b eye pass at four widths, all legible; 4c both non-Anthropic readers accepted all four figures and rejected all 5 controls; port parity 237/237 byte-identical. Record: `docs/handoffs/LANE_A_NEXT_LANE_BATCH2_2026_10_15.md`.
+- **Pre-load state on Production (read-only, 2026-10-15):** 75 published figures, 83 uses; none of the four ids present; the three entries published with body hashes equal to the gate fixture and `items[]` empty; `categorical_bars` present in `app.figure_families`; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`, equal to Development.
+- **Standing risk, not retired:** the figures' illustrative values have not been reviewed by a human subject expert.
+- **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=stats-next2-figures-2026-10-15%';`
+- **Result:** recorded below once verified.
 
 ## APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
 
