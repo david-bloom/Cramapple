@@ -12,6 +12,7 @@ begin
     and email='__QA_EMAIL__') then raise exception 'Synthetic QA identity mismatch'; end if;
   perform set_config('more_help.all_subject_fixtures',$fixtures$__QA_FIXTURES_JSON__$fixtures$,true);
   perform set_config('more_help.all_subject_user','__QA_USER__',true);
+  perform set_config('request.jwt.claim.sub','__QA_USER__',true);
 end;
 $guard$;
 set local role service_role;

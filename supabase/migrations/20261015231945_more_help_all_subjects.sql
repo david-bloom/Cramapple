@@ -80,7 +80,7 @@ begin
  end if;
  insert into app.question_help_calls(receipt_id,user_id,generation) values(r.id,p_user_id,r.delivery_attempts);
  return jsonb_build_object('state','reserved','id',r.id,'generation',r.delivery_attempts);
-end $function$
+end $function$;
 
 
 revoke all on function public.reserve_question_help_delivery(uuid,uuid,uuid,uuid,text) from public,anon,authenticated;
