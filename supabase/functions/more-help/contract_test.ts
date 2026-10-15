@@ -59,6 +59,142 @@ const output = {
   highlights: ["average rate of change", "invented phrase"],
   follow_ups: ["Why divide by time?"],
 };
+Deno.test("multipart context preserves complete authored instructions and applies subpart disclosure protection", () => {
+  const question = {
+    ...raw,
+    item: {
+      ...raw.item,
+      stem: "A tank contains water.",
+      questionParts: [{
+        key: "a",
+        prompt:
+          "Explain why average rate cannot be computed over this interval.",
+      }, { key: "b", prompt: "Find a derivative." }],
+      questionPartsComplete: true,
+    },
+  };
+  const context = helpContext(question, input);
+  assertEquals(context.grounding.question.parts, question.item.questionParts);
+  assertEquals(typeof context.grounding.coachingBoundary, "string");
+  assertThrows(
+    () =>
+      validateHelp(
+        { ...output, explanation: "The denominator is zero." },
+        context.sources,
+        question.item.stem,
+        true,
+        context.questionText,
+      ),
+    HelpError,
+  );
+  assertThrows(
+    () =>
+      helpContext({
+        ...question,
+        item: { ...question.item, questionPartsComplete: false },
+      }, input),
+    HelpError,
+  );
+  assertThrows(
+    () =>
+      helpContext({
+        ...question,
+        item: {
+          ...question.item,
+          questionParts: [{ key: "a", prompt: "x".repeat(16001) }],
+        },
+      }, input),
+    HelpError,
+  );
+});
+Deno.test("only the RPC complete reviewed visual transcript enables an image question", () => {
+  const questionVisual = {
+    alt: "A coordinate graph.",
+    description: "Two lines with open endpoints.",
+    completeReviewedDescription: true,
+    storagePath: "private",
+    secret: "private",
+  };
+  const context = helpContext({
+    ...raw,
+    item: { ...raw.item, hasStimulusImage: true, questionVisual },
+  }, input);
+  assertEquals(
+    context.grounding.question.visual?.description,
+    questionVisual.description,
+  );
+  assertEquals(JSON.stringify(context.grounding).includes("private"), false);
+  for (
+    const invalid of [
+      { alt: "A graph" },
+      { ...questionVisual, completeReviewedDescription: false },
+      { ...questionVisual, description: "" },
+      { ...questionVisual, description: "x".repeat(10001) },
+    ]
+  ) {
+    assertThrows(
+      () =>
+        helpContext({
+          ...raw,
+          item: {
+            ...raw.item,
+            hasStimulusImage: true,
+            questionVisual: invalid,
+          },
+        }, input),
+      HelpError,
+    );
+  }
+  assertEquals(parseInput({ ...input, questionVisual }).work, input.work);
+});
+Deno.test("figures are linked to retained and cited facts, nullable optional fields are omitted", () => {
+  const figure = {
+    figureId: "fig-1",
+    family: "xy_graph",
+    alt: "An example graph",
+    params: {},
+    valuesNote: null,
+    xTickFmt: null,
+    yTickFmt: null,
+    usedBy: [{ kind: "reference_entry", id: "s1", role: "illustration" }, {
+      kind: "reference_entry",
+      id: "private",
+      role: "illustration",
+    }],
+    private: "private",
+  };
+  const context = helpContext({
+    ...raw,
+    figures: [figure, {
+      ...figure,
+      figureId: "foreign",
+      usedBy: [{ kind: "reference_entry", id: "not-retained" }],
+    }],
+  }, input);
+  const help = validateHelp(output, context.sources, raw.item.stem);
+  assertEquals(help.figures.length, 1);
+  assertEquals("valuesNote" in help.figures[0], false);
+  assertEquals(JSON.stringify(help.figures).includes("private"), false);
+  const trapQuestion = {
+    ...raw,
+    item: {
+      ...raw.item,
+      stem: "Explain why average rate cannot be computed over this interval.",
+    },
+    reference: { formula: [source, { ...source, id: "safe" }] },
+    figures: [{ ...figure, caption: "The denominator is zero." }],
+  };
+  const before = helpContext(trapQuestion, input);
+  assertEquals(before.sources.map((s) => s.id), ["safe"]);
+  assertEquals(
+    validateHelp(
+      { ...output, source_ids: ["safe"] },
+      before.sources,
+      trapQuestion.item.stem,
+    ).figures.length,
+    0,
+  );
+});
 Deno.test("before-submit payload has no authored answer, grading, prior history or client grading override", () => {
   const context = helpContext(
     { ...raw, userId: "private" },
