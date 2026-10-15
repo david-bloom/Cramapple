@@ -97,6 +97,7 @@ export async function generateHelp(
       context.sources,
       context.grounding.question.stem,
       !context.after,
+      context.questionText,
     );
   } catch (error) {
     outputFailure(

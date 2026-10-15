@@ -59,6 +59,174 @@ const output = {
   highlights: ["average rate of change", "invented phrase"],
   follow_ups: ["Why divide by time?"],
 };
+Deno.test("continuity statement selection rejects observed pre-submit verdicts in every generated field", () => {
+  const stem = "Consider the following statements. I. lim(t->4) r(t) exists. II. r is continuous at 4. III. r has a removable discontinuity. Which statements are true?";
+  const question = { ...raw, item: { ...raw.item, stem } };
+  assertEquals(typeof helpContext(question, input).grounding.coachingBoundary, "string");
+  for (const verdict of [
+    "Removable discontinuity: limit exists but differs from r(4)",
+    "The limit exists.",
+    "The limit does not exist.",
+    "The function is not continuous at t = 4.",
+    "It has a removable discontinuity.",
+    "Statements I and III are true.",
+    "Removable discontinuity",
+    "r is not continuous at t = 4.",
+    "A removable discontinuity at t = 4.",
+    "Both I and III are true.",
+    "Here, the limit exists.",
+  ]) {
+    for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
+      const response = { ...output, [field]: field === "follow_ups" ? [verdict] : verdict };
+      assertThrows(() => validateHelp(response, [source], stem, true), HelpError);
+      validateHelp(response, [source], stem, false);
+    }
+  }
+  for (const safe of [
+    "Check the limit and recorded value separately.",
+    "Check whether the limit exists, then compare it with the recorded value.",
+    "What makes a discontinuity removable rather than a jump?",
+    "A removable discontinuity can be removed by redefining the function value.",
+  ]) {
+    validateHelp({ ...output, explanation: safe }, [source], stem, true);
+  }
+});
+Deno.test("multipart context preserves complete authored instructions and applies subpart disclosure protection", () => {
+  const question = {
+    ...raw,
+    item: {
+      ...raw.item,
+      stem: "A tank contains water.",
+      questionParts: [{
+        key: "a",
+        prompt:
+          "Explain why average rate cannot be computed over this interval.",
+      }, { key: "b", prompt: "Find a derivative." }],
+      questionPartsComplete: true,
+    },
+  };
+  const context = helpContext(question, input);
+  assertEquals(context.grounding.question.parts, question.item.questionParts);
+  assertEquals(typeof context.grounding.coachingBoundary, "string");
+  assertThrows(
+    () =>
+      validateHelp(
+        { ...output, explanation: "The denominator is zero." },
+        context.sources,
+        question.item.stem,
+        true,
+        context.questionText,
+      ),
+    HelpError,
+  );
+  assertThrows(
+    () =>
+      helpContext({
+        ...question,
+        item: { ...question.item, questionPartsComplete: false },
+      }, input),
+    HelpError,
+  );
+  assertThrows(
+    () =>
+      helpContext({
+        ...question,
+        item: {
+          ...question.item,
+          questionParts: [{ key: "a", prompt: "x".repeat(16001) }],
+        },
+      }, input),
+    HelpError,
+  );
+});
+Deno.test("only the RPC complete reviewed visual transcript enables an image question", () => {
+  const questionVisual = {
+    alt: "A coordinate graph.",
+    description: "Two lines with open endpoints.",
+    completeReviewedDescription: true,
+    storagePath: "private",
+    secret: "private",
+  };
+  const context = helpContext({
+    ...raw,
+    item: { ...raw.item, hasStimulusImage: true, questionVisual },
+  }, input);
+  assertEquals(
+    context.grounding.question.visual?.description,
+    questionVisual.description,
+  );
+  assertEquals(JSON.stringify(context.grounding).includes("private"), false);
+  for (
+    const invalid of [
+      { alt: "A graph" },
+      { ...questionVisual, completeReviewedDescription: false },
+      { ...questionVisual, description: "" },
+      { ...questionVisual, description: "x".repeat(10001) },
+    ]
+  ) {
+    assertThrows(
+      () =>
+        helpContext({
+          ...raw,
+          item: {
+            ...raw.item,
+            hasStimulusImage: true,
+            questionVisual: invalid,
+          },
+        }, input),
+      HelpError,
+    );
+  }
+  assertEquals(parseInput({ ...input, questionVisual }).work, input.work);
+});
+Deno.test("figures are linked to retained and cited facts, nullable optional fields are omitted", () => {
+  const figure = {
+    figureId: "fig-1",
+    family: "xy_graph",
+    alt: "An example graph",
+    params: {},
+    valuesNote: null,
+    xTickFmt: null,
+    yTickFmt: null,
+    usedBy: [{ kind: "reference_entry", id: "s1", role: "illustration" }, {
+      kind: "reference_entry",
+      id: "private",
+      role: "illustration",
+    }],
+    private: "private",
+  };
+  const context = helpContext({
+    ...raw,
+    figures: [figure, {
+      ...figure,
+      figureId: "foreign",
+      usedBy: [{ kind: "reference_entry", id: "not-retained" }],
+    }],
+  }, input);
+  const help = validateHelp(output, context.sources, raw.item.stem);
+  assertEquals(help.figures.length, 1);
+  assertEquals("valuesNote" in help.figures[0], false);
+  assertEquals(JSON.stringify(help.figures).includes("private"), false);
+  const trapQuestion = {
+    ...raw,
+    item: {
+      ...raw.item,
+      stem: "Explain why average rate cannot be computed over this interval.",
+    },
+    reference: { formula: [source, { ...source, id: "safe" }] },
+    figures: [{ ...figure, caption: "The denominator is zero." }],
+  };
+  const before = helpContext(trapQuestion, input);
+  assertEquals(before.sources.map((s) => s.id), ["safe"]);
+  assertEquals(
+    validateHelp(
+      { ...output, source_ids: ["safe"] },
+      before.sources,
+      trapQuestion.item.stem,
+    ).figures.length,
+    0,
+  );
+});
 Deno.test("before-submit payload has no authored answer, grading, prior history or client grading override", () => {
   const context = helpContext(
     { ...raw, userId: "private" },
@@ -513,6 +681,24 @@ Deno.test("observed conceptual subpart conclusions are withheld; setup questions
     ).explanation,
     setup,
   );
+});
+Deno.test("observed zero-width headline and rate siblings cannot answer the conceptual subpart", () => {
+  for (const leak of [
+    "Average rate over a zero-width interval: what the formula needs",
+    "A zero-length interval.",
+    "The interval has no duration.",
+    "The interval has zero width.",
+    "A 0-duration interval.",
+  ]) {
+    for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
+      const response = { ...output, [field]: field === "follow_ups" ? [leak] : leak };
+      assertThrows(() => validateHelp(response, [source], conceptualStem, true), HelpError);
+      validateHelp(response, [source], conceptualStem, false);
+    }
+  }
+  validateHelp({ ...output, explanation: "Inspect the interval width and decide whether the denominator is usable." }, [source], conceptualStem, true);
+  const context = helpContext({ ...conceptualRaw(), reference: { vocabulary: [limitSource], convention: [{ ...answerSource, body: "Average rate over a zero-width interval." }] } }, input);
+  assertEquals(context.sources.map((s) => s.id), ["limit"]);
 });
 Deno.test("invalid text lengths have content-free diagnoses and are never committed or disclosed", async () => {
   const logs: unknown[] = [];

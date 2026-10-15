@@ -4,13 +4,15 @@
 
 **Task ID:** TASK-0076
 **Title:** Investigate AP Chemistry Topic 2.5 (Lewis Diagrams) question tagging
-**Owner:** Unassigned (Claude session, with David Bloom for rulings)
+**Owner:** Codex investigation conductor; David Bloom for content rulings
 **Product Owner:** David Bloom
 **Tier:** Standard (investigation only). Any change to Production question metadata is Hard-Gate and needs its own approval.
-**Status:** Not Started
+**Status:** In Progress
 **Priority:** Medium
 **Created Date:** 2026-10-15
 **Approved Date:** Pending
+
+> October15 investigation findings: [priority audit and per-question CED ruling packet](../qa/MORE_HELP_TOPIC_TAGGING_PRIORITY_2026_10_15.md). Four expanded-octet items are currently practice eligible; retire/rewrite ruling recommended. No tags/content changed. The81 Chemistry no-selected-topic count is distinct from102 with no primary validated cell. Independent semantic/source-family review remains open.
 
 ## Product Goal
 
