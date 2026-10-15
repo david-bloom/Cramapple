@@ -3,27 +3,29 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 6,
+  "figures": 3,
   "controls": 5,
-  "controls_leaked": [],
+  "controls_leaked": [
+    "CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points"
+  ],
   "flagged": [],
-  "wall_seconds": 116.3,
+  "wall_seconds": 128.1,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 184,
-      "prompt": 226102,
-      "completion": 160065,
-      "seconds": 1076.3999999999994
+      "calls": 192,
+      "prompt": 234057,
+      "completion": 170412,
+      "seconds": 1145.1999999999994
     },
     "openai/gpt-6.1-sol": {
-      "calls": 184,
-      "prompt": 189683,
-      "completion": 18783,
-      "seconds": 754.4000000000005
+      "calls": 192,
+      "prompt": 197036,
+      "completion": 20094,
+      "seconds": 813.3000000000006
     }
   },
   "detail": {
-    "stats-skew-right": {
+    "precalc-semilog-plot": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -38,7 +40,7 @@
         }
       }
     },
-    "stats-skew-left": {
+    "precalc-semilog-justify": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -53,7 +55,7 @@
         }
       }
     },
-    "stats-skew-symmetric": {
+    "chem-polyprotic-titration": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -68,64 +70,23 @@
         }
       }
     },
-    "stats-mean-median-right": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-mean-median-left": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "stats-mean-median-symmetric": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-K1-right-skewed-curve-called-skewed-left": {
+    "CONTROL-P1-linear-data-called-exponential-on-the-log-axis": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, note, and \u201clonger left tail\u201d annotation identify the curve as left-skewed, but the parameters specify a right-skewed chi-square distribution with 4 degrees of freedom.",
-              "why": "This distribution peaks at x = 2, has a short left side bounded by zero, and a long tail toward larger values. It therefore illustrates right skew, not left skew."
+              "what": "The title and alt text call the plotted values exponential data that double at each x-step, but the points follow y = 5 + 60x.",
+              "why": "The values increase by a constant difference of 60, not a constant factor of 2. The stated exponential model y = 5\u00b72^x would give 5, 10, 20, 40, 80, 160, 320."
             },
             {
-              "what": "The alt text describes a long tail stretching left toward smaller values.",
-              "why": "The specified curve\u2019s long tail stretches right. The alt text also contradicts itself by describing the left side as both a long tail and a steep drop to zero."
+              "what": "The annotation and alt text claim the points form a straight line on the semi-log plot.",
+              "why": "For a logarithmic y-axis, straightness requires log(y) to change linearly with x. These points have unequal successive ratios, so they do not lie on a straight line."
+            },
+            {
+              "what": "The alt text says the points rise from 5 to 320, but the final plotted value is 365.",
+              "why": "The stated endpoint contradicts the drawing parameters."
             }
           ],
           "confidence": "high"
@@ -134,23 +95,27 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The curve plotted is skewed right, but the labels and title describe it as skewed left.",
-              "why": "A chi-square distribution with 4 degrees of freedom is skewed to the right (it has a long right tail). However, the title ('Skewed left'), subtitle, alt text, and the text label 'longer left tail' (placed at x=11.5, which is on the right side of the distribution) all incorrectly claim that the distribution is skewed left. This would severely confuse a student about the definition of skewness."
+              "what": "The plotted data series is linear rather than exponential.",
+              "why": "The y-values in the series are [5, 65, 125, 185, 245, 305, 365], which represent a linear progression (y = 60x + 5). On a logarithmic scale, linear data curves instead of forming a straight line. This contradicts the title, subtitle, and alt text, which all claim the plot shows exponential data (doubling from 5 to 320) appearing as a straight line."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-K2-mean-and-median-lines-swapped": {
+    "CONTROL-P2-trend-line-falls-while-the-points-rise": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The mean and median labels are reversed, and the alt text repeats the reversal.",
-              "why": "For a chi-square distribution with 4 degrees of freedom, the mean is 4.0 and the median is approximately 3.356. The left line is therefore the median and the right line is the mean, contrary to the figure\u2019s labels and alt text. This also contradicts the title and note stating that the mean is larger than the median."
+              "what": "The alt text says the dashed line rises to the right, but its endpoints are (1, 200) and (9, 5).",
+              "why": "These values produce a downward-sloping straight line on a semi-log plot, opposite to the increasing scatter data."
+            },
+            {
+              "what": "The claimed agreement with the dashed line and the stated early-point positions are false.",
+              "why": "The first two points lie below the line, not above it. The later points do not sit close to it: at x = 9, the data value is 199.5 while the line value is 5, a log10 residual of about 1.60 rather than at most 0.04."
             }
           ],
           "confidence": "high"
@@ -159,27 +124,47 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The labels and alt text swap the mean and median, incorrectly stating that the mean is smaller than the median.",
-              "why": "For a chi-square distribution with df = 4, the mean is 4.0 and the median is approximately 3.36. Thus, the mean is the right line (4.0) and the median is the left line (3.36). The figure's text labels ('mean (left line)' and 'median (right line)') and the alt text ('the mean is the left line... so the mean is smaller than the median') are incorrect and contradict the title 'Skewed right: the mean is above the median'."
+              "what": "The dashed trend line is decreasing while the scatter data points are increasing.",
+              "why": "The dashed line is defined from (1, 200.0) to (9, 5.0), which slopes downward. However, the scatter points increase from 6.9 at x=1 to 199.5 at x=9. This contradicts the alt text stating that the dashed line runs up to the right and that the points sit close to it."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-K3-left-skew-mean-called-larger": {
+    "CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle and alt text say the long left tail pulls the mean toward larger values.",
-              "why": "A long left tail pulls the mean toward smaller values, consistent with the plotted mean of 12.0 being below the median of 12.644."
+              "what": "The half-equivalence labels are reversed: the first is labeled \u201cpH = pKa\u2082 = 9.0\u201d and the second \u201cpH = pKa\u2081 = 4.0.\u201d",
+              "why": "For the specified diprotic acid, pH is approximately pKa\u2081 = 4.0 at 12.5 mL and pKa\u2082 = 9.0 at 37.5 mL. The labels contradict the specified pKa values and the alt text."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-P4-major-species-named-in-reverse-order": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "At 8 mL, the figure labels the major species as \u201cmostly A\u00b2\u207b.\u201d",
+              "why": "This is before the first half-equivalence volume of 12.5 mL, where H\u2082A is the major species, not A\u00b2\u207b."
             },
             {
-              "what": "The alt text concludes that the mean is larger than the median, and the note says this is usual for left-skewed distributions.",
-              "why": "The plotted values show 12.0 < 12.644. Both statements reverse the relationship shown and contradict the entry's claim that the mean is usually smaller than the median under left skew."
+              "what": "At 54 mL, the figure labels the major species as \u201cmostly H\u2082A.\u201d",
+              "why": "This is beyond the second equivalence point at 50 mL, where the acid is predominantly fully deprotonated A\u00b2\u207b, not H\u2082A."
             }
           ],
           "confidence": "high"
@@ -188,35 +173,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "Subtitle text error",
-              "why": "The subtitle states 'The long left tail pulls the mean toward larger values', but a left tail pulls the mean toward smaller values (to the left)."
-            },
-            {
-              "what": "Alt text mathematical contradiction",
-              "why": "The alt text states 'The mean is the left line, at about 12.0, and the median is the right line, at about 12.6, so the mean is larger than the median.' 12.0 is smaller than 12.6, not larger."
-            },
-            {
-              "what": "Note text error",
-              "why": "The note states 'In a left-skewed distribution the mean is usually larger than the median.' This is incorrect; in a left-skewed distribution, the mean is usually smaller than the median."
+              "what": "The labels for the major species along the titration curve are reversed relative to the volume of titrant added.",
+              "why": "At 8 mL of added base (before the first equivalence point at 25 mL), the acid is mostly in its fully protonated form, H\u2082A, but the label says 'mostly A\u00b2\u207b'. Conversely, at 54 mL (after the second equivalence point at 50 mL), the acid is fully deprotonated to A\u00b2\u207b, but the label says 'mostly H\u2082A'."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-K4-skew-named-for-the-peak-side": {
+    "CONTROL-P5-straight-line-on-the-log-axis-called-a-curve": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title labels the distribution \u201cskewed right,\u201d but the curve is skewed left.",
-              "why": "The mirrored chi-square curve has a longer tail toward smaller values, as the subtitle and skew check confirm. Skew direction is named by the longer tail, not the peak."
-            },
-            {
-              "what": "The alt text and note teach that skew is named for the side containing the peak or most of the data.",
-              "why": "That rule is false and contradicts the entry\u2019s claim. A peak on the right with a long left tail indicates left (negative) skew."
+              "what": "The title, subtitle, alt text, and note falsely state that exponential data bend upward on a semi-log plot.",
+              "why": "The points satisfy y = 5 \u00d7 2^x. With a logarithmic y-axis, log(y) = log(5) + x log(2), so they form a straight line with constant slope, not an increasingly steep curve. The upward-curvature claims contradict both the drawing parameters and the entry; the note's claim that a curve indicates an exponential model is also false."
             }
           ],
           "confidence": "high"
@@ -225,41 +198,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The figure title, subtitle, alt text, and note incorrectly define skewness direction.",
-              "why": "The figure claims that a distribution with a peak on the right and a long tail to the left is 'skewed right' and that skew is named for the peak/where most data are. In reality, skew is named for the tail: a long tail to the left (smaller values) is skewed left, which also contradicts the authored reference entry's definition."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-K5-symmetric-mean-called-far-from-median": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the mean is much larger than the median and that they are far apart.",
-              "why": "The normal distribution has mean and median both equal to 8, consistent with the single line labelled \u201cmean = median.\u201d"
-            },
-            {
-              "what": "The note states that in a symmetric distribution the mean is usually much larger than the median.",
-              "why": "For the symmetric normal distribution shown, the mean and median are equal. The note also contradicts the entry\u2019s claim that they are close under relative symmetry."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The note states: 'In a symmetric distribution the mean is usually much larger than the median.'",
-              "why": "This is factually incorrect. In a symmetric distribution, the mean and median are approximately equal (or exactly equal if perfectly symmetric)."
-            },
-            {
-              "what": "The alt text states: 'The mean is much larger than the median, so they are far apart.'",
-              "why": "This contradicts the figure itself (which shows a symmetric normal distribution with a single line labeled 'mean = median' at 8.0) and the scientific reality of symmetric distributions."
+              "what": "The title, subtitle, alt text, and note assert that exponential data curves/bends upward on a semi-log plot.",
+              "why": "This is mathematically incorrect. On a semi-log plot (where the y-axis is logarithmically scaled), exponential data of the form y = a * b^x appears as a straight line, not a curve. This also directly contradicts the reference entry's own claim: 'when the y-axis is log-scaled, exponential data or functions appear linear.'"
             }
           ],
           "confidence": "high"

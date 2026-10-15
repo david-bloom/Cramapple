@@ -122,6 +122,32 @@ def nice_ticks(lo: float, hi: float, target: int = 6) -> list[float]:
     return out or [lo, hi]
 
 
+def y_tick_items(g: dict, spec: dict, y0: float, y1: float) -> list[tuple[float, str]]:
+    """(position, label) for every y tick.
+
+    A tick may carry its own label. A log axis is DRAWN in log10 units but READ
+    in the original ones (1, 10, 100), so its ticks are (position, label) pairs
+    just as a transformed x axis already uses.
+    """
+    fmt = spec.get("y_tick_fmt", "{:.0f}")
+    return [(t[0], t[1]) if isinstance(t, (tuple, list)) else (t, fmt.format(t))
+            for t in (g.get("y_ticks") or nice_ticks(y0, y1))]
+
+
+def thousands(n: int) -> str:
+    """1000 -> '1,000'. Spelled out: a locale-aware formatter differs by runtime."""
+    s, out = str(abs(n)), ""
+    while len(s) > 3:
+        out = "," + s[-3:] + out
+        s = s[:-3]
+    return ("-" if n < 0 else "") + s + out
+
+
+def decade_label(k: int) -> str:
+    """The label of the tick at 10**k on a log axis: 0 -> '1', 3 -> '1,000', -2 -> '0.01'."""
+    return thousands(10 ** k) if k >= 0 else "0." + "0" * (-k - 1) + "1"
+
+
 def smoothstep(t: float) -> float:
     return t * t * (3 - 2 * t)
 
@@ -308,7 +334,61 @@ def f_approach_equilibrium(p: dict) -> dict:
             "x_range": (0, t1), "y_range": (0, max(ys) * 1.2), "x_ticks": []}
 
 
+def diprotic_ph(v: float, v0: float, c_a: float, c_t: float, pka1: float, pka2: float) -> float:
+    """pH after v mL of strong base (c_t M) is added to v0 mL of c_a M H2A.
+
+    Solves the charge balance  Cb + [H+] = [OH-] + Ca(a1 + 2 a2)  rather than a
+    textbook shortcut, because a shortcut for one region is wrong in the next
+    and the whole point of a polyprotic curve is that there are two regions.
+    The residual falls steadily as pH rises, so bisection finds the one root;
+    bisection is also exact to the last bit in both runtimes, where an iterative
+    solver's step count is a place for the two to disagree.
+    """
+    k1, k2, kw = 10.0 ** -pka1, 10.0 ** -pka2, 1e-14
+    vt = v0 + v
+    ca, cb = c_a * v0 / vt, c_t * v / vt
+
+    def resid(ph: float) -> float:
+        h = 10.0 ** -ph
+        d = h * h + k1 * h + k1 * k2
+        return cb + h - kw / h - ca * (k1 * h + 2 * k1 * k2) / d
+
+    lo, hi = -1.0, 15.0
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        if resid(mid) > 0:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def _f_diprotic_curve(p: dict) -> dict:
+    """A diprotic weak acid (H2A) titrated with a strong base: two buffer
+    regions, two equivalence points, one pKa read at each half-equivalence."""
+    v1 = p["v_max"]
+    ph = lambda v: diprotic_ph(v, p["v0"], p["c"], p["c_t"], p["pkas"][0], p["pkas"][1])
+    pts = [(i * v1 / 1400, ph(i * v1 / 1400)) for i in range(1401)]
+    e1 = p["v_eq"]
+    e2 = 2 * e1
+    marks = [
+        {"x": e1 / 2, "y": ph(e1 / 2), "label": p["half_labels"][0], "place": "below"},
+        {"x": e1, "y": ph(e1), "label": p["eq_labels"][0], "place": "right"},
+        {"x": e1 + e1 / 2, "y": ph(e1 + e1 / 2), "label": p["half_labels"][1], "place": "below"},
+        {"x": e2, "y": ph(e2), "label": p["eq_labels"][1], "place": "left"},
+    ]
+    texts = [{"x": t["x"], "y": t["y"], "anchor": t.get("anchor", "middle"), "label": t["label"]}
+             for t in p.get("texts", [])]
+    return {"curves": [{"pts": pts, "style": "solid", "color": INK}], "areas": [],
+            "marks": marks, "legend": [], "texts": texts,
+            "vlines": [{"x": e1, "label": "", "caption": ""}, {"x": e2, "label": "", "caption": ""}],
+            "y_ticks": [0, 2, 4, 6, 8, 10, 12, 14],
+            "x_range": (0, v1), "y_range": (0, 14)}
+
+
 def f_titration_curve(p: dict) -> dict:
+    if "pkas" in p:
+        return _f_diprotic_curve(p)
     v1 = p["v_max"]
     vs = [i * v1 / 1400 for i in range(1401)]
     pts = [(v, titration_ph(v, p["v_eq"], p["pka"], p["c"], p["strong"])) for v in vs]
@@ -572,15 +652,60 @@ def f_xy_series(p: dict) -> dict:
                           "place": m.get("place", "above")})
     for h in p.get("hlines", []):
         hlines.append({"y": h["y"], "label": h["label"]})
+    # Free text in data coordinates, for a label that must NOT carry a point
+    # marker: a `mark` always draws a dot, and a dot beside a data point reads
+    # as one more observation.
+    texts = [{"x": t["x"], "y": t["y"], "anchor": t.get("anchor", "middle"), "label": t["label"]}
+             for t in p.get("texts", [])]
+    log_y = p.get("y_scale") == "log"
+    if log_y:
+        # A semi-log plot: the y axis is logarithmic. Every drawn y is mapped
+        # through log10 HERE, so the shared renderer keeps its one linear
+        # mapping and only the tick LABELS need to know (they read 1, 10, 100
+        # at positions 0, 1, 2). Nothing on a log axis can be zero or negative,
+        # and an area "under" a curve has no baseline there, so both are errors
+        # rather than quietly drawn.
+        if areas:
+            raise ValueError("fill_under has no baseline on a log axis")
+        if "y_ticks" in p:
+            raise ValueError("a log axis chooses its own decade ticks")
+        pos = [y for c in curves for _, y in c["pts"]] + [d["y"] for d in dots] \
+            + [m["y"] for m in marks] + [h["y"] for h in hlines] + [t["y"] for t in texts]
+        if any(y <= 0 for y in pos):
+            raise ValueError("a log axis needs every value above zero")
+        for c in curves:
+            c["pts"] = [(x, math.log10(y)) for x, y in c["pts"]]
+        for d in dots:
+            d["y"] = math.log10(d["y"])
+        for m in marks:
+            m["y"] = math.log10(m["y"])
+        for h in hlines:
+            h["y"] = math.log10(h["y"])
+        for t in texts:
+            t["y"] = math.log10(t["y"])
     xs = [x for c in curves for x, _ in c["pts"]] + [d["x"] for d in dots]
     ys = [y for c in curves for _, y in c["pts"]] + [d["y"] for d in dots]
     xr = p.get("x_range") or (min(xs) - (max(xs) - min(xs)) * 0.08,
                               max(xs) + (max(xs) - min(xs)) * 0.08)
-    pad = (max(ys) - min(ys)) * 0.16 or 1
-    yr = p.get("y_range") or (min(ys) - pad, max(ys) + pad)
+    if log_y:
+        # The window is whole decades, so every axis end is a labelled power of ten.
+        if "y_range" in p:
+            yr = (math.log10(p["y_range"][0]), math.log10(p["y_range"][1]))
+        else:
+            lo, hi = math.floor(min(ys)), math.ceil(max(ys))
+            yr = (lo, hi if hi > lo else lo + 1)
+    else:
+        pad = (max(ys) - min(ys)) * 0.16 or 1
+        yr = p.get("y_range") or (min(ys) - pad, max(ys) + pad)
     out = {"curves": curves, "areas": areas, "dots": dots, "marks": marks,
            "hlines": hlines, "legend": legend,
            "x_range": tuple(xr), "y_range": tuple(yr)}
+    if texts:
+        out["texts"] = texts
+    if log_y:
+        out["y_ticks"] = [(k, decade_label(k))
+                          for k in range(math.ceil(yr[0] - 1e-9), math.floor(yr[1] + 1e-9) + 1)]
+        out["y_log"] = True
     if p.get("hide_axis_numbers"):
         # A qualitative PV diagram teaches shape, not readings: unlabelled axes
         # are the convention, and invented numbers would imply a measurement.
@@ -1599,8 +1724,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
     # and collided on the very first AP Statistics figure.
     tick_w = 0.0
     if not bare and not no_y and not g.get("hide_y_ticks"):
-        ylabels = [spec.get("y_tick_fmt", "{:.0f}").format(v)
-                   for v in (g.get("y_ticks") or nice_ticks(y0, y1))]
+        ylabels = [lbl for _, lbl in y_tick_items(g, spec, y0, y1)]
         tick_w = 0.55 * FK * max((len(t) for t in ylabels), default=1)
         need = 10 + tick_w + FA * 1.6 + 6
         if need > L:
@@ -1665,7 +1789,7 @@ def render(spec: dict, layout: str = "expanded") -> str:
     ]
     # gridlines
     if not bare and not no_y:
-        for y in (g.get("y_ticks") or nice_ticks(y0, y1)):
+        for y, _ in y_tick_items(g, spec, y0, y1):
             if y0 < y < y1:
                 o.append(f'<line x1="{L}" y1="{sy(y):.1f}" x2="{L+pw}" y2="{sy(y):.1f}" stroke="{GRID}" stroke-width="0.8"/>')
     # shaded areas
@@ -2341,6 +2465,8 @@ def render(spec: dict, layout: str = "expanded") -> str:
             o.append(f'<text x="{px:.1f}" y="{py-13:.1f}" text-anchor="middle" font-size="{FM}" fill="{INK}">{esc(m["label"])}</text>')
         elif m["place"] == "right":
             o.append(f'<text x="{px+10:.1f}" y="{py+4:.1f}" font-size="{FM}" fill="{INK}">{esc(m["label"])}</text>')
+        elif m["place"] == "left":
+            o.append(f'<text x="{px-10:.1f}" y="{py+4:.1f}" text-anchor="end" font-size="{FM}" fill="{INK}">{esc(m["label"])}</text>')
         else:
             o.append(f'<text x="{px:.1f}" y="{py+20:.1f}" text-anchor="middle" font-size="{FM}" fill="{INK}">{esc(m["label"])}</text>')
     # measured vertical arrows (activation energy, well depth, dH)
@@ -2365,10 +2491,9 @@ def render(spec: dict, layout: str = "expanded") -> str:
             o.append(f'<text transform="translate({L-ylab_dx:.1f},{T+ph/2:.1f}) rotate(-90)" text-anchor="middle" font-size="{FA}" '
                      f'font-weight="700" fill="{INK}" letter-spacing="0.08em">{esc(spec["y_label"].upper())}</text>')
     if not bare and not no_y and not g.get("hide_y_ticks"):
-        for y in g.get("y_ticks") or nice_ticks(y0, y1):
-            lbl = spec.get("y_tick_fmt", "{:.0f}").format(y)
+        for y, lbl in y_tick_items(g, spec, y0, y1):
             o.append(f'<line x1="{L-5}" y1="{sy(y):.1f}" x2="{L}" y2="{sy(y):.1f}" stroke="{GRAY}" stroke-width="0.9"/>')
-            o.append(f'<text x="{L-10}" y="{sy(y)+4:.1f}" text-anchor="end" font-size="{FK}" fill="{GRAY}">{lbl}</text>')
+            o.append(f'<text x="{L-10}" y="{sy(y)+4:.1f}" text-anchor="end" font-size="{FK}" fill="{GRAY}">{esc(lbl)}</text>')
     # x ticks: plain values, or (position, label) pairs when the axis is transformed
     for tk in ([] if bare else (g["x_ticks"] if "x_ticks" in g else nice_ticks(x0, x1))):
         pos, lbl = tk if isinstance(tk, (tuple, list)) else (tk, spec.get("x_tick_fmt", "{:.0f}").format(tk))
