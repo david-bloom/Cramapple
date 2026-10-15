@@ -91,7 +91,7 @@ profile. Check the label strings first — protocol v1.5 §4a — and note both 
 | ~~Stats 2.1 Judging association from two categorical variables~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-association-yes` and `stats-association-no` | not a reuse: the published two-categorical figures belong to a different 2.1 entry and show one dataset; this entry needs a differing and a matching pair |
 | Stats 1.9 Which graphs compare which features | **not a figure (ruled 2026-10-15)** | the entry is a mapping from graph type to the features it compares, a table in words; attaching the four existing graph figures would assert labels the entry does not teach |
 | ~~Stats 1.6 Gap~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-gap-histogram` | a histogram with one empty bin, not a reuse of `stats-histogram` |
-| ~~Stats 1.6 Skew direction is named by the longer tail; 1.8 Mean vs. median under skew~~ | **BUILT 2026-10-15, Development** as six `density_curve` figures (`stats-skew-*`, `stats-mean-median-*`) | needed a left-skewed curve: `mirror_about` on the chi-square curve, in both renderers (`ap-prep-blueprint#26`). **Production load is blocked on an app publish**, which is itself blocked, see `LANE_A_NEXT_LANE_BATCH3_2026_10_15.md` |
+| ~~Stats 1.6 Skew direction is named by the longer tail; 1.8 Mean vs. median under skew~~ | **BUILT 2026-10-15, live in Production (APPROVAL-0170)** as six `density_curve` figures (`stats-skew-*`, `stats-mean-median-*`) | needed a left-skewed curve: `mirror_about` on the chi-square curve, in both renderers (`ap-prep-blueprint#26`). app published with More help (APPROVAL-0169); see `LANE_A_NEXT_LANE_BATCH3_2026_10_15.md` |
 
 ## 6. Lane B (spatial or schematic — stops here)
 
