@@ -2,6 +2,8 @@
 
 **Status: In progress; Production release pending.** Owner authorized backend/app QA and deployment work alongside a topic-tagging audit. Backend draft [#464](https://github.com/david-bloom/Cramapple/pull/464); app draft [#29](https://github.com/david-bloom/ap-prep-blueprint/pull/29).
 
+> Subsequent owner instruction merged backend464/app29 and applied64 priority topic cells underAPPROVAL0178. See [current tagging result and updated counts](MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md). Remaining release gates below remain open unless explicitly updated there.
+
 ## Backend/app evidence
 
 Development grounding migration `20261015175446` and conditional canonical hash-helper restoration `20261015175807` are applied. Initial grounding apply failed on a missing statement terminator and rolled back; corrected execution and six real MCQ/FRQ payload assertions passed. Ledger filenames match. Production remains unchanged.

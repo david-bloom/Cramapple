@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0178 — Tag the65 priority More help questions;64 applied/verified,1 scope ruling pending](APPROVAL-0178_MORE_HELP_PRIORITY_TOPIC_TAGGING_2026_10_15.md)
+
 - APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
 - APPROVAL-0173 — Attach the Four Built Question Visuals to Their Live Student Questions (Production, Existing Private-Image Delivery Contract)
 - APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
