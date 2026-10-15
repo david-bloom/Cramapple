@@ -1,6 +1,8 @@
 # WORK-QUESTION-IMAGE-COMPLETENESS — Required question visuals
 
 **Status:** Units 1–3 required-visual slice COMPLETE and certified PASS:726/726 source audit,198 independent semantic checks, all 10 scope uncertainties resolved; six live v2 images verified on desktop / 320 CSS. Wider subjects and separate question-delivery defects remain open.
+**Session closed:** 2026-10-15, at David’s request. [Session close and reusable discovery/render/storage plan](../handoffs/SESSION_CLOSE_2026_10_15_QUESTION_VISUAL_COMPLETENESS.md). No further work continues in this session; the wider task remains open.
+
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
