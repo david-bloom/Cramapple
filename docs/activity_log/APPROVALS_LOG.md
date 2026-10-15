@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
 - APPROVAL-0173 — Attach the Four Built Question Visuals to Their Live Student Questions (Production, Existing Private-Image Delivery Contract)
 - APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
 - APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
@@ -142,6 +143,17 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
+
+- **Date:** 2026-10-15.
+- **Authorization basis:** David’s continuing instruction to “attach to live student questions,” followed by “Finish the audit. Resolve the 10. certify calc and chem 1-3.” The two additional visual constructs were reported, built and made reviewable before release. David then explicitly answered “Yes” to running the separate read-only QA agent required for certification. This records the necessary continuation of the authorized live-image repair scope; it does not treat that last Yes as a new unrestricted deployment approval.
+- **Named scope:** the two compact PNGs for `apcalcab-mcq-060` / `f492bfbf-5434-434f-a4d8-50b058477139` (SHA-256 `aeebaee24dc1fbea1b833ac7e165bf3750c18905daea509843b434d51feec81d`) and `apchem-frq-u13g-3-8` / `959822a0-5cd4-4e1f-813e-58241c6c66cf` (SHA-256 `04f69c1149733ea80a002f1704dca6b81c1f02f4a9e008bea36d13796794827b`), exact reviewed metadata and required/approved decisions through the existing private `content-assets` contract. Full reviewed-source digest guards, rollback rehearsal and unchanged scoring/taxonomy are required. Prior four assets remain unchanged.
+- **QA:** fresh independent reviewer passed all six source/compact-image pairs, all ten audit-unit resolutions and 198 independently read questions; mechanically reconciled all 726 source/review identities. Two transaction-design findings were fixed and rechecked. [Report](../qa/CALC_CHEM_U13_IMAGE_INDEPENDENT_QA_2026_10_15.md).
+- **Reference direction:** David accepts existing periodic-table access as sufficient and permits an online-link convenience. The minimal Chemistry-only link PR #28 is separately subject to passing app checks and source alignment before merge/publication; no copied table asset is required.
+- **Boundaries:** no question/scoring rewrite, serving-label promotion, schema/RLS/Edge Function change or public-bucket grant. No unrelated app changes are authorized. Desktop/phone and signed-byte evidence must be recorded before a bounded missing-visual certificate; broader failure/expiry/scoring behavior is not certified by this operation.
+- **Recovery:** exact release-owned metadata/requirement hashes, complete reviewed source and row locks; preserve immutable objects. SQL and manifest at `scripts/question-visuals-certification/`. Result pending execution.
+
 
 ## APPROVAL-0173 — Attach the Four Built Question Visuals to Their Live Student Questions
 
