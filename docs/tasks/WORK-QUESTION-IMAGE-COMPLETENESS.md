@@ -1,6 +1,6 @@
 # WORK-QUESTION-IMAGE-COMPLETENESS — Required question visuals
 
-**Status:** Four owner-requested visual builds complete locally; independent review and student delivery pending.
+**Status:** Four owner-requested compact visuals attached to live Production question versions under APPROVAL-0168; signed downloads verified. Signed-in browser rendering and fresh independent review remain unverified.
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
@@ -9,7 +9,7 @@
 
 **Build authorization:** David subsequently directed “Build the 4” (2026-10-14). The three Calculus AB graphs and Chemistry particulate diagram identified by the source review are built at `scripts/question-visuals-pilot/`: deterministic JSON source, renderer, 12 SVG/PNG layout pairs, accessible text, exact-version/hash manifest and preview. Eight semantic/layout/artifact tests pass, and all 12 renderings were inspected. The four live published versions' stem/stimulus hashes match the reviewed source. This authorizes the artifact build; it does not record a Production deployment approval or change database image decisions. The code follows deterministic rendering principles; no reference-catalogue rows/families were added. See the build README for interpolation, glyph-size and delivery details.
 
-**Production attachment authorization:** David then instructed “attach to live student questions” (`APPROVAL-0168`). The active tier is Hard-Gate and this specific Production operation is authorized: four private compact PNG objects plus exact-version image paths, approved accessibility metadata and image-requirement decisions. Existing question text/scoring stays unchanged; no app/function/schema deployment. Execution and delivery evidence follows before any release-complete claim.
+**Production attachment authorization:** David then instructed “attach to live student questions” (`APPROVAL-0168`). The active tier is Hard-Gate and this specific Production operation is authorized: four private compact PNG objects plus exact-version image paths, approved accessibility metadata and image-requirement decisions. Existing question text/scoring stays unchanged; no app/function/schema deployment. Applied atomically at 2026-10-15 01:40:28 UTC after a rollback rehearsal: four paths, four approved metadata rows, four required/approved decisions. All four signed downloads match their SHA-256; public reads are blocked. Student-role teaching RPCs select the two exact teaching versions with images. Question/scoring content, taxonomy hashes and label rows were verified unchanged in the transaction. Browser is signed out; no signed-in render claim. The ordinary RPC student probe could not run because no student has this AB pack active. Evidence and unexecuted rollback: `scripts/question-visuals-pilot/production-release.json`, `attach_production.sql`, `rollback_production.sql`. Next owner David/signed-in QA: verify both worked examples and both FRQs visually; no additional owner approval is required for the completed attachment.
 
 ## Active pilot scope — owner direction, 2026-10-14
 
@@ -27,7 +27,7 @@ There are **no confidently resolved Unit 4 candidates in this subset**. Chemistr
 
 Pilot queue: classify these 91 for required visuals and resolve the unit scope of the 10 uncertain rows separately. Preserve the four beyond-scope rows as excluded evidence. The read-only membership query and all 105 version identities/unit evidence are frozen in `scripts/image_readiness/question_image_pilot_scope.sql` and `question_image_pilot_scope.json`.
 
-**Source review completed, 2026-10-15 UTC:** all 91 reviewed question by question. **86 have no missing prompt image identified; four have visual-construct concerns (3 AB, 1 Chemistry); one Chemistry item needs periodic-table delivery checked.** No question-specific numerical givens were found missing solely because an image was absent. Per-question source evidence and reasons: `scripts/image_readiness/question_image_pilot_review.json`; report: `docs/qa/QUESTION_IMAGE_PILOT_SOURCE_REVIEW_2026_10_14.md`. These are preliminary source classifications, not independent QA, browser delivery certification or database image-need decisions. No image repairs have been performed.
+**Source review completed, 2026-10-15 UTC:** all 91 reviewed question by question. **86 have no missing prompt image identified; four have visual-construct concerns (3 AB, 1 Chemistry); one Chemistry item needs periodic-table delivery checked.** No question-specific numerical givens were found missing solely because an image was absent. Per-question source evidence and reasons: `scripts/image_readiness/question_image_pilot_review.json`; report: `docs/qa/QUESTION_IMAGE_PILOT_SOURCE_REVIEW_2026_10_14.md`. These are preliminary source classifications, not independent QA, browser delivery certification or database image-need decisions. The four visuals were subsequently built and attached under APPROVAL-0168 as recorded above.
 
 ## Outcome and boundary
 
@@ -35,7 +35,7 @@ Long-term goal: find every published question version that cannot deliver its in
 
 An absent PNG is not proof of a defective question. A table may already contain all givens, a formula may define the complete task, or the student may be asked to draw the graph. Conversely, a complete prose description may make a question mathematically answerable while removing the intended graph-reading skill. Record both **answerability** and **construct fidelity**.
 
-Out of this slice: learner handwriting/capture, BYOQ private photos, general reference-note illustrations, grading changes, question rewriting, paid model runs, asset uploads, migrations and deployments. Repairs may need later slices; this plan does not silently authorize them.
+Outside the original audit slice: learner handwriting/capture, BYOQ private photos, general reference-note illustrations, grading changes, question rewriting, paid model runs, migrations and deployments. The later explicit build and attachment directions authorize only the four repairs recorded above.
 
 ## Verified starting point
 
