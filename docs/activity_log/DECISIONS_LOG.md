@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
 - DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
 - DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
@@ -73,6 +74,14 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
+
+- **Date:** 2026-10-15
+- **Decided by:** David Bloom (Product Owner), in session: "Cross subject duplicates are allowed."
+- **Decision:** the three cross-subject near-duplicate entries in `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md` §3.3 (vector arrows, Physics 1 1.1 and Physics C Mechanics 1.1; free-body diagram, Physics 1 2.2 and Physics C Mechanics 2.2; electric field map, Physics 2 10.3 and Physics C E&M 8.3) stay as authored in each subject. No `app.subject_reference_aliases` rows, no title or label normalisation. Where a figure serves both entries it may be shared through a `figure_uses` row per entry; the existing rule stands that a shared figure's `covers` must list every wording it carries.
+- **Not decided here:** whether any other pair of cross-subject entries should be aliased; each would still need its own call.
+- **Execution:** documentation only. No data change.
 
 ## DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
 

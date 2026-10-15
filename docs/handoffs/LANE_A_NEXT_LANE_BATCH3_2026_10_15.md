@@ -1,7 +1,7 @@
 # Next figure lane, batch 3: skew direction and mean versus median (AP Statistics)
 
-**STATUS:** built and verified in the renderers; **loaded to Development only.** **The app change is pushed but NOT merged and NOT published,
-and Production is untouched.** The reason is a conflict with the More help release, below.
+**STATUS:** built, verified, and **live in Production (2026-10-15, `APPROVAL-0170`).** The app change (`ap-prep-blueprint#26`) was merged and published
+with the More help release (`APPROVAL-0169`); the More help backend landed first (`APPROVAL-0167`/`-0168`). **Still owed:** a signed-in look at Statistics 1.6 and 1.8 to confirm the left-skew figures draw left-skewed (else retire `stats-skew-left` and `stats-mean-median-left`).
 **DATE:** 2026-10-15. **Ruling:** `DECISION-0123` item 4, plus David's 2026-10-15 "Yes on 2, build and have lovable publish".
 
 ## What was built
@@ -32,7 +32,7 @@ curve now takes an optional `mirror_about`, reflecting it: `density(x) = chi2(mi
 
 ## The blocker: publishing the app would also publish More help
 
-Lovable publishes `main`, which carries the More help feature for Calculus AB/BC and Chemistry, with **no feature flag**. Production
+*Historical (resolved: backend migrated, function deployed, app published).* Lovable publishes `main`, which carries the More help feature for Calculus AB/BC and Chemistry, with **no feature flag**. Production
 does **not** have its backend: the four migrations `20261014001227`, `20261014005146`, `20261014014023`, `20261014015127` are applied
 in Development only (checked 2026-10-15). `MORE_HELP_SESSION_CLOSE_2026_10_14.md` says the production rollout is in progress and
 lists "exact app publication" as a pending step. Publishing now would put a More help control on every Calculus and Chemistry
