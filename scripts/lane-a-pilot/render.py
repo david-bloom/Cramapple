@@ -1022,6 +1022,12 @@ def f_density_curve(p: dict) -> dict:
     def dens(c, x):
         if c["kind"] == "normal":
             return _normal_pdf(x, c["mu"], c["sigma"])
+        # `mirror_about` reflects a chi-square about that x, giving the LEFT-skewed
+        # curve the family could not draw: density(x) = chi2(mirror_about - x).
+        # One subtraction, identical in Python and JavaScript, so the two
+        # renderers still agree byte for byte.
+        if "mirror_about" in c:
+            return _chi2_pdf(c["mirror_about"] - x, c["df"])
         return _chi2_pdf(x, c["df"])
 
     curves, legend = [], []

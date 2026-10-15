@@ -6,7 +6,9 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0123 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
+- DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
+- DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
+- DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
 - DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
 - DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
@@ -74,7 +76,7 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## DECISION-0123 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
+## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
 
 - **Date:** 2026-10-14
 - **Decided by:** David Bloom (Product Owner), in session, answering the four rulings requested in `TASK-0075`: "Scope: start with 383 then do the 1,664. Notation: latex everywhere. Units: I approve your recommendation."
@@ -87,6 +89,25 @@ Most recent entries (full chronological list follows below):
   5. **Order for Tier B:** Physics C E&M, Physics C Mechanics, Physics 1, Physics 2, Precalculus, Chemistry, Statistics, Biology, with Calculus last.
 - **Open:** the storage location of the Deep Dive lesson notes (not found by table name); bracket-free quotient choices (such as `4πR²/ρ`) that the regex inventory cannot find; FRQ stems and stimuli, until the grader-read risk is solved.
 - **Execution:** documentation only in this decision. Work is tracked in `TASK-0075`.
+## DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
+
+- **Date:** 2026-10-15
+- **Decided by:** David Bloom (Product Owner), in session: "Cross subject duplicates are allowed."
+- **Decision:** the three cross-subject near-duplicate entries in `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md` §3.3 (vector arrows, Physics 1 1.1 and Physics C Mechanics 1.1; free-body diagram, Physics 1 2.2 and Physics C Mechanics 2.2; electric field map, Physics 2 10.3 and Physics C E&M 8.3) stay as authored in each subject. No `app.subject_reference_aliases` rows, no title or label normalisation. Where a figure serves both entries it may be shared through a `figure_uses` row per entry; the existing rule stands that a shared figure's `covers` must list every wording it carries.
+- **Not decided here:** whether any other pair of cross-subject entries should be aliased; each would still need its own call.
+- **Execution:** documentation only. No data change.
+
+## DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
+
+- **Date:** 2026-10-15
+- **Decided by:** David Bloom (Product Owner), in session, answering the open items in `SESSION_CLOSE_2026_10_12_FIGURES_COMPLETE.md` §8 and `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md` §7.
+- **Decisions:**
+  1. **`DECISION-0116` is approved as written**: when a published entry authors no `items[]`, the figure's own `labels` are the contract (route b), declared per use and gated in `verify.py`.
+  2. **Chemistry 3.5 owns the Maxwell-Boltzmann distribution figure** (handoff §2e). The record already matches: `chem-mb-energy` is published on Chemistry 3.5 "Maxwell-Boltzmann distribution" and on 5.5, and `chem-mb-catalysis` is published on 5.11 "How a catalyst increases rate". The ruling named `chem-mb-analysis`, which is not a figure id and appears nowhere in the figures table; it is read as the `chem-mb-*` family. No data change.
+  3. **The `field_map`, `circuit_symbols` and three `xy_series` gap figures are released without an expert review.** They pass every gate and were already serving; this records the Product Owner's acceptance of the standing "no human subject expert has reviewed any batch's illustrative values" risk for them. The risk is not retired for any other batch.
+  4. **The chart-shaped entries outside `kind='diagram'` become the next figure lane** (the "~81" of `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`, which answers the 2026-10-12 close's question). Entries that classification marks "not a figure" (section 7: bare formulas, conditions lists, prose) are out of scope, so the buildable set is smaller than 81. Order follows classification section 8.
+- **Execution:** documentation only. Any Production figure load remains a Hard Gate with its own approval.
+- **Still open from the same handoff:** section 3.3, the three cross-subject duplicate entries.
 
 ## DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists
 
