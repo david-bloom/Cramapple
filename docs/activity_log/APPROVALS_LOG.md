@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
 - APPROVAL-0168 — Production Deploy of the `more-help` Edge Function (JWT-Verified), Source Identical to Development v10; Secrets Not Changed, App Not Published
 - APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
 - APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
@@ -138,17 +139,31 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Yes on 2, build and have lovable publish" and "Then publish the subjects", and, once the backend was in place, "Can we engage the edge function?" in answer to the option "deploy the function, then publish".
+- **Scope:** publish Lovable project `56cae479-f7c9-4988-b536-56538c38ee4e` ("New Cramapple App") from `main` at `730ef6202b5efc0a59b8b13a0ecba03d985c0a5e`. A publication ships every commit merged to `main`, whether or not it was published before. The connector does not show the last published commit, so the delta cannot be stated exactly; the merged changes of the last two days are: More help for Calculus AB/BC and Chemistry (#21, #24, #25), prose maths on reviewer, admin and grader surfaces (#23), the shared memory hook shown once (#26), and left-skewed density curves (`mirror_about`, #26).
+- **Backend this depends on, all in Production:** the four More help migrations (`APPROVAL-0167`) and the `more-help` Edge Function (`APPROVAL-0168`). With the figures, `mirror_about` is a renderer capability only; the six skew figures are still Development-only and need their own load approval after this publication.
+- **What students will see:** a More help control on Calculus AB/BC and Chemistry questions that calls the live function, with the daily allowance and rate limits in `APPROVAL-0168`.
+- **Not closed by this approval:** independent red-team QA, the real-generation outcome for MCQs, partial work and graded states, and the signed-in smoke. See `docs/handoffs/MORE_HELP_SESSION_CLOSE_2026_10_14.md`.
+- **Rollback:** revert the offending commit on `main` and publish again; or, for More help alone, delete the `more-help` function (the control then says "More help isn't available yet"). Database changes are additive and need no rollback to restore grading.
+- **Result:** recorded below once verified.
+
 ## APPROVAL-0168 — Production Deploy of the `more-help` Edge Function (JWT-Verified), Source Identical to Development v10; Secrets Not Changed, App Not Published
 
 - **Date:** 2026-10-15
 - **Granted by:** David Bloom (Product Owner), in session: "Can we engage the edge function?", answering the options put after the four More help migrations reached Production (`APPROVAL-0167`): deploy the function, publish without it, or hold.
-- **Scope:** deploy Edge Function `more-help` to Production (`pcntajvbdfqhbeewmdry`) with JWT verification ON, from the merged `main` sources: `supabase/functions/more-help/{index,contract,handler,model,diagnostics}.ts` and the four shared modules it imports (`_shared/auth.ts`, `supabase.ts`, `http.ts`, `cors.ts`). Development runs the same function as v10 (bundle sha256 `20c84b8c4dd2a2f1c81b1f4473f7d9dedc5b9c50f3a89e30884357b18d3a6aee`); the Production bundle hash is compared to it after deploy.
+- **Scope:** deploy Edge Function `more-help` to Production (`pcntajvbdfqhbeewmdry`) with JWT verification ON, from the merged `main` sources: `supabase/functions/more-help/{index,contract,handler,model,diagnostics}.ts` and the four shared modules it imports (`_shared/auth.ts`, `supabase.ts`, `http.ts`, `cors.ts`). Development runs the same function as v10. The platform's bundle hash cannot be used to compare environments (it depends on the deploy path: `report-question`, identical in both, hashes differently), so equality is checked by reading the deployed files back instead.
 - **What it does:** authenticates the student, reads the question with the caller's own RPC, reserves a durable receipt through the service-only RPCs from `APPROVAL-0167`, and only then calls the AI Gateway (`anthropic/claude-haiku-5.5`) for one validated explanation, committing assistance when it is delivered. Built-in caps: 30 delivered helps per student per day, 90 attempted calls per student per day, 6 per minute, 1,000 per day overall. Calculus AB/BC and Chemistry only; entitlement required.
 - **Spend and exposure:** this is the first Production path that sends student question context and work to a model provider. The Product Owner has directed it; the function logs no student work, token or provider body.
 - **Pre-state (read-only, 2026-10-15):** Production has no `more-help` function (20 other functions listed); `get_question_experience` is byte-identical to Development; the four migrations are applied.
 - **NOT included:** creating or changing any secret (the function needs `ALLOWED_ORIGINS` and `AI_GATEWAY_API_KEY`; if the key is missing it answers `help_not_configured` and makes no model call), and any Lovable publication. Until the app is published nothing in the product calls the function. The open items from the session close of 2026-10-14 are not closed by this approval: independent red-team QA, the real-generation outcome for MCQs, partial work and graded states, and the signed-in smoke.
 - **Rollback:** delete the function (`supabase functions delete more-help`, or the dashboard). The app then reports "More help isn't available yet" and the receipts already written stay as inert metadata. Not publishing the app also stops all calls.
-- **Result:** recorded below once verified.
+- **Result (2026-10-15):** `more-help` is deployed to Production as **v1**, `ACTIVE`, **JWT verification ON**, entrypoint `more-help/index.ts`, nine files. Production now lists 21 functions.
+  - **Source:** the five `more-help` files and four shared modules were deployed from merged `main` (`contract.ts` taken verbatim from `main`; the rest matched Development v10 on reading). Reading the deployed files back shows the text submitted, including the non-ASCII characters in `contract.ts`. **Not verified:** a mechanical byte hash of the deployed files against `main`, because no hash is available that is independent of the deploy path.
+  - **Dependencies confirmed before deploy:** `get_question_experience` is byte-identical in both environments, and the four migrations from `APPROVAL-0167` are in place.
+  - **Not verified, and cannot be from this session:** that the function boots and answers. Production's functions host is not reachable from here, and the function needs `ALLOWED_ORIGINS` and `AI_GATEWAY_API_KEY`, whose presence I could not read (the 2026-10-14 checkpoint recorded the names as present). If the key is missing the function answers `help_not_configured` and makes no model call. **The first signed-in More help request on a Calculus or Chemistry question is the real smoke test.**
 
 ## APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
 
