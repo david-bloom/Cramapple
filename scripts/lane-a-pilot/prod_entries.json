@@ -1606,5 +1606,33 @@
     ],
     "items_md5": "00bf0f05aefacc49b5d0944fdbb6bc12"
   },
-  "_note": "Published app.unit_reference_entries rows (kind='diagram', subject ap_chemistry) in PRODUCTION (pcntajvbdfqhbeewmdry), read 2026-10-10; items[] restored 2026-10-11. Each entry's items[] is the exact published array: it was selected from this repository's batch candidate artifacts by matching md5(label»meaning joined on '|') against the same digest computed in Production, so no content was retyped. items_md5 records that digest; re-run the Production query in FIGURE_PRODUCTION_PROTOCOL.md section 2 to re-confirm. verify.py asserts label coverage per ENTRY against these arrays, so stripping them silently voids that gate. EXTENDED 2026-10-11: every entry now carries its published `body` (and `caution` where set) and a `body_md5`, because ced_check.py puts the body in the reader prompt as the entry's claim and it was resolving to '(not available)'. DECISION-0116 makes that prompt the only gate standing where the reference-pack checkers do not watch, so a route-(b) figure cannot be reviewed without it. The twelve AP Statistics and Physics entries added in the later batches carried no items_md5 at all; all 36 were re-read from Production on 2026-10-11, their stored items[] compared byte for byte (none had drifted), and the digests recorded. KEYED BY SUBJECT 2026-10-11: the key is now 'subject_key::title'. Two published entries share the title 'Vector arrow representation' -- AP Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key silently dropped one of them and the coverage gate would have asserted the survivor's items[] for both."
+  "_note": "Published app.unit_reference_entries rows (kind='diagram', subject ap_chemistry) in PRODUCTION (pcntajvbdfqhbeewmdry), read 2026-10-10; items[] restored 2026-10-11. Each entry's items[] is the exact published array: it was selected from this repository's batch candidate artifacts by matching md5(label»meaning joined on '|') against the same digest computed in Production, so no content was retyped. items_md5 records that digest; re-run the Production query in FIGURE_PRODUCTION_PROTOCOL.md section 2 to re-confirm. verify.py asserts label coverage per ENTRY against these arrays, so stripping them silently voids that gate. EXTENDED 2026-10-11: every entry now carries its published `body` (and `caution` where set) and a `body_md5`, because ced_check.py puts the body in the reader prompt as the entry's claim and it was resolving to '(not available)'. DECISION-0116 makes that prompt the only gate standing where the reference-pack checkers do not watch, so a route-(b) figure cannot be reviewed without it. The twelve AP Statistics and Physics entries added in the later batches carried no items_md5 at all; all 36 were re-read from Production on 2026-10-11, their stored items[] compared byte for byte (none had drifted), and the digests recorded. KEYED BY SUBJECT 2026-10-11: the key is now 'subject_key::title'. Two published entries share the title 'Vector arrow representation' -- AP Physics 1 1.1 and AP Physics C Mechanics 1.1 -- so a title-only key silently dropped one of them and the coverage gate would have asserted the survivor's items[] for both.",
+  "ap_chemistry::Entropy increases with temperature (energy dispersal)": {
+    "title": "Entropy increases with temperature (energy dispersal)",
+    "reference_entry_id": "f775f891-95e7-467d-97f4-e7bd740afebb",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "owner_topic_code": "9.1",
+    "lane": "A",
+    "kind": "convention",
+    "body": "Entropy increases when energy is dispersed: the distribution of kinetic energy among gas particles broadens as temperature rises, so the entropy of the system increases with temperature.",
+    "body_md5": "a322f884df2e9b63f7ec808a12041935",
+    "caution": null,
+    "items": [],
+    "items_md5": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "ap_chemistry::Reaction coordinate": {
+    "title": "Reaction coordinate",
+    "reference_entry_id": "06c06f70-791e-4fb4-a556-755e12241749",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "owner_topic_code": "5.6",
+    "lane": "A",
+    "kind": "vocabulary",
+    "body": "The axis along which the complex set of motions involved in rearranging reactants to form products can be plotted.",
+    "body_md5": "77ebf6447b7afa9ab4d57dc2c2391ec7",
+    "caution": null,
+    "items": [],
+    "items_md5": "d41d8cd98f00b204e9800998ecf8427e"
+  }
 }

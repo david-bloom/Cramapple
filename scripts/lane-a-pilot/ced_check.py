@@ -610,6 +610,63 @@ def laneb_gap_controls(specs: dict) -> dict:
     return c
 
 
+def next1_controls(specs: dict) -> dict:
+    """Controls for the first batch of the chart-shaped lane outside kind='diagram'.
+
+    Two figures, both on families that already existed, both on entries that author
+    no items[] (DECISION-0116 route b). N1, N2 and N4 pass verify.py cleanly, so they measure
+    whether a reader adds anything over the suite; N3 and N5 are ones the suite catches.
+    """
+    c = {}
+
+    # N1 the series labels swapped: the BROADER curve is called the lower
+    # temperature. Geometry and thetas are untouched, so the suite passes, and a
+    # student would learn that cooling spreads the energy out.
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["params"]["series"][0]["label"], s["params"]["series"][1]["label"] = \
+        "Higher temperature", "Lower temperature"
+    c["CONTROL-N1-temperature-labels-swapped"] = s
+
+    # N2 the conclusion reversed in words: the drawing is untouched.
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["subtitle"] = "The same gas at two temperatures: the hotter distribution is narrower"
+    s["note"] = "A narrower distribution means the energy is less dispersed, so the entropy is smaller at higher temperature."
+    s["alt"] = s["alt"].replace(
+        "The higher-temperature curve has a lower peak and is broader and shifted to higher energy, so the kinetic energy is spread over a wider range of values.",
+        "The higher-temperature curve has a taller peak and is narrower, so the kinetic energy is concentrated in a smaller range of values.")
+    c["CONTROL-N2-dispersal-conclusion-reversed"] = s
+
+    # N3 both curves drawn at the SAME temperature but still labelled lower and
+    # higher: the picture shows no broadening at all while the words promise it.
+    # (Run 1 used a speed-for-energy axis relabelling here; both readers accepted
+    # it, correctly -- a distribution that broadens with temperature broadens
+    # whether it is plotted against speed or energy, so nothing false was taught.
+    # The control was the defect, per protocol 4c. verify.py CATCHES this one.)
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["params"]["series"][1]["theta"] = s["params"]["series"][0]["theta"]
+    c["CONTROL-N3-both-curves-the-same-temperature"] = s
+
+    # N4 the reaction coordinate defined as elapsed time. The drawing is the same
+    # curve; the entry's whole point is that the axis is a path of motions, not a
+    # clock. The suite does not read the axis title, so this passes.
+    s = copy.deepcopy(specs["chem-reaction-coordinate"])
+    s["x_label"] = "time"
+    s["subtitle"] = "The axis along which time passes as the reaction runs"
+    s["alt"] = s["alt"].replace(
+        "The horizontal axis is the reaction coordinate, the path of the motions that turn reactants into products.",
+        "The horizontal axis is time, the number of seconds since the reactants were mixed.")
+    c["CONTROL-N4-coordinate-called-time"] = s
+
+    # N5 the alt text calls the drawn exothermic profile endothermic. verify.py
+    # CATCHES this one (the alt/direction check).
+    s = copy.deepcopy(specs["chem-reaction-coordinate"])
+    s["alt"] = s["alt"].replace("so this example is exothermic", "so this example is endothermic")
+    s["alt"] = s["alt"].replace("a product level below the reactants", "a product level above the reactants")
+    c["CONTROL-N5-direction-of-change-reversed"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
@@ -617,7 +674,8 @@ CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": phys
                 "lane-b-fields": field_controls,
                 "stats-density": density_controls,
                 "function-plot": function_plot_controls,
-                "lane-b-gaps": laneb_gap_controls}
+                "lane-b-gaps": laneb_gap_controls,
+                "lane-a-next1": next1_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

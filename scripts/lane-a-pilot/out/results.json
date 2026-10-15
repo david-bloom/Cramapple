@@ -1,5 +1,5 @@
 {
-  "entries": 73,
+  "entries": 75,
   "families": 23,
   "family_names": [
     "approach_equilibrium",
@@ -26,12 +26,12 @@
     "titration_curve",
     "xy_series"
   ],
-  "checks_run": 3848,
+  "checks_run": 3955,
   "checks_failed": 0,
   "failures": [],
-  "total_render_ms": 810.3,
-  "mean_render_ms": 11.1,
-  "entries_covered": 71,
+  "total_render_ms": 1569.17,
+  "mean_render_ms": 20.922,
+  "entries_covered": 73,
   "coverage": {
     "ap_chemistry::Maxwell-Boltzmann energy distribution": {
       "figures": [
@@ -866,6 +866,35 @@
       "missing": [],
       "contract": "entry_items",
       "carried_labels": []
+    },
+    "ap_chemistry::Entropy increases with temperature (energy dispersal)": {
+      "figures": [
+        "chem-mb-entropy"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Broader distribution at the higher temperature",
+        "Horizontal axis",
+        "Kinetic-energy distribution at each temperature",
+        "Vertical axis"
+      ]
+    },
+    "ap_chemistry::Reaction coordinate": {
+      "figures": [
+        "chem-reaction-coordinate"
+      ],
+      "authored_labels": 0,
+      "covered": 0,
+      "missing": [],
+      "contract": "figure_labels",
+      "carried_labels": [
+        "Horizontal axis (reaction coordinate)",
+        "Reaction pathway from reactants to products",
+        "Vertical axis (energy)"
+      ]
     }
   },
   "unpublished_figures": [],
@@ -877,7 +906,7 @@
         "ap_chemistry::Maxwell-Boltzmann energy distribution",
         "ap_chemistry::Maxwell-Boltzmann distribution"
       ],
-      "render_ms": 1.464,
+      "render_ms": 4.047,
       "bytes": 32326
     },
     "chem-mb-catalysis": {
@@ -886,7 +915,7 @@
       "used_by": [
         "ap_chemistry::How a catalyst increases rate"
       ],
-      "render_ms": 0.781,
+      "render_ms": 1.566,
       "bytes": 19445
     },
     "chem-energy-profile-single": {
@@ -895,7 +924,7 @@
       "used_by": [
         "ap_chemistry::Single-step reaction energy profile"
       ],
-      "render_ms": 0.103,
+      "render_ms": 0.311,
       "bytes": 4661
     },
     "chem-energy-profile-multistep": {
@@ -904,7 +933,7 @@
       "used_by": [
         "ap_chemistry::Multistep reaction energy profile"
       ],
-      "render_ms": 0.183,
+      "render_ms": 0.345,
       "bytes": 7256
     },
     "chem-energy-diagram-process": {
@@ -913,7 +942,7 @@
       "used_by": [
         "ap_chemistry::Energy diagram for a physical or chemical process"
       ],
-      "render_ms": 0.062,
+      "render_ms": 0.116,
       "bytes": 3404
     },
     "chem-mass-spectrum": {
@@ -922,7 +951,7 @@
       "used_by": [
         "ap_chemistry::Mass spectrum of a single element"
       ],
-      "render_ms": 0.058,
+      "render_ms": 0.122,
       "bytes": 4303
     },
     "chem-pes": {
@@ -931,7 +960,7 @@
       "used_by": [
         "ap_chemistry::Photoelectron spectrum (PES)"
       ],
-      "render_ms": 0.048,
+      "render_ms": 0.165,
       "bytes": 4383
     },
     "chem-pe-internuclear": {
@@ -940,7 +969,7 @@
       "used_by": [
         "ap_chemistry::Potential energy vs. internuclear distance graph"
       ],
-      "render_ms": 0.904,
+      "render_ms": 1.802,
       "bytes": 20458
     },
     "chem-approach-equilibrium": {
@@ -949,7 +978,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.699,
+      "render_ms": 1.276,
       "bytes": 20324
     },
     "chem-titration": {
@@ -958,7 +987,7 @@
       "used_by": [
         "ap_chemistry::Titration curve (pH vs. volume of titrant)"
       ],
-      "render_ms": 0.995,
+      "render_ms": 2.1,
       "bytes": 24631
     },
     "chem-approach-equilibrium-rate": {
@@ -967,7 +996,7 @@
       "used_by": [
         "ap_chemistry::Graphs showing the approach to equilibrium"
       ],
-      "render_ms": 0.7,
+      "render_ms": 1.257,
       "bytes": 20386
     },
     "stats-bar-chart": {
@@ -976,7 +1005,7 @@
       "used_by": [
         "ap_statistics::Bar chart"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.133,
       "bytes": 3833
     },
     "stats-pie-chart": {
@@ -985,7 +1014,7 @@
       "used_by": [
         "ap_statistics::Pie chart"
       ],
-      "render_ms": 0.026,
+      "render_ms": 0.088,
       "bytes": 2148
     },
     "stats-dotplot": {
@@ -994,7 +1023,7 @@
       "used_by": [
         "ap_statistics::Dotplot"
       ],
-      "render_ms": 0.046,
+      "render_ms": 0.098,
       "bytes": 4463
     },
     "stats-histogram": {
@@ -1003,7 +1032,7 @@
       "used_by": [
         "ap_statistics::Histogram"
       ],
-      "render_ms": 0.062,
+      "render_ms": 0.134,
       "bytes": 5063
     },
     "stats-stem-leaf": {
@@ -1012,7 +1041,7 @@
       "used_by": [
         "ap_statistics::Stem-and-leaf plot"
       ],
-      "render_ms": 0.031,
+      "render_ms": 0.137,
       "bytes": 3297
     },
     "stats-boxplot": {
@@ -1021,7 +1050,7 @@
       "used_by": [
         "ap_statistics::Boxplot"
       ],
-      "render_ms": 0.043,
+      "render_ms": 0.169,
       "bytes": 3441
     },
     "stats-two-cat-side-by-side": {
@@ -1030,7 +1059,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.054,
+      "render_ms": 0.246,
       "bytes": 4299
     },
     "stats-two-cat-segmented": {
@@ -1039,7 +1068,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.063,
+      "render_ms": 0.244,
       "bytes": 5042
     },
     "stats-two-cat-mosaic": {
@@ -1048,7 +1077,7 @@
       "used_by": [
         "ap_statistics::Graphs for two categorical variables"
       ],
-      "render_ms": 0.053,
+      "render_ms": 0.211,
       "bytes": 5017
     },
     "phys2-pv-isotherm-work": {
@@ -1057,7 +1086,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.272,
+      "render_ms": 1.075,
       "bytes": 9507
     },
     "phys2-pv-special-processes": {
@@ -1066,7 +1095,7 @@
       "used_by": [
         "ap_physics_2::Pressure\u2013volume (PV) diagram"
       ],
-      "render_ms": 0.205,
+      "render_ms": 0.793,
       "bytes": 7860
     },
     "phys2-potential-around-loop": {
@@ -1075,7 +1104,7 @@
       "used_by": [
         "ap_physics_2::Graph of electric potential versus position in a loop"
       ],
-      "render_ms": 0.049,
+      "render_ms": 0.216,
       "bytes": 4498
     },
     "precalc-residual-plot": {
@@ -1084,7 +1113,7 @@
       "used_by": [
         "ap_precalculus::Residual plot"
       ],
-      "render_ms": 0.052,
+      "render_ms": 0.21,
       "bytes": 4432
     },
     "phys2-mb-qualitative": {
@@ -1093,7 +1122,7 @@
       "used_by": [
         "ap_physics_2::Maxwell\u2013Boltzmann distribution (qualitative)"
       ],
-      "render_ms": 0.879,
+      "render_ms": 3.553,
       "bytes": 20957
     },
     "physcmech-xva-graphs": {
@@ -1105,7 +1134,7 @@
         "ap_physics_c_mechanics::Displacement from area under v\u2013t graph",
         "ap_physics_c_mechanics::Change in velocity from area under a\u2013t graph"
       ],
-      "render_ms": 0.92,
+      "render_ms": 2.204,
       "bytes": 25524
     },
     "phys-work-force-displacement": {
@@ -1115,7 +1144,7 @@
         "ap_physics_1::Work from a force-displacement graph",
         "ap_physics_c_mechanics::Work as area under an F\u2225 vs. displacement graph"
       ],
-      "render_ms": 0.046,
+      "render_ms": 0.116,
       "bytes": 4339
     },
     "phys2-zero-pressure-temperature": {
@@ -1124,7 +1153,7 @@
       "used_by": [
         "ap_physics_2::Zero-pressure temperature from a P\u2013T graph"
       ],
-      "render_ms": 0.051,
+      "render_ms": 0.112,
       "bytes": 4697
     },
     "phys2-ohmic-iv": {
@@ -1133,7 +1162,7 @@
       "used_by": [
         "ap_physics_2::Ohmic materials and the I\u2013\u0394V graph"
       ],
-      "render_ms": 0.058,
+      "render_ms": 0.127,
       "bytes": 4945
     },
     "phys-vector-arrows": {
@@ -1143,7 +1172,7 @@
         "ap_physics_1::Vector arrow representation",
         "ap_physics_c_mechanics::Vector arrow representation"
       ],
-      "render_ms": 0.026,
+      "render_ms": 0.099,
       "bytes": 2461
     },
     "phys-free-body-diagram": {
@@ -1153,7 +1182,7 @@
         "ap_physics_1::Free-body diagram (FBD)",
         "ap_physics_c_mechanics::Free-body diagram"
       ],
-      "render_ms": 0.032,
+      "render_ms": 0.063,
       "bytes": 3315
     },
     "chem-particulate-phases": {
@@ -1162,7 +1191,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of solid, liquid, and gas"
       ],
-      "render_ms": 0.188,
+      "render_ms": 0.362,
       "bytes": 5785
     },
     "chem-particulate-balanced-equation": {
@@ -1171,7 +1200,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a balanced equation"
       ],
-      "render_ms": 0.048,
+      "render_ms": 0.106,
       "bytes": 4088
     },
     "chem-particulate-solution": {
@@ -1180,7 +1209,7 @@
       "used_by": [
         "ap_chemistry::Particulate representation of a solution"
       ],
-      "render_ms": 0.115,
+      "render_ms": 0.22,
       "bytes": 6488
     },
     "chem-particulate-reversible": {
@@ -1189,7 +1218,7 @@
       "used_by": [
         "ap_chemistry::Particulate model of a reversible reaction"
       ],
-      "render_ms": 0.089,
+      "render_ms": 0.159,
       "bytes": 5366
     },
     "chem-sea-of-electrons": {
@@ -1198,7 +1227,7 @@
       "used_by": [
         "ap_chemistry::Sea-of-electrons model of metallic bonding"
       ],
-      "render_ms": 0.109,
+      "render_ms": 0.226,
       "bytes": 4822
     },
     "phys-electric-field-map": {
@@ -1208,7 +1237,7 @@
         "ap_physics_2::Electric field map and field line diagram",
         "ap_physics_c_em::Electric field map and field line diagram"
       ],
-      "render_ms": 1.781,
+      "render_ms": 3.339,
       "bytes": 27010
     },
     "phys2-equipotential-map": {
@@ -1217,7 +1246,7 @@
       "used_by": [
         "ap_physics_2::Equipotential (isoline) map"
       ],
-      "render_ms": 0.082,
+      "render_ms": 0.358,
       "bytes": 6250
     },
     "phys2-circuit-symbols": {
@@ -1226,7 +1255,7 @@
       "used_by": [
         "ap_physics_2::Circuit schematic symbols"
       ],
-      "render_ms": 0.061,
+      "render_ms": 0.174,
       "bytes": 5951
     },
     "stats-normal-curve": {
@@ -1235,7 +1264,7 @@
       "used_by": [
         "ap_statistics::Normal distribution"
       ],
-      "render_ms": 0.458,
+      "render_ms": 1.164,
       "bytes": 11909
     },
     "stats-standard-normal": {
@@ -1244,7 +1273,7 @@
       "used_by": [
         "ap_statistics::Standard normal distribution"
       ],
-      "render_ms": 0.482,
+      "render_ms": 0.886,
       "bytes": 12152
     },
     "stats-empirical-rule": {
@@ -1253,7 +1282,7 @@
       "used_by": [
         "ap_statistics::Empirical rule (68\u201395\u201399.7 rule)"
       ],
-      "render_ms": 1.128,
+      "render_ms": 1.984,
       "bytes": 25859
     },
     "stats-normal-area": {
@@ -1262,7 +1291,7 @@
       "used_by": [
         "ap_statistics::Probability as area under the normal curve"
       ],
-      "render_ms": 0.579,
+      "render_ms": 1.025,
       "bytes": 14287
     },
     "stats-chi-square-shapes": {
@@ -1271,7 +1300,7 @@
       "used_by": [
         "ap_statistics::Shape of chi-square distributions"
       ],
-      "render_ms": 1.705,
+      "render_ms": 2.829,
       "bytes": 29258
     },
     "stats-critical-value-z": {
@@ -1280,7 +1309,7 @@
       "used_by": [
         "ap_statistics::Critical value z*"
       ],
-      "render_ms": 0.722,
+      "render_ms": 1.369,
       "bytes": 17202
     },
     "stats-pvalue-right-tail": {
@@ -1289,7 +1318,7 @@
       "used_by": [
         "ap_statistics::p-value by direction of the alternative (z-test)"
       ],
-      "render_ms": 0.608,
+      "render_ms": 1.136,
       "bytes": 14799
     },
     "stats-pvalue-left-tail": {
@@ -1298,7 +1327,7 @@
       "used_by": [
         "ap_statistics::p-value by direction of the alternative (z-test)"
       ],
-      "render_ms": 0.604,
+      "render_ms": 1.111,
       "bytes": 14815
     },
     "stats-pvalue-two-tailed": {
@@ -1307,7 +1336,7 @@
       "used_by": [
         "ap_statistics::p-value by direction of the alternative (z-test)"
       ],
-      "render_ms": 0.736,
+      "render_ms": 1.396,
       "bytes": 17705
     },
     "stats-normal-relative-position": {
@@ -1316,7 +1345,7 @@
       "used_by": [
         "ap_statistics::Comparing relative position in normal distributions"
       ],
-      "render_ms": 0.875,
+      "render_ms": 1.584,
       "bytes": 21203
     },
     "precalc-concavity": {
@@ -1325,7 +1354,7 @@
       "used_by": [
         "ap_precalculus::Concave up and concave down"
       ],
-      "render_ms": 0.52,
+      "render_ms": 2.005,
       "bytes": 12419
     },
     "precalc-zero-of-a-function": {
@@ -1334,7 +1363,7 @@
       "used_by": [
         "ap_precalculus::Zero of a function"
       ],
-      "render_ms": 0.496,
+      "render_ms": 0.858,
       "bytes": 12422
     },
     "precalc-aroc-concavity": {
@@ -1343,7 +1372,7 @@
       "used_by": [
         "ap_precalculus::Concavity from changing average rates of change"
       ],
-      "render_ms": 0.509,
+      "render_ms": 0.863,
       "bytes": 13296
     },
     "precalc-inflection-point": {
@@ -1352,7 +1381,7 @@
       "used_by": [
         "ap_precalculus::Point of inflection"
       ],
-      "render_ms": 0.502,
+      "render_ms": 0.874,
       "bytes": 12247
     },
     "precalc-even-multiplicity-zero": {
@@ -1361,7 +1390,7 @@
       "used_by": [
         "ap_precalculus::Even-multiplicity zeros"
       ],
-      "render_ms": 0.504,
+      "render_ms": 0.843,
       "bytes": 12126
     },
     "precalc-hole": {
@@ -1370,7 +1399,7 @@
       "used_by": [
         "ap_precalculus::Location of a hole"
       ],
-      "render_ms": 0.484,
+      "render_ms": 0.898,
       "bytes": 12015
     },
     "precalc-transformations-additive": {
@@ -1379,7 +1408,7 @@
       "used_by": [
         "ap_precalculus::Additive and multiplicative transformations"
       ],
-      "render_ms": 1.347,
+      "render_ms": 2.447,
       "bytes": 29957
     },
     "precalc-transformations-multiplicative": {
@@ -1388,7 +1417,7 @@
       "used_by": [
         "ap_precalculus::Additive and multiplicative transformations"
       ],
-      "render_ms": 1.355,
+      "render_ms": 2.199,
       "bytes": 29870
     },
     "precalc-degree-from-points": {
@@ -1397,7 +1426,7 @@
       "used_by": [
         "ap_precalculus::Points determine polynomial degree"
       ],
-      "render_ms": 0.509,
+      "render_ms": 0.86,
       "bytes": 12371
     },
     "precalc-sequence": {
@@ -1406,7 +1435,7 @@
       "used_by": [
         "ap_precalculus::Sequence"
       ],
-      "render_ms": 0.069,
+      "render_ms": 0.131,
       "bytes": 4468
     },
     "precalc-exponential-shape": {
@@ -1415,7 +1444,7 @@
       "used_by": [
         "ap_precalculus::Shape and extrema of exponential functions"
       ],
-      "render_ms": 0.474,
+      "render_ms": 0.806,
       "bytes": 12413
     },
     "precalc-log-reflection": {
@@ -1424,7 +1453,7 @@
       "used_by": [
         "ap_precalculus::Graph and ordered pairs of log vs. exponential"
       ],
-      "render_ms": 1.135,
+      "render_ms": 2.028,
       "bytes": 23997
     },
     "precalc-sinusoid-concavity": {
@@ -1433,7 +1462,7 @@
       "used_by": [
         "ap_precalculus::Concavity of sinusoidal graphs"
       ],
-      "render_ms": 0.508,
+      "render_ms": 0.825,
       "bytes": 12317
     },
     "precalc-tangent-reflections": {
@@ -1442,7 +1471,7 @@
       "used_by": [
         "ap_precalculus::Reflections in tangent transformations"
       ],
-      "render_ms": 1.027,
+      "render_ms": 1.664,
       "bytes": 18996
     },
     "precalc-secant-graph": {
@@ -1451,7 +1480,7 @@
       "used_by": [
         "ap_precalculus::Graph features of secant, cosecant, and cotangent"
       ],
-      "render_ms": 0.56,
+      "render_ms": 0.935,
       "bytes": 11608
     },
     "precalc-cosecant-graph": {
@@ -1460,7 +1489,7 @@
       "used_by": [
         "ap_precalculus::Graph features of secant, cosecant, and cotangent"
       ],
-      "render_ms": 0.553,
+      "render_ms": 0.962,
       "bytes": 11818
     },
     "precalc-cotangent-graph": {
@@ -1469,7 +1498,7 @@
       "used_by": [
         "ap_precalculus::Graph features of secant, cosecant, and cotangent"
       ],
-      "render_ms": 0.57,
+      "render_ms": 1.103,
       "bytes": 11342
     },
     "calcab-scale-hides-behaviour-wide": {
@@ -1478,7 +1507,7 @@
       "used_by": [
         "ap_calculus_ab::Graphs can miss important behavior"
       ],
-      "render_ms": 0.508,
+      "render_ms": 0.854,
       "bytes": 12360
     },
     "calcab-scale-hides-behaviour-zoom": {
@@ -1487,7 +1516,7 @@
       "used_by": [
         "ap_calculus_ab::Graphs can miss important behavior"
       ],
-      "render_ms": 0.464,
+      "render_ms": 0.838,
       "bytes": 11130
     },
     "bio-chloroplast": {
@@ -1496,7 +1525,7 @@
       "used_by": [
         "ap_biology::Chloroplast structure and where photosynthetic reactions occur"
       ],
-      "render_ms": 0.044,
+      "render_ms": 0.123,
       "bytes": 4662
     },
     "bio-mitochondrion": {
@@ -1505,7 +1534,7 @@
       "used_by": [
         "ap_biology::Mitochondrion: regions and functions in respiration"
       ],
-      "render_ms": 0.035,
+      "render_ms": 0.071,
       "bytes": 3223
     },
     "bio-dna-antiparallel": {
@@ -1514,7 +1543,7 @@
       "used_by": [
         "ap_biology::Antiparallel DNA double helix"
       ],
-      "render_ms": 0.076,
+      "render_ms": 0.184,
       "bytes": 8536
     },
     "bio-fluid-mosaic": {
@@ -1523,7 +1552,7 @@
       "used_by": [
         "ap_biology::Fluid mosaic model of the plasma membrane"
       ],
-      "render_ms": 0.13,
+      "render_ms": 0.262,
       "bytes": 13151
     },
     "chem-electrochemical-cell": {
@@ -1532,8 +1561,26 @@
       "used_by": [
         "ap_chemistry::Electrochemical cell diagram"
       ],
-      "render_ms": 0.058,
+      "render_ms": 0.124,
       "bytes": 5058
+    },
+    "chem-mb-entropy": {
+      "family": "mb_distribution",
+      "entry": "Entropy increases with temperature (energy dispersal)",
+      "used_by": [
+        "ap_chemistry::Entropy increases with temperature (energy dispersal)"
+      ],
+      "render_ms": 1.673,
+      "bytes": 20936
+    },
+    "chem-reaction-coordinate": {
+      "family": "energy_profile",
+      "entry": "Reaction coordinate",
+      "used_by": [
+        "ap_chemistry::Reaction coordinate"
+      ],
+      "render_ms": 0.338,
+      "bytes": 4072
     }
   }
 }

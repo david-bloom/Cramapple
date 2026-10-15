@@ -3,110 +3,35 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 5,
-  "controls": 5,
+  "figures": 0,
+  "controls": 1,
   "controls_leaked": [],
   "flagged": [],
-  "wall_seconds": 94.3,
+  "wall_seconds": 7.8,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 156,
-      "prompt": 206871,
-      "completion": 139034,
-      "seconds": 914.3999999999996
+      "calls": 164,
+      "prompt": 211398,
+      "completion": 144797,
+      "seconds": 958.9999999999994
     },
     "openai/gpt-6.1-sol": {
-      "calls": 156,
-      "prompt": 171463,
-      "completion": 16198,
-      "seconds": 638.6000000000003
+      "calls": 164,
+      "prompt": 175868,
+      "completion": 16919,
+      "seconds": 669.2000000000003
     }
   },
   "detail": {
-    "bio-chloroplast": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "bio-mitochondrion": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "bio-dna-antiparallel": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "bio-fluid-mosaic": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "chem-electrochemical-cell": {
-      "is_control": false,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G1-strands-called-parallel": {
+    "CONTROL-N3-both-curves-the-same-temperature": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note state that both DNA strands run 5\u2032 to 3\u2032 in the same direction, with arrowheads pointing the same way.",
-              "why": "DNA strands are antiparallel: their 5\u2032 to 3\u2032 directions are opposite. These statements teach a false orientation and contradict the entry, title, subtitle, and label specifying opposite directions."
+              "what": "Both temperature series use the same theta value, 0.78, producing identical distributions.",
+              "why": "The higher-temperature curve is therefore not broader, lower-peaked, or shifted to higher energy as the title, subtitle, and alt text claim. Identical distributions do not illustrate the stated increase in energy dispersal with temperature."
             }
           ],
           "confidence": "high"
@@ -115,112 +40,8 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The figure depicts both DNA strands running in the same 5' to 3' direction (parallel).",
-              "why": "DNA strands in a double helix are antiparallel (running in opposite 5' to 3' directions). The alt text and note state that both strands run in the same direction, which is biologically incorrect and directly contradicts the authored reference entry's claim of 'opposite 5' to 3' orientation'."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G2-proton-gradient-reversed": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The matrix and intermembrane-space proton concentrations are reversed in the labels, note, and alt text; the alt text also incorrectly assigns lower pH to the matrix.",
-              "why": "During mitochondrial respiration, the electron transport chain pumps protons from the matrix into the intermembrane space. The intermembrane space therefore has higher proton concentration and lower pH, while the matrix has lower proton concentration and higher pH, as stated in the reference entry."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The proton concentration gradient is reversed between the matrix and the intermembrane space.",
-              "why": "The figure's labels, note, and alt text state that the matrix has a high proton concentration (high H\u207a) and the intermembrane space has a low proton concentration (low H\u207a). This contradicts the authored reference entry and biological reality: the electron transport chain pumps protons into the intermembrane space, making it the region of high proton concentration (low pH), while the matrix has a lower proton concentration (higher pH)."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G3-sugars-put-on-the-inside-face": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the carbohydrate chains are on the cytoplasmic face, never the extracellular face, and the note says they are all on the inside face.",
-              "why": "Plasma-membrane glycoprotein and glycolipid carbohydrate chains face the extracellular side, not the cytoplasm. These statements also contradict the drawing parameters\u2019 unit note, which correctly identifies the sugar chains as marking the outside face."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and note state that the carbohydrate chains of the glycoprotein and glycolipid are on the cytoplasmic (inside) face of the membrane, which is biologically incorrect.",
-              "why": "In plasma membranes, the carbohydrate chains of glycoproteins and glycolipids are located on the extracellular (outside) face, where they function in cell recognition and interaction. Placing them on the cytoplasmic face is biologically false."
-            },
-            {
-              "what": "Contradiction between the unit note and the figure's note/alt text.",
-              "why": "The unit note states 'the sugar chains mark the outside face', whereas the note states 'the sugar chains are all on the inside face' and the alt text states they are on the 'cytoplasmic face, never the extracellular one'."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G4-anode-label-on-the-cathode": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and electrode labels place the anode on the left and cathode on the right, but the drawing parameter specifies \"anode_side\": \"right\".",
-              "why": "The text and labels reverse the electrodes relative to the configured cell, misidentifying where oxidation and reduction occur and contradicting the configured direction of electron flow."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "Electrode labels contradict the physical layout of the cell.",
-              "why": "The parameter 'anode_side' is set to 'right', meaning the anode is on the right side of the diagram. However, the label 'anode \u2014 oxidation' is placed on the left (x = 0.235) and 'cathode \u2014 reduction' is placed on the right (x = 0.765), resulting in the electrodes being mislabeled."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G5-granum-drawn-as-one-disc": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "Each labelled granum contains only one thylakoid disc, and the unit note defines a granum as a single disc.",
-              "why": "A granum is a stack of thylakoids, not a single thylakoid. With discs_per_stack set to 1, the figure contradicts both the entry's definition of grana and the alt text's description of four stacks."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The parameter 'discs_per_stack' is set to 1, representing each granum as a single thylakoid disc.",
-              "why": "A granum is biologically defined as a stack of thylakoids (as correctly stated in the reference entry: 'Grana: Stacks of thylakoids'). Depicting a granum as a single thylakoid disc is factually incorrect and contradicts the definition."
+              "what": "The 'Lower temperature' and 'Higher temperature' series have the exact same parameter value (theta = 0.78).",
+              "why": "This will produce two identical curves on the chart, which directly contradicts the title, subtitle, and alt text stating that the higher-temperature distribution is broader and shifted to higher energy."
             }
           ],
           "confidence": "high"

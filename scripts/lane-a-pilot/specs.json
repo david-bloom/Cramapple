@@ -8827,5 +8827,121 @@
         "subject_key": "ap_chemistry"
       }
     ]
+  },
+  "chem-mb-entropy": {
+    "entry_title": "Entropy increases with temperature (energy dispersal)",
+    "subject_key": "ap_chemistry",
+    "family": "mb_distribution",
+    "title": "Kinetic energy spreads out as temperature rises",
+    "short_title": "Energy dispersal with temperature",
+    "subtitle": "The same gas at two temperatures: the hotter distribution is broader",
+    "caption": "The same gas at two temperatures: the hotter distribution is broader",
+    "x_label": "kinetic energy of a particle",
+    "y_label": "relative number of particles",
+    "alt": "Two curves of the relative number of gas particles against kinetic energy for the same gas at a lower and a higher temperature. The higher-temperature curve has a lower peak and is broader and shifted to higher energy, so the kinetic energy is spread over a wider range of values. Illustrative data.",
+    "note": "A broader distribution means the energy is more dispersed, so the entropy is greater.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.2f}",
+    "covers": [
+      "Horizontal axis",
+      "Vertical axis",
+      "Kinetic-energy distribution at each temperature",
+      "Broader distribution at the higher temperature"
+    ],
+    "labels": [
+      "Horizontal axis",
+      "Vertical axis",
+      "Kinetic-energy distribution at each temperature",
+      "Broader distribution at the higher temperature"
+    ],
+    "params": {
+      "x_max": 8.0,
+      "series": [
+        {
+          "label": "Lower temperature",
+          "theta": 0.78,
+          "style": "solid"
+        },
+        {
+          "label": "Higher temperature",
+          "theta": 1.48,
+          "style": "dashed"
+        }
+      ]
+    },
+    "figure_id": "chem-mb-entropy",
+    "reference_entry_id": "f775f891-95e7-467d-97f4-e7bd740afebb",
+    "unit_number": 9,
+    "owner_topic_code": "9.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "f775f891-95e7-467d-97f4-e7bd740afebb",
+        "title": "Entropy increases with temperature (energy dispersal)",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 9.1 is a convention entry with no items[]; its body says the kinetic-energy distribution broadens as temperature rises, which is what the four labels draw (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "chem-reaction-coordinate": {
+    "entry_title": "Reaction coordinate",
+    "subject_key": "ap_chemistry",
+    "family": "energy_profile",
+    "title": "The reaction coordinate",
+    "short_title": "Reaction coordinate",
+    "subtitle": "The axis along which a reaction from reactants to products is plotted",
+    "caption": "The axis along which a reaction from reactants to products is plotted",
+    "x_label": "reaction coordinate",
+    "y_label": "energy",
+    "alt": "Energy plotted against the reaction coordinate. The curve starts at the reactant level on the left, rises to a maximum and then falls to a product level below the reactants on the right, so this example is exothermic. The horizontal axis is the reaction coordinate, the path of the motions that turn reactants into products. Illustrative data.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (reaction coordinate)",
+      "Vertical axis (energy)",
+      "Reaction pathway from reactants to products"
+    ],
+    "labels": [
+      "Horizontal axis (reaction coordinate)",
+      "Vertical axis (energy)",
+      "Reaction pathway from reactants to products"
+    ],
+    "params": {
+      "nodes": [
+        {
+          "e": 40,
+          "label": "reactants",
+          "kind": "level"
+        },
+        {
+          "e": 120,
+          "label": "",
+          "kind": "ts"
+        },
+        {
+          "e": 15,
+          "label": "products",
+          "kind": "level"
+        }
+      ]
+    },
+    "figure_id": "chem-reaction-coordinate",
+    "reference_entry_id": "06c06f70-791e-4fb4-a556-755e12241749",
+    "unit_number": 5,
+    "owner_topic_code": "5.6",
+    "entry_kind": "vocabulary",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "06c06f70-791e-4fb4-a556-755e12241749",
+        "title": "Reaction coordinate",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 5.6 'Reaction coordinate' is a vocabulary entry with no items[]; its body defines the axis along which reactants are plotted becoming products, which is what the three labels draw at every size (DECISION-0116, route b)."
+      }
+    ]
   }
 }
