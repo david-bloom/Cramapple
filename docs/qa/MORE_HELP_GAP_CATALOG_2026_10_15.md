@@ -6,6 +6,8 @@
 **Branch:** `codex/work-more-help-gap-catalog`.
 **PR:** [#460](https://github.com/david-bloom/Cramapple/pull/460).
 
+**Execution opened:** David subsequently directed resolving H01–H15 and closing reference gaps. [Execution work order](../tasks/WORK-MORE-HELP-GAP-RESOLUTION.md) records that direction, controlled QA scope, content/release gates and next owners. The snapshot below remains the baseline; implementation results are recorded separately rather than overwriting original findings.
+
 “Needs help” refers here to the approved **More help** feature on real Calculus AB/BC and Chemistry questions. This inventory separates current limitations, evidence gaps, intentional scope and unknown historical causes. An untested path is not a confirmed broken path.
 
 ## Current baseline: rollout has happened
