@@ -15,8 +15,10 @@ const GREEK = {
   alpha: "\\alpha", beta: "\\beta", gamma: "\\gamma", delta: "\\delta", epsilon: "\\epsilon", theta: "\\theta",
   lambda: "\\lambda", mu: "\\mu", nu: "\\nu", pi: "\\pi", rho: "\\rho", sigma: "\\sigma", tau: "\\tau",
   phi: "\\phi", omega: "\\omega", kappa: "\\kappa",
+  Delta: "\\Delta", Phi: "\\Phi", Omega: "\\Omega", Sigma: "\\Sigma", Lambda: "\\Lambda", varepsilon: "\\epsilon",
 };
-const GREEK_CHAR = { "π": "pi", "λ": "lambda", "ν": "nu", "ε": "epsilon", "μ": "mu", "ω": "omega", "ρ": "rho", "κ": "kappa", "σ": "sigma", "θ": "theta" };
+const GREEK_CHAR = { "π": "pi", "λ": "lambda", "ν": "nu", "ε": "epsilon", "μ": "mu", "ω": "omega", "ρ": "rho", "κ": "kappa", "σ": "sigma", "θ": "theta",
+  "Δ": "Delta", "Φ": "Phi", "Ω": "Omega", "Σ": "Sigma", "Λ": "Lambda", "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "τ": "tau", "φ": "phi", "µ": "mu" };
 const SUB_DIGITS = { "₀": "0", "₁": "1", "₂": "2", "₃": "3" };
 const SUP_DIGITS = { "²": "2", "³": "3" };
 
@@ -24,27 +26,49 @@ export class Unhandled extends Error {}
 
 // ---- normalisation and tokenising -----------------------------------------------------------------------------
 
+const SUPMAP = "⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺";
+const SUPASCII = "0123456789-+";
+
 function preNormalise(s) {
   let t = s.replace(/\u2212/g, "-");
-  t = t.replace(/⁻¹/g, "^(-1)");
-  t = t.replace(/[²³]/g, (c) => "^" + SUP_DIGITS[c]);
-  t = t.replace(/[₀₁₂₃]/g, (c) => "_" + SUB_DIGITS[c]);
+  t = t.replace(/½/g, "(1/2)");
+  // runs of Unicode superscripts: x² -> x^2, 10⁻⁹ -> 10^(-9)
+  t = t.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (m) => {
+    const a = [...m].map((c) => SUPASCII[SUPMAP.indexOf(c)]).join("");
+    return /^\d+$/.test(a) && a.length === 1 ? "^" + a : `^(${a})`;
+  });
+  t = t.replace(/[ᴿᴸᵀᵇⁿ]/g, (c) => "^" + ({ ᴿ: "R", ᴸ: "L", ᵀ: "T", ᵇ: "b", ⁿ: "n" })[c]).replace(/ₐ/g, "_a");
+  // runs of Unicode subscripts: ε₀ -> ε_0, Eₓ -> E_x
+  t = t.replace(/[₀-₉ₓ]+/g, (m) => "_" + [...m].map((c) => (c === "ₓ" ? "x" : String(c.charCodeAt(0) - 0x2080))).join(""));
   return t;
 }
+
+let UNIT_TABLE = [];
 
 function tokenise(src) {
   const toks = [];
   let i = 0;
   const s = src;
+  let sawInt = false;
   while (i < s.length) {
     const c = s[i];
     if (/\s/.test(c)) { i++; toks.push({ t: "ws" }); continue; }
+    if (c === "\u0001") {
+      const m = /^\u0001(\d+)\u0002/.exec(s.slice(i));
+      if (!m) throw new Unhandled("unit placeholder");
+      toks.push({ t: "unit", tex: UNIT_TABLE[Number(m[1])] }); i += m[0].length; continue;
+    }
+    if (sawInt && c === "d" && (i === 0 || !/[A-Za-z]/.test(s[i - 1]))) {
+      const dm = /^d([A-Za-z])(?![A-Za-z])/.exec(s.slice(i));
+      if (dm) { toks.push({ t: "diff", tex: `d${dm[1]}` }); i += 2; continue; }
+    }
     // Leibniz derivatives kept whole: dy/dx, dV/dx, d^2U/dx^2
-    const lm = /^d(\^2)?([A-Za-z])\/d([a-z])(\^2)?/.exec(s.slice(i));
+    const lm = /^d(\^2)?([A-Za-z]|[πλνεμωρκσθΔΦΩΣαβγδτφ])\/d([a-z]|[θφωτ])(\^2)?/.exec(s.slice(i));
     if (lm && (i === 0 || !/[A-Za-z]/.test(s[i - 1]))) {
-      const sq = lm[1] ? "^{2}" : "";
-      toks.push({ t: "leib", tex: lm[1] ? `d^{2}${lm[2]}/d${lm[3]}^{2}` : `d${lm[2]}/d${lm[3]}` });
-      i += lm[0].length; void sq; continue;
+      const gl = (c) => (GREEK_CHAR[c] ? GREEK[GREEK_CHAR[c]] : c);
+      const num = gl(lm[2]), den = gl(lm[3]);
+      toks.push({ t: "leib", tex: lm[1] ? `d^{2}${num}/d${den}^{2}` : `d${num}/d${den}` });
+      i += lm[0].length; continue;
     }
     if (/[0-9]/.test(c)) {
       const m = /^\d+(\.\d+)?/.exec(s.slice(i));
@@ -71,6 +95,22 @@ function tokenise(src) {
     if (GREEK_CHAR[c]) { toks.push({ t: "greek", v: GREEK_CHAR[c] }); i++; continue; }
     if (c === "√") { toks.push({ t: "sqrt" }); i++; continue; }
     if (c === "·") { toks.push({ t: "dot" }); i++; continue; }
+    if (c === "×") { toks.push({ t: "times" }); i++; continue; }
+    if (c === "→") { toks.push({ t: "rel", tex: "\\to" }); i++; continue; }
+    if (c === "∞") { toks.push({ t: "inf" }); i++; continue; }
+    if (c === "'") { toks.push({ t: "prime" }); i++; continue; }
+    if (c === "″") { toks.push({ t: "prime" }); toks.push({ t: "prime" }); i++; continue; }
+    if (c === "÷") { toks.push({ t: "times", div: true }); i++; continue; }
+    if (c === "±") { toks.push({ t: "+", op: "\\pm " }); i++; continue; }
+    if (c === "|") { toks.push({ t: "bar" }); i++; continue; }
+    if (c === "[" || c === "]") { toks.push({ t: c }); i++; continue; }
+    if (c === "∫" || c === "∮") { sawInt = true; toks.push({ t: "int", tex: c === "∮" ? "\\oint" : "\\int" }); i++; continue; }
+    if (c === "′") { toks.push({ t: "prime" }); i++; continue; }
+    if (c === "°") { toks.push({ t: "deg" }); i++; continue; }
+    if (c === "≤") { toks.push({ t: "rel", tex: "\\le" }); i++; continue; }
+    if (c === "≥") { toks.push({ t: "rel", tex: "\\ge" }); i++; continue; }
+    if (c === "≠") { toks.push({ t: "rel", tex: "\\ne" }); i++; continue; }
+    if (c === "<" || c === ">") { toks.push({ t: "rel", tex: c }); i++; continue; }
     if (c === "*") { toks.push({ t: "star" }); i++; continue; }
     if (c === "≈") { toks.push({ t: "rel", tex: "\\approx" }); i++; continue; }
     if (c === "~") { toks.push({ t: "rel", tex: "\\approx" }); i++; continue; }
@@ -91,9 +131,11 @@ function parse(src) {
   const peekNs = () => { let q = p; while (toks[q] && toks[q].t === "ws") q++; return toks[q]; };
   const skipWs = () => { while (toks[p] && toks[p].t === "ws") p++; };
   const next = () => toks[p++];
+  let absOpen = 0;
 
   function startsFactor(tk) {
-    return tk && ["num", "id", "greek", "func", "sqrt", "(", "leib"].includes(tk.t);
+    if (tk && tk.t === "bar") return absOpen === 0;
+    return tk && ["num", "id", "greek", "func", "sqrt", "(", "[", "leib", "unit", "int", "diff", "inf"].includes(tk.t);
   }
 
   function parseRel() {
@@ -111,12 +153,12 @@ function parse(src) {
   function parseExpr() {
     skipWs();
     let sign = null;
-    if (peek() && (peek().t === "+" || peek().t === "-")) { sign = next().t; skipWs(); }
+    if (peek() && (peek().t === "+" || peek().t === "-")) { const st = next(); sign = st.op ?? st.t; skipWs(); }
     let node = parseTerm();
     if (sign) node = { k: "sign", s: sign, e: node };
     skipWs();
     while (peek() && (peek().t === "+" || peek().t === "-")) {
-      const op = next().t; skipWs();
+      const opTok = next(); const op = opTok.op ?? opTok.t; skipWs();
       const rhs = parseTerm();
       node = { k: "bin", op, l: node, r: rhs };
       skipWs();
@@ -130,16 +172,20 @@ function parse(src) {
       const hadWs = peek() && peek().t === "ws";
       const tk = peekNs();
       if (!tk) break;
-      if (tk.t === "star" || tk.t === "dot") {
+      if (tk.t === "star" || tk.t === "dot" || tk.t === "times") {
         skipWs();
         const spaced = hadWs;
         const kind = tk.t;
         next(); const afterWs = peek() && peek().t === "ws"; skipWs();
         const rhs = parseFactor();
-        node = { k: "mul", l: node, r: rhs, explicit: kind === "dot" ? "dot" : (spaced || afterWs ? "dot" : "star") };
+        node = { k: "mul", l: node, r: rhs, explicit: kind === "times" ? (tk.div ? "div" : "times") : kind === "dot" ? "dot" : (spaced || afterWs ? "dot" : "star") };
       } else if (tk.t === "/") {
         skipWs(); next(); skipWs();
-        const rhs = parseFactor();
+        let rhs = parseFactor();
+        // a denominator written as juxtaposed symbols (Q0t/RC) divides by the whole product
+        while (peek() && peek().t !== "ws" && startsFactor(peek())) {
+          rhs = { k: "mul", l: rhs, r: parseFactor(), explicit: null };
+        }
         node = { k: "div", l: node, r: rhs };
       } else if (startsFactor(tk)) {
         skipWs();
@@ -153,6 +199,7 @@ function parse(src) {
   function parseFactor() {
     skipWs();
     let base = parseAtom();
+    while (peek() && (peek().t === "prime" || peek().t === "deg")) base = { k: next().t, e: base };
     if (peek() && peek().t === "^") {
       next(); skipWs();
       base = { k: "pow", b: base, e: parseExponent() };
@@ -205,11 +252,50 @@ function parse(src) {
     if (!tk) throw new Unhandled("unexpected end");
     if (tk.t === "num") return { k: "num", v: tk.v };
     if (tk.t === "leib") return { k: "leib", tex: tk.tex };
+    if (tk.t === "unit") return { k: "unit", tex: tk.tex };
+    if (tk.t === "inf") return { k: "raw", tex: "\\infty" };
+    if (tk.t === "int") {
+      let lo = null, hi = null;
+      if (peek() && peek().t === "_") {
+        next(); const a = next();
+        if (!a || !["num", "id", "greek"].includes(a.t)) throw new Unhandled("integral lower limit");
+        lo = a.t === "num" ? a.v : a.t === "greek" ? GREEK[a.v] : a.v;
+      }
+      if (peek() && peek().t === "^") {
+        next(); const a = next();
+        if (!a || !["num", "id", "greek", "inf"].includes(a.t)) throw new Unhandled("integral upper limit");
+        hi = a.t === "num" ? a.v : a.t === "greek" ? GREEK[a.v] : a.t === "inf" ? "\\infty" : a.v;
+      }
+      const head = tk.tex + (lo !== null ? `_{${lo}}` : "") + (hi !== null ? `^{${hi}}` : "");
+      skipWs();
+      const startsIntegrand = peek() && startsFactor(peek());
+      const body = startsIntegrand ? parseTerm() : null;
+      return body ? { k: "intexpr", head, e: body } : { k: "int", tex: head };
+    }
+    if (tk.t === "diff") return { k: "diff", tex: tk.tex };
+    if (tk.t === "bar") {
+      absOpen++;
+      const e = parseExpr(); skipWs();
+      if (!peek() || peek().t !== "bar") throw new Unhandled("closing |");
+      next(); absOpen--;
+      return { k: "abs", e };
+    }
     if (tk.t === "id" || tk.t === "greek") return atomFrom(tk);
     if (tk.t === "(") {
-      const e = parseExpr(); skipWs();
+      let e = parseExpr(); skipWs();
+      // a relation inside parentheses: (k = 9.0 x 10^9 N m^2/C^2)
+      if (peek() && peek().t === "rel") {
+        const parts = [e], rels = [];
+        while (peek() && peek().t === "rel") { rels.push(next().tex); skipWs(); parts.push(parseExpr()); skipWs(); }
+        e = { k: "relchain", parts, rels };
+      }
       if (!peek() || peek().t !== ")") throw new Unhandled("missing )");
       next(); return { k: "group", e };
+    }
+    if (tk.t === "[") {
+      const e = parseExpr(); skipWs();
+      if (!peek() || peek().t !== "]") throw new Unhandled("missing ]");
+      next(); return { k: "bgroup", e };
     }
     if (tk.t === "sqrt") {
       skipWs();
@@ -240,7 +326,7 @@ function parse(src) {
 
 function isSymbol(n) { return n.k === "id" || n.k === "greek" || n.k === "sub"; }
 function isSimple(n) {
-  if (n.k === "num" || isSymbol(n) || n.k === "leib") return true;
+  if (n.k === "num" || isSymbol(n) || n.k === "leib" || n.k === "unit" || n.k === "raw") return true;
   if (n.k === "sign") return isSimple(n.e);
   if (n.k === "pow") return (n.b.k === "num" || isSymbol(n.b)) ;
   return false;
@@ -260,13 +346,27 @@ function printNode(n, ctx) {
     case "num": return n.v;
     case "id": return n.v;
     case "greek": return GREEK[n.v];
+    case "bgroup": { const t = printNode(n.e, ctx); return t.includes("\\frac") ? `\\left[${t}\\right]` : `[${t}]`; }
+    case "relchain": {
+      let out = printNode(n.parts[0], ctx);
+      for (let i = 0; i < n.rels.length; i++) out = joinTex(joinTex(out, n.rels[i]), printNode(n.parts[i + 1], ctx));
+      return out;
+    }
     case "leib": return n.tex;
+    case "unit": return n.tex;
+    case "int": return n.tex;
+    case "intexpr": return joinTex(n.head, printNode(n.e, ctx));
+    case "raw": return n.tex;
+    case "diff": return n.tex;
+    case "abs": return `\\lvert ${printNode(n.e, { stack: false })}\\rvert`;
+    case "prime": return `${printNode(n.e, ctx)}'`;
+    case "deg": return `${printNode(n.e, ctx)}^{\\circ}`;
     case "sub": {
       const base = n.b.k === "greek" ? GREEK[n.b.v] : n.b.v;
       const word = /^[A-Za-z]{2,}$/.test(n.s) && !GREEK[n.s] ? `\\mathrm{${n.s}}` : (GREEK[n.s] ?? n.s);
       return `${base}_{${word}}`;
     }
-    case "sign": return (n.s === "-" ? "-" : "+") + printNode(n.e, ctx);
+    case "sign": return (n.s === "-" ? "-" : n.s === "+" ? "+" : n.s) + printNode(n.e, ctx);
     case "bin": return printNode(n.l, ctx) + n.op + printNode(n.r, ctx);
     case "group": {
       const inner = stripGroup(n);
@@ -289,6 +389,10 @@ function printNode(n, ctx) {
     }
     case "mul": {
       const l = printNode(n.l, ctx), r = printNode(n.r, ctx);
+      if (n.r.k === "unit" && n.l.k !== "unit") return `${l}\\,${r}`;
+      if (n.r.k === "diff" && !n.explicit) return joinTex(`${l}\\,`, r);
+      if (n.explicit === "times") return joinTex(`${l}\\times`, r);
+      if (n.explicit === "div") return joinTex(`${l}\\div`, r);
       if (n.explicit === "dot") return `${l}\\cdot ${r}`.replace(/\\cdot\s+\\/g, "\\cdot\\");
       if (n.explicit === "star") {
         // an unspaced * before a letter or "(" is ordinary juxtaposition; before a digit keep a dot
@@ -353,6 +457,7 @@ export function convertPure(text, opts = {}) {
 }
 
 export function convertExpr(s, ctx = { stack: true }) {
+  UNIT_TABLE = ctx.units ?? [];
   const tree = parse(preNormalise(s));
   const parts = tree.parts.map((e) => printNode(e, ctx));
   let out = parts[0];
