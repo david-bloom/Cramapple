@@ -35,6 +35,7 @@ decision that was on record.
 
 | Topic | Canonical doc | Notes |
 | --- | --- | --- |
+| **Questions with missing required visuals — audit and delivery plan** | `tasks/WORK-QUESTION-IMAGE-COMPLETENESS.md`, `../scripts/image_readiness/question_image_inventory.sql`, `../scripts/image_readiness/question_image_initial_snapshot.json` | Proposed audit/repair plan, 2026-10-14: fresh Production baseline of 2,915 published versions, 350 historical-rule lexical leads (not defects), three recorded required/missing images and five existing images without approved metadata. Defines full semantic census, exact-version repair manifests, deterministic/spec versus private-asset storage, student delivery/failure gates and rollout. Read-only query verified; no assets created or deployed. |
 | **Current architecture & design (decided vs. open)** | `product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` | Start here. |
 | App rebuild plan / gap analysis | `product/APP_REBUILD_MIGRATION_PLAN.md` | Authoritative architecture; §11 decision statuses annotated in place (mostly resolved 2026-09-26). |
 | Decisions closed 2026-09-26 | `product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md` ("DECIDED, 2026-09-26") | The decision log for the rebuild policy calls. |
