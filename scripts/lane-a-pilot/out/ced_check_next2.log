@@ -1,0 +1,24 @@
+  stats-gap-histogram                                  gpt-6.1-sol        accept
+  stats-gap-histogram                                  gemini-3.5-flash   accept
+  stats-compare-two-datasets                           gpt-6.1-sol        accept
+  stats-compare-two-datasets                           gemini-3.5-flash   accept
+  stats-association-yes                                gpt-6.1-sol        accept
+  stats-association-yes                                gemini-3.5-flash   accept
+  stats-association-no                                 gpt-6.1-sol        accept
+  stats-association-no                                 gemini-3.5-flash   accept
+  CONTROL-M1-gap-bin-is-not-empty                      gpt-6.1-sol        reject
+  CONTROL-M1-gap-bin-is-not-empty                      gemini-3.5-flash   reject
+  CONTROL-M2-gap-defined-as-the-most-data              gpt-6.1-sol        reject
+  CONTROL-M2-gap-defined-as-the-most-data              gemini-3.5-flash   reject
+  CONTROL-M3-class-data-swapped-against-labels         gpt-6.1-sol        reject
+  CONTROL-M3-class-data-swapped-against-labels         gemini-3.5-flash   reject
+  CONTROL-M4-equal-distributions-called-different      gpt-6.1-sol        reject
+  CONTROL-M4-equal-distributions-called-different      gemini-3.5-flash   reject
+  CONTROL-M5-association-read-as-causation             gpt-6.1-sol        reject
+  CONTROL-M5-association-read-as-causation             gemini-3.5-flash   reject
+
+controls: 5/5 correctly rejected
+figures: 4/4 accepted by both readers
+wall: 86.4s
+  google/gemini-3.5-flash: 173 calls, 217050 in / 151961 out
+  openai/gpt-6.1-sol: 173 calls, 181284 in / 17788 out

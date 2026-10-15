@@ -3,27 +3,27 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 5,
+  "figures": 6,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [],
-  "wall_seconds": 94.3,
+  "wall_seconds": 116.3,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 156,
-      "prompt": 206871,
-      "completion": 139034,
-      "seconds": 914.3999999999996
+      "calls": 184,
+      "prompt": 226102,
+      "completion": 160065,
+      "seconds": 1076.3999999999994
     },
     "openai/gpt-6.1-sol": {
-      "calls": 156,
-      "prompt": 171463,
-      "completion": 16198,
-      "seconds": 638.6000000000003
+      "calls": 184,
+      "prompt": 189683,
+      "completion": 18783,
+      "seconds": 754.4000000000005
     }
   },
   "detail": {
-    "bio-chloroplast": {
+    "stats-skew-right": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -38,7 +38,7 @@
         }
       }
     },
-    "bio-mitochondrion": {
+    "stats-skew-left": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -53,7 +53,7 @@
         }
       }
     },
-    "bio-dna-antiparallel": {
+    "stats-skew-symmetric": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -68,7 +68,7 @@
         }
       }
     },
-    "bio-fluid-mosaic": {
+    "stats-mean-median-right": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -83,7 +83,7 @@
         }
       }
     },
-    "chem-electrochemical-cell": {
+    "stats-mean-median-left": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -98,94 +98,34 @@
         }
       }
     },
-    "CONTROL-G1-strands-called-parallel": {
+    "stats-mean-median-symmetric": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-K1-right-skewed-curve-called-skewed-left": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note state that both DNA strands run 5\u2032 to 3\u2032 in the same direction, with arrowheads pointing the same way.",
-              "why": "DNA strands are antiparallel: their 5\u2032 to 3\u2032 directions are opposite. These statements teach a false orientation and contradict the entry, title, subtitle, and label specifying opposite directions."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The figure depicts both DNA strands running in the same 5' to 3' direction (parallel).",
-              "why": "DNA strands in a double helix are antiparallel (running in opposite 5' to 3' directions). The alt text and note state that both strands run in the same direction, which is biologically incorrect and directly contradicts the authored reference entry's claim of 'opposite 5' to 3' orientation'."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G2-proton-gradient-reversed": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The matrix and intermembrane-space proton concentrations are reversed in the labels, note, and alt text; the alt text also incorrectly assigns lower pH to the matrix.",
-              "why": "During mitochondrial respiration, the electron transport chain pumps protons from the matrix into the intermembrane space. The intermembrane space therefore has higher proton concentration and lower pH, while the matrix has lower proton concentration and higher pH, as stated in the reference entry."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The proton concentration gradient is reversed between the matrix and the intermembrane space.",
-              "why": "The figure's labels, note, and alt text state that the matrix has a high proton concentration (high H\u207a) and the intermembrane space has a low proton concentration (low H\u207a). This contradicts the authored reference entry and biological reality: the electron transport chain pumps protons into the intermembrane space, making it the region of high proton concentration (low pH), while the matrix has a lower proton concentration (higher pH)."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G3-sugars-put-on-the-inside-face": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text says the carbohydrate chains are on the cytoplasmic face, never the extracellular face, and the note says they are all on the inside face.",
-              "why": "Plasma-membrane glycoprotein and glycolipid carbohydrate chains face the extracellular side, not the cytoplasm. These statements also contradict the drawing parameters\u2019 unit note, which correctly identifies the sugar chains as marking the outside face."
-            }
-          ],
-          "confidence": "high"
-        },
-        "google/gemini-3.5-flash": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and note state that the carbohydrate chains of the glycoprotein and glycolipid are on the cytoplasmic (inside) face of the membrane, which is biologically incorrect.",
-              "why": "In plasma membranes, the carbohydrate chains of glycoproteins and glycolipids are located on the extracellular (outside) face, where they function in cell recognition and interaction. Placing them on the cytoplasmic face is biologically false."
+              "what": "The title, subtitle, note, and \u201clonger left tail\u201d annotation identify the curve as left-skewed, but the parameters specify a right-skewed chi-square distribution with 4 degrees of freedom.",
+              "why": "This distribution peaks at x = 2, has a short left side bounded by zero, and a long tail toward larger values. It therefore illustrates right skew, not left skew."
             },
             {
-              "what": "Contradiction between the unit note and the figure's note/alt text.",
-              "why": "The unit note states 'the sugar chains mark the outside face', whereas the note states 'the sugar chains are all on the inside face' and the alt text states they are on the 'cytoplasmic face, never the extracellular one'."
-            }
-          ],
-          "confidence": "high"
-        }
-      }
-    },
-    "CONTROL-G4-anode-label-on-the-cathode": {
-      "is_control": true,
-      "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The alt text and electrode labels place the anode on the left and cathode on the right, but the drawing parameter specifies \"anode_side\": \"right\".",
-              "why": "The text and labels reverse the electrodes relative to the configured cell, misidentifying where oxidation and reduction occur and contradicting the configured direction of electron flow."
+              "what": "The alt text describes a long tail stretching left toward smaller values.",
+              "why": "The specified curve\u2019s long tail stretches right. The alt text also contradicts itself by describing the left side as both a long tail and a steep drop to zero."
             }
           ],
           "confidence": "high"
@@ -194,23 +134,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "Electrode labels contradict the physical layout of the cell.",
-              "why": "The parameter 'anode_side' is set to 'right', meaning the anode is on the right side of the diagram. However, the label 'anode \u2014 oxidation' is placed on the left (x = 0.235) and 'cathode \u2014 reduction' is placed on the right (x = 0.765), resulting in the electrodes being mislabeled."
+              "what": "The curve plotted is skewed right, but the labels and title describe it as skewed left.",
+              "why": "A chi-square distribution with 4 degrees of freedom is skewed to the right (it has a long right tail). However, the title ('Skewed left'), subtitle, alt text, and the text label 'longer left tail' (placed at x=11.5, which is on the right side of the distribution) all incorrectly claim that the distribution is skewed left. This would severely confuse a student about the definition of skewness."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-G5-granum-drawn-as-one-disc": {
+    "CONTROL-K2-mean-and-median-lines-swapped": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "Each labelled granum contains only one thylakoid disc, and the unit note defines a granum as a single disc.",
-              "why": "A granum is a stack of thylakoids, not a single thylakoid. With discs_per_stack set to 1, the figure contradicts both the entry's definition of grana and the alt text's description of four stacks."
+              "what": "The mean and median labels are reversed, and the alt text repeats the reversal.",
+              "why": "For a chi-square distribution with 4 degrees of freedom, the mean is 4.0 and the median is approximately 3.356. The left line is therefore the median and the right line is the mean, contrary to the figure\u2019s labels and alt text. This also contradicts the title and note stating that the mean is larger than the median."
             }
           ],
           "confidence": "high"
@@ -219,8 +159,107 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The parameter 'discs_per_stack' is set to 1, representing each granum as a single thylakoid disc.",
-              "why": "A granum is biologically defined as a stack of thylakoids (as correctly stated in the reference entry: 'Grana: Stacks of thylakoids'). Depicting a granum as a single thylakoid disc is factually incorrect and contradicts the definition."
+              "what": "The labels and alt text swap the mean and median, incorrectly stating that the mean is smaller than the median.",
+              "why": "For a chi-square distribution with df = 4, the mean is 4.0 and the median is approximately 3.36. Thus, the mean is the right line (4.0) and the median is the left line (3.36). The figure's text labels ('mean (left line)' and 'median (right line)') and the alt text ('the mean is the left line... so the mean is smaller than the median') are incorrect and contradict the title 'Skewed right: the mean is above the median'."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-K3-left-skew-mean-called-larger": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle and alt text say the long left tail pulls the mean toward larger values.",
+              "why": "A long left tail pulls the mean toward smaller values, consistent with the plotted mean of 12.0 being below the median of 12.644."
+            },
+            {
+              "what": "The alt text concludes that the mean is larger than the median, and the note says this is usual for left-skewed distributions.",
+              "why": "The plotted values show 12.0 < 12.644. Both statements reverse the relationship shown and contradict the entry's claim that the mean is usually smaller than the median under left skew."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "Subtitle text error",
+              "why": "The subtitle states 'The long left tail pulls the mean toward larger values', but a left tail pulls the mean toward smaller values (to the left)."
+            },
+            {
+              "what": "Alt text mathematical contradiction",
+              "why": "The alt text states 'The mean is the left line, at about 12.0, and the median is the right line, at about 12.6, so the mean is larger than the median.' 12.0 is smaller than 12.6, not larger."
+            },
+            {
+              "what": "Note text error",
+              "why": "The note states 'In a left-skewed distribution the mean is usually larger than the median.' This is incorrect; in a left-skewed distribution, the mean is usually smaller than the median."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-K4-skew-named-for-the-peak-side": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The title labels the distribution \u201cskewed right,\u201d but the curve is skewed left.",
+              "why": "The mirrored chi-square curve has a longer tail toward smaller values, as the subtitle and skew check confirm. Skew direction is named by the longer tail, not the peak."
+            },
+            {
+              "what": "The alt text and note teach that skew is named for the side containing the peak or most of the data.",
+              "why": "That rule is false and contradicts the entry\u2019s claim. A peak on the right with a long left tail indicates left (negative) skew."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The figure title, subtitle, alt text, and note incorrectly define skewness direction.",
+              "why": "The figure claims that a distribution with a peak on the right and a long tail to the left is 'skewed right' and that skew is named for the peak/where most data are. In reality, skew is named for the tail: a long tail to the left (smaller values) is skewed left, which also contradicts the authored reference entry's definition."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-K5-symmetric-mean-called-far-from-median": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text says the mean is much larger than the median and that they are far apart.",
+              "why": "The normal distribution has mean and median both equal to 8, consistent with the single line labelled \u201cmean = median.\u201d"
+            },
+            {
+              "what": "The note states that in a symmetric distribution the mean is usually much larger than the median.",
+              "why": "For the symmetric normal distribution shown, the mean and median are equal. The note also contradicts the entry\u2019s claim that they are close under relative symmetry."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The note states: 'In a symmetric distribution the mean is usually much larger than the median.'",
+              "why": "This is factually incorrect. In a symmetric distribution, the mean and median are approximately equal (or exactly equal if perfectly symmetric)."
+            },
+            {
+              "what": "The alt text states: 'The mean is much larger than the median, so they are far apart.'",
+              "why": "This contradicts the figure itself (which shows a symmetric normal distribution with a single line labeled 'mean = median' at 8.0) and the scientific reality of symmetric distributions."
             }
           ],
           "confidence": "high"

@@ -1,0 +1,178 @@
+{
+  "models": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.5-flash"
+  ],
+  "figures": 2,
+  "controls": 5,
+  "controls_leaked": [
+    "CONTROL-N3-energy-axis-called-speed"
+  ],
+  "flagged": [],
+  "wall_seconds": 67.4,
+  "usage": {
+    "google/gemini-3.5-flash": {
+      "calls": 163,
+      "prompt": 210823,
+      "completion": 144302,
+      "seconds": 954.6999999999995
+    },
+    "openai/gpt-6.1-sol": {
+      "calls": 163,
+      "prompt": 175308,
+      "completion": 16830,
+      "seconds": 665.7000000000003
+    }
+  },
+  "detail": {
+    "chem-mb-entropy": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "chem-reaction-coordinate": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-N1-temperature-labels-swapped": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The temperature labels are reversed: \u201cHigher temperature\u201d uses theta = 0.78, while \u201cLower temperature\u201d uses theta = 1.48.",
+              "why": "For a Maxwell\u2013Boltzmann kinetic-energy distribution, increasing the temperature scale theta broadens the distribution, lowers its peak, and shifts it toward higher energy. Thus the curve labelled \u201cLower temperature\u201d shows the hotter distribution, contradicting the title, subtitle, and alt text."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The 'theta' parameters for the 'Higher temperature' and 'Lower temperature' series are inverted.",
+              "why": "In a Maxwell-Boltzmann distribution, the parameter theta (representing scale/temperature) increases as temperature rises. Here, 'Higher temperature' is set to theta = 0.78 and 'Lower temperature' is set to theta = 1.48. This will result in the 'Higher temperature' curve being plotted as narrower and taller (colder) than the 'Lower temperature' curve, contradicting the labels and physical reality."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-N2-dispersal-conclusion-reversed": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle and alt text describe the higher-temperature distribution as narrower with a taller peak.",
+              "why": "The higher theta value (1.48 versus 0.78) produces a broader kinetic-energy distribution with a lower peak, not a narrower distribution with a taller peak."
+            },
+            {
+              "what": "The note states that energy is less dispersed and entropy is smaller at higher temperature.",
+              "why": "This reverses both the relationship shown by the parameters and the entry's claim: increasing temperature broadens the kinetic-energy distribution and increases entropy under otherwise comparable conditions."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle, alt text, and note state that the hotter distribution is narrower and has a taller peak, and that entropy is smaller at higher temperatures.",
+              "why": "This is physically incorrect. As temperature increases, the Maxwell-Boltzmann distribution of kinetic energy broadens and flattens (becomes wider with a lower peak), representing greater energy dispersal and higher entropy. Furthermore, the note directly contradicts the main claim of the entry ('Entropy increases with temperature')."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-N3-energy-axis-called-speed": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-N4-coordinate-called-time": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The subtitle, x-axis label, and alt text identify the reaction coordinate as elapsed time.",
+              "why": "A reaction coordinate represents progress through molecular rearrangements from reactants to products, not seconds since mixing. An energy profile along this coordinate does not show how energy changes with elapsed time."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The x-axis is labeled as 'time' and the subtitle and alt text define the reaction coordinate as 'the axis along which time passes' and 'the number of seconds since the reactants were mixed'.",
+              "why": "The reaction coordinate is a geometric parameter representing the progress along a minimum energy pathway for a single microscopic reaction event (e.g., bond stretching or bending). It is not macroscopic time, nor is it measured in seconds since reactants were mixed. Equating the reaction coordinate to time is a major chemical misconception."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-N5-direction-of-change-reversed": {
+      "is_control": true,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "The alt text says the products are above the reactants and calls the example endothermic, but the product energy is 15 and the reactant energy is 40.",
+              "why": "The products are 25 energy units below the reactants, so the profile depicts an exothermic reaction, not an endothermic one."
+            }
+          ],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "reject",
+          "issues": [
+            {
+              "what": "alt text description of the energy profile",
+              "why": "The alt text states that the product level is above the reactants and that the reaction is endothermic, but the drawing parameters have reactants at 40 and products at 15, which represents an exothermic reaction with products below reactants."
+            }
+          ],
+          "confidence": "high"
+        }
+      }
+    }
+  }
+}

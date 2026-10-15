@@ -76,8 +76,8 @@ filter left the entire subject with one figure.
 |---|---|---|
 | Chem 8.5 Polyprotic acid titration curves (3 items) | `titration_curve` | needs a second equivalence point and a second pKa |
 | Precalc 2.15 Semi-log plot (vocabulary) and Using a semi-log plot to justify an exponential model (convention) | `xy_series` | needs a **log y axis**, which the family does not have |
-| Chem 9.1 Entropy increases with temperature | `mb_distribution` | "the distribution of kinetic energy broadens as temperature rises" is literally the existing two-temperature MB figure |
-| Chem 5.6 Reaction coordinate | `energy_profile` | the entry defines the x axis of a figure already published |
+| ~~Chem 9.1 Entropy increases with temperature~~ | `mb_distribution` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-mb-entropy`, a marker-free two-temperature figure, not a reuse of `chem-mb-energy`: that figure's activation-energy marker and shaded tail are not in the 9.1 entry, and route (b) requires every carried label to be supported by the entry's body |
+| ~~Chem 5.6 Reaction coordinate~~ | `energy_profile` | **BUILT 2026-10-15, live in Production (`APPROVAL-0165`)** as `chem-reaction-coordinate` (a minimal profile with the axis named), for the same reason as 9.1; `chem-energy-profile-single` belongs to a different 5.6 entry |
 
 **Chem 9.1 and 5.6 may be free `figure_uses` rows** against `chem-mb-energy` and an existing energy
 profile. Check the label strings first — protocol v1.5 §4a — and note both entries author no
@@ -87,10 +87,11 @@ profile. Check the label strings first — protocol v1.5 §4a — and note both 
 
 | Entry | Candidate figure | Check before believing |
 |---|---|---|
-| Stats 1.4 Comparing categorical data sets | the published bar chart / pie chart | the entry is about *comparing two sets*; one chart may not satisfy it |
-| Stats 2.1 Judging association from two categorical variables | the published two-categorical figures | same caution |
-| Stats 1.9 Which graphs compare which features | histogram / stem-and-leaf / dotplot | names three figure types; may need all three as uses |
-| Stats 1.6 Skew direction is named by the longer tail; 1.8 Mean vs. median under skew; 1.6 Gap | `density_curve`, or the published histogram | skew and gap are features of a distribution already drawn |
+| ~~Stats 1.4 Comparing categorical data sets~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-compare-two-datasets` | not a reuse: the published bar chart shows one data set, and this entry is about comparing two |
+| ~~Stats 2.1 Judging association from two categorical variables~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-association-yes` and `stats-association-no` | not a reuse: the published two-categorical figures belong to a different 2.1 entry and show one dataset; this entry needs a differing and a matching pair |
+| Stats 1.9 Which graphs compare which features | **not a figure (ruled 2026-10-15)** | the entry is a mapping from graph type to the features it compares, a table in words; attaching the four existing graph figures would assert labels the entry does not teach |
+| ~~Stats 1.6 Gap~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-gap-histogram` | a histogram with one empty bin, not a reuse of `stats-histogram` |
+| ~~Stats 1.6 Skew direction is named by the longer tail; 1.8 Mean vs. median under skew~~ | **BUILT 2026-10-15, Development** as six `density_curve` figures (`stats-skew-*`, `stats-mean-median-*`) | needed a left-skewed curve: `mirror_about` on the chi-square curve, in both renderers (`ap-prep-blueprint#26`). **Production load is blocked on an app publish**, which is itself blocked, see `LANE_A_NEXT_LANE_BATCH3_2026_10_15.md` |
 
 ## 6. Lane B (spatial or schematic — stops here)
 

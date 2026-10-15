@@ -1,0 +1,21 @@
+  chem-mb-entropy                                      gpt-6.1-sol        accept
+  chem-mb-entropy                                      gemini-3.5-flash   accept
+  chem-reaction-coordinate                             gpt-6.1-sol        accept
+  chem-reaction-coordinate                             gemini-3.5-flash   accept
+  CONTROL-N1-temperature-labels-swapped                gpt-6.1-sol        reject
+  CONTROL-N1-temperature-labels-swapped                gemini-3.5-flash   reject
+  CONTROL-N2-dispersal-conclusion-reversed             gpt-6.1-sol        reject
+  CONTROL-N2-dispersal-conclusion-reversed             gemini-3.5-flash   reject
+  CONTROL-N3-energy-axis-called-speed                  gpt-6.1-sol        accept
+  CONTROL-N3-energy-axis-called-speed                  gemini-3.5-flash   accept
+  CONTROL-N4-coordinate-called-time                    gpt-6.1-sol        reject
+  CONTROL-N4-coordinate-called-time                    gemini-3.5-flash   reject
+  CONTROL-N5-direction-of-change-reversed              gpt-6.1-sol        reject
+  CONTROL-N5-direction-of-change-reversed              gemini-3.5-flash   reject
+
+controls: 4/5 correctly rejected
+  BATCH VOID - controls accepted: ['CONTROL-N3-energy-axis-called-speed']
+figures: 2/2 accepted by both readers
+wall: 67.4s
+  google/gemini-3.5-flash: 163 calls, 210823 in / 144302 out
+  openai/gpt-6.1-sol: 163 calls, 175308 in / 16830 out
