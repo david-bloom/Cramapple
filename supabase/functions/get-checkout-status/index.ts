@@ -1,5 +1,11 @@
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
+import {
+  checkPublicRateLimit,
+  PUBLIC_ENDPOINT_LIMITS,
+  rateLimitDeps,
+  rateLimitedBody,
+} from "../_shared/public-rate-limit.ts";
 import { stripe } from "../_shared/stripe.ts";
 import {
   isPayerNotLearner,
@@ -34,6 +40,17 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return respond({ ok: true });
   if (req.method !== "POST") {
     return respond({ error: "method_not_allowed" }, { status: 405 });
+  }
+
+  const limiterService = createServiceClient();
+  const rateLimit = await checkPublicRateLimit(
+    req,
+    PUBLIC_ENDPOINT_LIMITS.getCheckoutStatus,
+    rateLimitDeps(limiterService),
+  );
+  if (!rateLimit.allowed) {
+    const limited = rateLimitedBody(rateLimit.retryAfterSeconds);
+    return respond(limited.body, limited.init);
   }
 
   const body = await readJsonBody(req);
