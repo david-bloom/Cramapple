@@ -1,6 +1,6 @@
 # More help — Calculus and Chemistry production work
 
-**Status:** In Progress — observed Gateway issues fixed and three sampled live FRQs pass; independent/full release QA remains open
+**Status:** In Progress — Production migrations/function deployed, app publication requested and owner reports More help works; independent/full live QA remains open
 **Owner:** David Bloom / Codex conductor
 **Tier:** Hard-Gate
 **Priority:** Owner-requested next production slice
@@ -9,6 +9,8 @@
 **PR:** https://github.com/david-bloom/Cramapple/pull/435 (backend), https://github.com/david-bloom/ap-prep-blueprint/pull/21 (App)
 **Governing design:** [MORE_HELP_DECISIONS_AND_DESIGN.md](../product/MORE_HELP_DECISIONS_AND_DESIGN.md)
 **Starting handoff:** [MORE_HELP_SESSION_HANDOFF_2026_10_13.md](../handoffs/MORE_HELP_SESSION_HANDOFF_2026_10_13.md)
+
+**Current gap catalog (October 15):** [Gaps, reasons and next evidence](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md) supersedes older rollout-state statements below. APPROVAL-0167/0168/0169 record the migrations, Production v1 deploy and app publication request; APPROVAL-0170 records David's “More help works.” Fresh read-only checks confirm all four migrations, Production v1/Development v10 ACTIVE with JWT enabled, and all nine deployed source files equal to each other and repository main. Exact published commit, detailed live matrix and independent/human QA remain open. Image questions are explicitly refused by the help contract; multipart prompt/figure grounding needs targeted tracing. This cataloging slice is on `codex/work-more-help-gap-catalog`; original QA reports remain unchanged. Next owner: independent reviewer/conductor, starting with the catalog and updated QA prompt. No new calls, writes or rollout occurred.
 
 **Session close (October 14):** [Durable handoff](../handoffs/MORE_HELP_SESSION_CLOSE_2026_10_14.md). Backend #442, app #25 and QA docs #448 are now merged with passing checks. David confirmed correct rendering. The task remains in progress; next owner David/independent QA session, next action the updated independent review prompt. No Production release is claimed. Earlier draft/PR-state statements below are historical.
 

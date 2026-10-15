@@ -1,5 +1,7 @@
 # More help — session close and restart
 
+> **Current-state correction, October 15:** start with the [gap catalog](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md). APPROVAL-0167/0168/0169 record subsequent Production migrations, function deployment and app publication request; APPROVAL-0170 records owner smoke (“More help works”). Fresh checks confirm all four migrations and Production v1/Development v10 with matching nine-file source. This October 14 closeout remains a historical checkpoint; its missing-rollout statements are superseded. Independent/full live QA and the specific fixture/call proposal remain open.
+
 **Date:** 2026-10-14 (America/New_York)
 **Session:** Ended at David's request. The production work order remains in progress; no release completion is claimed.
 **Task:** [WORK-MORE-HELP-PRODUCTION](../tasks/WORK-MORE-HELP-PRODUCTION.md)

@@ -1,5 +1,7 @@
 # More help — release QA disposition and next test plan
 
+> **October 15 baseline:** [Current gap catalog](MORE_HELP_GAP_CATALOG_2026_10_15.md) records subsequent Production migrations/function, publication request and bounded owner smoke, plus fresh source equality. Older missing-rollout statements here are historical; independent/full live QA and the concrete fixture/call decisions remain open. Original independent reports are unchanged.
+
 **Date:** 2026-10-14 (America/New_York)
 **Status:** Confirmed code defects remediated; Development v10 deployed; independent/live release QA still pending
 **Independent report:** [Claude release QA](QA_MORE_HELP_RELEASE_2026_10_14.md), preserved unchanged (local original commit `e5850eda`, FAIL narrow / NOT READY)
