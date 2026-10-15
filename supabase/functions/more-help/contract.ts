@@ -115,10 +115,10 @@ function continuityStatements(question: string): boolean {
 // Observed statement-selection leak, scoped to that task. Inspect generated
 // conclusions only; generic published definitions and conditional setup stay usable.
 function continuityVerdict(copy: string): boolean {
-  return /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:the\s+)?(?:two-sided\s+)?limit\s+(?:exists\b|does\s+not\s+exist\b|equals\b|is\s+[+-]?\d)/i.test(copy) ||
-    /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:it|this\s+function|the\s+function|[a-z]\([^\n)]*\))\s+(?:is\s+(?:not\s+)?continuous\b|has\s+(?:a\s+)?(?:removable|jump|infinite)\s+discontinuity\b)/i.test(copy) ||
-    /\bstatements?\s+(?:I{1,3}|IV|[1-4])(?:\s*(?:and|,)\s*(?:I{1,3}|IV|[1-4]))*\s+(?:is|are)\s+(?:true|false|correct|incorrect)\b/i.test(copy) ||
-    /^\s*(?:removable|jump|infinite)\s+discontinuity(?:\s*[:—-][^\n]*)?\s*$/im.test(copy);
+  return /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:here,?\s+)?(?:the\s+)?(?:two-sided\s+)?limit\s+(?:exists\b|does\s+not\s+exist\b|equals\b|is\s+[+-]?\d)/i.test(copy) ||
+    /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:it|this\s+function|the\s+function|[a-z](?:\([^\n)]*\))?)\s+(?:is\s+(?:not\s+)?continuous\b|has\s+(?:a\s+)?(?:removable|jump|infinite)\s+discontinuity\b)/i.test(copy) ||
+    /\b(?:statements?\s+|both\s+)(?:I{1,3}|IV|[1-4])(?:\s*(?:and|,)\s*(?:I{1,3}|IV|[1-4]))*\s+(?:is|are)\s+(?:true|false|correct|incorrect)\b/i.test(copy) ||
+    /^\s*(?:a\s+|an\s+)?(?:removable|jump|infinite)\s+discontinuity(?:\s+at\b[^\n]*)?(?:\s*[:—-][^\n]*)?[.]?\s*$/im.test(copy);
 }
 export function helpContext(raw: unknown, input: HelpInput) {
   const r = object(raw),

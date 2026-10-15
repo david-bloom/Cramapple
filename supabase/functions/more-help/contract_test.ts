@@ -71,6 +71,10 @@ Deno.test("continuity statement selection rejects observed pre-submit verdicts i
     "It has a removable discontinuity.",
     "Statements I and III are true.",
     "Removable discontinuity",
+    "r is not continuous at t = 4.",
+    "A removable discontinuity at t = 4.",
+    "Both I and III are true.",
+    "Here, the limit exists.",
   ]) {
     for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
       const response = { ...output, [field]: field === "follow_ups" ? [verdict] : verdict };
