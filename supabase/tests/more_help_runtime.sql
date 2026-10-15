@@ -11,6 +11,14 @@ begin
  if not exists(select 1 from auth.users where id=u and email='__QA_EMAIL__') then raise exception 'Task-local synthetic QA identity mismatch'; end if;
  select exam_pack_version_id into pack from app.learning_sessions where id=s and user_id=u;
  if pack is null or not exists(select 1 from app.learning_session_items where learning_session_id=s and content_item_version_id=q) then raise exception 'Task-local QA session mismatch'; end if;
+ -- Earlier live QA may already have delivered help in the seed session. Use a
+ -- fresh transaction-owned session so this test is repeatable without deleting
+ -- durable receipts or falsely diagnosing pre-existing assistance as premature.
+ s:=gen_random_uuid();
+ insert into app.learning_sessions(id,user_id,exam_pack_version_id,entry_path,session_mode,available_minutes,practice_format)
+ values(s,u,pack,'topic','focused',10,'short_frq');
+ insert into app.learning_session_items(learning_session_id,ordinal,content_item_version_id)
+ values(s,1,q);
  update app.subject_entitlements set status='active',ends_at=now()+interval '1 hour' where user_id=u;
  perform set_config('more_help.qa_user',u::text,true);
  perform set_config('more_help.qa_session',s::text,true);
