@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
 - APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
 - APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
 - APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
@@ -140,6 +141,25 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Yes, fix the order and fix the order on 1.8", then "Still backwards. No change" after `APPROVAL-0171` renumbered captions but left the left figure above the right one. The instruction is the order, not the numbers.
+- **Cause and choice:** `get_topic_point_guides` serves figures `order by f.figure_id`. Changing that ordering would touch every subject's payload. Instead the six ids are renamed so that alphabetical order is the intended order. Nothing in the app reads these ids except as keys.
+
+| Old id | New id | Subtitle |
+|---|---|---|
+| `stats-skew-right` | `stats-skew-1-right` | "(figure 1 of 3)" |
+| `stats-skew-left` | `stats-skew-2-left` | "(figure 2 of 3)" |
+| `stats-skew-symmetric` | `stats-skew-3-symmetric` | "(figure 3 of 3)" |
+| `stats-mean-median-right` | `stats-mean-median-1-right` | "(figure 1 of 3)" |
+| `stats-mean-median-left` | `stats-mean-median-2-left` | "(figure 2 of 3)" |
+| `stats-mean-median-symmetric` | `stats-mean-median-3-symmetric` | "(figure 3 of 3)" |
+
+- **Scope:** Production (`pcntajvbdfqhbeewmdry`) and Development, one statement each: insert six copies under the new ids (every other column unchanged, subtitles as in the table), copy each figure's `figure_uses` rows with their `created_at`, delete the six old rows (their old uses cascade). `figure_uses` has no update cascade, which is why this is copy-then-delete. Guarded to the batch tag `batch=stats-next3-figures-2026-10-15`. Fixtures (`specs.json` keys and `figure_id`, `ced_check.py`) renamed to match; `verify.py` 4,413 checks, 0 failed. The gate evidence under `scripts/lane-a-pilot/out/` and the 4c run logs keep the old ids; the figures' drawn content, alt text, labels and params are unchanged, so the gates are not re-run.
+- **Rollback:** the same statement in reverse (new id to old id, subtitles to the `APPROVAL-0171` numbering), or `update app.figures set status = 'retired' where source_note like '%batch=stats-next3-figures-2026-10-15%'`.
+- **Result:** recorded below once verified.
 
 ## APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
 
