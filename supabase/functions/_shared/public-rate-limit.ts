@@ -8,7 +8,34 @@
 // Limits are deliberately generous. A school or family shares one IP, so the
 // per-IP numbers must tolerate a classroom of students; they exist to stop
 // scripts, not people.
-import { clientIp, hmacSha256Hex } from "./byoq.ts";
+
+/**
+ * The caller's IP as seen by the platform edge: CF-Connecting-IP, falling back
+ * to the first X-Forwarded-For hop. Same rule as `clientIp` in byoq.ts, kept
+ * local so the payment functions do not load the BYOQ module.
+ */
+function clientIp(req: Request): string | null {
+  const cf = req.headers.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
+  const first = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return first || null;
+}
+
+async function hmacSha256Hex(key: string, value: string) {
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(key),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const sig = await crypto.subtle.sign(
+    "HMAC",
+    cryptoKey,
+    new TextEncoder().encode(value),
+  );
+  return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
 
 export type PublicEndpointLimit = {
   endpoint: string;
