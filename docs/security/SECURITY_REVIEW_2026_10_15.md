@@ -17,7 +17,7 @@ No launch-blocking vulnerability found in the reviewed scope. The data layer and
 | `SECURITY DEFINER` functions callable by signed-in users (19) | All 19 reviewed. Student-facing ones gate on `auth.uid()`; admin ones (`gold_set_admin_overview`, `content_review_invariant_report`) check `role = 'admin'`; reviewer ones check assignment or admin. All pin `search_path`. |
 | Storage | `learner-uploads` is owner-scoped by path prefix; other buckets are service_role only. No public buckets. |
 | Stripe | Webhook verifies signature (`constructEventAsync`) and is the sole entitlement authority; prices come from a server-side catalog, never the client; idempotent event ledger. |
-| Secrets | None committed (tracked files and history scanned for Stripe, Supabase, Anthropic, Resend, Google patterns). Edge functions read secrets from env. |
+| Secrets | None found in tracked files (Stripe, Supabase, Anthropic, Resend, Google key patterns). Git history was spot-checked for Stripe live/webhook keys only; a full-history scan (e.g. gitleaks) is still worth running. Edge functions read secrets from env. |
 | Edge-function auth | Money/session/storage functions call `requireProfile`; email hook verifies a Standard Webhooks signature; transactional-email delivery requires a bearer secret; CORS has no wildcard fallback. |
 | AI cost abuse | `evaluate-attempt` and `more-help` have quota/budget controls (`app.daily_budgets`, `model_usage_ledger`). |
 
