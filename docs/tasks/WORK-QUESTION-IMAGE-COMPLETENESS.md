@@ -4,12 +4,28 @@
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
-**Branch:** `codex/question-image-audit-plan`. **PR:** See this branch's GitHub PR.
+**Branch:** `codex/question-image-audit-plan`. **PR:** [#455](https://github.com/david-bloom/Cramapple/pull/455).
 **Authorization:** David requested a session to find questions needing missing images and plans for identification, rendering, storage and student delivery. Standing Approval Lane 1 covers this read-only work and proposed plan. No new product decision is recorded as approved.
+
+## Active pilot scope — owner direction, 2026-10-14
+
+David narrowed the next work to **the existing 350 potential candidates, Chemistry and Calculus AB, Units 1–4**, as test subjects. This supersedes the all-subject census and Physics/Biology starting queue as the immediate next action. The wider plan below remains future expansion; it is not this pilot's execution scope.
+
+Re-running the original candidate rule yields the same 105 subject candidates (27 Chemistry, 78 AB). Use canonical primary-topic units when present; otherwise current, nonsuperseded **validated** unit-serving labels. Include only candidates whose resolved units all fall in 1–4. Do not infer units from content keys, accept provisional labels as validated, or treat scope membership as proof of selector availability.
+
+| Subject | In Units 1–4 | Scope unresolved | Beyond Unit 4 |
+| --- | ---: | ---: | ---: |
+| Chemistry | 20 (8 MCQ, 12 FRQ) | 5 | 2 |
+| Calculus AB | 71 (46 MCQ, 25 FRQ) | 5 | 2 |
+| **Total** | **91** | **10** | **4** |
+
+There are **no confidently resolved Unit 4 candidates in this subset**. Chemistry's `apchem-frq-l-016` has provisional units `[1,3,4]` and stays in the unresolved queue. This is not a claim that all Unit 4 questions have adequate visuals; the original keyword screen is incomplete by design.
+
+Pilot queue: classify these 91 for required visuals and resolve the unit scope of the 10 uncertain rows separately. Preserve the four beyond-scope rows as excluded evidence. First deliverable is a version-pinned classification and repair proposal for the two subjects, without expanding to other subjects or keyword-negative questions. The read-only membership query and all 105 version identities/unit evidence are frozen in `scripts/image_readiness/question_image_pilot_scope.sql` and `question_image_pilot_scope.json`. No semantic verdict or image repair is claimed by this scope filter.
 
 ## Outcome and boundary
 
-Find every published question version that cannot deliver its intended task because a required visual is absent, inaccessible or dropped in delivery. Produce a reviewable repair queue, then create and deploy exact-version visuals in approved batches. Cover MCQs, FRQ part prompts, visual answer choices and worked examples across all ten subjects. Prioritize currently reachable questions; keep published-but-withheld questions visible in the backlog.
+Long-term goal: find every published question version that cannot deliver its intended task because a required visual is absent, inaccessible or dropped in delivery. Produce a reviewable repair queue, then create and deploy exact-version visuals in approved batches. Cover MCQs, FRQ part prompts, visual answer choices and worked examples across all ten subjects. Prioritize currently reachable questions; keep published-but-withheld questions visible in the backlog. The active pilot is the narrowed scope above.
 
 An absent PNG is not proof of a defective question. A table may already contain all givens, a formula may define the complete task, or the student may be asked to draw the graph. Conversely, a complete prose description may make a question mathematically answerable while removing the intended graph-reading skill. Record both **answerability** and **construct fidelity**.
 
@@ -59,7 +75,7 @@ Reconcile this inventory with actual practice and teaching selection rules. Do n
 
 Start with recorded required/missing decisions, broken paths, unapproved metadata and explicit “figure below” / labelled-choice references. Expand to curves, circuits, pedigrees, microscopy, maps, particle models, axes, labels A/B and incomplete numerical givens. Scan choices and every learner-facing FRQ part, as well as stem/stimulus and supported item-package presentations.
 
-**Review all inventory rows semantically**, including keyword-negative rows. This prevents “missing figure with no figure keyword” from being silently missed. A broad lexical screen only orders the work. Separate absent data from dropped presentation: inspect both stored content and what the active adapter/screen actually displays.
+For the active pilot, **review every in-scope candidate semantically**. In a future full-catalogue expansion, include keyword-negative rows too, to catch a missing figure with no figure keyword. A broad lexical screen only orders the work. Separate absent data from dropped presentation: inspect both stored content and what the active adapter/screen actually displays.
 
 For each row, a reviewer sees the student-facing material with the answer key hidden and records: required givens, where each is supplied, the operation being assessed, whether it can be completed, and which visual dependency is absent. Use another independent reviewer for every proposed defect and construct-sensitive case. Disagreements remain unresolved until reconciled; consult rubric/key only in a second validation pass to detect contradictions, never to invent missing givens.
 
@@ -81,7 +97,9 @@ A paid two-model full-catalogue pass is a proposed option, not executed here. Be
 
 Use one primary disposition plus separate construction/construct-risk flags. Record reviewers, exact evidence excerpts, reason, priority, required representation, source sufficiency, existing asset/spec links, repair estimate, and QA state. Every row gets a decision; summarize counts by subject/type and distinguish published, selectable, delivered and browser-verified counts.
 
-## 2. Initial pilot queue and negative controls
+## 2. Historical cross-subject leads and negative controls
+
+The Physics/Biology leads below remain recorded evidence, **outside the active Chemistry/AB pilot**. Do not process them ahead of the owner's selected subjects. The Chemistry/AB pilot membership is frozen in the active-scope artifacts above; use the relevant AB negative controls below when classifying it.
 
 These three are **already recorded as requiring missing images**, not newly proven unanswerable in this session:
 
@@ -91,7 +109,7 @@ These three are **already recorded as requiring missing images**, not newly prov
 | `apphycm-frq-050` / `8e3d19be-4792-4fc0-a1d4-32d4a3c889d3` | Vertical-circle setup, radius 0.800 m, mass 0.400 kg, top speed 3.00 m/s | Draw supplied geometry and givens; do not add the force decomposition or calculated tensions/speeds being assessed. Reconfirm whether required for construct fidelity despite complete prose. |
 | `apphycem-frq-051` / `47ee5fb8-949f-4ae8-aba1-ab5999ab7945` | Uniform charged rod centered on x-axis, L=0.800 m, Q=8.00 nC, point P on perpendicular bisector at y=0.300 m | Label supplied geometry; do not add the solution integral, charge-density result or answer. Reconfirm necessity versus helpfulness. |
 
-Also inspect the five Biology paths without approved metadata before commissioning any replacement. Their keys are in `question_image_initial_snapshot.json`.
+In a later Biology slice, inspect the five paths without approved metadata before commissioning any replacement. Their keys are in `question_image_initial_snapshot.json`.
 
 Real negative/adjudication controls found in the spot-check:
 
@@ -151,7 +169,7 @@ Future authoring/publishing must include an explicit visual-requirement decision
 ## Deliverables, ownership and next action
 
 - **This session:** source orientation, live baseline, reproducible SELECT-only inventory query, compact evidence snapshot and this proposed execution plan. No full-catalogue semantic audit, independent QA verdict or image repair is claimed.
-- **Next owner: Codex / audit conductor.** Run and freeze the inventory, review the known-missing/metadata pilot and complete semantic classification across all rows, with independent review of proposed defects. Deliver `question_visual_audit.json` plus a short subject summary and the first exact repair manifest.
+- **Next owner: Codex / audit conductor.** Classify the 91 Chemistry/Calculus AB candidates scoped to Units 1–4, resolve the unit scope of the ten uncertain candidates separately, and independently review proposed visual defects. Deliver a version-pinned pilot audit, subject summary and first exact repair manifest. Preserve all-subject expansion and Physics/Biology leads for later work.
 - **Then:** subject reviewer validates construct/source sufficiency; implementation owner builds an approved Development pilot; independent QA checks it; David approves the named Production promotion.
 - **Implementation boundaries:** TASK-0006's broader unapproved design is a reference proposal, not blanket approval. Existing figure and Biology-delivery approvals do not authorize new all-subject question writes. Development repair, schema/API changes, paid checker calls and Production changes need their applicable scope approval; no approval question is needed to finish this plan.
 - **Do not touch:** the original checkout's unrelated edits; learner uploads; grading/rubrics; existing Production content; concurrent figure PR #454 or ASCII-math PR #449 (both independently use DECISION-0123). Do not resolve their decision-number collision in this slice.
