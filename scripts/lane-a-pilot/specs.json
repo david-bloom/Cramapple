@@ -8827,5 +8827,946 @@
         "subject_key": "ap_chemistry"
       }
     ]
+  },
+  "chem-mb-entropy": {
+    "entry_title": "Entropy increases with temperature (energy dispersal)",
+    "subject_key": "ap_chemistry",
+    "family": "mb_distribution",
+    "title": "Kinetic energy spreads out as temperature rises",
+    "short_title": "Energy dispersal with temperature",
+    "subtitle": "The same gas at two temperatures: the hotter distribution is broader",
+    "caption": "The same gas at two temperatures: the hotter distribution is broader",
+    "x_label": "kinetic energy of a particle",
+    "y_label": "relative number of particles",
+    "alt": "Two curves of the relative number of gas particles against kinetic energy for the same gas at a lower and a higher temperature. The higher-temperature curve has a lower peak and is broader and shifted to higher energy, so the kinetic energy is spread over a wider range of values. Illustrative data.",
+    "note": "A broader distribution means the energy is more dispersed, so the entropy is greater.",
+    "synthetic": true,
+    "y_tick_fmt": "{:.2f}",
+    "covers": [
+      "Horizontal axis",
+      "Vertical axis",
+      "Kinetic-energy distribution at each temperature",
+      "Broader distribution at the higher temperature"
+    ],
+    "labels": [
+      "Horizontal axis",
+      "Vertical axis",
+      "Kinetic-energy distribution at each temperature",
+      "Broader distribution at the higher temperature"
+    ],
+    "params": {
+      "x_max": 8.0,
+      "series": [
+        {
+          "label": "Lower temperature",
+          "theta": 0.78,
+          "style": "solid"
+        },
+        {
+          "label": "Higher temperature",
+          "theta": 1.48,
+          "style": "dashed"
+        }
+      ]
+    },
+    "figure_id": "chem-mb-entropy",
+    "reference_entry_id": "f775f891-95e7-467d-97f4-e7bd740afebb",
+    "unit_number": 9,
+    "owner_topic_code": "9.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "f775f891-95e7-467d-97f4-e7bd740afebb",
+        "title": "Entropy increases with temperature (energy dispersal)",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 9.1 is a convention entry with no items[]; its body says the kinetic-energy distribution broadens as temperature rises, which is what the four labels draw (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "chem-reaction-coordinate": {
+    "entry_title": "Reaction coordinate",
+    "subject_key": "ap_chemistry",
+    "family": "energy_profile",
+    "title": "The reaction coordinate",
+    "short_title": "Reaction coordinate",
+    "subtitle": "The axis along which a reaction from reactants to products is plotted",
+    "caption": "The axis along which a reaction from reactants to products is plotted",
+    "x_label": "reaction coordinate",
+    "y_label": "energy",
+    "alt": "Energy plotted against the reaction coordinate. The curve starts at the reactant level on the left, rises to a maximum and then falls to a product level below the reactants on the right, so this example is exothermic. The horizontal axis is the reaction coordinate, the path of the motions that turn reactants into products. Illustrative data.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (reaction coordinate)",
+      "Vertical axis (energy)",
+      "Reaction pathway from reactants to products"
+    ],
+    "labels": [
+      "Horizontal axis (reaction coordinate)",
+      "Vertical axis (energy)",
+      "Reaction pathway from reactants to products"
+    ],
+    "params": {
+      "nodes": [
+        {
+          "e": 40,
+          "label": "reactants",
+          "kind": "level"
+        },
+        {
+          "e": 120,
+          "label": "",
+          "kind": "ts"
+        },
+        {
+          "e": 15,
+          "label": "products",
+          "kind": "level"
+        }
+      ]
+    },
+    "figure_id": "chem-reaction-coordinate",
+    "reference_entry_id": "06c06f70-791e-4fb4-a556-755e12241749",
+    "unit_number": 5,
+    "owner_topic_code": "5.6",
+    "entry_kind": "vocabulary",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_chemistry",
+        "id": "06c06f70-791e-4fb4-a556-755e12241749",
+        "title": "Reaction coordinate",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Chemistry 5.6 'Reaction coordinate' is a vocabulary entry with no items[]; its body defines the axis along which reactants are plotted becoming products, which is what the three labels draw at every size (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-gap-histogram": {
+    "entry_title": "Gap",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "A gap in a histogram",
+    "short_title": "Gap in a histogram",
+    "subtitle": "One interval between two values holds no observations",
+    "caption": "Ages of 38 customers in ten-year bins; the 40 to 50 bin is empty, which is a gap.",
+    "x_label": "age of a customer (years)",
+    "y_label": "number of customers",
+    "alt": "A histogram of the ages of 38 customers in six bins of ten years from 10 to 70. The bar heights are 7, 14, 9, 0, 5 and 3 customers, so the bin from 40 to 50 years has no bar: no customer in the data is between those two ages. That empty interval between two filled ones is a gap. Illustrative data.",
+    "note": "A gap is an interval between two values with no observed data, so the bars on either side of it are separated by an empty bin.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (values of the variable)",
+      "Vertical axis (frequency)",
+      "Gap: an interval with no observed data"
+    ],
+    "labels": [
+      "Horizontal axis (values of the variable)",
+      "Vertical axis (frequency)",
+      "Gap: an interval with no observed data"
+    ],
+    "params": {
+      "mode": "histogram",
+      "bin_edges": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "counts": [
+        7,
+        14,
+        9,
+        0,
+        5,
+        3
+      ],
+      "measure": {
+        "bin": 3,
+        "label": "gap: no data"
+      }
+    },
+    "figure_id": "stats-gap-histogram",
+    "reference_entry_id": "8491e20d-e140-4703-acfb-dbd357b5d515",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "vocabulary",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "8491e20d-e140-4703-acfb-dbd357b5d515",
+        "title": "Gap",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Gap' is a vocabulary entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-compare-two-datasets": {
+    "entry_title": "Comparing categorical data sets",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Comparing two data sets on one categorical variable",
+    "short_title": "Two data sets, one variable",
+    "subtitle": "Relative frequencies, so groups of different sizes can be compared",
+    "caption": "How two classes of different sizes travel to school, as relative frequencies.",
+    "x_label": "how a student travels to school",
+    "y_label": "relative frequency",
+    "alt": "A side-by-side bar chart of relative frequencies for how students travel to school, for two classes. Class A has 40 students: 20% walk, 10% bike, 30% take the bus and 40% go by car. Class B has 25 students: 40% walk, 8% bike, 12% take the bus and 40% go by car. Both classes use the same four categories, so each pair of bars compares the classes. Illustrative data.",
+    "note": "Relative frequencies, not counts, because the classes have 40 and 25 students.",
+    "synthetic": true,
+    "covers": [
+      "Horizontal axis (categories of one variable)",
+      "Vertical axis (relative frequency)",
+      "A bar for each data set within each category"
+    ],
+    "labels": [
+      "Horizontal axis (categories of one variable)",
+      "Vertical axis (relative frequency)",
+      "A bar for each data set within each category"
+    ],
+    "params": {
+      "mode": "grouped",
+      "categories": [
+        "Walk",
+        "Bike",
+        "Bus",
+        "Car"
+      ],
+      "levels": [
+        "Class A (40 students)",
+        "Class B (25 students)"
+      ],
+      "table": [
+        [
+          0.2,
+          0.1,
+          0.3,
+          0.4
+        ],
+        [
+          0.4,
+          0.08,
+          0.12,
+          0.4
+        ]
+      ]
+    },
+    "figure_id": "stats-compare-two-datasets",
+    "reference_entry_id": "ec350677-1116-42de-bfa6-46b8dab49d27",
+    "unit_number": 1,
+    "owner_topic_code": "1.4",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "ec350677-1116-42de-bfa6-46b8dab49d27",
+        "title": "Comparing categorical data sets",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.4 'Comparing categorical data sets' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
+  },
+  "stats-association-yes": {
+    "entry_title": "Judging association from two categorical variables",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Distributions that differ: associated in these data",
+    "short_title": "Associated in these data",
+    "subtitle": "The pass rate differs between the two levels (figure 1 of 2)",
+    "caption": "Exam results for students with and without a part-time job: the two distributions differ.",
+    "x_label": "part-time job",
+    "y_label": "share of the group",
+    "alt": "A segmented bar chart comparing exam results for two groups of students. Among the 50 students with a part-time job, 60% pass and 40% do not. Among the 40 students without one, 80% pass and 20% do not. The two distributions of results differ, so in these data the variables are associated. Illustrative data.",
+    "note": "Compare the distribution of the response within each level of the other variable; here the two differ.",
+    "synthetic": true,
+    "covers": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "labels": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "params": {
+      "mode": "segmented",
+      "categories": [
+        "Has a part-time job",
+        "No part-time job"
+      ],
+      "levels": [
+        "Passes the exam",
+        "Does not pass"
+      ],
+      "table": [
+        [
+          30,
+          32
+        ],
+        [
+          20,
+          8
+        ]
+      ]
+    },
+    "figure_id": "stats-association-yes",
+    "reference_entry_id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+    "unit_number": 2,
+    "owner_topic_code": "2.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+        "title": "Judging association from two categorical variables",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.1 'Judging association from two categorical variables' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
+  },
+  "stats-association-no": {
+    "entry_title": "Judging association from two categorical variables",
+    "subject_key": "ap_statistics",
+    "family": "categorical_bars",
+    "title": "Distributions that match: no association in these data",
+    "short_title": "No association in these data",
+    "subtitle": "The pass rate is the same at both levels (figure 2 of 2)",
+    "caption": "Exam results for students with and without a part-time job: the two distributions match.",
+    "x_label": "part-time job",
+    "y_label": "share of the group",
+    "alt": "A segmented bar chart comparing exam results for two groups of students. Among the 50 students with a part-time job, 70% pass and 30% do not. Among the 40 students without one, 70% pass and 30% do not. The two distributions of results are the same, so in these data the variables are not associated. Illustrative data.",
+    "note": "Compare the distribution of the response within each level of the other variable; here the two match.",
+    "synthetic": true,
+    "covers": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "labels": [
+      "Distribution of one variable within each level of the other",
+      "Whether the distributions differ or match across levels"
+    ],
+    "params": {
+      "mode": "segmented",
+      "categories": [
+        "Has a part-time job",
+        "No part-time job"
+      ],
+      "levels": [
+        "Passes the exam",
+        "Does not pass"
+      ],
+      "table": [
+        [
+          35,
+          28
+        ],
+        [
+          15,
+          12
+        ]
+      ]
+    },
+    "figure_id": "stats-association-no",
+    "reference_entry_id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+    "unit_number": 2,
+    "owner_topic_code": "2.1",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "87136ed4-83a5-4a40-b57c-dad87ffe1237",
+        "title": "Judging association from two categorical variables",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 2.1 'Judging association from two categorical variables' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ],
+    "y_tick_fmt": "{:.0%}"
+  },
+  "stats-skew-right": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed right: the longer tail is on the right",
+    "short_title": "Skewed right",
+    "subtitle": "The tail toward larger values is longer (figure 1 of 3)",
+    "caption": "A density curve whose right tail is longer than its left tail.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A density curve with its peak near the left and a long tail stretching to the right toward larger values, while the left side drops steeply to zero. The right tail is clearly longer than the left tail, so the distribution is skewed right. The skew is named for the longer tail, not for the side where the peak is. Illustrative data.",
+    "note": "Skew is named for the longer tail, not for the side where most of the data are.",
+    "synthetic": true,
+    "covers": [
+      "Longer right tail",
+      "Skewed right"
+    ],
+    "labels": [
+      "Longer right tail",
+      "Skewed right"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "style": "solid"
+        }
+      ],
+      "texts": [
+        {
+          "x": 11.5,
+          "y": 0.065,
+          "label": "longer right tail"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "right"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-right",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-skew-left": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed left: the longer tail is on the left",
+    "short_title": "Skewed left",
+    "subtitle": "The tail toward smaller values is longer (figure 2 of 3)",
+    "caption": "A density curve whose left tail is longer than its right tail.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A density curve with its peak near the right and a long tail stretching to the left toward smaller values, while the right side drops steeply to zero. The left tail is clearly longer than the right tail, so the distribution is skewed left. The skew is named for the longer tail, not for the side where the peak is. Illustrative data.",
+    "note": "Skew is named for the longer tail, not for the side where most of the data are.",
+    "synthetic": true,
+    "covers": [
+      "Longer left tail",
+      "Skewed left"
+    ],
+    "labels": [
+      "Longer left tail",
+      "Skewed left"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "mirror_about": 16,
+          "style": "solid"
+        }
+      ],
+      "texts": [
+        {
+          "x": 4.5,
+          "y": 0.065,
+          "label": "longer left tail"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "left"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-left",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-skew-symmetric": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Approximately symmetric: the halves mirror each other",
+    "short_title": "Approximately symmetric",
+    "subtitle": "The left half mirrors the right half (figure 3 of 3)",
+    "caption": "A bell-shaped density curve whose two halves are mirror images.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A bell-shaped density curve with its peak in the middle and a dashed vertical line through the centre. The left half is the mirror image of the right half, so the two tails are the same length and the distribution is approximately symmetric. Illustrative data.",
+    "note": "Symmetric means the left half mirrors the right half, so neither tail is longer.",
+    "synthetic": true,
+    "covers": [
+      "Left half mirrors the right half",
+      "Approximately symmetric"
+    ],
+    "labels": [
+      "Left half mirrors the right half",
+      "Approximately symmetric"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 8.0,
+          "sigma": 2.7,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 8.0,
+          "label": "mirror line",
+          "caption": null
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "none"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-symmetric",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-right": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed right: the mean is above the median",
+    "short_title": "Mean above median",
+    "subtitle": "The long right tail pulls the mean toward larger values (figure 1 of 3)",
+    "caption": "A right-skewed density curve with its median and mean marked.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A right-skewed density curve with two dashed vertical lines. The median is the left line, at about 3.4, and the mean is the right line, at about 4.0, so the mean is larger than the median. The long right tail pulls the mean toward larger values. Illustrative data.",
+    "note": "In a right-skewed distribution the mean is usually larger than the median.",
+    "synthetic": true,
+    "covers": [
+      "Mean above the median",
+      "Skewed right"
+    ],
+    "labels": [
+      "Mean above the median",
+      "Skewed right"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 3.356,
+          "label": null,
+          "caption": null
+        },
+        {
+          "x": 4.0,
+          "label": null,
+          "caption": null
+        }
+      ],
+      "texts": [
+        {
+          "x": 4.4,
+          "y": 0.205,
+          "label": "median (left line)",
+          "anchor": "start"
+        },
+        {
+          "x": 4.4,
+          "y": 0.175,
+          "label": "mean (right line)",
+          "anchor": "start"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "right"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-right",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-left": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed left: the mean is below the median",
+    "short_title": "Mean below median",
+    "subtitle": "The long left tail pulls the mean toward smaller values (figure 2 of 3)",
+    "caption": "A left-skewed density curve with its mean and median marked.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A left-skewed density curve with two dashed vertical lines. The mean is the left line, at about 12.0, and the median is the right line, at about 12.6, so the mean is smaller than the median. The long left tail pulls the mean toward smaller values. Illustrative data.",
+    "note": "In a left-skewed distribution the mean is usually smaller than the median.",
+    "synthetic": true,
+    "covers": [
+      "Mean below the median",
+      "Skewed left"
+    ],
+    "labels": [
+      "Mean below the median",
+      "Skewed left"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "mirror_about": 16,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 12.0,
+          "label": null,
+          "caption": null
+        },
+        {
+          "x": 12.644,
+          "label": null,
+          "caption": null
+        }
+      ],
+      "texts": [
+        {
+          "x": 11.6,
+          "y": 0.205,
+          "label": "mean (left line)",
+          "anchor": "end"
+        },
+        {
+          "x": 11.6,
+          "y": 0.175,
+          "label": "median (right line)",
+          "anchor": "end"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "left"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-left",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-symmetric": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Relatively symmetric: the mean and median are close",
+    "short_title": "Mean close to median",
+    "subtitle": "With no long tail the mean and median nearly coincide (figure 3 of 3)",
+    "caption": "A bell-shaped density curve whose mean and median are at the same place.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A bell-shaped density curve with one dashed vertical line through the centre, at about 8. The mean and the median are at the same place, so they are close together. With no long tail pulling either way, the distribution is relatively symmetric. Illustrative data.",
+    "note": "In a relatively symmetric distribution the mean and median are close.",
+    "synthetic": true,
+    "covers": [
+      "Mean and median close together",
+      "Relatively symmetric"
+    ],
+    "labels": [
+      "Mean and median close together",
+      "Relatively symmetric"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 8.0,
+          "sigma": 2.7,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 8.0,
+          "label": "mean = median",
+          "caption": null
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "none"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-symmetric",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
   }
 }

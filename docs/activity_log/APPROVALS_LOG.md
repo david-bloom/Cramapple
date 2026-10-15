@@ -6,6 +6,9 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
+- APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
+- APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
 - APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help (Documentation Only)
 - APPROVAL-0163 — Production Load of the `function_plot` Batch (19 Figures, AP Precalculus and AP Calculus AB), and Repair of Three Rows That Had Drifted From Their Gate-4c Corrections
 - APPROVAL-0162 — Production Load of the Five Lane B Gap Figures: 4 New Renderer Families, Closing the Last `kind='diagram'` Entries Without a Figure
@@ -133,6 +136,65 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "We need to migrate the four backend migrations from dev to prod. Then publish the subjects.", after being told that publishing the app would put a More help control on Calculus and Chemistry questions while Production lacked its backend.
+- **Scope:** apply to Production (`pcntajvbdfqhbeewmdry`) the four committed migrations, under their exact committed versions so one file satisfies both ledgers:
+  `20261014001227_more_help_receipts`, `20261014005146_more_help_delivery_commit`, `20261014014023_more_help_runtime_permissions`, `20261014015127_more_help_quota_and_delivery_fencing`.
+  Development already carries all four under the same versions. Governing work order: `docs/tasks/WORK-MORE-HELP-PRODUCTION.md`.
+- **What they do:** two service-only tables (`app.question_help_receipts`, `app.question_help_calls`, RLS on, no client policies); service-role-only RPCs (`reserve_question_help_delivery`, `commit_question_help`, `fail_question_help`, plus the audit-only `reserve_question_help`); one caller-scoped read RPC (`has_question_help`, authenticated); `more_help` added to the `attempt_assistance_events_source_check` constraint; and the trigger `trg_record_prior_question_help` on `app.attempts`.
+- **The one hot-path element:** that trigger fires on every attempt insert for EVERY subject. It returns immediately unless the student already has a delivered help receipt for that exact question, so with no receipts it changes nothing, but it is code on the grading path and is called out for that reason.
+- **Pre-state on Production (read-only, 2026-10-15):** none of the tables, functions or the trigger exist; the constraint is the three-source form the first migration expects; every prerequisite table exists; 171 functions, 84 triggers, 131 attempts, 5 assistance events.
+- **NOT included, and not authorized by this approval:** deploying the `more-help` Edge Function, creating or changing any secret or provider configuration, and any Lovable publication. Without the function the migrations create unused objects only. The session close of 2026-10-14 also lists open items this approval does not close: independent red-team QA, the real-generation outcome for MCQs, partial work and graded states, and the signed-in smoke and rollback verification.
+- **Rollback (valid while no `more_help` rows exist):** `drop trigger trg_record_prior_question_help on app.attempts;` then drop `app.record_prior_question_help()`, `public.has_question_help(uuid,uuid)`, `public.fail_question_help` (both signatures), `public.commit_question_help` (both signatures), `public.reserve_question_help_delivery`, `public.reserve_question_help`, then `app.question_help_calls` and `app.question_help_receipts`, restore the constraint to `session_frame, practice_mcq, practice_frq`, and delete the four ledger rows.
+- **Result:** recorded below once verified.
+
+## APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Approve 1", answering "May I load the four Statistics figures to Production?", after the batch's gates and the Development load were reported.
+- **Scope:** load `scripts/lane-a-pilot/out/load_stats_next2_a.sql`, `_b.sql` and `_c.sql` into Production (`pcntajvbdfqhbeewmdry`). Four figures on three published reference entries, on a renderer family already in Production and in the live app (`categorical_bars`); no new family, no schema or function change.
+
+| Subject · topic | Entry | Figure |
+|---|---|---|
+| AP Statistics 1.6 | Gap | `stats-gap-histogram` |
+| AP Statistics 1.4 | Comparing categorical data sets | `stats-compare-two-datasets` |
+| AP Statistics 2.1 | Judging association from two categorical variables | `stats-association-yes`, `stats-association-no` |
+
+- **Gates (all before the load):** 4a 4,145 checks, 0 failed; 4b eye pass at four widths, all legible; 4c both non-Anthropic readers accepted all four figures and rejected all 5 controls; port parity 237/237 byte-identical. Record: `docs/handoffs/LANE_A_NEXT_LANE_BATCH2_2026_10_15.md`.
+- **Pre-load state on Production (read-only, 2026-10-15):** 75 published figures, 83 uses; none of the four ids present; the three entries published with body hashes equal to the gate fixture and `items[]` empty; `categorical_bars` present in `app.figure_families`; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`, equal to Development.
+- **Standing risk, not retired:** the figures' illustrative values have not been reviewed by a human subject expert.
+- **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=stats-next2-figures-2026-10-15%';`
+- **Result (2026-10-15, verified):** all four figures are live in Production, loaded from the same generated files as Development.
+  - Counts 75 → **79** published figures, 23 families unchanged, 83 → **87** uses; Production equals Development on all three, and the four rows are digest-identical (`md5` over alt, subtitle, params and labels).
+  - **As a real authenticated student** (synthetic user, never `service_role`): twelve probes before and after. Statistics 1.4 went 2 → 3 figures, 1.6 went 1 → 2 and 2.1 went 3 → 5; the other nine (Statistics 1.5, 2.11, 3.6; Chemistry 4.3, 5.6, 9.1; Precalculus 1.1; Biology 3.4; Physics 2 9.1) have **byte-identical payload md5s**.
+  - A planted `draft` figure on Statistics 1.6 was invisible to the student, who saw only `stats-gap-histogram` and `stats-histogram`; the probe rolled back leaving 0 rows.
+  - `get_topic_point_guides` unchanged (md5 `25b6e08c84e5db9fac69741f93efa054`). No Lovable publish was needed because `categorical_bars` was already in the live app.
+  - **Not yet done:** a signed-in look at the four figures in the real app, as the Product Owner. Verified by query and contact sheet only.
+
+## APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "Load the two chem before turning to stats", after the batch's gates and the Development load were reported.
+- **Scope:** load `scripts/lane-a-pilot/out/load_chem_next1_a.sql` and `load_chem_next1_b.sql` into Production (`pcntajvbdfqhbeewmdry`). Two figures on two published reference entries, both on renderer families already in Production and in the live app (`mb_distribution`, `energy_profile`); no new family, no schema or function change.
+
+| Subject · topic | Entry | Figure | Family |
+|---|---|---|---|
+| AP Chemistry 9.1 | Entropy increases with temperature (energy dispersal) | `chem-mb-entropy` | `mb_distribution` |
+| AP Chemistry 5.6 | Reaction coordinate | `chem-reaction-coordinate` | `energy_profile` |
+
+- **Gates (all before the load):** 4a 3,955 checks, 0 failed; 4b eye pass at four widths found one defect (declared parts not drawn in the compact layouts), fixed; 4c both non-Anthropic readers accepted both figures, controls 5/5 rejected after replacing one control that was itself wrong; port parity 225/225 byte-identical. Record: `docs/handoffs/LANE_A_NEXT_LANE_BATCH1_2026_10_15.md`.
+- **Pre-load state on Production (read-only, 2026-10-15):** 73 published figures, 23 families, 81 uses; neither figure id present; both entries published with body hashes equal to the gate fixture and `items[]` empty; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`, equal to Development.
+- **Standing risk, not retired:** the figures' illustrative values have not been reviewed by a human subject expert.
+- **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=chem-next1-figures-2026-10-15%';` The RPC's `figures` key for 5.6 and 9.1 returns to its prior value; nothing else is reverted.
+- **Result (2026-10-15, verified):** both figures are live in Production, loaded from the same generated files as Development.
+  - Counts 73 → **75** published figures, 23 families unchanged, 81 → **83** uses; Production equals Development on all three, and the two rows are digest-identical (`md5` of alt, subtitle, params and labels).
+  - **As a real authenticated student** (synthetic user, never `service_role`): ten probes before and after. Chemistry 5.6 went 1 → 2 figures (`chem-energy-profile-single`, `chem-reaction-coordinate`) and 9.1 went 0 → 1 (`chem-mb-entropy`); the other eight (Chemistry 3.5, 4.3, 5.5, 5.11; AP Statistics 2.11; AP Biology 3.4; AP Precalculus 1.1; AP Physics 2 9.1) have **byte-identical payload md5s**.
+  - A planted `draft` figure on Chemistry 9.1 was invisible to the student, who saw only `chem-mb-entropy`; the probe rolled back leaving 0 rows.
+  - `get_topic_point_guides` unchanged (md5 `25b6e08c84e5db9fac69741f93efa054`, equal in both environments). No Lovable publish was needed because both families were already in the live app.
+  - **Not yet done:** a signed-in look at both figures in the real app, as the Product Owner. Verified by query and contact sheet only.
 
 ## APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help
 

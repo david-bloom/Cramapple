@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
 - DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
 - DECISION-0121 — Compound Quotients in Question and Teaching Prose: Display-Only Stacking, Inline Slashes Kept; Author Forward, Backfill Only Where It Hurts, Pilot on Precalculus and Physics C (`TASK-0073`)
 - DECISION-0120 — Minimum Size for Anything a Student Reads Is Set by the Smallest Rendered Glyph, Not the Element: Mathematics Renders in Display Style; the Published Figures Are Measured Below the Floor and Left Open
@@ -72,6 +73,18 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
+
+- **Date:** 2026-10-15
+- **Decided by:** David Bloom (Product Owner), in session, answering the open items in `SESSION_CLOSE_2026_10_12_FIGURES_COMPLETE.md` §8 and `LANE_A_GAPS_AND_LANE_B_EXECUTION_2026_10_11.md` §7.
+- **Decisions:**
+  1. **`DECISION-0116` is approved as written**: when a published entry authors no `items[]`, the figure's own `labels` are the contract (route b), declared per use and gated in `verify.py`.
+  2. **Chemistry 3.5 owns the Maxwell-Boltzmann distribution figure** (handoff §2e). The record already matches: `chem-mb-energy` is published on Chemistry 3.5 "Maxwell-Boltzmann distribution" and on 5.5, and `chem-mb-catalysis` is published on 5.11 "How a catalyst increases rate". The ruling named `chem-mb-analysis`, which is not a figure id and appears nowhere in the figures table; it is read as the `chem-mb-*` family. No data change.
+  3. **The `field_map`, `circuit_symbols` and three `xy_series` gap figures are released without an expert review.** They pass every gate and were already serving; this records the Product Owner's acceptance of the standing "no human subject expert has reviewed any batch's illustrative values" risk for them. The risk is not retired for any other batch.
+  4. **The chart-shaped entries outside `kind='diagram'` become the next figure lane** (the "~81" of `LANE_A_GAP_CLASSIFICATION_2026_10_11.md`, which answers the 2026-10-12 close's question). Entries that classification marks "not a figure" (section 7: bare formulas, conditions lists, prose) are out of scope, so the buildable set is smaller than 81. Order follows classification section 8.
+- **Execution:** documentation only. Any Production figure load remains a Hard Gate with its own approval.
+- **Still open from the same handoff:** section 3.3, the three cross-subject duplicate entries.
 
 ## DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists
 

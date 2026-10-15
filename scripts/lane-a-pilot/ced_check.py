@@ -610,6 +610,158 @@ def laneb_gap_controls(specs: dict) -> dict:
     return c
 
 
+def next1_controls(specs: dict) -> dict:
+    """Controls for the first batch of the chart-shaped lane outside kind='diagram'.
+
+    Two figures, both on families that already existed, both on entries that author
+    no items[] (DECISION-0116 route b). N1, N2 and N4 pass verify.py cleanly, so they measure
+    whether a reader adds anything over the suite; N3 and N5 are ones the suite catches.
+    """
+    c = {}
+
+    # N1 the series labels swapped: the BROADER curve is called the lower
+    # temperature. Geometry and thetas are untouched, so the suite passes, and a
+    # student would learn that cooling spreads the energy out.
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["params"]["series"][0]["label"], s["params"]["series"][1]["label"] = \
+        "Higher temperature", "Lower temperature"
+    c["CONTROL-N1-temperature-labels-swapped"] = s
+
+    # N2 the conclusion reversed in words: the drawing is untouched.
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["subtitle"] = "The same gas at two temperatures: the hotter distribution is narrower"
+    s["note"] = "A narrower distribution means the energy is less dispersed, so the entropy is smaller at higher temperature."
+    s["alt"] = s["alt"].replace(
+        "The higher-temperature curve has a lower peak and is broader and shifted to higher energy, so the kinetic energy is spread over a wider range of values.",
+        "The higher-temperature curve has a taller peak and is narrower, so the kinetic energy is concentrated in a smaller range of values.")
+    c["CONTROL-N2-dispersal-conclusion-reversed"] = s
+
+    # N3 both curves drawn at the SAME temperature but still labelled lower and
+    # higher: the picture shows no broadening at all while the words promise it.
+    # (Run 1 used a speed-for-energy axis relabelling here; both readers accepted
+    # it, correctly -- a distribution that broadens with temperature broadens
+    # whether it is plotted against speed or energy, so nothing false was taught.
+    # The control was the defect, per protocol 4c. verify.py CATCHES this one.)
+    s = copy.deepcopy(specs["chem-mb-entropy"])
+    s["params"]["series"][1]["theta"] = s["params"]["series"][0]["theta"]
+    c["CONTROL-N3-both-curves-the-same-temperature"] = s
+
+    # N4 the reaction coordinate defined as elapsed time. The drawing is the same
+    # curve; the entry's whole point is that the axis is a path of motions, not a
+    # clock. The suite does not read the axis title, so this passes.
+    s = copy.deepcopy(specs["chem-reaction-coordinate"])
+    s["x_label"] = "time"
+    s["subtitle"] = "The axis along which time passes as the reaction runs"
+    s["alt"] = s["alt"].replace(
+        "The horizontal axis is the reaction coordinate, the path of the motions that turn reactants into products.",
+        "The horizontal axis is time, the number of seconds since the reactants were mixed.")
+    c["CONTROL-N4-coordinate-called-time"] = s
+
+    # N5 the alt text calls the drawn exothermic profile endothermic. verify.py
+    # CATCHES this one (the alt/direction check).
+    s = copy.deepcopy(specs["chem-reaction-coordinate"])
+    s["alt"] = s["alt"].replace("so this example is exothermic", "so this example is endothermic")
+    s["alt"] = s["alt"].replace("a product level below the reactants", "a product level above the reactants")
+    c["CONTROL-N5-direction-of-change-reversed"] = s
+
+    return c
+
+
+def next2_controls(specs: dict) -> dict:
+    """Controls for batch 2 of the chart-shaped lane: four AP Statistics figures on the
+    bar-chart family. All five pass verify.py cleanly (the family's tests pin geometry,
+    not meaning), so every one measures whether a reader adds anything over the suite."""
+    c = {}
+
+    # M1 the empty bin filled in, while the words still describe a gap: the picture
+    # no longer shows one.
+    s = copy.deepcopy(specs["stats-gap-histogram"])
+    s["params"]["counts"] = [7, 14, 9, 2, 5, 3]
+    c["CONTROL-M1-gap-bin-is-not-empty"] = s
+
+    # M2 a gap defined as the interval holding the MOST data: the drawing is the
+    # same empty bin, the definition is backwards.
+    s = copy.deepcopy(specs["stats-gap-histogram"])
+    s["subtitle"] = "One interval between two values holds the most observations"
+    s["note"] = "A gap is the interval with the most observed data, so it is the tallest bar."
+    s["alt"] = s["alt"].replace(
+        "so the bin from 40 to 50 years has no bar: no customer in the data is between those two ages. That empty interval between two filled ones is a gap.",
+        "so the bin from 20 to 30 years has the tallest bar, which is the gap.")
+    s["params"]["measure"]["label"] = "gap: most data"
+    c["CONTROL-M2-gap-defined-as-the-most-data"] = s
+
+    # M3 the two classes' numbers swapped against their labels: Class A is labelled
+    # as the 40-student class but carries Class B's relative frequencies.
+    s = copy.deepcopy(specs["stats-compare-two-datasets"])
+    s["params"]["table"] = [s["params"]["table"][1], s["params"]["table"][0]]
+    c["CONTROL-M3-class-data-swapped-against-labels"] = s
+
+    # M4 equal distributions, called different.
+    s = copy.deepcopy(specs["stats-association-no"])
+    s["title"] = "Distributions that differ: associated in these data"
+    s["subtitle"] = "The pass rate differs between the two levels"
+    s["note"] = "Compare the distribution of the response within each level of the other variable; here the two differ."
+    s["alt"] = s["alt"].replace("are the same, so in these data the variables are not associated",
+                                "differ, so in these data the variables are associated")
+    c["CONTROL-M4-equal-distributions-called-different"] = s
+
+    # M5 association read as causation: the picture and the data are untouched; the
+    # words add a claim an association cannot support.
+    s = copy.deepcopy(specs["stats-association-yes"])
+    s["note"] = "Students with a part-time job pass less often, which shows that the job causes them to fail."
+    s["alt"] = s["alt"].replace("so in these data the variables are associated.",
+                                "so the part-time job causes the lower pass rate.")
+    c["CONTROL-M5-association-read-as-causation"] = s
+
+    return c
+
+
+def next3_controls(specs: dict) -> dict:
+    """Controls for batch 3: six AP Statistics density figures on skew direction and on the
+    mean versus the median. The curve checks in verify.py read the CURVE, so a control that
+    changes only the words passes the suite; all five here are of that kind."""
+    c = {}
+
+    # K1 a right-skewed curve called skewed left, with the tail text changed to match.
+    s = copy.deepcopy(specs["stats-skew-right"])
+    s["title"] = "Skewed left: the longer tail is on the left"
+    s["subtitle"] = "The tail toward smaller values is longer"
+    s["note"] = "Skew is named for the longer tail; here the longer tail is on the left."
+    s["alt"] = s["alt"].replace("a long tail stretching to the right toward larger values", "a long tail stretching to the left toward smaller values").replace("The right tail is clearly longer than the left tail, so the distribution is skewed right.", "The left tail is clearly longer than the right tail, so the distribution is skewed left.")
+    s["params"]["texts"][0]["label"] = "longer left tail"
+    c["CONTROL-K1-right-skewed-curve-called-skewed-left"] = s
+
+    # K2 the two dashed lines named the wrong way round: the picture shows the mean left
+    # of the median in a right-skewed curve.
+    s = copy.deepcopy(specs["stats-mean-median-right"])
+    s["params"]["texts"][0]["label"], s["params"]["texts"][1]["label"] = "mean (left line)", "median (right line)"
+    s["alt"] = s["alt"].replace("The median is the left line, at about 3.4, and the mean is the right line, at about 4.0, so the mean is larger than the median.", "The mean is the left line, at about 3.4, and the median is the right line, at about 4.0, so the mean is smaller than the median.")
+    c["CONTROL-K2-mean-and-median-lines-swapped"] = s
+
+    # K3 the conclusion reversed in the words of a left-skewed figure.
+    s = copy.deepcopy(specs["stats-mean-median-left"])
+    s["note"] = "In a left-skewed distribution the mean is usually larger than the median."
+    s["subtitle"] = "The long left tail pulls the mean toward larger values (figure 2 of 3)"
+    s["alt"] = s["alt"].replace("so the mean is smaller than the median. The long left tail pulls the mean toward smaller values.", "so the mean is larger than the median. The long left tail pulls the mean toward larger values.")
+    c["CONTROL-K3-left-skew-mean-called-larger"] = s
+
+    # K4 the classic misconception: skew named for the side where the peak is.
+    s = copy.deepcopy(specs["stats-skew-left"])
+    s["title"] = "Skewed right: the peak is on the right"
+    s["note"] = "Skew is named for the side where most of the data are, so a peak on the right means skewed right."
+    s["alt"] = s["alt"].replace("The left tail is clearly longer than the right tail, so the distribution is skewed left. The skew is named for the longer tail, not for the side where the peak is.", "The peak is on the right, so the distribution is skewed right. The skew is named for the side where the peak is.")
+    s["params"]["texts"][0]["label"] = "peak on the right"
+    c["CONTROL-K4-skew-named-for-the-peak-side"] = s
+
+    # K5 mean and median called far apart on a figure that draws one line.
+    s = copy.deepcopy(specs["stats-mean-median-symmetric"])
+    s["note"] = "In a symmetric distribution the mean is usually much larger than the median."
+    s["alt"] = s["alt"].replace("The mean and the median are at the same place, so they are close together.", "The mean is much larger than the median, so they are far apart.")
+    c["CONTROL-K5-symmetric-mean-called-far-from-median"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
@@ -617,7 +769,10 @@ CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": phys
                 "lane-b-fields": field_controls,
                 "stats-density": density_controls,
                 "function-plot": function_plot_controls,
-                "lane-b-gaps": laneb_gap_controls}
+                "lane-b-gaps": laneb_gap_controls,
+                "lane-a-next1": next1_controls,
+                "lane-a-next2": next2_controls,
+                "lane-a-next3": next3_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
