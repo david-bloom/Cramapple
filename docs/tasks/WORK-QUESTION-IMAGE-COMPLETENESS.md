@@ -4,7 +4,7 @@
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
-**Branch:** `codex/question-image-audit-plan`. **PR:** [#455](https://github.com/david-bloom/Cramapple/pull/455).
+**Branch:** `codex/question-image-audit-plan`. **PR:** [#457 — source review](https://github.com/david-bloom/Cramapple/pull/457); [#455 — merged plan and scope](https://github.com/david-bloom/Cramapple/pull/455).
 **Authorization:** David requested a session to find questions needing missing images and plans for identification, rendering, storage and student delivery. Standing Approval Lane 1 covers this read-only work and proposed plan. No new product decision is recorded as approved.
 
 ## Active pilot scope — owner direction, 2026-10-14

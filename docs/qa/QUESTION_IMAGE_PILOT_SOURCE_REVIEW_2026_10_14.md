@@ -1,7 +1,7 @@
 # Question-image pilot — source review
 
 **Status:** Preliminary source review complete; independent review and student-browser verification pending.
-**Work:** `WORK-QUESTION-IMAGE-COMPLETENESS`, PR #455.
+**Work:** `WORK-QUESTION-IMAGE-COMPLETENESS`, source review [PR #457](https://github.com/david-bloom/Cramapple/pull/457); planning/scope PR #455 merged separately.
 **Scope:** All 91 frozen Chemistry / Calculus AB candidates scoped to Units 1–4. The ten candidates with unresolved unit scope remain separate. Read-only Production inspection; no question classifications were written to the database.
 
 ## Result
