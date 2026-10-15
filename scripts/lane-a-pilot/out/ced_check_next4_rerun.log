@@ -1,0 +1,23 @@
+  precalc-semilog-plot                                 gpt-6.1-sol        accept
+  precalc-semilog-plot                                 gemini-3.5-flash   accept
+  precalc-semilog-justify                              gpt-6.1-sol        accept
+  precalc-semilog-justify                              gemini-3.5-flash   accept
+  chem-polyprotic-titration                            gpt-6.1-sol        accept
+  chem-polyprotic-titration                            gemini-3.5-flash   accept
+  CONTROL-P1-linear-data-called-exponential-on-the-log gpt-6.1-sol        reject
+  CONTROL-P1-linear-data-called-exponential-on-the-log gemini-3.5-flash   reject
+  CONTROL-P2-trend-line-falls-while-the-points-rise    gpt-6.1-sol        reject
+  CONTROL-P2-trend-line-falls-while-the-points-rise    gemini-3.5-flash   reject
+  CONTROL-P3-pka-values-on-the-wrong-half-equivalence- gpt-6.1-sol        reject
+  CONTROL-P3-pka-values-on-the-wrong-half-equivalence- gemini-3.5-flash   accept
+  CONTROL-P4-major-species-named-in-reverse-order      gpt-6.1-sol        reject
+  CONTROL-P4-major-species-named-in-reverse-order      gemini-3.5-flash   reject
+  CONTROL-P5-straight-line-on-the-log-axis-called-a-cu gpt-6.1-sol        reject
+  CONTROL-P5-straight-line-on-the-log-axis-called-a-cu gemini-3.5-flash   reject
+
+controls: 4/5 correctly rejected
+  BATCH VOID - controls accepted: ['CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points']
+figures: 3/3 accepted by both readers
+wall: 123.5s
+  google/gemini-3.5-flash: 200 calls, 242012 in / 180728 out
+  openai/gpt-6.1-sol: 200 calls, 204389 in / 21473 out

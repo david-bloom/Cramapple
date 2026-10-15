@@ -39,3 +39,11 @@ Both Precalculus figures are route (b) under `DECISION-0116` (labels carry the c
 3. **A Production load approval** in `APPROVALS_LOG.md` first (Hard Gate), then `build_load_sql.py --prefix "precalc-semilog-,chem-polyprotic"`, baseline probes, load, digest against Development, planted-draft invisibility check.
 
 Evidence: `scripts/lane-a-pilot/out/ced_check_next4.log`, `out/eye_next4.html`, `out/parity/`.
+
+## Gate 4c re-run (David's instruction, 2026-10-15)
+
+Same readers, same five controls, run again in full (`out/ced_check_next4_rerun.log`).
+Result identical: 3/3 figures accepted by both readers; 4/5 controls rejected;
+CONTROL-P3 (pKa values on the wrong half-equivalence points) accepted again by
+gemini-3.5-flash, rejected by gpt-6.1-sol. **Batch still VOID.** The miss is
+repeatable, so it is a reader blind spot, not noise. No further re-runs.
