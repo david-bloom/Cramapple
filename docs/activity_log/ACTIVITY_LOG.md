@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help work reassessed after today’s log updates (2026-10-15): #460 is merged; Chemistry2.5 is already published under standalone APPROVAL-0177 and removed from the prepared run. TASK-0076 covers four possibly mistagged expanded-octet questions. Fresh Production metadata: AB80/BC3 mapped versions lack references, Chemistry0;166 lack selected topic mappings. Preserve backend/app repair checkpoints and completed Development fixture/rollback QA; no new provider calls or deployments. Temporary synthetic QA setup restored. [Reassessment](../qa/MORE_HELP_REASSESSMENT_2026_10_15.md) names current evidence, remaining gates and revised next owners/actions.
+
 - Help-coverage audit and Chemistry 2.5 session closed (2026-10-15): Units 1-3 audit found one real gap (Chemistry 2.5, 8 questions); entry published to Development and Production by Product Owner override (`APPROVAL-0177` standalone record), `TASK-0076` opened, the three logs rotated to 2026-10-01 onward, PRs #459 and #460 resolved and merged. Open items, owners and paths: `docs/handoffs/HELP_COVERAGE_AUDIT_SESSION_CLOSE_2026_10_15.md`.
 - More help gap catalog and PR #457 merge (2026-10-15): [15 gaps with reasons/evidence/next owners](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md). Corrected stale restart surfaces: all four migrations and JWT-verified Production v1 are live; nine deployed files equal Development v10 and main. Publication request and bounded owner smoke already recorded in APPROVAL-0169/0170. Image questions are refused; multipart/figure grounding needs targeted tracing. Independent/full live matrix, human red-team and specific fixture/call proposal remain open. PR #457 merged as 04020e15 with all checks passing after main integration; no new runtime/data/provider change. Next owner independent reviewer/conductor: final-source review and smallest concrete QA packet.
 - Reference pack session closed (2026-10-15): six skew figures live and re-ordered (`APPROVAL-0170`/`0172`), `DECISION-0124`, batch 4 (semi-log and diprotic titration) gated on a swapped reader slate, app published (`APPROVAL-0175`), loaded to Production (`APPROVAL-0176`, 88 figures / 96 uses) and confirmed by David; #456, #458 and `ap-prep-blueprint` #27 merged. Open items, owners and paths: `docs/handoffs/REFERENCE_PACK_SESSION_CLOSE_2026_10_15.md`.
@@ -151,6 +153,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-15 — More help reassessed against current main
+
+More help work reassessed after today’s log updates (2026-10-15): #460 is merged; Chemistry2.5 is already published under standalone APPROVAL-0177 and removed from the prepared run. TASK-0076 covers four possibly mistagged expanded-octet questions. Fresh Production metadata: AB80/BC3 mapped versions lack references, Chemistry0;166 lack selected topic mappings. Preserve backend/app repair checkpoints and completed Development fixture/rollback QA; no new provider calls or deployments. Temporary synthetic QA setup restored. [Reassessment](../qa/MORE_HELP_REASSESSMENT_2026_10_15.md) names current evidence, remaining gates and revised next owners/actions.
+
 
 ## 2026-10-15 — More help gaps reconciled and visual-audit PR merged
 

@@ -4,9 +4,11 @@
 **Tier:** Hard-Gate
 **Owner:** Codex conductor; Product Owner David Bloom
 **Created:** 2026-10-15
-**Branch / PR:** `codex/work-more-help-gap-catalog`, [#460](https://github.com/david-bloom/Cramapple/pull/460)
+**Branch / PR:** `codex/work-more-help-gap-resolution-backend`; baseline catalog [#460](https://github.com/david-bloom/Cramapple/pull/460) is merged. Implementation review PR to follow.
 **Parent task:** [WORK-MORE-HELP-PRODUCTION](WORK-MORE-HELP-PRODUCTION.md)
 **Worklist:** [H01–H15 and reference inventory](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md)
+
+**Reassessed after today's log updates:** [current state and revised order](../qa/MORE_HELP_REASSESSMENT_2026_10_15.md). Chemistry 2.5 is published in both environments under APPROVAL-0177 and must not be regenerated. TASK-0076 separately investigates four possibly mistagged expanded-octet questions. Remaining measured reference gaps: AB80/BC3, plus166 missing topic mappings. Preserve completed QA/code work; no paid content run or new deployment has occurred.
 
 ## Owner direction and approval state
 
