@@ -87,10 +87,10 @@ profile. Check the label strings first — protocol v1.5 §4a — and note both 
 
 | Entry | Candidate figure | Check before believing |
 |---|---|---|
-| ~~Stats 1.4 Comparing categorical data sets~~ | **BUILT 2026-10-15, Development** as `stats-compare-two-datasets` | not a reuse: the published bar chart shows one data set, and this entry is about comparing two |
-| ~~Stats 2.1 Judging association from two categorical variables~~ | **BUILT 2026-10-15, Development** as `stats-association-yes` and `stats-association-no` | not a reuse: the published two-categorical figures belong to a different 2.1 entry and show one dataset; this entry needs a differing and a matching pair |
+| ~~Stats 1.4 Comparing categorical data sets~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-compare-two-datasets` | not a reuse: the published bar chart shows one data set, and this entry is about comparing two |
+| ~~Stats 2.1 Judging association from two categorical variables~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-association-yes` and `stats-association-no` | not a reuse: the published two-categorical figures belong to a different 2.1 entry and show one dataset; this entry needs a differing and a matching pair |
 | Stats 1.9 Which graphs compare which features | **not a figure (ruled 2026-10-15)** | the entry is a mapping from graph type to the features it compares, a table in words; attaching the four existing graph figures would assert labels the entry does not teach |
-| ~~Stats 1.6 Gap~~ | **BUILT 2026-10-15, Development** as `stats-gap-histogram` | a histogram with one empty bin, not a reuse of `stats-histogram` |
+| ~~Stats 1.6 Gap~~ | **BUILT 2026-10-15, live in Production (`APPROVAL-0166`)** as `stats-gap-histogram` | a histogram with one empty bin, not a reuse of `stats-histogram` |
 | Stats 1.6 Skew direction is named by the longer tail; 1.8 Mean vs. median under skew | `density_curve`, **extended** | **not free**: `density_curve` draws normal and chi-square curves only, so a LEFT-skewed curve does not exist. Needs a new curve kind (a reflected chi-square) in both renderers, an app port and a Lovable publish before any Production load |
 
 ## 6. Lane B (spatial or schematic — stops here)

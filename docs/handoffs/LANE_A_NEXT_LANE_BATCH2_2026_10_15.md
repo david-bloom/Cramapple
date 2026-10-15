@@ -1,6 +1,6 @@
 # Next figure lane, batch 2: four AP Statistics figures
 
-**STATUS:** built and verified; **in Development only. Production is a Hard Gate and has no approval for this batch.**
+**STATUS:** built, verified, and **live in Production** (`APPROVAL-0166`, 2026-10-15). A signed-in look in the real app has not yet been done.
 **DATE:** 2026-10-15. **Ruling:** `DECISION-0123` item 4. **Continues:** `LANE_A_NEXT_LANE_BATCH1_2026_10_15.md`.
 
 ## What was built
@@ -45,9 +45,7 @@ Development only, tag `batch=stats-next2-figures-2026-10-15`, via `out/load_stat
 (three files because the entries differ in kind). All four resolve to their entries by natural key. Illustrative
 values; no human subject expert has reviewed them.
 
-## To promote
+## Promoted
 
-Production Hard Gate: an `APPROVAL-` entry naming the four figures and their three entries, rollback
-`update app.figures set status='retired' where source_note like '%batch=stats-next2-figures-2026-10-15%'`.
-The app already knows the family, so no Lovable publish is needed first. Verify as an authenticated student on
-Statistics 1.4, 1.6 and 2.1 and compare unrelated topics before and after, as in `APPROVAL-0165`.
+Loaded to Production under `APPROVAL-0166`; verification and rollback are recorded there. Production now holds 79
+published figures, equal to Development.

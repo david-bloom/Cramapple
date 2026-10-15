@@ -152,7 +152,12 @@ Most recent entries (full chronological list follows below):
 - **Pre-load state on Production (read-only, 2026-10-15):** 75 published figures, 83 uses; none of the four ids present; the three entries published with body hashes equal to the gate fixture and `items[]` empty; `categorical_bars` present in `app.figure_families`; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`, equal to Development.
 - **Standing risk, not retired:** the figures' illustrative values have not been reviewed by a human subject expert.
 - **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=stats-next2-figures-2026-10-15%';`
-- **Result:** recorded below once verified.
+- **Result (2026-10-15, verified):** all four figures are live in Production, loaded from the same generated files as Development.
+  - Counts 75 → **79** published figures, 23 families unchanged, 83 → **87** uses; Production equals Development on all three, and the four rows are digest-identical (`md5` over alt, subtitle, params and labels).
+  - **As a real authenticated student** (synthetic user, never `service_role`): twelve probes before and after. Statistics 1.4 went 2 → 3 figures, 1.6 went 1 → 2 and 2.1 went 3 → 5; the other nine (Statistics 1.5, 2.11, 3.6; Chemistry 4.3, 5.6, 9.1; Precalculus 1.1; Biology 3.4; Physics 2 9.1) have **byte-identical payload md5s**.
+  - A planted `draft` figure on Statistics 1.6 was invisible to the student, who saw only `stats-gap-histogram` and `stats-histogram`; the probe rolled back leaving 0 rows.
+  - `get_topic_point_guides` unchanged (md5 `25b6e08c84e5db9fac69741f93efa054`). No Lovable publish was needed because `categorical_bars` was already in the live app.
+  - **Not yet done:** a signed-in look at the four figures in the real app, as the Product Owner. Verified by query and contact sheet only.
 
 ## APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
 
