@@ -149,7 +149,7 @@ Most recent entries (full chronological list follows below):
 - **Scope:** update only the `subtitle` of four figures, in Production (`pcntajvbdfqhbeewmdry`) and Development: `stats-skew-left` and `stats-mean-median-left` become "(figure 1 of 3)"; `stats-skew-right` and `stats-mean-median-right` become "(figure 2 of 3)". The symmetric figures stay "(figure 3 of 3)". No other column, row or function changes. Fixtures (`specs.json`, the `ced_check.py` control copy of the K3 subtitle) are updated to match; `verify.py` still 4,413 checks, 0 failed.
 - **Left first, not right first:** the served order is alphabetical by id, so the numbering follows it. Putting right-skew first would need the ordering change above, which is a separate decision.
 - **Rollback:** restore the four subtitles to the previous numbering (right 1, left 2).
-- **Result:** recorded below once verified.
+- **Result (2026-10-15, live):** four rows updated in Production and four in Development, guarded by figure id and batch tag. Production still 85 published figures, 93 uses; per-figure digest of the six is identical to Development (`07d6fb7a…`). The app serves figures in `figure_id` order, so on both 1.6 and 1.8 the left figure now reads "figure 1 of 3" and shows first, then right (2), then symmetric (3). Not re-checked in the signed-in app by the Product Owner yet. The app's test fixture (`catalogue.ts` in `ap-prep-blueprint`) still carries the old numbering; it is test-only, not read in Production, and is regenerated with `build_catalogue_ts.py` in the next app PR.
 
 ## APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
 
