@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help priority tagging applied (2026-10-15, APPROVAL-0178): owner-requested backend#464/app#29 merges confirmed;65-question pass produced388 usable votes/396 attempts with blind CED reviews.64 supported primary topic cells committed to Production (20BC/44Chem), exact row/source hashes independently verified after stale-source and insert/recovery rollback rehearsals. `apchem-mcq-043` remains untagged pending CED scope ruling. Untagged166→102, potentially eligible untagged65→1;45 newly mapped questions have usable references,19BCstill need content. No question/scoring/unit-label/student-row change or new Production function/app publication. [Result](../qa/MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md).
+
 - More help parallel QA/tagging checkpoint (2026-10-15): owner approved parallel lanes; Development grounding/helper migrations and JWT More helpv13 verified,12/12 bounded requests complete. Independent review caught/repaired/replayed two headline disclosures; final10 samples agent-reviewed, human/release QA open.65 of166 untagged versions potentially practice eligible (BC20/Chem45), four TASK0076 expanded-octet items need retire/rewrite ruling. Draftbackend#464/app#29; appCI installer repaired with frozen Bun lockfile; hosted checks pass. Synthetic QA setup restored, server stopped; no Production change or paid content run. [Checkpoint](../qa/MORE_HELP_PARALLEL_QA_CHECKPOINT_2026_10_15.md), [tagging report](../qa/MORE_HELP_TOPIC_TAGGING_PRIORITY_2026_10_15.md).
 
 - More help work reassessed after today’s log updates (2026-10-15): #460 is merged; Chemistry2.5 is already published under standalone APPROVAL-0177 and removed from the prepared run. TASK-0076 covers four possibly mistagged expanded-octet questions. Fresh Production metadata: AB80/BC3 mapped versions lack references, Chemistry0;166 lack selected topic mappings. Preserve backend/app repair checkpoints and completed Development fixture/rollback QA; no new provider calls or deployments. Temporary synthetic QA setup restored. [Reassessment](../qa/MORE_HELP_REASSESSMENT_2026_10_15.md) names current evidence, remaining gates and revised next owners/actions.
@@ -155,6 +157,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-15 — Priority topic cells applied after owner merge/tagging instruction
+
+More help priority tagging applied (2026-10-15, APPROVAL-0178): owner-requested backend#464/app#29 merges confirmed;65-question pass produced388 usable votes/396 attempts with blind CED reviews.64 supported primary topic cells committed to Production (20BC/44Chem), exact row/source hashes independently verified after stale-source and insert/recovery rollback rehearsals. `apchem-mcq-043` remains untagged pending CED scope ruling. Untagged166→102, potentially eligible untagged65→1;45 newly mapped questions have usable references,19BCstill need content. No question/scoring/unit-label/student-row change or new Production function/app publication. [Result](../qa/MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md).
 
 ## 2026-10-15 — More help parallel QA and tagging audit
 

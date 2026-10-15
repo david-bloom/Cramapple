@@ -1,6 +1,6 @@
 # APPROVAL-0178 — Tag the 65 priority More help questions
 
-**Decision:** Approved execution scope; classification/QA and guarded application in progress.
+**Decision:** Approved;64 supported topic assignments applied and independently verified. One scope ruling remains.
 **Date:** 2026-10-15
 **Approver:** Product Owner David Bloom
 **Tier:** Hard-Gate (live question-topic metadata)
@@ -19,4 +19,4 @@ Do not change item text, choices, keys, rubrics, publication state, unit serving
 
 **ID check:** main at `3b72e134` and its live approval index plus tracked standalone records (highest0177), no open Cramapple PRs at check. No archived-log scan needed.
 
-**Result:** pending; see [work order](../tasks/WORK-MORE-HELP-TOPIC-TAGGING-65.md).
+**Result:** Production commit at2026-10-15T22:59:09.325092Z:20 BC +44 Chemistry primary cells, all64 exact row projections verified, all64 question/key/rubric source hashes unchanged. Stale-source negative control and insert/inverse rollback rehearsals passed. Independent post-commit readback passes. `apchem-mcq-043` remains untagged pending its CED scope ruling. Detailed [result](../qa/MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md) and [work order](../tasks/WORK-MORE-HELP-TOPIC-TAGGING-65.md).

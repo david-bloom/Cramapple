@@ -12,6 +12,6 @@ Assign evidence-backed primary topics to the20 Calculus BC and45 Chemistry versi
 
 The owner also requested merges: backend464 and app29 are confirmed merged. No new Production app/function deployment follows from this instruction alone.
 
-Two blind subject reviews cover all65 before seeing model votes. A three-family pilot succeeded; the390-vote pass is running with a bounded retry/cost ledger. One Chemistry reaction-classification scope ruling is pending while independent work continues. Final mapping, QA verdict and actual mutation evidence will be linked here.
+Two blind subject reviews cover all65 before seeing model votes. The390-vote pass completed with388 usable votes/396 attempts, conservative accounted cost$3.42. One Chemistry reaction-classification scope ruling is pending while independent work continues. [64 supported mappings are applied in Production and independently verified](../qa/MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md); one scope-dependent question remains untagged. No Done decision is claimed for all65.
 
 Acceptance: every one of65 has a supported applied topic or an explicit owner-dependent exception; no stale-source or conflicting-cell write; canonical counts and help retrieval rerun after commit. Full question/model artifacts and credentials must remain private.

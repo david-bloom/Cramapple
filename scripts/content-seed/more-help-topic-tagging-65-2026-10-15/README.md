@@ -15,4 +15,4 @@ This directory contains metadata only. Full questions/keys/rubrics, raw model vo
 
 Direct CED arbitration is deliberately stronger than topic-title vote agreement: Chemistry conjugate pairs map to4.8 rather than8.1; comparing Q/K for direction maps to7.7. BC6.14 is the CED's mixed-antidifferentiation selection topic and has no standalone LO/EK; its component objectives are cited rather than invented.
 
-Current execution state is recorded in the work order and result report after rehearsals/application. The model pass and independent classifications are not themselves evidence that cells were loaded.
+Production applied64 supported mappings at2026-10-15T22:59:09.325092Z; independent readback confirms64 exact cells and64 unchanged source hashes. `execution.json` records actual state. `apchem-mcq-043` remains owner-dependent. Forty-five newly tagged questions have usable checked reference entries;19 BC questions still need reference content. See the [result report](../../../docs/qa/MORE_HELP_TOPIC_TAGGING_RESULT_2026_10_15.md).

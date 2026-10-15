@@ -65,7 +65,12 @@ for result in reconciled:
     })
 assert len(plan) == 64 and len(exceptions) == 1
 assert Counter(d['subject'] for d in decisions) == {'ap-calculus-bc':20,'ap-chemistry':44}
-manifest = {'approval':'APPROVAL-0178','status':'prepared_not_applied','decision_id':decision_id,
+status = 'prepared_not_applied'
+if (HERE/'execution.json').exists():
+    execution = json.loads((HERE/'execution.json').read_text())
+    assert execution['decision_id'] == decision_id
+    status = execution['status']
+manifest = {'approval':'APPROVAL-0178','status':status,'decision_id':decision_id,
             'planned_primary_cells':len(plan),'exceptions':exceptions,'decisions':decisions}
 (HERE/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 
