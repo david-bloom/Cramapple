@@ -1,5 +1,7 @@
 # More help — decisions, design and demo contract
 
+> **Execution-state correction, October 15:** the decisions below still govern. Current rollout and remaining evidence are in the [gap catalog](../qa/MORE_HELP_GAP_CATALOG_2026_10_15.md): Production migrations/function are deployed, app publication was requested, and the owner reported “More help works.” Older draft/Production-unchanged statements below are historical. Independent/full live QA remains open.
+
 **Current fixes:** [Subpart/validation remediation](../qa/MORE_HELP_GATEWAY_FIX_QA_2026_10_14.md) is deployed in Development v7; 22 backend tests/typecheck and exact historic-AB rejection pass. Three approved live FRQs now return valid help for AB, BC and Chemistry; the observed subpart disclosure is absent. Broader independent/release QA remains open. Earlier failed-run statements below are historical.
 
 **Status:** Approved
