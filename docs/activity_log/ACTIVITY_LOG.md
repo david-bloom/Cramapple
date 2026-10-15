@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- More help parallel QA/tagging checkpoint (2026-10-15): owner approved parallel lanes; Development grounding/helper migrations and JWT More helpv13 verified,12/12 bounded requests complete. Independent review caught/repaired/replayed two headline disclosures; final10 samples agent-reviewed, human/release QA open.65 of166 untagged versions potentially practice eligible (BC20/Chem45), four TASK0076 expanded-octet items need retire/rewrite ruling. Draftbackend#464/app#29; appCI installer repair running. Synthetic QA setup restored, server stopped; no Production change or paid content run. [Checkpoint](../qa/MORE_HELP_PARALLEL_QA_CHECKPOINT_2026_10_15.md), [tagging report](../qa/MORE_HELP_TOPIC_TAGGING_PRIORITY_2026_10_15.md).
+
 - More help work reassessed after today’s log updates (2026-10-15): #460 is merged; Chemistry2.5 is already published under standalone APPROVAL-0177 and removed from the prepared run. TASK-0076 covers four possibly mistagged expanded-octet questions. Fresh Production metadata: AB80/BC3 mapped versions lack references, Chemistry0;166 lack selected topic mappings. Preserve backend/app repair checkpoints and completed Development fixture/rollback QA; no new provider calls or deployments. Temporary synthetic QA setup restored. [Reassessment](../qa/MORE_HELP_REASSESSMENT_2026_10_15.md) names current evidence, remaining gates and revised next owners/actions.
 
 - Help-coverage audit and Chemistry 2.5 session closed (2026-10-15): Units 1-3 audit found one real gap (Chemistry 2.5, 8 questions); entry published to Development and Production by Product Owner override (`APPROVAL-0177` standalone record), `TASK-0076` opened, the three logs rotated to 2026-10-01 onward, PRs #459 and #460 resolved and merged. Open items, owners and paths: `docs/handoffs/HELP_COVERAGE_AUDIT_SESSION_CLOSE_2026_10_15.md`.
@@ -153,6 +155,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-15 — More help parallel QA and tagging audit
+
+More help parallel QA/tagging checkpoint (2026-10-15): owner approved parallel lanes; Development grounding/helper migrations and JWT More helpv13 verified,12/12 bounded requests complete. Independent review caught/repaired/replayed two headline disclosures; final10 samples agent-reviewed, human/release QA open.65 of166 untagged versions potentially practice eligible (BC20/Chem45), four TASK0076 expanded-octet items need retire/rewrite ruling. Draftbackend#464/app#29; appCI installer repair running. Synthetic QA setup restored, server stopped; no Production change or paid content run. [Checkpoint](../qa/MORE_HELP_PARALLEL_QA_CHECKPOINT_2026_10_15.md), [tagging report](../qa/MORE_HELP_TOPIC_TAGGING_PRIORITY_2026_10_15.md).
 
 ## 2026-10-15 — More help reassessed against current main
 

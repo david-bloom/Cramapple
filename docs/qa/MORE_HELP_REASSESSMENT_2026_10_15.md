@@ -7,6 +7,8 @@
 
 David asked to read today's activity-log developments before continuing. The log index and all October 15 entries were read, followed by their current [help-coverage closeout](../handoffs/HELP_COVERAGE_AUDIT_SESSION_CLOSE_2026_10_15.md), [reference-pack closeout](../handoffs/REFERENCE_PACK_SESSION_CLOSE_2026_10_15.md), standalone [APPROVAL-0177](../activity_log/APPROVAL-0177_CHEMISTRY_TOPIC_2_5_REFERENCE_ENTRY_2026_10_15.md), and [TASK-0076](../tasks/TASK-0076-CHEMISTRY-TOPIC-2-5-TAGGING-INVESTIGATION.md). Older entries retained in those closeouts are historical checkpoints; later specific records govern.
 
+> **Latest execution checkpoint:** [parallel QA, 12-call results, tagging priority and remaining release gates](MORE_HELP_PARALLEL_QA_CHECKPOINT_2026_10_15.md). Temporary QA setup is restored. Earlier progress below is historical.
+
 ## Owner-approved parallel execution
 
 David approved the prioritization and asked to run backend/app QA and deployment alongside the topic-tagging audit. Independent agents are reviewing the final backend and auditing current selector eligibility/TASK-0076 in parallel. Production release still depends on completed live QA; no paid reference-production approval is inferred.
