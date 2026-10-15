@@ -46,6 +46,8 @@ Priority is a proposed order for investigation, not new implementation scope or 
 
 ## Reference-coverage follow-up — 12:21 UTC
 
+> **Update, later 2026-10-15:** Chemistry topic 2.5 now has a published reference entry in Development and Production (PR #462, record `docs/activity_log/APPROVAL-0177_CHEMISTRY_TOPIC_2_5_REFERENCE_ENTRY_2026_10_15.md`), so the 8 Chemistry versions in the table below are covered. The Calculus and no-topic-cell counts are unchanged. Whether four of the eight 2.5 questions belong in 2.5 is tracked in `TASK-0076`.
+
 David asked whether missing/incomplete reference packs block any More help. **Yes.** The deployed contract uses only topic reference entries with an ID and nonempty body; zero retained entries throws `422 reference_unavailable` before receipt reservation/model invocation. It does not require a whole pack to be complete. Having a unit pack, brief, explainer, hook or figure does not guarantee this gate has a usable entry for the question's selected topic.
 
 Fresh read-only Production inventory, using the question RPC's active-cell selection and reference alias rules:
