@@ -1,6 +1,6 @@
 # WORK-QUESTION-IMAGE-COMPLETENESS — Required question visuals
 
-**Status:** Proposed plan; read-only orientation and initial screening performed.
+**Status:** Proposed implementation plan; pilot source review complete, independent review and browser verification pending.
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Standard (audit and planning); implementation and Production promotion retain their gates.
 **Created:** 2026-10-14 America/New_York (2026-10-15 UTC).
@@ -21,7 +21,9 @@ Re-running the original candidate rule yields the same 105 subject candidates (2
 
 There are **no confidently resolved Unit 4 candidates in this subset**. Chemistry's `apchem-frq-l-016` has provisional units `[1,3,4]` and stays in the unresolved queue. This is not a claim that all Unit 4 questions have adequate visuals; the original keyword screen is incomplete by design.
 
-Pilot queue: classify these 91 for required visuals and resolve the unit scope of the 10 uncertain rows separately. Preserve the four beyond-scope rows as excluded evidence. First deliverable is a version-pinned classification and repair proposal for the two subjects, without expanding to other subjects or keyword-negative questions. The read-only membership query and all 105 version identities/unit evidence are frozen in `scripts/image_readiness/question_image_pilot_scope.sql` and `question_image_pilot_scope.json`. No semantic verdict or image repair is claimed by this scope filter.
+Pilot queue: classify these 91 for required visuals and resolve the unit scope of the 10 uncertain rows separately. Preserve the four beyond-scope rows as excluded evidence. The read-only membership query and all 105 version identities/unit evidence are frozen in `scripts/image_readiness/question_image_pilot_scope.sql` and `question_image_pilot_scope.json`.
+
+**Source review completed, 2026-10-15 UTC:** all 91 reviewed question by question. **86 have no missing prompt image identified; four have visual-construct concerns (3 AB, 1 Chemistry); one Chemistry item needs periodic-table delivery checked.** No question-specific numerical givens were found missing solely because an image was absent. Per-question source evidence and reasons: `scripts/image_readiness/question_image_pilot_review.json`; report: `docs/qa/QUESTION_IMAGE_PILOT_SOURCE_REVIEW_2026_10_14.md`. These are preliminary source classifications, not independent QA, browser delivery certification or database image-need decisions. No image repairs have been performed.
 
 ## Outcome and boundary
 
@@ -43,7 +45,7 @@ Read-only Production checks against `pcntajvbdfqhbeewmdry`, 2026-10-15 UTC; the 
 - 79 published figures and 87 figure uses exist; **zero uses target a question version**. Reference figures do not currently establish question-stimulus coverage.
 - `content-assets` is private. Current deployed `student-session-items` is v40, SHA-256 `f8c0995a7ddc2a4f1d1d5232e52ea0f786900f1a1b86af9bbe6e362d8d2f0c57`. It has both ordinary signed-media delivery and a `teaching_image` path. Repository main's function lacks that teaching-image branch: reconcile this source/deployment drift before any later deploy.
 - Student-app GitHub main and Lovable latest commit both identify `7b81177f1f933ffe16cb4b55ec23fc28b08fcc7f`. This establishes source alignment, **not** that this revision is the published bundle or that a signed-in browser renders an asset successfully.
-- The new inventory query was executed successfully: 2,915 distinct version rows, zero non-latest versions, 456 visual-language signals (including choices/part prompts), five explicit-reference signals and 19 construction signals. These overlapping signals use a different definition from the historical 350-candidate screen and are not defect counts. The full result was returned in-session but not semantically reviewed or committed as another copy of the question bank; freeze the review corpus before beginning the semantic census.
+- The original inventory query was executed successfully: 2,915 distinct version rows, zero non-latest versions, 456 visual-language signals (including choices/part prompts), five explicit-reference signals and 19 construction signals. **Correction:** that version incorrectly used legacy `frq_criteria.learner_facing_text` as question prompts; some contain scoring answers. Those historical signal counts and the initial snapshot's query digest describe the old query. The current query uses authored `parts[].prompt`/`prompt_text` only; the pilot was re-read from corrected source. Its saved corpus is restricted to the 91 scoped questions.
 
 | Subject | Published current versions | Baseline lexical candidates |
 | --- | ---: | ---: |
@@ -65,7 +67,7 @@ The older TASK-0020 audit's 288 published items / 36 possible gaps is historical
 
 ### 1a. Freeze an inventory before judging
 
-Run `scripts/image_readiness/question_image_inventory.sql` read-only and save its output, query digest, timestamp and environment. It includes every published version on a published item, pack state, teaching designation, stem, stimulus, choices, learner-facing parts, presentation subtrees, image decisions, asset metadata, storage-object existence and question-figure links. It excludes keys, rationales, expected graphs and learner data from the review packet. Treat nested presentation data as untrusted content; check it for accidental answer-bearing fields before model submission.
+Run `scripts/image_readiness/question_image_inventory.sql` read-only and save its output, query digest, timestamp and environment. It includes every published version on a published item, pack state, teaching designation, stem, stimulus, choices, authored question-part prompts, presentation subtrees, image decisions, asset metadata, storage-object existence and question-figure links. It excludes rubric criteria, keys, rationales, expected graphs and learner data from the review packet. Do not substitute `frq_criteria.learner_facing_text` for question-part prompts: real rows contain scoring answers. Treat nested presentation data as untrusted content; check it for accidental answer-bearing fields before model submission.
 
 Use `(environment, content_item_version_id)` as the review identity and keep `content_key` for humans. The audit digest detects same-version edits; version ID alone is insufficient. Group mirrored AB/BC items and shared seed families for repair efficiency, but preserve a disposition for every served version. Resolve Development UUIDs from verified natural keys and digests, never by copying Production UUIDs blindly.
 
@@ -168,8 +170,8 @@ Future authoring/publishing must include an explicit visual-requirement decision
 
 ## Deliverables, ownership and next action
 
-- **This session:** source orientation, live baseline, reproducible SELECT-only inventory query, compact evidence snapshot and this proposed execution plan. No full-catalogue semantic audit, independent QA verdict or image repair is claimed.
-- **Next owner: Codex / audit conductor.** Classify the 91 Chemistry/Calculus AB candidates scoped to Units 1–4, resolve the unit scope of the ten uncertain candidates separately, and independently review proposed visual defects. Deliver a version-pinned pilot audit, subject summary and first exact repair manifest. Preserve all-subject expansion and Physics/Biology leads for later work.
+- **Completed:** source orientation, live baseline, reproducible SELECT-only queries, frozen pilot scope, all 91 preliminary per-question source classifications and this proposed execution plan. No full-catalogue semantic audit, independent QA verdict or image repair is claimed.
+- **Next owner: independent subject reviewer / audit conductor.** Adjudicate the four visual-construct concerns, check periodic-table delivery and actual student rendering of tables/FRQ prompts, and resolve the unit scope of ten uncertain candidates separately. Deliver the independently reconciled pilot audit and first exact repair manifest. Preserve all-subject expansion and Physics/Biology leads for later work.
 - **Then:** subject reviewer validates construct/source sufficiency; implementation owner builds an approved Development pilot; independent QA checks it; David approves the named Production promotion.
 - **Implementation boundaries:** TASK-0006's broader unapproved design is a reference proposal, not blanket approval. Existing figure and Biology-delivery approvals do not authorize new all-subject question writes. Development repair, schema/API changes, paid checker calls and Production changes need their applicable scope approval; no approval question is needed to finish this plan.
 - **Do not touch:** the original checkout's unrelated edits; learner uploads; grading/rubrics; existing Production content; concurrent figure PR #454 or ASCII-math PR #449 (both independently use DECISION-0123). Do not resolve their decision-number collision in this slice.
