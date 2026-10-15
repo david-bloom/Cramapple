@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
 - APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
 - APPROVAL-0168 — Production Deploy of the `more-help` Edge Function (JWT-Verified), Source Identical to Development v10; Secrets Not Changed, App Not Published
 - APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
@@ -138,6 +139,24 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "More help works, load the skew figures", then, asked whether to load all six or only the four that do not need the new curve code, he chose **all six**, the option labelled for use only if the live app is confirmed to be the build published after 00:57 UTC today.
+- **Scope:** load `scripts/lane-a-pilot/out/load_stats_next3_a.sql` and `_b.sql` into Production (`pcntajvbdfqhbeewmdry`): six figures on two published reference entries, on the existing `density_curve` family.
+
+| Subject · topic | Entry | Figures |
+|---|---|---|
+| AP Statistics 1.6 | Skew direction is named by the longer tail | `stats-skew-right`, `stats-skew-left`, `stats-skew-symmetric` |
+| AP Statistics 1.8 | Mean vs. median under skew | `stats-mean-median-right`, `stats-mean-median-left`, `stats-mean-median-symmetric` |
+
+- **The one dependency:** `stats-skew-left` and `stats-mean-median-left` set `mirror_about` on a chi-square curve. A build of the app without that code would silently draw them as right-skewed curves labelled "left", which is false. The other four do not need it. The live app's build could not be inspected from the session (the published host is blocked and `app.cramapple.com` redirects logged-out requests); the Product Owner's choice of "all six" is recorded as the confirmation that the live app is the post-00:57 build (`APPROVAL-0169`). If the left-skew figures draw as right-skewed, retire those two at once (rollback below).
+- **Gates (all before the load):** 4a 4,413 checks, 0 failed, including new tests that compute the longer tail and the mean against the median from the curve; 4b eye pass at four widths, all legible; 4c both non-Anthropic readers accepted all six and rejected all 5 controls; port parity 255/255 byte-identical; the app's figure and reference tests and CI pass. Record: `docs/handoffs/LANE_A_NEXT_LANE_BATCH3_2026_10_15.md`.
+- **Pre-load state on Production (read-only, 2026-10-15):** 79 published figures, 87 uses; none of the six present; the two entries published with body hashes equal to the gate fixture and `items[]` empty; `density_curve` present; `get_topic_point_guides` md5 `25b6e08c84e5db9fac69741f93efa054`.
+- **Standing risk, not retired:** no human subject expert has reviewed these illustrative values.
+- **Rollback:** `update app.figures set status = 'retired' where source_note like '%batch=stats-next3-figures-2026-10-15%';` (or only `stats-skew-left` and `stats-mean-median-left`).
+- **Result:** recorded below once verified.
 
 ## APPROVAL-0169 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `730ef62`: More help, Prose Maths on Staff Surfaces, Shared-Hook De-Duplication and Left-Skewed Curves
 
