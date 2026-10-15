@@ -1,0 +1,3681 @@
+{
+  "work_id": "WORK-QUESTION-IMAGE-COMPLETENESS",
+  "status": "Preliminary source review; independent review and student-browser verification pending",
+  "reviewed_at_utc": "2026-10-15 01:05:47 UTC",
+  "project_ref": "pcntajvbdfqhbeewmdry",
+  "scope": "91 frozen pilot candidates: Chemistry and Calculus AB, Units 1–4; ten unit-unresolved candidates remain outside this review",
+  "method": "Question-by-question semantic source review of stems, stimuli, choices and authored prompt_json.parts[].prompt. No fresh independent review. Initial legacy criterion text was encountered before the query was corrected, so this is not claimed as blind review.",
+  "summary": {
+    "reviewed": 91,
+    "no_missing_prompt_image_found": 86,
+    "construct_visual_review": 4,
+    "reference_access_unverified": 1,
+    "numerical_input_missing": 0,
+    "actual_graph_drawing_submission_tasks": 0,
+    "classification_counts": {
+      "construct_changed_by_prose": 4,
+      "complete_table": 42,
+      "text_sufficient_formula": 38,
+      "reference_dependency_unverified": 1,
+      "response_structure_description": 3,
+      "response_graph_description_choice": 2,
+      "text_sufficient_context": 1
+    }
+  },
+  "limits": [
+    "Source completeness is not successful delivery; table layout, authored parts and assets still need signed-in browser checks.",
+    "Not a mathematical-correctness/key/rubric certification.",
+    "No new image-need decisions, content writes or deployments.",
+    "Legacy frq_criteria.learner_facing_text contained answer-bearing scoring text; it has been removed from the inventory query and saved review sources."
+  ],
+  "reviews": [
+    {
+      "content_key": "apcalcab-frq-u13-002",
+      "content_item_version_id": "d0f2974c-bac9-498d-8173-8a1c88b3d8eb",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "construct_changed_by_prose",
+      "reason": "The given graph is replaced by a complete verbal specification. Numerical answerability is preserved, but this does not exercise reading the visual representation. Propose a deterministic prompt graph for curriculum review; do not classify as missing numerical data.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": true,
+      "reference_access_unverified": false,
+      "existing_image_needed": "no_not_needed",
+      "existing_image_approval": null,
+      "audit_content_digest": "7f095e64e222b728818543808f4d79dd",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Reading Limits and Discontinuities from a Described Graph: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+        "stimulus": "The graph of g, defined for -4 <= x <= 4, consists of the following pieces:\n- For -4 <= x < -1: a line segment from (-4,-2) to (-1,4), with an open circle at (-1,4).\n- At x = -1: a closed dot at (-1,1).\n- For -1 < x < 2: a horizontal segment at height y = 1, with an open circle at (2,1).\n- For 2 <= x <= 4: a line segment from (2,3) to (4,-1), closed at both endpoints.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "State the values of g(-1) and g(2)."
+          },
+          {
+            "key": "part-b",
+            "text": "Find lim x->-1- g(x) and lim x->-1+ g(x). Does lim x->-1 g(x) exist? Justify your answer."
+          },
+          {
+            "key": "part-c",
+            "text": "Find lim x->2- g(x) and lim x->2+ g(x). Does lim x->2 g(x) exist? If not, classify the type of discontinuity at x=2."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13-010",
+      "content_item_version_id": "daf9d061-631a-4f52-a59d-92d39431e448",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": "no_not_needed",
+      "existing_image_approval": null,
+      "audit_content_digest": "43e6f0ba3020242f62286a800a4405d2",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Applying and Interpreting the Intermediate Value Theorem: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+        "stimulus": "The function k is continuous on the closed interval [0,4]. Selected values of k are given in the table.\nTable 1: Values of k\nx | 0 | 1 | 2 | 3 | 4\nk(x) | -3 | 2 | 1 | -4 | 5",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Use the Intermediate Value Theorem to justify that there is a value c in (0,1) such that k(c) = 0."
+          },
+          {
+            "key": "part-b",
+            "text": "Justify whether the Intermediate Value Theorem guarantees a value c in (1,3) such that k(c) = -1."
+          },
+          {
+            "key": "part-c",
+            "text": "A student claims: \"Since k(2)=1 and k(3)=-4, and 0 is between these values, the IVT guarantees exactly one c in (2,3) with k(c)=0.\" Explain what part of the student's claim is incorrect, and state the correct conclusion."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13-012",
+      "content_item_version_id": "87949000-95db-4cf3-a1eb-c14767be7728",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": "no_not_needed",
+      "existing_image_approval": null,
+      "audit_content_digest": "1a9e713980248c10d4272fe600d8f7b7",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Reconciling a Table of Values with a Stated Function Value: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+        "stimulus": "Selected values of a function m near x=2 are given in the table. It is also known that m(2) = 5.\nTable 1: Values of m near x = 2\nx | 1 | 1.9 | 1.99 | 2.01 | 2.1 | 3\nm(x) | 4.00 | 5.72 | 5.97 | 6.03 | 6.28 | 8.00",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using the table, estimate lim x->2- m(x) and lim x->2+ m(x). State lim x->2 m(x) if it exists, and justify your answer using the table values."
+          },
+          {
+            "key": "part-b",
+            "text": "Given that m(2) = 5, use the definition of continuity to justify whether m is continuous at x=2, and classify the discontinuity, if any."
+          },
+          {
+            "key": "part-c",
+            "text": "Define a new function n(x) that agrees with m(x) everywhere except redefined at x=2 to remove the discontinuity found in part B, and state n(2)."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13-016",
+      "content_item_version_id": "798d58ab-6661-4293-a380-7ca6a7245909",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2,
+        3
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": "no_not_needed",
+      "existing_image_approval": null,
+      "audit_content_digest": "ff58923727cc78c9123180165ef65ae9",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Using a Table of Values to Differentiate an Inverse Function: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+        "stimulus": "The function f is differentiable and strictly increasing on its domain. Selected values of f and f' are given in the table. Let g = f^-1.\nTable 1: Values of f and f'\nx | 1 | 2 | 3 | 4 | 5\nf(x) | 3 | 5 | 8 | 12 | 17\nf'(x) | 2 | 3 | 4 | 5 | 6",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "State the formula relating the derivative of f^-1 to the derivative of f, and identify the value a such that f(a) = 8."
+          },
+          {
+            "key": "part-b",
+            "text": "Compute g'(8), showing your work using the table."
+          },
+          {
+            "key": "part-c",
+            "text": "Compute g'(5), and using correct notation, write the equation of the tangent line to y = g(x) at x = 5."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-1-3",
+      "content_item_version_id": "a59eb1ed-b96e-4d89-94ee-a4a32b309744",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.3"
+      ],
+      "teaching_designated": false,
+      "classification": "construct_changed_by_prose",
+      "reason": "The given graph is replaced by a complete verbal specification. Numerical answerability is preserved, but this does not exercise reading the visual representation. Propose a deterministic prompt graph for curriculum review; do not classify as missing numerical data.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": true,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "88c7a8ad1e5bc82e95549f0553d09ad2",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Using the description of the graph, find lim x→-1⁻ g(x) and lim x→-1⁺ g(x). Does lim x→-1 g(x) exist? Explain.\n\n(b) Find lim x→2 g(x) and g(2). Explain why these two values can be different.\n\n(c) Describe the behavior of g(x) as x approaches 4 from each side, using limit notation. Does lim x→4 g(x) exist as a real number? Explain.\n\n(d) Find lim x→-4⁺ g(x) and lim x→6⁻ g(x). Then list every value of c with -4 < c < 6 for which lim x→c g(x) does not exist, giving a reason for each value.",
+        "stimulus": "A function g is defined for -4 ≤ x ≤ 6 except at x = 4. Its graph is described in words below. A closed point is part of the graph. An open circle marks a point that is not on the graph.\n\n1. For -4 ≤ x < -1, the graph is a straight line segment. It starts at the closed point (-4, 0) and ends at an open circle at (-1, 3).\n2. At x = -1 there is a single closed point at (-1, 1), so g(-1) = 1.\n3. For -1 < x < 2, the graph is a straight line segment. It runs from an open circle at (-1, -2) to an open circle at (2, 4).\n4. At x = 2 there is a single closed point at (2, 0), so g(2) = 0.\n5. For 2 < x < 4, the graph is an unbroken increasing curve. It starts at the open circle at (2, 4) and rises without bound as x approaches 4 from the left.\n6. The vertical line x = 4 is a vertical asymptote, and g(4) is not defined.\n7. For 4 < x ≤ 6, the graph is an unbroken decreasing curve. It comes down from arbitrarily large values just to the right of x = 4 and ends at the closed point (6, 1).",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using the description of the graph, find lim x→-1⁻ g(x) and lim x→-1⁺ g(x). Does lim x→-1 g(x) exist? Explain."
+          },
+          {
+            "key": "part-b",
+            "text": "Find lim x→2 g(x) and g(2). Explain why these two values can be different."
+          },
+          {
+            "key": "part-c",
+            "text": "Describe the behavior of g(x) as x approaches 4 from each side, using limit notation. Does lim x→4 g(x) exist as a real number? Explain."
+          },
+          {
+            "key": "part-d",
+            "text": "Find lim x→-4⁺ g(x) and lim x→6⁻ g(x). Then list every value of c with -4 < c < 6 for which lim x→c g(x) does not exist, giving a reason for each value."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-1-4",
+      "content_item_version_id": "8a653259-665a-4411-b819-3563bb18c371",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.4"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "2752d6c78a93b4c6cb754cc6bb14cf59",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Use the table to estimate lim x→1 f(x). Explain your reasoning using values from the table.\n\n(b) A student claims that because f(1) = 5, the answer to part (a) must be 5. Explain why the student is incorrect.\n\n(c) Use the table to estimate lim x→2⁻ g(x) and lim x→2⁺ g(x).\n\n(d) Based on your answers to part (c), does lim x→2 g(x) exist? Explain.",
+        "stimulus": "The functions f and g are defined for all real numbers. Selected values of f near x = 1 and selected values of g near x = 2 are shown in the tables below. Assume that the trends shown in each table continue as x gets closer to the indicated value. It is also given that f(1) = 5.\n\nTable for f:\nx    | 0.9  | 0.99   | 0.999    | 1.001    | 1.01   | 1.1\nf(x) | 2.71 | 2.9701 | 2.997001 | 3.003001 | 3.0301 | 3.31\n\nTable for g:\nx    | 1.9 | 1.99 | 1.999 | 2.001  | 2.01  | 2.1\ng(x) | 3.8 | 3.98 | 3.998 | −0.997 | −0.97 | −0.7",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Use the table to estimate lim x→1 f(x). Explain your reasoning using values from the table."
+          },
+          {
+            "key": "part-b",
+            "text": "A student claims that because f(1) = 5, the answer to part (a) must be 5. Explain why the student is incorrect."
+          },
+          {
+            "key": "part-c",
+            "text": "Use the table to estimate lim x→2⁻ g(x) and lim x→2⁺ g(x)."
+          },
+          {
+            "key": "part-d",
+            "text": "Based on your answers to part (c), does lim x→2 g(x) exist? Explain."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-1-9",
+      "content_item_version_id": "1b83c16b-8b40-4f61-8daa-8c5591ad4894",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.9"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "53a1ae2add068f14b1e9eea28f96dea3",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Using only the values in the table, estimate lim x→2 f(x). Explain how the table supports your estimate.\n\n(b) Use algebra to find lim x→2 f(x) exactly, showing the work that confirms your estimate from part (a).\n\n(c) Find the value of k for which lim x→2 g(x) exists. Show the work that leads to your answer.\n\n(d) With k equal to the value found in part (c), state the value of lim x→2 g(x). Explain why the given value g(2) = 5 does not change your answer.",
+        "stimulus": "The function f is defined by f(x) = (x² − 4)/(x² − 5x + 6) for all x ≠ 2 and x ≠ 3. Selected values of f, rounded to four decimal places, are shown in the table below.\n\nx    | 1.9     | 1.99    | 1.999   | 2.001   | 2.01    | 2.1\nf(x) | −3.5455 | −3.9505 | −3.9950 | −4.0050 | −4.0505 | −4.5556\n\nThe function g is defined piecewise by g(x) = f(x) for x < 2, g(2) = 5, and g(x) = kx + 1 for x > 2, where k is a constant.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using only the values in the table, estimate lim x→2 f(x). Explain how the table supports your estimate."
+          },
+          {
+            "key": "part-b",
+            "text": "Use algebra to find lim x→2 f(x) exactly, showing the work that confirms your estimate from part (a)."
+          },
+          {
+            "key": "part-c",
+            "text": "Find the value of k for which lim x→2 g(x) exists. Show the work that leads to your answer."
+          },
+          {
+            "key": "part-d",
+            "text": "With k equal to the value found in part (c), state the value of lim x→2 g(x). Explain why the given value g(2) = 5 does not change your answer."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-2-1",
+      "content_item_version_id": "3a9c4a86-9c17-428d-99e6-63cd9023b1c9",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "85c7c5412e3271864fa2a9ea8661bb68",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Find the average rate of change of H(t) over the interval [2, 8]. Show the difference quotient you use and include units.\n\n(b) Find the average rate of change of H(t) over [8, 12]. Over which interval, [2, 8] or [8, 12], was the rod heating faster on average? Justify your answer.\n\n(c) Write a limit expression, in terms of H, that represents the instantaneous rate of change of the rod's temperature at t = 5 hours. Then explain why the table alone cannot give the exact value of this limit.\n\n(d) A second rod’s temperature is G(t) = 15t + 20 °C. Use the limit of a difference quotient to find the instantaneous rate of change of G at t = 5. Show the algebra that leads to your answer.",
+        "stimulus": "The temperature of a metal rod, in degrees Celsius (°C), is given by a differentiable function H(t), where t is the number of hours since heating began. Selected values of H(t) are given in the table.\n\nt (hours) | 0 | 2 | 5 | 8 | 12\nH(t) (°C) | 20 | 35 | 60 | 85 | 100",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Find the average rate of change of H(t) over the interval [2, 8]. Show the difference quotient you use and include units."
+          },
+          {
+            "key": "part-b",
+            "text": "Find the average rate of change of H(t) over [8, 12]. Over which interval, [2, 8] or [8, 12], was the rod heating faster on average? Justify your answer."
+          },
+          {
+            "key": "part-c",
+            "text": "Write a limit expression, in terms of H, that represents the instantaneous rate of change of the rod's temperature at t = 5 hours. Then explain why the table alone cannot give the exact value of this limit."
+          },
+          {
+            "key": "part-d",
+            "text": "A second rod’s temperature is G(t) = 15t + 20 °C. Use the limit of a difference quotient to find the instantaneous rate of change of G at t = 5. Show the algebra that leads to your answer."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-2-7",
+      "content_item_version_id": "694f4c87-7b24-4a29-a272-035a4462b53b",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.7"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "ef8afd2a4037deff2926faf30061cf73",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Find f′(π/2). Then write an equation for the line tangent to the graph of f at x = π/2.\n\n(b) Find g′(x). Then find the instantaneous rate of change of g with respect to x at x = 3.\n\n(c) Evaluate lim h→0 [ln(e + h) − 1]/h by recognizing the limit as the derivative of a function at a point. Name the function and the point.\n\n(d) Evaluate lim x→π (cos x + 1)/(x − π) by recognizing the limit as the derivative of a function at a point. Name the function and the point.",
+        "stimulus": "Let f(x) = 4 sin x + 2 cos x for all real x, and let g(x) = e^x − 3 ln x for x > 0.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Find f′(π/2). Then write an equation for the line tangent to the graph of f at x = π/2."
+          },
+          {
+            "key": "part-b",
+            "text": "Find g′(x). Then find the instantaneous rate of change of g with respect to x at x = 3."
+          },
+          {
+            "key": "part-c",
+            "text": "Evaluate lim h→0 [ln(e + h) − 1]/h by recognizing the limit as the derivative of a function at a point. Name the function and the point."
+          },
+          {
+            "key": "part-d",
+            "text": "Evaluate lim x→π (cos x + 1)/(x − π) by recognizing the limit as the derivative of a function at a point. Name the function and the point."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1n-001",
+      "content_item_version_id": "a92d2284-d97b-4cf0-aa38-a174072ab6a3",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "78c64ae4b68fa26704be3cdbc53a3512",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(x->3) g(x). Show the algebra that leads to your answer.\n\n(b) The graph of g has a removable discontinuity at x = 3. Justify this, and state the value that would have to be assigned to g(3) to make the function continuous at x = 3.\n\n(c) Find lim(x->-3-) g(x) and lim(x->-3+) g(x). Give a reason for the sign of each.",
+        "stimulus": "Let g be the function defined by g(x) = (2x^2 - x - 15)/(x^2 - 9) for x != 3 and x != -3.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1n-002",
+      "content_item_version_id": "2c67f828-c472-4a91-9e60-3b496790f523",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "ecf82a387052939185e9d2c9fcf9b757",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find all vertical asymptotes of the graph of f. Justify your answer.\n\n(b) Find lim(x->5+) f(x). Give a reason for the sign of your answer.\n\n(c) Find lim(x->-1-) f(x). Give a reason for the sign of your answer.\n\n(d) Write an equation for the horizontal asymptote of the graph of f, or explain why there is none.",
+        "stimulus": "Let f be the function defined by f(x) = 3x/(x^2 - 4x - 5).",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1n-003",
+      "content_item_version_id": "5ea968e0-46cf-4e75-af9a-55429cb91b04",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "302df95b5eda6a029afd8d18636050a3",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(t->infinity) A(t). Include units and interpret the meaning of your answer in context.\n\n(b) Let q(x) = (4x + 1)/sqrt(9x^2 + 2). Find all horizontal asymptotes of the graph of q. Show the work that leads to each.\n\n(c) Evaluate lim(x->infinity) (2x^4 + 5^x)/(3^x + x^7). Justify your answer using the relative growth rates of the functions involved.",
+        "stimulus": "The amount of salt, in grams, dissolved in a tank at time t minutes is modeled by A(t) = (80t + 100)/(2t + 5) for t >= 0.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1n-005",
+      "content_item_version_id": "2b570fcd-5bcd-4975-8f79-b3de324ff94c",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "fd9cb4f43272644b1f79bac3596c2fc2",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Use the table to estimate lim(x->5) h(x). Explain how the table supports your estimate.\n\n(b) Use algebra to find the exact value of lim(x->5) h(x). Show your work.\n\n(c) The function h is extended by defining h(5) = 0.2. Is the extended function continuous at x = 5? If not, classify the discontinuity and justify your answer.",
+        "stimulus": "Let h be the function defined by h(x) = (sqrt(x + 4) - 3)/(x - 5) for x != 5. Selected values of h(x) are given in the table.\n\nx = 4.9: h(x) = 0.16713\nx = 4.99: h(x) = 0.16671\nx = 4.999: h(x) = 0.16667\nx = 5.001: h(x) = 0.16666\nx = 5.01: h(x) = 0.16662\nx = 5.1: h(x) = 0.16621",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-001-v1",
+      "content_item_version_id": "5097502d-e640-4091-8167-129b117c676f",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "e9c446ea2b52da4190cf35289d8bcd2b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(x->-2) g(x). Show the algebra that leads to your answer.\n\n(b) The graph of g has a removable discontinuity at x = -2. Justify this, and state the value that would have to be assigned to g(-2) to make the function continuous at x = -2.\n\n(c) Find lim(x->3-) g(x) and lim(x->3+) g(x). Give a reason for the sign of each.",
+        "stimulus": "The gain g of an amplifier circuit at input level x is modeled by g(x) = (3x^2 - x - 14)/(x^2 - x - 6) for x != -2 and x != 3.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-001-v2",
+      "content_item_version_id": "eaf4260e-c12d-4cfd-9eb9-d9c918bd6f7b",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "b87e1fc983c87a44da69c84d21014c12",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(x->-1) r(x). Show the algebra that leads to your answer.\n\n(b) The graph of r has a removable discontinuity at x = -1. Justify this, and state the value that would have to be assigned to r(-1) to make the function continuous at x = -1.\n\n(c) Find lim(x->4-) r(x) and lim(x->4+) r(x). Give a reason for the sign of each.",
+        "stimulus": "In a diffusion experiment, the ratio r of two concentrations at position x cm from a marker on a tube is modeled by r(x) = (2 + x - x^2)/(x^2 - 3x - 4) for x != -1 and x != 4.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-001-v3",
+      "content_item_version_id": "7e4245f8-4ccc-4510-8100-9b94d86992ea",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "30d2d49a1c084ceb228d0ff9d1d8ecb1",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(x->-3) w(x). Show the algebra that leads to your answer.\n\n(b) The graph of w has a removable discontinuity at x = -3. Justify this, and state the value that would have to be assigned to w(-3) to make the function continuous at x = -3.\n\n(c) Find lim(x->1-) w(x) and lim(x->1+) w(x). Give a reason for the sign of each.",
+        "stimulus": "A physics lab models the ratio w of two measured forces at position x meters along a track by w(x) = (2x^2 + 9x + 9)/(3 - 2x - x^2) for x != -3 and x != 1.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-002-v1",
+      "content_item_version_id": "eee4bcfa-d137-4b03-82a3-1c55d857569a",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "16fc9000ee12dec654debdbd81fb7bef",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find all vertical asymptotes of the graph of R. Justify your answer.\n\n(b) Find lim(x->3+) R(x). Give a reason for the sign of your answer.\n\n(c) Find lim(x->-4-) R(x). Give a reason for the sign of your answer.\n\n(d) Write an equation for the horizontal asymptote of the graph of R, or explain why there is none.",
+        "stimulus": "The rate R of a chemical reaction, in moles per second, at temperature setting x is modeled by R(x) = (2x - 1)/(x^2 + x - 12).",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-002-v2",
+      "content_item_version_id": "4645223d-2a13-4603-8d18-b756bbd1a088",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "b8c0a2171cb29c6d044e06a78dea67ff",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find all vertical asymptotes of the graph of D. Justify your answer.\n\n(b) Find lim(x->4-) D(x). Give a reason for the sign of your answer.\n\n(c) Find lim(x->0+) D(x). Give a reason for the sign of your answer.\n\n(d) Write an equation for the horizontal asymptote of the graph of D, or explain why there is none.",
+        "stimulus": "A pharmacology model gives the ratio D of absorbed to administered dose at dose setting x as D(x) = (5x^2 - 3)/(2x^2 - 8x).",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-002-v3",
+      "content_item_version_id": "fc8a3696-9e13-479e-90ea-5619cfe264cb",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "cff0680aa5edf564f1a868e61a4a4f1c",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find all vertical asymptotes of the graph of S. Justify your answer.\n\n(b) Find lim(x->1) S(x). Give a reason for the sign of your answer.\n\n(c) Find lim(x->-2-) S(x). Give a reason for the sign of your answer.\n\n(d) Write an equation for the horizontal asymptote of the graph of S, or explain why there is none.",
+        "stimulus": "The strength S of a signal at distance x meters from a transmitter mast is modeled by S(x) = (x + 4)/((x - 1)^2 (x + 2)).",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-003-v1",
+      "content_item_version_id": "3a50593d-1c22-4452-bc2b-5770489768cc",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "1a576524e3d3ace7bee36ba625d40beb",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(t->infinity) C(t). Include units and interpret the meaning of your answer in context.\n\n(b) Let q(x) = (5x - 2)/sqrt(4x^2 + 7). Find all horizontal asymptotes of the graph of q. Show the work that leads to each.\n\n(c) Evaluate lim(x->infinity) (7^x + x^6)/(4^x + x^10). Justify your answer using the relative growth rates of the functions involved.",
+        "stimulus": "The concentration of a medication in a patient's bloodstream, in milligrams per liter, t hours after an injection is modeled by C(t) = (72t + 30)/(4t + 9) for t >= 0.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-003-v2",
+      "content_item_version_id": "fbe47044-e562-4540-bf45-53d2cef998a5",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "ca0db82819f3bcbc7b0bbded20224b52",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(t->infinity) v(t). Include units and interpret the meaning of your answer in context.\n\n(b) Let q(x) = (6 - 3x)/sqrt(x^2 + 5). Find all horizontal asymptotes of the graph of q. Show the work that leads to each.\n\n(c) Evaluate lim(x->infinity) (3(2^x) + x^8)/(5(2^x) + x^3). Justify your answer using the relative growth rates of the functions involved.",
+        "stimulus": "The speed of a rocket sled, in meters per second, t seconds after release is modeled by v(t) = (90t^2 + 40)/(3t^2 + 2t + 1) for t >= 0.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-003-v3",
+      "content_item_version_id": "c203cfcd-7977-46a9-aef4-d7bb9084f07d",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "46cc48834aa8233222bfdfb2c7c3557b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Find lim(n->infinity) A(n). Include units and interpret the meaning of your answer in context.\n\n(b) Let q(x) = sqrt(4x^2 + 1)/(x + 3). Find all horizontal asymptotes of the graph of q. Show the work that leads to each.\n\n(c) Evaluate lim(x->infinity) (x^12 + 2^x)/(3^x + 8x^2). Justify your answer using the relative growth rates of the functions involved.",
+        "stimulus": "A workshop's average cost per unit, in dollars, when n units are produced is modeled by A(n) = (250n + 4000)/(n + 50) for n >= 1.",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-005-v1",
+      "content_item_version_id": "a69b1047-6636-4aca-88e0-968dc94b7da5",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "cd27c09b3ca01caad32bbf456a5b28da",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Use the table to estimate lim(x->2) h(x). Explain how the table supports your estimate.\n\n(b) Use algebra to find the exact value of lim(x->2) h(x). Show your work.\n\n(c) The function h is extended by defining h(2) = 1.5. Is the extended function continuous at x = 2? If not, classify the discontinuity and justify your answer.",
+        "stimulus": "A technician records the response ratio h of a sensor at setting x and models it by h(x) = (x^3 - 4x)/(x^2 + x - 6) for x != 2 and x != -3. Selected values of h(x) are given in the table.\n\nx = 1.9: h(x) = 1.5122\nx = 1.99: h(x) = 1.5912\nx = 1.999: h(x) = 1.5991\nx = 2.001: h(x) = 1.6009\nx = 2.01: h(x) = 1.6088\nx = 2.1: h(x) = 1.6882",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-005-v2",
+      "content_item_version_id": "070a60a3-3b03-46be-a9c7-707c621ff7ff",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8ded6c5d5756d0bbc68d5673b1458329",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Use the table to estimate lim(x->4) h(x). Explain how the table supports your estimate.\n\n(b) Use algebra to find the exact value of lim(x->4) h(x). Show your work.\n\n(c) The function h is extended by defining h(4) = -0.05. Is the extended function continuous at x = 4? If not, classify the discontinuity and justify your answer.",
+        "stimulus": "A lens designer models the ratio h of two focal readings at setting x by h(x) = (1/x - 1/4)/(x - 4) for x != 4 and x != 0. Selected values of h(x) are given in the table.\n\nx = 3.9: h(x) = -0.0641\nx = 3.99: h(x) = -0.0627\nx = 3.999: h(x) = -0.0625\nx = 4.001: h(x) = -0.0625\nx = 4.01: h(x) = -0.0623\nx = 4.1: h(x) = -0.0610",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-frq-u1v-005-v3",
+      "content_item_version_id": "a525f7e8-c50e-479e-ba2e-c6351822a1f6",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "9938cc1ade1ef0f3d4478b9a724e7a07",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Use the table to estimate lim(x->6) h(x). Explain how the table supports your estimate.\n\n(b) Use algebra to find the exact value of lim(x->6) h(x). Show your work.\n\n(c) The function h is extended by defining h(6) = 0.4. Is the extended function continuous at x = 6? If not, classify the discontinuity and justify your answer.",
+        "stimulus": "A chemist models the rate h of a reaction at concentration x by h(x) = (sqrt(3x - 2) - 4)/(x - 6) for x != 6. Selected values of h(x) are given in the table.\n\nx = 5.9: h(x) = 0.3768\nx = 5.99: h(x) = 0.3752\nx = 5.999: h(x) = 0.3750\nx = 6.001: h(x) = 0.3750\nx = 6.01: h(x) = 0.3748\nx = 6.1: h(x) = 0.3733",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-orly-c2-v1",
+      "content_item_version_id": "8e3fcf11-d96c-41e1-abae-c2625271a473",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "f56cc41803049b9298a670f0b56a48d2",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table gives selected values of a function f.\n\nx: 0, 2, 3, 5, 7, 9\nf(x): 1, 10, 16, 28, 24, 26\n\nOn which of the following intervals is the average rate of change of f greatest?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "[2, 3]"
+          },
+          {
+            "key": "B",
+            "text": "[5, 7]"
+          },
+          {
+            "key": "C",
+            "text": "[7, 9]"
+          },
+          {
+            "key": "D",
+            "text": "[0, 2]"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1n-002",
+      "content_item_version_id": "40301faa-52a9-4874-bbc1-9f0d79e1df46",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "4cd57a2ab61e8bd0355107af56a8e4a3",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table gives the average rate of change of a function f over the interval [1, 1 + h] for three values of h.\n\nh = 0.1: 6.3\nh = 0.01: 6.03\nh = 0.001: 6.003\n\nWhich of the following is the best estimate of the instantaneous rate of change of f at x = 1?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "6.003"
+          },
+          {
+            "key": "B",
+            "text": "6.3"
+          },
+          {
+            "key": "C",
+            "text": "6"
+          },
+          {
+            "key": "D",
+            "text": "0"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1n-005",
+      "content_item_version_id": "1be9ffe2-e642-4fb8-8570-76942e3c7917",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "9e9190b496bef520f8d4cc727ba89530",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table shows values of a function f near x = 2. The value f(2) is undefined.\n\nx = 1.9: f(x) = 2.9\nx = 1.99: f(x) = 2.99\nx = 1.999: f(x) = 2.999\nx = 2.001: f(x) = 3.001\nx = 2.01: f(x) = 3.01\nx = 2.1: f(x) = 3.1\n\nWhich of the following is the best estimate of lim(x->2) f(x)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "3.1"
+          },
+          {
+            "key": "B",
+            "text": "2.999"
+          },
+          {
+            "key": "C",
+            "text": "3"
+          },
+          {
+            "key": "D",
+            "text": "The limit does not exist because f(2) is undefined."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1n-023",
+      "content_item_version_id": "28f8ef97-7774-4f84-99d3-e390d488b790",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "daf6f0ff4b1dd3e5e7b56214ff6287f1",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Let f(x) = (x^2 - 4x)/(x^2 - 16). Which of the following gives all vertical asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = -4 only"
+          },
+          {
+            "key": "B",
+            "text": "x = 4 only"
+          },
+          {
+            "key": "C",
+            "text": "x = 4 and x = -4"
+          },
+          {
+            "key": "D",
+            "text": "x = 0 and x = -4"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1n-025",
+      "content_item_version_id": "7702894b-4060-4910-b35d-f3750b0c6c66",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "13cfbf82f34e7312463ac66749ee6576",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "On the interval 0 <= x <= pi, the graph of f(x) = 1/(2cos x - 1) has a vertical asymptote at x =",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "\\(\\pi/3\\)"
+          },
+          {
+            "key": "B",
+            "text": "0"
+          },
+          {
+            "key": "C",
+            "text": "\\(\\pi/6\\)"
+          },
+          {
+            "key": "D",
+            "text": "\\(\\pi/2\\)"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1n-027",
+      "content_item_version_id": "e49daaa1-49d6-4610-a332-03d35da85472",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "e375d0f4d965b8946d058f43c7b7ba5e",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Let f(x) = 3x/sqrt(4x^2 + 1). Which of the following gives all horizontal asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "y = 0 only"
+          },
+          {
+            "key": "B",
+            "text": "y = 3/2 only"
+          },
+          {
+            "key": "C",
+            "text": "y = 3/2 and y = -3/2"
+          },
+          {
+            "key": "D",
+            "text": "y = 3 and y = -3"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-002-v1",
+      "content_item_version_id": "fb3c25c4-7cde-4024-a628-9f067bb5e123",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "59be1470469c5401cb769a5f00d0b6c4",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The temperature of a cooling liquid is T(t) degrees Celsius at time t minutes. The table gives the average rate of change of T over [2, 2 + h], in degrees per minute.\n\nh = 0.1: -4.2\nh = 0.01: -4.02\nh = 0.001: -4.002\n\nWhich of the following is the best estimate of the instantaneous rate of change of T at t = 2?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "-4.2"
+          },
+          {
+            "key": "B",
+            "text": "0"
+          },
+          {
+            "key": "C",
+            "text": "-4"
+          },
+          {
+            "key": "D",
+            "text": "-4.002"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-002-v2",
+      "content_item_version_id": "40d8bef1-2e3a-4fda-a592-fca195f45b30",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "74eec8b79adc5deea8568f544101d171",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The height of a plant is H(t) centimeters at day t. The table gives the average rate of change of H, in cm per day, between day 3 and day 3 + h, where h can be negative.\n\nh = -0.1: 9.7\nh = -0.01: 9.97\nh = 0.01: 10.03\nh = 0.1: 10.3\n\nWhich of the following is the best estimate of the instantaneous rate of change of H at day 3?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "The instantaneous rate does not exist because the table has no entry for h = 0."
+          },
+          {
+            "key": "B",
+            "text": "10.03"
+          },
+          {
+            "key": "C",
+            "text": "10.3"
+          },
+          {
+            "key": "D",
+            "text": "10"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-002-v3",
+      "content_item_version_id": "1321c072-4a97-4a7e-ab6e-3d89b950601d",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "5de15e95c086060f4e43878eea052c9d",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The amount of a product is P(t) moles at time t seconds. The table gives the average rate of change of P over [1, 1 + h], in moles per second.\n\nh = 0.1: 0.48\nh = 0.01: 0.498\nh = 0.001: 0.4998\n\nWhich of the following is the best estimate of the instantaneous rate of change of P at t = 1?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "1/2"
+          },
+          {
+            "key": "B",
+            "text": "0"
+          },
+          {
+            "key": "C",
+            "text": "0.48"
+          },
+          {
+            "key": "D",
+            "text": "0.4998"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-005-v1",
+      "content_item_version_id": "c80ccc47-c47e-4868-955e-43a02aa98ab0",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "de80691f4d09bdaf1de1216bf67ce2c6",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table shows values of a function V near t = 5. The value V(5) is undefined.\n\nt = 4.9: V(t) = -1.8\nt = 4.99: V(t) = -1.98\nt = 4.999: V(t) = -1.998\nt = 5.001: V(t) = -2.002\nt = 5.01: V(t) = -2.02\nt = 5.1: V(t) = -2.2\n\nWhich of the following is the best estimate of lim(t->5) V(t)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "The limit does not exist because V(5) is undefined."
+          },
+          {
+            "key": "B",
+            "text": "-2.2"
+          },
+          {
+            "key": "C",
+            "text": "-1.998"
+          },
+          {
+            "key": "D",
+            "text": "-2"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-005-v2",
+      "content_item_version_id": "d7a7e58d-80eb-4c83-83d2-d5d4b14a6e62",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "ea67c6080d0f519620bd727a2f607125",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table shows values of a function f near x = 1. The function is defined at x = 1 with f(1) = 8.\n\nx = 0.9: f(x) = 2.5\nx = 0.99: f(x) = 2.95\nx = 0.999: f(x) = 2.995\nx = 1.001: f(x) = 3.005\nx = 1.01: f(x) = 3.05\nx = 1.1: f(x) = 3.5\n\nWhich of the following is the best estimate of lim(x->1) f(x)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "5.5"
+          },
+          {
+            "key": "B",
+            "text": "2.995"
+          },
+          {
+            "key": "C",
+            "text": "8"
+          },
+          {
+            "key": "D",
+            "text": "3"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-005-v3",
+      "content_item_version_id": "2b08ea66-f3c2-499e-9b87-e8a11bd7b325",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "9c460de0d2acd0f22f886b6d36892b9b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table shows the displacement d(x) of a spring, in millimeters, near x = 1.5. The value d(1.5) is undefined.\n\nx = 1.4: d = -0.4\nx = 1.49: d = -0.04\nx = 1.499: d = -0.004\nx = 1.501: d = 0.004\nx = 1.51: d = 0.04\nx = 1.6: d = 0.4\n\nWhich of the following is the best estimate of lim(x->1.5) d(x)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "0"
+          },
+          {
+            "key": "B",
+            "text": "-0.004"
+          },
+          {
+            "key": "C",
+            "text": "The limit does not exist because the values change sign."
+          },
+          {
+            "key": "D",
+            "text": "0.4"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-023-v1",
+      "content_item_version_id": "fb30a8cb-a9e9-4a1d-8698-f6886a512901",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "342be6caabc7b265f598c97400abe552",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The response of a circuit is modeled by f(x) = (x^2 + 2x - 3)/(x^3 - 4x^2 - 7x + 10), where x is the input frequency setting. The denominator factors as (x - 1)(x + 2)(x - 5). Which of the following gives all vertical asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = -2 and x = 5"
+          },
+          {
+            "key": "B",
+            "text": "x = -2, x = 1 and x = 5"
+          },
+          {
+            "key": "C",
+            "text": "x = 1 only"
+          },
+          {
+            "key": "D",
+            "text": "x = -3, x = -2 and x = 5"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-023-v2",
+      "content_item_version_id": "cd519662-bdd1-41e7-8f04-a066d4920c27",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "16d0b485b8e02291101c2d8f39de04bf",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A firm models its average cost per unit by f(x) = (2x^2 + 5x - 3)/(2x^2 - 3x + 1), where x is a production level. Which of the following gives all vertical asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 1 only"
+          },
+          {
+            "key": "B",
+            "text": "x = -3 and x = 1"
+          },
+          {
+            "key": "C",
+            "text": "x = 1/2 only"
+          },
+          {
+            "key": "D",
+            "text": "x = 1/2 and x = 1"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-023-v3",
+      "content_item_version_id": "5c44c68b-072c-4508-af5f-41a094f9bf8b",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "7006d379a12ae564a4bff81776b7b9aa",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The flow rate through a valve is modeled by f(x) = (x^2 - 4)/(x^3 - 4x^2 + 4x), where x is the valve opening. Note that x^3 - 4x^2 + 4x = x(x - 2)^2. Which of the following gives all vertical asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 0 only"
+          },
+          {
+            "key": "B",
+            "text": "x = 0, x = 2 and x = -2"
+          },
+          {
+            "key": "C",
+            "text": "x = 0 and x = 2"
+          },
+          {
+            "key": "D",
+            "text": "x = 2 only"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-025-v1",
+      "content_item_version_id": "f0f743e1-1d15-4292-8c8a-c039d84a25e8",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "a80e1561eb4b7d172a125e419ab8004d",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A signal amplitude is modeled by f(x) = 3/(2 sin x - 1) on the interval 0 <= x <= pi, where x is the phase in radians. Which of the following gives all values of x in this interval at which the graph of f has a vertical asymptote?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "\\(\\pi/3\\) and \\(\\frac{2\\pi}{3}\\)"
+          },
+          {
+            "key": "B",
+            "text": "\\(\\pi/6\\) only"
+          },
+          {
+            "key": "C",
+            "text": "\\(\\pi/6\\) and \\(\\frac{5\\pi}{6}\\)"
+          },
+          {
+            "key": "D",
+            "text": "\\(\\pi/6\\) and \\(\\frac{7\\pi}{6}\\)"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-025-v2",
+      "content_item_version_id": "c72d8beb-e02d-42aa-898a-ba8ea1f1fb57",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "0812a0877abdea9e27448c72c201531b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The brightness of a light through a filter is modeled by f(x) = (x + 1)/(1 + 2cos x) on the interval 0 <= x <= pi, where x is the filter angle in radians. On this interval, the graph of f has a vertical asymptote at x =",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "\\(\\pi/3\\)"
+          },
+          {
+            "key": "B",
+            "text": "\\(\\frac{5\\pi}{6}\\)"
+          },
+          {
+            "key": "C",
+            "text": "\\(\\frac{2\\pi}{3}\\)"
+          },
+          {
+            "key": "D",
+            "text": "\\(\\frac{4\\pi}{3}\\)"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-025-v3",
+      "content_item_version_id": "7e77a862-c84b-428a-9da1-9ae12e55820a",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "fd12bd5fa69b24991d6a424b9a84d435",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A ramp-angle model gives f(x) = 1/(tan x - 1) for values of x in 0 <= x <= pi (x not equal to pi/2, where tan x is undefined). Which of the following gives all values of x in this interval at which the graph of f has a vertical asymptote?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "\\(\\pi/4\\) and \\(\\frac{5\\pi}{4}\\)"
+          },
+          {
+            "key": "B",
+            "text": "\\(\\pi/4\\) only"
+          },
+          {
+            "key": "C",
+            "text": "\\(\\pi/4\\) and \\(\\pi/2\\)"
+          },
+          {
+            "key": "D",
+            "text": "\\(\\pi/2\\) only"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-027-v1",
+      "content_item_version_id": "8eca6a23-1d32-4fa1-9ee1-5d4a10a70835",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "e2d3cc38673acb90fb4a2110f8053a55",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The output voltage of a signal-conditioning circuit is modeled by V(s) = (8s - 5)/sqrt(4s^2 + 7), where s is any real input setting. Which of the following gives all horizontal asymptotes of the graph of V?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "V = 4 only"
+          },
+          {
+            "key": "B",
+            "text": "V = 0 only"
+          },
+          {
+            "key": "C",
+            "text": "V = 4 and V = -4"
+          },
+          {
+            "key": "D",
+            "text": "V = 8 and V = -8"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-027-v2",
+      "content_item_version_id": "ca400363-af7c-4a94-8433-9cd08b14b26b",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "d2031bba223689bd4dfad4bb574ce62c",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "An enzyme's activity level is modeled by f(x) = (3e^x + 1)/(e^x + 2), where x is a concentration setting that can take any real value. Which of the following gives all horizontal asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "y = 3 only"
+          },
+          {
+            "key": "B",
+            "text": "y = 3 and y = 1/2"
+          },
+          {
+            "key": "C",
+            "text": "y = 1/2 only"
+          },
+          {
+            "key": "D",
+            "text": "y = 3 and y = 0"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u1v-027-v3",
+      "content_item_version_id": "016906e8-cef1-42a8-b74e-c57836746df3",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": null,
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "f31fe1a0f1fd445e761aa153d9b74b35",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A gain function is modeled by f(x) = 6x/(x + 2sqrt(x^2 + 1)). The denominator is positive for every real x. Which of the following gives all horizontal asymptotes of the graph of f?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "y = 2 and y = -2"
+          },
+          {
+            "key": "B",
+            "text": "y = 2 and y = -6"
+          },
+          {
+            "key": "C",
+            "text": "y = 2 and y = 6"
+          },
+          {
+            "key": "D",
+            "text": "y = 2 only"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-001-v3",
+      "content_item_version_id": "f13536f0-6e46-4c8c-84ab-71b49c9fa12b",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.1"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "b67cddcbbf02b1940743378e37a6c9ed",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Find the slope of the secant line to the graph of h(x) = x³ − x through the points where x = 0 and x = 3.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "26"
+          },
+          {
+            "key": "B",
+            "text": "12"
+          },
+          {
+            "key": "C",
+            "text": "24"
+          },
+          {
+            "key": "D",
+            "text": "8"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-004",
+      "content_item_version_id": "6d36322e-14f8-4620-82dc-c863dd45dfb1",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "39a15b696e0cd4528694f39d37cf3eda",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Selected values of a differentiable function f are given in the table.\n\nx:    0   2    5    6\nf(x): 3   7   16   18\n\nUsing the two table values closest to x = 4 on either side, what is the best estimate of f′(4)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "9"
+          },
+          {
+            "key": "B",
+            "text": "2"
+          },
+          {
+            "key": "C",
+            "text": "9/7"
+          },
+          {
+            "key": "D",
+            "text": "3"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-004-v1",
+      "content_item_version_id": "282f4e7a-add6-4f63-bd52-6ac6417da66f",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "da05adb939d550538f36116168ee59fe",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A differentiable function f has the tabulated values below.\n\nx:    2    5    6    10\nf(x): 4   13   19    33\n\nApproximate f′(8) with a difference quotient built from the nearest listed x-values that lie on either side of 8.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "7/2"
+          },
+          {
+            "key": "B",
+            "text": "6"
+          },
+          {
+            "key": "C",
+            "text": "14"
+          },
+          {
+            "key": "D",
+            "text": "7/8"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-004-v2",
+      "content_item_version_id": "87b17b9d-6e3e-4504-9b54-c8fb1394dbfc",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "1da0f260167a5617ba55d26cf45fc04b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The temperature T(t), in °C, of a cup of coffee is recorded at selected times t minutes.\n\nt:    0    10   20   40\nT(t): 80   62   50   35\n\nUsing the two table values closest to t = 30 on either side, what is the best estimate of T′(30)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−3/4 °C per minute"
+          },
+          {
+            "key": "B",
+            "text": "−15 °C per minute"
+          },
+          {
+            "key": "C",
+            "text": "−1/4 °C per minute"
+          },
+          {
+            "key": "D",
+            "text": "−6/5 °C per minute"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-004-v3",
+      "content_item_version_id": "c9212b4d-a06f-46cf-bd4c-61b5d00ceb8e",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "6399dc4f5ae8160a2b15e4431acd4c6d",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Selected values of the velocity v(t), in m/s, of a particle at time t seconds are given.\n\nt:    0   1    4    7\nv(t): 5   1   −8   −20\n\nUsing the two table values closest to t = 3 on either side, what is the best estimate of the acceleration v′(3)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−9/5 m/s²"
+          },
+          {
+            "key": "B",
+            "text": "−3 m/s²"
+          },
+          {
+            "key": "C",
+            "text": "−4 m/s²"
+          },
+          {
+            "key": "D",
+            "text": "−9 m/s²"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-007",
+      "content_item_version_id": "b3091385-ca0d-4fdd-add2-ce2128b06df7",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "7518c662e0e1c3757d0562b0dcc47c3c",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "For x > 0, let f(x) = x^(3/2) − 12x^(1/2). At what value of x does the graph of f have a horizontal tangent line?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 4"
+          },
+          {
+            "key": "B",
+            "text": "x = 8"
+          },
+          {
+            "key": "C",
+            "text": "x = 12"
+          },
+          {
+            "key": "D",
+            "text": "x = 6"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-007-v1",
+      "content_item_version_id": "ec75f529-11f2-4284-9734-2da4808a930c",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "6791cf799c5b083190740e1fb68e4109",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "For x > 0, let f(x) = 2x^(3/2) − 30x^(1/2). At what value of x does the graph of f have a horizontal tangent line?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 15"
+          },
+          {
+            "key": "B",
+            "text": "x = 5"
+          },
+          {
+            "key": "C",
+            "text": "x = 10"
+          },
+          {
+            "key": "D",
+            "text": "x = 15/2"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-007-v2",
+      "content_item_version_id": "04324c50-9482-4a4a-bfa2-093f3bc65749",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "d4993b2ecabc4ff0561053cbf9d0d4fe",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "For x > 0, the graph of y = x^(3/2) − 6x has a horizontal tangent line at which value of x?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 81"
+          },
+          {
+            "key": "B",
+            "text": "x = 16"
+          },
+          {
+            "key": "C",
+            "text": "x = 4"
+          },
+          {
+            "key": "D",
+            "text": "x = 36"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-007-v3",
+      "content_item_version_id": "8d9f9c63-a45f-4eb9-a5d5-d305c7af1ccf",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": true,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8dbce83f00615adc9509720f8773ada8",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "For x > 0, let f(x) = x^(5/2) − 5x^(3/2). At what value of x is the tangent line to the graph of f horizontal?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "x = 15/2"
+          },
+          {
+            "key": "B",
+            "text": "x = 5"
+          },
+          {
+            "key": "C",
+            "text": "x = 3"
+          },
+          {
+            "key": "D",
+            "text": "x = 2"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-014",
+      "content_item_version_id": "1163100e-c956-45fc-a7ff-13c40548e62c",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.9"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "5a8b7febccb36a2af62ee3d3833283f1",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "At which values of x does the graph of y = x/(x² + 4) have a horizontal tangent line?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "There are no such values of x."
+          },
+          {
+            "key": "B",
+            "text": "x = −2 and x = 2"
+          },
+          {
+            "key": "C",
+            "text": "x = 0 only"
+          },
+          {
+            "key": "D",
+            "text": "x = 2 only"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u2n-014-v2",
+      "content_item_version_id": "68324233-d531-406f-a276-423bc0778faa",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.9"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "14a777c43a20a71dccc72455620dd986",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "For which values of x does the graph of y = eˣ/x have a horizontal tangent line?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "There are no such values of x."
+          },
+          {
+            "key": "B",
+            "text": "x = −1"
+          },
+          {
+            "key": "C",
+            "text": "x = 1"
+          },
+          {
+            "key": "D",
+            "text": "x = 0"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-002-v1",
+      "content_item_version_id": "ca4534d7-26fc-4035-97bf-281f8f6a7e57",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "4b6d18c2b305e8246554e7a4d66d18f1",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The graph of y = e^(x² − 4x) contains the point (3, e^(−3)). Find the slope of the tangent line to the graph at x = 3.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "e^(−3)"
+          },
+          {
+            "key": "B",
+            "text": "2e²"
+          },
+          {
+            "key": "C",
+            "text": "2e^(−3)"
+          },
+          {
+            "key": "D",
+            "text": "−3e^(−3)"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-002-v3",
+      "content_item_version_id": "2e6e9fd8-202c-489b-b315-ba6724eef718",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8ea1e462f9a866257b35fd2a73002c6b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The graph of y = cos(πx²) passes through the point (1/2, √2/2). What is the slope of the tangent line at x = 1/2?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "0"
+          },
+          {
+            "key": "B",
+            "text": "−√2/2"
+          },
+          {
+            "key": "C",
+            "text": "−π√2/2"
+          },
+          {
+            "key": "D",
+            "text": "π√2/2"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-003",
+      "content_item_version_id": "c736a44c-574d-44bb-b74b-e11c330b493f",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "3fb04da96ac57bf064ab3ab9d09e3cab",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table gives values of the differentiable functions f and g.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 6 | 4 | 3 | −2\n3 | 1 | 5 | 7 | 0\n\nLet h(x) = f(g(x)). What is h′(2)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−8"
+          },
+          {
+            "key": "B",
+            "text": "5"
+          },
+          {
+            "key": "C",
+            "text": "−10"
+          },
+          {
+            "key": "D",
+            "text": "15"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-003-v1",
+      "content_item_version_id": "9dd906f9-c844-4df1-a7cd-8714dd58240e",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "83edf3d94e17bfaea61b3527e0260f4b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Selected values of the differentiable functions f and g are listed below.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 4 | −3 | 2 | 6\n2 | 0 | 7 | −1 | 5\n4 | 3 | 2 | 4 | −2\n\nDefine p by composing f with g, so that p(x) = f(g(x)). Find the value of p′(1).",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "42"
+          },
+          {
+            "key": "B",
+            "text": "14"
+          },
+          {
+            "key": "C",
+            "text": "7"
+          },
+          {
+            "key": "D",
+            "text": "−18"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-003-v3",
+      "content_item_version_id": "ba4905e7-73e7-4aef-b514-35d26c2a93b2",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "038e576d918d1c4809e76923627b8d75",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The differentiable functions f and g have the following values.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | −2 | 4 | 5\n3 | 1 | 6 | −2 | 3\n\nIf q(x) = g(f(x)), what is q′(1)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−10"
+          },
+          {
+            "key": "B",
+            "text": "3"
+          },
+          {
+            "key": "C",
+            "text": "9"
+          },
+          {
+            "key": "D",
+            "text": "−6"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-005-v3",
+      "content_item_version_id": "d823a6c6-b006-4abc-998d-9f6c5dbedfcd",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.2"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "3458b988adc9bf3b77eddadd9a7fe511",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Point P = (1, 5) lies on the graph of the relation y·eˣ = 5e. Determine the slope of the tangent line to the graph at P.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−5e"
+          },
+          {
+            "key": "B",
+            "text": "−5"
+          },
+          {
+            "key": "C",
+            "text": "0"
+          },
+          {
+            "key": "D",
+            "text": "5"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-006-v2",
+      "content_item_version_id": "4558564c-b02c-4657-8501-ff30931cccaf",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.2"
+      ],
+      "teaching_designated": true,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "c1e693ba71388e498803bbf9e8a3d177",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The graph of sin(xy) + y = π/2 contains the point (2, π/2). Find dy/dx at this point.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "π/2"
+          },
+          {
+            "key": "B",
+            "text": "−π/2"
+          },
+          {
+            "key": "C",
+            "text": "−π/6"
+          },
+          {
+            "key": "D",
+            "text": "1"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-008",
+      "content_item_version_id": "7a83967e-3aef-4d3d-be0c-5c66d7e07985",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "b6cde6f645ab98a785563835091eab31",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The function f is differentiable and one-to-one. Selected values are given in the table.\n\nx | f(x) | f′(x)\n1 | 2 | 3\n2 | 5 | 4\n3 | 8 | 6\n5 | 9 | 7\n\nWhat is (f⁻¹)′(5)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "1/5"
+          },
+          {
+            "key": "B",
+            "text": "4"
+          },
+          {
+            "key": "C",
+            "text": "1/4"
+          },
+          {
+            "key": "D",
+            "text": "1/7"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-008-v1",
+      "content_item_version_id": "963f69c3-0ae2-44df-bd93-1a0c72499d69",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "619250e7e4e48bbd87fd605a7d8ea065",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Some values of a differentiable, invertible function f and of its derivative f′ are tabulated below.\n\nx | f(x) | f′(x)\n1 | 3 | 2\n2 | 6 | 5\n4 | 8 | 3\n6 | 13 | 9\n\nFind the slope of the graph of f⁻¹ at the point where the input is 6.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "1/5"
+          },
+          {
+            "key": "B",
+            "text": "5"
+          },
+          {
+            "key": "C",
+            "text": "1/9"
+          },
+          {
+            "key": "D",
+            "text": "2"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-mcq-u3n-010-v1",
+      "content_item_version_id": "e9d41c2d-18f7-4d1d-aa2d-6e2a2f55c00f",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.4"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_formula",
+      "reason": "The function/relation, domain or evaluation point and relevant conditions are explicitly given. Limits, asymptotes or tangent/secant slopes are determined analytically; the word 'graph' does not imply an omitted graph input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "09cb1d12577af678b42c86358f2ae308",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Find the slope of the tangent line to the graph of g(x) = cos⁻¹(3x) at x = 1/6.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "−2/√3"
+          },
+          {
+            "key": "B",
+            "text": "−6/√5"
+          },
+          {
+            "key": "C",
+            "text": "−2√3"
+          },
+          {
+            "key": "D",
+            "text": "2√3"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-oht-1.3",
+      "content_item_version_id": "f1548706-2043-4f7b-9941-c1c6e2724174",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.3"
+      ],
+      "teaching_designated": true,
+      "classification": "construct_changed_by_prose",
+      "reason": "The given graph is replaced by a complete verbal specification. Numerical answerability is preserved, but this does not exercise reading the visual representation. Propose a deterministic prompt graph for curriculum review; do not classify as missing numerical data.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": true,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "29894c021b001dd5396513c775e639fe",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The graph of p consists of the line y = x + 2 for x < 3, a single filled point at (3, 5), and the curve y = x^2 - 7 for x > 3. What is the limit as x→3 of p(x)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "5, because the graph has a filled point at (3, 5) and the left branch also heads to 5."
+          },
+          {
+            "key": "B",
+            "text": "2, because the right branch gives the value the graph is approaching."
+          },
+          {
+            "key": "C",
+            "text": "The limit does not exist, because p(x) approaches 5 from the left but approaches 2 from the right."
+          },
+          {
+            "key": "D",
+            "text": "7/2, because the limit is the average of the two one-sided values."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-oht-1.4",
+      "content_item_version_id": "602cff46-0b83-4983-87ad-ae1b24bdc24e",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.4"
+      ],
+      "teaching_designated": true,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "3b2f13eeecec391cdaafe6da70ef5485",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table gives values of f near x = 2. The value of f at x = 2 is 9.\n\nx = 1.9: f(x) = 3.61\nx = 1.99: f(x) = 3.960\nx = 1.999: f(x) = 3.996\nx = 2.001: f(x) = 4.004\nx = 2.01: f(x) = 4.040\nx = 2.1: f(x) = 4.410\n\nWhich is the best estimate of the limit as x→2 of f(x)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "9"
+          },
+          {
+            "key": "B",
+            "text": "4.410"
+          },
+          {
+            "key": "C",
+            "text": "4.004"
+          },
+          {
+            "key": "D",
+            "text": "4"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-oht-1.9",
+      "content_item_version_id": "9759f1a8-1295-48bc-ac27-b2006fd40cf9",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.9"
+      ],
+      "teaching_designated": true,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "dff4781b7de7358a079ed31db0a9426f",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A table shows f(2.9) = 6.8, f(2.99) = 6.98, f(2.999) = 6.998, f(3.001) = 7.002, f(3.01) = 7.02, and f(3.1) = 7.2. Also f(3) = 1. Which statement matches this information?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "The limit as x→3 of f(x) is 7, so the graph of f approaches a height of 7 near x = 3, with the point at x = 3 sitting at height 1."
+          },
+          {
+            "key": "B",
+            "text": "The limit as x→3 of f(x) is 1, so the graph passes through (3, 1) with nothing special happening."
+          },
+          {
+            "key": "C",
+            "text": "The limit as x→3 of f(x) does not exist, because f(3) differs from the nearby values."
+          },
+          {
+            "key": "D",
+            "text": "The limit as x→7 of f(x) is 3, because the table pairs 3 with 7."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apcalcab-oht-2.3",
+      "content_item_version_id": "74a36a77-0b3e-40c2-b551-70bd6907091f",
+      "subject_key": "ap-calculus-ab",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.3"
+      ],
+      "teaching_designated": true,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "ceb2b00bf4262e34a6b2a37636986dcf",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The population P(t), in thousands, of a colony is recorded at selected times t in hours.\n\nt = 0: P = 110\nt = 2: P = 130\nt = 5: P = 190\nt = 6: P = 214\nt = 10: P = 300\n\nUsing the two table values closest to t = 5.5, what is the best estimate of P'(5.5)?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "20 thousand per hour"
+          },
+          {
+            "key": "B",
+            "text": "24 thousand per hour"
+          },
+          {
+            "key": "C",
+            "text": "19 thousand per hour"
+          },
+          {
+            "key": "D",
+            "text": "21.5 thousand per hour"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-frq-l-012",
+      "content_item_version_id": "d08e7fa8-d88d-42cd-a7b9-e113c478ac9d",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.6"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": "no_constructs",
+      "existing_image_approval": null,
+      "audit_content_digest": "b8696021e5179e4db6b7b3c883361014",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The van der Waals equation, [P + a(n/V)^2](V - nb) = nRT, is used to correct the ideal gas law for the behavior of real gases, using the constants a and b given in the table above for two gases.\n\n(a) Identify the physical property of real gas particles that the constant a corrects for, and the physical property that the constant b corrects for.\n\n(b) A 1.00 mol sample of CO2(g) is placed in a rigid 1.00 L container at a temperature of 300. K.\n(i) Calculate the pressure of the gas as predicted by the ideal gas law.\n(ii) Calculate the pressure of the gas as predicted by the van der Waals equation, using the data in the table above.\n\n(c) Based on your answers to part (b), state whether the actual (van der Waals) pressure is greater than or less than the ideal pressure, and explain this result in terms of interactions between CO2 particles.\n\n(d) Predict, with justification, whether a 1.00 mol sample of He(g) in the same 1.00 L container at 300. K would show a larger or smaller deviation from ideal behavior than the CO2(g) sample.",
+        "stimulus": "| Gas | a (atm*L^2/mol^2) | b (L/mol) |\n|---|---|---|\n| He | 0.034 | 0.0237 |\n| CO2 | 3.59 | 0.0427 |",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-frq-l-014",
+      "content_item_version_id": "fdf391e2-f379-40b7-8e2e-d9e6df58a381",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.10"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "e8bfe6c7eb8100bf1c0ed593ad028a51",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The solubility of potassium nitrate (KNO3) in water at several temperatures is shown in the table. A student prepares a solution by dissolving 80. g of KNO3 in 100. g of water at 60 °C.\n\n(a) Using the data, determine whether the solution at 60 °C is saturated, unsaturated, or supersaturated, and justify your answer with a calculation.\n\n(b) The solution is then slowly cooled to 20 °C without any water evaporating. Calculate the mass of KNO3(s) that crystallizes out of solution at 20 °C.\n\n(c) Explain, in terms of particle behavior and equilibrium, why lowering the temperature shifts the dissolution equilibrium toward crystallization.\n\n(d) If the solution is cooled to 20 °C while kept undisturbed and free of seed crystals, it may be possible for all 80. g of KNO3 to remain dissolved. Identify the term for this type of solution and explain why it is unstable.\n\n(e) Describe a laboratory test you could perform on the 20 °C solution from part (d) to confirm whether it is supersaturated, and state the observation that would confirm this.\n\n(f) Using the solubility value at 80 °C, calculate how many grams of water would be required to dissolve 200. g of KNO3 at 80 °C to form a saturated solution.",
+        "stimulus": "| Temperature (°C) | Solubility of KNO3 (g per 100 g H2O) |\n|---|---|\n| 20 | 32 |\n| 40 | 64 |\n| 60 | 110 |\n| 80 | 169 |",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-1-6",
+      "content_item_version_id": "41f4723d-d357-4e53-8eac-bda3829673e9",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.6"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8a2d9567141f2c31262854db549f6005",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Using the data in the table, write the complete ground-state electron configuration of element X and identify the element. Explain how the relative peak heights support your answer.\n\n(b) The binding energy of peak 1 (210 MJ/mol) is much greater than that of peak 4 (1.95 MJ/mol). Explain this difference in terms of the interactions between the electrons and the nucleus.\n\n(c) A photoelectron spectrum of sulfur (atomic number 16) is obtained under the same conditions. Identify the relative height of the sulfur peak with the lowest binding energy, and justify your answer using the electron configuration of sulfur.\n\n(d) Predict whether the 1s peak of sulfur appears at a binding energy greater than, less than, or equal to 210 MJ/mol. Justify your prediction in terms of the interactions between the electrons and the nucleus.",
+        "stimulus": "A student obtains the photoelectron spectrum of a gaseous sample of an unknown element X. All atoms are in the ground state. The spectrum shows five peaks. The binding energy of each peak and its relative peak height are listed below.\n\nPeak | Binding energy (MJ/mol) | Relative peak height\n1 | 210 | 2\n2 | 18.7 | 2\n3 | 13.5 | 6\n4 | 1.95 | 2\n5 | 1.06 | 3\n\nAnswer the following.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using the data in the table, write the complete ground-state electron configuration of element X and identify the element. Explain how the relative peak heights support your answer."
+          },
+          {
+            "key": "part-b",
+            "text": "The binding energy of peak 1 (210 MJ/mol) is much greater than that of peak 4 (1.95 MJ/mol). Explain this difference in terms of the interactions between the electrons and the nucleus."
+          },
+          {
+            "key": "part-c",
+            "text": "A photoelectron spectrum of sulfur (atomic number 16) is obtained under the same conditions. Identify the relative height of the sulfur peak with the lowest binding energy, and justify your answer using the electron configuration of sulfur."
+          },
+          {
+            "key": "part-d",
+            "text": "Predict whether the 1s peak of sulfur appears at a binding energy greater than, less than, or equal to 210 MJ/mol. Justify your prediction in terms of the interactions between the electrons and the nucleus."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-1-7",
+      "content_item_version_id": "53fe096d-d25c-4848-9b1e-e1f6751d0dd2",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.7"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8f111cd9214b9b36c1dc1eae48f94fad",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) The first ionization energy decreases going down Group 2 from Be to Ba. Explain this trend in terms of the electronic structure of the atoms and Coulomb's law.\n\n(b) Estimate the first ionization energy of Sr. Show how you obtained your estimate and justify why your value is reasonable based on periodic trends.\n\n(c) Although Al has one more proton than Mg, the first ionization energy of Al is lower than that of Mg. Explain this observation in terms of the electron configurations of the two atoms.\n\n(d) The ions Na⁺ and Mg²⁺ both have the electron configuration 1s²2s²2p⁶. Identify which ion has the smaller radius and justify your answer.",
+        "stimulus": "A student collects the first ionization energies of several main-group elements from a reference table. The value for strontium, Sr, is missing from the student's source.\n\nElement | Group | Period | First ionization energy (kJ/mol)\nNa | 1 | 3 | 496\nMg | 2 | 3 | 738\nAl | 13 | 3 | 578\nBe | 2 | 2 | 900\nCa | 2 | 4 | 590\nSr | 2 | 5 | (missing)\nBa | 2 | 6 | 503\n\nAnswer the following using the data and your knowledge of atomic structure.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "The first ionization energy decreases going down Group 2 from Be to Ba. Explain this trend in terms of the electronic structure of the atoms and Coulomb's law."
+          },
+          {
+            "key": "part-b",
+            "text": "Estimate the first ionization energy of Sr. Show how you obtained your estimate and justify why your value is reasonable based on periodic trends."
+          },
+          {
+            "key": "part-c",
+            "text": "Although Al has one more proton than Mg, the first ionization energy of Al is lower than that of Mg. Explain this observation in terms of the electron configurations of the two atoms."
+          },
+          {
+            "key": "part-d",
+            "text": "The ions Na⁺ and Mg²⁺ both have the electron configuration 1s²2s²2p⁶. Identify which ion has the smaller radius and justify your answer."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-1-8",
+      "content_item_version_id": "9119b742-4234-473b-b291-9ddf93f3b524",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        1
+      ],
+      "topic_codes": [
+        "1.8"
+      ],
+      "teaching_designated": false,
+      "classification": "reference_dependency_unverified",
+      "reason": "The item explicitly says to use the periodic table, but no periodic table is attached to this question. Check availability through the approved reference surface before deciding that a new asset is needed; subject knowledge alone is not proof the promised reference is delivered.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": true,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "436f759845c3c0e379ec11bc9a3cab6b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Answer all parts of the following question.\n\n(a) Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table.\n\n(b) Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction.\n\n(c) Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom.\n\n(d) Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom.",
+        "stimulus": "Magnesium and chlorine form the ionic compound MgCl₂. Sodium and oxygen form the ionic compound Na₂O. Use these formulas and the periodic table to answer the following.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table."
+          },
+          {
+            "key": "part-b",
+            "text": "Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction."
+          },
+          {
+            "key": "part-c",
+            "text": "Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom."
+          },
+          {
+            "key": "part-d",
+            "text": "Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-2-1",
+      "content_item_version_id": "c6d4a409-5b3d-444b-8026-8d5af6c0ce0f",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "980c2f2025e712c0c6937e274bd7fd6e",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A calculator is permitted. Answer all parts of the following question.\n\n(a) Classify the C–H bond as nonpolar covalent or polar covalent. Justify your answer.\n\n(b) In an N–H bond, identify the atom that carries the partial negative charge. Justify your answer.\n\n(c) C–O and C–F are both single bonds. Identify which of these two bonds has the larger bond dipole. Justify your answer using the data.\n\n(d) Fluorine has a greater electronegativity than chlorine. Explain this difference using the shell model and Coulomb's law.",
+        "stimulus": "The table lists Pauling electronegativity values for several elements.\n\nElement | Electronegativity\nH | 2.20\nC | 2.55\nN | 3.04\nO | 3.44\nF | 3.98\nCl | 3.16\n\nAnswer the following about covalent bonds between these elements.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Classify the C–H bond as nonpolar covalent or polar covalent. Justify your answer."
+          },
+          {
+            "key": "part-b",
+            "text": "In an N–H bond, identify the atom that carries the partial negative charge. Justify your answer."
+          },
+          {
+            "key": "part-c",
+            "text": "C–O and C–F are both single bonds. Identify which of these two bonds has the larger bond dipole. Justify your answer using the data."
+          },
+          {
+            "key": "part-d",
+            "text": "Fluorine has a greater electronegativity than chlorine. Explain this difference using the shell model and Coulomb's law."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-2-2",
+      "content_item_version_id": "4754e704-d1a1-41d0-b3c6-53adb9043c6f",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.2"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "c57aac7e5b53ca4f0c5dcde016b4b205",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A calculator is permitted. Answer all parts of the following question.\n\n(a) Using the data in the table, identify the equilibrium bond length of the Cl–Cl bond. Justify your answer.\n\n(b) Calculate the bond energy of the Cl–Cl bond in kJ/mol. Show your work and report your answer with the correct number of significant figures.\n\n(c) At an internuclear distance of 150 pm, the potential energy is positive. Explain this observation in terms of the interactions between the particles in the two atoms.\n\n(d) Carbon monoxide, CO, contains a carbon-oxygen triple bond, while each carbon-oxygen bond in carbon dioxide, CO2, is a double bond. Predict which molecule has the shorter carbon-oxygen bond and the larger carbon-oxygen bond energy. Justify your prediction.\n\n(e) Solid MgO contains Mg²⁺ and O²⁻ ions, and solid NaF contains Na⁺ and F⁻ ions. The distances between the centers of adjacent cations and anions in the two solids are similar. Identify which compound has the stronger attraction between its cations and anions, and justify your answer using Coulomb's law.",
+        "stimulus": "A student uses a computer model to calculate the potential energy of two chlorine atoms as a function of the distance between their nuclei (internuclear distance). The potential energy is defined as zero when the atoms are infinitely far apart. Selected results are shown in the table.\n\nInternuclear distance (pm) | Potential energy per pair of atoms (×10⁻¹⁹ J)\n150 | +3.10\n170 | −2.20\n185 | −3.65\n199 | −4.02\n215 | −3.80\n250 | −2.60\n300 | −1.20\n400 | −0.25\ninfinite | 0\n\nAvogadro's number is 6.022 × 10²³ mol⁻¹.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using the data in the table, identify the equilibrium bond length of the Cl–Cl bond. Justify your answer."
+          },
+          {
+            "key": "part-b",
+            "text": "Calculate the bond energy of the Cl–Cl bond in kJ/mol. Show your work and report your answer with the correct number of significant figures."
+          },
+          {
+            "key": "part-c",
+            "text": "At an internuclear distance of 150 pm, the potential energy is positive. Explain this observation in terms of the interactions between the particles in the two atoms."
+          },
+          {
+            "key": "part-d",
+            "text": "Carbon monoxide, CO, contains a carbon-oxygen triple bond, while each carbon-oxygen bond in carbon dioxide, CO2, is a double bond. Predict which molecule has the shorter carbon-oxygen bond and the larger carbon-oxygen bond energy. Justify your prediction."
+          },
+          {
+            "key": "part-e",
+            "text": "Solid MgO contains Mg²⁺ and O²⁻ ions, and solid NaF contains Na⁺ and F⁻ ions. The distances between the centers of adjacent cations and anions in the two solids are similar. Identify which compound has the stronger attraction between its cations and anions, and justify your answer using Coulomb's law."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-2-5",
+      "content_item_version_id": "7de69ac2-95ef-4590-b716-e3663e163547",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "response_structure_description",
+      "reason": "The authored task requests or offers verbal Lewis-structure descriptions. Connectivity, electron counts and charge conventions are supplied. Rendering the completed structure would supply response content, not restore a missing input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "45c2b3add4e5900fde38a0a0df6722f9",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "No calculator is permitted. Answer all parts of the following question.\n\n(a) Using the data in the table, calculate the total number of valence electrons that must appear in a Lewis structure of CH3CN. Show your work.\n\n(b) Describe in words a complete Lewis structure for CH3CN in which every carbon and nitrogen atom has an octet. State every bond with its type and the number of lone pairs on each atom.\n\n(c) A student proposes a Lewis structure for CH3CN with only single bonds (three C–H, one C–C, one C–N) and three lone pairs on the nitrogen atom. This structure contains 16 valence electrons. Explain why this structure is not acceptable, referring to the electrons around a specific atom.\n\n(d) Describe in words a Lewis structure for methyl isocyanide, CH3NC, in which every carbon and nitrogen atom has an octet. State every bond with its type and the number of lone pairs on each atom.",
+        "stimulus": "Acetonitrile, CH3CN, is a common laboratory solvent. Its atoms are connected as follows: a carbon atom (the methyl carbon) is bonded to three hydrogen atoms and to a second carbon atom, and the second carbon atom is bonded to the nitrogen atom. Its isomer, methyl isocyanide, CH3NC, has the same molecular formula but different connectivity: the methyl carbon is bonded to three hydrogen atoms and to the nitrogen atom, and the nitrogen atom is bonded to a terminal carbon atom.\n\nElement | Valence electrons per atom | Atoms in one CH3CN molecule\nC | 4 | 2\nH | 1 | 3\nN | 5 | 1\n\nBecause answers are typed, describe each Lewis structure in words: state each bond and whether it is single, double or triple, and state the number of lone pairs on each atom.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Using the data in the table, calculate the total number of valence electrons that must appear in a Lewis structure of CH3CN. Show your work."
+          },
+          {
+            "key": "part-b",
+            "text": "Describe in words a complete Lewis structure for CH3CN in which every carbon and nitrogen atom has an octet. State every bond with its type and the number of lone pairs on each atom."
+          },
+          {
+            "key": "part-c",
+            "text": "A student proposes a Lewis structure for CH3CN with only single bonds (three C–H, one C–C, one C–N) and three lone pairs on the nitrogen atom. This structure contains 16 valence electrons. Explain why this structure is not acceptable, referring to the electrons around a specific atom."
+          },
+          {
+            "key": "part-d",
+            "text": "Describe in words a Lewis structure for methyl isocyanide, CH3NC, in which every carbon and nitrogen atom has an octet. State every bond with its type and the number of lone pairs on each atom."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-frq-u13g-3-3",
+      "content_item_version_id": "20edd140-50a4-4830-9045-065afe22d02f",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.3"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "35f0aa96978533263c5e3b4f9ad6c53b",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A calculator is permitted. Answer all parts of the following question.\n\n(a) Calculate the molar volume of liquid argon, in cm³/mol.\n\n(b) The molar volume of solid argon at 84 K is 24.7 cm³/mol. Explain, in terms of the arrangement of the particles, why the molar volumes of solid argon and liquid argon are similar.\n\n(c) Explain, in terms of the particles, why the molar volume of argon gas at 273 K and 1.00 atm is roughly 800 times the molar volume of liquid argon.\n\n(d) Describe one difference between the motion of the atoms in solid argon and the motion of the atoms in liquid argon.",
+        "stimulus": "Argon (molar mass 39.95 g/mol) can exist as a solid, a liquid, or a gas. The table gives the density of argon in each condensed phase at the temperature shown.\n\nPhase | Temperature (K) | Density (g/cm³)\nsolid | 84 | 1.62\nliquid | 87 | 1.40\n\nAt 273 K and 1.00 atm, the molar volume of argon gas is 2.24 × 10⁴ cm³/mol.\n\nAnswer the following.",
+        "choices": [],
+        "authored_part_prompts": [
+          {
+            "key": "part-a",
+            "text": "Calculate the molar volume of liquid argon, in cm³/mol."
+          },
+          {
+            "key": "part-b",
+            "text": "The molar volume of solid argon at 84 K is 24.7 cm³/mol. Explain, in terms of the arrangement of the particles, why the molar volumes of solid argon and liquid argon are similar."
+          },
+          {
+            "key": "part-c",
+            "text": "Explain, in terms of the particles, why the molar volume of argon gas at 273 K and 1.00 atm is roughly 800 times the molar volume of liquid argon."
+          },
+          {
+            "key": "part-d",
+            "text": "Describe one difference between the motion of the atoms in solid argon and the motion of the atoms in liquid argon."
+          }
+        ]
+      }
+    },
+    {
+      "content_key": "apchem-mcq-072",
+      "content_item_version_id": "256ca199-05fb-4c62-9072-dce180bdefbf",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.2"
+      ],
+      "teaching_designated": false,
+      "classification": "response_graph_description_choice",
+      "reason": "The complete distance/energy data and zero-energy reference are supplied. Students select a verbal description of the graph they would produce; showing the correct graph would reveal response content. A graph is not a missing prompt input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "012a1278c275fd25cfe8e7e81a8b762e",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A student is given potential energy (PE) data for two hydrogen atoms as a function of internuclear distance. PE is defined as 0 kJ/mol for fully separated atoms. Data (distance in pm, PE in kJ/mol): 40, +250; 60, −380; 74, −436; 100, −360; 150, −150; 300, −5. The student plots internuclear distance on the x-axis. Which description of the correctly drawn graph is accurate?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "With x in pm and y in kJ/mol, the curve rises steeply below about 50 pm, reaches a minimum at (74 pm, −436 kJ/mol), and levels off toward 0 kJ/mol at large distances."
+          },
+          {
+            "key": "B",
+            "text": "With x in pm and y in kJ/mol, the curve reaches a minimum at 74 pm and then levels off at −436 kJ/mol at large distances."
+          },
+          {
+            "key": "C",
+            "text": "With x in pm and y in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 50 pm, and the minimum marks where the atoms separate."
+          },
+          {
+            "key": "D",
+            "text": "With x in pm and y in kJ/mol, the curve rises to a maximum of +436 kJ/mol at 74 pm, because energy must be added to break the bond."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-mcq-078",
+      "content_item_version_id": "5288345d-4961-4ba1-b9f6-c07499548d47",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "response_structure_description",
+      "reason": "The authored task requests or offers verbal Lewis-structure descriptions. Connectivity, electron counts and charge conventions are supplied. Rendering the completed structure would supply response content, not restore a missing input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "a2e95fcc5ee639ffeae77be92c4f1a22",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Which description represents a complete, correct Lewis diagram for OH⁻? In every description, the entire structure is enclosed in brackets with a − charge written outside. Each lone pair contains two electrons.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "One O–H single bond, three lone pairs on O, and no lone pairs on H."
+          },
+          {
+            "key": "B",
+            "text": "One O–H single bond, two lone pairs on O, and no lone pairs on H."
+          },
+          {
+            "key": "C",
+            "text": "One O–H single bond and no lone pairs on either atom."
+          },
+          {
+            "key": "D",
+            "text": "One O=H double bond, two lone pairs on O, and no lone pairs on H."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-mcq-sv-035-v1",
+      "content_item_version_id": "8c914a92-ac64-41f2-906c-c2f4db8b8f22",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.10"
+      ],
+      "teaching_designated": false,
+      "classification": "text_sufficient_context",
+      "reason": "The warm/cold soda experiment and the required comparison are completely described; the word 'table' refers to furniture, not a missing data table or image.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "eec173f598565d90de0ba1b617a7f01c",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Two identical bottles of soda are opened at the same time and left open to the air. One sits in a refrigerator at 4 °C and the other sits on a table at 22 °C. After an hour, the warmer soda has lost noticeably more of its dissolved CO₂(g) and tastes flatter. Which statement best explains this observation?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Warmer water has stronger hydrogen bonding between its molecules, which squeezes the CO₂ molecules out of the solution as the water structure tightens."
+          },
+          {
+            "key": "B",
+            "text": "Warmer CO₂ molecules have greater average kinetic energy, so more of them overcome their weak attractions to water molecules and escape from the solution into the gas phase."
+          },
+          {
+            "key": "C",
+            "text": "Heat breaks CO₂ molecules apart into carbon and oxygen atoms, so fewer CO₂ molecules remain dissolved in the warm soda."
+          },
+          {
+            "key": "D",
+            "text": "The warm soda loses CO₂ only because more water evaporates, which carries CO₂ away; the solubility of CO₂ itself does not depend on temperature."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-mcq-sv-071-v1",
+      "content_item_version_id": "09ff25f0-1feb-4b46-b254-19cd4561c38d",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "b19880f9e30085d40c8be00eb9177c7f",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Methanol, CH₃OH, contains a single bond between a carbon atom and an oxygen atom. The electronegativity values are shown in the table below.\n\nAtom | Electronegativity\nC | 2.6\nO | 3.4\n\nWhich claim about the C–O bond in methanol, including its justification, is best supported by these data?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "The C–O bond is nonpolar covalent because carbon and oxygen are both nonmetals, so they share the bonding electrons equally."
+          },
+          {
+            "key": "B",
+            "text": "The C–O bond is polar covalent because C pulls the shared electron pair more strongly than O does, so C carries a partial negative charge."
+          },
+          {
+            "key": "C",
+            "text": "The C–O bond is polar covalent because O pulls the shared electron pair more strongly than C does, so O carries a partial negative charge."
+          },
+          {
+            "key": "D",
+            "text": "The C–O bond is ionic because any difference in electronegativity means an electron is completely transferred from C to O."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-mcq-sv-072-v1",
+      "content_item_version_id": "de69c0e1-c802-4de0-a4ed-be936b9225ab",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.2"
+      ],
+      "teaching_designated": false,
+      "classification": "response_graph_description_choice",
+      "reason": "The complete distance/energy data and zero-energy reference are supplied. Students select a verbal description of the graph they would produce; showing the correct graph would reveal response content. A graph is not a missing prompt input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "139f2c3ad10ac490bd830c6bf2d590ba",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A chemistry student models the bond in a Cl₂ molecule using calculated potential energy values for two chlorine atoms at several internuclear distances. The potential energy of two completely separated Cl atoms is set at 0 kJ/mol. Data (internuclear distance in pm, potential energy in kJ/mol): 150, +300; 180, −150; 199, −242; 230, −200; 300, −80; 500, −3. The student will put internuclear distance on the horizontal axis. Which statement correctly describes the graph the student should draw?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "With distance in pm and energy in kJ/mol, the curve bottoms out at 199 pm and then flattens at −242 kJ/mol as the distance keeps increasing."
+          },
+          {
+            "key": "B",
+            "text": "With distance in pm and energy in kJ/mol, the curve climbs steeply at distances below about 180 pm, bottoms out at (199 pm, −242 kJ/mol), and flattens toward 0 kJ/mol at large distances."
+          },
+          {
+            "key": "C",
+            "text": "With distance in pm and energy in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 170 pm, and the lowest point marks where the atoms separate."
+          },
+          {
+            "key": "D",
+            "text": "With distance in pm and energy in kJ/mol, the curve rises to a peak of +242 kJ/mol at 199 pm, because energy must be added to break the bond."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-mcq-sv-078-v1",
+      "content_item_version_id": "820b70b5-d9f7-4361-933b-1e86fb7fa93c",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": false,
+      "classification": "response_structure_description",
+      "reason": "The authored task requests or offers verbal Lewis-structure descriptions. Connectivity, electron counts and charge conventions are supplied. Rendering the completed structure would supply response content, not restore a missing input.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "a377d3537e7aa960c5726d73cd19e2fe",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The amide ion, NH₂⁻, has nitrogen as its central atom. Which description gives a complete, correct Lewis diagram for this ion? Assume each description shows the whole structure inside brackets with a − charge written outside, and that every lone pair holds two electrons.",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Two N–H single bonds, one lone pair on N, and no lone pairs on either H."
+          },
+          {
+            "key": "B",
+            "text": "Two N–H single bonds, two lone pairs on N, and no lone pairs on either H."
+          },
+          {
+            "key": "C",
+            "text": "Two N–H single bonds and no lone pairs on any atom."
+          },
+          {
+            "key": "D",
+            "text": "One N=H double bond, one N–H single bond, one lone pair on N, and no lone pairs on either H."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-oht-2.5",
+      "content_item_version_id": "027a2dd5-a454-4742-95cc-a8610a153615",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        2
+      ],
+      "topic_codes": [
+        "2.5"
+      ],
+      "teaching_designated": true,
+      "classification": "text_sufficient_formula",
+      "reason": "The ionic formula and charge are provided; counting valence electrons does not require showing the Lewis diagram the student is reasoning about.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "3c453bbb303cb6f308c1847b9431ba61",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "How many valence electrons must appear in the Lewis diagram of the phosphate ion, PO4^3-?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "29"
+          },
+          {
+            "key": "B",
+            "text": "26"
+          },
+          {
+            "key": "C",
+            "text": "32"
+          },
+          {
+            "key": "D",
+            "text": "40"
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-oht-3.8",
+      "content_item_version_id": "b7b068cb-0610-4da7-8565-4290621d402f",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.8"
+      ],
+      "teaching_designated": true,
+      "classification": "construct_changed_by_prose",
+      "reason": "Two particulate diagrams are mentioned but neither is supplied. Counts and volumes make the ratio answerable numerically; inspecting a particulate representation is lost. Propose two labelled solution boxes without identifying the correct comparison.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": true,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "9b6371fd488da7cd307e499bd89169f0",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "Particulate diagram 1 shows 8 dissolved solute particles inside a box that represents 100 mL of solution. Diagram 2 shows 16 dissolved solute particles of the same solute inside a box that represents 200 mL of solution. How do the two solution concentrations compare?",
+        "stimulus": null,
+        "choices": [
+          {
+            "key": "A",
+            "text": "They are equal, because both have 0.08 solute particles per mL."
+          },
+          {
+            "key": "B",
+            "text": "Solution 2 is more concentrated, because it has twice as many solute particles."
+          },
+          {
+            "key": "C",
+            "text": "Solution 1 is more concentrated, because its box is smaller, so the particles look more crowded."
+          },
+          {
+            "key": "D",
+            "text": "They cannot be compared, because the diagrams show different numbers of particles."
+          }
+        ],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-sfrq-015",
+      "content_item_version_id": "4bf75a1d-647f-4737-ba8e-14f0467251da",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.4"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "8abcd3959f15aab60b219aac1269c67a",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "A rigid 10.0 L flask at 27.0 C contains a mixture of helium and argon gas as shown in the table above.\n\n(a) Calculate the total pressure inside the flask.\n\n(b) Calculate the partial pressure of Ar(g) in the flask.\n\n(c) A student claims that He(g) particles collide with the walls of the flask less frequently than Ar(g) particles because fewer moles of He are present. Do you agree with this claim? Justify your answer in terms of kinetic molecular theory.",
+        "stimulus": "| Gas | Amount (mol) |\n|---|---|\n| He(g) | 0.200 |\n| Ar(g) | 0.300 |\n\nContainer: rigid 10.0 L flask at 27.0 C (300. K)",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-sfrq-016",
+      "content_item_version_id": "821308d5-a28b-4adf-9400-fe0e5444fcc1",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "f9c980c3874e5aacc1e14945c2df0697",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table above lists three organic compounds with related carbon skeletons; acetone and 1-propanol have especially similar molar masses but very different boiling points.\n\n(a) Identify the strongest type of intermolecular force present in a pure sample of propane and in a pure sample of 1-propanol.\n\n(b) Explain, in terms of intermolecular forces, why 1-propanol has a significantly higher boiling point than acetone even though the two compounds have similar molar mass.\n\n(c) Predict how the boiling point of propane would change if one hydrogen atom were replaced with a chlorine atom to form 1-chloropropane. Justify your prediction in terms of intermolecular forces.\n\nStandardize boiling temperatures in degrees C.",
+        "stimulus": "| Substance | Molar Mass (g/mol) | Boiling Point (C) |\n|---|---|---|\n| Propane, C3H8 | 44.1 | -42 |\n| Acetone, C3H6O | 58.1 | 56 |\n| 1-Propanol, C3H7OH | 60.1 | 97 |",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    },
+    {
+      "content_key": "apchem-sfrq-018",
+      "content_item_version_id": "ed3b3b4c-9e4a-4187-a1cd-16a2d68ad19c",
+      "subject_key": "ap-chemistry",
+      "unit_scope": [
+        3
+      ],
+      "topic_codes": [
+        "3.1"
+      ],
+      "teaching_designated": false,
+      "classification": "complete_table",
+      "reason": "All question-specific numerical values are supplied in the stored table/list. The task uses those values; an image is not necessary. Verify semantic table formatting in the actual student view.",
+      "numerical_information_missing": false,
+      "visual_for_construct_review": false,
+      "reference_access_unverified": false,
+      "existing_image_needed": null,
+      "existing_image_approval": null,
+      "audit_content_digest": "7621aa75dd71c0375a5f6ce548f54f85",
+      "reviewer": "Codex source review",
+      "independent_review": "pending",
+      "source": {
+        "stem": "The table above shows the vapor pressure of two small oxygen-containing molecular liquids, measured at the same temperature.\n\n(a) Identify the strongest intermolecular force present in diethyl ether and the strongest intermolecular force present in ethanol.\n\n(b) Explain why diethyl ether has a much higher vapor pressure than ethanol at 20 °C, even though ethanol has the smaller molar mass.\n\n(c) Predict how the equilibrium vapor pressure of ethanol would change if the temperature were increased from 20 °C to 40 °C. Justify your prediction using particle-level reasoning.",
+        "stimulus": "| Liquid | Structure | Vapor Pressure at 20C (torr) |\n|---|---|---|\n| Diethyl ether | CH3CH2-O-CH2CH3 | 442 |\n| Ethanol | CH3CH2OH | 44 |",
+        "choices": [],
+        "authored_part_prompts": []
+      }
+    }
+  ],
+  "inventory_query_sha256": "a7e61dfe198ef29e5dfda17d8196d8be49ec7fed823645c95d513a6e474920f6"
+}

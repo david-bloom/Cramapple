@@ -24,7 +24,7 @@ This is the close note for the session that loaded the AP Statistics skew figure
 
 | Next free | Taken or reserved |
 |---|---|
-| `APPROVAL-0177` | `0173` and `0174` belong to #457 (question-image approvals); `0175`, `0176` are on `main` |
+| `APPROVAL-0178` | `0173` and `0174` belong to #457 (question-image approvals); `0175`, `0176` are on `main`; `0177` is taken by the Chemistry 2.5 reference entry record (#462, standalone file `docs/activity_log/APPROVAL-0177_CHEMISTRY_TOPIC_2_5_REFERENCE_ENTRY_2026_10_15.md`, not in `APPROVALS_LOG.md`) |
 | `DECISION-0126` | `0125` belongs to #449 (ASCII-cleanup rulings, renumbered from 0123); `0123`, `0124` are on `main` |
 
 Check `APPROVALS_LOG.md` and `DECISIONS_LOG.md` on `main` and the open PRs before taking a number; two clashes already happened this session.
