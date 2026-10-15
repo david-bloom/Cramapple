@@ -142,10 +142,10 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## APPROVAL-0176 — DRAFT, NOT GRANTED: Production Load of Figure Batch `lane-a-next4-figures-2026-10-15`: Two AP Precalculus Semi-Log Figures (Topic 2.15) and One AP Chemistry Diprotic Titration Curve (Topic 8.5)
+## APPROVAL-0176 — Production Load of Figure Batch `lane-a-next4-figures-2026-10-15`: Two AP Precalculus Semi-Log Figures (Topic 2.15) and One AP Chemistry Diprotic Titration Curve (Topic 8.5)
 
 - **Date:** 2026-10-15
-- **Granted by:** **PENDING.** Nothing in this entry has been run against Production. It becomes a grant only when David Bloom (Product Owner) says so in session, and the "Granted by" line is then updated with his words.
+- **Granted by:** David Bloom (Product Owner), in session: "load batch 4 to Production." He did not ask for the live-bundle check first; the dependency on the published app is therefore carried as the unverified risk below.
 - **Scope:** run `scripts/lane-a-pilot/out/load_next4.sql` (one transaction, built by `build_load_sql.py --prefix "precalc-semilog-,chem-polyprotic" --batch lane-a-next4-figures-2026-10-15`) against Production (`pcntajvbdfqhbeewmdry`): three figures, three uses, no new family row (`xy_series` and `titration_curve` already exist; the file's family insert is `on conflict do nothing`).
 
 | Subject · topic | Entry (kind) | Figure | Family |
