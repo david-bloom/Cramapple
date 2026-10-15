@@ -1,0 +1,16 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u2-t25-r2-001",
+    "accepted": false,
+    "po_override": "David Bloom 2026-10-15",
+    "checkers": {
+      "google/gemini-3.5-flash": {"accept": true, "samples": [{"a_factual": true, "b_topic_codes": true, "c_ced_required": true, "d_caution": true, "reasons": "The entry accurately details the standard chemical principles for constructing Lewis diagrams, which students must apply to satisfy Learning Objective 2.5.A ('Represent a molecule with a Lewis diagram'). The caution correctly notes that while the CED references 'an established set of principles' in EK 2.5.A.1, it does not explicitly list them step-by-step."}]},
+      "openai/gpt-6-sol": {"accept": false, "samples": [
+        {"a_factual": false, "b_topic_codes": false, "c_ced_required": false, "d_caution": true, "reasons": "The sequence overstates the principles: remaining valence electrons do not always appear as lone pairs: 2.6.A.3 notes limitations of Lewis structures for species with an odd number of valence electrons. The instruction to give each atom an octet whenever the electron count allows it also overlooks other octet-rule exceptions. Topic 2.5.A requires representing a molecule with a Lewis diagram; its EK says only that diagrams follow an 'established set of principles.' Polyatomic ions are expressly included in 2.7.A.2, not 2.5.A. Neither cited EK specifies the four-item sequence or requires brackets as the notation for ionic charge. The caution correctly notes that 2.5.A.1 does not print the principles and that 2.6.A.3 identifies odd-electron cases as a limitation."},
+        {"a_factual": false, "b_topic_codes": false, "c_ced_required": false, "d_caution": false, "reasons": "The claim that all remaining valence electrons appear as lone pairs fails for odd-electron species; 2.6.A.3 explicitly identifies cases with an odd number of valence electrons as a limitation of Lewis structures. The instruction to give each atom an octet whenever the electron count allows also overstates the rule: 2.6.A.2 calls the octet rule and formal charge criteria for choosing among valid diagrams, not an absolute instruction. Topic 2.5 requires representing a molecule and says only that diagrams follow 'an established set of principles' (2.5.A.1). It does not specify this four-member sequence or require the entry's polyatomic-ion bracket convention as stated. The caution notes odd-electron limitations but does not correct the lone-pairs instruction."}
+      ]}
+    },
+    "veto": null,
+    "_note": "Condensed transcription of verdicts_ap_chemistry_u2_r2.json as produced by check.py (same verdicts and reasons; structure flattened; po_override added after the Product Owner ruling)."
+  }
+]
