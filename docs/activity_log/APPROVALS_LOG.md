@@ -142,6 +142,27 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## APPROVAL-0176 — DRAFT, NOT GRANTED: Production Load of Figure Batch `lane-a-next4-figures-2026-10-15`: Two AP Precalculus Semi-Log Figures (Topic 2.15) and One AP Chemistry Diprotic Titration Curve (Topic 8.5)
+
+- **Date:** 2026-10-15
+- **Granted by:** **PENDING.** Nothing in this entry has been run against Production. It becomes a grant only when David Bloom (Product Owner) says so in session, and the "Granted by" line is then updated with his words.
+- **Scope:** run `scripts/lane-a-pilot/out/load_next4.sql` (one transaction, built by `build_load_sql.py --prefix "precalc-semilog-,chem-polyprotic" --batch lane-a-next4-figures-2026-10-15`) against Production (`pcntajvbdfqhbeewmdry`): three figures, three uses, no new family row (`xy_series` and `titration_curve` already exist; the file's family insert is `on conflict do nothing`).
+
+| Subject · topic | Entry (kind) | Figure | Family |
+|---|---|---|---|
+| AP Precalculus 2.15 | Semi-log plot (vocabulary) | `precalc-semilog-plot` | `xy_series`, `y_scale: "log"` |
+| AP Precalculus 2.15 | Using a semi-log plot to justify an exponential model (convention) | `precalc-semilog-justify` | `xy_series`, `y_scale: "log"` |
+| AP Chemistry 8.5 | Polyprotic acid titration curves (list_sequence, 3 items) | `chem-polyprotic-titration` | `titration_curve`, `pkas` |
+
+- **The one dependency, now met in source:** a build without the log-axis and diprotic code would draw the two semi-log figures on a linear axis under log tick labels, and the diprotic parameters would crash `fTitrationCurve`. `ap-prep-blueprint` #27 is merged (`2fbb345`) and published (`APPROVAL-0175`). The Lovable source at `2fbb345` contains `y_scale`, `diproticPh`, `pkas`, `decadeLabel` and `yTickItems`. **Not verified:** that the deployed bundle contains them; the live host is blocked from the agent session (403 on `ap-prep-blueprint.lovable.app`, the preview host and `app.cramapple.com`). If a student sees a semi-log figure with a straight line on a linear axis, or the titration figure fails to draw, retire the figures at once (rollback below). Cheapest confirmation: a signed-in look at the live app after the load, or before it if the Product Owner prefers a bundle check first.
+- **Gates (all before the load):** 4a `verify.py` property tests, including new log-axis and diprotic checks (every plotted point inside the axes, log heights, least-squares trend line, pKa at half-equivalence within 0.05, two steep rises at the equivalence points, charge-balance residual below 1e-9); 4b eye pass at four widths, `out/eye_next4.html`; 4c two non-Anthropic readers on the swapped slate, `gpt-6.1-sol` and `deepseek-v4-pro`: all three figures accepted, all five controls rejected, no control accepted (`gemini-3.5-flash` was replaced after it accepted CONTROL-P3 twice); port parity 264/264 byte-identical; the app's figure and reference tests and CI pass. Record: `docs/handoffs/LANE_A_NEXT_LANE_BATCH4_2026_10_15.md`.
+- **Pre-load state on Production (read-only, 2026-10-15):** 85 published figures, 93 uses; none of the three figures present; families `titration_curve` and `xy_series` present; the three entries published with body hashes equal to the gate fixture (`ae91ff64…`, `84095dfe…`, `3aefa21c…`), 0 uses each, and `items[]` of 3, 0 and 0.
+- **What students will see:** on Precalculus 2.15, a semi-log plot figure on each of the two entries; on Chemistry 8.5, a two-equivalence-point titration curve with pKa labels. Entries serve on every topic in their `topic_codes` (each is 2.15 or 8.5 only).
+- **Standing risk, not retired:** no human subject expert has reviewed the illustrative values of this batch, as with every earlier figure batch.
+- **After the load, to run and record:** counts (expect 88 published, 96 uses), per-figure digest equal to Development, `get_topic_point_guides` for 2.15 and 8.5 as a student, and a planted draft figure with a copied use invisible to the student and rolled back.
+- **Rollback:** `update app.figures set status = 'retired' where figure_id in ('precalc-semilog-plot','precalc-semilog-justify','chem-polyprotic-titration');`
+- **Result:** not run.
+
 ## APPROVAL-0175 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `2fbb345`: Log Axis, Text Labels and Diprotic Titration Renderer Capabilities (`#27`)
 
 **ID note:** first logged as `APPROVAL-0173`; renumbered to 0175 because `#457` uses 0173 and 0174 for the question-image approvals.
