@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
 - APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
 - APPROVAL-0165 — Production Load of Figure Batch `chem-next1-figures-2026-10-15`: `chem-mb-entropy` (Chemistry 9.1) and `chem-reaction-coordinate` (Chemistry 5.6)
 - APPROVAL-0164 — Amend Memory Hook Placement to Permit Relevant Hooks in Hints, Post-Miss Feedback, and Targeted Help (Documentation Only)
@@ -135,6 +136,20 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0167 — Production Migration of the Four More help Backend Migrations (Calculus AB/BC and Chemistry), Applied to Production Only; Edge Function, Secrets and App Publication Not Included
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "We need to migrate the four backend migrations from dev to prod. Then publish the subjects.", after being told that publishing the app would put a More help control on Calculus and Chemistry questions while Production lacked its backend.
+- **Scope:** apply to Production (`pcntajvbdfqhbeewmdry`) the four committed migrations, under their exact committed versions so one file satisfies both ledgers:
+  `20261014001227_more_help_receipts`, `20261014005146_more_help_delivery_commit`, `20261014014023_more_help_runtime_permissions`, `20261014015127_more_help_quota_and_delivery_fencing`.
+  Development already carries all four under the same versions. Governing work order: `docs/tasks/WORK-MORE-HELP-PRODUCTION.md`.
+- **What they do:** two service-only tables (`app.question_help_receipts`, `app.question_help_calls`, RLS on, no client policies); service-role-only RPCs (`reserve_question_help_delivery`, `commit_question_help`, `fail_question_help`, plus the audit-only `reserve_question_help`); one caller-scoped read RPC (`has_question_help`, authenticated); `more_help` added to the `attempt_assistance_events_source_check` constraint; and the trigger `trg_record_prior_question_help` on `app.attempts`.
+- **The one hot-path element:** that trigger fires on every attempt insert for EVERY subject. It returns immediately unless the student already has a delivered help receipt for that exact question, so with no receipts it changes nothing, but it is code on the grading path and is called out for that reason.
+- **Pre-state on Production (read-only, 2026-10-15):** none of the tables, functions or the trigger exist; the constraint is the three-source form the first migration expects; every prerequisite table exists; 171 functions, 84 triggers, 131 attempts, 5 assistance events.
+- **NOT included, and not authorized by this approval:** deploying the `more-help` Edge Function, creating or changing any secret or provider configuration, and any Lovable publication. Without the function the migrations create unused objects only. The session close of 2026-10-14 also lists open items this approval does not close: independent red-team QA, the real-generation outcome for MCQs, partial work and graded states, and the signed-in smoke and rollback verification.
+- **Rollback (valid while no `more_help` rows exist):** `drop trigger trg_record_prior_question_help on app.attempts;` then drop `app.record_prior_question_help()`, `public.has_question_help(uuid,uuid)`, `public.fail_question_help` (both signatures), `public.commit_question_help` (both signatures), `public.reserve_question_help_delivery`, `public.reserve_question_help`, then `app.question_help_calls` and `app.question_help_receipts`, restore the constraint to `session_frame, practice_mcq, practice_frq`, and delete the four ledger rows.
+- **Result:** recorded below once verified.
 
 ## APPROVAL-0166 — Production Load of Figure Batch `stats-next2-figures-2026-10-15`: Four AP Statistics Figures on Topics 1.4, 1.6 and 2.1
 
