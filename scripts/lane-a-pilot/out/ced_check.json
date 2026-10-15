@@ -1,23 +1,18 @@
 {
   "models": [
-    "openai/gpt-6.1-sol",
     "deepseek/deepseek-v4-pro"
   ],
   "figures": 3,
   "controls": 5,
-  "controls_leaked": [
-    "CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points"
-  ],
-  "flagged": [
-    "chem-polyprotic-titration"
-  ],
-  "wall_seconds": 843.5,
+  "controls_leaked": [],
+  "flagged": [],
+  "wall_seconds": 644.1,
   "usage": {
     "deepseek/deepseek-v4-pro": {
-      "calls": 13,
-      "prompt": 12699,
-      "completion": 38137,
-      "seconds": 779.0
+      "calls": 21,
+      "prompt": 20610,
+      "completion": 70109,
+      "seconds": 1422.9999999999995
     },
     "google/gemini-3.5-flash": {
       "calls": 200,
@@ -36,11 +31,6 @@
     "precalc-semilog-plot": {
       "is_control": false,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "accept",
           "issues": [],
@@ -51,11 +41,6 @@
     "precalc-semilog-justify": {
       "is_control": false,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "accept",
           "issues": [],
@@ -66,53 +51,30 @@
     "chem-polyprotic-titration": {
       "is_control": false,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "accept",
           "issues": [],
           "confidence": "high"
-        },
-        "deepseek/deepseek-v4-pro": {
-          "verdict": "error",
-          "issues": [
-            {
-              "what": "RuntimeError('deepseek/deepseek-v4-pro chem-polyprotic-titration:deepseek/deepseek-v4-pro: non-JSON output (0 chars)')",
-              "why": "call failed"
-            }
-          ]
         }
       }
     },
     "CONTROL-P1-linear-data-called-exponential-on-the-log-axis": {
       "is_control": true,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The title calls the plotted values exponential data, and the alt text says each unit step in x multiplies y by 2.",
-              "why": "The actual values follow y = 5 + 60x, with constant differences rather than constant ratios. The stated exponential function y = 5 \u00d7 2^x would give 5, 10, 20, 40, 80, 160, 320."
-            },
-            {
-              "what": "The annotation and alt text describe the points as lying on a straight line.",
-              "why": "On the logarithmic y-axis, these additive-growth values do not lie on a straight line because their successive ratios are not constant."
-            },
-            {
-              "what": "The alt text says the points rise from 5 to 320.",
-              "why": "The plotted final point is (6, 365), not (6, 320)."
-            }
-          ],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The plotted points are not exponential: y-values are 5, 65, 125, 185, 245, 305, 365, which increase linearly by 60, not multiplicatively by 2.",
-              "why": "The figure claims exponential data that lies on a straight line on a log axis; however, an arithmetic sequence like this does not graph as a straight line on a log scale."
+              "what": "The plotted points are not exponential data and do not lie on a straight line on a log-scale vertical axis.",
+              "why": "The y-values are 5, 65, 125, 185, 245, 305, 365, which form an arithmetic sequence (adding 60 each step), not a geometric/exponential sequence. On a logarithmic y-axis, an arithmetic progression in y does not produce a straight line; the logarithms have decreasing increments, so the points curve and would not appear linear. This contradicts the title, subtitle, alt text, the 'straight line' annotation, and the entry's claim that exponential data appear linear."
             },
             {
-              "what": "The alt text states the points rise from 5 to 320, but the final plotted y-value is 365.",
-              "why": "This is a numeric mismatch between the description and the actual data, misleading a student about the illustrated range."
+              "what": "The alt text states each step to the right multiplies the output by the same factor, here 2, but the data do not double.",
+              "why": "For a doubling sequence starting at 5 the y-values would be 5, 10, 20, 40, 80, 160, 320, not 5, 65, 125, 185, 245, 305, 365. The actual multiplicative factors are 13, 1.92, 1.48, 1.32, 1.24, 1.20 \u2014 not a constant factor of 2."
+            },
+            {
+              "what": "The alt text says the points rise from 5 to 320, but the final plotted y-value is 365.",
+              "why": "The drawing parameters specify the final point as (6, 365), so the figure does not show a rise from 5 to 320 as the alt text claims."
             }
           ],
           "confidence": "high"
@@ -122,26 +84,16 @@
     "CONTROL-P2-trend-line-falls-while-the-points-rise": {
       "is_control": true,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The dashed line slopes downward, contrary to the alt text's claim that it runs up to the right.",
-              "why": "Its endpoints are (1, 200) and (9, 5), so it decreases on the logarithmic vertical axis while the data increase."
-            },
-            {
-              "what": "The points do not have the stated relationship to the dashed line.",
-              "why": "The first two points are below the line, not a little above it, and the points from x = 3 onward do not stay close to it. At x = 9, the point is 199.5 while the line is 5, a separation of about 1.60 log10 units, contradicting the stated maximum residual of 0.04."
-            }
-          ],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The dashed 'straight trend' line is drawn from (1,200) to (9,5), so on a logarithmic y-axis it slopes downward from left to right, while the title, subtitle, and alt text say it runs up to the right and represents an increasing exponential trend.",
-              "why": "The plotted data increase from about 13.2 at x=3 to 199.5 at x=9, so their logarithms rise linearly. A trend line for those points should also rise; the given line falls sharply and does not follow the large-input points, contradicting the entry's claim and the visual description."
+              "what": "The dashed straight line is drawn from (1, 200.0) to (9, 5.0). On a log y-axis this line slopes downward, but the title, subtitle, alt text, and note all describe a straight line running up to the right with the data close to it from x=3 onward.",
+              "why": "A downhill dashed line cannot represent a positively trending log-linear relationship. The stated relationship between the line and the points is contradicted by the actual coordinates."
+            },
+            {
+              "what": "The alt text and note say the first two points sit a little above the line, but the first two scatter points have y=6.9 and y=9.8, while the dashed line has y=200 at x=1 and about y=126 at x=2, so those points are far below the line, not above it.",
+              "why": "The label contradicts the numbers it describes."
             }
           ],
           "confidence": "high"
@@ -151,50 +103,31 @@
     "CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points": {
       "is_control": true,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The half-equivalence labels are reversed: the first is labelled \u201cpH = pKa\u2082 = 9.0,\u201d and the second \u201cpH = pKa\u2081 = 4.0.\u201d",
-              "why": "With pKa\u2081 = 4.0 and pKa\u2082 = 9.0, the half-equivalence point at 12.5 mL has pH approximately 4.0, while the point halfway between the equivalence volumes, at 37.5 mL, has pH approximately 9.0. The labels contradict the curve\u2019s values and the alt text."
+              "what": "The half-equivalence labels are swapped: the first label is 'pH = pKa\u2082 = 9.0' and the second is 'pH = pKa\u2081 = 4.0'.",
+              "why": "The first half-equivalence point occurs at half the first equivalence volume (12.5 mL), where pH = pKa\u2081 = 4.0, not 9.0. The second half-equivalence point occurs halfway to the second equivalence point (37.5 mL), where pH = pKa\u2082 = 9.0, not 4.0. This would teach students that the first pKa is 9.0 and the second is 4.0, contradicting the actual pKa values and the alt text."
             }
           ],
           "confidence": "high"
-        },
-        "deepseek/deepseek-v4-pro": {
-          "verdict": "error",
-          "issues": [
-            {
-              "what": "RuntimeError('deepseek/deepseek-v4-pro CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points:deepseek/deepseek-v4-pro: non-JSON output (0 chars)')",
-              "why": "call failed"
-            }
-          ]
         }
       }
     },
     "CONTROL-P4-major-species-named-in-reverse-order": {
       "is_control": true,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The label at 8 mL says \u201cmostly A\u00b2\u207b.\u201d",
-              "why": "At 8 mL, before the first half-equivalence volume of 12.5 mL, H\u2082A is the major species, not A\u00b2\u207b."
-            },
-            {
-              "what": "The label at 54 mL says \u201cmostly H\u2082A.\u201d",
-              "why": "At 54 mL, beyond the second equivalence point at 50 mL, the acid is predominantly A\u00b2\u207b, not H\u2082A. These labels also contradict the alt text\u2019s stated progression from H\u2082A to HA\u207b to A\u00b2\u207b."
-            }
-          ],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The major-species labels are placed in reverse along the titration curve.",
-              "why": "At x = 8 mL (before the first equivalence point at 25 mL) and low pH, the dominant species should be H2A, not A2\u2212. At x = 54 mL (after the second equivalence point at 50 mL) and high pH, the dominant species should be A2\u2212, not H2A. The drawing places 'mostly A2\u2212' at x = 8 and 'mostly H2A' at x = 54, contradicting the stated H2A \u2192 HA\u2212 \u2192 A2\u2212 sequence and teaching a student the wrong major species."
+              "what": "The label 'mostly A\u00b2\u207b' is placed at x = 8 mL, before the first equivalence point.",
+              "why": "Before the first equivalence point the diprotic acid is still mostly H\u2082A or a mixture of H\u2082A/HA\u207b; the fully deprotonated A\u00b2\u207b is negligible there. The label contradicts the chemistry the curve shows."
+            },
+            {
+              "what": "The label 'mostly H\u2082A' is placed at x = 54 mL, after the second equivalence point.",
+              "why": "After the second equivalence point the acid has been fully deprotonated, so the major acid species is A\u00b2\u207b, not H\u2082A. This label contradicts the actual speciation along the titration curve."
             }
           ],
           "confidence": "high"
@@ -204,26 +137,12 @@
     "CONTROL-P5-straight-line-on-the-log-axis-called-a-curve": {
       "is_control": true,
       "verdicts": {
-        "openai/gpt-6.1-sol": {
-          "verdict": "reject",
-          "issues": [
-            {
-              "what": "The title, subtitle, alt text, and note incorrectly state that exponential data bend upward on a semi-log plot.",
-              "why": "The points satisfy y = 5\u00b72^x. With the specified logarithmic y-axis, log(y) = log(5) + x\u00b7log(2), so they form a straight line with constant slope, not an increasingly steep curve. These statements contradict both the drawing parameters and the entry's claim."
-            },
-            {
-              "what": "The note claims that a curve on a semi-log plot means the model is exponential.",
-              "why": "An exponential model produces a straight line when y is log-scaled and x is linear. Curvature does not establish an exponential model."
-            }
-          ],
-          "confidence": "high"
-        },
         "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, alt text, and note state that exponential data bend upward and curve more and more steeply on a semi-log plot, but the plotted points follow y = 5 \u00d7 2^x, which is exactly linear on a log-scaled y-axis.",
-              "why": "The authored entry itself says exponential data or functions appear linear when the y-axis is log-scaled. The figure's text asserts the opposite, so a student would learn a false relationship."
+              "what": "The figure's title, subtitle, alt text, and note state that exponential data bend upward and curve more and more steeply on a semi-log plot. The actual plotted points are y = 5, 10, 20, 40, 80, 160, 320, which follow y = 5\u00b72^x. On a logarithmic y-axis these points form a straight line, not a curve.",
+              "why": "For exponential data y = a\u00b7b^x, taking logarithms gives log(y) = log(a) + x\u00b7log(b), a linear function of x. Thus the data appear as a straight line on a semi-log plot. The figure's text contradicts both the mathematical reality and the entry's own claim that exponential data appear linear on a log-scaled y-axis."
             }
           ],
           "confidence": "high"

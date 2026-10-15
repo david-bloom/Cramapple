@@ -47,3 +47,15 @@ Result identical: 3/3 figures accepted by both readers; 4/5 controls rejected;
 CONTROL-P3 (pKa values on the wrong half-equivalence points) accepted again by
 gemini-3.5-flash, rejected by gpt-6.1-sol. **Batch still VOID.** The miss is
 repeatable, so it is a reader blind spot, not noise. No further re-runs.
+
+## Gate 4c passed with the swapped slate (2026-10-15)
+
+David's ruling: swap the weak reader. Slate for this batch: `openai/gpt-6.1-sol` +
+`deepseek/deepseek-v4-pro` (replacing `google/gemini-3.5-flash`, which missed
+CONTROL-P3 twice).
+
+- gpt-6.1-sol (`out/ced_check_next4_deepseek.log`, plus both earlier runs): 3/3 figures accepted, 5/5 controls rejected, in every run.
+- deepseek-v4-pro, first pass at `--max-tokens 4000`: two items returned empty output (reasoning exhausted the budget): errors, not votes.
+- deepseek-v4-pro, rerun alone at `--max-tokens 16000` (`out/ced_check_next4_deepseek2.log`): 3/3 figures accepted, 5/5 controls rejected, including CONTROL-P3.
+
+**Gate 4c: PASSED, no controls accepted.** Gemini's two misses stay on record as a reader blind spot (label-to-curve position checks). Remaining before Production: merge ap-prep-blueprint #27 and publish the app, then APPROVALS_LOG entry and David's explicit approval.
