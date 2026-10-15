@@ -1,0 +1,28 @@
+  stats-skew-right                                     gpt-6.1-sol        accept
+  stats-skew-right                                     gemini-3.5-flash   accept
+  stats-skew-left                                      gpt-6.1-sol        accept
+  stats-skew-left                                      gemini-3.5-flash   accept
+  stats-skew-symmetric                                 gpt-6.1-sol        accept
+  stats-skew-symmetric                                 gemini-3.5-flash   accept
+  stats-mean-median-right                              gpt-6.1-sol        accept
+  stats-mean-median-right                              gemini-3.5-flash   accept
+  stats-mean-median-left                               gpt-6.1-sol        accept
+  stats-mean-median-left                               gemini-3.5-flash   accept
+  stats-mean-median-symmetric                          gpt-6.1-sol        accept
+  stats-mean-median-symmetric                          gemini-3.5-flash   accept
+  CONTROL-K1-right-skewed-curve-called-skewed-left     gpt-6.1-sol        reject
+  CONTROL-K1-right-skewed-curve-called-skewed-left     gemini-3.5-flash   reject
+  CONTROL-K2-mean-and-median-lines-swapped             gpt-6.1-sol        reject
+  CONTROL-K2-mean-and-median-lines-swapped             gemini-3.5-flash   reject
+  CONTROL-K3-left-skew-mean-called-larger              gpt-6.1-sol        reject
+  CONTROL-K3-left-skew-mean-called-larger              gemini-3.5-flash   reject
+  CONTROL-K4-skew-named-for-the-peak-side              gpt-6.1-sol        reject
+  CONTROL-K4-skew-named-for-the-peak-side              gemini-3.5-flash   reject
+  CONTROL-K5-symmetric-mean-called-far-from-median     gpt-6.1-sol        reject
+  CONTROL-K5-symmetric-mean-called-far-from-median     gemini-3.5-flash   reject
+
+controls: 5/5 correctly rejected
+figures: 6/6 accepted by both readers
+wall: 116.3s
+  google/gemini-3.5-flash: 184 calls, 226102 in / 160065 out
+  openai/gpt-6.1-sol: 184 calls, 189683 in / 18783 out

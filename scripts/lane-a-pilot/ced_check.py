@@ -716,6 +716,52 @@ def next2_controls(specs: dict) -> dict:
     return c
 
 
+def next3_controls(specs: dict) -> dict:
+    """Controls for batch 3: six AP Statistics density figures on skew direction and on the
+    mean versus the median. The curve checks in verify.py read the CURVE, so a control that
+    changes only the words passes the suite; all five here are of that kind."""
+    c = {}
+
+    # K1 a right-skewed curve called skewed left, with the tail text changed to match.
+    s = copy.deepcopy(specs["stats-skew-right"])
+    s["title"] = "Skewed left: the longer tail is on the left"
+    s["subtitle"] = "The tail toward smaller values is longer"
+    s["note"] = "Skew is named for the longer tail; here the longer tail is on the left."
+    s["alt"] = s["alt"].replace("a long tail stretching to the right toward larger values", "a long tail stretching to the left toward smaller values").replace("The right tail is clearly longer than the left tail, so the distribution is skewed right.", "The left tail is clearly longer than the right tail, so the distribution is skewed left.")
+    s["params"]["texts"][0]["label"] = "longer left tail"
+    c["CONTROL-K1-right-skewed-curve-called-skewed-left"] = s
+
+    # K2 the two dashed lines named the wrong way round: the picture shows the mean left
+    # of the median in a right-skewed curve.
+    s = copy.deepcopy(specs["stats-mean-median-right"])
+    s["params"]["texts"][0]["label"], s["params"]["texts"][1]["label"] = "mean (left line)", "median (right line)"
+    s["alt"] = s["alt"].replace("The median is the left line, at about 3.4, and the mean is the right line, at about 4.0, so the mean is larger than the median.", "The mean is the left line, at about 3.4, and the median is the right line, at about 4.0, so the mean is smaller than the median.")
+    c["CONTROL-K2-mean-and-median-lines-swapped"] = s
+
+    # K3 the conclusion reversed in the words of a left-skewed figure.
+    s = copy.deepcopy(specs["stats-mean-median-left"])
+    s["note"] = "In a left-skewed distribution the mean is usually larger than the median."
+    s["subtitle"] = "The long left tail pulls the mean toward larger values (figure 2 of 3)"
+    s["alt"] = s["alt"].replace("so the mean is smaller than the median. The long left tail pulls the mean toward smaller values.", "so the mean is larger than the median. The long left tail pulls the mean toward larger values.")
+    c["CONTROL-K3-left-skew-mean-called-larger"] = s
+
+    # K4 the classic misconception: skew named for the side where the peak is.
+    s = copy.deepcopy(specs["stats-skew-left"])
+    s["title"] = "Skewed right: the peak is on the right"
+    s["note"] = "Skew is named for the side where most of the data are, so a peak on the right means skewed right."
+    s["alt"] = s["alt"].replace("The left tail is clearly longer than the right tail, so the distribution is skewed left. The skew is named for the longer tail, not for the side where the peak is.", "The peak is on the right, so the distribution is skewed right. The skew is named for the side where the peak is.")
+    s["params"]["texts"][0]["label"] = "peak on the right"
+    c["CONTROL-K4-skew-named-for-the-peak-side"] = s
+
+    # K5 mean and median called far apart on a figure that draws one line.
+    s = copy.deepcopy(specs["stats-mean-median-symmetric"])
+    s["note"] = "In a symmetric distribution the mean is usually much larger than the median."
+    s["alt"] = s["alt"].replace("The mean and the median are at the same place, so they are close together.", "The mean is much larger than the median, so they are far apart.")
+    c["CONTROL-K5-symmetric-mean-called-far-from-median"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
@@ -725,7 +771,8 @@ CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": phys
                 "function-plot": function_plot_controls,
                 "lane-b-gaps": laneb_gap_controls,
                 "lane-a-next1": next1_controls,
-                "lane-a-next2": next2_controls}
+                "lane-a-next2": next2_controls,
+                "lane-a-next3": next3_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:

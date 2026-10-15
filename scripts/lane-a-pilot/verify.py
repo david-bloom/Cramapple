@@ -1032,14 +1032,25 @@ def p_density_curve(sid, s, svg):
     lo, hi = p["x_range"]
 
     def dens(c, x):
-        return (R._normal_pdf(x, c["mu"], c["sigma"]) if c["kind"] == "normal"
-                else R._chi2_pdf(x, c["df"]))
+        if c["kind"] == "normal":
+            return R._normal_pdf(x, c["mu"], c["sigma"])
+        if "mirror_about" in c:
+            return R._chi2_pdf(c["mirror_about"] - x, c["df"])
+        return R._chi2_pdf(x, c["df"])
+
+    def wide(c):
+        """The whole support, not the drawn window."""
+        if c["kind"] == "normal":
+            return c["mu"] - 12 * c["sigma"], c["mu"] + 12 * c["sigma"]
+        far = 60.0 + 12.0 * c["df"]
+        if "mirror_about" in c:
+            return c["mirror_about"] - far, c["mirror_about"] - 1e-9
+        return 1e-9, far
 
     for ci, c in enumerate(p["curves"]):
         # Wide limits, not the drawn window: a density that only integrates to
         # 1 inside the frame is not a density.
-        a, b = (c["mu"] - 12 * c["sigma"], c["mu"] + 12 * c["sigma"]) if c["kind"] == "normal" \
-            else (1e-9, 60.0 + 12.0 * c["df"])
+        a, b = wide(c)
         tot = integrate(lambda x, c=c: dens(c, x), a, b)
         ck(sid, f"curve {ci} is a density: it integrates to 1", abs(tot - 1) < 2e-3,
            f"integral={tot:.5f}")
@@ -1053,9 +1064,9 @@ def p_density_curve(sid, s, svg):
         # one-sided p-value is silently short by whatever the window cut off.
         c = p["curves"][chk.get("curve", 0)]
         if chk.get("from") is None:
-            a = c["mu"] - 12 * c["sigma"] if c["kind"] == "normal" else 1e-9
+            a = wide(c)[0]
         if chk.get("to") is None:
-            b = c["mu"] + 12 * c["sigma"] if c["kind"] == "normal" else 60.0 + 12.0 * c["df"]
+            b = wide(c)[1]
         got = integrate(lambda x, c=c: dens(c, x), a, b)
         ck(sid, f"the shaded area from {chk.get('from')} to {chk.get('to')} is the stated probability",
            abs(got - chk["expect"]) < chk["tol"], f"area={got:.4f} stated={chk['expect']}")
@@ -1069,6 +1080,57 @@ def p_density_curve(sid, s, svg):
            and " 1" in (s.get("note") or "") + s["alt"])
         ck(sid, "the text distinguishes a density from a probability",
            "density" in s["alt"].lower() and "height" in s["alt"].lower())
+
+    # Skew is a claim about WHICH TAIL IS LONGER, and mean-versus-median is a claim about
+    # where the mean sits relative to the median. Both are computed from the curve, so a
+    # right-skewed figure cannot be quietly drawn with a left-skewed curve (or the reverse).
+    def _stats(c):
+        a, b = wide(c)
+        n = 40000
+        h = (b - a) / n
+        xs = [a + h * (i + 0.5) for i in range(n)]
+        ws = [dens(c, x) * h for x in xs]
+        tot = sum(ws)
+        mean = sum(x * w for x, w in zip(xs, ws)) / tot
+        cum, q = 0.0, {}
+        for x, w in zip(xs, ws):
+            cum += w / tot
+            for name, p_ in (("q01", 0.01), ("med", 0.5), ("q99", 0.99)):
+                if name not in q and cum >= p_:
+                    q[name] = x
+        return mean, q["med"], q["q01"], q["q99"]
+
+    for chk in p.get("skew_checks", []):
+        c = p["curves"][chk.get("curve", 0)]
+        mean, med, q01, q99 = _stats(c)
+        right_tail, left_tail = q99 - med, med - q01
+        d = chk["direction"]
+        if d == "right":
+            ck(sid, "the right tail is the longer one", right_tail > 1.3 * left_tail,
+               f"right={right_tail:.3f} left={left_tail:.3f}")
+            ck(sid, "skewed right: the mean is above the median", mean > med, f"mean={mean:.3f} median={med:.3f}")
+        elif d == "left":
+            ck(sid, "the left tail is the longer one", left_tail > 1.3 * right_tail,
+               f"right={right_tail:.3f} left={left_tail:.3f}")
+            ck(sid, "skewed left: the mean is below the median", mean < med, f"mean={mean:.3f} median={med:.3f}")
+        else:
+            ck(sid, "the tails are the same length", abs(right_tail - left_tail) < 0.02 * (q99 - q01),
+               f"right={right_tail:.3f} left={left_tail:.3f}")
+            ck(sid, "symmetric: the mean equals the median", abs(mean - med) < 0.005 * (q99 - q01),
+               f"mean={mean:.3f} median={med:.3f}")
+
+    for chk in p.get("stat_line_checks", []):
+        # The dashed lines are the mean and the median: they must sit where the curve says.
+        c = p["curves"][chk.get("curve", 0)]
+        mean, med, _, _ = _stats(c)
+        tol = 0.01 * (hi - lo)
+        xs_v = sorted(v["x"] for v in p.get("vlines", []))
+        want = sorted({round(mean, 6), round(med, 6)}) if abs(mean - med) > tol else [round(mean, 6)]
+        ck(sid, "one dashed line per distinct statistic", len(xs_v) == len(want),
+           f"lines={xs_v} stats={want}")
+        ck(sid, "each dashed line sits at the computed mean or median",
+           len(xs_v) == len(want) and all(abs(a - b) < tol for a, b in zip(xs_v, want)),
+           f"lines={xs_v} stats={[round(w, 3) for w in want]}")
 
     if "normal_shape_check" in p:
         mu, sig = p["normal_shape_check"]["mu"], p["normal_shape_check"]["sigma"]

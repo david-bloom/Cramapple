@@ -3,27 +3,27 @@
     "openai/gpt-6.1-sol",
     "google/gemini-3.5-flash"
   ],
-  "figures": 4,
+  "figures": 6,
   "controls": 5,
   "controls_leaked": [],
   "flagged": [],
-  "wall_seconds": 86.4,
+  "wall_seconds": 116.3,
   "usage": {
     "google/gemini-3.5-flash": {
-      "calls": 173,
-      "prompt": 217050,
-      "completion": 151961,
-      "seconds": 1010.4999999999994
+      "calls": 184,
+      "prompt": 226102,
+      "completion": 160065,
+      "seconds": 1076.3999999999994
     },
     "openai/gpt-6.1-sol": {
-      "calls": 173,
-      "prompt": 181284,
-      "completion": 17788,
-      "seconds": 704.2000000000004
+      "calls": 184,
+      "prompt": 189683,
+      "completion": 18783,
+      "seconds": 754.4000000000005
     }
   },
   "detail": {
-    "stats-gap-histogram": {
+    "stats-skew-right": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -38,7 +38,7 @@
         }
       }
     },
-    "stats-compare-two-datasets": {
+    "stats-skew-left": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -53,7 +53,7 @@
         }
       }
     },
-    "stats-association-yes": {
+    "stats-skew-symmetric": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -68,7 +68,7 @@
         }
       }
     },
-    "stats-association-no": {
+    "stats-mean-median-right": {
       "is_control": false,
       "verdicts": {
         "openai/gpt-6.1-sol": {
@@ -83,19 +83,49 @@
         }
       }
     },
-    "CONTROL-M1-gap-bin-is-not-empty": {
+    "stats-mean-median-left": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "stats-mean-median-symmetric": {
+      "is_control": false,
+      "verdicts": {
+        "openai/gpt-6.1-sol": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        },
+        "google/gemini-3.5-flash": {
+          "verdict": "accept",
+          "issues": [],
+          "confidence": "high"
+        }
+      }
+    },
+    "CONTROL-K1-right-skewed-curve-called-skewed-left": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The interval from 40 to 50 years is labeled \u201cgap: no data,\u201d but its count is 2.",
-              "why": "A gap requires no observed data in the interval. All six bins have positive counts, so the parameters do not show the gap asserted by the title, subtitle, note, and alt text."
+              "what": "The title, subtitle, note, and \u201clonger left tail\u201d annotation identify the curve as left-skewed, but the parameters specify a right-skewed chi-square distribution with 4 degrees of freedom.",
+              "why": "This distribution peaks at x = 2, has a short left side bounded by zero, and a long tail toward larger values. It therefore illustrates right skew, not left skew."
             },
             {
-              "what": "The alt text states there are 38 customers and gives the fourth bin a count of 0.",
-              "why": "The actual counts are 7, 14, 9, 2, 5, and 3, totaling 40 customers."
+              "what": "The alt text describes a long tail stretching left toward smaller values.",
+              "why": "The specified curve\u2019s long tail stretches right. The alt text also contradicts itself by describing the left side as both a long tail and a steep drop to zero."
             }
           ],
           "confidence": "high"
@@ -104,27 +134,23 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The count for the bin from 40 to 50 is 2 in the drawing parameters, but the alt text and label claim it has 0 observations (a gap).",
-              "why": "The figure will display a bar of height 2 in the 40-50 interval, contradicting the claim that this interval is a gap with no observed data."
+              "what": "The curve plotted is skewed right, but the labels and title describe it as skewed left.",
+              "why": "A chi-square distribution with 4 degrees of freedom is skewed to the right (it has a long right tail). However, the title ('Skewed left'), subtitle, alt text, and the text label 'longer left tail' (placed at x=11.5, which is on the right side of the distribution) all incorrectly claim that the distribution is skewed left. This would severely confuse a student about the definition of skewness."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-M2-gap-defined-as-the-most-data": {
+    "CONTROL-K2-mean-and-median-lines-swapped": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The note and alt text incorrectly define the gap as the interval with the most observations and identify the tallest bar, ages 20\u201330, as the gap.",
-              "why": "A gap contains no observed data. The counts show the gap at ages 40\u201350, with 0 customers; ages 20\u201330 has 14 customers and is the modal bin, not a gap."
-            },
-            {
-              "what": "The measure label reads \"gap: most data.\"",
-              "why": "This contradicts the definition of a gap as a region with no observed data, regardless of which bin the label marks."
+              "what": "The mean and median labels are reversed, and the alt text repeats the reversal.",
+              "why": "For a chi-square distribution with 4 degrees of freedom, the mean is 4.0 and the median is approximately 3.356. The left line is therefore the median and the right line is the mean, contrary to the figure\u2019s labels and alt text. This also contradicts the title and note stating that the mean is larger than the median."
             }
           ],
           "confidence": "high"
@@ -133,31 +159,27 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The subtitle, note, alt text, and measure label define a 'gap' as the interval with the most observations (the tallest bar).",
-              "why": "A gap is a region in a distribution with no observed data (count of 0). Defining it as the interval with the most observations is factually incorrect and contradicts the authored reference entry's claim."
-            },
-            {
-              "what": "The alt text identifies the bin from 20 to 30 years (height 14) as the gap.",
-              "why": "The bin with 0 observations is from 40 to 50 years. The bin from 20 to 30 years is the peak (mode) of the distribution, not a gap."
+              "what": "The labels and alt text swap the mean and median, incorrectly stating that the mean is smaller than the median.",
+              "why": "For a chi-square distribution with df = 4, the mean is 4.0 and the median is approximately 3.36. Thus, the mean is the right line (4.0) and the median is the left line (3.36). The figure's text labels ('mean (left line)' and 'median (right line)') and the alt text ('the mean is the left line... so the mean is smaller than the median') are incorrect and contradict the title 'Skewed right: the mean is above the median'."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-M3-class-data-swapped-against-labels": {
+    "CONTROL-K3-left-skew-mean-called-larger": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The plotted relative frequencies are assigned to the opposite classes from those described in the alt text.",
-              "why": "The parameters assign Class A 40% Walk, 8% Bike, 12% Bus, and 40% Car, and Class B 20%, 10%, 30%, and 40%, respectively. The alt text reverses these assignments."
+              "what": "The subtitle and alt text say the long left tail pulls the mean toward larger values.",
+              "why": "A long left tail pulls the mean toward smaller values, consistent with the plotted mean of 12.0 being below the median of 12.644."
             },
             {
-              "what": "The plotted relative frequencies are incompatible with the labelled class sizes.",
-              "why": "For Class A's 40 students, 8% biking and 12% taking the bus imply 3.2 and 4.8 students. For Class B's 25 students, 10% biking and 30% taking the bus imply 2.5 and 7.5 students. These cannot be exact relative frequencies of student counts."
+              "what": "The alt text concludes that the mean is larger than the median, and the note says this is usual for left-skewed distributions.",
+              "why": "The plotted values show 12.0 < 12.644. Both statements reverse the relationship shown and contradict the entry's claim that the mean is usually smaller than the median under left skew."
             }
           ],
           "confidence": "high"
@@ -166,23 +188,35 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The data series for Class A and Class B are swapped in the drawing parameters compared to the alt text description.",
-              "why": "In the parameters, 'Class A (40 students)' is assigned the first row of data [0.4, 0.08, 0.12, 0.4] and 'Class B (25 students)' is assigned the second row [0.2, 0.1, 0.3, 0.4]. However, the alt text states that Class A has 20% walk, 10% bike, 30% bus, 40% car (which is the second row) and Class B has 40% walk, 8% bike, 12% bus, 40% car (which is the first row). This swap causes the chart's visual representation to contradict its description."
+              "what": "Subtitle text error",
+              "why": "The subtitle states 'The long left tail pulls the mean toward larger values', but a left tail pulls the mean toward smaller values (to the left)."
+            },
+            {
+              "what": "Alt text mathematical contradiction",
+              "why": "The alt text states 'The mean is the left line, at about 12.0, and the median is the right line, at about 12.6, so the mean is larger than the median.' 12.0 is smaller than 12.6, not larger."
+            },
+            {
+              "what": "Note text error",
+              "why": "The note states 'In a left-skewed distribution the mean is usually larger than the median.' This is incorrect; in a left-skewed distribution, the mean is usually smaller than the median."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-M4-equal-distributions-called-different": {
+    "CONTROL-K4-skew-named-for-the-peak-side": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, note, and alt text claim that the result distributions differ and indicate association.",
-              "why": "Both groups have the same distribution: 35/50 = 28/40 = 70% pass, and 15/50 = 12/40 = 30% do not pass. These data show no association between part-time job status and exam result."
+              "what": "The title labels the distribution \u201cskewed right,\u201d but the curve is skewed left.",
+              "why": "The mirrored chi-square curve has a longer tail toward smaller values, as the subtitle and skew check confirm. Skew direction is named by the longer tail, not the peak."
+            },
+            {
+              "what": "The alt text and note teach that skew is named for the side containing the peak or most of the data.",
+              "why": "That rule is false and contradicts the entry\u2019s claim. A peak on the right with a long left tail indicates left (negative) skew."
             }
           ],
           "confidence": "high"
@@ -191,23 +225,27 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, and alt text claim that the distributions differ and are associated, but the actual data shows they are identical.",
-              "why": "For the 'Has a part-time job' group, the pass rate is 35/50 = 70%. For the 'No part-time job' group, the pass rate is 28/40 = 70%. Since both groups have an identical 70% pass rate, the distributions do not differ, meaning there is no association between the two variables in these data. The figure's text directly contradicts the mathematical reality of the provided data."
+              "what": "The figure title, subtitle, alt text, and note incorrectly define skewness direction.",
+              "why": "The figure claims that a distribution with a peak on the right and a long tail to the left is 'skewed right' and that skew is named for the peak/where most data are. In reality, skew is named for the tail: a long tail to the left (smaller values) is skewed left, which also contradicts the authored reference entry's definition."
             }
           ],
           "confidence": "high"
         }
       }
     },
-    "CONTROL-M5-association-read-as-causation": {
+    "CONTROL-K5-symmetric-mean-called-far-from-median": {
       "is_control": true,
       "verdicts": {
         "openai/gpt-6.1-sol": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note claim that having a part-time job causes a lower pass rate or exam failure.",
-              "why": "The counts show different pass rates\u201430/50 = 60% for students with a job and 32/40 = 80% for students without one\u2014but this establishes association in these data, not causation."
+              "what": "The alt text says the mean is much larger than the median and that they are far apart.",
+              "why": "The normal distribution has mean and median both equal to 8, consistent with the single line labelled \u201cmean = median.\u201d"
+            },
+            {
+              "what": "The note states that in a symmetric distribution the mean is usually much larger than the median.",
+              "why": "For the symmetric normal distribution shown, the mean and median are equal. The note also contradicts the entry\u2019s claim that they are close under relative symmetry."
             }
           ],
           "confidence": "high"
@@ -216,8 +254,12 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text and note assert a causal relationship based on association (\"the part-time job causes the lower pass rate\", \"shows that the job causes them to fail\").",
-              "why": "In statistics, association does not imply causation. Since this is an observational study (students are not randomly assigned to have a part-time job), it is incorrect to claim that the job causes the lower pass rate, as confounding variables may be present. This teaches students a fundamental statistical error."
+              "what": "The note states: 'In a symmetric distribution the mean is usually much larger than the median.'",
+              "why": "This is factually incorrect. In a symmetric distribution, the mean and median are approximately equal (or exactly equal if perfectly symmetric)."
+            },
+            {
+              "what": "The alt text states: 'The mean is much larger than the median, so they are far apart.'",
+              "why": "This contradicts the figure itself (which shows a symmetric normal distribution with a single line labeled 'mean = median' at 8.0) and the scientific reality of symmetric distributions."
             }
           ],
           "confidence": "high"

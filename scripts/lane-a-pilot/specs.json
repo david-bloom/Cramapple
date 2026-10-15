@@ -9195,5 +9195,578 @@
       }
     ],
     "y_tick_fmt": "{:.0%}"
+  },
+  "stats-skew-right": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed right: the longer tail is on the right",
+    "short_title": "Skewed right",
+    "subtitle": "The tail toward larger values is longer (figure 1 of 3)",
+    "caption": "A density curve whose right tail is longer than its left tail.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A density curve with its peak near the left and a long tail stretching to the right toward larger values, while the left side drops steeply to zero. The right tail is clearly longer than the left tail, so the distribution is skewed right. The skew is named for the longer tail, not for the side where the peak is. Illustrative data.",
+    "note": "Skew is named for the longer tail, not for the side where most of the data are.",
+    "synthetic": true,
+    "covers": [
+      "Longer right tail",
+      "Skewed right"
+    ],
+    "labels": [
+      "Longer right tail",
+      "Skewed right"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "style": "solid"
+        }
+      ],
+      "texts": [
+        {
+          "x": 11.5,
+          "y": 0.065,
+          "label": "longer right tail"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "right"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-right",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-skew-left": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed left: the longer tail is on the left",
+    "short_title": "Skewed left",
+    "subtitle": "The tail toward smaller values is longer (figure 2 of 3)",
+    "caption": "A density curve whose left tail is longer than its right tail.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A density curve with its peak near the right and a long tail stretching to the left toward smaller values, while the right side drops steeply to zero. The left tail is clearly longer than the right tail, so the distribution is skewed left. The skew is named for the longer tail, not for the side where the peak is. Illustrative data.",
+    "note": "Skew is named for the longer tail, not for the side where most of the data are.",
+    "synthetic": true,
+    "covers": [
+      "Longer left tail",
+      "Skewed left"
+    ],
+    "labels": [
+      "Longer left tail",
+      "Skewed left"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "mirror_about": 16,
+          "style": "solid"
+        }
+      ],
+      "texts": [
+        {
+          "x": 4.5,
+          "y": 0.065,
+          "label": "longer left tail"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "left"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-left",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-skew-symmetric": {
+    "entry_title": "Skew direction is named by the longer tail",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Approximately symmetric: the halves mirror each other",
+    "short_title": "Approximately symmetric",
+    "subtitle": "The left half mirrors the right half (figure 3 of 3)",
+    "caption": "A bell-shaped density curve whose two halves are mirror images.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A bell-shaped density curve with its peak in the middle and a dashed vertical line through the centre. The left half is the mirror image of the right half, so the two tails are the same length and the distribution is approximately symmetric. Illustrative data.",
+    "note": "Symmetric means the left half mirrors the right half, so neither tail is longer.",
+    "synthetic": true,
+    "covers": [
+      "Left half mirrors the right half",
+      "Approximately symmetric"
+    ],
+    "labels": [
+      "Left half mirrors the right half",
+      "Approximately symmetric"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 8.0,
+          "sigma": 2.7,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 8.0,
+          "label": "mirror line",
+          "caption": null
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "none"
+        }
+      ]
+    },
+    "figure_id": "stats-skew-symmetric",
+    "reference_entry_id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+    "unit_number": 1,
+    "owner_topic_code": "1.6",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "6b0a54a5-e9a2-40aa-97a4-d3833b72182c",
+        "title": "Skew direction is named by the longer tail",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.6 'Skew direction is named by the longer tail' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-right": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed right: the mean is above the median",
+    "short_title": "Mean above median",
+    "subtitle": "The long right tail pulls the mean toward larger values (figure 1 of 3)",
+    "caption": "A right-skewed density curve with its median and mean marked.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A right-skewed density curve with two dashed vertical lines. The median is the left line, at about 3.4, and the mean is the right line, at about 4.0, so the mean is larger than the median. The long right tail pulls the mean toward larger values. Illustrative data.",
+    "note": "In a right-skewed distribution the mean is usually larger than the median.",
+    "synthetic": true,
+    "covers": [
+      "Mean above the median",
+      "Skewed right"
+    ],
+    "labels": [
+      "Mean above the median",
+      "Skewed right"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 3.356,
+          "label": null,
+          "caption": null
+        },
+        {
+          "x": 4.0,
+          "label": null,
+          "caption": null
+        }
+      ],
+      "texts": [
+        {
+          "x": 4.4,
+          "y": 0.205,
+          "label": "median (left line)",
+          "anchor": "start"
+        },
+        {
+          "x": 4.4,
+          "y": 0.175,
+          "label": "mean (right line)",
+          "anchor": "start"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "right"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-right",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-left": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Skewed left: the mean is below the median",
+    "short_title": "Mean below median",
+    "subtitle": "The long left tail pulls the mean toward smaller values (figure 2 of 3)",
+    "caption": "A left-skewed density curve with its mean and median marked.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A left-skewed density curve with two dashed vertical lines. The mean is the left line, at about 12.0, and the median is the right line, at about 12.6, so the mean is smaller than the median. The long left tail pulls the mean toward smaller values. Illustrative data.",
+    "note": "In a left-skewed distribution the mean is usually smaller than the median.",
+    "synthetic": true,
+    "covers": [
+      "Mean below the median",
+      "Skewed left"
+    ],
+    "labels": [
+      "Mean below the median",
+      "Skewed left"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "chi_square",
+          "df": 4,
+          "mirror_about": 16,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 12.0,
+          "label": null,
+          "caption": null
+        },
+        {
+          "x": 12.644,
+          "label": null,
+          "caption": null
+        }
+      ],
+      "texts": [
+        {
+          "x": 11.6,
+          "y": 0.205,
+          "label": "mean (left line)",
+          "anchor": "end"
+        },
+        {
+          "x": 11.6,
+          "y": 0.175,
+          "label": "median (right line)",
+          "anchor": "end"
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "left"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-left",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
+  },
+  "stats-mean-median-symmetric": {
+    "entry_title": "Mean vs. median under skew",
+    "subject_key": "ap_statistics",
+    "family": "density_curve",
+    "title": "Relatively symmetric: the mean and median are close",
+    "short_title": "Mean close to median",
+    "subtitle": "With no long tail the mean and median nearly coincide (figure 3 of 3)",
+    "caption": "A bell-shaped density curve whose mean and median are at the same place.",
+    "x_label": "value of the variable",
+    "y_label": "relative likelihood (density)",
+    "alt": "A bell-shaped density curve with one dashed vertical line through the centre, at about 8. The mean and the median are at the same place, so they are close together. With no long tail pulling either way, the distribution is relatively symmetric. Illustrative data.",
+    "note": "In a relatively symmetric distribution the mean and median are close.",
+    "synthetic": true,
+    "covers": [
+      "Mean and median close together",
+      "Relatively symmetric"
+    ],
+    "labels": [
+      "Mean and median close together",
+      "Relatively symmetric"
+    ],
+    "params": {
+      "x_range": [
+        0.0,
+        16.0
+      ],
+      "x_ticks": [
+        [
+          0.0,
+          "0"
+        ],
+        [
+          4.0,
+          "4"
+        ],
+        [
+          8.0,
+          "8"
+        ],
+        [
+          12.0,
+          "12"
+        ],
+        [
+          16.0,
+          "16"
+        ]
+      ],
+      "curves": [
+        {
+          "kind": "normal",
+          "mu": 8.0,
+          "sigma": 2.7,
+          "style": "solid"
+        }
+      ],
+      "vlines": [
+        {
+          "x": 8.0,
+          "label": "mean = median",
+          "caption": null
+        }
+      ],
+      "skew_checks": [
+        {
+          "curve": 0,
+          "direction": "none"
+        }
+      ],
+      "stat_line_checks": [
+        {
+          "curve": 0
+        }
+      ]
+    },
+    "figure_id": "stats-mean-median-symmetric",
+    "reference_entry_id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+    "unit_number": 1,
+    "owner_topic_code": "1.8",
+    "entry_kind": "convention",
+    "used_by": [
+      {
+        "kind": "reference_entry",
+        "subject_key": "ap_statistics",
+        "id": "d359ae55-7fab-4b81-adb8-30d3520daf27",
+        "title": "Mean vs. median under skew",
+        "role": "primary",
+        "labels_carry_contract": true,
+        "contract_note": "AP Statistics 1.8 'Mean vs. median under skew' is a convention entry with no items[]; its body supports each of this figure's labelled parts (DECISION-0116, route b)."
+      }
+    ]
   }
 }
