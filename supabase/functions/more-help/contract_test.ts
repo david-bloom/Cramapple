@@ -7,6 +7,7 @@ import {
   HelpError,
   object,
   parseInput,
+  SUBJECTS,
   validateHelp,
 } from "./contract.ts";
 import { type Dependencies, moreHelp } from "./handler.ts";
@@ -59,6 +60,67 @@ const output = {
   highlights: ["average rate of change", "invented phrase"],
   follow_ups: ["Why divide by time?"],
 };
+Deno.test("all ten registry subjects support exact-question before/graded help without a unit-number gate", () => {
+  const cases: Array<[string, number]> = [
+    ["biology", 1],
+    ["ap-calculus-ab", 8],
+    ["ap-calculus-bc", 10],
+    ["ap-chemistry", 9],
+    ["ap-precalculus", 3],
+    ["ap-statistics", 3],
+    ["ap-physics-1", 3],
+    ["ap-physics-2", 11],
+    ["ap-physics-c-mechanics", 3],
+    ["ap-physics-c-em", 10],
+  ];
+  assertEquals(new Set(SUBJECTS), new Set(cases.map(([subject]) => subject)));
+  for (const [subjectKey, unitNumber] of cases) {
+    const question = {
+      ...raw,
+      topic: { subjectKey, unitNumber, topicCode: `${unitNumber}.1` },
+    };
+    const before = helpContext(question, input);
+    assertEquals(before.grounding.topic.subject, subjectKey);
+    assertEquals(before.grounding.recordedGrade, null);
+    assertEquals(before.grounding.answerFeedback, null);
+    const graded = helpContext(question, { ...input, phase: "after" });
+    assertEquals(graded.after, true);
+    assertEquals(graded.grounding.recordedGrade?.points, 0);
+    const revision = helpContext(
+      { ...question, attempt: { status: "draft" } },
+      { ...input, phase: "after" },
+    );
+    assertEquals(revision.grounding.recordedGrade, null);
+    assertEquals(revision.grounding.answerFeedback, null);
+    assertThrows(
+      () =>
+        helpContext({
+          ...question,
+          item: { ...raw.item, contentItemVersionId: "foreign" },
+        }, input),
+      HelpError,
+    );
+    assertThrows(
+      () => helpContext({ ...question, reference: {} }, input),
+      HelpError,
+    );
+  }
+  // Guide/taxonomy aliases and a client-invented subject are never trusted as
+  // registry identities; the owned authoritative RPC is the only source.
+  for (
+    const subjectKey of [
+      "ap-biology",
+      "ap_biology",
+      "ap_physics_2",
+      "economics",
+    ]
+  ) {
+    assertThrows(
+      () => helpContext({ ...raw, topic: { subjectKey } }, input),
+      HelpError,
+    );
+  }
+});
 Deno.test("continuity statement selection rejects observed pre-submit verdicts in every generated field", () => {
   const stem = "Consider the following statements. I. lim(t->4) r(t) exists. II. r is continuous at 4. III. r has a removable discontinuity. Which statements are true?";
   const question = { ...raw, item: { ...raw.item, stem } };
@@ -258,7 +320,7 @@ Deno.test("post-grade uses recorded grade only; client after cannot manufacture 
 Deno.test("unknown subject, foreign version, missing facts and unavailable visual refuse help", () => {
   for (
     const value of [
-      { ...raw, topic: { subjectKey: "biology" } },
+      { ...raw, topic: { subjectKey: "ap-economics" } },
       { ...raw, item: { ...raw.item, contentItemVersionId: "foreign" } },
       { ...raw, reference: {} },
       { ...raw, item: { ...raw.item, hasStimulusImage: true } },

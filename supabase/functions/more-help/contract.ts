@@ -25,7 +25,21 @@ function explicitChoiceDisclosure(copy: string): boolean {
     )
   );
 }
-export const SUBJECTS = ["ap-calculus-ab", "ap-calculus-bc", "ap-chemistry"];
+// Authoritative question/session RPC emits app.subjects registry keys. Biology
+// is deliberately `biology`; reference/taxonomy keys such as ap_biology are a
+// separate namespace. Do not infer registry keys by replacing punctuation.
+export const SUBJECTS = [
+  "biology",
+  "ap-calculus-ab",
+  "ap-calculus-bc",
+  "ap-chemistry",
+  "ap-precalculus",
+  "ap-statistics",
+  "ap-physics-1",
+  "ap-physics-2",
+  "ap-physics-c-mechanics",
+  "ap-physics-c-em",
+];
 export type HelpInput = {
   requestId: string;
   sessionId: string;
