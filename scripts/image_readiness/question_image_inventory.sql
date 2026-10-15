@@ -1,6 +1,8 @@
 -- WORK-QUESTION-IMAGE-COMPLETENESS: READ ONLY, one row per published version.
 -- Deliberately inventories every published version, not just latest-version rows.
 -- No answer keys, rationales, expected graphs, learner records or signed URLs.
+-- Correction 2026-10-15: FRQ parts come from authored parts[].prompt, NEVER
+-- frq_criteria.learner_facing_text: that legacy field can contain scoring answers.
 -- Markers are triage signals, NEVER an image-required classification.
 with versions as (
   select ci.id as content_item_id, ci.content_key, ci.item_type,
@@ -29,9 +31,16 @@ with versions as (
       from app.mcq_choices c where c.content_item_version_id = v.content_item_version_id),
       '[]'::jsonb) as choices,
     coalesce((select jsonb_agg(jsonb_build_object(
-      'key', f.criterion_key, 'text', f.learner_facing_text) order by f.criterion_key)
-      from app.frq_criteria f where f.content_item_version_id = v.content_item_version_id
-        and nullif(btrim(f.learner_facing_text), '') is not null), '[]'::jsonb) as part_prompts,
+      'key', coalesce(p.part->>'part_key',p.part->>'part_id',p.ordinality::text),
+      'text', coalesce(nullif(p.part->>'prompt',''),p.part->>'prompt_text')) order by p.ordinality)
+      from jsonb_array_elements(case
+        when jsonb_typeof(v.prompt_json->'parts')='array' then v.prompt_json->'parts'
+        when jsonb_typeof(v.item_package_payload->'parts')='array' then v.item_package_payload->'parts'
+        else '[]'::jsonb end) with ordinality as p(part,ordinality)
+      where jsonb_typeof(p.part)='object' and
+        (jsonb_typeof(p.part->'prompt')='string' or jsonb_typeof(p.part->'prompt_text')='string')
+        and nullif(btrim(coalesce(nullif(p.part->>'prompt',''),p.part->>'prompt_text')),'') is not null),
+      '[]'::jsonb) as part_prompts,
     coalesce((select jsonb_agg(jsonb_build_object(
       'bucket', a.storage_bucket, 'path', a.storage_path,
       'alt', a.alt_text, 'long_description', a.long_description,

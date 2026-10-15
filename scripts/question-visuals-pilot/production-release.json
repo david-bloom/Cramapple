@@ -1,0 +1,123 @@
+{
+  "approval": "APPROVAL-0173",
+  "project_ref": "pcntajvbdfqhbeewmdry",
+  "attached_at": "2026-10-15 01:40:28.088181+00",
+  "edge_function": {
+    "slug": "student-session-items",
+    "version": 40,
+    "sha256": "f8c0995a7ddc2a4f1d1d5232e52ea0f786900f1a1b86af9bbe6e362d8d2f0c57",
+    "redeployed": false
+  },
+  "images": [
+    {
+      "content_key": "apcalcab-frq-u13-002",
+      "version_id": "d0f2974c-bac9-498d-8173-8a1c88b3d8eb",
+      "bucket": "content-assets",
+      "object": "questions/apcalcab-frq-u13-002/v1/63000031e6860d5fd51bf8f10c6fafa9d64bf3fcda059933414c712c69eec674.png",
+      "sha256": "63000031e6860d5fd51bf8f10c6fafa9d64bf3fcda059933414c712c69eec674",
+      "bytes": 34080,
+      "verified": true,
+      "signed_download_verified": true,
+      "unsigned_public_read_blocked": true
+    },
+    {
+      "content_key": "apcalcab-frq-u13g-1-3",
+      "version_id": "a59eb1ed-b96e-4d89-94ee-a4a32b309744",
+      "bucket": "content-assets",
+      "object": "questions/apcalcab-frq-u13g-1-3/v1/c49e3a59682394ec52b3b72b4186c86ab7f46ab1bc9e00d1f6c0fce8a6f3f257.png",
+      "sha256": "c49e3a59682394ec52b3b72b4186c86ab7f46ab1bc9e00d1f6c0fce8a6f3f257",
+      "bytes": 38902,
+      "verified": true,
+      "signed_download_verified": true,
+      "unsigned_public_read_blocked": true
+    },
+    {
+      "content_key": "apcalcab-oht-1.3",
+      "version_id": "f1548706-2043-4f7b-9941-c1c6e2724174",
+      "bucket": "content-assets",
+      "object": "questions/apcalcab-oht-1.3/v1/76c37ed79953f2a2dbad6a958275ef7f817edd7e0d62039f121c9563427a6fbe.png",
+      "sha256": "76c37ed79953f2a2dbad6a958275ef7f817edd7e0d62039f121c9563427a6fbe",
+      "bytes": 31166,
+      "verified": true,
+      "signed_download_verified": true,
+      "unsigned_public_read_blocked": true
+    },
+    {
+      "content_key": "apchem-oht-3.8",
+      "version_id": "b7b068cb-0610-4da7-8565-4290621d402f",
+      "bucket": "content-assets",
+      "object": "questions/apchem-oht-3.8/v1/61f844d30f28abd72d1293e09f543d25be8a9e8b2bcd00305c983d27d7b30c45.png",
+      "sha256": "61f844d30f28abd72d1293e09f543d25be8a9e8b2bcd00305c983d27d7b30c45",
+      "bytes": 53630,
+      "verified": true,
+      "signed_download_verified": true,
+      "unsigned_public_read_blocked": true
+    }
+  ],
+  "checks": {
+    "rollback_rehearsal": true,
+    "atomic_commit": true,
+    "approved_version_metadata": 4,
+    "required_approved_decisions": 4,
+    "question_scoring_taxonomy_unchanged": true,
+    "authenticated_student_teaching_lookup": {
+      "calculus_ab_1_3": true,
+      "chemistry_3_8": true
+    },
+    "signed_downloads_checksum_verified": 4,
+    "public_reads_blocked": 4,
+    "recovery_transaction_rehearsed_with_rollback": true,
+    "live_attachments_after_recovery_rehearsal": 4
+  },
+  "limits": [
+    "Browser verification used the owner’s admin account in student-facing views; authenticated student-role teaching RPC checks were performed separately.",
+    "No fresh independent content/accessibility QA verdict was performed.",
+    "Phone widths were not browser-tested in this follow-up.",
+    "Subject-switching stale-view defect remains open; see the browser QA report."
+  ],
+  "next_owner": "Cramapple app maintainer / audit conductor",
+  "next_step": "Fix subject-switch stale worked-example state; continue the separate periodic-table and unresolved-unit audit queues.",
+  "browser_verification": {
+    "recorded_at": "2026-10-15T07:26:49.674Z",
+    "host": "https://app.cramapple.com",
+    "identity": "Product Owner account, signed-in student-facing views (admin profile)",
+    "viewport": "Normal existing desktop viewport; no phone emulation",
+    "images": [
+      {
+        "content_key": "apcalcab-frq-u13-002",
+        "loaded": true,
+        "natural_width": 680,
+        "natural_height": 700,
+        "rendered_width_css_px": 622.65625
+      },
+      {
+        "content_key": "apcalcab-frq-u13g-1-3",
+        "loaded": true,
+        "natural_width": 680,
+        "natural_height": 700,
+        "rendered_width_css_px": 622.65625
+      },
+      {
+        "content_key": "apcalcab-oht-1.3",
+        "loaded": true,
+        "natural_width": 680,
+        "natural_height": 700,
+        "rendered_width_css_px": 622.65625
+      },
+      {
+        "content_key": "apchem-oht-3.8",
+        "loaded": true,
+        "natural_width": 680,
+        "natural_height": 1200,
+        "rendered_width_css_px": 622.65625
+      }
+    ],
+    "evidence_directory": "scripts/question-visuals-pilot/browser-evidence",
+    "answers_submitted": 0,
+    "practice_actions": "Opened FRQ practice, skipped one question; no answer or grading submission.",
+    "restoration": "Restored AB course position to 2.1 and Statistics to 1.8; active subject returned to Statistics.",
+    "defect": "Switching subjects in the worked-example view can retain the previous subject’s question/answer under the new heading. Navigating to Home then Back remounted the view and loaded the correct Chemistry item."
+  },
+  "original_approval_id": "APPROVAL-0168",
+  "approval_id_reconciliation": "Concurrent main reserved 0168 for More help. Image approval renumbered 0173 without changing applied SQL/assets."
+}
