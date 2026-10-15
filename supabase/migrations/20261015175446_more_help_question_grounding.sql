@@ -375,7 +375,7 @@ begin
     'figures', coalesce(v_guides->'figures', '[]'::jsonb)
   );
 end;
-$function$
+$function$;
 
 revoke all on function public.get_question_experience(uuid,integer) from public,anon;
 grant execute on function public.get_question_experience(uuid,integer) to authenticated,service_role;

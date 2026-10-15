@@ -59,6 +59,34 @@ const output = {
   highlights: ["average rate of change", "invented phrase"],
   follow_ups: ["Why divide by time?"],
 };
+Deno.test("continuity statement selection rejects observed pre-submit verdicts in every generated field", () => {
+  const stem = "Consider the following statements. I. lim(t->4) r(t) exists. II. r is continuous at 4. III. r has a removable discontinuity. Which statements are true?";
+  const question = { ...raw, item: { ...raw.item, stem } };
+  assertEquals(typeof helpContext(question, input).grounding.coachingBoundary, "string");
+  for (const verdict of [
+    "Removable discontinuity: limit exists but differs from r(4)",
+    "The limit exists.",
+    "The limit does not exist.",
+    "The function is not continuous at t = 4.",
+    "It has a removable discontinuity.",
+    "Statements I and III are true.",
+    "Removable discontinuity",
+  ]) {
+    for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
+      const response = { ...output, [field]: field === "follow_ups" ? [verdict] : verdict };
+      assertThrows(() => validateHelp(response, [source], stem, true), HelpError);
+      validateHelp(response, [source], stem, false);
+    }
+  }
+  for (const safe of [
+    "Check the limit and recorded value separately.",
+    "Check whether the limit exists, then compare it with the recorded value.",
+    "What makes a discontinuity removable rather than a jump?",
+    "A removable discontinuity can be removed by redefining the function value.",
+  ]) {
+    validateHelp({ ...output, explanation: safe }, [source], stem, true);
+  }
+});
 Deno.test("multipart context preserves complete authored instructions and applies subpart disclosure protection", () => {
   const question = {
     ...raw,

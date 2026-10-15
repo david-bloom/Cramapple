@@ -107,6 +107,19 @@ function sourceVisibleCopy(source: Source): string {
 }
 const RATE_CONCLUSION =
   /\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
+function continuityStatements(question: string): boolean {
+  return /\bstatements?\b/i.test(question) &&
+    /\b(?:continuous|continuity|discontinuity)\b/i.test(question) &&
+    /\blimit\b|\blim\s*\(/i.test(question);
+}
+// Observed statement-selection leak, scoped to that task. Inspect generated
+// conclusions only; generic published definitions and conditional setup stay usable.
+function continuityVerdict(copy: string): boolean {
+  return /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:the\s+)?(?:two-sided\s+)?limit\s+(?:exists\b|does\s+not\s+exist\b|equals\b|is\s+[+-]?\d)/i.test(copy) ||
+    /(?:^|[.!?\n:]\s*|\b(?:so|therefore|thus|hence)[,:]?\s+)(?:it|this\s+function|the\s+function|[a-z]\([^\n)]*\))\s+(?:is\s+(?:not\s+)?continuous\b|has\s+(?:a\s+)?(?:removable|jump|infinite)\s+discontinuity\b)/i.test(copy) ||
+    /\bstatements?\s+(?:I{1,3}|IV|[1-4])(?:\s*(?:and|,)\s*(?:I{1,3}|IV|[1-4]))*\s+(?:is|are)\s+(?:true|false|correct|incorrect)\b/i.test(copy) ||
+    /^\s*(?:removable|jump|infinite)\s+discontinuity(?:\s*[:—-][^\n]*)?\s*$/im.test(copy);
+}
 export function helpContext(raw: unknown, input: HelpInput) {
   const r = object(raw),
     item = object(r.item),
@@ -142,6 +155,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
   const after = input.phase === "after" && grading.status === "graded" &&
     !draft;
   const rateTrap = !after && conceptualRateTrap(questionText);
+  const continuityTrap = !after && continuityStatements(questionText);
   const sources: Source[] = Object.values(object(r.reference)).flatMap(list)
     .map(object).map((e) => ({
       id: text(e.id || e.referenceEntryId),
@@ -200,6 +214,8 @@ export function helpContext(raw: unknown, input: HelpInput) {
       phase: after ? "after" : "before",
       coachingBoundary: rateTrap
         ? "A conceptual subpart asks why the proposed average-rate calculation fails. Do not state that reason or its conclusion. Ask the student to identify what the numerator and denominator measure, then inspect the interval themselves. Do not evaluate its width or diagnose the proposed formula."
+        : continuityTrap
+        ? "The question asks which limit/continuity/discontinuity statements are true. Every generated field, including the headline and follow-up questions, must guide a check without confirming any statement. Do not assert whether the limit exists, continuity holds, or which discontinuity applies. Use an action heading such as 'Check the limit and recorded value separately'. Let the student perform the comparison and classify the result."
         : null,
       currentWork: input.work,
       focus: input.focus,
@@ -345,6 +361,9 @@ export function validateHelp(
         undefined,
         "conceptual_subpart",
       );
+    }
+    if (continuityStatements(boundaryQuestionText) && continuityVerdict(copy)) {
+      throw new HelpError("answer_disclosure", 502, undefined, "continuity_statement_verdict");
     }
   }
   const ids = list(r.source_ids);
