@@ -28,4 +28,3 @@
 - **The Unit 5 local-vs-global justification split recurs identically in Unit 9's polar optimization** (2025 BC2 Part C): a response using only a local sign-change argument does not earn the justification point but remains eligible for the separate final-answer point.
 - **Naming an appropriate convergence test is explicitly sufficient for full credit at interval-of-convergence endpoints** — the 2025 BC Scoring Guidelines state this directly for Question 6 Part A: "Naming of an appropriate test is sufficient for the analysis at each endpoint." A full symbolic execution of the named test is not required if the correct test name and the correct conclusion are both present.
 - **Absolute value bars are optional in ratio-test setup notation**, confirmed as a real, documented scoring tolerance (BC6 CR report notes) as long as the response resolves to a symmetric interval — do not require absolute-value notation as a rubric criterion on its own.
-

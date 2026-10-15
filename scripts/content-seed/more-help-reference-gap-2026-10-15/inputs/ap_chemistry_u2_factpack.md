@@ -72,4 +72,3 @@ identification for a more complex, multi-central-atom molecule (Q5 Part A,
 trimethylsilanol) was comparatively accessible (0.65/1.0), but common wrong
 answers included "tetrahedral pyramidal" (an invalid compound label) and
 giving a bond angle (109.5°) without a geometry name.
-
