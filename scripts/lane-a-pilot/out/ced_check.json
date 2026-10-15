@@ -1,16 +1,24 @@
 {
   "models": [
     "openai/gpt-6.1-sol",
-    "google/gemini-3.5-flash"
+    "deepseek/deepseek-v4-pro"
   ],
   "figures": 3,
   "controls": 5,
   "controls_leaked": [
     "CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points"
   ],
-  "flagged": [],
-  "wall_seconds": 123.5,
+  "flagged": [
+    "chem-polyprotic-titration"
+  ],
+  "wall_seconds": 843.5,
   "usage": {
+    "deepseek/deepseek-v4-pro": {
+      "calls": 13,
+      "prompt": 12699,
+      "completion": 38137,
+      "seconds": 779.0
+    },
     "google/gemini-3.5-flash": {
       "calls": 200,
       "prompt": 242012,
@@ -18,10 +26,10 @@
       "seconds": 1210.4999999999995
     },
     "openai/gpt-6.1-sol": {
-      "calls": 200,
-      "prompt": 204389,
-      "completion": 21473,
-      "seconds": 871.6000000000006
+      "calls": 208,
+      "prompt": 211742,
+      "completion": 22972,
+      "seconds": 935.9000000000005
     }
   },
   "detail": {
@@ -33,7 +41,7 @@
           "issues": [],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "accept",
           "issues": [],
           "confidence": "high"
@@ -48,7 +56,7 @@
           "issues": [],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "accept",
           "issues": [],
           "confidence": "high"
@@ -63,10 +71,14 @@
           "issues": [],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
+        "deepseek/deepseek-v4-pro": {
+          "verdict": "error",
+          "issues": [
+            {
+              "what": "RuntimeError('deepseek/deepseek-v4-pro chem-polyprotic-titration:deepseek/deepseek-v4-pro: non-JSON output (0 chars)')",
+              "why": "call failed"
+            }
+          ]
         }
       }
     },
@@ -77,26 +89,30 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title calls the plotted values exponential data, and the alt text claims a constant multiplication factor of 2.",
-              "why": "The actual values follow y = 5 + 60x, with constant additive increments rather than constant ratios. The stated exponential model y = 5 \u00d7 2^x would produce 5, 10, 20, 40, 80, 160, 320."
+              "what": "The title calls the plotted values exponential data, and the alt text says each unit step in x multiplies y by 2.",
+              "why": "The actual values follow y = 5 + 60x, with constant differences rather than constant ratios. The stated exponential function y = 5 \u00d7 2^x would give 5, 10, 20, 40, 80, 160, 320."
             },
             {
-              "what": "The alt text and annotation describe the plotted series as a straight line.",
-              "why": "These values are not collinear on a logarithmic y-axis because their logarithms do not increase by equal amounts for equal x increments."
+              "what": "The annotation and alt text describe the points as lying on a straight line.",
+              "why": "On the logarithmic y-axis, these additive-growth values do not lie on a straight line because their successive ratios are not constant."
             },
             {
               "what": "The alt text says the points rise from 5 to 320.",
-              "why": "The final plotted point is (6, 365), not (6, 320)."
+              "why": "The plotted final point is (6, 365), not (6, 320)."
             }
           ],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The plotted data points are linear instead of exponential.",
-              "why": "The series points are [0, 5], [1, 65], [2, 125], [3, 185], [4, 245], [5, 305], [6, 365], which represent a linear relationship (adding 60 at each step). On a logarithmic y-axis, linear data curves instead of forming a straight line. This contradicts the title, subtitle, alt text, and the 'exp_check' parameters, which all state that the data is exponential (doubling from 5 to 320) and forms a straight line."
+              "what": "The plotted points are not exponential: y-values are 5, 65, 125, 185, 245, 305, 365, which increase linearly by 60, not multiplicatively by 2.",
+              "why": "The figure claims exponential data that lies on a straight line on a log axis; however, an arithmetic sequence like this does not graph as a straight line on a log scale."
+            },
+            {
+              "what": "The alt text states the points rise from 5 to 320, but the final plotted y-value is 365.",
+              "why": "This is a numeric mismatch between the description and the actual data, misleading a student about the illustrated range."
             }
           ],
           "confidence": "high"
@@ -110,22 +126,22 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The alt text describes the dashed line as rising to the right, but it falls from (1, 200) to (9, 5).",
-              "why": "The logarithmic vertical scale preserves this downward direction, so the stated direction contradicts the drawn line."
+              "what": "The dashed line slopes downward, contrary to the alt text's claim that it runs up to the right.",
+              "why": "Its endpoints are (1, 200) and (9, 5), so it decreases on the logarithmic vertical axis while the data increase."
             },
             {
-              "what": "The claimed alignment with the dashed line is false: the first two points are below it, and the points from x = 3 onward do not sit close to it.",
-              "why": "The scatter values increase while the dashed line decreases. At x = 9, the point is 199.5 while the line is 5, a separation of about 1.60 log10 units, far exceeding the stated 0.04 residual threshold. Thus the line does not demonstrate the described exponential trend."
+              "what": "The points do not have the stated relationship to the dashed line.",
+              "why": "The first two points are below the line, not a little above it, and the points from x = 3 onward do not stay close to it. At x = 9, the point is 199.5 while the line is 5, a separation of about 1.60 log10 units, contradicting the stated maximum residual of 0.04."
             }
           ],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The dashed trend line is decreasing while the scatter data points are increasing.",
-              "why": "The dashed line is defined from (1, 200.0) to (9, 5.0), which slopes downward. However, the scatter points increase from 6.9 at x=1 to 199.5 at x=9. This contradicts the alt text stating that the dashed line runs up to the right and that the points sit close to it."
+              "what": "The dashed 'straight trend' line is drawn from (1,200) to (9,5), so on a logarithmic y-axis it slopes downward from left to right, while the title, subtitle, and alt text say it runs up to the right and represents an increasing exponential trend.",
+              "why": "The plotted data increase from about 13.2 at x=3 to 199.5 at x=9, so their logarithms rise linearly. A trend line for those points should also rise; the given line falls sharply and does not follow the large-input points, contradicting the entry's claim and the visual description."
             }
           ],
           "confidence": "high"
@@ -139,16 +155,20 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The half-equivalence labels are reversed: the first is labelled \u201cpH = pKa\u2082 = 9.0\u201d and the second \u201cpH = pKa\u2081 = 4.0.\u201d",
-              "why": "With pKa values 4.0 and 9.0 and equivalence volumes 25 and 50 mL, the first half-equivalence point (12.5 mL) has pH approximately 4.0, while the second (37.5 mL) has pH approximately 9.0. The labels contradict the curve and alt text."
+              "what": "The half-equivalence labels are reversed: the first is labelled \u201cpH = pKa\u2082 = 9.0,\u201d and the second \u201cpH = pKa\u2081 = 4.0.\u201d",
+              "why": "With pKa\u2081 = 4.0 and pKa\u2082 = 9.0, the half-equivalence point at 12.5 mL has pH approximately 4.0, while the point halfway between the equivalence volumes, at 37.5 mL, has pH approximately 9.0. The labels contradict the curve\u2019s values and the alt text."
             }
           ],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
-          "verdict": "accept",
-          "issues": [],
-          "confidence": "high"
+        "deepseek/deepseek-v4-pro": {
+          "verdict": "error",
+          "issues": [
+            {
+              "what": "RuntimeError('deepseek/deepseek-v4-pro CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points:deepseek/deepseek-v4-pro: non-JSON output (0 chars)')",
+              "why": "call failed"
+            }
+          ]
         }
       }
     },
@@ -159,18 +179,22 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The major-species labels at 8 mL and 54 mL are reversed.",
-              "why": "At 8 mL, before the first half-equivalence volume of 12.5 mL, H\u2082A is the major species, not A\u00b2\u207b. At 54 mL, beyond the second equivalence point at 50 mL, A\u00b2\u207b is the major species, not H\u2082A. Adding strong base progressively deprotonates the acid, consistent with the alt text but contrary to these labels."
+              "what": "The label at 8 mL says \u201cmostly A\u00b2\u207b.\u201d",
+              "why": "At 8 mL, before the first half-equivalence volume of 12.5 mL, H\u2082A is the major species, not A\u00b2\u207b."
+            },
+            {
+              "what": "The label at 54 mL says \u201cmostly H\u2082A.\u201d",
+              "why": "At 54 mL, beyond the second equivalence point at 50 mL, the acid is predominantly A\u00b2\u207b, not H\u2082A. These labels also contradict the alt text\u2019s stated progression from H\u2082A to HA\u207b to A\u00b2\u207b."
             }
           ],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The labels for the major species are placed at incorrect x-coordinates (volumes of titrant).",
-              "why": "At x = 8 mL (before the first equivalence point), the major species should be H\u2082A, but the label says 'mostly A\u00b2\u207b'. At x = 54 mL (after the second equivalence point), the major species should be A\u00b2\u207b, but the label says 'mostly H\u2082A'. This reverses the actual chemical species present during the titration."
+              "what": "The major-species labels are placed in reverse along the titration curve.",
+              "why": "At x = 8 mL (before the first equivalence point at 25 mL) and low pH, the dominant species should be H2A, not A2\u2212. At x = 54 mL (after the second equivalence point at 50 mL) and high pH, the dominant species should be A2\u2212, not H2A. The drawing places 'mostly A2\u2212' at x = 8 and 'mostly H2A' at x = 54, contradicting the stated H2A \u2192 HA\u2212 \u2192 A2\u2212 sequence and teaching a student the wrong major species."
             }
           ],
           "confidence": "high"
@@ -184,18 +208,22 @@
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, alt text, and note incorrectly claim that exponential data bend upward on this semi-log plot.",
-              "why": "The points satisfy y = 5 \u00d7 2^x. With a logarithmic y-axis, log(y) = log(5) + x log(2), so they form a straight line, consistent with the entry and the 'straight line' annotation. Upward curvature on a semi-log plot does not establish an exponential model."
+              "what": "The title, subtitle, alt text, and note incorrectly state that exponential data bend upward on a semi-log plot.",
+              "why": "The points satisfy y = 5\u00b72^x. With the specified logarithmic y-axis, log(y) = log(5) + x\u00b7log(2), so they form a straight line with constant slope, not an increasingly steep curve. These statements contradict both the drawing parameters and the entry's claim."
+            },
+            {
+              "what": "The note claims that a curve on a semi-log plot means the model is exponential.",
+              "why": "An exponential model produces a straight line when y is log-scaled and x is linear. Curvature does not establish an exponential model."
             }
           ],
           "confidence": "high"
         },
-        "google/gemini-3.5-flash": {
+        "deepseek/deepseek-v4-pro": {
           "verdict": "reject",
           "issues": [
             {
-              "what": "The title, subtitle, alt text, and note assert that exponential data curves or bends upward on a semi-log plot.",
-              "why": "On a semi-log plot (with a logarithmic y-axis), exponential data of the form y = a * b^x appears as a straight line, not a curve. The assertion that it curves upward is mathematically incorrect and directly contradicts the reference entry's claim that 'exponential data or functions appear linear'."
+              "what": "The title, subtitle, alt text, and note state that exponential data bend upward and curve more and more steeply on a semi-log plot, but the plotted points follow y = 5 \u00d7 2^x, which is exactly linear on a log-scaled y-axis.",
+              "why": "The authored entry itself says exponential data or functions appear linear when the y-axis is log-scaled. The figure's text asserts the opposite, so a student would learn a false relationship."
             }
           ],
           "confidence": "high"
