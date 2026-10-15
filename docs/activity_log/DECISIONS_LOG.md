@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
 - DECISION-0122 — The Ten Rubric-Line LaTeX Edits Are Dropped: the Grader Reads Rubric Text, So Rubric Rows Keep Their Plain Text Unless a Verified Mitigation Exists (`TASK-0074`, `TASK-0073`)
@@ -75,6 +76,19 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
+
+- **Date:** 2026-10-14
+- **Decided by:** David Bloom (Product Owner), in session, answering the four rulings requested in `TASK-0075`: "Scope: start with 383 then do the 1,664. Notation: latex everywhere. Units: I approve your recommendation."
+- **Context:** the read-only inventory found 2,585 published rows with ASCII maths (`6*pi`, `sqrt(k/m)`, `e^2`, `9E_s`, `epsilon_0`), of which 1,664 are in scope: multiple-choice choices, rationales, stems and stimuli. Rubric text (`DECISION-0122`), FRQ stems and stimuli (the grader's prompt includes them) and version explanations (no student surface) are out.
+- **Decision:**
+  1. **Tier A:** convert the 383 answer-choice rows first. **Tier B:** then the remaining in-scope rows (1,664 in total).
+  2. **Notation:** LaTeX everywhere, `\(…\)` inline and `\[…\]` display on its own line, as `DECISION-0121` item 5. Ordinary words that match a pattern (`gamma rays`, `delta` as a name) are left alone.
+  3. **Units and powers of ten:** exponents are converted, e.g. `\mathrm{m/s^2}`; compound units keep their slash (`DECISION-0119`).
+  4. **Process:** each batch is drafted by stating the exact span and its LaTeX, validated deterministically, independently QA'd, visually QA'd by the Product Owner, and written with the Phase 1 transaction pattern (exact before-text guards, versions pinned, taxonomy labels captured and restored, post-write verification). **Each Production write needs the Product Owner's explicit approval.**
+  5. **Order for Tier B:** Physics C E&M, Physics C Mechanics, Physics 1, Physics 2, Precalculus, Chemistry, Statistics, Biology, with Calculus last.
+- **Open:** the storage location of the Deep Dive lesson notes (not found by table name); bracket-free quotient choices (such as `4πR²/ρ`) that the regex inventory cannot find; FRQ stems and stimuli, until the grader-read risk is solved.
+- **Execution:** documentation only in this decision. Work is tracked in `TASK-0075`.
 ## DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 
 - **Date:** 2026-10-15
