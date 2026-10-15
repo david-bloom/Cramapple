@@ -165,7 +165,80 @@ def p_equilibrium(sid, s, svg):
            max(ends) - min(ends) < 1e-9, f"ends={ends}")
 
 
+def p_titration_diprotic(sid, s, svg):
+    """A diprotic acid's curve: two equivalence points, and the species named on it.
+
+    The three labelled parts of the entry are READ off the curve (the number of
+    protons, the major species, the pKa of each), so each is checked against the
+    curve instead of the drawing being trusted to look like a titration.
+    """
+    p = s["params"]
+    k1, k2 = 10.0 ** -p["pkas"][0], 10.0 ** -p["pkas"][1]
+    ph = lambda v: R.diprotic_ph(v, p["v0"], p["c"], p["c_t"], p["pkas"][0], p["pkas"][1])
+    e1 = p["v_eq"]
+    e2 = 2 * e1
+    ck(sid, "the acid is diprotic: exactly two pKa values, the first the stronger acid",
+       len(p["pkas"]) == 2 and p["pkas"][0] < p["pkas"][1])
+    ck(sid, "the second equivalence volume is twice the first (one proton each)",
+       abs(e2 - 2 * e1) < 1e-9 and e2 < p["v_max"], f"e2={e2} v_max={p['v_max']}")
+    ck(sid, "pH = pKa1 at the first half-equivalence point (within 0.05)",
+       abs(ph(e1 / 2) - p["pkas"][0]) < 0.05, f"pH={ph(e1/2):.3f} pKa1={p['pkas'][0]}")
+    ck(sid, "pH = pKa2 at the second half-equivalence point (within 0.05)",
+       abs(ph(1.5 * e1) - p["pkas"][1]) < 0.05, f"pH={ph(1.5*e1):.3f} pKa2={p['pkas'][1]}")
+    ck(sid, "the first equivalence point sits near the mean of the two pKa values",
+       abs(ph(e1) - sum(p["pkas"]) / 2) < 0.3, f"pH={ph(e1):.2f}")
+    ck(sid, "the second equivalence point is basic",
+       ph(e2) > 7.0, f"pH={ph(e2):.2f}")
+    vs = [i * p["v_max"] / 600 for i in range(0, 601)]
+    phs = [ph(v) for v in vs]
+    ck(sid, "pH increases monotonically", all(phs[i] <= phs[i + 1] + 1e-9 for i in range(600)))
+    ck(sid, "pH stays inside 0-14", all(0 <= y <= 14 for y in phs))
+    # Two steep rises, one at each equivalence point: the number of acidic
+    # protons is the number of these, so they must be where the figure says.
+    step = p["v_max"] / 600
+    slope = [(phs[i + 1] - phs[i]) / step for i in range(600)]
+    cut = int(round(1.5 * e1 / step))
+    steep1 = vs[max(range(cut), key=lambda i: slope[i])]
+    steep2 = vs[cut + max(range(600 - cut), key=lambda i: slope[cut + i])]
+    ck(sid, "the first steep rise is at the first equivalence volume",
+       abs(steep1 - e1) < 0.5, f"steepest at {steep1:.2f}, drawn at {e1}")
+    ck(sid, "the second steep rise is at the second equivalence volume",
+       abs(steep2 - e2) < 0.5, f"steepest at {steep2:.2f}, drawn at {e2}")
+    flat = abs(slope[int(round((e1 / 2) / step))])
+    ck(sid, "each equivalence point is far steeper than its buffer region",
+       slope[int(round(e1 / step))] > 5 * flat and slope[int(round(e2 / step))] > 5 * flat,
+       f"buffer slope {flat:.3f}")
+    # The curve is a solution of the charge balance, not just a plausible shape.
+    worst = 0.0
+    for v in (2.0, 7.5, 12.5, 18.0, 25.0, 31.0, 37.5, 44.0, 50.0, 55.0):
+        y = ph(v)
+        h = 10.0 ** -y
+        d = h * h + k1 * h + k1 * k2
+        vt = p["v0"] + v
+        ca, cb = p["c"] * p["v0"] / vt, p["c_t"] * v / vt
+        worst = max(worst, abs(cb + h - 1e-14 / h - ca * (k1 * h + 2 * k1 * k2) / d))
+    ck(sid, "the curve satisfies the charge balance at sampled volumes", worst < 1e-9,
+       f"worst residual {worst:.2e}")
+    # Major species: the species named at each x must be the one that dominates there.
+    want = {"mostly H\u2082A": 0, "mostly HA\u2212": 1, "mostly A\u00b2\u2212": 2}
+    ck(sid, "all three species are named on the curve",
+       sorted(t["label"] for t in p["texts"]) == sorted(want))
+    for t in p["texts"]:
+        h = 10.0 ** -ph(t["x"])
+        d = h * h + k1 * h + k1 * k2
+        fr = [h * h / d, k1 * h / d, k1 * k2 / d]
+        ck(sid, f"'{t['label']}' names the dominant species at {t['x']} mL",
+           max(range(3), key=lambda i: fr[i]) == want[t["label"]],
+           f"fractions {[round(f, 3) for f in fr]}")
+    ck(sid, "the half-equivalence marks state the pKa values the curve has",
+       all(f"{p['pkas'][i]:.1f}" in p["half_labels"][i] for i in range(2)))
+    ck(sid, "the note ties the number of equivalence points to the number of protons",
+       "two equivalence points" in s["note"] and "two acidic protons" in s["note"])
+
+
 def p_titration(sid, s, svg):
+    if "pkas" in s["params"]:
+        return p_titration_diprotic(sid, s, svg)
     p = s["params"]
     ph = lambda v: R.titration_ph(v, p["v_eq"], p["pka"], p["c"], p["strong"])
     half = p["v_eq"] / 2
@@ -346,6 +419,65 @@ def p_xy_series(sid, s, svg):
     p = s["params"]
     g = R.FAMILIES["xy_series"](p)
 
+    if p.get("y_scale") == "log":              # semi-log plots (Precalculus 2.15)
+        lo, hi = g["y_range"]
+        ticks = g["y_ticks"]
+        ck(sid, "the log axis spans whole decades",
+           abs(lo - round(lo)) < 1e-9 and abs(hi - round(hi)) < 1e-9, f"({lo}, {hi})")
+        ck(sid, "every decade is labelled with its power of ten, equally spaced",
+           [pos for pos, _ in ticks] == list(range(int(round(lo)), int(round(hi)) + 1))
+           and [lbl for _, lbl in ticks] == [R.decade_label(k) for k in range(int(round(lo)), int(round(hi)) + 1)],
+           f"{ticks}")
+        ck(sid, "the labels read 1, 10, 100, 1,000 in that order",
+           [l for _, l in ticks][:4] == ["1", "10", "100", "1,000"][:len(ticks)])
+        raw = [pt for sr in p["series"] for pt in sr["points"]]
+        ck(sid, "every plotted value is positive and inside the labelled window",
+           all(10 ** lo <= y <= 10 ** hi for _, y in raw), f"window 10^({lo},{hi})")
+        ck(sid, "the y axis title says it is a log scale", "log" in s["y_label"].lower())
+        ck(sid, "drawn heights are the log of the values: equal factors are equal distances",
+           all(abs(c["pts"][i][1] - math.log10(sr["points"][i][1])) < 1e-12
+               for sr, c in zip([sr for sr in p["series"] if sr.get("kind", "line") != "scatter"], g["curves"])
+               for i in range(len(c["pts"]))))
+        if "exp_check" in p:
+            a_, b_ = p["exp_check"]["a"], p["exp_check"]["b"]
+            pts = p["series"][0]["points"]
+            ck(sid, "the data are exactly exponential, y = a * b^x",
+               all(abs(y - a_ * b_ ** x) < 1e-9 for x, y in pts), f"a={a_} b={b_}")
+            lg = [(x, math.log10(y)) for x, y in pts]
+            sl = [(lg[i + 1][1] - lg[i][1]) / (lg[i + 1][0] - lg[i][0]) for i in range(len(lg) - 1)]
+            ck(sid, "on the log axis the line has one constant slope, log10 of b",
+               max(sl) - min(sl) < 1e-9 and abs(sl[0] - math.log10(b_)) < 1e-9, f"slopes {sl}")
+            ck(sid, "the scatter and the drawn line are the same points",
+               p["series"][0]["points"] == p["series"][1]["points"])
+            ck(sid, "the alt text states the constant factor",
+               f"factor, here {b_}" in s["alt"] or f"factor, here {int(b_)}" in s["alt"])
+        if "trend_check" in p:
+            tc = p["trend_check"]
+            line = [sr for sr in p["series"] if sr.get("style") == "dashed"][0]["points"]
+            dots = [sr for sr in p["series"] if sr.get("kind") == "scatter"][0]["points"]
+            (x1, y1), (x2, y2) = line[0], line[-1]
+            sl = (math.log10(y2) - math.log10(y1)) / (x2 - x1)
+            on = lambda x: math.log10(y1) + sl * (x - x1)
+            tail = [(x, math.log10(y)) for x, y in dots if x >= tc["from_x"]]
+            n_ = len(tail)
+            mx = sum(x for x, _ in tail) / n_
+            my = sum(y for _, y in tail) / n_
+            b_ = sum((x - mx) * (y - my) for x, y in tail) / sum((x - mx) ** 2 for x, _ in tail)
+            a_ = my - b_ * mx
+            ck(sid, "the drawn trend line is the least-squares line through the later points",
+               abs(sl - b_) < 2e-3 and abs(on(mx) - (a_ + b_ * mx)) < 2e-3,
+               f"slope {sl:.4f} vs {b_:.4f}")
+            ck(sid, "the later points sit on the line (logs trend linear for large inputs)",
+               max(abs(ly - on(x)) for x, ly in tail) <= tc["max_resid_log10"],
+               f"worst {max(abs(ly - on(x)) for x, ly in tail):.3f}")
+            early = [(x, math.log10(y)) for x, y in dots if x < tc["from_x"]]
+            ck(sid, "the early points are visibly off the line, as the note says",
+               all(ly - on(x) >= tc["early_min_resid_log10"] for x, ly in early),
+               f"{[round(ly - on(x), 3) for x, ly in early]}")
+            ck(sid, "the log-scale trend is rising, so the model is growth not decay", sl > 0)
+            ck(sid, "the note says the early points are off but the model stands",
+               "first two points" in s["note"] and "justified" in s["note"])
+
     if "pv_const" in p:                       # PV figure 1: the isotherm
         pv = p["pv_const"]
         pts = p["series"][0]["points"]
@@ -524,9 +656,10 @@ def p_xy_series(sid, s, svg):
 
     gx0, gx1 = g["x_range"]
     gy0, gy1 = g["y_range"]
+    to_y = math.log10 if p.get("y_scale") == "log" else (lambda y: y)
     for sr in p["series"]:
         ck(sid, "every plotted point is inside the axes",
-           all(gx0 - 1e-9 <= x <= gx1 + 1e-9 and gy0 - 1e-9 <= y <= gy1 + 1e-9
+           all(gx0 - 1e-9 <= x <= gx1 + 1e-9 and gy0 - 1e-9 <= to_y(y) <= gy1 + 1e-9
                for x, y in sr["points"]))
 
 

@@ -762,6 +762,52 @@ def next3_controls(specs: dict) -> dict:
     return c
 
 
+def next4_controls(specs: dict) -> dict:
+    """Controls for batch 4: two semi-log figures (Precalculus 2.15) and a diprotic titration
+    curve (Chemistry 8.5). The log and titration checks in verify.py read the numbers, so each
+    control here breaks a claim the picture visibly contradicts."""
+    c = {}
+
+    # P1 the data are not exponential (they rise by a constant amount), but the words still say
+    # they double and lie on a straight line.
+    s = copy.deepcopy(specs["precalc-semilog-plot"])
+    ys = [5, 65, 125, 185, 245, 305, 365]
+    for sr in s["params"]["series"]:
+        sr["points"] = [[x, y] for x, y in zip(range(7), ys)]
+    c["CONTROL-P1-linear-data-called-exponential-on-the-log-axis"] = s
+
+    # P2 the trend line runs the opposite way to the points.
+    s = copy.deepcopy(specs["precalc-semilog-justify"])
+    for sr in s["params"]["series"]:
+        if sr.get("style") == "dashed":
+            sr["points"] = [[1, 200.0], [9, 5.0]]
+    c["CONTROL-P2-trend-line-falls-while-the-points-rise"] = s
+
+    # P3 the two pKa values attached to the wrong half-equivalence points.
+    s = copy.deepcopy(specs["chem-polyprotic-titration"])
+    s["params"]["half_labels"] = ["pH = pKa\u2082 = 9.0", "pH = pKa\u2081 = 4.0"]
+    c["CONTROL-P3-pka-values-on-the-wrong-half-equivalence-points"] = s
+
+    # P4 the major species named in the wrong order along the curve.
+    s = copy.deepcopy(specs["chem-polyprotic-titration"])
+    s["params"]["texts"] = [{"x": 8, "y": 1.0, "label": "mostly A\u00b2\u2212"},
+                            {"x": 32, "y": 1.0, "label": "mostly HA\u2212"},
+                            {"x": 54, "y": 1.0, "label": "mostly H\u2082A"}]
+    c["CONTROL-P4-major-species-named-in-reverse-order"] = s
+
+    # P5 the straight line on the log axis called a curve.
+    s = copy.deepcopy(specs["precalc-semilog-plot"])
+    s["title"] = "Exponential data bend upward on a semi-log plot"
+    s["subtitle"] = "On a log axis exponential data curve more and more steeply"
+    s["note"] = "On a semi-log axis exponential data bend upward, so a curve means the model is exponential."
+    s["alt"] = ("A semi-log plot: seven points of exponential data on a logarithmic vertical axis. The points "
+                "bend upward in a curve that climbs more and more steeply to the right, which is how exponential "
+                "data look on a semi-log plot. Illustrative data.")
+    c["CONTROL-P5-straight-line-on-the-log-axis-called-a-curve"] = s
+
+    return c
+
+
 CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": physics_controls,
                 "lane-a-gaps": gaps_controls,
                 "lane-b-arrows": arrow_controls,
@@ -772,7 +818,8 @@ CONTROL_SETS = {"chem-": controls, "stats-": stats_controls, "lane-a-rest": phys
                 "lane-b-gaps": laneb_gap_controls,
                 "lane-a-next1": next1_controls,
                 "lane-a-next2": next2_controls,
-                "lane-a-next3": next3_controls}
+                "lane-a-next3": next3_controls,
+                "lane-a-next4": next4_controls}
 
 
 def prompt_for(sid: str, spec: dict, entry: dict) -> str:
