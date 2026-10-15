@@ -6,7 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0168 — Attach the Four Built Question Visuals to Their Live Student Questions (Production, Existing Private-Image Delivery Contract)
+- APPROVAL-0173 — Attach the Four Built Question Visuals to Their Live Student Questions (Production, Existing Private-Image Delivery Contract)
 - APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
 - APPROVAL-0171 — Production Text Fix: Renumber the Subtitles of Four Skew Figures So "Figure N of 3" Matches the Order the App Serves Them
 - APPROVAL-0170 — Production Load of Figure Batch `stats-next3-figures-2026-10-15`: Six AP Statistics Skew and Mean-vs-Median Figures (Topics 1.6 and 1.8)
@@ -143,7 +143,9 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## APPROVAL-0168 — Attach the Four Built Question Visuals to Their Live Student Questions
+## APPROVAL-0173 — Attach the Four Built Question Visuals to Their Live Student Questions
+
+**ID reconciliation (2026-10-15):** this branch originally called this image approval 0168. Concurrent main used 0168 for the More help function. This entry is now uniquely 0173; historical executed SQL comments retain 0168. Scope, owner authorization and the applied transaction are unchanged.
 
 - **Date:** 2026-10-15 UTC / 2026-10-14 America/New_York.
 - **Granted by:** David Bloom (Product Owner), in session: “attach to live student questions”, after the four deterministic visual builds and preview were provided.

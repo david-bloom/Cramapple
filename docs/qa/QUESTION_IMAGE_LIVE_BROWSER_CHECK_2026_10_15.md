@@ -1,6 +1,6 @@
 # Four question visuals — live browser check, 2026-10-15
 
-**Result:** all four owner-requested attachments render in the live signed-in student-facing app. Same implementation agent performed this follow-up; this is not an independent content/accessibility verdict. Production authorization remains APPROVAL-0168. No image/content/app/function/schema changes in this follow-up.
+**Result:** all four owner-requested attachments render in the live signed-in student-facing app. Same implementation agent performed this follow-up; this is not an independent content/accessibility verdict. Production authorization remains APPROVAL-0173. No image/content/app/function/schema changes in this follow-up.
 
 | Exact question | Browser path | Image result | Evidence |
 | --- | --- | --- | --- |

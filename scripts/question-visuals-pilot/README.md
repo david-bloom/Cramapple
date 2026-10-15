@@ -1,7 +1,7 @@
 # Four question-stimulus visuals
 
 **Status:** Four compact PNGs attached to their live Production question versions, 2026-10-15 01:40:28 UTC.
-**Owner authorization:** David Bloom: “Build the 4”, then “attach to live student questions” (APPROVAL-0168). See `production-release.json` for exact paths, checksums, approval and verification limits. Full/expanded layouts remain local build artifacts.
+**Owner authorization:** David Bloom: “Build the 4”, then “attach to live student questions” (APPROVAL-0173). See `production-release.json` for exact paths, checksums, approval and verification limits. Full/expanded layouts remain local build artifacts.
 
 Open `preview.html` to inspect all four. Each has compact, full and expanded layouts, an SVG source rendering and a 2× PNG derivative. `specs.json` is the editable deterministic source; `manifest.json` pins the exact question version, source digests, accessible descriptions, file checksums and proposed immutable private-storage object paths.
 
