@@ -1,6 +1,6 @@
 # Calculus AB and Chemistry Units 1–3: complete source audit
 
-**Status: source audit complete; certification pending two prepared attachments, independent QA and final delivery checks.** Periodic-table access is not a blocker under the owner's latest direction.
+**Final status: PASS for required-visual completeness.** See [the bounded certificate](CALC_CHEM_U13_VISUAL_COMPLETENESS_CERTIFICATE_2026_10_15.md) and [final independentQA](CALC_CHEM_U13_IMAGE_FINAL_QA_2026_10_15.md). The remaining text preserves the earlier source-audit/review packet; its pending-release statements are historical.
 
 The 2026-10-15 07:39 UTC Production snapshot includes **all 726 published versions** in both subjects: 448 Calculus AB and 278 Chemistry. Every stem, stimulus, choice and authored FRQ part was semantically reviewed, including the keyword-negative rows and every later-unit/held/provisional item. Auditing this superset prevents uncertain unit labels from hiding an image defect. No question is certified merely because a regex found no visual keyword. Prior 91 reviews were reused only after exact comparison of the complete learner-facing source; all 91 matched.
 

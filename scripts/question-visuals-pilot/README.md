@@ -1,3 +1,5 @@
+> Current live compact revision: `../question-visuals-phone-v2/` (APPROVAL-0174). This folder retains the earlier immutable build/release evidence.
+
 # Four question-stimulus visuals
 
 **Status:** Four compact PNGs attached to their live Production question versions, 2026-10-15 01:40:28 UTC.

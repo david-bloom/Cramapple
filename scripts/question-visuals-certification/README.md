@@ -1,3 +1,5 @@
+> Current live compact revision: `../question-visuals-phone-v2/` (APPROVAL-0174). This folder retains the earlier immutable build/release evidence.
+
 # Two follow-up question visuals
 
 Built for the owner's request to complete and certify the Calculus AB/Chemistry Units 1–3 audit. **Prepared, not uploaded or attached.** The four earlier attachments remain live.

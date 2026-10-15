@@ -1,3 +1,5 @@
+**LIVE: six v2 paths committed 2026-10-15 11:30:14UTC; independent final Pass and 12 desktop / 320 CSS views verified. See `production-release.json` and the bounded certificate in docs/qa.**
+
 # Six compact visual revisions for narrow phones
 
 Live 320 CSS-pixel browser measurement found each question image only 230.6667px wide after existing pane padding. The previous 22px artwork labels scaled to 14.93px. This revision uses 26px meaningful labels on the same 340px artwork, giving 17.59px at the conservative minimum image width of 230px. Graph tick labels remain excepted under DECISION-0120.
