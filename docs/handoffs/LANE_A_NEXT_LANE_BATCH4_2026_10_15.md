@@ -62,4 +62,4 @@ CONTROL-P3 twice).
 
 ## Loaded to Production (2026-10-15, APPROVAL-0176)
 
-Renderer merged (`ap-prep-blueprint` #27, `2fbb345`) and published (APPROVAL-0175); the three figures were then loaded to Production under APPROVAL-0176 and verified (88 published, 96 uses; params/labels equal the fixture; student RPC returns them on 2.15 and 8.5; planted draft invisible). **Still owed:** a signed-in look at Precalculus 2.15 and Chemistry 8.5 in the live app. Rollback: retire the three figures (see the approval).
+Renderer merged (`ap-prep-blueprint` #27, `2fbb345`) and published (APPROVAL-0175); the three figures were then loaded to Production under APPROVAL-0176 and verified (88 published, 96 uses; params/labels equal the fixture; student RPC returns them on 2.15 and 8.5; planted draft invisible). **Live check done:** David signed in and confirmed the images ("Images are good"). Rollback: retire the three figures (see the approval).
