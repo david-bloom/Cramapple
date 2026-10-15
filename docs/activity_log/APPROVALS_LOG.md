@@ -142,6 +142,15 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## APPROVAL-0173 — Lovable Publication of the App (`56cae479…`) From `ap-prep-blueprint` `main` at `2fbb345`: Log Axis, Text Labels and Diprotic Titration Renderer Capabilities (`#27`)
+
+- **Date:** 2026-10-15
+- **Granted by:** David Bloom (Product Owner), in session: "merge ap-prep-blueprint #27 and publish the app".
+- **Scope:** merge `ap-prep-blueprint` #27 (merge commit `2fbb345f3da2d0d20bcfe663f9dae20c05fdc645`, CI `checks` green on head `154bc18`), then publish Lovable project `56cae479-f7c9-4988-b536-56538c38ee4e` from `main`. The change is renderer-only: `xy_series` `y_scale: "log"` and `texts`, `[position, label]` y ticks, `left` mark placement, and the diprotic `titration_curve`. Port parity 264/264 against the Python reference; no existing figure changed.
+- **Not included:** no Production data change. The three batch-4 figures (`precalc-semilog-plot`, `precalc-semilog-justify`, `chem-polyprotic-titration`) stay unloaded; loading them needs its own approval after the live-bundle check below. Gate 4c for them passed with `gpt-6.1-sol` + `deepseek-v4-pro` (`docs/handoffs/LANE_A_NEXT_LANE_BATCH4_2026_10_15.md`).
+- **Rollback:** revert the merge commit on `main` and publish again.
+- **Result:** pending.
+
 ## APPROVAL-0172 — Production: Rename the Six Skew Figure Ids So the App Serves Them Right, Left, Symmetric, and Restore the Original "Figure N of 3" Numbering (Supersedes APPROVAL-0171)
 
 - **Date:** 2026-10-15
