@@ -7,6 +7,7 @@ import {
   HelpError,
   object,
   parseInput,
+  statedConclusionKinds,
   SUBJECTS,
   validateHelp,
 } from "./contract.ts";
@@ -1060,4 +1061,13 @@ Deno.test("FRQ identify/define subparts: boundary is set and generated copy may 
   ]) {
     validateHelp({ ...output, explanation: safe }, [source], stem, true, stem, "frq");
   }
+});
+
+Deno.test("law check ignores third-law partner asks and laws the question itself names", () => {
+  const stem = "(b) A student says these form a Newton's third law pair. Explain whether the student is correct, and identify the actual third-law partner of the gravitational force.";
+  assertEquals(statedConclusionKinds(stem).includes("law"), false);
+  const named = "(c) Identify the law that governs the system. Newton's second law is not required.";
+  assertEquals(statedConclusionKinds(named).includes("law"), true);
+  validateHelp({ ...output, explanation: "Newton's second law is mentioned in the stem; start from the forces on one skater." }, [source], named, true, named, "frq");
+  assertThrows(() => validateHelp({ ...output, explanation: "Use conservation of momentum." }, [source], named, true, named, "frq"), HelpError);
 });
