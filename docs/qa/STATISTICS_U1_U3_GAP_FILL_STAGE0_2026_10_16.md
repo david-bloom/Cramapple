@@ -4,7 +4,7 @@
 **Owner / Main Conductor:** Codex; Product Owner David Bloom  
 **Branch:** `codex/statistics-u1-u3-gap-fill`  
 **Tier:** Hard-Gate overall; Stage A authoring/checking bounded by the supplied work order  
-**State:** Stage 0 prepared; checker-slate confirmation pending before paid calls. No questions authored, no model calls, no database writes.
+**State:** Stage 0 completed; David confirmed the proposed checker slate in chat on 2026-10-16. Stage A completed with 31/31 accepted seeds; see [Stage A result](STATISTICS_U1_U3_GAP_FILL_STAGE_A_2026_10_16.md). No database writes. The baseline and proposal below record the pre-run state.
 
 ## Scope and governing sources
 
@@ -53,7 +53,7 @@ Live gateway roster refreshed on 2026-10-16, without paid inference calls. Price
 
 Authorship stays in-session; no paid gateway author. Standard slate proposed, with no Qwen substitution in Stage A. Budget estimate **$7–10**, based on the cited seed pilot and current roster; this is an estimate, not measured cost. Ceiling **$12 including controls, smoke calls, every attempt/retry, vetoes and labeling**. Actual spend **$0**; no `calls.jsonl` inference entries yet. Reserve enough for each dispatch before sending it; stop before exceeding the ceiling.
 
-The protocol §2.1 slate confirmation was requested in chat. The work order already answers the variant question: zero Stage A variants, and no Stage B start without a new go-ahead. Any genuinely necessary second-family author fallback must still honor the work order's prohibition on paid gateway authorship; do not silently pay for it.
+The protocol §2.1 slate confirmation was received in chat on 2026-10-16 (David: “confirmed”). The work order already answers the variant question: zero Stage A variants, and no Stage B start without a new go-ahead. Any genuinely necessary second-family author fallback must still honor the work order's prohibition on paid gateway authorship; do not silently pay for it.
 
 ## Execution requirements identified before spending
 
@@ -75,4 +75,4 @@ These are execution requirements, not changes to acceptance standards. Controls 
 4. Publication later uses `publish_mcq_batch.py`: plan → preflight → Production rollback rehearsal → owner approval recorded in a new APPROVAL entry → publish → committed-row md5 checks → real service-role selector → fresh gap query. No approval has been allocated.
 5. Stage B requires a separate go-ahead, calibration and head-to-head validation within its separate $22 ceiling.
 
-**Next owner:** David Bloom for slate confirmation; Codex then continues Stage A preparation/execution. Stage A acceptance, control success and publication readiness are all unverified.
+**Next owner:** David Bloom reviews the completed Stage A gate report. Production publication and Stage B remain unapproved. Live counts and outcomes belong in the Stage A result, not in this baseline record.
