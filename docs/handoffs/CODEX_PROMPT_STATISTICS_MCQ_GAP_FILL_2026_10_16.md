@@ -11,7 +11,7 @@ Close the **practice-MCQ gaps in AP Statistics, units 1–3**, using the content
 
 **[DAVID] Interpretation to confirm:** every empty topic gets **2 new seed MCQs**, and each seed then gets **3 variants** (`seed_pipeline.mjs --variants=3`), i.e. 6 new questions per empty topic. Stage A (seeds) and Stage B (variants) are separate gates; if you meant something else (for example 3 seeds per topic, or no variants), change this paragraph before sending.
 
-**[DAVID] Budget:** proposed ceiling **$30 for Stage A and $40 for Stage B**, counting every gateway call including controls, retries and vetoes. Stop and report if you would exceed either. Author in your own session; the gateway is for checkers only (`feedback_author_in_session_arbitrate`: do not pay a model to author what you can author, and arbitrate flags yourself).
+**[DAVID] Budget:** proposed ceilings **$12 for Stage A (31 seeds) and $32 for Stage B (93 variants)**, counting every gateway call including controls, retries, vetoes and label votes. Basis: the Biology seed pilot (`scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`) cost **$0.314 per accepted item** before the cost levers and about **$0.22** after them (82 items, $25.73), so seeds are roughly $7–10 and variants roughly $20–29 with a retry margin. Stop and report if you would exceed either. Author in your own session; the gateway is for checkers only (`feedback_author_in_session_arbitrate`: do not pay a model to author what you can author, and arbitrate flags yourself).
 
 ## Hard rules (the owner's, 2026-10-15)
 1. **Statistics only, units 1–3 only.** Do not touch unit 4+ or any other subject.
