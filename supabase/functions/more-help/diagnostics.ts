@@ -14,6 +14,8 @@ const OUTPUT_REASONS = new Set([
   "source_ids",
   "explicit_answer",
   "conceptual_subpart",
+  "continuity_statement_verdict",
+  "identify_subpart",
   "headline_type",
   "headline_empty",
   "headline_length",
