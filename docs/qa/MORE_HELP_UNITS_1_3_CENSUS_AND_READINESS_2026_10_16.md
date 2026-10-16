@@ -4,6 +4,24 @@ STATUS: CURRENT (a snapshot; rerun the SQL in `scripts/more-help-readiness/` for
 
 Read-only against Production. Content counts, not learner counts, and not proof of serving eligibility. Nothing was enabled. "First three units" = the three lowest unit numbers in each subject's taxonomy, so Physics 2 resolves to units 9–11 and Physics C E&M to 8–10; those two are **counted for information only, no work is planned or done on them** (owner direction 2026-10-15). Latest published version per content item; unit from the question RPC's active-cell rule. "Usable" = published, topic-tagged, with published reference grounding.
 
+
+> **CORRECTION 2026-10-16 (same day).** The MCQ counts below include the Open Hand worked-example items (MCQ-type, not served as practice), so they overstate practice MCQs by 1 per topic with a worked example (e.g. Biology U2 33 shown, 23 practice). Excluding them, **no subject/unit is short**: the lowest cell is Physics C Mechanics U2 with 13 practice MCQs and 7 FRQs; every cell has at least 7 practice FRQs. `census_units_1_3.sql` now excludes worked examples.
+>
+> The census is **per subject and unit**. **Per topic** the picture is different (units 1–3, practice MCQs; every topic has at least one FRQ):
+>
+> | Subject | Topics | Topics with 0 practice MCQs | with 1–2 |
+> | --- | --- | --- | --- |
+> | AP Calculus AB | 32 | 2 (1.1, 1.9) | 2 |
+> | AP Calculus BC | 32 | 3 (1.1, 1.9, 1.16) | 1 |
+> | AP Chemistry | 28 | 3 (3.3, 3.8, 3.11) | 0 |
+> | AP Physics 1 | 19 | 3 (1.1, 1.3, 2.2) | 0 |
+> | AP Physics C: Mechanics | 20 | 10 (1.1, 1.4, 1.5, 2.1, 2.3, 2.4, 2.6, 2.7, 2.8, 3.1) | 3 |
+> | AP Precalculus | 44 | 11 (1.1, 1.3, 1.11, 2.1, 2.2, 2.8, 2.9, 2.14, 3.4, 3.8, 3.15) | 5 |
+> | AP Statistics | 40 | 15 (1.1, 1.3, 1.4, 2.1, 2.3, 2.8, 2.11, 2.12, 3.7, 3.9–3.14) | 1 |
+> | AP Biology | 22 | 4 (2.2, 2.4, 2.5, 2.9) | 1 (2.10) |
+>
+> Physics 2 and Physics C: E&M not computed (out of scope). Topic-grain lists are from the practice-MCQ survey run 2026-10-16; many of these topics are small or are covered by the unit's other topics, so a zero is a gap to look at, not automatically a defect.
+
 ## Census (owner request: flag any subject/unit with fewer than 3 MCQs or fewer than 1 FRQ)
 
 **Result: no subject/unit is short.** Every one of the 30 cells has at least 13 usable MCQs and at least 6 usable FRQs. Zero questions in these cells lack reference grounding.
