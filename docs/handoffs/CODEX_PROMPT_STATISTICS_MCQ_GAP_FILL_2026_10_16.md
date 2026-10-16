@@ -1,9 +1,5 @@
 # Codex prompt — close the AP Statistics MCQ gaps (units 1–3): seeds first, then cheaper variants
 
-> **Before you send this:** confirm the **[DAVID]** lines (variant count and budgets). Everything else is ready to paste. This version replaces the earlier draft (seeds and variants together at a padded budget).
-
----
-
 You are the conductor for one bounded content task in the Cramapple repo (`/Users/davidbloom/Documents/Cramapple.nosync`). Start with `AGENTS.md`, then `docs/INDEX.md` (route through it; do not scan `docs/research`, `docs/teaching` or `scripts/*/out` broadly; open only the exact files named below).
 
 ## Goal
@@ -11,9 +7,9 @@ Close the **practice-MCQ gaps in AP Statistics, units 1–3**, using the content
 
 **Plan in two gated stages:**
 - **Stage A — seeds only.** 2 new seed MCQs for each empty topic and 1 for topic 2.2: **31 seeds**. Stop at a gate and report.
-- **Stage B — cheaper variants (only after the Product Owner says go).** Up to **3 variants per seed (93)**, produced with a **cheaper but still four-family-checked** profile that you must validate first (below). **[DAVID]** if you want 2 variants per seed instead (62), say so at the gate.
+- **Stage B — cheaper variants (only after the Product Owner says go).** Up to **3 variants per seed (93)**, produced with a **cheaper but still four-family-checked** profile that you must validate first (below). The Product Owner may reduce this to 2 variants per seed (62) at the gate.
 
-**[DAVID] Budget** (counts every gateway call: controls, retries, vetoes, label votes). Stage A ceiling **$12** (expected $7–10: the Biology seed pilot cost $0.314 per accepted item before the cost levers and about $0.22 after, `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`). Stage B ceiling **$22 including the validation work** (the standard profile would be about $20–29; the aim of the cheaper profile is roughly $0.15 per variant, about $14). Stop and report if you would exceed either. Author in your own session; the gateway is for checkers only (`feedback_author_in_session_arbitrate`: do not pay a model to author what you can author, and arbitrate flags yourself).
+**Budget** (counts every gateway call: controls, retries, vetoes, label votes). Stage A ceiling **$12** (expected $7–10: the Biology seed pilot cost $0.314 per accepted item before the cost levers and about $0.22 after, `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`). Stage B ceiling **$22 including the validation work** (the standard profile would be about $20–29; the aim of the cheaper profile is roughly $0.15 per variant, about $14). Stop and report if you would exceed either. Author in your own session; the gateway is for checkers only (`feedback_author_in_session_arbitrate`: do not pay a model to author what you can author, and arbitrate flags yourself).
 
 ## Hard rules (the owner's, 2026-10-15)
 1. **Statistics only, units 1–3 only.** Do not touch unit 4+ or any other subject.
