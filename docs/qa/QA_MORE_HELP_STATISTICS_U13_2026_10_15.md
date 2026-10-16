@@ -25,3 +25,13 @@ Units 1, 2, 3 × MCQ and FRQ; some requests with learner focus/work (one with de
 Accept as tolerable help (unanswered FRQ may reveal procedure selection), or require a pre-submit rule that FRQ parts asking to *identify/define/state* may not be answered. Until decided, do not deploy Statistics.
 
 Private packet with full question text and outputs (not committed): `tmp/more_help_stats_review_packet_2026_10_15.md`. Dev fixtures created: 6 single-item sessions for the synthetic identity (Statistics units 1, 2, 3 and one unit 5).
+
+## Addendum 2026-10-16: identify/define rule added; live rerun blocked by quota
+
+Owner direction: add the FRQ identify/define rule and rerun. Implemented as `identifyDefineTrap` in `supabase/functions/more-help/contract.ts` (server `coachingBoundary` for FRQs whose parts ask to identify/name/state/define a procedure, parameter, hypotheses, variable, population or sample, plus a pre-submit validator rejecting copy that names an inference procedure; reason `identify_subpart`). 35 backend tests pass (1 new), `deno check` clean. Deployed to **Development only**, `more-help` JWT-verified, two deploys (v15, then v16 adding the diagnostics reason).
+
+**Offline replay of the 8 saved round-1 outputs through the new validator** (no model calls): G06 and G08 rejected (`identify_subpart`); G01–G05 and G07 still pass. This proves the validator net only. It does not prove the new prompt boundary changes what the model writes.
+
+**Live FRQ rerun not yet done.** Four attempts (G01, G04, G06, G08) were refused `rate_limited` before any provider call: the synthetic account is at its 30-delivered/24h allowance (oldest receipts 17:59 UTC 2026-10-15, mostly earlier Codex runs). No generations were spent; receipts were not cleared and no other identity was used. Allowance frees from ~17:59 UTC 2026-10-16.
+
+Known limit: displayed reference-source cards (published content) can still show topic-level titles such as "…for one proportion"; the rule governs generated copy only.
