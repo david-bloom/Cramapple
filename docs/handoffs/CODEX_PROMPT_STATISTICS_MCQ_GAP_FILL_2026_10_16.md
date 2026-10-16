@@ -15,7 +15,7 @@ Close the **practice-MCQ gaps in AP Statistics, units 1–3**, using the content
 
 ## Hard rules (the owner's, 2026-10-15)
 1. **Statistics only, units 1–3 only.** Do not touch unit 4+ or any other subject.
-2. Do **not** change More help (policy table, `more-help` function, app). It is being launched in a separate session.
+2. Do **not** change More help (policy table, `more-help` function, app). It launched for Statistics units 1–3 on 2026-10-16 (`APPROVAL-0183`); new items you publish become eligible for it automatically once tagged.
 3. **No Production write without a recorded Hard-Gate approval** (a new `APPROVAL-####` entry created by the Product Owner's go-ahead in chat). Check `main` **and open PRs and remote branches** for the highest approval number before numbering (0179–0182 are already claimed on branches). Development and local files are free to use.
 4. Follow the protocol's "rules that do not bend" (§0.3): never hand-edit a generated item; a rule added later applies to the next batch; four non-author families clear an item and the author's family may only veto; **controls gate every batch**; recompute numeric keys deterministically (Python/sympy) before load; refresh the model roster at batch start.
 
