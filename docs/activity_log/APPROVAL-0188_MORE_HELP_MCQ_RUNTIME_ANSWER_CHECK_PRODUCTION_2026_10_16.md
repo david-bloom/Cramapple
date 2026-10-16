@@ -1,6 +1,6 @@
 # APPROVAL-0188 — MCQ coaching boundary and runtime answer-leak check, Production `more-help` v4 (2026-10-16)
 
-**STATUS: APPROVED, NOT YET EXECUTED.** Update this record when the deploy runs.
+**STATUS: EXECUTED 2026-10-16 23:14 UTC.** Production `more-help` is v4 (deployed from PR #478's branch; first attempts were blocked by the tool permission classifier until the owner replied that he grants retry permission). Post-deploy: Production lists v4 ACTIVE; an unauthenticated POST returns 401. Not yet exercised by a real student request: the owner smoke test must confirm that a pre-submit MCQ is delivered (if the Production gateway key cannot call the checker model, MCQ help fails closed with `help_unavailable`).
 **Approver:** David Bloom (chat, 2026-10-16: "For 1, 2 and 3 yes"). Production `more-help` v3 → v4.
 
 ## What changes (vs v3, commit 111e1ffd)
