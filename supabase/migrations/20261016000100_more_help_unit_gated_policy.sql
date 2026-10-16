@@ -15,11 +15,12 @@ create table if not exists app.more_help_subject_policy(
 alter table app.more_help_subject_policy enable row level security;
 revoke all on app.more_help_subject_policy from public,anon,authenticated;
 grant select on app.more_help_subject_policy to service_role;
+-- Only the three subjects already live in Production. New subjects are enabled one at a
+-- time with a separate, owner-approved INSERT (docs/qa/more_help_release/02_enable_subject.sql).
 insert into app.more_help_subject_policy(subject_key,allowed_units,note) values
  ('ap-calculus-ab',null,'live before unit gating; behavior preserved'),
  ('ap-calculus-bc',null,'live before unit gating; behavior preserved'),
- ('ap-chemistry',null,'live before unit gating; behavior preserved'),
- ('ap-statistics',array[1,2,3],'2026-10-15 owner-approved first new subject, units 1-3 only')
+ ('ap-chemistry',null,'live before unit gating; behavior preserved')
 on conflict (subject_key) do nothing;
 
 CREATE OR REPLACE FUNCTION public.reserve_question_help_delivery(p_user_id uuid, p_request_id uuid, p_session_id uuid, p_version_id uuid, p_input_hash text)
