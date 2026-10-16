@@ -1038,7 +1038,7 @@ Deno.test("FRQ identify/define subparts: boundary is set and generated copy may 
   const frq = { ...raw, item: { ...raw.item, stem, itemType: "frq" } };
   assertEquals(typeof helpContext(frq, input).grounding.coachingBoundary, "string");
   // Same wording on an MCQ, and after grading, keeps the default behavior.
-  assertEquals(helpContext({ ...frq, item: { ...frq.item, itemType: "mcq" } }, input).grounding.coachingBoundary, null);
+  assertEquals(String(helpContext({ ...frq, item: { ...frq.item, itemType: "mcq" } }, input).grounding.coachingBoundary).includes("multiple-choice"), true);
   for (const leak of [
     "This is a one-sample z-test for a proportion.",
     "This is a one-proportion setting, so use a z procedure.",
@@ -1070,4 +1070,11 @@ Deno.test("law check ignores third-law partner asks and laws the question itself
   assertEquals(statedConclusionKinds(named).includes("law"), true);
   validateHelp({ ...output, explanation: "Newton's second law is mentioned in the stem; start from the forces on one skater." }, [source], named, true, named, "frq");
   assertThrows(() => validateHelp({ ...output, explanation: "Use conservation of momentum." }, [source], named, true, named, "frq"), HelpError);
+});
+
+Deno.test("MCQ before submission gets the no-conclusion coaching boundary; after grading and FRQs do not", () => {
+  const mcq = { ...raw, item: { ...raw.item, itemType: "mcq" } };
+  assertEquals(String(helpContext(mcq, input).grounding.coachingBoundary).includes("multiple-choice"), true);
+  const frq = { ...raw, item: { ...raw.item, stem: "(a) Calculate the value.", itemType: "frq" } };
+  assertEquals(helpContext(frq, input).grounding.coachingBoundary, null);
 });
