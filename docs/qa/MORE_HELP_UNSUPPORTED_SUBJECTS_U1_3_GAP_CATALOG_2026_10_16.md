@@ -101,3 +101,19 @@ Takeaways: Precalculus is the one subject materially affected (21 of 81 FRQs ask
 - **Physics C Mechanics 2.3 (direction + law): refused `answer_disclosure`.** The response does not say which rule fired. Likely cause: a false positive in my new law rule (the stem names "Newton's third law" and asks for the "third-law partner"). Fixed in v19: partner/pair asks no longer count, and a law name the question itself states is not treated as a leak (36 tests pass). Not yet re-run live; a rerun of a validator refusal needs owner approval.
 - Remaining 10 approved calls are blocked by the synthetic account's quota (about 2 deliveries left until old receipts age out from ~23:25 UTC).
 - **Rerun on v19 (owner-approved): Physics C Mechanics 2.3 delivered.** Copy names Newton's third law (the stem already does), gives no direction, magnitude or partner. One soft edge for the reviewer: for part (a) it says to "compare" the two skaters' forces via the third-law relationship, which nudges toward the equal-magnitude conclusion without stating it. Ledger: 3 of 12 calls used (1 refused, 2 delivered, 1 pre-model 403). 9 calls remain; the synthetic account has ~1 delivery left today.
+
+### 7b. Dev live check, remaining calls (second synthetic identity, owner-approved; `more-help` Dev v19)
+New synthetic user `more-help-qa-leak-20261016@example.invalid` (Dev only). 9 requests, FRQs that trigger the new rule, empty work, before phase. Across both identities and all runs: 12 approved calls used.
+
+| Result | Count |
+| --- | --- |
+| Delivered | 8 of 9 (Physics C Mechanics ×3, Physics 1 ×1, Precalculus ×4 of 5) |
+| Refused by a **new** rule (direction/value/law) | **0** |
+| Refused, other validator | 1: Precalculus 3.5 `invalid_model_sources` (model cited an unknown source; pre-existing check, not the new rule) |
+
+**Agent read of the 8 delivered outputs** (not an owner read): none states a direction, sign, value, period/amplitude/midline, or the partner force. Two soft leaks worth the owner's eye:
+1. **Precalculus 2.7 (composition):** says to use "the fact that composition is not commutative", which is the conclusion part (a) asks the student to draw from their results ("what do your results show about the order…"). The new rule does not cover "what do your results show / explain why" asks.
+2. **Physics 1 2.3 (tow truck):** the headline names "Newton's third law and the ideal-cable property", which is the justification part (b) asks the student to supply ("justify using a property of the cable").
+Minor: Physics C Mechanics 2.3 and Physics 1 2.3 nudge toward equal force magnitudes by asking to "compare" the pair, without stating it.
+
+Reading: the model prompt boundary is doing the work; the deterministic checks never had to fire on real outputs, and the new rule caused no unwarranted refusals except the earlier law false positive (fixed). Conceptual "what does this show / justify" asks remain prompt-only and are the main residual gap. Cleanup done: temporary entitlements (6 rows, both identities) and the three Dev policy rows removed; the two synthetic users remain.
