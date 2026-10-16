@@ -133,7 +133,7 @@ export function identifyDefineTrap(question: string, itemType = "frq") {
 // Named inference procedures; stating one in generated copy answers an
 // "identify the procedure" subpart. Direction/parameter wording is prompt-only.
 const PROCEDURE_NAME =
-  /\b(?:one|two)[-\s](?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
+  /\b(?:one|two)[-\s](?:(?:population|sample)[-\s])?(?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
 function continuityStatements(question: string): boolean {
   return /\bstatements?\b/i.test(question) &&
     /\b(?:continuous|continuity|discontinuity)\b/i.test(question) &&
