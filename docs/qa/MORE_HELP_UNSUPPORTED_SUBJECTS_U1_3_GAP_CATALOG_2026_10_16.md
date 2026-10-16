@@ -76,3 +76,21 @@ Census cells (MCQ/FRQ per unit, latest published, practice-adjusted corrections 
 
 ## 6. Sources
 [Statistics launch close](../handoffs/SESSION_CLOSE_2026_10_16_MORE_HELP_STATISTICS_LAUNCH.md) (on PR #475's former branch; verify it is on `main`) · [census and readiness](MORE_HELP_UNITS_1_3_CENSUS_AND_READINESS_2026_10_16.md) · [rollout runbook](MORE_HELP_PER_SUBJECT_ROLLOUT_RUNBOOK_2026_10_16.md) · [Oct 15 gap catalog](MORE_HELP_GAP_CATALOG_2026_10_15.md) · [topic gap result](MORE_HELP_TOPIC_GAP9_RESULT_2026_10_16.md) · [held-label pilot](MORE_HELP_HELD_LABEL_RERUN_PILOT_2026_10_16.md) · `BIOLOGY_UNITS_1_3_CONTENT_SURVEY_2026_10_16.md` (on PR #476's branch).
+
+## 7. Answer-leak protection extended beyond Statistics (2026-10-16, code on PR #477, NOT deployed)
+`supabase/functions/more-help/contract.ts` now has `statedConclusionKinds`, scoped to FRQs before submission. A subpart that asks the student to **state a direction/sign, a named law/principle/theorem, a read-off value (midline, period, amplitude, domain, range, asymptote, end behavior), or whether** something holds sets a new `coachingBoundary` for the model. Direction, value and law also get deterministic checks on generated copy (diagnostic codes `direction_subpart`, `value_subpart`, `law_subpart`); "verdict" is prompt-only. Conditional or hedged sentences ("if the force points up…", "decide which way…") are ignored, so setup guidance still passes. The Statistics rule is unchanged. Tests: `contract_test.ts` (35 pass).
+
+**Blast radius on real units 1–3 FRQs (Production, read-only, whole `prompt_json` text, so approximate):**
+
+| Subject | FRQs | direction | value | law | verdict (prompt only) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Precalculus | 81 | 2 | **21** | 0 | 10 |
+| Physics 1 | 47 | 1 | 0 | 0 | 0 |
+| Physics C Mechanics | 28 | 3 | 0 | 1 | 3 |
+| Biology | 34 | 0 | 0 | 0 | 0 |
+| Calculus AB / BC (live) | 59 / 41 | 0 / 1 | 2 / 2 | 0 | 9 / 10 |
+| Statistics (live) | 72 | 1 | 0 | 0 | 12 |
+| Chemistry (live) | 31 | 0 | 0 | 0 | 0 |
+
+Takeaways: Precalculus is the one subject materially affected (21 of 81 FRQs ask to state a midline/period/domain/range). The rule also reaches live subjects (AB 11, BC 12, Statistics 13 FRQs get the new boundary; deterministic checks hit AB 2, BC 3, Statistics 1). Refusals cost the student a "couldn't connect", so expect some on those FRQs; a live Dev run per subject should measure the refusal rate before Production.
+**Not yet done:** Dev deploy (blocked this session by the permission classifier), live Dev run of sample FRQs, Production deploy (separate approval).

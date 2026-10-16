@@ -134,6 +134,36 @@ export function identifyDefineTrap(question: string, itemType = "frq") {
 // "identify the procedure" subpart. Direction/parameter wording is prompt-only.
 const PROCEDURE_NAME =
   /\b(?:one|two)[-\s](?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
+// Other-subject analogue of the identify/define trap: FRQ subparts whose answer
+// is a stated conclusion (direction/sign, a named law, a read-off value, a
+// yes/no verdict). Scoped to FRQs before submission. "verdict" is prompt-only;
+// the other kinds also get narrow deterministic checks on generated copy.
+export type ConclusionKind = "direction" | "value" | "law" | "verdict";
+export function statedConclusionKinds(question: string, itemType = "frq"): ConclusionKind[] {
+  if (itemType !== "frq") return [];
+  const kinds: ConclusionKind[] = [];
+  const ask = "(?:state|determine|identify|indicate|give|specify|find)";
+  if (new RegExp(`\\b${ask}\\b[^.?!\\n]{0,50}\\b(?:direction|sign|polarity)\\b`, "i").test(question)) kinds.push("direction");
+  if (new RegExp(`\\b${ask}\\b[^.?!\\n]{0,40}\\b(?:midline|period|amplitude|domain|range|asymptotes?|end\\s+behavior)\\b`, "i").test(question)) kinds.push("value");
+  if (/\b(?:identify|name|state|cite)\b[^.?!\n]{0,50}\b(?:law|principle|theorem)\b/i.test(question)) kinds.push("law");
+  if (/\b(?:state|determine|decide|justify)\s+whether\b/i.test(question)) kinds.push("verdict");
+  return kinds;
+}
+const CONCLUSION_HEDGE = /\b(?:if|whether|when|would|could|might|may|check|compare|decide|determine|ask|which\s+way|before)\b|\?/i;
+const DIRECTION_CONCLUSION =
+  /\b(?:is|are|will\s+be|points?|pointing|directed|acts?|flows?)\s+(?:directed\s+)?(?:to(?:ward)?\s+the\s+|toward\s+|away\s+from\s+)?(?:upward|downward|up|down|left|right|clockwise|counterclockwise|positive|negative|into|out\s+of|toward|away\s+from)\b/i;
+const VALUE_CONCLUSION =
+  /\b(?:midline|period|amplitude|domain|range|asymptotes?|end\s+behavior)\s+(?:is|are|=|equals|of)\s+[^.!?\n]*?(?:\d|y\s*=|x\s*=|all\s+real|infinity|∞)/i;
+const NAMED_LAW =
+  /\b(?:newton'?s?\s+(?:first|second|third|1st|2nd|3rd)\s+law|conservation\s+of\s+(?:mechanical\s+)?(?:energy|momentum|angular\s+momentum|charge|mass)|(?:gauss|faraday|lenz|ampere|ampère|coulomb|hooke|ohm|kirchhoff|snell|boyle|charles|hess|dalton|raoult|henry)'?s?\s+(?:law|rule|loop|junction)|work[-\s]energy\s+theorem|impulse[-\s]momentum\s+theorem|le\s+ch[aâ]telier'?s?\s+principle|bernoulli'?s?\s+(?:equation|principle)|(?:mean\s+value|intermediate\s+value|extreme\s+value|fundamental)\s+theorem)\b/i;
+function conclusionLeak(kinds: ConclusionKind[], copy: string): string | null {
+  const sentences = copy.split(/[.!?\n]+/);
+  const definite = (re: RegExp) => sentences.some((x) => !CONCLUSION_HEDGE.test(x) && re.test(x));
+  if (kinds.includes("direction") && definite(DIRECTION_CONCLUSION)) return "direction_subpart";
+  if (kinds.includes("value") && definite(VALUE_CONCLUSION)) return "value_subpart";
+  if (kinds.includes("law") && NAMED_LAW.test(copy)) return "law_subpart";
+  return null;
+}
 function continuityStatements(question: string): boolean {
   return /\bstatements?\b/i.test(question) &&
     /\b(?:continuous|continuity|discontinuity)\b/i.test(question) &&
@@ -184,6 +214,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
   const rateTrap = !after && conceptualRateTrap(questionText);
   const continuityTrap = !after && continuityStatements(questionText);
   const identifyTrap = !after && identifyDefineTrap(questionText, text(item.itemType));
+  const conclusionKinds = after ? [] : statedConclusionKinds(questionText, text(item.itemType));
   const sources: Source[] = Object.values(object(r.reference)).flatMap(list)
     .map(object).map((e) => ({
       id: text(e.id || e.referenceEntryId),
@@ -246,6 +277,8 @@ export function helpContext(raw: unknown, input: HelpInput) {
         ? "The question asks which limit/continuity/discontinuity statements are true. Every generated field, including the headline and follow-up questions, must guide a check without confirming any statement. Do not assert whether the limit exists, continuity holds, or which discontinuity applies. Use an action heading such as 'Check the limit and recorded value separately'. Let the student perform the comparison and classify the result."
         : identifyTrap
         ? "A subpart asks the student to identify, name, state or define something (a procedure, test, interval, parameter, hypotheses, variable, population or sample). Do not name or state that thing anywhere, including the headline, follow-up questions, paraphrases, symbols, and distinctions such as one- versus two-sample, z versus t, proportion versus mean, or the direction of an alternative. Tell the student which words or numbers in the stem to read and which published definition to compare against, and let them make the identification themselves."
+        : conclusionKinds.length
+        ? "A subpart asks the student to state a conclusion (a direction or sign, a named law or principle, a value read from a graph or equation such as a midline, period, domain or range, or a yes/no verdict). Do not state that conclusion anywhere, including the headline, follow-up questions, paraphrases and symbols. Do not name the governing law, principle or theorem, give the direction or sign, give the value, or say which way the verdict goes. Tell the student what to inspect or which published definition or relationship to compare, and let them reach and state the conclusion themselves."
         : null,
       currentWork: input.work,
       focus: input.focus,
@@ -395,6 +428,10 @@ export function validateHelp(
     }
     if (identifyDefineTrap(boundaryQuestionText, itemType) && PROCEDURE_NAME.test(copy)) {
       throw new HelpError("answer_disclosure", 502, undefined, "identify_subpart");
+    }
+    const conclusionLeakCode = conclusionLeak(statedConclusionKinds(boundaryQuestionText, itemType), copy);
+    if (conclusionLeakCode) {
+      throw new HelpError("answer_disclosure", 502, undefined, conclusionLeakCode);
     }
     if (continuityStatements(boundaryQuestionText) && continuityVerdict(copy)) {
       throw new HelpError("answer_disclosure", 502, undefined, "continuity_statement_verdict");
