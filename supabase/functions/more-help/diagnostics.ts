@@ -19,6 +19,8 @@ const OUTPUT_REASONS = new Set([
   "direction_subpart",
   "value_subpart",
   "law_subpart",
+  "runtime_check",
+  "runtime_check_unavailable",
   "headline_type",
   "headline_empty",
   "headline_length",

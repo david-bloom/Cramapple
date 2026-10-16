@@ -23,6 +23,12 @@ export type Dependencies = {
   ) => Promise<Row>;
   fail: (userId: string, input: HelpInput, generation: number) => Promise<void>;
   generate: (context: ReturnType<typeof helpContext>) => Promise<unknown>;
+  // Optional runtime answer-leak check for pre-submit multiple-choice help.
+  verify?: (
+    context: ReturnType<typeof helpContext>,
+    help: unknown,
+    input: HelpInput,
+  ) => Promise<void>;
   preflight?: () => void;
 };
 export async function moreHelp(req: Request, deps: Dependencies) {
@@ -100,6 +106,12 @@ export async function moreHelp(req: Request, deps: Dependencies) {
     }
     reservation = { userId: user.id, input, generation };
     const result = await deps.generate(context);
+    if (
+      deps.verify && !context.after &&
+      context.grounding.question.type === "mcq"
+    ) {
+      await deps.verify(context, result, input);
+    }
     const committed = object(await deps.commit(user.id, input, generation));
     if (committed.state !== "delivered") {
       throw new HelpError("assistance_commit_failed", 503);
