@@ -145,7 +145,7 @@ export function statedConclusionKinds(question: string, itemType = "frq"): Concl
   const ask = "(?:state|determine|identify|indicate|give|specify|find)";
   if (new RegExp(`\\b${ask}\\b[^.?!\\n]{0,50}\\b(?:direction|sign|polarity)\\b`, "i").test(question)) kinds.push("direction");
   if (new RegExp(`\\b${ask}\\b[^.?!\\n]{0,40}\\b(?:midline|period|amplitude|domain|range|asymptotes?|end\\s+behavior)\\b`, "i").test(question)) kinds.push("value");
-  if (/\b(?:identify|name|state|cite)\b[^.?!\n]{0,50}\b(?:law|principle|theorem)\b/i.test(question)) kinds.push("law");
+  if (/\b(?:identify|name|state|cite)\b[^.?!\n]{0,50}\b(?:law|principle|theorem)\b(?![-\s]*(?:pairs?|partners?)\b)/i.test(question)) kinds.push("law");
   if (/\b(?:state|determine|decide|justify)\s+whether\b/i.test(question)) kinds.push("verdict");
   return kinds;
 }
@@ -156,12 +156,17 @@ const VALUE_CONCLUSION =
   /\b(?:midline|period|amplitude|domain|range|asymptotes?|end\s+behavior)\s+(?:is|are|=|equals|of)\s+[^.!?\n]*?(?:\d|y\s*=|x\s*=|all\s+real|infinity|∞)/i;
 const NAMED_LAW =
   /\b(?:newton'?s?\s+(?:first|second|third|1st|2nd|3rd)\s+law|conservation\s+of\s+(?:mechanical\s+)?(?:energy|momentum|angular\s+momentum|charge|mass)|(?:gauss|faraday|lenz|ampere|ampère|coulomb|hooke|ohm|kirchhoff|snell|boyle|charles|hess|dalton|raoult|henry)'?s?\s+(?:law|rule|loop|junction)|work[-\s]energy\s+theorem|impulse[-\s]momentum\s+theorem|le\s+ch[aâ]telier'?s?\s+principle|bernoulli'?s?\s+(?:equation|principle)|(?:mean\s+value|intermediate\s+value|extreme\s+value|fundamental)\s+theorem)\b/i;
-function conclusionLeak(kinds: ConclusionKind[], copy: string): string | null {
+function conclusionLeak(kinds: ConclusionKind[], copy: string, question: string): string | null {
   const sentences = copy.split(/[.!?\n]+/);
   const definite = (re: RegExp) => sentences.some((x) => !CONCLUSION_HEDGE.test(x) && re.test(x));
   if (kinds.includes("direction") && definite(DIRECTION_CONCLUSION)) return "direction_subpart";
   if (kinds.includes("value") && definite(VALUE_CONCLUSION)) return "value_subpart";
-  if (kinds.includes("law") && NAMED_LAW.test(copy)) return "law_subpart";
+  // A law the question itself names is not the answer to be discovered.
+  if (kinds.includes("law")) {
+    const named = new RegExp(NAMED_LAW.source, "gi");
+    const fresh = [...copy.matchAll(named)].some((m) => !question.toLowerCase().replace(/\s+/g, " ").includes(m[0].toLowerCase().replace(/\s+/g, " ")));
+    if (fresh) return "law_subpart";
+  }
   return null;
 }
 function continuityStatements(question: string): boolean {
@@ -429,7 +434,7 @@ export function validateHelp(
     if (identifyDefineTrap(boundaryQuestionText, itemType) && PROCEDURE_NAME.test(copy)) {
       throw new HelpError("answer_disclosure", 502, undefined, "identify_subpart");
     }
-    const conclusionLeakCode = conclusionLeak(statedConclusionKinds(boundaryQuestionText, itemType), copy);
+    const conclusionLeakCode = conclusionLeak(statedConclusionKinds(boundaryQuestionText, itemType), copy, boundaryQuestionText);
     if (conclusionLeakCode) {
       throw new HelpError("answer_disclosure", 502, undefined, conclusionLeakCode);
     }

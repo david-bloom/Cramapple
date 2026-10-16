@@ -94,3 +94,9 @@ Census cells (MCQ/FRQ per unit, latest published, practice-adjusted corrections 
 
 Takeaways: Precalculus is the one subject materially affected (21 of 81 FRQs ask to state a midline/period/domain/range). The rule also reaches live subjects (AB 11, BC 12, Statistics 13 FRQs get the new boundary; deterministic checks hit AB 2, BC 3, Statistics 1). Refusals cost the student a "couldn't connect", so expect some on those FRQs; a live Dev run per subject should measure the refusal rate before Production.
 **Not yet done:** Dev deploy (blocked this session by the permission classifier), live Dev run of sample FRQs, Production deploy (separate approval).
+
+### 7a. Dev live check (2026-10-16, 2 of 12 approved calls spent, `more-help` Dev v18 then v19)
+- Synthetic QA account had 26 of 30 deliveries used in 24h; its Dev entitlements had expired (2026-10-14). Added a temporary Dev-only entitlement (3 subjects, 3 h, source `more_help_qa_tmp_leak_20261016`) and Dev policy rows for Precalculus, Physics 1, Physics C Mechanics (units 1–3). Both are Dev-only; remove after the run.
+- **Precalculus 1.12 (asks for domain/range/direction of transformations): delivered**, no leak. The copy explained how to read the transformation and did not state domain, range or direction.
+- **Physics C Mechanics 2.3 (direction + law): refused `answer_disclosure`.** The response does not say which rule fired. Likely cause: a false positive in my new law rule (the stem names "Newton's third law" and asks for the "third-law partner"). Fixed in v19: partner/pair asks no longer count, and a law name the question itself states is not treated as a leak (36 tests pass). Not yet re-run live; a rerun of a validator refusal needs owner approval.
+- Remaining 10 approved calls are blocked by the synthetic account's quota (about 2 deliveries left until old receipts age out from ~23:25 UTC).
