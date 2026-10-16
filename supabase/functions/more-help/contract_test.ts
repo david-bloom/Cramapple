@@ -1031,3 +1031,33 @@ Deno.test("an exact already-delivered request acknowledges durable assistance wi
   });
   assertEquals(calls, 0);
 });
+
+Deno.test("FRQ identify/define subparts: boundary is set and generated copy may not name the procedure before submission", () => {
+  const stem = "(a) Identify the appropriate testing procedure, and define the parameter of interest in context. (b) State the null and alternative hypotheses.";
+  const frq = { ...raw, item: { ...raw.item, stem, itemType: "frq" } };
+  assertEquals(typeof helpContext(frq, input).grounding.coachingBoundary, "string");
+  // Same wording on an MCQ, and after grading, keeps the default behavior.
+  assertEquals(helpContext({ ...frq, item: { ...frq.item, itemType: "mcq" } }, input).grounding.coachingBoundary, null);
+  for (const leak of [
+    "This is a one-sample z-test for a proportion.",
+    "This is a one-proportion setting, so use a z procedure.",
+    "The relevant procedure is a one-sample z-test.",
+    "Use a two-sample t-interval for the difference.",
+    "A chi-square test of independence fits here.",
+    "This calls for a matched-pairs design.",
+  ]) {
+    for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
+      const response = { ...output, [field]: field === "follow_ups" ? [leak] : leak };
+      assertThrows(() => validateHelp(response, [source], stem, true, stem, "frq"), HelpError);
+      validateHelp(response, [source], stem, false, stem, "frq");
+      validateHelp(response, [source], stem, true, stem, "mcq");
+    }
+  }
+  for (const safe of [
+    "Read how the sample was chosen and what single quantity the department tracks, then compare with the published definitions of each procedure.",
+    "Which words in the stem name the group the claim is about?",
+    "Write one sentence saying what p stands for, naming the population.",
+  ]) {
+    validateHelp({ ...output, explanation: safe }, [source], stem, true, stem, "frq");
+  }
+});

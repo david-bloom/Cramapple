@@ -121,6 +121,19 @@ function sourceVisibleCopy(source: Source): string {
 }
 const RATE_CONCLUSION =
   /\b(?:zero|0)[\s-]+(?:width|length|duration)\b|\b(?:the\s+)?interval\s+(?:has\s+no|has\s+(?:zero|0))\s+(?:width|length|duration)\b|\b(?:undefined|not\s+defined|does\s+not\s+exist|cannot\s+be\s+(?:computed|calculated|found)|meaningless|indeterminate)\b|\b0\s*\/\s*0\b|\bgives?\s+no\s+rate\b|\b(?:zero|0)\s+(?:denominator|change)\b|\b(?:divide|dividing|division)[^.!?\n]{0,30}\b(?:zero|0)\b|\b(?:denominator|b\s*[−-]\s*a)[^.!?\n]{0,60}\b(?:zero|0)\b|\bno\s+(?:elapsed\s+time|change\s+in\s+time)\b/i;
+// FRQ subparts that ask the student to identify/name/state/define a procedure,
+// parameter, hypotheses, variable or population: naming that thing is the answer
+// to the subpart. Before submission the help may point at what to read and which
+// definition to compare, never supply the identification. Scoped to FRQs.
+export function identifyDefineTrap(question: string, itemType = "frq") {
+  return itemType === "frq" &&
+    /\b(?:identify|name|state|define|specify|choose|select)\b[^.?!\n]{0,70}\b(?:procedure|test|interval|inference|method|distribution|parameter|hypothes[ie]s|variable|population|sample)\b/i
+      .test(question);
+}
+// Named inference procedures; stating one in generated copy answers an
+// "identify the procedure" subpart. Direction/parameter wording is prompt-only.
+const PROCEDURE_NAME =
+  /\b(?:one|two)[-\s](?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
 function continuityStatements(question: string): boolean {
   return /\bstatements?\b/i.test(question) &&
     /\b(?:continuous|continuity|discontinuity)\b/i.test(question) &&
@@ -170,6 +183,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
     !draft;
   const rateTrap = !after && conceptualRateTrap(questionText);
   const continuityTrap = !after && continuityStatements(questionText);
+  const identifyTrap = !after && identifyDefineTrap(questionText, text(item.itemType));
   const sources: Source[] = Object.values(object(r.reference)).flatMap(list)
     .map(object).map((e) => ({
       id: text(e.id || e.referenceEntryId),
@@ -230,6 +244,8 @@ export function helpContext(raw: unknown, input: HelpInput) {
         ? "A conceptual subpart asks why the proposed average-rate calculation fails. Do not state that reason or its conclusion. Ask the student to identify what the numerator and denominator measure, then inspect the interval themselves. Do not evaluate its width or diagnose the proposed formula."
         : continuityTrap
         ? "The question asks which limit/continuity/discontinuity statements are true. Every generated field, including the headline and follow-up questions, must guide a check without confirming any statement. Do not assert whether the limit exists, continuity holds, or which discontinuity applies. Use an action heading such as 'Check the limit and recorded value separately'. Let the student perform the comparison and classify the result."
+        : identifyTrap
+        ? "A subpart asks the student to identify, name, state or define something (a procedure, test, interval, parameter, hypotheses, variable, population or sample). Do not name or state that thing anywhere, including the headline, follow-up questions, paraphrases, symbols, and distinctions such as one- versus two-sample, z versus t, proportion versus mean, or the direction of an alternative. Tell the student which words or numbers in the stem to read and which published definition to compare against, and let them make the identification themselves."
         : null,
       currentWork: input.work,
       focus: input.focus,
@@ -302,6 +318,7 @@ export function validateHelp(
   stem: string,
   before = false,
   boundaryQuestionText = stem,
+  itemType = "",
 ) {
   const r = object(raw);
   for (
@@ -375,6 +392,9 @@ export function validateHelp(
         undefined,
         "conceptual_subpart",
       );
+    }
+    if (identifyDefineTrap(boundaryQuestionText, itemType) && PROCEDURE_NAME.test(copy)) {
+      throw new HelpError("answer_disclosure", 502, undefined, "identify_subpart");
     }
     if (continuityStatements(boundaryQuestionText) && continuityVerdict(copy)) {
       throw new HelpError("answer_disclosure", 502, undefined, "continuity_statement_verdict");

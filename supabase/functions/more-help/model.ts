@@ -98,6 +98,7 @@ export async function generateHelp(
       context.grounding.question.stem,
       !context.after,
       context.questionText,
+      context.grounding.question.type,
     );
   } catch (error) {
     outputFailure(
