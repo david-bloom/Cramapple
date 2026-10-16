@@ -48,3 +48,14 @@ No launch-blocking vulnerability found in the reviewed scope. The data layer and
 
 ## Method limits
 Static review of code and Production schema/grants/policies plus Supabase advisors. No active attack testing, no Production writes, no Stripe dashboard review, Supabase Auth settings not readable from here.
+
+## Status update (end of 2026-10-15)
+
+Superseded where this conflicts with the sections above. Full record: `docs/handoffs/SESSION_CLOSE_2026_10_15_SECURITY_REVIEW_AND_RATE_LIMITS.md`.
+
+- **Fixed in this report's PR (#465) and now applied to Production:** the operator-function lockdown (`20261015200000`). Dependabot is enabled.
+- **Recommended item 1 (rate-limit anonymous endpoints): done and live in Production** (PRs #471, #472; migration `20261015210000`; limits 30 / 120 / 240 per IP per hour and 600 / 3000 / 6000 global). Per-IP cap not proven end to end on a deployed function; see the handoff.
+- **Recommended item 2 (leaked-password protection): on in Production and Development**, minimum password length 8 (reported by owner).
+- **Recommended item 3 (MFA on owner accounts):** owner states all tools use 2FA or keychain; not independently verified.
+- **Recommended item 5 (Lovable frontend):** dependency scan remediated and published; one `dangerouslySetInnerHTML` removed, two kept with reasons. Security headers and CSP still not reviewed.
+- **Still open:** item 4 (COPPA / FERPA counsel), item 6 (alerting), item 7 (anon table grants), item 8 (extensions in `public`), plus the items in section 7 of the handoff.
