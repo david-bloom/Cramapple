@@ -24,6 +24,7 @@ declare
   r jsonb;
   request_id uuid;
   registry_subject text;
+  assisted_before boolean;
 begin
   if current_user<>'service_role' then raise exception 'Wrong runtime role'; end if;
   if jsonb_array_length(fixtures)<>10 or
@@ -46,13 +47,16 @@ begin
     if registry_subject is distinct from fixture->>'subject' then
       raise exception 'Fixture does not belong to asserted registry subject'; end if;
     begin
+      assisted_before:=public.has_question_help(
+        (fixture->>'session')::uuid,(fixture->>'version')::uuid);
       request_id:=gen_random_uuid();
       r:=public.reserve_question_help_delivery(u,request_id,
         (fixture->>'session')::uuid,(fixture->>'version')::uuid,repeat('a',64));
       if r->>'state' is distinct from 'reserved' or r->>'generation' is distinct from '1' then
         raise exception 'Subject % reservation failed: %',registry_subject,r; end if;
-      if public.has_question_help((fixture->>'session')::uuid,(fixture->>'version')::uuid) then
-        raise exception 'QA fixture already assisted or reserve disclosed assistance'; end if;
+      if public.has_question_help((fixture->>'session')::uuid,(fixture->>'version')::uuid)
+        is distinct from assisted_before then
+        raise exception 'Reservation changed durable assistance for %',registry_subject; end if;
       perform public.fail_question_help(u,request_id,1);
       r:=public.reserve_question_help_delivery(gen_random_uuid(),gen_random_uuid(),
         (fixture->>'session')::uuid,(fixture->>'version')::uuid,repeat('a',64));
