@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0180 — Write four accepted primary topic cells for More help (Physics 1 x1, Precalculus x3), applied and verified](APPROVAL-0180_MORE_HELP_FOUR_CELL_TOPIC_LOAD_2026_10_16.md)
 - [APPROVAL-0179 — Publish the ten agreed serving labels from the held-label rerun pilot (provisional_model, no serving change)](APPROVAL-0179_HELD_SERVING_LABEL_PILOT_PUBLICATION_2026_10_16.md)
 - [APPROVAL-0178 — Tag the65 priority More help questions;64 applied/verified,1 scope ruling pending](APPROVAL-0178_MORE_HELP_PRIORITY_TOPIC_TAGGING_2026_10_15.md)
 

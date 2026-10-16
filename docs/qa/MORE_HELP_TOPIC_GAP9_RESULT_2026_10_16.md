@@ -1,6 +1,6 @@
 # More help — topic probe for untagged questions in units 1–3 (2026-10-16)
 
-**Status:** probe complete, **nothing written to Production**. Owner approved the model budget 2026-10-16 ("any untagged question in units 1–3"); a Production write needs its own approval.
+**Status:** probe complete. The four accepted cells were written to Production under [APPROVAL-0180](../activity_log/APPROVAL-0180_MORE_HELP_FOUR_CELL_TOPIC_LOAD_2026_10_16.md) and verified; the five held questions remain untagged. Owner approved the model budget 2026-10-16 ("any untagged question in units 1–3").
 
 ## Scope
 Published questions with no topic cell whose serving label places them in each subject's first three units, excluding Physics 2 and Physics C E&M: **9 questions** (BC 1, Physics 1 1, Physics C Mechanics 1, Precalculus 6; the four known gaps are among them). Five carry only `provisional_model` unit labels, so the probe itself decides whether they belong in units 1–3.
