@@ -1,6 +1,6 @@
 # APPROVAL-0186 — Load 52 Biology and Physics 1 practice MCQs to Production (2026-10-16)
 
-**STATUS: APPROVED, NOT YET EXECUTED** (the publish command was blocked by the tool permission classifier; update this record when it runs).
+**STATUS: EXECUTED 2026-10-16** (first attempt blocked by the tool permission classifier; owner granted a retry and it ran).
 **Approver:** David Bloom (chat, 2026-10-16: "Approved").
 
 ## What
@@ -17,3 +17,8 @@ Retire the 52 `content_key`s (new versions are additive; no existing item change
 
 ## After the write (to do)
 `publish_mcq_batch.py verify` for both plans; call each subject's real selector as `service_role`; re-run the gap query; note that a new version flips an old label stale only for re-published items (none here).
+
+## Executed
+Both chunks committed and independently verified on Production. Biology: found 32/32, text match 32/32, published 32/32, labels 32/32, topic cells 32/32, skill cells 28/28, difficulty 32/32. Physics 1: 20/20 on every check, skill cells 20/20.
+Gap re-query (practice MCQs, worked examples excluded): Biology 2.2 / 2.4 / 2.5 / 2.9 now 8 each (were 0); Physics 1 1.1 = 8, 1.3 = 4, 2.2 = 8 (were 0). Biology 2.10 still 1 (not in scope).
+Not done: blind re-judge sample; a service_role selector call per subject.
