@@ -1,0 +1,1 @@
+select off as page_offset,q.content_item_version_id,q.content_key,q.item_type,q.stimulus_image_path from generate_series(0,255,51) as off cross join lateral public.select_student_practice_items('2d88ba5e-a6a3-43b8-bfae-9e5505a178a7',3,'00000000-0000-4000-8000-000000000000',null,null,null,51,off) q order by off,q.content_key;
