@@ -2,7 +2,7 @@
 
 **Owner:** Codex / Main Conductor. **Tier:** Hard-Gate. **Status:** Ready for Review.
 **Created / Approved:** 2026-10-17. **Product Owner:** David Bloom.
-**Branch:** `codex/biology-frq-003-image-delivery`. **PR:** [#483](https://github.com/david-bloom/Cramapple/pull/483).
+**Branch:** `codex/biology-frq003-horizontal`. **PR:** [#494](https://github.com/david-bloom/Cramapple/pull/494); initial repair merged in [#483](https://github.com/david-bloom/Cramapple/pull/483).
 **Approval State:** APPROVAL-0190. Owner directed: “Confirm both images should be served and make them servable.” No further approval is needed for this exact image repair.
 
 ## Scope and acceptance
@@ -21,7 +21,7 @@ Local corrected SVG:31 text elements; no clipped or overlapping text;26-unit lab
 
 ## Known content limits
 
-S-003 still contains a scenario without actual question instructions; this image repair does not recover them. A retired-version reviewer questioned L-003's inheritance inference (diagram alone does not distinguish autosomal dominant/recessive; the text supplies a known-carrier condition). The historical disapproval is preserved. Neither image approval is a complete-question, answer-key, ordinary-student entitlement or phone-reading certificate.
+S-003 lacked question instructions at the initial repair. Separate APPROVAL-0189 work has since published v2 with parts (a) and (b); the horizontal reframe preserves them. A retired-version reviewer questioned L-003's inheritance inference (diagram alone does not distinguish autosomal dominant/recessive; the text supplies a known-carrier condition). The historical disapproval is preserved. Neither image approval is a complete-question, answer-key, ordinary-student entitlement or phone-reading certificate.
 
 **Next owner:** Codex for the scoped live repair and verification; content owner for the separate question-quality issues. **Done Decision:** not made; independent QA remains open.
 
@@ -36,3 +36,7 @@ Owner: “This image will render awkwardly. Can you reframe it to horizontal?”
 Fresh Production discovery found S-003 v1 retired and v2 `bf317c96-1289-4803-b71f-b0aff4620844` published at 14:26:47 UTC by the separate APPROVAL-0189 instructions repair. V2 now has question parts (a) and (b). This extension targets only that current v2 image path and adds its exact-path approved metadata, preserving its newly authored instructions/scoring, existing metadata/visual decision, retired S-003 v1 and both L-003 controls. The earlier missing-instructions statements describe the pre-publication state.
 
 Preparation: `horizontal-manifest.json`, `horizontal-before.json`, `horizontal-visual-review.json`, `horizontal-attach-production.sql`, `horizontal-rehearse.sql`, `horizontal-recovery.sql` in the release packet. The original tall v2 asset and records remain historical evidence. Recovery restores the current published version's tall image path while retaining both immutable assets and metadata. Apply only after immutable upload and guarded rollback rehearsal; no further owner confirmation is required for the requested image reframe.
+
+**Horizontal release applied:** 2026-10-17 15:53:08.770922 UTC. Exact immutable path: `questions/apbio-frq-s-003/v3/1e362c43a81c1f35ad88738751ccceae83c7e6b0c7a05d286b923fb2db737234.png` (132,560 bytes). Guarded attach/recovery rehearsal passed under ROLLBACK, then the current-v2-only image swap and one new approved metadata row committed. Existing metadata/visual decisions, question/scoring/taxonomy/labels, retired S-003 v1 and both L-003 controls are unchanged. Live signed PNG SHA-256/dimensions match and unsigned access returns 400. Exact deployed v41 ordinary-mode gate: 2 deliverable / 0 omitted.
+
+[PR #494](https://github.com/david-bloom/Cramapple/pull/494), branch `codex/biology-frq003-horizontal`. Evidence uses `horizontal-*` filenames, with `verify-horizontal.mjs` for reproducible invariants/gate checks. `horizontal-attach-production.sql` is one-shot and already applied; do not replay it. `horizontal-recovery.sql` restores the prior tall path while retaining both immutable assets and metadata. Local 230px/620px layouts pass (172.5px/465px image heights); no authenticated app/learner or independent complete-question QA is claimed.
