@@ -4,6 +4,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0195 — Publish 88 Precalculus Units 1–3 MCQs with validated skills (approved)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
+
 - [APPROVAL-0194 — Release20 Statistics graphical-choice repairs and3 teaching visuals (3 teaching images live;20 revisions prepared)](APPROVAL-0194_STATS_PRECALC_VISUAL_RELEASE_2026_10_17.md)
 
 - [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
