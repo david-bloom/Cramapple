@@ -1,0 +1,12 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+const here=new URL('./',import.meta.url),read=async f=>JSON.parse(await readFile(new URL(f,here))),before=await read('live-before.json'),after=await read('teaching-after.json'),plan=await read('release-plan.json'),repo=process.argv[2];
+if(!repo)throw Error('Repository root argument required');
+const {partitionDeliverable,indexAssets}=await import(pathToFileURL(repo+'/supabase/functions/_shared/student-item-delivery.ts'));
+const source=await readFile(repo+'/supabase/functions/_shared/student-item-delivery.ts'),sha=createHash('sha256').update(source).digest('hex');assert.equal(sha,'f00785f0dd2c7422f81fb45b1a75c8209a468400419076f9dea810a23e2e3fe0');
+const strip=(v,keys)=>Object.fromEntries(Object.entries(v).filter(([k])=>!keys.includes(k)));
+for(const a of after){const b=before.find(b=>b.content_key===a.content_key),t=plan.find(t=>t.content_key===a.content_key);assert.deepEqual(strip(a.version,['updated_at','stimulus_image_path']),strip(b.version,['updated_at','stimulus_image_path']));assert.deepEqual(a.choices,b.choices);assert.deepEqual(a.labels,b.labels);assert.deepEqual(strip(a.item,['updated_at']),strip(b.item,['updated_at']));assert.equal(a.version.stimulus_image_path,t.storage_path);assert(a.asset.approved_at&&a.asset.approved_by);assert.equal(a.asset.alt_text,t.alt_text);assert.equal(a.requirement.image_approval,'approved');}
+const rows=after.map(a=>({...a.asset,...a.requirement,content_key:a.content_key,content_item_version_id:a.version.id,stimulus_image_path:a.version.stimulus_image_path}));const gate=partitionDeliverable(rows,indexAssets(rows),false,new Map(rows.map(r=>[r.content_item_version_id,r])));assert.equal(gate.deliverable.length,3);assert.equal(gate.omitted.length,0);
+const result={checked_at:new Date().toISOString(),deployed_version:41,source_sha256:sha,qa_mode:false,deliverable:gate.deliverable.map(x=>({key:x.row.content_key,id:x.row.content_item_version_id,path:x.asset.storage_path})),omitted:gate.omitted,source_choices_labels_and_parent_semantic_fields_unchanged:true,scope:'Exact deployed image gate, live read-back and separate live owner-admin student-facing teaching checks; not ordinary-student entitlement or whole-question certificate.'};await writeFile(new URL('teaching-verification.json',here),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({teaching_deliverable:3,omitted:0,source_invariants:true}));
