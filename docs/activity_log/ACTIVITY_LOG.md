@@ -4,9 +4,13 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- PR #497 merge conflict repaired (2026-10-17, owner: “Assess and fix and merge”): integrated main `f871025d`, retaining current Biology S-003 v2 horizontal records and all Statistics/Precalculus release evidence; corrected stale restart text. One handoff conflict, no failing checks at assessment. SQL/assets/receipts unchanged, no new Production write or paid call. Three teaching images remain live; twenty revisions remain unpublished pending scope-check budget/checks. [Task](../tasks/WORK-STATS-PRECALC-VISUAL-RELEASE.md).
+
 - Statistics/Precalculus visual release (2026-10-17, APPROVAL-0194):3 teaching images live at20:54:55 UTC; all3 pass owner-admin teaching-route320 CSS rendering and deployed ordinary image gate. All23 private SHA checks/fresh independent math QA pass. Twenty graphical-choice revisions plus required serving labels and recovery pass ROLLBACK/actual-selector assertions, but remain unpublished pending separately requested $2 two-family scope-check budget. No paid calls, app/Edge/schema deploy, answers or task closure. [Status/receipts](../../scripts/stats-precalc-visual-release-2026-10-17/RELEASE_STATUS.md).
 
 Most recent entries (full reverse-chronological list follows below):
+
+- Biology S-003 horizontal reframe applied (2026-10-17 15:53:08 UTC, APPROVAL-0190 owner extension): 4:3 landscape 2400×1800 PNG attached only to current published v2, discovered after separate instructions publication. New exact-path approved metadata; preserved question/scoring/taxonomy/labels, all prior approvals, retired S-003 and both L-003 controls. Guarded attach/recovery rehearsal, private signed SHA/public denial, 230px/620px local layout and deployed v41 image gate pass (2 deliverable / 0 omitted). Independent/authenticated app QA remains open. [PR #494](https://github.com/david-bloom/Cramapple/pull/494).
 
 - Codex branch reconciliation (2026-10-17, owner: “Act on your recommendations”): Precalculus #489 and Statistics #490 records merged; More Help branch combines only its census exclusion and procedure-name extension with current main safeguards. Historical Statistics launch approval is qualified by full path to resolve its duplicate0183 claim; old state/work order explicitly historical. All38 More Help contract tests pass. Private packet custody unverified and assigned to originating conductors; no deployment/publication/task closure. [Record](../handoffs/CODEX_BRANCH_RECONCILIATION_2026_10_17.md).
 
@@ -197,6 +201,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Biology S-003 horizontal reframe
+
+Biology S-003 horizontal reframe applied (2026-10-17 15:53:08 UTC, APPROVAL-0190 owner extension): 4:3 landscape 2400×1800 PNG attached only to current published v2, discovered after separate instructions publication. New exact-path approved metadata; preserved question/scoring/taxonomy/labels, all prior approvals, retired S-003 and both L-003 controls. Guarded attach/recovery rehearsal, private signed SHA/public denial, 230px/620px local layout and deployed v41 image gate pass (2 deliverable / 0 omitted). Independent/authenticated app QA remains open. [PR #494](https://github.com/david-bloom/Cramapple/pull/494).
 
 ## 2026-10-17 — Codex branch reconciliation
 

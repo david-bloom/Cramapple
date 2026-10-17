@@ -3,8 +3,8 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const ref='pcntajvbdfqhbeewmdry',base=`https://${ref}.supabase.co`;
-const here=new URL('./',import.meta.url),mode=process.argv[2]??'originals';
-if(!['originals','upload','verify'].includes(mode))throw Error('Unknown mode');
+const here=new URL('./',import.meta.url),mode=process.argv[2]??'verify';
+if(!['upload','verify'].includes(mode))throw Error('Unknown mode');
 let keys;
 try{keys=JSON.parse(execFileSync('supabase',['projects','api-keys','--project-ref',ref,'-o','json'],{encoding:'utf8',stdio:['ignore','pipe','pipe']}));}
 catch{throw Error('Existing CLI project access unavailable; credentials were not printed.');}
@@ -24,7 +24,7 @@ if(mode==='upload'){
  if(!result.ok)throw Error(`Immutable upload failed: HTTP ${result.status}`);
  const receipt={uploaded:true,checked_at:new Date().toISOString(),path:manifest.path,sha256:manifest.sha256,bytes:png.length,overwritten:false}; await writeFile(new URL('horizontal-upload-receipt.json',here),JSON.stringify(receipt,null,2)+'\n'); console.log(JSON.stringify(receipt));
 }else{
- const targets=mode==='originals'?originals:[
+ const targets=[
   {...originals[1]},
   {content_key:'APBIO-FRQ-S-003',...JSON.parse(await readFile(new URL('horizontal-manifest.json',here)))}
  ];
@@ -42,6 +42,6 @@ if(mode==='upload'){
   results.push({content_key:t.content_key,path:t.path,sha256:hash(png),bytes:png.length,width:png.readUInt32BE(16),height:png.readUInt32BE(20),signed_download_status:response.status,unsigned_status:pub.status,ttl_seconds:900});
  }
  const result={checked_at:new Date().toISOString(),project_ref:ref,mode,results,credentials_saved:false,signed_urls_saved:false,scope:'Operator download/signing check; not ordinary-student authorization or app rendering'};
- await writeFile(new URL(mode==='originals'?'original-storage-check.json':'horizontal-live-storage-check.json',here),JSON.stringify(result,null,2)+'\n');
+ await writeFile(new URL('horizontal-live-storage-check.json',here),JSON.stringify(result,null,2)+'\n');
  console.log(JSON.stringify(result,null,2));
 }
