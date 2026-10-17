@@ -1,6 +1,6 @@
 # AP Statistics Units 1–3 MCQ gap fill — Stage 0, 2026-10-16
 
-**Status: Historical planning baseline; execution state superseded by the Stage A result**  
+**Status: Historical planning baseline; execution state superseded by the Stage A result**
 **Owner / Main Conductor:** Codex; Product Owner David Bloom  
 **Branch:** `codex/statistics-u1-u3-gap-fill`  
 **Tier:** Hard-Gate overall; Stage A authoring/checking bounded by the supplied work order  
