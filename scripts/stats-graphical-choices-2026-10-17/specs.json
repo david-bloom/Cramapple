@@ -1,0 +1,3685 @@
+{
+  "date": "2026-10-17",
+  "status": "All 20 choice specifications resolved and built locally; independent content QA and release remain open.",
+  "authorization": "David: Resolve the 20 graphical choice questions. Existing-content repair draft and review artifacts; no Production publication inferred.",
+  "source_commit": "578ab8223e2e75b5dfb49a5420283c7af8ab28a1",
+  "source_inventory_sha256": "b621892efe2ad19609236d1f41ef71b8bc8645ff0fc864ca9904c171b7d6f8c6",
+  "method": "Retain both historical histogram options and all source stems/data. Replace the two ambiguous non-histogram distractors with distinct, explicit adjacent-bin count errors. All four displays use identical axes and styling.",
+  "new_mcq_generation": false,
+  "live_changes": false,
+  "independent_qa": false,
+  "publish_gates": [
+    "Current source/key/scoring comparison",
+    "Existing-content independent QA per CONTENT_AUTHORING_AND_QA_PROTOCOL sections 4, 5 and 9",
+    "New-version content/rationale review",
+    "Scoped live release authority and guarded recovery",
+    "Authenticated desktop/phone student delivery verification"
+  ],
+  "items": [
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105000",
+      "source_content_item_version_id": "edf7d3eb-11fc-4088-b25b-1c7190cb7ab5",
+      "source_audit_content_digest": "8bd4f443e298ab66da30af74d958d37a",
+      "source_stem_sha256": "9b27a78d5542367c95df65ae89d3faa6dbf8e326f3509fd8a85b59aeb0ce3ed1",
+      "source_choices_sha256": "c29cfbd7799d2462f16926c1a8ad067a9c94a2ce5c81816f062a50a0d3814f4e",
+      "stem": "The quiz scores (points) are 62, 67, 68, 73, 73, 79, 79, 82, 85, 87, 92, 95. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        62,
+        67,
+        68,
+        73,
+        73,
+        79,
+        79,
+        82,
+        85,
+        87,
+        92,
+        95
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 69,
+          "left_edge": 60,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 79,
+          "left_edge": 70,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 89,
+          "left_edge": 80,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 99,
+          "left_edge": 90,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 109,
+          "left_edge": 100,
+          "right_edge_exclusive": 110
+        }
+      ],
+      "expected_counts": [
+        3,
+        4,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            5,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 68,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 60-69 bar has 2 instead of 3, while the 70-79 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            3,
+            4,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 70-79 bar has 3 instead of 4, while the 80-89 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            3,
+            5,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 82,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 80-89 bar has 2 instead of 3, while the 70-79 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 62 | 0; 67 | 0; 68 | 0; 73 | 0 0; 79 | 0 0; 82 | 0; 85 | 0; 87 | 0; 92 | 0; 95 | 0",
+          "new_text": "Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0\nChoice B. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0\nChoice C. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0\nChoice D. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105001",
+      "source_content_item_version_id": "06caa6ed-db82-4327-a298-e7e735f94af6",
+      "source_audit_content_digest": "d914247871f76a774ca46ae3b06aa4b3",
+      "source_stem_sha256": "f3a1f8f5abfcb1b9434d0f420154a0fe2563b0d28ca2e6e66802391b1a5f953b",
+      "source_choices_sha256": "8fa6049d6617521223aca031d86483a2808d86af16ee4b336dc84fd3c0e01605",
+      "stem": "The one-way commute times (minutes) are 14, 14, 21, 23, 23, 26, 30, 31, 35, 36, 39, 45. Which representation correctly displays these quantitative data?",
+      "variable": "one-way commute times",
+      "unit": "minutes",
+      "observations": [
+        14,
+        14,
+        21,
+        23,
+        23,
+        26,
+        30,
+        31,
+        35,
+        36,
+        39,
+        45
+      ],
+      "bins": [
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 39,
+          "left_edge": 30,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 49,
+          "left_edge": 40,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 59,
+          "left_edge": 50,
+          "right_edge_exclusive": 60
+        }
+      ],
+      "expected_counts": [
+        2,
+        4,
+        5,
+        1,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            4,
+            5,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0",
+          "alt_text": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            2,
+            5,
+            4,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 4; 40-49 minutes: 1; 50-59 minutes: 0",
+          "alt_text": "Choice B. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 4; 40-49 minutes: 1; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 4; 40-49 minutes: 1; 50-59 minutes: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 30,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 30-39 bar has 4 instead of 5, while the 20-29 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            2,
+            4,
+            5,
+            0,
+            1
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 0; 50-59 minutes: 1",
+          "alt_text": "Choice C. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 0; 50-59 minutes: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 0; 50-59 minutes: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 40-49 bar has 0 instead of 1, while the 50-59 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            3,
+            5,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0",
+          "alt_text": "Choice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 21,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 10-19 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 14 | 0 0; 21 | 0; 23 | 0 0; 26 | 0; 30 | 0; 31 | 0; 35 | 0; 36 | 0; 39 | 0; 45 | 0",
+          "new_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 4; 40-49 minutes: 1; 50-59 minutes: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of one-way commute times, rather than a numeric axis",
+          "new_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0\nChoice B. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 4; 40-49 minutes: 1; 50-59 minutes: 0\nChoice C. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 4; 30-39 minutes: 5; 40-49 minutes: 0; 50-59 minutes: 1\nChoice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 5; 40-49 minutes: 1; 50-59 minutes: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105002",
+      "source_content_item_version_id": "8aaab649-5d1f-4a05-9814-daab2c9eba53",
+      "source_audit_content_digest": "f5f35ea8369d83dd974d44be5dc6acf5",
+      "source_stem_sha256": "17c8653344fdc68c405c5a00256912579e3d546a0c25362cfc57af7ba1efc49a",
+      "source_choices_sha256": "57969a8b81a042eb8303c1a0d0f84279838a32300799e38da130f057fe875c83",
+      "stem": "The battery life (hours) are 9, 7, 9, 10, 9, 11, 10, 14, 15, 13, 16, 17. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        9,
+        7,
+        9,
+        10,
+        9,
+        11,
+        10,
+        14,
+        15,
+        13,
+        16,
+        17
+      ],
+      "bins": [
+        {
+          "lower": 5,
+          "upper": 9,
+          "left_edge": 5,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 14,
+          "left_edge": 10,
+          "right_edge_exclusive": 15
+        },
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        }
+      ],
+      "expected_counts": [
+        4,
+        5,
+        3,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            4,
+            4,
+            4,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 4; 15-19 hours: 4; 20-24 hours: 0",
+          "alt_text": "Choice A. Histogram with counts 5-9 hours: 4; 10-14 hours: 4; 15-19 hours: 4; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 4; 15-19 hours: 4; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 4 instead of 5, while the 15-19 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            5,
+            4,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 5; 10-14 hours: 4; 15-19 hours: 3; 20-24 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 5-9 hours: 5; 10-14 hours: 4; 15-19 hours: 3; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 5; 10-14 hours: 4; 15-19 hours: 3; 20-24 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 4 instead of 5, while the 5-9 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            4,
+            6,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice C. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 15,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 15-19 bar has 2 instead of 3, while the 10-14 bar has 6 instead of 5. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            4,
+            5,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 5; 15-19 hours: 3; 20-24 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 5-9 hours: 4; 10-14 hours: 5; 15-19 hours: 3; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 5; 15-19 hours: 3; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 7 | 0; 9 | 0 0 0; 10 | 0 0; 11 | 0; 13 | 0; 14 | 0; 15 | 0; 16 | 0; 17 | 0",
+          "new_text": "Histogram with counts 5-9 hours: 5; 10-14 hours: 4; 15-19 hours: 3; 20-24 hours: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 5-9 hours: 4; 10-14 hours: 4; 15-19 hours: 4; 20-24 hours: 0\nChoice B. Histogram with counts 5-9 hours: 5; 10-14 hours: 4; 15-19 hours: 3; 20-24 hours: 0\nChoice C. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0\nChoice D. Histogram with counts 5-9 hours: 4; 10-14 hours: 5; 15-19 hours: 3; 20-24 hours: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105003",
+      "source_content_item_version_id": "6b0d9c38-4b11-4157-97a0-d0c70d4ecb84",
+      "source_audit_content_digest": "f13fae707bef4bd4a51072b400c4186f",
+      "source_stem_sha256": "200c9060e35125874f3ef08668ccddf0d8efd7e31e2bfd0024f29cb0a111562f",
+      "source_choices_sha256": "43adf5a5e80a6a8e971b4331743f94a4f6cb4691ed1f399b2ea6a4f074c15e51",
+      "stem": "The one-way commute times (minutes) are 13, 15, 19, 24, 25, 24, 29, 32, 35, 37, 42, 44. Which representation correctly displays these quantitative data?",
+      "variable": "one-way commute times",
+      "unit": "minutes",
+      "observations": [
+        13,
+        15,
+        19,
+        24,
+        25,
+        24,
+        29,
+        32,
+        35,
+        37,
+        42,
+        44
+      ],
+      "bins": [
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 39,
+          "left_edge": 30,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 49,
+          "left_edge": 40,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 59,
+          "left_edge": 50,
+          "right_edge_exclusive": 60
+        }
+      ],
+      "expected_counts": [
+        3,
+        4,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            5,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 19,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 2 instead of 3, while the 20-29 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            5,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 5; 30-39 minutes: 2; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice B. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 5; 30-39 minutes: 2; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 5; 30-39 minutes: 2; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 32,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 30-39 bar has 2 instead of 3, while the 20-29 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            3,
+            3,
+            4,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 4; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice C. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 4; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 4; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 30-39 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of one-way commute times, rather than a numeric axis",
+          "new_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0"
+        },
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 13 | 0; 15 | 0; 19 | 0; 24 | 0 0; 25 | 0; 29 | 0; 32 | 0; 35 | 0; 37 | 0; 42 | 0; 44 | 0",
+          "new_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 5; 30-39 minutes: 2; 40-49 minutes: 2; 50-59 minutes: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0\nChoice B. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 5; 30-39 minutes: 2; 40-49 minutes: 2; 50-59 minutes: 0\nChoice C. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 3; 30-39 minutes: 4; 40-49 minutes: 2; 50-59 minutes: 0\nChoice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105004",
+      "source_content_item_version_id": "259bb09f-3404-4269-8351-75bd47a06a69",
+      "source_audit_content_digest": "c8e5968f1dc9daa3c969dd38a822b273",
+      "source_stem_sha256": "3452ca2b0e347a1f03549031ae5dedad3515e75d9df0d26e78ac1cd8b5bc2cdb",
+      "source_choices_sha256": "bb0bea1e3d755029725bcc42818791024175dbb134c790481e2188def08bf827",
+      "stem": "The quiz scores (points) are 63, 68, 69, 72, 74, 79, 79, 81, 86, 87, 92, 95. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        63,
+        68,
+        69,
+        72,
+        74,
+        79,
+        79,
+        81,
+        86,
+        87,
+        92,
+        95
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 69,
+          "left_edge": 60,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 79,
+          "left_edge": 70,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 89,
+          "left_edge": 80,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 99,
+          "left_edge": 90,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 109,
+          "left_edge": 100,
+          "right_edge_exclusive": 110
+        }
+      ],
+      "expected_counts": [
+        3,
+        4,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            2,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 2; 90-99 points: 3; 100-109 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 2; 90-99 points: 3; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 2; 90-99 points: 3; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 80-89 bar has 2 instead of 3, while the 90-99 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            2,
+            5,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 69,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 60-69 bar has 2 instead of 3, while the 70-79 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            3,
+            4,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 79,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 70-79 bar has 3 instead of 4, while the 80-89 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "C",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 63 | 0; 68 | 0; 69 | 0; 72 | 0; 74 | 0; 79 | 0 0; 81 | 0; 86 | 0; 87 | 0; 92 | 0; 95 | 0",
+          "new_text": "Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0\nChoice B. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 2; 90-99 points: 3; 100-109 points: 0\nChoice C. Histogram with counts 60-69 points: 2; 70-79 points: 5; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0\nChoice D. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105005",
+      "source_content_item_version_id": "f3fa703e-80e4-4dc6-9a5c-eca981e9f978",
+      "source_audit_content_digest": "90e1829146a8ec7bcac73398b136898c",
+      "source_stem_sha256": "744c772f4f112e1a0550c77db338eff6bd68b3fb9e6d1d10fd7860188848909b",
+      "source_choices_sha256": "f4b25aa1f8ef0591e8c3f4b56a1218341f3c7d70ddc0210565e28ced8d870f50",
+      "stem": "The battery life (hours) are 9, 10, 8, 10, 12, 9, 11, 11, 13, 16, 16, 14. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        9,
+        10,
+        8,
+        10,
+        12,
+        9,
+        11,
+        11,
+        13,
+        16,
+        16,
+        14
+      ],
+      "bins": [
+        {
+          "lower": 5,
+          "upper": 9,
+          "left_edge": 5,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 14,
+          "left_edge": 10,
+          "right_edge_exclusive": 15
+        },
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        }
+      ],
+      "expected_counts": [
+        3,
+        7,
+        2,
+        0
+      ],
+      "derived_answer_key": "C",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 8,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            3,
+            7,
+            1,
+            1
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 1",
+          "alt_text": "Choice A. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 15-19 bar has 1 instead of 2, while the 20-24 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            4,
+            6,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 6 instead of 7, while the 5-9 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            3,
+            7,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice C. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            2,
+            8,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 9,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 5-9 bar has 2 instead of 3, while the 10-14 bar has 8 instead of 7. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 8 | 0; 9 | 0 0; 10 | 0 0; 11 | 0 0; 12 | 0; 13 | 0; 14 | 0; 16 | 0 0",
+          "new_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 1\nChoice B. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0\nChoice C. Histogram with counts 5-9 hours: 3; 10-14 hours: 7; 15-19 hours: 2; 20-24 hours: 0\nChoice D. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105006",
+      "source_content_item_version_id": "10986d9c-861e-417b-a7d1-83a0f6db069a",
+      "source_audit_content_digest": "5c897f597e743c2663a71e87a9692449",
+      "source_stem_sha256": "baec0ebac804992a97d30ff7c2f9748e1c299a74f41a03f5d1cd425df0123577",
+      "source_choices_sha256": "40099f2f6f8d61e80dd73363ec08123855dba5d9228ccd7e04d4b105f7fd98f8",
+      "stem": "The quiz scores (points) are 64, 65, 67, 72, 75, 78, 78, 81, 85, 87, 90, 97. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        64,
+        65,
+        67,
+        72,
+        75,
+        78,
+        78,
+        81,
+        85,
+        87,
+        90,
+        97
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 69,
+          "left_edge": 60,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 79,
+          "left_edge": 70,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 89,
+          "left_edge": 80,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 99,
+          "left_edge": 90,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 109,
+          "left_edge": 100,
+          "right_edge_exclusive": 110
+        }
+      ],
+      "expected_counts": [
+        3,
+        4,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            4,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 4; 90-99 points: 1; 100-109 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 4; 90-99 points: 1; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 4; 90-99 points: 1; 100-109 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 90,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 90-99 bar has 1 instead of 2, while the 80-89 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            3,
+            4,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 70-79 bar has 3 instead of 4, while the 80-89 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            3,
+            5,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 81,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 80-89 bar has 2 instead of 3, while the 70-79 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 4; 90-99 points: 1; 100-109 points: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 64 | 0; 65 | 0; 67 | 0; 72 | 0; 75 | 0; 78 | 0 0; 81 | 0; 85 | 0; 87 | 0; 90 | 0; 97 | 0",
+          "new_text": "Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 4; 90-99 points: 1; 100-109 points: 0\nChoice B. Histogram with counts 60-69 points: 3; 70-79 points: 3; 80-89 points: 4; 90-99 points: 2; 100-109 points: 0\nChoice C. Histogram with counts 60-69 points: 3; 70-79 points: 5; 80-89 points: 2; 90-99 points: 2; 100-109 points: 0\nChoice D. Histogram with counts 60-69 points: 3; 70-79 points: 4; 80-89 points: 3; 90-99 points: 2; 100-109 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105007",
+      "source_content_item_version_id": "cc1836a1-ebfa-4f76-a64b-544d0132571f",
+      "source_audit_content_digest": "121d3687a80232788843c7e3460a6859",
+      "source_stem_sha256": "c909eeb0735fe3e0cb5db775aa7a3f4e83f890509f9a4a2e3f73691e6db3e899",
+      "source_choices_sha256": "b50c1c35862b92a4932ccc33e1aba8c88c201097b316aff274f73f03d6e4dea4",
+      "stem": "The one-way commute times (minutes) are 13, 17, 19, 21, 24, 25, 27, 33, 37, 38, 42, 43. Which representation correctly displays these quantitative data?",
+      "variable": "one-way commute times",
+      "unit": "minutes",
+      "observations": [
+        13,
+        17,
+        19,
+        21,
+        24,
+        25,
+        27,
+        33,
+        37,
+        38,
+        42,
+        43
+      ],
+      "bins": [
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 39,
+          "left_edge": 30,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 49,
+          "left_edge": 40,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 59,
+          "left_edge": 50,
+          "right_edge_exclusive": 60
+        }
+      ],
+      "expected_counts": [
+        3,
+        4,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "B",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            5,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 19,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 2 instead of 3, while the 20-29 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice B. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            4,
+            3,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 4; 20-29 minutes: 3; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "alt_text": "Choice C. Histogram with counts 10-19 minutes: 4; 20-29 minutes: 3; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 4; 20-29 minutes: 3; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 21,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 10-19 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            1,
+            1
+          ],
+          "choice_text": "Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 1; 50-59 minutes: 1",
+          "alt_text": "Choice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 1; 50-59 minutes: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 1; 50-59 minutes: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 40-49 bar has 1 instead of 2, while the 50-59 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 13 | 0; 17 | 0; 19 | 0; 21 | 0; 24 | 0; 25 | 0; 27 | 0; 33 | 0; 37 | 0; 38 | 0; 42 | 0; 43 | 0",
+          "new_text": "Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of one-way commute times, rather than a numeric axis",
+          "new_text": "Histogram with counts 10-19 minutes: 4; 20-29 minutes: 3; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 10-19 minutes: 2; 20-29 minutes: 5; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0\nChoice B. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0\nChoice C. Histogram with counts 10-19 minutes: 4; 20-29 minutes: 3; 30-39 minutes: 3; 40-49 minutes: 2; 50-59 minutes: 0\nChoice D. Histogram with counts 10-19 minutes: 3; 20-29 minutes: 4; 30-39 minutes: 3; 40-49 minutes: 1; 50-59 minutes: 1"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105008",
+      "source_content_item_version_id": "9da820de-95d3-467e-b76b-570c0cc3c0aa",
+      "source_audit_content_digest": "1166db6affc0b22a72a057c35854c8e2",
+      "source_stem_sha256": "b1a14a98dbf2fc997c16f795bbb88ac9f3456cac8e5046654dba0ce693ac2b98",
+      "source_choices_sha256": "023027e0a4e10096b42a38836167594d26d67b6fc19862b407fa97305b2e79a2",
+      "stem": "The quiz scores (points) are 63, 67, 68, 71, 75, 77, 79, 83, 87, 89, 90, 95. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        63,
+        67,
+        68,
+        71,
+        75,
+        77,
+        79,
+        83,
+        87,
+        89,
+        90,
+        95
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 64,
+          "left_edge": 60,
+          "right_edge_exclusive": 65
+        },
+        {
+          "lower": 65,
+          "upper": 69,
+          "left_edge": 65,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 74,
+          "left_edge": 70,
+          "right_edge_exclusive": 75
+        },
+        {
+          "lower": 75,
+          "upper": 79,
+          "left_edge": 75,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 84,
+          "left_edge": 80,
+          "right_edge_exclusive": 85
+        },
+        {
+          "lower": 85,
+          "upper": 89,
+          "left_edge": 85,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 94,
+          "left_edge": 90,
+          "right_edge_exclusive": 95
+        },
+        {
+          "lower": 95,
+          "upper": 99,
+          "left_edge": 95,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 104,
+          "left_edge": 100,
+          "right_edge_exclusive": 105
+        }
+      ],
+      "expected_counts": [
+        1,
+        2,
+        1,
+        3,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            1,
+            3,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            2,
+            3,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 65-69 bar has 1 instead of 2, while the 70-74 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 75,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 75-79 bar has 2 instead of 3, while the 70-74 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            1,
+            3,
+            1,
+            3,
+            0,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 3; 90-94 points: 0; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 3; 90-94 points: 0; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 3; 90-94 points: 0; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 6,
+            "recipient_bin_index": 5,
+            "misplaced_observation": 90,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 90-94 bar has 0 instead of 1, while the 85-89 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "C",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 63 | 0; 67 | 0; 68 | 0; 71 | 0; 75 | 0; 77 | 0; 79 | 0; 83 | 0; 87 | 0; 89 | 0; 90 | 0; 95 | 0",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 3; 90-94 points: 0; 95-99 points: 1; 100-104 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice B. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 3; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 3; 80-84 points: 1; 85-89 points: 3; 90-94 points: 0; 95-99 points: 1; 100-104 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105009",
+      "source_content_item_version_id": "39bd2331-5756-4909-aa43-721757e5880c",
+      "source_audit_content_digest": "425ca3ab0b05cfb71fbcf8c45212603b",
+      "source_stem_sha256": "e1e38e67fc7918f9719f5a94c4d223665c9829c8cf8f157d562efc0e323ff49e",
+      "source_choices_sha256": "68f56541e1bb160e84ce2e65dce3aa18e50c0c22e21e8414dbe6ba55099a1e15",
+      "stem": "The quiz scores (points) are 61, 67, 67, 70, 73, 79, 81, 84, 86, 89, 93, 97. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        61,
+        67,
+        67,
+        70,
+        73,
+        79,
+        81,
+        84,
+        86,
+        89,
+        93,
+        97
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 64,
+          "left_edge": 60,
+          "right_edge_exclusive": 65
+        },
+        {
+          "lower": 65,
+          "upper": 69,
+          "left_edge": 65,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 74,
+          "left_edge": 70,
+          "right_edge_exclusive": 75
+        },
+        {
+          "lower": 75,
+          "upper": 79,
+          "left_edge": 75,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 84,
+          "left_edge": 80,
+          "right_edge_exclusive": 85
+        },
+        {
+          "lower": 85,
+          "upper": 89,
+          "left_edge": 85,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 94,
+          "left_edge": 90,
+          "right_edge_exclusive": 95
+        },
+        {
+          "lower": 95,
+          "upper": 99,
+          "left_edge": 95,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 104,
+          "left_edge": 100,
+          "right_edge_exclusive": 105
+        }
+      ],
+      "expected_counts": [
+        1,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1,
+        1,
+        0
+      ],
+      "derived_answer_key": "C",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            3,
+            1,
+            1,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 1; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 1; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 1; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 70,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 70-74 bar has 1 instead of 2, while the 65-69 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            1,
+            2,
+            2,
+            1,
+            0,
+            1
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 0; 100-104 points: 1",
+          "alt_text": "Choice B. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 0; 100-104 points: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 0; 100-104 points: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 95-99 bar has 0 instead of 1, while the 100-104 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            1,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            0,
+            3,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 0; 80-84 points: 3; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 0; 80-84 points: 3; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 0; 80-84 points: 3; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 4,
+            "misplaced_observation": 79,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 75-79 bar has 0 instead of 1, while the 80-84 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 61 | 0; 67 | 0 0; 70 | 0; 73 | 0; 79 | 0; 81 | 0; 84 | 0; 86 | 0; 89 | 0; 93 | 0; 97 | 0",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 1; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 0; 80-84 points: 3; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 1; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice B. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 0; 100-104 points: 1\nChoice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 0; 80-84 points: 3; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105010",
+      "source_content_item_version_id": "837ab53c-6074-4a09-af7e-3f2021534d3f",
+      "source_audit_content_digest": "4f668b532745177d147405f4a642292d",
+      "source_stem_sha256": "8c9472e24985033f311c8421ffe81f566d4f9200a12d6e04bdec4503c837dd21",
+      "source_choices_sha256": "5d2076707fedc86255b7e2b9988c4f26de5dbf67e1d48d887dc5787ba5fa76c2",
+      "stem": "The quiz scores (points) are 62, 68, 67, 72, 73, 76, 79, 84, 86, 87, 91, 94. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        62,
+        68,
+        67,
+        72,
+        73,
+        76,
+        79,
+        84,
+        86,
+        87,
+        91,
+        94
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 64,
+          "left_edge": 60,
+          "right_edge_exclusive": 65
+        },
+        {
+          "lower": 65,
+          "upper": 69,
+          "left_edge": 65,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 74,
+          "left_edge": 70,
+          "right_edge_exclusive": 75
+        },
+        {
+          "lower": 75,
+          "upper": 79,
+          "left_edge": 75,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 84,
+          "left_edge": 80,
+          "right_edge_exclusive": 85
+        },
+        {
+          "lower": 85,
+          "upper": 89,
+          "left_edge": 85,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 94,
+          "left_edge": 90,
+          "right_edge_exclusive": 95
+        },
+        {
+          "lower": 95,
+          "upper": 99,
+          "left_edge": 95,
+          "right_edge_exclusive": 100
+        }
+      ],
+      "expected_counts": [
+        1,
+        2,
+        2,
+        2,
+        1,
+        2,
+        2,
+        0
+      ],
+      "derived_answer_key": "C",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            3,
+            1,
+            1,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 3; 75-79 points: 1; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 3; 75-79 points: 1; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 3; 75-79 points: 1; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 76,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 75-79 bar has 1 instead of 2, while the 70-74 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            0,
+            3,
+            2,
+            2,
+            1,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 0; 65-69 points: 3; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-64 points: 0; 65-69 points: 3; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 0; 65-69 points: 3; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 60-64 bar has 0 instead of 1, while the 65-69 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            2,
+            1,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            1,
+            2,
+            2,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 4,
+            "misplaced_observation": 79,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 75-79 bar has 1 instead of 2, while the 80-84 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 62 | 0; 67 | 0; 68 | 0; 72 | 0; 73 | 0; 76 | 0; 79 | 0; 84 | 0; 86 | 0; 87 | 0; 91 | 0; 94 | 0",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 3; 75-79 points: 1; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 3; 75-79 points: 1; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0\nChoice B. Histogram with counts 60-64 points: 0; 65-69 points: 3; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0\nChoice C. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 2; 80-84 points: 1; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0\nChoice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 2; 95-99 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105011",
+      "source_content_item_version_id": "11a6ff3c-757f-4b5e-91e2-393b77c677c2",
+      "source_audit_content_digest": "015e523333f6073521766b1a92c3a3c5",
+      "source_stem_sha256": "34f9711af0ded86ae3253ebf7b0dad306675f8d085da4ffac70832d7560e88ea",
+      "source_choices_sha256": "d03e0019e13f328d21af48c292273ca0d4593840b99cd2934fa3696cf38e28c7",
+      "stem": "The battery life (hours) are 7, 7, 10, 10, 10, 10, 13, 11, 13, 16, 16, 14. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        7,
+        7,
+        10,
+        10,
+        10,
+        10,
+        13,
+        11,
+        13,
+        16,
+        16,
+        14
+      ],
+      "bins": [
+        {
+          "lower": 0,
+          "upper": 9,
+          "left_edge": 0,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        }
+      ],
+      "expected_counts": [
+        2,
+        10,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 12,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            10,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 2; 10-19 hours: 10; 20-29 hours: 0",
+          "alt_text": "Choice A. Histogram with counts 0-9 hours: 2; 10-19 hours: 10; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 2; 10-19 hours: 10; 20-29 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            9,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 9 instead of 10, while the 0-9 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            2,
+            9,
+            1
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 2; 10-19 hours: 9; 20-29 hours: 1",
+          "alt_text": "Choice C. Histogram with counts 0-9 hours: 2; 10-19 hours: 9; 20-29 hours: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 2; 10-19 hours: 9; 20-29 hours: 1.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 16,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 9 instead of 10, while the 20-29 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            11,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 1; 10-19 hours: 11; 20-29 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 0-9 hours: 1; 10-19 hours: 11; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 1; 10-19 hours: 11; 20-29 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 0-9 bar has 1 instead of 2, while the 10-19 bar has 11 instead of 10. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 7 | 0 0; 10 | 0 0 0 0; 11 | 0; 13 | 0 0; 14 | 0; 16 | 0 0",
+          "new_text": "Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 0-9 hours: 2; 10-19 hours: 9; 20-29 hours: 1"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 0-9 hours: 2; 10-19 hours: 10; 20-29 hours: 0\nChoice B. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0\nChoice C. Histogram with counts 0-9 hours: 2; 10-19 hours: 9; 20-29 hours: 1\nChoice D. Histogram with counts 0-9 hours: 1; 10-19 hours: 11; 20-29 hours: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105012",
+      "source_content_item_version_id": "818f47ba-55fc-4e87-979b-27d054bfc1dd",
+      "source_audit_content_digest": "ca201596604f610dc3460690dce4f8fb",
+      "source_stem_sha256": "f05acd82a83c36381ba4970d9432db401120ce1d8c7d37795e5227f4aff7ceb2",
+      "source_choices_sha256": "674536807b87671c341f750aa5d484cf9aa30120eb6b0fe03eef1daeb4174490",
+      "stem": "The battery life (hours) are 6, 8, 10, 8, 9, 12, 10, 12, 13, 16, 16, 17. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        6,
+        8,
+        10,
+        8,
+        9,
+        12,
+        10,
+        12,
+        13,
+        16,
+        16,
+        17
+      ],
+      "bins": [
+        {
+          "lower": 0,
+          "upper": 9,
+          "left_edge": 0,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        }
+      ],
+      "expected_counts": [
+        4,
+        8,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 10,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            5,
+            7,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 5; 10-19 hours: 7; 20-29 hours: 0",
+          "alt_text": "Choice A. Histogram with counts 0-9 hours: 5; 10-19 hours: 7; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 5; 10-19 hours: 7; 20-29 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 7 instead of 8, while the 0-9 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            9,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 9,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 0-9 bar has 3 instead of 4, while the 10-19 bar has 9 instead of 8. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            4,
+            7,
+            1
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 4; 10-19 hours: 7; 20-29 hours: 1",
+          "alt_text": "Choice C. Histogram with counts 0-9 hours: 4; 10-19 hours: 7; 20-29 hours: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 4; 10-19 hours: 7; 20-29 hours: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-19 bar has 7 instead of 8, while the 20-29 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            4,
+            8,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 hours: 4; 10-19 hours: 8; 20-29 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 0-9 hours: 4; 10-19 hours: 8; 20-29 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 hours: 4; 10-19 hours: 8; 20-29 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 6 | 0; 8 | 0 0; 9 | 0; 10 | 0 0; 12 | 0 0; 13 | 0; 16 | 0 0; 17 | 0",
+          "new_text": "Histogram with counts 0-9 hours: 5; 10-19 hours: 7; 20-29 hours: 0"
+        },
+        {
+          "choice_key": "B",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 0-9 hours: 5; 10-19 hours: 7; 20-29 hours: 0\nChoice B. Histogram with counts 0-9 hours: 3; 10-19 hours: 9; 20-29 hours: 0\nChoice C. Histogram with counts 0-9 hours: 4; 10-19 hours: 7; 20-29 hours: 1\nChoice D. Histogram with counts 0-9 hours: 4; 10-19 hours: 8; 20-29 hours: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105013",
+      "source_content_item_version_id": "708563b5-6131-477e-a243-a1e8d80670ca",
+      "source_audit_content_digest": "2798941ae2f502c15d9cd991c1ea5df1",
+      "source_stem_sha256": "f079f7504fe49a169bd03ab8b7c7ff9eec760bc5174be252b3a6b1982336d09c",
+      "source_choices_sha256": "4934dfcd2319581802439f86a2d7225ad1ed987f9a4041e76a8b1f8f5d309fc8",
+      "stem": "The quiz scores (points) are 61, 68, 69, 70, 75, 79, 80, 84, 87, 88, 90, 96. Which representation correctly displays these quantitative data?",
+      "variable": "quiz scores",
+      "unit": "points",
+      "observations": [
+        61,
+        68,
+        69,
+        70,
+        75,
+        79,
+        80,
+        84,
+        87,
+        88,
+        90,
+        96
+      ],
+      "bins": [
+        {
+          "lower": 60,
+          "upper": 64,
+          "left_edge": 60,
+          "right_edge_exclusive": 65
+        },
+        {
+          "lower": 65,
+          "upper": 69,
+          "left_edge": 65,
+          "right_edge_exclusive": 70
+        },
+        {
+          "lower": 70,
+          "upper": 74,
+          "left_edge": 70,
+          "right_edge_exclusive": 75
+        },
+        {
+          "lower": 75,
+          "upper": 79,
+          "left_edge": 75,
+          "right_edge_exclusive": 80
+        },
+        {
+          "lower": 80,
+          "upper": 84,
+          "left_edge": 80,
+          "right_edge_exclusive": 85
+        },
+        {
+          "lower": 85,
+          "upper": 89,
+          "left_edge": 85,
+          "right_edge_exclusive": 90
+        },
+        {
+          "lower": 90,
+          "upper": 94,
+          "left_edge": 90,
+          "right_edge_exclusive": 95
+        },
+        {
+          "lower": 95,
+          "upper": 99,
+          "left_edge": 95,
+          "right_edge_exclusive": 100
+        },
+        {
+          "lower": 100,
+          "upper": 104,
+          "left_edge": 100,
+          "right_edge_exclusive": 105
+        }
+      ],
+      "expected_counts": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        0
+      ],
+      "derived_answer_key": "B",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            3,
+            0,
+            2,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 0; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 0; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 0; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 70,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 70-74 bar has 0 instead of 1, while the 65-69 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            1,
+            2,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice B. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice C. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 65-69 bar has 1 instead of 2, while the 70-74 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            1,
+            2,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "alt_text": "Choice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 75,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 75-79 bar has 1 instead of 2, while the 70-74 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "A",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of quiz scores, rather than a numeric axis",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 0; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 61 | 0; 68 | 0; 69 | 0; 70 | 0; 75 | 0; 79 | 0; 80 | 0; 84 | 0; 87 | 0; 88 | 0; 90 | 0; 96 | 0",
+          "new_text": "Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 60-64 points: 1; 65-69 points: 3; 70-74 points: 0; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice B. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 1; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice C. Histogram with counts 60-64 points: 1; 65-69 points: 1; 70-74 points: 2; 75-79 points: 2; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0\nChoice D. Histogram with counts 60-64 points: 1; 65-69 points: 2; 70-74 points: 2; 75-79 points: 1; 80-84 points: 2; 85-89 points: 2; 90-94 points: 1; 95-99 points: 1; 100-104 points: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105014",
+      "source_content_item_version_id": "459c4ae6-5b18-4cd6-a826-18e7b9fbd609",
+      "source_audit_content_digest": "f8dcff6277069f4cacadb36bfe3be6df",
+      "source_stem_sha256": "702caab49f7266c3dc1aea7f2f331caeeeb8865030c05f67462d373feea95e03",
+      "source_choices_sha256": "4a6e624fe3c8808516b7833b30118727bae044db2e442131aa49af2d99a852d7",
+      "stem": "The one-way commute times (minutes) are 14, 16, 20, 24, 25, 24, 29, 34, 36, 36, 42, 45. Which representation correctly displays these quantitative data?",
+      "variable": "one-way commute times",
+      "unit": "minutes",
+      "observations": [
+        14,
+        16,
+        20,
+        24,
+        25,
+        24,
+        29,
+        34,
+        36,
+        36,
+        42,
+        45
+      ],
+      "bins": [
+        {
+          "lower": 10,
+          "upper": 14,
+          "left_edge": 10,
+          "right_edge_exclusive": 15
+        },
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        },
+        {
+          "lower": 25,
+          "upper": 29,
+          "left_edge": 25,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 34,
+          "left_edge": 30,
+          "right_edge_exclusive": 35
+        },
+        {
+          "lower": 35,
+          "upper": 39,
+          "left_edge": 35,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 44,
+          "left_edge": 40,
+          "right_edge_exclusive": 45
+        },
+        {
+          "lower": 45,
+          "upper": 49,
+          "left_edge": 45,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 54,
+          "left_edge": 50,
+          "right_edge_exclusive": 55
+        }
+      ],
+      "expected_counts": [
+        1,
+        1,
+        3,
+        2,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            3,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "alt_text": "Choice A. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 2; 20-24 minutes: 2; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "alt_text": "Choice B. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 2; 20-24 minutes: 2; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 2; 20-24 minutes: 2; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 20,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-24 bar has 2 instead of 3, while the 15-19 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            4,
+            1,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 4; 25-29 minutes: 1; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "alt_text": "Choice C. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 4; 25-29 minutes: 1; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 4; 25-29 minutes: 1; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 25,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 25-29 bar has 1 instead of 2, while the 20-24 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            3,
+            2,
+            1,
+            1,
+            2,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 1; 40-44 minutes: 2; 45-49 minutes: 1; 50-54 minutes: 0",
+          "alt_text": "Choice D. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 1; 40-44 minutes: 2; 45-49 minutes: 1; 50-54 minutes: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 1; 40-44 minutes: 2; 45-49 minutes: 1; 50-54 minutes: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 35-39 bar has 1 instead of 2, while the 40-44 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 14 | 0; 16 | 0; 20 | 0; 24 | 0 0; 25 | 0; 29 | 0; 34 | 0; 36 | 0 0; 42 | 0; 45 | 0",
+          "new_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 2; 20-24 minutes: 2; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of one-way commute times, rather than a numeric axis",
+          "new_text": "Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 4; 25-29 minutes: 1; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0\nChoice B. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 2; 20-24 minutes: 2; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0\nChoice C. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 4; 25-29 minutes: 1; 30-34 minutes: 1; 35-39 minutes: 2; 40-44 minutes: 1; 45-49 minutes: 1; 50-54 minutes: 0\nChoice D. Histogram with counts 10-14 minutes: 1; 15-19 minutes: 1; 20-24 minutes: 3; 25-29 minutes: 2; 30-34 minutes: 1; 35-39 minutes: 1; 40-44 minutes: 2; 45-49 minutes: 1; 50-54 minutes: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105015",
+      "source_content_item_version_id": "157c6134-dfdb-4119-b0af-6a65230e7bd6",
+      "source_audit_content_digest": "717d82fa36bf7641694ec8f81122aa82",
+      "source_stem_sha256": "2add2c4b8ab7f4731c8c4248c15b617d5d9d91810fab4e065551f60f9f143301",
+      "source_choices_sha256": "6aabff1a9253738b3d20bd9f7f142cc3dcda4396f06004e4fa22804e45dc3a07",
+      "stem": "The online order totals (dollars) are 20, 22, 28, 29, 31, 34, 38, 44, 47, 49, 52, 58. Which representation correctly displays these quantitative data?",
+      "variable": "online order totals",
+      "unit": "dollars",
+      "observations": [
+        20,
+        22,
+        28,
+        29,
+        31,
+        34,
+        38,
+        44,
+        47,
+        49,
+        52,
+        58
+      ],
+      "bins": [
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 39,
+          "left_edge": 30,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 49,
+          "left_edge": 40,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 59,
+          "left_edge": 50,
+          "right_edge_exclusive": 60
+        },
+        {
+          "lower": 60,
+          "upper": 69,
+          "left_edge": 60,
+          "right_edge_exclusive": 70
+        }
+      ],
+      "expected_counts": [
+        4,
+        3,
+        3,
+        2,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 6,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            4,
+            3,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 20-29 dollars: 4; 30-39 dollars: 3; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "alt_text": "Choice A. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 3; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 3; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            4,
+            2,
+            4,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 20-29 dollars: 4; 30-39 dollars: 2; 40-49 dollars: 4; 50-59 dollars: 2; 60-69 dollars: 0",
+          "alt_text": "Choice B. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 2; 40-49 dollars: 4; 50-59 dollars: 2; 60-69 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 2; 40-49 dollars: 4; 50-59 dollars: 2; 60-69 dollars: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 30-39 bar has 2 instead of 3, while the 40-49 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            3,
+            4,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 20-29 dollars: 3; 30-39 dollars: 4; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "alt_text": "Choice C. Histogram with counts 20-29 dollars: 3; 30-39 dollars: 4; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 20-29 dollars: 3; 30-39 dollars: 4; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 29,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 30-39 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            5,
+            2,
+            3,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 20-29 dollars: 5; 30-39 dollars: 2; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "alt_text": "Choice D. Histogram with counts 20-29 dollars: 5; 30-39 dollars: 2; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 20-29 dollars: 5; 30-39 dollars: 2; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 31,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 30-39 bar has 2 instead of 3, while the 20-29 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of online order totals, rather than a numeric axis",
+          "new_text": "Histogram with counts 20-29 dollars: 3; 30-39 dollars: 4; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 20 | 0; 22 | 0; 28 | 0; 29 | 0; 31 | 0; 34 | 0; 38 | 0; 44 | 0; 47 | 0; 49 | 0; 52 | 0; 58 | 0",
+          "new_text": "Histogram with counts 20-29 dollars: 5; 30-39 dollars: 2; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 3; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0\nChoice B. Histogram with counts 20-29 dollars: 4; 30-39 dollars: 2; 40-49 dollars: 4; 50-59 dollars: 2; 60-69 dollars: 0\nChoice C. Histogram with counts 20-29 dollars: 3; 30-39 dollars: 4; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0\nChoice D. Histogram with counts 20-29 dollars: 5; 30-39 dollars: 2; 40-49 dollars: 3; 50-59 dollars: 2; 60-69 dollars: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105016",
+      "source_content_item_version_id": "f01ee017-3470-4b78-9194-6580f4796022",
+      "source_audit_content_digest": "645675a075d328cc449c3eea03e3f3d2",
+      "source_stem_sha256": "6f0940546fe7c96dd09bfcac9de24c1371c8ef11fd036c2a3902ec25722f0911",
+      "source_choices_sha256": "e827927233731ec4e6553960a53e19e3e24a3ef1c77515e4231d6e0bcbafde31",
+      "stem": "The battery life (hours) are 8, 10, 10, 9, 12, 11, 10, 12, 12, 15, 15, 17. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        8,
+        10,
+        10,
+        9,
+        12,
+        11,
+        10,
+        12,
+        12,
+        15,
+        15,
+        17
+      ],
+      "bins": [
+        {
+          "lower": 5,
+          "upper": 9,
+          "left_edge": 5,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 14,
+          "left_edge": 10,
+          "right_edge_exclusive": 15
+        },
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        }
+      ],
+      "expected_counts": [
+        2,
+        7,
+        3,
+        0
+      ],
+      "derived_answer_key": "C",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 8,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            2,
+            6,
+            4,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 6; 15-19 hours: 4; 20-24 hours: 0",
+          "alt_text": "Choice A. Histogram with counts 5-9 hours: 2; 10-14 hours: 6; 15-19 hours: 4; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 2; 10-14 hours: 6; 15-19 hours: 4; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 6 instead of 7, while the 15-19 bar has 4 instead of 3. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            3,
+            6,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 3; 10-14 hours: 6; 15-19 hours: 3; 20-24 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 5-9 hours: 3; 10-14 hours: 6; 15-19 hours: 3; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 3; 10-14 hours: 6; 15-19 hours: 3; 20-24 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 6 instead of 7, while the 5-9 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            2,
+            7,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0",
+          "alt_text": "Choice C. Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            2,
+            8,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 15,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 15-19 bar has 2 instead of 3, while the 10-14 bar has 8 instead of 7. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 8 | 0; 9 | 0; 10 | 0 0 0; 11 | 0; 12 | 0 0 0; 15 | 0 0; 17 | 0",
+          "new_text": "Histogram with counts 5-9 hours: 3; 10-14 hours: 6; 15-19 hours: 3; 20-24 hours: 0"
+        },
+        {
+          "choice_key": "D",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 5-9 hours: 2; 10-14 hours: 6; 15-19 hours: 4; 20-24 hours: 0\nChoice B. Histogram with counts 5-9 hours: 3; 10-14 hours: 6; 15-19 hours: 3; 20-24 hours: 0\nChoice C. Histogram with counts 5-9 hours: 2; 10-14 hours: 7; 15-19 hours: 3; 20-24 hours: 0\nChoice D. Histogram with counts 5-9 hours: 2; 10-14 hours: 8; 15-19 hours: 2; 20-24 hours: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105017",
+      "source_content_item_version_id": "55ed4d91-4ec0-4d21-8456-a7f5c5ad94c2",
+      "source_audit_content_digest": "f75621ed5250885153ce647fc7674cdb",
+      "source_stem_sha256": "df1eff7762a89897d050a3458bda17c681c4ca02b59b334e84e342861433218c",
+      "source_choices_sha256": "28b434b3c5b5c44d58ffadd1250f9e71ac2b00d3007bbebb3752a600a0630f11",
+      "stem": "The seedling heights (cm) are 8, 12, 13, 14, 13, 16, 15, 17, 21, 21, 22, 24. Which representation correctly displays these quantitative data?",
+      "variable": "seedling heights",
+      "unit": "cm",
+      "observations": [
+        8,
+        12,
+        13,
+        14,
+        13,
+        16,
+        15,
+        17,
+        21,
+        21,
+        22,
+        24
+      ],
+      "bins": [
+        {
+          "lower": 0,
+          "upper": 9,
+          "left_edge": 0,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 19,
+          "left_edge": 10,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 29,
+          "left_edge": 20,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 39,
+          "left_edge": 30,
+          "right_edge_exclusive": 40
+        }
+      ],
+      "expected_counts": [
+        1,
+        7,
+        4,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 8,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            7,
+            3,
+            1
+          ],
+          "choice_text": "Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 3; 30-39 cm: 1",
+          "alt_text": "Choice A. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 3; 30-39 cm: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 3; 30-39 cm: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 30-39 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            8,
+            3,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 cm: 1; 10-19 cm: 8; 20-29 cm: 3; 30-39 cm: 0",
+          "alt_text": "Choice B. Histogram with counts 0-9 cm: 1; 10-19 cm: 8; 20-29 cm: 3; 30-39 cm: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 cm: 1; 10-19 cm: 8; 20-29 cm: 3; 30-39 cm: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 21,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 20-29 bar has 3 instead of 4, while the 10-19 bar has 8 instead of 7. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            0,
+            8,
+            4,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 cm: 0; 10-19 cm: 8; 20-29 cm: 4; 30-39 cm: 0",
+          "alt_text": "Choice C. Histogram with counts 0-9 cm: 0; 10-19 cm: 8; 20-29 cm: 4; 30-39 cm: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 cm: 0; 10-19 cm: 8; 20-29 cm: 4; 30-39 cm: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 0,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 8,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 0-9 bar has 0 instead of 1, while the 10-19 bar has 8 instead of 7. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            7,
+            4,
+            0
+          ],
+          "choice_text": "Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 4; 30-39 cm: 0",
+          "alt_text": "Choice D. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 4; 30-39 cm: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 4; 30-39 cm: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 8 | 0; 12 | 0; 13 | 0 0; 14 | 0; 15 | 0; 16 | 0; 17 | 0; 21 | 0 0; 22 | 0; 24 | 0",
+          "new_text": "Histogram with counts 0-9 cm: 1; 10-19 cm: 8; 20-29 cm: 3; 30-39 cm: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of seedling heights, rather than a numeric axis",
+          "new_text": "Histogram with counts 0-9 cm: 0; 10-19 cm: 8; 20-29 cm: 4; 30-39 cm: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 3; 30-39 cm: 1\nChoice B. Histogram with counts 0-9 cm: 1; 10-19 cm: 8; 20-29 cm: 3; 30-39 cm: 0\nChoice C. Histogram with counts 0-9 cm: 0; 10-19 cm: 8; 20-29 cm: 4; 30-39 cm: 0\nChoice D. Histogram with counts 0-9 cm: 1; 10-19 cm: 7; 20-29 cm: 4; 30-39 cm: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105018",
+      "source_content_item_version_id": "b691074e-99aa-4a64-bee6-34595939fda3",
+      "source_audit_content_digest": "5df59aec7e650e4137b208512a0dca39",
+      "source_stem_sha256": "19db9b6e99fc2da750060cf4bf4782f9b3f1ef539dfc3dd07b859a01bfef0132",
+      "source_choices_sha256": "fcef04d72583cd4a61cb6cf7b746f56ea6fab322290c17d09f434f1a3a35e724",
+      "stem": "The online order totals (dollars) are 18, 22, 25, 31, 32, 36, 38, 43, 46, 49, 54, 58. Which representation correctly displays these quantitative data?",
+      "variable": "online order totals",
+      "unit": "dollars",
+      "observations": [
+        18,
+        22,
+        25,
+        31,
+        32,
+        36,
+        38,
+        43,
+        46,
+        49,
+        54,
+        58
+      ],
+      "bins": [
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        },
+        {
+          "lower": 25,
+          "upper": 29,
+          "left_edge": 25,
+          "right_edge_exclusive": 30
+        },
+        {
+          "lower": 30,
+          "upper": 34,
+          "left_edge": 30,
+          "right_edge_exclusive": 35
+        },
+        {
+          "lower": 35,
+          "upper": 39,
+          "left_edge": 35,
+          "right_edge_exclusive": 40
+        },
+        {
+          "lower": 40,
+          "upper": 44,
+          "left_edge": 40,
+          "right_edge_exclusive": 45
+        },
+        {
+          "lower": 45,
+          "upper": 49,
+          "left_edge": 45,
+          "right_edge_exclusive": 50
+        },
+        {
+          "lower": 50,
+          "upper": 54,
+          "left_edge": 50,
+          "right_edge_exclusive": 55
+        },
+        {
+          "lower": 55,
+          "upper": 59,
+          "left_edge": 55,
+          "right_edge_exclusive": 60
+        },
+        {
+          "lower": 60,
+          "upper": 64,
+          "left_edge": 60,
+          "right_edge_exclusive": 65
+        }
+      ],
+      "expected_counts": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "derived_answer_key": "A",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 4,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "alt_text": "Choice A. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            1,
+            2,
+            0,
+            2,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 2; 25-29 dollars: 0; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "alt_text": "Choice B. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 2; 25-29 dollars: 0; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 2; 25-29 dollars: 0; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 25,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 25-29 bar has 0 instead of 1, while the 20-24 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 2; 30-34 dollars: 1; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "alt_text": "Choice C. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 2; 30-34 dollars: 1; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 2; 30-34 dollars: 1; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 3,
+            "recipient_bin_index": 2,
+            "misplaced_observation": 31,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 30-34 bar has 1 instead of 2, while the 25-29 bar has 2 instead of 1. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            0,
+            3,
+            1,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 0; 45-49 dollars: 3; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "alt_text": "Choice D. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 0; 45-49 dollars: 3; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 0; 45-49 dollars: 3; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 40-44 bar has 0 instead of 1, while the 45-49 bar has 3 instead of 2. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 18 | 0; 22 | 0; 25 | 0; 31 | 0; 32 | 0; 36 | 0; 38 | 0; 43 | 0; 46 | 0; 49 | 0; 54 | 0; 58 | 0",
+          "new_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 2; 25-29 dollars: 0; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of online order totals, rather than a numeric axis",
+          "new_text": "Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 2; 30-34 dollars: 1; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0\nChoice B. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 2; 25-29 dollars: 0; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0\nChoice C. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 2; 30-34 dollars: 1; 35-39 dollars: 2; 40-44 dollars: 1; 45-49 dollars: 2; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0\nChoice D. Histogram with counts 15-19 dollars: 1; 20-24 dollars: 1; 25-29 dollars: 1; 30-34 dollars: 2; 35-39 dollars: 2; 40-44 dollars: 0; 45-49 dollars: 3; 50-54 dollars: 1; 55-59 dollars: 1; 60-64 dollars: 0"
+    },
+    {
+      "content_key": "apstat-u1-5-3a-graphs-105019",
+      "source_content_item_version_id": "9ba43cb0-0dcd-4a34-89fc-d6b4fccfa96e",
+      "source_audit_content_digest": "ed7746a54aca3e00e27dab1aae9125da",
+      "source_stem_sha256": "7520f015b815009138a01741d67f3dd27c25c60ebeab63d1bf321215f93d0c61",
+      "source_choices_sha256": "c1cb12980c8fb1325c1beb0da669f1716519ef69025680c053940225aad173c7",
+      "stem": "The battery life (hours) are 8, 7, 8, 9, 10, 11, 12, 12, 12, 15, 13, 15. Which representation correctly displays these quantitative data?",
+      "variable": "battery life",
+      "unit": "hours",
+      "observations": [
+        8,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        12,
+        12,
+        15,
+        13,
+        15
+      ],
+      "bins": [
+        {
+          "lower": 5,
+          "upper": 9,
+          "left_edge": 5,
+          "right_edge_exclusive": 10
+        },
+        {
+          "lower": 10,
+          "upper": 14,
+          "left_edge": 10,
+          "right_edge_exclusive": 15
+        },
+        {
+          "lower": 15,
+          "upper": 19,
+          "left_edge": 15,
+          "right_edge_exclusive": 20
+        },
+        {
+          "lower": 20,
+          "upper": 24,
+          "left_edge": 20,
+          "right_edge_exclusive": 25
+        }
+      ],
+      "expected_counts": [
+        4,
+        6,
+        2,
+        0
+      ],
+      "derived_answer_key": "D",
+      "stored_key_comparison": "Not in frozen source inventory; compare the live stored key and scoring on release.",
+      "proposed_version_policy": "New content_item_versions revision; never mutate the published source version in place.",
+      "choice_order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "y_axis_max": 8,
+      "choices": [
+        {
+          "key": "A",
+          "kind": "histogram",
+          "counts": [
+            4,
+            6,
+            1,
+            1
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 1; 20-24 hours: 1",
+          "alt_text": "Choice A. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 1; 20-24 hours: 1",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 1; 20-24 hours: 1.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": false,
+          "rationale": "Bin-count error: the 15-19 bar has 1 instead of 2, while the 20-24 bar has 1 instead of 0. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "B",
+          "kind": "histogram",
+          "counts": [
+            5,
+            5,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 5; 10-14 hours: 5; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice B. Histogram with counts 5-9 hours: 5; 10-14 hours: 5; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 5; 10-14 hours: 5; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "replaced_keyless_stemplot",
+          "proposed_error": {
+            "donor_bin_index": 1,
+            "recipient_bin_index": 0,
+            "misplaced_observation": 10,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 10-14 bar has 5 instead of 6, while the 5-9 bar has 5 instead of 4. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "C",
+          "kind": "histogram",
+          "counts": [
+            4,
+            7,
+            1,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 0",
+          "alt_text": "Choice C. Histogram with counts 5-9 hours: 4; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 0.",
+          "change": "replaced_categorical_bar",
+          "proposed_error": {
+            "donor_bin_index": 2,
+            "recipient_bin_index": 1,
+            "misplaced_observation": 15,
+            "count_shift": 1,
+            "meaning": "Proposed distractor error; the source observations do not change."
+          },
+          "is_correct": false,
+          "rationale": "Bin-count error: the 15-19 bar has 1 instead of 2, while the 10-14 bar has 7 instead of 6. A correct total alone does not make the individual bars accurate. Fix: Tally each observation into its interval before comparing bar heights."
+        },
+        {
+          "key": "D",
+          "kind": "histogram",
+          "counts": [
+            4,
+            6,
+            2,
+            0
+          ],
+          "choice_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "alt_text": "Choice D. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0",
+          "long_description": "Numeric horizontal axis with contiguous equal-width bins. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0.",
+          "change": "retained_histogram",
+          "proposed_error": null,
+          "is_correct": true,
+          "rationale": "Each bar matches the number of supplied observations in its interval. The frequencies total 12, and every observation is counted once."
+        }
+      ],
+      "replacements": [
+        {
+          "choice_key": "B",
+          "change": "replaced_keyless_stemplot",
+          "old_text": "Stemplot 7 | 0; 8 | 0 0; 9 | 0; 10 | 0; 11 | 0; 12 | 0 0 0; 13 | 0; 15 | 0 0",
+          "new_text": "Histogram with counts 5-9 hours: 5; 10-14 hours: 5; 15-19 hours: 2; 20-24 hours: 0"
+        },
+        {
+          "choice_key": "C",
+          "change": "replaced_categorical_bar",
+          "old_text": "Bar chart with one bar for each named category of battery life, rather than a numeric axis",
+          "new_text": "Histogram with counts 5-9 hours: 4; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 0"
+        }
+      ],
+      "sheet_alt_text": "Four histogram answer choices A through D; all use the same axes. No option is marked correct.",
+      "sheet_long_description": "Choice A. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 1; 20-24 hours: 1\nChoice B. Histogram with counts 5-9 hours: 5; 10-14 hours: 5; 15-19 hours: 2; 20-24 hours: 0\nChoice C. Histogram with counts 5-9 hours: 4; 10-14 hours: 7; 15-19 hours: 1; 20-24 hours: 0\nChoice D. Histogram with counts 5-9 hours: 4; 10-14 hours: 6; 15-19 hours: 2; 20-24 hours: 0"
+    }
+  ]
+}

@@ -70,3 +70,9 @@ Thirty seeds have validated subskills. The full-test 3.7B seed has a 2–2 split
 ## Gate and artifact location
 
 No Production writes, variants or publication approval. Final read-only census remains 372, including all 15 empty topics and 2.2 at one; nine thin topics unchanged. Private artifacts are in the conductor’s local Stage A output packet; full questions, keys and votes are excluded from Git. The local report includes the complete 40-topic final census, projection and next-gate instructions.
+
+## Integration and artifact custody — 2026-10-17
+
+David approved integration and branch cleanup with “Act on your recommendations.” The topic 2.1 source correction was checked against EK 2.1.A.2 on printed p. 62 of the repository's Fall 2026 CED. Stage 0 is retained as a historical baseline; this Stage A report governs the recorded run result. Neither report is a new live census or an independent inspection of the private items.
+
+The 31-seed packet, keys, raw votes, numerical verification and attempt ledger are private local artifacts unavailable in this checkout. No exact durable private backup location or manifest could be verified from these Git records. **Artifact custody remains unverified.** Next owner: originating content conductor, to verify the original packet, confirm/place it in durable private storage and record its exact location and manifest hashes. Do not infer loss, regenerate items or publish from this metadata. David's separate Stage B and publication gates remain; integration does not mark the content task Done.

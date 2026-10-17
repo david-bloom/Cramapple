@@ -16,9 +16,16 @@ import { z } from 'zod';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+const execFileP = promisify(execFile);
 import { AUTHOR_SCHEMA, RUBRIC_TEXT } from './rubric.mjs';
 import { call, assemble, authorPrompt, SUBJECTS, evaluate, checkersFor, AUTHORS, AUTHOR_ORDER, readJson, writeJson, claim, release, setCallLog } from './run.mjs';
 
+// Experiment arms (2026-10-17, Physics C: Mechanics test). A = standard blind regeneration (default, unchanged).
+// B = a rejected candidate's findings are given to the next author. C = stem and key first, a help-leak gate, then distractors.
+const ARM = (process.argv.slice(3).find((a) => a.startsWith('--arm=')) || '--arm=A').slice(6);
+const HELP_GATE = process.env.HELP_GATE_SCRIPT || path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../content-seed/arms-test-phycm-2026-10-17/help_gate.ts');
 const arg = (n, d = '') => (process.argv.slice(3).find((a) => a.startsWith(`--${n}=`)) || '').slice(n.length + 3) || d;
 const BANK = arg('bank') ? JSON.parse(fs.readFileSync(arg('bank'), 'utf8')) : [];
 const BAND = {
@@ -29,7 +36,7 @@ const BAND = {
 
 // ---- prompts: the cached prefix is the standard author prefix; only the suffix changes ----
 const practiceSkills = (skills, practice) => skills.filter(([k]) => k.split('.')[0] === String(practice));
-function seedPrompt(t, slot, skills, earlier = []) {
+function seedPrompt(t, slot, skills, earlier = [], fb = '', stage = 'full', stage1 = null) {
   const p = authorPrompt(t);
   // A slot may narrow its practice to the skills an MCQ can exercise (e.g. drop 4.A, constructing a graph).
   const ps = slot.skills ? skills.filter(([k]) => slot.skills.includes(k)) : practiceSkills(skills, slot.practice);
@@ -41,6 +48,7 @@ ${earlier.length ? `
 Seeds already written for this topic are listed below. Yours must test a DIFFERENT idea, phenomenon or learning objective within the topic, not the same concept in new words or a new context:
 ${earlier.map((e, i) => `${i + 1}. ${e.stem}  [correct: ${e.choices.find((c) => c.is_correct).choice_text}]`).join('\n')}
 ` : ''}
+${fb ? `\nA previous candidate for this slot was rejected by independent reviewers. Their findings follow. Write a NEW question from scratch that avoids these problems and still meets every rule:\n${fb}\n` : ''}${stage === 'stem' ? '\nSTAGE 1 OF 2: return ONLY the stem and the correct choice with its rationale. The wrong choices are written in the next stage, so do not write them now.\n' : ''}${stage === 'distractors' ? `\nSTAGE 2 OF 2: the stem and correct choice below are already written and approved. Write exactly three wrong choices with rationales for them (each a real, common student error, rationale ends with one Fix sentence). Do not change the stem or the correct choice.\nSTEM: ${stage1.stem}\nCORRECT CHOICE: ${stage1.correct.text}\nRATIONALE: ${stage1.correct.rationale}\n` : ''}
 Write the question for the designated topic now.`) };
 }
 const itemText = (it) => `Stem: ${it.stem}\n${it.choices.map((c) => `${c.choice_key}. ${c.choice_text}${c.is_correct ? '   [KEYED CORRECT]' : ''}\n   Rationale: ${c.rationale}`).join('\n')}`;
@@ -92,21 +100,64 @@ async function labelVote(it, authorFamily, skills, tag) {
 }
 
 // ---- generate one accepted item for a slot (seed or variant) ----
-async function produce(kind, t, idBase, promptFn, gate, rounds) {
+const STEM_KEY = z.object({ stem: z.string(), correct: z.object({ text: z.string(), rationale: z.string() }) });
+const DISTRACTORS = z.object({ distractors: z.array(z.object({ text: z.string(), rationale: z.string() })).length(3) });
+// Reviewer findings from a rejected candidate, for arm B (deduplicated, capped).
+function feedbackFrom(ev) {
+  const out = [];
+  for (const l of ev.lint || []) out.push(`lint: ${l}`);
+  const stages = [ev.solve, ev.audit, ev.veto];
+  for (const grp of stages) for (const r of Object.values(grp || {})) for (const f of (r.samples?.at(-1)?.flags || [])) out.push(String(f));
+  if (ev.detail) out.push(String(ev.detail));
+  return [...new Set(out)].slice(0, 8).map((x) => `- ${x.slice(0, 400)}`).join('\n').slice(0, 2200);
+}
+// Help-leak gate (arm C): the real More help prompt and runtime check, run in Deno, on a stem plus its keyed answer.
+let gateSeq = 0;
+async function helpGate(batch, items) {
+  const dir = path.join(batch, 'gate'); fs.mkdirSync(dir, { recursive: true });
+  const f = path.join(dir, `in-${process.pid}-${++gateSeq}.json`), o = f.replace('in-', 'out-');
+  fs.writeFileSync(f, JSON.stringify(items));
+  await execFileP('deno', ['run', '-A', HELP_GATE, f, o, 'gate'], { env: { ...process.env, HELP_CALL_LOG: path.join(batch, 'calls.jsonl') }, maxBuffer: 1 << 24 });
+  return JSON.parse(fs.readFileSync(o, 'utf8'));
+}
+async function produce(kind, t, idBase, promptFn, gate, rounds, ctx = {}) {
   const candidates = [];
+  let fb = '';
   for (let round = 1; round <= rounds; round++) {
     for (const fam of AUTHOR_ORDER) {
       const id = `${idBase}#r${round}-${fam}`;
-      const g = await call(AUTHORS[fam], AUTHOR_SCHEMA, promptFn(), 600_000, `${id} author`);
-      const c = { id, kind, round, author: AUTHORS[fam], author_family: fam, gen_ok: g.ok, item: g.ok ? assemble(t, g.object, id) : null };
-      if (c.gen_ok) {
-        const blocked = gate ? gate(c.item) : null;
-        if (blocked) c.eval = { verdict: 'rejected', stage: 'similarity', detail: blocked };
-        else c.eval = await evaluate(c.item, fam, id);
+      let c;
+      if (ARM === 'C' && kind === 'seed') {
+        // Stage 1: stem and key only, then the help-leak gate; distractors are written only for stems that pass.
+        const g1 = await call(AUTHORS[fam], STEM_KEY, promptFn('', 'stem'), 600_000, `${id} author`);
+        c = { id, kind, round, author: AUTHORS[fam], author_family: fam, gen_ok: g1.ok, item: null };
+        if (g1.ok) {
+          const gr = (await helpGate(ctx.batch, [{ id, stem: g1.object.stem, correct: g1.object.correct.text, topic_code: t.topic_code, subject_key: t.subject_key }]))[0];
+          c.gate = gr;
+          if (gr.first !== 'CLEAN') c.eval = { verdict: 'rejected', stage: 'helpgate', detail: gr.first === 'FLAGGED' ? `help leak: ${gr.reason || ''}` : `gate ${gr.first}` };
+          else {
+            const g2 = await call(AUTHORS[fam], DISTRACTORS, promptFn('', 'distractors', g1.object), 600_000, `${id} author2`);
+            c.gen_ok = g2.ok;
+            if (g2.ok) {
+              c.item = assemble(t, { stem: g1.object.stem, correct: g1.object.correct, distractors: g2.object.distractors }, id);
+              const blocked = gate ? gate(c.item) : null;
+              c.eval = blocked ? { verdict: 'rejected', stage: 'similarity', detail: blocked } : await evaluate(c.item, fam, id);
+            }
+          }
+        }
+      } else {
+        const g = await call(AUTHORS[fam], AUTHOR_SCHEMA, promptFn(ARM === 'B' ? fb : ''), 600_000, `${id} author`);
+        c = { id, kind, round, author: AUTHORS[fam], author_family: fam, gen_ok: g.ok, item: g.ok ? assemble(t, g.object, id) : null };
+        if (c.gen_ok) {
+          const blocked = gate ? gate(c.item) : null;
+          if (blocked) c.eval = { verdict: 'rejected', stage: 'similarity', detail: blocked };
+          else c.eval = await evaluate(c.item, fam, id);
+        }
       }
       candidates.push(c);
-      console.log(`${id}: ${c.gen_ok ? c.eval.verdict + (c.eval.verdict !== 'accepted' ? ' at ' + c.eval.stage : '') : 'generation failed'}`);
-      if (c.gen_ok && c.eval.verdict === 'accepted') return { accepted: c, candidates };
+      console.log(`${id}: ${c.gen_ok && c.eval ? c.eval.verdict + (c.eval.verdict !== 'accepted' ? ' at ' + c.eval.stage : '') : 'generation failed'}`);
+      if (c.gen_ok && c.eval && c.eval.verdict === 'accepted') return { accepted: c, candidates };
+      if (ARM === 'B' && c.eval && c.eval.verdict === 'rejected') fb = feedbackFrom(c.eval);
     }
   }
   return { accepted: null, candidates };
@@ -120,7 +171,10 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
   const p = path.join(batch, 'topics', `${t.subject_key}__${t.topic_code}.json`);
   const st = readJson(p, { topic: t, seeds: [] });
   for (const slot of t.slots) {
-    if (st.seeds.find((s) => s.slot.slot === slot.slot && s.done)) continue;
+    // A finished slot is skipped, unless its accepted seed has fewer variants than requested (--variants raised later):
+    // then only the missing variants are produced and the seed is neither regenerated nor re-voted.
+    const prior = st.seeds.find((s) => s.slot.slot === slot.slot && s.done);
+    if (prior && !(prior.seed && prior.variants.length < nVariants)) continue;
     const base = `${t.subject_key}__${t.topic_code}__${slot.slot}`;
     // --bank=<json>: already-published items ([{topic_code, stem, choices:[{choice_text, is_correct}]}]). Those on this
     // topic join the earlier-seed list in the prompt and the seed-vs-seed gate, so a seed cannot duplicate the bank
@@ -134,15 +188,19 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
       }
       return null;
     };
-    const seedRun = await produce('seed', t, `${base}__seed`, () => seedPrompt(t, slot, skills, earlier), seedGate, rounds);
-    const rec = { slot, seed: null, seed_candidates: seedRun.candidates, variants: [], done: false };
-    if (seedRun.accepted) {
-      rec.seed = { ...seedRun.accepted, slot, label: await labelVote(seedRun.accepted.item, seedRun.accepted.author_family, skills, `${base}__seed`) };
+    let rec, seedRun = null;
+    if (prior) rec = prior;
+    else {
+      seedRun = await produce('seed', t, `${base}__seed`, (fb, stage, st1) => seedPrompt(t, slot, skills, earlier, fb, stage || 'full', st1), seedGate, rounds, { batch });
+      rec = { slot, seed: null, seed_candidates: seedRun.candidates, variants: [], done: false };
+      if (seedRun.accepted) rec.seed = { ...seedRun.accepted, slot, label: await labelVote(seedRun.accepted.item, seedRun.accepted.author_family, skills, `${base}__seed`) };
+    }
+    if (rec.seed) {
       const L = rec.seed.label, skillText = Object.fromEntries(skills);
       // The variant keeps the seed's validated sub-skill; otherwise the seed's practice (or the slot's).
       const skillLine = L.skill_status === 'validated' ? `${L.skill}: ${skillText[L.skill]}`
         : `practice ${L.practice_status === 'validated' ? L.practice : slot.practice}: ${practiceSkills(skills, L.practice_status === 'validated' ? L.practice : slot.practice).map(([k]) => k).join(', ')}`;
-      for (let v = 1; v <= nVariants; v++) {
+      for (let v = rec.variants.length + 1; v <= nVariants; v++) {
         const sibs = rec.variants.filter((x) => x.accepted).map((x) => x.accepted);
         const gate = (item) => {
           const s0 = jaccard(item, rec.seed.item); if (s0 > SIM_MAX) return `similarity to seed ${s0.toFixed(2)}`;

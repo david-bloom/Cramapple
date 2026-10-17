@@ -87,6 +87,14 @@ calculator rules.
 Use these ranges as portfolio guidance, not rigid quotas. Do not use the ranges
 to omit assessed topics from the broader content bank.
 
+## CED topic-boundary clarification — 2026-10-17
+
+> **Owner-approved source annotation:** David Bloom’s chat instruction “contunue” followed the exact source-only proposal and pending approval request. Verified against the supplied Fall 2026 CED; the older topic map is retained below for history.
+> - **1.1 (CED printed pp. 29–30, 1.1.A.1–4 and 1.1.B.1–5):** Functions map each input to exactly one output; outputs may have multiple inputs. The CED explicitly defines an image and a preimage (the set of inputs yielding an output). Increasing/decreasing behavior and constructing graphs from verbal covariation are included; open-versus-closed interval discrimination remains excluded.
+> - **1.3 (CED printed p. 32, 1.3.A.1–3 and 1.3.B.1–3):** The current CED title is “Rates of Change in Linear and Quadratic Functions.” It includes average/secant rates, constant average rates for linear functions, linearly changing average rates for quadratics over equal input intervals, changes in those rates, and concavity from increasing/decreasing secant rates. The older “Rates of Change and Behavior of Graphs” title in the map/taxonomy does not remove this required content.
+> - **2.1 versus 2.2 (CED printed pp. 55–57):** Topic 2.1 expresses arithmetic/geometric sequences on whole-number domains, using known indexed terms and common differences/ratios. Topic 2.2 explicitly extends these patterns to linear/exponential functions on real-number domains, including point-anchored forms and the distinction between sequence and real-function domains (2.2.A.1–5), plus comparing linear/exponential rates (2.2.B).
+> - **3.4 (CED printed p. 86, 3.4.A.1–4):** Base sine/cosine graphs track unit-circle vertical/horizontal coordinates, have all-real angle domains and output range [−1, 1]. Transformed amplitude, midline, phase shift and period parameters are covered later in 3.6; the existing brief's transformation emphasis does not govern 3.4 authoring.
+
 ## Topic map
 
 ### Unit 1 — Polynomial and Rational Functions

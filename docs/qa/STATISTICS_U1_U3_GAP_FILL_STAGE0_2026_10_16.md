@@ -1,6 +1,6 @@
 # AP Statistics Units 1–3 MCQ gap fill — Stage 0, 2026-10-16
 
-**Status: Draft**  
+**Status: Historical planning baseline; execution state superseded by the Stage A result**  
 **Owner / Main Conductor:** Codex; Product Owner David Bloom  
 **Branch:** `codex/statistics-u1-u3-gap-fill`  
 **Tier:** Hard-Gate overall; Stage A authoring/checking bounded by the supplied work order  
@@ -51,7 +51,7 @@ Live gateway roster refreshed on 2026-10-16, without paid inference calls. Price
 | Non-author checker | `meta/muse-spark-1.3` | 1.25 / 4.25 |
 | Reject-only author-family veto | `openai/gpt-6.1-sol` | 2.00 / 10.00 |
 
-Authorship stays in-session; no paid gateway author. Standard slate proposed, with no Qwen substitution in Stage A. Budget estimate **$7–10**, based on the cited seed pilot and current roster; this is an estimate, not measured cost. Ceiling **$12 including controls, smoke calls, every attempt/retry, vetoes and labeling**. Actual spend **$0**; no `calls.jsonl` inference entries yet. Reserve enough for each dispatch before sending it; stop before exceeding the ceiling.
+Authorship stays in-session; no paid gateway author. Standard slate proposed, with no Qwen substitution in Stage A. Budget estimate **$7–10**, based on the cited seed pilot and current roster; this is an estimate, not measured cost. Ceiling **$12 including controls, smoke calls, every attempt/retry, vetoes and labeling**. At this pre-run baseline, spend was **$0** and no inference attempts had been recorded; actual run cost is in the Stage A result. Reserve enough for each dispatch before sending it; stop before exceeding the ceiling.
 
 The protocol §2.1 slate confirmation was received in chat on 2026-10-16 (David: “confirmed”). The work order already answers the variant question: zero Stage A variants, and no Stage B start without a new go-ahead. Any genuinely necessary second-family author fallback must still honor the work order's prohibition on paid gateway authorship; do not silently pay for it.
 
@@ -67,7 +67,7 @@ The checked-in seed runner is not a safe one-command execution of this work orde
 
 These are execution requirements, not changes to acceptance standards. Controls must catch all six defects before checking candidates. No generated candidate is edited. Rejected candidates are preserved and new candidates receive new IDs. Four non-author families must clear each candidate and the own-family model can only veto. After two rounds, unresolved candidates escalate; source or overlap rulings remain with the owner.
 
-## Next actions and gates
+## Historical pre-run actions and gates (steps 1–3 completed; see Stage A)
 
 1. Receive the required checker-slate confirmation; prepare the narrow execution adapter above without weakening stages.
 2. Run/log controls and structured-output smoke checks, then Stage A, with deterministic key placement, deterministic numerical recomputation, independent topic labels and four-family skill/difficulty votes.
