@@ -9,7 +9,7 @@
 -- fewer than 3 usable MCQs OR fewer than 1 usable FRQ. 'usable' = published, topic
 -- tagged, has published reference grounding. Images are counted separately.
 with latest as (
-  select distinct on (ci.id) ci.id as item_id, ci.item_type, v.id as vid, v.stimulus_image_path,
+  select distinct on (ci.id) ci.id as item_id, ci.item_type, v.id as vid, v.stimulus_image_path, app.content_item_is_teaching(ci.id) as is_teaching,
     s.subject_key,
     -- Reference/taxonomy keys differ from registry keys: Biology is ap_biology.
     case when s.subject_key = 'biology' then 'ap_biology' else replace(s.subject_key, '-', '_') end as reference_subject
@@ -20,9 +20,12 @@ with latest as (
   join app.subjects s on s.id = ep.subject_id
   where ci.status = 'published'
   order by ci.id, v.version_num desc
+), practice as (
+  -- Open Hand worked examples are MCQ-type items but are not served as practice questions.
+  select * from latest where not is_teaching
 ), q as (
   select l.*, cell.topic_code, cell.unit_number
-  from latest l
+  from practice l
   left join lateral (
     select cc.topic_code, tt.unit_number
     from app.content_item_cells cc

@@ -1048,6 +1048,9 @@ Deno.test("FRQ identify/define subparts: boundary is set and generated copy may 
     "Use a two-sample t-interval for the difference.",
     "A chi-square test of independence fits here.",
     "This calls for a matched-pairs design.",
+    "Compare that to the published procedure for one population proportion.",
+    "This is a two population means problem.",
+    "Use the one sample proportion procedure.",
   ]) {
     for (const field of ["headline", "explanation", "next_step", "follow_ups"]) {
       const response = { ...output, [field]: field === "follow_ups" ? [leak] : leak };

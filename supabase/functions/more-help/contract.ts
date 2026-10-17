@@ -133,7 +133,7 @@ export function identifyDefineTrap(question: string, itemType = "frq") {
 // Named inference procedures; stating one in generated copy answers an
 // "identify the procedure" subpart. Direction/parameter wording is prompt-only.
 const PROCEDURE_NAME =
-  /\b(?:one|two)[-\s](?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
+  /\b(?:one|two)[-\s](?:(?:population|sample)[-\s])?(?:sample|proportion|mean)s?\b|\b[zt][-\s](?:test|interval|procedure)\b|\bchi[-\s]?square\s+(?:test|goodness|independence|homogeneity)|\bmatched[-\s]pairs?\b|\bslope\s+(?:t[-\s]?)?(?:test|interval)\b/i;
 // Other-subject analogue of the identify/define trap: FRQ subparts whose answer
 // is a stated conclusion (direction/sign, a named law, a read-off value, a
 // yes/no verdict). Scoped to FRQs before submission. "verdict" is prompt-only;
