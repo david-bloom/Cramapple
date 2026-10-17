@@ -1,6 +1,6 @@
 # Release20 Statistics graphical choices +3 teaching visuals
 
-**Tier:** Hard-Gate. **Status:** In Progress. **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom. **Approval:** APPROVAL-0194. **Branch:** codex/stats-choices-scope-publish (follow-up to merged codex/stats-precalc-visual-release). **PR:** [#497](https://github.com/david-bloom/Cramapple/pull/497).
+**Tier:** Hard-Gate. **Status:** In Progress. **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom. **Approval:** APPROVAL-0194. **Branch:** codex/stats-choices-scope-publish (follow-up to merged codex/stats-precalc-visual-release). **PR:** [#498](https://github.com/david-bloom/Cramapple/pull/498) (publication receipts); preparation [#497](https://github.com/david-bloom/Cramapple/pull/497) merged.
 
 Authorized23-question Production slice:20 apstat-u1-5-3a-graphs-105000–105019 successor revisions plus teaching images apprecalc-oht-1.3, APSTATS-OHT-1.4 and APSTATS-OHT-2.1. Source versions/stems and all20 stored keys match the existing repair packet. Three deterministic teaching charts built. Fresh explicitly authorized QA context reports scoped content/math Pass for all23, including blind derivation, package/choice consistency, SVG geometry and rendered PNG inspection. Different-family scope and authenticated delivery checks remain open.
 

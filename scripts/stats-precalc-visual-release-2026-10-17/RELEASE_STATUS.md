@@ -18,8 +18,10 @@ The three attachments committed at20:54:55.109019 UTC. Precalculus1.3, Statistic
 
 ## Browser follow-up and certificate limits
 
-Automatic approval review rejected the new browser course-selector click because it could mutate the owner's active course or park a learning session, beyond the publication instruction. No alternative profile mutation or indirect switch was attempted. A specific optional temporary-switch/restore question is pending; read-only backend/storage verification is complete. The new temporary tab remains on Biology home, with no learner changes from this follow-up. Do not claim live20-successor desktop/phone, ordinary-student entitlement, expiry/scoring,200% zoom, whole-question or subject-wide completeness certification. Publication and scope checks are complete; full browser follow-up is separate.
+Automatic approval review rejected the new browser course-selector click because it could mutate the owner's active course or park a learning session, beyond the publication instruction. No alternative profile mutation or indirect switch was attempted. A specific optional temporary-switch/restore question is pending; read-only backend/storage verification is complete. The temporary tab stayed on Biology home and was closed, with no learner changes from this follow-up. Do not claim live20-successor desktop/phone, ordinary-student entitlement, expiry/scoring,200% zoom, whole-question or subject-wide completeness certification. Publication and scope checks are complete; full browser follow-up is separate.
 
 ## One-shot safety and recovery
 
 `publish-teaching.sql` and `publish-choices.sql` are already applied. **Never replay them.** Combined `publish-production.sql` / `rehearse.sql` / `recover-production.sql` are superseded preparation. Recovery scripts retain original versions/objects and review history; choice recovery stales only the20 release labels and restores v1 publication through approved transitions. They remain unexecuted. Current source snapshots describe pre-release state and must not be mistaken for active versions.
+
+Publication evidence PR: [#498](https://github.com/david-bloom/Cramapple/pull/498), following merged preparation PR#497.
