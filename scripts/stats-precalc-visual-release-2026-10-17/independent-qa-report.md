@@ -59,7 +59,7 @@ Input SHA-256 values (pin this report to the reviewed packet):
 
 - `blind-qa-packet.json`: `4ea0c1f9ef16bd9b35b8440f52fa772447c239373e80a9a6a76f0bb85641a37d`
 - `live-before.json`: `c6416888b32fa029b9d459e8148a93cf7690930b5283daae68cfdf76bf0cd075`
-- `release-plan.json`: `54108d2a779ad5f66ecd8f06f65c74c6d855df7cdc63850945a7ee0b507be124`
+- `release-plan.json`: `f16051f46c5a3f6ee62698cf69b3e9b0d780aa41b0661efe8a90e16cf7e251b4`
 
 ## Limits and remaining release evidence
 
@@ -70,3 +70,9 @@ Input SHA-256 values (pin this report to the reviewed packet):
 - Scope is exactly the 23 supplied versions and proposed assets; no full corpus audit.
 
 The conductor supplied the current app image contract (max-width 100%, height auto, no height cap, shared stimulus and Histogram A/B/C/D choice labels). This reviewer did not independently inspect or authenticate that app. No database changes, uploads, deployment, source edits or commits were performed. Only these two QA report files were written.
+
+## Spacing remediation recheck
+
+The conductor’s browser measurement detected a 1.0 SVG-unit left clip in the rotated Percent label that the original visual inspection did not identify. The label origin moved from x=23 to x=26, a 3-unit right shift. Independently re-inspected the corrected PNG and SVG: Percent is fully visible with left margin, no visible overlap, unchanged bar geometry (Chess 40/60%, Art 75/25%), axis labels, legend and mathematical meaning. Confirmed new PNG hash/bytes and all other 22 asset hashes; blind packet and live-before hashes remain unchanged. Browser measurement itself is conductor evidence, not an independently repeated browser measurement.
+
+Proposed content/math verdict remains **Pass**. Revised `APSTATS-OHT-2.1` PNG SHA-256: `65ffbc3e2a1900b15ac29cd9f531c37bd73a9132e4a5d0d468de2667c8b1d74f`. The release-plan pin above now identifies the revised packet. The earlier no-observed-clipping statement describes the limits of the initial inspection and is superseded for this label by this correction.

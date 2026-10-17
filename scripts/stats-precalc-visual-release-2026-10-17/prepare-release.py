@@ -24,6 +24,7 @@ if exists(select 1 from visual_targets t join app.content_taxonomy_labels l on l
 if exists(select 1 from visual_targets t where t.kind='choice_repair' and (select count(*) from app.content_item_cells c where c.content_item_version_id=t.old_version_id and c.superseded_by is null and c.is_primary)<>1) then raise exception 'Missing predecessor primary cell'; end if;
 end $g$;
 create temporary table old_sources on commit drop as select v.id,to_jsonb(v) data from app.content_item_versions v join visual_targets t on t.old_version_id=v.id;
+create temporary table old_items on commit drop as select ci.id,to_jsonb(ci) data from app.content_items ci join visual_targets t on t.item_id=ci.id;
 '''
 write=f'''insert into app.content_item_versions(id,content_item_id,version_num,stem,stimulus,prompt_json,explanation,help_text,content_hash,status,created_by,canonical_answer_1,canonical_answer_2,review_status,rubric_type,evaluator_strategy,stimulus_image_path,item_package_schema_version,item_package_payload,item_package_sha256)
 select t.new_version_id,t.item_id,t.new_version_num,v.stem,t.stimulus,v.prompt_json||jsonb_build_object('content_version',t.new_version_num,'qa_remediation','2026-10-17 graphical histogram choices APPROVAL-0194','qa_source_version_id',v.id,'choice_presentation','shared_all_choices_sheet'),v.explanation,v.help_text,v.content_hash,'draft',v.created_by,v.canonical_answer_1,v.canonical_answer_2,null,v.rubric_type,v.evaluator_strategy,t.storage_path,v.item_package_schema_version,t.package,encode(extensions.digest(t.package::text,'sha256'),'hex')
@@ -46,6 +47,7 @@ from visual_targets t join app.content_review_assignments cra on cra.content_ite
 update app.content_item_versions v set status='retired' from visual_targets t where t.kind='choice_repair' and v.id=t.old_version_id;
 update app.content_item_versions v set status='reviewed_approved',review_status='question_review_approved',approved_by={owner},approved_at=now() from visual_targets t where t.kind='choice_repair' and v.id=t.new_version_id;
 update app.content_item_versions v set status='published',published_at=now() from visual_targets t where t.kind='choice_repair' and v.id=t.new_version_id;
+update app.content_items ci set status='published' from visual_targets t where t.kind='choice_repair' and ci.id=t.item_id and ci.status is distinct from 'published';
 '''
 verify='''do $v$ begin
 if (select count(*) from visual_targets t join app.content_item_versions v on v.id=t.new_version_id join app.content_asset_metadata a on a.content_item_version_id=v.id and a.storage_path=v.stimulus_image_path join app.content_visual_requirements r on r.content_item_version_id=v.id where v.status='published' and v.stimulus_image_path=t.storage_path and a.approved_at is not null and a.alt_text=t.alt_text and r.image_needed='yes' and r.image_approval='approved')<>23 then raise exception '23 published approved image contracts expected'; end if;
@@ -54,13 +56,20 @@ if exists(select 1 from visual_targets t join app.content_item_versions v on v.i
 if exists(select 1 from visual_targets t where (select count(*) from app.content_item_versions v where v.content_item_id=t.item_id and v.status='published')<>1) then raise exception 'Publication cardinality'; end if;
 if exists(select 1 from visual_targets t where t.kind='choice_repair' and ((select string_agg(choice_key,',' order by choice_key) from app.mcq_choices c where c.content_item_version_id=t.new_version_id and c.is_correct) is distinct from (select string_agg(choice_key,',' order by choice_key) from app.mcq_choices c where c.content_item_version_id=t.old_version_id and c.is_correct) or (select count(*) from app.mcq_choices c where c.content_item_version_id=t.new_version_id)<>4)) then raise exception 'Key/cardinality mismatch'; end if;
 if exists(select 1 from visual_targets t where t.kind='choice_repair' and (select count(*) from app.content_item_cells c where c.content_item_version_id=t.new_version_id and c.superseded_by is null)<>(select count(*) from app.content_item_cells c where c.content_item_version_id=t.old_version_id and c.superseded_by is null)) then raise exception 'Serving cell copy incomplete'; end if;
-if exists(select 1 from visual_targets t join app.content_items ci on ci.id=t.item_id where md5(to_jsonb(ci)::text)<>t.item_hash) then raise exception 'Parent item changed'; end if;
+if exists(select 1 from old_items o join app.content_items ci on ci.id=o.id where (to_jsonb(ci)-'updated_at')<>(o.data-'updated_at')) then raise exception 'Parent item semantic fields changed'; end if;
 end $v$;
 '''
-receipt="select jsonb_build_object('checked_at',now(),'approval','APPROVAL-0194','published_choice_revisions',20,'teaching_images',3,'approved_images',23,'source_stems_and_answer_keys_preserved',true,'prior_versions_and_objects_retained',true) as result;\n"
+write+=Path(__file__).with_name('serving-labels.sql').read_text()
+verify=verify.replace('end $v$;', '''if (select count(*) from release_labels r join app.content_taxonomy_labels l on l.content_taxonomy_label_id=r.label_id where l.label_status='validated' and l.primary_unit=1 and l.required_units=array[1] and cardinality(l.assessed_topics)=0 and l.validated_against_version_id=r.new_version_id and l.validated_against_taxo_hash=app.taxonomy_relevant_hash(r.new_version_id))<>20 then raise exception 'Twenty serving labels expected'; end if;
+if (select count(distinct q.content_item_version_id) from public.select_student_practice_items('7c5a2975-8f0e-45b9-8fcc-7ec9b8d81ada',1,'00000000-0000-4000-8000-000000000000',null,'mcq','1.5',51,0) q join visual_targets t on t.new_version_id=q.content_item_version_id where t.kind='choice_repair')<>20 then raise exception 'Student selector must return all twenty published revisions'; end if;
+end $v$;''')
+receipt="select jsonb_build_object('checked_at',now(),'approval','APPROVAL-0194','published_choice_revisions',20,'teaching_images',3,'approved_images',23,'validated_serving_labels',20,'student_selector_returns_twenty',true,'source_stems_and_answer_keys_preserved',true,'prior_versions_and_objects_retained',true) as result;\n"
 # Rollback exercise restores old paths/status, keeps inserted histories until outer ROLLBACK.
-restore='''update app.content_item_versions v set status='retired' from visual_targets t where t.kind='choice_repair' and v.id=t.new_version_id;
+restore='''update app.content_taxonomy_labels l set label_status='stale',validated_against_taxo_hash=null from visual_targets t where t.kind='choice_repair' and l.content_item_id=t.item_id and l.validated_against_version_id=t.new_version_id and l.source='APPROVAL-0194_visual_release' and l.label_status='validated';
+update app.content_item_versions v set status='retired' from visual_targets t where t.kind='choice_repair' and v.id=t.new_version_id;
+update app.content_item_versions v set status='reviewed_approved' from visual_targets t where t.kind='choice_repair' and v.id=t.old_version_id;
 update app.content_item_versions v set status='published' from visual_targets t where t.kind='choice_repair' and v.id=t.old_version_id;
+update app.content_items ci set status='published' from visual_targets t where t.kind='choice_repair' and ci.id=t.item_id and ci.status is distinct from 'published';
 update app.content_item_versions v set stimulus_image_path=t.old_path from visual_targets t where t.kind='teaching_image' and v.id=t.old_version_id;
 delete from app.content_visual_requirements r using visual_targets t where t.kind='teaching_image' and r.content_item_version_id=t.old_version_id and r.image_needed='yes' and r.image_approval='approved';
 do $r$ begin
