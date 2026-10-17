@@ -1,6 +1,8 @@
 # Question images — start-here handoff for the next session
 
 **Updated:** 2026-10-17 America/New_York. **Owner:** David Bloom. **Tier of this update:** Standard, source adjudication and local choice-repair builds.
+**Latest session close:** [SESSION_CLOSE_2026_10_17_STATS_PRECALC_VISUAL_RELEASE.md](SESSION_CLOSE_2026_10_17_STATS_PRECALC_VISUAL_RELEASE.md). All23 Stats/Precalc image repairs live; scope/publication complete. Twenty-successor browser QA is deferred at the owner’s session-end request; do not infer temporary course-switch approval. PR#498 contains the publication evidence.
+
 **Purpose:** finish finding required question visuals, create supported images when needed, and prove students receive them.
 **Canonical repo:** `david-bloom/Cramapple`. **Current release record:** [PR #497](https://github.com/david-bloom/Cramapple/pull/497), branch `codex/stats-precalc-visual-release`. Original audit/local repairs (#480), BC mirror/Biology (#479), and horizontal Biology image records (#496, following #494) are merged. Recheck current GitHub state on restart.
 
