@@ -1,6 +1,8 @@
 # Statistics: twenty graphical-choice questions resolved
 
-**Date:** 2026-10-17. **Status:** Choice authoring and local artwork complete; independent content QA and live release remain open.
+**Current release checkpoint:** [APPROVAL-0194 release packet](../../scripts/stats-precalc-visual-release-2026-10-17/RELEASE_STATUS.md): all20 stored keys/source pins and fresh independent math QA pass. New versions/serving labels and recovery are rehearsed, not published; separate $2 two-family scope-check budget is pending. The three teaching images are now live. The remainder below preserves the original local-build record.
+
+**Date:** 2026-10-17. **Historical build status:** Choice authoring and local artwork complete; independent content QA and live release remain open.
 **Tier:** Standard, existing-content repair draft and local build. **Owner:** Codex; Product Owner David Bloom.
 **Authorization:** David: “Resolve the 20 graphical choice questions.” **Branch / PR:** `codex/question-images-precalc-statistics-u1-u3` / [#480](https://github.com/david-bloom/Cramapple/pull/480).
 

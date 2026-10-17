@@ -1,0 +1,13 @@
+# Statistics / Precalculus visual release — APPROVAL-0194
+
+Owner authorization (2026-10-17): “Release the 20 graphical choice repairs and the. Execute the stats and precalculus.” Interpreted and announced as the 20 existing Statistics repairs plus Precalculus 1.3 and Statistics 1.4/2.1 teaching images. Owner separately approved a fresh read-only QA reviewer.
+
+**Current status: 3 teaching images live; 20 successor revisions NOT published, pending separately requested $2 scope-check approval.** See [RELEASE_STATUS.md](RELEASE_STATUS.md) for receipts, remaining gates and safe partitioned execution.
+
+Historical preparation scope: Scope is exactly23 existing Units1–3 questions. Create20 new content versions with all four graphical answer choices; preserve stems/data/order/correct keys, use reviewed distractor rationales, and synchronize package options. The complete A–D sheet uses the existing shared-stimulus delivery contract with natural height; each selectable choice is labeled Histogram A/B/C/D. Alt text provides all four frequency vectors without marking the correct answer. Add3 teaching PNGs without changing their questions/choices.
+
+Production: pcntajvbdfqhbeewmdry, verified Cramapple-Production healthy. All23 pinned current v1 identities/stems checked; all20 stored correct letters match independent bin recounts. No preexisting image paths/metadata/visual decisions. Each has one primary authored cell, which must be copied for each new version. No active serving labels on the20 repaired items; guard against a new label appearing. Preserve item/pack states, all originals, unrelated topics, learner state and other subjects. No schema/function/app deployment is planned.
+
+Files: live-before.json, baseline-hashes.json, cells-before.json, blind-qa-packet.json, release-plan.json, teaching-assets.json, deterministic SVG/PNGs, publish-production.sql, rehearse.sql and recover-production.sql. Rehearse full publication and recovery under ROLLBACK before actual publish. Existing app source latest Lovable commit 0e8aa502405f639411a1b59f3382732c5a8ba13c reads signed stimulus images; CSS max-width100%/height auto has no image height cap. Full app checks remain necessary.
+
+Task tier Hard-Gate; user has authorized this exact release. Approval is not a whole-question/independent-family/browser certificate. Never replay publish-production.sql once committed. All objects are immutable/private. Recovery retires new versions, restores predecessor publication and teaching paths, preserves image/metadata/review history, and removes only the3 new teaching visual requirements to restore prior behavior.
