@@ -9,7 +9,7 @@ set local lock_timeout='3s'; set local statement_timeout='60s';
 select pg_advisory_xact_lock(hashtext('stats-precalc-visual-release-20261017'));
 create temporary table visual_targets on commit drop as
 select * from jsonb_to_recordset($packet${j}$packet$::jsonb)
-as t(content_key text,kind text,old_version_id uuid,new_version_id uuid,new_version_num int,item_id uuid,pack_id uuid,version_hash text,item_hash text,choices_hash text,old_taxonomy_hash text,old_path text,png text,storage_path text,sha256 text,bytes bigint,alt_text text,long_description text,stimulus text,choices jsonb,package jsonb);
+as t(content_key text,kind text,old_version_id uuid,new_version_id uuid,new_version_num int,item_id uuid,pack_id uuid,version_hash text,item_hash text,choices_hash text,old_taxonomy_hash text,old_path text,png text,storage_path text,sha256 text,bytes bigint,alt_text text,long_description text,stimulus text,choices jsonb,package jsonb,cells_before jsonb);
 '''
 guard=f'''do $g$ begin
 if (select count(*) from visual_targets)<>23 or (select count(*) from visual_targets where kind='choice_repair')<>20 then raise exception 'Bounded batch cardinality'; end if;
@@ -21,6 +21,7 @@ if exists(select 1 from visual_targets t join app.content_item_versions v on v.c
 if exists(select 1 from visual_targets t join app.content_asset_metadata a on a.content_item_version_id=t.old_version_id) or exists(select 1 from visual_targets t join app.content_visual_requirements r on r.content_item_version_id=t.old_version_id) then raise exception 'Unexpected existing visual history'; end if;
 if exists(select 1 from visual_targets t left join storage.objects o on o.bucket_id='content-assets' and o.name=t.storage_path left join storage.buckets b on b.id=o.bucket_id where o.id is null or b.public is distinct from false or (o.metadata->>'size')::bigint<>t.bytes or o.metadata->>'mimetype'<>'image/png') then raise exception 'Reviewed private PNG absent'; end if;
 if exists(select 1 from visual_targets t join app.content_taxonomy_labels l on l.content_item_id=t.item_id and l.superseded_by is null where t.kind='choice_repair') then raise exception 'New serving labels require explicit revalidation path'; end if;
+if exists(select 1 from visual_targets t where t.kind='choice_repair' and (select jsonb_agg(to_jsonb(c) order by c.content_item_cell_id) from app.content_item_cells c where c.content_item_version_id=t.old_version_id and c.superseded_by is null) is distinct from t.cells_before) then raise exception 'Authored topic/skill/source cell drift'; end if;
 if exists(select 1 from visual_targets t where t.kind='choice_repair' and (select count(*) from app.content_item_cells c where c.content_item_version_id=t.old_version_id and c.superseded_by is null and c.is_primary)<>1) then raise exception 'Missing predecessor primary cell'; end if;
 end $g$;
 create temporary table old_sources on commit drop as select v.id,to_jsonb(v) data from app.content_item_versions v join visual_targets t on t.old_version_id=v.id;

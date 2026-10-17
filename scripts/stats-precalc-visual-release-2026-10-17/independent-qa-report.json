@@ -1402,5 +1402,46 @@
     "previous_release_plan_sha256": "54108d2a779ad5f66ecd8f06f65c74c6d855df7cdc63850945a7ee0b507be124",
     "current_release_plan_sha256": "f16051f46c5a3f6ee62698cf69b3e9b0d780aa41b0661efe8a90e16cf7e251b4",
     "verdict": "Pass"
+  },
+  "eligibility_recovery_review": {
+    "reviewed_utc": "2026-10-17T20:55:36.778557+00:00",
+    "scope": "20 Unit1 serving-label additions and bounded recovery; three teaching attachments separately partitioned",
+    "verdict": "Pass for supplied snapshot; no blocking finding",
+    "blocking_findings": [],
+    "verified": [
+      "All 20 live-before entries have no serving labels; all 20 cells-before entries have one active primary authored topic1.5/skill3.A cell.",
+      "All SQL embedded target packets match release-plan.json exactly; choice split contains only 20 repairs and teaching split only 3 teaching attachments.",
+      "Serving scope contains required_units=[1], max_required_unit=1, primary_unit=1 and empty assessed_topics; topic/skill remain in content_item_cells.",
+      "Each label receives an auditable confirmation decision and is validated against the exact new version and taxonomy hash. Existing unsuperseded labels abort preparation.",
+      "Actual selector assertion joins all 20 new version UUIDs under MCQ/topic1.5/unit1, rather than only checking insert counts. Supplied receipt reports this assertion passed in a rolled-back rehearsal.",
+      "Choice recovery stales only release-source labels tied to new versions, clears validated_against_taxo_hash, retires successors and restores predecessor publication through reviewed_approved; new versions, labels and decision rows remain for audit.",
+      "Teaching-only transaction contains no serving-label writes or revised MCQ inserts; split recovery does not touch the held choices."
+    ],
+    "nonblocking_findings": [
+      {
+        "id": "QA-LABEL-01",
+        "severity": "hardening recommendation",
+        "evidence": "prepare-release.py guard / rehearse-choices.sql:18 checks only count=1 primary cell; copy at lines28-29 uses current cell values; selector assertion at line61 filters topic but not skill.",
+        "finding": "Before future execution, consider pinning the primary cell topic_code, skill_code and taxonomy_source_version to the reviewed cells-before tuple. A skill-only cell change after the snapshot could otherwise be copied without failing the topic1.5 selector check. No such drift is present in the reviewed snapshot."
+      }
+    ],
+    "limits": [
+      "No database command was executed by this reviewer. Supplied rehearsal-final-receipt.json is conductor execution evidence, not an independent live run.",
+      "No learner records, authenticated session or browser were accessed. Selector call uses the supplied sentinel UUID; this reviewer inspected SQL only.",
+      "Recovery intentionally leaves stale unsuperseded labels; a later retry must explicitly revalidate/supersede them, since the existing-label guard will reject a blind rerun. This is fail-closed behavior.",
+      "The split SQL was inspected, but the supplied final receipt covers the combined rehearsal; do not describe this reviewer as independently executing each partition.",
+      "Twenty revised questions remain held pending separately requested two-family scope-check spending approval; this review does not clear that requirement."
+    ],
+    "source_hashes": {
+      "serving-labels.sql": "b24e36d275fac1b3186fd9a6bd3f9448e2412da80eacd743bcb8777c555feae9",
+      "prepare-release.py": "85c217b992aed095f7e6419fe882eebf5a57adf232dc377f1c63ef155c701c64",
+      "rehearse.sql": "0cfa85c72de90931171b3a3ed5cc22d0dd465524675563e140e54a09b2f7eaa4",
+      "rehearse-choices.sql": "28cc1cf8c0a43bb6d579e34413e0bf809241f749157e3a67f092cbea74ee8f22",
+      "recover-choices.sql": "cfaf22f00a248d79eeaf018f2d89a46decb3a96c40e0e69b73cabf5dc4262aaf",
+      "publish-teaching.sql": "f5d9f62cf33faf247ee341e606503a9f018243ecace211400db95643de2955fe",
+      "recover-teaching.sql": "e425cb85bc24b58cb8ee152b8f35d37df68648c07501a9026b58efb0db533525",
+      "cells-before.json": "95c2852b82f6f68727ff277db69c95055e3203e11fac7289f43fdb82a73e5079",
+      "rehearsal-final-receipt.json": "17fbeedd5aa608019950200ed65c4edabd011e4fd232edf53a7ad418ff81ce31"
+    }
   }
 }

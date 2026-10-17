@@ -1,6 +1,6 @@
 # APPROVAL-0194 — Statistics / Precalculus question visual release
 
-**Date:** 2026-10-17. **Approved by:** David Bloom. **Decision:** Approved. **Status:** Prepared, not yet published.
+**Date:** 2026-10-17. **Approved by:** David Bloom. **Decision:** Approved. **Status:** Three teaching images live; twenty graphical-choice revisions prepared, not published.
 
 Owner: “Release the 20 graphical choice repairs and the. Execute the stats and precalculus.” Scope was announced as20 Statistics graphical-choice repairs and3 teaching visuals (Precalculus1.3, Statistics1.4/2.1). Owner separately authorized a fresh read-only QA reviewer. This is explicit scoped Production release authority; no repeat permission is required to execute the reviewed changes.
 
@@ -10,4 +10,6 @@ The fresh same-family QA context independently derived all23 answers and inspect
 
 Task: [WORK-STATS-PRECALC-VISUAL-RELEASE](../tasks/WORK-STATS-PRECALC-VISUAL-RELEASE.md). Packet: `scripts/stats-precalc-visual-release-2026-10-17/`. Owner profile f5a26c6b-3566-4d58-9e97-979fbb947564 is verified admin. No Done or whole-question certificate is granted.
 
-**Release preparation update:** Full publication plus recovery rehearsal now passes with20 new serving labels and an assertion that the actual student selector returns every new version. Three teaching images are separately rehearsed, ready for authorized attachment without any question re-authoring. The20 revised questions remain staged pending the separately requested two-family scope-check API budget. No paid calls or live question changes yet.
+**Execution update:** Three exact-version teaching attachments committed at 20:54:55.109019 UTC. Live read-back, unchanged source/scoring/choices/taxonomy/labels, deployed v41 ordinary-mode image gate (3 deliverable / 0 omitted), private signed SHA checks and all three 320 CSS phone views pass. Desktop measured for Precalculus1.3 and Statistics1.4. Review browser course positions restored, viewport reset, no answers submitted. Ordinary-student entitlement, whole-question and 200% zoom certification are not claimed.
+
+Twenty-choice publication/recovery rehearsal passes under ROLLBACK at 20:56:14.4936 UTC, including all20 validated Unit1 labels, exact authored-cell snapshot pins and actual student-selector inclusion of every successor. No successor published and no new serving labels remain in Production. No paid calls made. The separately requested $2 two-family scope-check budget remains unanswered; authorizing the independent QA agent did not answer that spending request. Follow [live status and receipts](../../scripts/stats-precalc-visual-release-2026-10-17/RELEASE_STATUS.md). Next owner Codex after budget response: complete required calibrated scope checks, adjudicate against fact packs, publish only the20-choice partition and verify live delivery. Do not replay the already-applied teaching or historical combined SQL.

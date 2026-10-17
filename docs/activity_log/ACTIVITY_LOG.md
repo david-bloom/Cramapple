@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Statistics/Precalculus visual release (2026-10-17, APPROVAL-0194):3 teaching images live at20:54:55 UTC; all3 pass owner-admin teaching-route320 CSS rendering and deployed ordinary image gate. All23 private SHA checks/fresh independent math QA pass. Twenty graphical-choice revisions plus required serving labels and recovery pass ROLLBACK/actual-selector assertions, but remain unpublished pending separately requested $2 two-family scope-check budget. No paid calls, app/Edge/schema deploy, answers or task closure. [Status/receipts](../../scripts/stats-precalc-visual-release-2026-10-17/RELEASE_STATUS.md).
+
 Most recent entries (full reverse-chronological list follows below):
 
 - Codex branch reconciliation (2026-10-17, owner: “Act on your recommendations”): Precalculus #489 and Statistics #490 records merged; More Help branch combines only its census exclusion and procedure-name extension with current main safeguards. Historical Statistics launch approval is qualified by full path to resolve its duplicate0183 claim; old state/work order explicitly historical. All38 More Help contract tests pass. Private packet custody unverified and assigned to originating conductors; no deployment/publication/task closure. [Record](../handoffs/CODEX_BRANCH_RECONCILIATION_2026_10_17.md).
