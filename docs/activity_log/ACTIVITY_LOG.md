@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
 - Four-cell topic load applied (2026-10-16, APPROVAL-0180): Physics 1 `apphy1-frq-np1-004`→2.5 and Precalculus `-frq-016`→3.13, `-frq-u12-002`→2.12, `-mcq-sv-037-v3`→1.13 written as validated primary cells after a stale-source negative control, a verified rehearsal and an insert/recover rehearsal (all rolled back); independent read-back passes, questions unchanged, 5–7 reference entries behind each topic. Five held questions untouched. [Record](../qa/MORE_HELP_TOPIC_GAP9_RESULT_2026_10_16.md).
 - Held serving-label rerun pilot published (2026-10-16, APPROVAL-0179): refreshed labeler pair (gpt-6.1-sol + gemini-3.8-flash) on 17 held rows cost $1.25; 10 reached two-model agreement and were written as `provisional_model` (rehearsed with recovery, independently verified; 10 held rows superseded, 7 not rewritten). Only 1 of 10 lies in units 1–3; serving unchanged (reads `validated` only). Remaining ~77 held rows not rerun. [Record](../qa/MORE_HELP_HELD_LABEL_RERUN_PILOT_2026_10_16.md).
 - App published (2026-10-16, APPROVAL-0182): #31 learn-mode answer key for served MCQs and #32 Statistics More help off, after Lovable synced to `main` 5bf2e4b. Live check: Biology 1.4 served questions show keys (brief flash of the old message before the preload fills); Statistics shows no More help button. AB/BC/Chemistry not re-checked live.
@@ -162,6 +163,13 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## BC mirror and bounded Biology visual audit — 2026-10-16
+
+BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
+
+Owner instruction authorized the exact mirror and Biology Units1–3 read-only audit. The mirror is live at 2026-10-17 03:03:45 UTC. Phone recheck was interrupted by loss of Chrome access; no fresh independent QA or whole-question certificate is claimed. Biology position1.4 and BC Unit2/no-topic restored, original active subject restored with expected-value guards. No answers submitted. Next owner David/content maintainer: scope actual-instruction recovery for the14 strictly in-scope legacy FRQs, starting with S-003; independent QA once authorized.
+
 
 ## 2026-10-15 — Priority topic cells applied after owner merge/tagging instruction
 
