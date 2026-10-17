@@ -10,7 +10,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- [APPROVAL-0194 — Load 108 generated MCQs for AP Physics C: Mechanics units 1-3 (proposed, not executed)](APPROVAL-0194_MECHANICS_U1_U3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
+- [APPROVAL-0194 — Load 108 generated MCQs for AP Physics C: Mechanics units 1-3 (executed)](APPROVAL-0194_MECHANICS_U1_U3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0193 — Biology FRQ S-023 pH data as a rendered table (executed)](APPROVAL-0193_BIOLOGY_FRQ_S023_TABLE_STIMULUS_2026_10_17.md)
 - [APPROVAL-0192 — Load 8 generated MCQs for Biology topic 2.10 (approved, not yet executed)](APPROVAL-0192_BIOLOGY_2_10_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0191 — Version-matched image metadata for the S-003 v2 draft (drafted, not executed)](APPROVAL-0191_BIOLOGY_FRQ_S003_V2_IMAGE_METADATA_2026_10_17.md)
