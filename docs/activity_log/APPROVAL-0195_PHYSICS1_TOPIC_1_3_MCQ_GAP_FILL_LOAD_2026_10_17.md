@@ -8,7 +8,8 @@ Four new practice MCQs for Physics 1 unit 1, topic 1.3 (Representing Motion): on
 ## Evidence
 Generate-and-select, standard profile (`seed_pipeline.mjs`, protocol v0.6 section 0): authors GPT-6.1 / Claude Opus 5.5, four non-author checker families, author veto, similarity gate, no hand edits; variants inherit the seed's labels (DECISION-0096). Batch and plan are private and gitignored (`tmp/gen/batch_phy13`, `tmp/gen/plan_phy13_publish.json`). Keys free in Production on 2026-10-17 (highest existing `apphy1-mcq-055`).
 
-## Held, not loaded: slot B (`apphy1-mcq-057` family, 4 items)
+## Slot B (`apphy1-mcq-057` family, 4 items): loaded later under APPROVAL-0196
+Owner said "Load slot B as is" on 2026-10-17; see APPROVAL-0196. Original hold note:
 Slot B asks how speed and acceleration compare on a velocity-time graph that rises but flattens; it repeats the concept of the existing 1.3 family (`apphy1-mcq-053`), and its skill label is only provisional (3.B, 2 of 4 votes). It would add near-duplicates for students. Owner to decide: load as is, regenerate with the existing family in the bank, or drop.
 
 ## Method
