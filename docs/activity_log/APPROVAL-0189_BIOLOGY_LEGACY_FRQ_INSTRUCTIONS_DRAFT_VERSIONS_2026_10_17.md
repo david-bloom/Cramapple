@@ -1,6 +1,6 @@
 # APPROVAL-0189 — Biology units 1-3: add missing question instructions to 14 legacy FRQs (2026-10-17)
 
-**STATUS: DRAFTED, NOT EXECUTED.** Content approved by David Bloom in chat 2026-10-17 (review sheet incl. S-032/S-036 stem edits, S-019 stimulus emptied, S-023 data table, keep S-019 and S-028). Production execution needs a separate explicit go.
+**STATUS: STEP 1 EXECUTED 2026-10-17 (draft versions created in Production); STEP 2 (publish) PENDING, owner-run.** Content approved by David Bloom in chat 2026-10-17 (review sheet incl. S-032/S-036 stem edits, S-019 stimulus emptied, S-023 data table, keep S-019 and S-028). Rollback rehearsal and the real run were each explicitly authorised in chat ("Go for it", "Run it").
 
 ## Problem
 BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16 finding F2: 15 canonical-scope legacy FRQs have a scenario stem and no question instructions (no `prompt_json.parts`). 14 are in the strict unit 1-3 boundary: APBIO-FRQ-S-003, 019, 021, 023, 025, 026, 028, 029, 032, 033, 036, 038, 071, 080. S-040 is excluded (later-unit scope conflict).
@@ -19,3 +19,10 @@ Not verified: rendering of parts for these items in the live student UI, and the
 Rehearse with the final `commit;` replaced by `rollback;`. Rollback after execution: delete the 14 draft versions (and their copied criteria) by `qa_source_version_id`; the live versions are untouched.
 ## Not included
 S-003 image metadata ruling (A7); S-040; later units.
+
+## Executed
+- Rollback rehearsal on Production (aborted by design): 14 drafts, 14 live versions still published, 2 parts each; 0 rows persisted.
+- Real run on Production: 14 draft versions inserted (new version_num = live + 1; v2 for S-003, S-029... see `qa_source_version_id` in each draft's `prompt_json`); 52 criteria copied (12 items x 4 + S-003 and S-029 x 2); all 14 live versions still published; no review decision, `approved_by`, retire or publish written.
+- Find the drafts: `select ... from app.content_item_versions where prompt_json->>'qa_remediation' like '%APPROVAL-0189%'` (status `draft`).
+## Pending (owner)
+Step 2: publish the 14 drafts (retire old, approve, publish) through the normal review path. After publishing, re-run the delivery gate / selector probe and confirm parts render for a student; S-003 stays withheld by the image gate until its metadata ruling.
