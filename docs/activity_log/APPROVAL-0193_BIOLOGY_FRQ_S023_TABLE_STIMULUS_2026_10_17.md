@@ -1,6 +1,6 @@
 # APPROVAL-0193 — Biology FRQ S-023: show the pH data as a table
 
-**Date:** 2026-10-17 · **Status:** step 1 executed (draft v4 exists, not serving); step 2 drafted, owner-run, NOT executed.
+**Date:** 2026-10-17 · **Status:** EXECUTED on Production (step 1 draft, then step 2 publish run on owner go, rehearsed first; selector assertion passed). Needs a student-screen check of Q16.
 
 **Problem:** live S-023 v3 stores its data as plain lines, so students see one run-on paragraph (owner phone smoke test, Q16). The app already renders caption + pipe-delimited rows as a real table (`src/lib/stimulus-blocks.ts`, `StimulusText`).
 
