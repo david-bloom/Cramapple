@@ -11,7 +11,9 @@
 | 2 | 2.1 (2), 2.2 (1), 2.3 (2), 2.4 (2), 2.5 (2), 2.6 (2), 2.7 (1), 2.8 (2), 2.9 (2) |
 | 3 | 3.1 (2), 3.4 (2) |
 
-Difficulty: 88 Medium, 12 Easy, 8 Hard (provisional_model). Each topic gets 1-2 new seed families; none had zero before, so this is a deepening of coverage, not a first fill.
+Difficulty: 88 Medium, 12 Easy, 8 Hard (provisional_model).
+
+**Coverage today (published Mechanics MCQs by primary topic, read from Production 2026-10-17):** 1.1, 1.4, 1.5, 2.1, 2.3, 2.4, 2.6, 2.7, 2.8 and 3.1 have none, so this load is their first fill (each gets 4-8 items). 1.3, 2.2 and 3.4 have 1 each (they go to 5, 5 and 9). 2.5 and 2.9 have 4 each (to 12 and 12). Other unit 1-3 topics are not touched (1.2 has 14, 3.2 has 12, 3.3 has 16, 3.5 has 8).
 
 ## Evidence
 Generate-and-select, standard profile (`seed_pipeline.mjs`, protocol v0.6 section 0): authors GPT-6.1 / Claude Opus 5.5, four non-author checker families, author-family veto, solve and audit stages, similarity gate, no hand edits. Variants inherit the seed's labels (DECISION-0096). Metered cost $19.28 at list prices (1,634 calls, 52 wall minutes, escalation rounds included). The run is private and gitignored (`tmp/gen/batch_phycm`, plan `tmp/gen/plan_phycm_publish.json`).
@@ -20,7 +22,7 @@ Generate-and-select, standard profile (`seed_pipeline.mjs`, protocol v0.6 sectio
 
 ## Things to know before saying go
 - **8 items load topic-only, with no skill label:** the 2.4 slot A family (`apphycm-mcq-055`, `-sv-055-v1..v3`) and the 2.7 slot A family (`apphycm-mcq-061` and its variants). The four checker families split on the skill (2.4A tally 2.C 2 / 3.B 2), so the skill label did not validate. The publish tool loads them with the topic cell and validated serving label only, which is how the selector serves. Skill-level practice will not draw them until a skill is set. Choose: load as is (recommended), or hold these 8 and load 100.
-- **Three slots were not filled:** 1.3 slot B, 2.2 slot A and 2.7 slot B failed to produce an accepted seed (escalated). 1.3, 2.2 and 2.7 therefore get fewer new items than the other topics.
+- **Three slots were not filled:** 1.3 slot B, 2.2 slot A and 2.7 slot B failed to produce an accepted seed (escalated). 1.3, 2.2 and 2.7 therefore get only one new family (4 items) each; 2.7 goes from none to 4.
 - **Table-in-stem items** (2.1 slot B family) store their data as pipe rows in the stem; the Question screen renders those as a grid since app PR #35 was published.
 - **Parts:** MCQs only; no FRQ parts, so the duplicate-parts issue (app PR #36) does not apply.
 - No app, function, schema or policy change.
