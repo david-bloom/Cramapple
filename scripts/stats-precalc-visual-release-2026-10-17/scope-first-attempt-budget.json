@@ -1,0 +1,112 @@
+{
+  "owner_cap_usd": 2,
+  "maximum_output_tokens_per_call": 8000,
+  "conservative_ceiling": [
+    {
+      "model": "anthropic/claude-opus-5.5",
+      "pricing": {
+        "input": "0.000004",
+        "output": "0.00002",
+        "input_cache_read": "0.0000002",
+        "input_cache_write": "0.000005",
+        "web_search": "10",
+        "fast": {
+          "input": "0.000008",
+          "output": "0.00004",
+          "input_cache_read": "0.0000004",
+          "input_cache_write": "0.00001"
+        },
+        "regional": {
+          "au": {
+            "input": "0.0000044",
+            "output": "0.000022",
+            "input_cache_read": "0.00000022",
+            "input_cache_write": "0.0000055"
+          },
+          "eu": {
+            "input": "0.0000044",
+            "output": "0.000022",
+            "input_cache_read": "0.00000022",
+            "input_cache_write": "0.0000055"
+          },
+          "jp": {
+            "input": "0.0000044",
+            "output": "0.000022",
+            "input_cache_read": "0.00000022",
+            "input_cache_write": "0.0000055"
+          },
+          "us": {
+            "input": "0.0000044",
+            "output": "0.000022",
+            "input_cache_read": "0.00000022",
+            "input_cache_write": "0.0000055",
+            "fast": {
+              "input": "0.0000088",
+              "output": "0.000044",
+              "input_cache_read": "0.00000044",
+              "input_cache_write": "0.000011"
+            }
+          }
+        }
+      },
+      "max_cost_usd": 1.10753
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "pricing": {
+        "input": "0.00000075",
+        "output": "0.00000375",
+        "input_cache_read": "0.000000075",
+        "web_search": "14",
+        "maps_search": "14",
+        "service_tiers": {
+          "flex": {
+            "input": "0.000000375",
+            "output": "0.000001875",
+            "input_cache_read": "0.0000000375"
+          },
+          "priority": {
+            "input": "0.00000135",
+            "output": "0.00000675",
+            "input_cache_read": "0.000000135"
+          }
+        },
+        "regional": {
+          "eu": {
+            "input": "0.000000825",
+            "output": "0.000004125",
+            "input_cache_read": "0.0000000825"
+          },
+          "us": {
+            "input": "0.000000825",
+            "output": "0.000004125",
+            "input_cache_read": "0.0000000825"
+          }
+        }
+      },
+      "max_cost_usd": 0.20766187500000002
+    }
+  ],
+  "prompt_sha256": "68342c29ac32dd202107667b5dcda31221ce4a6869f88687f55a52552cfe83ac",
+  "fact_packs": [
+    {
+      "file": "AP_STATISTICS_2027_CED_FACT_PACK.md",
+      "sha256": "60f17eb005c25b6e28868535d39deefb7e895881741bf2c724f6f0fe96b272ae"
+    },
+    {
+      "file": "AP_PRECALCULUS_CED_FACT_PACK.md",
+      "sha256": "819fb0998247edd1d5797ce4510215cb8e94cf6f48e53319707ace8b5b652765"
+    },
+    {
+      "file": "AP_CHEMISTRY_CED_FACT_PACK.md",
+      "sha256": "882c74c190ab6cc4660dcc78f63dd44865af4bc7b911764b4558a3905c1f2f2f"
+    }
+  ],
+  "stateless_calls": 2,
+  "keys_saved": false,
+  "owner_authorization": "2026-10-17: complete the scope checks and publish the 20 questions; prior proposed $2 cap",
+  "format": "Chat Completions json_object fallback, recorded as usable plain-JSON per protocol 3.2",
+  "authoring_family": "OpenAI (Codex graphical-choice repair)",
+  "item_packet_sha256": "ff6923385321e049c001e313975756390742df4c8fc8661595596898bc1a0f8e",
+  "calibration": "Two exact historical Chemistry known-defect items plus out-of-scope calculus/linear-algebra and clean frequency-table controls; expected verdicts withheld from reviewers"
+}
