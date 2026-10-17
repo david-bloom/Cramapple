@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Biology S-003 horizontal reframe applied (2026-10-17 15:53:08 UTC, APPROVAL-0190 owner extension): 4:3 landscape 2400×1800 PNG attached only to current published v2, discovered after separate instructions publication. New exact-path approved metadata; preserved question/scoring/taxonomy/labels, all prior approvals, retired S-003 and both L-003 controls. Guarded attach/recovery rehearsal, private signed SHA/public denial, 230px/620px local layout and deployed v41 image gate pass (2 deliverable / 0 omitted). Independent/authenticated app QA remains open. [PR #494](https://github.com/david-bloom/Cramapple/pull/494).
+
 - Codex branch reconciliation (2026-10-17, owner: “Act on your recommendations”): Precalculus #489 and Statistics #490 records merged; More Help branch combines only its census exclusion and procedure-name extension with current main safeguards. Historical Statistics launch approval is qualified by full path to resolve its duplicate0183 claim; old state/work order explicitly historical. All38 More Help contract tests pass. Private packet custody unverified and assigned to originating conductors; no deployment/publication/task closure. [Record](../handoffs/CODEX_BRANCH_RECONCILIATION_2026_10_17.md).
 
 - Statistics Stage A records integrated for branch cleanup (2026-10-17, owner: “Act on your recommendations”): preserve the reported 31 accepted seeds and owner-approved topic 2.1 source correction, verified against CED EK 2.1.A.2. Stage 0 marked historical; private packet/ledger custody unverified in this checkout, assigned to originating conductor. No Stage B, publication, provider call or task closure. [Stage A](../qa/STATISTICS_U1_U3_GAP_FILL_STAGE_A_2026_10_16.md).
@@ -195,6 +197,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Biology S-003 horizontal reframe
+
+Biology S-003 horizontal reframe applied (2026-10-17 15:53:08 UTC, APPROVAL-0190 owner extension): 4:3 landscape 2400×1800 PNG attached only to current published v2, discovered after separate instructions publication. New exact-path approved metadata; preserved question/scoring/taxonomy/labels, all prior approvals, retired S-003 and both L-003 controls. Guarded attach/recovery rehearsal, private signed SHA/public denial, 230px/620px local layout and deployed v41 image gate pass (2 deliverable / 0 omitted). Independent/authenticated app QA remains open. [PR #494](https://github.com/david-bloom/Cramapple/pull/494).
 
 ## 2026-10-17 — Codex branch reconciliation
 
