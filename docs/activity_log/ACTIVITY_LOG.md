@@ -6,6 +6,12 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- PR #480 integration repaired (2026-10-17, owner: “Fix pr480”): merged current main `332459d` into the existing Statistics visual-repair branch, retaining both activity histories and every original index entry. All repair artifacts unchanged; twenty-question source/math/artifact checks and ten Statistics checker tests pass. Merge readiness is limited to the audit/local repair packet; independent content QA, live keys and authenticated delivery remain open. [Task](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
+
+- Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0190): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
+- Biology FRQ003 image repair authorized and prepared (2026-10-17, APPROVAL-0190): owner requested validation and servability for S-003 and L-003. Both original PNG downloads/hash/public-denial checks pass. Corrected S-003 NADPH compartment in a deterministic reconstruction; L-003 pedigree matches its written stimulus and remains unchanged. Exact two-version guarded metadata/path/visual-decision release and recovery prepared; no live data changes yet. [Task](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
+
 - Biology FRQ003 image availability repaired in separate PR #483 (2026-10-17, APPROVAL-0190): exact S-003 and L-003 v4 images now pass Production v41 ordinary-mode image gate, with approved metadata/visual decisions and signed checksum matches. S-003 diagram corrected to place NADPH in the stroma; L-003 original pedigree retained. Questions/scoring/taxonomy/labels and retired review records unchanged. Actual instructions/inference critique and authenticated browser QA remain open. [Live repair record](https://github.com/david-bloom/Cramapple/pull/483).
 
 - Statistics twenty graphical-choice specifications resolved and locally built (2026-10-17): David directed “Resolve the 20 graphical choice questions.” Preserved 20 stems/data, option order and 40 original histogram choices; replaced 40 ambiguous categorical/stemplot options with distinct explicit histogram count errors. 80 choice images and 20 full A–D sheets built as SVG/PNG with revised rationales/accessibility and source/hash manifest. Source/arithmetic/artifact/rebuild/negative-control checks pass; local desktop/320px browser checks decode 80 images, no clipping/overlap/overflow. Independent QA, stored-key/source comparison and live release/delivery remain open; no live queries/writes, uploads or app deployment. [Resolution](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md).
@@ -173,6 +179,20 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — PR #480 integration repair
+
+PR #480 integration repaired (2026-10-17, owner: “Fix pr480”): merged current main `332459d` into the existing Statistics visual-repair branch, retaining both activity histories and every original index entry. All repair artifacts unchanged; twenty-question source/math/artifact checks and ten Statistics checker tests pass. Merge readiness is limited to the audit/local repair packet; independent content QA, live keys and authenticated delivery remain open. [Task](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
+
+## 2026-10-17 — Biology FRQ003 image repair applied
+
+Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0190): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
+Next owner content owner / independent QA: actual S-003 instructions, L-003 inheritance-inference reconciliation and authenticated desktop/phone delivery. Existing question/scoring/labels and retired decisions were not changed.
+
+## 2026-10-17 — Biology FRQ003 image repair preparation
+
+Biology FRQ003 image repair authorized and prepared (2026-10-17, APPROVAL-0190): owner requested validation and servability for S-003 and L-003. Both original PNG downloads/hash/public-denial checks pass. Corrected S-003 NADPH compartment in a deterministic reconstruction; L-003 pedigree matches its written stimulus and remains unchanged. Exact two-version guarded metadata/path/visual-decision release and recovery prepared; no live data changes yet. [Task](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
 
 ## 2026-10-17 — Biology FRQ003 image repair cross-reference
 
