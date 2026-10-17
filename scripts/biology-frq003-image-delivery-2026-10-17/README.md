@@ -22,3 +22,11 @@ Reproduce the local build with `node build-photosynthesis.mjs` (`sharp` required
 ## Content limits
 
 S-003 still lacks actual question instructions. L-003's earlier review raised an inheritance-inference concern: the diagram alone does not distinguish autosomal dominant from recessive, while the text gives a known-carrier condition. Image approval does not settle that content issue or certify a grading key. No question/rubric re-authoring, learner-state change, schema/function/app deployment, broad Biology audit or task closure occurred. Independent QA and authenticated app/browser checks remain open.
+
+## Horizontal extension — owner requested, 2026-10-17
+
+Owner: “This image will render awkwardly. Can you reframe it to horizontal?” The reviewed replacement is a 4:3 landscape, 2400×1800 PNG with lumen above and stroma below. NADPH/ATP remain on the stroma side; proton and electron directions are preserved. All 17 text elements have no browser-measured clipping or overlap; 84 source units give 16.1px labels at 230px image width. PSII/ETC/PSI abbreviations are expanded in the accessible long description.
+
+Fresh Production discovery found S-003 v1 retired and v2 `bf317c96-1289-4803-b71f-b0aff4620844` published at 14:26:47 UTC by the separate APPROVAL-0189 instructions repair. V2 now has question parts (a) and (b). This extension targets only that current v2 image path and adds its exact-path approved metadata, preserving its newly authored instructions/scoring, existing metadata/visual decision, retired S-003 v1 and both L-003 controls. The earlier missing-instructions statements describe the pre-publication state.
+
+Preparation: `horizontal-manifest.json`, `horizontal-before.json`, `horizontal-visual-review.json`, `horizontal-attach-production.sql`, `horizontal-rehearse.sql`, `horizontal-recovery.sql` in the release packet. The original tall v2 asset and records remain historical evidence. Recovery restores the current published version's tall image path while retaining both immutable assets and metadata. Apply only after immutable upload and guarded rollback rehearsal; no further owner confirmation is required for the requested image reframe.

@@ -13,3 +13,11 @@ Required implementation checks: private signed downloads/public denials; source/
 [Applied result and remaining content limits](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md). Two metadata/visual approvals and one S-003 image-path swap are live; signed checksums, private denial, source invariants and ordinary-mode image gate pass.
 
 **Identifier correction:** The initial pushed preparation/SQL comments accidentally used APPROVAL-0184, already assigned to the More help migration/ledger repair. APPROVAL-0190 is the canonical identifier for this two-image operation. This corrects bookkeeping only: the owner instruction, approved scope, approver, operation and verification receipts are unchanged; the earlier More help record is untouched.
+
+## Horizontal extension — owner requested, 2026-10-17
+
+Owner: “This image will render awkwardly. Can you reframe it to horizontal?” The reviewed replacement is a 4:3 landscape, 2400×1800 PNG with lumen above and stroma below. NADPH/ATP remain on the stroma side; proton and electron directions are preserved. All 17 text elements have no browser-measured clipping or overlap; 84 source units give 16.1px labels at 230px image width. PSII/ETC/PSI abbreviations are expanded in the accessible long description.
+
+Fresh Production discovery found S-003 v1 retired and v2 `bf317c96-1289-4803-b71f-b0aff4620844` published at 14:26:47 UTC by the separate APPROVAL-0189 instructions repair. V2 now has question parts (a) and (b). This extension targets only that current v2 image path and adds its exact-path approved metadata, preserving its newly authored instructions/scoring, existing metadata/visual decision, retired S-003 v1 and both L-003 controls. The earlier missing-instructions statements describe the pre-publication state.
+
+Preparation: `horizontal-manifest.json`, `horizontal-before.json`, `horizontal-visual-review.json`, `horizontal-attach-production.sql`, `horizontal-rehearse.sql`, `horizontal-recovery.sql` in the release packet. The original tall v2 asset and records remain historical evidence. Recovery restores the current published version's tall image path while retaining both immutable assets and metadata. Apply only after immutable upload and guarded rollback rehearsal; no further owner confirmation is required for the requested image reframe.
