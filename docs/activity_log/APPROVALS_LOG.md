@@ -4,6 +4,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0196 — Load 4 generated MCQs for Physics 1 topic 1.3, slot B (executed)](APPROVAL-0196_PHYSICS1_TOPIC_1_3_SLOT_B_MCQ_LOAD_2026_10_17.md)
+- [APPROVAL-0195 — Load 4 generated MCQs for Physics 1 topic 1.3, slot A (executed; slot B held)](APPROVAL-0195_PHYSICS1_TOPIC_1_3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0194 — Release20 Statistics graphical-choice repairs and3 teaching visuals (all23 image repairs live;scope checks passed)](APPROVAL-0194_STATS_PRECALC_VISUAL_RELEASE_2026_10_17.md)
 
 - [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
