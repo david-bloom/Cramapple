@@ -26,3 +26,8 @@ S-003 image metadata ruling (A7); S-040; later units.
 - Find the drafts: `select ... from app.content_item_versions where prompt_json->>'qa_remediation' like '%APPROVAL-0189%'` (status `draft`).
 ## Pending (owner)
 Step 2: publish the 14 drafts (retire old, approve, publish) through the normal review path. After publishing, re-run the delivery gate / selector probe and confirm parts render for a student; S-003 stays withheld by the image gate until its metadata ruling.
+
+## Step 2 script (drafted 2026-10-17, NOT YET EXECUTED, owner-run)
+`scripts/content-seed/reviewer-qa-remediation/20261017_apbio_legacy_frq_instructions_step2_OWNER_PUBLISH.sql`: for each of the 14 items it retires the live version, records the owner approval (review assignment and decision, `approved_by`) and publishes the APPROVAL-0189 draft. Guards (stop with a message and change nothing): exactly one APPROVAL-0189 draft per item, built from the version that is live now (`qa_source_version_id`), version numbers in sequence, 2 non-blank parts, scoring criteria identical to the live version (hash), and any draft with an image needs approved metadata and an approved visual decision for the NEW version (S-003 v2 satisfies this via APPROVAL-0191 part 2, done). Final assertions: 14 published, 14 retired, no duplicate published versions.
+Dry-run of the guards on Production, read-only, 2026-10-17: all 14 pass (`GUARDS OK`). The write path itself has not been rehearsed (it inserts approval records in the owner's name; the agent does not generate those).
+Rehearse by replacing the final `commit;` with `rollback;`. Rollback after running: retire the 14 new versions and republish the old ones (ids in each draft's `prompt_json->>'qa_source_version_id'`).
