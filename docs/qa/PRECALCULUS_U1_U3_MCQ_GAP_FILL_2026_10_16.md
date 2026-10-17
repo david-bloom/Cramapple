@@ -1,42 +1,68 @@
-# Precalculus Units 1–3 MCQ gap fill — prepared run, 2026-10-16
+# Precalculus Units 1–3 zero-MCQ gap fill — result, 2026-10-17
 
-**State:** Census and source/plan preparation complete; new-batch slate confirmation pending under protocol §2.1. No inference calls, authored items or database writes yet. Owner instruction: identify zero-MCQ topics, create two MCQs and three variants. Interpreted consistently with the seed pipeline as three variants of each seed.
+Accepted **22/22 seeds and 66/66 variants**, from 116 checked candidates (28 rejected). Escalated slots: 0 seeds, 0 variants. All accepted items are local and unpublished; no Production writes or More help changes.
 
-Fresh read-only Production census: **181 practice MCQs across 44 topics; 11 empty topics**. Each topic has at least one FRQ. Count latest published versions with current primary topic cells, excluding active Open Hand teaching items. All 11 empty practice topics already have a teaching MCQ; those were retrieved into a private comparison bank so new seeds can target distinct ideas.
+## Census and scope
 
-| Unit | Empty topic | Title | Seeds | Variants |
-| ---: | --- | --- | ---: | ---: |
-| 1 | 1.1 | Change in Tandem | 2 | 6 |
-| 1 | 1.3 | Rates of Change and Behavior of Graphs | 2 | 6 |
-| 1 | 1.11 | Equivalent Representations | 2 | 6 |
-| 2 | 2.1 | Change in Arithmetic and Geometric Sequences | 2 | 6 |
-| 2 | 2.2 | Change in Linear and Exponential Functions | 2 | 6 |
-| 2 | 2.8 | Inverse Functions | 2 | 6 |
-| 2 | 2.9 | Logarithmic Expressions | 2 | 6 |
-| 2 | 2.14 | Logarithmic Function Context and Data Modeling | 2 | 6 |
-| 3 | 3.4 | Sine and Cosine Function Graphs | 2 | 6 |
-| 3 | 3.8 | The Tangent Function | 2 | 6 |
-| 3 | 3.15 | Rates of Change in Polar Functions | 2 | 6 |
+The initial read-only census found 181 practice MCQs across 44 topics, with the following 11 topics empty. The final census has 181 practice MCQs. Counts use latest published versions and unsuperseded primary topic cells, excluding active teaching items. All topics have at least one FRQ; worked-example coverage was not independently recertified. Nonempty topics, including 2.4 and 2.12 with one MCQ each, were excluded from generation.
 
-Total: **22 seeds + 66 variants = 88 items**. Nonempty topics are excluded from generation. Existing 1-MCQ topics 2.4 and 2.12 are left unchanged because the request targets zeros only.
+| Unit | Topic | Title | Production MCQs | Accepted seeds | Accepted variants |
+| ---: | --- | --- | ---: | ---: | ---: |
+| 1 | 1.1 | Change in Tandem | 0 | 2 | 6 |
+| 1 | 1.3 | Rates of Change and Behavior of Graphs | 0 | 2 | 6 |
+| 1 | 1.11 | Equivalent Representations | 0 | 2 | 6 |
+| 2 | 2.1 | Change in Arithmetic and Geometric Sequences | 0 | 2 | 6 |
+| 2 | 2.2 | Change in Linear and Exponential Functions | 0 | 2 | 6 |
+| 2 | 2.8 | Inverse Functions | 0 | 2 | 6 |
+| 2 | 2.9 | Logarithmic Expressions | 0 | 2 | 6 |
+| 2 | 2.14 | Logarithmic Function Context and Data Modeling | 0 | 2 | 6 |
+| 3 | 3.4 | Sine and Cosine Function Graphs | 0 | 2 | 6 |
+| 3 | 3.8 | The Tangent Function | 0 | 2 | 6 |
+| 3 | 3.15 | Rates of Change in Polar Functions | 0 | 2 | 6 |
 
-## Checking and gates
+The accepted packet would add 88 items if subsequently published; the CSV includes a clearly separated arithmetic projection, not a claim that live gaps are closed.
 
-Authorship in-session; deterministic answer placement and lint. Four non-author families (Anthropic, Google, DeepSeek, Meta), OpenAI reject-only veto, re-sampling repeated flags, independent numeric recomputation. Six planted defects and structured-output smoke checks before authoring. Seed topic labels need ≥5/6; skills need ≥3/4 else practice-level fallback; difficulty remains provisional. Each variant gets the same QA and a word-3-gram Jaccard gate ≤0.35 against its seed and accepted siblings, then inherits labels. No paid author calls or cheaper-checker substitution is planned.
+## Confirmation, checking and cost
 
-Refreshed live slate input/output USD per million: Opus 5.5 $4/$20; Gemini 3.8 Flash $0.75/$3.75; DeepSeek V4 Pro $0.66/$1.98; Meta Muse Spark 1.3 $1.25/$4.25; GPT-6.1 $2/$10. Expected $20–30 for the entire run, proposed $30 ceiling including controls, errors, vetoes, re-samples and labels. Confirmation requested in chat; no spend while pending. Budget reservations precede dispatch; every actual SDK attempt is logged with retries disabled.
+David confirmed the five-family slate and $30 ceiling with “Confirmed. Execute.” before any inference call. Three variants per seed were requested directly. Authorship remained in-session; no paid author calls. The work-order preference to author in-session took precedence over the runner's default two paid-author path. The refreshed slate was Anthropic Opus 5.5, Google Gemini 3.8 Flash, DeepSeek V4 Pro, Meta Muse Spark 1.3, and OpenAI GPT-6.1 as reject-only veto.
 
-The user's current instruction authorizes seeds and variants without the Statistics task's Stage A/B start gate. Production publication still requires the canonical plan/preflight/rollback rehearsal and separate recorded Hard-Gate approval. No Production write or More help change is authorized by this preparation.
+All six planted defects were caught before initial authoring; Anthropic structured-output smoke checks passed 3/3. After the approved source clarification, all six controls were rerun successfully before fresh candidates were authored. A provider structured-output failure interrupted the first corrected-source control run; it was retained and fully reserved in the ledger, then the controls were rerun explicitly. Completed controls are now saved individually for safe resumption. Each seed and variant passed deterministic lint, four non-author blind solvers and rubric auditors, re-sampling of flags, and its own-family reject-only veto, with recorded case-specific adjudications where solver defect fields contained non-defects. Accepted seeds earned ≥5/6 independent topic votes and passed numeric recomputation; four-family skill/difficulty votes were recorded, with agreement gates applied before assigning a validated label. Variants inherited labels and passed word-3-gram Jaccard ≤0.35 against the accepted seed and siblings. No generated item was hand-edited. Same-topic seeds were compared against each other and the 11 existing teaching MCQs (word Jaccard ≤0.45, 3-gram ≤0.12).
 
-## Sources and scope
+Complete call ledger: 1430 actual SDK attempts, 1 failed, zero outstanding. Known gateway cost **$13.471506**; unresolved-attempt upper allowance **$0.050474**; accounted upper total **$13.521980 ≤ $30**. This includes controls, smoke checks, every rejected candidate, re-sample, veto and label vote. Overall known cost per accepted item: $0.153085; upper $0.153659. Attempt-level metadata and per-model totals are preserved privately. No cheaper-checker substitutions or dropped stages were used. Parallel dispatch changes only scheduling, with shared conservative budget reservations.
 
-Canonical main verified at `9ae2a96515b82f1b1686eb5f8985d0e8c03b811a`; task branch `codex/precalculus-u1-u3-mcq-gap-fill`. No open PRs at bootstrap. Original dirty checkout preserved; this task uses the existing isolated local clone. Statistics checkpoint remains on its own remote branch.
+Independent deterministic verification covers every accepted item's key and numerical assertions, with author-output SHA-256 bindings; conceptual items receive explicit mapping/sign/domain checks. Raw checker flags and SHA-bound case-specific non-defect adjudications are retained. No repeated substantive objection was waived. A separate family-fidelity review rejected all three restricted-arc sine/cosine drafts, including one that passed model QA; fresh whole replacements preserve the original global-domain/range family. A repeated concrete-Fix objection on one replacement was also applied to its two passed siblings; those whole drafts were rejected and replaced with explicit coordinate/angle checks. The same family-wide review was applied to tangent: a repeated objection that a rationale did not explain the reversed-ratio misconception led to fresh whole replacements of all three drafts, including two that had passed. A later replacement’s sign-error explanation was correctly rejected and regenerated; another unreviewed draft was retired for cueing an error in its choice wording. Neither was hand-edited or published.
 
-Protocol `CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §0 and §2.1; standard seed/variant pipeline and Units 1–3 runbook. Current Precalculus fact pack and exact CED target pages/continuations read; all 11 briefs and live skill grids available (8 skills each). The supplied CED governs:
-- 1.3 CED title is “Rates of Change in Linear and Quadratic Functions”; current taxonomy title/brief differs. Target changing equal-interval average rates and concavity, without calculus.
-- 3.4 brief emphasizes amplitude/vertical shift, which belong to later transformations. Target base sine/cosine graph coordinates, behavior, domain/range from CED 3.4 instead; no source or taxonomy changes.
-- 1.1 excludes open-versus-closed interval discrimination.
-- 2.8 one-to-one/reverse-pair reasoning, not logarithm-specific inverse work.
-- 3.15 signed polar radius, distance behavior and secant interpolation, never derivatives or polar area.
+## Labels
 
-No source corrections have been applied. Full questions, keys and raw votes will stay in private local artifacts; only metadata belongs in Git. Final census and accepted counts will be recorded after checking. Next owner: David for the pending slate/cost confirmation, then Codex executes the prepared run.
+Skill requires at least three matching votes and the live grid; otherwise only a validated practice-level label is carried. Ties receive no validated cell. Difficulty is provisional and was not an author target. Variants retain each seed's label status. Families without a validated skill cell: 1.3A, 2.8B, 2.9B. Their precise status is shown below; creation acceptance does not authorize a serving-cell assignment.
+
+| Seed | Topic votes | Skill / practice | Provisional difficulty | Accepted variants |
+| --- | ---: | --- | --- | ---: |
+| 1.1A | 6/6 | 2.A | Easy | 3 |
+| 1.1B | 6/6 | 2.A | Easy | 3 |
+| 1.3A | 6/6 | No validated cell | Easy | 3 |
+| 1.3B | 5/6 | 3.C | Medium | 3 |
+| 1.11A | 6/6 | 1.B | Medium | 3 |
+| 1.11B | 6/6 | 1.B | Easy | 3 |
+| 2.1A | 6/6 | 2.B | Easy | 3 |
+| 2.1B | 6/6 | 2.B | Easy | 3 |
+| 2.2A | 6/6 | 3.A | Easy | 3 |
+| 2.2B | 6/6 | 3.A | Medium | 3 |
+| 2.8A | 6/6 | 1.C | Easy | 3 |
+| 2.8B | 5/6 | No validated cell | Easy | 3 |
+| 2.9A | 6/6 | 1.B | Easy | 3 |
+| 2.9B | 6/6 | Practice 1 | Easy | 3 |
+| 2.14A | 6/6 | 1.C | Medium | 3 |
+| 2.14B | 5/6 | 2.A | Medium | 3 |
+| 3.4A | 5/6 | 3.A | Easy | 3 |
+| 3.4B | 5/6 | 3.A | Easy | 3 |
+| 3.8A | 5/6 | 3.A | Medium | 3 |
+| 3.8B | 6/6 | 3.A | Medium | 3 |
+| 3.15A | 6/6 | 3.B | Medium | 3 |
+| 3.15B | 5/6 | 2.A | Medium | 3 |
+
+## Source boundaries and handoff
+
+The supplied CED PDF governs. All 11 target pages/continuations, current fact pack, briefs and live grid were checked. 1.3's CED title/content emphasizes linear/quadratic average-rate behavior; the taxonomy uses an older title. 3.4's brief emphasizes transformations that belong later, so questions stay with base sine/cosine graph behavior and domain/range. 1.1's open/closed-interval discrimination exclusion is respected. 3.15 uses signed radius, distance behavior and average-rate interpolation, never calculus or polar area. David’s “contunue” followed the exact four-point source-only proposal; the session explicitly recorded it as approval before applying that annotation. The annotation restores the CED boundaries for 1.1, 1.3, 2.1/2.2 and 3.4 without changing the database taxonomy. Three unreviewed old-source drafts were retired, and fresh whole candidates were generated only after the corrected-source control gate. The escalation continuations and exact source hashes are recorded privately. Topic 2.9 received no source edit: its new candidate uses exact logarithm evaluation rather than the held logarithmic-scale concept.
+
+Full questions, keys and raw votes are local private artifacts excluded from Git. The public branch contains only this metadata record and activity notes. Production publication remains the standard plan → preflight → rollback rehearsal → recorded Hard-Gate approval → publish path; it has not started. No new approval number has been allocated. Next owner: David Bloom reviews the completed creation packet and decides whether to request publication or an optional blind sample re-judge.
