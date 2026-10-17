@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
+
 - Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
 
 - BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
@@ -165,6 +167,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Question-image master restart handoff
+
+Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
 
 ## 2026-10-16 — Precalculus and Statistics Units 1–3 visual source audit
 

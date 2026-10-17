@@ -15,3 +15,7 @@ Initial metadata shows no attached prompt-image path in these 801 candidates. Th
 All 801 presentations reviewed:312 Precalculus/489 Statistics;794 strict Units1–3 and7 Statistics boundary records. Four conductor missing-visual findings (1 Precalculus/3 Statistics) are selected teaching examples with no image paths;45 further cases need visual-fidelity adjudication. No missing numerical givens or absent authored FRQ instructions found in source. Paged selectors return230/244 ordinary candidates; teaching RPCs return44/40 examples. Deployed v41 visual gate passes all801 because missing requirement decisions are permissive. Source and routing read-backs show no drift.
 
 [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md), [checkpoint and next action](../handoffs/PRECALC_STATISTICS_IMAGE_AUDIT_CHECKPOINT_2026_10_16.md), and [all evidence](../../scripts/image_readiness/precalc-statistics-u1-u3-2026-10-16/). Browser reached the unsigned-in login page; authenticated rendering and independent QA are not passed. No data/content/label/student-state changes, image builds or deployments.
+
+## Consolidated restart handoff — 2026-10-17
+
+David requested a future-session handoff naming remaining subjects/units and how to create and deliver images when needed. [Start with the master handoff](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md): it combines completed slices, the immediate repair queue and remaining BC/four-Physics Units 1–3 audits. This update is documentation only and does not extend live-change authorization.

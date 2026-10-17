@@ -14,3 +14,7 @@ Live v41 pure visual gate passes801/801 because none has an image path or a requ
 All artifacts are committed under `scripts/image_readiness/precalc-statistics-u1-u3-2026-10-16/`; `progress.json` has801/801, zero unreviewed. `reviews.json` is the authoritative per-version ledger; `review-queue.json` narrows fresh review. `check-delivery.mjs` reconciles IDs/digests and the deployed pure gate.
 
 Next owner subject reviewer/conductor: independently review4 proposed defects and45 uncertain representations, including negative controls. Stats1.5 supplies only one bin and the total; do not invent the rest of a histogram. Seek scoped implementation direction before creating/attaching images or changing content/labels, and use an authenticated browser before any student-rendering certificate. No independent agent, paid calls, Production writes, uploads or deployments were authorized/run. The user's original dirty checkout was preserved; work is isolated in the feature worktree. Earlier Biology/BC work remains separate in PR#479.
+
+## Consolidated restart handoff — 2026-10-17
+
+David requested a future-session handoff naming remaining subjects/units and how to create and deliver images when needed. [Start with the master handoff](QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md): it combines completed slices, the immediate repair queue and remaining BC/four-Physics Units 1–3 audits. This update is documentation only and does not extend live-change authorization.
