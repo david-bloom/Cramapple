@@ -1,5 +1,7 @@
 # Precalculus and Statistics Units 1–3: question-visual audit
 
+> **REPAIR FOLLOW-UP 2026-10-17:** [The twenty graphical-choice sets are now specified and built locally](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md). Independent content QA, live source/stored-key comparison and actual student delivery remain open. No published question changed.
+
 > **ADJUDICATED 2026-10-17:** The original four/45 triage queue is resolved by the [49-case source adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md): **23 visual repairs (3 source-ready stimuli, 20 choice sets needing specifications), 26 retain text**. Statistics 1.5 is downgraded. This is conductor adjudication; independent QA, implementation and authenticated delivery remain open. The historical audit below is unchanged.
 
 **Date:** 2026-10-16 America/New_York (2026-10-17 UTC). **Result:** complete conductor source census; missing-visual findings and review queue remain open. This is not a visual-completeness PASS, independent QA, scoring review or complete-question delivery certificate.

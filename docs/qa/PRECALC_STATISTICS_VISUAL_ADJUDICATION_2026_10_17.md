@@ -1,5 +1,7 @@
 # Precalculus / Statistics: adjudication of the 49 visual cases
 
+> **FOLLOW-UP 2026-10-17:** [All twenty graphical-choice specifications are resolved and built locally](STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md): each retains its two original histograms and replaces the ambiguous categorical/stemplot choices with explicit histogram distractors. The twenty specification blockers below are historical. Independent QA and live release remain open; the overall 23/26 adjudication is unchanged.
+
 **Date:** 2026-10-17. **Status:** Conductor adjudication complete; repairs, fresh independent QA and authenticated delivery verification remain open.
 **Tier:** Standard, source review and documentation. **Authorization:** David: “Adjudicate the 49.”
 **Branch / PR:** `codex/question-images-precalc-statistics-u1-u3` / [#480](https://github.com/david-bloom/Cramapple/pull/480).

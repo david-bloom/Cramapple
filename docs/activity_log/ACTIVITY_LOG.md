@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Statistics twenty graphical-choice specifications resolved and locally built (2026-10-17): David directed “Resolve the 20 graphical choice questions.” Preserved 20 stems/data, option order and 40 original histogram choices; replaced 40 ambiguous categorical/stemplot options with distinct explicit histogram count errors. 80 choice images and 20 full A–D sheets built as SVG/PNG with revised rationales/accessibility and source/hash manifest. Source/arithmetic/artifact/rebuild/negative-control checks pass; local desktop/320px browser checks decode 80 images, no clipping/overlap/overflow. Independent QA, stored-key/source comparison and live release/delivery remain open; no live queries/writes, uploads or app deployment. [Resolution](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md).
+
 - Precalculus / Statistics 49-case adjudication completed (2026-10-17): owner directed “Adjudicate the 49.” Full pinned presentations reviewed; 23 visual repairs (3 source-ready stimuli,20 graphical-choice sets needing categorical-bar/stemplot-key specifications), 26 retain text. Statistics 1.5 downgraded; 20 explicit boxplot descriptions and 4 residual-pattern items retained. Exact-version/hash ledger, 40 histogram-option recounts and 20 boxplot-summary checks recorded. Conductor review only, not independent QA; no live query/build/data/deployment change. [Adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md).
 
 - Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
@@ -169,6 +171,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Twenty Statistics graphical-choice repairs built locally
+
+Statistics twenty graphical-choice specifications resolved and locally built (2026-10-17): David directed “Resolve the 20 graphical choice questions.” Preserved 20 stems/data, option order and 40 original histogram choices; replaced 40 ambiguous categorical/stemplot options with distinct explicit histogram count errors. 80 choice images and 20 full A–D sheets built as SVG/PNG with revised rationales/accessibility and source/hash manifest. Source/arithmetic/artifact/rebuild/negative-control checks pass; local desktop/320px browser checks decode 80 images, no clipping/overlap/overflow. Independent QA, stored-key/source comparison and live release/delivery remain open; no live queries/writes, uploads or app deployment. [Resolution](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md).
+
+Next owner content QA/release maintainer: independently review the 20 revised sets, compare live source/stored keys and select/verify actual delivery before new-version publication. Existing published versions, other 3 teaching stimuli and 26 retained-text items unchanged.
 
 ## 2026-10-17 — Precalculus / Statistics 49-case visual adjudication
 
