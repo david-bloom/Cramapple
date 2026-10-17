@@ -120,7 +120,10 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
   const p = path.join(batch, 'topics', `${t.subject_key}__${t.topic_code}.json`);
   const st = readJson(p, { topic: t, seeds: [] });
   for (const slot of t.slots) {
-    if (st.seeds.find((s) => s.slot.slot === slot.slot && s.done)) continue;
+    // A finished slot is skipped, unless its accepted seed has fewer variants than requested (--variants raised later):
+    // then only the missing variants are produced and the seed is neither regenerated nor re-voted.
+    const prior = st.seeds.find((s) => s.slot.slot === slot.slot && s.done);
+    if (prior && !(prior.seed && prior.variants.length < nVariants)) continue;
     const base = `${t.subject_key}__${t.topic_code}__${slot.slot}`;
     // --bank=<json>: already-published items ([{topic_code, stem, choices:[{choice_text, is_correct}]}]). Those on this
     // topic join the earlier-seed list in the prompt and the seed-vs-seed gate, so a seed cannot duplicate the bank
@@ -134,15 +137,19 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
       }
       return null;
     };
-    const seedRun = await produce('seed', t, `${base}__seed`, () => seedPrompt(t, slot, skills, earlier), seedGate, rounds);
-    const rec = { slot, seed: null, seed_candidates: seedRun.candidates, variants: [], done: false };
-    if (seedRun.accepted) {
-      rec.seed = { ...seedRun.accepted, slot, label: await labelVote(seedRun.accepted.item, seedRun.accepted.author_family, skills, `${base}__seed`) };
+    let rec, seedRun = null;
+    if (prior) rec = prior;
+    else {
+      seedRun = await produce('seed', t, `${base}__seed`, () => seedPrompt(t, slot, skills, earlier), seedGate, rounds);
+      rec = { slot, seed: null, seed_candidates: seedRun.candidates, variants: [], done: false };
+      if (seedRun.accepted) rec.seed = { ...seedRun.accepted, slot, label: await labelVote(seedRun.accepted.item, seedRun.accepted.author_family, skills, `${base}__seed`) };
+    }
+    if (rec.seed) {
       const L = rec.seed.label, skillText = Object.fromEntries(skills);
       // The variant keeps the seed's validated sub-skill; otherwise the seed's practice (or the slot's).
       const skillLine = L.skill_status === 'validated' ? `${L.skill}: ${skillText[L.skill]}`
         : `practice ${L.practice_status === 'validated' ? L.practice : slot.practice}: ${practiceSkills(skills, L.practice_status === 'validated' ? L.practice : slot.practice).map(([k]) => k).join(', ')}`;
-      for (let v = 1; v <= nVariants; v++) {
+      for (let v = rec.variants.length + 1; v <= nVariants; v++) {
         const sibs = rec.variants.filter((x) => x.accepted).map((x) => x.accepted);
         const gate = (item) => {
           const s0 = jaccard(item, rec.seed.item); if (s0 > SIM_MAX) return `similarity to seed ${s0.toFixed(2)}`;
