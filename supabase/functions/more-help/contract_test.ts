@@ -14,7 +14,7 @@ import {
 } from "./contract.ts";
 import { type Dependencies, moreHelp } from "./handler.ts";
 import { generateHelp, HELP_GATEWAY_MODEL, HELP_GATEWAY_URL } from "./model.ts";
-import { checkNoAnswerLeak, CHECK_GATEWAY_MODEL } from "./verify.ts";
+import { checkNoAnswerLeak, CHECK_GATEWAY_MODEL, LeakError } from "./verify.ts";
 import { outputFailure, rpcFailure } from "./diagnostics.ts";
 const input = {
   requestId: "10000000-0000-4000-8000-000000000001",
@@ -1119,4 +1119,31 @@ Deno.test("handler: pre-submit MCQ help goes through verify; a refusal releases 
   verified = 0;
   await moreHelp(request(), { ...base, load: () => Promise.resolve(frqRaw), verify: () => { verified++; return Promise.resolve(); } });
   assertEquals(verified, 0);
+});
+
+Deno.test("handler: a flagged draft is rewritten with the reviewer's reason, up to two times, then refused", async () => {
+  let generated = 0, verified = 0, committed = 0, failed = 0;
+  const revisions: Array<string | undefined> = [];
+  const base = {
+    ...deps(),
+    generate: (_c: unknown, revision?: string) => { generated++; revisions.push(revision); return Promise.resolve(output); },
+    commit: () => { committed++; return Promise.resolve({ state: "delivered" }); },
+    fail: () => { failed++; return Promise.resolve(); },
+  };
+  // Flagged once, clean after one rewrite: delivered, reason reached the author model.
+  const ok = await moreHelp(request(), { ...base, verify: () => { verified++; return verified === 1 ? Promise.reject(new LeakError("gives the swap rule")) : Promise.resolve(); } });
+  assertEquals([ok.status, generated, committed], [200, 2, 1]);
+  assertEquals(revisions[0], undefined);
+  assertEquals(String(revisions[1]).includes("gives the swap rule"), true);
+  assertEquals(String(revisions[1]).includes("Never mention this reviewer"), true);
+  // Always flagged: two rewrites then refusal, lease released, nothing committed.
+  generated = 0; verified = 0; committed = 0; failed = 0; revisions.length = 0;
+  const refused = await moreHelp(request(), { ...base, verify: () => { verified++; return Promise.reject(new LeakError("still leaks")); } });
+  assertEquals(refused.status, 502);
+  assertEquals((await refused.json()).error, "answer_disclosure");
+  assertEquals([generated, verified, committed, failed], [3, 3, 0, 1]);
+  // A checker outage is not rewritten around: fail closed immediately.
+  generated = 0; failed = 0;
+  const out = await moreHelp(request(), { ...base, verify: () => Promise.reject(new HelpError("help_unavailable", 503)) });
+  assertEquals([out.status, generated, failed], [503, 1, 1]);
 });

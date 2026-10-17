@@ -6,6 +6,8 @@ import {
   parseInput,
   type Row,
 } from "./contract.ts";
+import { revisionNote } from "./verify.ts";
+export const MAX_REVISIONS = 2;
 export type Dependencies = {
   authenticate: (req: Request) => Promise<{ id: string } | null>;
   originAllowed: (req: Request) => boolean;
@@ -22,7 +24,10 @@ export type Dependencies = {
     generation: number,
   ) => Promise<Row>;
   fail: (userId: string, input: HelpInput, generation: number) => Promise<void>;
-  generate: (context: ReturnType<typeof helpContext>) => Promise<unknown>;
+  generate: (
+    context: ReturnType<typeof helpContext>,
+    revision?: string,
+  ) => Promise<unknown>;
   // Optional runtime answer-leak check for pre-submit multiple-choice help.
   verify?: (
     context: ReturnType<typeof helpContext>,
@@ -105,12 +110,27 @@ export async function moreHelp(req: Request, deps: Dependencies) {
       throw new HelpError("reservation_failed", 503);
     }
     reservation = { userId: user.id, input, generation };
-    const result = await deps.generate(context);
+    let result = await deps.generate(context);
     if (
       deps.verify && !context.after &&
       context.grounding.question.type === "mcq"
     ) {
-      await deps.verify(context, result, input);
+      // The check does more than gate: when it flags a draft, its reason is sent back
+      // to the author model for a rewrite (at most MAX_REVISIONS times), and help is
+      // refused only if the rewrites still give the answer away.
+      for (let revisions = 0;; revisions++) {
+        try {
+          await deps.verify(context, result, input);
+          break;
+        } catch (error) {
+          const reason = (error as { reason?: unknown })?.reason;
+          if (
+            !(error instanceof HelpError) || error.code !== "answer_disclosure" ||
+            typeof reason !== "string" || revisions >= MAX_REVISIONS
+          ) throw error;
+          result = await deps.generate(context, revisionNote(reason));
+        }
+      }
     }
     const committed = object(await deps.commit(user.id, input, generation));
     if (committed.state !== "delivered") {

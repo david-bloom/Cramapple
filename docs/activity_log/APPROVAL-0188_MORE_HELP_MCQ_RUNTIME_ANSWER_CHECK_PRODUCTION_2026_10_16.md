@@ -21,3 +21,7 @@ Both layers apply to the live subjects as well (Calculus AB/BC, Chemistry, Stati
 
 ## Rollback
 Redeploy the v3 source: `git checkout 111e1ffd -- supabase/functions/more-help`, then `supabase functions deploy more-help --project-ref pcntajvbdfqhbeewmdry --workdir <repo> --use-api`.
+
+## Follow-up 2026-10-16 (owner smoke test): rewrite loop, Dev v22, NOT in Production
+Owner smoke test on Production v4: Physics 1 MCQ `apphy1-mcq-004` (name the third-law partner) was refused (`answer_disclosure`, "couldn't keep this explanation within setup guidance"). Replay of the exact question with Production's facts: the older pattern checks passed 6 of 6 drafts; the runtime check flagged 6 of 6 (the help said to swap the two objects, i.e. it gave the answer). Owner asked why the check does not fix what it flags.
+Change: the check's reason is now sent back to the author model (`revisionNote`, key never shared, previous draft not repeated) for a rewrite, at most 2 rewrites, each re-checked; help is refused only if the rewrites still leak; a checker outage still fails closed immediately. Replay: 6 of 6 flagged drafts were repaired by one rewrite (e.g. "Write down which object exerts the force and which receives it, then state the paired force in your own words"). 40 backend tests pass; Dev `more-help` v22. Cost: one or two extra author calls plus checks on flagged requests only. Production still v4 until the owner approves v5.

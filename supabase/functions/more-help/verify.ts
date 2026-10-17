@@ -9,6 +9,12 @@ export const CHECK_GATEWAY_MODEL = "google/gemini-3.8-flash";
 export const CHECK_GATEWAY_URL =
   "https://ai-gateway.vercel.sh/v1/chat/completions";
 
+export class LeakError extends HelpError {
+  constructor(public reason: string) {
+    super("answer_disclosure", 502, undefined, "runtime_check");
+  }
+}
+
 export type CheckChoice = { key: string; text: string; correct: boolean };
 
 export const CHECK_SYSTEM =
@@ -109,6 +115,14 @@ export async function checkNoAnswerLeak(
   }
   if (verdict.reveals_answer) {
     outputFailure("runtime_check");
-    throw new HelpError("answer_disclosure", 502, undefined, "runtime_check");
+    throw new LeakError(
+      typeof verdict.reason === "string" ? verdict.reason.slice(0, 400) : "",
+    );
   }
+}
+
+// Sent back to the author model when the check flags a draft. Only the reviewer's reason
+// is shared, never the key, and the previous draft is not repeated (avoids anchoring).
+export function revisionNote(reason: string): string {
+  return `A reviewer found that your previous draft gave away the answer${reason ? ` (${reason})` : ""}. Write a new version from scratch. The headline, explanation, next step and follow-up questions may only say which supplied fact or part of the question to read and what kind of thing to compare or set up. They must not apply the fact to this question, name the relationship, rule or object that decides the choices, or describe what the student will find. If the question's whole point is the fact itself, say only which supplied fact to reread and that the student should state it in their own words before choosing. Never mention this reviewer.`;
 }

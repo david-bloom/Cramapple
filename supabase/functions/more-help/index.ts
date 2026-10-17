@@ -112,11 +112,13 @@ Deno.serve((req) =>
         Deno.env.get("AI_GATEWAY_API_KEY"),
       );
     },
-    generate: (context) =>
+    generate: (context, revision) =>
       generateHelp(
         context,
         Deno.env.get("AI_GATEWAY_API_KEY"),
         HELP_GATEWAY_MODEL,
+        fetch,
+        revision,
       ),
   })
 );
