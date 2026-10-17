@@ -8,6 +8,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0193 — Biology FRQ S-023 pH data as a rendered table (draft v4 created; publish is owner-run)](APPROVAL-0193_BIOLOGY_FRQ_S023_TABLE_STIMULUS_2026_10_17.md)
 - [APPROVAL-0192 — Load 8 generated MCQs for Biology topic 2.10 (approved, not yet executed)](APPROVAL-0192_BIOLOGY_2_10_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0191 — Version-matched image metadata for the S-003 v2 draft (drafted, not executed)](APPROVAL-0191_BIOLOGY_FRQ_S003_V2_IMAGE_METADATA_2026_10_17.md)
 - [APPROVAL-0189 — Biology units 1-3: add question instructions to 14 legacy FRQs as draft versions (drafted, not executed)](APPROVAL-0189_BIOLOGY_LEGACY_FRQ_INSTRUCTIONS_DRAFT_VERSIONS_2026_10_17.md)
