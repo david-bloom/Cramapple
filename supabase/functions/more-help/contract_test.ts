@@ -1,5 +1,6 @@
 import {
   assertEquals,
+  assertRejects,
   assertThrows,
 } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
@@ -13,6 +14,7 @@ import {
 } from "./contract.ts";
 import { type Dependencies, moreHelp } from "./handler.ts";
 import { generateHelp, HELP_GATEWAY_MODEL, HELP_GATEWAY_URL } from "./model.ts";
+import { checkNoAnswerLeak, CHECK_GATEWAY_MODEL, LeakError } from "./verify.ts";
 import { outputFailure, rpcFailure } from "./diagnostics.ts";
 const input = {
   requestId: "10000000-0000-4000-8000-000000000001",
@@ -1038,7 +1040,7 @@ Deno.test("FRQ identify/define subparts: boundary is set and generated copy may 
   const frq = { ...raw, item: { ...raw.item, stem, itemType: "frq" } };
   assertEquals(typeof helpContext(frq, input).grounding.coachingBoundary, "string");
   // Same wording on an MCQ, and after grading, keeps the default behavior.
-  assertEquals(helpContext({ ...frq, item: { ...frq.item, itemType: "mcq" } }, input).grounding.coachingBoundary, null);
+  assertEquals(String(helpContext({ ...frq, item: { ...frq.item, itemType: "mcq" } }, input).grounding.coachingBoundary).includes("multiple-choice"), true);
   for (const leak of [
     "This is a one-sample z-test for a proportion.",
     "This is a one-proportion setting, so use a z procedure.",
@@ -1070,4 +1072,78 @@ Deno.test("law check ignores third-law partner asks and laws the question itself
   assertEquals(statedConclusionKinds(named).includes("law"), true);
   validateHelp({ ...output, explanation: "Newton's second law is mentioned in the stem; start from the forces on one skater." }, [source], named, true, named, "frq");
   assertThrows(() => validateHelp({ ...output, explanation: "Use conservation of momentum." }, [source], named, true, named, "frq"), HelpError);
+});
+
+Deno.test("MCQ before submission gets the no-conclusion coaching boundary; after grading and FRQs do not", () => {
+  const mcq = { ...raw, item: { ...raw.item, itemType: "mcq" } };
+  assertEquals(String(helpContext(mcq, input).grounding.coachingBoundary).includes("multiple-choice"), true);
+  const frq = { ...raw, item: { ...raw.item, stem: "(a) Calculate the value.", itemType: "frq" } };
+  assertEquals(helpContext(frq, input).grounding.coachingBoundary, null);
+});
+
+const checkQ = { stem: "Which is larger?", choices: [{ key: "A", text: "x", correct: false }, { key: "B", text: "y", correct: true }] };
+const verdictFetch = (body: unknown, status = 200): typeof fetch => () =>
+  Promise.resolve(new Response(JSON.stringify(body), { status }));
+const verdict = (reveals: unknown) => ({ choices: [{ message: { content: JSON.stringify({ reveals_answer: reveals, reason: "r" }) } }] });
+Deno.test("runtime check: passes clean help, refuses a leak, fails closed when it cannot run, and never sees the author model's key", async () => {
+  const help = { headline: "h", explanation: "e", nextStep: "n", followUps: ["f"] };
+  await checkNoAnswerLeak(checkQ, help, "key", verdictFetch(verdict(false)));
+  await assertRejects(() => checkNoAnswerLeak(checkQ, help, "key", verdictFetch(verdict(true))), HelpError);
+  for (const bad of [verdict("yes"), { choices: [] }, { choices: [{ message: { content: "not json" } }] }]) {
+    await assertRejects(() => checkNoAnswerLeak(checkQ, help, "key", verdictFetch(bad)), HelpError);
+  }
+  await assertRejects(() => checkNoAnswerLeak(checkQ, help, "key", verdictFetch({}, 500)), HelpError);
+  await assertRejects(() => checkNoAnswerLeak(checkQ, help, "key", () => Promise.reject(new Error("net"))), HelpError);
+  await assertRejects(() => checkNoAnswerLeak({ ...checkQ, choices: [{ key: "A", text: "x", correct: false }] }, help, "key", verdictFetch(verdict(false))), HelpError);
+  await assertRejects(() => checkNoAnswerLeak(checkQ, help, undefined, verdictFetch(verdict(false))), HelpError);
+  let sent = "";
+  await checkNoAnswerLeak(checkQ, help, "key", (_u, init) => { sent = String((init as RequestInit).body); return Promise.resolve(new Response(JSON.stringify(verdict(false)))); });
+  const body = JSON.parse(sent);
+  assertEquals(body.model, CHECK_GATEWAY_MODEL);
+  assertEquals(JSON.parse(body.messages[1].content).correct_choice, "B");
+  assertEquals(String(CHECK_GATEWAY_MODEL).split("/")[0] !== String(HELP_GATEWAY_MODEL).split("/")[0], true);
+});
+Deno.test("handler: pre-submit MCQ help goes through verify; a refusal releases the lease and never commits; FRQ and after-grade skip it", async () => {
+  let verified = 0, committed = 0, failed = 0;
+  const base = { ...deps(), commit: () => { committed++; return Promise.resolve({ state: "delivered" }); }, fail: () => { failed++; return Promise.resolve(); } };
+  const ok = await moreHelp(request(), { ...base, verify: () => { verified++; return Promise.resolve(); } });
+  assertEquals([ok.status, verified, committed], [200, 1, 1]);
+  const refused = await moreHelp(request(), { ...base, verify: () => Promise.reject(new HelpError("answer_disclosure", 502, undefined, "runtime_check")) });
+  assertEquals(refused.status, 502);
+  assertEquals((await refused.json()).error, "answer_disclosure");
+  assertEquals([committed, failed], [1, 1]);
+  const unavailable = await moreHelp(request(), { ...base, verify: () => Promise.reject(new HelpError("help_unavailable", 503)) });
+  assertEquals(unavailable.status, 503);
+  assertEquals([committed, failed], [1, 2]);
+  const frqRaw = { ...raw, item: { ...raw.item, itemType: "frq", stem: "(a) Calculate the value." } };
+  verified = 0;
+  await moreHelp(request(), { ...base, load: () => Promise.resolve(frqRaw), verify: () => { verified++; return Promise.resolve(); } });
+  assertEquals(verified, 0);
+});
+
+Deno.test("handler: a flagged draft is rewritten with the reviewer's reason, up to two times, then refused", async () => {
+  let generated = 0, verified = 0, committed = 0, failed = 0;
+  const revisions: Array<string | undefined> = [];
+  const base = {
+    ...deps(),
+    generate: (_c: unknown, revision?: string) => { generated++; revisions.push(revision); return Promise.resolve(output); },
+    commit: () => { committed++; return Promise.resolve({ state: "delivered" }); },
+    fail: () => { failed++; return Promise.resolve(); },
+  };
+  // Flagged once, clean after one rewrite: delivered, reason reached the author model.
+  const ok = await moreHelp(request(), { ...base, verify: () => { verified++; return verified === 1 ? Promise.reject(new LeakError("gives the swap rule")) : Promise.resolve(); } });
+  assertEquals([ok.status, generated, committed], [200, 2, 1]);
+  assertEquals(revisions[0], undefined);
+  assertEquals(String(revisions[1]).includes("gives the swap rule"), true);
+  assertEquals(String(revisions[1]).includes("Never mention this reviewer"), true);
+  // Always flagged: two rewrites then refusal, lease released, nothing committed.
+  generated = 0; verified = 0; committed = 0; failed = 0; revisions.length = 0;
+  const refused = await moreHelp(request(), { ...base, verify: () => { verified++; return Promise.reject(new LeakError("still leaks")); } });
+  assertEquals(refused.status, 502);
+  assertEquals((await refused.json()).error, "answer_disclosure");
+  assertEquals([generated, verified, committed, failed], [3, 3, 0, 1]);
+  // A checker outage is not rewritten around: fail closed immediately.
+  generated = 0; failed = 0;
+  const out = await moreHelp(request(), { ...base, verify: () => Promise.reject(new HelpError("help_unavailable", 503)) });
+  assertEquals([out.status, generated, failed], [503, 1, 1]);
 });

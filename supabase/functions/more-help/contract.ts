@@ -220,6 +220,7 @@ export function helpContext(raw: unknown, input: HelpInput) {
   const continuityTrap = !after && continuityStatements(questionText);
   const identifyTrap = !after && identifyDefineTrap(questionText, text(item.itemType));
   const conclusionKinds = after ? [] : statedConclusionKinds(questionText, text(item.itemType));
+  const mcqTrap = !after && text(item.itemType) === "mcq";
   const sources: Source[] = Object.values(object(r.reference)).flatMap(list)
     .map(object).map((e) => ({
       id: text(e.id || e.referenceEntryId),
@@ -284,6 +285,8 @@ export function helpContext(raw: unknown, input: HelpInput) {
         ? "A subpart asks the student to identify, name, state or define something (a procedure, test, interval, parameter, hypotheses, variable, population or sample). Do not name or state that thing anywhere, including the headline, follow-up questions, paraphrases, symbols, and distinctions such as one- versus two-sample, z versus t, proportion versus mean, or the direction of an alternative. Tell the student which words or numbers in the stem to read and which published definition to compare against, and let them make the identification themselves."
         : conclusionKinds.length
         ? "A subpart asks the student to state a conclusion (a direction or sign, a named law or principle, a value read from a graph or equation such as a midline, period, domain or range, or a yes/no verdict). Do not state that conclusion anywhere, including the headline, follow-up questions, paraphrases and symbols. Do not name the governing law, principle or theorem, give the direction or sign, give the value, or say which way the verdict goes. Tell the student what to inspect or which published definition or relationship to compare, and let them reach and state the conclusion themselves."
+        : mcqTrap
+        ? "This is a multiple-choice question and the student has not submitted. Do not state the fact, rule, relationship or conclusion that decides which choice is correct, in the headline, explanation, next step or follow-up questions, even as a general principle, a restatement of a supplied fact, or a paraphrase of it. Do not say which of two quantities is larger, which direction something changes, what stays the same, or what a term means when that meaning is what the question tests. Make the headline an action or skill (for example 'Compare the two energy diagrams' or 'Set up the surface-area-to-volume ratio'), not a finding. Say which supplied fact or part of the question to read and what to do with it, then let the student reach the conclusion."
         : null,
       currentWork: input.work,
       focus: input.focus,

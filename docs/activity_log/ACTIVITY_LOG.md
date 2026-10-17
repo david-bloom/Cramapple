@@ -6,6 +6,26 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Precalculus gap-fill records integrated for branch cleanup (2026-10-17, owner: “Act on your recommendations”): preserve the reported 22 seeds/66 variants and approved source annotations; CED boundary check passes. Private packet/ledger custody cannot be verified in this checkout and remains an explicit next action for the originating conductor. No publication, model call or task closure. [Record](../qa/PRECALCULUS_U1_U3_MCQ_GAP_FILL_2026_10_16.md).
+
+- PR #480 integration repaired (2026-10-17, owner: “Fix pr480”): merged current main `332459d` into the existing Statistics visual-repair branch, retaining both activity histories and every original index entry. All repair artifacts unchanged; twenty-question source/math/artifact checks and ten Statistics checker tests pass. Merge readiness is limited to the audit/local repair packet; independent content QA, live keys and authenticated delivery remain open. [Task](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
+
+- Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0190): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
+- Biology FRQ003 image repair authorized and prepared (2026-10-17, APPROVAL-0190): owner requested validation and servability for S-003 and L-003. Both original PNG downloads/hash/public-denial checks pass. Corrected S-003 NADPH compartment in a deterministic reconstruction; L-003 pedigree matches its written stimulus and remains unchanged. Exact two-version guarded metadata/path/visual-decision release and recovery prepared; no live data changes yet. [Task](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
+
+- Biology FRQ003 image availability repaired in separate PR #483 (2026-10-17, APPROVAL-0190): exact S-003 and L-003 v4 images now pass Production v41 ordinary-mode image gate, with approved metadata/visual decisions and signed checksum matches. S-003 diagram corrected to place NADPH in the stroma; L-003 original pedigree retained. Questions/scoring/taxonomy/labels and retired review records unchanged. Actual instructions/inference critique and authenticated browser QA remain open. [Live repair record](https://github.com/david-bloom/Cramapple/pull/483).
+
+- Statistics twenty graphical-choice specifications resolved and locally built (2026-10-17): David directed “Resolve the 20 graphical choice questions.” Preserved 20 stems/data, option order and 40 original histogram choices; replaced 40 ambiguous categorical/stemplot options with distinct explicit histogram count errors. 80 choice images and 20 full A–D sheets built as SVG/PNG with revised rationales/accessibility and source/hash manifest. Source/arithmetic/artifact/rebuild/negative-control checks pass; local desktop/320px browser checks decode 80 images, no clipping/overlap/overflow. Independent QA, stored-key/source comparison and live release/delivery remain open; no live queries/writes, uploads or app deployment. [Resolution](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md).
+
+- Precalculus / Statistics 49-case adjudication completed (2026-10-17): owner directed “Adjudicate the 49.” Full pinned presentations reviewed; 23 visual repairs (3 source-ready stimuli,20 graphical-choice sets needing categorical-bar/stemplot-key specifications), 26 retain text. Statistics 1.5 downgraded; 20 explicit boxplot descriptions and 4 residual-pattern items retained. Exact-version/hash ledger, 40 histogram-option recounts and 20 boxplot-summary checks recorded. Conductor review only, not independent QA; no live query/build/data/deployment change. [Adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md).
+
+- Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
+
+- Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
+
+- BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
+
 - Precalculus Units 1–3 zero-MCQ creation completed (2026-10-17): 22 seeds + 66 variants accepted for all 11 initially empty topics, from 116 checked candidates; 28 rejected, no escalations. Four CED source clarifications approved in chat and six controls rerun (6/6; initial controls also 6/6). All accepted items have four-family solve/audit evidence, own-family veto, numeric checks and family/uniqueness checks; seeds have ≥5/6 topic votes. Three families retain no validated skill cell. 1,430 SDK attempts, one recorded provider failure, accounted upper cost $13.521980/$30. Private question packet and raw evidence exported locally; only source/QA metadata in Git. Final live census remains 181 MCQs/11 zeros: no publication or database/app change. [Result](../qa/PRECALCULUS_U1_U3_MCQ_GAP_FILL_2026_10_16.md).
 
 - Precalculus Units 1–3 zero-MCQ gap fill prepared (2026-10-16): read-only Production census finds 181 practice MCQs across 44 topics, 11 zeros (1.1/1.3/1.11; 2.1/2.2/2.8/2.9/2.14; 3.4/3.8/3.15). Owner requested two seeds and three variants each: 22+66 planned. CED and live skill grids checked; 11 existing teaching items retained as a private comparison bank. Fresh slate confirmation/$30 ceiling requested under protocol §2.1; no inference spend or database write while pending. [Run plan](../qa/PRECALCULUS_U1_U3_MCQ_GAP_FILL_2026_10_16.md).
@@ -166,6 +186,57 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Precalculus gap-fill record integration
+
+Precalculus gap-fill records integrated for branch cleanup (2026-10-17, owner: “Act on your recommendations”): preserve the reported 22 seeds/66 variants and approved source annotations; CED boundary check passes. Private packet/ledger custody cannot be verified in this checkout and remains an explicit next action for the originating conductor. No publication, model call or task closure. [Record](../qa/PRECALCULUS_U1_U3_MCQ_GAP_FILL_2026_10_16.md).
+
+## 2026-10-17 — PR #480 integration repair
+
+PR #480 integration repaired (2026-10-17, owner: “Fix pr480”): merged current main `332459d` into the existing Statistics visual-repair branch, retaining both activity histories and every original index entry. All repair artifacts unchanged; twenty-question source/math/artifact checks and ten Statistics checker tests pass. Merge readiness is limited to the audit/local repair packet; independent content QA, live keys and authenticated delivery remain open. [Task](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
+
+## 2026-10-17 — Biology FRQ003 image repair applied
+
+Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0190): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
+Next owner content owner / independent QA: actual S-003 instructions, L-003 inheritance-inference reconciliation and authenticated desktop/phone delivery. Existing question/scoring/labels and retired decisions were not changed.
+
+## 2026-10-17 — Biology FRQ003 image repair preparation
+
+Biology FRQ003 image repair authorized and prepared (2026-10-17, APPROVAL-0190): owner requested validation and servability for S-003 and L-003. Both original PNG downloads/hash/public-denial checks pass. Corrected S-003 NADPH compartment in a deterministic reconstruction; L-003 pedigree matches its written stimulus and remains unchanged. Exact two-version guarded metadata/path/visual-decision release and recovery prepared; no live data changes yet. [Task](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
+
+## 2026-10-17 — Biology FRQ003 image repair cross-reference
+
+Biology FRQ003 image availability repaired in separate PR #483 (2026-10-17, APPROVAL-0190): exact S-003 and L-003 v4 images now pass Production v41 ordinary-mode image gate, with approved metadata/visual decisions and signed checksum matches. S-003 diagram corrected to place NADPH in the stroma; L-003 original pedigree retained. Questions/scoring/taxonomy/labels and retired review records unchanged. Actual instructions/inference critique and authenticated browser QA remain open. [Live repair record](https://github.com/david-bloom/Cramapple/pull/483).
+
+## 2026-10-17 — Twenty Statistics graphical-choice repairs built locally
+
+Statistics twenty graphical-choice specifications resolved and locally built (2026-10-17): David directed “Resolve the 20 graphical choice questions.” Preserved 20 stems/data, option order and 40 original histogram choices; replaced 40 ambiguous categorical/stemplot options with distinct explicit histogram count errors. 80 choice images and 20 full A–D sheets built as SVG/PNG with revised rationales/accessibility and source/hash manifest. Source/arithmetic/artifact/rebuild/negative-control checks pass; local desktop/320px browser checks decode 80 images, no clipping/overlap/overflow. Independent QA, stored-key/source comparison and live release/delivery remain open; no live queries/writes, uploads or app deployment. [Resolution](../qa/STATS_GRAPHICAL_CHOICES_RESOLUTION_2026_10_17.md).
+
+Next owner content QA/release maintainer: independently review the 20 revised sets, compare live source/stored keys and select/verify actual delivery before new-version publication. Existing published versions, other 3 teaching stimuli and 26 retained-text items unchanged.
+
+## 2026-10-17 — Precalculus / Statistics 49-case visual adjudication
+
+Precalculus / Statistics 49-case adjudication completed (2026-10-17): owner directed “Adjudicate the 49.” Full pinned presentations reviewed; 23 visual repairs (3 source-ready stimuli,20 graphical-choice sets needing categorical-bar/stemplot-key specifications), 26 retain text. Statistics 1.5 downgraded; 20 explicit boxplot descriptions and 4 residual-pattern items retained. Exact-version/hash ledger, 40 histogram-option recounts and 20 boxplot-summary checks recorded. Conductor review only, not independent QA; no live query/build/data/deployment change. [Adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md).
+
+Next owner content/visual maintainer: scope the 3 exact-version stimulus builds and settle 20 graphical-choice specifications, then fresh independent QA and authorized attachment/browser verification. Preserve 26 text items and 7 scope boundaries. No Production or build approval is inferred from adjudication.
+
+## 2026-10-17 — Question-image master restart handoff
+
+Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
+
+## 2026-10-16 — Precalculus and Statistics Units 1–3 visual source audit
+
+Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
+
+Next owner subject reviewer/conductor: independently adjudicate4 proposed missing visuals and45 uncertain cases, preserve seven scope boundaries, and verify authenticated rendering before certification. No diagrams, label repairs or content writes are included in this read-only slice. [Checkpoint](../handoffs/PRECALC_STATISTICS_IMAGE_AUDIT_CHECKPOINT_2026_10_16.md).
+
+## BC mirror and bounded Biology visual audit — 2026-10-16
+
+BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
+
+Owner instruction authorized the exact mirror and Biology Units1–3 read-only audit. The mirror is live at 2026-10-17 03:03:45 UTC. Phone recheck was interrupted by loss of Chrome access; no fresh independent QA or whole-question certificate is claimed. Biology position1.4 and BC Unit2/no-topic restored, original active subject restored with expected-value guards. No answers submitted. Next owner David/content maintainer: scope actual-instruction recovery for the14 strictly in-scope legacy FRQs, starting with S-003; independent QA once authorized.
+
 
 ## 2026-10-15 — Priority topic cells applied after owner merge/tagging instruction
 

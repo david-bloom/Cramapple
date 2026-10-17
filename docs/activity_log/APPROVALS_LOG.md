@@ -4,8 +4,14 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
+
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0192 — Load 8 generated MCQs for Biology topic 2.10 (approved, not yet executed)](APPROVAL-0192_BIOLOGY_2_10_MCQ_GAP_FILL_LOAD_2026_10_17.md)
+- [APPROVAL-0191 — Version-matched image metadata for the S-003 v2 draft (drafted, not executed)](APPROVAL-0191_BIOLOGY_FRQ_S003_V2_IMAGE_METADATA_2026_10_17.md)
+- [APPROVAL-0189 — Biology units 1-3: add question instructions to 14 legacy FRQs as draft versions (drafted, not executed)](APPROVAL-0189_BIOLOGY_LEGACY_FRQ_INSTRUCTIONS_DRAFT_VERSIONS_2026_10_17.md)
+- [APPROVAL-0183 — Exact AB-to-BC question-image mirror, applied and desktop-verified](APPROVAL-0183_BC_QUESTION_IMAGE_MIRROR_2026_10_16.md)
 - [APPROVAL-0180 — Write four accepted primary topic cells for More help (Physics 1 x1, Precalculus x3), applied and verified](APPROVAL-0180_MORE_HELP_FOUR_CELL_TOPIC_LOAD_2026_10_16.md)
 - [APPROVAL-0179 — Publish the ten agreed serving labels from the held-label rerun pilot (provisional_model, no serving change)](APPROVAL-0179_HELD_SERVING_LABEL_PILOT_PUBLICATION_2026_10_16.md)
 - [APPROVAL-0182 — Merge and publish app PRs #31 (learn-mode answer key) and #32 (Statistics More help off)](APPROVAL-0182_APP_PUBLISH_LEARN_KEY_AND_STATISTICS_OFF_2026_10_16.md)
