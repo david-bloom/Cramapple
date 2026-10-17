@@ -1,6 +1,6 @@
 # APPROVAL-0192 — Load 8 generated MCQs for Biology topic 2.10 into Production (2026-10-17)
 
-**STATUS: APPROVED, NOT YET EXECUTED.** **Approver:** David Bloom (chat, 2026-10-17: "Load the biology items. Skip the physics. Write an approval"). Scope: Biology topic 2.10 only. The Physics 1 topic 1.3 items were generated but are NOT approved for load (see below).
+**STATUS: EXECUTED 2026-10-17 (8 items published in Production).** **Approver:** David Bloom (chat, 2026-10-17: "Load the biology items. Skip the physics. Write an approval"). Scope: Biology topic 2.10 only. The Physics 1 topic 1.3 items were generated but are NOT approved for load (see below).
 
 ## What
 Eight new practice MCQs for AP Biology unit 2, topic 2.10 (Origins of Cell Compartmentalization): 2 seeds + 3 variants each.
@@ -21,3 +21,10 @@ The tool inserts the owner review assignment and approve decision and sets the o
 
 ## Rollback
 Retire the 8 new versions (`status='retired'`) or delete the new content items by key; the existing 2.10 question is untouched.
+
+## Executed
+- Method: the publish tool's own `txn_sql` (publish_mcq_batch.py) rendered locally for the single 8-item chunk, with the inputs read from Production (live pack `2d88ba5e…`, taxonomy source `c676d1fc…`, owner profile present), and run through the Supabase tool (no access token in this session). Same transaction the tool runs: drafts, text-hash check against the plan, owner approve decision (DECISION-0102), structural QA, serving label, topic and skill cells, difficulty, published, post-checks.
+- Rollback rehearsal on Production first: `REHEARSAL OK: published=8 skill_cells=8`, then 0 rows leaked.
+- Real run: committed with no error. Read-back: all 8 items `published`/`published`, approved, 4 choices with exactly 1 correct, topic cell 2.10 validated plus skill cell validated (140 family 1.B, 141 family 2.C), serving label validated, difficulty Medium (provisional_model). Published practice MCQs on topic 2.10: 9 (was 1).
+- Not done: the tool's `verify` command (needs the access token) and a live student-view check of the new items.
+- Physics 1 topic 1.3 items remain generated, unloaded and unapproved.
