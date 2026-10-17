@@ -27,7 +27,7 @@ targets=[{
     'expected_bytes':50281,'sha256':'6cf98d6964144ae0946c729176917120efe1a0925454eb443ff5b88a02f8553c',
 }]
 (HERE/'targets.json').write_text(json.dumps(targets,indent=2)+'\n')
-setup='''-- APPROVAL-0184: exact two-version image availability repair, Production.
+setup='''-- APPROVAL-0190: exact two-version image availability repair, Production.
 begin;
 set local lock_timeout='3s';
 set local statement_timeout='20s';

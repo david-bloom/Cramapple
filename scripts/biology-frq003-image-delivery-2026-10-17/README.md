@@ -1,7 +1,7 @@
 # Biology FRQ003 image delivery — applied
 
 **Production:** `pcntajvbdfqhbeewmdry`, 2026-10-17 12:13:36 UTC.
-**Authority:** [APPROVAL-0184](../../docs/activity_log/APPROVAL-0184_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md).
+**Authority:** [APPROVAL-0190](../../docs/activity_log/APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md).
 **Result:** The two exact current versions pass the ordinary-mode deployed v41 image gate; both private image downloads return 200 with reviewed SHA-256 values, and unsigned reads are denied. This is an image-availability result, not a whole-question or ordinary-student/browser certificate.
 
 - S-003 `c4da3229-8d7a-4cf9-8738-68b62af20372` uses the new checksum-addressed PNG in `manifest.json`. The original had NADPH formation on the lumen side. The new SVG reconstruction places it in the stroma, retains PSII/ETC/PSI/ATP-synthase and electron/proton directions, and preserves the old private PNG.

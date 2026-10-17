@@ -1,4 +1,4 @@
--- APPROVAL-0184: exact two-version image availability repair, Production.
+-- APPROVAL-0190: exact two-version image availability repair, Production.
 begin;
 set local lock_timeout='3s';
 set local statement_timeout='20s';

@@ -4,7 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
-- [APPROVAL-0184 — Biology FRQ003 exact-version image availability repair](APPROVAL-0184_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
+- [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
 
 Most recent entries (full chronological list follows below):
 

@@ -3,7 +3,7 @@
 **Owner:** Codex / Main Conductor. **Tier:** Hard-Gate. **Status:** Ready for Review.
 **Created / Approved:** 2026-10-17. **Product Owner:** David Bloom.
 **Branch:** `codex/biology-frq-003-image-delivery`. **PR:** [#483](https://github.com/david-bloom/Cramapple/pull/483).
-**Approval State:** APPROVAL-0184. Owner directed: “Confirm both images should be served and make them servable.” No further approval is needed for this exact image repair.
+**Approval State:** APPROVAL-0190. Owner directed: “Confirm both images should be served and make them servable.” No further approval is needed for this exact image repair.
 
 ## Scope and acceptance
 
@@ -27,4 +27,4 @@ S-003 still contains a scenario without actual question instructions; this image
 
 ## Applied result
 
-Applied at 2026-10-17 12:13:36 UTC under APPROVAL-0184. Two approved metadata rows and two required/approved visual decisions are live. S-003 uses the corrected immutable PNG; L-003 retains the original pedigree. Attach/recovery rehearsal and live read-back/source invariants pass; both signed checksums match, public reads are denied, and the exact deployed v41 ordinary-mode image gate returns 2 deliverable / 0 omitted. [Result and limits](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md). Current content/scoring/taxonomy/labels and retired L-003 v3 approval history remain unchanged. Next owner content owner / independent QA for the explicit question-quality and authenticated browser checks; no further approval is needed for this completed image-availability operation. No Done decision or whole-question certificate is claimed.
+Applied at 2026-10-17 12:13:36 UTC under APPROVAL-0190. Two approved metadata rows and two required/approved visual decisions are live. S-003 uses the corrected immutable PNG; L-003 retains the original pedigree. Attach/recovery rehearsal and live read-back/source invariants pass; both signed checksums match, public reads are denied, and the exact deployed v41 ordinary-mode image gate returns 2 deliverable / 0 omitted. [Result and limits](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md). Current content/scoring/taxonomy/labels and retired L-003 v3 approval history remain unchanged. Next owner content owner / independent QA for the explicit question-quality and authenticated browser checks; no further approval is needed for this completed image-availability operation. No Done decision or whole-question certificate is claimed.

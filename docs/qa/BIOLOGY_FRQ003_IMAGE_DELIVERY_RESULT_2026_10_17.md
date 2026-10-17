@@ -1,7 +1,7 @@
 # Biology FRQ S-003 / L-003 images — Production repair result
 
 **Date:** 2026-10-17. **Status:** Image availability repair applied and verified; independent QA and complete-question issues remain open.
-**Approval:** [APPROVAL-0184](../activity_log/APPROVAL-0184_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md), David: “Confirm both images should be served and make them servable.”
+**Approval:** [APPROVAL-0190](../activity_log/APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md), David: “Confirm both images should be served and make them servable.”
 **PR:** [#483](https://github.com/david-bloom/Cramapple/pull/483).
 **Task / Branch:** [WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md), `codex/biology-frq-003-image-delivery`.
 **Environment:** Production `pcntajvbdfqhbeewmdry`; commit applied **2026-10-17 12:13:36 UTC**.
@@ -38,3 +38,5 @@ The deployed `student-session-items` remains version41, and its shared gate sour
 S-003 still lacks actual question instructions. L-003's retired-version reviewer challenged the pedigree-only autosomal dominant/recessive inference; the text supplies a known-carrier condition, but that criticism is not erased or resolved by image metadata. New visual approval means the diagram matches the stated stimulus; it is not a grading-key or complete-question quality pass. No prompt, rubric, scoring or learner state was edited. The exact owner request covers L-003 as well as S-003; it does not expand into a later-unit Biology census.
 
 **Next owner: content owner / independent QA.** Resolve S-003's actual instructions, reconcile the L-003 inference critique and complete authenticated desktop/phone delivery checks. The two-image availability operation is applied; no further owner approval is needed for it. Task closure and a whole-question certificate have not been asserted. Guarded recovery is available and retains all image objects and retired review records.
+
+**Record correction:** The initially used0184 identifier collided with the existing More help record; it was corrected to APPROVAL-0190 after execution. No authorization or live scope changed. A parallel [PR#482](https://github.com/david-bloom/Cramapple/pull/482) proposes draft instructions for the fourteen legacy FRQs; it has not been executed or published here. Any later S-003 successor must deliberately carry the corrected path and its own version-matched metadata/visual decision—those approvals are not inherited automatically.

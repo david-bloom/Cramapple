@@ -1,4 +1,4 @@
-# APPROVAL-0184 — Biology FRQ003 image availability
+# APPROVAL-0190 — Biology FRQ003 image availability
 
 **Date:** 2026-10-17. **Approved By:** David Bloom. **Decision:** Approved.
 **Related Task:** [WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
@@ -11,3 +11,5 @@ Scope: current S-003 and L-003 version4 only. Reuse L-003's checksum-confirmed o
 Required implementation checks: private signed downloads/public denials; source/scoring/taxonomy/label/retired-review invariance; guarded attach and recovery rehearsals; read-back and deployed delivery-gate proof. This approval does not authorize schema, function/app deployment, learner-state changes, prompt/key/rubric re-authoring, overriding retired decisions or certifying either whole question. S-003's missing instructions and L-003's inheritance-inference critique remain explicit follow-ups.
 
 [Applied result and remaining content limits](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md). Two metadata/visual approvals and one S-003 image-path swap are live; signed checksums, private denial, source invariants and ordinary-mode image gate pass.
+
+**Identifier correction:** The initial pushed preparation/SQL comments accidentally used APPROVAL-0184, already assigned to the More help migration/ledger repair. APPROVAL-0190 is the canonical identifier for this two-image operation. This corrects bookkeeping only: the owner instruction, approved scope, approver, operation and verification receipts are unchanged; the earlier More help record is untouched.
