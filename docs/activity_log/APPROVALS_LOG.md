@@ -4,6 +4,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
+
 Most recent entries (full chronological list follows below):
 
 - [APPROVAL-0189 — Biology units 1-3: add question instructions to 14 legacy FRQs as draft versions (drafted, not executed)](APPROVAL-0189_BIOLOGY_LEGACY_FRQ_INSTRUCTIONS_DRAFT_VERSIONS_2026_10_17.md)

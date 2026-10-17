@@ -1,5 +1,7 @@
 # Biology Units 1–3 question-visual and delivery audit — 2026-10-16
 
+> **CORRECTION / FOLLOW-UP 2026-10-17:** [S-003 image availability is repaired in Production](BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md) under APPROVAL-0190; corrected NADPH compartment, approved exact-version metadata/visual decision and ordinary-mode image-gate pass. The F1 missing-metadata finding below is historical. Its missing question instructions remain unresolved; audit counts below are historical, not a new live-catalogue certificate. The same exact-owner-request slice also repairs L-003 image metadata without a broader Biology audit.
+
 **Result:** Source review completed; complete-question delivery cannot be certified.
 **Task:** [WORK-BC-IMAGE-MIRROR-BIOLOGY-U13](../tasks/WORK-BC-IMAGE-MIRROR-BIOLOGY-U13.md).
 **Environment:** Production `pcntajvbdfqhbeewmdry`, 2026-10-17 UTC / October 16 America/New_York.
