@@ -8,6 +8,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0191 — Version-matched image metadata for the S-003 v2 draft (drafted, not executed)](APPROVAL-0191_BIOLOGY_FRQ_S003_V2_IMAGE_METADATA_2026_10_17.md)
 - [APPROVAL-0189 — Biology units 1-3: add question instructions to 14 legacy FRQs as draft versions (drafted, not executed)](APPROVAL-0189_BIOLOGY_LEGACY_FRQ_INSTRUCTIONS_DRAFT_VERSIONS_2026_10_17.md)
 - [APPROVAL-0183 — Exact AB-to-BC question-image mirror, applied and desktop-verified](APPROVAL-0183_BC_QUESTION_IMAGE_MIRROR_2026_10_16.md)
 - [APPROVAL-0180 — Write four accepted primary topic cells for More help (Physics 1 x1, Precalculus x3), applied and verified](APPROVAL-0180_MORE_HELP_FOUR_CELL_TOPIC_LOAD_2026_10_16.md)
