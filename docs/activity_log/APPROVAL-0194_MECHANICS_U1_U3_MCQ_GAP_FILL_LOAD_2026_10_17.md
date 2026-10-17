@@ -1,6 +1,6 @@
 # APPROVAL-0194 — Load 108 generated MCQs for AP Physics C: Mechanics units 1-3 into Production (2026-10-17)
 
-**STATUS: PROPOSED, NOT EXECUTED. Awaiting the owner's explicit go.** One chunk (12 items) has been rehearsed against Production and rolled back; nothing is written.
+**STATUS: EXECUTED 2026-10-17 (108 items published in Production).** **Approver:** David Bloom (chat, 2026-10-17: "Go, include the 8" — load all 108, including the 8 skill-less items).
 
 ## What
 108 new practice MCQs across 15 Mechanics topics in units 1-3: 27 seeds + 81 variants (3 per seed), keys `apphycm-mcq-043` .. `apphycm-mcq-069` and `apphycm-mcq-sv-043-v1` .. `apphycm-mcq-sv-069-v3`. Existing Mechanics MCQs: 42 seeds, 46 variants (highest key `apphycm-mcq-042`). All 108 keys checked free in Production on 2026-10-17.
@@ -40,3 +40,12 @@ Retire the 108 new versions (`status='retired'`) or delete the new content items
 
 ## Not included
 Physics 1 topic 1.3 (generated, unloaded, not approved); the three unfilled Mechanics slots; B4 (`apphycm-frq-044`).
+
+## Executed
+- Method: the publish tool's own `txn_sql` (publish_mcq_batch.py) rendered locally in 9 chunks of 12 items (one seed-family triple each), inputs read from Production (live pack `ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9`, taxonomy source `d77d7801-441d-49bb-a2cf-a02f6bff407d`, owner profile present), run through the Supabase tool (no access token in this session). Same transaction the tool runs: drafts, text-hash check against the plan, owner approve decision (DECISION-0102), canonical-letter check, serving label, topic and skill cells, difficulty, published, post-checks; any failed check raises and rolls the chunk back.
+- Deviation from the plan above: only chunk 5 was rehearsed (rolled back, `REHEARSAL OK: published=12 skill_cells=8`). The other eight chunks ran in commit mode directly; their transaction contains the same assertions before `commit`, so a failure would have rolled back. Each chunk returned without error.
+- Read-back across all 108 keys: 108 items `published`/`published` and approved; each has exactly 4 choices and 1 correct; 108 serving labels validated against the live version's taxonomy hash; 108 topic cells; 100 skill cells (the 8 skill-less items are topic-only as approved); 108 difficulty rows (Medium 88, Easy 12, Hard 8 provisional_model); no item has two published versions.
+- Published practice MCQs by topic (new items): 1.1: 8, 1.3: 4, 1.4: 8, 1.5: 8, 2.1: 8, 2.2: 4, 2.3: 8, 2.4: 8, 2.5: 8, 2.6: 8, 2.7: 4, 2.8: 8, 2.9: 8, 3.1: 8, 3.4: 8.
+- Student selector (`public.select_student_practice_items`, Mechanics pack, units 1-3): returns all 108 new keys.
+- Not done: the tool's `verify` command (needs the access token) and a live student-view check of the new items.
+- Open: the three unfilled slots (1.3-B, 2.2-A, 2.7-B) are tracked in the session task "Close slot gaps in all subjects, units 1-3".
