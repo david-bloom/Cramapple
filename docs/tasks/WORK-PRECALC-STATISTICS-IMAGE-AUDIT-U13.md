@@ -2,7 +2,7 @@
 
 **Status:** Conductor source audit complete; missing visuals, independent review and authenticated browser verification open. **Tier:** Standard, read-only audit and documentation.
 **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
-**Branch:** `codex/question-images-precalc-statistics-u1-u3`. **PR:** pending.
+**Branch:** `codex/question-images-precalc-statistics-u1-u3`. **PR:** [#480](https://github.com/david-bloom/Cramapple/pull/480).
 **Authorization:** David's “Now do precalculus and statistics” continues the preceding Units 1–3 question-image/delivery audit. It does not authorize content repairs, diagrams, paid model runs, labels, migrations or deployment.
 **Sources:** `docs/tasks/WORK-QUESTION-IMAGE-COMPLETENESS.md` and `docs/handoffs/SESSION_CLOSE_2026_10_15_QUESTION_VISUAL_COMPLETENESS.md` define the method; preceding Biology/BC slice is PR #479, kept separate.
 

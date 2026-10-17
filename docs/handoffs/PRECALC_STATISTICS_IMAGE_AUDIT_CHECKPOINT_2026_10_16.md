@@ -3,7 +3,7 @@
 **Status:** conductor read-only Units 1–3 audit complete; missing visuals and independent/browser verification remain open.
 **Task:** [WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
 **Report:** [full results and limits](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
-**Branch:** `codex/question-images-precalc-statistics-u1-u3`. **PR:** pending.
+**Branch:** `codex/question-images-precalc-statistics-u1-u3`. **PR:** [#480](https://github.com/david-bloom/Cramapple/pull/480).
 
 David's “Now do precalculus and statistics” continued the preceding Units 1–3 audit. Reviewed all 801 selected published versions:312 Precalculus,489 Statistics. Strict coverage is794;7 Statistics boundary records are excluded. No other-subject or later-unit source census. Full same-version digests and routing metadata are unchanged at read-back.
 
