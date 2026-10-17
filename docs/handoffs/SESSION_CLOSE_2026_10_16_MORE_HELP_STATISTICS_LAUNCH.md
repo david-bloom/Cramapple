@@ -2,6 +2,9 @@
 
 STATUS: HISTORICAL (a dated record). Current rollout rules and steps live in `docs/qa/MORE_HELP_PER_SUBJECT_ROLLOUT_RUNBOOK_2026_10_16.md`.
 
+> **Integration correction, 2026-10-17:** use [the later restart handoff](MORE_HELP_REMAINING_TASKS_2026_10_17.md) for the recorded current state, not the launch/version/branch claims below. PRs #475 and #476 have merged; Production and approval-ledger claims below are historical and were not reverified here. The Statistics launch approval had a duplicate identifier; [the full-path legacy record](../activity_log/LEGACY_APPROVAL_STATISTICS_MORE_HELP_LAUNCH_2026_10_16.md) preserves it. Canonical `APPROVAL-0183` is the BC image mirror. The code integration preserves current main's runtime leak checks, MCQ coaching boundary, FRQ conclusion guards and tests, and adds only the missing procedure-name variants. No new deployment is authorized.
+
+
 ## 1. Where things stand
 **Live in Production for More help:** Calculus AB, Calculus BC, Chemistry (all units) and **AP Statistics units 1–3** (`APPROVAL-0183`). Every other subject, and Statistics unit 4+, is refused by the backend policy table (`app.more_help_subject_policy`) and hidden by the app's `MORE_HELP_UNITS` map. Owner rules: **one subject at a time, units 1–3 only, ask before unit 4+**; Physics 2 (units 9–11) and Physics C: E&M (8–10) are out of scope until the owner says.
 

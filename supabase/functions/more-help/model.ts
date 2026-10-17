@@ -19,6 +19,7 @@ export async function generateHelp(
   apiKey: string | undefined,
   model = HELP_GATEWAY_MODEL,
   doFetch: typeof fetch = fetch,
+  revision?: string,
 ) {
   if (!apiKey) throw new HelpError("help_not_configured", 503);
   if (model !== HELP_GATEWAY_MODEL) {
@@ -39,7 +40,9 @@ export async function generateHelp(
         reasoning: { effort: "none" },
         messages: [{ role: "system", content: HELP_SYSTEM }, {
           role: "user",
-          content: JSON.stringify(context.grounding),
+          content: JSON.stringify(
+            revision ? { ...context.grounding, revision } : context.grounding,
+          ),
         }],
         response_format: {
           type: "json_schema",

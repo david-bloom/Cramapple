@@ -1,5 +1,8 @@
 # Codex prompt — close the AP Statistics MCQ gaps (units 1–3): seeds first, then cheaper variants
 
+> **Historical work order, integrated 2026-10-17:** Stage A has since completed; [its result](../qa/STATISTICS_U1_U3_GAP_FILL_STAGE_A_2026_10_16.md) governs the recorded result. Stage B and publication remain separately gated. The Statistics launch reference below used a duplicate approval ID; use [the full-path legacy approval record](../activity_log/LEGACY_APPROVAL_STATISTICS_MORE_HELP_LAUNCH_2026_10_16.md). Bare `APPROVAL-0183` belongs to the BC image mirror. Do not restart Stage A from this historical prompt.
+
+
 You are the conductor for one bounded content task in the Cramapple repo (`/Users/davidbloom/Documents/Cramapple.nosync`). Start with `AGENTS.md`, then `docs/INDEX.md` (route through it; do not scan `docs/research`, `docs/teaching` or `scripts/*/out` broadly; open only the exact files named below).
 
 ## Goal

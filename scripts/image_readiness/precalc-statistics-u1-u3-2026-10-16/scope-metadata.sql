@@ -1,0 +1,6 @@
+select s.subject_key,ci.content_key,ci.id content_item_id,v.id version_id,
+(select jsonb_agg(jsonb_build_object('unit',r.unit_number,'topic',r.topic_code,'status',r.assignment_status,'primary',r.is_primary)) from app.content_item_topic_resolution r where r.content_item_version_id=v.id) topics,
+(select jsonb_agg(jsonb_build_object('units',l.required_units,'status',l.label_status,'hash_matches',l.validated_against_taxo_hash=app.taxonomy_relevant_hash(v.id),'same_version',l.validated_against_version_id=v.id)) from app.content_taxonomy_labels l where l.content_item_id=ci.id and l.label_scope='serving' and l.superseded_by is null) labels,
+v.prompt_json->'modules' modules
+from app.content_items ci join app.content_item_versions v on v.content_item_id=ci.id join app.exam_pack_versions epv on epv.id=ci.exam_pack_version_id join app.exam_packs ep on ep.id=epv.exam_pack_id join app.subjects s on s.id=ep.subject_id
+where s.subject_key in ('ap-precalculus','ap-statistics') and ci.status='published' and v.status='published' order by s.subject_key,ci.content_key;

@@ -1,4 +1,6 @@
-# APPROVAL-0183 — Launch More help for AP Statistics, units 1–3 (Production)
+# Historical approval record — Statistics More help launch, 2026-10-16
+
+> **Identifier correction, 2026-10-17:** this branch originally claimed `APPROVAL-0183`, which is already assigned on canonical `main` to the AB-to-BC question-image mirror. Bare `APPROVAL-0183` refers only to that BC approval. Cite this Statistics historical record by its full path, `docs/activity_log/LEGACY_APPROVAL_STATISTICS_MORE_HELP_LAUNCH_2026_10_16.md`; the old number is provenance, not a second active approval. This archives the earlier reported authorization/execution without granting new Production authority or claiming a fresh live verification. Later state is in `docs/handoffs/MORE_HELP_REMAINING_TASKS_2026_10_17.md`.
 
 **Decision:** Approved and applied; verified live.
 **Date:** 2026-10-16
@@ -20,4 +22,4 @@
 
 **Not done / open:** the identify/define limitation above; Statistics has 15 topics with no practice MCQ (Codex prompt `docs/handoffs/CODEX_PROMPT_STATISTICS_MCQ_GAP_FILL_2026_10_16.md`); the Product Owner has not read the Development output packets (launch directed anyway); Calculus AB/BC/Chemistry More help not re-tested live after the function replacement.
 
-**ID check:** main's highest record 0180; 0181/0182 claimed on the #476 branch; no branch or PR claimed 0183.
+**Historical ID check (incorrect):** the originating session reported no other claim on 0183. The collision above was found at integration; the canonical BC approval retains that number.

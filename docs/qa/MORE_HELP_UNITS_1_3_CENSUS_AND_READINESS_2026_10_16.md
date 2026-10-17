@@ -1,5 +1,8 @@
 # More help — units 1–3 census and readiness audit (2026-10-16)
 
+> **Snapshot note, integrated 2026-10-17:** counts and correction tables below describe the 2026-10-16 census, before later content loads. They are not a new live readiness claim. The reusable SQL now excludes teaching items using the same existing helper as the practice selector. Rerun it for current counts; later recorded rollout state is in `docs/handoffs/MORE_HELP_REMAINING_TASKS_2026_10_17.md`.
+
+
 STATUS: CURRENT (a snapshot; rerun the SQL in `scripts/more-help-readiness/` for fresh numbers)
 
 Read-only against Production. Content counts, not learner counts, and not proof of serving eligibility. Nothing was enabled. "First three units" = the three lowest unit numbers in each subject's taxonomy, so Physics 2 resolves to units 9–11 and Physics C E&M to 8–10; those two are **counted for information only, no work is planned or done on them** (owner direction 2026-10-15). Latest published version per content item; unit from the question RPC's active-cell rule. "Usable" = published, topic-tagged, with published reference grounding.

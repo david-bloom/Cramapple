@@ -32,6 +32,8 @@
 
 **2.1-2.2 (Two-Categorical-Variable Representations).** Two-way/contingency tables; joint relative frequency (cell/table total), marginal relative frequency (row or column total/table total), conditional relative frequency (cell/row-or-column total). EK-only. Zero explicit exclusion statements.
 
+> **Correction 2026-10-16 (David Bloom approved in chat; CED printed p. 62, EK 2.1.A.2):** Topic 2.1 also includes side-by-side bar charts, segmented bar charts, and mosaic plots for displaying relationships between two categorical variables (CED 2.1.A.2).
+
 **2.3 (Estimating Probabilities Using Simulation).** Law of Large Numbers (long-run relative frequency → true probability as trials increase). EK-only, no equation. Zero explicit exclusion statements.
 
 **2.4 (Introduction to Probability).** $P(E)=\frac{\text{number of outcomes in }E}{\text{total outcomes in sample space}}$ (equally likely outcomes only); $0\le P(E)\le1$; complement rule $P(E^C)=1-P(E)$. Zero explicit exclusion statements.

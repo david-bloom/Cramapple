@@ -41,6 +41,12 @@ export const CHECKERS = {
 // single-family checker. Calibrate it first (`calibrate` command) against the known-defect and known-clean sets.
 { const fourth = (process.argv.find((a) => a.startsWith('--fourth=')) || '').slice(9);
   if (fourth) { delete CHECKERS.meta; CHECKERS[fourth.split('/')[0]] = fourth; } }
+// CHECKER_PROFILE=D (2026-10-17 cheaper-evaluation test): same five-family structure, cheaper tiers where a family has one, and the
+// slow Meta checker replaced through the protocol's fourth-checker slot. Authors are unchanged. Calibrate before any real use.
+if (process.env.CHECKER_PROFILE === 'D') {
+  CHECKERS.anthropic = 'anthropic/claude-haiku-5.5'; CHECKERS.openai = 'openai/gpt-6-luna';
+  delete CHECKERS.meta; CHECKERS.alibaba = 'alibaba/qwen3.7-plus';
+}
 const family = (model) => Object.entries(CHECKERS).find(([, m]) => m === model)?.[0] ?? model.split('/')[0];
 export const checkersFor = (authorFamily) => Object.entries(CHECKERS).filter(([f]) => f !== authorFamily).map(([, m]) => m);
 
