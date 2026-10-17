@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0184): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
 - Biology FRQ003 image repair authorized and prepared (2026-10-17, APPROVAL-0184): owner requested validation and servability for S-003 and L-003. Both original PNG downloads/hash/public-denial checks pass. Corrected S-003 NADPH compartment in a deterministic reconstruction; L-003 pedigree matches its written stimulus and remains unchanged. Exact two-version guarded metadata/path/visual-decision release and recovery prepared; no live data changes yet. [Task](../tasks/WORK-BIOLOGY-FRQ003-IMAGE-DELIVERY.md).
 
 - BC shared question image mirrored live; Biology Units1–3 conductor audit completed with delivery findings (2026-10-16, APPROVAL-0183): one provenance-confirmed BC mirror reuses the approved AB v2 PNG; guarded attach/recovery rehearsals and desktop delivery pass, question/scoring/taxonomy unchanged.221 canonical-mapped sources read, four later-unit serving conflicts retained as boundary exceptions (217 strictly in scope); one image-metadata blocker,15 incomplete legacy presentations (14 strictly in scope),193 paged practice candidates/192 after image gate; all22 teaching RPCs select audited versions. No Biology content/asset/label write or broader audit. Fresh independent QA/new BC drawings await owner clarification; no agent spawned. [Report](../qa/BIOLOGY_U13_QUESTION_VISUAL_AUDIT_2026_10_16.md), [handoff](../handoffs/SESSION_CLOSE_2026_10_16_BC_MIRROR_BIOLOGY_VISUAL_AUDIT.md).
@@ -165,6 +167,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Biology FRQ003 image repair applied
+
+Biology S-003/L-003 images made servable in Production (2026-10-17, APPROVAL-0184): corrected S-003 NADPH compartment in a new immutable private PNG; reused original L-003 pedigree. Two exact-version approved accessibility rows and required/approved visual decisions applied at 12:13:36 UTC. Attach/recovery rehearsal, read-back, scoring/taxonomy/label/retired-control invariants and both signed SHA checks pass; public access remains denied and deployed v41 ordinary-mode image gate returns 2 deliverable/ 0 omitted. S-003 missing instructions and L-003 inference critique remain; no whole-question/browser certificate or task closure. [Result](../qa/BIOLOGY_FRQ003_IMAGE_DELIVERY_RESULT_2026_10_17.md).
+
+Next owner content owner / independent QA: actual S-003 instructions, L-003 inheritance-inference reconciliation and authenticated desktop/phone delivery. Existing question/scoring/labels and retired decisions were not changed.
 
 ## 2026-10-17 — Biology FRQ003 image repair preparation
 
