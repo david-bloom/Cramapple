@@ -1,10 +1,10 @@
 # Question images — start-here handoff for the next session
 
-**Updated:** 2026-10-17 America/New_York. **Owner:** David Bloom. **Tier of this update:** Micro, documentation only.
+**Updated:** 2026-10-17 America/New_York. **Owner:** David Bloom. **Tier of this update:** Standard, source adjudication and documentation.
 **Purpose:** finish finding required question visuals, create supported images when needed, and prove students receive them.
 **Canonical repo:** `david-bloom/Cramapple`. **Current work:** [PR #480](https://github.com/david-bloom/Cramapple/pull/480), branch `codex/question-images-precalc-statistics-u1-u3`. PR #479 (BC mirror/Biology) is merged; #480 was open at this handoff. Recheck both on restart.
 
-This is the consolidated restart pointer. The detailed reports below retain the per-question evidence and limits. No new audit, image build, deployment or Production change was performed to write this document.
+This is the consolidated restart pointer. The detailed reports below retain the per-question evidence and limits. The owner-requested 49-case source adjudication is now recorded; no image build, deployment or Production change was performed.
 
 ## Start in five minutes
 
@@ -12,7 +12,7 @@ This is the consolidated restart pointer. The detailed reports below retain the 
 2. Fetch current GitHub state. Continue #480 if still open; if merged, create a clean branch from current main. The original checkout at `/Users/davidbloom/Documents/Cramapple.nosync` contains unrelated work; preserve it. The working checkout used here is `/private/tmp/cramapple-question-images-precalc-statistics`, but GitHub and committed artifacts must be sufficient without this local path.
 3. Read the status table and immediate queue below. Distinguish a finished source review, a live attachment, a browser verification and an independent completeness certificate.
 4. Recheck live source digests, taxonomy/serving labels, deployed delivery code and browser access for the exact chosen slice. Historical counts are checkpoints, not today's guaranteed catalogue.
-5. Best next action: independently adjudicate the **four Precalculus/Statistics missing-visual findings and 45 uncertain cases**, then prepare supported deterministic builds. After those, audit **Calculus BC Units 1–3**, then the four Physics subjects Units 1–3, one bounded subject at a time. Biology source recovery is a separate prerequisite described below.
+5. Best next action: use the [completed 49-case conductor adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md): **23 visual repairs / 26 retain text**. Scope the three source-ready teaching stimuli and resolve the twenty graphical-choice specifications before builds; fresh independent QA remains open. After those, audit **Calculus BC Units 1–3**, then the four Physics subjects Units 1–3, one bounded subject at a time. Biology source recovery is a separate prerequisite described below.
 
 ## Subjects and units: coverage and remaining work
 
@@ -24,8 +24,8 @@ This is the consolidated restart pointer. The detailed reports below retain the 
 | Chemistry | 1–3 | Same bounded certificate as AB; approved images live. | Preserve and check only deltas. Periodic-table access was accepted by David; online-link publication is a separate question, not an image-completeness blocker. |
 | Calculus BC | 1–3 | **Full complete-question visual audit remains to do.** One exact AB-derived question image was mirrored and verified on desktop. | Read every scoped published presentation, including BC-specific questions and keyword negatives. Reuse AB visuals only on exact, proven shared questions. Create reviewed BC-specific visuals where justified; matching suffixes are insufficient. Finish phone delivery evidence for the existing mirror. |
 | Biology | 1–3 only | 221 mapped/boundary source versions read;217 strictly in scope. No missing image file confirmed among complete questions. One existing image is withheld;14 strict-scope legacy FRQs lack actual instructions. | Recover/re-author instructions through a separately scoped content process; then reassess image need. Review existing S-003 image and repair approved metadata/delivery if appropriate. Independent review and a bounded completion decision remain open. Do not audit later Biology units. |
-| Precalculus | 1–3 | 312 full source reviews;1 proposed missing graph,4 uncertain residual-plot cases. | Independently adjudicate, build supported required visuals, attach under scoped authority, and verify actual student delivery. No images were created in the audit. |
-| Statistics | 1–3 | 489 candidate reviews;482 strict plus7 boundary-only.3 proposed missing charts,41 uncertain cases. | Independently adjudicate; resolve source limits before building charts. Attach under scoped authority and verify actual student delivery. Preserve7 scope exceptions; no label repair implied. |
+| Precalculus | 1–3 | 312 source reviews; adjudication upholds 1 required graph and retains 4 residual-pattern text questions. | Scope the 1 source-ready graph; independent QA and actual student delivery remain open. No images built/attached. |
+| Statistics | 1–3 | 489 reviews;482 strict plus7 boundary-only. Adjudication: 2 required teaching charts, 20 graphical-choice repairs, 22 retain text (including downgraded 1.5 histogram). | Scope 2 source-ready charts; resolve 20 choice specifications before rendering. Fresh independent QA/delivery open; preserve 7 scope exceptions. |
 | Physics 1 | 1–3 | **Full complete-question visual audit remains to do.** Earlier lexical leads are not coverage. | Full census, source/construct review, existing-asset delivery checks, then create supported missing diagrams and verify. |
 | Physics 2 | 1–3 | **Full audit remains to do.** | Same complete workflow. |
 | Physics C: Mechanics | 1–3 | **Full audit remains to do.** | Same complete workflow; preserve exact vectors, geometry, axes and physical conditions. |
@@ -35,7 +35,11 @@ Canonical completed-slice evidence: [AB/Chemistry certificate](../qa/CALC_CHEM_U
 
 ## Immediate image and repair queue
 
-### Four Precalculus / Statistics findings
+### Precalculus / Statistics — current adjudication and historical findings
+
+**Current, 2026-10-17:** David directed “Adjudicate the 49.” [Result](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md): **23 visual repairs, 26 retain text**. Three of the four teaching findings are upheld; `APSTATS-OHT-1.5` is text-complete for the grouped-data inference and is removed from the required-image queue. Twenty `graphs-105000`–`105019` items need graphics within the answer choices, with categorical-bar and stemplot-key specifications resolved first. Retain the 20 explicit boxplot-description items, 4 residual-pattern items and verbal boxplot. No live source recheck, build or attachment occurred. Fresh independent QA remains open. The table and four/45 descriptions below preserve the original triage, not the current build queue.
+
+#### Historical four-finding triage
 
 These are conductor judgments pending independent subject review. All four are currently selected teaching examples with **no image path and no visual-requirement decision**. Their numerical answers are recoverable from prose, but the intended graph-reading representation is absent.
 
@@ -97,6 +101,6 @@ Reusable inventory template: [published-source-inventory.sql](../../scripts/imag
 
 Suggested next-session prompt:
 
-> Read `docs/handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md` and current GitHub/activity state. Continue the Units1–3 question-image work from the recorded queue. First independently adjudicate the four Precalculus/Statistics missing-visual findings and45 uncertain cases, then prepare supported deterministic visual builds without inventing missing histogram counts. Preserve completed AB/Chemistry assets and the exact BC mirror. Full audits still needed: Calculus BC, Physics1, Physics2, Physics C Mechanics and Physics C Electricity & Magnetism, Units1–3. Biology needs its14 incomplete prompts recovered before image judgments; no later Biology units. Follow the audit/build/storage/student-delivery workflow and existing approval boundaries, keep an exact-version ledger, and record a bounded result with browser evidence and honest limits.
+> Read `docs/handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md` and current GitHub/activity state. Continue the Units1–3 question-image work from the recorded queue. Use the completed 49-case conductor adjudication: 23 visual repairs and 26 retain text. Scope the 3 source-ready teaching visuals and resolve 20 graphical-choice specifications before builds; do not put the correct answer graph in the stem or invent stemplot keys/category bars. Statistics 1.5 is retained as a conceptual text item; do not fabricate histogram bins. Fresh independent QA remains open. Preserve completed AB/Chemistry assets and the exact BC mirror. Full audits still needed: Calculus BC, Physics1, Physics2, Physics C Mechanics and Physics C Electricity & Magnetism, Units1–3. Biology needs its14 incomplete prompts recovered before image judgments; no later Biology units. Follow the audit/build/storage/student-delivery workflow and existing approval boundaries, keep an exact-version ledger, and record a bounded result with browser evidence and honest limits.
 
 The next owner should update this matrix and the activity/index pointers as each subject is completed, rather than repeating historical source reviews or calling unresolved findings certified.

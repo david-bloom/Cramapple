@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Precalculus / Statistics 49-case adjudication completed (2026-10-17): owner directed “Adjudicate the 49.” Full pinned presentations reviewed; 23 visual repairs (3 source-ready stimuli,20 graphical-choice sets needing categorical-bar/stemplot-key specifications), 26 retain text. Statistics 1.5 downgraded; 20 explicit boxplot descriptions and 4 residual-pattern items retained. Exact-version/hash ledger, 40 histogram-option recounts and 20 boxplot-summary checks recorded. Conductor review only, not independent QA; no live query/build/data/deployment change. [Adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md).
+
 - Question-image master handoff written (2026-10-17): owner requested a quick restart packet. Consolidated completed AB/Chemistry Units1–3 certificate, merged BC mirror/Biology audit (#479), Precalculus/Statistics audit (#480), four proposed missing visuals/45 review cases, Biology prompt-recovery prerequisite and remaining full BC/four-Physics Units1–3 audits. Includes exact-version census, deterministic rendering, immutable private assets, guarded release/recovery and authenticated desktop/phone verification. Later units are outside current scope; no new audit/build/data/deployment change. [Start here](../handoffs/QUESTION_VISUALS_MASTER_HANDOFF_2026_10_17.md).
 
 - Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
@@ -167,6 +169,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-17 — Precalculus / Statistics 49-case visual adjudication
+
+Precalculus / Statistics 49-case adjudication completed (2026-10-17): owner directed “Adjudicate the 49.” Full pinned presentations reviewed; 23 visual repairs (3 source-ready stimuli,20 graphical-choice sets needing categorical-bar/stemplot-key specifications), 26 retain text. Statistics 1.5 downgraded; 20 explicit boxplot descriptions and 4 residual-pattern items retained. Exact-version/hash ledger, 40 histogram-option recounts and 20 boxplot-summary checks recorded. Conductor review only, not independent QA; no live query/build/data/deployment change. [Adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md).
+
+Next owner content/visual maintainer: scope the 3 exact-version stimulus builds and settle 20 graphical-choice specifications, then fresh independent QA and authorized attachment/browser verification. Preserve 26 text items and 7 scope boundaries. No Production or build approval is inferred from adjudication.
 
 ## 2026-10-17 — Question-image master restart handoff
 

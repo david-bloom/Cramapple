@@ -1,5 +1,7 @@
 # Precalculus and Statistics question-visual audit checkpoint
 
+> **ADJUDICATED 2026-10-17:** The original four/45 triage queue is resolved by the [49-case source adjudication](../qa/PRECALC_STATISTICS_VISUAL_ADJUDICATION_2026_10_17.md): **23 visual repairs (3 source-ready stimuli, 20 choice sets needing specifications), 26 retain text**. Statistics 1.5 is downgraded. This is conductor adjudication; independent QA, implementation and authenticated delivery remain open. The historical audit below is unchanged.
+
 **Status:** conductor read-only Units 1–3 audit complete; missing visuals and independent/browser verification remain open.
 **Task:** [WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13](../tasks/WORK-PRECALC-STATISTICS-IMAGE-AUDIT-U13.md).
 **Report:** [full results and limits](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
