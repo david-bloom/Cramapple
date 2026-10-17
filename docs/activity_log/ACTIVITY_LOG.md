@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
+
 - Four-cell topic load applied (2026-10-16, APPROVAL-0180): Physics 1 `apphy1-frq-np1-004`→2.5 and Precalculus `-frq-016`→3.13, `-frq-u12-002`→2.12, `-mcq-sv-037-v3`→1.13 written as validated primary cells after a stale-source negative control, a verified rehearsal and an insert/recover rehearsal (all rolled back); independent read-back passes, questions unchanged, 5–7 reference entries behind each topic. Five held questions untouched. [Record](../qa/MORE_HELP_TOPIC_GAP9_RESULT_2026_10_16.md).
 - Held serving-label rerun pilot published (2026-10-16, APPROVAL-0179): refreshed labeler pair (gpt-6.1-sol + gemini-3.8-flash) on 17 held rows cost $1.25; 10 reached two-model agreement and were written as `provisional_model` (rehearsed with recovery, independently verified; 10 held rows superseded, 7 not rewritten). Only 1 of 10 lies in units 1–3; serving unchanged (reads `validated` only). Remaining ~77 held rows not rerun. [Record](../qa/MORE_HELP_HELD_LABEL_RERUN_PILOT_2026_10_16.md).
 - App published (2026-10-16, APPROVAL-0182): #31 learn-mode answer key for served MCQs and #32 Statistics More help off, after Lovable synced to `main` 5bf2e4b. Live check: Biology 1.4 served questions show keys (brief flash of the old message before the preload fills); Statistics shows no More help button. AB/BC/Chemistry not re-checked live.
@@ -162,6 +164,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-16 — Precalculus and Statistics Units 1–3 visual source audit
+
+Precalculus / Statistics Units 1–3 question-visual audit (2026-10-16):801 full presentations reviewed (312/489),794 strict and7 boundary-only. Four missing graph/chart findings and45 uncertain representation cases; all4 findings selected by teaching RPC with no image path. Paged selectors230/244, teaching44/40, source/routing unchanged. Authenticated browser and independent QA remain open; no content/data/student-state/deployment change. [Report](../qa/PRECALC_STATISTICS_U13_IMAGE_AUDIT_2026_10_16.md).
+
+Next owner subject reviewer/conductor: independently adjudicate4 proposed missing visuals and45 uncertain cases, preserve seven scope boundaries, and verify authenticated rendering before certification. No diagrams, label repairs or content writes are included in this read-only slice. [Checkpoint](../handoffs/PRECALC_STATISTICS_IMAGE_AUDIT_CHECKPOINT_2026_10_16.md).
 
 ## 2026-10-15 — Priority topic cells applied after owner merge/tagging instruction
 
