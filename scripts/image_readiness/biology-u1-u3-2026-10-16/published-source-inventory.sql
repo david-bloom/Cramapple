@@ -86,4 +86,3 @@ select (select coalesce(jsonb_agg(jsonb_build_object('unit',r.unit_number,'topic
     'parts',part_prompts,'prompt',prompt_json,'package',item_package_payload,
     'image_path',stimulus_image_path)::text) as audit_content_digest
 from marked order by subject_name,content_key,version_num;
-

@@ -2,7 +2,7 @@
 
 **Status:** Ready for Review (conductor audit and exact BC mirror executed; fresh independent QA not performed). **Owner:** Codex / Main Conductor. **Product Owner:** David Bloom.
 **Tier:** Hard-Gate for the authorized BC Production attachment; Standard for the read-only Biology audit.
-**Branch:** `codex/question-images-bc-biology-u1-u3`. **PR:** pending.
+**Branch:** `codex/question-images-bc-biology-u1-u3`. **PR:** [#479](https://github.com/david-bloom/Cramapple/pull/479).
 **Authorized:** 2026-10-16 America/New_York: David requested (1) mirror Calculus AB images to BC, (2) audit Biology Units 1–3 only, including existence and student delivery. No other subject or later Biology unit audit is authorized. The earlier image-audit PR #457 is merged.
 
 ## Execution scope
