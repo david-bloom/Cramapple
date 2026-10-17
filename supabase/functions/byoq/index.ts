@@ -57,6 +57,7 @@ import {
   NOT_SCORED_MESSAGE,
   ownerStoragePrefix,
   readinessProblem,
+  normalizeSubjectKey,
   removeFlaggedText,
   sha256Hex,
   timingSafeEqual,
@@ -525,7 +526,7 @@ async function publicOperation(ctx: Ctx, operation: string): Promise<Json> {
   if (operation === "list_subjects") {
     return { subjects: await ctx.store.listSubjects() };
   }
-  const subject = typeof ctx.b.subject_key === "string" ? ctx.b.subject_key.replaceAll("-", "_") : "";
+  const subject = typeof ctx.b.subject_key === "string" ? normalizeSubjectKey(ctx.b.subject_key) : "";
   if (!/^[a-z0-9_]{2,64}$/.test(subject)) throw new HttpError(400, "invalid_subject_key");
   const topics = await ctx.store.listTopics(subject);
   if (!topics.length) throw new HttpError(404, "unknown_subject");

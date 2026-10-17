@@ -10,6 +10,7 @@ import {
   isWellFormedCaptureHandle,
   isWellFormedOwnerKey,
   MASK_CHAR,
+  normalizeSubjectKey,
   maskedView,
   readinessProblem,
   removeFlaggedText,
@@ -124,6 +125,11 @@ Deno.test("validateItemFields enforces limits and whitelists", () => {
   assertEquals(validateItemFields({ source_kind: "worksheet_split" }), { ok: false, error: "invalid_source_kind" });
   const hyphen = validateItemFields({ subject_key: "ap-statistics" });
   assert(hyphen.ok && hyphen.value.subject_key === "ap_statistics");
+  // Biology's registry key has no `ap-` prefix; it must map to the taxonomy key.
+  const bio = validateItemFields({ subject_key: "biology" });
+  assert(bio.ok && bio.value.subject_key === "ap_biology");
+  assertEquals(normalizeSubjectKey("ap-biology"), "ap_biology");
+  assertEquals(normalizeSubjectKey("ap_biology"), "ap_biology");
   // Unknown fields (status, owner, leak_flags) are simply not part of the output.
   const extra = validateItemFields({ status: "ready", leak_flags: [], owner_id: "x" });
   assert(extra.ok && Object.keys(extra.value).length === 0);

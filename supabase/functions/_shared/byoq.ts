@@ -157,6 +157,18 @@ export function generateItemCode() {
 
 export type LeakRule = "answer_label" | "correct_marker" | "trailing_answer_line";
 
+/**
+ * Maps a subject key from the app's registry (hyphenated, e.g. `ap-calculus-ab`) to the taxonomy's
+ * key (underscored, `ap_calculus_ab`). Biology is the one registry key without an `ap-` prefix
+ * (`biology`), whose taxonomy key is `ap_biology`.
+ */
+const SUBJECT_KEY_ALIASES: Record<string, string> = { biology: "ap_biology" };
+
+export function normalizeSubjectKey(key: string): string {
+  const k = key.replaceAll("-", "_");
+  return SUBJECT_KEY_ALIASES[k] ?? k;
+}
+
 export interface LeakFlag {
   field: "stem" | "choice" | "title" | "source_note";
   /** Choice index for field = "choice"; null for the stem. */
@@ -395,7 +407,7 @@ export function validateItemFields(raw: Record<string, unknown>): Validation<Ite
     if (raw.subject_key !== null && (typeof raw.subject_key !== "string" || !/^[a-z0-9_-]{2,64}$/.test(raw.subject_key))) {
       return { ok: false, error: "invalid_subject_key" };
     }
-    out.subject_key = raw.subject_key === null ? null : (raw.subject_key as string).replaceAll("-", "_");
+    out.subject_key = raw.subject_key === null ? null : normalizeSubjectKey(raw.subject_key as string);
   }
   if (raw.unit_number !== undefined) {
     if (raw.unit_number !== null && (!Number.isInteger(raw.unit_number) || (raw.unit_number as number) < 1 || (raw.unit_number as number) > 20)) {
