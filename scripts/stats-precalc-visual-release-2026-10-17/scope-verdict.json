@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-10-17T21:46:37.287532+00:00",
+  "owner_authorization": "complete the scope checks and publish the 20 questions",
+  "budget_cap_usd": 2,
+  "reports": [
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "real_items_cleared": 23,
+      "known_defects_caught": 4,
+      "clean_table_control_passed": true,
+      "usage": {
+        "prompt_tokens": 76325,
+        "completion_tokens": 4001,
+        "total_tokens": 80326,
+        "cost": 0.19266,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": null,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "market_cost": 0.19266,
+        "gateway_cost": 0.19266
+      },
+      "report_sha256": "cbc8829ef8424f70a0d09bcdf934b2085ddfb3e2fe7d391d057b9e3f76af4f10"
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "real_items_cleared": 23,
+      "known_defects_caught": 4,
+      "clean_table_control_passed": true,
+      "usage": {
+        "prompt_tokens": 52801,
+        "completion_tokens": 3562,
+        "total_tokens": 56363,
+        "cost": 0.05295825,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": null,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "market_cost": 0.05295825,
+        "gateway_cost": 0.05295825
+      },
+      "report_sha256": "8ad16229d1089807fd6180023ca782e5463ef38ca5b754a419575d4c7cf76929"
+    }
+  ],
+  "prior_failed_attempt_upper_usd": 1.10753,
+  "successful_reported_cost_usd": 0.24561824999999998,
+  "accounted_total_upper_usd": 1.3531482499999998,
+  "scope_result": "PASS for all 23 existing-content repairs, including all 20 successors",
+  "calibration_result": "Both models independently flag exact historical Chemistry state-function and buffer-pH-change exclusions plus calculus/linear-algebra controls; clean table passes",
+  "format_note": "Gateway Chat Completions json_object fallback, recorded per protocol 3.2; no generateObject claim",
+  "source_adjudication": "Chemistry fact-pack lines 277/283 and 790-793 confirm calibration exclusions. No real-item scope flags to adjudicate; Statistics histogram and relative-frequency representation plus Precalculus average-rate-of-change source sections checked."
+}

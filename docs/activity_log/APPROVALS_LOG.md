@@ -4,14 +4,17 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
-- [APPROVAL-0195 — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
+- [Precalculus publication — APPROVAL-0195 (concurrent ID collision; use full record path) — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
 
-- [APPROVAL-0194 — Release20 Statistics graphical-choice repairs and3 teaching visuals (3 teaching images live;20 revisions prepared)](APPROVAL-0194_STATS_PRECALC_VISUAL_RELEASE_2026_10_17.md)
+- [APPROVAL-0196 — Load 4 generated MCQs for Physics 1 topic 1.3, slot B (executed)](APPROVAL-0196_PHYSICS1_TOPIC_1_3_SLOT_B_MCQ_LOAD_2026_10_17.md)
+- [APPROVAL-0195 — Load 4 generated MCQs for Physics 1 topic 1.3, slot A (executed; slot B held)](APPROVAL-0195_PHYSICS1_TOPIC_1_3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
+- [APPROVAL-0194 — Release20 Statistics graphical-choice repairs and3 teaching visuals (all23 image repairs live;scope checks passed)](APPROVAL-0194_STATS_PRECALC_VISUAL_RELEASE_2026_10_17.md)
 
 - [APPROVAL-0190 — Biology FRQ003 exact-version image availability repair](APPROVAL-0190_BIOLOGY_FRQ003_IMAGE_DELIVERY_2026_10_17.md)
 
 Most recent entries (full chronological list follows below):
 
+- [APPROVAL-0194 — Load 108 generated MCQs for AP Physics C: Mechanics units 1-3 (executed)](APPROVAL-0194_MECHANICS_U1_U3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0193 — Biology FRQ S-023 pH data as a rendered table (executed)](APPROVAL-0193_BIOLOGY_FRQ_S023_TABLE_STIMULUS_2026_10_17.md)
 - [APPROVAL-0192 — Load 8 generated MCQs for Biology topic 2.10 (approved, not yet executed)](APPROVAL-0192_BIOLOGY_2_10_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0191 — Version-matched image metadata for the S-003 v2 draft (drafted, not executed)](APPROVAL-0191_BIOLOGY_FRQ_S003_V2_IMAGE_METADATA_2026_10_17.md)
