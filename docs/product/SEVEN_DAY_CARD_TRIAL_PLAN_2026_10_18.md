@@ -4,7 +4,7 @@
 **Task:** `TASK-0077`. **Tier:** Hard-Gate (payments, Production migrations and function deploys, secrets, Stripe configuration,
 Lovable publish, Terms change).
 **Product Owner:** David Bloom. **Author:** Claude. v1 2026-10-18; v2 2026-10-18.
-**Governing decision:** `DECISION-0126`, items 1–24 (item 9 amended, item 14 open).
+**Governing decision:** `DECISION-0126`, items 1–27 (item 9 amended).
 **Review of v1:** Codex, PR #505, `docs/qa/TASK0077_CODEX_PLAN_REVIEW_2026_10_18.md` on `codex/task-0077-plan-review` (verdict
 "Not ready", 13 findings). §10 maps each finding to its fix in this version.
 **Related:** `DECISION-0090` (partly revised by item 2), `TASK-0026` (cardless trial, retired by item 12), `TASK-0058` A0,
@@ -37,7 +37,7 @@ ends access at once and stops every future charge. One trial per student email, 
 | 8, 11, 17 | Student always acknowledges the Terms; whoever pays accepts them; one action on direct checkout, two on parent-pay |
 | 11, 13 | On parent-pay, every trial email goes to both parent and student; the student's email is required before the link exists |
 | 12 | Cardless `trial_v1` retired |
-| 14 | Open: a parent whose own email already had a trial. No handling designed |
+| 14, 25 | A parent whose own email already had a trial can still start trials for students: accepted, no handling |
 | 16, 20 | If our system delays a charge: 48 hours' notice first, and access continues until then |
 | 18 | Day-7 charge is a direct off-session PaymentIntent (no invoice) |
 | 21 | Promo limits tracked in our own records for trials; the race with other Stripe redemptions is accepted |
@@ -373,10 +373,9 @@ Against the pinned `PromotionCode`/`Coupon` schema:
 - **Legacy backfill** (in the migration): for each user with any `trial_v1` entitlement (any status), insert a consumed marker for
   their current auth email. This means an `app.trial_consumed_emails(email_norm, source, consumed_at)` table that the index check
   also reads.
-- Markers survive account email changes and deletion. Retention: indefinite, email-hash only. **(Proposed; David to confirm if he
-  prefers a limit.)**
+- Markers survive account email changes and deletion. Retention: indefinite, email-hash only (approved, item 26).
 - No plus-address or dot folding, and no fingerprint check.
-- The payer's email is not checked (item 9). Item 14 stays open.
+- The payer's email is not checked (item 9). Item 14 is accepted as is (item 25).
 
 ### 6.12 Billing delays caused by us (items 16, 20)
 
@@ -487,16 +486,19 @@ setup rather than at charge).
 
 ## 9. Still open
 
-- **Item 14:** a parent whose own email already had a trial (David: leave open).
-- **Legal review of the Terms wording** against state auto-renewal and free-trial rules: no reviewer named. Items 8, 11 and 17 set
-  the acceptance mechanism only.
-- **Retention period** for consumed-email markers and consent IP/user-agent (§6.1, §6.11). Proposed: indefinite for the email hash,
-  2 years for IP/user-agent.
 - **Unverified Stripe behaviours, settled by the slice 1 spike:**
   - setup + Elements rendering;
   - Express Checkout wallets in setup mode;
   - the hosted-setup Terms checkbox;
   - where `custom_text` appears on the hosted page.
+
+**Closed 2026-10-18:**
+- **Item 14:** accepted as is (`DECISION-0126` item 25).
+- **Retention:** approved as proposed (item 26). Email markers are kept indefinitely as a hash; consent IP address and user agent are
+  kept 2 years.
+- **Legal:** the Terms and Privacy Policy are lawyer-reviewed (item 27). **Release-gate check:** if the trial section of the Terms,
+  the checkout mandate wording (§6.3 step 7, §6.10) or the notice emails (§6.13) were not part of that review, send that text to the
+  lawyer before slice 7.
 
 ## 10. Codex findings → v2 changes
 

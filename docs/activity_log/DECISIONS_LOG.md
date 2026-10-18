@@ -98,7 +98,14 @@ Most recent entries (full chronological list follows below):
   23. **The pay-now add-on returns for direct single-subject conversions, but after launch.** "Yes, but after launch".
   24. **Student and parent trials launch together, after both are proven in Development**, so a trial is never advertised that
       parents cannot get.
-- **Still open:** no one is named to review the Terms wording against state auto-renewal and free-trial rules. Item 11 sets the
+- **Closing answers, 2026-10-18:**
+  25. **Item 14 is accepted as is.** "Parent edge case is acceptible". A parent whose own email already had a trial can still start
+      trials for students; no handling is needed.
+  26. **Retention as proposed in plan v2 §9:** consumed-trial email markers kept indefinitely as a hash; consent IP address and
+      user agent kept 2 years. "Retention is fine as proposed".
+  27. **Legal review:** "My lawyer already checked the terms and privacy polcy". The plan treats the current Terms and Privacy
+      Policy as lawyer-reviewed. Any new trial wording (the Terms trial section, the checkout mandate text, the notice emails) that
+      was not part of that review goes back to the lawyer before publication.
   acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
