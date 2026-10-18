@@ -31,3 +31,10 @@ create table app.growth_event_outbox (
   event_name text not null,
   constraint growth_event_outbox_event_name_check check (event_name in ('landing_view'))
 );
+
+-- Vault and pg_net stand-ins for 20261018200100 (never called in tests).
+create schema if not exists vault;
+create table if not exists vault.decrypted_secrets (name text, decrypted_secret text);
+create schema if not exists net;
+create or replace function net.http_post(url text, headers jsonb, body jsonb, timeout_milliseconds int)
+returns bigint language sql as $$ select 0::bigint $$;

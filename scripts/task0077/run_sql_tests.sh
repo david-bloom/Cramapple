@@ -14,7 +14,8 @@ psql -q -d postgres -c "create database $db"
 trap 'psql -q -d postgres -c "drop database if exists $db"' EXIT
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/stub_schema.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 \
-  -f "$repo/supabase/migrations/20261018200000_task0077_card_trial_orders.sql"
+  -f "$repo/supabase/migrations/20261018200000_task0077_card_trial_orders.sql" \
+  -f "$repo/supabase/migrations/20261018200100_task0077_trial_worker_invokers.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/trial_orders_sql_test.sql" 2>&1 \
   | sed 's/^psql:[^ ]* //'
 
