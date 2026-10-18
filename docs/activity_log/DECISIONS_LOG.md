@@ -6,7 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email (`TASK-0077`)
+- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Email (Student or Payer), Terms Acknowledgment, Cardless Trial Retired (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
@@ -51,7 +51,7 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email
+## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Email (Student or Payer), Terms Acknowledgment, Cardless Trial Retired
 
 - **Date:** 2026-10-18
 - **Decided by:** David Bloom (Product Owner), in session, answering the eight questions in `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §7. His answers are quoted after each item.
@@ -65,10 +65,19 @@ Most recent entries (full chronological list follows below):
   6. **One trial per email.** "1 trial per email". The plan reads this as the student's email, so a parent paying for two children gets two trials and a student cannot get a second trial through a parent (see Open). No card-fingerprint check.
   7. **The $1 pilot and 50%-off codes get the trial too.** "Yes". A code that brings the total to $0 needs no trial.
   8. **The payer accepts the terms.** "whomever is paying". Read as: the consent to the future charge is collected from, and the trial emails go to, the person paying (the student on direct checkout, the parent on parent-pay).
-- **Open:**
-  - Whether "one trial per email" should also count the payer's email. A parent could otherwise start trials for many students.
-  - Item 8 settles who consents, not who checks the legal side (state auto-renewal and free-trial rules, the Terms wording). No legal reviewer is named.
-  - A later purchase by an email that already used its trial (e.g., the post-purchase add-on) is pay-now under item 6.
+- **Follow-ups, answered by David the same day (2026-10-18):**
+  9. **The payer's email counts too.** "yes". One trial per email covers both the student's email and the payer's email. A parent who
+     has started one trial pays straight away for a second student, and a student whose email already appears as a payer or student
+     on any trial pays straight away.
+  10. **A student can cancel a trial their parent started.** "yes". Access ends immediately (item 4) and the parent is told.
+  11. **Terms acknowledgment at checkout, and emails to both.** "we should have an acknowledgment of Ts and Cs on checkout and email
+      to both parent and student". Every trial checkout (direct and parent) requires an explicit Terms and Conditions acknowledgment
+      that is stored with the order. On parent-pay, the trial emails (start confirmation, pre-charge reminder, failure, cancellation,
+      conversion) go to **both** the parent and the student.
+  12. **Retire the cardless trial.** "retire the old trial that needs no card". `start-trial` / `app.start_trial` (`trial_v1`,
+      `TASK-0026`) are switched off. Existing `trial_v1` rows lapse on their own and still count as a used trial under item 6.
+- **Still open:** no one is named to review the Terms wording against state auto-renewal and free-trial rules. Item 11 sets the
+  acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
 ## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
