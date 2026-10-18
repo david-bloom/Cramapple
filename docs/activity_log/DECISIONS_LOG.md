@@ -76,6 +76,10 @@ Most recent entries (full chronological list follows below):
       conversion) go to **both** the parent and the student.
   12. **Retire the cardless trial.** "retire the old trial that needs no card". `start-trial` / `app.start_trial` (`trial_v1`,
       `TASK-0026`) are switched off. Existing `trial_v1` rows lapse on their own and still count as a used trial under item 6.
+  13. **The student is always told when a parent pays, and the student's email is required for that.** "we need a way to notify the
+      student that their parent paid for their access. We need the student's email". Parent-pay keeps requiring the student's email
+      before the link is created (as today), and every parent-pay outcome emails the student, including the edge case where the
+      parent's email has already had a trial and the parent pays straight away instead.
 - **Still open:** no one is named to review the Terms wording against state auto-renewal and free-trial rules. Item 11 sets the
   acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.

@@ -98,8 +98,12 @@ payment-status gate and sends those sessions to the trial handler. A unit test a
   Unverified; Codex to confirm.
 - The parent's Customer and PaymentMethod are stored **only on the `trial_orders` row**, never in `app.stripe_customers` against the
   student. They are used for this one charge only, and the PaymentMethod is detached after conversion, cancellation or final failure.
+- **The student's email stays required** before a parent link is created (today: `create-parent-payment-link/index.ts:79-83`), because
+  the student must be told about every parent-pay outcome (`DECISION-0126` item 13).
 - Every trial email (start confirmation, pre-charge reminder, failure and recovery, cancellation, conversion) goes to **both the
-  parent and the student** (`DECISION-0126` item 11). The recovery and cancel links in the student's copy act for the student
+  parent and the student** (`DECISION-0126` items 11 and 13). The student's copy of the start email says plainly that their parent
+  started their access ("Your parent started your 7-day free trial of <subjects>"); the conversion email reuses today's "your
+  parent paid" template. The recovery and cancel links in the student's copy act for the student
   (cancel is allowed, item 10); payment recovery links go to the parent only, since it is the parent's card.
 - The parent has no Cramapple account, so they **cancel through a signed, single-use link** in their emails (the same short-code
   pattern as `parent_payment_links`). A signed-in student can also cancel a trial a parent started (`DECISION-0126` item 10); the parent is emailed.
@@ -264,9 +268,14 @@ code like `parent_payment_links`, never the raw order ID.
   - On direct checkout the payer is the student, so this is one check.
   - On parent-pay, the parent's email is only known for certain after the hosted page (Stripe collects it). If it turns out to be
     ineligible at the webhook, the order is not trialed and nothing is charged: the parent agreed to a charge in 7 days, not today.
-    Mark it `ineligible`, grant nothing, detach the card and email the parent a pay-now link.
-  - Codex: is it better to collect the parent's email **before** creating the session, so this never happens? Options: the share
-    drawer asks the student for it, or a one-field email step on `cramapple.com/pay/<code>` comes before the hosted page.
+    Mark it `ineligible`, grant nothing and detach the card.
+    - Email the parent a pay-now link (a normal payment-mode parent session for the same offer and the locked price).
+    - **Email the student** (`DECISION-0126` item 13) that the free trial could not start and their parent has been sent a link to
+      pay.
+    - When the parent pays, today's paid-parent path grants access, and the existing "your parent paid" email
+      (`LOOPS_PARENT_PAID_TRANSACTIONAL_ID`, `stripe-webhook/index.ts:495`) tells the student.
+  - Codex: should we also collect the parent's email **before** creating the session, so the edge case is caught up front? Options:
+    the share drawer asks the student for it, or a one-field email step on `cramapple.com/pay/<code>` comes before the hosted page.
 - **No card-fingerprint check.** Store the fingerprint anyway, for reporting.
 - **Promo reservations:** a live trial holds one use of its code, so 10 trials cannot all redeem a 10-use code that has only 1 use
   left. With Option B, Stripe counts the use only at conversion, so our reservation count has to be added on top. Because the price
@@ -391,6 +400,7 @@ policy after conversion. This overlaps `BIZ-001` (access duration, refunds), whi
 | b | Can a student cancel a parent's trial? | "yes" | `cancel-trial` allows it; parent is emailed (§4.7) |
 | c | Who checks the legal side? | "acknowledgment of Ts and Cs on checkout and email to both parent and student" | Required Terms acknowledgment on both checkouts, stored; trial emails to both on parent-pay (§4.12, §4.1a) |
 | d | Retire the cardless trial? | "retire the old trial that needs no card" | `start-trial` switched off, `app.start_trial` revoked (§4.10) |
+| e | Parent's email already used a trial (edge case) | "notify the student that their parent paid … We need the student's email" | Student email stays required; the student is emailed on every parent-pay outcome, including the pay-now fallback (§4.1a, §4.8) |
 
 **Still open:** no reviewer is named for the Terms wording against state auto-renewal and free-trial rules.
 
@@ -414,7 +424,7 @@ policy after conversion. This overlaps `BIZ-001` (access duration, refunds), whi
 
 | Step | Who |
 |---|---|
-| §7 product decisions | David — answered 2026-10-18 (`DECISION-0126`, items 1–12) |
+| §7 product decisions | David — answered 2026-10-18 (`DECISION-0126`, items 1–13) |
 | Terms URL in Stripe public details (for `consent_collection`) and the Terms text | David |
 | Prod migration | David approves, Claude/Codex applies |
 | Prod function deploys (webhook guard, checkout, charge worker, cancel, recovery) | David |
