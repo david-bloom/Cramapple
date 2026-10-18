@@ -64,6 +64,12 @@ export const PUBLIC_ENDPOINT_LIMITS = {
     perIpPerHour: 30,
     globalPerHour: 600,
   },
+  // Trial cancel and recovery links opened from email.
+  trialLink: {
+    endpoint: "trial-link",
+    perIpPerHour: 60,
+    globalPerHour: 3000,
+  },
   getCheckoutStatus: {
     endpoint: "get-checkout-status",
     perIpPerHour: 240,
