@@ -249,3 +249,16 @@ Deno.test("start-trial: admin role is allowed the same cold-start path as a stud
   assertEquals(res.status, 200);
   assertEquals(rpcCalls.map((c) => c.name), ["start_trial"]);
 });
+
+Deno.test("start-trial: once retired (TASK-0077), refuses with 410 and grants nothing", async () => {
+  const { service, rpcCalls } = makeService({});
+  const req = new Request("http://localhost/start-trial", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ privacy_notice_version: "v1" }),
+  });
+  const res = await handleStartTrial(req, { service, requireProfile: unauthenticated(), retired: true });
+  assertEquals(res.status, 410);
+  assertEquals((await res.json()).error, "trial_retired");
+  assertEquals(rpcCalls, []);
+});
