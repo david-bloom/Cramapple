@@ -84,6 +84,7 @@ function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>) {
     lookupUserEmail: () => Promise.resolve("kid@example.com"),
     appBaseUrl: "https://app",
     marketingBaseUrl: "https://site",
+    mailingAddress: "Test address",
     now: () => new Date("2026-10-18T16:00:00Z"),
   };
   return { d, sent, updates, caps };
@@ -96,6 +97,7 @@ Deno.test("worker: sends with a stable idempotency key and issues a parent cance
   assertEquals(summary.sent, 1);
   assertEquals(h.sent[0][1], "trial:order-1:trial_started:payer");
   assertEquals(h.sent[0][0].email, "parent@example.com");
+  assertEquals(h.sent[0][0].dataVariables.mailingAddress, "Test address");
   assertEquals(h.caps[0].purpose, "parent_cancel");
   assertEquals(h.sent[0][0].dataVariables.cancelUrl.startsWith("https://app/trial/cancel/"), true);
   assertEquals(h.updates.some(([t, p]: Any) => t === "trial_notice_jobs" && p.delivered_at), true);

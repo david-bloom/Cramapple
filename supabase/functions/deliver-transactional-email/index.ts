@@ -7,6 +7,7 @@ import {
 } from "../_shared/parent-email-lifecycle.ts";
 import { deliverTrialNotices } from "../_shared/trial-notices.ts";
 import { sendLoopsTransactional } from "../_shared/loops-transactional.ts";
+import { emailFooter } from "../_shared/email-template-data.ts";
 
 Deno.serve(async (req) => {
   const secret = Deno.env.get("TRANSACTIONAL_EMAIL_WORKER_SECRET");
@@ -41,6 +42,7 @@ Deno.serve(async (req) => {
         appBaseUrl: (Deno.env.get("APP_BASE_URL") ?? "").replace(/\/$/, ""),
         marketingBaseUrl: (Deno.env.get("MARKETING_BASE_URL") ?? "https://cramapple.com")
           .replace(/\/$/, ""),
+        mailingAddress: emailFooter().mailingAddress,
         now: () => new Date(),
       })
       : null;

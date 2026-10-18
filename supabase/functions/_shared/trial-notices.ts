@@ -131,6 +131,8 @@ export type NoticeDeps = {
   lookupUserEmail: (userId: string) => Promise<string | null>;
   appBaseUrl: string;
   marketingBaseUrl: string;
+  // Footer address every transactional template carries.
+  mailingAddress: string;
   now: () => Date;
 };
 
@@ -196,7 +198,11 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
       if (!email) throw new Error("trial_notice_missing_recipient");
 
       await deps.send(
-        { transactionalId, email, dataVariables: noticeVariables(job, order, links, cardLast4) },
+        {
+          transactionalId,
+          email,
+          dataVariables: { ...noticeVariables(job, order, links, cardLast4), mailingAddress: deps.mailingAddress },
+        },
         `trial:${job.dedupe_key}`.slice(0, 100),
       );
       await app.from("trial_notice_jobs").update({ delivered_at: deps.now().toISOString(), last_error: null })
