@@ -10,10 +10,8 @@ import {
   enqueuePayerEmail,
   payerEmailsEnabled,
 } from "../_shared/payer-email.ts";
-import {
-  isFullyRefunded,
-  isSettledPaymentStatus,
-} from "../_shared/checkout-access.ts";
+import { isFullyRefunded } from "../_shared/checkout-access.ts";
+import { routeCheckoutSession } from "../_shared/checkout-routing.ts";
 import {
   webhookDeliveryDisposition,
   type WebhookLedgerStatus,
@@ -39,6 +37,10 @@ const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 
 type CheckoutSessionObject = {
   id: string;
+  // Stripe's session mode (payment/setup/subscription). The offer lives in
+  // metadata.mode; see _shared/checkout-routing.ts.
+  mode?: string | null;
+  setup_intent?: string | { id?: string } | null;
   client_reference_id: string | null;
   amount_subtotal?: number | null;
   amount_total?: number | null;
@@ -429,13 +431,37 @@ async function handleCheckoutSessionEvent(
   eventId: string,
   status: CheckoutStatus,
 ) {
+  // Route on Stripe's session mode before anything is recorded or granted.
+  // Card-trial setup sessions (TASK-0077) have no handler yet, so every setup
+  // session is held aside: logged here, kept in the webhook ledger, and never
+  // written as a checkout, granted, emailed or counted as a purchase.
+  const initialRoute = routeCheckoutSession(rawSession, status);
+  if (initialRoute === "quarantine" || initialRoute === "trial_setup") {
+    console.error("stripe-webhook checkout_session_quarantined", {
+      checkout_session_id: rawSession.id,
+      stripe_session_mode: rawSession.mode ?? null,
+      kind: rawSession.metadata?.kind ?? null,
+      stripe_event_id: eventId,
+      status,
+    });
+    return;
+  }
+
   const session = await retrieveCheckoutSession(rawSession);
+  // The retrieved session must agree with the event; a disagreement is held
+  // aside rather than trusted.
+  const route = routeCheckoutSession(session, status);
+  if (route === "quarantine" || route === "trial_setup") {
+    console.error("stripe-webhook checkout_session_mode_mismatch", {
+      checkout_session_id: session.id,
+      stripe_event_id: eventId,
+    });
+    return;
+  }
   const discounts = await recordCheckoutSession(service, session, status);
 
   if (status === "completed" || status === "async_payment_succeeded") {
-    if (
-      session.payment_status && !isSettledPaymentStatus(session.payment_status)
-    ) {
+    if (route === "payment_pending") {
       await recordGrowthEvent(service, {
         eventName: "checkout_payment_pending",
         userId: session.client_reference_id ?? null,
@@ -443,7 +469,7 @@ async function handleCheckoutSessionEvent(
         dedupeKey: `checkout_payment_pending:${session.id}`,
         properties: {
           checkout_session_id: session.id,
-          payment_status: session.payment_status,
+          payment_status: session.payment_status ?? null,
           stripe_event_id: eventId,
           stripe_event_type: status,
         },
