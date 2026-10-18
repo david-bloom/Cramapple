@@ -1,7 +1,7 @@
 # TASK-0077 — Seven-Day Free Trial With a Saved Card
 
-**Status:** Backend built and tested on branch `claude/task-0077-trial-impl`. **Nothing applied, deployed or configured in
-any environment.** Frontend (Lovable) not started.
+**Status:** Backend built and tested; **deployed to Development 2026-10-18 with every trial switch off** (see "Development
+deployment" below). Nothing in Production. Frontend (Lovable) not started.
 **Tier:** Hard-Gate. **Product Owner:** David Bloom. **Owner:** Claude. **Opened:** 2026-10-18.
 **Governing decision:** `DECISION-0126` items 1–31. **Plan:** `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` (v3).
 **Reviews of the plan:** Codex PR #505 (v1, "Not ready", 13 findings, all addressed in v2); Fable (v2, "Ready with changes",
@@ -21,6 +21,25 @@ code PR instead.
 | 9 prep | `start-trial` returns 410 when `CARDLESS_TRIAL_RETIRED=true` | `start-trial/index.ts` | `start-trial/index_test.ts` |
 
 CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tests) passes locally: 222 tests.
+
+## Development deployment (2026-10-18)
+
+- **Migrations applied** with `apply_migration`; Development recorded them as `20261018191924` and `20261018191935`, and the files
+  were renamed to match. Verified with a separate read-back query: 5 trial tables, 18 functions, RLS forced, no client role can
+  read the tables or call the functions, `trial_sweep()` runs. No legacy `trial_v1` rows exist on Development, so the backfill
+  inserted none.
+- **Functions deployed** (`--project-ref wmgjsdkphcyhngaffbqf`): `stripe-webhook`, `create-checkout-session`,
+  `create-parent-payment-link`, `get-checkout-status`, `resolve-parent-link`, `deliver-transactional-email`, `charge-due-trials`,
+  `cancel-trial`, `trial-recovery` (all `--no-verify-jwt`, as before for the existing ones) and `get-trial-status` (JWT verified).
+  `start-trial` was not deployed (Development never had it). Before deploying, Development's copies were compared with `main`:
+  all matched except `create-checkout-session`, whose deployed `growth-events.ts` carried two PostHog key fallbacks that exist
+  in no git branch; they were carried into the repo so the deploy did not remove them.
+- **Smoke tests:** worker without its secret → 401; cancel and recovery with an unknown token → 404; trial status without a login
+  → 401; webhook with a bad signature → 400; `trial_quote` → `pay_now` / `admission_off` with the $39.99 test price (stripe-node 22
+  against Stripe test mode); the legacy pay-now checkout still creates a session with a client secret; checkout status for an
+  unknown session → 404.
+- **Not set on Development:** every `TRIAL_*` secret, the Loops template ids, the Vault entries and the worker schedules. Trials
+  cannot start there until they are.
 
 ## Frontend contract (for the Lovable work; not started)
 
@@ -54,7 +73,8 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
 
 1. **Codex review of the code PR.**
 2. **`TASK-0058` A0** (Dev-pointed checkout frontend) — prerequisite for proving setup in the browser with test cards.
-3. **Development:** apply both migrations; deploy `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`,
+3. **Development:** ~~apply both migrations; deploy~~ done 2026-10-18 (above). Still to do there: secrets, Vault, schedules,
+   and the A0 browser test. Originally: deploy `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`,
    `get-checkout-status`, `resolve-parent-link`, `deliver-transactional-email`, `start-trial`, `charge-due-trials`,
    `cancel-trial`, `trial-recovery`, `get-trial-status` (`config.toml` sets `verify_jwt`). Claude's attempt to deploy slice 0 to
    Development on 2026-10-18 was blocked by the session's permission classifier; it was not retried.
