@@ -19,7 +19,7 @@ export const GROWTH_EVENT_NAMES = [
   "referred_trial_started",
   "referred_purchase",
   // TASK-0077 card trial; the database check lists them too
-  // (migration 20261018200000).
+  // (migration 20261018191924).
   "trial_card_started",
   "trial_converted",
   "trial_canceled",

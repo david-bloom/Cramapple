@@ -1,4 +1,4 @@
--- Scenario tests for 20261018200000_task0077_card_trial_orders.sql.
+-- Scenario tests for 20261018191924_task0077_card_trial_orders.sql.
 -- Run on a throwaway database after scripts/task0077/stub_schema.sql and the
 -- migration; see scripts/task0077/README.md. Every check raises on failure.
 \set ON_ERROR_STOP 1

@@ -1,4 +1,4 @@
--- Minimal stand-ins for the objects 20261018200000_task0077_card_trial_orders.sql
+-- Minimal stand-ins for the objects 20261018191924_task0077_card_trial_orders.sql
 -- depends on, so the migration and its state machine can be tested on a
 -- throwaway local Postgres. Not a migration.
 do $$ begin
@@ -32,7 +32,7 @@ create table app.growth_event_outbox (
   constraint growth_event_outbox_event_name_check check (event_name in ('landing_view'))
 );
 
--- Vault and pg_net stand-ins for 20261018200100 (never called in tests).
+-- Vault and pg_net stand-ins for 20261018191935 (never called in tests).
 create schema if not exists vault;
 create table if not exists vault.decrypted_secrets (name text, decrypted_secret text);
 create schema if not exists net;

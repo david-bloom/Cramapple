@@ -14,8 +14,8 @@ psql -q -d postgres -c "create database $db"
 trap 'psql -q -d postgres -c "drop database if exists $db"' EXIT
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/stub_schema.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 \
-  -f "$repo/supabase/migrations/20261018200000_task0077_card_trial_orders.sql" \
-  -f "$repo/supabase/migrations/20261018200100_task0077_trial_worker_invokers.sql"
+  -f "$repo/supabase/migrations/20261018191924_task0077_card_trial_orders.sql" \
+  -f "$repo/supabase/migrations/20261018191935_task0077_trial_worker_invokers.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/trial_orders_sql_test.sql" 2>&1 \
   | sed 's/^psql:[^ ]* //'
 
@@ -33,7 +33,7 @@ psql -q -d "$db2" -v ON_ERROR_STOP=1 -c "
   values ('00000000-0000-0000-0000-0000000000aa', '10000000-0000-0000-0000-0000000000aa',
           'trial', 'expired', 'trial_v1', now() - interval '30 days', now() - interval '23 days');"
 psql -q -d "$db2" -v ON_ERROR_STOP=1 \
-  -f "$repo/supabase/migrations/20261018200000_task0077_card_trial_orders.sql"
+  -f "$repo/supabase/migrations/20261018191924_task0077_card_trial_orders.sql"
 consumed="$(psql -At -d "$db2" -c "select app.trial_email_consumed('legacy@example.com')")"
 [ "$consumed" = "t" ] || { echo "FAILED: legacy trial_v1 email not backfilled" >&2; exit 1; }
 echo "ok: legacy trial_v1 email backfilled as consumed"
