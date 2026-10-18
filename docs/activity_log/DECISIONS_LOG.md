@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
@@ -49,6 +50,26 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email
+
+- **Date:** 2026-10-18
+- **Decided by:** David Bloom (Product Owner), in session, answering the eight questions in `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §7. His answers are quoted after each item.
+- **Context:** David asked for a 7-day free trial built to Stripe's save-the-card-then-charge-off-session method, with promo codes still working. The plan is a draft for Codex review; nothing is built.
+- **Decision:**
+  1. **Every purchase gets a 7-day trial, starting at checkout.** "Trial covers any purchase from the time of the purchase." The trial covers what was bought (single subject or bundle), not every subject.
+  2. **Parent-pay gets the trial too.** "Parent-pay is also 7 day free trial." This **partly revises `DECISION-0090`**: the parent's card is saved, but only to make this one trial charge. It is still never written to `app.stripe_customers` against the student and never reused (no add-on, no later purchase).
+  3. **The price is locked at signup.** If a promo code expires or runs out mid-trial, the payer still pays the discounted price they agreed to. "Yes".
+  4. **Cancelling ends access immediately**, not at day 7, and no charge is made. "No" (to keeping access until day 7).
+  5. **One-day grace after a failed charge.** Access continues for 1 day while the charge is retried; after that, access ends until payment succeeds. "1 day grace".
+  6. **One trial per email.** "1 trial per email". The plan reads this as the student's email, so a parent paying for two children gets two trials and a student cannot get a second trial through a parent (see Open). No card-fingerprint check.
+  7. **The $1 pilot and 50%-off codes get the trial too.** "Yes". A code that brings the total to $0 needs no trial.
+  8. **The payer accepts the terms.** "whomever is paying". Read as: the consent to the future charge is collected from, and the trial emails go to, the person paying (the student on direct checkout, the parent on parent-pay).
+- **Open:**
+  - Whether "one trial per email" should also count the payer's email. A parent could otherwise start trials for many students.
+  - Item 8 settles who consents, not who checks the legal side (state auto-renewal and free-trial rules, the Terms wording). No legal reviewer is named.
+  - A later purchase by an email that already used its trial (e.g., the post-purchase add-on) is pay-now under item 6.
+- **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
 ## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
 
