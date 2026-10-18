@@ -158,9 +158,11 @@ create table app.trial_capabilities (
   token_hash text not null unique check (token_hash ~ '^[0-9a-f]{64}$'),
   expires_at timestamptz not null,
   voided_at timestamptz,
-  created_at timestamptz not null default now(),
-  unique (order_id, purpose)
+  created_at timestamptz not null default now()
 );
+-- Each email carries its own token, so an order can hold several live
+-- tokens per purpose; all are voided together on cancel or conversion.
+create index trial_capabilities_order_idx on app.trial_capabilities (order_id, purpose);
 
 -- ---------------------------------------------------------------------------
 -- Notice jobs (plan §6.13). Written in the same transaction as the state
