@@ -40,6 +40,9 @@ export function shortLinkUrl(baseUrl: string, code: string): string {
 export type ParentLinkState =
   | { state: "open"; url: string }
   | { state: "paid" }
+  // A card-trial setup finished (TASK-0077): the card is saved, nothing is
+  // paid yet. Never reported as "paid".
+  | { state: "trial_started" }
   | { state: "expired" };
 
 type SessionLike = {
@@ -58,6 +61,9 @@ export function classifyParentSession(session: SessionLike): ParentLinkState {
   const metadata = session.metadata ?? {};
   const purchaseType = metadata.purchase_type ?? metadata.purchaser_type;
   if (purchaseType !== "parent_share") return { state: "expired" };
+  if (metadata.kind === "trial_setup" && session.status === "complete") {
+    return { state: "trial_started" };
+  }
   if (session.payment_status === "paid" || session.status === "complete") {
     return { state: "paid" };
   }
