@@ -106,7 +106,6 @@ Most recent entries (full chronological list follows below):
   27. **Legal review:** "My lawyer already checked the terms and privacy polcy". The plan treats the current Terms and Privacy
       Policy as lawyer-reviewed. Any new trial wording (the Terms trial section, the checkout mandate text, the notice emails) that
       was not part of that review goes back to the lawyer before publication.
-  acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
 ## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
