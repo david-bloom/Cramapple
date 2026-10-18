@@ -114,7 +114,12 @@ export async function recordGrowthEvent(
   if (lookupError) throw lookupError;
   if (!existing || existing.delivered_at) return;
 
-  const projectKey = Deno.env.get("POSTHOG_PROJECT_API_KEY");
+  // The two fallbacks match an out-of-repo Development deploy of
+  // create-checkout-session (found 2026-10-18); kept so deploying from the
+  // repo does not stop its analytics.
+  const projectKey = Deno.env.get("POSTHOG_PROJECT_API_KEY") ??
+    Deno.env.get("POSTHOG_PROJECT_TOKEN") ??
+    Deno.env.get("POSTHOG_API_KEY");
   const host = (Deno.env.get("POSTHOG_HOST") ?? "https://us.i.posthog.com")
     .replace(/\/$/, "");
   if (!projectKey) return;
