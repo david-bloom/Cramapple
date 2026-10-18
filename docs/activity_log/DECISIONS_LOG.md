@@ -81,6 +81,23 @@ Most recent entries (full chronological list follows below):
       before the link is created (as today), and every parent-pay outcome emails the student, as an outcome.
   14. **The edge case stays open.** "Leave the edge case open." No handling is designed for a parent whose own email has already had
       a trial (it mattered only while item 9 counted the payer's email).
+- **After Codex's plan review (PR #505), David confirmed and decided the same day (2026-10-18):**
+  15. **30 days of voluntary recovery after grace, at the locked price, with no automatic retries.** Confirmed ("I confirm all three").
+  16. **A fresh notice before any charge we delay because of our own outage.** Confirmed.
+  17. **The student always acknowledges the Terms, and whoever pays also accepts them.** Confirmed. On direct checkout one action
+      covers both; on parent-pay each records their own.
+  18. **The day-7 charge is a direct off-session charge of the saved card** (Option A, not an invoice). "Charge directly".
+  19. **Cancel always stops future charges.** If a charge was already in progress and goes through, it is refunded automatically.
+      "Cancelled, no charge" is never shown until the outcome is known.
+  20. **A delay caused by our system gets 48 hours' notice before the charge, and access continues meanwhile**, since the delay is
+      our fault.
+  21. **Promo usage limits are tracked in our own records for trials only.** The small chance of exceeding a limit through other
+      Stripe redemptions is accepted: "Our limits are small and the extra work isn't worth it yet".
+  22. **On parent-pay, the student applies the promo code before creating the link, and it is fixed into the link.** The parent
+      cannot change it.
+  23. **The pay-now add-on returns for direct single-subject conversions, but after launch.** "Yes, but after launch".
+  24. **Student and parent trials launch together, after both are proven in Development**, so a trial is never advertised that
+      parents cannot get.
 - **Still open:** no one is named to review the Terms wording against state auto-renewal and free-trial rules. Item 11 sets the
   acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
