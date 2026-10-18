@@ -98,8 +98,8 @@ payment-status gate and sends those sessions to the trial handler. A unit test a
   Unverified; Codex to confirm.
 - The parent's Customer and PaymentMethod are stored **only on the `trial_orders` row**, never in `app.stripe_customers` against the
   student. They are used for this one charge only, and the PaymentMethod is detached after conversion, cancellation or final failure.
-- **The student's email stays required** before a parent link is created (today: `create-parent-payment-link/index.ts:79-83`), because
-  the student must be told about every parent-pay outcome (`DECISION-0126` item 13).
+- **The student's email stays required** before a parent link is created (today: `create-parent-payment-link/index.ts:79-83`). The
+  student must be told about every parent-pay outcome (`DECISION-0126` item 13), and the email is also the trial-eligibility key.
 - Every trial email (start confirmation, pre-charge reminder, failure and recovery, cancellation, conversion) goes to **both the
   parent and the student** (`DECISION-0126` items 11 and 13). The student's copy of the start email says plainly that their parent
   started their access ("Your parent started your 7-day free trial of <subjects>"); the conversion email reuses today's "your
@@ -131,9 +131,8 @@ New table `app.trial_orders`, service-role only, RLS forced. It mirrors the patt
 | `payment_intent_id text`, `invoice_id text`, `last_error_code text`, `last_decline_code text` | |
 | `created_at`, `updated_at` | |
 
-- Eligibility: a lookup over both `lower(student_email)` and `lower(payer_email)` of every row that **reached** `trialing` (any later
-  status), so an email gets one trial ever in either role (`DECISION-0126` items 6 and 9). Enforced in the start function inside the
-  same transaction as the insert (an email can appear in two columns, so a single unique index cannot express it). A second partial index allows only one `pending_setup` row per email at a time.
+- Eligibility: a unique index on `lower(student_email)` over every row that **reached** `trialing` (any later status), so a student
+  email gets one trial ever (`DECISION-0126` item 6; item 9 as amended). The payer's email is not checked. A second partial index allows only one `pending_setup` row per email at a time.
 - New function `app.claim_due_trial_charges(limit, lease_seconds)`: `FOR UPDATE SKIP LOCKED` over rows with
   `status='trialing' and trial_ends_at<=now()` or `status='payment_failed' and next_attempt_at<=now()`.
 - Entitlements reuse `subject_entitlements`: `access_tier='trial'`, new `source='stripe_trial_v1'`,
@@ -254,28 +253,21 @@ code like `parent_payment_links`, never the raw order ID.
     in their email (§4.1a). Both call a new `cancel-trial` function.
   - It sets `canceled`, sets the trial entitlements' `status='revoked'` and `ends_at=now()`, stops the charge, detaches the
     PaymentMethod, and emails the payer and, on parent-pay, the student.
-  - Both emails have used their one trial (items 6 and 9), so buying again later is pay-now. The cancel screen should say so.
+  - The student's email has used its one trial (item 6), so buying again later is pay-now. The cancel screen should say so.
 - **Reminder before charging:** the existing Loops day-5/6/7 trial sequence already keys off `ends_at`. Reword it for card trials
   (amount, date, cancel link). Several US state auto-renewal and free-trial laws expect a clear pre-charge notice and easy online
   cancellation. **This is a legal question for David, not something this plan settles.**
 
 ### 4.8 Eligibility and abuse (`DECISION-0126` item 6)
 
-- **One trial per email, ever, as student or payer** (`DECISION-0126` items 6 and 9). Normalise to lower case, then check
-  `trial_orders` (student or payer email on any row that reached `trialing`) and `subject_entitlements` with
-  `source in ('trial_v1','stripe_trial_v1')` for the student's user. If either email has had a trial, the checkout is pay-now.
-  - Consequence: a parent who started a trial for one child pays straight away for a second child.
-  - On direct checkout the payer is the student, so this is one check.
-  - On parent-pay, the parent's email is only known for certain after the hosted page (Stripe collects it). If it turns out to be
-    ineligible at the webhook, the order is not trialed and nothing is charged: the parent agreed to a charge in 7 days, not today.
-    Mark it `ineligible`, grant nothing and detach the card.
-    - Email the parent a pay-now link (a normal payment-mode parent session for the same offer and the locked price).
-    - **Email the student** (`DECISION-0126` item 13) that the free trial could not start and their parent has been sent a link to
-      pay.
-    - When the parent pays, today's paid-parent path grants access, and the existing "your parent paid" email
-      (`LOOPS_PARENT_PAID_TRANSACTIONAL_ID`, `stripe-webhook/index.ts:495`) tells the student.
-  - Codex: should we also collect the parent's email **before** creating the session, so the edge case is caught up front? Options:
-    the share drawer asks the student for it, or a one-field email step on `cramapple.com/pay/<code>` comes before the hosted page.
+- **One trial per student email, ever** (`DECISION-0126` item 6; item 9 as amended). Normalise to lower case, then check
+  `trial_orders` (any row that reached `trialing`) and `subject_entitlements` with `source in ('trial_v1','stripe_trial_v1')` for the
+  student's user. If the student's email has had a trial, the checkout is pay-now.
+  - **Parents are not limited.** A parent may start a trial for each child taking APs ("they may have multiple kids taking APs").
+  - Because the student's email is required before the session is created (both checkouts), eligibility is always known **before**
+    the card is entered. No post-checkout ineligibility path is needed.
+  - **Open, not designed (`DECISION-0126` item 14):** a parent whose own email has already had a trial. Left open at David's request;
+    it mattered only while the payer's email counted.
 - **No card-fingerprint check.** Store the fingerprint anyway, for reporting.
 - **Promo reservations:** a live trial holds one use of its code, so 10 trials cannot all redeem a 10-use code that has only 1 use
   left. With Option B, Stripe counts the use only at conversion, so our reservation count has to be added on top. Because the price
@@ -396,13 +388,14 @@ policy after conversion. This overlaps `BIZ-001` (access duration, refunds), whi
 
 | # | Question | Answer | Effect on the design |
 |---|---|---|---|
-| a | Does the payer's email count toward one trial? | "yes" | Eligibility checks student and payer email (§4.8) |
+| a | Does the payer's email count toward one trial? | "yes", then amended: "I am not worried about parents buying for more than one student" | Eligibility is per student email only; parents may trial for each child (§4.8) |
 | b | Can a student cancel a parent's trial? | "yes" | `cancel-trial` allows it; parent is emailed (§4.7) |
 | c | Who checks the legal side? | "acknowledgment of Ts and Cs on checkout and email to both parent and student" | Required Terms acknowledgment on both checkouts, stored; trial emails to both on parent-pay (§4.12, §4.1a) |
 | d | Retire the cardless trial? | "retire the old trial that needs no card" | `start-trial` switched off, `app.start_trial` revoked (§4.10) |
-| e | Parent's email already used a trial (edge case) | "notify the student that their parent paid … We need the student's email" | Student email stays required; the student is emailed on every parent-pay outcome, including the pay-now fallback (§4.1a, §4.8) |
+| e | Student notification on parent-pay | "notify the student that their parent paid … We need the student's email" | Student email stays required; the student is emailed on every parent-pay outcome (§4.1a) |
+| f | Edge case: parent's own email already had a trial | "Leave the edge case open." | Not designed; open (§4.8) |
 
-**Still open:** no reviewer is named for the Terms wording against state auto-renewal and free-trial rules.
+**Still open:** the parent-email edge case (item 14), and no reviewer is named for the Terms wording against state auto-renewal and free-trial rules.
 
 ## 8. Questions for Codex (review asks)
 
@@ -424,7 +417,7 @@ policy after conversion. This overlaps `BIZ-001` (access duration, refunds), whi
 
 | Step | Who |
 |---|---|
-| §7 product decisions | David — answered 2026-10-18 (`DECISION-0126`, items 1–13) |
+| §7 product decisions | David — answered 2026-10-18 (`DECISION-0126`, items 1–14) |
 | Terms URL in Stripe public details (for `consent_collection`) and the Terms text | David |
 | Prod migration | David approves, Claude/Codex applies |
 | Prod function deploys (webhook guard, checkout, charge worker, cancel, recovery) | David |

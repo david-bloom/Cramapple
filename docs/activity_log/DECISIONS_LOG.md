@@ -6,7 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Email (Student or Payer), Terms Acknowledgment, Cardless Trial Retired (`TASK-0077`)
+- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
@@ -51,7 +51,7 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Email (Student or Payer), Terms Acknowledgment, Cardless Trial Retired
+## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired
 
 - **Date:** 2026-10-18
 - **Decided by:** David Bloom (Product Owner), in session, answering the eight questions in `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §7. His answers are quoted after each item.
@@ -66,9 +66,9 @@ Most recent entries (full chronological list follows below):
   7. **The $1 pilot and 50%-off codes get the trial too.** "Yes". A code that brings the total to $0 needs no trial.
   8. **The payer accepts the terms.** "whomever is paying". Read as: the consent to the future charge is collected from, and the trial emails go to, the person paying (the student on direct checkout, the parent on parent-pay).
 - **Follow-ups, answered by David the same day (2026-10-18):**
-  9. **The payer's email counts too.** "yes". One trial per email covers both the student's email and the payer's email. A parent who
-     has started one trial pays straight away for a second student, and a student whose email already appears as a payer or student
-     on any trial pays straight away.
+  9. ~~**The payer's email counts too.**~~ **Amended the same day:** "I am not worried about parents buying for more than one student.
+     they may have multiple kids taking APs". A parent may start a trial for each of their children; the limit stays one trial per
+     **student** email (item 6). The first answer to this follow-up was "yes".
   10. **A student can cancel a trial their parent started.** "yes". Access ends immediately (item 4) and the parent is told.
   11. **Terms acknowledgment at checkout, and emails to both.** "we should have an acknowledgment of Ts and Cs on checkout and email
       to both parent and student". Every trial checkout (direct and parent) requires an explicit Terms and Conditions acknowledgment
@@ -78,8 +78,9 @@ Most recent entries (full chronological list follows below):
       `TASK-0026`) are switched off. Existing `trial_v1` rows lapse on their own and still count as a used trial under item 6.
   13. **The student is always told when a parent pays, and the student's email is required for that.** "we need a way to notify the
       student that their parent paid for their access. We need the student's email". Parent-pay keeps requiring the student's email
-      before the link is created (as today), and every parent-pay outcome emails the student, including the edge case where the
-      parent's email has already had a trial and the parent pays straight away instead.
+      before the link is created (as today), and every parent-pay outcome emails the student, as an outcome.
+  14. **The edge case stays open.** "Leave the edge case open." No handling is designed for a parent whose own email has already had
+      a trial (it mattered only while item 9 counted the payer's email).
 - **Still open:** no one is named to review the Terms wording against state auto-renewal and free-trial rules. Item 11 sets the
   acknowledgment mechanism, not the legal review of the text.
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
