@@ -18,6 +18,13 @@ export const GROWTH_EVENT_NAMES = [
   "referral_shared",
   "referred_trial_started",
   "referred_purchase",
+  // TASK-0077 card trial; the database check lists them too
+  // (migration 20261018200000).
+  "trial_card_started",
+  "trial_converted",
+  "trial_canceled",
+  "trial_payment_failed",
+  "trial_recovered",
 ] as const;
 
 export type GrowthEventName = typeof GROWTH_EVENT_NAMES[number];

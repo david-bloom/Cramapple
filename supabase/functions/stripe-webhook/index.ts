@@ -2,7 +2,10 @@ import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
-import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
+import {
+  isPayerNotLearner,
+  purchaserTypeFromMetadata,
+} from "../_shared/addon-checkout.ts";
 import { enqueuePaymentEmail } from "../_shared/payment-email.ts";
 import {
   buildPayerReceiptEmail,
@@ -12,6 +15,13 @@ import {
 } from "../_shared/payer-email.ts";
 import { isFullyRefunded } from "../_shared/checkout-access.ts";
 import { routeCheckoutSession } from "../_shared/checkout-routing.ts";
+import {
+  handleDispute,
+  handleTrialChargeRefunded,
+  handleTrialPaymentIntent,
+  handleTrialSetupSession,
+  type TrialWebhookDeps,
+} from "./trial.ts";
 import {
   webhookDeliveryDisposition,
   type WebhookLedgerStatus,
@@ -297,6 +307,10 @@ async function persistStripeCustomer(
   session: CheckoutSessionObject,
   userId: string,
 ) {
+  // DECISION-0090 / DECISION-0126 item 2: a payer who is not the learner never
+  // has their customer or card stored against the student. Guarded here, not
+  // only at the call site, so every caller is protected.
+  if (isPayerNotLearner(purchaserTypeFromMetadata(session.metadata))) return;
   const stripeCustomerId = objectId(session.customer);
   if (!stripeCustomerId) return;
 
@@ -425,18 +439,40 @@ async function handleCheckoutSessionCompleted(
   return userId;
 }
 
+function trialDeps(service: Service): TrialWebhookDeps {
+  return {
+    stripe,
+    service,
+    resolveLearner: (email, name) =>
+      resolveCheckoutStudentUserId(service, {
+        student_email: email,
+        ...(name ? { student_name: name } : {}),
+      }),
+    recordGrowthEvent: (event) =>
+      recordGrowthEvent(service, { ...event, source: "stripe" }),
+    log: (message, detail) => console.error(`stripe-webhook ${message}`, detail),
+    termsVersion: Deno.env.get("TRIAL_TERMS_VERSION") ?? "",
+  };
+}
+
 async function handleCheckoutSessionEvent(
   service: Service,
   rawSession: CheckoutSessionObject,
   eventId: string,
   status: CheckoutStatus,
+  eventCreated: number,
 ) {
   // Route on Stripe's session mode before anything is recorded or granted.
-  // Card-trial setup sessions (TASK-0077) have no handler yet, so every setup
-  // session is held aside: logged here, kept in the webhook ledger, and never
-  // written as a checkout, granted, emailed or counted as a purchase.
+  // A setup session that claims a card trial goes to the trial handler
+  // (TASK-0077); every other setup, subscription or unknown-mode session is
+  // held aside: logged, kept in the webhook ledger, never written as a
+  // checkout, granted, emailed or counted as a purchase.
   const initialRoute = routeCheckoutSession(rawSession, status);
-  if (initialRoute === "quarantine" || initialRoute === "trial_setup") {
+  if (initialRoute === "trial_setup") {
+    await handleTrialSetupSession(trialDeps(service), rawSession, status, eventCreated);
+    return;
+  }
+  if (initialRoute === "quarantine") {
     console.error("stripe-webhook checkout_session_quarantined", {
       checkout_session_id: rawSession.id,
       stripe_session_mode: rawSession.mode ?? null,
@@ -775,6 +811,7 @@ Deno.serve(async (req) => {
         event.data.object as unknown as CheckoutSessionObject,
         event.id,
         "completed",
+        event.created,
       );
     } else if (event.type === "checkout.session.async_payment_succeeded") {
       await handleCheckoutSessionEvent(
@@ -782,6 +819,7 @@ Deno.serve(async (req) => {
         event.data.object as unknown as CheckoutSessionObject,
         event.id,
         "async_payment_succeeded",
+        event.created,
       );
     } else if (event.type === "checkout.session.async_payment_failed") {
       await handleCheckoutSessionEvent(
@@ -789,6 +827,7 @@ Deno.serve(async (req) => {
         event.data.object as unknown as CheckoutSessionObject,
         event.id,
         "async_payment_failed",
+        event.created,
       );
     } else if (event.type === "checkout.session.expired") {
       await handleCheckoutSessionEvent(
@@ -796,13 +835,26 @@ Deno.serve(async (req) => {
         event.data.object as unknown as CheckoutSessionObject,
         event.id,
         "expired",
+        event.created,
       );
     } else if (event.type === "charge.refunded") {
-      await handleChargeRefunded(
-        service,
-        event.data.object as unknown as ChargeObject,
-        event.id,
+      const charge = event.data.object as unknown as ChargeObject;
+      const handledAsTrial = await handleTrialChargeRefunded(
+        trialDeps(service),
+        charge,
+        isFullyRefunded(charge),
       );
+      if (!handledAsTrial) {
+        await handleChargeRefunded(service, charge, event.id);
+      }
+    } else if (event.type.startsWith("payment_intent.")) {
+      // Every PaymentIntent sends these; only card-trial conversions act.
+      const intent = event.data.object as { metadata?: Record<string, string> };
+      if (intent.metadata?.kind === "trial_conversion") {
+        await handleTrialPaymentIntent(trialDeps(service), event.type, intent);
+      }
+    } else if (event.type === "charge.dispute.created") {
+      await handleDispute(trialDeps(service), event.data.object);
     } else if (
       event.type === "refund.created" || event.type === "refund.updated"
     ) {
