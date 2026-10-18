@@ -1,26 +1,26 @@
 # Precalculus Units 1–3 zero-MCQ gap fill — result, 2026-10-17
 
-Accepted **22/22 seeds and 66/66 variants**, from 116 checked candidates (28 rejected). Escalated slots: 0 seeds, 0 variants. All accepted items are local and unpublished; no Production writes or More help changes.
+Accepted **22/22 seeds and 66/66 variants**, from 116 checked candidates (28 rejected). Escalated slots: 0 seeds, 0 variants. All 88 accepted items are now published in Production with validated skills under APPROVAL-0195; see the publication receipts below.
 
 ## Census and scope
 
-The initial read-only census found 181 practice MCQs across 44 topics, with the following 11 topics empty. The final census has 181 practice MCQs. Counts use latest published versions and unsuperseded primary topic cells, excluding active teaching items. All topics have at least one FRQ; worked-example coverage was not independently recertified. Nonempty topics, including 2.4 and 2.12 with one MCQ each, were excluded from generation.
+The initial read-only census found 181 practice MCQs across 44 topics, with the following 11 topics empty. After publication, the final live census has 269 practice MCQs; all 11 initially empty topics now contain eight MCQs. Counts use latest published versions and unsuperseded primary topic cells, excluding active teaching items. All topics have at least one FRQ; worked-example coverage was not independently recertified. Nonempty topics, including 2.4 and 2.12 with one MCQ each, were excluded from generation.
 
 | Unit | Topic | Title | Production MCQs | Accepted seeds | Accepted variants |
 | ---: | --- | --- | ---: | ---: | ---: |
-| 1 | 1.1 | Change in Tandem | 0 | 2 | 6 |
-| 1 | 1.3 | Rates of Change and Behavior of Graphs | 0 | 2 | 6 |
-| 1 | 1.11 | Equivalent Representations | 0 | 2 | 6 |
-| 2 | 2.1 | Change in Arithmetic and Geometric Sequences | 0 | 2 | 6 |
-| 2 | 2.2 | Change in Linear and Exponential Functions | 0 | 2 | 6 |
-| 2 | 2.8 | Inverse Functions | 0 | 2 | 6 |
-| 2 | 2.9 | Logarithmic Expressions | 0 | 2 | 6 |
-| 2 | 2.14 | Logarithmic Function Context and Data Modeling | 0 | 2 | 6 |
-| 3 | 3.4 | Sine and Cosine Function Graphs | 0 | 2 | 6 |
-| 3 | 3.8 | The Tangent Function | 0 | 2 | 6 |
-| 3 | 3.15 | Rates of Change in Polar Functions | 0 | 2 | 6 |
+| 1 | 1.1 | Change in Tandem | 8 | 2 | 6 |
+| 1 | 1.3 | Rates of Change and Behavior of Graphs | 8 | 2 | 6 |
+| 1 | 1.11 | Equivalent Representations | 8 | 2 | 6 |
+| 2 | 2.1 | Change in Arithmetic and Geometric Sequences | 8 | 2 | 6 |
+| 2 | 2.2 | Change in Linear and Exponential Functions | 8 | 2 | 6 |
+| 2 | 2.8 | Inverse Functions | 8 | 2 | 6 |
+| 2 | 2.9 | Logarithmic Expressions | 8 | 2 | 6 |
+| 2 | 2.14 | Logarithmic Function Context and Data Modeling | 8 | 2 | 6 |
+| 3 | 3.4 | Sine and Cosine Function Graphs | 8 | 2 | 6 |
+| 3 | 3.8 | The Tangent Function | 8 | 2 | 6 |
+| 3 | 3.15 | Rates of Change in Polar Functions | 8 | 2 | 6 |
 
-The accepted packet would add 88 items if subsequently published; the CSV includes a clearly separated arithmetic projection, not a claim that live gaps are closed.
+The published packet adds 88 practice MCQs. The updated CSV contains observed before/after counts and eight newly published items per target topic.
 
 ## Confirmation, checking and cost
 
@@ -71,21 +71,37 @@ David requested validated skills for the three unresolved families. Three seed l
 | 2.8B | 3.A | 4/4 |
 | 2.9B | 1.B | 4/4 |
 
-The same approved four non-author families independently classified the requested student task with the full eight-skill grid, without prior labels, earlier votes, answer designations or teaching rationales. The original 3/4 gate remained in force. The first panel resolved 1.3A and 2.8B. Neither that panel nor a blind fifth taxonomy voter settled 2.9B; the supplied CED printed p.68 explicitly pairs logarithmic-expression evaluation (2.9.A) with suggested skill 1.B. A final panel received that primary-source context, with all skills still eligible, and agreed 4/4 on 1.B. This is a source-grounded consensus, not a manual promotion. All initial votes, the unsuccessful fifth-voter attempt, complete new votes, unchanged-content hashes and label inheritance are retained privately. All 17 follow-up calls are included in the cost ledger above. Production publication has not started.
+The same approved four non-author families independently classified the requested student task with the full eight-skill grid, without prior labels, earlier votes, answer designations or teaching rationales. The original 3/4 gate remained in force. The first panel resolved 1.3A and 2.8B. Neither that panel nor a blind fifth taxonomy voter settled 2.9B; the supplied CED printed p.68 explicitly pairs logarithmic-expression evaluation (2.9.A) with suggested skill 1.B. A final panel received that primary-source context, with all skills still eligible, and agreed 4/4 on 1.B. This is a source-grounded consensus, not a manual promotion. All initial votes, the unsuccessful fifth-voter attempt, complete new votes, unchanged-content hashes and label inheritance are retained privately. All 17 follow-up calls are included in the cost ledger above. Publication had not started at that skill-resolution checkpoint; the completed release is recorded below.
 
 
 ## Source boundaries and handoff
 
 The supplied CED PDF governs. All 11 target pages/continuations, current fact pack, briefs and live grid were checked. 1.3's CED title/content emphasizes linear/quadratic average-rate behavior; the taxonomy uses an older title. 3.4's brief emphasizes transformations that belong later, so questions stay with base sine/cosine graph behavior and domain/range. 1.1's open/closed-interval discrimination exclusion is respected. 3.15 uses signed radius, distance behavior and average-rate interpolation, never calculus or polar area. David’s “contunue” followed the exact four-point source-only proposal; the session explicitly recorded it as approval before applying that annotation. The annotation restores the CED boundaries for 1.1, 1.3, 2.1/2.2 and 3.4 without changing the database taxonomy. Three unreviewed old-source drafts were retired, and fresh whole candidates were generated only after the corrected-source control gate. The escalation continuations and exact source hashes are recorded privately. Topic 2.9 received no source edit: its new candidate uses exact logarithm evaluation rather than the held logarithmic-scale concept.
 
-Full questions, keys and raw votes are local private artifacts excluded from Git. The public branch contains only this metadata record and activity notes. Production publication remains the standard plan → preflight → rollback rehearsal → recorded Hard-Gate approval → publish path; it has not started. No new approval number has been allocated. Next owner: David Bloom reviews the completed creation packet and decides whether to request publication or an optional blind sample re-judge.
+Full questions, keys and raw votes are local private artifacts excluded from Git. The public branch contains only this metadata record and activity notes. Production publication completed through the standard plan → preflight → rollback rehearsal → recorded Hard-Gate approval → publish → verify path under APPROVAL-0195. Content publication is complete; next owner: David Bloom for metadata PR review/merge.
 
-## Integration and artifact custody — 2026-10-17
+## Integration and artifact custody — 2026-10-17 (historical checkout limitation; resolved below)
 
 David approved integration and branch cleanup with “Act on your recommendations.” The CED source annotations were checked against the repository's Fall 2026 CED (printed pp. 29–30, 32, 55–57 and 86; transformations at 3.6). This verifies the source correction, not the private generated items or their QA ledgers.
 
-The 88-item packet, keys, raw votes, attempt ledger and source/hash manifest are not in this checkout or this branch. Their original private location is not identified precisely enough in this record to verify a durable backup. **Artifact custody remains unverified.** Next owner: originating content conductor, to verify the original packet, place/confirm it in durable private storage and record its exact location and manifest hashes. Do not infer loss, recreate the items, or publish from this metadata report. Once custody is verified, David decides the separate publication gate. Merging these records does not authorize publication or mark the content task Done.
+The 88-item packet, keys, raw votes, attempt ledger and source/hash manifest are not in this checkout or this branch. Their original private location is not identified precisely enough in this record to verify a durable backup. **Artifact custody was unverified in that integration checkout; the originating-conductor verification below resolves it.** Next owner: originating content conductor, to verify the original packet, place/confirm it in durable private storage and record its exact location and manifest hashes. Do not infer loss, recreate the items, or publish from this metadata report. Once custody is verified, David decides the separate publication gate. Merging these records does not authorize publication or mark the content task Done.
 
 ### Custody verified by originating conductor — 2026-10-17
 
 The earlier checkout limitation is resolved in the originating session. The complete private packet and archive are present in `/Users/davidbloom/Documents/Codex/2026-10-16/sta/outputs/precalculus-gap-fill/`; `SHA256SUMS.json` verifies every file, and the ZIP passes integrity/credential checks. `PRE_PUBLICATION_QA.private.zip` pre-publication SHA-256: `24460e62372097fe81ef23f33a3917a90bb009d1dd5ed2d1e693c714b104cc23`. There are 88 accepted unchanged question payloads, 352 choices, all QA ledgers and all 88 validated skill labels. The three skill ties were resolved in the follow-up above. David now explicitly instructs “publish the 88 items with validated skills.” Publication preflight, rehearsal and approval recording are being prepared; no Production write has occurred at this checkpoint.
+
+## Production publication completed — 2026-10-17
+
+David explicitly requested “publish the 88 items with validated skills”; [APPROVAL-0195](../activity_log/APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md) records that authorization and exact checked-plan hashes. All **22 seeds and 66 variants are now published in Production**, with **88 validated skill cells**. Keys `apprecalc-mcq-051`–`apprecalc-mcq-072` and each seed's three `apprecalc-mcq-sv-NNN-v1..v3` variants.
+
+Canonical loader preflight and full 40/40/8 rollback rehearsals passed; all keys were independently rechecked absent. Approval was committed and pushed before publication. The first eight were rehearsed, committed and verified through the actual student selector before the remaining two 40-item transactions were committed. Full canonical verification passed 88/88 for found items, text hashes, published states, serving labels, topic cells, skill cells and difficulty. Independent read-back additionally verifies 352 choices, exactly one correct choice and matching canonical letter per item, correct owner approval records, exact expected topic/skill/difficulty, one current published version, and fresh serving-label hashes. All stored question/choice/rationale payloads match the checked packet.
+
+The real paged `public.select_student_practice_items` selector was exercised under `service_role` with a synthetic unanswered/unrevealed user and all pages: the new batch contributes **24 eligible items at Unit 1, 64 at Unit 2, and all 88 at Unit 3**. IDs match the published versions; unit gates hold. No student records were created or changed. This proves server-side student availability under normal unit/answer/reveal eligibility; a signed-in browser session was not performed for this content-only release.
+
+The live 44-topic census is **269 practice MCQs, up from 181**. All **11 initially empty topics now have eight MCQs**, leaving **zero zero-MCQ topics in Units 1–3**. Fresh source/label checks and exact plan matching passed. No new inference calls or spend, app/schema/Edge Function/policy changes, or updates to existing questions.
+
+Private receipts: `outputs/precalculus-gap-fill/PUBLICATION_RECEIPT.json`, `PUBLICATION.md`, `publication-manifest.private.json`, the updated `private-artifacts.zip` (plans, logs, row-level read-backs, SQL, selector results and census), and `SHA256SUMS.json`. The immutable `PRE_PUBLICATION_QA.private.zip` retains the pre-publication archive. Metadata and approval are committed on the task branch for owner merge; questions, keys and raw votes remain excluded from Git.
+
+### Fresh Production reconfirmation — 2026-10-18
+
+Rechecked at `2026-10-18T18:23:45.062939+00:00`: all 88 remain published with exact checked payloads, 88 validated skills/topic cells and fresh serving labels, 352 choices and matching answer keys. The actual paged student selector again returns batch 24/64/88 at unit gates 1/2/3. Census remains 269 practice MCQs and zero empty Units 1–3 topics. No writes or student-state changes.
