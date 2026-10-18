@@ -1,10 +1,10 @@
-# Seven-Day Free Trial With a Saved Card — Implementation Plan v2
+# Seven-Day Free Trial With a Saved Card — Implementation Plan v3
 
-**Status:** v2 DRAFT for Codex re-review. **Nothing is built, deployed or configured.**
+**Status:** v3 DRAFT for Codex re-review. **Nothing is built, deployed or configured.**
 **Task:** `TASK-0077`. **Tier:** Hard-Gate (payments, Production migrations and function deploys, secrets, Stripe configuration,
 Lovable publish, Terms change).
-**Product Owner:** David Bloom. **Author:** Claude. v1 2026-10-18; v2 2026-10-18.
-**Governing decision:** `DECISION-0126`, items 1–27 (item 9 amended).
+**Product Owner:** David Bloom. **Author:** Claude. v1, v2 and v3 all 2026-10-18. v3 folds in Fable's assessment of v2 ("Ready with changes", §10b).
+**Governing decision:** `DECISION-0126`, items 1–31 (item 9 amended).
 **Review of v1:** Codex, PR #505, `docs/qa/TASK0077_CODEX_PLAN_REVIEW_2026_10_18.md` on `codex/task-0077-plan-review` (verdict
 "Not ready", 13 findings). §10 maps each finding to its fix in this version.
 **Related:** `DECISION-0090` (partly revised by item 2), `TASK-0026` (cardless trial, retired by item 12), `TASK-0058` A0,
@@ -44,6 +44,10 @@ ends access at once and stops every future charge. One trial per student email, 
 | 22 | Parent-pay: the student applies the code before creating the link; it is fixed into the link |
 | 23 | Pay-now add-on returns for direct single-subject conversions **after launch** (out of scope here) |
 | 24 | Student and parent trials launch together, after both are proven in Development |
+| 28 | Apple Pay and Google Pay stay in at launch |
+| 29 | Dates shown in US Eastern time, in emails and at checkout |
+| 30 | The day-7 charge goes ahead even if a reminder email bounces |
+| 31 | A second trial through an account email change is an accepted risk |
 
 ## 3. Current state (Verified at `f2b7bfbd`; corrections from Codex marked ✱)
 
@@ -118,25 +122,23 @@ ends access at once and stops every future charge. One trial per student email, 
 
 | Group | Columns |
 |---|---|
-| Identity | `id uuid pk`, `purchase_type` (`student_direct` / `parent_share`), `student_email`, `student_email_norm` (`lower(trim())`), `user_id null` |
+| Identity | `id uuid pk`, `purchase_type` (`student_direct` / `parent_share`), `student_email`, `student_email_norm` (`lower(trim())`), `user_id null` references the learner's profile **`on delete restrict`** (§6.16) |
 | Purchase | `offer`, `subject_ids uuid[]` (real subject UUIDs) + `subject_keys text[]` (display snapshot), `price_id`, `currency` |
-| Locked quote | `list_amount`, `discount_amount`, `charge_amount`, `quote_version`, `quote_expires_at`, `promotion_code_id`, `coupon_id`, `promo_code`; check constraint `list_amount - discount_amount = charge_amount`, amounts ≥ 0, `charge_amount ≥` Stripe minimum (50¢ USD) |
-| Stripe | `checkout_session_id`, `setup_intent_id`, `stripe_customer_id`, `payment_method_id`, `card_fingerprint`, `payment_intent_id`; partial unique indexes on each non-null |
+| Locked quote | `list_amount`, `discount_amount`, `charge_amount`, `quote_version`, `quote_expires_at`, `promotion_code_id`, `coupon_id`, `promo_code`, `promo_use_state` (`reserved` / `redeemed` / `released`); check constraint `list_amount - discount_amount = charge_amount`, amounts ≥ 0, `charge_amount ≥` Stripe minimum (50¢ USD) |
+| Stripe | `checkout_session_id`, `setup_intent_id`, `stripe_customer_id`, `payment_method_id`, `payment_intent_id`; partial unique indexes on each non-null |
 | Payer | `payer_email` (captured from completed setup, not from the request), `payer_is_learner bool` |
 | Consent | `student_ack_version`, `student_ack_at`, `student_ack_source`; `payer_accept_version`, `payer_accept_at`, `payer_accept_source`; `mandate_text_version`, `mandate_shown_amount`, `mandate_shown_date_rule`; `consent_ip`, `consent_user_agent` (retention defined, never card data) |
 | Clock | `trial_started_at` (immutable, from Stripe setup completion time), `trial_ends_at` (= start + 7 days, set once), `first_failure_at`, `grace_ends_at` (= `trial_ends_at` + 24 h, set once), `recovery_expires_at` (= `grace_ends_at` + 30 days), `canceled_at`, `converted_at` |
 | State | `status`, `attempt_count` (business attempts only, max 2), `next_attempt_at`, `lease_token`, `lease_expires_at`, `last_error_code`, `last_decline_code`, `reconcile_reason` |
 
-- **Eligibility:** unique index on `student_email_norm` `where trial_started_at is not null`. This covers every later status, so an
-  email can never get a second trial.
-- A second unique partial index allows one `pending_setup` row per `student_email_norm`.
+- **Eligibility** lives in one place: `app.trial_consumed_emails(email_norm text primary key, source, order_id null,
+  consumed_at)`. `app.trial_activate` inserts into it in the same transaction as the grant. A duplicate key means the email has had a
+  trial, so activation refuses (§6.11). It is backfilled from legacy `trial_v1` users (§6.11).
+- A unique partial index on `trial_orders(student_email_norm) where status = 'pending_setup'` allows one pending order per email.
 - Pending rows expire at `quote_expires_at` (24 h, matching the Session lifetime) and are cleaned up by the job.
-
-**`app.trial_promo_uses`** (`DECISION-0126` item 21)
-
-- Columns: `order_id`, `promotion_code_id`, `coupon_id`, `state` (`reserved` / `redeemed` / `released`), timestamps.
-- Reserve at quote time. Become `redeemed` when the trial starts (the price is locked from then). Release on pending expiry.
-- Cancelled, failed and refunded trials keep their use. The code was granted; this avoids "unredeeming".
+- **Promo uses (`DECISION-0126` item 21)** are the three promo columns on the order (one code per order), not a separate table.
+  - `reserved` at quote time; `redeemed` when the trial starts (the price is locked from then); `released` on pending expiry.
+  - Cancelled, failed, disputed and refunded trials keep their use.
 
 **`app.trial_capabilities`** (cancel and recovery links)
 
@@ -148,7 +150,7 @@ ends access at once and stops every future charge. One trial per student email, 
 | From | To | Trigger | Invariant |
 |---|---|---|---|
 | — | `pending_setup` | quote + Session created | eligible at creation; promo reserved; no access |
-| `pending_setup` | `trialing` | verified setup completion (§6.4) | in **one transaction**: recheck eligibility under lock; set the clock once; create the PaymentIntent reference (§6.5); grant this order's trial rows; mark the promo use redeemed; enqueue notices for both recipients |
+| `pending_setup` | `trialing` | verified setup completion (§6.4) | in **one transaction**: insert the consumed-email row (refuse on duplicate); record the already-created `payment_intent_id`; set the clock once; grant this order's trial rows; mark the promo use redeemed; enqueue notices for both recipients |
 | `pending_setup` | `setup_expired` | Session expired or quote expired | release the reservation; the email is not consumed |
 | `trialing` | `charging` | claim with lease token at `trial_ends_at` | only rows due; compare-and-set on `lease_token` |
 | `charging` | `converted` | `payment_intent.succeeded` for this order's PI | in one transaction: grant `paid` (source `stripe_trial_conversion_<offer>`); **revoke this order's trial rows**; enqueue receipt and conversion notices |
@@ -159,8 +161,9 @@ ends access at once and stops every future charge. One trial per student email, 
 | `recovery_only` | `recovery_expired` | `recovery_expires_at` | cancel the PI; detach a parent card |
 | any pre-conversion state | `canceled` | §6.7 | revoke this order's trial rows; stop collection; outcome-dependent message |
 | `converted` | `refunded` | full refund | revoke this order's paid rows only; a partial refund keeps access |
+| `converted` / `refunded` | `disputed` | `charge.dispute.created` | revoke this order's paid rows; never re-grant automatically, even if the dispute is won (operator decides) |
 | `charging` (lease expired) / any unknown outcome | `reconciling` | process death, network error, contradiction | **retrieve the order's PI and act on its real status**; never create another charge; operator alert if unresolved |
-| `trialing` (overdue, scheduler down) | `delayed_notice` | §6.8 | access extended; 48 h notice queued |
+| `trialing` / `payment_failed` / `delayed_notice` (attempt overdue, outside its window) | `delayed_notice` | §6.12 | access extended; 48 h notice queued |
 
 - All transitions run in service-only, fixed-`search_path` RPCs: `app.trial_activate`, `app.trial_claim_due`, `app.trial_mark_*`,
   `app.trial_cancel`.
@@ -172,7 +175,9 @@ ends access at once and stops every future charge. One trial per student email, 
 
 ### 6.3 Quote and start — direct checkout (`create-checkout-session`)
 
-The **server** decides the billing mode; a client `trial` flag is not trusted. Steps:
+The **server** decides the billing mode; a client `trial` flag is not trusted. Trial quotes and confirms are rate-limited per IP
+address and per email, like `create-parent-payment-link` today (`:74-82`), because a free card-saving endpoint attracts card
+testing (see also Radar, §8 slice 7). Steps:
 
 1. Resolve the offer, the Price (retrieve `unit_amount`; require fixed USD one-time, quantity 1) and the student email.
 2. Check eligibility: no `trial_orders` row with `trial_started_at` for `student_email_norm`, and no legacy `trial_v1` entitlement on
@@ -200,8 +205,10 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
      metadata: { kind: "trial_setup", trial_order_id, quote_version }
      ```
 7. The page shows the mandate beside the button: "$0 today. On <date> we'll charge $X to this card unless you cancel. Cancel any
-   time in Account." It also shows the required Terms checkbox. On direct checkout that one action is both the student
-   acknowledgment and the payer acceptance (item 17).
+   time in Account." It also shows the required Terms checkbox.
+   - On direct checkout that one action is both the student acknowledgment and the payer acceptance (item 17).
+   - The date is shown in Eastern time (item 29) and is a floor: the trial clock starts when setup finishes, and the start email
+     carries the exact date.
 
 ### 6.4 Activation (webhook, `mode === "setup"`)
 
@@ -216,10 +223,7 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
    - require `session.consent.terms_of_service === "accepted"` (or the fallback acceptance, §6.10);
    - capture `payer_email` from `customer_details.email`.
 3. Resolve or invite the learner from `student_email`, exactly as today (`stripe-webhook:262-291`).
-4. Call `app.trial_activate`:
-   - `trial_started_at` = the Session's completion time from the event object, not handler time; replays cannot move it;
-   - everything listed for `pending_setup → trialing` in §6.2.
-5. Create the order's **single PaymentIntent** now, unconfirmed:
+4. **Create the order's single PaymentIntent first**, unconfirmed:
    ```
    paymentIntents.create(
      { amount: charge_amount, currency, customer, payment_method,
@@ -227,10 +231,16 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
        metadata: { kind: "trial_conversion", trial_order_id } },
      { idempotencyKey: "trial-pi:<order>" })
    ```
-   Persist `payment_intent_id`.
-   - If the handler dies first, a replay uses the same idempotency key (inside Stripe's 24 h retention).
-   - The claim job never charges an order without a persisted `payment_intent_id`. It reconciles via
-     `paymentIntents.search` on `metadata['trial_order_id']` before creating one.
+   - A Stripe PaymentIntent does not expire, so it can wait 7–38 days (Verified, Stripe's PaymentIntent lifecycle page).
+   - If the handler dies after this call, the webhook replay finds the PI by `paymentIntents.list({ customer })`, filtering on
+     `metadata.trial_order_id`. **List, not search:** search can lag by about a minute. It reuses that PI and never creates a second
+     one. The idempotency key covers same-day replays.
+5. Call `app.trial_activate(order, payment_intent_id, started_at)`, which does everything listed for `pending_setup → trialing` in
+   §6.2. The PI id lands in the same transaction as the grant, so a `trialing` order always has its PI.
+   - `started_at` = the `checkout.session.completed` **event's `created` time**. A Checkout Session has no completion timestamp, and
+     the event time does not change across replays. `trial_ends_at = started_at + 7 days`.
+   - If activation refuses (for example, an email consumed in a race), the unconfirmed PI is cancelled and the order goes to
+     `reconciling`.
 6. **Direct only:** upsert `stripe_customers` with the guard inside the helper (§6.10).
 7. `get-checkout-status` and the parent short-link resolver report `trialing` (with the end date) for setup sessions. Never "paid";
    never an upsell.
@@ -242,12 +252,14 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
   - The function verifies `TRIAL_CHARGE_WORKER_SECRET`. Gateway JWT verification must be configured compatibly; test that an
     unauthorized request is rejected.
   - Kill switch: `TRIAL_CHARGES_ENABLED`.
-  - Heartbeat: every run writes `app.worker_heartbeats`. An alert fires if it is stale for more than 30 minutes.
+  - Heartbeat: every run updates a single heartbeat row (an existing settings table if one fits, otherwise a one-row table). An alert
+    fires if it is stale for more than 30 minutes.
 - **Claim:** `app.trial_claim_due(limit, lease_seconds)` returns rows that are `trialing` and due, `payment_failed` and due for their
   one retry, or `charging` with an expired lease. Expired-lease rows go to reconciliation first.
 - **Per claimed row:**
-  - `retrieve` the PI.
+  - `retrieve` the PI. The claim job never creates a PI; every `trialing` order already has one (§6.4).
   - If it is already `succeeded` or `processing`, write that back and stop.
+  - If it is `canceled` (a cancel won the race, §6.7), stop: no attempt.
   - Otherwise `paymentIntents.confirm(pi, { payment_method, off_session: true })`, with idempotency key
     `trial-confirm:<order>:<attempt_count>`. The confirm counts as a business attempt; HTTP retries reuse the same key and parameters.
 - **One PaymentIntent per order, for life.** The retry, the payer's recovery and any outage-delayed charge all confirm **the same
@@ -257,9 +269,12 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
   - Card decline: `payment_failed` (first time, grace).
   - `authentication_required`: `requires_action`.
   - Network error or 5xx: `reconciling`. **A transport error is never treated as a decline and never triggers a new attempt.**
+  - The confirm returns "PI is canceled" (the cancel arrived mid-flight): stop, and leave the order `canceled`.
+- Stripe cancels a PI that is "confirmed too many times". Automatic attempts are capped at 2. The recovery page also confirms the same
+  PI, so it limits on-session attempts (proposal: 5) and then asks the payer to contact support.
 - **Webhook additions:** `payment_intent.succeeded`, `payment_intent.payment_failed`, `payment_intent.processing`,
   `payment_intent.canceled`, routed by `metadata.kind === "trial_conversion"` to an order-driven handler. `charge.refunded` is extended
-  (§6.8). **The Stripe endpoint's event subscription must add these (David).**
+  (§6.8). `charge.dispute.created` is added for all orders (§6.8). **The Stripe endpoint's event subscription must add these (David).**
 
 ### 6.6 Failure, grace and recovery (items 5, 15)
 
@@ -269,7 +284,8 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
   `try_again_later`).
   - Hard declines (`stolen_card`, `lost_card`, `expired_card`, `incorrect_number`) and `authentication_required` get no automatic
     retry.
-  - If the worker reaches a retry after `grace_ends_at`, it does not charge; the order goes to `recovery_only`.
+  - A retry that **ran on time and was declined** moves the order to `recovery_only` at `grace_ends_at`. A retry the worker **missed**
+    (it reached the row outside the retry window) is our fault: §6.12 applies (notice, access continues), not `recovery_only`.
 - **Recovery page** `app.cramapple.com/trial/pay/<token>` (a `payer_recovery` capability, sent to the payer only):
   - `GET` shows the amount, the order and the status. It mutates nothing, so email scanners are safe.
   - `POST` returns the **same PI's** client secret. The page confirms it on-session with Stripe.js, either authenticating the saved
@@ -307,8 +323,14 @@ The **server** decides the billing mode; a client `trial` flag is not trusted. S
 - It validates `amount_received`, currency and customer against the locked order.
 - `charge.refunded`: a full refund revokes **this order's** conversion rows and sets `refunded`. A partial refund keeps access.
 - Session-based refund handling stays as-is for pay-now orders.
-- Receipts reuse the charge-based payer-receipt builder through an order adapter. Stripe's charge receipt is the receipt; no invoice
-  (item 18).
+- **Receipts:** our own payer-receipt builder (Loops, as today), fed by an order adapter. The PI does **not** set `receipt_email`, so the
+  payer does not get a second receipt from Stripe. No invoice (item 18). No automatic tax today on either path, so the two paths
+  match.
+- **Disputes:** `charge.dispute.created` resolves the order through the same resolver.
+  - Trial orders: move to `disputed` and revoke that order's paid rows.
+  - Pay-now orders: today's behaviour, now routed and logged instead of throwing.
+  - Access is never re-granted automatically.
+  - An operator alert fires.
 
 ### 6.9 Promo evaluation (our own; Stripe applies none in setup mode)
 
@@ -368,12 +390,12 @@ Against the pinned `PromotionCode`/`Coupon` schema:
 
 ### 6.11 Eligibility (items 6, 9, 14)
 
-- One trial per `student_email_norm`, ever. Enforced by the unique index (§6.1) and rechecked under lock at activation, so a direct
-  checkout and a parent link cannot both start.
-- **Legacy backfill** (in the migration): for each user with any `trial_v1` entitlement (any status), insert a consumed marker for
-  their current auth email. This means an `app.trial_consumed_emails(email_norm, source, consumed_at)` table that the index check
-  also reads.
-- Markers survive account email changes and deletion. Retention: indefinite, email-hash only (approved, item 26).
+- One trial per `student_email_norm`, ever. Enforced by `app.trial_consumed_emails` (§6.1), written inside `trial_activate` under
+  the same lock, so a direct checkout and a parent link cannot both start. Quotes check it too, so ineligible buyers see pay-now copy.
+- **Legacy backfill** (in the migration): for each user with any `trial_v1` entitlement (any status), insert a row for their current
+  auth email with `source='trial_v1'`.
+- Rows survive account email changes and deletion; retention is indefinite, stored as the email hash (item 26). A student who changes
+  their account email could start a second trial: accepted risk (item 31).
 - No plus-address or dot folding, and no fingerprint check.
 - The payer's email is not checked (item 9). Item 14 is accepted as is (item 25).
 
@@ -386,7 +408,9 @@ Against the pinned `PromotionCode`/`Coupon` schema:
   - extend this order's access to `notice_sent_at + 48h + 1h`;
   - send a notice to the payer (and the student on parent-pay): "We couldn't process your charge on <date> because of a problem on
     our side. We'll charge $X on <date + 48h> unless you cancel";
-  - set `next_attempt_at = notice_sent_at + 48h`.
+  - set `next_attempt_at = notice_sent_at + 48h`, with its own window `[next_attempt_at, next_attempt_at + 2h]`. If that is missed
+    too, another notice goes out (the same rule), so a late charge is never made without 48 h of warning.
+  - A missed retry (§6.6) follows this rule too.
 
   The price stays locked.
 - Turning `TRIAL_CHARGES_ENABLED` off therefore never silently charges late, and never cuts off access because of our outage.
@@ -411,6 +435,10 @@ New order-driven transactional jobs in `app.transactional_email_outbox`:
 | Refunded | refund notice | access-ended notice when full |
 
 On direct checkout the payer is the student, who gets the payer column.
+
+- All dates in emails are Eastern time, written out ("Saturday, October 25, 2026 (Eastern)") (item 29).
+- **A notice that cannot be delivered never blocks the charge** (item 30). The consent at checkout is the authorization. Bounces are
+  logged on the order for support.
 
 **Delivery is a release gate:**
 - `deliver-transactional-email` must be scheduled (pg_cron → `pg_net`, same pattern). Codex found **no scheduler** in the repo or in
@@ -440,6 +468,14 @@ On direct checkout the payer is the student, who gets the payer column.
   to `_shared/growth-events.ts:3-21` **and** the database event-name check, in the same migration slice. No `purchase_completed` for
   setup.
 
+### 6.16 Account deletion and email changes
+
+- **Deletion:** account deletion calls `app.trial_cancel` for every pre-conversion order on that learner (§6.7 rules, including the
+  automatic refund of an in-flight charge) **before** the profile is removed. `trial_orders.user_id ... on delete restrict` makes a
+  deletion that skips this step fail instead of leaving a live day-7 charge.
+- **Email change:** the order keeps the email it was created with. Notices go to the account's current email for the student and to
+  the captured `payer_email` for a parent.
+
 ## 7. Testing and acceptance
 
 **Prerequisite (`TASK-0058` A0):** a Development-pointed checkout frontend (marketing and app) with Stripe test keys and Dev short
@@ -456,6 +492,13 @@ across every gated surface, operations, wallet/UI. Additions specific to v2:
 - Kill switch off at day 7 → `delayed_notice` with access extended, no charge, then a charge 48 h after the notice.
 - Cancel during `processing` → automatic refund on success, with the correct message sequence.
 - A parent trial leaves the student's `stripe_customers` row byte-for-byte unchanged.
+- The handler crashes after the PI is created but before activation; the replay reuses the PI and activates once.
+- A cancel arrives while the worker's confirm is in flight.
+- Missed retry → `delayed_notice`, not `recovery_only`.
+- Dispute on a converted trial.
+- Account deletion mid-trial cancels the order; a deletion that skips the cancel is refused.
+- Card testing: the rate limit trips.
+- Dates render in Eastern time across DST boundaries.
 
 **Test cards:** each is validated in Development as setup-then-charge before it is relied on (`4000 0000 0000 9995` may fail at
 setup rather than at charge).
@@ -472,7 +515,7 @@ setup rather than at charge).
 | 4 | Collection, grace, recovery, cancel, refunds, delayed-notice (§6.5-6.8, §6.12) | Dev only |
 | 5 | Notifications + email worker schedule + real-inbox tests (§6.13); app UI (§6.15) | Dev only |
 | 6 | Full Dev acceptance matrix for **both** flows (item 24) | Codex QA |
-| 7 | Prod: deploy everything dormant (`TRIAL_ADMISSION_ENABLED=false`, `TRIAL_CHARGES_ENABLED=true`, worker and email schedules on, heartbeat green). Stripe event subscriptions. Terms published. Lovable publish of both checkouts + app + `/trial` retirement together. | David approvals |
+| 7 | Prod: deploy everything dormant (`TRIAL_ADMISSION_ENABLED=false`, `TRIAL_CHARGES_ENABLED=true`, worker and email schedules on, heartbeat green). Stripe event subscriptions (including `charge.dispute.created`). **Stripe Radar "Use Radar on payment methods saved for future use" turned on** (Radar does not screen setup-only card saves by default). Terms published. Lovable publish of both checkouts + app + `/trial` retirement together. | David approvals |
 | 8 | David's disclosed $1 live trial using a Production-only per-order exception (approved SQL setting that single order's `trial_ends_at`), conversion, then refund | David |
 | 9 | `TRIAL_ADMISSION_ENABLED=true` for both flows at once; then retire `start-trial` (§6.14 step 2) | David |
 
@@ -488,7 +531,8 @@ setup rather than at charge).
 
 - **Unverified Stripe behaviours, settled by the slice 1 spike:**
   - setup + Elements rendering;
-  - Express Checkout wallets in setup mode;
+  - Express Checkout wallets (Apple Pay, Google Pay) in setup mode, which stay in at launch (item 28);
+  - `allowed_payment_method_types` in the pinned SDK's typings;
   - the hosted-setup Terms checkbox;
   - where `custom_text` appears on the hosted page.
 
@@ -508,7 +552,7 @@ setup rather than at charge).
 | 2 | Parent-card isolation contradiction; consent from both | §6.10, §6.3 step 7, §6.1 consent columns |
 | 3 | Duplicate collection | §6.5 one PI per order for life; §6.2 lease CAS + `reconciling` |
 | 4 | Option B empty invoice | Option A chosen (item 18); invoices removed |
-| 5 | Promo evaluator and capacity | §6.9 pinned-schema evaluator; §6.1 `trial_promo_uses`; race accepted (item 21) |
+| 5 | Promo evaluator and capacity | §6.9 pinned-schema evaluator; §6.1 promo columns on the order; race accepted (item 21) |
 | 6 | Atomic transitions, eligibility, entitlement revocation | §6.2 RPCs; §6.1/§6.11 consumed index + legacy backfill; conversion revokes trial rows |
 | 7 | Notices contract and delivery | §6.13, worker scheduling as a release gate |
 | 8 | Conversion, recovery and refunds can't reuse Session fulfilment | §6.8 order resolver; recovery confirms the same PI (§6.6) |
@@ -518,13 +562,27 @@ setup rather than at charge).
 | 12 | Capability links | §6.1 `trial_capabilities`; GET/POST split (§6.6, §6.7) |
 | 13 | Launch order and rollback | §8 (both flows together, item 24; dormant deploy; delayed-notice rollback) |
 
+## 10b. Fable's assessment of v2 → v3 changes
+
+| # | Finding | Fixed in |
+|---|---|---|
+| F1 | PI created outside the activation transaction; search lag | §6.4 steps 4–5 (PI first, id recorded at activation; list not search); §6.5 |
+| F2 | Radar off for setup-only card saves | §8 slice 7; rate limit §6.3 |
+| F3 | No Session completion timestamp; timezone undefined | §6.4 step 5 (`event.created`); item 29, §6.3 step 7, §6.13 |
+| F4 | Account deletion mid-trial still charges | §6.16; FK `on delete restrict` §6.1 |
+| F5 | Disputes not routed | §6.2 `disputed`; §6.8 |
+| F6 | Cancel vs in-flight confirm, worker side | §6.5 canceled branch; recovery confirm cap |
+| F7 | §6.6 / §6.12 conflict on a missed retry | §6.6, §6.12 |
+| F8 | SDK typings and hosted consent unverified | §9 spike list |
+| F9 | Notice-delivery failure | item 30, §6.13 |
+| F10 | Receipts | §6.8 (own builder, no `receipt_email`) |
+| Cuts | fingerprint column, duplicate eligibility, promo table, heartbeat table | §6.1, §6.11, §6.5. Wallets are **kept** (item 28) |
+
 ## 11. Asks for Codex's re-review
 
-1. Is "one PaymentIntent per order, created at activation, confirmed at day 7, re-confirmed for the retry and recovery" sound on
-   `2026-03-25.dahlia`? Specifically:
-   - Can a PI created unconfirmed with a saved PM sit for 7–38 days without expiring?
-   - Is re-confirming it off-session after a decline supported?
-   - Can it be confirmed on-session with a new card from the recovery page?
+1. Is the order "PI created first, then `trial_activate` records it" (§6.4) safe against every crash point, including a replay after
+   Stripe's 24 h idempotency retention? Fable confirmed the PI lifecycle facts from Stripe's docs; please check the transaction
+   boundary.
 2. Is the `delayed_notice` window rule (§6.12) complete for every way the worker can be late?
 3. Does §6.7's cancel table cover every PI state, including `requires_capture` (not used, but assert it never appears)?
 4. Promo evaluator (§6.9): especially `first_time_transaction` handling for new and parent customers, and `duration` semantics for

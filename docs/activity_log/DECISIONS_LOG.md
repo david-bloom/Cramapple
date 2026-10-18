@@ -6,7 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired (`TASK-0077`)
+- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired, Wallets Kept, Eastern Time (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
@@ -106,6 +106,11 @@ Most recent entries (full chronological list follows below):
   27. **Legal review:** "My lawyer already checked the terms and privacy polcy". The plan treats the current Terms and Privacy
       Policy as lawyer-reviewed. Any new trial wording (the Terms trial section, the checkout mandate text, the notice emails) that
       was not part of that review goes back to the lawyer before publication.
+- **After Fable's assessment of plan v2, 2026-10-18:**
+  28. **Apple Pay and Google Pay stay in at launch.** "keep. these are native stripe options and just as reliable as credit card".
+  29. **Dates are shown in US Eastern time** in emails and at checkout. "eastern time zone".
+  30. **The day-7 charge goes ahead even if a reminder email bounces.** "still charge". The consent at checkout is the authorization.
+  31. **A second trial through an account email change is an accepted risk.** "email changes is acceptible risk".
 - **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
 ## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
