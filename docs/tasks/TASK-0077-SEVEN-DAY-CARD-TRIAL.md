@@ -104,8 +104,18 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
   accepts `wallet_options.link.display = "never"`. Stripe shows both sessions card-only with Link `never`; the rendered
   parent page shows card only (no Link checkbox, no "Bank") and "for Sam's AP Biology". Both check sessions were expired on
   Stripe; the webhook moved both orders to `setup_expired`; no accounts were created.
-- Still unverified live: a new student created with no email signing in by code; a fresh PaymentIntent being card-only;
-  whether the recovery page's Payment Element shows Link.
+- **New-student sign-in test (Journey D, order `7dc46674`, `dbloom01+trial-d-20261019@gmail.com`):** the student setup form
+  rendered card only; activation completed within seconds with **no email** (account unconfirmed, `invited_at` and
+  `confirmation_sent_at` empty; auth log shows only `user_signedup` by the server); profile created; trial access on; the
+  fresh PaymentIntent is card-only (`allowed_payment_method_types: ['card']`). A code request for the unconfirmed account
+  (`signInWithOtp`, `shouldCreateUser: false`, from the app's own client on localhost in Development mode) made Supabase send
+  **"Confirm sign up"**. On Development that is Supabase's **stock template**: no code, only a PKCE link (single-browser)
+  redirecting to the old `cramapple-dev-bloom-llc.vercel.app`, sent from `noreply@mail.app.supabase.io`. So the code step
+  cannot be completed on Development. Production's "Confirm sign up" template carried `{{ .Token }}` as of 2026-10-04
+  (Hard-Gate, David): **re-check it before launch**, because new trial students now meet that template first instead of
+  "Invite user". Order D was left trialing (charge due 2026-10-26 in Stripe test mode) so the sign-in can be finished once
+  Development's templates carry a code.
+- Still unverified live: whether the recovery page's Payment Element shows Link.
 
 ## Development deployment (2026-10-18)
 
