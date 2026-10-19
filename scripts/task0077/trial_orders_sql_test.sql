@@ -1,4 +1,5 @@
--- Scenario tests for 20261018191924_task0077_card_trial_orders.sql.
+-- Scenario tests for 20261018191924_task0077_card_trial_orders.sql and its
+-- QA follow-up 20261019141829_task0077_trial_qa_fixes.sql.
 -- Run on a throwaway database after scripts/task0077/stub_schema.sql and the
 -- migration; see scripts/task0077/README.md. Every check raises on failure.
 \set ON_ERROR_STOP 1
@@ -169,9 +170,8 @@ begin
   perform pg_temp.check(n = 0, 'no claim outside the first-attempt window');
   perform app.trial_sweep();
   select * into t from app.trial_orders where id = o;
-  perform pg_temp.check(t.status = 'delayed_notice'
-    and t.next_attempt_at between now() + interval '47 hours 59 minutes' and now() + interval '48 hours 1 minute',
-    'delayed: next attempt 48 h after notice');
+  perform pg_temp.check(t.status = 'delayed_notice' and t.next_attempt_at is null,
+    'delayed: no attempt time until the notice is sent');
   perform pg_temp.check((select ends_at from app.subject_entitlements where external_reference = o::text)
     > now() + interval '48 hours', 'access continues past the delayed charge');
   perform pg_temp.check(exists (select 1 from app.trial_notice_jobs where order_id = o and kind = 'delayed_charge'),
@@ -246,6 +246,121 @@ begin
   perform pg_temp.check(app.trial_mark_disputed(o) = 'disputed', 'dispute recorded');
   perform pg_temp.check(not exists (select 1 from app.subject_entitlements
     where external_reference = o::text and status = 'active'), 'dispute revokes this order''s access');
+end $$;
+
+-- ---------------------------------------------------------------------------
+-- 7. QA 2026-10-19: a full refund whose event arrives before the success
+--    event is terminal; the late success grants nothing.
+-- ---------------------------------------------------------------------------
+insert into auth.users values
+  ('00000000-0000-0000-0000-000000000006', 'refund-first@example.com'),
+  ('00000000-0000-0000-0000-000000000007', 'delayed@example.com'),
+  ('00000000-0000-0000-0000-000000000008', 'kid8@example.com'),
+  ('00000000-0000-0000-0000-000000000009', 'cancel-refund@example.com');
+insert into app.profiles values
+  ('00000000-0000-0000-0000-000000000006'), ('00000000-0000-0000-0000-000000000007'),
+  ('00000000-0000-0000-0000-000000000008'), ('00000000-0000-0000-0000-000000000009');
+
+do $$
+declare o uuid;
+begin
+  o := pg_temp.new_order('refund-first@example.com');
+  perform app.trial_activate(o, '00000000-0000-0000-0000-000000000006', 'pi_6', 'seti_6', 'pm_6',
+    'refund-first@example.com', now() - interval '7 days');
+  perform pg_temp.check(app.trial_mark_refunded(o, true) = 'refunded', 'full refund before success is recorded');
+  perform pg_temp.check((select status from app.trial_orders where id = o) = 'refunded', 'refund is terminal');
+  perform pg_temp.check(app.trial_convert(o, 'pi_6', 1999, 'usd') = 'already_refunded',
+    'late success after a full refund is not converted');
+  perform pg_temp.check(not exists (select 1 from app.subject_entitlements where external_reference = o::text
+    and status = 'active'), 'no access after refund-then-success');
+  perform pg_temp.check(app.trial_mark_refunded(o, true) = 'already_refunded', 'refund replay is idempotent');
+  perform pg_temp.check(not exists (select 1 from app.trial_claim_due(25) where id = o), 'refunded order is never claimed');
+  perform pg_temp.check((app.trial_cancel(o, 'student') ->> 'result') = 'not_cancelable', 'refunded order is not cancelable');
+
+  -- A cancelled order's full refund becomes its cancel outcome.
+  o := pg_temp.new_order('cancel-refund@example.com');
+  perform app.trial_activate(o, '00000000-0000-0000-0000-000000000009', 'pi_9', 'seti_9', 'pm_9',
+    'cancel-refund@example.com', now() - interval '7 days');
+  perform app.trial_cancel(o, 'student');
+  perform pg_temp.check(app.trial_mark_refunded(o, true) = 'refunded', 'refund on a cancelled order');
+  perform pg_temp.check((select (status, cancel_outcome)::text from app.trial_orders where id = o) = '(canceled,refunded)',
+    'cancelled order records the refund as its outcome');
+  perform pg_temp.check(exists (select 1 from app.trial_notice_jobs where order_id = o and kind = 'canceled'),
+    'cancel notice once refunded');
+end $$;
+
+-- ---------------------------------------------------------------------------
+-- 8. QA 2026-10-19: a delayed charge is claimable only 48 h after its notice
+--    was sent; an unsent notice never lets the charge run.
+-- ---------------------------------------------------------------------------
+do $$
+declare o uuid; t app.trial_orders; v timestamptz;
+begin
+  o := pg_temp.new_order('delayed@example.com');
+  perform app.trial_activate(o, '00000000-0000-0000-0000-000000000007', 'pi_7', 'seti_7', 'pm_7',
+    'delayed@example.com', now() - interval '7 days' - interval '3 hours');
+  perform app.trial_sweep();
+  -- Emulate days passing with the notice still unsent.
+  update app.trial_orders set delayed_notice_at = now() - interval '5 days' where id = o;
+  perform app.trial_sweep();
+  perform pg_temp.check(not exists (select 1 from app.trial_claim_due(25) where id = o),
+    'unsent delayed notice: never claimable, however long');
+  perform pg_temp.check((select count(*) from app.trial_notice_jobs where order_id = o
+    and kind = 'delayed_charge' and cancelled_at is null) = 1, 'one live delayed notice, not re-queued');
+  perform pg_temp.check((select ends_at from app.subject_entitlements where external_reference = o::text)
+    > now() + interval '48 hours', 'access continues while the notice is pending');
+
+  v := app.trial_delayed_notice_sent(o, now() + interval '49 hours');
+  perform pg_temp.check(v = now() + interval '49 hours', 'notice sent: attempt at the announced time');
+  perform pg_temp.check(app.trial_delayed_notice_sent(o, now() + interval '1 hour') = v,
+    'a repeated acknowledgement does not move the date');
+  perform pg_temp.check((select ends_at from app.subject_entitlements where external_reference = o::text)
+    >= v + interval '1 hour', 'access lasts past the announced charge');
+  perform pg_temp.check(not exists (select 1 from app.trial_claim_due(25) where id = o), 'not claimable before 48 h');
+  update app.trial_orders set next_attempt_at = now() - interval '1 minute' where id = o;
+  perform pg_temp.check(exists (select 1 from app.trial_claim_due(25) where id = o and charge_phase = 'delayed'),
+    'claimable once the announced time arrives');
+end $$;
+
+do $$
+declare o uuid;
+begin
+  select id into o from app.trial_orders where payment_intent_id = 'pi_7';
+  -- A missed delayed window: delay again with a fresh notice; the old date is void.
+  update app.trial_orders set status = 'delayed_notice', lease_token = null, lease_expires_at = null,
+    next_attempt_at = now() - interval '3 hours' where id = o;
+  perform app.trial_sweep();
+  perform pg_temp.check((select next_attempt_at from app.trial_orders where id = o) is null,
+    'missed delayed window: no attempt time until a new notice is sent');
+  perform pg_temp.check((select count(*) from app.trial_notice_jobs where order_id = o
+    and kind = 'delayed_charge') = 2, 'a new delayed notice is queued');
+  perform pg_temp.check(app.trial_delayed_notice_sent(o, now()) >= now() + interval '48 hours',
+    'never less than 48 hours from the acknowledgement');
+end $$;
+
+-- ---------------------------------------------------------------------------
+-- 9. QA 2026-10-19: the parent's cancel link stays valid until the
+--    cancellation's outcome is recorded, so a failed settlement can retry.
+-- ---------------------------------------------------------------------------
+do $$
+declare o uuid;
+begin
+  o := pg_temp.new_order('kid8@example.com', 'parent_share');
+  perform app.trial_activate(o, '00000000-0000-0000-0000-000000000008', 'pi_8', 'seti_8', 'pm_8',
+    'parent8@example.com', now(), 'terms-2026-10', 'stripe_consent_collection');
+  insert into app.trial_capabilities (order_id, purpose, token_hash, expires_at) values
+    (o, 'parent_cancel', repeat('a', 64), now() + interval '10 days'),
+    (o, 'payer_recovery', repeat('b', 64), now() + interval '10 days');
+  perform app.trial_cancel(o, 'parent');
+  perform pg_temp.check((select voided_at from app.trial_capabilities where token_hash = repeat('b', 64)) is not null,
+    'cancel voids recovery links at once');
+  perform pg_temp.check((select voided_at from app.trial_capabilities where token_hash = repeat('a', 64)) is null,
+    'the parent cancel link survives until settlement finishes');
+  perform pg_temp.check((app.trial_cancel(o, 'parent') ->> 'cancel_outcome') is null,
+    'a retry sees the unfinished settlement');
+  perform app.trial_set_cancel_outcome(o, 'no_charge');
+  perform pg_temp.check((select voided_at from app.trial_capabilities where token_hash = repeat('a', 64)) is not null,
+    'recording the outcome voids the parent cancel link');
 end $$;
 
 select 'ALL TRIAL ORDER SQL TESTS PASSED' as result;

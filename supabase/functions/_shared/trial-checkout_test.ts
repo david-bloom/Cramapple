@@ -24,6 +24,7 @@ function fakeService(opts: { consumed?: string[]; priorPaid?: boolean } = {}) {
       select(_cols?: string, o?: Any) { head = Boolean(o?.head); return b; },
       eq(col: string, val: unknown) { filters.push((r) => r[col] === val); return b; },
       in(col: string, vals: unknown[]) { filters.push((r) => vals.includes(r[col])); return b; },
+      is(col: string, val: unknown) { filters.push((r) => (r[col] ?? null) === val); return b; },
       insert(row: Any) {
         mode = "insert";
         if (orders.some((o) => o.status === "pending_setup" && o.student_email_norm === row.student_email_norm)) {
@@ -42,8 +43,9 @@ function fakeService(opts: { consumed?: string[]; priorPaid?: boolean } = {}) {
       },
       then(resolve: Any) {
         if (mode === "update") {
-          for (const r of matching()) Object.assign(r, patch);
-          return resolve({ error: null });
+          const hit = matching();
+          for (const r of hit) Object.assign(r, patch);
+          return resolve({ data: hit.map((r) => ({ id: r.id })), error: null });
         }
         if (table === "stripe_checkout_sessions") {
           return resolve({ count: opts.priorPaid ? 1 : 0, error: null });
@@ -64,8 +66,11 @@ function fakeService(opts: { consumed?: string[]; priorPaid?: boolean } = {}) {
   };
 }
 
-function fakeStripe(promos: Any[] = []) {
+function fakeStripe(promos: Any[] = [], opts: { idempotent?: boolean } = {}) {
   const calls: Any[] = [];
+  // Like Stripe API v1: a reused idempotency key replays the first response.
+  const byKey = new Map<string, Any>();
+  const expired = new Set<string>();
   return {
     calls,
     prices: { retrieve: () => Promise.resolve({ unit_amount: 3999, currency: "usd", product: "prod_bio", type: "one_time" }) },
@@ -75,9 +80,13 @@ function fakeStripe(promos: Any[] = []) {
       sessions: {
         create: (p: Any, o: Any) => {
           calls.push(["session", p, o]);
-          return Promise.resolve({ id: `cs_${calls.length}`, client_secret: "secret", url: p.ui_mode === "hosted_page" ? "https://checkout.stripe.com/x" : null });
+          if (opts.idempotent && byKey.has(o.idempotencyKey)) return Promise.resolve(byKey.get(o.idempotencyKey));
+          const session = { id: `cs_${calls.length}`, client_secret: "secret", url: p.ui_mode === "hosted_page" ? "https://checkout.stripe.com/x" : null };
+          byKey.set(o.idempotencyKey, session);
+          return Promise.resolve(session);
         },
-        expire: (id: string) => { calls.push(["expire", id]); return Promise.resolve({}); },
+        expire: (id: string) => { calls.push(["expire", id]); expired.add(id); return Promise.resolve({}); },
+        isExpired: (id: string) => expired.has(id),
       },
     },
   };
@@ -192,4 +201,62 @@ Deno.test("parent start uses Stripe's hosted page with required Terms consent", 
   assertEquals(session.custom_text.submit.message.includes("for Sam's biology"), true);
   assertEquals([res.url !== null, service.orders[0].payer_is_learner], [true, false]);
   assertEquals(stripe.calls.some((c: Any) => c[0] === "customer"), false);
+});
+
+const startOf = (q: Any, over: Any = {}) => ({
+  ...base,
+  quoteVersion: q.quote_version,
+  studentAck: { version: "terms-1", source: "checkout" },
+  studentName: null,
+  consentIp: null,
+  consentUserAgent: null,
+  urls: { returnUrl: "https://app/return" },
+  ...over,
+});
+
+Deno.test("a retry with the same cart gets a live session, never the one it just expired", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe([], { idempotent: true });
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  const first = await startTrialSetup(deps(service, stripe), startOf(q));
+  const second = await startTrialSetup(deps(service, stripe), startOf(q));
+  assertEquals(stripe.checkout.sessions.isExpired(first.session_id), true);
+  assertEquals(second.session_id !== first.session_id, true);
+  assertEquals(stripe.checkout.sessions.isExpired(second.session_id), false);
+  assertEquals(service.orders[0].checkout_session_id, second.session_id);
+});
+
+Deno.test("a start whose order was re-linked by a concurrent start stops instead of overwriting it", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  await startTrialSetup(deps(service, stripe), startOf(q));
+  // Another start replaces the session between this start's read and write.
+  const realExpire = stripe.checkout.sessions.expire;
+  stripe.checkout.sessions.expire = (id: string) => {
+    service.orders[0] = { ...service.orders[0], checkout_session_id: "cs_other" };
+    return realExpire(id);
+  };
+  await assertRejects(() => startTrialSetup(deps(service, stripe), startOf(q)), TrialError, "trial_start_in_progress");
+  assertEquals(service.orders[0].checkout_session_id, "cs_other");
+});
+
+Deno.test("resuming a purchase does not exhaust the promo code it reserved; another buyer is still refused", async () => {
+  const lastSlot = { ...HALF, max_redemptions: 1, times_redeemed: 0 };
+  const service = fakeService();
+  const stripe = fakeStripe([lastSlot]);
+  const withCode = { ...base, promoCode: "HALF" };
+  const q = await buildTrialQuote(deps(service, stripe), withCode);
+  await startTrialSetup(deps(service, stripe), startOf(q, { promoCode: "HALF" }));
+  assertEquals(service.orders[0].promo_use_state, "reserved");
+
+  const again = await buildTrialQuote(deps(service, stripe), withCode);
+  assertEquals(again.charge_amount, 1999);
+  await startTrialSetup(deps(service, stripe), startOf(again, { promoCode: "HALF" }));
+
+  await assertRejects(
+    () => buildTrialQuote(deps(service, stripe), { ...withCode, studentEmail: "other@example.com" }),
+    TrialError,
+    "promo_code_exhausted",
+  );
 });

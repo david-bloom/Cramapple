@@ -22,6 +22,31 @@ code PR instead.
 
 CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tests) passes locally: 222 tests.
 
+## QA fixes (2026-10-19, PR #507 review)
+
+Six findings from the independent review of `0dcf1639`, all reproduced and fixed. **Not yet applied to Development**: the SQL
+changes are a new migration, `20261019141829_task0077_trial_qa_fixes.sql`, because the original is already applied there; the
+code changes need `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`, `deliver-transactional-email`,
+`cancel-trial` and `charge-due-trials` redeployed.
+
+1. **Refund before success (P1).** `trial_mark_refunded` makes a full refund terminal for any charged-or-chargeable order;
+   `trial_convert` returns `already_refunded` (no grant, no second refund). A cancelled order records it as its cancel outcome.
+2. **Checkout retry replayed the expired session (P1).** Each start uses a fresh idempotency key; resetting and linking the
+   session are compare-and-set, so a concurrent start stops with `409 trial_start_in_progress` instead of overwriting.
+3. **Delayed charge without 48 hours' notice (P1).** The sweep leaves `next_attempt_at` unset; the notice worker calls
+   `trial_delayed_notice_sent` after the payer's email is accepted, which sets the attempt no sooner than 48 hours later and
+   extends access past it. Until then the order is never claimable and access keeps rolling forward. A missed window cancels the
+   unsent old notice and queues a new one. The student's copy waits for the payer's so both name the same date.
+4. **Expired parent cancel link in a delayed notice (P1).** Expiry is three days after the latest charge the order can still
+   face, and never less than three days from issue (`parentCancelExpiry`).
+5. **Unfinished cancellation settlement (P2).** A repeat cancel with no recorded outcome re-runs the (idempotent) settlement;
+   the parent's cancel link stays valid until the outcome is recorded; the charge worker resumes cancellations left unsettled for
+   over five minutes, before its Stripe clean-up.
+6. **Own reservation exhausted the promo code (P2).** Local promo use counts exclude this email's own pending reservation.
+
+Tests: CI's Deno command 233/233; SQL scenarios 7–9 added and all pass on a local Postgres (they fail without the new
+migration); Codex's four Deno probes and its refund SQL probe no longer reproduce.
+
 ## Development deployment (2026-10-18)
 
 - **Migrations applied** with `apply_migration`; Development recorded them as `20261018191924` and `20261018191935`, and the files

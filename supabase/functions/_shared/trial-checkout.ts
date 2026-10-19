@@ -101,14 +101,24 @@ async function lookupPromotion(
   return choosePromotion(facts, customerId);
 }
 
-async function localPromoUses(service: Any, promotionCodeId: string, couponId: string) {
+// Uses held by trial orders, not counting this email's own pending order:
+// resuming a purchase must not exhaust the code it already reserved. One
+// pending order per email is enforced by the database, so the exclusion is
+// exactly that order.
+async function localPromoUses(service: Any, promotionCodeId: string, couponId: string, emailNorm: string) {
   const count = async (column: string, value: string) => {
-    const { count, error } = await service.schema("app").from("trial_orders")
-      .select("id", { count: "exact", head: true })
-      .eq(column, value)
-      .in("promo_use_state", ["reserved", "redeemed"]);
-    if (error) throw error;
-    return count ?? 0;
+    const held = async (own: boolean) => {
+      let q = service.schema("app").from("trial_orders")
+        .select("id", { count: "exact", head: true })
+        .eq(column, value);
+      q = own
+        ? q.eq("student_email_norm", emailNorm).eq("status", "pending_setup").eq("promo_use_state", "reserved")
+        : q.in("promo_use_state", ["reserved", "redeemed"]);
+      const { count, error } = await q;
+      if (error) throw error;
+      return count ?? 0;
+    };
+    return Math.max(0, (await held(false)) - (await held(true)));
   };
   return {
     promotionCode: await count("promotion_code_id", promotionCodeId),
@@ -144,7 +154,7 @@ export async function buildTrialQuote(deps: TrialDeps, input: QuoteInput): Promi
     const result = evaluatePromotion(
       price,
       facts,
-      await localPromoUses(deps.service, facts.id, facts.coupon.id),
+      await localPromoUses(deps.service, facts.id, facts.coupon.id, normalizeEmail(input.studentEmail)),
       {
         nowSeconds: Math.floor(deps.now().getTime() / 1000),
         customerId: input.customerId,
@@ -295,10 +305,17 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
         // Already completed or expired; the webhook handles either.
       });
     }
-    const { error } = await app.from("trial_orders")
+    // Compare-and-set on the session we just expired: a concurrent start
+    // that already replaced it wins, and this one stops.
+    let reset = app.from("trial_orders")
       .update({ ...row, checkout_session_id: null, stripe_customer_id: null })
       .eq("id", orderId).eq("status", "pending_setup");
+    reset = existing.checkout_session_id
+      ? reset.eq("checkout_session_id", existing.checkout_session_id)
+      : reset.is("checkout_session_id", null);
+    const { data: resetRows, error } = await reset.select("id");
     if (error) throw error;
+    if (!resetRows || resetRows.length === 0) throw new TrialError("trial_start_in_progress", 409);
   } else {
     const { data, error } = await app.from("trial_orders").insert(row).select("id").single();
     if (error) {
@@ -319,6 +336,9 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
     ...(input.studentName ? { student_name: input.studentName } : {}),
   };
 
+  // A fresh key per start: a retry expires the previous session above, and
+  // reusing its creation key would make Stripe replay that expired session.
+  const setupKey = `trial-setup:${orderId}:${crypto.randomUUID()}`;
   let session: Any;
   let customerId: string | null = null;
   if (input.purchaseType === "student_direct") {
@@ -338,7 +358,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
         metadata: { trial_order_id: orderId },
       },
       metadata,
-    }, { idempotencyKey: `trial-setup:${orderId}:${quote.quote_version}` });
+    }, { idempotencyKey: setupKey });
   } else {
     session = await deps.stripe.checkout.sessions.create({
       mode: "setup",
@@ -363,13 +383,19 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
         metadata: { trial_order_id: orderId },
       },
       metadata,
-    }, { idempotencyKey: `trial-setup:${orderId}:${quote.quote_version}` });
+    }, { idempotencyKey: setupKey });
   }
 
-  const { error: linkError } = await app.from("trial_orders")
+  // Link only if no concurrent start linked its own session first.
+  const { data: linked, error: linkError } = await app.from("trial_orders")
     .update({ checkout_session_id: session.id, stripe_customer_id: customerId, updated_at: nowIso })
-    .eq("id", orderId).eq("status", "pending_setup");
+    .eq("id", orderId).eq("status", "pending_setup").is("checkout_session_id", null)
+    .select("id");
   if (linkError) throw linkError;
+  if (!linked || linked.length === 0) {
+    await deps.stripe.checkout.sessions.expire(session.id).catch(() => {});
+    throw new TrialError("trial_start_in_progress", 409);
+  }
 
   return {
     order_id: orderId,

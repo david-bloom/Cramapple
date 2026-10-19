@@ -147,12 +147,32 @@ export type NoticeDeps = {
 const RECOVERY_KINDS = new Set<NoticeKind>(["payment_failed", "requires_action", "grace_ended"]);
 const PARENT_CANCEL_KINDS = new Set<NoticeKind>(["trial_started", "reminder", "delayed_charge"]);
 
+const DAY_MS = 86_400_000;
+// A delayed charge is announced for no sooner than this; the order becomes
+// claimable only once the payer's notice is sent (trial_delayed_notice_sent),
+// and never less than 48 hours after that.
+export const DELAYED_NOTICE_LEAD_MS = 49 * 60 * 60 * 1000;
+
+/**
+ * A parent's cancel link lasts until three days after the latest charge the
+ * order can still face (the original trial end, or a later delayed charge)
+ * and never less than three days from when it is issued.
+ */
+export function parentCancelExpiry(order: Pick<NoticeOrder, "trial_ends_at" | "next_attempt_at">, now: Date) {
+  const latest = Math.max(
+    now.getTime(),
+    order.trial_ends_at ? new Date(order.trial_ends_at).getTime() : 0,
+    order.next_attempt_at ? new Date(order.next_attempt_at).getTime() : 0,
+  );
+  return new Date(latest + 3 * DAY_MS).toISOString();
+}
+
 async function issueCapability(deps: NoticeDeps, order: NoticeOrder, purpose: "parent_cancel" | "payer_recovery") {
   const { token, hash } = await newCapabilityToken();
   const expires = purpose === "payer_recovery"
     ? (order.recovery_expires_at ??
-      new Date(new Date(order.grace_ends_at ?? deps.now()).getTime() + 30 * 86400000).toISOString())
-    : new Date(new Date(order.trial_ends_at ?? deps.now()).getTime() + 3 * 86400000).toISOString();
+      new Date(new Date(order.grace_ends_at ?? deps.now()).getTime() + 30 * DAY_MS).toISOString())
+    : parentCancelExpiry(order, deps.now());
   const { error } = await deps.service.schema("app").from("trial_capabilities").insert({
     order_id: order.id,
     purpose,
@@ -173,9 +193,20 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
 
   for (const job of (jobs ?? []) as NoticeJob[]) {
     try {
-      const { data: order, error: orderError } = await app.from("trial_orders")
+      const { data: stored, error: orderError } = await app.from("trial_orders")
         .select("*").eq("id", job.order_id).single();
       if (orderError) throw orderError;
+      // A delayed charge's date is fixed by sending the payer's notice: render
+      // the planned date and record it once that email is accepted. The
+      // student's copy waits for it, so both name the same date.
+      if (job.kind === "delayed_charge" && job.recipient_role === "student" && !stored.next_attempt_at &&
+        stored.status === "delayed_notice") {
+        throw new Error("waiting_for_payer_notice");
+      }
+      const delayedNext = job.kind === "delayed_charge" && !stored.next_attempt_at
+        ? new Date(deps.now().getTime() + DELAYED_NOTICE_LEAD_MS).toISOString()
+        : null;
+      const order = delayedNext ? { ...stored, next_attempt_at: delayedNext } : stored;
       if (!noticeStillRelevant(job.kind, order.status)) {
         await app.from("trial_notice_jobs").update({ cancelled_at: deps.now().toISOString() })
           .eq("id", job.id).eq("lease_id", job.lease_id);
@@ -213,6 +244,15 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
         },
         `trial:${job.dedupe_key}`.slice(0, 100),
       );
+      if (job.kind === "delayed_charge" && job.recipient_role === "payer") {
+        // Starts the 48-hour clock. If this write fails the job retries; the
+        // send above is idempotent on the same key.
+        const { error: ackError } = await app.rpc("trial_delayed_notice_sent", {
+          p_order_id: order.id,
+          p_next_attempt_at: order.next_attempt_at,
+        });
+        if (ackError) throw ackError;
+      }
       await app.from("trial_notice_jobs").update({ delivered_at: deps.now().toISOString(), last_error: null })
         .eq("id", job.id).eq("lease_id", job.lease_id);
       summary.sent++;

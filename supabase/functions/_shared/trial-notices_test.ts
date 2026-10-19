@@ -6,6 +6,7 @@ import {
   noticeRecipient,
   noticeStillRelevant,
   noticeVariables,
+  parentCancelExpiry,
   templateEnvName,
 } from "./trial-notices.ts";
 
@@ -65,13 +66,17 @@ Deno.test("recipients: payer email, or the student's current account email", () 
   assertEquals(templateEnvName("trial_started", "student"), "LOOPS_TRIAL_TRIAL_STARTED_STUDENT_TRANSACTIONAL_ID");
 });
 
-function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>) {
+function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>, now = "2026-10-18T16:00:00Z") {
+  const rpcs: Any[] = [];
   const sent: Any[] = [];
   const updates: Any[] = [];
   const caps: Any[] = [];
   const service = {
     schema: () => ({
-      rpc: () => Promise.resolve({ data: jobs, error: null }),
+      rpc: (fn: string, args: Any) => {
+        rpcs.push([fn, args]);
+        return Promise.resolve({ data: fn === "claim_trial_notice_jobs" ? jobs : null, error: null });
+      },
       from: (table: string) => {
         const b: Any = {
           select: () => b,
@@ -94,9 +99,9 @@ function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>) {
     appBaseUrl: "https://app",
     marketingBaseUrl: "https://site",
     mailingAddress: "Test address",
-    now: () => new Date("2026-10-18T16:00:00Z"),
+    now: () => new Date(now),
   };
-  return { d, sent, updates, caps };
+  return { d, sent, updates, caps, rpcs };
 }
 
 Deno.test("worker: sends with a stable idempotency key and issues a parent cancel token", async () => {
@@ -123,4 +128,41 @@ Deno.test("worker: a stale notice is cancelled, and missing template config back
   assertEquals((await deliverTrialNotices(h2.d)).failed, 1);
   const backoff = h2.updates.find(([t]: Any) => t === "trial_notice_jobs")[1];
   assertEquals(backoff.last_error.startsWith("missing_email_config:"), true);
+});
+
+Deno.test("a parent's cancel link outlives a delayed charge and is never issued already expired", () => {
+  // Original trial end Oct 21; an outage moved the charge to Oct 27; issued Oct 25.
+  const delayed = { trial_ends_at: "2026-10-21T16:00:00Z", next_attempt_at: "2026-10-27T17:00:00Z" };
+  assertEquals(parentCancelExpiry(delayed, new Date("2026-10-25T16:00:00Z")), "2026-10-30T17:00:00.000Z");
+  // Issued long after both: still three days from issue.
+  assertEquals(
+    parentCancelExpiry({ trial_ends_at: "2026-10-21T16:00:00Z", next_attempt_at: null }, new Date("2026-11-01T00:00:00Z")),
+    "2026-11-04T00:00:00.000Z",
+  );
+});
+
+Deno.test("worker: a delayed charge is dated from the payer's sent notice, and its cancel link covers it", async () => {
+  const delayedOrder = { ...order, status: "delayed_notice", trial_ends_at: "2026-10-21T16:00:00Z", next_attempt_at: null };
+  const job = { id: "j4", dedupe_key: "order-1:delayed_charge:payer:1", order_id: "order-1", kind: "delayed_charge", recipient_role: "payer", attempt_count: 1, lease_id: "L" };
+  const h = deps([job], delayedOrder, { LOOPS_TRIAL_DELAYED_CHARGE_PAYER_TRANSACTIONAL_ID: "tx_d" }, "2026-10-25T16:00:00Z");
+  assertEquals((await deliverTrialNotices(h.d)).sent, 1);
+  const ack = h.rpcs.find(([fn]: Any) => fn === "trial_delayed_notice_sent");
+  assertEquals(ack[1], { p_order_id: "order-1", p_next_attempt_at: "2026-10-27T17:00:00.000Z" });
+  assertEquals(new Date(h.caps[0].expires_at) > new Date("2026-10-27T17:00:00Z"), true);
+});
+
+Deno.test("worker: no acknowledgement when the delayed-charge email fails, so no charge becomes due", async () => {
+  const delayedOrder = { ...order, status: "delayed_notice", next_attempt_at: null };
+  const job = { id: "j5", dedupe_key: "k5", order_id: "order-1", kind: "delayed_charge", recipient_role: "payer", attempt_count: 1, lease_id: "L" };
+  const h = deps([job], delayedOrder, {}); // template missing: the send never happens
+  assertEquals((await deliverTrialNotices(h.d)).failed, 1);
+  assertEquals(h.rpcs.some(([fn]: Any) => fn === "trial_delayed_notice_sent"), false);
+});
+
+Deno.test("worker: the student's delayed-charge copy waits for the payer's, so both name one date", async () => {
+  const delayedOrder = { ...order, status: "delayed_notice", next_attempt_at: null };
+  const job = { id: "j6", dedupe_key: "k6", order_id: "order-1", kind: "delayed_charge", recipient_role: "student", attempt_count: 1, lease_id: "L" };
+  const h = deps([job], delayedOrder, { LOOPS_TRIAL_DELAYED_CHARGE_STUDENT_TRANSACTIONAL_ID: "tx_s" });
+  assertEquals((await deliverTrialNotices(h.d)).failed, 1);
+  assertEquals(h.sent.length, 0);
 });

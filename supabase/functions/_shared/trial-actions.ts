@@ -59,6 +59,9 @@ export function orderView(o: Any) {
 
 // Always stops future collection and ends this order's trial access now;
 // then settles the PaymentIntent and reports the outcome only once known.
+// Settlement is idempotent and resumable: if Stripe or the outcome write
+// failed after the database cancellation, the next cancel call (the student
+// again, the parent's still-valid link, or the charge worker) finishes it.
 export async function cancelTrialOrder(
   deps: { service: Any; stripe: Any },
   orderId: string,
@@ -69,15 +72,25 @@ export async function cancelTrialOrder(
     p_actor: actor,
   });
   if (error) throw error;
-  if (res.result === "already_canceled") {
-    const outcome = (res.cancel_outcome ?? null) as CancelOutcome | null;
-    return { result: res.result, outcome, message: outcome ? CANCEL_MESSAGES[outcome] : null };
+  if (res.result === "already_canceled" && res.cancel_outcome) {
+    const outcome = res.cancel_outcome as CancelOutcome;
+    return { result: res.result, outcome, message: CANCEL_MESSAGES[outcome] };
   }
-  if (res.result !== "canceled") return { result: res.result, outcome: null, message: null };
+  if (res.result !== "canceled" && res.result !== "already_canceled") {
+    return { result: res.result, outcome: null, message: null };
+  }
+  const outcome = await settleCancellation(deps, orderId, res.payment_intent_id ?? null);
+  return { result: res.result, outcome, message: CANCEL_MESSAGES[outcome] };
+}
 
+async function settleCancellation(
+  deps: { service: Any; stripe: Any },
+  orderId: string,
+  paymentIntentId: string | null,
+): Promise<CancelOutcome> {
   let outcome: CancelOutcome = "no_charge";
-  if (res.payment_intent_id) {
-    const pi = await deps.stripe.paymentIntents.retrieve(res.payment_intent_id);
+  if (paymentIntentId) {
+    const pi = await deps.stripe.paymentIntents.retrieve(paymentIntentId);
     if (["requires_payment_method", "requires_confirmation", "requires_action"].includes(pi.status)) {
       try {
         await deps.stripe.paymentIntents.cancel(pi.id);
@@ -101,7 +114,34 @@ export async function cancelTrialOrder(
     p_outcome: outcome,
   });
   if (outcomeError) throw outcomeError;
-  return { result: "canceled", outcome, message: CANCEL_MESSAGES[outcome] };
+  return outcome;
+}
+
+/** Cancellations whose settlement did not finish: the charge worker resumes them. */
+export async function resumeUnsettledCancellations(
+  deps: { service: Any; stripe: Any },
+  now: Date,
+  limit = 10,
+): Promise<number> {
+  const { data, error } = await deps.service.schema("app").from("trial_orders")
+    .select("id")
+    .eq("status", "canceled")
+    .is("cancel_outcome", null)
+    .not("payment_intent_id", "is", null)
+    // Leave a request that is still settling alone.
+    .lt("canceled_at", new Date(now.getTime() - 5 * 60_000).toISOString())
+    .limit(limit);
+  if (error) throw error;
+  let settled = 0;
+  for (const o of data ?? []) {
+    try {
+      await cancelTrialOrder(deps, o.id, "operator");
+      settled++;
+    } catch {
+      // Still failing: the next run tries again.
+    }
+  }
+  return settled;
 }
 
 // The payer confirms the order's own PaymentIntent on-session (authenticate

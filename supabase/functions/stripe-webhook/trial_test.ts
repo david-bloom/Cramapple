@@ -182,6 +182,15 @@ Deno.test("a charge that lands after a cancel is refunded automatically, never g
   assertEquals(h.calls.find((c) => c[1] === "trial_set_cancel_outcome")[2].p_outcome, "refunded");
 });
 
+Deno.test("a success that arrives after a full refund grants nothing and refunds nothing", async () => {
+  const h = harness({ convert: "already_refunded" });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.succeeded", {
+    id: "pi_1", amount_received: 1999, currency: "usd", metadata: { kind: "trial_conversion", trial_order_id: "order-1" },
+  });
+  assertEquals(h.calls.some((c) => c[0] === "refund"), false);
+  assertEquals(h.calls.some((c) => c[0] === "event" && c[1] === "trial_converted"), false);
+});
+
 Deno.test("conversion records the trial_converted event", async () => {
   const h = harness();
   await handleTrialPaymentIntent(h.deps, "payment_intent.succeeded", {

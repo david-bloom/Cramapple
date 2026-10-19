@@ -27,7 +27,7 @@ function harness(intent: Any, confirm: () => Promise<Any>, extra: { claimed?: An
       },
       from: (table: string) => {
         const b: Any = {
-          select: () => b, in: () => b, is: () => b, eq: () => b,
+          select: () => b, in: () => b, is: () => b, eq: () => b, not: () => b, lt: () => b,
           limit: () => Promise.resolve({ data: extra.finished ?? [], error: null }),
           update: (p: Any) => { calls.push(["update", table, p]); return b; },
           upsert: (p: Any) => { calls.push(["upsert", table, p]); return Promise.resolve({ error: null }); },

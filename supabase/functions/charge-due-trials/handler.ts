@@ -6,6 +6,7 @@
 // never triggers a new attempt; the order goes to reconciling.
 
 import { type AttemptOutcome, classifyConfirmError } from "../_shared/trial-core.ts";
+import { resumeUnsettledCancellations } from "../_shared/trial-actions.ts";
 
 // deno-lint-ignore no-explicit-any
 type Any = any;
@@ -130,6 +131,9 @@ export async function runChargeWorker(deps: ChargeDeps) {
   // the 48-hour notice and keep access (plan §6.12).
   const { data: sweep, error: sweepError } = await app.rpc("trial_sweep");
   if (sweepError) throw sweepError;
+  // Before clean-up, which would otherwise cancel the intent of a
+  // cancellation whose outcome was never recorded.
+  const resettled = await resumeUnsettledCancellations(deps, new Date());
   const cleaned = await cleanUpFinishedOrders(deps);
 
   const results: Record<string, number> = {};
@@ -148,7 +152,7 @@ export async function runChargeWorker(deps: ChargeDeps) {
     }
   }
 
-  const summary = { sweep, cleaned, charges_enabled: deps.chargesEnabled, results };
+  const summary = { sweep, resettled, cleaned, charges_enabled: deps.chargesEnabled, results };
   await app.from("trial_worker_heartbeat").upsert(
     { worker: "charge", last_run_at: new Date().toISOString(), last_summary: summary },
     { onConflict: "worker" },

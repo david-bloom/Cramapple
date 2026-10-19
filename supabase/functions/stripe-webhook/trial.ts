@@ -255,6 +255,12 @@ export async function handleTrialPaymentIntent(
     if (outcomeError) throw outcomeError;
     return;
   }
+  if (result === "already_refunded") {
+    // The full refund's event arrived first; it is terminal. No grant, no
+    // second refund.
+    deps.log("trial_success_after_refund", { order_id: orderId, payment_intent_id: intent.id });
+    return;
+  }
   if (result === "mismatch" || result === "not_found") {
     deps.log("trial_conversion_needs_review", { order_id: orderId, payment_intent_id: intent.id, result });
   }

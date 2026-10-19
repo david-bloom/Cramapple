@@ -57,6 +57,46 @@ Deno.test("cancelling a pending order (no PI yet) is no charge; a converted one 
   assertEquals((await cancelTrialOrder(deps(null, { result: "not_cancelable", status: "converted" }).d, "o", "student")).result, "not_cancelable");
 });
 
+Deno.test("a cancel whose Stripe settlement failed is finished by the next call", async () => {
+  const outcomes: Any[] = [];
+  let state: Any = { result: "canceled", payment_intent_id: "pi_1" };
+  let failRetrieve = true;
+  const service = {
+    schema: () => ({
+      rpc: (fn: string, args: Any) => {
+        if (fn === "trial_cancel") {
+          const r = state;
+          state = { result: "already_canceled", payment_intent_id: "pi_1", cancel_outcome: null };
+          return Promise.resolve({ data: r, error: null });
+        }
+        outcomes.push(args.p_outcome);
+        state = { ...state, cancel_outcome: args.p_outcome };
+        return Promise.resolve({ data: null, error: null });
+      },
+    }),
+  };
+  const stripe = {
+    paymentIntents: {
+      retrieve: () => failRetrieve ? Promise.reject(new Error("stripe down")) : Promise.resolve({ id: "pi_1", status: "requires_confirmation" }),
+      cancel: () => Promise.resolve({}),
+    },
+    refunds: { create: () => Promise.resolve({}) },
+  };
+  let threw = false;
+  try {
+    await cancelTrialOrder({ service, stripe }, "order-1", "parent");
+  } catch {
+    threw = true;
+  }
+  assertEquals([threw, outcomes.length], [true, 0]);
+  failRetrieve = false;
+  const r = await cancelTrialOrder({ service, stripe }, "order-1", "parent");
+  assertEquals([r.result, r.outcome, outcomes], ["already_canceled", "no_charge", ["no_charge"]]);
+  // Once recorded, a further call reports the outcome without touching Stripe.
+  failRetrieve = true;
+  assertEquals((await cancelTrialOrder({ service, stripe }, "order-1", "parent")).outcome, "no_charge");
+});
+
 Deno.test("capability tokens resolve only for their purpose, unexpired and not voided", async () => {
   const { token, hash } = await newCapabilityToken();
   const now = new Date("2026-10-20T00:00:00Z");
