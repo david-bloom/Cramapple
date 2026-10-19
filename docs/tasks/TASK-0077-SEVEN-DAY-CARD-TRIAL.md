@@ -100,7 +100,10 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
    (`TASK-0058` E) for wallets.
 6. **Loops:** design and publish the 18 templates (variables listed in `_shared/trial-notices.ts` `noticeVariables`).
 7. **Lawyer:** the trial section of the Terms, the checkout mandate text (`mandateText`, `parentMandateText` in
-   `_shared/trial-core.ts`) and the notice emails, if not already reviewed (`DECISION-0126` item 27).
+   `_shared/trial-core.ts`) and the notice emails, if not already reviewed (`DECISION-0126` item 27). Terms §12.2
+   (Free Trials) aligned by David 2026-10-18. Both mandate texts now also say "Cancelling ends trial access right
+   away." (David, 2026-10-18), because DECISION-0126 ends access on cancel and buyers otherwise expect access until
+   the trial's end date.
 8. **Production** (plan §8 slices 7–9): verify the `growth_event_outbox_event_name_check` definition on Production matches the
    migration's list before applying; deploy dormant (`TRIAL_ADMISSION_ENABLED=false`, `TRIAL_CHARGES_ENABLED=true`, notices on,
    heartbeat green); Lovable publish of both checkouts + app + `/trial` retirement together; David's disclosed $1 live trial with a

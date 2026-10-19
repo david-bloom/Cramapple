@@ -34,7 +34,7 @@ export function formatUsd(cents: number) {
 export function mandateText(chargeCents: number, chargeDate: Date) {
   return `$0 today. On ${easternDate(chargeDate)} (Eastern) we'll charge ` +
     `${formatUsd(chargeCents)} to this card unless you cancel. ` +
-    `Cancel any time in Account.`;
+    `Cancel any time in Account. Cancelling ends trial access right away.`;
 }
 
 // The parent's hosted page (custom_text.submit, max 1,200 characters).
@@ -46,7 +46,7 @@ export function parentMandateText(
   const who = studentFirstName ? `${studentFirstName}'s ` : "";
   return `Free for 7 days. When the trial ends we'll charge ${formatUsd(chargeCents)} ` +
     `to this card for ${who}${subjects} unless you cancel. You can cancel from ` +
-    `the link in your confirmation email.`;
+    `the link in your confirmation email. Cancelling ends trial access right away.`;
 }
 
 // ---------------------------------------------------------------------------
