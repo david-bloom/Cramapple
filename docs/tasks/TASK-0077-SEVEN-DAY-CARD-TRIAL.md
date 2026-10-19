@@ -38,8 +38,18 @@ CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tes
   → 401; webhook with a bad signature → 400; `trial_quote` → `pay_now` / `admission_off` with the $39.99 test price (stripe-node 22
   against Stripe test mode); the legacy pay-now checkout still creates a session with a client secret; checkout status for an
   unknown session → 404.
-- **Not set on Development:** every `TRIAL_*` secret, the Loops template ids, the Vault entries and the worker schedules. Trials
-  cannot start there until they are.
+- **Development setup completed 2026-10-18/19 (David approved):**
+  - Secrets: `TRIAL_ADMISSION_ENABLED=true`, `TRIAL_TERMS_VERSION=terms-dev-placeholder` (replace with the real label),
+    `TRIAL_CHARGES_ENABLED=true`, a new `TRIAL_CHARGE_WORKER_SECRET`, a rotated `TRANSACTIONAL_EMAIL_WORKER_SECRET`,
+    `APP_BASE_URL` = the marketing Lovable preview, `STUDENT_APP_URL` = the app Lovable preview, `ALLOWED_ORIGINS` extended with
+    both Lovable preview origins and `localhost:8080` (the five origins found allowed before were kept; an origin not probed may
+    have been dropped).
+  - **`TRIAL_NOTICES_ENABLED` left off** until the Loops templates exist; notice jobs queue and send once it is on.
+  - Vault: the four entries from migration `20261018191935`, written without printing values.
+  - Both workers invoked once through the Vault path (HTTP 200; charge heartbeat written, `charges_enabled: true`), then
+    scheduled with `scripts/task0077/schedule_workers.sql` (`*/5` charge, `*/2` email).
+  - `send-parent-payment-email` and `deliver-transactional-email` redeployed for the parent trial email and the app link base.
+    `send-parent-payment-email`'s previous Development deploy was **not** compared with `main` before being replaced.
 
 ## Frontend contract (for the Lovable work; not started)
 
