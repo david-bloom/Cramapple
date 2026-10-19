@@ -39,7 +39,10 @@ Deno.serve(async (req) => {
           const { data } = await service.auth.admin.getUserById(userId);
           return data.user?.email ?? null;
         },
-        appBaseUrl: (Deno.env.get("APP_BASE_URL") ?? "").replace(/\/$/, ""),
+        // Account, cancel and recovery pages live in the student app
+        // (app.cramapple.com); APP_BASE_URL is the marketing site.
+        appBaseUrl: (Deno.env.get("STUDENT_APP_URL") ?? Deno.env.get("APP_BASE_URL") ?? "")
+          .replace(/\/$/, ""),
         marketingBaseUrl: (Deno.env.get("MARKETING_BASE_URL") ?? "https://cramapple.com")
           .replace(/\/$/, ""),
         mailingAddress: emailFooter().mailingAddress,

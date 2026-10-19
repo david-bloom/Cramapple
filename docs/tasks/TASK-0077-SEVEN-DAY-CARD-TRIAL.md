@@ -79,7 +79,8 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
    `cancel-trial`, `trial-recovery`, `get-trial-status` (`config.toml` sets `verify_jwt`). Claude's attempt to deploy slice 0 to
    Development on 2026-10-18 was blocked by the session's permission classifier; it was not retried.
 4. **Secrets (each environment):** `TRIAL_ADMISSION_ENABLED`, `TRIAL_TERMS_VERSION`, `TRIAL_CHARGES_ENABLED`,
-   `TRIAL_CHARGE_WORKER_SECRET`, `TRIAL_NOTICES_ENABLED`, `MARKETING_BASE_URL`, `CARDLESS_TRIAL_RETIRED`, and 18 Loops template
+   `TRIAL_CHARGE_WORKER_SECRET`, `TRIAL_NOTICES_ENABLED`, `MARKETING_BASE_URL`, `STUDENT_APP_URL` (the app, `https://app.cramapple.com`, for
+   trial email links), `CARDLESS_TRIAL_RETIRED`, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`, and 18 Loops template
    ids `LOOPS_TRIAL_<KIND>_<PAYER|STUDENT>_TRANSACTIONAL_ID` for kinds `TRIAL_STARTED, REMINDER, PAYMENT_FAILED,
    REQUIRES_ACTION, GRACE_ENDED, DELAYED_CHARGE, CANCELED, CONVERTED, REFUNDED`. Vault: the four entries in migration
    `20261018191935`. Then `scripts/task0077/schedule_workers.sql`.

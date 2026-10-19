@@ -1,6 +1,6 @@
 # Card-trial email templates — brief for Claude Design (TASK-0077)
 
-Eighteen Loops transactional templates for the seven-day free trial (`DECISION-0126`). Build them on **the same base template as
+Nineteen Loops transactional templates (18 trial notices + 1 parent request) for the seven-day free trial (`DECISION-0126`). Build them on **the same base template as
 templates 01–10 in this folder**: same layout, header, footer, type and voice (second person, present tense, no exclamation
 marks, no emoji). Each template is listed in `manifest.json` when it exists, with its variables and published `transactionalId`;
 the id then goes into the matching Edge Function secret.
@@ -44,6 +44,13 @@ File names continue the existing numbering. The secret for each is `LOOPS_TRIAL_
 | 17 | `CANCELED` | `cancelOutcome = no_charge`: Your trial is cancelled. You won't be charged. `refunded`: Your trial is cancelled and the {amount} charge has been refunded in full. Either way: access to {subjects} has ended; buying again later is a regular purchase. | Your trial of {subjects} has been cancelled and your access has ended. |
 | 18 | `CONVERTED` | Receipt: thanks, {amount} paid for {subjects}; access continues with no end date. | "Your parent paid for {subjects}." (May reuse the existing parent-paid template's look.) |
 | 19 | `REFUNDED` | Your {amount} payment for {subjects} has been refunded in full; access has ended. | Your access to {subjects} has ended. |
+
+**Plus one parent request email (template 20, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`).** The trial version of the
+existing parent request (template for `LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID`), sent when a student asks a parent to start a trial.
+It takes the same variables as that template (`studentName`, `subjects`, `amount`, `paymentUrl`, `expiresOn`, `parentEmail`,
+`mailingAddress`) plus `trialDays` (`7`). Here `amount` is the **day-7 charge**, not a charge today. Suggested copy: "{studentName}
+asked you to start a 7-day free trial of {subjects}. Nothing is charged today. If you don't cancel, we'll charge {amount} when the
+trial ends. Start the free trial ({paymentUrl}). This link expires {expiresOn}."
 
 **Wording rules from the decisions:**
 - Name the exact amount and date wherever a charge is mentioned (state free-trial rules; `DECISION-0126` items 8, 27).
