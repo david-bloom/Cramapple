@@ -108,6 +108,14 @@ export function noticeVariables(
     studentFirstName: order.student_name?.split(/\s+/)[0] ?? "",
     paidByParent: parent ? "yes" : "no",
     cancelOutcome: order.cancel_outcome ?? "",
+    // Loops templates can't branch: the cancellation email prints this line.
+    // "You won't be charged" appears only when the outcome is known to be
+    // no charge (DECISION-0126 item 19).
+    cancelOutcomeText: order.cancel_outcome === "refunded"
+      ? `The ${formatUsd(order.charge_amount)} charge has been refunded in full. It usually appears within 5 to 10 business days.`
+      : order.cancel_outcome === "no_charge"
+      ? "You won't be charged."
+      : "",
     accountUrl: links.accountUrl,
     termsUrl: links.termsUrl,
     cancelUrl: (studentCopy ? links.accountUrl : links.cancelUrl ?? links.accountUrl),

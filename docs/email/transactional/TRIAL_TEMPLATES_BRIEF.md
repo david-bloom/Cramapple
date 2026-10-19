@@ -1,5 +1,11 @@
 # Card-trial email templates — brief for Claude Design (TASK-0077)
 
+> **Built 2026-10-19.** The 19 templates below now exist as Loops-ready MJML in `loops/11-*.mjml` … `loops/20-*.mjml`, generated
+> by `build_trial_templates.py` in the published transactional design (same wrapper as templates 01–10). Each compiles under
+> MJML strict validation and passes `build-imports.mjs`. `manifest.json` lists each one's variables and the Edge Function secret
+> its Loops ID goes in (`status: draft` until published). The cancellation email reads `cancelOutcomeText`, which the backend
+> fills only with a known outcome. Edit copy in the generator and rerun it.
+
 Nineteen Loops transactional templates (18 trial notices + 1 parent request) for the seven-day free trial (`DECISION-0126`). Build them on **the same base template as
 templates 01–10 in this folder**: same layout, header, footer, type and voice (second person, present tense, no exclamation
 marks, no emoji). Each template is listed in `manifest.json` when it exists, with its variables and published `transactionalId`;

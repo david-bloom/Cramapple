@@ -49,6 +49,15 @@ Deno.test("parent copy carries payment links; the student copy never does", () =
   assertEquals(payer.studentFirstName, "Sam");
 });
 
+Deno.test("the cancel outcome line says no charge only when that is known", () => {
+  const v = (o: string | null) =>
+    noticeVariables({ kind: "canceled", recipient_role: "payer" }, { ...order, cancel_outcome: o }, links, null).cancelOutcomeText;
+  assertEquals(v("no_charge"), "You won't be charged.");
+  assertEquals(v("refunded"), "The $69.99 charge has been refunded in full. It usually appears within 5 to 10 business days.");
+  assertEquals(v("pending"), "");
+  assertEquals(v(null), "");
+});
+
 Deno.test("recipients: payer email, or the student's current account email", () => {
   assertEquals(noticeRecipient({ recipient_role: "payer" }, order, null), "parent@example.com");
   assertEquals(noticeRecipient({ recipient_role: "student" }, order, "new@example.com"), "new@example.com");
