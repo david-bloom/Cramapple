@@ -157,6 +157,7 @@ export async function handleTrialSetupSession(
     intent = await deps.stripe.paymentIntents.create({
       amount: order.charge_amount,
       currency: order.currency,
+      allowed_payment_method_types: ["card"],
       customer: customerId,
       payment_method: pmId,
       description: `Cramapple ${order.subject_keys.join(", ")} (after 7-day free trial)`,

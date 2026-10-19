@@ -198,7 +198,7 @@ Deno.test("parent start uses Stripe's hosted page with required Terms consent", 
   });
   const session = stripe.calls.find((c: Any) => c[0] === "session")[1];
   assertEquals([session.ui_mode, session.consent_collection.terms_of_service, session.customer_creation], ["hosted_page", "required", "always"]);
-  assertEquals(session.custom_text.submit.message.includes("for Sam's biology"), true);
+  assertEquals(session.custom_text.submit.message.includes("for Sam's AP Biology"), true);
   assertEquals([res.url !== null, service.orders[0].payer_is_learner], [true, false]);
   assertEquals(stripe.calls.some((c: Any) => c[0] === "customer"), false);
 });

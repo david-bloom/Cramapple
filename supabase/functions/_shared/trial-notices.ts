@@ -50,7 +50,7 @@ export type NoticeOrder = {
 
 // Which order states each notice still applies to.
 const STILL_RELEVANT: Record<NoticeKind, string[]> = {
-  trial_started: ["trialing", "charging", "payment_failed", "requires_action", "delayed_notice", "converted"],
+  trial_started: ["trialing", "charging", "payment_failed", "requires_action", "delayed_notice"],
   reminder: ["trialing"],
   payment_failed: ["payment_failed"],
   requires_action: ["requires_action"],

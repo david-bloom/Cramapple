@@ -107,6 +107,7 @@ Deno.test("direct activation: one unconfirmed PI, activated at the event time, o
   assertEquals([create[1].amount, create[1].payment_method, create[1].metadata.kind, create[2].idempotencyKey],
     [1999, "pm_1", "trial_conversion", "trial-pi:order-1"]);
   assertEquals("confirm" in create[1], false);
+  assertEquals(create[1].allowed_payment_method_types, ["card"]);
   const activate = h.calls.find((c) => c[0] === "rpc" && c[1] === "trial_activate")[2];
   assertEquals([activate.p_payment_intent_id, activate.p_started_at, activate.p_payer_email],
     ["pi_new", new Date(EVENT_CREATED * 1000).toISOString(), "kid@example.com"]);

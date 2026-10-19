@@ -23,6 +23,7 @@ import {
   quoteVersion,
   trialChargeFloor,
 } from "./trial-core.ts";
+import { subjectList } from "./trial-notices.ts";
 
 export type BillingMode = "trial" | "pay_now" | "pay_now_zero";
 export type TrialPurchaseType = "student_direct" | "parent_share";
@@ -374,7 +375,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
           message: parentMandateText(
             quote.charge_amount,
             input.studentName?.split(/\s+/)[0] ?? null,
-            input.subjectKeys.join(", "),
+            subjectList(input.subjectKeys),
           ),
         },
       },

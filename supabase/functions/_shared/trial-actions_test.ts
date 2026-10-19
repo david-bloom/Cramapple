@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { assertEquals, assertRejects } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import { cancelTrialOrder, orderView, recoveryClientSecret, resolveCapability } from "./trial-actions.ts";
 import { hashCapabilityToken, newCapabilityToken } from "./trial-core.ts";
 
@@ -43,6 +43,26 @@ Deno.test("cancel during a charge in flight never claims no charge", async () =>
   assertEquals(r.outcome, "pending");
   assertEquals(r.message?.includes("refund it in full automatically"), true);
   assertEquals(h.calls.some((c) => c[0] === "pi.cancel" || c[0] === "refund"), false);
+});
+
+Deno.test("a transient PI cancel failure leaves settlement retryable", async () => {
+  const h = deps("requires_confirmation");
+  h.d.stripe.paymentIntents.cancel = () => Promise.reject(new Error("stripe transport failure"));
+  await assertRejects(() => cancelTrialOrder(h.d, "order-1", "parent"), Error, "stripe transport failure");
+  assertEquals(h.calls.some((c) => c[0] === "trial_set_cancel_outcome"), false);
+  h.d.stripe.paymentIntents.cancel = () => Promise.resolve({});
+  assertEquals((await cancelTrialOrder(h.d, "order-1", "parent")).outcome, "no_charge");
+});
+
+Deno.test("a cancel that loses a race to an in-flight charge reports pending at once", async () => {
+  const h = deps("requires_confirmation");
+  let retrieves = 0;
+  h.d.stripe.paymentIntents.retrieve = () =>
+    Promise.resolve({ id: "pi_1", status: retrieves++ === 0 ? "requires_confirmation" : "processing", client_secret: "pi_1_secret" });
+  h.d.stripe.paymentIntents.cancel = () => Promise.reject(new Error("payment_intent_unexpected_state"));
+  const r = await cancelTrialOrder(h.d, "order-1", "parent");
+  assertEquals(r.outcome, "pending");
+  assertEquals(h.calls.find((c) => c[0] === "trial_set_cancel_outcome")[1].p_outcome, "pending");
 });
 
 Deno.test("cancel after the charge landed refunds in full, idempotently", async () => {

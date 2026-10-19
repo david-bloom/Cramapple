@@ -36,6 +36,7 @@ Deno.test("stale notices are skipped by order state", () => {
   assertEquals(noticeStillRelevant("reminder", "trialing"), true);
   assertEquals(noticeStillRelevant("reminder", "converted"), false);
   assertEquals(noticeStillRelevant("payment_failed", "converted"), false);
+  assertEquals(noticeStillRelevant("trial_started", "converted"), false);
   assertEquals(noticeStillRelevant("canceled", "canceled"), true);
 });
 
@@ -128,6 +129,15 @@ Deno.test("worker: a stale notice is cancelled, and missing template config back
   assertEquals((await deliverTrialNotices(h2.d)).failed, 1);
   const backoff = h2.updates.find(([t]: Any) => t === "trial_notice_jobs")[1];
   assertEquals(backoff.last_error.startsWith("missing_email_config:"), true);
+});
+
+Deno.test("worker: an unsent trial-started notice after conversion sends nothing and issues no cancel token", async () => {
+  const job = { id: "stale-start", dedupe_key: "start", order_id: "order-1", kind: "trial_started", recipient_role: "payer", attempt_count: 1, lease_id: "L" };
+  const h = deps([job], { ...order, status: "converted" }, { LOOPS_TRIAL_TRIAL_STARTED_PAYER_TRANSACTIONAL_ID: "tx_1" });
+  assertEquals((await deliverTrialNotices(h.d)).skipped, 1);
+  assertEquals(h.sent.length, 0);
+  assertEquals(h.caps.length, 0);
+  assertEquals(h.updates.some(([t, p]: Any) => t === "trial_notice_jobs" && p.cancelled_at), true);
 });
 
 Deno.test("a parent's cancel link outlives a delayed charge and is never issued already expired", () => {

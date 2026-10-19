@@ -90,16 +90,21 @@ async function settleCancellation(
 ): Promise<CancelOutcome> {
   let outcome: CancelOutcome = "no_charge";
   if (paymentIntentId) {
-    const pi = await deps.stripe.paymentIntents.retrieve(paymentIntentId);
-    if (["requires_payment_method", "requires_confirmation", "requires_action"].includes(pi.status)) {
+    const cancellable = (status: string) =>
+      ["requires_payment_method", "requires_confirmation", "requires_action"].includes(status);
+    let pi = await deps.stripe.paymentIntents.retrieve(paymentIntentId);
+    if (cancellable(pi.status)) {
       try {
         await deps.stripe.paymentIntents.cancel(pi.id);
-      } catch {
-        // It moved under us (a charge in flight): report pending; the webhook
-        // refunds a success automatically.
-        outcome = "pending";
+      } catch (e) {
+        // Ask Stripe what actually happened. A charge that moved under us is
+        // classified below; a still-cancellable intent means the call itself
+        // failed, so cancel_outcome stays unset and settlement is retried.
+        pi = await deps.stripe.paymentIntents.retrieve(paymentIntentId);
+        if (cancellable(pi.status)) throw e;
       }
-    } else if (pi.status === "processing") {
+    }
+    if (pi.status === "processing") {
       outcome = "pending";
     } else if (pi.status === "succeeded") {
       await deps.stripe.refunds.create(
