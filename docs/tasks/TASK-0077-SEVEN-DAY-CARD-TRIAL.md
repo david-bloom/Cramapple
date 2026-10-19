@@ -39,7 +39,7 @@ CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tes
   against Stripe test mode); the legacy pay-now checkout still creates a session with a client secret; checkout status for an
   unknown session → 404.
 - **Development setup completed 2026-10-18/19 (David approved):**
-  - Secrets: `TRIAL_ADMISSION_ENABLED=true`, `TRIAL_TERMS_VERSION=terms-dev-placeholder` (replace with the real label),
+  - Secrets: `TRIAL_ADMISSION_ENABLED=true`, `TRIAL_TERMS_VERSION=terms-2026-10-18` (David, 2026-10-18; update to the published Terms' "last updated" date whenever the Terms change materially),
     `TRIAL_CHARGES_ENABLED=true`, a new `TRIAL_CHARGE_WORKER_SECRET`, a rotated `TRANSACTIONAL_EMAIL_WORKER_SECRET`,
     `APP_BASE_URL` = the marketing Lovable preview, `STUDENT_APP_URL` = the app Lovable preview, `ALLOWED_ORIGINS` extended with
     both Lovable preview origins and `localhost:8080` (the five origins found allowed before were kept; an origin not probed may
