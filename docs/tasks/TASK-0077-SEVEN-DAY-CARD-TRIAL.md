@@ -94,6 +94,19 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## Development deployment (2026-10-19, later rounds)
+
+- **`c7ae7dc5`** (Codex live-QA fixes) deployed to all six trial functions; before-diff showed only the mandate-version line.
+- **`e9a7d473`** (no-email activation, Link off, refused-card cleanup, template variables) deployed to `stripe-webhook`,
+  `create-checkout-session`, `create-parent-payment-link`, `deliver-transactional-email`, after Codex reviewed `b92c5b1e`.
+  Before-diff: all four matched `c7ae7dc5`; after: all four match `e9a7d473` file for file.
+- **Quote/start check:** direct and parent quotes return `trial` / `trial-mandate-v3`; both starts return 200, so Stripe
+  accepts `wallet_options.link.display = "never"`. Stripe shows both sessions card-only with Link `never`; the rendered
+  parent page shows card only (no Link checkbox, no "Bank") and "for Sam's AP Biology". Both check sessions were expired on
+  Stripe; the webhook moved both orders to `setup_expired`; no accounts were created.
+- Still unverified live: a new student created with no email signing in by code; a fresh PaymentIntent being card-only;
+  whether the recovery page's Payment Element shows Link.
+
 ## Development deployment (2026-10-18)
 
 - **Migrations applied** with `apply_migration`; Development recorded them as `20261018191924` and `20261018191935`, and the files
