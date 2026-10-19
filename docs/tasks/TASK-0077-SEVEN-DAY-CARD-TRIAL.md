@@ -1,7 +1,8 @@
 # TASK-0077 — Seven-Day Free Trial With a Saved Card
 
-**Status:** Backend built and tested; **deployed to Development 2026-10-18 with every trial switch off** (see "Development
-deployment" below). Nothing in Production. Frontend (Lovable) not started.
+**Status:** Backend built and tested; **deployed to Development** 2026-10-18, QA fixes 2026-10-19. On Development, trial
+admission and charges are **on** (Stripe test mode) and both workers are scheduled; trial notices are off (see "Development
+deployment" below). Nothing in Production. App pages in ap-prep-blueprint PR #37, not published.
 **Tier:** Hard-Gate. **Product Owner:** David Bloom. **Owner:** Claude. **Opened:** 2026-10-18.
 **Governing decision:** `DECISION-0126` items 1–31. **Plan:** `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` (v3).
 **Reviews of the plan:** Codex PR #505 (v1, "Not ready", 13 findings, all addressed in v2); Fable (v2, "Ready with changes",
@@ -24,10 +25,19 @@ CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tes
 
 ## QA fixes (2026-10-19, PR #507 review)
 
-Six findings from the independent review of `0dcf1639`, all reproduced and fixed. **Not yet applied to Development**: the SQL
-changes are a new migration, `20261019141829_task0077_trial_qa_fixes.sql`, because the original is already applied there; the
-code changes need `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`, `deliver-transactional-email`,
-`cancel-trial` and `charge-due-trials` redeployed.
+Six findings from the independent review of `0dcf1639`, all reproduced and fixed. The SQL changes are a new migration,
+`20261019142835_task0077_trial_qa_fixes.sql`, because the original was already applied on Development.
+
+**Applied to Development 2026-10-19 (David approved).** Migration applied with `apply_migration` (Development recorded
+`20261019142835`; the file was renamed to match). Read-back: the three changed behaviours present, `trial_delayed_notice_sent`
+callable by `service_role` only, the 8 existing test orders unchanged. Before deploying, each target function was downloaded
+from Development and diffed against the branch: all matched `0dcf1639` except an older `trial-notices.ts` (behind the branch,
+nothing Development-only). Deployed `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`,
+`deliver-transactional-email`, `cancel-trial`, `charge-due-trials` (`--no-verify-jwt`, as before); a fresh download of each
+matched the branch file for file. Smoke: worker without secret 401; unknown cancel token 404; signed-out cancel 401; bad webhook
+signature 400; `trial_quote` returns `billing_mode: trial` with the new mandate wording. The scheduled charge worker ran the new
+code at 14:30 UTC (summary includes `resettled: 0`, no errors). `MANDATE_TEXT_VERSION` bumped to `trial-mandate-v2` for the
+2026-10-18 wording change (it had been left at v1) and the two checkout functions redeployed.
 
 1. **Refund before success (P1).** `trial_mark_refunded` makes a full refund terminal for any charged-or-chargeable order;
    `trial_convert` returns `already_refunded` (no grant, no second refund). A cancelled order records it as its cancel outcome.

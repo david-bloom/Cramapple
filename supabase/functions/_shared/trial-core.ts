@@ -1,7 +1,8 @@
 // Shared pieces of the seven-day card trial (TASK-0077, DECISION-0126).
 
 export const TRIAL_DAYS = 7;
-export const MANDATE_TEXT_VERSION = "trial-mandate-v1";
+// v2 (2026-10-18): both mandate texts say cancelling ends trial access right away.
+export const MANDATE_TEXT_VERSION = "trial-mandate-v2";
 export const TRIAL_SOURCE = "stripe_trial_v1";
 
 // ---------------------------------------------------------------------------

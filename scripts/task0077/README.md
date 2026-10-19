@@ -1,7 +1,7 @@
 # TASK-0077 SQL tests
 
 Scenario tests for `supabase/migrations/20261018191924_task0077_card_trial_orders.sql`
-and its QA follow-up `20261019141829_task0077_trial_qa_fixes.sql` (7-day card trial order engine, plan v3 §6). They run on a **throwaway local
+and its QA follow-up `20261019142835_task0077_trial_qa_fixes.sql` (7-day card trial order engine, plan v3 §6). They run on a **throwaway local
 Postgres** against minimal stand-ins for the tables the migration touches
 (`stub_schema.sql`), never against Development or Production.
 

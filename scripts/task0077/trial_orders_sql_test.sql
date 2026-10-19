@@ -1,5 +1,5 @@
 -- Scenario tests for 20261018191924_task0077_card_trial_orders.sql and its
--- QA follow-up 20261019141829_task0077_trial_qa_fixes.sql.
+-- QA follow-up 20261019142835_task0077_trial_qa_fixes.sql.
 -- Run on a throwaway database after scripts/task0077/stub_schema.sql and the
 -- migration; see scripts/task0077/README.md. Every check raises on failure.
 \set ON_ERROR_STOP 1
