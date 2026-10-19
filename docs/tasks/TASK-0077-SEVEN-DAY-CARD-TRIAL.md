@@ -57,6 +57,40 @@ code at 14:30 UTC (summary includes `resettled: 0`, no errors). `MANDATE_TEXT_VE
 Tests: CI's Deno command 233/233; SQL scenarios 7–9 added and all pass on a local Postgres (they fail without the new
 migration); Codex's four Deno probes and its refund SQL probe no longer reproduce.
 
+## Paired sandbox journey (Development, 2026-10-19, David approved)
+
+Stripe sandbox `acct_1U3K3SLrvKNd9sBp`, Development backend, the PR #37 app pages run locally against Development, Stripe's
+published test cards. Approved changes: the Development webhook endpoint `we_1UKj4nLrvKNd9sBpasmGR65M` gained
+`payment_intent.succeeded/payment_failed/processing/canceled` and `charge.dispute.created` (release checklist item 5, sandbox
+only); day 7 reached by moving each test order's dates back 7 days; cancel/recovery tokens inserted by hash because
+`TRIAL_NOTICES_ENABLED` is off. Student emails: `dbloom01+trial-{a,b,c}-20261019@gmail.com`.
+
+| Journey | Path | Result |
+| --- | --- | --- |
+| A, order `0ba65ced` | Student direct, card 4242: quote/start → Elements setup → webhook activation → day 7 → worker charge → `payment_intent.succeeded` → full refund | **Pass.** Trial started at the setup event's time; one unconfirmed PI; worker charged off-session on the first attempt; converted, paid access open-ended, trial access expired, reminder cancelled; refund webhook → `refunded`, paid and trial access revoked. |
+| B, order `87255cf7` | Parent link, card 4000 0000 0000 0341: hosted page with Terms consent → activation → day 7 → decline → recovery link → new card 4242 | **Pass.** Payer = parent email, `terms-2026-10-18` via `stripe_consent_collection`; parent card not mapped to the student; decline → `payment_failed`, 24 h grace with access extended, one retry 1 h before grace end, both recipients notified; recovery page paid on-session, page showed completion from Stripe's status; converted, one recovery attempt counted, retry cleared, link voided. A replayed setup event after conversion changed nothing. |
+| C, order `9be34e2e` | Parent link, card 4242 → activation → parent opens cancel link → cancels | **Pass.** Opening the link changed nothing; cancel → "Cancelled. You won't be charged.", trial access revoked, PI `canceled` on Stripe, link voided, cancel notices for both recipients. |
+
+Not covered: the signed-in student's Account-page cancel (needs a signed-in student session), 3D Secure, a dispute, trial
+notice email delivery (templates not built), and a lost-webhook reconciliation.
+
+**Findings (open):**
+1. **Activation depends on the account-invite email.** `resolveCheckoutStudentUserId` invites the student before activation;
+   an address Supabase rejects (`email_address_invalid`, seen with example.com) or the auth email rate limit
+   (`over_email_send_rate_limit`) makes the webhook return 500. The card is saved, no trial starts, the buyer is told nothing,
+   and activation waits on Stripe's retries (B and C waited about two hours here). Decide whether to create the account
+   without blocking on the email and invite separately, and whether checkout should validate the address first.
+2. **Development uses Supabase's built-in auth email** (about 2 emails per hour), which also limits any further sandbox runs.
+3. **Parent mandate names subject keys:** "for Sam's biology" instead of "AP Biology" (`parentMandateText` is passed
+   `subjectKeys`).
+4. **The trial PaymentIntent is not card-only:** the recovery form offers Bank, Cash App Pay, Affirm and Klarna. Product call;
+   if unwanted, pass `payment_method_types: ["card"]` when the PI is created.
+5. **Setup forms offer Link's "Bank" option** although the sessions are card-only; check whether a method saved that way can
+   be charged off-session on day 7, or turn Link's bank payments off.
+6. **The parent's Terms link points at Stripe's placeholder** (`accessible.stripe.com/terms-of-service`): the sandbox
+   account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
+7. Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
+
 ## Development deployment (2026-10-18)
 
 - **Migrations applied** with `apply_migration`; Development recorded them as `20261018191924` and `20261018191935`, and the files
