@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired, Wallets Kept, Eastern Time (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
 - DECISION-0123 — Figure Lane Rulings: `DECISION-0116` Ratified, `chem-mb-energy` Confirmed on Chemistry 3.5, the Unreviewed Lane A/B Figures Released, and the Chart-Shaped Entries Outside `kind='diagram'` Become the Next Lane
@@ -49,6 +50,68 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired
+
+- **Date:** 2026-10-18
+- **Decided by:** David Bloom (Product Owner), in session, answering the eight questions in `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §7. His answers are quoted after each item.
+- **Context:** David asked for a 7-day free trial built to Stripe's save-the-card-then-charge-off-session method, with promo codes still working. The plan is a draft for Codex review; nothing is built.
+- **Decision:**
+  1. **Every purchase gets a 7-day trial, starting at checkout.** "Trial covers any purchase from the time of the purchase." The trial covers what was bought (single subject or bundle), not every subject.
+  2. **Parent-pay gets the trial too.** "Parent-pay is also 7 day free trial." This **partly revises `DECISION-0090`**: the parent's card is saved, but only to make this one trial charge. It is still never written to `app.stripe_customers` against the student and never reused (no add-on, no later purchase).
+  3. **The price is locked at signup.** If a promo code expires or runs out mid-trial, the payer still pays the discounted price they agreed to. "Yes".
+  4. **Cancelling ends access immediately**, not at day 7, and no charge is made. "No" (to keeping access until day 7).
+  5. **One-day grace after a failed charge.** Access continues for 1 day while the charge is retried; after that, access ends until payment succeeds. "1 day grace".
+  6. **One trial per email.** "1 trial per email". The plan reads this as the student's email, so a parent paying for two children gets two trials and a student cannot get a second trial through a parent (see Open). No card-fingerprint check.
+  7. **The $1 pilot and 50%-off codes get the trial too.** "Yes". A code that brings the total to $0 needs no trial.
+  8. **The payer accepts the terms.** "whomever is paying". Read as: the consent to the future charge is collected from, and the trial emails go to, the person paying (the student on direct checkout, the parent on parent-pay).
+- **Follow-ups, answered by David the same day (2026-10-18):**
+  9. ~~**The payer's email counts too.**~~ **Amended the same day:** "I am not worried about parents buying for more than one student.
+     they may have multiple kids taking APs". A parent may start a trial for each of their children; the limit stays one trial per
+     **student** email (item 6). The first answer to this follow-up was "yes".
+  10. **A student can cancel a trial their parent started.** "yes". Access ends immediately (item 4) and the parent is told.
+  11. **Terms acknowledgment at checkout, and emails to both.** "we should have an acknowledgment of Ts and Cs on checkout and email
+      to both parent and student". Every trial checkout (direct and parent) requires an explicit Terms and Conditions acknowledgment
+      that is stored with the order. On parent-pay, the trial emails (start confirmation, pre-charge reminder, failure, cancellation,
+      conversion) go to **both** the parent and the student.
+  12. **Retire the cardless trial.** "retire the old trial that needs no card". `start-trial` / `app.start_trial` (`trial_v1`,
+      `TASK-0026`) are switched off. Existing `trial_v1` rows lapse on their own and still count as a used trial under item 6.
+  13. **The student is always told when a parent pays, and the student's email is required for that.** "we need a way to notify the
+      student that their parent paid for their access. We need the student's email". Parent-pay keeps requiring the student's email
+      before the link is created (as today), and every parent-pay outcome emails the student, as an outcome.
+  14. **The edge case stays open.** "Leave the edge case open." No handling is designed for a parent whose own email has already had
+      a trial (it mattered only while item 9 counted the payer's email).
+- **After Codex's plan review (PR #505), David confirmed and decided the same day (2026-10-18):**
+  15. **30 days of voluntary recovery after grace, at the locked price, with no automatic retries.** Confirmed ("I confirm all three").
+  16. **A fresh notice before any charge we delay because of our own outage.** Confirmed.
+  17. **The student always acknowledges the Terms, and whoever pays also accepts them.** Confirmed. On direct checkout one action
+      covers both; on parent-pay each records their own.
+  18. **The day-7 charge is a direct off-session charge of the saved card** (Option A, not an invoice). "Charge directly".
+  19. **Cancel always stops future charges.** If a charge was already in progress and goes through, it is refunded automatically.
+      "Cancelled, no charge" is never shown until the outcome is known.
+  20. **A delay caused by our system gets 48 hours' notice before the charge, and access continues meanwhile**, since the delay is
+      our fault.
+  21. **Promo usage limits are tracked in our own records for trials only.** The small chance of exceeding a limit through other
+      Stripe redemptions is accepted: "Our limits are small and the extra work isn't worth it yet".
+  22. **On parent-pay, the student applies the promo code before creating the link, and it is fixed into the link.** The parent
+      cannot change it.
+  23. **The pay-now add-on returns for direct single-subject conversions, but after launch.** "Yes, but after launch".
+  24. **Student and parent trials launch together, after both are proven in Development**, so a trial is never advertised that
+      parents cannot get.
+- **Closing answers, 2026-10-18:**
+  25. **Item 14 is accepted as is.** "Parent edge case is acceptible". A parent whose own email already had a trial can still start
+      trials for students; no handling is needed.
+  26. **Retention as proposed in plan v2 §9:** consumed-trial email markers kept indefinitely as a hash; consent IP address and
+      user agent kept 2 years. "Retention is fine as proposed".
+  27. **Legal review:** "My lawyer already checked the terms and privacy polcy". The plan treats the current Terms and Privacy
+      Policy as lawyer-reviewed. Any new trial wording (the Terms trial section, the checkout mandate text, the notice emails) that
+      was not part of that review goes back to the lawyer before publication.
+- **After Fable's assessment of plan v2, 2026-10-18:**
+  28. **Apple Pay and Google Pay stay in at launch.** "keep. these are native stripe options and just as reliable as credit card".
+  29. **Dates are shown in US Eastern time** in emails and at checkout. "eastern time zone".
+  30. **The day-7 charge goes ahead even if a reminder email bounces.** "still charge". The consent at checkout is the authorization.
+  31. **A second trial through an account email change is an accepted risk.** "email changes is acceptible risk".
+- **Execution:** documentation only. Implementation is `TASK-0077`, Hard-Gate. Each Production migration, deploy, secret, Stripe dashboard change and Lovable publish needs its own approval.
 
 ## DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers, in LaTeX Everywhere, Converting Exponents in Units
 
