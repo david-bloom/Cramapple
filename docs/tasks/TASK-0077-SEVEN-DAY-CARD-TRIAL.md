@@ -205,7 +205,14 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
 8. **Production** (plan §8 slices 7–9): verify the `growth_event_outbox_event_name_check` definition on Production matches the
    migration's list before applying; deploy dormant (`TRIAL_ADMISSION_ENABLED=false`, `TRIAL_CHARGES_ENABLED=true`, notices on,
    heartbeat green); Lovable publish of both checkouts + app + `/trial` retirement together; David's disclosed $1 live trial with a
-   per-order exception, conversion, refund; then admission on; then `CARDLESS_TRIAL_RETIRED=true`.
+   per-order exception, conversion, refund; then admission on (only after item 9 passes); then `CARDLESS_TRIAL_RETIRED=true`.
+9. **Production sign-in code email (David, Hard-Gate; before admission on).** Trials no longer send an invite (2026-10-19), so a
+   new trial student's first auth email is **"Confirm sign up"**, sent when they first request a code. On Production, request a
+   code for a brand-new, unconfirmed account and confirm the email carries the 6-digit code (and a plain `cramapple.com/welcome`
+   link, never a one-browser confirmation link), then sign in with that code. Check whichever path Production uses: the
+   dashboard "Confirm sign up" template over custom SMTP (recorded with `{{ .Token }}` on 2026-10-04), or, if the Send Email
+   hook (`send-auth-email`) has been switched on, the published Loops **signup** template (`LOOPS_SIGNUP_TRANSACTIONAL_ID`).
+   Development failed this check on 2026-10-19 (stock templates, Site URL the old Vercel site); see "New-student sign-in test".
 
 ## Known limits and open items
 
