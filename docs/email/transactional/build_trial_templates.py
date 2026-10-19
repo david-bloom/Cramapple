@@ -324,7 +324,7 @@ def main() -> None:
             raise SystemExit(f"bad filename {file}")
         doc = document(subject, preheader, blocks)
         (LOOPS / file).write_text(doc)
-        variables = sorted(set(re.findall(r"\{DATA_VARIABLE:([A-Za-z]+)\}", doc)))
+        variables = sorted(set(re.findall(r"\{DATA_VARIABLE:([A-Za-z0-9]+)\}", doc)))
         old = next((m for m in manifest if m["file"] == file), {})
         entries.append({
             "file": file,

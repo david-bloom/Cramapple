@@ -116,6 +116,19 @@ Deno.test("with charges off the sweep still runs and nothing is claimed", async 
   assertEquals(h.calls.some((c) => c[0] === "upsert" && c[1] === "trial_worker_heartbeat"), true);
 });
 
+Deno.test("clean-up retries a refused parent order's card and marks done only after the detach", async () => {
+  const refused = { id: "o-ref", purchase_type: "parent_share", status: "activation_refused", payment_intent_id: null, payment_method_id: "pm_r" };
+  const failing = harness(fresh, () => Promise.resolve({}), { finished: [refused] });
+  failing.deps.stripe.paymentMethods.detach = () => Promise.reject(new Error("stripe down"));
+  assertEquals(await cleanUpFinishedOrders(failing.deps), 0);
+  assertEquals(failing.calls.some((c) => c[0] === "update" && c[2].stripe_cleanup_done_at), false);
+
+  const ok = harness(fresh, () => Promise.resolve({}), { finished: [refused] });
+  assertEquals(await cleanUpFinishedOrders(ok.deps), 1);
+  assertEquals(ok.calls.filter((c) => c[0] === "detach").map((c) => c[1]), ["pm_r"]);
+  assertEquals(ok.calls.some((c) => c[0] === "update" && c[2].stripe_cleanup_done_at), true);
+});
+
 Deno.test("clean-up cancels an unused PI and detaches only a parent's card", async () => {
   const h = harness(fresh, () => Promise.resolve({}), {
     finished: [

@@ -122,6 +122,8 @@ Deno.test("an address auth rejects refuses activation durably: no PI, no grant, 
   assertEquals(h.calls.find((c) => c[0] === "update")?.[2].reconcile_reason, "student_email_invalid");
   assertEquals(h.calls.some((c) => c[0] === "pi.create" || (c[0] === "rpc" && c[1] === "trial_activate")), false);
   assertEquals(h.calls.some((c) => c[0] === "pm.detach"), true);
+  // The card id is stored with the refusal, so a failed detach is retried by clean-up.
+  assertEquals(h.calls.find((c) => c[0] === "update")?.[2].payment_method_id, "pm_1");
 });
 
 Deno.test("a bank-funded Link method is refused: the mandate says this card", async () => {

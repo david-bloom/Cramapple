@@ -60,18 +60,24 @@ async function loadOrder(service: Any, column: string, value: string): Promise<T
 
 async function refuse(deps: TrialWebhookDeps, order: TrialOrder, reason: string, pmId: string | null) {
   // Before activation nothing was granted. Release the order and, for a
-  // parent, remove the saved card (DECISION-0126 item 2).
+  // parent, remove the saved card (DECISION-0126 item 2). The card's id is
+  // stored with the refusal, so if the detach below fails the charge
+  // worker's clean-up (which covers activation_refused and only marks
+  // itself done after a successful detach) retries it.
   const { error } = await deps.service.schema("app").from("trial_orders")
     .update({
       status: "activation_refused",
       reconcile_reason: reason,
       promo_use_state: null,
+      ...(pmId ? { payment_method_id: pmId } : {}),
       updated_at: new Date().toISOString(),
     })
     .eq("id", order.id).eq("status", "pending_setup");
   if (error) throw error;
   if (pmId && order.purchase_type === "parent_share") {
-    await deps.stripe.paymentMethods.detach(pmId).catch(() => {});
+    await deps.stripe.paymentMethods.detach(pmId).catch(() => {
+      // Left for the clean-up worker.
+    });
   }
   deps.log("trial_activation_refused", { order_id: order.id, reason });
 }
