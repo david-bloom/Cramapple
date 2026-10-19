@@ -175,6 +175,7 @@ Deno.test("direct start: one pending order per email, refreshed in place", async
   assertEquals([first.client_secret, service.orders.length, service.orders[0].subject_ids[0]], ["secret", 1, "sub-bio"]);
   const session = stripe.calls.find((c: Any) => c[0] === "session");
   assertEquals([session[1].mode, session[1].ui_mode, session[1].customer, session[1].metadata.kind], ["setup", "elements", "cus_new", "trial_setup"]);
+  assertEquals(session[1].wallet_options, { link: { display: "never" } });
   assertEquals(service.orders[0].student_email_norm, "kid@example.com");
 
   const second = await startTrialSetup(deps(service, stripe), start);
@@ -198,6 +199,7 @@ Deno.test("parent start uses Stripe's hosted page with required Terms consent", 
   });
   const session = stripe.calls.find((c: Any) => c[0] === "session")[1];
   assertEquals([session.ui_mode, session.consent_collection.terms_of_service, session.customer_creation], ["hosted_page", "required", "always"]);
+  assertEquals(session.wallet_options, { link: { display: "never" } });
   assertEquals(session.custom_text.submit.message.includes("for Sam's AP Biology"), true);
   assertEquals([res.url !== null, service.orders[0].payer_is_learner], [true, false]);
   assertEquals(stripe.calls.some((c: Any) => c[0] === "customer"), false);

@@ -4,6 +4,7 @@
 
 import { TRIAL_DAYS } from "../_shared/trial-core.ts";
 import type { GrowthEventName } from "../_shared/growth-events.ts";
+import type { LearnerResult } from "../_shared/trial-learner.ts";
 
 // deno-lint-ignore no-explicit-any
 type Any = any;
@@ -13,7 +14,7 @@ export type TrialWebhookDeps = {
   service: Any;
   // Find or invite the learner by the order's student email (as the paid
   // path does for student_direct and parent_share).
-  resolveLearner: (email: string, name: string | null) => Promise<string>;
+  resolveLearner: (email: string, name: string | null) => Promise<LearnerResult>;
   recordGrowthEvent: (event: {
     eventName: GrowthEventName;
     userId: string | null;
@@ -127,6 +128,11 @@ export async function handleTrialSetupSession(
     // Never attach to repair a mismatch (plan §6.4 step 1).
     return refuse(deps, order, "payment_method_not_attached", pmId);
   }
+  // The mandate says "this card". Link is hidden on trial sessions; a
+  // bank-funded Link method that still arrives (brand "link") is not a card.
+  if ((paymentMethod?.type && paymentMethod.type !== "card") || paymentMethod?.card?.brand === "link") {
+    return refuse(deps, order, "payment_method_not_card", pmId);
+  }
 
   let payerEmail = order.student_email_norm;
   let payerAccept: { version: string; source: string } | null = null;
@@ -143,7 +149,10 @@ export async function handleTrialSetupSession(
     };
   }
 
-  const userId = await deps.resolveLearner(order.student_email_norm, order.student_name);
+  // No email is sent here (trial-learner.ts): activation never waits on mail.
+  const learner = await deps.resolveLearner(order.student_email_norm, order.student_name);
+  if ("refused" in learner) return refuse(deps, order, learner.refused, pmId);
+  const userId = learner.userId;
 
   // Create the order's single PaymentIntent first, unconfirmed; its id is
   // recorded in the same transaction as the grant (plan §6.4 steps 4-5).

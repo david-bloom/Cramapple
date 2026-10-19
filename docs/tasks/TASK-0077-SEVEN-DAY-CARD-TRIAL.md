@@ -74,22 +74,25 @@ only); day 7 reached by moving each test order's dates back 7 days; cancel/recov
 Not covered: the signed-in student's Account-page cancel (needs a signed-in student session), 3D Secure, a dispute, trial
 notice email delivery (templates not built), and a lost-webhook reconciliation.
 
-**Findings (open):**
-1. **Activation depends on the account-invite email.** `resolveCheckoutStudentUserId` invites the student before activation;
+**Findings:**
+1. **Activation depends on the account-invite email.** *Fixed in code 2026-10-19, not yet deployed or reviewed:* a new
+   student is created unconfirmed with no email (`_shared/trial-learner.ts`); an address auth rejects is a durable
+   `activation_refused` (`student_email_invalid`, parent card detached); auth outages still retry. Original finding: `resolveCheckoutStudentUserId` invites the student before activation;
    an address Supabase rejects (`email_address_invalid`, seen with example.com) or the auth email rate limit
    (`over_email_send_rate_limit`) makes the webhook return 500. The card is saved, no trial starts, the buyer is told nothing,
    and activation waits on Stripe's retries (B and C waited about two hours here). Decide whether to create the account
    without blocking on the email and invite separately, and whether checkout should validate the address first.
 2. **Development uses Supabase's built-in auth email** (about 2 emails per hour), which also limits any further sandbox runs.
-3. **Parent mandate names subject keys:** "for Sam's biology" instead of "AP Biology" (`parentMandateText` is passed
+3. *Fixed 2026-10-19 (`c7ae7dc5`, deployed to Development):* **Parent mandate names subject keys:** "for Sam's biology" instead of "AP Biology" (`parentMandateText` is passed
    `subjectKeys`).
-4. **The trial PaymentIntent is not card-only:** the recovery form offers Bank, Cash App Pay, Affirm and Klarna. Product call;
+4. *Fixed in code 2026-10-19 (`c7ae7dc5`, deployed; new PIs only, unverified on a fresh PI):* **The trial PaymentIntent is not card-only:** the recovery form offers Bank, Cash App Pay, Affirm and Klarna. Product call;
    if unwanted, pass `payment_method_types: ["card"]` when the PI is created.
-5. **Setup forms offer Link's "Bank" option** although the sessions are card-only; check whether a method saved that way can
-   be charged off-session on day 7, or turn Link's bank payments off.
+5. **Setup forms offer Link's "Bank" option** although the sessions are card-only. *David 2026-10-19: Link off for trials.*
+   Both trial setup sessions now set `wallet_options.link.display = "never"`, and activation refuses a non-card or
+   Link-branded method (`payment_method_not_card`). Still open: whether the recovery page's Payment Element shows Link.
 6. **The parent's Terms link points at Stripe's placeholder** (`accessible.stripe.com/terms-of-service`): the sandbox
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
-7. Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
+7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
 ## Development deployment (2026-10-18)
 
@@ -131,7 +134,9 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    quote.terms_version } }` → `client_secret` → `initCheckoutElementsSdk` (Payment Element + Express Checkout Element, setup mode).
    `409 quote_changed` / `billing_mode_changed` → re-quote and show the new terms.
 4. A legacy pay-now call can answer `409 trial_required` with a `quote`: switch to the trial UI.
-5. Return page: `get-checkout-status` answers `billing_mode: "trial"`, `trial_status`, `trial_ends_eastern`.
+5. Return page: `get-checkout-status` answers `billing_mode: "trial"`, `trial_status`, `trial_ends_eastern`. **No invite email
+   is sent for a trial** (2026-10-19): the return page sends the student to the app's email-code sign-in with the address they
+   checked out with, and the trial-started email says the same.
 
 **Parent link (share drawer):** the same `trial_quote` / `trial_start` actions on `create-parent-payment-link` (student applies the
 code, acknowledges the Terms, enters their email first). The response carries `url` / `short_url`. The parent lands on Stripe's
@@ -159,15 +164,16 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
    Development on 2026-10-18 was blocked by the session's permission classifier; it was not retried.
 4. **Secrets (each environment):** `TRIAL_ADMISSION_ENABLED`, `TRIAL_TERMS_VERSION`, `TRIAL_CHARGES_ENABLED`,
    `TRIAL_CHARGE_WORKER_SECRET`, `TRIAL_NOTICES_ENABLED`, `MARKETING_BASE_URL`, `STUDENT_APP_URL` (the app, `https://app.cramapple.com`, for
-   trial email links), `CARDLESS_TRIAL_RETIRED`, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`, and 18 Loops template
+   trial email links), `CARDLESS_TRIAL_RETIRED`, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`, and 19 Loops template
    ids `LOOPS_TRIAL_<KIND>_<PAYER|STUDENT>_TRANSACTIONAL_ID` for kinds `TRIAL_STARTED, REMINDER, PAYMENT_FAILED,
-   REQUIRES_ACTION, GRACE_ENDED, DELAYED_CHARGE, CANCELED, CONVERTED, REFUNDED`. Vault: the four entries in migration
+   REQUIRES_ACTION, GRACE_ENDED, DELAYED_CHARGE, CANCELED, CONVERTED, REFUNDED`, plus
+   `LOOPS_TRIAL_TRIAL_STARTED_LEARNER_TRANSACTIONAL_ID` (a student paying for their own trial). Vault: the four entries in migration
    `20261018191935`. Then `scripts/task0077/schedule_workers.sql`.
 5. **Stripe dashboard:** add webhook events `payment_intent.succeeded`, `payment_intent.payment_failed`,
    `payment_intent.processing`, `payment_intent.canceled`, `charge.dispute.created`; turn on Radar "Use Radar on payment methods
    saved for future use"; Terms URL in public business details (for the parent's Terms checkbox); Apple Pay domain
    (`TASK-0058` E) for wallets.
-6. **Loops:** design and publish the 18 templates (variables listed in `_shared/trial-notices.ts` `noticeVariables`).
+6. **Loops:** design and publish the 19 templates (variables listed in `_shared/trial-notices.ts` `noticeVariables`).
 7. **Lawyer:** the trial section of the Terms, the checkout mandate text (`mandateText`, `parentMandateText` in
    `_shared/trial-core.ts`) and the notice emails, if not already reviewed (`DECISION-0126` item 27). Terms §12.2
    (Free Trials) aligned by David 2026-10-18. Both mandate texts now also say "Cancelling ends trial access right

@@ -15,6 +15,7 @@ import {
 } from "../_shared/payer-email.ts";
 import { isFullyRefunded } from "../_shared/checkout-access.ts";
 import { routeCheckoutSession } from "../_shared/checkout-routing.ts";
+import { resolveTrialLearner } from "../_shared/trial-learner.ts";
 import {
   handleDispute,
   handleTrialChargeRefunded,
@@ -444,10 +445,10 @@ function trialDeps(service: Service): TrialWebhookDeps {
     stripe,
     service,
     resolveLearner: (email, name) =>
-      resolveCheckoutStudentUserId(service, {
-        student_email: email,
-        ...(name ? { student_name: name } : {}),
-      }),
+      resolveTrialLearner({
+        findByEmail: (e) => findAuthUserByEmail(service, e),
+        createUser: (attrs) => service.auth.admin.createUser(attrs),
+      }, email, name),
     recordGrowthEvent: (event) =>
       recordGrowthEvent(service, { ...event, source: "stripe" }),
     log: (message, detail) => console.error(`stripe-webhook ${message}`, detail),

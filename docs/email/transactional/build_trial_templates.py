@@ -161,6 +161,7 @@ img{{border:0;outline:none;text-decoration:none}}
 
 S, A, D, G, R, N = v("subjects"), v("amount"), v("chargeDate"), v("graceEndDate"), v("recoveryDeadline"), v("delayedChargeDate")
 CANCEL_NOTE = "Cancelling ends access straight away."
+SIGN_IN_NOTE = "Sign in with this email address and we'll email you a code."
 PARENT_WHY = "You're getting this because a parent or guardian started a Cramapple free trial for you."
 
 # (file, subject, preheader, blocks)
@@ -173,11 +174,24 @@ TEMPLATES: list[tuple[str, str, str, list[str]]] = [
       button("Cancel the free trial", "cancelUrl"),
       small(f"{CANCEL_NOTE} You agreed to these terms when you started the trial."),
       divider(), link_line("Read the terms:", "Terms and Conditions", "termsUrl")]),
+    # A student who started and pays for their own trial. No invite email is
+    # sent at activation, so this is how they learn to sign in.
+    ("11-trial-started-learner.mjml", "Your 7-day free trial has started",
+     f"You won't be charged until {D}.",
+     [eyebrow("Free trial started"), heading("Your 7-day free trial has started"),
+      para(f"You won't be charged until {D}. If you don't cancel before then, we'll charge {A} to the card ending {v('cardLast4')}."),
+      details([("Subjects", S), ("Trial ends", D), ("Card", f"Ending {v('cardLast4')}")], ("Then", A)),
+      button("Start studying", "accountUrl"),
+      small(SIGN_IN_NOTE),
+      link_line("Changed your mind?", "Cancel the free trial", "cancelUrl"),
+      small(f"{CANCEL_NOTE} You agreed to these terms when you started the trial."),
+      divider(), link_line("Read the terms:", "Terms and Conditions", "termsUrl")]),
     ("11-trial-started-student.mjml", "Your free trial has started",
      f"Your 7-day free trial of {S} runs until {D}.",
      [eyebrow("Free trial started"), heading("Your free trial has started"),
       para(f"Your parent started a 7-day free trial of {S} for you. It runs until {D}."),
       button("See your trial", "accountUrl"),
+      small(SIGN_IN_NOTE),
       small("You can cancel the trial from your account. Cancelling ends access straight away."),
       divider(), why(PARENT_WHY)]),
 

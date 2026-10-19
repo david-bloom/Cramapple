@@ -353,6 +353,8 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
       currency: "usd",
       customer: customerId,
       allowed_payment_method_types: ["card"],
+      // The mandate says "this card": no Link, which can save a bank-funded method.
+      wallet_options: { link: { display: "never" } },
       return_url: input.urls.returnUrl,
       setup_intent_data: {
         description: `Cramapple 7-day free trial (${input.subjectKeys.join(", ")})`,
@@ -367,6 +369,8 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
       currency: "usd",
       customer_creation: "always",
       allowed_payment_method_types: ["card"],
+      // The mandate says "this card": no Link, which can save a bank-funded method.
+      wallet_options: { link: { display: "never" } },
       success_url: input.urls.successUrl,
       cancel_url: input.urls.cancelUrl,
       consent_collection: { terms_of_service: "required" },

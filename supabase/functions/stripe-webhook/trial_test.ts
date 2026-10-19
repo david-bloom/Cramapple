@@ -30,7 +30,7 @@ function order(over: Any = {}) {
   };
 }
 
-function harness(opts: { order?: Any; activate?: string; convert?: string; existingPi?: Any } = {}) {
+function harness(opts: { order?: Any; activate?: string; convert?: string; existingPi?: Any; learner?: Any; pm?: Any } = {}) {
   const calls: Any[] = [];
   const rows = opts.order === null ? [] : [opts.order ?? order()];
   const service = {
@@ -69,7 +69,7 @@ function harness(opts: { order?: Any; activate?: string; convert?: string; exist
           status: "succeeded",
           usage: "off_session",
           customer: "cus_1",
-          payment_method: { id: "pm_1", customer: "cus_1" },
+          payment_method: opts.pm ?? { id: "pm_1", customer: "cus_1" },
         }),
     },
     paymentIntents: {
@@ -83,7 +83,7 @@ function harness(opts: { order?: Any; activate?: string; convert?: string; exist
   const deps: TrialWebhookDeps = {
     stripe,
     service,
-    resolveLearner: () => Promise.resolve("user-1"),
+    resolveLearner: () => Promise.resolve(opts.learner ?? { userId: "user-1" }),
     recordGrowthEvent: (e) => { calls.push(["event", e.eventName]); return Promise.resolve(); },
     log: (m) => calls.push(["log", m]),
     termsVersion: "terms-1",
@@ -113,6 +113,27 @@ Deno.test("direct activation: one unconfirmed PI, activated at the event time, o
     ["pi_new", new Date(EVENT_CREATED * 1000).toISOString(), "kid@example.com"]);
   assertEquals(h.calls.some((c) => c[0] === "upsert" && c[1] === "stripe_customers"), true);
   assertEquals(h.calls.some((c) => c[0] === "event" && c[1] === "trial_card_started"), true);
+});
+
+Deno.test("an address auth rejects refuses activation durably: no PI, no grant, parent card removed", async () => {
+  const h = harness({ order: order({ purchase_type: "parent_share" }), learner: { refused: "student_email_invalid" } });
+  await handleTrialSetupSession(h.deps, { ...directSession, consent: { terms_of_service: "accepted" }, customer_details: { email: "parent@example.com" } }, "completed", EVENT_CREATED);
+  assertEquals(h.calls.find((c) => c[0] === "update")?.[2].status, "activation_refused");
+  assertEquals(h.calls.find((c) => c[0] === "update")?.[2].reconcile_reason, "student_email_invalid");
+  assertEquals(h.calls.some((c) => c[0] === "pi.create" || (c[0] === "rpc" && c[1] === "trial_activate")), false);
+  assertEquals(h.calls.some((c) => c[0] === "pm.detach"), true);
+});
+
+Deno.test("a bank-funded Link method is refused: the mandate says this card", async () => {
+  for (const pm of [
+    { id: "pm_1", customer: "cus_1", type: "card", card: { brand: "link", last4: "0000" } },
+    { id: "pm_1", customer: "cus_1", type: "us_bank_account" },
+  ]) {
+    const h = harness({ pm });
+    await handleTrialSetupSession(h.deps, directSession, "completed", EVENT_CREATED);
+    assertEquals(h.calls.find((c) => c[0] === "update")?.[2].reconcile_reason, "payment_method_not_card");
+    assertEquals(h.calls.some((c) => c[0] === "pi.create"), false);
+  }
 });
 
 Deno.test("a replay reuses the existing PI instead of creating another", async () => {

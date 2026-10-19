@@ -67,8 +67,18 @@ export function noticeStillRelevant(kind: NoticeKind, status: string) {
 
 // Template per kind and recipient role. Missing config is a release-gate
 // failure: the job retries and shows in last_error.
-export function templateEnvName(kind: NoticeKind, role: "payer" | "student") {
-  return `LOOPS_TRIAL_${kind.toUpperCase()}_${role.toUpperCase()}_TRANSACTIONAL_ID`;
+export function templateEnvName(
+  kind: NoticeKind,
+  role: "payer" | "student",
+  purchaseType: string | null = null,
+) {
+  // A student paying for their own trial gets the learner version of the
+  // trial-started email: it is how they find out to sign in (no invite email
+  // is sent at activation; see trial-learner.ts).
+  const who = kind === "trial_started" && role === "payer" && purchaseType === "student_direct"
+    ? "LEARNER"
+    : role.toUpperCase();
+  return `LOOPS_TRIAL_${kind.toUpperCase()}_${who}_TRANSACTIONAL_ID`;
 }
 
 const SUBJECT_NAMES: Record<string, string> = {
@@ -213,7 +223,7 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
         summary.skipped++;
         continue;
       }
-      const envName = templateEnvName(job.kind, job.recipient_role);
+      const envName = templateEnvName(job.kind, job.recipient_role, order.purchase_type);
       const transactionalId = deps.templateId(envName);
       if (!transactionalId) throw new Error(`missing_email_config:${envName}`);
 

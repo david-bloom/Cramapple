@@ -65,6 +65,10 @@ Deno.test("recipients: payer email, or the student's current account email", () 
   assertEquals(noticeRecipient({ recipient_role: "student" }, order, "new@example.com"), "new@example.com");
   assertEquals(noticeRecipient({ recipient_role: "student" }, order, null), "kid@example.com");
   assertEquals(templateEnvName("trial_started", "student"), "LOOPS_TRIAL_TRIAL_STARTED_STUDENT_TRANSACTIONAL_ID");
+  // A student paying for themselves gets the learner version (how to sign in).
+  assertEquals(templateEnvName("trial_started", "payer", "student_direct"), "LOOPS_TRIAL_TRIAL_STARTED_LEARNER_TRANSACTIONAL_ID");
+  assertEquals(templateEnvName("trial_started", "payer", "parent_share"), "LOOPS_TRIAL_TRIAL_STARTED_PAYER_TRANSACTIONAL_ID");
+  assertEquals(templateEnvName("reminder", "payer", "student_direct"), "LOOPS_TRIAL_REMINDER_PAYER_TRANSACTIONAL_ID");
 });
 
 function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>, now = "2026-10-18T16:00:00Z") {
