@@ -448,4 +448,21 @@ begin
   perform pg_temp.check(v = now() + interval '48 hours', 'never under 48 hours, and a future send time is clamped');
 end $$;
 
+-- ---------------------------------------------------------------------------
+-- 11. QA round 4: a recovery attempt is counted per failed confirmation, only
+--     against the order's own PaymentIntent.
+-- ---------------------------------------------------------------------------
+do $$
+declare o uuid; n int;
+begin
+  o := pg_temp.new_order('eleven@example.com');
+  update app.trial_orders set payment_intent_id = 'pi_11' where id = o;
+  perform app.trial_count_recovery_failure(o, 'pi_11');
+  n := app.trial_count_recovery_failure(o, 'pi_11');
+  perform pg_temp.check(n = 2, 'each failed confirmation counts once');
+  perform pg_temp.check(app.trial_count_recovery_failure(o, 'pi_other') is null
+    and (select recovery_attempts from app.trial_orders where id = o) = 2,
+    'another intent never counts against the order');
+end $$;
+
 select 'ALL TRIAL ORDER SQL TESTS PASSED' as result;

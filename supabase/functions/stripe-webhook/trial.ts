@@ -254,16 +254,29 @@ export async function handleTrialSetupSession(
 }
 
 // payment_intent.* with metadata.kind = "trial_conversion".
+// The charge worker confirms with keys of this form (charge-due-trials).
+const WORKER_CONFIRM_KEY = "trial-confirm:";
+
 export async function handleTrialPaymentIntent(
   deps: TrialWebhookDeps,
   eventType: string,
   intent: Any,
+  request: { idempotency_key?: string | null } | null = null,
 ) {
   const orderId = intent.metadata?.trial_order_id;
   if (!orderId) return;
+  if (eventType === "payment_intent.payment_failed" &&
+    !String(request?.idempotency_key ?? "").startsWith(WORKER_CONFIRM_KEY)) {
+    // A failed on-session confirmation (the recovery page): one recovery
+    // attempt per event. The worker classifies its own off-session failures
+    // from the confirm response, and those are not counted here.
+    const { error } = await deps.service.schema("app").rpc("trial_count_recovery_failure", {
+      p_order_id: orderId,
+      p_payment_intent_id: intent.id,
+    });
+    if (error) throw error;
+  }
   if (eventType !== "payment_intent.succeeded") {
-    // The worker classifies failures from the confirm response itself; the
-    // recovery page shows on-session failures to the payer.
     deps.log("trial_payment_intent_event", { order_id: orderId, type: eventType, status: intent.status });
     return;
   }

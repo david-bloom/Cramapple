@@ -114,9 +114,19 @@ export async function cleanUpFinishedOrders(deps: ChargeDeps, limit = 20) {
           if (e?.code !== "resource_missing" && !/not attached/i.test(String(e?.message))) throw e;
         });
       }
-      const { error: doneError } = await app.from("trial_orders")
-        .update({ stripe_cleanup_done_at: new Date().toISOString() }).eq("id", o.id);
+      // Done only for the order as it was cleaned: a late webhook that recorded
+      // a card (or re-armed clean-up) since the read leaves the work open.
+      let done = app.from("trial_orders")
+        .update({ stripe_cleanup_done_at: new Date().toISOString() })
+        .eq("id", o.id).eq("status", o.status).is("stripe_cleanup_done_at", null);
+      done = o.payment_intent_id ? done.eq("payment_intent_id", o.payment_intent_id) : done.is("payment_intent_id", null);
+      done = o.payment_method_id ? done.eq("payment_method_id", o.payment_method_id) : done.is("payment_method_id", null);
+      const { data: doneRows, error: doneError } = await done.select("id");
       if (doneError) throw doneError;
+      if (!doneRows || doneRows.length === 0) {
+        deps.log("trial_cleanup_snapshot_changed", { order_id: o.id });
+        continue;
+      }
       cleaned++;
     } catch (e) {
       deps.log("trial_cleanup_failed", { order_id: o.id, error: e instanceof Error ? e.message : String(e) });

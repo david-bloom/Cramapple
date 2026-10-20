@@ -249,3 +249,18 @@ Deno.test("a direct student's late card is recorded but never detached", async (
   assertEquals(h.calls.find((c) => c[0] === "update")[2].payment_method_id, "pm_1");
   assertEquals(h.calls.some((c) => c[0] === "pm.detach"), false);
 });
+
+Deno.test("each failed on-session confirmation counts one recovery attempt; the worker's own failures do not", async () => {
+  const h = harness();
+  const intent = { id: "pi_1", status: "requires_payment_method", metadata: { kind: "trial_conversion", trial_order_id: "order-1" } };
+  // Eight failed authentications on the same card: same error, no charge, eight events.
+  for (let n = 0; n < 8; n++) {
+    await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: `stripe-js-${n}` });
+  }
+  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: null });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: "trial-confirm:order-1:1" });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.processing", intent, { idempotency_key: "x" });
+  const counted = h.calls.filter((c) => c[0] === "rpc" && c[1] === "trial_count_recovery_failure");
+  assertEquals(counted.length, 9);
+  assertEquals(counted[0][2], { p_order_id: "order-1", p_payment_intent_id: "pi_1" });
+});

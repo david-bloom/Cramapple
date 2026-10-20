@@ -94,6 +94,23 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## QA round 4 fixes (2026-10-20, Codex review of `fb1ace39`)
+
+Codex confirmed F1–F4 fixed and found two P2s. Migration `20261021000000_task0077_trial_qa_round4.sql` (drops
+`trial_orders.recovery_seen_error`; adds `trial_count_recovery_failure`). Not yet applied anywhere.
+
+| Finding | Fix | Tests |
+| --- | --- | --- |
+| **F5** a clean-up snapshot can mark a late-saved card done | `cleanUpFinishedOrders` marks done only where status, PI, card and an unset marker still match what it read; no match → logged `trial_cleanup_snapshot_changed`, left for the next run | `handler_test.ts` (worker mock now honours filters; race test) |
+| **F6** repeated authentication failures counted once | Attempts are counted by the webhook: each `payment_intent.payment_failed` for the order's PI adds one (`trial_count_recovery_failure`), once per event (the ledger runs an event once); events from the worker's own confirmations (idempotency key `trial-confirm:`) are excluded; the recovery page only checks the cap and never counts | `trial_test.ts` (8 same-card failures → 8), `trial-actions_test.ts`, SQL §11 |
+
+Limit, unchanged by this fix: the cap stops the page handing out the client secret again; a payer who keeps the form open
+can still retry within that page until Stripe's own confirmation limit.
+
+Results: full CI Deno command (22 files) **254 passed**; SQL **88 checks + legacy backfill**; Codex's four probes against
+this code: both regression probes pass, both defect probes now fail (the cleanup marker stays unset; the page no longer
+counts, so the recovery probe reads 0, while the webhook path counts each event).
+
 ## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
 
 Migration `20261020224101_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
@@ -110,7 +127,9 @@ Migration `20261020224101_task0077_trial_qa_round3.sql` (new columns `trial_noti
 | **Readiness 3** attempts counted per page open | `failureKey(pi)`: an attempt is a new failure on the order's intent (charge, code, method), stored in `recovery_seen_error`; reopening the page counts nothing | `trial-actions_test.ts` |
 | **Readiness 2** recovery form not card-only | App: Payment Element mounted with `wallets: { link: "never" }` (sandbox probe: that option alone removes Bank, Klarna and Link) | ap-prep-blueprint PR #39 |
 
-Results: CI Deno command **235 passed**; SQL scenarios **86 checks + legacy backfill** passed on a throwaway local Postgres.
+Results: SQL scenarios **86 checks + legacy backfill** passed on a throwaway local Postgres. *Correction (2026-10-20):* the
+"235 passed" first recorded here came from a copy of the CI command that left out its last two test files; the full 22-file
+CI command ran **252** at `fb1ace39` (Codex's count was right).
 The marketing return page should show a "finishing your trial" message for `409 trial_setup_completing` (today it shows the
 generic error); not yet sent to Lovable.
 

@@ -852,7 +852,7 @@ Deno.serve(async (req) => {
       // Every PaymentIntent sends these; only card-trial conversions act.
       const intent = event.data.object as { metadata?: Record<string, string> };
       if (intent.metadata?.kind === "trial_conversion") {
-        await handleTrialPaymentIntent(trialDeps(service), event.type, intent);
+        await handleTrialPaymentIntent(trialDeps(service), event.type, intent, event.request ?? null);
       }
     } else if (event.type === "charge.dispute.created") {
       await handleDispute(trialDeps(service), event.data.object);

@@ -15,7 +15,11 @@ const claimed = {
   lease_token: "lease-1",
 };
 
-function harness(intent: Any, confirm: () => Promise<Any>, extra: { claimed?: Any[]; finished?: Any[] } = {}) {
+function harness(
+  intent: Any,
+  confirm: () => Promise<Any>,
+  extra: { claimed?: Any[]; finished?: Any[]; current?: Record<string, Any> } = {},
+) {
   const calls: Any[] = [];
   const service = {
     schema: () => ({
@@ -26,12 +30,25 @@ function harness(intent: Any, confirm: () => Promise<Any>, extra: { claimed?: An
         return Promise.resolve({ data: "recorded", error: null });
       },
       from: (table: string) => {
+        // An update's filters are matched against the row as it is now (the
+        // finished snapshot unless a test changed it underneath the worker).
+        const filters: Array<[string, unknown]> = [];
+        let patch: Any = null;
         const b: Any = {
-          select: () => b, in: () => b, is: () => b, eq: () => b, not: () => b, lt: () => b,
+          select: () => b, in: () => b, not: () => b, lt: () => b,
+          eq: (c: string, v: unknown) => { filters.push([c, v]); return b; },
+          is: (c: string, v: unknown) => { filters.push([c, v]); return b; },
           limit: () => Promise.resolve({ data: extra.finished ?? [], error: null }),
-          update: (p: Any) => { calls.push(["update", table, p]); return b; },
+          update: (p: Any) => { patch = p; calls.push(["update", table, p]); return b; },
           upsert: (p: Any) => { calls.push(["upsert", table, p]); return Promise.resolve({ error: null }); },
-          then: (r: Any) => r({ error: null }),
+          then: (r: Any) => {
+            if (!patch) return r({ error: null });
+            const id = filters.find(([c]) => c === "id")?.[1] as string;
+            const row = extra.current?.[id] ?? (extra.finished ?? []).find((o: Any) => o.id === id);
+            const base = row ? { stripe_cleanup_done_at: null, ...row } : null;
+            const hit = base && filters.every(([c, v]) => (base[c] ?? null) === v);
+            return r({ data: hit ? [{ id }] : [], error: null });
+          },
         };
         return b;
       },
@@ -139,4 +156,20 @@ Deno.test("clean-up cancels an unused PI and detaches only a parent's card", asy
   assertEquals(await cleanUpFinishedOrders(h.deps), 2);
   assertEquals(h.calls.filter((c) => c[0] === "cancel").map((c) => c[1]), ["pi_p"]);
   assertEquals(h.calls.filter((c) => c[0] === "detach").map((c) => c[1]), ["pm_p"]);
+});
+
+Deno.test("clean-up never marks done an order a late webhook changed underneath it", async () => {
+  // The worker read the swept order with no card; meanwhile the late webhook
+  // recorded the parent's card (its own detach failed) and re-armed clean-up.
+  const snapshot = { id: "o-late", purchase_type: "parent_share", status: "setup_expired", payment_intent_id: null, payment_method_id: null };
+  const h = harness(fresh, () => Promise.resolve({}), {
+    finished: [snapshot],
+    current: { "o-late": { ...snapshot, payment_method_id: "pm_late" } },
+  });
+  assertEquals(await cleanUpFinishedOrders(h.deps), 0);
+  assertEquals(h.calls.some((c) => c[0] === "log" && c[1] === "trial_cleanup_snapshot_changed"), true);
+  // The next run reads the card and detaches it.
+  const next = harness(fresh, () => Promise.resolve({}), { finished: [{ ...snapshot, payment_method_id: "pm_late" }] });
+  assertEquals(await cleanUpFinishedOrders(next.deps), 1);
+  assertEquals(next.calls.filter((c) => c[0] === "detach").map((c) => c[1]), ["pm_late"]);
 });

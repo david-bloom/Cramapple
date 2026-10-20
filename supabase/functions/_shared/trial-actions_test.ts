@@ -145,22 +145,13 @@ Deno.test("capability tokens resolve only for their purpose, unexpired and not v
   assertEquals(hash, await hashCapabilityToken(token));
 });
 
-Deno.test("recovery returns the same PI's client secret; only a new failure counts as an attempt", async () => {
-  const declined = { latest_charge: "ch_2", last_payment_error: { code: "card_declined", payment_method: { id: "pm_1" } } };
-  const order = { id: "order-1", status: "recovery_only", recovery_attempts: 1, recovery_seen_error: "ch_1:card_declined:pm_1", payment_intent_id: "pi_1" };
-  // Opening the page again with no new failure: no attempt is used up.
-  const same = deps("requires_payment_method", undefined, { latest_charge: "ch_1", last_payment_error: { code: "card_declined", payment_method: "pm_1" } });
-  assertEquals(await recoveryClientSecret(same.d, order), { client_secret: "pi_1_secret" });
-  assertEquals(same.calls.some(([k]: Any) => k === "update"), false);
-  // A new decline counts once.
-  const fresh = deps("requires_payment_method", undefined, declined);
-  assertEquals(await recoveryClientSecret(fresh.d, order), { client_secret: "pi_1_secret" });
-  assertEquals(fresh.calls.find(([k]: Any) => k === "update")[1].recovery_attempts, 2);
-  // Past the cap only a further failure is refused; reopening after the fifth is fine.
-  assertEquals(await recoveryClientSecret(deps("requires_payment_method", undefined, declined).d,
-    { ...order, recovery_attempts: 5 }), { error: "too_many_attempts" });
-  assertEquals(await recoveryClientSecret(deps("requires_payment_method", undefined, declined).d,
-    { ...order, recovery_attempts: 5, recovery_seen_error: "ch_2:card_declined:pm_1" }), { client_secret: "pi_1_secret" });
+Deno.test("recovery returns the same PI's client secret; opening it never uses an attempt; the cap refuses", async () => {
+  const order = { id: "order-1", status: "recovery_only", recovery_attempts: 4, payment_intent_id: "pi_1" };
+  const open = deps("requires_payment_method", undefined, { last_payment_error: { code: "payment_intent_authentication_failure" } });
+  assertEquals(await recoveryClientSecret(open.d, order), { client_secret: "pi_1_secret" });
+  assertEquals(await recoveryClientSecret(open.d, order), { client_secret: "pi_1_secret" });
+  assertEquals(open.calls.some(([k]: Any) => k === "update"), false);
+  assertEquals(await recoveryClientSecret(deps("requires_payment_method").d, { ...order, recovery_attempts: 5 }), { error: "too_many_attempts" });
   assertEquals(await recoveryClientSecret(deps("succeeded").d, order), { error: "already_paid" });
   assertEquals(await recoveryClientSecret(deps("requires_payment_method").d, { ...order, status: "converted" }), { error: "not_recoverable" });
 });
