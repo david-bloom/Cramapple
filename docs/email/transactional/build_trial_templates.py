@@ -160,7 +160,7 @@ img{{border:0;outline:none;text-decoration:none}}
 
 
 S, A, D, G, R, N = v("subjects"), v("amount"), v("chargeDate"), v("graceEndDate"), v("recoveryDeadline"), v("delayedChargeDate")
-CANCEL_NOTE = "Cancelling ends access straight away."
+CANCEL_NOTE = "Canceling ends access straight away."
 SIGN_IN_NOTE = "Sign in with this email address and we'll email you a code."
 PARENT_WHY = "You're getting this because a parent or guardian started a Cramapple free trial for you."
 
@@ -192,7 +192,7 @@ TEMPLATES: list[tuple[str, str, str, list[str]]] = [
       para(f"Your parent started a 7-day free trial of {S} for you. It runs until {D}."),
       button("See your trial", "accountUrl"),
       small(SIGN_IN_NOTE),
-      small("You can cancel the trial from your account. Cancelling ends access straight away."),
+      small("You can cancel the trial from your account. Canceling ends access straight away."),
       divider(), why(PARENT_WHY)]),
 
     ("12-trial-reminder-payer.mjml", "Your free trial ends in 2 days",
@@ -203,9 +203,9 @@ TEMPLATES: list[tuple[str, str, str, list[str]]] = [
       button("Cancel the free trial", "cancelUrl"),
       small(f"Nothing to do if you want to keep studying. {CANCEL_NOTE}")]),
     ("12-trial-reminder-student.mjml", "Your free trial ends in 2 days",
-     f"Your parent's card will be charged on {D} unless the trial is cancelled.",
+     f"Your parent's card will be charged on {D} unless the trial is canceled.",
      [eyebrow("Trial reminder"), heading("Your free trial ends in 2 days"),
-      para(f"On {D}, your parent's card will be charged {A} for {S} unless the trial is cancelled."),
+      para(f"On {D}, your parent's card will be charged {A} for {S} unless the trial is canceled."),
       button("See your trial", "accountUrl"), divider(), why(PARENT_WHY)]),
 
     ("13-trial-payment-failed-payer.mjml", "We couldn't take your payment",
@@ -253,15 +253,15 @@ TEMPLATES: list[tuple[str, str, str, list[str]]] = [
       para(f"Because of a problem on our side, the charge for {S} moved to {N}. Your access continues until then."),
       divider(), why(PARENT_WHY)]),
 
-    ("17-trial-canceled-payer.mjml", "Your free trial is cancelled",
+    ("17-trial-canceled-payer.mjml", "Your free trial is canceled",
      v("cancelOutcomeText"),
-     [eyebrow("Trial cancelled"), heading("Your free trial is cancelled"),
+     [eyebrow("Trial canceled"), heading("Your free trial is canceled"),
       para(v("cancelOutcomeText")),
       para(f"Access to {S} has ended. If you'd like to come back, buying again is a regular purchase.")]),
-    ("17-trial-canceled-student.mjml", "Your free trial was cancelled",
+    ("17-trial-canceled-student.mjml", "Your free trial was canceled",
      f"Your access to {S} has ended.",
-     [eyebrow("Trial cancelled"), heading("Your free trial was cancelled"),
-      para(f"Your trial of {S} has been cancelled and your access has ended."),
+     [eyebrow("Trial canceled"), heading("Your free trial was canceled"),
+      para(f"Your trial of {S} has been canceled and your access has ended."),
       divider(), why(PARENT_WHY)]),
 
     ("18-trial-converted-payer.mjml", "Thanks for your payment",

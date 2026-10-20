@@ -23,7 +23,7 @@ Deno.test("the charge floor is seven days out and the mandate states it", () => 
   assertEquals(trialChargeFloor(now).toISOString(), "2026-10-25T16:00:00.000Z");
   assertEquals(
     mandateText(1999, trialChargeFloor(now)),
-    "$0 today. On Sunday, October 25, 2026 (Eastern) we'll charge $19.99 to this card unless you cancel. Cancel any time in Account. Cancelling ends trial access right away.",
+    "$0 today. On Sunday, October 25, 2026 (Eastern) we'll charge $19.99 to this card unless you cancel. Cancel any time in Account. Canceling ends trial access right away.",
   );
 });
 
@@ -31,7 +31,7 @@ Deno.test("the parent's mandate says cancelling ends access right away and fits 
   const text = parentMandateText(3999, "Sam", "AP Biology");
   assertEquals(
     text,
-    "Free for 7 days. When the trial ends we'll charge $39.99 to this card for Sam's AP Biology unless you cancel. You can cancel from the link in your confirmation email. Cancelling ends trial access right away.",
+    "Free for 7 days. When the trial ends we'll charge $39.99 to this card for Sam's AP Biology unless you cancel. You can cancel from the link in your confirmation email. Canceling ends trial access right away.",
   );
   assertEquals(text.length <= 1200, true);
 });

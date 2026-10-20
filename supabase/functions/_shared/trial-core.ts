@@ -1,8 +1,9 @@
 // Shared pieces of the seven-day card trial (TASK-0077, DECISION-0126).
 
 export const TRIAL_DAYS = 7;
-// v3 proposal: the parent's mandate uses the same subject labels as notices.
-export const MANDATE_TEXT_VERSION = "trial-mandate-v3";
+// v3: the parent's mandate uses the same subject labels as notices.
+// v4 (2026-10-20): American spelling, "Canceling ends trial access right away."
+export const MANDATE_TEXT_VERSION = "trial-mandate-v4";
 export const TRIAL_SOURCE = "stripe_trial_v1";
 
 // ---------------------------------------------------------------------------
@@ -35,7 +36,7 @@ export function formatUsd(cents: number) {
 export function mandateText(chargeCents: number, chargeDate: Date) {
   return `$0 today. On ${easternDate(chargeDate)} (Eastern) we'll charge ` +
     `${formatUsd(chargeCents)} to this card unless you cancel. ` +
-    `Cancel any time in Account. Cancelling ends trial access right away.`;
+    `Cancel any time in Account. Canceling ends trial access right away.`;
 }
 
 // The parent's hosted page (custom_text.submit, max 1,200 characters).
@@ -47,7 +48,7 @@ export function parentMandateText(
   const who = studentFirstName ? `${studentFirstName}'s ` : "";
   return `Free for 7 days. When the trial ends we'll charge ${formatUsd(chargeCents)} ` +
     `to this card for ${who}${subjects} unless you cancel. You can cancel from ` +
-    `the link in your confirmation email. Cancelling ends trial access right away.`;
+    `the link in your confirmation email. Canceling ends trial access right away.`;
 }
 
 // ---------------------------------------------------------------------------
