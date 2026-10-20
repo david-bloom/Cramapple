@@ -97,8 +97,8 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
 ## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
 
 Migration `20261020224101_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
-`trial_orders.recovery_seen_error`; replaces `trial_activate`, `trial_sweep`, `trial_delayed_notice_sent`). Not yet applied
-anywhere.
+`trial_orders.recovery_seen_error`; replaces `trial_activate`, `trial_sweep`, `trial_delayed_notice_sent`). **On Development
+2026-10-20** (see below); not on Production.
 
 | Finding | Fix | Tests |
 | --- | --- | --- |
@@ -113,6 +113,26 @@ anywhere.
 Results: CI Deno command **235 passed**; SQL scenarios **86 checks + legacy backfill** passed on a throwaway local Postgres.
 The marketing return page should show a "finishing your trial" message for `409 trial_setup_completing` (today it shows the
 generic error); not yet sent to Lovable.
+
+**Development deploy (2026-10-20, David approved).**
+- *Before:* every Development copy of the nine affected functions matched a branch commit (no drift): `stripe-webhook`
+  `e9a7d473`; `create-checkout-session`, `create-parent-payment-link`, `deliver-transactional-email` `e9a7d473`/`b92c5b1e`;
+  `cancel-trial`, `charge-due-trials` `c7ae7dc5`; `trial-recovery`, `get-trial-status` `a7959a01`; `get-checkout-status` older.
+- *Migration:* `apply_migration` recorded **`20261020224101`** (file renamed to match). Read-back: three new columns, the
+  three-argument `trial_delayed_notice_sent`, `authenticated` cannot execute it, new sweep and activation bodies, sweep runs.
+- *Functions:* `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`, `get-checkout-status`,
+  `deliver-transactional-email`, `charge-due-trials`, `cancel-trial`, `trial-recovery` (`--no-verify-jwt`) and
+  `get-trial-status` (JWT) from `7135e6ae`. *After:* all nine match `7135e6ae` file for file (97 files, 0 differ).
+- *Live checks:* new parent order I (`db921beb`): the Stripe session's `expires_at` equals `quote_expires_at`
+  (2026-10-21 22:43:31Z); with the quote pushed into the past the sweep left it `pending_setup`. Marked `setup_expired` (as
+  the 4-day backstop would) and a card saved on the still-open session: the webhook recorded the card and SetupIntent,
+  detached the parent's card at once (Stripe: no customer), started no trial, and the return page says "We couldn't start
+  the trial. Nothing was charged." Old H (`20bda562`, from before the fix): a replayed event is ignored by the webhook ledger
+  (processed events never run twice), so its card id was written to the order by hand; the 22:45 worker run detached it
+  (Stripe: no customer) and marked both orders cleaned.
+- *Development-only gap:* Stripe's return URL has no `backend=dev`, so a return page opened in a fresh tab asks Production
+  and shows "We can't confirm your payment yet". Add `backend=dev` to Development's success/return URLs if this bites.
+- Not live-testable on Development: F2 (`TRIAL_NOTICES_ENABLED` is off) and F1's race (the webhook lands in seconds).
 
 ## Production readiness check (2026-10-20, David asked: checklist items 1, 2, 4, 6 and the smaller items)
 
