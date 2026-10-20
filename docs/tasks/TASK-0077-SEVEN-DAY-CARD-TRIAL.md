@@ -23,6 +23,8 @@ code PR instead.
 
 CI's Deno command (`.github/workflows/minimal-ci.yml`, now including the new tests) passes locally: 222 tests.
 
+**Session record (2026-10-18 to 2026-10-20, QA, sandbox journeys, Loops):** `docs/handoffs/SESSION_CLOSE_2026_10_20_TASK0077_TRIAL_QA_SANDBOX_AND_LOOPS.md`.
+
 ## QA fixes (2026-10-19, PR #507 review)
 
 Six findings from the independent review of `0dcf1639`, all reproduced and fixed. The SQL changes are a new migration,
