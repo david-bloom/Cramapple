@@ -122,7 +122,7 @@ generic error); not yet sent to Lovable.
   three-argument `trial_delayed_notice_sent`, `authenticated` cannot execute it, new sweep and activation bodies, sweep runs.
 - *Functions:* `stripe-webhook`, `create-checkout-session`, `create-parent-payment-link`, `get-checkout-status`,
   `deliver-transactional-email`, `charge-due-trials`, `cancel-trial`, `trial-recovery` (`--no-verify-jwt`) and
-  `get-trial-status` (JWT) from `7135e6ae`. *After:* all nine match `7135e6ae` file for file (97 files, 0 differ).
+  `get-trial-status` (JWT) from `7135e6ae`. *After:* all nine match `7135e6ae` file for file (98 files across the nine, 0 differ).
 - *Live checks:* new parent order I (`db921beb`): the Stripe session's `expires_at` equals `quote_expires_at`
   (2026-10-21 22:43:31Z); with the quote pushed into the past the sweep left it `pending_setup`. Marked `setup_expired` (as
   the 4-day backstop would) and a card saved on the still-open session: the webhook recorded the card and SetupIntent,
