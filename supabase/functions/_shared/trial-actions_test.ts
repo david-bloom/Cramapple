@@ -5,7 +5,11 @@ import { hashCapabilityToken, newCapabilityToken } from "./trial-core.ts";
 // deno-lint-ignore no-explicit-any
 type Any = any;
 
-function deps(piStatus: string | null, cancelResult: Any = { result: "canceled", payment_intent_id: "pi_1" }) {
+function deps(
+  piStatus: string | null,
+  cancelResult: Any = { result: "canceled", payment_intent_id: "pi_1" },
+  piExtra: Any = {},
+) {
   const calls: Any[] = [];
   const service = {
     schema: () => ({
@@ -21,7 +25,7 @@ function deps(piStatus: string | null, cancelResult: Any = { result: "canceled",
   };
   const stripe = {
     paymentIntents: {
-      retrieve: () => Promise.resolve({ id: "pi_1", status: piStatus, client_secret: "pi_1_secret" }),
+      retrieve: () => Promise.resolve({ id: "pi_1", status: piStatus, client_secret: "pi_1_secret", ...piExtra }),
       cancel: (id: string) => { calls.push(["pi.cancel", id]); return Promise.resolve({}); },
     },
     refunds: { create: (p: Any, o: Any) => { calls.push(["refund", p, o]); return Promise.resolve({}); } },
@@ -32,7 +36,7 @@ function deps(piStatus: string | null, cancelResult: Any = { result: "canceled",
 Deno.test("cancel before the charge: the PI is cancelled and the message says no charge", async () => {
   const h = deps("requires_confirmation");
   const r = await cancelTrialOrder(h.d, "order-1", "student");
-  assertEquals([r.outcome, r.message], ["no_charge", "Cancelled. You won't be charged."]);
+  assertEquals([r.outcome, r.message], ["no_charge", "Canceled. You won't be charged."]);
   assertEquals(h.calls.some((c) => c[0] === "pi.cancel"), true);
   assertEquals(h.calls.find((c) => c[0] === "trial_set_cancel_outcome")[1].p_outcome, "no_charge");
 });
@@ -141,10 +145,22 @@ Deno.test("capability tokens resolve only for their purpose, unexpired and not v
   assertEquals(hash, await hashCapabilityToken(token));
 });
 
-Deno.test("recovery returns the same PI's client secret and caps attempts", async () => {
-  const order = { id: "order-1", status: "recovery_only", recovery_attempts: 0, payment_intent_id: "pi_1" };
-  assertEquals(await recoveryClientSecret(deps("requires_payment_method").d, order), { client_secret: "pi_1_secret" });
-  assertEquals(await recoveryClientSecret(deps("requires_payment_method").d, { ...order, recovery_attempts: 5 }), { error: "too_many_attempts" });
+Deno.test("recovery returns the same PI's client secret; only a new failure counts as an attempt", async () => {
+  const declined = { latest_charge: "ch_2", last_payment_error: { code: "card_declined", payment_method: { id: "pm_1" } } };
+  const order = { id: "order-1", status: "recovery_only", recovery_attempts: 1, recovery_seen_error: "ch_1:card_declined:pm_1", payment_intent_id: "pi_1" };
+  // Opening the page again with no new failure: no attempt is used up.
+  const same = deps("requires_payment_method", undefined, { latest_charge: "ch_1", last_payment_error: { code: "card_declined", payment_method: "pm_1" } });
+  assertEquals(await recoveryClientSecret(same.d, order), { client_secret: "pi_1_secret" });
+  assertEquals(same.calls.some(([k]: Any) => k === "update"), false);
+  // A new decline counts once.
+  const fresh = deps("requires_payment_method", undefined, declined);
+  assertEquals(await recoveryClientSecret(fresh.d, order), { client_secret: "pi_1_secret" });
+  assertEquals(fresh.calls.find(([k]: Any) => k === "update")[1].recovery_attempts, 2);
+  // Past the cap only a further failure is refused; reopening after the fifth is fine.
+  assertEquals(await recoveryClientSecret(deps("requires_payment_method", undefined, declined).d,
+    { ...order, recovery_attempts: 5 }), { error: "too_many_attempts" });
+  assertEquals(await recoveryClientSecret(deps("requires_payment_method", undefined, declined).d,
+    { ...order, recovery_attempts: 5, recovery_seen_error: "ch_2:card_declined:pm_1" }), { client_secret: "pi_1_secret" });
   assertEquals(await recoveryClientSecret(deps("succeeded").d, order), { error: "already_paid" });
   assertEquals(await recoveryClientSecret(deps("requires_payment_method").d, { ...order, status: "converted" }), { error: "not_recoverable" });
 });

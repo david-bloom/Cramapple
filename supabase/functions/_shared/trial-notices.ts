@@ -28,6 +28,19 @@ export type NoticeJob = {
   recipient_role: "payer" | "student";
   attempt_count: number;
   lease_id: string | null;
+  // The rendered email from an earlier attempt that may have been accepted.
+  delivery_payload?: StoredNotice | null;
+};
+
+// What a notice sends, stored before the first send so a retry repeats it
+// exactly: same body, same links, same idempotency key.
+export type StoredNotice = {
+  transactionalId: string;
+  email: string;
+  dataVariables: Record<string, string>;
+  key: string;
+  // The delayed-charge date this email names (payer copy only).
+  nextAttemptAt: string | null;
 };
 
 export type NoticeOrder = {
@@ -195,6 +208,44 @@ async function issueCapability(deps: NoticeDeps, order: NoticeOrder, purpose: "p
     : `${deps.appBaseUrl}/trial/cancel/${token}`;
 }
 
+async function renderNotice(
+  deps: NoticeDeps,
+  job: NoticeJob,
+  order: Any,
+  delayedNext: string | null,
+  keySuffix: string,
+): Promise<StoredNotice> {
+  const envName = templateEnvName(job.kind, job.recipient_role, order.purchase_type);
+  const transactionalId = deps.templateId(envName);
+  if (!transactionalId) throw new Error(`missing_email_config:${envName}`);
+
+  const parent = order.purchase_type === "parent_share";
+  const payerCopy = job.recipient_role === "payer";
+  const links: NoticeLinks = {
+    accountUrl: `${deps.appBaseUrl}/account`,
+    termsUrl: `${deps.marketingBaseUrl}/terms`,
+    cancelUrl: payerCopy && parent && PARENT_CANCEL_KINDS.has(job.kind)
+      ? await issueCapability(deps, order, "parent_cancel")
+      : null,
+    recoveryUrl: payerCopy && RECOVERY_KINDS.has(job.kind)
+      ? await issueCapability(deps, order, "payer_recovery")
+      : null,
+  };
+  const cardLast4 = payerCopy && order.payment_method_id && job.kind === "trial_started"
+    ? await deps.retrieveCardLast4(order.payment_method_id)
+    : null;
+  const studentEmail = order.user_id && !payerCopy ? await deps.lookupUserEmail(order.user_id) : null;
+  const email = noticeRecipient(job, order, studentEmail);
+  if (!email) throw new Error("trial_notice_missing_recipient");
+  return {
+    transactionalId,
+    email,
+    dataVariables: { ...noticeVariables(job, order, links, cardLast4), mailingAddress: deps.mailingAddress },
+    key: `trial:${job.dedupe_key}${keySuffix}`.slice(0, 100),
+    nextAttemptAt: job.kind === "delayed_charge" && job.recipient_role === "payer" ? delayedNext : null,
+  };
+}
+
 export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
   const app = deps.service.schema("app");
   const { data: jobs, error } = await app.rpc("claim_trial_notice_jobs", { p_limit: limit });
@@ -213,9 +264,22 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
         stored.status === "delayed_notice") {
         throw new Error("waiting_for_payer_notice");
       }
-      const delayedNext = job.kind === "delayed_charge" && !stored.next_attempt_at
-        ? new Date(deps.now().getTime() + DELAYED_NOTICE_LEAD_MS).toISOString()
-        : null;
+      const sentAt = deps.now();
+      const payerDelayed = job.kind === "delayed_charge" && job.recipient_role === "payer";
+      let notice = job.delivery_payload ?? null;
+      // A stored delayed-charge email whose date no longer leaves 48 hours'
+      // notice is re-rendered with a new date and key. (If the stored one was in
+      // fact accepted, the payer gets a second, later date; the charge follows
+      // the later one, so both still gave 48 hours.)
+      if (notice && payerDelayed && notice.nextAttemptAt &&
+        new Date(notice.nextAttemptAt).getTime() - sentAt.getTime() < 48 * 60 * 60 * 1000) {
+        notice = null;
+      }
+      const repeat = notice !== null;
+      const delayedNext = notice?.nextAttemptAt ??
+        (job.kind === "delayed_charge" && !stored.next_attempt_at
+          ? new Date(sentAt.getTime() + DELAYED_NOTICE_LEAD_MS).toISOString()
+          : null);
       const order = delayedNext ? { ...stored, next_attempt_at: delayedNext } : stored;
       if (!noticeStillRelevant(job.kind, order.status)) {
         await app.from("trial_notice_jobs").update({ cancelled_at: deps.now().toISOString() })
@@ -223,47 +287,39 @@ export async function deliverTrialNotices(deps: NoticeDeps, limit = 10) {
         summary.skipped++;
         continue;
       }
-      const envName = templateEnvName(job.kind, job.recipient_role, order.purchase_type);
-      const transactionalId = deps.templateId(envName);
-      if (!transactionalId) throw new Error(`missing_email_config:${envName}`);
+      if (!notice) {
+        notice = await renderNotice(deps, job, order, delayedNext, job.delivery_payload ? `:${job.attempt_count}` : "");
+        // Stored before sending: a retry after an accepted send repeats this
+        // email instead of issuing new links under the same key.
+        const { error: storeError } = await app.from("trial_notice_jobs")
+          .update({ delivery_payload: notice, rendered_at: sentAt.toISOString() })
+          .eq("id", job.id).eq("lease_id", job.lease_id);
+        if (storeError) throw storeError;
+      }
 
-      const parent = order.purchase_type === "parent_share";
-      const payerCopy = job.recipient_role === "payer";
-      const links: NoticeLinks = {
-        accountUrl: `${deps.appBaseUrl}/account`,
-        termsUrl: `${deps.marketingBaseUrl}/terms`,
-        cancelUrl: payerCopy && parent && PARENT_CANCEL_KINDS.has(job.kind)
-          ? await issueCapability(deps, order, "parent_cancel")
-          : null,
-        recoveryUrl: payerCopy && RECOVERY_KINDS.has(job.kind)
-          ? await issueCapability(deps, order, "payer_recovery")
-          : null,
-      };
-      const cardLast4 = payerCopy && order.payment_method_id && job.kind === "trial_started"
-        ? await deps.retrieveCardLast4(order.payment_method_id)
-        : null;
-      const studentEmail = order.user_id && !payerCopy ? await deps.lookupUserEmail(order.user_id) : null;
-      const email = noticeRecipient(job, order, studentEmail);
-      if (!email) throw new Error("trial_notice_missing_recipient");
-
-      await deps.send(
-        {
-          transactionalId,
-          email,
-          dataVariables: { ...noticeVariables(job, order, links, cardLast4), mailingAddress: deps.mailingAddress },
-        },
-        `trial:${job.dedupe_key}`.slice(0, 100),
-      );
-      if (job.kind === "delayed_charge" && job.recipient_role === "payer") {
-        // Starts the 48-hour clock. If this write fails the job retries; the
-        // send above is idempotent on the same key.
+      try {
+        await deps.send(
+          { transactionalId: notice.transactionalId, email: notice.email, dataVariables: notice.dataVariables },
+          notice.key,
+        );
+      } catch (sendError) {
+        // Loops answers 409 to a key it has already accepted. A repeat resends
+        // the identical stored email under its own key, so there a 409 means the
+        // earlier attempt went out; on a first send it is still an error.
+        const duplicate = repeat && sendError instanceof Error && sendError.message === "loops_transactional_http_409";
+        if (!duplicate) throw sendError;
+      }
+      if (payerDelayed) {
+        // Starts the 48-hour clock from this send. If this write fails the job
+        // retries and repeats the stored email under the same key.
         const { error: ackError } = await app.rpc("trial_delayed_notice_sent", {
           p_order_id: order.id,
-          p_next_attempt_at: order.next_attempt_at,
+          p_next_attempt_at: notice.nextAttemptAt,
+          p_sent_at: sentAt.toISOString(),
         });
         if (ackError) throw ackError;
       }
-      await app.from("trial_notice_jobs").update({ delivered_at: deps.now().toISOString(), last_error: null })
+      await app.from("trial_notice_jobs").update({ delivered_at: deps.now().toISOString(), last_error: null, delivery_payload: null })
         .eq("id", job.id).eq("lease_id", job.lease_id);
       summary.sent++;
     } catch (err) {

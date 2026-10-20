@@ -10,15 +10,27 @@ type Any = any;
 export type CancelOutcome = "no_charge" | "pending" | "refunded";
 
 export const CANCEL_MESSAGES: Record<CancelOutcome, string> = {
-  no_charge: "Cancelled. You won't be charged.",
+  no_charge: "Canceled. You won't be charged.",
   pending:
-    "Cancelled. A charge was already being processed; if it goes through we'll refund it in full automatically.",
-  refunded: "Cancelled and refunded.",
+    "Canceled. A charge was already being processed; if it goes through we'll refund it in full automatically.",
+  refunded: "Canceled and refunded.",
 };
 
 // Statuses a payer can still pay from (recovery page).
 export const RECOVERABLE = new Set(["payment_failed", "requires_action", "recovery_only", "delayed_notice"]);
+// Failures counted on the order's intent (off-session and on-session) before
+// the recovery page refuses another try.
 export const MAX_RECOVERY_ATTEMPTS = 5;
+
+// One key per failure Stripe recorded on the intent: a decline creates a new
+// charge, a failed authentication a new error on the method.
+export function failureKey(pi: Any): string | null {
+  const err = pi?.last_payment_error;
+  if (!err) return null;
+  const charge = typeof pi.latest_charge === "string" ? pi.latest_charge : pi.latest_charge?.id;
+  const method = typeof err.payment_method === "string" ? err.payment_method : err.payment_method?.id;
+  return [charge ?? "", err.code ?? err.type ?? "", method ?? ""].join(":");
+}
 
 export async function resolveCapability(
   service: Any,
@@ -156,13 +168,21 @@ export async function recoveryClientSecret(
   order: Any,
 ): Promise<{ client_secret: string } | { error: string }> {
   if (!RECOVERABLE.has(order.status)) return { error: "not_recoverable" };
-  if (order.recovery_attempts >= MAX_RECOVERY_ATTEMPTS) return { error: "too_many_attempts" };
-  const { error } = await deps.service.schema("app").from("trial_orders")
-    .update({ recovery_attempts: order.recovery_attempts + 1, updated_at: new Date().toISOString() })
-    .eq("id", order.id).eq("recovery_attempts", order.recovery_attempts);
-  if (error) throw error;
   const pi = await deps.stripe.paymentIntents.retrieve(order.payment_intent_id);
   if (pi.status === "succeeded" || pi.status === "processing") return { error: "already_paid" };
   if (pi.status === "canceled") return { error: "not_recoverable" };
+  // An attempt is a failure on the intent we have not counted yet; opening
+  // the page again without paying is not one.
+  const seen = failureKey(pi);
+  const attempts = seen && seen !== order.recovery_seen_error
+    ? order.recovery_attempts + 1
+    : order.recovery_attempts;
+  if (attempts > MAX_RECOVERY_ATTEMPTS) return { error: "too_many_attempts" };
+  if (attempts !== order.recovery_attempts) {
+    const { error } = await deps.service.schema("app").from("trial_orders")
+      .update({ recovery_attempts: attempts, recovery_seen_error: seen, updated_at: new Date().toISOString() })
+      .eq("id", order.id).eq("recovery_attempts", order.recovery_attempts);
+    if (error) throw error;
+  }
   return { client_secret: pi.client_secret };
 }

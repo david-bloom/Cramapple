@@ -94,7 +94,7 @@ export async function cleanUpFinishedOrders(deps: ChargeDeps, limit = 20) {
   const app = deps.service.schema("app");
   const { data: orders, error } = await app.from("trial_orders")
     .select("id, purchase_type, status, payment_intent_id, payment_method_id")
-    .in("status", ["recovery_expired", "activation_refused", "canceled", "converted", "refunded", "disputed"])
+    .in("status", ["recovery_expired", "activation_refused", "setup_expired", "canceled", "converted", "refunded", "disputed"])
     .is("stripe_cleanup_done_at", null)
     .limit(limit);
   if (error) throw error;

@@ -82,6 +82,29 @@ async function refuse(deps: TrialWebhookDeps, order: TrialOrder, reason: string,
   deps.log("trial_activation_refused", { order_id: order.id, reason });
 }
 
+async function recordLateSetup(deps: TrialWebhookDeps, order: TrialOrder, session: Any) {
+  const setupIntentId = id(session.setup_intent);
+  if (!setupIntentId) return;
+  const setupIntent = await deps.stripe.setupIntents.retrieve(setupIntentId);
+  const pmId = id(setupIntent.payment_method);
+  if (!pmId) return;
+  const { error } = await deps.service.schema("app").from("trial_orders")
+    .update({
+      payment_method_id: pmId,
+      setup_intent_id: setupIntentId,
+      stripe_cleanup_done_at: null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", order.id).eq("status", "setup_expired").is("payment_method_id", null);
+  if (error) throw error;
+  if (order.purchase_type === "parent_share") {
+    await deps.stripe.paymentMethods.detach(pmId).catch(() => {
+      // Left for the clean-up worker, which now has the card's id.
+    });
+  }
+  deps.log("trial_setup_after_expiry", { order_id: order.id });
+}
+
 // checkout.session.completed / .expired for a setup session that claims a
 // trial (routeCheckoutSession → "trial_setup").
 export async function handleTrialSetupSession(
@@ -113,6 +136,11 @@ export async function handleTrialSetupSession(
     return;
   }
   if (order.status !== "pending_setup") {
+    if (order.status === "setup_expired" && !order.payment_method_id) {
+      // A card saved on a session whose order had already lapsed: no trial
+      // starts, so record the card for clean-up and, for a parent, remove it.
+      return recordLateSetup(deps, order, session);
+    }
     deps.log("trial_setup_replay", { order_id: order.id, status: order.status });
     return;
   }

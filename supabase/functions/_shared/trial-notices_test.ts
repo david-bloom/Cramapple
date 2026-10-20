@@ -71,7 +71,13 @@ Deno.test("recipients: payer email, or the student's current account email", () 
   assertEquals(templateEnvName("reminder", "payer", "student_direct"), "LOOPS_TRIAL_REMINDER_PAYER_TRANSACTIONAL_ID");
 });
 
-function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>, now = "2026-10-18T16:00:00Z") {
+function deps(
+  jobs: Any[],
+  orderRow: Any,
+  templates: Record<string, string>,
+  now = "2026-10-18T16:00:00Z",
+  opts: { send?: (input: Any, key: string) => Promise<void>; rpcError?: (fn: string) => Any } = {},
+) {
   const rpcs: Any[] = [];
   const sent: Any[] = [];
   const updates: Any[] = [];
@@ -80,7 +86,8 @@ function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>, now
     schema: () => ({
       rpc: (fn: string, args: Any) => {
         rpcs.push([fn, args]);
-        return Promise.resolve({ data: fn === "claim_trial_notice_jobs" ? jobs : null, error: null });
+        const error = opts.rpcError?.(fn) ?? null;
+        return Promise.resolve({ data: fn === "claim_trial_notice_jobs" ? jobs : null, error });
       },
       from: (table: string) => {
         const b: Any = {
@@ -97,7 +104,7 @@ function deps(jobs: Any[], orderRow: Any, templates: Record<string, string>, now
   };
   const d: NoticeDeps = {
     service,
-    send: (input, key) => { sent.push([input, key]); return Promise.resolve(); },
+    send: (input, key) => { sent.push([input, key]); return opts.send ? opts.send(input, key) : Promise.resolve(); },
     templateId: (name) => templates[name] ?? null,
     retrieveCardLast4: () => Promise.resolve("4242"),
     lookupUserEmail: () => Promise.resolve("kid@example.com"),
@@ -161,7 +168,11 @@ Deno.test("worker: a delayed charge is dated from the payer's sent notice, and i
   const h = deps([job], delayedOrder, { LOOPS_TRIAL_DELAYED_CHARGE_PAYER_TRANSACTIONAL_ID: "tx_d" }, "2026-10-25T16:00:00Z");
   assertEquals((await deliverTrialNotices(h.d)).sent, 1);
   const ack = h.rpcs.find(([fn]: Any) => fn === "trial_delayed_notice_sent");
-  assertEquals(ack[1], { p_order_id: "order-1", p_next_attempt_at: "2026-10-27T17:00:00.000Z" });
+  assertEquals(ack[1], {
+    p_order_id: "order-1",
+    p_next_attempt_at: "2026-10-27T17:00:00.000Z",
+    p_sent_at: "2026-10-25T16:00:00.000Z",
+  });
   assertEquals(new Date(h.caps[0].expires_at) > new Date("2026-10-27T17:00:00Z"), true);
 });
 
@@ -179,4 +190,54 @@ Deno.test("worker: the student's delayed-charge copy waits for the payer's, so b
   const h = deps([job], delayedOrder, { LOOPS_TRIAL_DELAYED_CHARGE_STUDENT_TRANSACTIONAL_ID: "tx_s" });
   assertEquals((await deliverTrialNotices(h.d)).failed, 1);
   assertEquals(h.sent.length, 0);
+});
+
+Deno.test("worker: an accepted delayed notice whose acknowledgement failed is repeated, and Loops' duplicate completes it", async () => {
+  const delayedOrder = { ...order, status: "delayed_notice", trial_ends_at: "2026-10-21T16:00:00Z", next_attempt_at: null };
+  const job = { id: "j7", dedupe_key: "order-1:delayed_charge:payer:1", order_id: "order-1", kind: "delayed_charge", recipient_role: "payer", attempt_count: 1, lease_id: "L" };
+  const templates = { LOOPS_TRIAL_DELAYED_CHARGE_PAYER_TRANSACTIONAL_ID: "tx_d" };
+  // First run: Loops accepts, the acknowledgement fails.
+  const first = deps([job], delayedOrder, templates, "2026-10-25T16:00:00Z", {
+    rpcError: (fn) => fn === "trial_delayed_notice_sent" ? { message: "db down" } : null,
+  });
+  assertEquals((await deliverTrialNotices(first.d)).failed, 1);
+  const stored = first.updates.find(([t, p]: Any) => t === "trial_notice_jobs" && p.delivery_payload)[1].delivery_payload;
+  assertEquals(first.caps.length, 1);
+
+  // Retry 5 minutes later with the stored email: Loops answers 409 for the key.
+  const retryJob = { ...job, attempt_count: 2, delivery_payload: stored };
+  const retry = deps([retryJob], delayedOrder, templates, "2026-10-25T16:05:00Z", {
+    send: () => Promise.reject(new Error("loops_transactional_http_409")),
+  });
+  assertEquals((await deliverTrialNotices(retry.d)).sent, 1);
+  assertEquals(retry.sent[0][1], first.sent[0][1]);
+  assertEquals(retry.sent[0][0].dataVariables, first.sent[0][0].dataVariables);
+  assertEquals(retry.caps.length, 0); // no new cancel link
+  const ack = retry.rpcs.find(([fn]: Any) => fn === "trial_delayed_notice_sent")[1];
+  assertEquals(ack.p_next_attempt_at, "2026-10-27T17:00:00.000Z"); // the date the email gave
+  const done = retry.updates.find(([t, p]: Any) => t === "trial_notice_jobs" && p.delivered_at)[1];
+  assertEquals(done.delivery_payload, null);
+});
+
+Deno.test("worker: a 409 on a first send is a failure, not a delivery", async () => {
+  const job = { id: "j8", dedupe_key: "order-1:trial_started:payer", order_id: "order-1", kind: "trial_started", recipient_role: "payer", attempt_count: 1, lease_id: "L" };
+  const h = deps([job], order, { LOOPS_TRIAL_TRIAL_STARTED_PAYER_TRANSACTIONAL_ID: "tx_1" }, undefined, {
+    send: () => Promise.reject(new Error("loops_transactional_http_409")),
+  });
+  assertEquals((await deliverTrialNotices(h.d)).failed, 1);
+  assertEquals(h.updates.some(([t, p]: Any) => t === "trial_notice_jobs" && p.delivered_at), false);
+});
+
+Deno.test("worker: a stored delayed notice too late to give 48 hours is re-rendered with a new date and key", async () => {
+  const delayedOrder = { ...order, status: "delayed_notice", trial_ends_at: "2026-10-21T16:00:00Z", next_attempt_at: null };
+  const stale = { transactionalId: "tx_d", email: "parent@example.com", dataVariables: { x: "1" },
+    key: "trial:order-1:delayed_charge:payer:1", nextAttemptAt: "2026-10-27T17:00:00.000Z" };
+  const job = { id: "j9", dedupe_key: "order-1:delayed_charge:payer:1", order_id: "order-1", kind: "delayed_charge",
+    recipient_role: "payer", attempt_count: 4, lease_id: "L", delivery_payload: stale };
+  // 3 hours after the first render: only 46 hours left before the stored date.
+  const h = deps([job], delayedOrder, { LOOPS_TRIAL_DELAYED_CHARGE_PAYER_TRANSACTIONAL_ID: "tx_d" }, "2026-10-25T19:00:00Z");
+  assertEquals((await deliverTrialNotices(h.d)).sent, 1);
+  assertEquals(h.sent[0][1], "trial:order-1:delayed_charge:payer:1:4");
+  const ack = h.rpcs.find(([fn]: Any) => fn === "trial_delayed_notice_sent")[1];
+  assertEquals(ack.p_next_attempt_at, "2026-10-27T20:00:00.000Z");
 });

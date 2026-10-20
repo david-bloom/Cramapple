@@ -363,4 +363,89 @@ begin
     'recording the outcome voids the parent cancel link');
 end $$;
 
+-- ---------------------------------------------------------------------------
+-- 10. QA round 3 (20261020120000): pending orders with a Stripe session wait
+--     for Stripe's expiry; refused and late activations keep their Stripe ids;
+--     access continues while the day-7 charge is due or paused; the delayed
+--     acknowledgement keeps the emailed date.
+-- ---------------------------------------------------------------------------
+insert into auth.users values
+  ('00000000-0000-0000-0000-00000000000a', 'ten-a@example.com'),
+  ('00000000-0000-0000-0000-00000000000b', 'ten-b@example.com'),
+  ('00000000-0000-0000-0000-00000000000c', 'ten-c@example.com');
+insert into app.profiles values
+  ('00000000-0000-0000-0000-00000000000a'), ('00000000-0000-0000-0000-00000000000b'),
+  ('00000000-0000-0000-0000-00000000000c');
+
+do $$
+declare a uuid; b uuid; c uuid; n uuid; r text; t app.trial_orders; v timestamptz;
+begin
+  -- Pending rule.
+  a := pg_temp.new_order('ten-pending-a@example.com');
+  b := pg_temp.new_order('ten-pending-b@example.com');
+  n := pg_temp.new_order('ten-pending-n@example.com');
+  update app.trial_orders set checkout_session_id = 'cs_a', quote_expires_at = now() - interval '1 hour' where id = a;
+  update app.trial_orders set checkout_session_id = 'cs_b', quote_expires_at = now() - interval '5 days' where id = b;
+  update app.trial_orders set quote_expires_at = now() - interval '1 hour' where id = n;
+  perform app.trial_sweep();
+  perform pg_temp.check((select status from app.trial_orders where id = a) = 'pending_setup',
+    'a lapsed quote with a Stripe session waits for Stripe''s expiry event');
+  perform pg_temp.check((select status from app.trial_orders where id = b) = 'setup_expired',
+    'the sweep backstops a session whose events never arrived');
+  perform pg_temp.check((select status from app.trial_orders where id = n) = 'setup_expired',
+    'a lapsed quote that never reached Stripe expires at once');
+
+  -- F3: refused after the PI exists, and late on a lapsed order.
+  a := pg_temp.new_order('ten-a@example.com', 'parent_share');
+  perform app.trial_activate(a, '00000000-0000-0000-0000-00000000000a', 'pi_10a', 'seti_10a', 'pm_10a',
+    'p@example.com', now(), 'terms-2026-10', 'stripe_consent_collection');
+  b := pg_temp.new_order('ten-a@example.com', 'parent_share');
+  r := app.trial_activate(b, '00000000-0000-0000-0000-00000000000a', 'pi_10b', 'seti_10b', 'pm_10b',
+    'p@example.com', now(), 'terms-2026-10', 'stripe_consent_collection');
+  select * into t from app.trial_orders where id = b;
+  perform pg_temp.check(r = 'email_consumed' and t.status = 'activation_refused'
+    and t.payment_intent_id = 'pi_10b' and t.payment_method_id = 'pm_10b',
+    'a consumed-email refusal keeps the PI and card for clean-up');
+  update app.trial_orders set status = 'setup_expired', stripe_cleanup_done_at = now() where id = n;
+  r := app.trial_activate(n, '00000000-0000-0000-0000-00000000000a', 'pi_10n', 'seti_10n', 'pm_10n',
+    'p@example.com', now());
+  select * into t from app.trial_orders where id = n;
+  perform pg_temp.check(r = 'bad_state' and t.payment_intent_id = 'pi_10n' and t.payment_method_id = 'pm_10n'
+    and t.stripe_cleanup_done_at is null, 'a late activation on a lapsed order is queued for clean-up');
+
+  -- F4: day 7 passed an hour ago, charges paused: access continues.
+  c := pg_temp.new_order('ten-b@example.com');
+  perform app.trial_activate(c, '00000000-0000-0000-0000-00000000000b', 'pi_10c', 'seti_10c', 'pm_10c',
+    'ten-b@example.com', now() - interval '7 days 1 hour');
+  perform app.trial_sweep();
+  select * into t from app.trial_orders where id = c;
+  perform pg_temp.check(t.status = 'trialing', 'inside the collection window the order is not yet delayed');
+  perform pg_temp.check((select count(*) from app.subject_entitlements where external_reference = c::text
+    and access_tier = 'trial' and status = 'active' and ends_at > now()) = 1,
+    'access continues while the day-7 charge is due or paused');
+  -- Ten minutes before day 7: extended ahead, so there is no gap at the boundary.
+  a := pg_temp.new_order('ten-c@example.com');
+  perform app.trial_activate(a, '00000000-0000-0000-0000-00000000000c', 'pi_10d', 'seti_10d', 'pm_10d',
+    'ten-c@example.com', now() - interval '7 days' + interval '10 minutes');
+  perform app.trial_sweep();
+  perform pg_temp.check((select ends_at from app.subject_entitlements where external_reference = a::text
+    and access_tier = 'trial') >= now() + interval '59 minutes', 'access is extended before the boundary');
+  -- A cancelled trial is not revived.
+  perform app.trial_cancel(a, 'student');
+  perform app.trial_sweep();
+  perform pg_temp.check(not exists (select 1 from app.subject_entitlements where external_reference = a::text
+    and access_tier = 'trial' and status = 'active'), 'the sweep never extends a cancelled trial');
+
+  -- F2: the acknowledgement keeps the emailed date when it still gives 48 hours.
+  update app.trial_orders set trial_started_at = trial_started_at - interval '2 hours',
+    trial_ends_at = trial_ends_at - interval '2 hours' where id = c;
+  perform app.trial_sweep();
+  perform pg_temp.check((select status from app.trial_orders where id = c) = 'delayed_notice', 'delayed after the window');
+  v := app.trial_delayed_notice_sent(c, now() + interval '49 hours', now());
+  perform pg_temp.check(v = now() + interval '49 hours', 'the acknowledged date is the one the email gave');
+  update app.trial_orders set next_attempt_at = null where id = c;
+  v := app.trial_delayed_notice_sent(c, now() + interval '10 hours', now() + interval '5 hours');
+  perform pg_temp.check(v = now() + interval '48 hours', 'never under 48 hours, and a future send time is clamped');
+end $$;
+
 select 'ALL TRIAL ORDER SQL TESTS PASSED' as result;

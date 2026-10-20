@@ -87,6 +87,7 @@ function fakeStripe(promos: Any[] = [], opts: { idempotent?: boolean } = {}) {
         },
         expire: (id: string) => { calls.push(["expire", id]); expired.add(id); return Promise.resolve({}); },
         isExpired: (id: string) => expired.has(id),
+        retrieve: (id: string) => Promise.resolve({ id, status: expired.has(id) ? "expired" : "open" }),
       },
     },
   };
@@ -261,4 +262,41 @@ Deno.test("resuming a purchase does not exhaust the promo code it reserved; anot
     TrialError,
     "promo_code_exhausted",
   );
+});
+
+Deno.test("a restart never replaces a session whose card is already saved (webhook not yet in)", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  const first = await startTrialSetup(deps(service, stripe), startOf(q));
+  // The buyer completed setup; Stripe refuses to expire a complete session.
+  stripe.checkout.sessions.expire = () => Promise.reject(new Error("Only open sessions can be expired"));
+  stripe.checkout.sessions.retrieve = (id: string) => Promise.resolve({ id, status: "complete" });
+  await assertRejects(() => startTrialSetup(deps(service, stripe), startOf(q)), TrialError, "trial_setup_completing");
+  assertEquals(service.orders[0].checkout_session_id, first.session_id);
+  assertEquals(stripe.calls.filter((c: Any) => c[0] === "session").length, 1);
+});
+
+Deno.test("a restart whose old session cannot be checked leaves the order alone", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  const first = await startTrialSetup(deps(service, stripe), startOf(q));
+  stripe.checkout.sessions.expire = () => Promise.reject(new Error("timeout"));
+  stripe.checkout.sessions.retrieve = () => Promise.reject(new Error("timeout"));
+  await assertRejects(() => startTrialSetup(deps(service, stripe), startOf(q)), TrialError, "trial_start_unavailable");
+  assertEquals(service.orders[0].checkout_session_id, first.session_id);
+  // Already expired on Stripe (its event not yet here): the restart proceeds.
+  stripe.checkout.sessions.retrieve = (id: string) => Promise.resolve({ id, status: "expired" });
+  const second = await startTrialSetup(deps(service, stripe), startOf(q));
+  assertEquals(service.orders[0].checkout_session_id, second.session_id);
+});
+
+Deno.test("setup sessions expire with the quote", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  await startTrialSetup(deps(service, stripe), startOf(q));
+  const session = stripe.calls.find((c: Any) => c[0] === "session")[1];
+  assertEquals(session.expires_at, Math.floor(new Date(service.orders[0].quote_expires_at).getTime() / 1000));
 });

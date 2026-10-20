@@ -74,6 +74,32 @@ export class TrialError extends Error {
   }
 }
 
+/**
+ * Before a restart replaces an order's Checkout Session, make sure that
+ * session can no longer save a card. Stripe expires only an open session, so
+ * an expiry that fails is classified from the session itself: a completed
+ * session keeps its order (its webhook activates the trial) and the restart
+ * is refused; anything unexplained leaves the order as it is.
+ */
+export async function retireSession(stripe: Any, sessionId: string) {
+  try {
+    await stripe.checkout.sessions.expire(sessionId);
+    return;
+  } catch {
+    // Classified below.
+  }
+  let session: Any;
+  try {
+    session = await stripe.checkout.sessions.retrieve(sessionId);
+  } catch {
+    throw new TrialError("trial_start_unavailable", 503);
+  }
+  if (session?.status === "expired") return;
+  if (session?.status === "complete") throw new TrialError("trial_setup_completing", 409);
+  // Still open after a failed expiry: replacing it would leave a payable page.
+  throw new TrialError("trial_start_unavailable", 503);
+}
+
 export async function loadPriceFacts(stripe: Any, priceId: string): Promise<PriceFacts> {
   const price = await stripe.prices.retrieve(priceId);
   if (typeof price.unit_amount !== "number") throw new TrialError("price_unsupported", 500);
@@ -302,9 +328,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
   if (existing) {
     orderId = existing.id;
     if (existing.checkout_session_id) {
-      await deps.stripe.checkout.sessions.expire(existing.checkout_session_id).catch(() => {
-        // Already completed or expired; the webhook handles either.
-      });
+      await retireSession(deps.stripe, existing.checkout_session_id);
     }
     // Compare-and-set on the session we just expired: a concurrent start
     // that already replaced it wins, and this one stops.
@@ -337,6 +361,10 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
     ...(input.studentName ? { student_name: input.studentName } : {}),
   };
 
+  // The session ends with the quote, so it can never be completed on terms
+  // that have lapsed; Stripe then sends checkout.session.expired.
+  const expiresAt = Math.floor(new Date(row.quote_expires_at).getTime() / 1000);
+
   // A fresh key per start: a retry expires the previous session above, and
   // reusing its creation key would make Stripe replay that expired session.
   const setupKey = `trial-setup:${orderId}:${crypto.randomUUID()}`;
@@ -360,6 +388,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
         description: `Cramapple 7-day free trial (${input.subjectKeys.join(", ")})`,
         metadata: { trial_order_id: orderId },
       },
+      expires_at: expiresAt,
       metadata,
     }, { idempotencyKey: setupKey });
   } else {
@@ -387,6 +416,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
         description: `Cramapple 7-day free trial (${input.subjectKeys.join(", ")})`,
         metadata: { trial_order_id: orderId },
       },
+      expires_at: expiresAt,
       metadata,
     }, { idempotencyKey: setupKey });
   }

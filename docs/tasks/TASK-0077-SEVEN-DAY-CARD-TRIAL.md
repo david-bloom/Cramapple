@@ -94,6 +94,26 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
+
+Migration `20261020120000_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
+`trial_orders.recovery_seen_error`; replaces `trial_activate`, `trial_sweep`, `trial_delayed_notice_sent`). Not yet applied
+anywhere.
+
+| Finding | Fix | Tests |
+| --- | --- | --- |
+| **F1** (P1) restart replaces a completed session | `retireSession`: a failed expiry is classified from the session; `complete` → `409 trial_setup_completing`, order untouched; unreadable or still open → `503 trial_start_unavailable`; `expired` → proceed | `trial-checkout_test.ts` (3 new) |
+| **H** (readiness 1) card saved after the sweep | Setup sessions get `expires_at` = the quote's expiry; the sweep leaves session-linked pending orders to Stripe's `checkout.session.expired` and backstops only after 4 days; a completion on a `setup_expired` order records the card (`recordLateSetup`) and a parent's is detached; clean-up now covers `setup_expired` | `trial_test.ts` (2 new), SQL §10 |
+| **F3** (P2) refusal after the PI loses clean-up | `trial_activate` stores the PI, SetupIntent and card on the `email_consumed` refusal, and on a late activation of a `setup_expired`/`activation_refused` order (clean-up re-armed) | SQL §10 |
+| **F4** (P2) access gap after day 7 | The sweep extends active trial access in rolling hours for `trialing`/`charging` orders from 15 minutes before `trial_ends_at` until they convert, fail, are delayed or are cancelled; never shortens, never revives revoked rows | SQL §10 |
+| **F2** (P2) accepted notice + failed acknowledgement | Each notice is rendered once and stored (`delivery_payload`, links included) before the first send; a retry resends it exactly under the same key, and a 409 on that repeat counts as delivered (a 409 on a first send is still an error); a stored delayed-charge email that would give under 48 hours is re-rendered under a new key; `trial_delayed_notice_sent(…, p_sent_at)` counts the 48 hours from the send; payload cleared on delivery | `trial-notices_test.ts` (3 new), SQL §10 |
+| **Readiness 3** attempts counted per page open | `failureKey(pi)`: an attempt is a new failure on the order's intent (charge, code, method), stored in `recovery_seen_error`; reopening the page counts nothing | `trial-actions_test.ts` |
+| **Readiness 2** recovery form not card-only | App: Payment Element mounted with `wallets: { link: "never" }` (sandbox probe: that option alone removes Bank, Klarna and Link) | ap-prep-blueprint PR #39 |
+
+Results: CI Deno command **235 passed**; SQL scenarios **86 checks + legacy backfill** passed on a throwaway local Postgres.
+The marketing return page should show a "finishing your trial" message for `409 trial_setup_completing` (today it shows the
+generic error); not yet sent to Lovable.
+
 ## Production readiness check (2026-10-20, David asked: checklist items 1, 2, 4, 6 and the smaller items)
 
 **Marketing checkout (Lovable `61dd6602`).** Audited `902b5833` against the contract above: quote, Terms tick, setup
@@ -304,7 +324,9 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
 ## Known limits and open items
 
 - **No account-deletion path exists** in the backend today. `trial_orders.user_id … on delete restrict` makes any deletion
-  (including an operator's) fail until the learner's trials are cancelled with `cancel-trial` / `app.trial_cancel`.
+  (including an operator's) fail while the learner has **any** trial order, cancelled or not: cancelling keeps the order row
+  and its `user_id` (Codex, 2026-10-19, reproduced locally). A deletion path must be designed (what to keep for payment
+  records, what to anonymise) before account deletion is offered.
 - **Promo parity with Stripe** is tested against our own rules, not yet against Stripe test mode (plan §6.9 parity tests need A0 /
   Dev Stripe keys).
 - **Unverified Stripe behaviours** (plan §9): setup + Elements rendering, wallets in setup mode, the hosted Terms checkbox, and

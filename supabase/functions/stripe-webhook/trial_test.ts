@@ -41,6 +41,7 @@ function harness(opts: { order?: Any; activate?: string; convert?: string; exist
         const b: Any = {
           select: () => b,
           eq: (c: string, v: unknown) => { filters.push([c, v]); return b; },
+          is: () => b,
           update: (p: Any) => { patch = p; return b; },
           upsert: (row: Any) => { calls.push(["upsert", table, row]); return Promise.resolve({ error: null }); },
           maybeSingle: () =>
@@ -230,4 +231,21 @@ Deno.test("refunds and disputes act only on the charge's own trial order", async
   assertEquals(h.calls.find((c) => c[1] === "trial_mark_refunded")[2].p_full, true);
   await handleDispute(h.deps, { id: "dp_1", payment_intent: "pi_9" });
   assertEquals(h.calls.some((c) => c[1] === "trial_mark_disputed"), true);
+});
+
+Deno.test("a card saved on an order that already lapsed is recorded for clean-up and a parent's is removed", async () => {
+  const h = harness({ order: order({ purchase_type: "parent_share", status: "setup_expired", stripe_customer_id: null }) });
+  await handleTrialSetupSession(h.deps, { ...directSession, customer: "cus_p" }, "completed", EVENT_CREATED);
+  const update = h.calls.find((c) => c[0] === "update")[2];
+  assertEquals([update.payment_method_id, update.setup_intent_id, update.stripe_cleanup_done_at], ["pm_1", "seti_1", null]);
+  assertEquals(h.calls.some((c) => c[0] === "pm.detach" && c[1] === "pm_1"), true);
+  assertEquals(h.calls.some((c) => c[0] === "rpc"), false);
+  assertEquals(h.calls.some((c) => c[0] === "pi.create"), false);
+});
+
+Deno.test("a direct student's late card is recorded but never detached", async () => {
+  const h = harness({ order: order({ status: "setup_expired" }) });
+  await handleTrialSetupSession(h.deps, directSession, "completed", EVENT_CREATED);
+  assertEquals(h.calls.find((c) => c[0] === "update")[2].payment_method_id, "pm_1");
+  assertEquals(h.calls.some((c) => c[0] === "pm.detach"), false);
 });
