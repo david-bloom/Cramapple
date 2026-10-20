@@ -364,7 +364,7 @@ begin
 end $$;
 
 -- ---------------------------------------------------------------------------
--- 10. QA round 3 (20261020120000): pending orders with a Stripe session wait
+-- 10. QA round 3 (20261020224101): pending orders with a Stripe session wait
 --     for Stripe's expiry; refused and late activations keep their Stripe ids;
 --     access continues while the day-7 charge is due or paused; the delayed
 --     acknowledgement keeps the emailed date.

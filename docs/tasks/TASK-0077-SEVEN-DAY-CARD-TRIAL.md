@@ -96,7 +96,7 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
 
 ## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
 
-Migration `20261020120000_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
+Migration `20261020224101_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
 `trial_orders.recovery_seen_error`; replaces `trial_activate`, `trial_sweep`, `trial_delayed_notice_sent`). Not yet applied
 anywhere.
 
