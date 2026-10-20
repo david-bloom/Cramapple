@@ -127,6 +127,11 @@ two failed 3D Secure challenges on the same card → two events with Stripe's ow
 events in all). A third try with the challenge completed → converted; paid access active, trial access expired, recovery
 link voided.
 
+*Notices on Development (after the other session set `TRIAL_NOTICES_ENABLED=true`, 2026-10-20):* every trial notice
+delivered in the last three days went through the round-3 stored path (`rendered_at` set, `delivery_payload` cleared): 14
+delivered (trial started, requires action, converted, canceled, refunded), none pending, none flagged for review, no errors.
+This is the normal path; the accepted-send-then-failed-acknowledgement path is still covered only by tests and Codex's probe.
+
 ## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
 
 Migration `20261020224101_task0077_trial_qa_round3.sql` (new columns `trial_notice_jobs.delivery_payload`, `rendered_at`,
