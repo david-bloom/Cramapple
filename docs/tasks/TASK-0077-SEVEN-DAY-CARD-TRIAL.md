@@ -96,8 +96,9 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
 
 ## QA round 4 fixes (2026-10-20, Codex review of `fb1ace39`)
 
-Codex confirmed F1–F4 fixed and found two P2s. Migration `20261021000000_task0077_trial_qa_round4.sql` (drops
-`trial_orders.recovery_seen_error`; adds `trial_count_recovery_failure`). Not yet applied anywhere.
+Codex confirmed F1–F4 fixed and found two P2s. Migration `20261020233210_task0077_trial_qa_round4.sql` (drops
+`trial_orders.recovery_seen_error`; adds `trial_count_recovery_failure`). **On Development 2026-10-20** (below); not on
+Production.
 
 | Finding | Fix | Tests |
 | --- | --- | --- |
@@ -110,6 +111,19 @@ can still retry within that page until Stripe's own confirmation limit.
 Results: full CI Deno command (22 files) **254 passed**; SQL **88 checks + legacy backfill**; Codex's four probes against
 this code: both regression probes pass, both defect probes now fail (the cleanup marker stays unset; the page no longer
 counts, so the recovery probe reads 0, while the webhook path counts each event).
+
+**Development deploy (2026-10-20, David approved).** Before: all nine trial functions matched `7135e6ae`; five change in
+round 4. Deployed `stripe-webhook`, `charge-due-trials`, `trial-recovery`, `cancel-trial` (`--no-verify-jwt`) and
+`get-trial-status` (JWT) from `cfbd59b1` first, then the migration (the old code wrote the dropped column), recorded as
+**`20261020233210`** (file renamed). Read-back: column gone; only `service_role` can execute the new function. After: all
+five match `cfbd59b1` file for file.
+
+*Live check, parent order J (`5626f0aa`), card 4000 0027 6000 3184:* 3D Secure setup completed → day 7 → the worker's
+off-session charge failed `authentication_required` (`requires_action`); its `payment_intent.payment_failed` event (key
+`trial-confirm:…:1`) was processed and **not** counted (`recovery_attempts` 0). On the recovery page (localhost, app `main`)
+two failed 3D Secure challenges on the same card → two events with Stripe's own keys → `recovery_attempts` **2** (3 failure
+events in all). A third try with the challenge completed → converted; paid access active, trial access expired, recovery
+link voided.
 
 ## QA round 3 fixes (2026-10-20, Codex review of `0b6301f2` + readiness findings)
 
