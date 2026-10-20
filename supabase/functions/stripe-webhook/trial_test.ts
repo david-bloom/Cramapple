@@ -250,17 +250,30 @@ Deno.test("a direct student's late card is recorded but never detached", async (
   assertEquals(h.calls.some((c) => c[0] === "pm.detach"), false);
 });
 
-Deno.test("each failed on-session confirmation counts one recovery attempt; the worker's own failures do not", async () => {
+Deno.test("each failed on-session confirmation event is counted with its event id; the worker's own failures are not", async () => {
   const h = harness();
   const intent = { id: "pi_1", status: "requires_payment_method", metadata: { kind: "trial_conversion", trial_order_id: "order-1" } };
   // Eight failed authentications on the same card: same error, no charge, eight events.
   for (let n = 0; n < 8; n++) {
-    await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: `stripe-js-${n}` });
+    await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: `stripe-js-${n}` }, `evt_${n}`);
   }
-  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: null });
-  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: "trial-confirm:order-1:1" });
-  await handleTrialPaymentIntent(h.deps, "payment_intent.processing", intent, { idempotency_key: "x" });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: null }, "evt_null_key");
+  await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: "trial-confirm:order-1:1" }, "evt_worker");
+  await handleTrialPaymentIntent(h.deps, "payment_intent.processing", intent, { idempotency_key: "x" }, "evt_processing");
   const counted = h.calls.filter((c) => c[0] === "rpc" && c[1] === "trial_count_recovery_failure");
   assertEquals(counted.length, 9);
-  assertEquals(counted[0][2], { p_order_id: "order-1", p_payment_intent_id: "pi_1" });
+  assertEquals(counted[0][2], { p_order_id: "order-1", p_payment_intent_id: "pi_1", p_stripe_event_id: "evt_0" });
+});
+
+Deno.test("a failure event without an id is refused so Stripe retries it, never counted blind", async () => {
+  const h = harness();
+  const intent = { id: "pi_1", metadata: { kind: "trial_conversion", trial_order_id: "order-1" } };
+  let threw = false;
+  try {
+    await handleTrialPaymentIntent(h.deps, "payment_intent.payment_failed", intent, { idempotency_key: "stripe-js" }, null);
+  } catch {
+    threw = true;
+  }
+  assertEquals(threw, true);
+  assertEquals(h.calls.some((c) => c[0] === "rpc" && c[1] === "trial_count_recovery_failure"), false);
 });

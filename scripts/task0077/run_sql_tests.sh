@@ -18,7 +18,8 @@ psql -q -d "$db" -v ON_ERROR_STOP=1 \
   -f "$repo/supabase/migrations/20261018191935_task0077_trial_worker_invokers.sql" \
   -f "$repo/supabase/migrations/20261019142835_task0077_trial_qa_fixes.sql" \
   -f "$repo/supabase/migrations/20261020224101_task0077_trial_qa_round3.sql" \
-  -f "$repo/supabase/migrations/20261020233210_task0077_trial_qa_round4.sql"
+  -f "$repo/supabase/migrations/20261020233210_task0077_trial_qa_round4.sql" \
+  -f "$repo/supabase/migrations/20261021000100_task0077_trial_qa_round5.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/trial_orders_sql_test.sql" 2>&1 \
   | sed 's/^psql:[^ ]* //'
 

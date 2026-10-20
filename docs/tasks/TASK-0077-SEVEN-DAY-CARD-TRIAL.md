@@ -96,6 +96,21 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## QA round 5 fix (2026-10-20, Codex review of `cfbd59b1`)
+
+Codex confirmed F5 closed and found **F7 (P2):** a failed-payment event whose webhook ledger acknowledgement fails after the
+count committed is retried by Stripe and counted again (probe: 500 → 200, count 1 → 2), so the five-attempt cap can be reached
+early. Fix, migration `20261021000100_task0077_trial_qa_round5.sql` (not yet applied anywhere): new service-only table
+`app.trial_recovery_failure_events` (Stripe event id primary key); `trial_count_recovery_failure(order, intent, event id)`
+locks the order, records the event and increments in one transaction, and returns the unchanged count for an event already
+counted. The webhook passes `event.id` and refuses (so Stripe retries) a failure event without one.
+
+Results: full CI Deno command **255 passed**; SQL **89 checks + legacy backfill** (§11: two events count 2, a repeat of the
+same event leaves 2, another intent counts nothing). Codex's cleanup regression probe passes. Its retry probe stubs the
+counter as a plain increment, so it cannot see a fix that lives in SQL; with the stub changed to the round-5 behaviour (one
+count per `p_stripe_event_id`) the same 500 → retry → 200 path leaves the count at 1, which shows the handler sends the same
+event id on the retry.
+
 ## QA round 4 fixes (2026-10-20, Codex review of `fb1ace39`)
 
 Codex confirmed F1–F4 fixed and found two P2s. Migration `20261020233210_task0077_trial_qa_round4.sql` (drops

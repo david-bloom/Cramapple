@@ -262,17 +262,22 @@ export async function handleTrialPaymentIntent(
   eventType: string,
   intent: Any,
   request: { idempotency_key?: string | null } | null = null,
+  eventId: string | null = null,
 ) {
   const orderId = intent.metadata?.trial_order_id;
   if (!orderId) return;
   if (eventType === "payment_intent.payment_failed" &&
     !String(request?.idempotency_key ?? "").startsWith(WORKER_CONFIRM_KEY)) {
     // A failed on-session confirmation (the recovery page): one recovery
-    // attempt per event. The worker classifies its own off-session failures
-    // from the confirm response, and those are not counted here.
+    // attempt per Stripe event, recorded with the event id so a retried
+    // delivery of the same event never counts again. The worker classifies
+    // its own off-session failures from the confirm response, and those are
+    // not counted here.
+    if (!eventId) throw new Error("trial_failure_event_id_missing");
     const { error } = await deps.service.schema("app").rpc("trial_count_recovery_failure", {
       p_order_id: orderId,
       p_payment_intent_id: intent.id,
+      p_stripe_event_id: eventId,
     });
     if (error) throw error;
   }

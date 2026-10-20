@@ -449,19 +449,24 @@ begin
 end $$;
 
 -- ---------------------------------------------------------------------------
--- 11. QA round 4: a recovery attempt is counted per failed confirmation, only
---     against the order's own PaymentIntent.
+-- 11. QA rounds 4-5: a recovery attempt is counted once per failed Stripe
+--     event, only against the order's own PaymentIntent; a retried delivery
+--     of the same event changes nothing.
 -- ---------------------------------------------------------------------------
 do $$
 declare o uuid; n int;
 begin
   o := pg_temp.new_order('eleven@example.com');
   update app.trial_orders set payment_intent_id = 'pi_11' where id = o;
-  perform app.trial_count_recovery_failure(o, 'pi_11');
-  n := app.trial_count_recovery_failure(o, 'pi_11');
-  perform pg_temp.check(n = 2, 'each failed confirmation counts once');
-  perform pg_temp.check(app.trial_count_recovery_failure(o, 'pi_other') is null
-    and (select recovery_attempts from app.trial_orders where id = o) = 2,
+  perform app.trial_count_recovery_failure(o, 'pi_11', 'evt_11a');
+  n := app.trial_count_recovery_failure(o, 'pi_11', 'evt_11b');
+  perform pg_temp.check(n = 2, 'each distinct failed event counts once');
+  n := app.trial_count_recovery_failure(o, 'pi_11', 'evt_11b');
+  perform pg_temp.check(n = 2 and (select recovery_attempts from app.trial_orders where id = o) = 2,
+    'a retried delivery of the same event does not count again');
+  perform pg_temp.check(app.trial_count_recovery_failure(o, 'pi_other', 'evt_11c') is null
+    and (select recovery_attempts from app.trial_orders where id = o) = 2
+    and not exists (select 1 from app.trial_recovery_failure_events where stripe_event_id = 'evt_11c'),
     'another intent never counts against the order');
 end $$;
 
