@@ -1,6 +1,6 @@
 # TASK-0077 — Seven-Day Free Trial With a Saved Card
 
-**Status:** Backend built and tested; **deployed to Development** 2026-10-18, QA fixes 2026-10-19. On Development, trial
+**Status:** Backend built and tested; **deployed to Development** 2026-10-18, QA fixes 2026-10-19; Production readiness check 2026-10-20 (Production blocked on the Loops email foundation and Loops itself). On Development, trial
 admission and charges are **on** (Stripe test mode) and both workers are scheduled; trial notices are off (see "Development
 deployment" below). Nothing in Production. App pages in ap-prep-blueprint PR #37, not published.
 **Tier:** Hard-Gate. **Product Owner:** David Bloom. **Owner:** Claude. **Opened:** 2026-10-18.
@@ -94,6 +94,83 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## Production readiness check (2026-10-20, David asked: checklist items 1, 2, 4, 6 and the smaller items)
+
+**Marketing checkout (Lovable `61dd6602`).** Audited `902b5833` against the contract above: quote, Terms tick, setup
+Elements, 409 re-quote, return page, parent drawer, `/p/<code>`, `/trial` redirects and backend/key selection are done.
+Fixed in **`f9a5e637`** (Lovable, not published): a promo could not be applied in trial mode (Apply went through the pay-now
+path, which refuses while a trial quote is active); a failed quote froze checkout with no message (now an error with Try
+again, never a pay-now fallback); the trial card form said "We'll charge your card once" (now "We'll save this card. Nothing
+is charged today."); a pay-now `409 trial_required` was ignored (now re-quotes into the trial UI); the return page polled
+after `trialing`. Checked on the preview with `?backend=dev`: an invalid code shows "That promo code isn't valid."; `TestCode`
+shows −$38.99 and the mandate and Terms line change to $1.00; the card form shows the new line, card only, no Link.
+The parent drawer's "started" check (`entitled`) is correct: `get-checkout-status` sets `entitled` while `trialing`.
+*Product call, not changed:* "No subscriptions, no surprises" / "one-time" / "pay once" copy (home pricing,
+`ap-biology-prep`, `SkuMarketingPage`, checkout meta) stays true of the day-7 charge, but the home meta still says
+"Sign up free until November".
+
+**Production sign-in email (item 9), read-only.** Auth config on `pcntajvbdfqhbeewmdry`: Send Email hook **off**; SMTP
+`smtp.resend.com` from `no-reply@auth.cramapple.com`; "Confirm sign up", Magic Link and Invite all carry `{{ .Token }}`;
+Confirm sign up has no `ConfirmationURL` and no links; 6-digit codes, 1 h expiry. So trial sign-in does **not** depend on
+Loops. The live end-to-end check (a new account on Production) is still David's.
+
+**Stripe live account `acct_1TddjmLwoRHzBJ1O` (item 5 of the checklist).**
+- Payment method domains: `cramapple.com`, `checkout.cramapple.com` enabled since 2026-10-04 (Apple Pay done).
+- Public details: Terms URL and Privacy URL were empty. The form is filled (`https://cramapple.com/terms`,
+  `https://cramapple.com/privacy`, both 200) but **not saved**: the session's permission check refused the Save click.
+- Radar "Use Radar on payment methods saved for future use": **off**. Not changed (same reason).
+- Webhook "Cramapple Checkout" → Production `stripe-webhook`, 6 events, 0 % errors. **Add the five new events only after
+  the new `stripe-webhook` is on Production:** the deployed and `main` versions throw `unsupported_stripe_event_type`
+  (`stripe-webhook/index.ts:785`), so Stripe would retry and could disable the endpoint.
+
+**Production is behind `main`, not only the trial (item 8).** Functions downloaded and diffed against `main`:
+`stripe-webhook`, `send-parent-payment-email`, `start-trial` and three `_shared` files differ (Production lacks the Loops
+payment emails, the outbox and PostHog `environment` tagging). `deliver-transactional-email` does not exist on
+Production. Migrations missing on Production: `20261006084914_loops_transactional_email_outbox` and
+`20261006143000_parent_email_lifecycle` (also `20261003000100_create_product_feedback_phase_b`, not checked further;
+the two BYOQ files are timestamp drift, already applied). No cron jobs and no trial or email Vault entries. The trial
+worker's email function always runs payment and parent-lifecycle delivery, and `main`'s webhook enqueues payment emails,
+so **the trial cannot ship without the Loops email foundation** (`docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`,
+TASK-0060, never cut over). `growth_event_outbox_event_name_check` on Production matches the 17 names the trial migration
+expects to replace. Production has no trial tables; last migration `20261016000100`.
+
+**Loops is a launch blocker, not only a nicety.** The parent mandate says "You can cancel from the link in your
+confirmation email". That link exists only in the Loops trial-started notice. With Loops down, a paying parent has no
+cancel path, so admission must stay off until notices send.
+
+**Smaller items, Development (Stripe sandbox, 2026-10-20).** Parent orders via `create-parent-payment-link`, cards entered
+on Stripe's hosted test page; recovery and Account pages run locally (`localhost:8080`, PR #37 code) against Development.
+
+| Journey | Path | Result |
+| --- | --- | --- |
+| F `9dfcb812` | Card 4000 0027 6000 3184: 3D Secure on setup → day 7 → off-session charge | **Pass.** Setup challenge completed; charge `authentication_required` → `requires_action`, 24 h grace; recovery page → 3D Secure on-session → converted, paid open-ended, trial expired, link voided. |
+| G `afb35b82` | Card 4000 0000 0000 0259 → day 7 charge → dispute | **Pass.** Charged, then `charge.dispute.created` → `disputed`; trial and paid access revoked; Stripe cleanup done. |
+| D `7dc46674` | Signed-in student, Account page → Cancel | **Pass.** "Cancelled. You won't be charged."; access revoked; PI `canceled` on Stripe. Sign-in used a Development admin-generated code (Development's templates have no code). |
+| H `20bda562` | Late setup webhook: quote expired and swept before the parent saves the card | **Fail.** See finding 1. |
+
+Findings:
+1. **A setup that completes after the sweep strands the card.** The sweep marks `pending_setup` → `setup_expired` at
+   `quote_expires_at` (24 h) but never expires the Stripe session, and Stripe retries a webhook for up to 3 days. On H the
+   session was still `open` after the sweep; the parent saved a card, Stripe shows the SetupIntent `succeeded`
+   (`off_session`) and the card attached to the parent's customer, the webhook logged `trial_setup_replay`, no trial started,
+   and the return page said "We couldn't start the trial. Nothing was changed." The order has no `stripe_customer_id`, so
+   Stripe cleanup never detaches it. Same outcome for any activation retried past the deadline. Suggested fix: the sweep
+   expires the Stripe session itself, or leaves `pending_setup` orders for Stripe's `checkout.session.expired` event and
+   only backstops after 3+ days; and a late completed setup on a swept order activates or explicitly refuses and detaches.
+2. **The recovery form is not card-only on screen.** PI `pi_3USR4GLrvKNd9sBp1KCfaRaL` has `payment_method_types: ['card']`,
+   yet the Payment Element (`elements({ clientSecret })`) shows Card, Bank ("$5 back"), Klarna and "Secure, fast checkout
+   with Link" plus Link's save-my-info form. Cause not established; likely Link. Decide whether to hide Link on the recovery
+   element.
+3. **`recovery_attempts` counts form openings, not payments.** Each `pay` action (opening the form) adds one; the cap is 5
+   (`MAX_RECOVERY_ATTEMPTS`). F reached 3 from two page loads and one direct call. A parent who reloads a few times is locked
+   out with `too_many_attempts`.
+4. Minor: the recovery success line says access "turns back on", but access never went off during grace. In Development
+   mode the app's "Sign in" link points at Production `cramapple.com/login`, so a Development session can't be signed in
+   from the app.
+
+Left on Development: H (`setup_expired`, card attached to `cus_VTNovFug8qo0Cv` in the sandbox) for whoever fixes finding 1;
+E (`475d914f`, `pending_setup`) expires by itself.
+
 ## Development deployment (2026-10-19, later rounds)
 
 - **`c7ae7dc5`** (Codex live-QA fixes) deployed to all six trial functions; before-diff showed only the mandate-version line.
@@ -146,7 +223,11 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
   - `send-parent-payment-email` and `deliver-transactional-email` redeployed for the parent trial email and the app link base.
     `send-parent-payment-email`'s previous Development deploy was **not** compared with `main` before being replaced.
 
-## Frontend contract (for the Lovable work; not started)
+## Frontend contract (for the Lovable work)
+
+*Status 2026-10-20:* built. Marketing `61dd6602` has the trial checkout, parent drawer, `/p/<code>` trial state and the
+`/trial` redirects, behind `VITE_TRIAL_CHECKOUT_ENABLED` (unset, so the live site still sells pay-now). App pages are in
+ap-prep-blueprint PR #37 (merged, not published). Audit and fixes: "Production readiness check (2026-10-20)".
 
 **Direct checkout (`cramapple.com/checkout`, project `61dd6602`):**
 1. `create-checkout-session` `{ action: "trial_quote", purchase_type: "student_direct", mode, subject_keys, student_email, promo_code }`
@@ -206,6 +287,12 @@ the "no credit card" copy (Codex finding 11 lists the exact files in snapshot `d
    migration's list before applying; deploy dormant (`TRIAL_ADMISSION_ENABLED=false`, `TRIAL_CHARGES_ENABLED=true`, notices on,
    heartbeat green); Lovable publish of both checkouts + app + `/trial` retirement together; David's disclosed $1 live trial with a
    per-order exception, conversion, refund; then admission on (only after item 9 passes); then `CARDLESS_TRIAL_RETIRED=true`.
+   *Order as found 2026-10-20 (see "Production readiness check"):* (a) PR #507 merged after Codex; (b) the Loops email
+   foundation first: migrations `20261006084914` and `20261006143000`, `deliver-transactional-email`, its secrets
+   (`LOOPS_PAYMENT_EMAILS_ENABLED=false` until templates exist) and Vault; (c) the three trial migrations, then every
+   function from `main` (diff Production before each deploy), dormant secrets, Vault, `schedule_workers.sql`; (d) only
+   then the five Stripe webhook events; (e) Loops reactivated and templates published, notices on; (f) Lovable publish
+   of marketing (`VITE_TRIAL_CHECKOUT_ENABLED=true`) and app together; (g) the $1 live trial; (h) admission on.
 9. **Production sign-in code email (David, Hard-Gate; before admission on).** Trials no longer send an invite (2026-10-19), so a
    new trial student's first auth email is **"Confirm sign up"**, sent when they first request a code. On Production, request a
    code for a brand-new, unconfirmed account and confirm the email carries the 6-digit code (and a plain `cramapple.com/welcome`
