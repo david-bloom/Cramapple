@@ -1,3 +1,4 @@
+import { clientIp } from "../_shared/request-metadata.ts";
 import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -154,8 +155,7 @@ Deno.serve(async (req) => {
         quoteVersion: asString(input.quote_version) ?? "",
         studentAck: { version: ack.version, source: "parent_share_drawer" },
         studentName,
-        consentIp: req.headers.get("cf-connecting-ip")?.trim() ||
-          req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+        consentIp: clientIp(req),
         consentUserAgent: req.headers.get("user-agent"),
         urls: {
           successUrl:
