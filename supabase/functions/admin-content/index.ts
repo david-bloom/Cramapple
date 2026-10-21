@@ -1,5 +1,6 @@
 import { nonEmptyString as asString } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
+import { checkedDatabase, RequiredDatabaseError } from "../_shared/checked-database.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -240,14 +241,14 @@ async function ensureLegacyProjection(
 
     contentItemId = insertedItem.id as string;
   } else {
-    await service.schema("app")
+    await checkedDatabase(service.schema("app")
       .from("content_items")
       .update({
         item_type: payload.item_type,
         title: payload.title,
         status,
       })
-      .eq("id", contentItemId);
+      .eq("id", contentItemId), "compatibility_item_update");
   }
 
   const { data: latestVersion } = await service.schema("app")
@@ -290,7 +291,7 @@ async function ensureLegacyProjection(
 
   let mcqQualityWarnings: ReturnType<typeof checkAnswerLengthParity>[] = [];
   if (payload.item_type === "mcq" && Array.isArray(payload.mcq_choices)) {
-    await service.schema("app").from("mcq_choices").insert(
+    await checkedDatabase(service.schema("app").from("mcq_choices").insert(
       payload.mcq_choices.map((choice) => ({
         content_item_version_id: insertedVersion.id,
         choice_key: choice.choice_key,
@@ -298,7 +299,7 @@ async function ensureLegacyProjection(
         is_correct: Boolean(choice.is_correct),
         rationale: choice.rationale ?? null,
       })),
-    );
+    ), "compatibility_choices_insert");
 
     const lengthParityFinding = checkAnswerLengthParity(
       payload.mcq_choices.map((choice) => ({
@@ -318,7 +319,7 @@ async function ensureLegacyProjection(
   }
 
   if (payload.item_type === "frq" && Array.isArray(payload.frq_criteria)) {
-    await service.schema("app").from("frq_criteria").insert(
+    await checkedDatabase(service.schema("app").from("frq_criteria").insert(
       payload.frq_criteria.map((criterion) => ({
         content_item_version_id: insertedVersion.id,
         criterion_key: criterion.criterion_key,
@@ -328,24 +329,24 @@ async function ensureLegacyProjection(
         minimum_fix: criterion.minimum_fix ?? null,
         accepted_variants: criterion.accepted_variants ?? [],
       })),
-    );
+    ), "compatibility_criteria_insert");
   }
 
   if (
     Array.isArray(payload.content_labels) && payload.content_labels.length > 0
   ) {
-    const { data: examPackVersion } = await service.schema("app")
+    const { data: examPackVersion } = await checkedDatabase(service.schema("app")
       .from("exam_pack_versions")
       .select("exam_pack_id")
       .eq("id", payload.exam_pack_version_id)
-      .maybeSingle();
+      .maybeSingle(), "label_exam_pack_read");
 
     const examPackId = examPackVersion?.exam_pack_id as string | undefined;
     const { data: labels } = examPackId
-      ? await service.schema("app")
+      ? await checkedDatabase(service.schema("app")
         .from("content_labels")
         .select("id, label_key")
-        .eq("exam_pack_id", examPackId)
+        .eq("exam_pack_id", examPackId), "content_labels_read")
       : { data: [] as Array<{ id: string; label_key: string }> };
 
     const labelIdByKey = new Map(
@@ -363,9 +364,9 @@ async function ensureLegacyProjection(
       }));
 
     if (links.length > 0) {
-      await service.schema("app").from("content_item_labels").upsert(links, {
+      await checkedDatabase(service.schema("app").from("content_item_labels").upsert(links, {
         onConflict: "content_item_id,content_label_id",
-      });
+      }), "compatibility_labels_upsert");
 
       const artifactLinks = links.map((link) => ({
         artifact_version_id: artifactVersionId,
@@ -373,12 +374,12 @@ async function ensureLegacyProjection(
         created_by: createdBy,
       }));
 
-      await service.schema("app").from("artifact_label_assignments").upsert(
+      await checkedDatabase(service.schema("app").from("artifact_label_assignments").upsert(
         artifactLinks,
         {
           onConflict: "artifact_version_id,content_label_id",
         },
-      );
+      ), "artifact_labels_upsert");
     }
   }
 
@@ -602,12 +603,12 @@ async function changeArtifactState(
     throw new Error("artifact_not_found");
   }
 
-  const { data: currentState } = await service.schema("app").rpc(
+  const { data: currentState } = await checkedDatabase(service.schema("app").rpc(
     "project_artifact_state",
     {
       p_artifact_version_id: currentVersionId,
     },
-  );
+  ), "artifact_state_read");
   const priorState = asString(currentState) ?? "draft";
 
   const { error: stateError } = await service.schema("app").from(
@@ -626,34 +627,34 @@ async function changeArtifactState(
   }
 
   if (compatibility?.exam_pack_version_id && compatibility.content_key) {
-    const { data: legacyItem } = await service.schema("app")
+    const { data: legacyItem } = await checkedDatabase(service.schema("app")
       .from("content_items")
       .select("id")
       .eq("exam_pack_version_id", compatibility.exam_pack_version_id)
       .eq("content_key", compatibility.content_key)
-      .maybeSingle();
+      .maybeSingle(), "legacy_item_read");
 
     if (legacyItem?.id) {
-      await service.schema("app").from("content_items").update({
+      await checkedDatabase(service.schema("app").from("content_items").update({
         status: targetState === "published" ? "published" : "retired",
         title: compatibility.title ?? undefined,
-      }).eq("id", legacyItem.id);
+      }).eq("id", legacyItem.id), "legacy_item_state_update");
 
-      const { data: latestVersion } = await service.schema("app")
+      const { data: latestVersion } = await checkedDatabase(service.schema("app")
         .from("content_item_versions")
         .select("id")
         .eq("content_item_id", legacyItem.id)
         .order("version_num", { ascending: false })
         .limit(1)
-        .maybeSingle();
+        .maybeSingle(), "legacy_version_read");
 
       if (latestVersion?.id) {
-        await service.schema("app").from("content_item_versions").update({
+        await checkedDatabase(service.schema("app").from("content_item_versions").update({
           status: targetState === "published" ? "published" : "retired",
           published_at: targetState === "published"
             ? new Date().toISOString()
             : null,
-        }).eq("id", latestVersion.id);
+        }).eq("id", latestVersion.id), "legacy_version_state_update");
       }
     }
   }
@@ -804,7 +805,7 @@ async function changeArtifactState(
   };
 }
 
-Deno.serve(async (req) => {
+export async function handleAdminContent(req: Request, deps: { service?: ReturnType<typeof createServiceClient>; requireProfile?: typeof loadProfile } = {}): Promise<Response> {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -837,7 +838,7 @@ Deno.serve(async (req) => {
     return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
-  const profileResult = await loadProfile(req);
+  const profileResult = await (deps.requireProfile ?? loadProfile)(req);
   if (!profileResult) {
     return respond({ error: "forbidden" }, { status: 403 });
   }
@@ -851,7 +852,7 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden" }, { status: 403 });
   }
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
   const profileId = profileResult.user.id;
 
   const payloadHash = await sha256Hex(JSON.stringify(body));
@@ -937,7 +938,7 @@ Deno.serve(async (req) => {
     // reason_code is canonical to the operation here so it aligns with the
     // composite unique on (request_id, reason_code) and the dedup query
     // above. Client-supplied reason text is preserved in metadata.
-    await service.schema("app").from("audit_events").insert({
+    await checkedDatabase(service.schema("app").from("audit_events").insert({
       audit_event_id: crypto.randomUUID(),
       occurred_at: new Date().toISOString(),
       actor_type: "human",
@@ -959,7 +960,7 @@ Deno.serve(async (req) => {
         JSON.stringify({ operation, requestHash: payloadHash, result }),
       ),
       created_at: new Date().toISOString(),
-    });
+    }), "audit_event_insert");
 
     return respond(
       {
@@ -971,6 +972,12 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
+    console.error("admin-content:operation_failed", {
+      operation,
+      request_id: idempotencyKey,
+      step: error instanceof RequiredDatabaseError ? error.step : "admin_content",
+      code: error instanceof RequiredDatabaseError ? error.code : "operation_failed",
+    });
     const message = error instanceof Error
       ? error.message
       : "admin_content_failed";
@@ -1012,8 +1019,11 @@ Deno.serve(async (req) => {
         function: "admin-content",
         operation,
         error: clientErrors.has(message) ? message : "admin_content_failed",
+        ...(error instanceof RequiredDatabaseError ? { failed_step: error.step, reconciliation_required: true } : {}),
       },
       { status: clientErrors.has(message) ? 400 : 500 },
     );
   }
-});
+}
+
+if (import.meta.main) Deno.serve((req) => handleAdminContent(req));
