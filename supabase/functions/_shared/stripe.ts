@@ -1,12 +1,7 @@
+import { requireEnv } from "./env.ts";
 import Stripe from "https://esm.sh/stripe@22.0.0?target=deno";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 // STRIPE_SECRET_KEY is required by both the Checkout-session-creation and
 // webhook-receiver functions, so it fails fast at module load like the
