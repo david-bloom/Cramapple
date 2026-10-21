@@ -22,6 +22,7 @@ function gradeFixture(
   let clock = Date.now();
   let modelCalls = 0;
   let storedWrites = 0;
+  const attemptOutcomes: Outcome[] = [];
   const tick = () => new Date(++clock).toISOString();
   const rows: Record<string, unknown> = {
     prompt_versions: { status: "published" },
@@ -136,7 +137,15 @@ function gradeFixture(
               count: 1,
             };
           }
-          const row = rows[table];
+          const row = rows[table] as Record<string, unknown> | undefined;
+          if (table === "attempts" && action === "update") {
+            if (!row || Object.entries(eqs).some(([k, v]) => row[k] !== v)) return { data: null, error: null };
+            const outcome = attemptOutcomes.shift() ?? "stored";
+            if (outcome === "transport") throw new Error("private transport detail");
+            if (outcome === "error") return { data: null, error: { code: "XX000" } };
+            if (outcome === "missing") return { data: null, error: null };
+            Object.assign(row, payload);
+          }
           return {
             data: single
               ? row ?? null
@@ -241,6 +250,8 @@ function gradeFixture(
     post,
     withProvider,
     writes,
+    attempt: () => rows.attempts as Record<string, unknown>,
+    failAttemptWrite: (outcome: Outcome) => attemptOutcomes.push(outcome),
     row: () => grade!,
     modelCalls: () => modelCalls,
     storedWrites: () => storedWrites,
@@ -267,6 +278,10 @@ for (const route of ["mcq", "shadow", "llm"] as const) {
         assertEquals(retry.status, 200);
         const body = await retry.json();
         assertEquals(body.status, route === "shadow" ? "uncertain" : "graded");
+        assertEquals(f.attempt().status, body.status);
+        assertEquals(f.attempt().score_points, body.result.points_earned);
+        assertEquals(f.attempt().score_possible, body.result.points_available);
+        assertEquals(f.attempt().result_summary, body.result.feedback_preview);
         assertEquals(Object.hasOwn(body.result, "raw_model_response"), false);
         assertEquals(Object.hasOwn(body.result, "shadow_result"), false);
         assertEquals((await f.post()).status, 200);
@@ -314,6 +329,32 @@ for (const route of ["mcq", "shadow", "llm"] as const) {
     });
   });
 }
+for (const outcome of ["error", "transport", "missing"] as const) {
+  Deno.test(`recovered attempt truth ${outcome} is surfaced and retried without regrading`, async () => {
+    const f = gradeFixture("llm", ["error", "stored"]);
+    await f.withProvider(async () => {
+      assertEquals((await f.post()).status, 500);
+      f.failAttemptWrite(outcome);
+      const retry = await f.post();
+      assertEquals(retry.status, 503);
+      assertEquals(await retry.json(), { error: "attempt_grade_store_failed", retryable: true });
+      assertEquals(f.row().status, "graded");
+      assertEquals(f.attempt().status, "submitted");
+      assertEquals((await f.post()).status, 200);
+      assertEquals(f.attempt().status, "graded");
+      assertEquals(f.modelCalls(), 1);
+      assertEquals(f.storedWrites(), 1);
+    });
+  });
+}
+Deno.test("recovery does not overwrite a finalized attempt truth row", async () => {
+  const f = gradeFixture("mcq", ["error", "stored"]);
+  assertEquals((await f.post()).status, 500);
+  f.attempt().status = "graded";
+  f.attempt().score_points = 99;
+  assertEquals((await f.post()).status, 200);
+  assertEquals(f.attempt().score_points, 99);
+});
 Deno.test("failed checkpoint cannot leave processing replays at 202 indefinitely", async () => {
   const f = gradeFixture("llm", ["error"], true);
   await f.withProvider(async () => {

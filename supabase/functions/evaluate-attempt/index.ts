@@ -1569,6 +1569,38 @@ export async function handleEvaluateAttempt(
         }, { status: 503 });
       }
     }
+    // A grade recovered after a failed store must also reach the attempt truth
+    // row used by progress. Retrying this projection never re-runs grading and
+    // cannot overwrite an attempt another request has already finalized.
+    if (["graded", "uncertain"].includes(String(row.status)) && attempt.status === "submitted") {
+      try {
+        const { data: updated, error } = await service.schema("app").from("attempts")
+          .update({
+            status: row.status,
+            graded_at: row.updated_at ?? new Date().toISOString(),
+            score_points: row.points_earned,
+            score_possible: row.points_available,
+            confidence_level: row.confidence,
+            result_state: row.status,
+            result_summary: row.feedback_preview,
+            assistance_state: derivedAssistanceState,
+          }).eq("id", attempt.id).eq("status", "submitted").select("id").maybeSingle();
+        if (error) throw error;
+        if (!updated) {
+          const { data: latestAttempt, error: readError } = await service.schema("app").from("attempts")
+            .select("status").eq("id", attempt.id).maybeSingle();
+          if (readError || !["graded", "uncertain"].includes(String(latestAttempt?.status))) {
+            throw readError ?? { code: "attempt_not_finalized" };
+          }
+        }
+      } catch (error) {
+        console.error("attempts_grading_truth_recovery_failed", {
+          attempt_id: attempt.id,
+          code: typeof error === "object" && error !== null && "code" in error ? error.code : "transport_error",
+        });
+        return respond({ error: "attempt_grade_store_failed", retryable: true }, { status: 503 });
+      }
+    }
     return respond({
       status: row.status,
       function: "evaluate-attempt",
