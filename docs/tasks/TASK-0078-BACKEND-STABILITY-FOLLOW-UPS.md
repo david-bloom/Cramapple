@@ -52,6 +52,25 @@ TASK-0069 (`attempt-response` replay scoping).
 | A19 | Ledger strategy: re-baseline or row-by-row repair | Decide (David) | open | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
 | A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
 
+## 2b. State after the Codex merges (Fable, 2026-10-21, late): deploy gates
+
+All Codex PRs are merged (record: PR #545); `main` CI is green on Minimal CI and both SQL fixture workflows. Verified
+after merge: the #535 review gap is closed (recovery now projects the recovered grade onto `app.attempts`, fenced on
+`status = 'submitted'`, and returns `503 attempt_grade_store_failed` if that projection fails); the duplicate TASK-0078
+record is gone; the `submit-response` source directory is gone. Nothing new is deployed, and no new migration is applied
+anywhere except the TASK-0063 reconciliation on Development (`20261021202904`). Gates that now exist:
+
+| Gate | Before deploying | Why |
+| --- | --- | --- |
+| `session-event`, `storage-sign-url` to any project | apply `20261021152931_task0078_operation_replay_claims.sql` to that project first | the merged handlers return `503 replay_unavailable` without `app.claim_operation_replay`; the table and both RPCs are absent on Development and Production today |
+| `evaluate-attempt`, `attempt-response` to Production (A6) | Development rehearsal that grades one real attempt, plus one forced store failure in a test to exercise recovery | #535 changed the grade-store path; the bundles also pick up the #525/#526 helpers |
+| `create-checkout-session`, `create-parent-payment-link` to Production | one student and one parent checkout on Development in Stripe test mode | #531 touched the offer and promotion lookup |
+| `review-decision`, `admin-content`, `assign-for-review`, `reviewer-invite` | ruling 1: frozen | human review re-planned later |
+| `app.submit_response` scoping (A11) | apply `20261021153645` to Development, rename to the recorded version, then Production on approval | Development `submit_response` is still `f15074ff…` |
+| Production session RPC apply (A10) | David's approval; `apply_migration` with the single file, never `db push`; rename to the recorded version | two students blocked today |
+
+The TASK-0063 file is renamed to Development's recorded `20261021202904` in PR #544 (open; CI running).
+
 ## 2a. Codex PR review (Fable, 2026-10-21): merge order and conditions
 
 Reviews are posted on each PR. Code PRs are David's to merge. Evidence: diffs read in full; `deno check` and every touched

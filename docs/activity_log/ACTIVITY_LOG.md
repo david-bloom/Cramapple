@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- All Codex TASK-0078 PRs merged; deploy gates recorded (2026-10-21, late): Codex merged #520–#531, #535, #536 (record PR #545); `main` CI green on Minimal CI and both SQL fixture workflows. Verified after merge: the #535 review gap is closed (recovery projects the grade onto `app.attempts`); the duplicate TASK-0078 record is gone; `submit-response` source is gone. Nothing deployed; migrations `20261021152931` (replay claims) and `20261021153645` (submit replay scoping) are applied nowhere, and `session-event`/`storage-sign-url` on `main` now require the first before any deploy. Gates in [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2b; rename PR #544 open.
+
 - TASK-0063 session RPC migration applied to Production (APPROVAL-0198, 2026-10-21, owner request "Merge #544 and apply the session RPC migration to Production"): PR #544 merged (file renamed to Development's `20261021202904`); Production guards passed; both functions now carry the reviewed bodies (`dbc35186…`, `5a71a24d…`), grants unchanged, Production ledger `20261021210131`; the `active_session_blocks_subject_switch` refusal is gone from the live body, unblocking the two student accounts. #544's fixture-path edit had been left unstaged and broke the Session RPC reconciliation workflow on `main`; one-line repair in PR #547. See [`APPROVAL-0198`](APPROVAL-0198_TASK0063_SESSION_RPC_PRODUCTION_APPLY_2026_10_21.md).
 
 - TASK-0078 source integration (2026-10-21, David requested review/merge and safe branch cleanup): Fable’s conditions remediated; fresh recovery/replay QA recommended source-merge Pass. Source merge and live-release state remain separate. Canonical checklist and [integration handoff](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md) record the current checkpoint; historical refactor scope moved to a handoff rather than a second task.
@@ -245,6 +247,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — All Codex TASK-0078 PRs merged; post-merge verification and deploy gates
+
+Codex reported all remaining PRs merged (its record: PR #545, 847 Deno tests, 10 Python tests, 29 entry checks, 15 branches and 8 worktrees cleaned). Checked on `main` `6be7c0d6` afterwards:
+
+- CI green on all three workflows (Minimal CI, Session RPC reconciliation regressions, Submission replay SQL regressions). One PR open: #544 (migration rename).
+- The #535 review condition was met before merge: `evaluate-attempt`'s recovery path updates `app.attempts` (status, graded_at, score, confidence, result state) fenced on `status = 'submitted'`, and fails with `503 attempt_grade_store_failed` if the projection cannot be confirmed.
+- `docs/tasks/` holds one TASK-0078 record again; `supabase/functions/submit-response/` is gone; the helper extractions #525–#531 are in.
+- Nothing is deployed. Three migrations now sit on `main` unapplied in at least one project: `20261021152931` (replay claims, applied nowhere), `20261021153645` (submit replay scoping, applied nowhere), `20261021153710` (TASK-0063, Development only as `20261021202904`). The merged `session-event` and `storage-sign-url` require the first before any deploy. Gates recorded in TASK-0078 §2b.
 
 ## 2026-10-21 — TASK-0063 session RPC migration applied to Production (APPROVAL-0198)
 
