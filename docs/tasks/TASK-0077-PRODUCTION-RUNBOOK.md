@@ -174,6 +174,27 @@ setting it was first blocked by the session's permission rules; David added an a
    **24 hours later:** that session's `checkout.session.expired` event must be `processed` in `app.stripe_webhook_events`.
    (Production's current webhook failed both live expiry events it received on 2026-10-06, 7 attempts each; see "Pre-flight
    results".)
+**Run 2026-10-20 (`APPROVAL-0197`):**
+- 3.1 done. Production versions: `20261021010317` card_trial_orders, `20261021010400` worker_invokers, `20261021010442` qa_fixes,
+  `20261021010520` round3, `20261021010541` round4, `20261021010547` round5. Each stored statement is md5-identical to its repo
+  file. Against Development: columns, constraints, indexes and policies identical; all 20 functions identical except
+  `invoke_trial_worker` and `trial_record_attempt`, whose Development copies lack the comments (same code). Read-back: RLS
+  enabled + forced on all six trial tables, no anon/authenticated access, `app.trial_sweep()` returns zeros, outbox check 22
+  names. **Correction:** the backfill is **2 emails**, not 20 — the 20 legacy `trial_v1` rows belong to 2 accounts (10 subjects
+  each). Production-only: a pre-existing default ACL grants `content_reviewer` (no login, no RLS bypass, members: `postgres`)
+  SELECT on every new `app` table, the trial tables included; forced RLS with a service-role-only policy means it reads 0 rows.
+- 3.2 done: 24 secrets (admission `false`, charges/notices `true`, `TRIAL_TERMS_VERSION=terms-2026-10-18`, new worker secret, 19
+  trial Loops ids), digest-verified; 70 names now. `CARDLESS_TRIAL_RETIRED` unset.
+- 3.3 **not done**: writing the Vault entries was blocked by the session's permission rules (secret-store write); left to David.
+- 3.4 done: all ten functions deployed (`stripe-webhook` first; `get-trial-status` JWT-verified, the rest `--no-verify-jwt`;
+  `start-trial` changes from gateway-JWT to its own `requireProfile` 401 check, as the runbook specifies); each downloaded back,
+  0 files differ from `3616edff`.
+- 3.5 waits on 3.3.
+- 3.6 done except the 24-hour check: charge worker no secret 401; cancel and recovery unknown token 404; trial status no login
+  401; webhook bad signature 400; `trial_quote` → `pay_now` / `admission_off`, $39.99, `terms-2026-10-18`, `trial-mandate-v4`;
+  legacy pay-now checkout returned `cs_live_b18T1A9a1jJnfUy1EeSlbnmaaIyW35fB8gnZHbmBu1AypEoWqrWw5u0od1` with a client secret.
+  **Due ~2026-10-22 01:15 UTC:** that session's `checkout.session.expired` must be `processed` in `app.stripe_webhook_events`.
+
 - *Rollback:* redeploy the step-1 commits listed under "What Production looks like today"; unschedule the two jobs
   (`cron.unschedule('task0077-…')`). Tables stay (additive). With admission off no trial can start, so nothing needs undoing.
 

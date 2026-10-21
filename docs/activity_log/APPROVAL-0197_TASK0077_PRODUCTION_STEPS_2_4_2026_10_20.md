@@ -1,6 +1,6 @@
 # APPROVAL-0197 — TASK-0077 Production rollout, runbook steps 2–4 (2026-10-20)
 
-**STATUS: IN PROGRESS — step 2 executed; step 3 next.** **Approver:** David Bloom (chat, 2026-10-20: "Execute step 2-4").
+**STATUS: IN PROGRESS — step 2 executed; step 3 done except 3.3 Vault and 3.5 (blocked on a secret-store permission); step 4 open.** **Approver:** David Bloom (chat, 2026-10-20: "Execute step 2-4").
 **Runbook:** `docs/tasks/TASK-0077-PRODUCTION-RUNBOOK.md` (decisions D1–D5 answered the same day, recorded there).
 
 ## What is approved
@@ -23,6 +23,9 @@ been sending these templates from. 0.5, 0.6: open (launch gates, not step 2–4 
 
 - **2.2–2.4** secrets (17, digest-verified), two deploys (file-for-file equal to `3616edff`), worker 401/200 check passed; details
   in the runbook. Privacy URL also saved on the Stripe public profile (David, 2026-10-20).
+
+- **3.1, 3.2, 3.4, 3.6** executed (six migrations, 24 secrets, ten deploys, smoke tests); details and Production versions in the
+  runbook. 3.3/3.5 pending.
 
 ## Rollback
 Tables are additive and unused while the email flags are off. Redeploy `send-parent-payment-email` from `10abfd88` if step 2.3
