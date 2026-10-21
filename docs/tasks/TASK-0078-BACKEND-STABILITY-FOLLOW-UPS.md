@@ -45,7 +45,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | A13 | Find who invokes `trial-recovery`; check the 2 undelivered `growth_event_outbox` rows | Read-only | open | |
 | A14 | Adopt or trim the shared-module release rule | Docs | open | proposal in `SHARED_MODULE_DEPENDENCY_MAP_2026_10_21.md` §4 |
 | A15 | Run the Opus prompt (assessments 2, 7) and the Haiku prompt (5, 6) | Read-only | open | `docs/handoffs/PROMPT_ASSESSMENTS_*` |
-| A16 | Helper consolidation, one family per PR; payments pure offer extraction | Standard | **Source merged in #525–#531**, one helper family per PR; Fable parity evidence recorded in each PR body; checkout Development integration remains required before Production release | last; each needs byte-parity evidence in its PR body before merge |
+| A16 | Helper consolidation, one family per PR; payments pure offer extraction | Standard | **Source merged in #525–#531**, one helper family per PR; Fable parity evidence recorded in each PR body. **Development deployed 2026-10-21** (`create-checkout-session` v48, `create-parent-payment-link` v45, both from `main` `acf054a7`, 17 bundled files each with zero diffs against `main`); the two Stripe test-mode checkouts in §2c remain required before Production release | last; each needs byte-parity evidence in its PR body before merge |
 | — | Port `ad083b39` review code; redeploy `assign-for-review`, `reviewer-invite`, `review-decision` | — | **deferred by ruling 1** | revisit when human review is re-planned |
 | A17 | Retire the hand-drawn pilot upload path: `/hand-drawn-pilot` route, `storage-sign-url` `sign_upload`/`sign_delete`, the `hand_drawn_pilot` item mode, `public.select_hand_drawn_pilot_items` | Standard + Lovable | open, decide (David) | From `qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`. Verified 2026-10-21: Production's `learning_sessions_entry_path_check` has no `hand_drawn_pilot` value, so the page cannot start a session; `sign_upload` has never been used on Production. QR capture (DECISION-0050/0109) is untouched |
 | A18 | Two RPCs the live app calls exist on neither project: `get_chosen_distractor_rationale` (migration `20260828170000`, never applied anywhere) and `get_graded_choice_feedback` | Decide (David) | open | Verified absent on Production and Development. The caller in `use-session.ts:901` swallows the error, so students see no rationale rather than an error. Either apply the migration (after confirming the flow is live) or delete the calls |
@@ -64,12 +64,44 @@ anywhere except the TASK-0063 reconciliation on Development (`20261021202904`). 
 | --- | --- | --- |
 | `session-event`, `storage-sign-url` to any project | **discharged 2026-10-21 (APPROVAL-0199):** the replay-claims migration is applied on both projects and both functions are deployed after it | any future redeploy of these two needs no further gate; dropping the claims table would break them |
 | `evaluate-attempt`, `attempt-response` to Production (A6) | **discharged 2026-10-21 (APPROVAL-0200)** on the strength of the 49-test local rehearsal; a signed-in grade after the deploy remains the live confirmation | #535 changed the grade-store path |
-| `create-checkout-session`, `create-parent-payment-link` to Production | one student and one parent checkout on Development in Stripe test mode | #531 touched the offer and promotion lookup |
+| `create-checkout-session`, `create-parent-payment-link` to Production | **Development is on the `main` build since 2026-10-21 (v48/v45)**; still owed: one student and one parent checkout on Development in Stripe test mode (§2c) | #531 touched the offer and promotion lookup |
 | `review-decision`, `admin-content`, `assign-for-review`, `reviewer-invite` | ruling 1: frozen | human review re-planned later |
 | `app.submit_response` scoping (A11) | **discharged 2026-10-21 (APPROVAL-0199)** | both projects on `49d382ff…` |
 | Production session RPC apply (A10) | **discharged 2026-10-21 (APPROVAL-0198)** | one signed-in subject switch by an affected account or David remains the live confirmation |
 
 The TASK-0063 file was renamed to Development's recorded `20261021202904` in PR #544 (its fixture path repaired in #547); the two TASK-0078 migrations and the sweep file follow in PR #549.
+
+## 2c. A16 checkout gate on Development (Fable, 2026-10-21)
+
+Deployed from `main` `acf054a7` with `--no-verify-jwt` (both functions already ran with `verify_jwt=false`):
+`create-checkout-session` v47 → v48, `create-parent-payment-link` v44 → v45. Before the deploy, Development and
+Production ran byte-identical bundles that predated #528–#531 (`index.ts`, `_shared/cors.ts`, `public-rate-limit.ts`,
+`stripe.ts`, `supabase.ts` all differed from `main`). After it, every bundled file equals `main`. Local checks: 9 tests
+pass (`_shared/checkout-offer_test.ts`, `_shared/public-rate-limit_test.ts`; neither function has its own test file);
+unauthenticated `OPTIONS` 200 and empty-body `POST` 400 `invalid_mode` on both.
+
+Still owed before Production (gate in §2b), run by David or a tester against the Development app with Stripe test mode:
+
+1. One student checkout (single subject, Stripe test card `4242 4242 4242 4242`) completed to the success page.
+2. One parent payment link created and paid the same way.
+
+Baseline on Development before the deploy (2026-10-21), so success is a delta, not an absolute count:
+`stripe_checkout_session_attempts` 2 (latest 2026-09-28), `stripe_checkout_sessions` 29 (latest 2026-10-19 21:07 UTC),
+`parent_payment_links` 10 (latest 2026-10-20 23:32 UTC), `stripe_customers` 4.
+
+Verification after the two checkouts (Development, service role):
+
+```sql
+select id, payment_status, payload->'metadata'->>'purchase_type' as purchase_type, created_at
+from app.stripe_checkout_sessions where created_at > '2026-10-21 21:00+00' order by created_at;
+select code, status, created_at, paid_at from app.parent_payment_links
+where created_at > '2026-10-21 21:00+00' order by created_at;
+select * from app.stripe_checkout_session_attempts where created_at > '2026-10-21 21:00+00';
+```
+
+Pass = one new `stripe_checkout_sessions` row at `paid` with `purchase_type = student_direct`, one new
+`parent_payment_links` row that reaches `paid`, and no new `stripe_checkout_session_attempts` error rows. Then the
+Production deploy follows the A6/A7 pattern (deploy from `main`, bundle diff, boot checks, APPROVAL file).
 
 ## 2a. Codex PR review (Fable, 2026-10-21): merge order and conditions
 
