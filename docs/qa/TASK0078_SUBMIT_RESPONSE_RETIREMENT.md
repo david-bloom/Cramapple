@@ -1,6 +1,6 @@
 # TASK-0078 — Retire the unused submit-response Edge source
 
-Status: Source removal ready for review; authorized Development retirement prepared.
+Status: Source removal ready for review; authorized Development retirement executed and inventory-verified.
 
 ## Owner-authorized extension, 2026-10-21
 
@@ -20,7 +20,11 @@ supabase functions delete byoq-smoke-runner --project-ref wmgjsdkphcyhngaffbqf -
 supabase functions delete submit-response --project-ref wmgjsdkphcyhngaffbqf --yes
 ```
 
-Before/after inventories and execution receipts will establish the result. Source PR #522 remains reviewable independently of the earlier helper stack and is retargeted to current main. The historical source-only record follows.
+Execution result at 2026-10-21 18:21:22 UTC: all three CLI commands returned `Deleted Function`. The fresh Development inventory has 29 functions (32 before), with exactly `submit-response`, `byoq-smoke-runner` and `byoq-ip-echo` removed. `send-auth-email` and `open-hand-item` remain. Production remains 29 functions with identical IDs, versions, hashes, JWT settings and update timestamps. See `retired-development-functions-2026-10-21/after-retirement.json`.
+
+An unrelated Development `create-post-purchase-addon` update (v35→v36) was observed between the before/after snapshots. None of the retirement commands deployed or modified it; no actor attribution is inferred. It is recorded separately rather than claimed as an unchanged Development environment.
+
+The legacy bundle backup limitation did not change: source can be restored from Git, but its exact deployed bytes were not recovered. No functional endpoint was deployed by this work. Source PR #522 remains reviewable independently of the earlier helper stack and is retargeted to current main. The historical source-only record follows.
 
 ## Original source-only record
 
