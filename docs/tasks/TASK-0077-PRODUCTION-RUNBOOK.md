@@ -233,6 +233,11 @@ as today ✓; app `/account` loads with the trial copy and its bundle calls `get
 **Gap:** the published marketing build's env object holds only the two Stripe keys — `VITE_TRIAL_CHECKOUT_ENABLED` is not set
 (marketing reads `VITE_*` from its committed `.env`, which lacks it), so the page never calls `trial_quote`. Harmless with
 admission off; must be `"true"` and republished **before step 6**, or cramapple.com keeps selling pay-now with admission on.
+**Fixed 2026-10-21:** Claude sent Lovable a one-line prompt (0.5 credits); commit `779c7320` adds only
+`VITE_TRIAL_CHECKOUT_ENABLED="true"` to marketing `.env` (diff checked). David republished. Live check: the checkout bundle
+(`checkout.index-nHFzbu9A.js`) now carries the flag; entering a subject and email calls `create-checkout-session` (200) and the
+page still shows $39.99 due today (`pay_now` / `admission_off`). **Step 5 complete.** Unrelated, not investigated: the page's
+`rest/v1/subjects` request returns 401 (the same endpoint answers with the publishable key from curl; the subject list renders).
 
 ## 6. ⛔ David's $1 live trial (plan §8 slice 8; admission per D1)
 
