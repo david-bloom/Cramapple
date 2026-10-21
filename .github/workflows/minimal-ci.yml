@@ -33,38 +33,86 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Keep runtime network/filesystem and unrestricted environment access off
+      # the main fixture run. env -i also removes ambient CI/service credentials.
       - name: Run deterministic Deno tests
         run: >-
-          deno test
-          --allow-env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ALLOWED_ORIGINS,POSTHOG_PROJECT_API_KEY,POSTHOG_PROJECT_TOKEN,POSTHOG_API_KEY,POSTHOG_HOST,CAPTURE_QUALITY_MODEL,CAPTURE_QUALITY_RESERVED_COST_USD,CAPTURE_QUALITY_TIMEOUT_MS,DENO_DEPLOYMENT_ID,EVALUATE_ATTEMPT_PROMPT_VERSION,FRQ_PHOTO_DAILY_CAP_USD,FRQ_PHOTO_RESPONSES_ENABLED,FRQ_PHOTO_SUBJECTS,FRQ_TRANSCRIPT_DAILY_RUNS,FRQ_TRANSCRIPT_MODEL,FRQ_TRANSCRIPT_RESERVED_COST_USD,FRQ_TRANSCRIPT_TIMEOUT_MS,GRADING_ARM,GRADING_ENTITLEMENTS_ENABLED,OPENAI_API_KEY,OPENAI_DAILY_CAP_USD,OPENAI_INPUT_PRICE_PER_1M,OPENAI_MAX_OUTPUT_TOKENS,OPENAI_MODEL,OPENAI_OUTPUT_PRICE_PER_1M,OPENAI_REQUEST_TIMEOUT_MS,SB_EXECUTION_ID,SERVICE_ROLE_KEY
-          supabase/functions/_shared/encoding_test.ts
-          supabase/functions/_shared/grading-router_test.ts
-          supabase/functions/_shared/formula-notation_test.ts
-          supabase/functions/_shared/deterministic-verifier_test.ts
-          supabase/functions/_shared/cell-state_test.ts
-          supabase/functions/_shared/cell-state-signals_test.ts
-          supabase/functions/_shared/grading-feedback_test.ts
-          supabase/functions/_shared/grading-partial-credit_test.ts
-          supabase/functions/_shared/grading-control-chars_test.ts
-          supabase/functions/attempt-response/index_test.ts
-          supabase/functions/evaluate-attempt/index_test.ts
-          supabase/functions/capture-pairing/index_test.ts
-          supabase/functions/session-event/index_test.ts
-          supabase/functions/storage-sign-url/index_test.ts
-          supabase/functions/start-trial/index_test.ts
+          env -i PATH="$PATH" HOME="$HOME" deno test
+          --allow-env=ALLOWED_ORIGINS,APP_BASE_URL,AUTH_EMAIL_WELCOME_URL,BYOQ_EXTRACTION_ENABLED,BYOQ_EXTRACT_DAILY_CAP_USD,BYOQ_EXTRACT_MODEL,BYOQ_EXTRACT_RESERVED_COST_USD,BYOQ_EXTRACT_TIMEOUT_MS,CAPTURE_QUALITY_MODEL,CAPTURE_QUALITY_RESERVED_COST_USD,CAPTURE_QUALITY_TIMEOUT_MS,DENO_DEPLOYMENT_ID,EVALUATE_ATTEMPT_PROMPT_VERSION,FRQ_PHOTO_DAILY_CAP_USD,FRQ_PHOTO_RESPONSES_ENABLED,FRQ_PHOTO_SUBJECTS,FRQ_TRANSCRIPT_DAILY_RUNS,FRQ_TRANSCRIPT_MODEL,FRQ_TRANSCRIPT_RESERVED_COST_USD,FRQ_TRANSCRIPT_TIMEOUT_MS,GRADING_ARM,GRADING_ENTITLEMENTS_ENABLED,LOOPS_INVITE_TRANSACTIONAL_ID,LOOPS_MAGICLINK_TRANSACTIONAL_ID,LOOPS_PAYMENT_EMAILS_ENABLED,LOOPS_SECRET_KEY,LOOPS_SIGNUP_TRANSACTIONAL_ID,OPENAI_API_KEY,OPENAI_DAILY_CAP_USD,OPENAI_INPUT_PRICE_PER_1M,OPENAI_MAX_OUTPUT_TOKENS,OPENAI_MODEL,OPENAI_OUTPUT_PRICE_PER_1M,OPENAI_REQUEST_TIMEOUT_MS,PARENT_EMAIL_LIFECYCLE_ENABLED,PARENT_EMAIL_USE_SHORT_LINKS,PARENT_REMINDER_LEAD_SECONDS,POSTHOG_API_KEY,POSTHOG_HOST,POSTHOG_PROJECT_API_KEY,POSTHOG_PROJECT_TOKEN,SB_EXECUTION_ID,SEND_EMAIL_HOOK_SECRET,SERVICE_ROLE_KEY,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_URL,TRANSACTIONAL_MAILING_ADDRESS
           supabase/functions/_shared/addon-checkout_test.ts
+          supabase/functions/_shared/assistance-state_test.ts
+          supabase/functions/_shared/attachment-redaction_test.ts
+          supabase/functions/_shared/byoq-extraction_test.ts
+          supabase/functions/_shared/byoq_test.ts
+          supabase/functions/_shared/capture-attachment_test.ts
+          supabase/functions/_shared/capture-pairing_test.ts
+          supabase/functions/_shared/capture-quality-check_test.ts
+          supabase/functions/_shared/cell-state-signals_test.ts
+          supabase/functions/_shared/cell-state_test.ts
           supabase/functions/_shared/checkout-access_test.ts
           supabase/functions/_shared/checkout-routing_test.ts
-          supabase/functions/_shared/trial-promo_test.ts
-          supabase/functions/_shared/trial-core_test.ts
-          supabase/functions/_shared/trial-learner_test.ts
-          supabase/functions/_shared/trial-checkout_test.ts
-          supabase/functions/stripe-webhook/trial_test.ts
-          supabase/functions/_shared/trial-notices_test.ts
-          supabase/functions/_shared/trial-actions_test.ts
-          supabase/functions/charge-due-trials/handler_test.ts
+          supabase/functions/_shared/deterministic-verifier_test.ts
+          supabase/functions/_shared/drawn-response-extraction_test.ts
+          supabase/functions/_shared/encoding_test.ts
+          supabase/functions/_shared/formula-notation_test.ts
+          supabase/functions/_shared/frq-photo-rollout_test.ts
+          supabase/functions/_shared/grading-arm-a_test.ts
+          supabase/functions/_shared/grading-contract_test.ts
+          supabase/functions/_shared/grading-control-chars_test.ts
+          supabase/functions/_shared/grading-feedback_test.ts
+          supabase/functions/_shared/grading-partial-credit_test.ts
+          supabase/functions/_shared/grading-router_test.ts
+          supabase/functions/_shared/grading-telemetry_test.ts
+          supabase/functions/_shared/growth-events_test.ts
+          supabase/functions/_shared/image-metadata_test.ts
+          supabase/functions/_shared/loops-client_test.ts
+          supabase/functions/_shared/manual-grading_test.ts
+          supabase/functions/_shared/math-verifier_test.ts
+          supabase/functions/_shared/mcq-quality_test.ts
+          supabase/functions/_shared/parent-email-lifecycle_test.ts
           supabase/functions/_shared/parent-short-link_test.ts
           supabase/functions/_shared/public-rate-limit_test.ts
+          supabase/functions/_shared/response-transcript_test.ts
+          supabase/functions/_shared/statistics-verifier_test.ts
+          supabase/functions/_shared/storage-access_test.ts
+          supabase/functions/_shared/storage-paths_test.ts
+          supabase/functions/_shared/stripe-catalog_test.ts
+          supabase/functions/_shared/stripe-webhook-ledger_test.ts
+          supabase/functions/_shared/student-item-delivery_test.ts
+          supabase/functions/_shared/transactional-email_test.ts
+          supabase/functions/_shared/trial-actions_test.ts
+          supabase/functions/_shared/trial-checkout_test.ts
+          supabase/functions/_shared/trial-contract_test.ts
+          supabase/functions/_shared/trial-core_test.ts
+          supabase/functions/_shared/trial-learner_test.ts
+          supabase/functions/_shared/trial-notices_test.ts
+          supabase/functions/_shared/trial-promo_test.ts
+          supabase/functions/attempt-response/index_test.ts
+          supabase/functions/charge-due-trials/handler_test.ts
+          supabase/functions/evaluate-attempt/index_test.ts
+          supabase/functions/more-help/contract_test.ts
+          supabase/functions/more-help/grounding_test.ts
+          supabase/functions/report-question/handler_test.ts
+          supabase/functions/session-event/index_test.ts
+          supabase/functions/start-trial/index_test.ts
+          supabase/functions/storage-sign-url/index_test.ts
+          supabase/functions/stripe-webhook/trial_test.ts
+          supabase/functions/student-session-items/index_test.ts
+
+      # Only these five inventory-listed suites need the broader capabilities.
+      # Network permission is limited to the import-time local test listener;
+      # filesystem permission is limited to the email variable manifest.
+      - name: Run Deno tests requiring extra permissions
+        run: >-
+          env -i PATH="$PATH" HOME="$HOME" deno test
+          --allow-env
+          --allow-net=0.0.0.0:8000
+          --allow-read=docs/email/transactional/manifest.json
+          supabase/functions/byoq/index_test.ts
+          supabase/functions/capture-pairing/index_test.ts
+          supabase/functions/_shared/email-template-data_test.ts
+          supabase/functions/_shared/payer-email_test.ts
+          supabase/functions/create-post-purchase-addon/handler_test.ts
 
       - name: Run AP Statistics checker tests
         run: python -m unittest scripts/ap_statistics_calculation_check/test_checker.py
