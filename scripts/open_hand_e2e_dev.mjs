@@ -105,7 +105,7 @@ async function answerAndGrade(token, sessionId, versionId, choiceKey) {
   const rvId = saved.json?.result?.response_version?.id ?? saved.json?.response_version?.id ?? saved.json?.response_version_id;
   if (!rvId) return { step: "save_response", ...saved };
 
-  const submitted = await fn("submit-response", {
+  const submitted = await fn("attempt-response", {
     operation: "submit_response", attempt_id: attemptId, response_version_id: rvId, idempotency_key: uuid(),
   }, token);
   if (submitted.status !== 200) return { step: "submit", ...submitted };

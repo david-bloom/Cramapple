@@ -43,3 +43,5 @@ Validation: targeted references under runtime code, function configuration and w
 ## Reconciliation with the later TASK-0078 checklist
 
 The latest request names A3 again. A fresh read-only Development inventory still has 29 functions: submit-response, byoq-smoke-runner and byoq-ip-echo are absent; send-auth-email and open-hand-item remain. No deletion was repeated. PR #522 retains the source-directory deletion and original receipts, and the canonical checklist now records that executed state instead of treating A3 as unstarted. Source review/merge remains pending.
+
+Merge review follow-up (2026-10-21): the dormant `open_hand_e2e_dev.mjs` QA harness now submits through `attempt-response` (same operation/body), matching the active application path. Verified with syntax checking and the existing attempt-response submit tests; no live QA run was authorized by this source merge. The canonical task retains its latest owner rulings and other checklist rows.
