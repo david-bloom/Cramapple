@@ -53,11 +53,6 @@ function asStringArray(value: unknown) {
     .filter(Boolean);
 }
 
-function asInt(value: unknown) {
-  const n = Number(value);
-  return Number.isInteger(n) ? n : null;
-}
-
 function asBool(value: unknown) {
   if (typeof value === "boolean") return value;
   if (value === "true") return true;
