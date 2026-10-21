@@ -364,7 +364,20 @@ the deploy itself: a new, additive `app.select_ordinary_combined_practice_items`
 (Biology's own selector is untouched) plus the corresponding `student-session-items` edge-function
 routing change.
 
-### CORRECTION, 2026-09-27: which branch actually fulfilled this approval
+### CORRECTION, 2026-10-21: Production evidence — `claude/task-0047-ap-statistics-mcq-serving` deployed first
+
+Owner ruling (David Bloom, 2026-10-21): where Production evidence and documentation disagree, Production evidence governs. On that basis the 2026-09-27 correction below is itself wrong and is superseded; it is kept unedited as history.
+
+Production's migration ledger (`supabase_migrations.schema_migrations`, read 2026-10-21) records:
+
+| Applied (UTC) | Migration | Branch |
+|---|---|---|
+| 2026-09-26 16:48:53 | `20260926164853` `ordinary_combined_practice_selector_ap_statistics` | `claude/task-0047-ap-statistics-mcq-serving` |
+| 2026-09-26 19:51:29 | `20260926195129` `task0044_stats_combined_selector_mcq_mode` | `codex/task-0044-statistics-mcq` (merged to `main` via PR #227 on 2026-09-27) |
+
+**Corrected attribution:** `claude/task-0047-ap-statistics-mcq-serving` designed the fix and deployed it to Production first (2026-09-26, migration plus `student-session-items` version 22). `codex/task-0044-statistics-mcq` improved it in place about three hours later the same day: it added `mcq` routing (edge function version 23) and an `mcq`-only pool with a published/non-retired guard in the SQL function. PR #227 then landed that in git history on 2026-09-27. The edge-function version detail comes from the never-merged branch `claude/correct-approval-0051-attribution-2026-09-27` (commit `7974c906`), which first raised this; the ledger above independently confirms the order. This approval's substance (approving this class of fix for this gap) was fulfilled either way.
+
+### CORRECTION, 2026-09-27: which branch actually fulfilled this approval (superseded 2026-10-21, see above)
 
 The branch this approval was originally requested for (`claude/task-0047-ap-statistics-mcq-serving`)
 built only a `targeted_drill`-only routing, and its migration/edge-function version were applied to
