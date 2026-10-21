@@ -43,7 +43,7 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 | 0.3 | Codex sign-off on the trial code | **done** (`43440c98`, no findings; code and local tests only) |
 | 0.4 | Stripe live: click **Save** on Public details (Terms `https://cramapple.com/terms`, Privacy `https://cramapple.com/privacy`); turn on **Radar → "Use Radar on payment methods saved for future use"** | **confirmed 2026-10-20** by David: Radar active; Terms and Privacy URLs saved on the public profile |
 | 0.5 | Production first sign-in: a brand-new account requests a code on Production, the email carries a 6-digit code and no one-browser link, and the code signs in (checklist item 9) | not done |
-| 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | open |
+| 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | **David 2026-10-21: launch without lawyer review** |
 | 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | **confirmed 2026-10-20**: same `LOOPS_SECRET_KEY` digest as Development |
 | 0.8 | Decisions D1–D5 below answered | **answered 2026-10-20** (below) |
 
@@ -251,6 +251,10 @@ page still shows $39.99 due today (`pay_now` / `admission_off`). **Step 5 comple
 4. Within 5 minutes the worker charges $1 off-session; expect `converted`, paid access, the converted email, a Stripe receipt.
 5. Refund the $1 in the Stripe dashboard; expect `refunded`, access revoked, the refunded email.
 6. Either keep admission on (launch, step 7) or set `TRIAL_ADMISSION_ENABLED=false` until ready.
+
+**Run 2026-10-21 (David: "launch without lawyer review, go for step 6 now"):** pre-check 12:24 UTC clean (0 orders, 0 failed
+webhooks/cron/HTTP). **`TRIAL_ADMISSION_ENABLED=true` set ~12:25 UTC — trial live for everyone (D1 (a)).** Quote check:
+`billing_mode: trial`, $39.99 on Wednesday, October 28, 2026 (Eastern), `terms-2026-10-18`, `trial-mandate-v4`.
 
 ## 7. ⛔ Launch and retire the cardless trial
 
