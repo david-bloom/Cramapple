@@ -1736,4 +1736,6 @@ export async function handleCapturePairing(
   }
 }
 
-Deno.serve((req) => handleCapturePairing(req));
+if (import.meta.main) {
+  Deno.serve((req) => handleCapturePairing(req));
+}
