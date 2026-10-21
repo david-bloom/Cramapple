@@ -71,9 +71,11 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 4. Secret names unchanged from the list above (`supabase secrets list`, names only).
 5. Production's `stripe_webhook_events` has nothing stuck in `processing`/`failed` from the last day.
 
-### Pre-flight results (2026-10-20, run before the merges landed)
+### Pre-flight results (2026-10-20/21)
 
-- Step 1 (release SHA): **not run.** PRs #507, app #38 and #39 were still open and clean on GitHub when checked.
+- Step 1 (release SHA): **`3616edff`** (#507 merged 2026-10-21 00:16 UTC; app #38 `39fd4ff0`, #39 `c0c0f2d7` merged the same
+  minute, app `main` = `c0c0f2d`). Its `supabase/functions` tree is identical to `43440c98` (Codex's sign-off, and what
+  Development runs); its migrations differ only by the round-5 rename (same content) and the #508 stranded migration.
 - Step 2: all six matched functions unchanged (`stripe-webhook` 9 files, `create-checkout-session` 8,
   `create-parent-payment-link` 9, `get-checkout-status` 8, `resolve-parent-link` 7, `send-parent-payment-email` 6; 0 differ
   each); `start-trial/index.ts` still `f7aa0093`; none of the new functions, and not `send-auth-email`, exist.
