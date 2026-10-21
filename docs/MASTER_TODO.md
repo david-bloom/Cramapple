@@ -110,6 +110,8 @@ records.
   question-generation seeds, adaptation targets, and generative-model inputs.
 - [ ] Define the narrow conditions under which authorized humans may review
   public official materials for abstract alignment.
+- [ ] Resolve the open BYOQ upload questions mapped to this item in
+  `product/BYOQ_UPLOAD_POLICY_DRAFT_RECONCILIATION_2026_10_21.md` (Q1, Q8).
 
 ### GOV-002 - Minor Privacy, Consent, and Data Rights
 
@@ -126,6 +128,8 @@ records.
   other personal information in uploads.
 - [ ] Define anonymous or deidentified improvement-dataset requirements.
 - [ ] Produce the privacy policy and required in-product notices.
+- [ ] Resolve the open BYOQ upload questions mapped to this item in
+  `product/BYOQ_UPLOAD_POLICY_DRAFT_RECONCILIATION_2026_10_21.md` (Q1, Q3-Q6).
 
 ### GOV-003 - Provider and Academic-Integrity Policy
 
@@ -141,6 +145,8 @@ records.
 - [ ] Prohibit unsupported AI-detection claims.
 - [ ] Decide whether a third-party detector, an internal signal, or no detector
   is appropriate after accuracy, privacy, and cost review.
+- [ ] Resolve the open BYOQ upload questions mapped to this item in
+  `product/BYOQ_UPLOAD_POLICY_DRAFT_RECONCILIATION_2026_10_21.md` (Q7).
 
 ## 6. P1 Required Designs Before Implementation
 
