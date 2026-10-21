@@ -6,8 +6,8 @@
 **Owner:** Codex (implementation); David Bloom (Product Owner)
 **Tier:** Standard for repository/CI work; Hard-Gate for database, configuration, deployment or function deletion
 **Created:** 2026-10-21
-**Branch:** `codex/task-0078-refactor-ci` (first slice; subsequent slices record their own PR)
-**PR:** Pending
+**Branch:** `codex/task-0078-replay-hardening` (depends on CI slice)
+**PR:** CI [#520](https://github.com/david-bloom/Cramapple/pull/520); replay PR pending
 **Approval State:** David authorized execution in this chat on 2026-10-21: “execute the improved plan”. This authorizes preparing and testing the reviewed repository slices. Database applications, deployments, Development configuration changes and remote function deletion retain the separate, concrete approval gates in the improved plan. No Production write is authorized by this record.
 
 ## Governing evidence and scope
@@ -34,7 +34,8 @@ Fable's review: [PR #519](https://github.com/david-bloom/Cramapple/pull/519), co
 
 ## Execution record
 
-- First action: CI baseline and environment-permission characterization.
+- CI baseline: 255 tests; expanded existing-handler workflow: 310 pass. Replay slice adds 12 request-handler tests, all passing; full workflow: 322 pass. Disposable Postgres SQL/privilege/failure tests pass; eight simultaneous database claimants yield exactly one claim and seven pending outcomes.
+- Replay design and deployment/recovery gates: `docs/qa/TASK0078_REPLAY_RELEASE_PACKET.md`. The initial Edge-only suggestion is replaced with a durable database reservation because audit insertion follows the irreversible action. Pending claims never expire automatically.
 - Deployment state: no task deployment, migration application, configuration change or remote deletion performed.
 - Test Results: Expanded Minimal CI Deno command: 310 passed, 0 failed, with an explicit environment-name allowlist and no runtime network permission. Importing capture-pairing initially attempted to start a server; its entry point now uses the existing import.meta.main pattern from attempt-response and evaluate-attempt. Existing Minimal CI baseline: 255 passed.
 - QA Result: Pending independent review.

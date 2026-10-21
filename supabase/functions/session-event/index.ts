@@ -1,3 +1,4 @@
+import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -72,45 +73,9 @@ async function loadProfile(req: Request) {
   return await requireProfile(req);
 }
 
-async function loadIdempotentResult(
-  service: ReturnType<typeof createServiceClient>,
-  requestId: string,
-  requestHash: string,
-  operation: SessionOperation,
-) {
-  // Scope the lookup to (request_id, reason_code) to match the composite
-  // unique index added in migration 202606210001. Same request_id reused
-  // for a different operation is a different audit row, not a conflict.
-  const { data, error } = await service.schema("app")
-    .from("audit_events")
-    .select("request_id, reason_code, metadata")
-    .eq("request_id", requestId)
-    .eq("reason_code", operation)
-    .maybeSingle();
-
-  if (error) {
-    throw error;
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  const metadata = data.metadata && typeof data.metadata === "object"
-    ? data.metadata as Record<string, unknown>
-    : null;
-
-  if (!metadata || metadata.request_hash !== requestHash) {
-    return { conflict: true as const };
-  }
-
-  return metadata.result
-    ? { result: metadata.result as Record<string, unknown> }
-    : { result: null };
-}
-
 async function recordSessionEvent(
   service: ReturnType<typeof createServiceClient>,
+  claimToken: string,
   requestId: string,
   requestHash: string,
   profileId: string,
@@ -119,7 +84,7 @@ async function recordSessionEvent(
   sessionId: string | null,
   detail: Record<string, unknown> = {},
 ) {
-  await service.schema("app").from("audit_events").insert({
+  await completeReplay(service, claimToken, {
     audit_event_id: crypto.randomUUID(),
     occurred_at: new Date().toISOString(),
     actor_type: "human",
@@ -141,7 +106,12 @@ async function recordSessionEvent(
   });
 }
 
-Deno.serve(async (req) => {
+export type SessionEventDeps = {
+  requireProfile?: typeof requireProfile;
+  service?: ReturnType<typeof createServiceClient>;
+};
+
+export async function handleSessionEvent(req: Request, deps: SessionEventDeps = {}): Promise<Response> {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -175,36 +145,22 @@ Deno.serve(async (req) => {
     return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
-  const profileResult = await loadProfile(req);
+  const profileResult = await (deps.requireProfile ?? loadProfile)(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
   }
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
   const requestHash = await sha256Hex(JSON.stringify(body));
   const profileId = profileResult.user.id;
 
-  const deduped = await loadIdempotentResult(
-    service,
-    idempotencyKey,
-    requestHash,
-    operation,
-  );
-  if (deduped) {
-    if ("conflict" in deduped) {
-      return respond({ error: "idempotency_conflict" }, { status: 409 });
-    }
-
-    return respond(
-      {
-        status: "ok",
-        function: "session-event",
-        operation,
-        result: deduped.result,
-      },
-      { status: 200 },
-    );
-  }
+  let claimToken = "";
+  const begin = async (): Promise<Response | null> => {
+    const claim = await claimReplay(service, { actorId: profileId, requestId: idempotencyKey, requestHash, operation });
+    if (claim.kind === "replay") return respond({ status: "ok", function: "session-event", operation, result: claim.result });
+    claimToken = claim.claimToken;
+    return null;
+  };
 
   try {
     if (operation === "attach_anonymous_session") {
@@ -256,6 +212,9 @@ Deno.serve(async (req) => {
         return respond({ error: "invalid_practice_format" }, { status: 400 });
       }
 
+      const cached = await begin();
+      if (cached) return cached;
+
       // Broad Home starts are authoritative in Postgres: identity, active
       // subject, Home eligibility, duplicate prevention, and idempotency are
       // resolved inside one advisory-locked transaction.
@@ -297,6 +256,7 @@ Deno.serve(async (req) => {
         const result = safeSessionShape(started as Record<string, unknown>);
         await recordSessionEvent(
           service,
+          claimToken,
           idempotencyKey,
           requestHash,
           profileId,
@@ -352,6 +312,7 @@ Deno.serve(async (req) => {
       const result = safeSessionShape(inserted as Record<string, unknown>);
       await recordSessionEvent(
         service,
+        claimToken,
         idempotencyKey,
         requestHash,
         profileId,
@@ -402,10 +363,14 @@ Deno.serve(async (req) => {
       return respond({ error: "forbidden" }, { status: 403 });
     }
 
+    const cached = await begin();
+    if (cached) return cached;
+
     if (operation === "session_resume") {
       const result = safeSessionShape(session as Record<string, unknown>);
       await recordSessionEvent(
         service,
+        claimToken,
         idempotencyKey,
         requestHash,
         profileId,
@@ -445,6 +410,7 @@ Deno.serve(async (req) => {
       const result = safeSessionShape(touched as Record<string, unknown>);
       await recordSessionEvent(
         service,
+        claimToken,
         idempotencyKey,
         requestHash,
         profileId,
@@ -491,6 +457,7 @@ Deno.serve(async (req) => {
     const result = safeSessionShape(ended as Record<string, unknown>);
     await recordSessionEvent(
       service,
+      claimToken,
       idempotencyKey,
       requestHash,
       profileId,
@@ -512,6 +479,7 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
+    if (error instanceof ReplayError) return respond({ error: error.code }, { status: error.status });
     const message = error instanceof Error
       ? error.message
       : "session_event_failed";
@@ -538,4 +506,6 @@ Deno.serve(async (req) => {
       { status: clientErrors.has(message) ? 400 : 500 },
     );
   }
-});
+}
+
+if (import.meta.main) Deno.serve((req) => handleSessionEvent(req));
