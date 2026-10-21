@@ -415,12 +415,11 @@ Deno.test("evaluate-attempt rejects an unsubmitted response before loading answe
   const res = await handleEvaluateAttempt(req, {
     // deno-lint-ignore no-explicit-any
     service: service as any,
-    // deno-lint-ignore no-explicit-any
     requireProfile: (() =>
       Promise.resolve({
         user: { id: ids.user },
         profile: { user_id: ids.user, role: "student" },
-      })) as any,
+      })) as unknown as NonNullable<Deps["requireProfile"]>,
   });
 
   assertEquals(res.status, 409);
@@ -500,12 +499,11 @@ async function runOpenHandExclusionCase(exclusionRowCount: number) {
   const res = await handleEvaluateAttempt(req, {
     // deno-lint-ignore no-explicit-any
     service: service as any,
-    // deno-lint-ignore no-explicit-any
     requireProfile: (() =>
       Promise.resolve({
         user: { id: ids.user },
         profile: { user_id: ids.user, role: "student" },
-      })) as any,
+      })) as unknown as NonNullable<Deps["requireProfile"]>,
   });
   return { res, tablesQueried };
 }
