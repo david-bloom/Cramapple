@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Read-only backend assessments 5 and 6 (2026-10-21, owner request; Claude Haiku 5.5): test-gate inventory and Development-vs-Production environment parity in `docs/qa/`, against `main` `73206cde`. Headlines: 61 test files, 22 gated by CI, 19 of 30 function directories have no tests; the proposed CI command (not applied) runs 60 files. Production has `GRADING_ENTITLEMENTS_ENABLED=true` and Development does not; `FRQ_PHOTO_SUBJECTS` runs the other way. Security review item 6 is production alerting, not the anon check the prompt describes.
 - TASK-0078 A7 and A8 executed on the non-Production half (2026-10-21, owner request "do the add-on redeploy to Development and send the Lovable prompt"): `create-post-purchase-addon` deployed from `main` to Development (v36, bundle byte-identical to `main`, boots, 401 unauthenticated); Lovable marketing commit `db106773` surfaces the server's add-on offer on the payment-result page with tests, not published. Production deploy and the publish remain David's. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) A7–A8.
 
 - TASK-0078 opened: backend stability follow-ups and three owner rulings (2026-10-21): David ruled that human review is weeks away and will use one reviewer per question, so the Production-only reviewer-qualification code (`ad083b39`) is not ported and `assign-for-review` / `reviewer-invite` are frozen; the learning-session sweep is to run weekly on Saturday at 1 am Eastern (draft cron migration in the task); the post-purchase add-on must become reachable (Production never recorded one; the page and the server offer exist but the payment-result screen never shows the link; redeploy `create-post-purchase-addon` first, then a Lovable change, prompt in the task). Fable verification of Sonnet's four assessments posted on PR #532 (merged); PRs #519 and #533 merged. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
@@ -230,6 +231,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — Assessments 5 and 6 (test-gate inventory; environment parity), read-only
+
+Requested by David as the handoff `docs/handoffs/PROMPT_ASSESSMENTS_5_6_HAIKU_2026_10_21.md`. No code, workflow, deployment, secret or data changed. Branch `claude/assessments-5-6-2026-10-21` from `main` `73206cde`; docs-only PR, not merged.
+
+- **Assessment 5** (`docs/qa/TEST_GATE_INVENTORY_2026_10_21.md`): every test file run under the CI allow-env list and under full env. 50 of 61 pass under the CI list. All 61 pass with the names and flags they need; the proposed CI command runs 60 in one process (760 tests). `create-post-purchase-addon` needs unrestricted `--allow-env` because of the Stripe SDK.
+- **Assessment 6** (`docs/qa/ENVIRONMENT_PARITY_2026_10_21.md`): secret names and digests, reader defaults, function versions and bundle hashes, advisors and ledger on both projects. Three differences most likely to mislead a rehearsal: `GRADING_ENTITLEMENTS_ENABLED`, `FRQ_PHOTO_SUBJECTS`, `SERVICE_ROLE_KEY`.
+- **Prompt corrections (verified):** the prompt's item 6 is not the anon check (item 6 is production alerting; the anon check is nearest item 7). `attempt-response` first fails under the CI list on `GRADING_ENTITLEMENTS_ENABLED`, not `OPENAI_API_KEY`.
+- **Not verified:** that GitHub CI runs the proposed command; an offline test run; the runtime effect of the Development `SERVICE_ROLE_KEY` fallback.
 
 ## 2026-10-21 — TASK-0078 A7/A8: add-on function redeployed to Development; Lovable offer built, not published
 
