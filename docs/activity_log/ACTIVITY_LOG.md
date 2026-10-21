@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0078 A7 and A8 executed on the non-Production half (2026-10-21, owner request "do the add-on redeploy to Development and send the Lovable prompt"): `create-post-purchase-addon` deployed from `main` to Development (v36, bundle byte-identical to `main`, boots, 401 unauthenticated); Lovable marketing commit `db106773` surfaces the server's add-on offer on the payment-result page with tests, not published. Production deploy and the publish remain David's. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) A7–A8.
+
 - TASK-0078 opened: backend stability follow-ups and three owner rulings (2026-10-21): David ruled that human review is weeks away and will use one reviewer per question, so the Production-only reviewer-qualification code (`ad083b39`) is not ported and `assign-for-review` / `reviewer-invite` are frozen; the learning-session sweep is to run weekly on Saturday at 1 am Eastern (draft cron migration in the task); the post-purchase add-on must become reachable (Production never recorded one; the page and the server offer exist but the payment-result screen never shows the link; redeploy `create-post-purchase-addon` first, then a Lovable change, prompt in the task). Fable verification of Sonnet's four assessments posted on PR #532 (merged); PRs #519 and #533 merged. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
 
 - Read-only backend assessments 1, 3, 4 and 8 (2026-10-21, owner request; Claude Sonnet 5.5): drift register, swallowed-error audit, scheduled-work inventory and shared-module dependency map in `docs/qa/` against `main` `df39cd09`. Headlines: Production `assign-for-review` and `reviewer-invite` are ahead of `main` (source only in orphan commit `ad083b39`); 22 `must-fail` swallowed-error rows, none in payment code; `sweep_learning_sessions` and photo redaction have no scheduler. Docs-only PR, not merged; no code, migration, deployment, secret or data change.
@@ -228,6 +230,13 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — TASK-0078 A7/A8: add-on function redeployed to Development; Lovable offer built, not published
+
+Owner request: "Do the add-on redeploy to Development and send the Lovable prompt."
+
+- **A7, Development only:** `supabase functions deploy create-post-purchase-addon --project-ref wmgjsdkphcyhngaffbqf --no-verify-jwt --use-api` from `main` `73206cde` after the handler and `addon-checkout` tests passed locally (6 of 6). Result: v36, `ezbr_sha256 f605bbcb…`; the bundle was downloaded again and every file (`index.ts`, `handler.ts`, `_shared/stripe.ts`, `addon-checkout.ts`, `http.ts`, `cors.ts`, `supabase.ts`, `auth.ts`) is byte-identical to `main`; an unauthenticated POST returns `401 {"error":"unauthorized"}`. Not done: a signed-in Stripe test-mode add-on purchase on Development (needs a Development student session; David or Codex). Production untouched (still v8 without the ownership check).
+- **A8, Lovable marketing project `61dd6602`:** the §4 prompt was sent verbatim; the agent returned commit `db106773` (3 credits): `PaymentResult.tsx` now holds a signed-in, paid, single-subject student at the server's offer (`eligibleOffer`) with "Add another subject — $30.00" linking to the server URL unchanged and "Not now, go to my subjects"; signed-out students keep code sign-in and see the offer after it; parent, bundle, $0, refunded and malformed-offer cases unchanged; `addon_offer_viewed` fired once. New `PaymentResult.test.tsx`; Lovable reports 250 tests passing and type check clean. The component was read at that commit and matches the prompt. **Not published.** Order for David: approve and deploy A7 to Production first, then publish.
 
 ## 2026-10-21 — TASK-0078 opened; three owner rulings on the assessment findings
 
