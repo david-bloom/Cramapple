@@ -13,6 +13,11 @@ import {
   type PriceCatalog,
 } from "../_shared/stripe-catalog.ts";
 import { generateShortCode, shortLinkUrl } from "../_shared/parent-short-link.ts";
+import {
+  buildTrialQuote,
+  startTrialSetup,
+  TrialError,
+} from "../_shared/trial-checkout.ts";
 
 type Mode = "single" | "bundle_2" | "bundle_3";
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3"]);
@@ -121,6 +126,90 @@ Deno.serve(async (req) => {
     : mode === "bundle_2"
     ? PRICE_CATALOG.bundle_2
     : PRICE_CATALOG.bundle_3;
+
+  // Card trial (TASK-0077, DECISION-0126 items 2, 13, 17, 22). The student
+  // sees the locked quote, applies any code and acknowledges the Terms before
+  // the link exists; the code is fixed into the link.
+  const trialService = createServiceClient();
+  const trialDeps = {
+    stripe,
+    service: trialService,
+    now: () => new Date(),
+    admissionEnabled: Deno.env.get("TRIAL_ADMISSION_ENABLED") === "true",
+    termsVersion: Deno.env.get("TRIAL_TERMS_VERSION") ?? "",
+  };
+  const quoteInput = {
+    purchaseType: "parent_share" as const,
+    offer: mode,
+    subjectKeys: keys,
+    priceId,
+    promoCode: asString(input.promo_code),
+    studentEmail,
+    customerId: null,
+  };
+  const action = asString(input.action);
+  try {
+    if (action === "trial_quote") {
+      return respond({ status: "ok", quote: await buildTrialQuote(trialDeps, quoteInput) });
+    }
+    if (action === "trial_start") {
+      const ack = input.student_ack as { version?: unknown } | undefined;
+      if (input.terms_accepted !== true || typeof ack?.version !== "string") {
+        return respond({ error: "terms_acknowledgment_required" }, { status: 400 });
+      }
+      const started = await startTrialSetup(trialDeps, {
+        ...quoteInput,
+        quoteVersion: asString(input.quote_version) ?? "",
+        studentAck: { version: ack.version, source: "parent_share_drawer" },
+        studentName,
+        consentIp: req.headers.get("cf-connecting-ip")?.trim() ||
+          req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+        consentUserAgent: req.headers.get("user-agent"),
+        urls: {
+          successUrl:
+            `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&role=parent&trial=1`,
+          cancelUrl: `${APP_BASE_URL}/checkout?ask=parent`,
+        },
+      });
+      await recordGrowthEvent(trialService, {
+        eventName: "checkout_started",
+        userId: null,
+        source: "stripe",
+        dedupeKey: `checkout_started:${started.session_id}`,
+        properties: { offer: mode, access_tier: "trial" },
+      });
+      let trialShortUrl: string | null = null;
+      for (let attempt = 0; attempt < 5 && !trialShortUrl; attempt++) {
+        const code = generateShortCode();
+        const { error: insertError } = await trialService.schema("app")
+          .from("parent_payment_links")
+          .insert({ code, checkout_session_id: started.session_id });
+        if (!insertError) trialShortUrl = shortLinkUrl(APP_BASE_URL, code);
+        else if (insertError.code !== "23505") break;
+      }
+      return respond({
+        status: "ok",
+        billing_mode: "trial",
+        order_id: started.order_id,
+        session_id: started.session_id,
+        url: started.url,
+        short_url: trialShortUrl,
+        quote: started.quote,
+      });
+    }
+    if (trialDeps.admissionEnabled) {
+      const quote = await buildTrialQuote(trialDeps, quoteInput);
+      if (quote.billing_mode === "trial") {
+        return respond({ error: "trial_required", quote }, { status: 409 });
+      }
+    }
+  } catch (error) {
+    if (error instanceof TrialError) {
+      return respond({ error: error.code }, { status: error.status });
+    }
+    console.error("create-parent-payment-link trial_error", error);
+    return respond({ error: "checkout_session_failed" }, { status: 502 });
+  }
 
   let promotionCodeId: string | null = null;
   try {

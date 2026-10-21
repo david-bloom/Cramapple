@@ -102,25 +102,49 @@ Deno.serve(async (req) => {
 
   const studentName = metadata.student_name?.trim().split(/\s+/)[0] ||
     "your student";
+
+  // A card-trial link (TASK-0077) is a setup session: no amount today. The
+  // email states the locked day-7 charge from the order, in its own template.
+  const isTrial = metadata.kind === "trial_setup";
+  let trialOrder: { charge_amount: number; currency: string; status: string } | null = null;
+  if (isTrial) {
+    const { data, error } = await service.schema("app").from("trial_orders")
+      .select("charge_amount, currency, status")
+      .eq("checkout_session_id", sessionId)
+      .maybeSingle();
+    if (error || !data || data.status !== "pending_setup") {
+      return respond({ error: "invalid_parent_payment_session" }, { status: 409 });
+    }
+    trialOrder = data;
+  }
+
   let sendStatus = "failed";
   try {
     await sendLoopsTransactional({
       transactionalId: requireEmailConfig(
-        "LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID",
+        isTrial
+          ? "LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID"
+          : "LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID",
       ),
       email: parentEmail,
-      dataVariables: parentRequestVariables({
-        checkoutUrl,
-        studentName,
-        subjects: metadata.subject_ids ?? "",
-        amountTotal: session.amount_total ?? 0,
-        currency: session.currency ?? "usd",
-        expiresAt: session.expires_at ?? 0,
-        parentEmail,
-      }),
+      dataVariables: {
+        ...parentRequestVariables({
+          checkoutUrl,
+          studentName,
+          subjects: metadata.subject_ids ?? "",
+          // Trial: `amount` is the charge on day 7, not today.
+          amountTotal: trialOrder?.charge_amount ?? session.amount_total ?? 0,
+          currency: trialOrder?.currency ?? session.currency ?? "usd",
+          expiresAt: session.expires_at ?? 0,
+          parentEmail,
+        }),
+        ...(isTrial ? { trialDays: "7" } : {}),
+      },
     }, crypto.randomUUID());
     sendStatus = "sent";
-    if (Deno.env.get("PARENT_EMAIL_LIFECYCLE_ENABLED") === "true") {
+    // The reminder/expiry lifecycle is for unpaid payment links; trial links
+    // get the trial notices instead.
+    if (!isTrial && Deno.env.get("PARENT_EMAIL_LIFECYCLE_ENABLED") === "true") {
       try {
         await recordParentRequestLifecycle(service, {
           session: session as unknown as Parameters<

@@ -95,7 +95,7 @@
   },
   {
     "file": "08-parent-payment-reminder.mjml",
-    "subject": "Reminder: your student’s Cramapple payment request is still open",
+    "subject": "Reminder: your student\u2019s Cramapple payment request is still open",
     "variables": [
       "amount",
       "expiresOn",
@@ -135,5 +135,271 @@
     ],
     "status": "published",
     "transactionalId": "cmuwrv0td06ic0jzlawvqx6q5"
+  },
+  {
+    "file": "11-trial-started-payer.mjml",
+    "subject": "Your 7-day free trial has started",
+    "variables": [
+      "amount",
+      "cancelUrl",
+      "cardLast4",
+      "chargeDate",
+      "mailingAddress",
+      "subjects",
+      "termsUrl"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfrj2r8018n0j62yfdyhe0a",
+    "secret": "LOOPS_TRIAL_TRIAL_STARTED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "11-trial-started-learner.mjml",
+    "subject": "Your 7-day free trial has started",
+    "variables": [
+      "accountUrl",
+      "amount",
+      "cancelUrl",
+      "cardLast4",
+      "chargeDate",
+      "mailingAddress",
+      "subjects",
+      "termsUrl"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh9clzz00eu0jzlbn1i7mun",
+    "secret": "LOOPS_TRIAL_TRIAL_STARTED_LEARNER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "11-trial-started-student.mjml",
+    "subject": "Your free trial has started",
+    "variables": [
+      "accountUrl",
+      "chargeDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfvxwuf02d60jyuzbnjwutw",
+    "secret": "LOOPS_TRIAL_TRIAL_STARTED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "12-trial-reminder-payer.mjml",
+    "subject": "Your free trial ends in 2 days",
+    "variables": [
+      "amount",
+      "cancelUrl",
+      "chargeDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfw76nj02np0jzfap45mbyv",
+    "secret": "LOOPS_TRIAL_REMINDER_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "12-trial-reminder-student.mjml",
+    "subject": "Your free trial ends in 2 days",
+    "variables": [
+      "accountUrl",
+      "amount",
+      "chargeDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfwciel02sb0j0gqcye19lk",
+    "secret": "LOOPS_TRIAL_REMINDER_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "13-trial-payment-failed-payer.mjml",
+    "subject": "We couldn't take your payment",
+    "variables": [
+      "amount",
+      "graceEndDate",
+      "mailingAddress",
+      "recoveryUrl",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfw4rin02ge0jzdu532nw11",
+    "secret": "LOOPS_TRIAL_PAYMENT_FAILED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "13-trial-payment-failed-student.mjml",
+    "subject": "There was a problem with the payment",
+    "variables": [
+      "graceEndDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfwf0bp02rb0jzd9oslgv01",
+    "secret": "LOOPS_TRIAL_PAYMENT_FAILED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "14-trial-requires-action-payer.mjml",
+    "subject": "Confirm your payment",
+    "variables": [
+      "amount",
+      "graceEndDate",
+      "mailingAddress",
+      "recoveryUrl",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfwjr6b02yu0jzf1f70ovg4",
+    "secret": "LOOPS_TRIAL_REQUIRES_ACTION_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "14-trial-requires-action-student.mjml",
+    "subject": "There was a problem with the payment",
+    "variables": [
+      "graceEndDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5ezjp00g90j05zesbhnk4",
+    "secret": "LOOPS_TRIAL_REQUIRES_ACTION_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "15-trial-grace-ended-payer.mjml",
+    "subject": "Your access is paused",
+    "variables": [
+      "amount",
+      "mailingAddress",
+      "recoveryDeadline",
+      "recoveryUrl",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5bj2200cb0j0u4b48u4rf",
+    "secret": "LOOPS_TRIAL_GRACE_ENDED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "15-trial-grace-ended-student.mjml",
+    "subject": "Your access is paused",
+    "variables": [
+      "mailingAddress",
+      "recoveryDeadline",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvfwml4u038l0j0wsqnseqzo",
+    "secret": "LOOPS_TRIAL_GRACE_ENDED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "16-trial-delayed-charge-payer.mjml",
+    "subject": "Your charge has been delayed",
+    "variables": [
+      "amount",
+      "cancelUrl",
+      "chargeDate",
+      "delayedChargeDate",
+      "mailingAddress"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5cq8q00e20j0gx5su5hj7",
+    "secret": "LOOPS_TRIAL_DELAYED_CHARGE_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "16-trial-delayed-charge-student.mjml",
+    "subject": "Your trial access continues",
+    "variables": [
+      "delayedChargeDate",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5jjln00jp0j0ue2cumu95",
+    "secret": "LOOPS_TRIAL_DELAYED_CHARGE_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "17-trial-canceled-payer.mjml",
+    "subject": "Your free trial is canceled",
+    "variables": [
+      "cancelOutcomeText",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvhbmhma02h20kxf8mo8f2h9",
+    "secret": "LOOPS_TRIAL_CANCELED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "17-trial-canceled-student.mjml",
+    "subject": "Your free trial was canceled",
+    "variables": [
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvhbrp6y02np0jxs89l6qtgp",
+    "secret": "LOOPS_TRIAL_CANCELED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "18-trial-converted-payer.mjml",
+    "subject": "Thanks for your payment",
+    "variables": [
+      "accountUrl",
+      "amount",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5xd0b00250jyfht4yeryu",
+    "secret": "LOOPS_TRIAL_CONVERTED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "18-trial-converted-student.mjml",
+    "subject": "Your parent paid for your subjects",
+    "variables": [
+      "accountUrl",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh5yo1n003p0j19p3rxs36x",
+    "secret": "LOOPS_TRIAL_CONVERTED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "19-trial-refunded-payer.mjml",
+    "subject": "Your payment was refunded",
+    "variables": [
+      "amount",
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh60feq005c0j19mg6muxaf",
+    "secret": "LOOPS_TRIAL_REFUNDED_PAYER_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "19-trial-refunded-student.mjml",
+    "subject": "Your access has ended",
+    "variables": [
+      "mailingAddress",
+      "subjects"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh62na7007b0j19rde23i4h",
+    "secret": "LOOPS_TRIAL_REFUNDED_STUDENT_TRANSACTIONAL_ID"
+  },
+  {
+    "file": "20-parent-trial-request.mjml",
+    "subject": "Your student asked you to start a free trial",
+    "variables": [
+      "amount",
+      "expiresOn",
+      "mailingAddress",
+      "parentEmail",
+      "paymentUrl",
+      "studentName",
+      "subjects",
+      "trialDays"
+    ],
+    "status": "published",
+    "transactionalId": "cmvh650bk00af0jx02vc04qup",
+    "secret": "LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID"
   }
 ]

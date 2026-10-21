@@ -85,3 +85,15 @@ Deno.test("a student session never resolves through a short link", () => {
   assertNotEquals(student.state, "open");
   assertEquals(classifyParentSession({ status: "open", url: "https://x", metadata: null }), { state: "expired" });
 });
+
+Deno.test("a completed card-trial setup reports trial_started, never paid (TASK-0077)", () => {
+  const trialMeta = { purchase_type: "parent_share", kind: "trial_setup" };
+  assertEquals(
+    classifyParentSession({ status: "complete", payment_status: "no_payment_required", metadata: trialMeta }),
+    { state: "trial_started" },
+  );
+  assertEquals(
+    classifyParentSession({ status: "open", payment_status: "no_payment_required", url: "https://checkout.example/s", metadata: trialMeta }),
+    { state: "open", url: "https://checkout.example/s" },
+  );
+});

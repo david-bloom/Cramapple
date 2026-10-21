@@ -20,7 +20,8 @@ export type PayerCharge = {
   receipt_number?: string | null;
   payment_method_details?: {
     type: string;
-    card?: { brand: string; last4: string } | null;
+    // stripe-node v22 types brand and last4 as nullable.
+    card?: { brand: string | null; last4: string | null } | null;
   } | null;
 };
 
@@ -78,12 +79,16 @@ function paymentMethod(
 ): { cardBrand: string; cardLast4: string } | null {
   const details = charge.payment_method_details;
   if (details?.type === "card" && details.card) {
-    if (!/^\d{4}$/.test(details.card.last4)) {
+    const { brand, last4 } = details.card;
+    // A card charge without both values fills no card-shaped slot, like a
+    // non-card method below.
+    if (brand === null || last4 === null) return null;
+    if (!/^\d{4}$/.test(last4)) {
       throw new Error("invalid_payer_card_suffix");
     }
     return {
-      cardBrand: emailText(bounded(details.card.brand, 40)),
-      cardLast4: details.card.last4,
+      cardBrand: emailText(bounded(brand, 40)),
+      cardLast4: last4,
     };
   }
   // The supplied receipt/refund design has cardBrand/cardLast4 fields. Do

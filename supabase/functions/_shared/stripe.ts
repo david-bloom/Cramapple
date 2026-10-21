@@ -1,4 +1,4 @@
-import Stripe from "https://esm.sh/stripe@17?target=deno";
+import Stripe from "https://esm.sh/stripe@22.0.0?target=deno";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -19,7 +19,7 @@ export const stripe = new Stripe(STRIPE_SECRET_KEY, {
   // Checkout Sessions with ui_mode: "elements" requires Dahlia or newer.
   // Pin the minimum compatible version so Development/Production do not
   // silently inherit an older account default.
-  apiVersion: "2026-03-25.dahlia" as Stripe.LatestApiVersion,
+  apiVersion: "2026-03-25.dahlia",
   httpClient: Stripe.createFetchHttpClient(),
 });
 

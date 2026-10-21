@@ -7,6 +7,7 @@ import {
   rateLimitedBody,
 } from "../_shared/public-rate-limit.ts";
 import { stripe } from "../_shared/stripe.ts";
+import { easternDate } from "../_shared/trial-core.ts";
 import {
   isPayerNotLearner,
   purchaserTypeFromMetadata,
@@ -64,6 +65,43 @@ Deno.serve(async (req) => {
   }
 
   const service = createServiceClient();
+
+  // A card-trial setup session (TASK-0077) is never a payment: report the
+  // trial from its order, never "paid" and never an upsell.
+  const { data: trialOrder, error: trialError } = await service.schema("app")
+    .from("trial_orders")
+    .select("status,purchase_type,subject_keys,student_name,trial_ends_at,charge_amount")
+    .eq("checkout_session_id", sessionId)
+    .maybeSingle();
+  if (trialError) {
+    console.error("get-checkout-status trial_lookup_failed", trialError);
+    return respond({ error: "status_lookup_failed" }, { status: 500 });
+  }
+  if (trialOrder) {
+    const parent = trialOrder.purchase_type === "parent_share";
+    const trialEndsAt = trialOrder.trial_ends_at ? new Date(trialOrder.trial_ends_at) : null;
+    return respond({
+      status: "ok",
+      billing_mode: "trial",
+      trial_status: trialOrder.status === "pending_setup"
+        ? "processing"
+        : trialOrder.status === "setup_expired" || trialOrder.status === "activation_refused"
+        ? "failed"
+        : trialOrder.status,
+      payment_status: "trial",
+      entitled: trialOrder.status === "trialing",
+      trial_ends_at: trialEndsAt?.toISOString() ?? null,
+      trial_ends_eastern: trialEndsAt ? easternDate(trialEndsAt) : null,
+      charge_amount: trialOrder.charge_amount,
+      subject_keys: trialOrder.subject_keys,
+      purchaser_type: trialOrder.purchase_type,
+      student_first_name: parent
+        ? (asString(trialOrder.student_name)?.split(/\s+/)[0] ?? null)
+        : null,
+      offer: null,
+    });
+  }
+
   const { data: stored, error } = await service.schema("app")
     .from("stripe_checkout_sessions")
     .select(

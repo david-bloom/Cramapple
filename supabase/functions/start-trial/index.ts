@@ -24,6 +24,9 @@ type Service = ReturnType<typeof createServiceClient>;
 export interface StartTrialDeps {
   service?: Service;
   requireProfile?: typeof requireProfile;
+  // TASK-0077 / DECISION-0126 item 12: the cardless trial is retired once the
+  // marketing /trial routes stop calling this (CARDLESS_TRIAL_RETIRED=true).
+  retired?: boolean;
 }
 
 export async function handleStartTrial(
@@ -37,6 +40,9 @@ export async function handleStartTrial(
   if (req.method === "OPTIONS") return respond({ ok: true });
   if (req.method !== "POST") {
     return respond({ error: "method_not_allowed" }, { status: 405 });
+  }
+  if (deps.retired) {
+    return respond({ error: "trial_retired" }, { status: 410 });
   }
 
   const body = await readJsonBody(req);
@@ -120,5 +126,6 @@ export async function handleStartTrial(
 }
 
 if (import.meta.main) {
-  Deno.serve((req) => handleStartTrial(req));
+  const retired = Deno.env.get("CARDLESS_TRIAL_RETIRED") === "true";
+  Deno.serve((req) => handleStartTrial(req, { retired }));
 }

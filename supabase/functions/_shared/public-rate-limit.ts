@@ -57,6 +57,19 @@ export const PUBLIC_ENDPOINT_LIMITS = {
     globalPerHour: 3000,
   },
   // Polled for a short time after each Stripe redirect.
+  // Card-trial quotes and starts (TASK-0077): a free card-saving endpoint
+  // attracts card testing, so it is throttled like the parent link.
+  trialCheckout: {
+    endpoint: "create-checkout-session-trial",
+    perIpPerHour: 30,
+    globalPerHour: 600,
+  },
+  // Trial cancel and recovery links opened from email.
+  trialLink: {
+    endpoint: "trial-link",
+    perIpPerHour: 60,
+    globalPerHour: 3000,
+  },
   getCheckoutStatus: {
     endpoint: "get-checkout-status",
     perIpPerHour: 240,

@@ -36,7 +36,7 @@ jobs:
       - name: Run deterministic Deno tests
         run: >-
           deno test
-          --allow-env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ALLOWED_ORIGINS,POSTHOG_PROJECT_API_KEY,POSTHOG_HOST
+          --allow-env=SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,ALLOWED_ORIGINS,POSTHOG_PROJECT_API_KEY,POSTHOG_PROJECT_TOKEN,POSTHOG_API_KEY,POSTHOG_HOST
           supabase/functions/_shared/grading-router_test.ts
           supabase/functions/_shared/formula-notation_test.ts
           supabase/functions/_shared/deterministic-verifier_test.ts
@@ -48,6 +48,16 @@ jobs:
           supabase/functions/start-trial/index_test.ts
           supabase/functions/_shared/addon-checkout_test.ts
           supabase/functions/_shared/checkout-access_test.ts
+          supabase/functions/_shared/checkout-routing_test.ts
+          supabase/functions/_shared/trial-promo_test.ts
+          supabase/functions/_shared/trial-core_test.ts
+          supabase/functions/_shared/trial-learner_test.ts
+          supabase/functions/_shared/trial-checkout_test.ts
+          supabase/functions/stripe-webhook/trial_test.ts
+          supabase/functions/_shared/trial-notices_test.ts
+          supabase/functions/_shared/trial-actions_test.ts
+          supabase/functions/charge-due-trials/handler_test.ts
+          supabase/functions/_shared/parent-short-link_test.ts
           supabase/functions/_shared/public-rate-limit_test.ts
 
       - name: Run AP Statistics checker tests

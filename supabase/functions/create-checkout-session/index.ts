@@ -4,6 +4,18 @@ import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 import { loadPriceCatalog, type PriceCatalog } from "../_shared/stripe-catalog.ts";
+import {
+  checkPublicRateLimit,
+  PUBLIC_ENDPOINT_LIMITS,
+  rateLimitDeps,
+  rateLimitedBody,
+} from "../_shared/public-rate-limit.ts";
+import {
+  buildTrialQuote,
+  startTrialSetup,
+  type TrialDeps,
+  TrialError,
+} from "../_shared/trial-checkout.ts";
 
 type Mode = "single" | "bundle_2" | "bundle_3" | "unlimited";
 type PurchaseType = "student_direct" | "parent_gift" | "legacy_authenticated";
@@ -23,6 +35,23 @@ function requireEnv(name: string) {
 
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 const PRICE_CATALOG: PriceCatalog = loadPriceCatalog();
+
+// TASK-0077: new card trials start only while this is "true". Off, checkout
+// is pay-now as before (rollback: plan §8).
+function trialDeps(service: ReturnType<typeof createServiceClient>): TrialDeps {
+  return {
+    stripe,
+    service,
+    now: () => new Date(),
+    admissionEnabled: Deno.env.get("TRIAL_ADMISSION_ENABLED") === "true",
+    termsVersion: Deno.env.get("TRIAL_TERMS_VERSION") ?? "",
+  };
+}
+
+function clientIp(req: Request) {
+  return req.headers.get("cf-connecting-ip")?.trim() ||
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
+}
 
 function asString(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : null;
@@ -165,6 +194,90 @@ Deno.serve(async (req) => {
     if (accountEmail && accountEmail !== studentEmail) {
       return respond({ error: "email_mismatch" }, { status: 409 });
     }
+
+    // Card trial (TASK-0077). The server decides the billing mode; a legacy
+    // pay-now request from a buyer who should be on a trial is refused, so
+    // nobody is charged today after the trial policy applies to them.
+    const action = asString(input.action);
+    const service = createServiceClient();
+    const deps = trialDeps(service);
+    const trialMode = mode as "single" | "bundle_2" | "bundle_3";
+    let customerId: string | null = null;
+    if (userId) {
+      const { data: mapping } = await service.schema("app").from("stripe_customers")
+        .select("stripe_customer_id").eq("user_id", userId).maybeSingle();
+      customerId = mapping?.stripe_customer_id ?? null;
+    }
+    const quoteInput = {
+      purchaseType: "student_direct" as const,
+      offer: trialMode,
+      subjectKeys: offer.subjectKeys,
+      priceId: offer.priceId,
+      promoCode: asString(input.promo_code),
+      studentEmail,
+      customerId,
+    };
+    try {
+      if (action === "trial_quote" || action === "trial_start") {
+        const limit = await checkPublicRateLimit(
+          req,
+          PUBLIC_ENDPOINT_LIMITS.trialCheckout,
+          rateLimitDeps(service),
+        );
+        if (!limit.allowed) {
+          const limited = rateLimitedBody(limit.retryAfterSeconds);
+          return respond(limited.body, limited.init);
+        }
+      }
+      if (action === "trial_quote") {
+        return respond({ status: "ok", quote: await buildTrialQuote(deps, quoteInput) });
+      }
+      if (action === "trial_start") {
+        const ack = input.student_ack as { version?: unknown } | undefined;
+        if (input.terms_accepted !== true || typeof ack?.version !== "string") {
+          return respond({ error: "terms_acknowledgment_required" }, { status: 400 });
+        }
+        const started = await startTrialSetup(deps, {
+          ...quoteInput,
+          quoteVersion: asString(input.quote_version) ?? "",
+          studentAck: { version: ack.version, source: "checkout" },
+          studentName: null,
+          consentIp: clientIp(req),
+          consentUserAgent: req.headers.get("user-agent"),
+          urls: {
+            returnUrl:
+              `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student&trial=1`,
+          },
+        });
+        await recordGrowthEvent(service, {
+          eventName: "checkout_started",
+          userId,
+          source: "stripe",
+          dedupeKey: `checkout_started:${started.session_id}`,
+          properties: { offer: mode, access_tier: "trial" },
+        });
+        return respond({
+          status: "ok",
+          billing_mode: "trial",
+          order_id: started.order_id,
+          session_id: started.session_id,
+          client_secret: started.client_secret,
+          quote: started.quote,
+        });
+      }
+      if (deps.admissionEnabled) {
+        const quote = await buildTrialQuote(deps, quoteInput);
+        if (quote.billing_mode === "trial") {
+          return respond({ error: "trial_required", quote }, { status: 409 });
+        }
+      }
+    } catch (error) {
+      if (error instanceof TrialError) {
+        return respond({ error: error.code }, { status: error.status });
+      }
+      console.error("create-checkout-session trial_error", error);
+      return respond({ error: "checkout_session_failed" }, { status: 502 });
+    }
   } else if (purchaseType === "parent_gift") {
     studentEmail = asEmail(input.student_email);
     studentName = asString(input.student_name);
@@ -227,9 +340,6 @@ Deno.serve(async (req) => {
       ? await stripe.checkout.sessions.create({
         ...common,
         // Current Stripe terminology for a fully custom Elements checkout.
-        // stripe-node v17 predates this enum in its TypeScript declarations,
-        // so the narrow cast keeps runtime parameters aligned with the
-        // account's current API while avoiding a wholesale SDK upgrade.
         ui_mode: "elements",
         return_url:
           `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student`,

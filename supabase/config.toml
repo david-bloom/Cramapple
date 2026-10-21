@@ -4,3 +4,17 @@ verify_jwt = true
 
 [functions.more-help]
 verify_jwt = true
+
+# TASK-0077 card trial. The worker authenticates with its own Bearer secret;
+# cancel and recovery links work without a login (capability token).
+[functions.charge-due-trials]
+verify_jwt = false
+
+[functions.cancel-trial]
+verify_jwt = false
+
+[functions.trial-recovery]
+verify_jwt = false
+
+[functions.get-trial-status]
+verify_jwt = true

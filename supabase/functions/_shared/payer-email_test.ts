@@ -96,6 +96,17 @@ Deno.test("payer notices skip unsettled charges, missing billing identity and un
       }, "biology"),
       null,
     );
+    // stripe-node v22 types brand and last4 as nullable.
+    assertEquals(
+      buildPayerReceiptEmail({
+        ...charge,
+        payment_method_details: {
+          type: "card",
+          card: { brand: null, last4: "4242" },
+        },
+      }, "biology"),
+      null,
+    );
     assertEquals(
       buildPayerRefundEmail(
         charge,
