@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Read-only assessments 2 and 7 (2026-10-21, owner request; Claude Opus 5.5): migration ledger reconciliation and dormant-surface review in `docs/qa/`, against `main` `c4896e9e`. Headlines: Production's ledger lists 2 migrations that are not in effect (the 2026-08-21 session RPC pair, TASK-0063), 124 rows whose SQL no local file holds and 32 with no migration SQL, while 94 local files are live on Production with no ledger row, so `db push` is unsafe on both projects; adopt PR #524 first. Retire first: the hand-drawn pilot upload path (cannot start a session on Production). Docs-only PR, not merged. See [`qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`](../qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md), [`qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`](../qa/DORMANT_SURFACE_REVIEW_2026_10_21.md).
+
 - TASK-0078 ruling 4 and Haiku assessment follow-through (2026-10-21): David ruled "fail the request when the grade write fails" (A4, acceptance criteria recorded for Codex). Haiku's PR #538 (test-gate inventory, environment parity) verified and merged after a conflict with `main` was resolved in a worktree; its two corrections confirmed (`attempt-response` first fails on `GRADING_ENTITLEMENTS_ENABLED` under the CI list, not `OPENAI_API_KEY`; the "item 6" citation was ambiguous) and the review document corrected; its `SERVICE_ROLE_KEY` parity finding qualified (Supabase injects `SUPABASE_SERVICE_ROLE_KEY`, so the empty-string fallback never fires). A1 marked ready for Codex with the narrower two-step CI option. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
 
 - Read-only backend assessments 5 and 6 (2026-10-21, owner request; Claude Haiku 5.5): test-gate inventory and Development-vs-Production environment parity in `docs/qa/`, against `main` `73206cde`. Headlines: 61 test files, 22 gated by CI, 19 of 30 function directories have no tests; the proposed CI command (not applied) runs 60 files. Production has `GRADING_ENTITLEMENTS_ENABLED=true` and Development does not; `FRQ_PHOTO_SUBJECTS` runs the other way. Security review item 6 is production alerting, not the anon check the prompt describes.
@@ -233,6 +235,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — Assessments 2 and 7 (migration ledger reconciliation; dormant-surface review), read-only
+
+Requested by David as the handoff `docs/handoffs/PROMPT_ASSESSMENTS_2_7_OPUS_2026_10_21.md`. Branch `claude/assessments-2-7-2026-10-21` from `main` `c4896e9e`; docs-only PR, not merged. `SELECT`-only queries on Production `pcntajvbdfqhbeewmdry` and Development `wmgjsdkphcyhngaffbqf`; nothing applied, repaired, deployed, deleted or set; Lovable untouched.
+
+- **Assessment 2** (`docs/qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`, register CSV beside it): every ledger row and local file matched by name and normalised SQL, never by version alone, and its effects checked (function bodies in three equality tiers, 596 DDL objects, data literals, grants). Production: 191 effective, 124 no local file, 41 superseded, 2 listed but not in effect; 115 file-only, 94 of them live outside the ledger. Development: 110 / 32 / 41 / 9; 191 file-only. Three duplicate version prefixes in `supabase/migrations/`. The cause of the 2026-08-21 pair's reversion is not recorded anywhere. Six DRIFT_REGISTER §3 rows corrected.
+- **Assessment 7** (`docs/qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`): 19 candidates. `/hand-drawn-pilot` sends an `entry_path` Production's check constraint rejects and `sign_upload` has never been used; the app calls `get_chosen_distractor_rationale` and `get_graded_choice_feedback`, absent from Production (fail-soft, retired flows); PR #522 has already removed `submit-response`, `byoq-smoke-runner`, `byoq-ip-echo` from Development.
+- **Live but known:** one student-role account holds an active session (since 2026-09-23) that the July `set_active_exam_pack_version` body would refuse to switch away from; this is TASK-0063 / A10, not a new defect.
+- **Not verified:** what re-created the July session RPC bodies after 2026-08-21; the published Lovable bundle (reachability is from source at `4f71acb`); whether `exam-buddy-wireframe` is still deployed; data effects of 25 Production rows in the 60-day window.
 
 ## 2026-10-21 — TASK-0078 ruling 4 (fail on grade-write failure); Haiku assessments 5 and 6 merged and verified
 
