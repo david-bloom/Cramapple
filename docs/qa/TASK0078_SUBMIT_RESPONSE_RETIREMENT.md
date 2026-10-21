@@ -39,3 +39,7 @@ Fable PR #519 at `60858969` found no live-app callers at `ap-prep-blueprint` `e7
 At the original source-only checkpoint, remote deletion was pending. The extension above records the later owner authorization and exact scope. Restore the directory from `df39cd09` if an overlooked source consumer is found; restoration does not authorize a deployment.
 
 Validation: targeted references under runtime code, function configuration and workflows; existing submission/entitlement handler tests run without importing the retired source.
+
+## Reconciliation with the later TASK-0078 checklist
+
+The latest request names A3 again. A fresh read-only Development inventory still has 29 functions: submit-response, byoq-smoke-runner and byoq-ip-echo are absent; send-auth-email and open-hand-item remain. No deletion was repeated. PR #522 retains the source-directory deletion and original receipts, and the canonical checklist now records that executed state instead of treating A3 as unstarted. Source review/merge remains pending.
