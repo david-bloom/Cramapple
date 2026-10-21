@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0078 ruling 4 and Haiku assessment follow-through (2026-10-21): David ruled "fail the request when the grade write fails" (A4, acceptance criteria recorded for Codex). Haiku's PR #538 (test-gate inventory, environment parity) verified and merged after a conflict with `main` was resolved in a worktree; its two corrections confirmed (`attempt-response` first fails on `GRADING_ENTITLEMENTS_ENABLED` under the CI list, not `OPENAI_API_KEY`; the "item 6" citation was ambiguous) and the review document corrected; its `SERVICE_ROLE_KEY` parity finding qualified (Supabase injects `SUPABASE_SERVICE_ROLE_KEY`, so the empty-string fallback never fires). A1 marked ready for Codex with the narrower two-step CI option. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
+
 - Read-only backend assessments 5 and 6 (2026-10-21, owner request; Claude Haiku 5.5): test-gate inventory and Development-vs-Production environment parity in `docs/qa/`, against `main` `73206cde`. Headlines: 61 test files, 22 gated by CI, 19 of 30 function directories have no tests; the proposed CI command (not applied) runs 60 files. Production has `GRADING_ENTITLEMENTS_ENABLED=true` and Development does not; `FRQ_PHOTO_SUBJECTS` runs the other way. Security review item 6 is production alerting, not the anon check the prompt describes.
 - TASK-0078 A7 and A8 executed on the non-Production half (2026-10-21, owner request "do the add-on redeploy to Development and send the Lovable prompt"): `create-post-purchase-addon` deployed from `main` to Development (v36, bundle byte-identical to `main`, boots, 401 unauthenticated); Lovable marketing commit `db106773` surfaces the server's add-on offer on the payment-result page with tests, not published. Production deploy and the publish remain David's. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) A7–A8.
 
@@ -231,6 +233,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — TASK-0078 ruling 4 (fail on grade-write failure); Haiku assessments 5 and 6 merged and verified
+
+- **Ruling 4 (David):** "Yes, fail the request when the grade write fails." Recorded in TASK-0078 §1 and on A4 with acceptance criteria: both `evaluate-attempt` grade writes read their error, respond 5xx with a stable code and no score, and the retry-with-same-key path is decided and tested (today a replay would find the row at `processing` and answer 202 forever). Ready for Codex.
+- **PR #538 (Haiku, docs-only):** `qa/TEST_GATE_INVENTORY_2026_10_21.md` and `qa/ENVIRONMENT_PARITY_2026_10_21.md`. Conflicted with `main` on the index files; merged `main` into the branch in a throwaway worktree (no textual conflicts) and merged the PR after its check re-ran. Verified before merging: under the exact Minimal CI `--allow-env` list, `attempt-response/index_test.ts` fails first on `GRADING_ENTITLEMENTS_ENABLED` (the review document said `OPENAI_API_KEY`; corrected); the `SERVICE_ROLE_KEY` empty-string fallbacks at `byoq/index.ts:289` and `_shared/public-rate-limit.ts:132` sit behind `SUPABASE_SERVICE_ROLE_KEY`, which Supabase injects, so they never fire; Development indeed lacks `start-trial`.
+- **A1 ready for Codex:** Haiku's proposed workflow diff (38 files, 760 tests) is sound; the task records the narrower option of a second CI step for the few files needing `--allow-net`, `--allow-read` or unrestricted `--allow-env`.
 
 ## 2026-10-21 — Assessments 5 and 6 (test-gate inventory; environment parity), read-only
 
