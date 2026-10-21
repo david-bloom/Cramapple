@@ -17,7 +17,7 @@ export function ReferencePane({ reference, expectedReasoning }) {
           <Missing>{MISSING.reference}</Missing>
           {expectedReasoning && (
             <div>
-              <span style={eyebrow}>What the package does say</span>
+              <span style={eyebrow}>Answer reasoning</span>
               <p style={body}>{expectedReasoning}</p>
             </div>
           )}

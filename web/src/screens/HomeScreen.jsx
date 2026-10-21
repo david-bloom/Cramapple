@@ -66,7 +66,7 @@ export function HomeScreen() {
               </p>
             </div>
             <p style={{ ...body, textAlign: 'right' }}>
-              {COURSE.exam}. You have covered 1 of {COURSE.unitsInCourse} units.
+              {COURSE.exam}. This practice set covers part of 1 of {COURSE.unitsInCourse} units.
             </p>
           </div>
         </PaneShell>
@@ -211,12 +211,12 @@ export function HomeScreen() {
           {/* The unit has nine topics; only the ones with authored content are
               shown. Say so rather than rendering empty cards for the rest. */}
           <p style={{ ...body, marginTop: 14, fontSize: 'var(--type-count-size)', color: 'var(--text-quiet)' }}>
-            Showing the {topics.length} topics with practice written so far. The rest of {UNIT.label} lands as content is authored.
+            Practice is currently available for {topics.length} topics in {UNIT.label}.
           </p>
 
           <div style={{ marginTop: 16, borderTop: '1px solid var(--rule-divider)', paddingTop: 14, display: 'flex', alignItems: 'center', gap: 16 }}>
             <ActionButton variant="quiet" onClick={() => open(selectedTopic, 'practice')}>
-              Practise {selectedTopic.code}
+              Practice {selectedTopic.code}
             </ActionButton>
             <ActionButton variant="link" onClick={() => open(selectedTopic, 'open-hand')}>
               Open {selectedTopic.code} face-up

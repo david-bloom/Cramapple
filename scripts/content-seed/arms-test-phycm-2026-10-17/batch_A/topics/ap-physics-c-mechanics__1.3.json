@@ -1,0 +1,2650 @@
+{
+ "topic": {
+  "subject_key": "ap-physics-c-mechanics",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Representing Motion",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__1.3__A__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 1,
+     "topic_code": "1.3",
+     "topic_title": "Representing Motion",
+     "stem": "A cart moves along the x-axis. At t = 0 it is at x = 0 with velocity +3 m/s, and its acceleration is given by aₓ(t) = (6 m/s³)t. What is the cart's displacement from t = 0 to t = 2 s?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "30 m",
+       "is_correct": false,
+       "rationale": "This applies Δx = v₀t + ½at² using the acceleration at t = 2 s (12 m/s²) as if it were constant. The acceleration grows from zero, so the kinematic equations do not apply. Fix: Check whether acceleration depends on t before using constant-acceleration equations, and integrate if it does."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "18 m",
+       "is_correct": false,
+       "rationale": "This uses the average acceleration, 6 m/s², in Δx = v₀t + ½at². That equation assumes constant acceleration, and averaging a does not give the correct displacement when a varies linearly with time. Fix: Integrate aₓ(t) to get vₓ(t), then integrate vₓ(t) over the interval."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "14 m",
+       "is_correct": true,
+       "rationale": "Acceleration depends on time, so integrate: vₓ(t) = 3 + ∫₀ᵗ 6t dt = 3 + 3t². Then Δx = ∫₀² (3 + 3t²) dt = [3t + t³]₀² = 6 + 8 = 14 m."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "8 m",
+       "is_correct": false,
+       "rationale": "This integrates correctly but drops the initial velocity, treating vₓ(t) as 3t² instead of 3 + 3t². The 3 m/s constant contributes 6 m over 2 s. Fix: Add the initial condition vₓ(0) = 3 m/s as the integration constant before integrating again."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 256,
+          "inputTokenDetails": {
+           "noCacheTokens": 256,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 55,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 29
+          },
+          "totalTokens": 311,
+          "raw": {
+           "input_tokens": 256,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 55,
+           "output_tokens_details": {
+            "reasoning_tokens": 29
+           },
+           "total_tokens": 311
+          },
+          "reasoningTokens": 29,
+          "cachedInputTokens": 0
+         },
+         "ms": 2535,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 342,
+          "inputTokenDetails": {
+           "noCacheTokens": 342,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 332,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 302
+          },
+          "totalTokens": 674,
+          "raw": {
+           "thoughtsTokenCount": 302,
+           "promptTokenCount": 342,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 674,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 342
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 302,
+          "cachedInputTokens": 0
+         },
+         "ms": 2376,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 397,
+          "inputTokenDetails": {
+           "noCacheTokens": 141,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 335,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 309
+          },
+          "totalTokens": 732,
+          "raw": {
+           "prompt_tokens": 397,
+           "completion_tokens": 335,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 141,
+           "total_tokens": 732,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 309
+           }
+          },
+          "reasoningTokens": 309,
+          "cachedInputTokens": 256
+         },
+         "ms": 4256,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 167,
+          "inputTokenDetails": {
+           "noCacheTokens": 167,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 857,
+          "outputTokenDetails": {
+           "textTokens": 29,
+           "reasoningTokens": 828
+          },
+          "totalTokens": 1024,
+          "raw": {
+           "input_tokens": 167,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 857,
+           "output_tokens_details": {
+            "reasoning_tokens": 828
+           },
+           "total_tokens": 1024
+          },
+          "reasoningTokens": 828,
+          "cachedInputTokens": 0
+         },
+         "ms": 16840,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 6505,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 6502
+          },
+          "outputTokens": 416,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 194
+          },
+          "totalTokens": 6921,
+          "raw": {
+           "input_tokens": 6505,
+           "input_tokens_details": {
+            "cache_write_tokens": 6502,
+            "cached_tokens": 0
+           },
+           "output_tokens": 416,
+           "output_tokens_details": {
+            "reasoning_tokens": 194
+           },
+           "total_tokens": 6921
+          },
+          "reasoningTokens": 194,
+          "cachedInputTokens": 0
+         },
+         "ms": 10536,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 7382,
+          "inputTokenDetails": {
+           "noCacheTokens": 7382,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 2088,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1826
+          },
+          "totalTokens": 9470,
+          "raw": {
+           "thoughtsTokenCount": 1826,
+           "promptTokenCount": 7382,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 9470,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 7382
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1826,
+          "cachedInputTokens": 0
+         },
+         "ms": 13642,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3 Representing Motion",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 6792,
+          "inputTokenDetails": {
+           "noCacheTokens": 520,
+           "cacheReadTokens": 6272
+          },
+          "outputTokens": 4198,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 3976
+          },
+          "totalTokens": 10990,
+          "raw": {
+           "prompt_tokens": 6792,
+           "completion_tokens": 4198,
+           "prompt_cache_hit_tokens": 6272,
+           "prompt_cache_miss_tokens": 520,
+           "total_tokens": 10990,
+           "prompt_tokens_details": {
+            "cached_tokens": 6272
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3976
+           }
+          },
+          "reasoningTokens": 3976,
+          "cachedInputTokens": 6272
+         },
+         "ms": 39795,
+         "flags": [
+          "topic 1.3 Representing Motion"
+         ]
+        },
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 6792,
+          "inputTokenDetails": {
+           "noCacheTokens": 8,
+           "cacheReadTokens": 6784
+          },
+          "outputTokens": 4450,
+          "outputTokenDetails": {
+           "textTokens": 139,
+           "reasoningTokens": 4311
+          },
+          "totalTokens": 11242,
+          "raw": {
+           "prompt_tokens": 6792,
+           "completion_tokens": 4450,
+           "prompt_cache_hit_tokens": 6784,
+           "prompt_cache_miss_tokens": 8,
+           "total_tokens": 11242,
+           "prompt_tokens_details": {
+            "cached_tokens": 6784
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 4311
+           }
+          },
+          "reasoningTokens": 4311,
+          "cachedInputTokens": 6784
+         },
+         "ms": 42441,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 5837,
+          "inputTokenDetails": {
+           "noCacheTokens": 610,
+           "cacheReadTokens": 5227
+          },
+          "outputTokens": 3439,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 3283
+          },
+          "totalTokens": 9276,
+          "raw": {
+           "input_tokens": 5837,
+           "input_tokens_details": {
+            "cached_tokens": 5227
+           },
+           "output_tokens": 3439,
+           "output_tokens_details": {
+            "reasoning_tokens": 3283
+           },
+           "total_tokens": 9276
+          },
+          "reasoningTokens": 3283,
+          "cachedInputTokens": 5227
+         },
+         "ms": 37273,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "1.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 11166,
+          "inputTokenDetails": {
+           "noCacheTokens": 742,
+           "cacheReadTokens": 10424,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 569,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 357
+          },
+          "totalTokens": 11735,
+          "raw": {
+           "input_tokens": 742,
+           "output_tokens": 569,
+           "output_tokens_details": {
+            "thinking_tokens": 357
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 10424,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 357,
+          "cachedInputTokens": 10424
+         },
+         "ms": 7937,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "2",
+     "skills": [
+      "2.A",
+      "2.B",
+      "2.C",
+      "2.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Hard",
+       "reason": "Calculating displacement requires two successive integrations of the time-dependent acceleration, first applying the initial velocity to obtain velocity and then integrating velocity over the time interval."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "The question requires calculating a numerical value with units by performing a two-step definite/indefinite integration of a time-dependent acceleration function, incorporating initial velocity conditions."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Hard",
+       "reason": "The question requires integrating a time-dependent acceleration twice and applying initial conditions to calculate displacement, combining calculus with kinematics in a multi-step process."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "Requires calculating a numerical displacement with units by selecting integration of time-varying a(t) to v(t) to x(t) rather than constant-a equations, matching 2.B. It is one-concept application of calculus-kinematics, needing more than recall (not Easy) but no second physics domain or competing explanations (not Hard)."
+      }
+     ],
+     "skill": "2.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "2.B",
+       4
+      ]
+     ],
+     "practice": "2",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "2",
+       4
+      ]
+     ],
+     "difficulty": "Hard",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Hard",
+       2
+      ],
+      [
+       "Medium",
+       2
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__1.3__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A particle moves along the x-axis. For 1 s ≤ t ≤ 3 s, its acceleration is aₓ(t) = (3 m/s³)t. At t = 1 s, its velocity is +5 m/s. What is its velocity at t = 3 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "+17 m/s",
+        "is_correct": true,
+        "rationale": "Because acceleration varies with time, the velocity change is Δvₓ = ∫ from 1 s to 3 s aₓ(t) dt = (3 m/s³)[(3 s)² − (1 s)²]/2 = 12 m/s. Adding this change to the initial velocity gives vₓ = 5 m/s + 12 m/s = 17 m/s."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "+23 m/s",
+        "is_correct": false,
+        "rationale": "Final-acceleration-as-constant error: this uses the final acceleration, 9 m/s², throughout the 2 s interval. Since acceleration increases with time, this overestimates the velocity change. Fix: Integrate the given acceleration function instead of multiplying its final value by elapsed time."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "+12 m/s",
+        "is_correct": false,
+        "rationale": "Velocity-change versus final-velocity error: integrating acceleration gives 12 m/s, but that is Δvₓ, not vₓ. The particle already has a velocity of +5 m/s at the interval’s start. Fix: Add the integrated velocity change to the velocity at the lower time bound."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "+18.5 m/s",
+        "is_correct": false,
+        "rationale": "Wrong-lower-limit error: integrating the given expression from 0 s to 3 s and adding 5 m/s produces this value. That incorrectly treats the velocity specified at 1 s as a velocity at 0 s. Fix: Set the integral’s lower bound to the time of the given initial velocity."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "The problem is well posed. Integrating the acceleration gives Δv = ∫₁³ 3t dt = (3/2)(9 − 1) = 12 m/s. Adding the initial velocity gives v(3 s) = 5 + 12 = +17 m/s."
+          },
+          "usage": {
+           "inputTokens": 623,
+           "inputTokenDetails": {
+            "noCacheTokens": 623,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 119,
+           "outputTokenDetails": {
+            "textTokens": 119,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 742,
+           "raw": {
+            "input_tokens": 623,
+            "output_tokens": 119,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1942,
+          "flags": [
+           "defect: The problem is well posed. Integrating the acceleration gives Δv = ∫₁³ 3t dt = (3/2)(9 − 1) = 12 m/s. Adding the initial velocity gives v(3 s) = 5 + 12 = +17 m/s."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "Integrating the acceleration gives Δv = ∫₁³ 3t dt = 1.5(9 − 1) = 12 m/s, so v(3 s) = 5 + 12 = +17 m/s. The question is well posed with exactly one correct choice."
+          },
+          "usage": {
+           "inputTokens": 623,
+           "inputTokenDetails": {
+            "noCacheTokens": 623,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 116,
+           "outputTokenDetails": {
+            "textTokens": 116,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 739,
+           "raw": {
+            "input_tokens": 623,
+            "output_tokens": 116,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1865,
+          "flags": [
+           "defect: Integrating the acceleration gives Δv = ∫₁³ 3t dt = 1.5(9 − 1) = 12 m/s, so v(3 s) = 5 + 12 = +17 m/s. The question is well posed with exactly one correct choice."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 349,
+           "inputTokenDetails": {
+            "noCacheTokens": 349,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 297,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 267
+           },
+           "totalTokens": 646,
+           "raw": {
+            "thoughtsTokenCount": 267,
+            "promptTokenCount": 349,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 646,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 349
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 267,
+           "cachedInputTokens": 0
+          },
+          "ms": 2946,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 400,
+           "inputTokenDetails": {
+            "noCacheTokens": 144,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 222,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 196
+           },
+           "totalTokens": 622,
+           "raw": {
+            "prompt_tokens": 400,
+            "completion_tokens": 222,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 144,
+            "total_tokens": 622,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 196
+            }
+           },
+           "reasoningTokens": 196,
+           "cachedInputTokens": 256
+          },
+          "ms": 2815,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 170,
+           "inputTokenDetails": {
+            "noCacheTokens": 170,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1102,
+           "outputTokenDetails": {
+            "textTokens": 29,
+            "reasoningTokens": 1073
+           },
+           "totalTokens": 1272,
+           "raw": {
+            "input_tokens": 170,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1102,
+            "output_tokens_details": {
+             "reasoning_tokens": 1073
+            },
+            "total_tokens": 1272
+           },
+           "reasoningTokens": 1073,
+           "cachedInputTokens": 0
+          },
+          "ms": 10244,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__1.3__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A cart moves along the x-axis. At t = 0 it is at x = 0 with velocity +3 m/s, and its acceleration is given by aₓ(t) = (6 m/s³)t. What is the cart's displacement from t = 0 to t = 2 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "30 m",
+        "is_correct": false,
+        "rationale": "This applies Δx = v₀t + ½at² using the acceleration at t = 2 s (12 m/s²) as if it were constant. The acceleration grows from zero, so the kinematic equations do not apply. Fix: Check whether acceleration depends on t before using constant-acceleration equations, and integrate if it does."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "18 m",
+        "is_correct": false,
+        "rationale": "This uses the average acceleration, 6 m/s², in Δx = v₀t + ½at². That equation assumes constant acceleration, and averaging a does not give the correct displacement when a varies linearly with time. Fix: Integrate aₓ(t) to get vₓ(t), then integrate vₓ(t) over the interval."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "14 m",
+        "is_correct": true,
+        "rationale": "Acceleration depends on time, so integrate: vₓ(t) = 3 + ∫₀ᵗ 6t dt = 3 + 3t². Then Δx = ∫₀² (3 + 3t²) dt = [3t + t³]₀² = 6 + 8 = 14 m."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "8 m",
+        "is_correct": false,
+        "rationale": "This integrates correctly but drops the initial velocity, treating vₓ(t) as 3t² instead of 3 + 3t². The 3 m/s constant contributes 6 m over 2 s. Fix: Add the initial condition vₓ(0) = 3 m/s as the integration constant before integrating again."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 256,
+           "inputTokenDetails": {
+            "noCacheTokens": 256,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 55,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 29
+           },
+           "totalTokens": 311,
+           "raw": {
+            "input_tokens": 256,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 55,
+            "output_tokens_details": {
+             "reasoning_tokens": 29
+            },
+            "total_tokens": 311
+           },
+           "reasoningTokens": 29,
+           "cachedInputTokens": 0
+          },
+          "ms": 2535,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 342,
+           "inputTokenDetails": {
+            "noCacheTokens": 342,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 332,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 302
+           },
+           "totalTokens": 674,
+           "raw": {
+            "thoughtsTokenCount": 302,
+            "promptTokenCount": 342,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 674,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 342
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 302,
+           "cachedInputTokens": 0
+          },
+          "ms": 2376,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 397,
+           "inputTokenDetails": {
+            "noCacheTokens": 141,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 335,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 309
+           },
+           "totalTokens": 732,
+           "raw": {
+            "prompt_tokens": 397,
+            "completion_tokens": 335,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 141,
+            "total_tokens": 732,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 309
+            }
+           },
+           "reasoningTokens": 309,
+           "cachedInputTokens": 256
+          },
+          "ms": 4256,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 167,
+           "inputTokenDetails": {
+            "noCacheTokens": 167,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 857,
+           "outputTokenDetails": {
+            "textTokens": 29,
+            "reasoningTokens": 828
+           },
+           "totalTokens": 1024,
+           "raw": {
+            "input_tokens": 167,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 857,
+            "output_tokens_details": {
+             "reasoning_tokens": 828
+            },
+            "total_tokens": 1024
+           },
+           "reasoningTokens": 828,
+           "cachedInputTokens": 0
+          },
+          "ms": 16840,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6505,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 6502
+           },
+           "outputTokens": 416,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 194
+           },
+           "totalTokens": 6921,
+           "raw": {
+            "input_tokens": 6505,
+            "input_tokens_details": {
+             "cache_write_tokens": 6502,
+             "cached_tokens": 0
+            },
+            "output_tokens": 416,
+            "output_tokens_details": {
+             "reasoning_tokens": 194
+            },
+            "total_tokens": 6921
+           },
+           "reasoningTokens": 194,
+           "cachedInputTokens": 0
+          },
+          "ms": 10536,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 7382,
+           "inputTokenDetails": {
+            "noCacheTokens": 7382,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 2088,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1826
+           },
+           "totalTokens": 9470,
+           "raw": {
+            "thoughtsTokenCount": 1826,
+            "promptTokenCount": 7382,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 9470,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 7382
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1826,
+           "cachedInputTokens": 0
+          },
+          "ms": 13642,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3 Representing Motion",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6792,
+           "inputTokenDetails": {
+            "noCacheTokens": 520,
+            "cacheReadTokens": 6272
+           },
+           "outputTokens": 4198,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 3976
+           },
+           "totalTokens": 10990,
+           "raw": {
+            "prompt_tokens": 6792,
+            "completion_tokens": 4198,
+            "prompt_cache_hit_tokens": 6272,
+            "prompt_cache_miss_tokens": 520,
+            "total_tokens": 10990,
+            "prompt_tokens_details": {
+             "cached_tokens": 6272
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3976
+            }
+           },
+           "reasoningTokens": 3976,
+           "cachedInputTokens": 6272
+          },
+          "ms": 39795,
+          "flags": [
+           "topic 1.3 Representing Motion"
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6792,
+           "inputTokenDetails": {
+            "noCacheTokens": 8,
+            "cacheReadTokens": 6784
+           },
+           "outputTokens": 4450,
+           "outputTokenDetails": {
+            "textTokens": 139,
+            "reasoningTokens": 4311
+           },
+           "totalTokens": 11242,
+           "raw": {
+            "prompt_tokens": 6792,
+            "completion_tokens": 4450,
+            "prompt_cache_hit_tokens": 6784,
+            "prompt_cache_miss_tokens": 8,
+            "total_tokens": 11242,
+            "prompt_tokens_details": {
+             "cached_tokens": 6784
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 4311
+            }
+           },
+           "reasoningTokens": 4311,
+           "cachedInputTokens": 6784
+          },
+          "ms": 42441,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 5837,
+           "inputTokenDetails": {
+            "noCacheTokens": 610,
+            "cacheReadTokens": 5227
+           },
+           "outputTokens": 3439,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 3283
+           },
+           "totalTokens": 9276,
+           "raw": {
+            "input_tokens": 5837,
+            "input_tokens_details": {
+             "cached_tokens": 5227
+            },
+            "output_tokens": 3439,
+            "output_tokens_details": {
+             "reasoning_tokens": 3283
+            },
+            "total_tokens": 9276
+           },
+           "reasoningTokens": 3283,
+           "cachedInputTokens": 5227
+          },
+          "ms": 37273,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 11166,
+           "inputTokenDetails": {
+            "noCacheTokens": 742,
+            "cacheReadTokens": 10424,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 569,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 357
+           },
+           "totalTokens": 11735,
+           "raw": {
+            "input_tokens": 742,
+            "output_tokens": 569,
+            "output_tokens_details": {
+             "thinking_tokens": 357
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 10424,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 357,
+           "cachedInputTokens": 10424
+          },
+          "ms": 7937,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": null,
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__1.3__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A cart moves along the x-axis. Its velocity varies linearly between consecutive entries in the table.\n\nt (s): 0, 2, 4, 6\nvₓ (m/s): 0, 4, 0, −2\n\nWhat is the cart’s displacement from t = 0 to t = 6 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "+6 m",
+        "is_correct": true,
+        "rationale": "Displacement is the signed area under the velocity–time graph. The positive triangular area from 0 to 4 s is ½(4 s)(4 m/s) = 8 m, and the negative area from 4 to 6 s is −½(2 s)(2 m/s) = −2 m, giving +6 m."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "10 m",
+        "is_correct": false,
+        "rationale": "Distance–displacement confusion: Adding the magnitudes of both areas gives the distance traveled, 8 m + 2 m = 10 m. Displacement must include the negative contribution when the cart moves in the −x direction. Fix: Assign each area the sign of the velocity before adding."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "−12 m",
+        "is_correct": false,
+        "rationale": "Final-velocity substitution: Multiplying the final velocity by the entire elapsed time treats −2 m/s as constant throughout the motion. The table shows that velocity changes and is positive during the first four seconds. Fix: Compute the signed area over each linear segment, then add."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "−6 m",
+        "is_correct": false,
+        "rationale": "Endpoint-average misuse: Using (0 − 2)/2 = −1 m/s as the average velocity assumes constant acceleration over the entire interval. The changing slopes between table entries show that this assumption is invalid. Fix: Apply endpoint averaging separately to each linear segment."
+       }
+      ]
+     },
+     "eval": {
+      "verdict": "rejected",
+      "stage": "similarity",
+      "detail": "too similar to an earlier seed of this topic (words 0.47, 3-gram 0.16)"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__1.3__B__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A particle moves along the x-axis with velocity vₓ(t) = (3 m/s³)t² − 12 m/s. What is the particle's displacement from t = 0 to t = 3 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "−9 m",
+        "is_correct": true,
+        "rationale": "Acceleration is aₓ = dvₓ/dt = (6 m/s³)t, which is not constant, so integrate the velocity: Δx = ∫₀³ (3t² − 12) dt = [t³ − 12t]₀³ = 27 − 36 = −9 m. The negative sign means the net displacement is in the −x direction."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "+4.5 m",
+        "is_correct": false,
+        "rationale": "This applies the constant-acceleration result Δx = ½(v₀ + v)t with v₀ = −12 m/s and v = 15 m/s. Because aₓ = (6 m/s³)t changes with time, averaging the endpoint velocities does not give the true average velocity. Fix: Check whether dvₓ/dt is constant before using any kinematic equation; otherwise integrate vₓ(t)."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "23 m",
+        "is_correct": false,
+        "rationale": "This is the total distance traveled: 16 m in the −x direction before the particle reverses at t = 2 s, then 7 m in the +x direction. Displacement is the net signed change in position, so these segments partially cancel. Fix: Ask whether the question wants net displacement or distance before splitting the integral at turning points."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "45 m",
+        "is_correct": false,
+        "rationale": "This multiplies the final velocity, 15 m/s, by the 3 s interval, treating the velocity as if it were 15 m/s for the whole interval. The velocity changes continuously from −12 m/s, so Δx must come from the area under vₓ(t). Fix: Compute Δx as the definite integral of vₓ(t) from t = 0 to t = 3 s."
+       }
+      ]
+     },
+     "eval": {
+      "verdict": "rejected",
+      "stage": "similarity",
+      "detail": "too similar to an earlier seed of this topic (words 0.45, 3-gram 0.14)"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__1.3__B__seed#r2-openai",
+     "kind": "seed",
+     "round": 2,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A cart moves along the x-axis. Its velocity is given at three times below. Between consecutive listed times, velocity varies linearly with time.\n\nt (s): 0, 2, 6\nvₓ (m/s): +4, +4, −4\n\nWhat is the cart’s displacement from t = 0 to t = 6 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "+16 m",
+        "is_correct": false,
+        "rationale": "Distance-for-displacement trap: Adding the magnitudes of all areas gives 16 m, the total distance traveled. Displacement instead includes the negative area when the cart moves in the negative x-direction. Fix: Assign each area the sign of its velocity before adding."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "0 m",
+        "is_correct": false,
+        "rationale": "Endpoint-average trap: Averaging the initial and final velocities gives zero. That shortcut is not justified here because velocity does not vary linearly over the entire six-second interval. Fix: Split the interval wherever the velocity–time graph changes slope."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "−24 m",
+        "is_correct": false,
+        "rationale": "Final-velocity-as-constant trap: Multiplying −4 m/s by 6 s treats the final velocity as the velocity throughout the interval. The cart actually moves in the positive x-direction for the first four seconds. Fix: Calculate the signed area over each segment instead of multiplying by the final velocity."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "+8 m",
+        "is_correct": true,
+        "rationale": "Displacement is the signed area under the velocity–time graph. From 0 to 2 s, the area is +8 m; from 2 to 6 s, the positive and negative triangular areas cancel, giving a total displacement of +8 m."
+       }
+      ]
+     },
+     "eval": {
+      "verdict": "rejected",
+      "stage": "similarity",
+      "detail": "too similar to an earlier seed of this topic (words 0.53, 3-gram 0.17)"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__1.3__B__seed#r2-anthropic",
+     "kind": "seed",
+     "round": 2,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 1,
+      "topic_code": "1.3",
+      "topic_title": "Representing Motion",
+      "stem": "A particle moves along the x-axis with velocity vₓ(t) = (3 m/s³)t² − 4 m/s, where t is in seconds. What is the particle's displacement from t = 1 s to t = 3 s?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "22 m",
+        "is_correct": false,
+        "rationale": "This averages the endpoint velocities, (−1 + 23)/2 = 11 m/s, then multiplies by 2 s. That shortcut holds only for constant acceleration, and here aₓ = 6t changes with time. Fix: Check whether vₓ(t) is linear in t before averaging endpoint velocities."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "18 m",
+        "is_correct": true,
+        "rationale": "Because vₓ depends on t², acceleration is not constant, so displacement is Δx = ∫ vₓ dt from 1 s to 3 s. The antiderivative t³ − 4t gives (27 − 12) − (1 − 4) = 15 + 3 = 18 m."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "15 m",
+        "is_correct": false,
+        "rationale": "This evaluates the antiderivative only at the upper limit, as if the interval began at t = 0. The lower-limit value at t = 1 s is −3 m and must be subtracted. Fix: Evaluate the antiderivative at both bounds and subtract the lower from the upper."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "10 m",
+        "is_correct": false,
+        "rationale": "This applies x = v₀Δt + ½aΔt² using v₀ = −1 m/s and a = 6 m/s², the acceleration at t = 1 s. Acceleration grows during the interval, so the constant-acceleration equation underestimates the displacement. Fix: Compute dvₓ/dt first; if it depends on t, integrate vₓ instead."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 245,
+           "inputTokenDetails": {
+            "noCacheTokens": 245,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 61,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 35
+           },
+           "totalTokens": 306,
+           "raw": {
+            "input_tokens": 245,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 61,
+            "output_tokens_details": {
+             "reasoning_tokens": 35
+            },
+            "total_tokens": 306
+           },
+           "reasoningTokens": 35,
+           "cachedInputTokens": 0
+          },
+          "ms": 2619,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 332,
+           "inputTokenDetails": {
+            "noCacheTokens": 332,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 364,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 334
+           },
+           "totalTokens": 696,
+           "raw": {
+            "thoughtsTokenCount": 334,
+            "promptTokenCount": 332,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 696,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 332
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 334,
+           "cachedInputTokens": 0
+          },
+          "ms": 4048,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 386,
+           "inputTokenDetails": {
+            "noCacheTokens": 130,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 241,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 215
+           },
+           "totalTokens": 627,
+           "raw": {
+            "prompt_tokens": 386,
+            "completion_tokens": 241,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 130,
+            "total_tokens": 627,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 215
+            }
+           },
+           "reasoningTokens": 215,
+           "cachedInputTokens": 256
+          },
+          "ms": 2841,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 156,
+           "inputTokenDetails": {
+            "noCacheTokens": 156,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 767,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 743
+           },
+           "totalTokens": 923,
+           "raw": {
+            "input_tokens": 156,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 767,
+            "output_tokens_details": {
+             "reasoning_tokens": 743
+            },
+            "total_tokens": 923
+           },
+           "reasoningTokens": 743,
+           "cachedInputTokens": 0
+          },
+          "ms": 12714,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": false,
+             "issue": "A incorrectly says endpoint averaging holds only for constant acceleration. Constant acceleration guarantees this shortcut, but some variable-acceleration functions also satisfy it. Replace that sentence with: “Endpoint averaging is exact for linear velocity, but here velocity is quadratic, so that shortcut is not valid.”"
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6481,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 6478
+           },
+           "outputTokens": 496,
+           "outputTokenDetails": {
+            "textTokens": 233,
+            "reasoningTokens": 263
+           },
+           "totalTokens": 6977,
+           "raw": {
+            "input_tokens": 6481,
+            "input_tokens_details": {
+             "cache_write_tokens": 6478,
+             "cached_tokens": 0
+            },
+            "output_tokens": 496,
+            "output_tokens_details": {
+             "reasoning_tokens": 263
+            },
+            "total_tokens": 6977
+           },
+           "reasoningTokens": 263,
+           "cachedInputTokens": 0
+          },
+          "ms": 11593,
+          "flags": [
+           "accurate: A incorrectly says endpoint averaging holds only for constant acceleration. Constant acceleration guarantees this shortcut, but some variable-acceleration functions also satisfy it. Replace that sentence with: “Endpoint averaging is exact for linear velocity, but here velocity is quadratic, so that shortcut is not valid.”"
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": false,
+             "issue": "A says endpoint-velocity averaging works “only for constant acceleration.” This is too strong: some nonlinear velocity functions also give an exact endpoint average over particular intervals. Replace this with “That shortcut is guaranteed for constant acceleration, but is not valid for this quadratic velocity function.”"
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6481,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 6478,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 601,
+           "outputTokenDetails": {
+            "textTokens": 277,
+            "reasoningTokens": 324
+           },
+           "totalTokens": 7082,
+           "raw": {
+            "input_tokens": 6481,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 6478
+            },
+            "output_tokens": 601,
+            "output_tokens_details": {
+             "reasoning_tokens": 324
+            },
+            "total_tokens": 7082
+           },
+           "reasoningTokens": 324,
+           "cachedInputTokens": 6478
+          },
+          "ms": 14050,
+          "flags": [
+           "accurate: A says endpoint-velocity averaging works “only for constant acceleration.” This is too strong: some nonlinear velocity functions also give an exact endpoint average over particular intervals. Replace this with “That shortcut is guaranteed for constant acceleration, but is not valid for this quadratic velocity function.”"
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 7365,
+           "inputTokenDetails": {
+            "noCacheTokens": 7365,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1638,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1376
+           },
+           "totalTokens": 9003,
+           "raw": {
+            "thoughtsTokenCount": 1376,
+            "promptTokenCount": 7365,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 9003,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 7365
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1376,
+           "cachedInputTokens": 0
+          },
+          "ms": 11166,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 6767,
+           "inputTokenDetails": {
+            "noCacheTokens": 495,
+            "cacheReadTokens": 6272
+           },
+           "outputTokens": 5512,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 5293
+           },
+           "totalTokens": 12279,
+           "raw": {
+            "prompt_tokens": 6767,
+            "completion_tokens": 5512,
+            "prompt_cache_hit_tokens": 6272,
+            "prompt_cache_miss_tokens": 495,
+            "total_tokens": 12279,
+            "prompt_tokens_details": {
+             "cached_tokens": 6272
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5293
+            }
+           },
+           "reasoningTokens": 5293,
+           "cachedInputTokens": 6272
+          },
+          "ms": 51808,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "1.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 5810,
+           "inputTokenDetails": {
+            "noCacheTokens": 1223,
+            "cacheReadTokens": 4587
+           },
+           "outputTokens": 5630,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 5474
+           },
+           "totalTokens": 11440,
+           "raw": {
+            "input_tokens": 5810,
+            "input_tokens_details": {
+             "cached_tokens": 4587
+            },
+            "output_tokens": 5630,
+            "output_tokens_details": {
+             "reasoning_tokens": 5474
+            },
+            "total_tokens": 11440
+           },
+           "reasoningTokens": 5474,
+           "cachedInputTokens": 4587
+          },
+          "ms": 30348,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "rejected",
+      "stage": "audit"
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  }
+ ]
+}
