@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0078 refactor repository implementation prepared (2026-10-21): PRs #520–#531; 336 Deno / 10 Python tests, SQL/concurrency fixtures and CI pass. Independent Fable review and live release gates pending; no live writes, deployment or main merge. [Execution handoff](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md).
+
 - APPROVAL-0051 attribution settled by Production evidence (2026-10-21, `DECISION-0127`): the migration ledger shows `claude/task-0047-ap-statistics-mcq-serving` reached Production first (2026-09-26 16:48 UTC) and `codex/task-0044-statistics-mcq` improved it about three hours later; the approval entry and four documents citing the earlier, wrong correction are annotated.
 
 - TASK-0065 Calculus BC + Precalculus teaching-batch records recovered (2026-10-21, owner request): the provenance for 38 Production Open Hand teaching items (8 Calc BC, 30 Precalc, loaded 2026-10-09) existed only as uncommitted files in the main checkout; landed with the loader changes, reference-pack checker logs and the AP Chemistry reviewer bake-off. Verified against Production: 36/38 byte-identical, 2 differ only by the later in-place LaTeX rewrite.
@@ -222,6 +224,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+
+## 2026-10-21 — TASK-0078 cautious refactor prepared for independent review
+
+David authorized execution of the improved plan after Fable's plan review (#519). Codex prepared and pushed PRs #520–#531: existing handler CI coverage, session/storage replay reservations before effects, unused submit-response source retirement, separate actor-scoped submission/session-RPC SQL, and seven narrow helper families. No PR was merged; no live migration, flag/configuration change, function deployment/deletion or Stripe operation was performed.
+
+Final helper stack passes 336 Deno tests, 10 Python checker tests, all 30 Edge entry type checks and new-helper lint. A temporary combined merge rehearsal passes 336 tests and all 29 retained entry checks, then was aborted. Actual migration fixtures pass locally and in GitHub CI, including eight concurrent replay claimants (one claim/seven pending). These are fixture checks, not Development or Production certification.
+
+Next owner: Fable, independent source review against exact PR heads. Release packets retain separate Development and Production gates, mixed-writer quiescence, indefinite pending-claim containment and live caller/inventory rechecks. TASK-0063 remains open; optional prototype fixes deferred. Full PR/dependency matrix, evidence and restart prompt: [execution handoff](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md).
 
 ## 2026-10-21 — TASK-0065 Calc BC / Precalculus batch records recovered
 
