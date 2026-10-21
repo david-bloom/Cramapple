@@ -96,6 +96,14 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
    account's public business details have no Terms URL (checklist item 5). Verify on the live account before launch.
 7. *Fixed 2026-10-19 (`c7ae7dc5`, deployed):* Queued `trial_started` notices stay eligible after conversion, so a late send could follow the conversion email.
 
+## Codex sign-off (2026-10-20, review of `43440c98`)
+
+**No new findings; F7 closed.** Codex ran the real webhook handler against the real migrated SQL on a throwaway Postgres:
+500 → retry → 200 leaves the count at 1; 16 concurrent deliveries of one event count once; distinct events count
+separately; failed writes roll back. 255 backend tests, 89 SQL checks + legacy backfill, 10 Python tests. Codex's scope
+note: this is code and local-test sign-off, **not** certification of the hosted rollout or the launch gates. Report:
+`/Users/davidbloom/Documents/Codex/2026-10-16/sta/outputs/task0077-4344-review/QA_REVIEW.md`.
+
 ## QA round 5 fix (2026-10-20, Codex review of `cfbd59b1`)
 
 Codex confirmed F5 closed and found **F7 (P2):** a failed-payment event whose webhook ledger acknowledgement fails after the
