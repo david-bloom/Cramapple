@@ -157,7 +157,6 @@ export function PracticeFrqScreen({ question, onNext }) {
                       value={text}
                       onChange={setText}
                       rows={4}
-                      onAttach={() => {}}
                       count={question.answerHint}
                     />
                   </div>

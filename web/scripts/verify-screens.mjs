@@ -125,7 +125,7 @@ check('MCQ: verdict is one word', /\bincorrect\b/i.test(t) && !/great job|nice w
 check('MCQ: coaching names the error', t.includes('You picked C') && t.includes('Next time:'));
 check('MCQ: hints used strip carries the receipt', t.includes('HINTS USED'));
 check('MCQ: answer key marks the picked row with revisit', t.includes('↻'));
-check('MCQ: shrinks to credited + picked row', t.includes('options you did not pick are explained'));
+check('MCQ: shrinks to credited + picked row', t.includes('options you did not pick are listed'));
 await page.screenshot({ path: `${OUT}/03-mcq-feedback.png` });
 
 // Deep dive
