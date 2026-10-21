@@ -48,6 +48,12 @@ exist only in Production with no local file, that `apply_migration` through the 
 Development's ledger cannot be trusted. Until each ledger row is classified, nobody can trust `db push`, `migration
 repair`, or the ledger as proof of anything.
 
+Known before you start (Verified 2026-10-21): version keys do not line up. 234 of the 357 local migration files have no
+same-version row in Production's 358-row ledger, and 235 ledger rows have no same-version file, because `apply_migration`
+stamps its own version. Match rows by `name` and by the SQL in `statements` against file contents, never by version
+alone. Also read `docs/qa/DRIFT_REGISTER_2026_10_21.md` (PR #532) first; it already lists the 28 database functions whose
+bodies differ between Production and Development.
+
 Method:
 1. Pull both ledgers: `select version, name, statements is not null as has_statements from
    supabase_migrations.schema_migrations order by version` on each project. List local files:
