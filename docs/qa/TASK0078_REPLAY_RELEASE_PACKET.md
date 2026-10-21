@@ -2,6 +2,12 @@
 
 Status: Ready for independent source review; UNAPPLIED database and UNDEPLOYED functions.
 
+## Current task reconciliation, 2026-10-21
+
+This is the existing A2 artifact in PR #521, dependent on A1 #520. It is reconciled with the latest TASK-0078 owner checklist and the two-step CI gate; it is not a second replay implementation. The two new handler suites run in A1's restricted group, without runtime network/read permissions or unrestricted environment access.
+
+The earlier Edge-only specification let a second actor execute an action before the audit insert reported a collision. That cannot undo a session creation or deletion. This prepared source retains the improved plan's durable reservation before effects. Its new service-only SQL remains unapplied and requires independent review and exact release approval; the latest request does not authorize a live migration/deployment. No fallback to mutation-before-collision is introduced.
+
 ## Design
 
 The old audit insert follows session creation/storage deletion; detecting a uniqueness error then cannot undo the action. Both handlers now acquire a durable service-only claim BEFORE an action. Existing global key/operation uniqueness and request hashes remain unchanged. The claim RPC checks legacy audit ownership/hash and serializes claims on the same key; another actor or a changed body conflicts before mutation. An unfinished same-actor claim returns `409 operation_outcome_pending`, with no automatic expiry or reclaim. Completion writes the audit result and marks completion in one SQL transaction. The original action remains outside that transaction: if its outcome or audit acknowledgement is uncertain, fail closed and retain the claim. This is containment of ambiguous outcomes, not a claim that external actions roll back.
