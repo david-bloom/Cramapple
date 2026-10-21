@@ -5,6 +5,7 @@
 **Every step marked ⛔ needs David's explicit approval at the time it is run.** Approval for one step does not carry to the next.
 **Governing records:** `DECISION-0126`, `docs/tasks/TASK-0077-SEVEN-DAY-CARD-TRIAL.md` (release checklist, QA rounds 1–5),
 `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §8, `docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`.
+**Pick-up prompt and open items:** `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md`.
 
 Production project `pcntajvbdfqhbeewmdry`; Development `wmgjsdkphcyhngaffbqf`. Stripe live account `acct_1TddjmLwoRHzBJ1O`.
 Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home-directory link points at Production).
