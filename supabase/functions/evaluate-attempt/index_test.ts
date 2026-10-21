@@ -2,6 +2,420 @@ import "./_test_setup.ts";
 import { assertEquals } from "jsr:@std/assert@1";
 import { composeMcqFeedback, handleEvaluateAttempt } from "./index.ts";
 
+type Route = "mcq" | "shadow" | "llm";
+type Outcome =
+  | "error"
+  | "missing"
+  | "stored"
+  | "transport"
+  | "committed_transport";
+type Deps = NonNullable<Parameters<typeof handleEvaluateAttempt>[1]>;
+function gradeFixture(
+  route: Route,
+  outcomes: Outcome[],
+  checkpointFails = false,
+) {
+  const id = (n: number) =>
+    `30000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
+  const writes: string[] = [];
+  let grade: Record<string, unknown> | null = null;
+  let clock = Date.now();
+  let modelCalls = 0;
+  let storedWrites = 0;
+  const attemptOutcomes: Outcome[] = [];
+  let finalizeBeforeAttemptWrite = false;
+  const tick = () => new Date(++clock).toISOString();
+  const rows: Record<string, unknown> = {
+    prompt_versions: { status: "published" },
+    attempts: {
+      id: id(2),
+      user_id: id(1),
+      exam_pack_version_id: id(5),
+      content_item_version_id: id(4),
+      attempt_mode: route === "mcq" ? "mcq" : "frq",
+      status: "submitted",
+    },
+    response_versions: {
+      id: id(3),
+      attempt_id: id(2),
+      response_text: "A",
+      response_parts: { selected_choice_key: "A" },
+      is_submitted: true,
+    },
+    content_item_versions: {
+      id: id(4),
+      content_item_id: id(6),
+      status: "published",
+      stem: "Question",
+      rubric_type: route === "mcq"
+        ? "mcq"
+        : route === "llm"
+        ? "discrete_text"
+        : "spatial",
+    },
+    content_items: {
+      id: id(6),
+      status: "published",
+      title: "Item",
+      item_type: route === "mcq" ? "mcq" : "frq",
+      content_key: "fixture",
+    },
+    exam_pack_versions: { id: id(5), exam_pack_id: id(7), status: "published" },
+    exam_packs: { id: id(7), exam_name: "AP Biology", exam_code: "ap-biology" },
+    mcq_choices: [{
+      choice_key: "A",
+      choice_text: "Correct",
+      is_correct: true,
+    }],
+    frq_criteria: route === "llm"
+      ? [{
+        criterion_key: "c1",
+        learner_facing_text: "Identify A",
+        points_possible: 1,
+      }]
+      : [],
+  };
+  const service = {
+    schema: () => ({
+      rpc: () => Promise.resolve({ data: { id: id(8) }, error: null }),
+      from: (table: string) => {
+        let action = "read";
+        let payload: Record<string, unknown> = {};
+        const eqs: Record<string, unknown> = {};
+        const neqs: Record<string, unknown> = {};
+        const result = (single: boolean) => {
+          if (action !== "read") {
+            writes.push(
+              `${table}:${action}:${payload.status ?? "other"}`,
+            );
+          }
+          if (table === "grading_results") {
+            if (action === "insert") {
+              if (grade) return { data: null, error: { code: "23505" } };
+              grade = { ...payload, created_at: tick(), updated_at: tick() };
+            } else if (action === "update") {
+              if (
+                !grade || Object.entries(eqs).some(([k, v]) => grade![k] !== v)
+              ) return { data: null, error: null };
+              const checkpoint = payload.status === "failed";
+              if (checkpoint && checkpointFails) {
+                return {
+                  data: null,
+                  error: { code: "XX000" },
+                };
+              }
+              if (
+                !checkpoint && payload.status !== "processing" &&
+                Object.hasOwn(payload, "criterion_results")
+              ) {
+                const outcome = outcomes.shift() ?? "stored";
+                if (outcome === "error") {
+                  return {
+                    data: null,
+                    error: { code: "XX000", message: "private detail" },
+                  };
+                }
+                if (outcome === "missing") return { data: null, error: null };
+                if (outcome === "transport") {
+                  throw new Error(
+                    "private network detail",
+                  );
+                }
+                Object.assign(grade, payload, { updated_at: tick() });
+                storedWrites++;
+                if (outcome === "committed_transport") {
+                  throw new Error(
+                    "lost acknowledgement",
+                  );
+                }
+              } else Object.assign(grade, payload, { updated_at: tick() });
+            }
+            const matched = grade &&
+              Object.entries(neqs).every(([k, v]) => grade![k] !== v);
+            return {
+              data: matched ? structuredClone(grade) : null,
+              error: null,
+              count: 1,
+            };
+          }
+          const row = rows[table] as Record<string, unknown> | undefined;
+          if (table === "attempts" && action === "update") {
+            if (finalizeBeforeAttemptWrite) {
+              finalizeBeforeAttemptWrite = false;
+              Object.assign(row!, { status: "graded", score_points: 99 });
+            }
+            if (!row || Object.entries(eqs).some(([k, v]) => row[k] !== v)) return { data: null, error: null };
+            const outcome = attemptOutcomes.shift() ?? "stored";
+            if (outcome === "transport") throw new Error("private transport detail");
+            if (outcome === "error") return { data: null, error: { code: "XX000" } };
+            if (outcome === "missing") return { data: null, error: null };
+            Object.assign(row, payload);
+          }
+          return {
+            data: single
+              ? structuredClone(row ?? null)
+              : Array.isArray(row)
+              ? row
+              : row
+              ? [row]
+              : [],
+            error: null,
+            count: 1,
+          };
+        };
+        const chain = {
+          select: () => chain,
+          eq: (k: string, v: unknown) => {
+            eqs[k] = v;
+            return chain;
+          },
+          neq: (k: string, v: unknown) => {
+            neqs[k] = v;
+            return chain;
+          },
+          in: () => chain,
+          order: () => chain,
+          limit: () => chain,
+          insert: (p: Record<string, unknown>) => {
+            action = "insert";
+            payload = p;
+            return chain;
+          },
+          update: (p: Record<string, unknown>) => {
+            action = "update";
+            payload = p;
+            return chain;
+          },
+          maybeSingle: () => Promise.resolve(result(true)),
+          then: (resolve: (v: unknown) => unknown) =>
+            Promise.resolve(result(false)).then(resolve),
+        };
+        return chain;
+      },
+    }),
+  };
+  const post = (overrides: Record<string, unknown> = {}, userId = id(1)) =>
+    handleEvaluateAttempt(
+      new Request("http://localhost/evaluate-attempt", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          operation: "grade_initial_attempt",
+          idempotency_key: "grade-store-key",
+          attempt_id: id(2),
+          response_version_id: id(3),
+          ...overrides,
+        }),
+      }),
+      {
+        service: service as unknown as NonNullable<Deps["service"]>,
+        requireProfile: (() =>
+          Promise.resolve({
+            user: { id: userId },
+            profile: { role: "student" },
+          })) as unknown as NonNullable<Deps["requireProfile"]>,
+      },
+    );
+  async function withProvider<T>(fn: () => Promise<T>) {
+    const originalFetch = globalThis.fetch;
+    try {
+      if (route === "llm") {
+        globalThis.fetch = (input) => {
+          assertEquals(input, "https://api.openai.com/v1/responses");
+          modelCalls++;
+          return Promise.resolve(Response.json({
+            output_text: JSON.stringify({
+              status: "graded",
+              points_earned: 1,
+              points_available: 1,
+              confidence: "high",
+              criteria: [{
+                criterion_key: "c1",
+                status: "earned",
+                points_awarded: 1,
+                evidence_quote: "A",
+                decision_explanation: "Correct",
+                minimum_fix: null,
+              }],
+              student_facing_summary: "Correct",
+              highest_value_gap: null,
+              predicted_improvement: null,
+              uncertainty_reason: null,
+            }),
+            usage: { input_tokens: 1, output_tokens: 1 },
+          }));
+        };
+      }
+      return await fn();
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  }
+  return {
+    post,
+    withProvider,
+    writes,
+    attempt: () => rows.attempts as Record<string, unknown>,
+    failAttemptWrite: (outcome: Outcome) => attemptOutcomes.push(outcome),
+    finalizeDuringRecovery: () => { finalizeBeforeAttemptWrite = true; },
+    row: () => grade!,
+    modelCalls: () => modelCalls,
+    storedWrites: () => storedWrites,
+  };
+}
+
+for (const route of ["mcq", "shadow", "llm"] as const) {
+  for (const outcome of ["error", "missing", "transport"] as const) {
+    Deno.test(`${route} ${outcome}: no unsaved score; same key retries the write without grading again`, async () => {
+      const f = gradeFixture(route, [outcome, "stored"]);
+      await f.withProvider(async () => {
+        const first = await f.post();
+        assertEquals(first.status, 500);
+        assertEquals(await first.json(), {
+          error: "grade_store_failed",
+          retryable: true,
+        });
+        assertEquals(f.row().status, "failed");
+        assertEquals(
+          f.writes.some((w) => w.startsWith("attempts:update:")),
+          false,
+        );
+        const retry = await f.post();
+        assertEquals(retry.status, 200);
+        const body = await retry.json();
+        assertEquals(body.status, route === "shadow" ? "uncertain" : "graded");
+        assertEquals(f.attempt().status, body.status);
+        assertEquals(f.attempt().score_points, body.result.points_earned);
+        assertEquals(f.attempt().score_possible, body.result.points_available);
+        assertEquals(f.attempt().result_summary, body.result.feedback_preview);
+        assertEquals(Object.hasOwn(body.result, "raw_model_response"), false);
+        assertEquals(Object.hasOwn(body.result, "shadow_result"), false);
+        assertEquals((await f.post()).status, 200);
+        assertEquals(f.modelCalls(), route === "llm" ? 1 : 0);
+        assertEquals(f.storedWrites(), 1);
+      });
+    });
+  }
+  Deno.test(`${route} acknowledged store retains normal success`, async () => {
+    const f = gradeFixture(route, ["stored"]);
+    await f.withProvider(async () => {
+      const res = await f.post();
+      assertEquals(res.status, route === "shadow" ? 202 : 200);
+      assertEquals(
+        (await res.json()).status,
+        route === "shadow" ? "uncertain" : "graded",
+      );
+    });
+  });
+  Deno.test(`${route} concurrent recovery commits once and returns the stored result to both callers`, async () => {
+    const f = gradeFixture(route, ["error", "stored"]);
+    await f.withProvider(async () => {
+      assertEquals((await f.post()).status, 500);
+      const results = await Promise.all([f.post(), f.post()]);
+      assertEquals(results.map((r) => r.status), [200, 200]);
+      assertEquals(await results[0].json(), await results[1].json());
+      assertEquals(f.storedWrites(), 1);
+      assertEquals(f.modelCalls(), route === "llm" ? 1 : 0);
+    });
+  });
+  Deno.test(`${route} lost successful-store acknowledgement never downgrades the committed grade`, async () => {
+    const f = gradeFixture(route, ["committed_transport"]);
+    await f.withProvider(async () => {
+      const first = await f.post();
+      assertEquals(first.status, 500);
+      assertEquals(await first.json(), {
+        error: "grade_store_failed",
+        retryable: false,
+        reconciliation_required: true,
+      });
+      assertEquals(f.row().status, route === "shadow" ? "uncertain" : "graded");
+      assertEquals((await f.post()).status, 200);
+      assertEquals(f.storedWrites(), 1);
+      assertEquals(f.modelCalls(), route === "llm" ? 1 : 0);
+    });
+  });
+}
+for (const outcome of ["error", "transport", "missing"] as const) {
+  Deno.test(`recovered attempt truth ${outcome} is surfaced and retried without regrading`, async () => {
+    const f = gradeFixture("llm", ["error", "stored"]);
+    await f.withProvider(async () => {
+      assertEquals((await f.post()).status, 500);
+      f.failAttemptWrite(outcome);
+      const retry = await f.post();
+      assertEquals(retry.status, 503);
+      assertEquals(await retry.json(), { error: "attempt_grade_store_failed", retryable: true });
+      assertEquals(f.row().status, "graded");
+      assertEquals(f.attempt().status, "submitted");
+      assertEquals((await f.post()).status, 200);
+      assertEquals(f.attempt().status, "graded");
+      assertEquals(f.modelCalls(), 1);
+      assertEquals(f.storedWrites(), 1);
+    });
+  });
+}
+Deno.test("recovery does not overwrite a finalized attempt truth row", async () => {
+  const f = gradeFixture("mcq", ["error", "stored"]);
+  assertEquals((await f.post()).status, 500);
+  f.attempt().status = "graded";
+  f.attempt().score_points = 99;
+  assertEquals((await f.post()).status, 200);
+  assertEquals(f.attempt().score_points, 99);
+});
+Deno.test("a concurrent finalizer winning the attempt CAS is reread without overwrite", async () => {
+  const f = gradeFixture("mcq", ["error", "stored"]);
+  assertEquals((await f.post()).status, 500);
+  f.finalizeDuringRecovery();
+  assertEquals((await f.post()).status, 200);
+  assertEquals(f.attempt().score_points, 99);
+});
+Deno.test("failed checkpoint cannot leave processing replays at 202 indefinitely", async () => {
+  const f = gradeFixture("llm", ["error"], true);
+  await f.withProvider(async () => {
+    const first = await f.post();
+    assertEquals(first.status, 500);
+    assertEquals(await first.json(), {
+      error: "grade_store_failed",
+      retryable: false,
+      reconciliation_required: true,
+    });
+    assertEquals((await f.post()).status, 202);
+    f.row().updated_at = "2000-01-01T00:00:00Z";
+    const stale = await f.post();
+    assertEquals(stale.status, 503);
+    assertEquals(await stale.json(), {
+      error: "grading_reconciliation_required",
+      reconciliation_required: true,
+    });
+    assertEquals(f.modelCalls(), 1);
+  });
+});
+Deno.test("repeated failed recovery stays retryable; a changed body conflicts and corrupt checkpoints fail closed", async () => {
+  const f = gradeFixture("mcq", ["error", "error", "stored"]);
+  await f.withProvider(async () => {
+    assertEquals((await f.post()).status, 500);
+    assertEquals(
+      (await f.post({}, "30000000-0000-4000-8000-999999999999")).status,
+      403,
+    );
+    const changed = await f.post({ assistance_condition: "supported" });
+    assertEquals(changed.status, 409);
+    assertEquals((await changed.json()).error, "idempotency_conflict");
+    const second = await f.post();
+    assertEquals(second.status, 500);
+    assertEquals(await second.json(), {
+      error: "grade_store_failed",
+      retryable: true,
+    });
+    const checkpoint = f.row().raw_model_response as {
+      payload: Record<string, unknown>;
+    };
+    checkpoint.payload.request_id = "other-key";
+    assertEquals((await f.post()).status, 503);
+    delete checkpoint.payload.request_id;
+    assertEquals((await f.post()).status, 200);
+  });
+});
+
 Deno.test("evaluate-attempt rejects an unsubmitted response before loading answer-key tables", async () => {
   const tablesQueried: string[] = [];
   const ids = {
@@ -55,12 +469,11 @@ Deno.test("evaluate-attempt rejects an unsubmitted response before loading answe
   const res = await handleEvaluateAttempt(req, {
     // deno-lint-ignore no-explicit-any
     service: service as any,
-    // deno-lint-ignore no-explicit-any
     requireProfile: (() =>
       Promise.resolve({
         user: { id: ids.user },
         profile: { user_id: ids.user, role: "student" },
-      })) as any,
+      })) as unknown as NonNullable<Deps["requireProfile"]>,
   });
 
   assertEquals(res.status, 409);
@@ -140,12 +553,11 @@ async function runOpenHandExclusionCase(exclusionRowCount: number) {
   const res = await handleEvaluateAttempt(req, {
     // deno-lint-ignore no-explicit-any
     service: service as any,
-    // deno-lint-ignore no-explicit-any
     requireProfile: (() =>
       Promise.resolve({
         user: { id: ids.user },
         profile: { user_id: ids.user, role: "student" },
-      })) as any,
+      })) as unknown as NonNullable<Deps["requireProfile"]>,
   });
   return { res, tablesQueried };
 }

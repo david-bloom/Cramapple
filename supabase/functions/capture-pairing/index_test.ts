@@ -89,6 +89,8 @@ class FakeDb {
   // Simulates a failed response_attachments.capture_quality_state annotation
   // write, to prove keepOpen no longer depends on it (N2).
   updateAttachmentShouldFail = false;
+  cancelShouldFail = false;
+  cancelShouldMiss = false;
   // Simulates a storage sign-upload failure, to test the technical-failure
   // classification persisting to the token (N6).
   signUploadShouldFail = false;
@@ -184,7 +186,7 @@ class QueryBuilder {
     return null;
   }
 
-  private run(): { rows: Row[]; error: { message: string } | null } {
+  private run(): { rows: Row[]; error: { message: string; code?: string } | null } {
     const table = this.db.table(this.name);
     if (this.op.kind === "insert") {
       const inputs = Array.isArray(this.op.rows) ? this.op.rows : [this.op.rows];
@@ -200,6 +202,10 @@ class QueryBuilder {
     }
     const matched = table.filter((r) => matches(r, this.eqs, this.inn, this.gtes));
     if (this.op.kind === "update") {
+      if (this.name === "capture_pairing_tokens" && this.op.vals.state === "cancelled") {
+        if (this.db.cancelShouldFail) return { rows: [], error: { message: "private database error", code: "XX000" } };
+        if (this.db.cancelShouldMiss) return { rows: [], error: null };
+      }
       if (this.name === "response_attachments" && this.db.updateAttachmentShouldFail) {
         return { rows: [], error: { message: "update_failed" } };
       }
@@ -1332,3 +1338,25 @@ Deno.test("F11: the sequence is max+1, not count+1 (regression guard for the row
   assert(seqs.includes(6), `expected a max+1 sequence of 6, got ${seqs.join(",")}`);
   assert(!seqs.includes(3), "count+1 (3) must not be used");
 });
+
+for (const outcome of ["error", "missing", "cancelled"] as const) {
+  Deno.test(`cancel pairing ${outcome} is acknowledged truthfully`, async () => {
+    const db = new FakeDb();
+    const scenario = await seedPairedCapability(db);
+    db.cancelShouldFail = outcome === "error";
+    db.cancelShouldMiss = outcome === "missing";
+    const res = await handleCapturePairing(post({ operation: "cancel_pairing", pairing_id: scenario.pairingId }), {
+      service: makeService(db), requireProfile: fakeAuth({ id: scenario.userId }),
+    });
+    const body = await res.json();
+    assertEquals(res.status, outcome === "error" ? 500 : outcome === "missing" ? 409 : 200);
+    if (outcome !== "cancelled") {
+      assertEquals(body.error, outcome === "error" ? "pairing_cancel_failed" : "pairing_cancel_conflict");
+      assertEquals(db.capture_pairing_tokens[0].state, "paired");
+      assertEquals(db.capture_pairing_events.length, 0);
+    } else {
+      assertEquals(body.result.pairing.state, "cancelled");
+      assertEquals(db.capture_pairing_tokens[0].state, "cancelled");
+    }
+  });
+}
