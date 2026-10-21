@@ -23,15 +23,17 @@ TASK-0069 (`attempt-response` replay scoping).
 2. **Schedule the learning-session sweep weekly, Saturday 1 am.** Recorded as Eastern time. Draft job in §3.
 3. **The post-purchase add-on must be reachable by customers.** Today the page exists, the server returns the offer, and
    nothing shows the link; Production has never recorded an add-on checkout session. Work in §4.
+4. **Fail the request when a grade write fails** (David, 2026-10-21, "Yes, fail the request when the grade write fails").
+   Applies to A4; acceptance criteria below.
 
 ## 2. Checklist
 
 | # | Item | Tier | State | Notes |
 | --- | --- | --- | --- | --- |
-| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | open | Haiku assessment 5 produces the diff |
+| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | ready for Codex | Haiku's proposed diff is in `qa/TEST_GATE_INVENTORY_2026_10_21.md` (38 files, 760 tests, 60 of 61 pass under `env -i`). Take its narrower option: keep the existing step, add a second step for the few files that need `--allow-net` (`byoq`, `capture-pairing`), `--allow-read` (`email-template-data`, `payer-email`) or unrestricted `--allow-env` (`create-post-purchase-addon/handler_test.ts`, Stripe SDK) |
 | A2 | Replay ownership on `session-event` and `storage-sign-url` (actor-scoped lookup, read the audit-insert error, re-sign on replay, handler extraction, tests), no hash changes | Standard | open | spec in `REFACTOR_PLAN_REVIEW_2026_10_21.md` §5 |
 | A3 | Retire `submit-response` (source directory and the Development function) | Standard | open | not on Production, no caller |
-| A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | open | must-fail rows; student sees a score the database did not keep |
+| A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | **ruled, ready for Codex** (ruling 4) | Acceptance: both sites destructure `{ error }`; on error, log it and respond 5xx with a stable code (for example `grading_result_write_failed`) and no score in the body; decide and test what a retry with the same idempotency key does next, since today a replay finds the row at `processing` and answers 202, so either mark the row `failed` so the retry re-grades, or make the replay path re-attempt the write; the deterministic MCQ path and the model path both covered; test in `evaluate-attempt/index_test.ts` and add that file to CI (A1) |
 | A5 | `review-decision`: replace the empty catch around `advanceWorkflow` with surfaced failures; `admin-content` 10 unread writes; `capture-pairing` cancel | Standard | open | can wait behind A4; review functions are otherwise frozen (ruling 1) |
 | A6 | Redeploy `evaluate-attempt` and `attempt-response` from `main` (Development, verify bundle hash, then Production on approval) | Hard-Gate | open | makes the TASK-0074 control-character strip live; clears stale `grading-feedback`, `student-memory`, `growth-events`, `math-verifier` |
 | A7 | Redeploy `create-post-purchase-addon` from `main` (Development with Stripe test mode, then Production on approval) | Hard-Gate | **Development done 2026-10-21** (v36, `ezbr_sha256 f605bbcb…`, every bundled file byte-identical to `main` `73206cde`; unauthenticated POST returns 401); the signed-in Stripe test-mode purchase on Development is not yet run; **Production pending approval** | prerequisite for §4; Production v8 lacks `ownsAddonSource` (`fce40d1d`) |
@@ -39,7 +41,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | A9 | Migration: weekly `sweep_learning_sessions` cron job | Hard-Gate | open | SQL in §3 |
 | A10 | Migration: re-apply the `20260821011843` and `20260821014327` bodies to Production after a Development rehearsal | Hard-Gate | open | removes the subject-switch refusal (TASK-0063); with a weekly sweep this is what keeps an abandoned session from blocking a student for up to a week |
 | A11 | Scope `app.submit_response` replay probes to the actor | Hard-Gate | open | can ride with A10's approval |
-| A12 | Set `GRADING_ENTITLEMENTS_ENABLED=true` on Development | Config | open | so rehearsals match Production |
+| A12 | Set `GRADING_ENTITLEMENTS_ENABLED=true` on Development | Config | open | so rehearsals match Production. From `qa/ENVIRONMENT_PARITY_2026_10_21.md`: also `FRQ_PHOTO_SUBJECTS` (Development only) and `start-trial` missing on Development. The `SERVICE_ROLE_KEY` secret being absent on Development is not a gap: both fallbacks in `byoq/index.ts:289` and `_shared/public-rate-limit.ts:132` try `SUPABASE_SERVICE_ROLE_KEY` first, which Supabase injects into every function |
 | A13 | Find who invokes `trial-recovery`; check the 2 undelivered `growth_event_outbox` rows | Read-only | open | |
 | A14 | Adopt or trim the shared-module release rule | Docs | open | proposal in `SHARED_MODULE_DEPENDENCY_MAP_2026_10_21.md` §4 |
 | A15 | Run the Opus prompt (assessments 2, 7) and the Haiku prompt (5, 6) | Read-only | open | `docs/handoffs/PROMPT_ASSESSMENTS_*` |

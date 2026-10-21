@@ -257,6 +257,8 @@ for `storage-sign-url`); Production fingerprint equal to Development's before th
 - Live-app call sites: `grep` over `src/` of the clone for each function name and for `operation: "…"` /
   `mode: "…"` literals; `functions.invoke` targets.
 - Local test run: `deno test --allow-env supabase/functions/attempt-response/index_test.ts` → 9 passed. Without the
-  extra env names it fails at module load on `OPENAI_API_KEY`, which is why it is absent from CI's narrower
+  extra env names it fails at module load (under CI's exact list the first missing name is
+  `GRADING_ENTITLEMENTS_ENABLED`, then `OPENAI_API_KEY` and others; correction from
+  `TEST_GATE_INVENTORY_2026_10_21.md`, re-run 2026-10-21), which is why it is absent from CI's narrower
   `--allow-env` list.
 - `web/`: `npm test` (grade tests pass) and `npm run build` (succeeds) on 2026-10-21.
