@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- PR #524 merged and its migration applied to Development (2026-10-21, owner request "Merge #524 and apply the migration to Development"): #524 was a draft based on Codex's #520 branch, so marking it ready and merging landed commit `78f2be47` on `codex/task-0078-refactor-ci`; the file reaches `main` with #520. Development apply via `apply_migration`: both guards passed, `app.start_home_learning_session_for_user` and `public.set_active_exam_pack_version` unchanged at the reviewed hashes, grants intact, ledger version `20261021202904` (rename requested on #520). Production untouched; the two blocked students wait on that approval. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) A10.
+
 - Fourteen Codex TASK-0078 PRs reviewed (2026-10-21, owner request "review the Codex PRs in the order you listed"): reviews posted on #520–#531, #535, #536 and #524. Ready: #524, #520, #523, #527; one gap: #535 (recovery never updates `app.attempts`, which the progress dashboard counts); re-tiered: #521 is now Hard-Gate (claims table and two RPCs, migration before deploy); rebase needed: #522, #536, and the helper stack #525/#526/#528–#531 (cut before #520's CI rewrite); #531 must split its doc edits (second TASK-0078 record, INDEX conflict). Merge order and conditions in [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2a.
 
 - Opus assessments 2 and 7 verified and merged; A10 escalated; Codex PR landscape recorded (2026-10-21, evening): PR #540 (migration ledger reconciliation, dormant-surface review) merged after Fable checks. Verified on Production: two real student accounts hold `active` sessions on their current pack, so the July `set_active_exam_pack_version` body refuses them a subject switch today, which makes Codex PR #524 (TASK-0063 reconciliation migration) the first Hard-Gate approval to give; the hand-drawn pilot cannot start a session (`entry_path` check lacks `hand_drawn_pilot`); `get_chosen_distractor_rationale` exists on neither project though the live app calls it; the 11 anon-executable `SECURITY DEFINER` functions are all trigger functions, hygiene not exposure. Codex has PRs #520–#536 open covering A1–A5, A11 and A16; TASK-0078 updated with numbers and four new items A17–A20. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
@@ -239,6 +241,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — PR #524 merged; session RPC migration applied to Development
+
+Owner request: "Merge #524 and apply the migration to Development."
+
+- **Merge:** #524 was still a draft; marked ready and merged. Its base was `codex/task-0078-refactor-ci` (the #520 branch), not `main`, so the merge commit `78f2be47` sits on that branch and `main` did not move. The migration file reaches `main` when #520 merges. Comment left on #520.
+- **Development apply:** `supabase/migrations/20261021153710_task0063_reconcile_session_rpc_bodies.sql` (md5 `ab434b59…`, taken from the #520 branch) applied to `wmgjsdkphcyhngaffbqf` with the MCP `apply_migration`. Both hash guards passed. After apply: `app.start_home_learning_session_for_user` `dbc35186dc642ac15e19295f3601186b`, `public.set_active_exam_pack_version` `5a71a24d2fc753b91f0150aa0ac2161e`, both security invoker with `search_path=pg_catalog`, grants unchanged (`authenticated` and `service_role` execute). Development already ran these bodies, so this proved the guards and idempotence, as the review said it would; the behavioural proof is the CI fixture on #524.
+- **Ledger:** Development recorded version `20261021202904`, not the filename's `20261021153710`. Rename requested on the #520 branch (file, `\ir` path in the fixture, release packet), per the TASK-0077 convention.
+- **Production:** untouched. The two student accounts refused a subject switch remain blocked until the Production apply is approved (TASK-0078 A10).
 
 ## 2026-10-21 — Fourteen Codex TASK-0078 PRs reviewed
 
