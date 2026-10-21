@@ -1,18 +1,11 @@
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
+
 
 Deno.serve(async (req) => {
   const respond = (body: unknown, init: ResponseInit = {}) =>

@@ -1,3 +1,7 @@
+import { resolveCheckoutOffer, promotionDiscount } from "../_shared/checkout-offer.ts";
+import { clientIp } from "../_shared/request-metadata.ts";
+import { requireEnv } from "../_shared/env.ts";
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -21,51 +25,12 @@ import {
 
 type Mode = "single" | "bundle_2" | "bundle_3";
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3"]);
-const REQUIRED_SUBJECT_COUNT: Record<Mode, number> = {
-  single: 1,
-  bundle_2: 2,
-  bundle_3: 3,
-};
-
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) throw new Error(`Missing required environment variable: ${name}`);
-  return value;
-}
-
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 const PRICE_CATALOG: PriceCatalog = loadPriceCatalog();
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value);
-  if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email.toLowerCase() : null;
-}
 
-function asSubjectKeys(value: unknown) {
-  if (!Array.isArray(value)) return null;
-  const keys = value.filter(
-    (entry): entry is string =>
-      typeof entry === "string" && entry.trim().length > 0,
-  ).map((entry) => entry.trim());
-  return keys.length === value.length ? keys : null;
-}
 
-async function promotionDiscount(code: string | null) {
-  if (!code) return null;
-  const list = await stripe.promotionCodes.list({
-    code: code.trim().toUpperCase(),
-    active: true,
-    limit: 1,
-  });
-  const promotion = list.data[0];
-  if (!promotion) throw new Error("promo_code_invalid");
-  return promotion.id;
-}
 
 Deno.serve(async (req) => {
   const respond = (body: unknown, init: ResponseInit = {}) =>
@@ -104,28 +69,19 @@ Deno.serve(async (req) => {
     return respond({ error: "invalid_student_email" }, { status: 400 });
   }
 
-  const keys = asSubjectKeys(input.subject_keys);
-  if (
-    !keys ||
-    keys.length !== REQUIRED_SUBJECT_COUNT[mode] ||
-    new Set(keys).size !== keys.length
-  ) {
-    return respond({ error: "invalid_subject_keys" }, { status: 400 });
-  }
-
-  const unknownKeys = keys.filter((key) => !PRICE_CATALOG.subjects[key]);
-  if (unknownKeys.length > 0) {
+  let offer: ReturnType<typeof resolveCheckoutOffer>;
+  try {
+    offer = resolveCheckoutOffer(PRICE_CATALOG, mode, input.subject_keys);
+  } catch (error) {
+    const e = error as Error & { subjectKeys?: string[] };
     return respond(
-      { error: "unknown_subject_keys", subject_keys: unknownKeys },
+      e.message === "unknown_subject_keys"
+        ? { error: e.message, subject_keys: e.subjectKeys ?? [] }
+        : { error: e.message },
       { status: 400 },
     );
   }
-
-  const priceId = mode === "single"
-    ? PRICE_CATALOG.subjects[keys[0]]
-    : mode === "bundle_2"
-    ? PRICE_CATALOG.bundle_2
-    : PRICE_CATALOG.bundle_3;
+  const { subjectKeys: keys, priceId } = offer;
 
   // Card trial (TASK-0077, DECISION-0126 items 2, 13, 17, 22). The student
   // sees the locked quote, applies any code and acknowledges the Terms before
@@ -162,8 +118,7 @@ Deno.serve(async (req) => {
         quoteVersion: asString(input.quote_version) ?? "",
         studentAck: { version: ack.version, source: "parent_share_drawer" },
         studentName,
-        consentIp: req.headers.get("cf-connecting-ip")?.trim() ||
-          req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+        consentIp: clientIp(req),
         consentUserAgent: req.headers.get("user-agent"),
         urls: {
           successUrl:
@@ -213,7 +168,7 @@ Deno.serve(async (req) => {
 
   let promotionCodeId: string | null = null;
   try {
-    promotionCodeId = await promotionDiscount(asString(input.promo_code));
+    promotionCodeId = await promotionDiscount(stripe, asString(input.promo_code));
   } catch {
     return respond({ error: "promo_code_invalid" }, { status: 400 });
   }

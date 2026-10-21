@@ -1,3 +1,6 @@
+import { storageObjectFingerprint, attachmentBindError as mapBindError } from "../_shared/storage-primitives.ts";
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 // capture-pairing -- the QR capture bridge for Engine 4.
 //
 // TASK-0016 Phase D, Stage D2 ("Implement and verify the QR capture MVP"),
@@ -153,27 +156,11 @@ interface PairingRow {
   created_at: string;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
+
+
 
 function bindingOf(row: PairingRow): PairingBinding {
   return {
@@ -477,51 +464,9 @@ async function assertAttemptStillWritable(
 }
 
 /** Same storage-fingerprint TOCTOU guard `attach_capture` uses. */
-async function storageObjectFingerprint(
-  service: Service,
-  storagePath: string,
-): Promise<string | null> {
-  const slashIndex = storagePath.lastIndexOf("/");
-  const folder = slashIndex >= 0 ? storagePath.slice(0, slashIndex) : "";
-  const fileName = slashIndex >= 0
-    ? storagePath.slice(slashIndex + 1)
-    : storagePath;
-  const { data, error } = await service.storage.from(BUCKET)
-    .list(folder, { search: fileName, limit: 100 });
-  if (error || !data) return null;
-  const entry = data.find((item) => item.name === fileName);
-  if (!entry) return null;
-  return `${entry.updated_at ?? ""}:${
-    entry.metadata?.eTag ?? entry.metadata?.size ?? ""
-  }`;
-}
 
-function mapBindError(message: string | undefined) {
-  const match = typeof message === "string"
-    ? message.match(/attach_capture:([a-z_]+)/)
-    : null;
-  if (!match) return { status: 500, code: "attach_capture_failed" };
-  switch (match[1]) {
-    case "no_current_original_to_replace":
-    case "stale_retake_target":
-    case "original_already_current":
-    case "derived_cannot_replace":
-      return { status: 409, code: `attach_capture_${match[1]}` };
-    case "response_not_writable":
-      // N7: the DB-level is_submitted/attempt-editable backstop fired (the
-      // response was submitted during the edge-function's check-then-bind
-      // window). A legitimate refusal, not our bug -> 409/blocked.
-      return { status: 409, code: "response_already_submitted" };
-    case "response_not_found":
-      // Round-4 QA S1 (same guard, other leg): the response version -- or the
-      // attempt row it points at -- is gone. A 404 is the honest answer and
-      // matches attempt-response's mapAttachCaptureError; previously this fell
-      // through to a 500 and would have been logged as a technical failure.
-      return { status: 404, code: "response_not_found" };
-    default:
-      return { status: 500, code: "attach_capture_failed" };
-  }
-}
+
+
 
 function mapClaimError(message: string | undefined) {
   const match = typeof message === "string"
@@ -869,12 +814,19 @@ export async function handleCapturePairing(
       }
 
       // cancel_pairing
-      const { data: cancelled } = await service.schema("app")
+      const { data: cancelled, error: cancelError } = await service.schema("app")
         .from("capture_pairing_tokens")
         .update({ state: "cancelled", closed_at: new Date().toISOString() })
         .eq("id", row.id)
         .in("state", ["issued", "paired", "uploaded"])
         .select("*").maybeSingle();
+      if (cancelError) {
+        console.error("capture-pairing:cancel_failed", { pairing_id: row.id, code: cancelError.code });
+        return respond({ error: "pairing_cancel_failed" }, { status: 500 });
+      }
+      if (!cancelled && ["issued", "paired", "uploaded"].includes(row.state)) {
+        return respond({ error: "pairing_cancel_conflict" }, { status: 409 });
+      }
       if (cancelled) {
         row = cancelled as PairingRow;
         await appendProvenanceEvent(service, row, {

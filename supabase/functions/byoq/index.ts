@@ -1,3 +1,4 @@
+import { uuidShape as asUuid } from "../_shared/input.ts";
 // byoq -- bring-your-own-question backend (TASK-0039).
 //
 // One function for the whole BYOQ surface: intake (typed and photo-first),
@@ -182,9 +183,7 @@ class HttpError extends Error {
   }
 }
 
-function asUuid(v: unknown): string | null {
-  return typeof v === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v) ? v : null;
-}
+
 
 function decodeJwtRole(jwt: string): string | null {
   const part = jwt.split(".")[1];

@@ -1,12 +1,7 @@
+import { requireEnv } from "./env.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 // Fail fast on module load so a misconfigured deploy is caught at function
 // startup, not on first request. Mirrors the validation pattern in

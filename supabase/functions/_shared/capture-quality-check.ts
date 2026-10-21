@@ -1,3 +1,4 @@
+import { bytesToBase64 as toBase64 } from "./encoding.ts";
 // Capture-quality check for hand-drawn photo uploads
 // (TASK-0016 Phase D, Stage D2 item 8; DECISION-0051 item 3).
 //
@@ -336,14 +337,7 @@ export function clampCaptureQualityTimeout(raw: number | undefined) {
   );
 }
 
-function toBase64(bytes: Uint8Array) {
-  let binary = "";
-  const chunkSize = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
-  }
-  return btoa(binary);
-}
+
 
 /**
  * Runs the vision check. Never throws: every failure path resolves to an

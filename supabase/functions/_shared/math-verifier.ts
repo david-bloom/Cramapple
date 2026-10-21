@@ -1,3 +1,4 @@
+import { trimmedStringOrEmpty as asString } from "./input.ts";
 import { detectAmbiguousTypedFormulaText } from "./formula-notation.ts";
 
 export type FormulaKind = "expression" | "antiderivative" | "numeric" | "conceptual";
@@ -116,9 +117,7 @@ function factorial(n: number): number {
   return acc;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
-}
+
 
 function isValueToken(token: Token | null | undefined) {
   return Boolean(token) &&

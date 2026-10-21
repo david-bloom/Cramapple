@@ -1,3 +1,4 @@
+import { trimmedStringOrEmpty as asString } from "./input.ts";
 type AmbiguityResult = {
   ambiguous: boolean;
   reason: string | null;
@@ -11,9 +12,7 @@ export const FORMULA_ACTION_HINTS = {
   reviewContext: "review_context" as const,
 };
 
-function asString(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
-}
+
 
 function hasFlatFractionHazard(text: string) {
   const compact = text.replace(/\s+/g, "");

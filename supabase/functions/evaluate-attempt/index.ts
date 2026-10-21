@@ -1,3 +1,6 @@
+import { requireEnv } from "../_shared/env.ts";
+import { stringOrNull as asString, looseUuid as asUuid } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -64,13 +67,7 @@ import {
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 function requirePositiveIntegerEnv(name: string) {
   const raw = requireEnv(name);
@@ -206,24 +203,11 @@ function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
   return undefined;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" ? value : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" && /^[0-9a-fA-F-]{36}$/.test(value)
-    ? value
-    : null;
-}
 
-function sha256Hex(value: string) {
-  return crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)).then(
-    (digest) => {
-      const bytes = Array.from(new Uint8Array(digest));
-      return bytes.map((byte) => byte.toString(16).padStart(2, "0")).join("");
-    },
-  );
-}
+
+
+
 
 // re-QA finding 1: the idempotent-replay paths return the whole grading_results
 // row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
@@ -793,6 +777,71 @@ async function readBodyAsRecord(req: Request) {
 
 type Service = ReturnType<typeof createServiceClient>;
 
+const GRADE_STORE_FAILURE = "grade_store_failed";
+const PENDING_GRADE_WRITE = "pending_grade_write_v1";
+// A timeout is containment, never permission to re-run a model call.
+const PROCESSING_RECONCILIATION_MS = Math.max(
+  10 * 60_000,
+  2 * OPENAI_REQUEST_TIMEOUT_MS + 60_000,
+);
+
+async function writeGradeResult(
+  service: Service,
+  requestId: string,
+  requestHash: string,
+  payload: Record<string, unknown>,
+  priorVersion?: string,
+) {
+  try {
+    let query = service.schema("app").from("grading_results").update(payload)
+      .eq("request_id", requestId).eq("request_hash", requestHash);
+    if (priorVersion) {
+      query = query.eq("updated_at", priorVersion)
+        .eq("status", "failed").eq("uncertainty_reason", GRADE_STORE_FAILURE);
+    }
+    return await query.select("*").maybeSingle();
+  } catch {
+    return { data: null, error: { code: "transport_error" } };
+  }
+}
+
+async function checkpointGradeWrite(
+  service: Service,
+  requestId: string,
+  requestHash: string,
+  operation: string,
+  payload: Record<string, unknown>,
+) {
+  try {
+    // Only a still-processing row can become retryable. Never downgrade a grade
+    // whose write committed but whose acknowledgement was lost.
+    const { data, error } = await service.schema("app").from("grading_results")
+      .update({
+        status: "failed",
+        uncertainty_reason: GRADE_STORE_FAILURE,
+        raw_model_response: {
+          kind: PENDING_GRADE_WRITE,
+          request_hash: requestHash,
+          operation,
+          payload,
+        },
+      }).eq("request_id", requestId).eq("request_hash", requestHash)
+      .eq("status", "processing").select("request_id").maybeSingle();
+    if (error) {
+      console.error("evaluate-attempt:grade_checkpoint_failed", {
+        request_id: requestId,
+        code: error.code,
+      });
+    }
+    return !error && !!data;
+  } catch {
+    console.error("evaluate-attempt:grade_checkpoint_failed", {
+      request_id: requestId,
+      code: "transport_error",
+    });
+    return false;
+  }
+}
 export interface EvaluateAttemptDeps {
   service?: Service;
   requireProfile?: typeof requireProfile;
@@ -1418,28 +1467,140 @@ export async function handleEvaluateAttempt(
   };
   const requestHash = await sha256Hex(JSON.stringify(requestHashPayload));
 
-  const { data: existingResult } = await service.schema("app")
-    .from("grading_results")
-    .select("*")
-    .eq("request_id", idempotencyKey)
-    .maybeSingle();
-
-  if (existingResult) {
-    if (existingResult.request_hash !== requestHash) {
+  // Replays may recover a private pending write, but NEVER call the grader.
+  const respondFromStoredResult = async (
+    row: Record<string, unknown>,
+    recover = true,
+  ): Promise<Response> => {
+    if (row.request_hash !== requestHash) {
       return respond({ error: "idempotency_conflict" }, { status: 409 });
     }
-
-    return respond(
-      {
-        status: existingResult.status,
-        function: "evaluate-attempt",
-        operation,
-        result: sanitizeGradingResultForClient(existingResult),
-      },
-      { status: existingResult.status === "processing" ? 202 : 200 },
-    );
+    if (
+      row.status === "failed" && row.uncertainty_reason === GRADE_STORE_FAILURE
+    ) {
+      if (!recover) {
+        return respond({ error: "grade_store_retry_conflict", retryable: true }, {
+          status: 409,
+        });
+      }
+      const checkpoint = asRecord(row.raw_model_response);
+      const payload = asRecord(checkpoint.payload);
+      const forbidden = [
+        "id",
+        "request_id",
+        "request_hash",
+        "attempt_id",
+        "response_version_id",
+        "operation",
+        "created_at",
+        "updated_at",
+      ];
+      if (
+        checkpoint.kind !== PENDING_GRADE_WRITE ||
+        checkpoint.request_hash !== requestHash ||
+        checkpoint.operation !== operation ||
+        !["graded", "uncertain"].includes(String(payload.status)) ||
+        forbidden.some((key) => Object.hasOwn(payload, key)) ||
+        typeof row.updated_at !== "string" ||
+        !Number.isFinite(Date.parse(row.updated_at))
+      ) {
+        return respond({
+          error: "grading_reconciliation_required",
+          reconciliation_required: true,
+        }, { status: 503 });
+      }
+      // The version fence admits one writer; losers read its committed result.
+      const { data: recovered, error } = await writeGradeResult(
+        service,
+        idempotencyKey,
+        requestHash,
+        payload,
+        row.updated_at,
+      );
+      if (error) {
+        console.error("evaluate-attempt:grade_store_retry_failed", {
+          request_id: idempotencyKey,
+          code: error.code,
+        });
+        return respond({ error: GRADE_STORE_FAILURE, retryable: true }, {
+          status: 500,
+        });
+      }
+      if (recovered) return await respondFromStoredResult(recovered, false);
+      const { data: latest, error: readError } = await service.schema("app").from(
+        "grading_results",
+      )
+        .select("*").eq("request_id", idempotencyKey).maybeSingle();
+      if (readError || !latest) {
+        return respond({
+          error: "grading_reconciliation_required",
+          reconciliation_required: true,
+        }, { status: 503 });
+      }
+      return await respondFromStoredResult(latest, false);
+    }
+    if (row.status === "processing") {
+      const updatedAt = Date.parse(
+        String(row.updated_at ?? row.created_at ?? ""),
+      );
+      if (
+        !Number.isFinite(updatedAt) ||
+        Date.now() - updatedAt >= PROCESSING_RECONCILIATION_MS
+      ) {
+        return respond({
+          error: "grading_reconciliation_required",
+          reconciliation_required: true,
+        }, { status: 503 });
+      }
+    }
+    // A grade recovered after a failed store must also reach the attempt truth
+    // row used by progress. Retrying this projection never re-runs grading and
+    // cannot overwrite an attempt another request has already finalized.
+    if (["graded", "uncertain"].includes(String(row.status)) && attempt.status === "submitted") {
+      try {
+        const { data: updated, error } = await service.schema("app").from("attempts")
+          .update({
+            status: row.status,
+            graded_at: row.updated_at ?? new Date().toISOString(),
+            score_points: row.points_earned,
+            score_possible: row.points_available,
+            confidence_level: row.confidence,
+            result_state: row.status,
+            result_summary: row.feedback_preview,
+            assistance_state: derivedAssistanceState,
+          }).eq("id", attempt.id).eq("status", "submitted").select("id").maybeSingle();
+        if (error) throw error;
+        if (!updated) {
+          const { data: latestAttempt, error: readError } = await service.schema("app").from("attempts")
+            .select("status").eq("id", attempt.id).maybeSingle();
+          if (readError || !["graded", "uncertain"].includes(String(latestAttempt?.status))) {
+            throw readError ?? { code: "attempt_not_finalized" };
+          }
+        }
+      } catch (error) {
+        console.error("attempts_grading_truth_recovery_failed", {
+          attempt_id: attempt.id,
+          code: typeof error === "object" && error !== null && "code" in error ? error.code : "transport_error",
+        });
+        return respond({ error: "attempt_grade_store_failed", retryable: true }, { status: 503 });
+      }
+    }
+    return respond({
+      status: row.status,
+      function: "evaluate-attempt",
+      operation,
+      result: sanitizeGradingResultForClient(row),
+    }, { status: row.status === "processing" ? 202 : 200 });
+  };
+  const { data: existingResult, error: existingReadError } = await service.schema(
+    "app",
+  )
+    .from("grading_results").select("*").eq("request_id", idempotencyKey)
+    .maybeSingle();
+  if (existingReadError) {
+    return respond({ error: "grading_result_read_failed" }, { status: 503 });
   }
-
+  if (existingResult) return await respondFromStoredResult(existingResult);
   const [
     { data: contentItem },
     { data: examPackVersion },
@@ -1681,17 +1842,7 @@ export async function handleEvaluateAttempt(
       .eq("request_id", idempotencyKey)
       .maybeSingle();
 
-    if (conflictResult && conflictResult.request_hash === requestHash) {
-      return respond(
-        {
-          status: conflictResult.status,
-          function: "evaluate-attempt",
-          operation,
-          result: sanitizeGradingResultForClient(conflictResult),
-        },
-        { status: conflictResult.status === "processing" ? 202 : 200 },
-      );
-    }
+    if (conflictResult) return await respondFromStoredResult(conflictResult);
 
     return respond({ error: "could_not_create_grading_record" }, {
       status: 409,
@@ -1881,7 +2032,7 @@ export async function handleEvaluateAttempt(
       student_facing_summary: summary,
     };
 
-    await service.schema("app").from("grading_results").update({
+    const gradePayload = {
       status: "graded",
       points_earned: finalResult.points_earned,
       points_available: finalResult.points_available,
@@ -1904,7 +2055,13 @@ export async function handleEvaluateAttempt(
       estimated_cost_usd: 0,
       latency_ms: 0,
       raw_model_response: null,
-    }).eq("request_id", idempotencyKey);
+    };
+    const { data: storedGrade, error: gradeStoreError } = await writeGradeResult(service, idempotencyKey, requestHash, gradePayload);
+    if (gradeStoreError || !storedGrade) {
+      console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: "mcq_rule", code: gradeStoreError?.code ?? "missing_row" });
+      const retryable = await checkpointGradeWrite(service, idempotencyKey, requestHash, operation, gradePayload);
+      return respond({ error: GRADE_STORE_FAILURE, retryable, ...(!retryable ? { reconciliation_required: true } : {}) }, { status: 500 });
+    }
 
     // STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 0 item 6 finding:
     // this write was previously fire-and-forget (no error captured), and a live
@@ -2622,10 +2779,12 @@ export async function handleEvaluateAttempt(
     }
   }
 
-  await service.schema("app")
-    .from("grading_results")
-    .update(updatePayload)
-    .eq("request_id", idempotencyKey);
+  const { data: storedGrade, error: gradeStoreError } = await writeGradeResult(service, idempotencyKey, requestHash, updatePayload);
+  if (gradeStoreError || !storedGrade) {
+    console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: routing.target, code: gradeStoreError?.code ?? "missing_row" });
+    const retryable = await checkpointGradeWrite(service, idempotencyKey, requestHash, operation, updatePayload);
+    return respond({ error: GRADE_STORE_FAILURE, retryable, ...(!retryable ? { reconciliation_required: true } : {}) }, { status: 500 });
+  }
 
   // Passive telemetry, best-effort: separate write so the main update above
   // keeps working against the pre-migration schema (see

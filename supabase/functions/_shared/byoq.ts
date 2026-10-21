@@ -1,3 +1,7 @@
+import { clientIp } from "./request-metadata.ts";
+export { clientIp } from "./request-metadata.ts";
+import { sha256Text as sha256Hex } from "./encoding.ts";
+export { sha256Text as sha256Hex } from "./encoding.ts";
 // BYOQ (bring-your-own-question) pure logic -- TASK-0039.
 //
 // Everything security- or policy-relevant that can be decided without a
@@ -91,10 +95,7 @@ export function isWellFormedCaptureHandle(value: unknown): value is string {
   return isWellFormed(BYOQ_CAPTURE_HANDLE_PREFIX, value);
 }
 
-export async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-  return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
-}
+
 
 export async function hmacSha256Hex(key: string, value: string) {
   const cryptoKey = await crypto.subtle.importKey(
@@ -115,12 +116,7 @@ export async function hmacSha256Hex(key: string, value: string) {
  * appended to (the rightmost hop is a rotating load balancer). So prefer
  * CF-Connecting-IP and fall back to the first X-Forwarded-For hop.
  */
-export function clientIp(req: Request): string | null {
-  const cf = req.headers.get("cf-connecting-ip")?.trim();
-  if (cf) return cf;
-  const first = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return first || null;
-}
+
 
 /** Constant-time string comparison for bearer-style secrets. */
 export function timingSafeEqual(a: string, b: string) {

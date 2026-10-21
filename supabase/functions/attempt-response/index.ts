@@ -1,3 +1,6 @@
+import { storageObjectFingerprint, attachmentBindError } from "../_shared/storage-primitives.ts";
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -159,17 +162,9 @@ const ASSISTANCE_STATES = new Set([
   "exam_practice",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
+
+
 
 function asRecord(value: unknown) {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -206,15 +201,7 @@ function asSubmittedCriteria(value: unknown): SubmittedCriterion[] | null {
   return parsed;
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 async function loadIdempotentResult(
   service: ReturnType<typeof createServiceClient>,
@@ -277,59 +264,11 @@ async function recordIdempotentResult(
 // at storagePath changed between two points in time -- not a general
 // storage read. Returns null if the object can't be found/listed, which the
 // caller treats as "changed" (fail closed).
-async function storageObjectFingerprint(
-  service: ReturnType<typeof createServiceClient>,
-  storagePath: string,
-): Promise<string | null> {
-  const slashIndex = storagePath.lastIndexOf("/");
-  const folder = slashIndex >= 0 ? storagePath.slice(0, slashIndex) : "";
-  const fileName = slashIndex >= 0
-    ? storagePath.slice(slashIndex + 1)
-    : storagePath;
-  const { data, error } = await service.storage
-    .from("learner-uploads")
-    .list(folder, { search: fileName, limit: 100 });
-  if (error || !data) return null;
-  const entry = data.find((item) => item.name === fileName);
-  if (!entry) return null;
-  return `${entry.updated_at ?? ""}:${
-    entry.metadata?.eTag ?? entry.metadata?.size ?? ""
-  }`;
-}
+
 
 function mapAttachCaptureError(message: string | undefined) {
-  const match = typeof message === "string"
-    ? message.match(/attach_capture:([a-z_]+)/)
-    : null;
-  if (!match) {
-    return { status: 500, body: { error: "attach_capture_failed" } };
-  }
-  const [, code] = match;
-  switch (code) {
-    case "no_current_original_to_replace":
-    case "stale_retake_target":
-    case "original_already_current":
-    case "derived_cannot_replace":
-      return { status: 409, body: { error: `attach_capture_${code}` } };
-    case "response_not_writable":
-      // Round-4 QA S1: app.bind_response_attachment's DB-level writability
-      // guard (migration 20260819120100) is shared by BOTH callers of the
-      // function, so this code is reachable here too -- not just from
-      // capture-pairing. The response version was submitted, or its attempt
-      // left an editable status, between this request's own writability check
-      // and the bind. That is a legitimate refusal, not a server fault, so it
-      // must be a 409 with the same code capture-pairing's mapBindError
-      // returns; without this case it fell through to a 500
-      // "attach_capture_failed" and would have been reported as our bug.
-      return { status: 409, body: { error: "response_already_submitted" } };
-    case "response_not_found":
-      // Also newly raised by the same guard (the response version disappeared,
-      // or its attempt row is gone). A 404 matches how every other
-      // response-not-found path in this function answers.
-      return { status: 404, body: { error: "response_not_found" } };
-    default:
-      return { status: 500, body: { error: "attach_capture_failed" } };
-  }
+  const mapped = attachmentBindError(message);
+  return { status: mapped.status, body: { error: mapped.code } };
 }
 
 function mapRecordManualGradeError(message: string | undefined) {

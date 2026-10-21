@@ -1,3 +1,5 @@
+import { trimmedNonEmptyString as asString } from "./input.ts";
+export { trimmedNonEmptyString as asString } from "./input.ts";
 import { createServiceClient } from "./supabase.ts";
 
 export type StudentMemoryState = Record<string, unknown>;
@@ -8,9 +10,7 @@ export function asRecord(value: unknown): Record<string, unknown> {
     : {};
 }
 
-export function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
 
 export function asStringArray(value: unknown) {
   if (Array.isArray(value)) {

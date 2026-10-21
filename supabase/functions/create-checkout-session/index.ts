@@ -1,3 +1,7 @@
+import { resolveCheckoutOffer, promotionDiscount, type OfferMode } from "../_shared/checkout-offer.ts";
+import { clientIp } from "../_shared/request-metadata.ts";
+import { requireEnv } from "../_shared/env.ts";
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { requireProfile } from "../_shared/auth.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
@@ -17,22 +21,10 @@ import {
   TrialError,
 } from "../_shared/trial-checkout.ts";
 
-type Mode = "single" | "bundle_2" | "bundle_3" | "unlimited";
+type Mode = OfferMode;
 type PurchaseType = "student_direct" | "parent_gift" | "legacy_authenticated";
 
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3", "unlimited"]);
-const REQUIRED_SUBJECT_COUNT: Record<"single" | "bundle_2" | "bundle_3", number> = {
-  single: 1,
-  bundle_2: 2,
-  bundle_3: 3,
-};
-
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) throw new Error(`Missing required environment variable: ${name}`);
-  return value;
-}
-
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 const PRICE_CATALOG: PriceCatalog = loadPriceCatalog();
 
@@ -48,80 +40,11 @@ function trialDeps(service: ReturnType<typeof createServiceClient>): TrialDeps {
   };
 }
 
-function clientIp(req: Request) {
-  return req.headers.get("cf-connecting-ip")?.trim() ||
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
-}
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value);
-  if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    ? email.toLowerCase()
-    : null;
-}
 
-function asSubjectKeys(value: unknown) {
-  if (!Array.isArray(value)) return null;
-  const keys = value.filter(
-    (entry): entry is string =>
-      typeof entry === "string" && entry.trim().length > 0,
-  ).map((entry) => entry.trim());
-  return keys.length === value.length ? keys : null;
-}
 
-function resolveOffer(mode: Mode, input: Record<string, unknown>) {
-  const catalog = PRICE_CATALOG;
-  if (mode === "unlimited") {
-    return { priceId: catalog.unlimited, subjectKeys: [] as string[] };
-  }
 
-  const keys = asSubjectKeys(input.subject_keys);
-  const requiredCount = REQUIRED_SUBJECT_COUNT[mode];
-  if (
-    !keys || keys.length !== requiredCount ||
-    new Set(keys).size !== keys.length
-  ) {
-    throw new Error("invalid_subject_keys");
-  }
-
-  const unknownKeys = keys.filter((key) => !catalog.subjects[key]);
-  if (unknownKeys.length > 0) {
-    const error = new Error("unknown_subject_keys") as Error & {
-      subjectKeys?: string[];
-    };
-    error.subjectKeys = unknownKeys;
-    throw error;
-  }
-
-  return {
-    subjectKeys: keys,
-    priceId: mode === "single"
-      ? catalog.subjects[keys[0]]
-      : mode === "bundle_2"
-      ? catalog.bundle_2
-      : catalog.bundle_3,
-  };
-}
-
-async function promotionDiscount(code: string | null) {
-  if (!code) return null;
-  const normalized = code.trim().toUpperCase();
-  if (!normalized) return null;
-
-  const list = await stripe.promotionCodes.list({
-    code: normalized,
-    active: true,
-    limit: 1,
-  });
-  const promotion = list.data[0];
-  if (!promotion) throw new Error("promo_code_invalid");
-  return promotion.id;
-}
 
 async function optionalProfile(req: Request) {
   try {
@@ -157,9 +80,9 @@ Deno.serve(async (req) => {
     ? "parent_gift"
     : "legacy_authenticated";
 
-  let offer: ReturnType<typeof resolveOffer>;
+  let offer: ReturnType<typeof resolveCheckoutOffer>;
   try {
-    offer = resolveOffer(mode, input);
+    offer = resolveCheckoutOffer(PRICE_CATALOG, mode, input.subject_keys);
   } catch (error) {
     const e = error as Error & { subjectKeys?: string[] };
     return respond(
@@ -301,7 +224,7 @@ Deno.serve(async (req) => {
 
   let promotionCodeId: string | null = null;
   try {
-    promotionCodeId = await promotionDiscount(asString(input.promo_code));
+    promotionCodeId = await promotionDiscount(stripe, asString(input.promo_code));
   } catch (error) {
     return respond(
       { error: error instanceof Error ? error.message : "promo_code_invalid" },

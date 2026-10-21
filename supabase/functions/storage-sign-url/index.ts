@@ -1,3 +1,7 @@
+import { trimmedNonEmptyString as asString, coercedInteger as asInteger } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
+import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
+import { isSafeStoragePath, ownsLearnerPath } from "../_shared/storage-paths.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -17,43 +21,26 @@ const allowedBuckets = new Set([
   "validation-artifacts",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asInteger(value: unknown) {
-  const parsed = Number(value);
-  return Number.isInteger(parsed) ? parsed : null;
-}
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest)).map((byte) =>
-    byte.toString(16).padStart(2, "0")
-  ).join("");
-}
 
-function isSafeStoragePath(path: string) {
-  return path.length > 0 &&
-    !path.startsWith("/") &&
-    !path.includes("..") &&
-    !path.includes("\\") &&
-    !path.includes("//") &&
-    !path.includes("\0");
-}
+
+
+
+
 
 async function loadProfile(req: Request) {
   return await requireProfile(req);
 }
 
-function ownsLearnerPath(userId: string, path: string) {
-  return path.split("/")[0] === userId;
-}
 
-Deno.serve(async (req) => {
+
+export type StorageSignUrlDeps = {
+  requireProfile?: typeof requireProfile;
+  service?: ReturnType<typeof createServiceClient>;
+};
+
+export async function handleStorageSignUrl(req: Request, deps: StorageSignUrlDeps = {}): Promise<Response> {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -98,14 +85,14 @@ Deno.serve(async (req) => {
     return respond({ error: "missing_idempotency_key" }, { status: 400 });
   }
 
-  const profileResult = await loadProfile(req);
+  const profileResult = await (deps.requireProfile ?? loadProfile)(req);
   if (!profileResult) {
     return respond({ error: "unauthorized" }, { status: 401 });
   }
 
   const role = profileResult.profile.role as string;
   const userId = profileResult.user.id;
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
   const requestHash = await sha256Hex(JSON.stringify(body));
 
   if (!canAccessBucket(role, bucket, mode)) {
@@ -125,42 +112,15 @@ Deno.serve(async (req) => {
     return respond({ error: "forbidden_path" }, { status: 403 });
   }
 
-  // Scope the lookup to (request_id, reason_code) to match the composite
-  // unique index added in migration 202606210001. Same request_id reused
-  // for a different mode/operation is a separate audit row, not a conflict.
-  const { data: existing, error: existingError } = await service.schema("app")
-    .from("audit_events")
-    .select("request_id, reason_code, metadata")
-    .eq("request_id", idempotencyKey)
-    .eq("reason_code", mode)
-    .maybeSingle();
-
-  if (existingError) {
-    return respond({ error: "storage_audit_lookup_failed" }, { status: 500 });
-  }
-
-  if (existing) {
-    const metadata = existing.metadata && typeof existing.metadata === "object"
-      ? existing.metadata as Record<string, unknown>
-      : null;
-    if (!metadata || metadata.request_hash !== requestHash) {
-      return respond({ error: "idempotency_conflict" }, { status: 409 });
-    }
-
-    return respond(
-      {
-        status: "ok",
-        function: "storage-sign-url",
-        mode,
-        result: metadata.result ?? null,
-      },
-      { status: 200 },
-    );
-  }
-
   const storage = service.storage.from(bucket);
 
   try {
+    const claim = await claimReplay(service, { actorId: userId, requestId: idempotencyKey, requestHash, operation: mode });
+    // Signers are safe to repeat AFTER authorization and hash/actor validation.
+    // Delete replays never perform the deletion again.
+    if (claim.kind === "replay" && mode === "sign_delete") {
+      return respond({ status: "ok", function: "storage-sign-url", mode, result: claim.result });
+    }
     if (mode === "sign_delete") {
       if (role !== "admin") {
         return respond({ error: "forbidden" }, { status: 403 });
@@ -177,7 +137,7 @@ Deno.serve(async (req) => {
         deleted: true,
       };
 
-      await service.schema("app").from("audit_events").insert({
+      if (claim.kind === "claimed") await completeReplay(service, claim.claimToken, {
         audit_event_id: crypto.randomUUID(),
         occurred_at: new Date().toISOString(),
         actor_type: "human",
@@ -224,7 +184,7 @@ Deno.serve(async (req) => {
         expires_in: Math.max(60, Math.min(expiresIn, 86400)),
       };
 
-      await service.schema("app").from("audit_events").insert({
+      if (claim.kind === "claimed") await completeReplay(service, claim.claimToken, {
         audit_event_id: crypto.randomUUID(),
         occurred_at: new Date().toISOString(),
         actor_type: "human",
@@ -272,7 +232,7 @@ Deno.serve(async (req) => {
       expires_in: expiresIn,
     };
 
-    await service.schema("app").from("audit_events").insert({
+    if (claim.kind === "claimed") await completeReplay(service, claim.claimToken, {
       audit_event_id: crypto.randomUUID(),
       occurred_at: new Date().toISOString(),
       actor_type: "human",
@@ -306,6 +266,7 @@ Deno.serve(async (req) => {
       { status: 200 },
     );
   } catch (error) {
+    if (error instanceof ReplayError) return respond({ error: error.code }, { status: error.status });
     const message = error instanceof Error
       ? error.message
       : "storage_sign_url_failed";
@@ -323,4 +284,6 @@ Deno.serve(async (req) => {
       { status: 500 },
     );
   }
-});
+}
+
+if (import.meta.main) Deno.serve((req) => handleStorageSignUrl(req));

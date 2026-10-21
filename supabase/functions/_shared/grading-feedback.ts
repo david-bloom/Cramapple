@@ -1,3 +1,5 @@
+import { stringOrNull as asString } from "./input.ts";
+export { stringOrNull as asString } from "./input.ts";
 export type FeedbackCriterionRow = {
   criterion_key: string;
   learner_facing_text: string;
@@ -61,9 +63,7 @@ export type SanitizationNormalization = {
   to: FeedbackCriterionResult["status"];
 };
 
-export function asString(value: unknown) {
-  return typeof value === "string" ? value : null;
-}
+
 
 // Model-written text is stored and shown to students. Models occasionally emit
 // stray control characters: the 2026-10-14 TASK-0074 pilot saw U+001A, U+007F

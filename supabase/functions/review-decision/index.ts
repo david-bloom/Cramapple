@@ -1,3 +1,6 @@
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
+import { checkedDatabase, RequiredDatabaseError } from "../_shared/checked-database.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -34,17 +37,9 @@ const IMAGE_APPROVAL_VALUES = new Set([
   "missing",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
+
+
 
 function asStringArray(value: unknown) {
   if (!Array.isArray(value)) return [];
@@ -60,15 +55,7 @@ function asBool(value: unknown) {
   return null;
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);
@@ -103,7 +90,7 @@ async function loadProfile(req: Request) {
 // reader_question, score 2 (Edit+recycle)  → flag modification_reserved
 // reader_question, score 3 (Exclude)       → flag excluded
 
-async function advanceWorkflow(
+export async function advanceWorkflow(
   service: ReturnType<typeof createServiceClient>,
   assignment: Record<string, unknown>,
   decision: Record<string, unknown>,
@@ -117,12 +104,12 @@ async function advanceWorkflow(
 
   if (reviewStage === "tutor_question" && blindGroupId) {
     // Check whether both tutor assignments for this blind group are submitted.
-    const { data: groupAssignments } = await service
+    const { data: groupAssignments } = await checkedDatabase(service
       .schema("app")
       .from("content_review_assignments")
       .select("content_review_assignment_id, reviewer_id, status")
       .eq("blind_group_id", blindGroupId)
-      .eq("review_stage", "tutor_question");
+      .eq("review_stage", "tutor_question"), "workflow_group_assignments");
 
     const allSubmitted =
       groupAssignments?.length === 2 &&
@@ -135,12 +122,12 @@ async function advanceWorkflow(
       (a) => a.content_review_assignment_id,
     );
 
-    const { data: groupDecisions } = await service
+    const { data: groupDecisions } = await checkedDatabase(service
       .schema("app")
       .from("content_review_decisions")
       .select("content_review_assignment_id, tutor_score, difficulty_label")
       .in("content_review_assignment_id", groupIds)
-      .order("submitted_at", { ascending: false });
+      .order("submitted_at", { ascending: false }), "workflow_group_decisions");
 
     // Use only the most recent decision per assignment (handles supersedes).
     const seenAssignments = new Set<string>();
@@ -172,13 +159,13 @@ async function advanceWorkflow(
       // machine. Skip the reader stage entirely; go straight to the terminal
       // review_status the reader_question branch would have set on approval.
       if (reviewKind === "mcq") {
-        await service.schema("app").from("content_item_versions")
+        await checkedDatabase(service.schema("app").from("content_item_versions")
           .update({ review_status: "mcq_answer_review_complete" })
-          .eq("id", versionId);
+          .eq("id", versionId).select("id").single(), "review_status_mcq_answer_review_complete");
       } else {
-        await service.schema("app").from("content_item_versions")
+        await checkedDatabase(service.schema("app").from("content_item_versions")
           .update({ review_status: "question_review_approved" })
-          .eq("id", versionId);
+          .eq("id", versionId).select("id").single(), "review_status_question_review_approved");
       }
 
       // Difficulty label disagreement is no longer a publish-blocking state
@@ -190,14 +177,14 @@ async function advanceWorkflow(
       // a difficulty-label disagreement is metadata to note, not a reason to
       // block publish.
     } else if (aggregate === 3) {
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "modification_reserved" })
-        .eq("id", versionId);
+      await checkedDatabase(service.schema("app").from("content_item_versions")
+          .update({ review_status: "modification_reserved" })
+          .eq("id", versionId).select("id").single(), "review_status_modification_reserved");
     } else {
       // aggregate 4-6
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "excluded" })
-        .eq("id", versionId);
+      await checkedDatabase(service.schema("app").from("content_item_versions")
+          .update({ review_status: "excluded" })
+          .eq("id", versionId).select("id").single(), "review_status_excluded");
     }
   }
 
@@ -241,13 +228,14 @@ async function advanceWorkflow(
         // The fan-out below still runs, so a reviewer CAN still do the
         // secondary per-choice pass if someone wants to use it later; it
         // just no longer blocks publish.
-        const { data: originalTutorAssignments } = await service
+        const { data: originalTutorAssignments, error: optionalTutorError } = await service
           .schema("app")
           .from("content_review_assignments")
           .select("reviewer_id, blind_group_id, created_by")
           .eq("content_item_version_id", versionId)
           .eq("review_stage", "tutor_question");
 
+        if (optionalTutorError) console.warn("review-decision:optional_tutor_read_failed", { code: optionalTutorError.code });
         const tutorIds = [
           ...new Set(
             (originalTutorAssignments ?? []).map((a) => a.reviewer_id),
@@ -268,38 +256,39 @@ async function advanceWorkflow(
         }));
 
         if (answerAssignments.length > 0) {
-          await service.schema("app")
+          const { error: optionalFanoutError } = await service.schema("app")
             .from("content_review_assignments")
             .upsert(answerAssignments, {
               onConflict: "content_item_version_id,reviewer_id,review_stage",
               ignoreDuplicates: true,
             });
+          if (optionalFanoutError) console.warn("review-decision:optional_tutor_fanout_failed", { code: optionalFanoutError.code });
         }
 
-        await service.schema("app").from("content_item_versions")
+        await checkedDatabase(service.schema("app").from("content_item_versions")
           .update({ review_status: "mcq_answer_review_complete" })
-          .eq("id", versionId);
+          .eq("id", versionId).select("id").single(), "review_status_mcq_answer_review_complete");
       } else {
         // FRQ: question review approved.
-        await service.schema("app").from("content_item_versions")
+        await checkedDatabase(service.schema("app").from("content_item_versions")
           .update({ review_status: "question_review_approved" })
-          .eq("id", versionId);
+          .eq("id", versionId).select("id").single(), "review_status_question_review_approved");
       }
     } else if (isRecycle) {
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "modification_reserved" })
-        .eq("id", versionId);
+      await checkedDatabase(service.schema("app").from("content_item_versions")
+          .update({ review_status: "modification_reserved" })
+          .eq("id", versionId).select("id").single(), "review_status_modification_reserved");
     } else if (isExclude) {
-      await service.schema("app").from("content_item_versions")
-        .update({ review_status: "excluded" })
-        .eq("id", versionId);
+      await checkedDatabase(service.schema("app").from("content_item_versions")
+          .update({ review_status: "excluded" })
+          .eq("id", versionId).select("id").single(), "review_status_excluded");
     }
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-Deno.serve(async (req) => {
+export async function handleReviewDecision(req: Request, deps: { service?: ReturnType<typeof createServiceClient>; requireProfile?: typeof loadProfile } = {}): Promise<Response> {
   const respond = (body: unknown, init: ResponseInit = {}) =>
     jsonResponse(body, init, req);
 
@@ -316,7 +305,7 @@ Deno.serve(async (req) => {
     return respond({ error: "invalid_json" }, { status: 400 });
   }
 
-  const profileResult = await loadProfile(req);
+  const profileResult = await (deps.requireProfile ?? loadProfile)(req);
   if (!profileResult) {
     return respond({ error: "forbidden" }, { status: 403 });
   }
@@ -337,7 +326,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  const service = createServiceClient();
+  const service = deps.service ?? createServiceClient();
 
   const { data: assignment, error: assignmentError } = await service
     .schema("app")
@@ -680,16 +669,21 @@ Deno.serve(async (req) => {
     }
   }
 
-  // Advance the workflow server-side. Errors here are non-fatal for the
-  // reviewer — the decision is already immutably recorded.
+  // The decision is already committed. A workflow failure needs reconciliation;
+  // never acknowledge the whole operation as successful or invite a blind retry.
   try {
     await advanceWorkflow(
       service,
       assignment as Record<string, unknown>,
       insertedDecision as Record<string, unknown>,
     );
-  } catch (_err) {
-    // Log but don't surface to the reviewer.
+  } catch (error) {
+    console.error("review-decision:workflow_advance_failed", {
+      assignment_id: assignmentId,
+      step: error instanceof RequiredDatabaseError ? error.step : "advance_workflow",
+      code: error instanceof RequiredDatabaseError ? error.code : "unexpected_error",
+    });
+    return respond({ error: "workflow_advance_failed", decision_recorded: true, reconciliation_required: true, assignment_id: assignmentId }, { status: 500 });
   }
 
   return respond(
@@ -701,4 +695,6 @@ Deno.serve(async (req) => {
     },
     { status: 200 },
   );
-});
+}
+
+if (import.meta.main) Deno.serve((req) => handleReviewDecision(req));
