@@ -58,6 +58,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
 - APPROVAL-0153 — Deploy the TASK-0006 Lane A Figures to Production: `app.figures` + `app.figure_uses`, 10 AP Chemistry Figures, and `get_topic_point_guides` Returning `figures` (2026-10-10)
 - APPROVAL-0152 — Deploy TASK-0070 (Shared Reference Serving) to Production: `app.subject_reference_aliases` + `get_topic_point_guides` Union, Calculus BC Reads AB Units 1-8 (2026-10-10)
+- APPROVAL-0151 — Nearest-Topic Availability RPC + Worked-Example Figure Signing (Production) (2026-10-10)
 - APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
@@ -2208,6 +2209,24 @@ from app.unit_reference_entries where source_note like '%batch=<name>%');` then
 **Not in scope:** follow-up **F1** — the anonymous BYOQ path reads the `public.unit_reference_entries` and
 `public.topic_memory_hooks` views rather than this RPC, so a signed-out visitor still sees nothing for
 aliased AP Calculus BC. Unchanged by this approval.
+
+## APPROVAL-0151 — Nearest-Topic Availability RPC + Worked-Example Figure Signing (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session): "I approve both backend changes for Production". Before that he asked for the nearest-topic suggestion: "we should recommend a choice of the closest unused question behind or in front of the unit/topic which doesn't have content".  
+**Related:** commit `2fde897d`; unsent Lovable prompt `docs/handoffs/LOVABLE_PROMPT_NEAREST_TOPIC_FIGURE_SEEN_2026_10_10.md`; `APPROVAL-0145`.  
+**Decision:** Approved
+
+**Scope:**
+1. **Migration `20261010160000_practice_topic_availability`:** adds `public.get_practice_topic_availability(p_exam_pack_version_id, p_item_type, p_practice_format)`, which is read-only, `security definer`, and granted to authenticated and service_role. It returns per-topic `availableNow`/`availableLater`/`unlocksAtUnit` using `select_student_practice_items`' predicate. Pre-validation, read-only on Production data: for a real AP Chemistry student, per-topic counts are identical to the selector (39/39 across 1.1–1.8).
+2. **`student-session-items` deployed from `2fde897d`:** adds the `teaching_image` branch. It resolves the Open Hand teaching item through `get_open_hand_teaching_item` as the caller, then signs only that item's stimulus path with the service role, and only when its alt text is approved (staff QA excepted). No learning session is needed. 37/37 tests pass. The only change since the deployed v39 (`919ad68f`) is this branch in `index.ts`; no bundled `_shared` file changed.
+
+**Production verification (2026-10-10):**
+- **RPC:** applied; ledger row `20261010160000`. As a real AP Chemistry student it returns all 91 topics with currentUnit 1. Unit 1 `availableNow` matches the pre-validation (1.1→7 … 1.8→4), and Unit 2 topics show `availableLater` with `unlocksAtUnit` 2. Anon is refused: permission denied.
+- **`student-session-items`:** deployed as v40 (`verify_jwt` off, as before). `teaching_image` with no user → 401; an invalid topic code → 400 `missing_required_fields`; the ordinary path with no user → 401.
+- **Not exercised live:** the signed-in figure path. No teaching item has a figure in Production; that path is covered by the 37 unit tests.
+
+**Rollback:** `drop function public.get_practice_topic_availability(uuid, text, text);` and delete ledger row `20261010160000`; redeploy `student-session-items` from `919ad68f`.
 
 ## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
 

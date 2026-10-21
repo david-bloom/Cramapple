@@ -1,4 +1,4 @@
-# Session close: every `kind='diagram'` entry now has a figure, and one batch is still waiting
+# Session close: every figure that has been built is live in Production
 
 **STATUS:** CURRENT, 2026-10-12. **Governed by:** `FIGURE_PRODUCTION_PROTOCOL.md` v1.9.
 **Continues:** `SESSION_CLOSE_2026_10_11_LANE_A_GAPS_AND_LANE_B.md`, which stops before
@@ -7,33 +7,32 @@
 **The headline:** the count of published `kind='diagram'` reference entries with no figure went
 **5 → 0 in Production**. That number was 41 when this programme started.
 
-**The thing not to lose:** `function_plot` — 19 figures over 15 entries — is built, gated, ported,
-merged and **sitting in Development only**. It is the entire current difference between the two
-environments, and it is why **AP Precalculus and AP Calculus AB still have no figure in
-Production**. See §8.
+**Both environments now agree**, and every figure built in this programme is live:
 
 | | Development | Production |
 |---|---:|---:|
-| published figures | 73 | **54** |
-| renderer families | 23 | **22** |
-| uses | 81 | **62** |
-| entries covered | 71 | **56** |
+| published figures | 73 | **73** |
+| renderer families | 23 | **23** |
+| uses | 81 | **81** |
+| entries covered | 71 | **71** |
 | `kind='diagram'` entries with no figure | 0 | **0** |
 
-The difference is exactly `function_plot`. Every figure that *is* in Production is drawn by a
-renderer costing nothing at serve time, and was verified reaching a real authenticated student.
+`function_plot` was loaded last (`APPROVAL-0163`), giving **AP Precalculus and AP Calculus AB their
+first figures of any kind**. Every figure is drawn by a renderer costing nothing at serve time, and
+each batch was verified reaching a real authenticated student.
 
 ## 1. What shipped in this stretch
 
 | Batch | Figures | New families | Approval | State |
 |---|---:|---|---|---|
 | AP Statistics `density_curve` | 10 | `density_curve` | `APPROVAL-0160` | **Live in Production** |
-| Precalculus / Calculus AB `function_plot` | 19 | `function_plot` | — | **Development only** |
+| Precalculus / Calculus AB `function_plot` | 19 | `function_plot` | `APPROVAL-0163` | **Live in Production** |
 | **Lane B gaps** | **5** | `organelle`, `dna_ladder`, `membrane_bilayer`, `electrochemical_cell` | **`APPROVAL-0162`** | **Live in Production** |
 
-`function_plot` would give AP Precalculus and AP Calculus AB their first figures of any kind — once
-it is loaded. It never was. This was asserted as live in the first draft of this document and
-corrected by querying `app.figures` per family in both environments rather than trusting the claim.
+`function_plot` gives AP Precalculus and AP Calculus AB their first figures of any kind. The first
+draft of this document asserted it was already live; it was not, and querying `app.figures` per
+family in **both** environments is what caught that. It was loaded under `APPROVAL-0163` an hour
+later — and preparing that load turned up the defect in §6a, which was worse than the delay.
 
 ### The five Lane B gaps, and the §4.4 decision behind them
 
@@ -142,6 +141,28 @@ offset 50934 now following the curve emit at 50886. Only then did the load run.
   had pinned the broken behaviour was corrected rather than deleted. Check
   `git log <last-published>..main` before pressing publish.
 
+## 6a. The defect found while loading `function_plot`, which is the session's sharpest lesson
+
+The committed load file was a **snapshot generated before that batch's own gate-4c corrections**,
+and every load uses `insert ... on conflict (figure_id) do nothing` — so re-running one is a
+**no-op, not a repair**. Development had therefore been serving three rows the readers rejected,
+with the corrections sitting in `specs.json` and nowhere else:
+
+| figure | what it was serving |
+|---|---|
+| `precalc-concavity` | alt described a −3 to 3 interval for a −2 to 2 window, and said the curve rises throughout the left region |
+| `calcab-scale-hides-behaviour-wide` | alt mis-stated the near-origin feature's size and over-claimed about reading a limit off the picture |
+| `calcab-scale-hides-behaviour-zoom` | subtitle said "a thousand times smaller" for a window ~13× narrower and 10,000× finer |
+
+Those are exactly the three gate 4c flagged. **The gate worked; the fix never reached the
+database.** Both environments were brought to the **authored source** rather than to each other —
+Production loaded from the regenerated file, Development's three rows updated in place — and all 19
+rows in both now match `specs.json` by `md5(alt)` and `md5(subtitle)`.
+
+**Comparing the two environments to each other would have shown them agreeing on the wrong text.**
+Protocol §6 now says: regenerate immediately before loading, and verify per figure against
+`specs.json`, never against the other environment.
+
 ## 7. Mistakes worth recording
 
 - **"Lane B is complete except the AP Biology four" was wrong and I said it about five times.**
@@ -159,25 +180,18 @@ offset 50934 now following the curve emit at 50886. Only then did the load run.
 
 ## 8. What is left
 
-1. **Load `function_plot` to Production.** The highest-value item on this list: 19 figures, 15
-   entries, and the only figures AP Precalculus and AP Calculus AB would have. Built, three gates
-   passed, ported at byte parity and merged — and never loaded. The load SQL is
-   `scripts/lane-a-pilot/out/load_function_plot.sql`; it resolves entries by natural key, so it is
-   portable. The app already knows the family (verified in the live bundle), so the usual
-   publish-before-load ordering is already satisfied. Needs its own approval.
-2. **Nobody has looked at `field_map`, `circuit_symbols` or the three `xy_series` gap figures.**
+1. **Nobody has looked at `field_map`, `circuit_symbols` or the three `xy_series` gap figures.**
    They pass every gate and are live and serving. Gate 4b is the one gate a human must perform, and
    for these it has never been performed.
-3. **~81 chart-shaped entries live outside `kind='diagram'`** — in `vocabulary`, `convention`,
+2. **~81 chart-shaped entries live outside `kind='diagram'`** — in `vocabulary`, `convention`,
    `formula` and `list_sequence`. `kind` was never the right lane filter. They are classified in
    `LANE_A_GAP_CLASSIFICATION_2026_10_11.md` and are **not built**. This is the next lane of work
    and is larger than everything above.
-4. **A signed-in look at the five new figures.** The Product Owner has confirmed four earlier
+3. **A signed-in look at the new figures.** The Product Owner has confirmed four earlier
    figures drawing live; these five have been verified by query and by contact sheet, not by eye in
    the real app.
 
 **Next Owner:** David Bloom.
-**Next Required Action:** approve the `function_plot` Production load — it is finished work sitting
-idle, and two whole subjects have no figures without it. Then a signed-in look at AP Biology 1.6 /
-2.3 / 3.4 / 3.5 and AP Chemistry 9.8, and a decision on whether the ~81 non-`diagram` entries become
-the next lane.
+**Next Required Action:** a signed-in look at the new figures — AP Biology 1.6 / 2.3 / 3.4 / 3.5,
+AP Chemistry 9.8, and any AP Precalculus topic — then a decision on whether the ~81 non-`diagram`
+entries become the next lane. Nothing is blocked on an approval.
