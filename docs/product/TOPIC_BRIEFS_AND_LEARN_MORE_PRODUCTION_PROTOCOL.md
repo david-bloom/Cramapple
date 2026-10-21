@@ -147,6 +147,144 @@ Topic explainer required fields:
 - `source_note`
 - `status`
 
+## Sequential Unit Authoring
+
+Author a unit in topic order unless an explicitly scoped prototype requires a
+later topic. Before drafting each topic, maintain a unit content ledger with:
+
+- concepts, vocabulary, formulas, representations, and answer moves already
+  introduced;
+- the topic where each item was first introduced;
+- items that are genuinely new in the current topic;
+- prior items that require retrieval, application, extension, or correction;
+- shared material assigned to the unit reference instead of repeated on topic
+  cards.
+
+Each topic Deep Dive should teach the instructional delta. It may briefly cue a
+prior idea when needed, but should link or refer back instead of redefining it.
+The distinction must be explicit in the authoring packet:
+
+- `new_here`: first introduced in this topic;
+- `builds_on`: previously introduced and necessary for the current task;
+- `unit_reference`: shared reference material not owned by the topic;
+- `future_topic`: related content that belongs later in the sequence.
+
+The completed topic packet updates the ledger before authoring begins on the
+next topic. This cumulative record is an editorial production artifact; it does
+not require a production schema change.
+
+## Phase 0: Consolidated Current Content
+
+Before rewriting or restructuring content, Deep Dive may act as the single
+student-facing compilation of the current reusable unit/topic guidance. Phase 0
+is a presentation and editorial-inventory step, not a schema migration and not
+a transfer of runtime authority.
+
+For each topic, assemble a local derived packet from the current unit/topic
+point brief and explainer fields. Preserve every source value and its provenance,
+then render the relevant material together in Deep Dive. Prefer derivation at
+build or render time over maintaining a second manually synchronized copy. When
+a temporary manual copy is necessary, label it with its source field, source
+version or migration, and extraction date.
+
+Phase 0 may include:
+
+- topic `what_it_is`, `why_it_matters`, `how_points_are_earned`, `answer_move`,
+  and `common_point_loss`;
+- topic explainer concepts, scoring guidance, mini-example, response contrast,
+  misconception, and practice bridge;
+- reusable unit/topic instructional guidance shown beside an Open Hand item,
+  when that guidance comes from the approved topic-guide sources;
+- links or compact previews for unit-owned reference material.
+
+Phase 0 must not copy item-specific Open Hand answer content into Deep Dive,
+including canonical answers, correct choices, rationales, worked solutions,
+rubric evidence requirements, accepted variants, or minimum fixes. Those fields
+remain behind the Open Hand access and scoring-exclusion contract.
+
+Phase 0 acceptance requires:
+
+- one complete student-facing place to read the currently approved reusable
+  guidance for the selected unit/topic;
+- source provenance for every imported block;
+- no silent rewriting during extraction;
+- no new database columns, migrations, or production content authority;
+- an explicit duplicate-content report for the later editorial phase;
+- a freshness rule so the compilation cannot silently drift from its sources.
+
+For the prototype, the local parsed JSON packet is the editable compilation and
+the existing database rows remain authoritative. Production implementation
+should fetch or generate the compilation from those rows until a separately
+approved content model replaces them.
+
+## Phase 1 Website Pilot
+
+The confirmed Phase 1 pilot is:
+
+- subject: AP Statistics;
+- unit: Unit 1, Exploring One-Variable Data and Collecting Data;
+- topic: 1.7, Summary Statistics for One Quantitative Variable;
+- channel: responsive website only;
+- boxing prototype: `docs/product/AP_STATS_1_7_DEEP_DIVE_WEBSITE_PILOT.html`;
+- Phase 0 lightweight comparison:
+  `docs/product/AP_STATS_1_7_DEEP_DIVE_PHASE0_LIGHTWEIGHT.html`;
+- Open Hand rail comparison, preserving the boxing content unchanged:
+  `docs/product/AP_STATS_1_7_DEEP_DIVE_WITH_OPEN_HAND.html`.
+
+The pilot uses the published 1.7 topic point brief and topic explainer as its
+runtime-content baseline and the approved AP Statistics fact pack as grounding.
+Because it begins at 1.7 rather than 1.1, classifications of `new_here` and
+`builds_on` are provisional. The pilot tests the box structure and editing
+workflow; it does not establish the final Unit 1 content ledger.
+The website separates three levels:
+
+- a compact topic summary containing the core idea, primary answer move,
+  progress state, note state, and practice action;
+- a focused Topic Deep Dive with `Understand`, `Score it`, and `See it`
+  sections;
+- a linked Unit 1 reference for shared formulas, vocabulary, representation
+  guidance, cross-topic traps, and unit notes.
+
+The Topic Deep Dive must not duplicate the complete Unit 1 reference. Topic
+content may show formulas or vocabulary introduced or directly needed in 1.7,
+with the complete reference remaining unit-owned.
+
+### Website Row Limits
+
+Row limits are authoring and layout constraints, not permission to hide required
+meaning. Every production box must declare its row limit at each supported
+responsive width. If reviewed copy exceeds the limit, rewrite it or move
+supporting detail to the appropriate Deep Dive or unit-reference block. Do not
+silently ellipsize instructional content.
+
+| Content box | Maximum rows | Overflow treatment |
+| --- | ---: | --- |
+| Topic title | 2 | Rewrite only when the approved title has an approved short display title; never truncate the topic code. |
+| Topic summary | 3 | Reduce to one core idea. |
+| Primary answer move | 3 | Move supporting detail into `Score it`. |
+| Unit-reference preview | 3 | Name only the available unit-level categories. |
+| Deep Dive section title | 2 | Rewrite the heading. |
+| Concept paragraph | 4 each | Split into a new reviewed block; do not ellipsize. |
+| Formula explanation | 2 | Move derivation or caveats to the unit reference. |
+| Answer-step title | 1 | Use one action per step. |
+| Answer-step body | 3 | Move explanation to the surrounding section. |
+| Misconception block | 4 | Keep the mistake and correction together; rewrite if over. |
+| Worked-example prompt | 4 | Shorten context without changing the task. |
+| Weak response | 4 | Move analysis to `Why it works`. |
+| Stronger response | 4 | Move analysis to `Why it works`. |
+| `Why it works` block | 4 | Keep only the scoring-relevant distinction. |
+| Notes title | 2 | Use the approved short topic title after the full breadcrumb. |
+| Student-authored note | Unlimited | Use a scrollable editor; never clamp student text. |
+
+The pilot is accepted only when representative desktop, tablet, and mobile
+screens demonstrate that every box stays within its limit without overlap,
+layout shift, inaccessible hidden text, or loss of required instructional
+meaning.
+
+PDF and Google Docs are a later presentation phase. They will use the same
+reviewed content fields but may distribute them across multiple pages instead
+of inheriting website row limits or tab behavior.
+
 ## Provenance Requirements
 
 Every row must carry enough provenance to explain why it exists and how it was

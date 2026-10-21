@@ -1,0 +1,286 @@
+{
+  "pilot": {
+    "status": "prototype_only",
+    "subjectKey": "ap_statistics",
+    "unitNumber": 1,
+    "unitTitle": "Exploring One-Variable Data and Collecting Data",
+    "topicCode": "1.7",
+    "topicTitle": "Summary Statistics for One Quantitative Variable",
+    "shortDisplayTitle": "Summary Statistics",
+    "contentVersion": "pilot-1",
+    "schemaImpact": "none",
+    "phase0Mode": "derived student-facing compilation; production source rows remain authoritative",
+    "sequenceCaveat": "This prototype starts at 1.7. Without completed 1.1-1.6 authoring packets and a cumulative Unit 1 ledger, new-versus-prior classifications remain provisional."
+  },
+  "source": {
+    "productionMigration": "supabase/migrations/20260827120000_ap_statistics_unit1_score_impact_topic_guides.sql",
+    "factPack": "docs/product/AP_STATISTICS_2027_CED_FACT_PACK.md",
+    "candidateSupplement": "User-supplied Gemini summary received 2026-10-05; useful for gap analysis but not an authoritative curriculum source",
+    "productionReviewStatus": "published; source_note says pending SME review"
+  },
+  "raw": {
+    "brief": {
+      "whatItIs": "Score-impact skill: choose and interpret summary statistics based on what they measure and whether they resist outliers. Mean and standard deviation are sensitive; median and IQR are resistant.",
+      "whyItMatters": "The reason this skill matters here is that a correct calculation is not enough if the answer does not label the statistic and explain what it means for the data.",
+      "howPointsAreEarned": "A strong answer names the statistic, shows or states the relevant value, labels the variable and units, and explains why that statistic fits the distribution or question.",
+      "answerMove": "Open hand: ask, \"Am I describing center, spread, position, or outliers, and which statistic does that job?\"",
+      "commonPointLoss": "Reporting a summary number without labeling what it summarizes, or using a nonresistant statistic when the question calls attention to outliers or skew."
+    },
+    "explainer": {
+      "coreIdea": "The score-impact move is choosing the statistic that matches the job: center, spread, position, or resistance to outliers.",
+      "whatStudentsNeedToUnderstand": "Summary statistics are point-earning only when the student labels what they summarize and interprets them with units and context.",
+      "howThisBecomesPoints": "Students protect points by showing the value, naming the statistic, including units when available, and explaining why that statistic fits the distribution or question.",
+      "answerMove": "Open hand: ask, \"Am I describing center, spread, position, or outliers, and which statistic does that job?\"",
+      "miniExampleQuestion": "A dataset of home prices has one extremely expensive house. Which center should a student report for a typical price?",
+      "weakAnswer": "Use the mean because it uses all the numbers.",
+      "pointAttainingAnswer": "Use the median to describe a typical price because it is resistant to the extremely expensive house. The mean would be pulled upward by the outlier.",
+      "commonPointLoss": "Reporting a summary number without labeling what it summarizes, or using a nonresistant statistic when the question calls attention to outliers or skew.",
+      "practiceBridge": "When outliers are present, ask whether the question wants a resistant summary before choosing mean or median."
+    },
+    "factPack": {
+      "concepts": [
+        "mean",
+        "median",
+        "range",
+        "interquartile range",
+        "sample standard deviation",
+        "sample variance",
+        "outlier rules",
+        "resistant and nonresistant statistics"
+      ],
+      "formulas": [
+        "x-bar = (1/n) sum(x_i)",
+        "range = max - min",
+        "IQR = Q3 - Q1",
+        "s = sqrt((1/(n-1)) sum((x_i - x-bar)^2))",
+        "sample variance = s^2",
+        "low outlier: x < Q1 - 1.5(IQR)",
+        "high outlier: x > Q3 + 1.5(IQR)",
+        "alternate outlier rule: more than 2 standard deviations from the mean"
+      ]
+    }
+  },
+  "candidateContentTriage": {
+    "status": "editorial input only; do not treat as approved source copy",
+    "adoptForTopic1_7AfterRewrite": [
+      "mean and median definitions",
+      "range and IQR definitions",
+      "sample variance and sample standard deviation",
+      "1.5 x IQR outlier fences",
+      "resistant versus nonresistant classification"
+    ],
+    "routeToTopic1_8": [
+      "five-number summary",
+      "mean-versus-median relationships for symmetric, right-skewed, and left-skewed distributions"
+    ],
+    "notConfirmedForTopic1_7ByFactPack": [
+      "mode as a required Topic 1.7 concept",
+      "quartile calculation conventions stated as the median of each half"
+    ],
+    "missingFromCandidateSummary": [
+      "the second documented outlier rule: more than 2 standard deviations from the mean",
+      "the documented error of averaging two group medians to estimate a combined median",
+      "the need to connect a numerical statistic to its contextual justification"
+    ],
+    "wordingCorrections": [
+      "Use the sample formula with denominator n - 1 when defining sample variance; avoid calling it simply the average squared deviation.",
+      "Describe the 1.5 x IQR results as potential outliers.",
+      "Treat mean and standard deviation versus median and IQR as a reasoned choice based on shape and unusual values, not an absolute command."
+    ]
+  },
+  "sequenceClassification": {
+    "status": "provisional until Topics 1.1-1.6 are authored sequentially",
+    "allowedValues": {
+      "new_here": "First introduced in this topic.",
+      "builds_on": "Introduced earlier and needed for the current task.",
+      "unit_reference": "Shared material owned by the unit-level reference.",
+      "future_topic": "Related material that belongs in a later topic."
+    },
+    "currentKnownBoundary": {
+      "future_topic": [
+        "five-number summary in Topic 1.8",
+        "mean-versus-median shape relationships in Topic 1.8"
+      ],
+      "requiresSequentialLedger": [
+        "whether distribution shape needs only a retrieval cue in 1.7",
+        "whether quartile vocabulary was introduced before 1.7",
+        "which formulas should appear as new rather than unit-reference material"
+      ]
+    }
+  },
+  "phase0Aggregation": {
+    "viability": "high",
+    "purpose": "Present all current reusable unit/topic guidance in one Deep Dive surface before editorial restructuring.",
+    "implementation": "Extract or render from existing brief and explainer fields; do not create new production storage.",
+    "includedSourceClasses": [
+      "topic point brief fields",
+      "topic explainer fields",
+      "approved reusable unit/topic guidance shown alongside Open Hand",
+      "unit-reference links or previews"
+    ],
+    "excludedOpenHandItemFields": [
+      "canonical answers",
+      "correct choices",
+      "answer rationales",
+      "worked solutions",
+      "rubric evidence requirements",
+      "accepted variants",
+      "minimum fixes"
+    ],
+    "requiredControls": [
+      "source field provenance",
+      "source version or migration",
+      "extraction timestamp",
+      "freshness or drift check",
+      "duplicate-content report"
+    ]
+  },
+  "boxes": {
+    "topicSummary": {
+      "label": "Topic summary",
+      "title": "Summary Statistics",
+      "body": "Choose center or spread, then check whether outliers call for a resistant measure.",
+      "rowLimits": { "title": 2, "body": 3 },
+      "sourceFields": ["brief.whatItIs"],
+      "transformation": "condense",
+      "difficulty": "easy",
+      "review": "editorial"
+    },
+    "primaryAnswerMove": {
+      "label": "Primary answer move",
+      "body": "Name the statistic and value with units. Explain why it fits the distribution.",
+      "rowLimit": 3,
+      "sourceFields": ["brief.howPointsAreEarned", "brief.answerMove"],
+      "transformation": "remove wrapper and condense",
+      "difficulty": "easy",
+      "review": "editorial"
+    },
+    "coreIdea": {
+      "label": "Deep Dive",
+      "title": "Match the statistic to the job",
+      "paragraphs": [
+        "Summary statistics describe center, spread, position, and unusual values. Choose one that matches the question.",
+        "Mean and standard deviation are sensitive to extremes. Median and IQR resist them and often fit skewed data better."
+      ],
+      "rowLimits": { "title": 2, "paragraph": 4 },
+      "sourceFields": ["explainer.coreIdea", "explainer.whatStudentsNeedToUnderstand", "brief.whatItIs"],
+      "transformation": "deduplicate and split",
+      "difficulty": "moderate",
+      "review": "Learning Quality"
+    },
+    "topicFormulaReference": {
+      "label": "New in 1.7",
+      "items": [
+        {
+          "formula": "x-bar = (1/n) sum(x_i)",
+          "explanation": "Mean: center using every observed value."
+        },
+        {
+          "formula": "IQR = Q3 - Q1",
+          "explanation": "IQR: resistant spread of the middle 50%."
+        }
+      ],
+      "rowLimitPerExplanation": 2,
+      "sourceFields": ["factPack.formulas", "factPack.concepts"],
+      "transformation": "select and annotate",
+      "difficulty": "moderate",
+      "review": "SME",
+      "unitBoundary": "The complete formula collection remains unit-owned."
+    },
+    "answerSteps": {
+      "label": "Answer move",
+      "title": "Turn a calculated value into a complete statistical answer",
+      "steps": [
+        {
+          "title": "Name the job",
+          "body": "Decide whether the prompt asks about center, spread, position, outliers, or resistance."
+        },
+        {
+          "title": "Choose and report",
+          "body": "Name the statistic, show or state its value, and include units when they are available."
+        },
+        {
+          "title": "Justify the fit",
+          "body": "Explain why the statistic suits the distribution, especially when skew or outliers affect resistance."
+        }
+      ],
+      "rowLimits": { "title": 2, "stepTitle": 1, "stepBody": 3 },
+      "sourceFields": ["explainer.howThisBecomesPoints", "explainer.answerMove"],
+      "transformation": "split into ordered actions",
+      "difficulty": "moderate",
+      "review": "Learning Quality"
+    },
+    "misconceptions": {
+      "label": "Documented misconceptions",
+      "items": [
+        {
+          "mistake": "Reports a summary number without naming what it summarizes.",
+          "correction": "Name the statistic, variable, value, and units."
+        },
+        {
+          "mistake": "Uses a nonresistant statistic when skew or outliers matter.",
+          "correction": "Check whether median or IQR better matches the question."
+        }
+      ],
+      "rowLimitPerItem": 4,
+      "sourceFields": ["explainer.commonPointLoss", "brief.commonPointLoss"],
+      "transformation": "split and add correction",
+      "difficulty": "moderate",
+      "review": "SME"
+    },
+    "workedExample": {
+      "label": "Worked example",
+      "title": "Choose a typical value when one home price is extreme",
+      "prompt": "A dataset of home prices contains one extremely expensive house. Which measure of center should a student report to describe a typical home price?",
+      "weakResponse": {
+        "title": "Ignores resistance",
+        "body": "Use the mean because it uses all the numbers."
+      },
+      "strongerResponse": {
+        "title": "Matches statistic to distribution",
+        "body": "Use the median because it is resistant to the extremely expensive house. The mean would be pulled upward by that outlier."
+      },
+      "whyItWorks": "It names the median, links resistance to the outlier, and explains why the mean would be misleading.",
+      "rowLimits": { "title": 2, "prompt": 4, "response": 4, "whyItWorks": 4 },
+      "sourceFields": ["explainer.miniExampleQuestion", "explainer.weakAnswer", "explainer.pointAttainingAnswer"],
+      "transformation": "direct reuse plus authored analysis",
+      "difficulty": "easy except whyItWorks",
+      "review": "SME review for example; Learning Quality for whyItWorks"
+    },
+    "practiceBridge": {
+      "label": "Before practice",
+      "body": "Before choosing a statistic, ask: What job must it do, and does the distribution call for resistance?",
+      "rowLimit": 3,
+      "sourceFields": ["explainer.practiceBridge", "explainer.answerMove"],
+      "transformation": "combine and condense",
+      "difficulty": "easy",
+      "review": "editorial"
+    },
+    "notes": {
+      "label": "My notes",
+      "title": "1.7 Summary Statistics",
+      "scope": "topic",
+      "rowLimits": { "title": 2, "studentText": null },
+      "sourceFields": [],
+      "transformation": "product functionality",
+      "difficulty": "easy locally; moderate for authenticated persistence",
+      "review": "privacy and access-control review before persistence"
+    }
+  },
+  "unitLevelMissing": [
+    "Unit 1 overview",
+    "Unit 1 topic map and progress",
+    "complete Unit 1 formula sheet",
+    "Unit 1 vocabulary index",
+    "representation-selection guide",
+    "cross-topic misconceptions",
+    "Unit 1 notes"
+  ],
+  "editingRules": [
+    "Edit values in boxes, not raw source fields.",
+    "Keep raw source fields unchanged for traceability.",
+    "If content exceeds a row limit, rewrite or move it; do not silently truncate required meaning.",
+    "Do not label a checklist as an official rubric unless an approved source supports that claim.",
+    "Do not promote the pilot shape to a production schema without separate approval."
+  ]
+}

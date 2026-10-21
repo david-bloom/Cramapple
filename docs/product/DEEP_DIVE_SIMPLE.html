@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Dive Notes — Simple</title>
+</head>
+<body>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&amp;family=Passion+One:wght@400;700&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+--orange-600:#f54900;--orange-700:#ca3500;--orange-800:#a32a00;
+--blue-050:#eaf1fb;--blue-100:#cbdcf4;--blue-600:#1f56a8;--blue-700:#16407e;
+--green-500:#2f9c67;--green-600:#257d52;--green-700:#1a5b3c;
+--purple-050:#f1eefb;--purple-100:#ded6f4;--purple-600:#5f43ba;--purple-700:#472f92;
+--maroon-050:#f6eaec;--maroon-600:#8a2f3f;--maroon-700:#6d2432;
+--teal-500:#2a8a92;--teal-600:#1f6c72;
+--ink-900:#16202a;--ink-700:#2f3d49;--ink-500:#5b6b78;--ink-400:#7d8c98;--ink-300:#a2aeb8;
+--paper-000:#ffffff;--paper-050:#f7f6f3;--paper-100:#efedea;
+--rule-200:#eceae6;--rule-300:#dedbd5;--rule-400:#c7c3bb;--rule-500:#a8a39a;
+--text-body:var(--ink-900);--text-secondary:var(--ink-500);--text-eyebrow:var(--ink-500);
+--text-earned:var(--blue-600);--text-lost:var(--maroon-600);--text-work:var(--purple-600);
+--cap-rubric:var(--blue-600);--cap-work:var(--purple-600);--cap-deepdive:var(--teal-500);
+--rule-pane:var(--rule-300);
+--wordmark-on-light:var(--orange-700);
+--action-quiet-bg:var(--paper-000);--action-quiet-border:var(--rule-400);--action-quiet-fg:var(--ink-500);
+}
+body{margin:0;font-family:"Source Sans 3",system-ui,-apple-system,sans-serif;color:var(--text-body);background:var(--paper-000)}
+a{color:var(--ink-500);text-underline-offset:3px;text-decoration-thickness:2px}
+a:hover{color:var(--ink-900)}
+h1,h2,h3{margin:0}
+p{margin:0}
+table{border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed}
+td{vertical-align:top;background:var(--paper-000);border:1px solid var(--rule-pane);padding:14px 16px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:700;letter-spacing:0;text-transform:uppercase;color:var(--text-eyebrow);margin:0}
+.title{font-family:"Passion One",system-ui,sans-serif;font-size:32px;line-height:34px;font-weight:700;color:var(--ink-900)}
+.h2{font-family:"Passion One",system-ui,sans-serif;font-size:22px;line-height:24px;font-weight:700;color:var(--ink-900)}
+.boxh{font-size:14px;line-height:20px;font-weight:700;letter-spacing:0;text-transform:uppercase;margin:0 0 8px}
+.bd{font-size:16px;line-height:24px;color:var(--text-body);text-wrap:pretty}
+.sec{font-size:16px;line-height:24px;color:var(--text-secondary);text-wrap:pretty}
+.btnq{font-family:inherit;font-size:16px;line-height:20px;font-weight:600;color:var(--action-quiet-fg);background:var(--action-quiet-bg);border:1px solid var(--action-quiet-border);border-radius:0;padding:10px 16px;cursor:pointer}
+.btnq:hover{color:var(--ink-900);border-color:var(--rule-500)}
+.rule{border:0;border-top:1px solid var(--rule-400);margin:0}
+sub{line-height:0;font-size:.75em;vertical-align:-.25em}
+.fulltext{column-count:1;column-gap:32px}
+.fulltext > div{break-inside:avoid;margin-bottom:18px}
+*{box-sizing:border-box;letter-spacing:0!important}
+.notes{width:100%;max-width:8.5in;margin:0 auto;background:white;padding:24px;display:flex;flex-direction:column;gap:20px;overflow-wrap:anywhere}
+.notes header{flex-wrap:wrap}
+.notes header > div{min-width:0;max-width:100%}
+.notes table,.notes tbody,.notes tr{display:block}
+.notes tr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.notes td{display:block;min-width:0;border-left:1px solid var(--rule-pane)!important}
+.copy-status{font-size:13px;line-height:18px;color:var(--ink-500)}
+@media(min-width:850px){.fulltext{column-count:2}}
+@media(max-width:520px){.notes{padding:16px}.notes header{gap:16px!important}.notes header > div:last-child{align-items:flex-start!important}.title{font-size:28px;line-height:32px}}
+@page{size:letter portrait;margin:1in}
+@media print{
+  .notes{display:block;max-width:none;width:auto;padding:0;margin:0;font-family:Arial,sans-serif}
+  .notes header{display:block!important;margin-bottom:12pt}
+  .notes header > div:last-child{display:none!important}
+  .notes .rule{margin:12pt 0!important}
+  .notes table{margin:0 0 10pt!important}
+  .notes tr{display:block}
+  .notes td{padding:8pt 10pt;margin-bottom:6pt;break-inside:avoid}
+  .notes .fulltext{column-count:1}
+  .notes .bd,.notes .sec{font-size:11pt;line-height:1.25}
+  .notes .boxh{font-size:10pt;line-height:1.2;margin-bottom:4pt}
+  .notes .fulltext > div{margin-bottom:10pt}
+  .notes .h2{margin:12pt 0 8pt;font-size:16pt}
+  .notes h1,.notes h2,.notes h3,.notes .eyebrow{break-after:avoid}
+  .notes p{orphans:3;widows:3}
+}
+</style>
+
+<main class="notes" id="notes">
+
+  <!-- HEADER -->
+  <header style="display: flex; align-items: flex-start; justify-content: space-between; gap: 40px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <p class="eyebrow">AP Statistics <span style="color: var(--ink-300)">·</span> Unit 3 <span style="color: var(--ink-300)">·</span> Topic 3.1</p>
+      <h1 class="title">Estimators</h1>
+      <p class="sec">4 October 2026</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px">
+      <span style="font-family: 'Bungee', system-ui, sans-serif; font-size: 22px; line-height: 24px; letter-spacing: .01em; color: var(--wordmark-on-light)">CRAMAPPLE</span>
+      <button class="btnq" id="copy-notes" type="button">Copy notes</button>
+      <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <!-- FIVE SECTIONS -->
+  <table role="presentation">
+    
+    <tbody>
+      <tr>
+        <td style="border-top: 3px solid var(--cap-deepdive)">
+          <h3 class="boxh" style="color: var(--teal-600)">Core idea</h3>
+          <p class="bd">p̂ is the point estimator of the population proportion p. Unbiasedness is a property of p̂'s sampling distribution across every possible sample of size n, not a property of any single sample's result. An unbiased estimator's distribution has mean exactly p (μ<sub>p̂</sub> = p).</p>
+        </td>
+        <td style="border-top: 3px solid var(--cap-deepdive); border-left: 0">
+          <h3 class="boxh" style="color: var(--teal-600)">What to understand</h3>
+          <p class="bd">Bias describes long-run behaviour over repeated sampling. A single sample landing far from the true p is completely consistent with p̂ being unbiased. Bias comes from a sampling method that systematically pulls one way.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table role="presentation" style="margin-top: -4px">
+    
+    <tbody>
+      <tr>
+        <td style="border-top: 3px solid var(--cap-rubric)">
+          <h3 class="boxh" style="color: var(--text-earned)">How points are earned</h3>
+          <p class="bd">Name p̂ as the estimator of the population parameter p. Explain unbiasedness as the estimator's average behaviour across repeated sampling, not any one sample's result. Keep sampling variability separate from bias.</p>
+        </td>
+        <td style="border-top: 3px solid var(--maroon-600); border-left: 0">
+          <h3 class="boxh" style="color: var(--text-lost)">How points are lost</h3>
+          <p class="bd">Calling one sample result biased because it is not exactly equal to the parameter. Explaining bias with a single sample instead of the sampling distribution.</p>
+        </td>
+        <td style="border-top: 3px solid var(--cap-work); border-left: 0">
+          <h3 class="boxh" style="color: var(--text-work)">The answer move</h3>
+          <p class="bd">Name the quantity, structure, condition or representation the prompt is really asking about. Identify the statistic as an estimator of a population parameter. Explain unbiasedness as no systematic over- or underestimation. Then do the arithmetic.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="rule" style="margin-top: 8px">
+
+  <!-- FULL DEEP DIVE TEXT -->
+  <h2 class="h2">Full deep dive</h2>
+
+  <section class="fulltext">
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Core idea</p>
+      <p class="bd">p̂ is the point estimator of the population proportion p, and unbiasedness is a property of the sampling distribution of p̂ across every possible sample of size n, not a property of any single sample's result. An unbiased estimator's sampling distribution has mean exactly equal to p (μ<sub>p̂</sub> = p, formalised in 3.2), even though almost every individual sample's p̂ will land somewhat above or below p by chance.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">What students need to understand</p>
+      <p class="bd">Because bias describes the estimator's long-run behaviour over repeated sampling, a single sample landing far from the true p is completely consistent with p̂ being unbiased. What would make p̂ biased is a sampling method that systematically pulls results in one direction — for example, a convenience sample that over-represents one group — not ordinary sample-to-sample variability.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">How this becomes points</p>
+      <p class="bd">Points require correctly naming p̂ as the estimator of the population parameter p, explaining unbiasedness in terms of the estimator's average behaviour across repeated sampling rather than any one sample's result, and not mistaking sampling variability (a single result differing from p) for bias (a systematic direction to that difference).</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Answer move</p>
+      <p class="bd">First name the quantity, structure, condition, or representation the prompt is really asking about; then identify the statistic as an estimator of a population parameter and explain unbiasedness as no systematic over- or underestimation before doing arithmetic or writing the final sentence.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Mini example</p>
+      <p class="bd">A citywide poll of n = 50 randomly selected voters finds p̂ = 0.58 support for a ballot measure. The true (but unknown to the pollster) population support is later revealed to be p = 0.52. A student is asked whether this poll's estimator was biased.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Weak answer</p>
+      <p class="bd">Since the poll's result of 0.58 doesn't match the true value of 0.52, the estimator p̂ must be biased.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Point-attaining answer</p>
+      <p class="bd">p̂ is an unbiased estimator of p regardless of this one result, because unbiasedness describes the mean of p̂'s sampling distribution across every possible random sample of size 50, which equals p = 0.52 (μ<sub>p̂</sub> = p) — not whether any single sample happens to land exactly on p. This particular sample's p̂ = 0.58 differing from p = 0.52 by 0.06 reflects ordinary sampling variability, not bias; bias would require the sampling method itself to systematically favour one outcome.</p>
+    </div>
+
+    <div>
+      <p class="eyebrow" style="margin-bottom: 6px">Common point loss</p>
+      <p class="bd">Calling one sample result biased just because it is not exactly equal to the parameter.</p>
+      <p class="bd" style="margin-top: 8px">Open practice and, for any biased-versus-unbiased question, ask whether the described issue is about one sample's distance from p (not bias) or the sampling method's systematic direction (bias).</p>
+    </div>
+  </section>
+
+</main>
+<script>
+// Export a separate document flow: clipboard consumers do not retain media queries.
+function buildNotesExport() {
+  const notes = document.getElementById('notes');
+  const output = document.createElement('div');
+  const append = (source, tag, style) => {
+    const element = document.createElement(tag);
+    element.innerHTML = source.innerHTML;
+    element.setAttribute('style', style);
+    output.append(element);
+  };
+  const body = 'font-family:Arial,sans-serif;font-size:11pt;line-height:1.25;color:#16202a;margin:0 0 7pt;orphans:3;widows:3;';
+  const heading = 'font-family:Arial,sans-serif;font-size:10pt;font-weight:bold;line-height:1.2;margin:10pt 0 4pt;page-break-after:avoid;break-after:avoid;';
+  const header = notes.querySelector('header');
+  append(header.querySelector('.eyebrow'), 'p', heading + 'color:#5b6b78;');
+  append(header.querySelector('h1'), 'h1', 'font-family:Arial,sans-serif;font-size:22pt;line-height:1.1;margin:0 0 6pt;color:#16202a;');
+  append(header.querySelector('.sec'), 'p', body + 'color:#5b6b78;');
+  const brand = document.createElement('p');
+  brand.textContent = 'CRAMAPPLE';
+  brand.setAttribute('style', heading + 'color:#ca3500;');
+  output.append(brand);
+  for (const cell of notes.querySelectorAll('td')) {
+    const title = cell.querySelector('h3');
+    const color = getComputedStyle(title).color;
+    append(title, 'h3', heading + 'color:' + color + ';border-top:2pt solid ' + color + ';padding-top:5pt;');
+    for (const paragraph of cell.querySelectorAll('p')) append(paragraph, 'p', body);
+  }
+  append(notes.querySelector('h2'), 'h2', 'font-family:Arial,sans-serif;font-size:16pt;line-height:1.2;margin:14pt 0 8pt;color:#16202a;page-break-after:avoid;break-after:avoid;');
+  for (const block of notes.querySelectorAll('.fulltext > div')) {
+    append(block.querySelector('.eyebrow'), 'h3', heading + 'color:#5b6b78;');
+    for (const paragraph of block.querySelectorAll('.bd')) append(paragraph, 'p', body);
+  }
+  for (const subscript of output.querySelectorAll('sub')) {
+    subscript.setAttribute('style', 'font-size:8pt;vertical-align:sub;');
+  }
+  // No width, fixed height, columns, or outer table: the destination owns pagination.
+  return { html: output.innerHTML, text: Array.from(output.children, element => element.textContent).join('\n\n') };
+}
+
+document.getElementById('copy-notes').addEventListener('click', async () => {
+  const button = document.getElementById('copy-notes');
+  const status = document.getElementById('copy-status');
+  const payload = buildNotesExport();
+  button.disabled = true;
+  status.textContent = '';
+  try {
+    let copied = false;
+    if (navigator.clipboard && window.ClipboardItem && window.isSecureContext) {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([payload.html], { type: 'text/html' }),
+          'text/plain': new Blob([payload.text], { type: 'text/plain' })
+        })]);
+        copied = true;
+      } catch (error) {
+        // Local-file browsers may deny the asynchronous clipboard API.
+      }
+    }
+    if (!copied) {
+      const onCopy = event => {
+        event.clipboardData.setData('text/html', payload.html);
+        event.clipboardData.setData('text/plain', payload.text);
+        event.preventDefault();
+      };
+      document.addEventListener('copy', onCopy);
+      try { copied = document.execCommand('copy'); }
+      finally { document.removeEventListener('copy', onCopy); }
+    }
+    status.textContent = copied ? 'Notes copied.' : 'Copy unavailable. Try another browser.';
+  } catch (error) {
+    status.textContent = 'Could not copy notes. Try again.';
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

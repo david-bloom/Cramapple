@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple - AP Statistics 3.1 Deep Dive Test</title>
+  <style>
+    :root {
+      --orange-050: #fff7ed;
+      --orange-600: #f54900;
+      --orange-700: #ca3500;
+      --orange-800: #a32a00;
+      --teal-050: #edf8f8;
+      --teal-500: #2a8a92;
+      --teal-700: #16565b;
+      --blue-050: #eaf1fb;
+      --blue-600: #1f56a8;
+      --green-050: #e9f5ee;
+      --green-600: #257d52;
+      --yellow-050: #fdf6e0;
+      --yellow-700: #775c04;
+      --maroon-050: #f6eaec;
+      --maroon-600: #8a2f3f;
+      --purple-050: #f1eefb;
+      --purple-600: #5f43ba;
+      --ink-900: #16202a;
+      --ink-700: #2f3d49;
+      --ink-500: #5b6b78;
+      --paper-000: #ffffff;
+      --paper-050: #f7f6f3;
+      --paper-100: #efedea;
+      --rule-200: #eceae6;
+      --rule-300: #dedbd5;
+      --rule-400: #c7c3bb;
+      --shadow-pane: 0 12px 30px rgba(20, 40, 50, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--paper-100);
+      color: var(--ink-900);
+      font-family: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    body { margin: 0; min-width: 320px; }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .masthead {
+      align-items: center;
+      background: var(--paper-050);
+      border-bottom: 1px solid var(--rule-300);
+      display: flex;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 8px 24px;
+    }
+
+    .wordmark {
+      color: var(--orange-700);
+      font-family: "Bungee", Impact, sans-serif;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .course { color: var(--ink-500); font-size: 14px; font-weight: 700; }
+
+    .breadcrumb {
+      background: var(--paper-000);
+      border-bottom: 1px solid var(--rule-300);
+      color: var(--ink-500);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 24px;
+      text-transform: uppercase;
+    }
+
+    .breadcrumb strong { color: var(--ink-900); }
+
+    .shell {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: minmax(230px, 280px) minmax(0, 1fr) minmax(260px, 330px);
+      margin: 0 auto;
+      max-width: 1440px;
+      padding: 18px 24px 28px;
+    }
+
+    .panel {
+      background: var(--paper-000);
+      border: 1px solid var(--rule-300);
+      box-shadow: var(--shadow-pane);
+      min-width: 0;
+    }
+
+    .cap { height: 3px; }
+    .cap-orange { background: var(--orange-600); }
+    .cap-teal { background: var(--teal-500); }
+    .cap-purple { background: var(--purple-600); }
+
+    .panel-body { padding: 18px; }
+
+    .eyebrow {
+      color: var(--ink-500);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin: 0 0 7px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: "Passion One", Impact, sans-serif; font-weight: 700; }
+    h1 { font-size: 30px; line-height: 1.05; margin-bottom: 10px; }
+    h2 { font-size: 25px; line-height: 1.1; margin-bottom: 14px; }
+    h3 { font-size: 19px; line-height: 1.15; margin-bottom: 8px; }
+    p { line-height: 1.55; }
+
+    .topic-code {
+      color: var(--teal-700);
+      font-family: "Passion One", Impact, sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .summary { color: var(--ink-700); font-size: 17px; }
+
+    .answer-move {
+      border-left: 3px solid var(--orange-600);
+      margin: 18px 0;
+      padding-left: 12px;
+    }
+
+    .answer-move strong { display: block; margin-bottom: 4px; }
+
+    .status-row {
+      align-items: center;
+      border-top: 1px solid var(--rule-200);
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      padding-top: 14px;
+    }
+
+    .status {
+      background: var(--green-050);
+      color: var(--green-600);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 7px;
+    }
+
+    .quiet-action {
+      background: var(--paper-000);
+      border: 1px solid var(--rule-400);
+      border-radius: 0;
+      color: var(--ink-700);
+      min-height: 42px;
+      padding: 8px 12px;
+    }
+
+    .primary-action {
+      background: var(--orange-700);
+      border: 1px solid var(--orange-700);
+      border-radius: 0;
+      color: white;
+      font-weight: 800;
+      min-height: 44px;
+      padding: 9px 15px;
+    }
+
+    .primary-action:hover { background: var(--orange-800); }
+
+    .unit-link {
+      background: var(--teal-050);
+      border: 1px solid #c8e3e4;
+      margin-top: 16px;
+      padding: 13px;
+    }
+
+    .unit-link p { color: var(--ink-700); font-size: 14px; margin-bottom: 10px; }
+
+    .tabs {
+      border-bottom: 1px solid var(--rule-300);
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .tab {
+      background: var(--paper-050);
+      border: 0;
+      border-right: 1px solid var(--rule-300);
+      border-radius: 0;
+      color: var(--ink-500);
+      flex: 1 0 auto;
+      font-weight: 800;
+      min-height: 48px;
+      padding: 10px 16px;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--paper-000);
+      box-shadow: inset 0 -3px var(--teal-500);
+      color: var(--ink-900);
+    }
+
+    .tab-panel { display: none; padding: 22px; }
+    .tab-panel.active { display: block; }
+
+    .source-flag {
+      background: var(--blue-050);
+      color: var(--blue-600);
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      padding: 4px 7px;
+      text-transform: uppercase;
+    }
+
+    .review-flag { background: var(--yellow-050); color: var(--yellow-700); }
+    .placeholder-flag { background: var(--maroon-050); color: var(--maroon-600); }
+
+    .formula-row {
+      align-items: baseline;
+      border-top: 1px solid var(--rule-200);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(120px, 180px) 1fr;
+      padding: 13px 0;
+    }
+
+    .formula {
+      font-family: "STIX Two Math", "Times New Roman", serif;
+      font-size: 23px;
+    }
+
+    .step {
+      border-top: 1px solid var(--rule-200);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 32px 1fr;
+      padding: 14px 0;
+    }
+
+    .step-number {
+      color: var(--teal-700);
+      font-family: "Passion One", Impact, sans-serif;
+      font-size: 25px;
+    }
+
+    .comparison {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 16px;
+    }
+
+    .comparison > div { border: 1px solid var(--rule-300); padding: 14px; }
+    .comparison .weak { border-top: 3px solid var(--maroon-600); }
+    .comparison .strong { border-top: 3px solid var(--green-600); }
+
+    .placeholder {
+      background: repeating-linear-gradient(-45deg, #fff, #fff 8px, #faf4f4 8px, #faf4f4 16px);
+      border: 1px dashed var(--maroon-600);
+      color: var(--ink-700);
+      padding: 14px;
+    }
+
+    .notes-head {
+      align-items: flex-start;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .scope {
+      background: var(--purple-050);
+      color: var(--purple-600);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 7px;
+      white-space: nowrap;
+    }
+
+    textarea {
+      border: 1px solid var(--rule-400);
+      border-radius: 0;
+      color: var(--ink-900);
+      line-height: 1.5;
+      min-height: 315px;
+      padding: 12px;
+      resize: vertical;
+      width: 100%;
+    }
+
+    textarea:focus { border-color: var(--purple-600); outline: 2px solid var(--purple-050); }
+
+    .save-row {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .save-state { color: var(--ink-500); font-size: 13px; }
+
+    .notice {
+      background: var(--yellow-050);
+      border-left: 3px solid #edb90d;
+      color: var(--ink-700);
+      font-size: 13px;
+      margin-top: 14px;
+      padding: 10px;
+    }
+
+    @media (max-width: 1050px) {
+      .shell { grid-template-columns: 240px minmax(0, 1fr); }
+      .notes { grid-column: 1 / -1; }
+      textarea { min-height: 180px; }
+    }
+
+    @media (max-width: 720px) {
+      .masthead, .breadcrumb { padding-left: 16px; padding-right: 16px; }
+      .shell { grid-template-columns: 1fr; padding: 12px 12px 24px; }
+      .notes { grid-column: auto; }
+      .comparison { grid-template-columns: 1fr; }
+      .formula-row { grid-template-columns: 1fr; gap: 4px; }
+      .tab { padding-left: 12px; padding-right: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wordmark">CRAMAPPLE</div>
+    <div class="course">AP Statistics · Learn</div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    AP Statistics &nbsp;/&nbsp; Unit 3 &nbsp;/&nbsp; <strong>3.1 Estimators</strong>
+  </nav>
+
+  <main class="shell">
+    <aside class="panel" aria-labelledby="topic-title">
+      <div class="cap cap-orange"></div>
+      <div class="panel-body">
+        <p class="eyebrow">Topic summary</p>
+        <div class="topic-code">3.1</div>
+        <h1 id="topic-title">Estimators</h1>
+        <p class="summary">A statistic estimates a population parameter. Unbiasedness describes where the statistic's sampling distribution is centered.</p>
+
+        <div class="answer-move">
+          <strong>Primary answer move</strong>
+          Name the statistic and parameter, then explain bias using the sampling distribution rather than one sample.
+        </div>
+
+        <div class="status-row">
+          <span class="status">Ready to study</span>
+          <span aria-label="One saved note">1 note</span>
+        </div>
+
+        <div class="unit-link">
+          <p class="eyebrow">Lives at unit level</p>
+          <p>Shared formulas, the Unit 3 vocabulary index, recurring rubric language, and cross-topic traps.</p>
+          <button class="quiet-action" type="button" id="unit-reference">Open Unit 3 reference</button>
+        </div>
+
+        <button class="primary-action" type="button" style="width:100%; margin-top:16px;">Start practicing 3.1</button>
+      </div>
+    </aside>
+
+    <section class="panel" aria-labelledby="deep-dive-title">
+      <div class="cap cap-teal"></div>
+      <div class="tabs" role="tablist" aria-label="Deep Dive sections">
+        <button class="tab" id="tab-understand" role="tab" aria-selected="true" aria-controls="understand">Understand</button>
+        <button class="tab" id="tab-score" role="tab" aria-selected="false" aria-controls="score">Score it</button>
+        <button class="tab" id="tab-example" role="tab" aria-selected="false" aria-controls="example">See it</button>
+      </div>
+
+      <article class="tab-panel active" id="understand" role="tabpanel" aria-labelledby="tab-understand">
+        <span class="source-flag">Existing instructional content · rewrite candidate</span>
+        <p class="eyebrow">Deep Dive</p>
+        <h2 id="deep-dive-title">Unbiased is about the distribution, not your sample</h2>
+        <p>The sample proportion <span class="formula">p&#770;</span> estimates the population proportion <span class="formula">p</span>. An estimator is unbiased when the mean of its sampling distribution equals the parameter it estimates.</p>
+        <p>An individual sample will usually fall above or below the true parameter by chance. That difference is sampling variability. Bias is a systematic tendency to overestimate or underestimate across repeated samples.</p>
+
+        <h3>New in 3.1</h3>
+        <div class="formula-row">
+          <div class="formula">p&#770; = x / n</div>
+          <div>The sample proportion: observed successes divided by sample size.</div>
+        </div>
+        <div class="formula-row">
+          <div class="formula">&#956;<sub>p&#770;</sub> = p</div>
+          <div>For an unbiased estimator, the sampling distribution is centered at the population proportion.</div>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="score" role="tabpanel" aria-labelledby="tab-score">
+        <span class="source-flag review-flag">Draft structure · Learning Quality review required</span>
+        <p class="eyebrow">Answer move</p>
+        <h2>Build the explanation in three moves</h2>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div><h3>Name the estimator</h3><p>State that <span class="formula">p&#770;</span> is a statistic used to estimate the population parameter <span class="formula">p</span>.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div><h3>Define unbiasedness</h3><p>Describe the mean of the sampling distribution across repeated samples of the same size.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div><h3>Separate variability from bias</h3><p>Explain that one sample missing the parameter does not establish a systematic direction.</p></div>
+        </div>
+
+        <div class="placeholder">
+          <span class="source-flag placeholder-flag">Missing reviewed field</span>
+          <h3>Official scoring-language boundary</h3>
+          <p>Lorem ipsum dolor sit amet. Replace with source-grounded guidance defining what Cramapple may call a scoring move without implying a fixed College Board rubric.</p>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="example" role="tabpanel" aria-labelledby="tab-example">
+        <span class="source-flag review-flag">Draft example · accuracy review required</span>
+        <p class="eyebrow">Worked example</p>
+        <h2>One result does not diagnose bias</h2>
+        <p>A citywide poll takes a random sample of 50 voters and obtains <span class="formula">p&#770; = 0.58</span>. The population proportion is later known to be <span class="formula">p = 0.52</span>. Does this difference show that the estimator is biased?</p>
+
+        <div class="comparison">
+          <div class="weak">
+            <p class="eyebrow">Weak response</p>
+            <h3>Focuses on one sample</h3>
+            <p>“Because 0.58 is not equal to 0.52, the estimator is biased.”</p>
+          </div>
+          <div class="strong">
+            <p class="eyebrow">Stronger response</p>
+            <h3>Uses the sampling distribution</h3>
+            <p>The difference in this sample is sampling variability. Bias concerns whether the estimator's sampling distribution is systematically centered away from the parameter.</p>
+          </div>
+        </div>
+
+        <div class="placeholder" style="margin-top:16px;">
+          <span class="source-flag placeholder-flag">Missing reviewed field</span>
+          <h3>Why this earns the point</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Replace with reviewed, source-grounded explanation tied to the approved scoring language.</p>
+        </div>
+      </article>
+    </section>
+
+    <aside class="panel notes" aria-labelledby="notes-title">
+      <div class="cap cap-purple"></div>
+      <div class="panel-body">
+        <div class="notes-head">
+          <div>
+            <p class="eyebrow">My notes</p>
+            <h2 id="notes-title">3.1 Estimators</h2>
+          </div>
+          <span class="scope">Topic note</span>
+        </div>
+        <textarea id="note" aria-label="Notes for AP Statistics topic 3.1" placeholder="Write what you want to remember about estimators..."></textarea>
+        <div class="save-row">
+          <span class="save-state" id="save-state">Saved in this browser</span>
+          <button class="quiet-action" id="clear-note" type="button">Clear</button>
+        </div>
+        <div class="notice">Prototype behavior: this note is stored only in this browser. Cross-device sync is part of the moderate-work plan.</div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+    const note = document.getElementById('note');
+    const saveState = document.getElementById('save-state');
+    const storageKey = 'cramapple.prototype.apstats.3.1.note';
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+        panels.forEach((panel) => panel.classList.toggle('active', panel.id === tab.getAttribute('aria-controls')));
+      });
+    });
+
+    note.value = localStorage.getItem(storageKey) || '';
+    note.addEventListener('input', () => {
+      saveState.textContent = 'Saving...';
+      localStorage.setItem(storageKey, note.value);
+      saveState.textContent = 'Saved in this browser';
+    });
+
+    document.getElementById('clear-note').addEventListener('click', () => {
+      if (!note.value || window.confirm('Clear this prototype note?')) {
+        note.value = '';
+        localStorage.removeItem(storageKey);
+        saveState.textContent = 'Note cleared';
+      }
+    });
+
+    document.getElementById('unit-reference').addEventListener('click', () => {
+      window.alert('Unit 3 reference is intentionally out of scope for this 3.1 test. It will hold shared formulas, vocabulary, recurring language, cross-topic traps, and unit notes.');
+    });
+  </script>
+</body>
+</html>

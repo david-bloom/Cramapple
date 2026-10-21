@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CramApple | AP Statistics 1.7 Deep Dive Phase 0</title>
+  <style>
+    :root {
+      --ink: #172235;
+      --muted: #5d6878;
+      --line: #d8dee8;
+      --paper: #ffffff;
+      --canvas: #f4f6f8;
+      --nav: #112842;
+      --accent: #d64b33;
+      --accent-soft: #fff0ec;
+      --teal: #087f7a;
+      --teal-soft: #e8f7f5;
+      --gold: #a66b00;
+      --gold-soft: #fff6db;
+      --radius: 8px;
+      --shadow: 0 8px 24px rgba(23, 34, 53, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      min-height: 58px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: white;
+      background: var(--nav);
+    }
+    .brand { font-size: 19px; font-weight: 800; }
+    .crumb { color: #c9d5e3; font-size: 13px; text-align: right; }
+
+    .layout {
+      width: min(1240px, calc(100% - 40px));
+      margin: 24px auto 48px;
+      display: grid;
+      grid-template-columns: minmax(210px, 250px) minmax(0, 1fr) minmax(220px, 280px);
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .side { position: sticky; top: 18px; }
+    .side-head, .notes-head { padding: 16px; border-bottom: 1px solid var(--line); }
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 6px; font-size: 22px; line-height: 1.2; letter-spacing: 0; }
+    h2 { margin-bottom: 8px; font-size: 19px; line-height: 1.25; letter-spacing: 0; }
+    h3 { margin-bottom: 6px; font-size: 15px; line-height: 1.3; letter-spacing: 0; }
+    p { margin-bottom: 10px; }
+    .muted { color: var(--muted); }
+    .topic-meta { font-size: 13px; color: var(--muted); }
+    .side-section { padding: 15px 16px; border-bottom: 1px solid var(--line); }
+    .side-section:last-child { border-bottom: 0; }
+    .side-section p:last-child { margin-bottom: 0; }
+    .action {
+      width: 100%;
+      min-height: 40px;
+      border: 0;
+      border-radius: 6px;
+      color: white;
+      background: var(--accent);
+      font-weight: 750;
+    }
+
+    .deep-dive { overflow: hidden; }
+    .deep-head {
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+    }
+    .badge {
+      flex: 0 0 auto;
+      padding: 4px 8px;
+      border: 1px solid #f0b7ab;
+      border-radius: 999px;
+      color: #963521;
+      background: var(--accent-soft);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .content-block { padding: 20px 22px; border-bottom: 1px solid var(--line); }
+    .content-block:last-child { border-bottom: 0; }
+    .callout {
+      padding: 14px 15px;
+      border-left: 4px solid var(--teal);
+      background: var(--teal-soft);
+    }
+    .callout p:last-child { margin-bottom: 0; }
+    .loss { border-left-color: var(--gold); background: var(--gold-soft); }
+    .steps { margin: 0; padding-left: 20px; }
+    .steps li { margin: 0 0 8px; padding-left: 3px; }
+    .steps li:last-child { margin-bottom: 0; }
+    .responses { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .response { padding: 14px; border: 1px solid var(--line); border-radius: 6px; }
+    .response.strong { border-color: #8bcac5; background: #f2fbfa; }
+    .response p:last-child { margin-bottom: 0; }
+    .source-note { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+
+    textarea {
+      width: 100%;
+      min-height: 310px;
+      padding: 14px;
+      resize: vertical;
+      border: 0;
+      border-radius: 0 0 var(--radius) var(--radius);
+      outline: none;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    textarea:focus { box-shadow: inset 0 0 0 2px var(--teal); }
+    .saved { color: var(--teal); font-size: 12px; font-weight: 700; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 220px minmax(0, 1fr); }
+      .notes { grid-column: 1 / -1; }
+      .notes.side { position: static; }
+      textarea { min-height: 150px; }
+    }
+    @media (max-width: 680px) {
+      .topbar { padding: 12px 16px; align-items: flex-start; }
+      .crumb { max-width: 180px; }
+      .layout { width: min(100% - 24px, 620px); margin-top: 12px; grid-template-columns: 1fr; }
+      .side { position: static; }
+      .deep-head { padding: 16px; }
+      .content-block { padding: 17px 16px; }
+      .responses { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">CramApple</div>
+    <div class="crumb">AP Statistics / Unit 1 / Topic 1.7</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel side" aria-label="Topic summary">
+      <div class="side-head">
+        <p class="eyebrow">Topic 1.7</p>
+        <h1>Summary Statistics</h1>
+        <div class="topic-meta">One quantitative variable</div>
+      </div>
+      <section class="side-section">
+        <h3>What it is</h3>
+        <p>Score-impact skill: choose and interpret summary statistics based on what they measure and whether they resist outliers. Mean and standard deviation are sensitive; median and IQR are resistant.</p>
+      </section>
+      <section class="side-section">
+        <h3>Why it matters</h3>
+        <p>The reason this skill matters here is that a correct calculation is not enough if the answer does not label the statistic and explain what it means for the data.</p>
+      </section>
+      <section class="side-section">
+        <h3>Primary answer move</h3>
+        <p>Open hand: ask, “Am I describing center, spread, position, or outliers, and which statistic does that job?”</p>
+      </section>
+      <section class="side-section">
+        <button class="action" type="button" id="practiceButton">Practice Topic 1.7</button>
+      </section>
+    </aside>
+
+    <article class="panel deep-dive">
+      <header class="deep-head">
+        <div>
+          <p class="eyebrow">Deep Dive Notes</p>
+          <h2>Current 1.7 guidance in one place</h2>
+          <p class="muted">A lightweight Phase 0 compilation of the current topic brief and explainer.</p>
+        </div>
+        <span class="badge">Phase 0</span>
+      </header>
+
+      <section class="content-block">
+        <h2>Core idea</h2>
+        <p>The score-impact move is choosing the statistic that matches the job: center, spread, position, or resistance to outliers.</p>
+        <p>Summary statistics earn points only when the student labels what they summarize and interprets them with units and context.</p>
+      </section>
+
+      <section class="content-block">
+        <h2>How this becomes points</h2>
+        <p>A strong answer names the statistic, shows or states the relevant value, labels the variable and units, and explains why that statistic fits the distribution or question.</p>
+        <p>Students protect points by showing the value, naming the statistic, including units when available, and explaining why that statistic fits the distribution or question.</p>
+      </section>
+
+      <section class="content-block">
+        <div class="callout">
+          <h3>Answer move</h3>
+          <p>Open hand: ask, “Am I describing center, spread, position, or outliers, and which statistic does that job?”</p>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <h2>See the difference</h2>
+        <p>A dataset of home prices has one extremely expensive house. Which measure of center should a student report for a typical price?</p>
+        <div class="responses">
+          <div class="response">
+            <h3>Weak answer</h3>
+            <p>Use the mean because it uses all the numbers.</p>
+          </div>
+          <div class="response strong">
+            <h3>Point-attaining answer</h3>
+            <p>Use the median to describe a typical price because it is resistant to the extremely expensive house. The mean would be pulled upward by the outlier.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <div class="callout loss">
+          <h3>Common point loss</h3>
+          <p>Reporting a summary number without labeling what it summarizes, or using a nonresistant statistic when the question calls attention to outliers or skew.</p>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <h2>Before practice</h2>
+        <p>When outliers are present, ask whether the question wants a resistant summary before choosing mean or median.</p>
+        <p class="source-note">Compiled from the current AP Statistics 1.7 topic brief and explainer. No new instructional claims were added.</p>
+      </section>
+    </article>
+
+    <aside class="panel side notes" aria-label="Student notes">
+      <div class="notes-head">
+        <p class="eyebrow">My notes</p>
+        <h2>1.7 Summary Statistics</h2>
+        <span class="saved" id="saveState">Saved locally</span>
+      </div>
+      <textarea id="notes" aria-label="Notes for Topic 1.7" placeholder="Write notes here..."></textarea>
+    </aside>
+  </main>
+
+  <script>
+    const noteKey = "cramapple.prototype.apstats.1.7.phase0.note";
+    const notes = document.getElementById("notes");
+    const saveState = document.getElementById("saveState");
+    notes.value = localStorage.getItem(noteKey) || "";
+    notes.addEventListener("input", () => {
+      saveState.textContent = "Saving...";
+      localStorage.setItem(noteKey, notes.value);
+      window.clearTimeout(window.phase0SaveTimer);
+      window.phase0SaveTimer = window.setTimeout(() => {
+        saveState.textContent = "Saved locally";
+      }, 350);
+    });
+    document.getElementById("practiceButton").addEventListener("click", () => {
+      window.alert("Practice routing is outside this content-comparison prototype.");
+    });
+  </script>
+</body>
+</html>

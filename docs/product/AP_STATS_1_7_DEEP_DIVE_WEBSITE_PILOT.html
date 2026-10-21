@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cramapple - AP Statistics 1.7 Deep Dive Website Pilot</title>
+  <style>
+    :root {
+      --orange-050: #fff7ed;
+      --orange-600: #f54900;
+      --orange-700: #ca3500;
+      --orange-800: #a32a00;
+      --teal-050: #edf8f8;
+      --teal-500: #2a8a92;
+      --teal-700: #16565b;
+      --blue-050: #eaf1fb;
+      --blue-600: #1f56a8;
+      --green-050: #e9f5ee;
+      --green-600: #257d52;
+      --yellow-050: #fdf6e0;
+      --yellow-700: #775c04;
+      --maroon-050: #f6eaec;
+      --maroon-600: #8a2f3f;
+      --purple-050: #f1eefb;
+      --purple-600: #5f43ba;
+      --ink-900: #16202a;
+      --ink-700: #2f3d49;
+      --ink-500: #5b6b78;
+      --paper-000: #ffffff;
+      --paper-050: #f7f6f3;
+      --paper-100: #efedea;
+      --rule-200: #eceae6;
+      --rule-300: #dedbd5;
+      --rule-400: #c7c3bb;
+      --shadow-pane: 0 12px 30px rgba(20, 40, 50, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--paper-100);
+      color: var(--ink-900);
+      font-family: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    body { margin: 0; min-width: 320px; }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .masthead {
+      align-items: center;
+      background: var(--paper-050);
+      border-bottom: 1px solid var(--rule-300);
+      display: flex;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 8px 24px;
+    }
+
+    .wordmark {
+      color: var(--orange-700);
+      font-family: "Bungee", Impact, sans-serif;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .course { color: var(--ink-500); font-size: 14px; font-weight: 700; }
+
+    .breadcrumb {
+      background: var(--paper-000);
+      border-bottom: 1px solid var(--rule-300);
+      color: var(--ink-500);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 24px;
+      text-transform: uppercase;
+    }
+
+    .breadcrumb strong { color: var(--ink-900); }
+
+    .shell {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: minmax(230px, 280px) minmax(0, 1fr) minmax(260px, 330px);
+      margin: 0 auto;
+      max-width: 1440px;
+      padding: 18px 24px 28px;
+    }
+
+    .panel {
+      background: var(--paper-000);
+      border: 1px solid var(--rule-300);
+      box-shadow: var(--shadow-pane);
+      min-width: 0;
+    }
+
+    .cap { height: 3px; }
+    .cap-orange { background: var(--orange-600); }
+    .cap-teal { background: var(--teal-500); }
+    .cap-purple { background: var(--purple-600); }
+
+    .panel-body { padding: 18px; }
+
+    .eyebrow {
+      color: var(--ink-500);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin: 0 0 7px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: "Passion One", Impact, sans-serif; font-weight: 700; }
+    h1 { font-size: 30px; line-height: 1.05; margin-bottom: 10px; }
+    h2 { font-size: 25px; line-height: 1.1; margin-bottom: 14px; }
+    h3 { font-size: 19px; line-height: 1.15; margin-bottom: 8px; }
+    p { line-height: 1.55; }
+
+    .row-limit {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+    }
+
+    .rows-1 { -webkit-line-clamp: 1; }
+    .rows-2 { -webkit-line-clamp: 2; }
+    .rows-3 { -webkit-line-clamp: 3; }
+    .rows-4 { -webkit-line-clamp: 4; }
+    .rows-5 { -webkit-line-clamp: 5; }
+
+    .topic-code {
+      color: var(--teal-700);
+      font-family: "Passion One", Impact, sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .summary { color: var(--ink-700); font-size: 17px; }
+
+    .answer-move {
+      border-left: 3px solid var(--orange-600);
+      margin: 18px 0;
+      padding-left: 12px;
+    }
+
+    .answer-move strong { display: block; margin-bottom: 4px; }
+
+    .status-row {
+      align-items: center;
+      border-top: 1px solid var(--rule-200);
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      padding-top: 14px;
+    }
+
+    .status {
+      background: var(--green-050);
+      color: var(--green-600);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 7px;
+    }
+
+    .quiet-action {
+      background: var(--paper-000);
+      border: 1px solid var(--rule-400);
+      border-radius: 0;
+      color: var(--ink-700);
+      min-height: 42px;
+      padding: 8px 12px;
+    }
+
+    .primary-action {
+      background: var(--orange-700);
+      border: 1px solid var(--orange-700);
+      border-radius: 0;
+      color: white;
+      font-weight: 800;
+      min-height: 44px;
+      padding: 9px 15px;
+    }
+
+    .primary-action:hover { background: var(--orange-800); }
+
+    .unit-link {
+      background: var(--teal-050);
+      border: 1px solid #c8e3e4;
+      margin-top: 16px;
+      padding: 13px;
+    }
+
+    .unit-link p { color: var(--ink-700); font-size: 14px; margin-bottom: 10px; }
+
+    .tabs {
+      border-bottom: 1px solid var(--rule-300);
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .tab {
+      background: var(--paper-050);
+      border: 0;
+      border-right: 1px solid var(--rule-300);
+      border-radius: 0;
+      color: var(--ink-500);
+      flex: 1 0 auto;
+      font-weight: 800;
+      min-height: 48px;
+      padding: 10px 16px;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--paper-000);
+      box-shadow: inset 0 -3px var(--teal-500);
+      color: var(--ink-900);
+    }
+
+    .tab-panel { display: none; padding: 22px; }
+    .tab-panel.active { display: block; }
+
+    .source-flag {
+      background: var(--blue-050);
+      color: var(--blue-600);
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      padding: 4px 7px;
+      text-transform: uppercase;
+    }
+
+    .review-flag { background: var(--yellow-050); color: var(--yellow-700); }
+    .placeholder-flag { background: var(--maroon-050); color: var(--maroon-600); }
+
+    .formula-row {
+      align-items: baseline;
+      border-top: 1px solid var(--rule-200);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(120px, 180px) 1fr;
+      padding: 13px 0;
+    }
+
+    .formula {
+      font-family: "STIX Two Math", "Times New Roman", serif;
+      font-size: 23px;
+    }
+
+    .step {
+      border-top: 1px solid var(--rule-200);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 32px 1fr;
+      padding: 14px 0;
+    }
+
+    .step-number {
+      color: var(--teal-700);
+      font-family: "Passion One", Impact, sans-serif;
+      font-size: 25px;
+    }
+
+    .comparison {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 16px;
+    }
+
+    .comparison > div { border: 1px solid var(--rule-300); padding: 14px; }
+    .comparison .weak { border-top: 3px solid var(--maroon-600); }
+    .comparison .strong { border-top: 3px solid var(--green-600); }
+
+    .placeholder {
+      background: repeating-linear-gradient(-45deg, #fff, #fff 8px, #faf4f4 8px, #faf4f4 16px);
+      border: 1px dashed var(--maroon-600);
+      color: var(--ink-700);
+      padding: 14px;
+    }
+
+    .notes-head {
+      align-items: flex-start;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .scope {
+      background: var(--purple-050);
+      color: var(--purple-600);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 7px;
+      white-space: nowrap;
+    }
+
+    textarea {
+      border: 1px solid var(--rule-400);
+      border-radius: 0;
+      color: var(--ink-900);
+      line-height: 1.5;
+      min-height: 315px;
+      padding: 12px;
+      resize: vertical;
+      width: 100%;
+    }
+
+    textarea:focus { border-color: var(--purple-600); outline: 2px solid var(--purple-050); }
+
+    .save-row {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .save-state { color: var(--ink-500); font-size: 13px; }
+
+    .notice {
+      background: var(--yellow-050);
+      border-left: 3px solid #edb90d;
+      color: var(--ink-700);
+      font-size: 13px;
+      margin-top: 14px;
+      padding: 10px;
+    }
+
+    .content-spec {
+      background: var(--paper-050);
+      border-top: 1px solid var(--rule-300);
+      margin-top: 20px;
+      padding: 20px 24px 28px;
+    }
+
+    .content-spec-inner { margin: 0 auto; max-width: 1392px; }
+    .content-spec table { border-collapse: collapse; width: 100%; }
+    .content-spec th, .content-spec td {
+      border: 1px solid var(--rule-300);
+      padding: 9px 11px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .content-spec th { background: var(--paper-000); }
+    .content-spec caption { color: var(--ink-500); margin-bottom: 10px; text-align: left; }
+
+    @media (max-width: 1050px) {
+      .shell { grid-template-columns: 240px minmax(0, 1fr); }
+      .notes { grid-column: 1 / -1; }
+      textarea { min-height: 180px; }
+    }
+
+    @media (max-width: 720px) {
+      .masthead, .breadcrumb { padding-left: 16px; padding-right: 16px; }
+      .shell { grid-template-columns: 1fr; padding: 12px 12px 24px; }
+      .notes { grid-column: auto; }
+      .comparison { grid-template-columns: 1fr; }
+      .formula-row { grid-template-columns: 1fr; gap: 4px; }
+      .tab { padding-left: 12px; padding-right: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wordmark">CRAMAPPLE</div>
+    <div class="course">AP Statistics · Learn</div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    AP Statistics &nbsp;/&nbsp; Unit 1 &nbsp;/&nbsp; <strong>1.7 Summary Statistics for One Quantitative Variable</strong>
+  </nav>
+
+  <main class="shell">
+    <aside class="panel" aria-labelledby="topic-title">
+      <div class="cap cap-orange"></div>
+      <div class="panel-body">
+        <p class="eyebrow">Topic summary</p>
+        <div class="topic-code">1.7</div>
+        <h1 class="row-limit rows-2" id="topic-title">Summary Statistics</h1>
+        <p class="summary row-limit rows-3">Choose center or spread, then check whether outliers call for a resistant measure.</p>
+
+        <div class="answer-move">
+          <strong>Primary answer move</strong>
+          <span class="row-limit rows-3">Name the statistic and value with units. Explain why it fits the distribution.</span>
+        </div>
+
+        <div class="status-row">
+          <span class="status">Ready to study</span>
+          <span aria-label="One saved note">1 note</span>
+        </div>
+
+        <div class="unit-link">
+          <p class="eyebrow">Lives at unit level</p>
+          <p class="row-limit rows-3">Shared formulas, vocabulary, representation guidance, and cross-topic traps.</p>
+          <button class="quiet-action" type="button" id="unit-reference">Open Unit 1 reference</button>
+        </div>
+
+        <button class="primary-action" type="button" style="width:100%; margin-top:16px;">Start practicing 1.7</button>
+      </div>
+    </aside>
+
+    <section class="panel" aria-labelledby="deep-dive-title">
+      <div class="cap cap-teal"></div>
+      <div class="tabs" role="tablist" aria-label="Deep Dive sections">
+        <button class="tab" id="tab-understand" role="tab" aria-selected="true" aria-controls="understand">Understand</button>
+        <button class="tab" id="tab-score" role="tab" aria-selected="false" aria-controls="score">Score it</button>
+        <button class="tab" id="tab-example" role="tab" aria-selected="false" aria-controls="example">See it</button>
+      </div>
+
+      <article class="tab-panel active" id="understand" role="tabpanel" aria-labelledby="tab-understand">
+        <span class="source-flag">Existing production content · source-grounded</span>
+        <p class="eyebrow">Deep Dive</p>
+        <h2 class="row-limit rows-2" id="deep-dive-title">Match the statistic to the job</h2>
+        <p class="row-limit rows-4">Summary statistics describe center, spread, position, and unusual values. Choose one that matches the question.</p>
+        <p class="row-limit rows-4">Mean and standard deviation are sensitive to extremes. Median and IQR resist them and often fit skewed data better.</p>
+
+        <h3>New in 1.7</h3>
+        <div class="formula-row">
+          <div class="formula">x&#772; = (1/n) &#8721;x<sub>i</sub></div>
+          <div class="row-limit rows-2">Mean: center using every observed value.</div>
+        </div>
+        <div class="formula-row">
+          <div class="formula">IQR = Q<sub>3</sub> - Q<sub>1</sub></div>
+          <div class="row-limit rows-2">IQR: resistant spread of the middle 50%.</div>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="score" role="tabpanel" aria-labelledby="tab-score">
+        <span class="source-flag">Existing answer move · sectioned for pilot</span>
+        <p class="eyebrow">Answer move</p>
+        <h2 class="row-limit rows-2">Turn a calculated value into a complete statistical answer</h2>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div><h3 class="row-limit rows-1">Name the job</h3><p class="row-limit rows-3">Decide whether the prompt asks about center, spread, position, outliers, or resistance.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div><h3 class="row-limit rows-1">Choose and report</h3><p class="row-limit rows-3">Name the statistic, show or state its value, and include units when they are available.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div><h3 class="row-limit rows-1">Justify the fit</h3><p class="row-limit rows-3">Explain why the statistic suits the distribution, especially when skew or outliers affect resistance.</p></div>
+        </div>
+
+        <div class="placeholder">
+          <span class="source-flag review-flag">Review gate</span>
+          <h3 class="row-limit rows-1">Documented misconception</h3>
+          <p class="row-limit rows-4">Do not report a number without naming what it summarizes. Do not default to a nonresistant statistic when the prompt emphasizes skew or outliers.</p>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="example" role="tabpanel" aria-labelledby="tab-example">
+        <span class="source-flag">Existing production example · source-grounded</span>
+        <p class="eyebrow">Worked example</p>
+        <h2 class="row-limit rows-2">Choose a typical value when one home price is extreme</h2>
+        <p class="row-limit rows-4">A dataset of home prices contains one extremely expensive house. Which measure of center should a student report to describe a typical home price?</p>
+
+        <div class="comparison">
+          <div class="weak">
+            <p class="eyebrow">Weak response</p>
+            <h3 class="row-limit rows-1">Ignores resistance</h3>
+            <p class="row-limit rows-4">“Use the mean because it uses all the numbers.”</p>
+          </div>
+          <div class="strong">
+            <p class="eyebrow">Stronger response</p>
+            <h3 class="row-limit rows-1">Matches statistic to distribution</h3>
+            <p class="row-limit rows-4">Use the median because it is resistant to the extremely expensive house. The mean would be pulled upward by that outlier.</p>
+          </div>
+        </div>
+
+        <div class="placeholder" style="margin-top:16px;">
+          <span class="source-flag review-flag">Moderate-work rewrite</span>
+          <h3 class="row-limit rows-1">Why the stronger response works</h3>
+          <p class="row-limit rows-4">It names the median, links resistance to the outlier, and explains why the mean would be misleading.</p>
+        </div>
+      </article>
+    </section>
+
+    <aside class="panel notes" aria-labelledby="notes-title">
+      <div class="cap cap-purple"></div>
+      <div class="panel-body">
+        <div class="notes-head">
+          <div>
+            <p class="eyebrow">My notes</p>
+            <h2 class="row-limit rows-2" id="notes-title">1.7 Summary Statistics</h2>
+          </div>
+          <span class="scope">Topic note</span>
+        </div>
+        <textarea id="note" aria-label="Notes for AP Statistics topic 1.7" placeholder="Write what you want to remember about choosing summary statistics..."></textarea>
+        <div class="save-row">
+          <span class="save-state" id="save-state">Saved in this browser</span>
+          <button class="quiet-action" id="clear-note" type="button">Clear</button>
+        </div>
+        <div class="notice">Prototype behavior: this note is stored only in this browser. Cross-device sync is part of the moderate-work plan.</div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="content-spec" aria-labelledby="content-spec-title">
+    <div class="content-spec-inner">
+      <p class="eyebrow">Prototype review specification</p>
+      <h2 id="content-spec-title">Row limits by content box</h2>
+      <table>
+        <caption>Rows are measured at each responsive layout's defined box width. Authoring must be revised when copy exceeds a limit; production must not silently hide required meaning.</caption>
+        <thead><tr><th>Box</th><th>Maximum rows</th><th>Overflow rule</th></tr></thead>
+        <tbody>
+          <tr><td>Topic title</td><td>2</td><td>Editorial rewrite; never truncate a topic code.</td></tr>
+          <tr><td>Topic summary</td><td>3</td><td>Rewrite to one core idea.</td></tr>
+          <tr><td>Primary answer move</td><td>3</td><td>Move supporting detail into Score it.</td></tr>
+          <tr><td>Unit-reference preview</td><td>3</td><td>Keep only the categories available at unit level.</td></tr>
+          <tr><td>Deep Dive section title</td><td>2</td><td>Rewrite the heading.</td></tr>
+          <tr><td>Concept paragraph</td><td>4 each</td><td>Split into a new reviewed block; do not ellipsize.</td></tr>
+          <tr><td>Formula explanation</td><td>2</td><td>Move derivation or caveats to the unit reference.</td></tr>
+          <tr><td>Answer-step title / body</td><td>1 / 3</td><td>Reduce to one action per step.</td></tr>
+          <tr><td>Misconception box</td><td>4</td><td>Keep mistake and correction together; rewrite if over.</td></tr>
+          <tr><td>Worked-example prompt</td><td>4</td><td>Shorten context without changing the task.</td></tr>
+          <tr><td>Weak / stronger response</td><td>4 each</td><td>Move scoring analysis to Why it works.</td></tr>
+          <tr><td>Why it works</td><td>4</td><td>Keep only the scoring-relevant distinction.</td></tr>
+          <tr><td>Notes title</td><td>2</td><td>Use the short topic title after the full breadcrumb.</td></tr>
+          <tr><td>Student note</td><td>Unlimited</td><td>Scrollable editor; never clamp student-authored text.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+    const note = document.getElementById('note');
+    const saveState = document.getElementById('save-state');
+    const storageKey = 'cramapple.prototype.apstats.1.7.note';
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+        panels.forEach((panel) => panel.classList.toggle('active', panel.id === tab.getAttribute('aria-controls')));
+      });
+    });
+
+    const requestedPanel = window.location.hash.slice(1);
+    const requestedTab = tabs.find((tab) => tab.getAttribute('aria-controls') === requestedPanel);
+    if (requestedTab) requestedTab.click();
+
+    note.value = localStorage.getItem(storageKey) || '';
+    note.addEventListener('input', () => {
+      saveState.textContent = 'Saving...';
+      localStorage.setItem(storageKey, note.value);
+      saveState.textContent = 'Saved in this browser';
+    });
+
+    document.getElementById('clear-note').addEventListener('click', () => {
+      if (!note.value || window.confirm('Clear this prototype note?')) {
+        note.value = '';
+        localStorage.removeItem(storageKey);
+        saveState.textContent = 'Note cleared';
+      }
+    });
+
+    document.getElementById('unit-reference').addEventListener('click', () => {
+      window.alert('The Unit 1 reference is the next Phase 1 surface. It will hold shared formulas, vocabulary, representation guidance, cross-topic traps, and unit notes.');
+    });
+  </script>
+</body>
+</html>
