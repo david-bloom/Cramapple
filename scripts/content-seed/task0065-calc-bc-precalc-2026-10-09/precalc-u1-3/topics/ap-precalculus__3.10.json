@@ -1,0 +1,693 @@
+{
+ "topic": {
+  "subject_key": "ap-precalculus",
+  "unit_number": 3,
+  "topic_code": "3.10",
+  "topic_title": "Trigonometric Equations and Inequalities"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-precalculus__3.10#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 5933,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 5930
+    },
+    "outputTokens": 522,
+    "outputTokenDetails": {
+     "textTokens": 412,
+     "reasoningTokens": 110
+    },
+    "totalTokens": 6455,
+    "raw": {
+     "input_tokens": 5933,
+     "input_tokens_details": {
+      "cache_write_tokens": 5930,
+      "cached_tokens": 0
+     },
+     "output_tokens": 522,
+     "output_tokens_details": {
+      "reasoning_tokens": 110
+     },
+     "total_tokens": 6455
+    },
+    "reasoningTokens": 110,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.10",
+    "topic_title": "Trigonometric Equations and Inequalities",
+    "stem": "Which set contains all solutions to sin x = −1/2 on the interval 0 ≤ x < 4π?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "{7π/6, 11π/6, 19π/6, 23π/6}",
+      "is_correct": true,
+      "rationale": "The reference angle is π/6, and sine is negative in Quadrants III and IV, giving 7π/6 and 11π/6 in the first cycle. Adding the period 2π to each gives 19π/6 and 23π/6, completing the solutions in the stated interval."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "{7π/6, 11π/6}",
+      "is_correct": false,
+      "rationale": "First-cycle-only error: These are both solutions in 0 ≤ x < 2π, but the stated interval includes a second complete cycle. The solutions obtained by adding 2π are missing. Fix: Add 2π to each solution and check whether it remains in the interval."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "{7π/6, 19π/6}",
+      "is_correct": false,
+      "rationale": "Missing-quadrant error: This set repeats the Quadrant III solution but omits the Quadrant IV solution in each cycle. Sine is negative in both quadrants, so one solution per cycle is insufficient. Fix: Identify both quadrants where sine is negative before generating repeated solutions."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "{π/6, 5π/6, 13π/6, 17π/6}",
+      "is_correct": false,
+      "rationale": "Sign error: These angles have sine equal to 1/2, not −1/2. The reference angle is appropriate, but Quadrants I and II give the wrong sign. Fix: Check the sine sign in each chosen quadrant against the equation."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 610,
+         "inputTokenDetails": {
+          "noCacheTokens": 610,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 640,
+         "raw": {
+          "input_tokens": 610,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2289,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 361,
+         "inputTokenDetails": {
+          "noCacheTokens": 361,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 347,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 317
+         },
+         "totalTokens": 708,
+         "raw": {
+          "thoughtsTokenCount": 317,
+          "promptTokenCount": 361,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 708,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 361
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 317,
+         "cachedInputTokens": 0
+        },
+        "ms": 4032,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 413,
+         "inputTokenDetails": {
+          "noCacheTokens": 157,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 349,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 329
+         },
+         "totalTokens": 762,
+         "raw": {
+          "prompt_tokens": 413,
+          "completion_tokens": 349,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 157,
+          "total_tokens": 762,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 329
+          }
+         },
+         "reasoningTokens": 329,
+         "cachedInputTokens": 256
+        },
+        "ms": 4945,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 180,
+         "inputTokenDetails": {
+          "noCacheTokens": 180,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 842,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 812
+         },
+         "totalTokens": 1022,
+         "raw": {
+          "input_tokens": 180,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 842,
+          "output_tokens_details": {
+           "reasoning_tokens": 812
+          },
+          "total_tokens": 1022
+         },
+         "reasoningTokens": 812,
+         "cachedInputTokens": 0
+        },
+        "ms": 11295,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10897,
+         "inputTokenDetails": {
+          "noCacheTokens": 885,
+          "cacheReadTokens": 10012,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 431,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 219
+         },
+         "totalTokens": 11328,
+         "raw": {
+          "input_tokens": 885,
+          "output_tokens": 431,
+          "output_tokens_details": {
+           "thinking_tokens": 219
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 10012,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 219,
+         "cachedInputTokens": 10012
+        },
+        "ms": 5068,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7234,
+         "inputTokenDetails": {
+          "noCacheTokens": 7234,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1158,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 895
+         },
+         "totalTokens": 8392,
+         "raw": {
+          "thoughtsTokenCount": 895,
+          "promptTokenCount": 7234,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 8392,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7234
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 895,
+         "cachedInputTokens": 0
+        },
+        "ms": 9378,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6606,
+         "inputTokenDetails": {
+          "noCacheTokens": 4046,
+          "cacheReadTokens": 2560
+         },
+         "outputTokens": 4882,
+         "outputTokenDetails": {
+          "textTokens": 139,
+          "reasoningTokens": 4743
+         },
+         "totalTokens": 11488,
+         "raw": {
+          "prompt_tokens": 6606,
+          "completion_tokens": 4882,
+          "prompt_cache_hit_tokens": 2560,
+          "prompt_cache_miss_tokens": 4046,
+          "total_tokens": 11488,
+          "prompt_tokens_details": {
+           "cached_tokens": 2560
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4743
+          }
+         },
+         "reasoningTokens": 4743,
+         "cachedInputTokens": 2560
+        },
+        "ms": 42599,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5658,
+         "inputTokenDetails": {
+          "noCacheTokens": 5658,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3480,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3323
+         },
+         "totalTokens": 9138,
+         "raw": {
+          "input_tokens": 5658,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3480,
+          "output_tokens_details": {
+           "reasoning_tokens": 3323
+          },
+          "total_tokens": 9138
+         },
+         "reasoningTokens": 3323,
+         "cachedInputTokens": 0
+        },
+        "ms": 22322,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6367,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6364
+         },
+         "outputTokens": 208,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 36
+         },
+         "totalTokens": 6575,
+         "raw": {
+          "input_tokens": 6367,
+          "input_tokens_details": {
+           "cache_write_tokens": 6364,
+           "cached_tokens": 0
+          },
+          "output_tokens": 208,
+          "output_tokens_details": {
+           "reasoning_tokens": 36
+          },
+          "total_tokens": 6575
+         },
+         "reasoningTokens": 36,
+         "cachedInputTokens": 0
+        },
+        "ms": 5731,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-precalculus__3.10#r1-openai",
+ "accepted_at": "2026-10-09T16:40:12.640Z"
+}

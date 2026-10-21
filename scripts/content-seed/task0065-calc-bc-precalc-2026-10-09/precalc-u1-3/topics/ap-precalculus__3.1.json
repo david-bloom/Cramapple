@@ -1,0 +1,693 @@
+{
+ "topic": {
+  "subject_key": "ap-precalculus",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Periodic Phenomena"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-precalculus__3.1#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 5927,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 5924
+    },
+    "outputTokens": 480,
+    "outputTokenDetails": {
+     "textTokens": 286,
+     "reasoningTokens": 194
+    },
+    "totalTokens": 6407,
+    "raw": {
+     "input_tokens": 5927,
+     "input_tokens_details": {
+      "cache_write_tokens": 5924,
+      "cached_tokens": 0
+     },
+     "output_tokens": 480,
+     "output_tokens_details": {
+      "reasoning_tokens": 194
+     },
+     "total_tokens": 6407
+    },
+    "reasoningTokens": 194,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Periodic Phenomena",
+    "stem": "A periodic signal completes 6 full cycles in 3 seconds, with each cycle taking the same amount of time. What is the period of the signal?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "1/2 second",
+      "is_correct": true,
+      "rationale": "The period is the time for one complete cycle. Dividing the total time by the number of cycles gives 3/6 = 1/2 second per cycle."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "2 seconds",
+      "is_correct": false,
+      "rationale": "Frequency–period confusion: 6/3 = 2 is the frequency in cycles per second, not the period in seconds per cycle. Fix: Take the reciprocal of the frequency to find the period."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "3 seconds",
+      "is_correct": false,
+      "rationale": "Total-time confusion: 3 seconds is the time for all 6 cycles, not for one cycle. Fix: Divide the total elapsed time by the number of complete cycles."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "1/6 second",
+      "is_correct": false,
+      "rationale": "Cycle-count-as-frequency error: Taking 1/6 treats the 6 cycles as occurring in one second, but they occur in 3 seconds. Fix: Compute cycles per second before taking the reciprocal."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 573,
+         "inputTokenDetails": {
+          "noCacheTokens": 573,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 603,
+         "raw": {
+          "input_tokens": 573,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2048,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 305,
+         "inputTokenDetails": {
+          "noCacheTokens": 305,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 183,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 153
+         },
+         "totalTokens": 488,
+         "raw": {
+          "thoughtsTokenCount": 153,
+          "promptTokenCount": 305,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 488,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 305
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 153,
+         "cachedInputTokens": 0
+        },
+        "ms": 3476,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 367,
+         "inputTokenDetails": {
+          "noCacheTokens": 111,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 242,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 216
+         },
+         "totalTokens": 609,
+         "raw": {
+          "prompt_tokens": 367,
+          "completion_tokens": 242,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 111,
+          "total_tokens": 609,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 216
+          }
+         },
+         "reasoningTokens": 216,
+         "cachedInputTokens": 256
+        },
+        "ms": 3164,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 134,
+         "inputTokenDetails": {
+          "noCacheTokens": 134,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 930,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 905
+         },
+         "totalTokens": 1064,
+         "raw": {
+          "input_tokens": 134,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 930,
+          "output_tokens_details": {
+           "reasoning_tokens": 905
+          },
+          "total_tokens": 1064
+         },
+         "reasoningTokens": 905,
+         "cachedInputTokens": 0
+        },
+        "ms": 6074,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10745,
+         "inputTokenDetails": {
+          "noCacheTokens": 733,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 10012
+         },
+         "outputTokens": 462,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 250
+         },
+         "totalTokens": 11207,
+         "raw": {
+          "input_tokens": 733,
+          "output_tokens": 462,
+          "output_tokens_details": {
+           "thinking_tokens": 250
+          },
+          "cache_creation_input_tokens": 10012,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 10012,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 250,
+         "cachedInputTokens": 0
+        },
+        "ms": 6235,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7092,
+         "inputTokenDetails": {
+          "noCacheTokens": 7092,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1034,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 772
+         },
+         "totalTokens": 8126,
+         "raw": {
+          "thoughtsTokenCount": 772,
+          "promptTokenCount": 7092,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8126,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7092
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 772,
+         "cachedInputTokens": 0
+        },
+        "ms": 7555,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6478,
+         "inputTokenDetails": {
+          "noCacheTokens": 4046,
+          "cacheReadTokens": 2432
+         },
+         "outputTokens": 3190,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 2971
+         },
+         "totalTokens": 9668,
+         "raw": {
+          "prompt_tokens": 6478,
+          "completion_tokens": 3190,
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 4046,
+          "total_tokens": 9668,
+          "prompt_tokens_details": {
+           "cached_tokens": 2432
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2971
+          }
+         },
+         "reasoningTokens": 2971,
+         "cachedInputTokens": 2432
+        },
+        "ms": 30654,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5532,
+         "inputTokenDetails": {
+          "noCacheTokens": 5532,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3531,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3374
+         },
+         "totalTokens": 9063,
+         "raw": {
+          "input_tokens": 5532,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3531,
+          "output_tokens_details": {
+           "reasoning_tokens": 3374
+          },
+          "total_tokens": 9063
+         },
+         "reasoningTokens": 3374,
+         "cachedInputTokens": 0
+        },
+        "ms": 18906,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6236,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6233
+         },
+         "outputTokens": 206,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 34
+         },
+         "totalTokens": 6442,
+         "raw": {
+          "input_tokens": 6236,
+          "input_tokens_details": {
+           "cache_write_tokens": 6233,
+           "cached_tokens": 0
+          },
+          "output_tokens": 206,
+          "output_tokens_details": {
+           "reasoning_tokens": 34
+          },
+          "total_tokens": 6442
+         },
+         "reasoningTokens": 34,
+         "cachedInputTokens": 0
+        },
+        "ms": 4916,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-precalculus__3.1#r1-openai",
+ "accepted_at": "2026-10-09T16:39:02.673Z"
+}

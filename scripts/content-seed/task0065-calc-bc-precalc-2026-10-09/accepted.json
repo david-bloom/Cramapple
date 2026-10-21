@@ -1,0 +1,1674 @@
+[
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+    "stem": "A moving object's position at time t seconds is s(t) meters. Assume its instantaneous rate of change at t = 5 exists. Which procedure defines this instantaneous rate, rather than an average rate over a fixed interval?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Evaluate (s(5)−s(5))/(5−5).",
+        "is_correct": false,
+        "rationale": "Zero-interval substitution attempts to use an average-rate quotient at a single instant. This gives 0/0, which is undefined, not an instantaneous rate. Fix: Use nonzero time intervals and consider what their average rates approach."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Compute (s(6)−s(4))/(6−4).",
+        "is_correct": false,
+        "rationale": "Fixed-interval confusion substitutes an average rate around the instant for the instantaneous rate. This quotient describes the entire interval from 4 to 6 seconds, even if it happens to equal the instantaneous rate. Fix: Shrink the interval toward t = 5 instead of keeping its endpoints fixed."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Divide the position s(5) by the elapsed time 5.",
+        "is_correct": false,
+        "rationale": "Position-versus-change confusion treats position divided by time as an instantaneous rate. The quotient s(5)/5 does not generally measure even an average rate unless the initial position is zero. Fix: Compute position changes over shrinking time intervals, rather than dividing position by time."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Find the value approached by average rates over nonzero time intervals containing t = 5 as those intervals shrink toward t = 5.",
+        "is_correct": true,
+        "rationale": "Average rates describe position change over time intervals. The instantaneous rate is the value these average rates approach as the intervals shrink toward the single instant."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__1.1#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 1,
+    "topic_code": "1.16",
+    "topic_title": "Working with the Intermediate Value Theorem",
+    "stem": "Let f be a polynomial with f(1) = 2 and f(5) = 8. Which statement is guaranteed by the Intermediate Value Theorem?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is at least one c in (1,5) such that f(c) = 5.",
+        "is_correct": true,
+        "rationale": "Polynomials are continuous on [1,5], and 2 < 5 < 8. The Intermediate Value Theorem therefore guarantees at least one c in (1,5) with f(c) = 5."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "There is exactly one c in (1,5) such that f(c) = 5.",
+        "is_correct": false,
+        "rationale": "Existence-versus-uniqueness error: the theorem guarantees that f reaches 5, but a polynomial can reach that value more than once. Fix: Check whether the theorem guarantees existence or also guarantees uniqueness."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f(3) = 5.",
+        "is_correct": false,
+        "rationale": "Midpoint interpolation error: averaging the endpoint inputs and outputs assumes a linear relationship that is not given. The theorem guarantees an input where f equals 5, not its exact location. Fix: Distinguish an existence conclusion from a claim about a specific input."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "There is at least one c in (1,5) such that f(c) = 10.",
+        "is_correct": false,
+        "rationale": "Target-value condition error: 10 lies outside [2,8], so the given endpoint values do not guarantee that f reaches 10 inside the interval. Fix: Compare the target value with both endpoint outputs before applying the theorem."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__1.16#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Estimating Limit Values from Graphs",
+    "stem": "The graph of f is described as follows: As x approaches 3 from the left, the graph approaches an open circle at (3, 2). As x approaches 3 from the right, the graph approaches an open circle at (3, 6). A filled point is located at (3, 4). What is lim x→3 f(x)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "2",
+        "is_correct": false,
+        "rationale": "Left-side-only error: This uses the value approached by the left branch but ignores the right branch, which approaches 6. Fix: Trace both branches toward the input and compare their approached values."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The limit does not exist.",
+        "is_correct": true,
+        "rationale": "The graph approaches 2 from the left and 6 from the right. A two-sided limit requires the same value from both sides, so the unequal one-sided limits mean this limit does not exist."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "6",
+        "is_correct": false,
+        "rationale": "Right-side-only error: This uses the value approached by the right branch but ignores the left branch, which approaches 2. Fix: Check the left-hand behavior before concluding that a two-sided limit exists."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4",
+        "is_correct": false,
+        "rationale": "Function-value confusion: The filled point gives f(3) = 4, not the value approached nearby. The two branches approach different heights, so the filled point cannot determine this limit. Fix: Trace the nearby branches from both sides before looking at the filled point."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__1.3#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Selecting Procedures for Determining Limits",
+    "stem": "Which procedure is appropriate for determining lim x→2 |x−2|/(x−2)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Replace |x−2| with x−2 on both sides of 2, then cancel to obtain a limit of 1.",
+        "is_correct": false,
+        "rationale": "Absolute-value removal error: |x−2| equals x−2 only when x ≥ 2. For x < 2, |x−2| = −(x−2), so this cancellation ignores the left-hand behavior. Fix: Write the absolute-value expression separately for x < 2 and x > 2."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Check the left-hand and right-hand limits separately, using the appropriate expression for |x−2| on each side.",
+        "is_correct": true,
+        "rationale": "The absolute value requires different expressions on the two sides of 2. For x < 2, the quotient is −1; for x > 2, it is 1, so the unequal one-sided limits show that the two-sided limit does not exist."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Use direct substitution and interpret 0/0 as a limit of 0.",
+        "is_correct": false,
+        "rationale": "Indeterminate-form error: 0/0 is not a number and does not determine the limit. Direct substitution therefore does not resolve this problem. Fix: When substitution gives 0/0, examine the expression for nearby inputs."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Use the denominator’s approach to 0 to conclude that the limit is ∞.",
+        "is_correct": false,
+        "rationale": "Zero-denominator shortcut: a denominator approaching 0 does not by itself imply an infinite limit. Here, the numerator also approaches 0, and the quotient remains either −1 or 1 for x ≠ 2. Fix: Check the numerator and simplify the quotient on each side before concluding infinite behavior."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__1.7#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 1,
+    "topic_code": "1.9",
+    "topic_title": "Connecting Multiple Representations of Limits",
+    "stem": "A graph of y = f(x) has an open circle at (2, 5) and a filled point at (2, 8). As x approaches 2 from either side, the graph approaches the open circle. Which limit statement matches this graphical description?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "lim x→2 f(x) = 8",
+        "is_correct": false,
+        "rationale": "Function-value confusion uses the filled point’s height as the limit. The filled point gives f(2) = 8, but nearby graph values approach 5. Fix: Follow the graph from both sides instead of using the filled point."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "lim x→2 f(x) = 5",
+        "is_correct": true,
+        "rationale": "From both sides of x = 2, the graph’s y-values approach 5. Thus, the graphical description translates to: as x approaches 2, f(x) approaches 5, regardless of the filled point’s height."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "lim x→2 f(x) = 2",
+        "is_correct": false,
+        "rationale": "Input-output confusion uses the approaching x-value as the limit of f(x). Here, 2 is the input being approached, while 5 is the output being approached. Fix: Identify the approached x-coordinate and y-coordinate separately before writing the limit."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "lim x→2 f(x) does not exist",
+        "is_correct": false,
+        "rationale": "Open-circle confusion treats a hole as preventing a limit from existing. A limit describes nearby behavior, and the graph approaches the same height from both sides. Fix: Compare the approached heights on both sides before deciding whether the limit exists."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__1.9#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "A cup of tea is cooling. The table gives its temperature T(t), in degrees Celsius, at selected times t, in minutes. t: 0, 2, 5, 6, 9. T(t): 70, 64, 58, 55, 49. Using the data at the nearest table times on either side of t = 5, which is the best estimate of T′(5)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "−7/3 °C per minute",
+        "is_correct": false,
+        "rationale": "This uses the distant endpoints t = 0 and t = 9, giving (49 − 70)/9, the average rate over the whole table. Values far from t = 5 describe the overall trend, not the local rate at t = 5. Fix: Pick the table values closest to the target time on each side before computing the slope."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−9 °C per minute",
+        "is_correct": false,
+        "rationale": "This finds the temperature change 55 − 64 but never divides by the elapsed time of 4 minutes. A change in temperature is measured in °C, not °C per minute, so it is not a rate. Fix: Divide the output change by the input change and check that the units read °C per minute."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "−2.25 °C per minute",
+        "is_correct": true,
+        "rationale": "The nearest times bracketing t = 5 are t = 2 and t = 6, so T′(5) ≈ (55 − 64)/(6 − 2) = −9/4 = −2.25. This difference quotient is a local slope estimate in °C per minute, not an exact derivative value."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "2.25 °C per minute",
+        "is_correct": false,
+        "rationale": "This is a sign error from subtracting temperatures and times in opposite orders, such as (64 − 55)/(6 − 2). The temperature is falling between t = 2 and t = 6, so the rate must be negative. Fix: Subtract outputs and inputs in the same order, then check whether the sign matches increasing or decreasing data."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__2.3#r1-anthropic",
+      "author": "anthropic/claude-opus-5.5",
+      "checkers": [
+        "openai/gpt-6.1-sol",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 2,
+    "topic_code": "2.6",
+    "topic_title": "Derivative Rules: Constant, Sum, Difference, and Constant Multiple",
+    "stem": "Let g and h be differentiable functions with g′(2) = 5 and h′(2) = −2. Define f(x) = 4g(x) − 3h(x) + 7. What is f′(2)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "33",
+        "is_correct": false,
+        "rationale": "Constant-retention error: adding 7 to the derivative gives 33, but the derivative of a constant is 0. Fix: Replace each constant term with 0 before evaluating the derivative."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "14",
+        "is_correct": false,
+        "rationale": "Sign error: subtracting 3h′(2) means subtracting −6, not subtracting 6. The subtraction sign in f remains when differentiating. Fix: Substitute negative derivative values in parentheses before simplifying signs."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "26",
+        "is_correct": true,
+        "rationale": "Differentiate term by term, preserving each coefficient and subtraction sign; the constant 7 has derivative 0. Thus f′(2) = 4g′(2) − 3h′(2) = 4(5) − 3(−2) = 26."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "7",
+        "is_correct": false,
+        "rationale": "Constant-multiple error: 5 − (−2) = 7 omits the coefficients 4 and 3. These coefficients must multiply the corresponding derivatives. Fix: Copy each coefficient beside its function’s derivative before substituting values."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__2.6#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "Calculating Higher-Order Derivatives",
+    "stem": "Let f(x) = x⁴ − 3x³ + 2x. What is f″(2)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "12",
+        "is_correct": true,
+        "rationale": "Differentiate twice: f′(x) = 4x³ − 9x² + 2 and f″(x) = 12x² − 18x. Then f″(2) = 48 − 36 = 12."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−2",
+        "is_correct": false,
+        "rationale": "Stopping after one derivative gives f′(2) = −2, not f″(2). The double prime requires differentiating the original function twice. Fix: Write f′(x), then differentiate it before substituting x = 2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "30",
+        "is_correct": false,
+        "rationale": "Differentiating one time too many gives f‴(x) = 24x − 18 and f‴(2) = 30. The question asks for the second derivative, not the third. Fix: Count the primes and stop after that many differentiations."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0",
+        "is_correct": false,
+        "rationale": "Substituting too early gives the constant f(2) = −4, whose derivatives are zero. Differentiating this constant does not compute the derivatives of f at x = 2. Fix: Differentiate the function twice before evaluating at x = 2."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-calculus-bc__3.6#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "calc-bc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Change in Tandem",
+    "stem": "A tank’s water height h(t), in centimeters, is recorded at elapsed time t, in minutes. The recorded pairs (t, h(t)) are (0, 12), (1, 10), (2, 10), and (3, 8). Which statement correctly describes this recorded relationship?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "For h(t), water height is the input and elapsed time is the output.",
+        "is_correct": false,
+        "rationale": "Input–output reversal: h(t) gives the water height corresponding to an elapsed time t, not the time corresponding to a height. Fix: Identify the quantity represented by t before naming the input and output."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Water height is a function of elapsed time, and as the recorded times increase, the height increases or stays the same.",
+        "is_correct": false,
+        "rationale": "Direction-of-change error: the heights move from 12 to 10 to 10 to 8 centimeters as time increases. They decrease or stay the same, rather than increase or stay the same. Fix: Read the outputs in increasing input order and compare each with the previous output."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Water height is a function of elapsed time, and as the recorded times increase, the height decreases or stays the same.",
+        "is_correct": true,
+        "rationale": "Each recorded time has exactly one water height, so height is a function of time. In time order, the heights are 12, 10, 10, and 8 centimeters, so the height decreases or stays the same."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Water height is not a function of elapsed time because the height is 10 centimeters at two different times.",
+        "is_correct": false,
+        "rationale": "Repeated-output misconception: different inputs may have the same output in a function. The function requirement is that each input has exactly one output, which these records satisfy. Fix: Check whether any single time is paired with more than one height."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.1#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.11",
+    "topic_title": "Equivalent Representations",
+    "stem": "Let f(x) = (x²−9)/(x−3), with domain consisting of all real inputs for which this expression is defined. Which rewritten formula and domain represent exactly the same function as f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f(x) = x+3, with domain all real x.",
+        "is_correct": false,
+        "rationale": "Lost-domain restriction: Canceling a factor does not make an originally undefined input valid. This representation allows x = 3, but the original expression has a zero denominator there. Fix: Record the original denominator’s restrictions before canceling factors."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f(x) = x−3, with domain all real x such that x ≠ 3.",
+        "is_correct": false,
+        "rationale": "Wrong-factor cancellation: After factoring the numerator as (x−3)(x+3), canceling the denominator’s factor x−3 leaves x+3, not x−3. The domain matches, but the formula does not. Fix: Match the denominator’s factor to the identical numerator factor before canceling."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f(x) = x+3, with domain all real x such that x ≠ 3 and x ≠ −3.",
+        "is_correct": false,
+        "rationale": "Excluding numerator zeros: A zero numerator does not by itself make a rational expression undefined. At x = −3, the original denominator is nonzero, so this restriction removes a valid input. Fix: Exclude only inputs that make the original denominator zero."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f(x) = x+3, with domain all real x such that x ≠ 3.",
+        "is_correct": true,
+        "rationale": "Factoring gives x²−9 = (x−3)(x+3), so canceling x−3 yields x+3 wherever the original expression is defined. Keeping x ≠ 3 preserves the original domain, so both the outputs and allowed inputs match."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.11#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.12",
+    "topic_title": "Transformations of Functions",
+    "stem": "The point (1, 5) lies on the graph of y = f(x). Define g(x) = −2f(x−3)+4. Which point on the graph of y = g(x) corresponds to (1, 5) under these transformations?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "(−2, −6)",
+        "is_correct": false,
+        "rationale": "Horizontal-direction reversal: this subtracts 3 from the original x-coordinate, treating f(x−3) as a shift left. Instead, the new input must satisfy x−3 = 1. Fix: Set the inside expression equal to the original input and solve for x."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "(4, −6)",
+        "is_correct": true,
+        "rationale": "To use the input 1 of f, solve x−3 = 1, giving x = 4. The corresponding output is −2(5)+4 = −6, so the point becomes (4, −6)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "(4, −18)",
+        "is_correct": false,
+        "rationale": "Outside-operation order error: this computes −2(5+4), applying the vertical shift before the multiplication. In g(x), −2 multiplies the function output before 4 is added. Fix: Multiply the original output by −2, then add 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "(4, 14)",
+        "is_correct": false,
+        "rationale": "Ignored reflection: this computes 2(5)+4, dropping the negative sign on the multiplier. The factor −2 both reflects the output across the x-axis and doubles its magnitude before the shift. Fix: Include the multiplier’s sign when computing the transformed output."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.12#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Function Model Construction and Application",
+    "stem": "A bicycle rental shop charges a fixed booking fee plus a constant hourly rate. A 2-hour rental costs 34 dollars, and a 5-hour rental costs 58 dollars. Let C(h) be the total cost, in dollars, for a rental lasting h hours. What total cost does this model predict for a 7-hour rental?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "56 dollars",
+        "is_correct": false,
+        "rationale": "Omitted fixed fee: Multiplying the hourly rate by 7 gives 8(7) = 56 dollars, but this includes only the hourly charges. The total must also include the 18-dollar booking fee. Fix: Subtract the hourly charges from a known total to find the booking fee."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "90 dollars",
+        "is_correct": false,
+        "rationale": "Misidentified intercept: Using C(h) = 34+8h treats the 2-hour rental total as the booking fee. The 34 dollars already includes 16 dollars in hourly charges, so this model counts those charges twice. Fix: Find C(0) by subtracting two hours of charges from the 2-hour total."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "74 dollars",
+        "is_correct": true,
+        "rationale": "The hourly rate is (58−34)/(5−2) = 8 dollars per hour, and the booking fee is 34−8(2) = 18 dollars. Thus C(h) = 18+8h, so C(7) = 74 dollars."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "119 dollars",
+        "is_correct": false,
+        "rationale": "Proportional-model error: Computing (34/2)(7) assumes the total cost is proportional to rental duration. That ignores the booking fee and predicts 85 dollars for 5 hours, contradicting the given 58 dollars. Fix: Compute the hourly rate from changes in cost and time, not total cost divided by time."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.14#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Rates of Change and Behavior of Graphs",
+    "stem": "The graph of f consists of straight line segments connecting (0, 1), (2, 7), (5, 1), and (7, 3), in that order. Which statement correctly describes the graph from x = 2 to x = 5?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The graph increases with an average rate of change of 2.",
+        "is_correct": false,
+        "rationale": "Sign-loss error: using only the magnitude of the slope ignores its direction. The graph falls as x increases on the requested interval, so its average rate of change is negative. Fix: Subtract endpoint outputs in the same order as endpoint inputs."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The graph decreases with an average rate of change of −6.",
+        "is_correct": false,
+        "rationale": "Output-change-only error: −6 is the change in f, not the average rate of change. The input changes by 3, so the slope is −6/3 = −2. Fix: Divide the output change by the input change."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The graph increases with an average rate of change of 2/7.",
+        "is_correct": false,
+        "rationale": "Whole-graph interval error: 2/7 is the average rate of change from x = 0 to x = 7. Those endpoints do not describe the requested interval, where the graph decreases. Fix: Identify the requested interval’s endpoints before computing its secant slope."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The graph decreases with an average rate of change of −2.",
+        "is_correct": true,
+        "rationale": "On this interval, the graph falls from 7 to 1 as x increases from 2 to 5. Its average rate of change is (1−7)/(5−2) = −2, matching the downward slope."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.3#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Rational Functions and End Behavior",
+    "stem": "For f(x) = (6x²−5x+2)/(3x²+7x−4), what value does f(x) approach as x becomes arbitrarily large in either the positive or negative direction?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1/2",
+        "is_correct": false,
+        "rationale": "Reversed-ratio error: this divides the denominator’s leading coefficient by the numerator’s. Because f(x) is numerator divided by denominator, the relevant ratio is 6/3, not 3/6. Fix: Write the leading-coefficient ratio in numerator-over-denominator order."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2",
+        "is_correct": true,
+        "rationale": "The numerator and denominator both have degree 2, so their leading terms determine the end behavior. For large positive or negative x, the ratio approaches 6x²/(3x²) = 2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "−1/2",
+        "is_correct": false,
+        "rationale": "Constant-term error: 2/(−4) gives f(0), not the end behavior. For large input magnitudes, the quadratic terms dominate the constant terms. Fix: Identify the highest-degree term in each polynomial before forming the ratio."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0",
+        "is_correct": false,
+        "rationale": "Denominator-growth error: a growing denominator does not force the quotient toward zero when the numerator grows at the same degree. Here, both polynomials have degree 2. Fix: Compare both degrees before deciding whether the quotient approaches zero."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.7#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.8",
+    "topic_title": "Rational Functions and Zeros",
+    "stem": "Let f(x) = (x²−x−6)/(x²−4). Which statement identifies all real zeros of f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The zeros are x = −2 and x = 3.",
+        "is_correct": false,
+        "rationale": "Numerator-only error: Both values make the numerator zero, but −2 also makes the denominator zero. Because f is undefined at −2, that input cannot be a zero. Fix: Substitute each numerator zero into the original denominator before accepting it."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The zeros are x = −2 and x = 2.",
+        "is_correct": false,
+        "rationale": "Denominator-zero confusion: These values solve x²−4 = 0, identifying excluded inputs rather than zeros of f. A zero requires a zero numerator and a nonzero denominator. Fix: Solve the numerator equation first, then reject values that make the denominator zero."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The only zero is x = −3.",
+        "is_correct": false,
+        "rationale": "Sign-reversal error: The factor x−3 gives x = 3, not x = −3. Substituting −3 makes the numerator equal 6, so f(−3) ≠ 0. Fix: Set each numerator factor equal to zero and solve before checking the denominator."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The only zero is x = 3.",
+        "is_correct": true,
+        "rationale": "The numerator factors as (x−3)(x+2), so its zeros are 3 and −2. The original denominator is zero at −2 but equals 5 at 3, so only 3 is a zero of f."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.8#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 1,
+    "topic_code": "1.9",
+    "topic_title": "Rational Functions and Vertical Asymptotes",
+    "stem": "Let f(x) = (x²−9)/(x²−x−6). Which statement identifies all vertical asymptotes of the graph of f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The vertical asymptotes are x = −2 and x = 3.",
+        "is_correct": false,
+        "rationale": "The denominator-zero trap treats every zero of the original denominator as a vertical asymptote. The factor x−3 cancels, so the outputs do not become unbounded near x = 3. Fix: Cancel common factors before finding zeros of the remaining denominator."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The only vertical asymptote is x = 3.",
+        "is_correct": false,
+        "rationale": "The canceled-factor trap selects the zero of the shared factor instead of the surviving denominator factor. After cancellation, x+2 remains in the denominator, while x−3 does not. Fix: Set the remaining denominator, not the canceled factor, equal to zero."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The only vertical asymptote is x = 2.",
+        "is_correct": false,
+        "rationale": "The sign-error trap solves x+2 = 0 as x = 2. Substituting 2 gives a denominator of 4 in the simplified expression, not zero. Fix: Solve x+2 = 0 by subtracting 2 from both sides."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The only vertical asymptote is x = −2.",
+        "is_correct": true,
+        "rationale": "Factoring gives f(x) = [(x−3)(x+3)]/[(x−3)(x+2)], which simplifies to (x+3)/(x+2) for inputs in the original domain. Near x = −2, the numerator approaches 1 while the denominator approaches zero, so the outputs become unbounded; cancellation prevents unbounded behavior near x = 3."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__1.9#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Change in Arithmetic and Geometric Sequences",
+    "stem": "A sequence is known to be either arithmetic or geometric. Its first four terms are 64, 32, 16, and 8. Which statement correctly identifies the sequence and its common difference or common ratio?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The sequence is geometric with common ratio 1/2.",
+        "is_correct": true,
+        "rationale": "The consecutive differences are −32, −16, and −8, so they are not constant. The consecutive ratios are 32/64 = 16/32 = 8/16 = 1/2, so the sequence is geometric."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The sequence is arithmetic with common difference −32.",
+        "is_correct": false,
+        "rationale": "First-pair-only error: −32 is the difference between the first two terms, but the next differences are −16 and −8. An arithmetic sequence requires the same difference at every step. Fix: Compute all three consecutive differences before identifying a common difference."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The sequence is geometric with common ratio 2.",
+        "is_correct": false,
+        "rationale": "Reciprocal-ratio error: dividing each term by the next gives 2, but the common ratio uses the next term divided by the current term. Multiplying by 2 would double the terms rather than halve them. Fix: Divide each next term by the term immediately before it."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The sequence is geometric with common ratio −1/2.",
+        "is_correct": false,
+        "rationale": "Decrease-versus-sign confusion: decreasing positive terms do not imply a negative common ratio. Multiplying by −1/2 would alternate the signs of the terms. Fix: Compute consecutive ratios with their signs instead of inferring the sign from decreasing values."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.1#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.10",
+    "topic_title": "Inverses of Exponential Functions",
+    "stem": "Let f(x) = 5ˣ. Which expression gives f⁻¹(x), obtained by interchanging x and y in y = 5ˣ and solving for y?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1/5ˣ",
+        "is_correct": false,
+        "rationale": "Reciprocal–inverse confusion: This expression is the reciprocal of f(x), not its inverse function. An inverse reverses the input-output relationship rather than taking the reciprocal of each output. Fix: Swap x and y, then solve the resulting exponential equation for y."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "log₅(x)",
+        "is_correct": true,
+        "rationale": "Interchanging x and y gives x = 5ʸ. By the definition of a logarithm, y = log₅(x), so f⁻¹(x) = log₅(x) for x > 0."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x/5",
+        "is_correct": false,
+        "rationale": "Exponent–coefficient confusion: Dividing by 5 would undo y = 5x, not y = 5ˣ. Here the unknown appears in the exponent, so solving requires a logarithm. Fix: Identify whether the unknown is multiplied by the base or appears in its exponent."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "log₅(x−1)",
+        "is_correct": false,
+        "rationale": "Unnecessary-shift error: Subtracting 1 treats f(0) = 1 as an added constant, but 5ˣ has no vertical shift. After swapping variables, the equation is x = 5ʸ, not x−1 = 5ʸ. Fix: Subtract only constants explicitly added outside the exponential expression."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.10#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.11",
+    "topic_title": "Logarithmic Functions",
+    "stem": "The logarithmic function f is defined by f(x) = −3 log₂(x) for x > 0. In the form f(x) = a·log_b(x), which statement correctly identifies a and b and describes the graph relative to y = log₂(x)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "a = −2 and b = 3; the graph is reflected across the x-axis and stretched vertically by a factor of 2.",
+        "is_correct": false,
+        "rationale": "Coefficient–base confusion: This exchanges the magnitudes of the coefficient and base. In −3 log₂(x), the multiplier is −3, while the subscript specifies base 2. Fix: Identify the multiplier as a and the logarithm’s subscript as b."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "a = −3 and b = 2; the graph is reflected across the x-axis and stretched vertically by a factor of 3.",
+        "is_correct": true,
+        "rationale": "The multiplier −3 is a, and the logarithm’s subscript 2 is b. Multiplying every output by −3 reverses its sign and triples its magnitude, producing an x-axis reflection and a vertical stretch."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "a = −3 and b = 2; the graph is reflected across the y-axis and stretched vertically by a factor of 3.",
+        "is_correct": false,
+        "rationale": "Reflection-axis confusion: A negative multiplier outside the logarithm changes output signs, producing an x-axis reflection. A y-axis reflection would instead replace the input x with −x. Fix: Check whether the negative sign changes the input or the output."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "a = −3 and b = 2; the graph is reflected across the x-axis and compressed vertically by a factor of 1/3.",
+        "is_correct": false,
+        "rationale": "Stretch–compression reversal: Multiplying outputs by −3 triples their magnitudes rather than reducing them to one-third. The negative sign supplies the reflection, while |a| = 3 supplies the stretch. Fix: Compare |a| with 1 to distinguish a vertical stretch from a compression."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.11#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.12",
+    "topic_title": "Logarithmic Function Manipulation",
+    "stem": "For x > 0, which single logarithm is equivalent to 2log₃(x) + log₃(5) for every value of x?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "log₃(5x²)",
+        "is_correct": true,
+        "rationale": "The power property gives 2log₃(x) = log₃(x²). The product property then gives log₃(x²) + log₃(5) = log₃(5x²)."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "log₃(10x)",
+        "is_correct": false,
+        "rationale": "Coefficient-as-multiplier error: this replaces 2log₃(x) with log₃(2x). The coefficient becomes an exponent on x, not a multiplier of x. Fix: Move the coefficient to an exponent before combining the logarithms."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "log₃(x² + 5)",
+        "is_correct": false,
+        "rationale": "Sum-of-arguments error: this adds the arguments when combining a sum of logarithms. The product property requires multiplying the arguments, giving x² · 5 rather than x² + 5. Fix: Multiply the arguments when combining a sum of logarithms."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "log₃(25x²)",
+        "is_correct": false,
+        "rationale": "Misplaced-coefficient error: this applies the coefficient 2 to both logarithms, squaring both x and 5. Only log₃(x) has coefficient 2, so the factor 5 must remain unchanged. Fix: Apply the power property to each term separately before combining."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.12#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.14",
+    "topic_title": "Logarithmic Function Context and Data Modeling",
+    "stem": "A plant's height h, in centimeters, is measured t weeks after planting. The data are: t = 1, h = 10; t = 2, h = 13; t = 4, h = 16; t = 8, h = 19; t = 16, h = 22. Which statement gives an appropriate model type for h as a function of t, together with a correct justification based on the data?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Logarithmic, because each time the input doubles, the output increases by the same amount, 3 centimeters.",
+        "is_correct": true,
+        "rationale": "Inputs that grow by a constant factor paired with outputs that grow by a constant difference is the signature of a logarithmic model, here h = 10 + 3·log₂(t). The average rates of change, 3, 1.5, 0.75 and 0.375 cm per week, shrink, matching fast-then-slowing growth."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Linear, because the output increases by 3 centimeters from each row of the table to the next.",
+        "is_correct": false,
+        "rationale": "This trap ignores the unequal spacing of the inputs. The increase of 3 cm occurs over 1, 2, 4 and 8 weeks, so the rate of change is not constant and the data are not linear. Fix: Divide each output change by the actual input change before calling data linear."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Exponential, because consecutive output values have a common ratio.",
+        "is_correct": false,
+        "rationale": "This trap confuses the doubling inputs with exponential outputs. The output ratios are 13/10 = 1.3 and 16/13 ≈ 1.23, which are not equal, so there is no common ratio. Fix: Compute at least two consecutive output ratios and check whether they match."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Exponential, because the plant's rate of growth speeds up as time goes on.",
+        "is_correct": false,
+        "rationale": "This is the common error of picking a model without checking whether growth accelerates or slows. The average rates of change are 3, 1.5, 0.75 and 0.375 cm per week, so growth is slowing, which is logarithmic behavior. Fix: Compute the average rate of change on each interval and ask whether it grows or shrinks."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.14#r1-anthropic",
+      "author": "anthropic/claude-opus-5.5",
+      "checkers": [
+        "openai/gpt-6.1-sol",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.15",
+    "topic_title": "Semi-log Plots",
+    "stem": "An exponential function is given by y = 16·4ˣ. A semi-log plot places x on the horizontal axis and log₄(y) on the vertical axis. What are the slope and vertical intercept of the resulting line?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Slope 4 and vertical intercept 16",
+        "is_correct": false,
+        "rationale": "Untransformed-parameter error: this treats the exponential base and initial value as the line’s slope and intercept. On the semi-log plot, those parameters become log₄(4) and log₄(16). Fix: Take the logarithm of each parameter before identifying the slope and intercept."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Slope 1 and vertical intercept 2",
+        "is_correct": true,
+        "rationale": "Taking log₄ of both sides gives log₄(y) = log₄(16) + x·log₄(4) = 2 + x. Thus the line has slope 1 and vertical intercept 2; the logarithm base 4 satisfies the requirement that the base exceed 1."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Slope 2 and vertical intercept 1",
+        "is_correct": false,
+        "rationale": "Slope-intercept reversal: this swaps the constant term and the coefficient of x in log₄(y) = 2 + x. The coefficient of x is the slope, while the constant is the vertical intercept. Fix: Identify the coefficient of x first, then evaluate the vertical coordinate at x = 0."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Slope 1 and vertical intercept 0",
+        "is_correct": false,
+        "rationale": "Initial-factor omission: this drops the contribution of 16 when taking logarithms. At x = 0, y = 16, so the plotted vertical coordinate is log₄(16) = 2, not 0. Fix: Substitute x = 0 into the original model and take log₄ of the output."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.15#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.2",
+    "topic_title": "Change in Linear and Exponential Functions",
+    "stem": "A function has the following values: x = 0, 1, 2, 3 and f(x) = 64, 32, 16, 8, respectively. Which statement correctly identifies a linear or exponential function that can match all four points and justifies the identification?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Linear, because the outputs decrease as x increases.",
+        "is_correct": false,
+        "rationale": "This is the decreasing-means-linear misconception. Decreasing outputs do not establish linear behavior; the consecutive differences are −32, −16, and −8, which are not constant. Fix: Compute consecutive output differences before identifying a function as linear."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Exponential, because each increase of 1 in x multiplies the output by 1/2.",
+        "is_correct": true,
+        "rationale": "The consecutive output ratios are 32/64 = 16/32 = 8/16 = 1/2. A constant output ratio over equal input intervals establishes exponential behavior."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Exponential, because each increase of 1 in x multiplies the output by 2.",
+        "is_correct": false,
+        "rationale": "This is reciprocal-ratio confusion. Dividing an earlier output by the next gives 2, but the forward multiplicative factor is the next output divided by the earlier output. Fix: Divide each new output by the preceding output."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Neither linear nor exponential, because the consecutive output differences are not constant.",
+        "is_correct": false,
+        "rationale": "This is the differences-only trap. Nonconstant differences rule out a linear function, but they do not rule out an exponential function with constant output ratios. Fix: Check consecutive output ratios when the differences are not constant."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.2#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Exponential Functions",
+    "stem": "Which function satisfies the requirements for an exponential function of the form f(x) = ab^x?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f(x) = −6(−1/2)^x",
+        "is_correct": false,
+        "rationale": "Negative-base trap: A negative coefficient is allowed, but a negative base is not. Here b = −1/2 violates the requirement b > 0. Fix: Identify the base inside the parentheses and check that it is positive."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f(x) = −6(1)^x",
+        "is_correct": false,
+        "rationale": "Constant-base trap: Having an exponent does not make every expression exponential. Here b = 1 makes the function constant and violates the requirement b ≠ 1. Fix: Check that the base differs from 1 before accepting an exponential function."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f(x) = 0(1/2)^x",
+        "is_correct": false,
+        "rationale": "Zero-coefficient trap: Checking only the base misses the coefficient restriction. Here a = 0 makes the expression the zero function and violates the requirement a ≠ 0. Fix: Check that the coefficient multiplying the exponential expression is nonzero."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f(x) = −6(1/2)^x",
+        "is_correct": true,
+        "rationale": "Here a = −6 is nonzero, and b = 1/2 is positive and not equal to 1. A negative initial value is allowed; the positivity requirement applies to the base, not the coefficient."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.3#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.4",
+    "topic_title": "Exponential Function Manipulation",
+    "stem": "Let f(x) = 3·2^(2x+1). Which expression in the form a·b^x is equivalent to f(x) for every real x?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "6·2^x",
+        "is_correct": false,
+        "rationale": "Dropped exponent multiplier: this keeps the factor from 2¹ but incorrectly replaces 2^(2x) with 2^x. At x = 1, this expression equals 12, whereas f(1) = 24. Fix: Rewrite 2^(2x) as (2²)^x before combining factors outside the exponential."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "6·4^x",
+        "is_correct": true,
+        "rationale": "Using exponent laws, 3·2^(2x+1) = 3·2·(2²)^x = 6·4^x. As a check, at x = 0, both the original and rewritten expressions equal 6."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "3·4^x",
+        "is_correct": false,
+        "rationale": "Lost constant factor: this correctly rewrites 2^(2x) as 4^x but omits the factor 2¹. At x = 0, this expression equals 3, whereas f(0) = 6. Fix: Split 2^(2x+1) into 2^(2x)·2¹ and retain both factors."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "12·4^x",
+        "is_correct": false,
+        "rationale": "Incorrect base conversion: rewriting 2^(2x+1) as 4^(x+1) produces this expression, but 4^(x+1) = 2^(2x+2). At x = 0, this expression equals 12, whereas f(0) = 6. Fix: When changing the base from 2 to 4, divide the entire exponent by 2."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.4#r2-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Inverse Functions",
+    "stem": "Let f(x) = (x−2)²+3 with domain x ≤ 2. Which statement correctly describes whether f has an inverse function and, if so, its formula and domain?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f has inverse f⁻¹(x) = 2+√(x−3), with domain x ≥ 3.",
+        "is_correct": false,
+        "rationale": "Wrong square-root branch: the positive branch produces outputs greater than 2 when x > 3, outside the original domain. The inverse must return values at most 2. Fix: Choose the square-root branch whose outputs lie in the original domain."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f has inverse f⁻¹(x) = 2−√(x−3), with domain x ≤ 2.",
+        "is_correct": false,
+        "rationale": "Domain-copying error: an inverse takes inputs from the original function’s range, not its domain. Here that range is y ≥ 3, and the proposed domain makes the square root nonreal. Fix: Find the original range and use it as the inverse’s domain."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f has inverse f⁻¹(x) = 2−√(x−3), with domain x ≥ 3.",
+        "is_correct": true,
+        "rationale": "On x ≤ 2, f is strictly decreasing, so it is one-to-one, with range y ≥ 3. Swapping x and y gives x = (y−2)²+3; choosing y ≤ 2 gives y = 2−√(x−3), whose domain is the original range."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f has no inverse function because quadratic functions are not one-to-one.",
+        "is_correct": false,
+        "rationale": "Ignoring the domain restriction: a quadratic is not one-to-one on all real numbers, but this function is restricted to x ≤ 2. On that domain, each output comes from exactly one input. Fix: Check one-to-one behavior only on the stated domain."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.8#r2-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.9",
+    "topic_title": "Logarithmic Expressions",
+    "stem": "What is the exact value of log₄(1/8)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "3/2",
+        "is_correct": false,
+        "rationale": "Reciprocal sign error: 3/2 is the exponent that makes 4 raised to that power equal 8, not 1/8. Fix: Check whether your proposed exponent produces the argument or its reciprocal."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−2/3",
+        "is_correct": false,
+        "rationale": "Base–argument reversal: −2/3 is the exponent in (1/8)ʸ = 4, not in 4ʸ = 1/8. Fix: Rewrite the logarithm with its base as the exponential base."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "−3/2",
+        "is_correct": true,
+        "rationale": "The value is the exponent y satisfying 4ʸ = 1/8. Since 4 = 2² and 1/8 = 2⁻³, this becomes 2²ʸ = 2⁻³, so 2y = −3 and y = −3/2."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "−3",
+        "is_correct": false,
+        "rationale": "Base substitution error: 2⁻³ = 1/8, but the logarithm has base 4, not base 2. Since 4⁻³ = 1/64, −3 does not work. Fix: Raise the stated base to your proposed exponent and compare with the argument."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__2.9#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Periodic Phenomena",
+    "stem": "A periodic signal completes 6 full cycles in 3 seconds, with each cycle taking the same amount of time. What is the period of the signal?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1/2 second",
+        "is_correct": true,
+        "rationale": "The period is the time for one complete cycle. Dividing the total time by the number of cycles gives 3/6 = 1/2 second per cycle."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2 seconds",
+        "is_correct": false,
+        "rationale": "Frequency–period confusion: 6/3 = 2 is the frequency in cycles per second, not the period in seconds per cycle. Fix: Take the reciprocal of the frequency to find the period."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "3 seconds",
+        "is_correct": false,
+        "rationale": "Total-time confusion: 3 seconds is the time for all 6 cycles, not for one cycle. Fix: Divide the total elapsed time by the number of complete cycles."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "1/6 second",
+        "is_correct": false,
+        "rationale": "Cycle-count-as-frequency error: Taking 1/6 treats the 6 cycles as occurring in one second, but they occur in 3 seconds. Fix: Compute cycles per second before taking the reciprocal."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.1#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.10",
+    "topic_title": "Trigonometric Equations and Inequalities",
+    "stem": "Which set contains all solutions to sin x = −1/2 on the interval 0 ≤ x < 4π?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "{7π/6, 11π/6, 19π/6, 23π/6}",
+        "is_correct": true,
+        "rationale": "The reference angle is π/6, and sine is negative in Quadrants III and IV, giving 7π/6 and 11π/6 in the first cycle. Adding the period 2π to each gives 19π/6 and 23π/6, completing the solutions in the stated interval."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "{7π/6, 11π/6}",
+        "is_correct": false,
+        "rationale": "First-cycle-only error: These are both solutions in 0 ≤ x < 2π, but the stated interval includes a second complete cycle. The solutions obtained by adding 2π are missing. Fix: Add 2π to each solution and check whether it remains in the interval."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "{7π/6, 19π/6}",
+        "is_correct": false,
+        "rationale": "Missing-quadrant error: This set repeats the Quadrant III solution but omits the Quadrant IV solution in each cycle. Sine is negative in both quadrants, so one solution per cycle is insufficient. Fix: Identify both quadrants where sine is negative before generating repeated solutions."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "{π/6, 5π/6, 13π/6, 17π/6}",
+        "is_correct": false,
+        "rationale": "Sign error: These angles have sine equal to 1/2, not −1/2. The reference angle is appropriate, but Quadrants I and II give the wrong sign. Fix: Check the sine sign in each chosen quadrant against the equation."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.10#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.11",
+    "topic_title": "The Secant, Cosecant, and Cotangent Functions",
+    "stem": "For θ = π/3, cos θ = 1/2 and sin θ = √3/2. What is sec θ?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1/2",
+        "is_correct": false,
+        "rationale": "Missing-reciprocal error: this is the given cosine value, not its reciprocal. Fix: Divide 1 by the cosine value to find secant."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "π/3",
+        "is_correct": false,
+        "rationale": "Reciprocal–inverse confusion: arccos(1/2) = π/3 returns an angle, whereas secant takes the reciprocal of a cosine value. Fix: Compute 1/(cos θ), not arccos(cos θ)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "2√3/3",
+        "is_correct": false,
+        "rationale": "Wrong reciprocal pairing: 1/(sin θ) = 2/√3 = 2√3/3 gives cosecant, not secant. Fix: Pair secant with cosine before taking the reciprocal."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "2",
+        "is_correct": true,
+        "rationale": "Secant is the reciprocal of cosine, so sec θ = 1/(cos θ) = 1/(1/2) = 2."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.11#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.12",
+    "topic_title": "Equivalent Representations of Trigonometric Functions",
+    "stem": "Use the identities cos(α+β) = cos α cos β − sin α sin β and sin²θ + cos²θ = 1. Which derivation correctly expresses cos(2θ) in terms of sin θ for every real θ?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "cos(2θ) = cos²θ + sin²θ = 1",
+        "is_correct": false,
+        "rationale": "Sign-change error: the cosine sum identity subtracts the sine product, but this derivation adds it. The Pythagorean simplification is valid for the sum, not for cos(2θ). Fix: Preserve the subtraction sign when substituting α = β = θ."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "cos(2θ) = cos²θ − sin²θ = 1 − 2sin²θ",
+        "is_correct": true,
+        "rationale": "Substituting α = β = θ into the cosine sum identity gives cos²θ − sin²θ. Replacing cos²θ with 1 − sin²θ then gives 1 − 2sin²θ."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "cos(2θ) = sin²θ − cos²θ = 2sin²θ − 1",
+        "is_correct": false,
+        "rationale": "Reversed-subtraction error: swapping the squared terms negates the expression obtained from the cosine sum identity. The identity gives cos²θ − sin²θ, not sin²θ − cos²θ. Fix: Write the cosine product first and subtract the sine product before simplifying."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "cos(2θ) = cos²θ = 1 − sin²θ",
+        "is_correct": false,
+        "rationale": "Dropped-term error: the cosine sum identity produces two terms, but this derivation omits −sin²θ. Replacing cos²θ using the Pythagorean identity does not remove that second term. Fix: Write (1 − sin²θ) − sin²θ before combining like terms."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.12#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.15",
+    "topic_title": "Rates of Change in Polar Functions",
+    "stem": "A polar function r = f(θ) has f(π/6) = −3 and f(2π/3) = 1. What is the average rate of change of the signed radius r with respect to θ from θ = π/6 to θ = 2π/3?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "8/π",
+        "is_correct": true,
+        "rationale": "The average rate of change is [f(2π/3)−f(π/6)]/(2π/3−π/6). The signed radius changes by 1−(−3) = 4, and the angle changes by π/2, so the rate is 4/(π/2) = 8/π."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−4/π",
+        "is_correct": false,
+        "rationale": "Distance-for-radius error: using |r| gives a change of 1−3 = −2 instead of the signed-radius change of 1−(−3) = 4. The question asks about signed radius, not distance from the origin. Fix: Subtract the given radius values without taking absolute values."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "4",
+        "is_correct": false,
+        "rationale": "Change-for-rate error: 4 is the change in signed radius, but it does not account for the angle interval. An average rate requires dividing that change by the angle change. Fix: Divide the radius change by 2π/3−π/6."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "π/8",
+        "is_correct": false,
+        "rationale": "Reciprocal-rate error: dividing the angle change by the radius change gives (π/2)/4 = π/8. This reverses the requested rate of radius change with respect to angle. Fix: Put the radius change in the numerator and the angle change in the denominator."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.15#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.2",
+    "topic_title": "Sine, Cosine, and Tangent",
+    "stem": "The terminal ray of angle θ intersects the unit circle at (−3/5, 4/5). What is tan θ?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "−4/3",
+        "is_correct": true,
+        "rationale": "On the unit circle, cos θ = −3/5 and sin θ = 4/5. Since cosine is nonzero, tan θ = sin θ/cos θ = (4/5)/(−3/5) = −4/3."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−3/4",
+        "is_correct": false,
+        "rationale": "Reciprocal-ratio error: dividing cosine by sine gives −3/4. Tangent requires sine divided by cosine, not the reverse. Fix: Write tan θ = y/x before substituting the coordinates."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "4/3",
+        "is_correct": false,
+        "rationale": "Sign-loss error: using only the coordinate magnitudes gives 4/3. Here sine is positive and cosine is negative, so their quotient is negative. Fix: Keep each coordinate’s sign when forming the quotient."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4/5",
+        "is_correct": false,
+        "rationale": "Sine-for-tangent error: the y-coordinate, 4/5, gives sin θ, not tan θ. Tangent is the ratio of the y-coordinate to the x-coordinate. Fix: Divide the y-coordinate by the x-coordinate after checking that x ≠ 0."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.2#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "Sinusoidal Function Transformations",
+    "stem": "The function f is defined by f(θ) = 4 sin(−3(θ + π/6)) + 2. What is the period of f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "3",
+        "is_correct": false,
+        "rationale": "Coefficient-as-period error: this reports |b| rather than the period. The coefficient controls horizontal scaling, so the period must be computed as 2π/|b|. Fix: Identify b, then divide 2π by |b|."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "6π",
+        "is_correct": false,
+        "rationale": "Horizontal-scaling reversal: this multiplies 2π by 3 instead of dividing. A coefficient with magnitude 3 compresses each cycle horizontally to one-third its original length. Fix: Divide the original sine period by the coefficient’s magnitude."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "2π/3",
+        "is_correct": true,
+        "rationale": "In the form a sin(b(θ + c)) + d, the coefficient b is −3. The period is 2π/|b| = 2π/3; the vertical stretch and shifts do not change it."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "−2π/3",
+        "is_correct": false,
+        "rationale": "Missing-absolute-value error: this uses 2π/b instead of 2π/|b|. The negative coefficient reverses horizontal orientation, but a period is a positive cycle length. Fix: Take the absolute value of b before computing the period."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.6#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.7",
+    "topic_title": "Sinusoidal Function Context and Data Modeling",
+    "stem": "A marker on a vibrating machine moves vertically in a sinusoidal pattern between heights of 8 cm and 12 cm above a platform. It completes 3 full cycles each second and is at its maximum height at t = 0. Which function models its height h(t), in centimeters, after t seconds? Angles are measured in radians.",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "h(t) = 10 + 2cos(3t)",
+        "is_correct": false,
+        "rationale": "Frequency-as-parameter error: this uses 3 cycles per second directly as b. Because one cosine cycle spans 2π radians, b must be 2π · 3, not 3. Fix: Multiply the frequency by 2π before placing it inside cosine."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "h(t) = 10 + 2cos(6πt)",
+        "is_correct": true,
+        "rationale": "The midline is (8 + 12)/2 = 10, and the amplitude is (12 − 8)/2 = 2. The frequency is 3 cycles per second, so b = 2π · 3 = 6π. Positive cosine starts at the maximum height, matching h(0) = 12."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "h(t) = 10 + 2cos((2π/3)t)",
+        "is_correct": false,
+        "rationale": "Frequency-period reversal: this treats 3 cycles per second as a period of 3 seconds. The actual period is 1/3 second, so b = 2π/(1/3) = 6π. Fix: Take the reciprocal of cycles per second to find seconds per cycle."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "h(t) = 10 + 4cos(6πt)",
+        "is_correct": false,
+        "rationale": "Full-range-as-amplitude error: this uses 12 − 8 = 4 as the amplitude instead of half that difference. The resulting heights range from 6 cm to 14 cm, contradicting the context. Fix: Divide the difference between maximum and minimum heights by 2 to find amplitude."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.7#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "The Tangent Function",
+    "stem": "What is the least positive period of f(θ) = 2tan(3θ) + 1?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "π/3",
+        "is_correct": true,
+        "rationale": "Tangent has base period π. The coefficient of θ inside tangent is b = 3, so the period is π/|3| = π/3; the outside multiplier and vertical shift do not change it."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2π/3",
+        "is_correct": false,
+        "rationale": "Sine-and-cosine period confusion: this uses 2π as tangent’s base period. Tangent’s base period is π, so dividing 2π by 3 gives twice the least positive period. Fix: Identify the trig function’s base period before dividing by |b|."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "3π",
+        "is_correct": false,
+        "rationale": "Horizontal-scaling reversal: this multiplies the base period by 3 instead of dividing. Multiplying θ by 3 makes tangent complete each cycle over a shorter input interval. Fix: Divide π by the absolute value of the coefficient of θ."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "π/6",
+        "is_correct": false,
+        "rationale": "Vertical-factor confusion: this treats the outside multiplier 2 as another horizontal multiplier. Only the inside coefficient 3 affects the period; the outside 2 scales the outputs. Fix: Locate the coefficient inside tangent’s argument and use only that coefficient in π/|b|."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.8#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Inverse Trigonometric Functions",
+    "stem": "What is the exact value of arccos(cos(5π/3))?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "5π/3",
+        "is_correct": false,
+        "rationale": "Unrestricted cancellation error: arccos(cos θ) does not always equal θ. Although 5π/3 has the required cosine, it lies outside the inverse cosine range [0, π]. Fix: Check whether the original angle lies in [0, π] before canceling inverse cosine and cosine."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−π/3",
+        "is_correct": false,
+        "rationale": "Wrong principal range error: −π/3 has the required cosine, but inverse cosine cannot return a negative angle. Its output must lie in [0, π]. Fix: Find an angle with the same cosine inside [0, π]."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "2π/3",
+        "is_correct": false,
+        "rationale": "Quadrant sign error: cos(2π/3) = −1/2, but cos(5π/3) = 1/2. Being inside the inverse cosine range is necessary, but the cosine value must also match. Fix: Check the cosine’s sign in each angle’s quadrant before selecting the inverse cosine value."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "π/3",
+        "is_correct": true,
+        "rationale": "Since cos(5π/3) = 1/2, the expression equals arccos(1/2). Inverse cosine returns an angle in [0, π], and π/3 is the angle in that range whose cosine is 1/2."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.9#r1-openai",
+      "author": "openai/gpt-6.1-sol",
+      "checkers": [
+        "anthropic/claude-opus-5.5",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-u1-3"
+    }
+  },
+  {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "Consider the graph of the parent function y = sin x on the interval 0 ≤ x ≤ 2π. Which list gives the points on this graph at x = 0, π/2, π, 3π/2, and 2π, in that order?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "(0, 1), (π/2, 0), (π, −1), (3π/2, 0), (2π, 1)",
+        "is_correct": false,
+        "rationale": "This swaps sine and cosine. These are the anchor points of y = cos x, which starts at its maximum, but sin 0 = 0, so the sine graph starts at the origin. Fix: Evaluate sin 0 first and check whether the graph starts at 0 or at 1."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "(0, 0), (π/2, −1), (π, 0), (3π/2, 1), (2π, 0)",
+        "is_correct": false,
+        "rationale": "This puts the extrema in the wrong quarter-periods, so the graph dips first. Since sin(π/2) = 1 and sin(3π/2) = −1, sine rises to its maximum before it reaches its minimum. Fix: Find the unit-circle point at π/2 and read its y-coordinate to set the first extremum."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, 1), (2π, 0)",
+        "is_correct": false,
+        "rationale": "This treats sine as never negative. On (π, 2π) the unit-circle point lies below the x-axis, so sine is negative there, and the range of sine is [−1, 1]. Fix: Check the sign of the y-coordinate at 3π/2 on the unit circle before you plot it."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, −1), (2π, 0)",
+        "is_correct": true,
+        "rationale": "Sine is the y-coordinate on the unit circle. It starts at 0, rises to its maximum 1 at π/2, returns to 0 at π, and falls to its minimum −1 at 3π/2. It returns to 0 at 2π, completing one period."
+      }
+    ],
+    "provenance": {
+      "candidate_id": "ap-precalculus__3.4#r1-anthropic",
+      "author": "anthropic/claude-opus-5.5",
+      "checkers": [
+        "openai/gpt-6.1-sol",
+        "google/gemini-3.8-flash",
+        "deepseek/deepseek-v4-pro",
+        "meta/muse-spark-1.3"
+      ],
+      "batch": "precalc-3-4-rerun"
+    }
+  }
+]

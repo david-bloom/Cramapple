@@ -1,0 +1,2921 @@
+{
+ "topic": {
+  "subject_key": "ap-precalculus",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Sine and Cosine Function Graphs"
+ },
+ "status": "escalated",
+ "candidates": [
+  {
+   "id": "ap-precalculus__3.4#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 5940,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 5937
+    },
+    "outputTokens": 524,
+    "outputTokenDetails": {
+     "textTokens": 386,
+     "reasoningTokens": 138
+    },
+    "totalTokens": 6464,
+    "raw": {
+     "input_tokens": 5940,
+     "input_tokens_details": {
+      "cache_write_tokens": 5937,
+      "cached_tokens": 0
+     },
+     "output_tokens": 524,
+     "output_tokens_details": {
+      "reasoning_tokens": 138
+     },
+     "total_tokens": 6464
+    },
+    "reasoningTokens": 138,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "A sine function has a maximum value of 9 and a minimum value of 1. What are its amplitude and the equation of its midline?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Amplitude: 5; midline: y = 5",
+      "is_correct": false,
+      "rationale": "Vertical-shift confusion treats the midline’s height as the amplitude. The midline is 5 units above the x-axis, but the maximum is only 4 units above the midline. Fix: Find the midline, then subtract its height from the maximum value."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Amplitude: 8; midline: y = 5",
+      "is_correct": false,
+      "rationale": "Full-height confusion uses the entire distance from minimum to maximum as the amplitude. The distance 9 − 1 = 8 spans both sides of the midline, so the amplitude is half that distance. Fix: Divide the difference between the maximum and minimum values by 2."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Amplitude: 4; midline: y = 5",
+      "is_correct": true,
+      "rationale": "The midline lies halfway between the maximum and minimum, at y = (9 + 1)/2 = 5. The amplitude is the distance from the midline to either extreme: 9 − 5 = 4."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Amplitude: 9; midline: y = 5",
+      "is_correct": false,
+      "rationale": "Maximum-value confusion measures the peak’s height from the x-axis instead of the midline. Because the midline is y = 5, the amplitude is 9 − 5, not 9. Fix: Measure from the midline to the peak, not from the x-axis."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 607,
+         "inputTokenDetails": {
+          "noCacheTokens": 607,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 637,
+         "raw": {
+          "input_tokens": 607,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1934,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 331,
+         "inputTokenDetails": {
+          "noCacheTokens": 331,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 230,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 200
+         },
+         "totalTokens": 561,
+         "raw": {
+          "thoughtsTokenCount": 200,
+          "promptTokenCount": 331,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 561,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 331
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 200,
+         "cachedInputTokens": 0
+        },
+        "ms": 3759,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 397,
+         "inputTokenDetails": {
+          "noCacheTokens": 141,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 218,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 198
+         },
+         "totalTokens": 615,
+         "raw": {
+          "prompt_tokens": 397,
+          "completion_tokens": 218,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 141,
+          "total_tokens": 615,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 198
+          }
+         },
+         "reasoningTokens": 198,
+         "cachedInputTokens": 256
+        },
+        "ms": 2513,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 165,
+         "inputTokenDetails": {
+          "noCacheTokens": 165,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 826,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 801
+         },
+         "totalTokens": 991,
+         "raw": {
+          "input_tokens": 165,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 826,
+          "output_tokens_details": {
+           "reasoning_tokens": 801
+          },
+          "total_tokens": 991
+         },
+         "reasoningTokens": 801,
+         "cachedInputTokens": 0
+        },
+        "ms": 6542,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Finding amplitude and midline from a function's maximum and minimum values is the content of 3.5 Sinusoidal Functions. That topic defines the midline as the average of the extremes and the amplitude as half their difference. Topic 3.4 covers building and reading the parent sine and cosine graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10858,
+         "inputTokenDetails": {
+          "noCacheTokens": 846,
+          "cacheReadTokens": 10012,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 658,
+         "outputTokenDetails": {
+          "textTokens": 309,
+          "reasoningTokens": 349
+         },
+         "totalTokens": 11516,
+         "raw": {
+          "input_tokens": 846,
+          "output_tokens": 658,
+          "output_tokens_details": {
+           "thinking_tokens": 349
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 10012,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 349,
+         "cachedInputTokens": 10012
+        },
+        "ms": 9512,
+        "flags": [
+         "topic 3.5",
+         "on_topic: Finding amplitude and midline from a function's maximum and minimum values is the content of 3.5 Sinusoidal Functions. That topic defines the midline as the average of the extremes and the amplitude as half their difference. Topic 3.4 covers building and reading the parent sine and cosine graphs."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Finding amplitude and midline from the maximum and minimum values belongs to 3.5 Sinusoidal Functions (amplitude, vertical shift, period, frequency), not 3.4, which covers constructing and describing the basic sine and cosine graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10858,
+         "inputTokenDetails": {
+          "noCacheTokens": 846,
+          "cacheReadTokens": 10012,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 792,
+         "outputTokenDetails": {
+          "textTokens": 297,
+          "reasoningTokens": 495
+         },
+         "totalTokens": 11650,
+         "raw": {
+          "input_tokens": 846,
+          "output_tokens": 792,
+          "output_tokens_details": {
+           "thinking_tokens": 495
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 10012,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 495,
+         "cachedInputTokens": 10012
+        },
+        "ms": 10782,
+        "flags": [
+         "topic 3.5",
+         "on_topic: Finding amplitude and midline from the maximum and minimum values belongs to 3.5 Sinusoidal Functions (amplitude, vertical shift, period, frequency), not 3.4, which covers constructing and describing the basic sine and cosine graphs."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question most directly tests Topic 3.5 (Sinusoidal Functions), which explicitly defines and assesses the midline and amplitude of general sinusoidal functions from maximum and minimum values (EK 3.5.A.2), rather than Topic 3.4 (Sine and Cosine Function Graphs), which focuses on the parent functions y = sin x and y = cos x."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7181,
+         "inputTokenDetails": {
+          "noCacheTokens": 7181,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3172,
+         "outputTokenDetails": {
+          "textTokens": 338,
+          "reasoningTokens": 2834
+         },
+         "totalTokens": 10353,
+         "raw": {
+          "thoughtsTokenCount": 2834,
+          "promptTokenCount": 7181,
+          "candidatesTokenCount": 338,
+          "totalTokenCount": 10353,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7181
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 338
+           }
+          ]
+         },
+         "reasoningTokens": 2834,
+         "cachedInputTokens": 0
+        },
+        "ms": 23151,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question most directly tests Topic 3.5 (Sinusoidal Functions), which explicitly defines and assesses the midline and amplitude of general sinusoidal functions from maximum and minimum values (EK 3.5.A.2), rather than Topic 3.4 (Sine and Cosine Function Graphs), which focuses on the parent functions y = sin x and y = cos x."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7181,
+         "inputTokenDetails": {
+          "noCacheTokens": 3163,
+          "cacheReadTokens": 4018
+         },
+         "outputTokens": 1771,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1509
+         },
+         "totalTokens": 8952,
+         "raw": {
+          "cachedContentTokenCount": 4018,
+          "thoughtsTokenCount": 1509,
+          "promptTokenCount": 7181,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8952,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7181
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 4018
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1509,
+         "cachedInputTokens": 4018
+        },
+        "ms": 13712,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6568,
+         "inputTokenDetails": {
+          "noCacheTokens": 552,
+          "cacheReadTokens": 6016
+         },
+         "outputTokens": 3291,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3072
+         },
+         "totalTokens": 9859,
+         "raw": {
+          "prompt_tokens": 6568,
+          "completion_tokens": 3291,
+          "prompt_cache_hit_tokens": 6016,
+          "prompt_cache_miss_tokens": 552,
+          "total_tokens": 9859,
+          "prompt_tokens_details": {
+           "cached_tokens": 6016
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3072
+          }
+         },
+         "reasoningTokens": 3072,
+         "cachedInputTokens": 6016
+        },
+        "ms": 29267,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5630,
+         "inputTokenDetails": {
+          "noCacheTokens": 5630,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4617,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 4460
+         },
+         "totalTokens": 10247,
+         "raw": {
+          "input_tokens": 5630,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 4617,
+          "output_tokens_details": {
+           "reasoning_tokens": 4460
+          },
+          "total_tokens": 10247
+         },
+         "reasoningTokens": 4460,
+         "cachedInputTokens": 0
+        },
+        "ms": 49691,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-precalculus__3.4#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 9580,
+    "inputTokenDetails": {
+     "noCacheTokens": 593,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 8987
+    },
+    "outputTokens": 875,
+    "outputTokenDetails": {
+     "textTokens": 578,
+     "reasoningTokens": 297
+    },
+    "totalTokens": 10455,
+    "raw": {
+     "input_tokens": 593,
+     "output_tokens": 875,
+     "output_tokens_details": {
+      "thinking_tokens": 297
+     },
+     "cache_creation_input_tokens": 8987,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 8987,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 297,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "The graph of f(θ) = a·sin(θ) + d, where a > 0, reaches a maximum value of 7 at θ = π/2 and a minimum value of 1 at θ = 3π/2. Which statement correctly gives the amplitude of the graph and the equation of its midline?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Amplitude 4; midline y = 4",
+      "is_correct": false,
+      "rationale": "This treats the vertical shift as the amplitude. The value 4 is the height of the midline above the x-axis, not the distance from the midline to a maximum, which is 7 − 4 = 3. Fix: Find the midline first, then subtract its height from the maximum value."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Amplitude 6; midline y = 4",
+      "is_correct": false,
+      "rationale": "This uses the full distance from minimum to maximum, 7 − 1 = 6, as the amplitude. That span covers the graph's rise above the midline and its drop below it, so it is twice the amplitude. Fix: Divide the maximum-minus-minimum distance by 2 to get the amplitude."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Amplitude 7; midline y = 0",
+      "is_correct": false,
+      "rationale": "This assumes the midline is the x-axis and reads the maximum value as the amplitude. Because the minimum is 1, not −7, the graph is not centered on y = 0. Fix: Check that the maximum and minimum are equally far from your midline before measuring amplitude."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Amplitude 3; midline y = 4",
+      "is_correct": true,
+      "rationale": "The midline sits halfway between the extremes: (7 + 1)/2 = 4, so the midline is y = 4. Amplitude is the distance from the midline to the maximum: 7 − 4 = 3, which matches 4 − 1 = 3 down to the minimum."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 292,
+         "inputTokenDetails": {
+          "noCacheTokens": 292,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 52,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 26
+         },
+         "totalTokens": 344,
+         "raw": {
+          "input_tokens": 292,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 52,
+          "output_tokens_details": {
+           "reasoning_tokens": 26
+          },
+          "total_tokens": 344
+         },
+         "reasoningTokens": 26,
+         "cachedInputTokens": 0
+        },
+        "ms": 2393,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 362,
+         "inputTokenDetails": {
+          "noCacheTokens": 362,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 325,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 295
+         },
+         "totalTokens": 687,
+         "raw": {
+          "thoughtsTokenCount": 295,
+          "promptTokenCount": 362,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 687,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 362
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 295,
+         "cachedInputTokens": 0
+        },
+        "ms": 3666,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 428,
+         "inputTokenDetails": {
+          "noCacheTokens": 172,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 248,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 228
+         },
+         "totalTokens": 676,
+         "raw": {
+          "prompt_tokens": 428,
+          "completion_tokens": 248,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 172,
+          "total_tokens": 676,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 228
+          }
+         },
+         "reasoningTokens": 228,
+         "cachedInputTokens": 256
+        },
+        "ms": 3858,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 194,
+         "inputTokenDetails": {
+          "noCacheTokens": 194,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1191,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1166
+         },
+         "totalTokens": 1385,
+         "raw": {
+          "input_tokens": 194,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1191,
+          "output_tokens_details": {
+           "reasoning_tokens": 1166
+          },
+          "total_tokens": 1385
+         },
+         "reasoningTokens": 1166,
+         "cachedInputTokens": 0
+        },
+        "ms": 6986,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question directly tests amplitude and midline of a vertically scaled and shifted sinusoidal function, which belongs to 3.5 Sinusoidal Functions rather than 3.4 Sine and Cosine Function Graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6409,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6406
+         },
+         "outputTokens": 409,
+         "outputTokenDetails": {
+          "textTokens": 266,
+          "reasoningTokens": 143
+         },
+         "totalTokens": 6818,
+         "raw": {
+          "input_tokens": 6409,
+          "input_tokens_details": {
+           "cache_write_tokens": 6406,
+           "cached_tokens": 0
+          },
+          "output_tokens": 409,
+          "output_tokens_details": {
+           "reasoning_tokens": 143
+          },
+          "total_tokens": 6818
+         },
+         "reasoningTokens": 143,
+         "cachedInputTokens": 0
+        },
+        "ms": 8953,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question directly tests amplitude and midline of a vertically scaled and shifted sinusoidal function, which belongs to 3.5 Sinusoidal Functions rather than 3.4 Sine and Cosine Function Graphs."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question most directly tests topic 3.5, Sinusoidal Functions: finding amplitude and midline from the extrema of a shifted, scaled sinusoid, rather than topic 3.4, Sine and Cosine Function Graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6409,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 6406,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 474,
+         "outputTokenDetails": {
+          "textTokens": 271,
+          "reasoningTokens": 203
+         },
+         "totalTokens": 6883,
+         "raw": {
+          "input_tokens": 6409,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 6406
+          },
+          "output_tokens": 474,
+          "output_tokens_details": {
+           "reasoning_tokens": 203
+          },
+          "total_tokens": 6883
+         },
+         "reasoningTokens": 203,
+         "cachedInputTokens": 6406
+        },
+        "ms": 10182,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question most directly tests topic 3.5, Sinusoidal Functions: finding amplitude and midline from the extrema of a shifted, scaled sinusoid, rather than topic 3.4, Sine and Cosine Function Graphs."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7247,
+         "inputTokenDetails": {
+          "noCacheTokens": 7247,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1513,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1251
+         },
+         "totalTokens": 8760,
+         "raw": {
+          "thoughtsTokenCount": 1251,
+          "promptTokenCount": 7247,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8760,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7247
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1251,
+         "cachedInputTokens": 0
+        },
+        "ms": 13259,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6636,
+         "inputTokenDetails": {
+          "noCacheTokens": 620,
+          "cacheReadTokens": 6016
+         },
+         "outputTokens": 6686,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6467
+         },
+         "totalTokens": 13322,
+         "raw": {
+          "prompt_tokens": 6636,
+          "completion_tokens": 6686,
+          "prompt_cache_hit_tokens": 6016,
+          "prompt_cache_miss_tokens": 620,
+          "total_tokens": 13322,
+          "prompt_tokens_details": {
+           "cached_tokens": 6016
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6467
+          }
+         },
+         "reasoningTokens": 6467,
+         "cachedInputTokens": 6016
+        },
+        "ms": 61906,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5697,
+         "inputTokenDetails": {
+          "noCacheTokens": 598,
+          "cacheReadTokens": 5099
+         },
+         "outputTokens": 4898,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 4741
+         },
+         "totalTokens": 10595,
+         "raw": {
+          "input_tokens": 5697,
+          "input_tokens_details": {
+           "cached_tokens": 5099
+          },
+          "output_tokens": 4898,
+          "output_tokens_details": {
+           "reasoning_tokens": 4741
+          },
+          "total_tokens": 10595
+         },
+         "reasoningTokens": 4741,
+         "cachedInputTokens": 5099
+        },
+        "ms": 28628,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-precalculus__3.4#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 5940,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 5937,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 442,
+    "outputTokenDetails": {
+     "textTokens": 323,
+     "reasoningTokens": 119
+    },
+    "totalTokens": 6382,
+    "raw": {
+     "input_tokens": 5940,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 5937
+     },
+     "output_tokens": 442,
+     "output_tokens_details": {
+      "reasoning_tokens": 119
+     },
+     "total_tokens": 6382
+    },
+    "reasoningTokens": 119,
+    "cachedInputTokens": 5937
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "The graph of a cosine function has a maximum value of 9 and a minimum value of 1. What is its amplitude?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "5",
+      "is_correct": false,
+      "rationale": "Vertical-shift confusion: 5 is the midline’s height, not the amplitude. Amplitude measures the distance from the midline to a maximum or minimum. Fix: Find the midline, then subtract its height from the maximum."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "8",
+      "is_correct": false,
+      "rationale": "Full-range confusion: 9 − 1 = 8 measures the entire vertical distance from minimum to maximum. The amplitude is half that distance. Fix: Subtract the minimum from the maximum, then divide by 2."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "4",
+      "is_correct": true,
+      "rationale": "The midline is y = (9 + 1)/2 = 5. The amplitude is the distance from the midline to the maximum, 9 − 5 = 4; the midline’s height, 5, describes the vertical shift instead."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "9",
+      "is_correct": false,
+      "rationale": "Maximum-as-amplitude error: 9 measures the maximum’s height above the x-axis. Amplitude must be measured from the midline, which is not the x-axis here. Fix: Average the maximum and minimum, then measure from that midline to the maximum."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 548,
+         "inputTokenDetails": {
+          "noCacheTokens": 548,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 578,
+         "raw": {
+          "input_tokens": 548,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1538,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 292,
+         "inputTokenDetails": {
+          "noCacheTokens": 292,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 180,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 150
+         },
+         "totalTokens": 472,
+         "raw": {
+          "thoughtsTokenCount": 150,
+          "promptTokenCount": 292,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 472,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 292
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 150,
+         "cachedInputTokens": 0
+        },
+        "ms": 3147,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 354,
+         "inputTokenDetails": {
+          "noCacheTokens": 98,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 189,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 163
+         },
+         "totalTokens": 543,
+         "raw": {
+          "prompt_tokens": 354,
+          "completion_tokens": 189,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 98,
+          "total_tokens": 543,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 163
+          }
+         },
+         "reasoningTokens": 163,
+         "cachedInputTokens": 256
+        },
+        "ms": 3146,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 121,
+         "inputTokenDetails": {
+          "noCacheTokens": 121,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 687,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 662
+         },
+         "totalTokens": 808,
+         "raw": {
+          "input_tokens": 121,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 687,
+          "output_tokens_details": {
+           "reasoning_tokens": 662
+          },
+          "total_tokens": 808
+         },
+         "reasoningTokens": 662,
+         "cachedInputTokens": 0
+        },
+        "ms": 9039,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10788,
+         "inputTokenDetails": {
+          "noCacheTokens": 776,
+          "cacheReadTokens": 10012,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 763,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 551
+         },
+         "totalTokens": 11551,
+         "raw": {
+          "input_tokens": 776,
+          "output_tokens": 763,
+          "output_tokens_details": {
+           "thinking_tokens": 551
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 10012,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 551,
+         "cachedInputTokens": 10012
+        },
+        "ms": 8079,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question asks for the amplitude of a transformed cosine function given its maximum and minimum values, which directly tests Topic 3.5 (Sinusoidal Functions, EK 3.5.A.2) rather than Topic 3.4 (Sine and Cosine Function Graphs, which is restricted to parent functions y = sin x and y = cos x)."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7126,
+         "inputTokenDetails": {
+          "noCacheTokens": 7126,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2500,
+         "outputTokenDetails": {
+          "textTokens": 335,
+          "reasoningTokens": 2165
+         },
+         "totalTokens": 9626,
+         "raw": {
+          "thoughtsTokenCount": 2165,
+          "promptTokenCount": 7126,
+          "candidatesTokenCount": 335,
+          "totalTokenCount": 9626,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7126
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 335
+           }
+          ]
+         },
+         "reasoningTokens": 2165,
+         "cachedInputTokens": 0
+        },
+        "ms": 17282,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question asks for the amplitude of a transformed cosine function given its maximum and minimum values, which directly tests Topic 3.5 (Sinusoidal Functions, EK 3.5.A.2) rather than Topic 3.4 (Sine and Cosine Function Graphs, which is restricted to parent functions y = sin x and y = cos x)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests finding the amplitude of a transformed cosine function from its extrema, which belongs to topic 3.5 (Sinusoidal Functions). Topic 3.4 covers only the parent functions f(θ) = sin θ and g(θ) = cos θ; a student who has studied only up to 3.4 has not yet learned the definition and formula for amplitude."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7126,
+         "inputTokenDetails": {
+          "noCacheTokens": 7126,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2516,
+         "outputTokenDetails": {
+          "textTokens": 340,
+          "reasoningTokens": 2176
+         },
+         "totalTokens": 9642,
+         "raw": {
+          "thoughtsTokenCount": 2176,
+          "promptTokenCount": 7126,
+          "candidatesTokenCount": 340,
+          "totalTokenCount": 9642,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7126
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 340
+           }
+          ]
+         },
+         "reasoningTokens": 2176,
+         "cachedInputTokens": 0
+        },
+        "ms": 16585,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question tests finding the amplitude of a transformed cosine function from its extrema, which belongs to topic 3.5 (Sinusoidal Functions). Topic 3.4 covers only the parent functions f(θ) = sin θ and g(θ) = cos θ; a student who has studied only up to 3.4 has not yet learned the definition and formula for amplitude."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6513,
+         "inputTokenDetails": {
+          "noCacheTokens": 369,
+          "cacheReadTokens": 6144
+         },
+         "outputTokens": 2398,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 2179
+         },
+         "totalTokens": 8911,
+         "raw": {
+          "prompt_tokens": 6513,
+          "completion_tokens": 2398,
+          "prompt_cache_hit_tokens": 6144,
+          "prompt_cache_miss_tokens": 369,
+          "total_tokens": 8911,
+          "prompt_tokens_details": {
+           "cached_tokens": 6144
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2179
+          }
+         },
+         "reasoningTokens": 2179,
+         "cachedInputTokens": 6144
+        },
+        "ms": 21989,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5568,
+         "inputTokenDetails": {
+          "noCacheTokens": 5568,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2971,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 2814
+         },
+         "totalTokens": 8539,
+         "raw": {
+          "input_tokens": 5568,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 2971,
+          "output_tokens_details": {
+           "reasoning_tokens": 2814
+          },
+          "total_tokens": 8539
+         },
+         "reasoningTokens": 2814,
+         "cachedInputTokens": 0
+        },
+        "ms": 31764,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-precalculus__3.4#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 9580,
+    "inputTokenDetails": {
+     "noCacheTokens": 593,
+     "cacheReadTokens": 8987,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 967,
+    "outputTokenDetails": {
+     "textTokens": 552,
+     "reasoningTokens": 415
+    },
+    "totalTokens": 10547,
+    "raw": {
+     "input_tokens": 593,
+     "output_tokens": 967,
+     "output_tokens_details": {
+      "thinking_tokens": 415
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 8987,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 415,
+    "cachedInputTokens": 8987
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "The graph of a function of the form y = a·sin(x) + d, with a > 0, oscillates smoothly. Its highest points are at y = 7 and its lowest points are at y = 1. Which statement correctly describes the graph's midline and amplitude?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Midline y = 4; amplitude 4",
+      "is_correct": false,
+      "rationale": "This calls the vertical shift the amplitude. The value 4 tells where the midline sits above the x-axis, not how far the graph rises above the midline, which is only 3. Fix: After finding the midline, subtract its height from the maximum to get amplitude."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Midline y = 4; amplitude 3",
+      "is_correct": true,
+      "rationale": "The midline sits halfway between the maximum and minimum: (7 + 1)/2 = 4. Amplitude is the distance from that midline up to the maximum, 7 − 4 = 3, which matches the distance down to the minimum, 4 − 1 = 3."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Midline y = 4; amplitude 6",
+      "is_correct": false,
+      "rationale": "This uses the full vertical spread, maximum minus minimum, as the amplitude. That spread of 6 covers both above and below the midline, so it is twice the amplitude. Fix: Divide (maximum − minimum) by 2, or measure from midline to maximum only."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Midline y = 0; amplitude 7",
+      "is_correct": false,
+      "rationale": "This assumes the midline is the x-axis and reads the maximum value as the amplitude. The graph is shifted up, so its midline is y = 4, and the maximum lies only 3 above it. Fix: Average the maximum and minimum to locate the midline before measuring amplitude."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 279,
+         "inputTokenDetails": {
+          "noCacheTokens": 279,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 37,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 11
+         },
+         "totalTokens": 316,
+         "raw": {
+          "input_tokens": 279,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 37,
+          "output_tokens_details": {
+           "reasoning_tokens": 11
+          },
+          "total_tokens": 316
+         },
+         "reasoningTokens": 11,
+         "cachedInputTokens": 0
+        },
+        "ms": 3105,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 358,
+         "inputTokenDetails": {
+          "noCacheTokens": 358,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 243,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 213
+         },
+         "totalTokens": 601,
+         "raw": {
+          "thoughtsTokenCount": 213,
+          "promptTokenCount": 358,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 601,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 358
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 213,
+         "cachedInputTokens": 0
+        },
+        "ms": 3895,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 419,
+         "inputTokenDetails": {
+          "noCacheTokens": 163,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 308,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 282
+         },
+         "totalTokens": 727,
+         "raw": {
+          "prompt_tokens": 419,
+          "completion_tokens": 308,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 163,
+          "total_tokens": 727,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 282
+          }
+         },
+         "reasoningTokens": 282,
+         "cachedInputTokens": 256
+        },
+        "ms": 4162,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 186,
+         "inputTokenDetails": {
+          "noCacheTokens": 186,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1083,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 1053
+         },
+         "totalTokens": 1269,
+         "raw": {
+          "input_tokens": 186,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1083,
+          "output_tokens_details": {
+           "reasoning_tokens": 1053
+          },
+          "total_tokens": 1269
+         },
+         "reasoningTokens": 1053,
+         "cachedInputTokens": 0
+        },
+        "ms": 7470,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests finding the midline and amplitude of a shifted and scaled sinusoidal function from its extrema, which most directly belongs to 3.5 Sinusoidal Functions, not 3.4 Sine and Cosine Function Graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6380,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6377
+         },
+         "outputTokens": 471,
+         "outputTokenDetails": {
+          "textTokens": 271,
+          "reasoningTokens": 200
+         },
+         "totalTokens": 6851,
+         "raw": {
+          "input_tokens": 6380,
+          "input_tokens_details": {
+           "cache_write_tokens": 6377,
+           "cached_tokens": 0
+          },
+          "output_tokens": 471,
+          "output_tokens_details": {
+           "reasoning_tokens": 200
+          },
+          "total_tokens": 6851
+         },
+         "reasoningTokens": 200,
+         "cachedInputTokens": 0
+        },
+        "ms": 10738,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question tests finding the midline and amplitude of a shifted and scaled sinusoidal function from its extrema, which most directly belongs to 3.5 Sinusoidal Functions, not 3.4 Sine and Cosine Function Graphs."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Determining the midline and amplitude of a general sinusoidal function from its maximum and minimum most directly tests 3.5 Sinusoidal Functions, not 3.4 Sine and Cosine Function Graphs."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6380,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 6377,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 435,
+         "outputTokenDetails": {
+          "textTokens": 266,
+          "reasoningTokens": 169
+         },
+         "totalTokens": 6815,
+         "raw": {
+          "input_tokens": 6380,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 6377
+          },
+          "output_tokens": 435,
+          "output_tokens_details": {
+           "reasoning_tokens": 169
+          },
+          "total_tokens": 6815
+         },
+         "reasoningTokens": 169,
+         "cachedInputTokens": 6377
+        },
+        "ms": 10617,
+        "flags": [
+         "topic 3.5",
+         "on_topic: Determining the midline and amplitude of a general sinusoidal function from its maximum and minimum most directly tests 3.5 Sinusoidal Functions, not 3.4 Sine and Cosine Function Graphs."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question directly tests finding the midline and amplitude of a general sinusoidal function of the form y = a·sin(x) + d from its extrema, which belongs to topic 3.5 (Sinusoidal Functions), whereas topic 3.4 is restricted to the basic parent graphs of y = sin(x) and y = cos(x)."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7224,
+         "inputTokenDetails": {
+          "noCacheTokens": 7224,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4089,
+         "outputTokenDetails": {
+          "textTokens": 334,
+          "reasoningTokens": 3755
+         },
+         "totalTokens": 11313,
+         "raw": {
+          "thoughtsTokenCount": 3755,
+          "promptTokenCount": 7224,
+          "candidatesTokenCount": 334,
+          "totalTokenCount": 11313,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7224
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 334
+           }
+          ]
+         },
+         "reasoningTokens": 3755,
+         "cachedInputTokens": 0
+        },
+        "ms": 30881,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question directly tests finding the midline and amplitude of a general sinusoidal function of the form y = a·sin(x) + d from its extrema, which belongs to topic 3.5 (Sinusoidal Functions), whereas topic 3.4 is restricted to the basic parent graphs of y = sin(x) and y = cos(x)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests the characteristics (midline and amplitude) of a general sinusoidal function of the form y = a·sin(x) + d, which is directly covered in Topic 3.5 (Sinusoidal Functions), whereas Topic 3.4 focuses on the parent graphs of sine and cosine."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7224,
+         "inputTokenDetails": {
+          "noCacheTokens": 3205,
+          "cacheReadTokens": 4019
+         },
+         "outputTokens": 6330,
+         "outputTokenDetails": {
+          "textTokens": 324,
+          "reasoningTokens": 6006
+         },
+         "totalTokens": 13554,
+         "raw": {
+          "cachedContentTokenCount": 4019,
+          "thoughtsTokenCount": 6006,
+          "promptTokenCount": 7224,
+          "candidatesTokenCount": 324,
+          "totalTokenCount": 13554,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7224
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 4019
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 324
+           }
+          ]
+         },
+         "reasoningTokens": 6006,
+         "cachedInputTokens": 4019
+        },
+        "ms": 46748,
+        "flags": [
+         "topic 3.5",
+         "on_topic: The question tests the characteristics (midline and amplitude) of a general sinusoidal function of the form y = a·sin(x) + d, which is directly covered in Topic 3.5 (Sinusoidal Functions), whereas Topic 3.4 focuses on the parent graphs of sine and cosine."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6610,
+         "inputTokenDetails": {
+          "noCacheTokens": 466,
+          "cacheReadTokens": 6144
+         },
+         "outputTokens": 2865,
+         "outputTokenDetails": {
+          "textTokens": 139,
+          "reasoningTokens": 2726
+         },
+         "totalTokens": 9475,
+         "raw": {
+          "prompt_tokens": 6610,
+          "completion_tokens": 2865,
+          "prompt_cache_hit_tokens": 6144,
+          "prompt_cache_miss_tokens": 466,
+          "total_tokens": 9475,
+          "prompt_tokens_details": {
+           "cached_tokens": 6144
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2726
+          }
+         },
+         "reasoningTokens": 2726,
+         "cachedInputTokens": 6144
+        },
+        "ms": 28886,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5673,
+         "inputTokenDetails": {
+          "noCacheTokens": 446,
+          "cacheReadTokens": 5227
+         },
+         "outputTokens": 5586,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 5429
+         },
+         "totalTokens": 11259,
+         "raw": {
+          "input_tokens": 5673,
+          "input_tokens_details": {
+           "cached_tokens": 5227
+          },
+          "output_tokens": 5586,
+          "output_tokens_details": {
+           "reasoning_tokens": 5429
+          },
+          "total_tokens": 11259
+         },
+         "reasoningTokens": 5429,
+         "cachedInputTokens": 5227
+        },
+        "ms": 66694,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  }
+ ]
+}

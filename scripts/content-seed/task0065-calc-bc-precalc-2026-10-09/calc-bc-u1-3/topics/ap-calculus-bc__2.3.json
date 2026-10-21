@@ -1,0 +1,993 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-bc__2.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 10492,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 10489
+    },
+    "outputTokens": 778,
+    "outputTokenDetails": {
+     "textTokens": 447,
+     "reasoningTokens": 331
+    },
+    "totalTokens": 11270,
+    "raw": {
+     "input_tokens": 10492,
+     "input_tokens_details": {
+      "cache_write_tokens": 10489,
+      "cached_tokens": 0
+     },
+     "output_tokens": 778,
+     "output_tokens_details": {
+      "reasoning_tokens": 331
+     },
+     "total_tokens": 11270
+    },
+    "reasoningTokens": 331,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "A balloon’s height h(t), in meters, is differentiable, where t is measured in seconds. Selected values are given: t = 0, h(t) = 2; t = 4, h(t) = 14; t = 6, h(t) = 22; t = 10, h(t) = 52. Using the closest listed times on opposite sides of t = 5, which estimate of h′(5) is obtained?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "h′(5) ≈ 5 m/s",
+      "is_correct": false,
+      "rationale": "Distant-data trap: (52−2)/(10−0) = 5 uses the table’s endpoints rather than the closest times surrounding 5. That wider interval does not give the requested local estimate. Fix: Select the nearest listed time below 5 and the nearest above 5."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "h′(5) ≈ 8 m/s",
+      "is_correct": false,
+      "rationale": "Missing-denominator trap: 22−14 = 8 is the height change in meters, not a rate in meters per second. The elapsed time is 6−4 = 2 seconds. Fix: Divide the height change by the corresponding elapsed time."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "h′(5) ≈ 4 m/s",
+      "is_correct": true,
+      "rationale": "The closest listed times surrounding 5 are 4 and 6, giving the local slope (22−14)/(6−4) = 4 m/s. This secant slope estimates the instantaneous rate at t = 5."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "h′(5) ≈ 18 m/s",
+      "is_correct": false,
+      "rationale": "Average-height trap: (14+22)/2 = 18 averages heights, so its units are meters rather than meters per second. A derivative estimate requires a slope, not an average function value. Fix: Compute the change in height divided by the change in time."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "Choices B (8, the total change over [4,6] without dividing by 2) and D (18) are distractors, but they do not create ambiguity; the question is well posed with one correct answer. Using the closest listed times on either side of t = 5, namely t = 4 and t = 6, gives h′(5) ≈ (22 − 14)/(6 − 4) = 8/2 = 4 m/s."
+        },
+        "usage": {
+         "inputTokens": 689,
+         "inputTokenDetails": {
+          "noCacheTokens": 689,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 158,
+         "outputTokenDetails": {
+          "textTokens": 158,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 847,
+         "raw": {
+          "input_tokens": 689,
+          "output_tokens": 158,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 7124,
+        "flags": [
+         "defect: Choices B (8, the total change over [4,6] without dividing by 2) and D (18) are distractors, but they do not create ambiguity; the question is well posed with one correct answer. Using the closest listed times on either side of t = 5, namely t = 4 and t = 6, gives h′(5) ≈ (22 − 14)/(6 − 4) = 8/2 = 4 m/s."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "Choice D (18) is the change in height h(6) − h(4), not a rate, so it is just a distractor. The correct answer is the symmetric difference quotient using t = 4 and t = 6: (h(6) − h(4))/(6 − 4) = (22 − 14)/2 = 4 m/s, which is choice C."
+        },
+        "usage": {
+         "inputTokens": 689,
+         "inputTokenDetails": {
+          "noCacheTokens": 689,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 136,
+         "outputTokenDetails": {
+          "textTokens": 136,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 825,
+         "raw": {
+          "input_tokens": 689,
+          "output_tokens": 136,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3615,
+        "flags": [
+         "defect: Choice D (18) is the change in height h(6) − h(4), not a rate, so it is just a distractor. The correct answer is the symmetric difference quotient using t = 4 and t = 6: (h(6) − h(4))/(6 − 4) = (22 − 14)/2 = 4 m/s, which is choice C."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 410,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 367,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 337
+         },
+         "totalTokens": 777,
+         "raw": {
+          "thoughtsTokenCount": 337,
+          "promptTokenCount": 410,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 777,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 410
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 337,
+         "cachedInputTokens": 0
+        },
+        "ms": 4679,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 453,
+         "inputTokenDetails": {
+          "noCacheTokens": 197,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 377,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 351
+         },
+         "totalTokens": 830,
+         "raw": {
+          "prompt_tokens": 453,
+          "completion_tokens": 377,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 197,
+          "total_tokens": 830,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 351
+          }
+         },
+         "reasoningTokens": 351,
+         "cachedInputTokens": 256
+        },
+        "ms": 5169,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 221,
+         "inputTokenDetails": {
+          "noCacheTokens": 221,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1278,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1253
+         },
+         "totalTokens": 1499,
+         "raw": {
+          "input_tokens": 221,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1278,
+          "output_tokens_details": {
+           "reasoning_tokens": 1253
+          },
+          "total_tokens": 1499
+         },
+         "reasoningTokens": 1253,
+         "cachedInputTokens": 0
+        },
+        "ms": 18657,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-calculus-bc__2.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 16365,
+    "inputTokenDetails": {
+     "noCacheTokens": 452,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15913
+    },
+    "outputTokens": 1231,
+    "outputTokenDetails": {
+     "textTokens": 604,
+     "reasoningTokens": 627
+    },
+    "totalTokens": 17596,
+    "raw": {
+     "input_tokens": 452,
+     "output_tokens": 1231,
+     "output_tokens_details": {
+      "thinking_tokens": 627
+     },
+     "cache_creation_input_tokens": 15913,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 15913,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 627,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-bc",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "A cup of tea is cooling. The table gives its temperature T(t), in degrees Celsius, at selected times t, in minutes. t: 0, 2, 5, 6, 9. T(t): 70, 64, 58, 55, 49. Using the data at the nearest table times on either side of t = 5, which is the best estimate of T′(5)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "−7/3 °C per minute",
+      "is_correct": false,
+      "rationale": "This uses the distant endpoints t = 0 and t = 9, giving (49 − 70)/9, the average rate over the whole table. Values far from t = 5 describe the overall trend, not the local rate at t = 5. Fix: Pick the table values closest to the target time on each side before computing the slope."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "−9 °C per minute",
+      "is_correct": false,
+      "rationale": "This finds the temperature change 55 − 64 but never divides by the elapsed time of 4 minutes. A change in temperature is measured in °C, not °C per minute, so it is not a rate. Fix: Divide the output change by the input change and check that the units read °C per minute."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "−2.25 °C per minute",
+      "is_correct": true,
+      "rationale": "The nearest times bracketing t = 5 are t = 2 and t = 6, so T′(5) ≈ (55 − 64)/(6 − 2) = −9/4 = −2.25. This difference quotient is a local slope estimate in °C per minute, not an exact derivative value."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "2.25 °C per minute",
+      "is_correct": false,
+      "rationale": "This is a sign error from subtracting temperatures and times in opposite orders, such as (64 − 55)/(6 − 2). The temperature is falling between t = 2 and t = 6, so the rate must be negative. Fix: Subtract outputs and inputs in the same order, then check whether the sign matches increasing or decreasing data."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 299,
+         "inputTokenDetails": {
+          "noCacheTokens": 299,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 86,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 60
+         },
+         "totalTokens": 385,
+         "raw": {
+          "input_tokens": 299,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 86,
+          "output_tokens_details": {
+           "reasoning_tokens": 60
+          },
+          "total_tokens": 385
+         },
+         "reasoningTokens": 60,
+         "cachedInputTokens": 0
+        },
+        "ms": 4913,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 386,
+         "inputTokenDetails": {
+          "noCacheTokens": 386,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 370,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 340
+         },
+         "totalTokens": 756,
+         "raw": {
+          "thoughtsTokenCount": 340,
+          "promptTokenCount": 386,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 756,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 386
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 340,
+         "cachedInputTokens": 0
+        },
+        "ms": 4395,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 438,
+         "inputTokenDetails": {
+          "noCacheTokens": 182,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1462,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 1442
+         },
+         "totalTokens": 1900,
+         "raw": {
+          "prompt_tokens": 438,
+          "completion_tokens": 1462,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 182,
+          "total_tokens": 1900,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1442
+          }
+         },
+         "reasoningTokens": 1442,
+         "cachedInputTokens": 256
+        },
+        "ms": 17248,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 208,
+         "inputTokenDetails": {
+          "noCacheTokens": 208,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1020,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 995
+         },
+         "totalTokens": 1228,
+         "raw": {
+          "input_tokens": 208,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1020,
+          "output_tokens_details": {
+           "reasoning_tokens": 995
+          },
+          "total_tokens": 1228
+         },
+         "reasoningTokens": 995,
+         "cachedInputTokens": 0
+        },
+        "ms": 15723,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11052,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 11049
+         },
+         "outputTokens": 225,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 53
+         },
+         "totalTokens": 11277,
+         "raw": {
+          "input_tokens": 11052,
+          "input_tokens_details": {
+           "cache_write_tokens": 11049,
+           "cached_tokens": 0
+          },
+          "output_tokens": 225,
+          "output_tokens_details": {
+           "reasoning_tokens": 53
+          },
+          "total_tokens": 11277
+         },
+         "reasoningTokens": 53,
+         "cachedInputTokens": 0
+        },
+        "ms": 6255,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 12379,
+         "inputTokenDetails": {
+          "noCacheTokens": 12379,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2042,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1780
+         },
+         "totalTokens": 14421,
+         "raw": {
+          "thoughtsTokenCount": 1780,
+          "promptTokenCount": 12379,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 14421,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12379
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1780,
+         "cachedInputTokens": 0
+        },
+        "ms": 13968,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11342,
+         "inputTokenDetails": {
+          "noCacheTokens": 5582,
+          "cacheReadTokens": 5760
+         },
+         "outputTokens": 4815,
+         "outputTokenDetails": {
+          "textTokens": 139,
+          "reasoningTokens": 4676
+         },
+         "totalTokens": 16157,
+         "raw": {
+          "prompt_tokens": 11342,
+          "completion_tokens": 4815,
+          "prompt_cache_hit_tokens": 5760,
+          "prompt_cache_miss_tokens": 5582,
+          "total_tokens": 16157,
+          "prompt_tokens_details": {
+           "cached_tokens": 5760
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4676
+          }
+         },
+         "reasoningTokens": 4676,
+         "cachedInputTokens": 5760
+        },
+        "ms": 51970,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10309,
+         "inputTokenDetails": {
+          "noCacheTokens": 10309,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3730,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3573
+         },
+         "totalTokens": 14039,
+         "raw": {
+          "input_tokens": 10309,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3730,
+          "output_tokens_details": {
+           "reasoning_tokens": 3573
+          },
+          "total_tokens": 14039
+         },
+         "reasoningTokens": 3573,
+         "cachedInputTokens": 0
+        },
+        "ms": 15514,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17850,
+         "inputTokenDetails": {
+          "noCacheTokens": 912,
+          "cacheReadTokens": 16938,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 537,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 325
+         },
+         "totalTokens": 18387,
+         "raw": {
+          "input_tokens": 912,
+          "output_tokens": 537,
+          "output_tokens_details": {
+           "thinking_tokens": 325
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 16938,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 325,
+         "cachedInputTokens": 16938
+        },
+        "ms": 6900,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-bc__2.3#r1-anthropic",
+ "accepted_at": "2026-10-09T16:25:17.396Z"
+}

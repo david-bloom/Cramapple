@@ -1,0 +1,135 @@
+{
+  "model": "anthropic/claude-haiku-5.5",
+  "seconds": 10.05,
+  "usage": {
+    "prompt_tokens": 11695,
+    "completion_tokens": 2170,
+    "total_tokens": 13865,
+    "cost": 0.0022545,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": null,
+      "upstream_inference_prompt_cost": 0,
+      "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 762,
+      "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0022545,
+    "gateway_cost": 0.0022545
+  },
+  "score": 12,
+  "possible": 12,
+  "correct": {
+    "T7": true,
+    "T8": true,
+    "T9": true,
+    "T10": true,
+    "T11": true,
+    "T12": true,
+    "T13": true,
+    "T14": true,
+    "I4": true,
+    "I5": true,
+    "I6": true,
+    "I7": true
+  },
+  "expected": {
+    "T7": "approve",
+    "T8": "reject",
+    "T9": "approve",
+    "T10": "reject",
+    "T11": "approve",
+    "T12": "reject",
+    "T13": "approve",
+    "T14": "reject",
+    "I4": "approve",
+    "I5": "reject",
+    "I6": "approve",
+    "I7": "reject"
+  },
+  "response": {
+    "cases": [
+      {
+        "id": "T7",
+        "verdict": "approve",
+        "reason": "Higher bond order generally shortens a comparable covalent bond and increases its bond energy, consistent with CED 2.2.A.2.",
+        "required_correction": null
+      },
+      {
+        "id": "T8",
+        "verdict": "reject",
+        "reason": "The ideal bond angle for sp2 hybridization is 120 degrees. 109.5 degrees is the ideal angle for sp3, as stated in CED 2.7.A.3.",
+        "required_correction": "Change the ideal sp2 bond angle to 120 degrees."
+      },
+      {
+        "id": "T9",
+        "verdict": "approve",
+        "reason": "For a first-order reaction the half-life is constant, equals 0.693/k, and does not depend on initial concentration, consistent with CED 5.3.A.4-.5.",
+        "required_correction": null
+      },
+      {
+        "id": "T10",
+        "verdict": "reject",
+        "reason": "A linear ln[A] vs. time plot with slope -k identifies a first-order reaction, not a second-order one. A second-order reaction is identified by a linear 1/[A] vs. time plot with slope +k, per CED 5.3.A.3.",
+        "required_correction": "Identify second order by a linear 1/[A] versus time plot with slope +k; a linear ln[A] versus time plot with slope -k identifies first order."
+      },
+      {
+        "id": "T11",
+        "verdict": "approve",
+        "reason": "Pure solids and liquids are omitted from Q and K expressions because their concentrations are independent of the amount present, consistent with CED 7.3.A.2.",
+        "required_correction": null
+      },
+      {
+        "id": "T12",
+        "verdict": "reject",
+        "reason": "Adding reactant changes Q, not K. K depends only on temperature, so K is unchanged. Q immediately changes and the system shifts until Q=K again.",
+        "required_correction": "Adding more reactant to an equilibrium mixture immediately changes Q (making Q differ from K) while leaving K unchanged; the system then shifts until Q=K again."
+      },
+      {
+        "id": "T13",
+        "verdict": "approve",
+        "reason": "If pH is below pKa, the acid (protonated) form predominates, consistent with CED 8.7.A.1.",
+        "required_correction": null
+      },
+      {
+        "id": "T14",
+        "verdict": "reject",
+        "reason": "Kw is temperature dependent, so neutral water has pH 7.0 only at 25 degrees C. At other temperatures neutral water has pH different from 7.0, though pH still equals pOH (CED 8.1.A.3-.4).",
+        "required_correction": "Pure neutral water has pH 7.0 only at 25 degrees C; at other temperatures its pH deviates from 7.0 while pH still equals pOH."
+      },
+      {
+        "id": "I4",
+        "verdict": "approve",
+        "reason": "Axes and linearizations are correct: zero order is [A] vs. t with slope -k, first order is ln[A] vs. t with slope -k, and second order is 1/[A] vs. t with slope +k, all consistent with CED 5.3.A.2-.5.",
+        "required_correction": null
+      },
+      {
+        "id": "I5",
+        "verdict": "reject",
+        "reason": "The second-order plot of 1/[A] vs. time is linear with positive slope equal to k (CED 5.3.A.4). The label 'slope = -k' has the wrong sign.",
+        "required_correction": "Change the second-order slope label from slope = -k to slope = +k."
+      },
+      {
+        "id": "I6",
+        "verdict": "approve",
+        "reason": "Zn is the anode with oxidation, Cu is the cathode with reduction, and the half-reactions and overall equation are balanced. Electrons flow from the anode through the wire to the cathode (rightward), and anions move to the anode while cations move to the cathode through the salt bridge. These are consistent with CED 9.8.A.1-.3.",
+        "required_correction": null
+      },
+      {
+        "id": "I7",
+        "verdict": "reject",
+        "reason": "Electrons flow from the anode (Zn) to the cathode (Cu) through the wire. The arrow and label point leftward, from the cathode toward the anode, which is reversed. The cell labels, half-reactions, and salt-bridge directions are correct.",
+        "required_correction": "Reverse the electron-flow arrow and label so they point rightward from the anode to the cathode (e.g., 'electron flow \u2192')."
+      }
+    ]
+  },
+  "prompt_sha": "b23c36d50283"
+}

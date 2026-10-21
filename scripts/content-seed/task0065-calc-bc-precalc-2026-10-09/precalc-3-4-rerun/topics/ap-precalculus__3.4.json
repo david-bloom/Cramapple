@@ -1,0 +1,1455 @@
+{
+ "topic": {
+  "subject_key": "ap-precalculus",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Sine and Cosine Function Graphs"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-precalculus__3.4#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 5946,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 5943
+    },
+    "outputTokens": 753,
+    "outputTokenDetails": {
+     "textTokens": 454,
+     "reasoningTokens": 299
+    },
+    "totalTokens": 6699,
+    "raw": {
+     "input_tokens": 5946,
+     "input_tokens_details": {
+      "cache_write_tokens": 5943,
+      "cached_tokens": 0
+     },
+     "output_tokens": 753,
+     "output_tokens_details": {
+      "reasoning_tokens": 299
+     },
+     "total_tokens": 6699
+    },
+    "reasoningTokens": 299,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "Which statement correctly describes the graph of the parent function y = sin x?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Its period is 2π, with a maximum at (0, 1) and a minimum at (π, −1).",
+      "is_correct": false,
+      "rationale": "Sine–cosine swap: these extrema belong to the parent cosine graph. The sine graph starts at (0, 0), not (0, 1). Fix: Mark each parent graph’s value at x = 0 before identifying its extrema."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Its period is 2π, with a maximum at (3π/2, 1) and a minimum at (π/2, −1).",
+      "is_correct": false,
+      "rationale": "Maximum–minimum reversal: this switches the sine graph’s upper and lower extrema. Sine reaches 1 at π/2 and −1 at 3π/2. Fix: Sketch the five quarter-period anchor points before labeling the maximum and minimum."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Its period is 2π, with a maximum at (π/2, 1) and a minimum at (3π/2, −1).",
+      "is_correct": true,
+      "rationale": "Over one cycle, the graph passes through (0, 0), (π/2, 1), (π, 0), (3π/2, −1), and (2π, 0). These anchor points show the maximum and minimum, and the full pattern repeats every 2π."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Its period is π, with a maximum at (π/2, 1) and a minimum at (3π/2, −1).",
+      "is_correct": false,
+      "rationale": "Zero-spacing confusion: consecutive sine zeros are π apart, but that spacing is not a full period. From 0 to π the graph arches above the axis; from π to 2π it dips below. Fix: Trace until the entire graph pattern repeats, not just until the next zero."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 667,
+         "inputTokenDetails": {
+          "noCacheTokens": 667,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 697,
+         "raw": {
+          "input_tokens": 667,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1655,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 394,
+         "inputTokenDetails": {
+          "noCacheTokens": 394,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 332,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 302
+         },
+         "totalTokens": 726,
+         "raw": {
+          "thoughtsTokenCount": 302,
+          "promptTokenCount": 394,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 726,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 394
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 302,
+         "cachedInputTokens": 0
+        },
+        "ms": 3187,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 453,
+         "inputTokenDetails": {
+          "noCacheTokens": 197,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 232,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 206
+         },
+         "totalTokens": 685,
+         "raw": {
+          "prompt_tokens": 453,
+          "completion_tokens": 232,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 197,
+          "total_tokens": 685,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 206
+          }
+         },
+         "reasoningTokens": 206,
+         "cachedInputTokens": 256
+        },
+        "ms": 3027,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 220,
+         "inputTokenDetails": {
+          "noCacheTokens": 220,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 844,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 819
+         },
+         "totalTokens": 1064,
+         "raw": {
+          "input_tokens": 220,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 844,
+          "output_tokens_details": {
+           "reasoning_tokens": 819
+          },
+          "total_tokens": 1064
+         },
+         "reasoningTokens": 819,
+         "cachedInputTokens": 0
+        },
+        "ms": 10486,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10938,
+         "inputTokenDetails": {
+          "noCacheTokens": 926,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 10012
+         },
+         "outputTokens": 542,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 330
+         },
+         "totalTokens": 11480,
+         "raw": {
+          "input_tokens": 926,
+          "output_tokens": 542,
+          "output_tokens_details": {
+           "thinking_tokens": 330
+          },
+          "cache_creation_input_tokens": 10012,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 10012,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 330,
+         "cachedInputTokens": 0
+        },
+        "ms": 7742,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7258,
+         "inputTokenDetails": {
+          "noCacheTokens": 7258,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1206,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 944
+         },
+         "totalTokens": 8464,
+         "raw": {
+          "thoughtsTokenCount": 944,
+          "promptTokenCount": 7258,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8464,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7258
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 944,
+         "cachedInputTokens": 0
+        },
+        "ms": 8866,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6646,
+         "inputTokenDetails": {
+          "noCacheTokens": 502,
+          "cacheReadTokens": 6144
+         },
+         "outputTokens": 2603,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 2384
+         },
+         "totalTokens": 9249,
+         "raw": {
+          "prompt_tokens": 6646,
+          "completion_tokens": 2603,
+          "prompt_cache_hit_tokens": 6144,
+          "prompt_cache_miss_tokens": 502,
+          "total_tokens": 9249,
+          "prompt_tokens_details": {
+           "cached_tokens": 6144
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2384
+          }
+         },
+         "reasoningTokens": 2384,
+         "cachedInputTokens": 6144
+        },
+        "ms": 22343,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5696,
+         "inputTokenDetails": {
+          "noCacheTokens": 5696,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3601,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3444
+         },
+         "totalTokens": 9297,
+         "raw": {
+          "input_tokens": 5696,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3601,
+          "output_tokens_details": {
+           "reasoning_tokens": 3444
+          },
+          "total_tokens": 9297
+         },
+         "reasoningTokens": 3444,
+         "cachedInputTokens": 0
+        },
+        "ms": 17054,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A’s rationale says the sine graph “starts at (0, 0).” The parent function has domain ℝ, so its graph has no starting point. Replace “starts at” with “passes through.”"
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6401,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6398
+         },
+         "outputTokens": 505,
+         "outputTokenDetails": {
+          "textTokens": 266,
+          "reasoningTokens": 239
+         },
+         "totalTokens": 6906,
+         "raw": {
+          "input_tokens": 6401,
+          "input_tokens_details": {
+           "cache_write_tokens": 6398,
+           "cached_tokens": 0
+          },
+          "output_tokens": 505,
+          "output_tokens_details": {
+           "reasoning_tokens": 239
+          },
+          "total_tokens": 6906
+         },
+         "reasoningTokens": 239,
+         "cachedInputTokens": 0
+        },
+        "ms": 11671,
+        "flags": [
+         "accurate: A’s rationale says the sine graph “starts at (0, 0).” The parent function has domain ℝ, so its graph has no starting point. Replace “starts at” with “passes through.”"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A: Saying the sine graph “starts at (0, 0)” is inaccurate without restricting attention to a cycle beginning at x = 0. The parent graph extends over all real x and has no starting point. Replace “starts at” with “passes through.”"
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6401,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 6398,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 486,
+         "outputTokenDetails": {
+          "textTokens": 277,
+          "reasoningTokens": 209
+         },
+         "totalTokens": 6887,
+         "raw": {
+          "input_tokens": 6401,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 6398
+          },
+          "output_tokens": 486,
+          "output_tokens_details": {
+           "reasoning_tokens": 209
+          },
+          "total_tokens": 6887
+         },
+         "reasoningTokens": 209,
+         "cachedInputTokens": 6398
+        },
+        "ms": 13672,
+        "flags": [
+         "accurate: A: Saying the sine graph “starts at (0, 0)” is inaccurate without restricting attention to a cycle beginning at x = 0. The parent graph extends over all real x and has no starting point. Replace “starts at” with “passes through.”"
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "ap-precalculus__3.4#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 9586,
+    "inputTokenDetails": {
+     "noCacheTokens": 599,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 8987
+    },
+    "outputTokens": 1459,
+    "outputTokenDetails": {
+     "textTokens": 660,
+     "reasoningTokens": 799
+    },
+    "totalTokens": 11045,
+    "raw": {
+     "input_tokens": 599,
+     "output_tokens": 1459,
+     "output_tokens_details": {
+      "thinking_tokens": 799
+     },
+     "cache_creation_input_tokens": 8987,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 8987,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 799,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Sine and Cosine Function Graphs",
+    "stem": "Consider the graph of the parent function y = sin x on the interval 0 ≤ x ≤ 2π. Which list gives the points on this graph at x = 0, π/2, π, 3π/2, and 2π, in that order?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "(0, 1), (π/2, 0), (π, −1), (3π/2, 0), (2π, 1)",
+      "is_correct": false,
+      "rationale": "This swaps sine and cosine. These are the anchor points of y = cos x, which starts at its maximum, but sin 0 = 0, so the sine graph starts at the origin. Fix: Evaluate sin 0 first and check whether the graph starts at 0 or at 1."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "(0, 0), (π/2, −1), (π, 0), (3π/2, 1), (2π, 0)",
+      "is_correct": false,
+      "rationale": "This puts the extrema in the wrong quarter-periods, so the graph dips first. Since sin(π/2) = 1 and sin(3π/2) = −1, sine rises to its maximum before it reaches its minimum. Fix: Find the unit-circle point at π/2 and read its y-coordinate to set the first extremum."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, 1), (2π, 0)",
+      "is_correct": false,
+      "rationale": "This treats sine as never negative. On (π, 2π) the unit-circle point lies below the x-axis, so sine is negative there, and the range of sine is [−1, 1]. Fix: Check the sign of the y-coordinate at 3π/2 on the unit circle before you plot it."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, −1), (2π, 0)",
+      "is_correct": true,
+      "rationale": "Sine is the y-coordinate on the unit circle. It starts at 0, rises to its maximum 1 at π/2, returns to 0 at π, and falls to its minimum −1 at 3π/2. It returns to 0 at 2π, completing one period."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 378,
+         "inputTokenDetails": {
+          "noCacheTokens": 378,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 24,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 402,
+         "raw": {
+          "input_tokens": 378,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 24,
+          "output_tokens_details": {
+           "reasoning_tokens": 0
+          },
+          "total_tokens": 402
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1918,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 460,
+         "inputTokenDetails": {
+          "noCacheTokens": 460,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 486,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 456
+         },
+         "totalTokens": 946,
+         "raw": {
+          "thoughtsTokenCount": 456,
+          "promptTokenCount": 460,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 946,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 460
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 456,
+         "cachedInputTokens": 0
+        },
+        "ms": 4876,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 519,
+         "inputTokenDetails": {
+          "noCacheTokens": 263,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 320,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 294
+         },
+         "totalTokens": 839,
+         "raw": {
+          "prompt_tokens": 519,
+          "completion_tokens": 320,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 263,
+          "total_tokens": 839,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 294
+          }
+         },
+         "reasoningTokens": 294,
+         "cachedInputTokens": 256
+        },
+        "ms": 3766,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 286,
+         "inputTokenDetails": {
+          "noCacheTokens": 286,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 845,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 815
+         },
+         "totalTokens": 1131,
+         "raw": {
+          "input_tokens": 286,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 845,
+          "output_tokens_details": {
+           "reasoning_tokens": 815
+          },
+          "total_tokens": 1131
+         },
+         "reasoningTokens": 815,
+         "cachedInputTokens": 0
+        },
+        "ms": 6200,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6506,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6503
+         },
+         "outputTokens": 287,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 65
+         },
+         "totalTokens": 6793,
+         "raw": {
+          "input_tokens": 6506,
+          "input_tokens_details": {
+           "cache_write_tokens": 6503,
+           "cached_tokens": 0
+          },
+          "output_tokens": 287,
+          "output_tokens_details": {
+           "reasoning_tokens": 65
+          },
+          "total_tokens": 6793
+         },
+         "reasoningTokens": 65,
+         "cachedInputTokens": 0
+        },
+        "ms": 6123,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7367,
+         "inputTokenDetails": {
+          "noCacheTokens": 7367,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1315,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1053
+         },
+         "totalTokens": 8682,
+         "raw": {
+          "thoughtsTokenCount": 1053,
+          "promptTokenCount": 7367,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8682,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7367
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1053,
+         "cachedInputTokens": 0
+        },
+        "ms": 8526,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6750,
+         "inputTokenDetails": {
+          "noCacheTokens": 606,
+          "cacheReadTokens": 6144
+         },
+         "outputTokens": 5902,
+         "outputTokenDetails": {
+          "textTokens": 189,
+          "reasoningTokens": 5713
+         },
+         "totalTokens": 12652,
+         "raw": {
+          "prompt_tokens": 6750,
+          "completion_tokens": 5902,
+          "prompt_cache_hit_tokens": 6144,
+          "prompt_cache_miss_tokens": 606,
+          "total_tokens": 12652,
+          "prompt_tokens_details": {
+           "cached_tokens": 6144
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5713
+          }
+         },
+         "reasoningTokens": 5713,
+         "cachedInputTokens": 6144
+        },
+        "ms": 52495,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5800,
+         "inputTokenDetails": {
+          "noCacheTokens": 5800,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3743,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3586
+         },
+         "totalTokens": 9543,
+         "raw": {
+          "input_tokens": 5800,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3743,
+          "output_tokens_details": {
+           "reasoning_tokens": 3586
+          },
+          "total_tokens": 9543
+         },
+         "reasoningTokens": 3586,
+         "cachedInputTokens": 0
+        },
+        "ms": 16127,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11031,
+         "inputTokenDetails": {
+          "noCacheTokens": 1019,
+          "cacheReadTokens": 10012,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 562,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 350
+         },
+         "totalTokens": 11593,
+         "raw": {
+          "input_tokens": 1019,
+          "output_tokens": 562,
+          "output_tokens_details": {
+           "thinking_tokens": 350
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 10012,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 350,
+         "cachedInputTokens": 10012
+        },
+        "ms": 7642,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-precalculus__3.4#r1-anthropic",
+ "accepted_at": "2026-10-09T17:39:24.688Z"
+}
