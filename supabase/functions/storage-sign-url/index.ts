@@ -1,3 +1,4 @@
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
 import { isSafeStoragePath, ownsLearnerPath } from "../_shared/storage-paths.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -28,15 +29,7 @@ function asInteger(value: unknown) {
   return Number.isInteger(parsed) ? parsed : null;
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest)).map((byte) =>
-    byte.toString(16).padStart(2, "0")
-  ).join("");
-}
+
 
 
 

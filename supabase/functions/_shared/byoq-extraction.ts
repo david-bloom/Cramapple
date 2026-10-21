@@ -1,3 +1,4 @@
+import { bytesToBase64 as toBase64 } from "./encoding.ts";
 // BYOQ photo extraction -- TASK-0068 (DECISION-0108 / APPROVAL-0139).
 //
 // Reads a student's photographed question with a vision model and proposes
@@ -348,12 +349,7 @@ export function clampExtractionTimeout(raw: number | undefined) {
   return Math.min(BYOQ_EXTRACTION_MAX_TIMEOUT_MS, Math.max(BYOQ_EXTRACTION_MIN_TIMEOUT_MS, Math.round(raw as number)));
 }
 
-function toBase64(bytes: Uint8Array) {
-  let binary = "";
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  return btoa(binary);
-}
+
 
 /** Pulls the JSON text out of a Responses API body (`output_text` or the first text piece). */
 export function extractOutputText(raw: unknown): string | null {

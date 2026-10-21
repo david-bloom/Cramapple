@@ -1,3 +1,4 @@
+import { bytesToBase64 as toBase64 } from "./encoding.ts";
 // Drawn-response transcript -- hand-drawn responses on every FRQ
 // (docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md §5,
 // DECISION-0110).
@@ -299,12 +300,7 @@ export function clampTranscriptTimeout(raw: number | undefined) {
   return Math.min(TRANSCRIPT_MAX_TIMEOUT_MS, Math.max(TRANSCRIPT_MIN_TIMEOUT_MS, Math.round(raw as number)));
 }
 
-function toBase64(bytes: Uint8Array) {
-  let binary = "";
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  return btoa(binary);
-}
+
 
 /** Pulls the JSON text out of a Responses API body (`output_text` or the first text piece). */
 export function extractOutputText(raw: unknown): string | null {
