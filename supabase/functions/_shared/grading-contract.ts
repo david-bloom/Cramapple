@@ -1,3 +1,5 @@
+import { gradingOutputText as extractOutputText } from "./response-envelope.ts";
+export { gradingOutputText as extractOutputText } from "./response-envelope.ts";
 // Shared grading contract. Production (evaluate-attempt) and the grading
 // model assessment harness (scripts/grading-model-assessment/) both import
 // from this module so the harness tests what production actually sends and
@@ -716,30 +718,7 @@ export function buildGradingRequestBody(input: {
 
 // Extracts the structured-output text from an OpenAI /v1/responses payload.
 // Moved verbatim from evaluate-attempt's former local `extractOutputText`.
-export function extractOutputText(raw: Record<string, unknown>) {
-  const direct = raw.output_text;
-  if (typeof direct === "string" && direct.length > 0) {
-    return direct;
-  }
 
-  const output = raw.output;
-  if (Array.isArray(output)) {
-    for (const item of output) {
-      if (!item || typeof item !== "object") continue;
-      const content = (item as Record<string, unknown>).content;
-      if (!Array.isArray(content)) continue;
-      for (const piece of content) {
-        if (!piece || typeof piece !== "object") continue;
-        const text = (piece as Record<string, unknown>).text;
-        if (typeof text === "string" && text.length > 0) {
-          return text;
-        }
-      }
-    }
-  }
-
-  return null;
-}
 
 // Usage extraction, including cached/reasoning token breakdowns when the
 // provider reports them separately (OpenAI's Responses API nests these
