@@ -35,6 +35,8 @@ retirement is routine in the content pipeline, so this recurs every time content
 
 ## Required outcome
 
+> 2026-10-21: TASK-0078 prepared a guarded, unapplied repair for the two drifted session RPC bodies in [PR #524](https://github.com/david-bloom/Cramapple/pull/524). Local SQL fixtures pass; Development rehearsal and Production approval remain pending. This addresses the body-drift portion only: it does not implement retirement-time session archival, profile reassignment, the one-time cleanup, or close TASK-0063. See `docs/qa/TASK0063_SESSION_RPC_RECONCILIATION_RELEASE_PACKET.md`.
+
 1. Retiring an exam-pack version closes (archives) the `active` sessions on it, in the same change.
 2. `set_active_exam_pack_version` does not block a switch away from a **retired** pack because of
    sessions on it, and returns a clear, mapped error instead of HTTP 500 when it does block.

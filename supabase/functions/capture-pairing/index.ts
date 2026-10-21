@@ -855,12 +855,19 @@ export async function handleCapturePairing(
       }
 
       // cancel_pairing
-      const { data: cancelled } = await service.schema("app")
+      const { data: cancelled, error: cancelError } = await service.schema("app")
         .from("capture_pairing_tokens")
         .update({ state: "cancelled", closed_at: new Date().toISOString() })
         .eq("id", row.id)
         .in("state", ["issued", "paired", "uploaded"])
         .select("*").maybeSingle();
+      if (cancelError) {
+        console.error("capture-pairing:cancel_failed", { pairing_id: row.id, code: cancelError.code });
+        return respond({ error: "pairing_cancel_failed" }, { status: 500 });
+      }
+      if (!cancelled && ["issued", "paired", "uploaded"].includes(row.state)) {
+        return respond({ error: "pairing_cancel_conflict" }, { status: 409 });
+      }
       if (cancelled) {
         row = cancelled as PairingRow;
         await appendProvenanceEvent(service, row, {
