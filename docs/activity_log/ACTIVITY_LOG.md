@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Fourteen Codex TASK-0078 PRs reviewed (2026-10-21, owner request "review the Codex PRs in the order you listed"): reviews posted on #520–#531, #535, #536 and #524. Ready: #524, #520, #523, #527; one gap: #535 (recovery never updates `app.attempts`, which the progress dashboard counts); re-tiered: #521 is now Hard-Gate (claims table and two RPCs, migration before deploy); rebase needed: #522, #536, and the helper stack #525/#526/#528–#531 (cut before #520's CI rewrite); #531 must split its doc edits (second TASK-0078 record, INDEX conflict). Merge order and conditions in [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2a.
+
 - Opus assessments 2 and 7 verified and merged; A10 escalated; Codex PR landscape recorded (2026-10-21, evening): PR #540 (migration ledger reconciliation, dormant-surface review) merged after Fable checks. Verified on Production: two real student accounts hold `active` sessions on their current pack, so the July `set_active_exam_pack_version` body refuses them a subject switch today, which makes Codex PR #524 (TASK-0063 reconciliation migration) the first Hard-Gate approval to give; the hand-drawn pilot cannot start a session (`entry_path` check lacks `hand_drawn_pilot`); `get_chosen_distractor_rationale` exists on neither project though the live app calls it; the 11 anon-executable `SECURITY DEFINER` functions are all trigger functions, hygiene not exposure. Codex has PRs #520–#536 open covering A1–A5, A11 and A16; TASK-0078 updated with numbers and four new items A17–A20. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md).
 
 - Read-only assessments 2 and 7 (2026-10-21, owner request; Claude Opus 5.5): migration ledger reconciliation and dormant-surface review in `docs/qa/`, against `main` `c4896e9e`. Headlines: Production's ledger lists 2 migrations that are not in effect (the 2026-08-21 session RPC pair, TASK-0063), 124 rows whose SQL no local file holds and 32 with no migration SQL, while 94 local files are live on Production with no ledger row, so `db push` is unsafe on both projects; adopt PR #524 first. Retire first: the hand-drawn pilot upload path (cannot start a session on Production). Docs-only PR, not merged. See [`qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`](../qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md), [`qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`](../qa/DORMANT_SURFACE_REVIEW_2026_10_21.md).
@@ -237,6 +239,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — Fourteen Codex TASK-0078 PRs reviewed
+
+Owner request: "Review the Codex PRs in the order you listed." Method: every diff read in full; `deno check` and every touched test run in throwaway worktrees at each PR head (two subagents covered the seven helper PRs, their parity findings re-stated per call site); Production and Development queried read-only where a claim depended on live state (RPC grants, `grading_results` statuses, function hashes). Reviews posted as comments; merges are David's.
+
+- **Ready:** #524 (session RPC reconciliation; Production dependencies verified; apply with `apply_migration`, not `db push`), #520 (two-step CI gate with `env -i`; merge first), #523 (RPC replay scoping; collision rolls back both mutations), #527 (required-env helper; fail-fast preserved).
+- **One gap:** #535 reads both grade-write errors and returns `500 grade_store_failed` with no score, as ruled, but its recovery path writes `grading_results` only; `app.attempts` stays `submitted`, and `get_student_progress_dashboard` counts `status = 'graded'` on attempts. Production has zero `processing` rows, so the new stale-row 503 touches nothing today.
+- **Re-tiered:** #521 replaces the Edge-only A2 spec with a claims table and two `service_role` RPCs acquired before the effect; accepted as the stronger design, but A2 is now Hard-Gate, the migration must precede both deploys (handlers return 503 without it), pending claims never expire, and it introduces a second TASK-0078 record.
+- **Rebase needed:** #522 and #536 conflict with `main`; the helper stack #525→#531 was cut before #520's CI rewrite and conflicts only on `minimal-ci.yml`; #531 must split four doc edits into a docs PR. All helper PRs are byte-parity extractions; the only non-literal rewrites (a lowercase/test reorder in `send-parent-payment-email`, a blank-guard in the parent promo lookup) are provably unobservable.
+- Merge order and conditions: TASK-0078 §2a.
 
 ## 2026-10-21 — Opus assessments 2 and 7 verified and merged; A10 escalated to a live student defect
 
