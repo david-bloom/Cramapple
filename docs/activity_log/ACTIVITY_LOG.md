@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0078 batch applied and deployed to Development, verified, then Production (APPROVAL-0199, 2026-10-21, owner request "apply and deploy for all three to development, then check success, then merge collectively to production"): replay-claims migration plus `session-event` v52 and `storage-sign-url` v47 (bundles byte-identical to `main` on both projects), `app.submit_response` replay probes scoped to the actor, and the weekly session sweep scheduled for Saturday 06:00 UTC. Eight-step RPC replay test passed and rolled back on both projects; Development sweep run by hand archived 76; Production sweep left to its Saturday run. Repository renames and the sweep file in PR #549. See [`APPROVAL-0199`](APPROVAL-0199_TASK0078_REPLAY_CLAIMS_SUBMIT_SCOPING_WEEKLY_SWEEP_PRODUCTION_2026_10_21.md).
+
 - All Codex TASK-0078 PRs merged; deploy gates recorded (2026-10-21, late): Codex merged #520–#531, #535, #536 (record PR #545); `main` CI green on Minimal CI and both SQL fixture workflows. Verified after merge: the #535 review gap is closed (recovery projects the grade onto `app.attempts`); the duplicate TASK-0078 record is gone; `submit-response` source is gone. Nothing deployed; migrations `20261021152931` (replay claims) and `20261021153645` (submit replay scoping) are applied nowhere, and `session-event`/`storage-sign-url` on `main` now require the first before any deploy. Gates in [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2b; rename PR #544 open.
 
 - TASK-0063 session RPC migration applied to Production (APPROVAL-0198, 2026-10-21, owner request "Merge #544 and apply the session RPC migration to Production"): PR #544 merged (file renamed to Development's `20261021202904`); Production guards passed; both functions now carry the reviewed bodies (`dbc35186…`, `5a71a24d…`), grants unchanged, Production ledger `20261021210131`; the `active_session_blocks_subject_switch` refusal is gone from the live body, unblocking the two student accounts. #544's fixture-path edit had been left unstaged and broke the Session RPC reconciliation workflow on `main`; one-line repair in PR #547. See [`APPROVAL-0198`](APPROVAL-0198_TASK0063_SESSION_RPC_PRODUCTION_APPLY_2026_10_21.md).
@@ -247,6 +249,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — TASK-0078 batch: replay claims, submission replay scoping and weekly sweep live on both projects (APPROVAL-0199)
+
+Owner request: "apply and deploy for all three to development, then check success, then merge collectively to production."
+
+- **Development first:** three migrations applied with `apply_migration` (`20261021211219` replay claims, `20261021211251` submit replay scoping, `20261021211255` weekly sweep), then `session-event` and `storage-sign-url` deployed from `main` `515e0f81` with `verify_jwt` kept `true`. Checks: table and both claim RPCs present with `service_role`-only grants; `submit_response` `49d382ff…`; cron job `task0078-sweep-learning-sessions` at `0 6 * * 6`; a hand run of the sweep archived 76 Development sessions; an eight-step replay test (claim, pending, cross-actor conflict, completion writes one audit row, replay returns the stored result, changed-hash conflict, post-completion cross-actor conflict, bearer result refused) passed and was rolled back; both bundles byte-identical to `main` (12 files); unauthenticated POST 401 on both.
+- **Production second, same order:** migrations `20261021211427`, `20261021211450`, `20261021211454`; functions v52 (`667e3f30…`) and v47 (`58363d53…`), hashes equal to Development; the same eight-step test passed and rolled back; bundles byte-identical to `main`; 401 unauthenticated. The sweep was not run by hand on Production; its first run is Saturday 06:00 UTC and will archive the four long-running active sessions there.
+- **Repository:** PR #549 renames the two migration files to the Development versions, adds the sweep migration file, and updates both fixture include paths. The CI repair from #544 (PR #547) is merged; all three fixture workflows are green on `main`.
+- **Record:** `APPROVAL-0199`. TASK-0078 rows A2, A9 and A11 closed; the §2b gate for `session-event`/`storage-sign-url` is discharged on both projects.
 
 ## 2026-10-21 — All Codex TASK-0078 PRs merged; post-merge verification and deploy gates
 
