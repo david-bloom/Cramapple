@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** Open — rulings recorded, no slice started
+**Status:** In Progress — implementation/review state is recorded per checklist item
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)

@@ -2,6 +2,10 @@
 
 Status: Source removal ready for review; authorized Development retirement executed and inventory-verified.
 
+Branch: `codex/task-0078-retire-submit-response`
+PR: [#522](https://github.com/david-bloom/Cramapple/pull/522)
+Next owner: independent reviewer/conductor, source removal and retirement evidence review; no Production action requested.
+
 ## Owner-authorized extension, 2026-10-21
 
 David requested: “Remove the Development-only functions and the submit-response source directory, as the drift register and the earlier review both recommend.” This supersedes the earlier pending-approval note below for the exact retire row in `DRIFT_REGISTER_2026_10_21.md` §3: Development `submit-response`, `byoq-smoke-runner`, `byoq-ip-echo`. Repository work is Standard; remote retirement is Hard-Gate and is explicitly authorized by this request. No Production deletion/deployment or database change is authorized.
