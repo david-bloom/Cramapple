@@ -1,3 +1,4 @@
+import { clientIp } from "../_shared/request-metadata.ts";
 import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -46,10 +47,7 @@ function trialDeps(service: ReturnType<typeof createServiceClient>): TrialDeps {
   };
 }
 
-function clientIp(req: Request) {
-  return req.headers.get("cf-connecting-ip")?.trim() ||
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
-}
+
 
 
 

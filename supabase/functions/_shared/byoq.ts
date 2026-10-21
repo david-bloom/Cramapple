@@ -1,3 +1,5 @@
+import { clientIp } from "./request-metadata.ts";
+export { clientIp } from "./request-metadata.ts";
 import { sha256Text as sha256Hex } from "./encoding.ts";
 export { sha256Text as sha256Hex } from "./encoding.ts";
 // BYOQ (bring-your-own-question) pure logic -- TASK-0039.
@@ -114,12 +116,7 @@ export async function hmacSha256Hex(key: string, value: string) {
  * appended to (the rightmost hop is a rotating load balancer). So prefer
  * CF-Connecting-IP and fall back to the first X-Forwarded-For hop.
  */
-export function clientIp(req: Request): string | null {
-  const cf = req.headers.get("cf-connecting-ip")?.trim();
-  if (cf) return cf;
-  const first = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return first || null;
-}
+
 
 /** Constant-time string comparison for bearer-style secrets. */
 export function timingSafeEqual(a: string, b: string) {
