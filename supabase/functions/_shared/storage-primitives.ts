@@ -17,6 +17,9 @@ export async function storageObjectFingerprint(service: StorageClient, storagePa
 
 export function attachmentBindError(message: string | undefined): { status: number; code: string } {
   const code = typeof message === "string" ? message.match(/attach_capture:([a-z_]+)/)?.[1] : undefined;
+  // Round-4 QA S1/N7: stale lineage and writability refusals are expected
+  // conflicts (409), missing responses are 404, and only unknown failures are
+  // technical 500s. Preserve this distinction in each caller's own envelope.
   switch (code) {
     case "no_current_original_to_replace":
     case "stale_retake_target":
