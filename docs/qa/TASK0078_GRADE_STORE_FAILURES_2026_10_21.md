@@ -1,17 +1,27 @@
-# TASK-0078 A4 — Grade persistence failures
+# TASK-0078 A4 — Grade persistence and same-key recovery
 
-Status: Ready for Review; implementation author verification only
+Status: Ready for Review; independent QA pending
 Date: 2026-10-21
 Branch: `codex/task-0078-grade-write-failures`
-PR: [#535](https://github.com/david-bloom/Cramapple/pull/535)
-Tier: Standard; deployment remains separately gated
+PR: [#535](https://github.com/david-bloom/Cramapple/pull/535), depends on A1 [#520](https://github.com/david-bloom/Cramapple/pull/520)
+Tier: Standard; no deployment or schema change
 
-David explicitly requested action 4: read the errors on both final grade writes and fail the request when persistence fails. Governing finding: `SWALLOWED_ERROR_AUDIT_2026_10_21.md`, two evaluate-attempt must-fail rows; canonical checklist: TASK-0078 A4. Current main includes the owner rulings at `dea6717d`; those rulings do not supersede this fix.
+David's ruling 4 requires both final grade writes to fail the request and requires an explicit same-key retry policy. This supersedes this PR's earlier checkpoint that deliberately left retry unresolved.
 
-Both final grading_results updates now read the error and select the acknowledged request row. A database error or zero updated rows returns HTTP 500 `{error:"grade_store_failed"}` before any computed score, downstream attempt truth, memory, mastery or final telemetry is returned/written. The log includes request ID, route and database code; the response contains no raw database detail. MCQ, LLM and shadow grading policy and successful response statuses remain unchanged.
+## Retry decision
 
-Verification: exact Minimal CI command **278 passed**; evaluate-attempt suite **23 passed**, including nine added request cases for database errors, zero rows and success across MCQ, LLM and shadow paths. LLM tests fake the provider response in-process and restore fetch in finally; no runtime network permission, live credentials, model calls or spend. Handler type-check and diff whitespace check pass. The workflow explicitly includes the handler suite and fixture environment-name allowlist.
+**A retry re-attempts the saved database write; it does not re-grade.** Re-running the model against the same request key would reuse an already-terminal model-usage reservation, so this implementation avoids another model call or billing/accounting change.
 
-Limits: this does not make grading and every downstream write one transaction. An unsuccessful final store can leave the existing processing record unresolved, and an ambiguous transport outcome may already have committed. No automatic retry, paid regrading, hash change, processing-row reclaim or new recovery policy is introduced. The separately audited attempts truth/analytics/memory failures are outside this action. Independent source QA and Development verification are pending; no deployment, migration or main merge occurred.
+Both final store sites inspect `{data,error}`. A database error, transport failure or zero updated rows logs a safe request/route/error code and returns HTTP 500 `grade_store_failed`, without a score. The handler attempts a conditional checkpoint on the still-processing row: status `failed`, stable failure reason, and a versioned private `raw_model_response` envelope containing the original update payload. The envelope preserves the original provider response nested inside that payload. No computed grade is exposed before the typed grade columns commit.
 
-Next owner: independent reviewer/conductor. Review both store checks and failure tests; approve an exact Development release before any Production proposal. Do not redeploy the earlier helper/replay stack implicitly with this independent main-based PR.
+A matching same-key/body retry validates that envelope and conditionally applies exactly the pending update, fenced by the row's `updated_at`, status and failure reason. Concurrent retries admit one writer; a loser reads its committed result. The response follows existing stored-result replay semantics and strips `raw_model_response` and `shadow_result`. There is no new record, model request, usage reservation, hash, entitlement policy, or automatic regrading. A changed body conflicts; a different learner still fails ownership checks before the replay lookup. Corrupt checkpoints and identity-changing payloads fail closed.
+
+If the original grade committed but its acknowledgement was lost, the checkpoint's `status=processing` predicate cannot downgrade it. A later retry returns that committed grade. If checkpoint persistence also fails, the response says `retryable:false` and `reconciliation_required:true`. Recent in-flight rows retain 202; once their last update is older than max(10 minutes, twice the configured provider timeout plus one minute), replays return 503 `grading_reconciliation_required` with no score. Missing timestamps also require reconciliation. This deadline never reclaims the row or authorizes another model call. Legacy stuck rows without a checkpoint require operator recovery.
+
+Recovery uses the existing private JSON column and updated_at trigger; no migration is introduced. It returns the normal stored-result replay, rather than replaying later best-effort attempt truth, memory, mastery or telemetry writes. Those secondary effects and repair of historical partial state remain separate concerns.
+
+## Evidence and release state
+
+The evaluate-attempt suite passes **34 tests**: existing 14 plus 20 new persistence/recovery cases across MCQ, LLM and shadow paths. Cases cover initial errors/zero rows/transport, success, concurrent recovery, repeated write failure, acknowledged grade with lost reply, checkpoint failure followed by stale 503, changed body, cross-user refusal and corrupt private payloads. Fake provider calls are restored in finally; tests assert no extra provider call on retries. No live model call or spend.
+
+A1's two-step workflow includes this suite in its restricted main run. Handler type-check and request-suite lint pass. No live migration, deployment, flag change or main merge occurred. Next owner: independent reviewer/conductor. Review private-column isolation, timestamp fencing, unchanged request hashes and recovery limits before approving a Development release; Production remains separately gated.
