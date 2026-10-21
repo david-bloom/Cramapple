@@ -6,7 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 - [Precalculus publication — APPROVAL-0195 (concurrent ID collision; use full record path) — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
 
-- [APPROVAL-0197 — TASK-0077 Production rollout, runbook steps 2–4 (in progress; steps 2 and 3 executed, step 4 open)](APPROVAL-0197_TASK0077_PRODUCTION_STEPS_2_4_2026_10_20.md)
+- [APPROVAL-0197 — TASK-0077 Production rollout, runbook steps 2–4 (steps 2–4 executed; two follow-up checks open)](APPROVAL-0197_TASK0077_PRODUCTION_STEPS_2_4_2026_10_20.md)
 - [APPROVAL-0196 — Load 4 generated MCQs for Physics 1 topic 1.3, slot B (executed)](APPROVAL-0196_PHYSICS1_TOPIC_1_3_SLOT_B_MCQ_LOAD_2026_10_17.md)
 - [APPROVAL-0195 — Load 4 generated MCQs for Physics 1 topic 1.3, slot A (executed; slot B held)](APPROVAL-0195_PHYSICS1_TOPIC_1_3_MCQ_GAP_FILL_LOAD_2026_10_17.md)
 - [APPROVAL-0194 — Release20 Statistics graphical-choice repairs and3 teaching visuals (all23 image repairs live;scope checks passed)](APPROVAL-0194_STATS_PRECALC_VISUAL_RELEASE_2026_10_17.md)

@@ -210,6 +210,14 @@ and Production's `stripe_webhook_events` records them as `processed`. (Every Pay
 webhook; the handler acts only on `metadata.kind = trial_conversion` and returns 200 for the rest.)
 - *Rollback:* remove the five events.
 
+**Run 2026-10-21 (`APPROVAL-0197`):** David added the five events to the existing "Cramapple Checkout" destination (a
+new-destination form came up first and was abandoned: a second destination would have its own signing secret). The endpoint
+also lists `payment_intent.created`; the new webhook routes every `payment_intent.*` to the trial handler, so it is safe, though
+Production had never recorded one. No deliveries yet at 12:15 UTC; **the first PaymentIntent event must show `processed`**
+(check at the next live purchase or in step 6). Workers healthy: 132 charge and 329 email runs, all succeeded, heartbeat
+`charges_enabled: true`. A `resource_missing` GET for a `cs_test_` session seen in the live dashboard is the known
+Development return-page issue (it asks Production about a test session), not this rollout.
+
 ## 5. ⛔ Frontend publish, still dormant (David, in Lovable)
 
 1. Marketing `61dd6602`: set `VITE_TRIAL_CHECKOUT_ENABLED=true` and publish. Includes the trial checkout, the parent drawer,

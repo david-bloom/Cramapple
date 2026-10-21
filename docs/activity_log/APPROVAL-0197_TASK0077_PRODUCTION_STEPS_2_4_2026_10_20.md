@@ -1,6 +1,6 @@
 # APPROVAL-0197 — TASK-0077 Production rollout, runbook steps 2–4 (2026-10-20)
 
-**STATUS: IN PROGRESS — step 2 executed; step 3 executed (3.3 Vault by David); step 4 (David, Stripe dashboard) open.** **Approver:** David Bloom (chat, 2026-10-20: "Execute step 2-4").
+**STATUS: IN PROGRESS — step 2 executed; step 3 executed (3.3 Vault by David); step 4 done by David 2026-10-21; first PaymentIntent delivery still to be seen `processed`.** **Approver:** David Bloom (chat, 2026-10-20: "Execute step 2-4").
 **Runbook:** `docs/tasks/TASK-0077-PRODUCTION-RUNBOOK.md` (decisions D1–D5 answered the same day, recorded there).
 
 ## What is approved
@@ -26,6 +26,8 @@ been sending these templates from. 0.5, 0.6: open (launch gates, not step 2–4 
 
 - **3.1, 3.2, 3.4, 3.6** executed (six migrations, 24 secrets, ten deploys, smoke tests); details and Production versions in the
   runbook. 3.3 Vault written by David; 3.5 workers invoked (200/200) and scheduled (cron jobs 5, 6).
+
+- **4** five Stripe live events added to the existing destination by David (2026-10-21).
 
 ## Rollback
 Tables are additive and unused while the email flags are off. Redeploy `send-parent-payment-email` from `10abfd88` if step 2.3
