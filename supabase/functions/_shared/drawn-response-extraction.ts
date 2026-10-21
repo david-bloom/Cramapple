@@ -1,3 +1,6 @@
+import { responseOutputText as extractOutputText, responseUsage as usageOf } from "./response-envelope.ts";
+export { responseOutputText as extractOutputText } from "./response-envelope.ts";
+import { bytesToBase64 as toBase64 } from "./encoding.ts";
 // Drawn-response transcript -- hand-drawn responses on every FRQ
 // (docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md §5,
 // DECISION-0110).
@@ -299,38 +302,12 @@ export function clampTranscriptTimeout(raw: number | undefined) {
   return Math.min(TRANSCRIPT_MAX_TIMEOUT_MS, Math.max(TRANSCRIPT_MIN_TIMEOUT_MS, Math.round(raw as number)));
 }
 
-function toBase64(bytes: Uint8Array) {
-  let binary = "";
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  return btoa(binary);
-}
+
 
 /** Pulls the JSON text out of a Responses API body (`output_text` or the first text piece). */
-export function extractOutputText(raw: unknown): string | null {
-  if (!raw || typeof raw !== "object") return null;
-  const rec = raw as Record<string, unknown>;
-  if (typeof rec.output_text === "string" && rec.output_text.length) return rec.output_text;
-  if (!Array.isArray(rec.output)) return null;
-  for (const item of rec.output) {
-    if (!item || typeof item !== "object") continue;
-    const content = (item as Record<string, unknown>).content;
-    if (!Array.isArray(content)) continue;
-    for (const piece of content) {
-      if (!piece || typeof piece !== "object") continue;
-      const pr = piece as Record<string, unknown>;
-      if (pr.type === "refusal") return null;
-      if (typeof pr.text === "string" && pr.text.length) return pr.text;
-    }
-  }
-  return null;
-}
 
-function usageOf(raw: unknown): { input_tokens: number | null; output_tokens: number | null } {
-  const u = (raw as Record<string, unknown> | null)?.usage as Record<string, unknown> | undefined;
-  const n = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : null);
-  return { input_tokens: n(u?.input_tokens), output_tokens: n(u?.output_tokens) };
-}
+
+
 
 /**
  * Runs the transcript read. Never throws. `reserveCost` must perform the

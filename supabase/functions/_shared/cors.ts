@@ -1,3 +1,4 @@
+import { requireEnv } from "./env.ts";
 // CORS policy. Per DECISION-0029 there is no wildcard fallback: every
 // environment (production, beta, preview, local dev) must set
 // ALLOWED_ORIGINS to a comma-separated list of permitted origins. The
@@ -9,13 +10,7 @@
 // Local-dev example:
 //   ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,https://cramapple-beta.lovable.app
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 const ALLOWED_ORIGINS = (() => {
   const parsed = requireEnv("ALLOWED_ORIGINS")

@@ -1,3 +1,4 @@
+import { requireEnv } from "../_shared/env.ts";
 import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
@@ -28,13 +29,7 @@ import {
   type WebhookLedgerStatus,
 } from "../_shared/stripe-webhook-ledger.ts";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 // Used only as the redirectTo for parent-gift student invites (see
 // resolveGiftStudentUserId below).

@@ -1,3 +1,5 @@
+import { trimmedNonEmptyString as asString, looseUuid as asUuid, coercedInteger as asInteger } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -27,30 +29,13 @@ const allowedPracticeFormats = new Set([
   "long_frq",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" && /^[0-9a-fA-F-]{36}$/.test(value)
-    ? value
-    : null;
-}
 
-function asInteger(value: unknown) {
-  const parsed = Number(value);
-  return Number.isInteger(parsed) ? parsed : null;
-}
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest)).map((byte) =>
-    byte.toString(16).padStart(2, "0")
-  ).join("");
-}
+
+
+
+
 
 function safeSessionShape(session: Record<string, unknown>) {
   return {

@@ -1,3 +1,5 @@
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { checkedDatabase, RequiredDatabaseError } from "../_shared/checked-database.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -35,17 +37,9 @@ const IMAGE_APPROVAL_VALUES = new Set([
   "missing",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
+
+
 
 function asStringArray(value: unknown) {
   if (!Array.isArray(value)) return [];
@@ -61,15 +55,7 @@ function asBool(value: unknown) {
   return null;
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 async function loadProfile(req: Request) {
   const profileResult = await requireProfile(req);

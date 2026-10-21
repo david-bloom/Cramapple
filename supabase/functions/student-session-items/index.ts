@@ -1,3 +1,4 @@
+import { trimmedUuidShape as asUuid } from "../_shared/input.ts";
 // TASK-0021 — student-authorized prompt-visual delivery.
 // Task: docs/tasks/TASK-0021-BIOLOGY-PROMPT-VISUAL-STUDENT-DELIVERY.md
 //
@@ -100,14 +101,8 @@ const UNIT_GATED_PAGE_SIZE = 50;
 // admins only), "all", or a subject list.
 const FRQ_PHOTO_SUBJECTS = Deno.env.get("FRQ_PHOTO_SUBJECTS") ?? null;
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function asUuid(value: unknown) {
-  return typeof value === "string" && UUID_RE.test(value.trim())
-    ? value.trim()
-    : null;
-}
+
 
 function asPositiveInt(value: unknown, fallback: number) {
   const parsed = Number(value);

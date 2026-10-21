@@ -1,3 +1,5 @@
+import { requireEnv } from "../_shared/env.ts";
+import { trimmedNonEmptyString as asString } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import {
@@ -17,17 +19,11 @@ import {
   isSettledPaymentStatus,
 } from "../_shared/checkout-access.ts";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) throw new Error(`Missing required environment variable: ${name}`);
-  return value;
-}
+
 
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
 
 function parseSubjectKeys(value: unknown) {
   if (!Array.isArray(value)) return [];

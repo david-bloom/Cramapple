@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString } from "./input.ts";
 type GradingTarget =
   | "mcq_rule"
   | "llm_text"
@@ -20,9 +21,7 @@ export type GradingRoute = {
   reason: string;
 };
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
 
 function asRecord(value: unknown) {
   return value && typeof value === "object" && !Array.isArray(value)

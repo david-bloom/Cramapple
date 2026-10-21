@@ -1,3 +1,5 @@
+import { trimmedNonEmptyString as asString } from "./input.ts";
+export { trimmedNonEmptyString as asString } from "./input.ts";
 const TOUCH_KEYS = new Set([
   "utm_source",
   "utm_medium",
@@ -9,9 +11,7 @@ const TOUCH_KEYS = new Set([
   "reddit_click_id",
 ]);
 
-export function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
 
 export function sanitizeTouch(value: unknown) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};

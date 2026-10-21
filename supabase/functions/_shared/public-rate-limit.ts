@@ -1,3 +1,4 @@
+import { clientIp } from "./request-metadata.ts";
 // Rate limiting for unauthenticated endpoints (security review 2026-10-15).
 //
 // Counted per caller IP (stored only as an HMAC) with a global ceiling per
@@ -11,15 +12,10 @@
 
 /**
  * The caller's IP as seen by the platform edge: CF-Connecting-IP, falling back
- * to the first X-Forwarded-For hop. Same rule as `clientIp` in byoq.ts, kept
- * local so the payment functions do not load the BYOQ module.
+ * to the first X-Forwarded-For hop. The shared dependency-free helper keeps payment functions
+ * from loading the BYOQ module.
  */
-function clientIp(req: Request): string | null {
-  const cf = req.headers.get("cf-connecting-ip")?.trim();
-  if (cf) return cf;
-  const first = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return first || null;
-}
+
 
 async function hmacSha256Hex(key: string, value: string) {
   const cryptoKey = await crypto.subtle.importKey(

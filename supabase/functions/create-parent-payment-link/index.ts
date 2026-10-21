@@ -1,3 +1,6 @@
+import { clientIp } from "../_shared/request-metadata.ts";
+import { requireEnv } from "../_shared/env.ts";
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -27,24 +30,14 @@ const REQUIRED_SUBJECT_COUNT: Record<Mode, number> = {
   bundle_3: 3,
 };
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) throw new Error(`Missing required environment variable: ${name}`);
-  return value;
-}
+
 
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 const PRICE_CATALOG: PriceCatalog = loadPriceCatalog();
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value);
-  if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email.toLowerCase() : null;
-}
+
+
 
 function asSubjectKeys(value: unknown) {
   if (!Array.isArray(value)) return null;
@@ -162,8 +155,7 @@ Deno.serve(async (req) => {
         quoteVersion: asString(input.quote_version) ?? "",
         studentAck: { version: ack.version, source: "parent_share_drawer" },
         studentName,
-        consentIp: req.headers.get("cf-connecting-ip")?.trim() ||
-          req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+        consentIp: clientIp(req),
         consentUserAgent: req.headers.get("user-agent"),
         urls: {
           successUrl:

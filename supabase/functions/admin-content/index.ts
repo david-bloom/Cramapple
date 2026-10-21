@@ -1,3 +1,5 @@
+import { nonEmptyString as asString } from "../_shared/input.ts";
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { checkedDatabase, RequiredDatabaseError } from "../_shared/checked-database.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -61,9 +63,7 @@ function asRecord(value: unknown) {
     : null;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value : null;
-}
+
 
 function asStringArray(value: unknown) {
   return Array.isArray(value)
@@ -79,15 +79,7 @@ function asObjectArray<T extends Record<string, unknown>>(value: unknown) {
     : [];
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 function normalizePublishedState(operation: AllowedOperation) {
   switch (operation) {
