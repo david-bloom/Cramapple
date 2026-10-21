@@ -9,7 +9,7 @@ webhook events, only after step 3.4). Not approved by this entry: step 5 (Lovabl
 step 7 (launch, cardless retirement).
 
 ## Preconditions at approval
-0.4: David reports Radar is active (the Terms/Privacy **Save** on Stripe Public details not separately confirmed). 0.7: confirmed
+0.4: confirmed by David — Radar active, `https://cramapple.com/terms` saved on the Stripe public profile. 0.7: confirmed
 by Claude — Production and Development hold the same `LOOPS_SECRET_KEY` digest, so the same Loops workspace that Development has
 been sending these templates from. 0.5, 0.6: open (launch gates, not step 2–4 gates).
 
