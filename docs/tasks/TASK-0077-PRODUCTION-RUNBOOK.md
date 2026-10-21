@@ -228,6 +228,12 @@ Development return-page issue (it asks Production about a test session), not thi
    the app's Account page loads.
 - *Rollback:* republish the previous Lovable versions.
 
+**Run 2026-10-21:** David published both Lovable projects. Checked live: `/trial` → `/checkout` ✓; checkout shows $39.99 pay-now
+as today ✓; app `/account` loads with the trial copy and its bundle calls `get-trial-status`, `cancel-trial`, `trial-recovery` ✓.
+**Gap:** the published marketing build's env object holds only the two Stripe keys — `VITE_TRIAL_CHECKOUT_ENABLED` is not set
+(marketing reads `VITE_*` from its committed `.env`, which lacks it), so the page never calls `trial_quote`. Harmless with
+admission off; must be `"true"` and republished **before step 6**, or cramapple.com keeps selling pay-now with admission on.
+
 ## 6. ⛔ David's $1 live trial (plan §8 slice 8; admission per D1)
 
 1. Admission on: `TRIAL_ADMISSION_ENABLED=true` (D1 (a)) or allowlisted (D1 (b)).
