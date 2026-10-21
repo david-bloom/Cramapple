@@ -255,6 +255,21 @@ page still shows $39.99 due today (`pay_now` / `admission_off`). **Step 5 comple
 **Run 2026-10-21 (David: "launch without lawyer review, go for step 6 now"):** pre-check 12:24 UTC clean (0 orders, 0 failed
 webhooks/cron/HTTP). **`TRIAL_ADMISSION_ENABLED=true` set ~12:25 UTC — trial live for everyone (D1 (a)).** Quote check:
 `billing_mode: trial`, $39.99 on Wednesday, October 28, 2026 (Eastern), `terms-2026-10-18`, `trial-mandate-v4`.
+- 6.2 (12:31–12:36 UTC): David, incognito Chrome, brand-new student email, direct checkout. First attempt quoted $39.99 (code
+  not entered); restart with the $1 pilot code reused order `9569c2d2-76a1-4953-8ad8-12e8e6924732` and retired the old session
+  (both `checkout.session.expired` processed). Activated 12:34:36: `trialing`, charge 100, promo `redeemed`, AP Biology trial
+  entitlement to 10-28; `payment_intent.created` and `checkout.session.completed` processed. Trial-started email handed to Loops
+  12:36:01, arrived in Gmail **Promotions**; Account page shows the trial. Sign-in worked (precondition 0.5 covered).
+  Wallets: none rendered in incognito Chrome (expected: no Apple Pay outside Safari, no saved Google Pay card, no Link cookie);
+  re-check in Safari and a normal Chrome profile.
+- 6.3 (David "OK"): shift applied 12:43 UTC to this order and its entitlement only.
+- 6.4: charge worker 12:45:02 charged $1 off-session; `payment_intent.succeeded` **processed** 12:45:03; order `converted`;
+  paid entitlement `stripe_trial_conversion_single` active, trial entitlement expired; reminder job cancelled; converted email
+  to Loops 12:46:00.
+- UX findings from David (follow-up task, not launch blockers): email "Start studying" goes through code sign-in rather than
+  straight to the hub; Google one-tap on `cramapple.com/login` shows "Passed nonce and nonce in id_token should either both
+  exist or not" on page load; the Home "Free trial · N days left … Details" line and the Account page feel like cancel promotion
+  (Account must keep a cancel path: the mandate says "Cancel any time in Account").
 
 ## 7. ⛔ Launch and retire the cardless trial
 
