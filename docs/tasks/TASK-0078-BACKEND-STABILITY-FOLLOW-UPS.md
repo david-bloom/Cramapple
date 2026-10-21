@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** Open — rulings recorded, no slice started
+**Status:** In Progress — implementation/review state is recorded per checklist item
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)
@@ -32,7 +32,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | A2 | Replay ownership on `session-event` and `storage-sign-url` (actor-scoped lookup, read the audit-insert error, re-sign on replay, handler extraction, tests), no hash changes | Standard | open | spec in `REFACTOR_PLAN_REVIEW_2026_10_21.md` §5 |
 | A3 | Retire `submit-response` (source directory and the Development function) | Standard | open | not on Production, no caller |
 | A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | open | must-fail rows; student sees a score the database did not keep |
-| A5 | `review-decision`: replace the empty catch around `advanceWorkflow` with surfaced failures; `admin-content` 10 unread writes; `capture-pairing` cancel | Standard | open | can wait behind A4; review functions are otherwise frozen (ruling 1) |
+| A5 | `review-decision`: replace the empty catch around `advanceWorkflow` with surfaced failures; `admin-content` 10 unread writes; `capture-pairing` cancel | Standard | Ready for Review | [PR #536](https://github.com/david-bloom/Cramapple/pull/536), `codex/task-0078-required-write-errors`; 322 CI-command tests pass, 67 targeted handler/helper cases. [Evidence/limits](../qa/TASK0078_REQUIRED_WRITE_FAILURES_2026_10_21.md). Unmerged/undeployed; review deployment freeze preserved. |
 | A6 | Redeploy `evaluate-attempt` and `attempt-response` from `main` (Development, verify bundle hash, then Production on approval) | Hard-Gate | open | makes the TASK-0074 control-character strip live; clears stale `grading-feedback`, `student-memory`, `growth-events`, `math-verifier` |
 | A7 | Redeploy `create-post-purchase-addon` from `main` (Development with Stripe test mode, then Production on approval) | Hard-Gate | open | prerequisite for §4; Production v8 lacks `ownsAddonSource` (`fce40d1d`) |
 | A8 | Lovable: show the add-on offer on the payment-result page | Standard (Lovable, David publishes) | open | prompt in §4; ship after A7 |
