@@ -1,3 +1,4 @@
+import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import {
@@ -12,11 +13,7 @@ import { requireAuthedUser } from "../_shared/auth.ts";
 
 const ADDON_AMOUNT_CENTS = 3000;
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) throw new Error(`Missing required environment variable: ${name}`);
-  return value;
-}
+
 
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 

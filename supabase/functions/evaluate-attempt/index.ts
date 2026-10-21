@@ -1,3 +1,4 @@
+import { requireEnv } from "../_shared/env.ts";
 import { stringOrNull as asString, looseUuid as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -66,13 +67,7 @@ import {
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
 
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+
 
 function requirePositiveIntegerEnv(name: string) {
   const raw = requireEnv(name);
