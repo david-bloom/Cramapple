@@ -29,6 +29,6 @@ Containment: disable the affected operation or use a reviewed forward fix. Do no
 
 ## Evidence
 
-- Twelve request-handler tests cover collision-before-action, owned legacy replay, lost audit acknowledgement, concurrent attempts, authorization, fresh signed URLs and delete replay.
+- Twelve request-handler tests cover collision-before-action, owned legacy replay, lost audit acknowledgement, concurrent attempts, authorization, fresh signed URLs and delete replay. After integration with the current A1 gate: 701 restricted + 72 exception tests pass in the exact clean-environment commands (773 total).
 - Disposable Postgres fixture exercises the actual migration's privileges, actor/hash collisions, failure rollback and completion replay. It refuses any database not named `task0078_fixture`.
 - Production function/schema behavior remains unchanged until the gates above clear.
