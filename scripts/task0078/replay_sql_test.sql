@@ -20,7 +20,7 @@ create table app.audit_events (
 create unique index audit_events_request_id_reason_code_unique on app.audit_events(request_id,reason_code)
   where request_id is not null and reason_code is not null;
 grant select,insert on app.audit_events to service_role;
-\ir ../../supabase/migrations/20261021152931_task0078_operation_replay_claims.sql
+\ir ../../supabase/migrations/20261021211219_task0078_operation_replay_claims.sql
 
 create function pg_temp.assert_true(value boolean, label text) returns void language plpgsql as $$
 begin if value is distinct from true then raise exception 'FAIL: %',label; end if; end $$;
