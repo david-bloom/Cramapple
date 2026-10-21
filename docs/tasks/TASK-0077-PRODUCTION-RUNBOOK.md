@@ -1,10 +1,12 @@
 # TASK-0077 — Production Rollout Runbook (Seven-Day Card Trial)
 
-**Status:** Ready to execute once its preconditions are met. Nothing in it has been run on Production.
+**Status:** **Executed 2026-10-20/21 — the card trial is LIVE in Production** (admission on since ~12:25 UTC 2026-10-21; $1 live
+loop passed: start, charge, convert, refund). Step 7 (watch the first day; cardless retirement) remains. Per-step results inline below.
 **Written:** 2026-10-20 by Claude, from read-only checks of Production that day. **Tier:** Hard-Gate.
 **Every step marked ⛔ needs David's explicit approval at the time it is run.** Approval for one step does not carry to the next.
 **Governing records:** `DECISION-0126`, `docs/tasks/TASK-0077-SEVEN-DAY-CARD-TRIAL.md` (release checklist, QA rounds 1–5),
 `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` §8, `docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`.
+**Pick-up prompt and open items:** `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md`.
 
 Production project `pcntajvbdfqhbeewmdry`; Development `wmgjsdkphcyhngaffbqf`. Stripe live account `acct_1TddjmLwoRHzBJ1O`.
 Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home-directory link points at Production).
@@ -40,11 +42,11 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 | 0.1 | Cramapple PR #507 merged (backend + these records) | open when written |
 | 0.2 | ap-prep-blueprint PRs #38 (spelling) and #39 (recovery card-only) merged | open when written; checked to merge cleanly together |
 | 0.3 | Codex sign-off on the trial code | **done** (`43440c98`, no findings; code and local tests only) |
-| 0.4 | Stripe live: click **Save** on Public details (Terms `https://cramapple.com/terms`, Privacy `https://cramapple.com/privacy`); turn on **Radar → "Use Radar on payment methods saved for future use"** | not done |
+| 0.4 | Stripe live: click **Save** on Public details (Terms `https://cramapple.com/terms`, Privacy `https://cramapple.com/privacy`); turn on **Radar → "Use Radar on payment methods saved for future use"** | **confirmed 2026-10-20** by David: Radar active; Terms and Privacy URLs saved on the public profile |
 | 0.5 | Production first sign-in: a brand-new account requests a code on Production, the email carries a 6-digit code and no one-browser link, and the code signs in (checklist item 9) | not done |
-| 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | open |
-| 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | published 2026-10-20; workspace match to confirm |
-| 0.8 | Decisions D1–D5 below answered | open |
+| 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | **David 2026-10-21: launch without lawyer review** |
+| 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | **confirmed 2026-10-20**: same `LOOPS_SECRET_KEY` digest as Development |
+| 0.8 | Decisions D1–D5 below answered | **answered 2026-10-20** (below) |
 
 ## Decisions needed before running
 
@@ -62,6 +64,17 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
   (`LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID`, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`), replacing Production's August
   workflow. Confirm before step 2.3, because parent emails change the moment it deploys.
 
+**David's answers (2026-10-20, rollout session):**
+- **D1 — (a).** "We are launching with the 7-day free trial." Admission goes on for everyone; the $1 trial is the launch. David
+  will also distribute coupons for varying amounts. As built (plan §6.9): the discount is locked at signup and the day-7 charge is
+  the discounted price; a 100%-off code skips the trial (`pay_now_zero`, immediate access); a code leaving 1–49¢ is rejected;
+  codes must be USD coupon promotions in live mode whose product restriction, if any, includes the trial Price's product.
+- **D2 — agreed:** all three flags `false`.
+- **D3 — `TRIAL_TERMS_VERSION=terms-2026-10-18`** (2026-10-18 is the Terms date).
+- **D4 — apply** `20261003000100_create_product_feedback_phase_b.sql` in step 2.1.
+- **D5 — confirmed:** `send-parent-payment-email` moves to the Loops templates in step 2.3.
+- Pre-flight step 4: David accepted **29** secret names as the baseline.
+
 ## 1. Pre-flight (Claude, read-only, same day as the rollout)
 
 1. `git fetch`; release commit = `main` after #507. Record its SHA here.
@@ -71,9 +84,11 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 4. Secret names unchanged from the list above (`supabase secrets list`, names only).
 5. Production's `stripe_webhook_events` has nothing stuck in `processing`/`failed` from the last day.
 
-### Pre-flight results (2026-10-20, run before the merges landed)
+### Pre-flight results (2026-10-20/21)
 
-- Step 1 (release SHA): **not run.** PRs #507, app #38 and #39 were still open and clean on GitHub when checked.
+- Step 1 (release SHA): **`3616edff`** (#507 merged 2026-10-21 00:16 UTC; app #38 `39fd4ff0`, #39 `c0c0f2d7` merged the same
+  minute, app `main` = `c0c0f2d`). Its `supabase/functions` tree is identical to `43440c98` (Codex's sign-off, and what
+  Development runs); its migrations differ only by the round-5 rename (same content) and the #508 stranded migration.
 - Step 2: all six matched functions unchanged (`stripe-webhook` 9 files, `create-checkout-session` 8,
   `create-parent-payment-link` 9, `get-checkout-status` 8, `resolve-parent-link` 7, `send-parent-payment-email` 6; 0 differ
   each); `start-trial/index.ts` still `f7aa0093`; none of the new functions, and not `send-auth-email`, exist.
@@ -86,6 +101,22 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
   7 attempts each, last 2026-10-09 (`stripe_webhook_processing_failed`). An expired session grants nothing, so no customer was
   affected; logs from that date are gone, so the cause is not known. Not a blocker; step 3.6 now checks the new webhook
   processes an expiry.
+
+### Pre-flight re-run (2026-10-20, rollout session)
+
+- Step 1: `main` is still **`3616edff`**.
+- Step 2: the six functions match their commits file for file (same file counts as above, 0 differ); `start-trial` still
+  differs only in `_shared/growth-events.ts`, `_shared/cors.ts`, `_shared/supabase.ts`. None updated since 2026-10-16.
+- Step 3: unchanged (last migration `20261016000100`, none newer; no new tables; 20 `trial_v1` rows; 17 outbox names;
+  Vault 4, cron 4, none for these workers).
+- Step 4: **differs from the record: 29 secret names, not 31.** `-o json` and the table output both give 29. Which two names
+  were in the earlier 31 was not recorded, so it cannot be shown whether two secrets were removed or the earlier count included
+  the table's header lines. Every name the release reads and Production lacks is one listed above (plus names read only by
+  non-trial code or with defaults); `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_CATALOG_JSON`,
+  `LOOPS_SECRET_KEY`, `APP_BASE_URL`, `ALLOWED_ORIGINS` are present. **Stopped here for David** per the pre-flight rule.
+- Step 5: one new event, `evt_1USLEjLwoRHzBJ1O8SKvlPTT` (`checkout.session.expired`, 2026-10-19 18:24 UTC), `processed` on the
+  first attempt, so Production's current webhook can process an expiry; the two 2026-10-06 events are still `failed`. Nothing in
+  `processing`.
 
 ## 2. ⛔ Email foundation (TASK-0060's tables and worker), dormant
 
@@ -103,6 +134,15 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
    `send-parent-payment-email`. Do **not** deploy or enable `send-auth-email`.
 4. Check: `deliver-transactional-email` without its secret → 401; with it → 200 and an empty summary.
 - *Rollback:* redeploy `send-parent-payment-email` from `10abfd88`; the new tables are additive and unused while the flags are off.
+
+**Run 2026-10-20 (`APPROVAL-0197`):** 2.1 done — Production versions `20261021003534` (product feedback), `20261021003602`
+(outbox), `20261021003627` (lifecycle); read-back passed (details in the approval record). 2.2 secrets file built (17 names);
+setting it was first blocked by the session's permission rules; David added an allow rule and 2.2–2.4 then ran:
+- 2.2: 17 secrets set (46 names now); each verified against its intended value by digest. `TRANSACTIONAL_MAILING_ADDRESS`
+  = David's business address (2026-10-20). Development's value differs (its footer is not this address).
+- 2.3: `deliver-transactional-email` (new, `verify_jwt` false) and `send-parent-payment-email` (`verify_jwt` false, as before)
+  deployed from the worktree at `3616edff`'s functions tree; downloaded back, 11 and 9 files, 0 differ from `3616edff`.
+- 2.4: no secret → 401; with secret → 200 `{"payment":{"claimed":0,"sent":0},"lifecycle":{"disabled":true,...},"trial":null}`.
 
 ## 3. ⛔ Trial backend, dormant
 
@@ -135,6 +175,31 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
    **24 hours later:** that session's `checkout.session.expired` event must be `processed` in `app.stripe_webhook_events`.
    (Production's current webhook failed both live expiry events it received on 2026-10-06, 7 attempts each; see "Pre-flight
    results".)
+**Run 2026-10-20 (`APPROVAL-0197`):**
+- 3.1 done. Production versions: `20261021010317` card_trial_orders, `20261021010400` worker_invokers, `20261021010442` qa_fixes,
+  `20261021010520` round3, `20261021010541` round4, `20261021010547` round5. Each stored statement is md5-identical to its repo
+  file. Against Development: columns, constraints, indexes and policies identical; all 20 functions identical except
+  `invoke_trial_worker` and `trial_record_attempt`, whose Development copies lack the comments (same code). Read-back: RLS
+  enabled + forced on all six trial tables, no anon/authenticated access, `app.trial_sweep()` returns zeros, outbox check 22
+  names. **Correction:** the backfill is **2 emails**, not 20 — the 20 legacy `trial_v1` rows belong to 2 accounts (10 subjects
+  each). Production-only: a pre-existing default ACL grants `content_reviewer` (no login, no RLS bypass, members: `postgres`)
+  SELECT on every new `app` table, the trial tables included; forced RLS with a service-role-only policy means it reads 0 rows.
+- 3.2 done: 24 secrets (admission `false`, charges/notices `true`, `TRIAL_TERMS_VERSION=terms-2026-10-18`, new worker secret, 19
+  trial Loops ids), digest-verified; 70 names now. `CARDLESS_TRIAL_RETIRED` unset.
+- 3.3 done 2026-10-21 01:16 UTC by David (the session's permission rules block Claude's secret-store writes): four entries
+  created with `supabase db query --linked --workdir ~` from a file built out of the step-2/3 secrets, values never printed;
+  read back by name, both URLs correct. (A first attempt from a fresh link folder failed on IPv6 before writing anything.)
+- 3.4 done: all ten functions deployed (`stripe-webhook` first; `get-trial-status` JWT-verified, the rest `--no-verify-jwt`;
+  `start-trial` changes from gateway-JWT to its own `requireProfile` 401 check, as the runbook specifies); each downloaded back,
+  0 files differ from `3616edff`.
+- 3.5 done: `app.invoke_charge_due_trials()` → HTTP 200 (`charges_enabled: true`, sweep zeros, heartbeat 01:17:30 UTC);
+  `app.invoke_deliver_transactional_email()` → HTTP 200 (trial `claimed 0`). Scheduled: cron job 5
+  `task0077-charge-due-trials` `*/5`, job 6 `task0077-deliver-transactional-email` `*/2`, both active.
+- 3.6 done except the 24-hour check: charge worker no secret 401; cancel and recovery unknown token 404; trial status no login
+  401; webhook bad signature 400; `trial_quote` → `pay_now` / `admission_off`, $39.99, `terms-2026-10-18`, `trial-mandate-v4`;
+  legacy pay-now checkout returned `cs_live_b18T1A9a1jJnfUy1EeSlbnmaaIyW35fB8gnZHbmBu1AypEoWqrWw5u0od1` with a client secret.
+  **Due ~2026-10-22 01:15 UTC:** that session's `checkout.session.expired` must be `processed` in `app.stripe_webhook_events`.
+
 - *Rollback:* redeploy the step-1 commits listed under "What Production looks like today"; unschedule the two jobs
   (`cron.unschedule('task0077-…')`). Tables stay (additive). With admission off no trial can start, so nothing needs undoing.
 
@@ -146,6 +211,14 @@ and Production's `stripe_webhook_events` records them as `processed`. (Every Pay
 webhook; the handler acts only on `metadata.kind = trial_conversion` and returns 200 for the rest.)
 - *Rollback:* remove the five events.
 
+**Run 2026-10-21 (`APPROVAL-0197`):** David added the five events to the existing "Cramapple Checkout" destination (a
+new-destination form came up first and was abandoned: a second destination would have its own signing secret). The endpoint
+also lists `payment_intent.created`; the new webhook routes every `payment_intent.*` to the trial handler, so it is safe, though
+Production had never recorded one. No deliveries yet at 12:15 UTC; **the first PaymentIntent event must show `processed`**
+(check at the next live purchase or in step 6). Workers healthy: 132 charge and 329 email runs, all succeeded, heartbeat
+`charges_enabled: true`. A `resource_missing` GET for a `cs_test_` session seen in the live dashboard is the known
+Development return-page issue (it asks Production about a test session), not this rollout.
+
 ## 5. ⛔ Frontend publish, still dormant (David, in Lovable)
 
 1. Marketing `61dd6602`: set `VITE_TRIAL_CHECKOUT_ENABLED=true` and publish. Includes the trial checkout, the parent drawer,
@@ -155,6 +228,17 @@ webhook; the handler acts only on `metadata.kind = trial_conversion` and returns
 3. Check on cramapple.com with admission still off: checkout quotes `pay_now` and looks like today; `/trial` redirects to checkout;
    the app's Account page loads.
 - *Rollback:* republish the previous Lovable versions.
+
+**Run 2026-10-21:** David published both Lovable projects. Checked live: `/trial` → `/checkout` ✓; checkout shows $39.99 pay-now
+as today ✓; app `/account` loads with the trial copy and its bundle calls `get-trial-status`, `cancel-trial`, `trial-recovery` ✓.
+**Gap:** the published marketing build's env object holds only the two Stripe keys — `VITE_TRIAL_CHECKOUT_ENABLED` is not set
+(marketing reads `VITE_*` from its committed `.env`, which lacks it), so the page never calls `trial_quote`. Harmless with
+admission off; must be `"true"` and republished **before step 6**, or cramapple.com keeps selling pay-now with admission on.
+**Fixed 2026-10-21:** Claude sent Lovable a one-line prompt (0.5 credits); commit `779c7320` adds only
+`VITE_TRIAL_CHECKOUT_ENABLED="true"` to marketing `.env` (diff checked). David republished. Live check: the checkout bundle
+(`checkout.index-nHFzbu9A.js`) now carries the flag; entering a subject and email calls `create-checkout-session` (200) and the
+page still shows $39.99 due today (`pay_now` / `admission_off`). **Step 5 complete.** Unrelated, not investigated: the page's
+`rest/v1/subjects` request returns 401 (the same endpoint answers with the publishable key from curl; the subject list renders).
 
 ## 6. ⛔ David's $1 live trial (plan §8 slice 8; admission per D1)
 
@@ -168,6 +252,34 @@ webhook; the handler acts only on `metadata.kind = trial_conversion` and returns
 4. Within 5 minutes the worker charges $1 off-session; expect `converted`, paid access, the converted email, a Stripe receipt.
 5. Refund the $1 in the Stripe dashboard; expect `refunded`, access revoked, the refunded email.
 6. Either keep admission on (launch, step 7) or set `TRIAL_ADMISSION_ENABLED=false` until ready.
+
+**Run 2026-10-21 (David: "launch without lawyer review, go for step 6 now"):** pre-check 12:24 UTC clean (0 orders, 0 failed
+webhooks/cron/HTTP). **`TRIAL_ADMISSION_ENABLED=true` set ~12:25 UTC — trial live for everyone (D1 (a)).** Quote check:
+`billing_mode: trial`, $39.99 on Wednesday, October 28, 2026 (Eastern), `terms-2026-10-18`, `trial-mandate-v4`.
+- 6.2 (12:31–12:36 UTC): David, incognito Chrome, brand-new student email, direct checkout. First attempt quoted $39.99 (code
+  not entered); restart with the $1 pilot code reused order `9569c2d2-76a1-4953-8ad8-12e8e6924732` and retired the old session
+  (both `checkout.session.expired` processed). Activated 12:34:36: `trialing`, charge 100, promo `redeemed`, AP Biology trial
+  entitlement to 10-28; `payment_intent.created` and `checkout.session.completed` processed. Trial-started email handed to Loops
+  12:36:01, arrived in Gmail **Promotions**; Account page shows the trial. Sign-in worked (precondition 0.5 covered).
+  Wallets: none rendered in incognito Chrome (expected: no Apple Pay outside Safari, no saved Google Pay card, no Link cookie);
+  re-check in Safari and a normal Chrome profile.
+- 6.3 (David "OK"): shift applied 12:43 UTC to this order and its entitlement only.
+- 6.4: charge worker 12:45:02 charged $1 off-session; `payment_intent.succeeded` **processed** 12:45:03; order `converted`;
+  paid entitlement `stripe_trial_conversion_single` active, trial entitlement expired; reminder job cancelled; converted email
+  to Loops 12:46:00.
+- 6.5: David refunded the $1 in Stripe; `charge.refunded` **processed**; order `refunded`; paid and trial entitlements
+  revoked 12:51:13; refunded email to Loops 12:52:00. **Step 6 complete — the full live loop works.** 6.6: admission stays on
+  (launch, D1 (a)).
+- UX findings from David (follow-up task, not launch blockers): email "Start studying" goes through code sign-in rather than
+  straight to the hub; Google one-tap on `cramapple.com/login` shows "Passed nonce and nonce in id_token should either both
+  exist or not" on page load; the Home "Free trial · N days left … Details" line and the Account page feel like cancel promotion
+  (Account must keep a cancel path: the mandate says "Cancel any time in Account").
+- UX follow-up decisions (David, 2026-10-21): (1) keep code sign-in, **no email pre-fill** (option b: no address in URLs),
+  land on the hub (already happens via `redirect=/home`); (2) Google error appeared on clicking "Continue with Google" —
+  cause: GSI ID token carries a nonce, `signInWithIdToken` got none; fixed in marketing `GoogleSignInButton.tsx` (Lovable
+  `a4bb0577`, Supabase's hashed/raw nonce pattern), **published and live** (login bundle checked); (3) hub banner gets an
+  inline "Cancel trial" with confirmation, Account page and nav link kept (mandate wording unchanged); app Lovable
+  `4f71acbd` (4 files, 1,244 tests pass, diff reviewed) — published by David; live hub chunk `_ux.home-BIvLBgzt.js` carries it (checked).
 
 ## 7. ⛔ Launch and retire the cardless trial
 
