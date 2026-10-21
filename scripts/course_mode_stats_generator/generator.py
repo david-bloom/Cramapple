@@ -57,6 +57,7 @@ MEAN_CONTEXTS = SCN.MEAN_CONTEXTS
 TWO_MEAN_CONTEXTS = SCN.TWO_MEAN_CONTEXTS
 CATEGORICAL_CONTEXTS = SCN.CATEGORICAL_CONTEXTS
 U1_9_COMPARE_CONTEXTS = SCN.U1_9_COMPARE_CONTEXTS
+U3_7_ONE_PROP_TEST_CONTEXTS = SCN.U3_7_ONE_PROP_TEST_CONTEXTS
 
 
 def _rid(prefix: str, seed: int) -> str:
@@ -592,6 +593,52 @@ def gen_chi_square_test(rng: random.Random, seed: int) -> Dict:
                     {"observed": obs}, checks, scenario_domain=c["domain"])
 
 
+def gen_one_prop_ztest(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(U3_7_ONE_PROP_TEST_CONTEXTS)
+    p0 = float(rng.choice(c["p0_choices"]))
+    n = int(rng.choice(c["n_choices"]))
+    target_z = rng.choice([-2.4, -2.0, -1.7, 1.7, 2.0, 2.4])
+    se0 = math.sqrt(p0 * (1 - p0) / n)
+    phat_target = p0 + target_z * se0
+    x = max(10, min(n - 10, round(phat_target * n)))
+    phat = x / n
+    z = (phat - p0) / se0
+    p_value = 2 * min(S.norm_cdf(z), S.norm_sf(z))
+    se_phat = math.sqrt(phat * (1 - phat) / n)
+    z_phat_se = (phat - p0) / se_phat
+    one_sided = min(S.norm_cdf(z), S.norm_sf(z))
+    tol = 0.005
+    prompt = (f"{c['source'].capitalize()} tests H0: p = {p0:.2f} versus Ha: p != {p0:.2f}. "
+              f"In a random sample of {n} {c['population']}, {x} {c['trait']}. "
+              "Calculate the one-proportion z statistic and the two-sided p-value.")
+    worked = (f"p-hat={x}/{n}={phat:.4f}. SE0=sqrt({p0:.2f}({1-p0:.2f})/{n})={se0:.4f}. "
+              f"z=({phat:.4f}-{p0:.2f})/{se0:.4f}={z:.3f}. Two-sided p-value={p_value:.3f}.")
+    correct = f"z = {z:.3f}, p-value = {p_value:.3f}"
+    distractors = [
+        (f"z = {z_phat_se:.3f}, p-value = {2 * min(S.norm_cdf(z_phat_se), S.norm_sf(z_phat_se)):.3f}",
+         "u3_7__used_phat_in_null_se", None),
+        (f"z = {-z:.3f}, p-value = {p_value:.3f}", "u3_7__reversed_z_numerator", None),
+        (f"z = {z:.3f}, p-value = {one_sided:.3f}",
+         "u3_7__reported_one_sided_p_value_for_two_sided_test", None),
+    ]
+    checks = [
+        ("large_counts_h0", n * p0 >= 10 and n * (1 - p0) >= 10),
+        ("z_formula", abs(z - (phat - p0) / se0) < 1e-12),
+        ("p_value_formula", abs(p_value - 2 * min(S.norm_cdf(z), S.norm_sf(z))) < 1e-12),
+        ("p_value_range", 0 <= p_value <= 1),
+        ("distractors_distinct", len({d[0] for d in distractors}) == 3),
+    ]
+    pkg = _package("one_prop_ztest", seed, "3.7", ["3.E"], "Medium", prompt,
+                   f"z = {z:.3f}, p-value = {p_value:.3f}", worked,
+                   [{"kind": "interval", "low": round(z, 3), "high": round(p_value, 3), "tol": tol}],
+                   correct, None, tol, distractors,
+                   {"scenario_id": c["id"], "p0": p0, "n": n, "x": x, "phat": phat, "z": z, "p_value": p_value},
+                   checks, scenario_domain=c["domain"])
+    pkg["content_key"] = _rid("apstat-u3-7-3e-one_prop_ztest", seed)
+    return pkg
+
+
+
 def gen_two_sample_t_test(rng: random.Random, seed: int) -> Dict:
     """Two-sample (independent) t test statistic for a difference of means
     (cell 4.7 x 3.E). Uses unpooled (Welch) SE and conservative df = min(n1-1, n2-1).
@@ -729,6 +776,7 @@ def gen_two_sample_t_interval(rng: random.Random, seed: int) -> Dict:
 PROCEDURES: Dict[str, Callable[[random.Random, int], Dict]] = {
     "one_prop_ci": gen_one_prop_ci,
     "two_prop_ztest": gen_two_prop_ztest,
+    "one_prop_ztest": gen_one_prop_ztest,
     "lsrl_predict": gen_lsrl_predict,
     "normal_prob": gen_normal_prob,
     "summary_stats": gen_summary_stats,

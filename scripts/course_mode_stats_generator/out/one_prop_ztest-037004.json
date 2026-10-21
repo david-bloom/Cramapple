@@ -1,0 +1,182 @@
+{
+  "cells": [
+    {
+      "skill": "3.E",
+      "topic": "3.7"
+    }
+  ],
+  "content_key": "apstat-u3-7-3e-one_prop_ztest-037004",
+  "difficulty": "Medium",
+  "exam_pack_ref": {
+    "cycle": "2026-27",
+    "exam_code": "ap_statistics"
+  },
+  "item_type": "mcq",
+  "mcq_form": {
+    "options": [
+      {
+        "correct": false,
+        "misconception": "u3_7__used_phat_in_null_se",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Used p-hat instead of p0 in the null standard error",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "a one-proportion z test uses the null proportion p0 in the standard error",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.7)"
+            }
+          ],
+          "tag": "u3_7__used_phat_in_null_se"
+        },
+        "text": "z = 1.645, p-value = 0.100"
+      },
+      {
+        "correct": false,
+        "misconception": "u3_7__reported_one_sided_p_value_for_two_sided_test",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Reported a one-sided p-value for a two-sided test",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "p-values must match the alternative hypothesis; two-sided alternatives double the relevant tail area",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.6/3.7)"
+            }
+          ],
+          "tag": "u3_7__reported_one_sided_p_value_for_two_sided_test"
+        },
+        "text": "z = 1.677, p-value = 0.047"
+      },
+      {
+        "correct": true,
+        "misconception": null,
+        "text": "z = 1.677, p-value = 0.094"
+      },
+      {
+        "correct": false,
+        "misconception": "u3_7__reversed_z_numerator",
+        "misconception_source": {
+          "ek_codes": [],
+          "evidence": "ced_structural",
+          "label": "Reversed the z statistic numerator",
+          "sources": [
+            {
+              "kind": "fact_pack",
+              "note": "the one-proportion z statistic compares p-hat to p0 in the stated direction",
+              "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S10 Unit 3 (3.7)"
+            }
+          ],
+          "tag": "u3_7__reversed_z_numerator"
+        },
+        "text": "z = -1.677, p-value = 0.094"
+      }
+    ]
+  },
+  "numeric_form": {
+    "answer_desc": "z = 1.677, p-value = 0.094",
+    "deterministic_checks": [
+      {
+        "high": 0.094,
+        "kind": "interval",
+        "low": 1.677,
+        "tol": 0.005
+      }
+    ]
+  },
+  "package_id": "one_prop_ztest-037004",
+  "parts": [
+    {
+      "criteria": [
+        {
+          "accepted_variants": [],
+          "criterion_key": "part-a-criterion-1",
+          "description": "z = 1.677, p-value = 0.094",
+          "deterministic_checks": [
+            {
+              "high": 0.094,
+              "kind": "interval",
+              "low": 1.677,
+              "tol": 0.005
+            }
+          ],
+          "points": 1,
+          "required_evidence": "p-hat=57/120=0.4750. SE0=sqrt(0.40(0.60)/120)=0.0447. z=(0.4750-0.40)/0.0447=1.677. Two-sided p-value=0.094."
+        }
+      ],
+      "part_key": "part-a",
+      "points": 1,
+      "prompt": "A clinic tests H0: p = 0.40 versus Ha: p != 0.40. In a random sample of 120 patients, 57 use the portal. Calculate the one-proportion z statistic and the two-sided p-value.",
+      "response_modalities": [
+        "mcq",
+        "numeric"
+      ]
+    }
+  ],
+  "prompt": "A clinic tests H0: p = 0.40 versus Ha: p != 0.40. In a random sample of 120 patients, 57 use the portal. Calculate the one-proportion z statistic and the two-sided p-value.",
+  "provenance": {
+    "generator": "course_mode_stats_generator/generator.py",
+    "note": "Synthetic; not official CB content. Requires CM-D19 template-release + review.",
+    "params": {
+      "n": 120,
+      "p0": 0.4,
+      "p_value": 0.09353251268909335,
+      "phat": 0.475,
+      "scenario_id": "u3_7__portal_use",
+      "x": 57,
+      "z": 1.6770509831248412
+    },
+    "release_status": "unreleased_generated_pending_review",
+    "seed": 37004,
+    "template_id": "one_prop_ztest"
+  },
+  "scenario_provenance": {
+    "archetype": "Q3",
+    "archetype_label": "Inference: a significance test or confidence interval",
+    "domain": "health",
+    "modality": "exam_aligned_digital",
+    "practice": 3,
+    "sources": [
+      {
+        "kind": "fact_pack",
+        "note": "Section II question archetypes Q1-Q4",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S5 (Free-response archetypes)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "the item stem's verb must match the scored demand",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S6 (Task verbs)"
+      },
+      {
+        "kind": "fact_pack",
+        "note": "digital Bluebook; text/numeric entry -> exam_aligned_digital",
+        "ref": "AP_STATISTICS_2027_CED_FACT_PACK.md S7 (Response modality)"
+      }
+    ],
+    "task_verb": "Calculate",
+    "validity_rules": [
+      "one random sample with a binary outcome and hypothesized p0",
+      "large-counts condition under H0 must hold",
+      "test statistic uses the null standard error and p-value matches a two-sided alternative"
+    ]
+  },
+  "schema_version": "course-mode-generated-0.1",
+  "taxonomy_refs": [
+    {
+      "node_key": "unit-3",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "topic-3.7",
+      "scheme_key": "ap-statistics-2026-27"
+    },
+    {
+      "node_key": "skill-3.E",
+      "practice": 3,
+      "scheme_key": "ap-statistics-skills"
+    }
+  ],
+  "worked_solution": "p-hat=57/120=0.4750. SE0=sqrt(0.40(0.60)/120)=0.0447. z=(0.4750-0.40)/0.0447=1.677. Two-sided p-value=0.094."
+}

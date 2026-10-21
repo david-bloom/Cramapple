@@ -174,6 +174,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "one_prop_ztest": Framing(
+        "one_prop_ztest", "Q3", "Calculate", 3, "exam_aligned_digital",
+        ["one random sample with a binary outcome and hypothesized p0",
+         "large-counts condition under H0 must hold",
+         "test statistic uses the null standard error and p-value matches a two-sided alternative"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -661,6 +667,21 @@ U1_13_DESIGN_CONTEXTS: List[Dict[str, object]] = [
 ]
 
 
+# Unit 3.7 one-proportion z-test contexts. Each id is cell-namespaced.
+U3_7_ONE_PROP_TEST_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u3_7__bus_support", "domain": "civic", "source": "a city survey",
+     "population": "residents", "trait": "support the transit plan", "p0_choices": [0.40, 0.45, 0.50], "n_choices": [120, 160, 200]},
+    {"id": "u3_7__subscription", "domain": "business", "source": "a product team",
+     "population": "trial users", "trait": "convert to a paid subscription", "p0_choices": [0.25, 0.30, 0.35], "n_choices": [150, 200, 240]},
+    {"id": "u3_7__germination", "domain": "biology", "source": "a greenhouse",
+     "population": "seeds", "trait": "germinate", "p0_choices": [0.60, 0.65, 0.70], "n_choices": [100, 140, 180]},
+    {"id": "u3_7__portal_use", "domain": "health", "source": "a clinic",
+     "population": "patients", "trait": "use the portal", "p0_choices": [0.35, 0.40, 0.45], "n_choices": [120, 180, 220]},
+    {"id": "u3_7__inspection", "domain": "manufacturing", "source": "a quality team",
+     "population": "devices", "trait": "pass first inspection", "p0_choices": [0.75, 0.80, 0.85], "n_choices": [120, 160, 200]},
+]
+
+
 # ==============================================================================
 # Access + validation helpers
 # ==============================================================================
@@ -821,6 +842,20 @@ def validate_scenarios() -> List[str]:
             problems.append(f"u1_13 design context id is not namespaced: {ctx.get('id')}")
         if len(ctx.get("distractors", [])) < 3:
             problems.append(f"u1_13 design context needs at least 3 distractors: {ctx}")
+    seen_u3_7_ids = set()
+    for ctx in U3_7_ONE_PROP_TEST_CONTEXTS:
+        required = ("id", "domain", "source", "population", "trait", "p0_choices", "n_choices")
+        if not all(k in ctx for k in required):
+            problems.append(f"u3_7 one-proportion test context missing fields: {ctx}")
+        if ctx.get("id") in seen_u3_7_ids:
+            problems.append(f"duplicate u3_7 one-proportion test context id: {ctx.get('id')}")
+        seen_u3_7_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u3_7__"):
+            problems.append(f"u3_7 one-proportion test context id is not namespaced: {ctx.get('id')}")
+        for p0 in ctx.get("p0_choices", []):
+            for n in ctx.get("n_choices", []):
+                if not (0 < p0 < 1 and n * p0 >= 10 and n * (1 - p0) >= 10):
+                    problems.append(f"u3_7 context violates large-counts condition: {ctx}")
     return problems
 
 
@@ -845,6 +880,7 @@ if __name__ == "__main__":
             "u1_8_boxplots": len(U1_8_BOXPLOT_CONTEXTS),
             "u1_12_bias": len(U1_12_BIAS_CONTEXTS),
             "u1_13_design": len(U1_13_DESIGN_CONTEXTS),
+            "u3_7_one_prop_test": len(U3_7_ONE_PROP_TEST_CONTEXTS),
         },
         "framing": {p: {"archetype": f.archetype, "task_verb": f.task_verb,
                         "modality": f.modality} for p, f in FRAMING.items()},

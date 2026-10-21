@@ -425,6 +425,28 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        "ced_structural", ["slotframe_u1_12_bias"], ["1.12"], ["2.A"],
        [_fp("S10 Unit 1 (1.10-1.13)", "bias claims must be supported by the sampling scenario rather than assumed from sample size alone")]),
 
+    # --- computational one_prop_ztest (3.7 x 3.E) : one-proportion test results ---
+    _M("u3_7__used_phat_in_null_se",
+       "Used p-hat instead of p0 in the null standard error",
+       "Computed the test statistic with sqrt(p-hat(1-p-hat)/n) rather than the null SE sqrt(p0(1-p0)/n).",
+       "ced_structural", ["one_prop_ztest"], ["3.7"], ["3.E"],
+       [_fp("S10 Unit 3 (3.7)",
+            "a one-proportion z test uses the null proportion p0 in the standard error")]),
+
+    _M("u3_7__reversed_z_numerator",
+       "Reversed the z statistic numerator",
+       "Computed p0 - p-hat instead of p-hat - p0, reversing the sign of z.",
+       "ced_structural", ["one_prop_ztest"], ["3.7"], ["3.E"],
+       [_fp("S10 Unit 3 (3.7)",
+            "the one-proportion z statistic compares p-hat to p0 in the stated direction")]),
+
+    _M("u3_7__reported_one_sided_p_value_for_two_sided_test",
+       "Reported a one-sided p-value for a two-sided test",
+       "Used only one tail of the Normal distribution when the alternative hypothesis was two-sided.",
+       "ced_structural", ["one_prop_ztest"], ["3.7"], ["3.E"],
+       [_fp("S10 Unit 3 (3.6/3.7)",
+            "p-values must match the alternative hypothesis; two-sided alternatives double the relevant tail area")]),
+
     # --- slot-frame FB-U1-13-2A-DESIGN-01 (1.13 x 2.A) : experimental design ---
     _M("u1_13__confounding_vs_lurking_confused",
        "Confused confounding with a lurking variable or unrelated association",
