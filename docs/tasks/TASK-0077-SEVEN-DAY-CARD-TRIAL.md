@@ -1,8 +1,9 @@
 # TASK-0077 — Seven-Day Free Trial With a Saved Card
 
-**Status:** Backend built and tested; **deployed to Development** 2026-10-18, QA fixes 2026-10-19; Production readiness check 2026-10-20 (Production blocked on the Loops email foundation and Loops itself). On Development, trial
-admission and charges are **on** (Stripe test mode) and both workers are scheduled; trial notices are off (see "Development
-deployment" below). Nothing in Production. App pages in ap-prep-blueprint PR #37, not published.
+**Status:** **LIVE in Production since 2026-10-21 ~12:25 UTC** (trial admission on for everyone, DECISION-0126; launched
+without lawyer review by David's decision). Production rollout steps 2–6 executed under `APPROVAL-0197` and David's chat
+approvals; David's $1 live trial passed start → day-7 charge → convert → refund. Results: `docs/tasks/TASK-0077-PRODUCTION-RUNBOOK.md`.
+Open: step 7 watch, `CARDLESS_TRIAL_RETIRED`, Gmail Promotions placement, checkout `rest/v1/subjects` 401.
 **Tier:** Hard-Gate. **Product Owner:** David Bloom. **Owner:** Claude. **Opened:** 2026-10-18.
 **Governing decision:** `DECISION-0126` items 1–31. **Plan:** `docs/product/SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md` (v3).
 **Reviews of the plan:** Codex PR #505 (v1, "Not ready", 13 findings, all addressed in v2); Fable (v2, "Ready with changes",
@@ -103,6 +104,9 @@ decisions D1–D5, then email foundation → trial backend dormant → Stripe li
 each step with its own approval and rollback. Nothing in it has run on Production.
 **Pick-up:** `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md` (state, waiting-on list, next-session
 prompt). Release commit `3616edff`; pre-flight passed 2026-10-20/21.
+**Executed 2026-10-20/21** (`APPROVAL-0197`): email foundation, trial backend, Stripe live events, both Lovable publishes,
+admission on, $1 live loop. Follow-ups shipped the same day: Google sign-in nonce fix (marketing `a4bb0577`), Home inline
+cancel (app `4f71acbd`), marketing `VITE_TRIAL_CHECKOUT_ENABLED` (`779c7320`).
 
 ## Codex sign-off (2026-10-20, review of `43440c98`)
 

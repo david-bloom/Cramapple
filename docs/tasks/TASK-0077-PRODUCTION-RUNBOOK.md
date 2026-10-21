@@ -1,6 +1,7 @@
 # TASK-0077 — Production Rollout Runbook (Seven-Day Card Trial)
 
-**Status:** Ready to execute once its preconditions are met. Nothing in it has been run on Production.
+**Status:** **Executed 2026-10-20/21 — the card trial is LIVE in Production** (admission on since ~12:25 UTC 2026-10-21; $1 live
+loop passed: start, charge, convert, refund). Step 7 (watch the first day; cardless retirement) remains. Per-step results inline below.
 **Written:** 2026-10-20 by Claude, from read-only checks of Production that day. **Tier:** Hard-Gate.
 **Every step marked ⛔ needs David's explicit approval at the time it is run.** Approval for one step does not carry to the next.
 **Governing records:** `DECISION-0126`, `docs/tasks/TASK-0077-SEVEN-DAY-CARD-TRIAL.md` (release checklist, QA rounds 1–5),
@@ -278,7 +279,7 @@ webhooks/cron/HTTP). **`TRIAL_ADMISSION_ENABLED=true` set ~12:25 UTC — trial l
   cause: GSI ID token carries a nonce, `signInWithIdToken` got none; fixed in marketing `GoogleSignInButton.tsx` (Lovable
   `a4bb0577`, Supabase's hashed/raw nonce pattern), **published and live** (login bundle checked); (3) hub banner gets an
   inline "Cancel trial" with confirmation, Account page and nav link kept (mandate wording unchanged); app Lovable
-  `4f71acbd` (4 files, 1,244 tests pass, diff reviewed) — **not yet published** at 13:0x UTC (live home chunk lacks it).
+  `4f71acbd` (4 files, 1,244 tests pass, diff reviewed) — published by David; live hub chunk `_ux.home-BIvLBgzt.js` carries it (checked).
 
 ## 7. ⛔ Launch and retire the cardless trial
 
