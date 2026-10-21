@@ -45,7 +45,7 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 | 0.5 | Production first sign-in: a brand-new account requests a code on Production, the email carries a 6-digit code and no one-browser link, and the code signs in (checklist item 9) | not done |
 | 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | open |
 | 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | published 2026-10-20; workspace match to confirm |
-| 0.8 | Decisions D1–D5 below answered | open |
+| 0.8 | Decisions D1–D5 below answered | **answered 2026-10-20** (below) |
 
 ## Decisions needed before running
 
@@ -62,6 +62,17 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 - **D5 — The parent-request email.** `main`'s `send-parent-payment-email` sends through Loops transactional templates
   (`LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID`, `LOOPS_PARENT_TRIAL_REQUEST_TRANSACTIONAL_ID`), replacing Production's August
   workflow. Confirm before step 2.3, because parent emails change the moment it deploys.
+
+**David's answers (2026-10-20, rollout session):**
+- **D1 — (a).** "We are launching with the 7-day free trial." Admission goes on for everyone; the $1 trial is the launch. David
+  will also distribute coupons for varying amounts. As built (plan §6.9): the discount is locked at signup and the day-7 charge is
+  the discounted price; a 100%-off code skips the trial (`pay_now_zero`, immediate access); a code leaving 1–49¢ is rejected;
+  codes must be USD coupon promotions in live mode whose product restriction, if any, includes the trial Price's product.
+- **D2 — agreed:** all three flags `false`.
+- **D3 — `TRIAL_TERMS_VERSION=terms-2026-10-18`** (2026-10-18 is the Terms date).
+- **D4 — apply** `20261003000100_create_product_feedback_phase_b.sql` in step 2.1.
+- **D5 — confirmed:** `send-parent-payment-email` moves to the Loops templates in step 2.3.
+- Pre-flight step 4: David accepted **29** secret names as the baseline.
 
 ## 1. Pre-flight (Claude, read-only, same day as the rollout)
 
