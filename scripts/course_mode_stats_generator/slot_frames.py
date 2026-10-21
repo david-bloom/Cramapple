@@ -133,6 +133,12 @@ BOXPLOT_TAGS = {
     "u1_8__box_spans_range_not_iqr",
 }
 
+PROP_HYPOTHESIS_TAGS = {
+    "u3_5__alternative_uses_equality",
+    "u3_5__sample_proportion_as_parameter",
+    "u3_5__wrong_alternative_direction",
+}
+
 GRAPH_TAGS = {
     "u1_5__miscounted_bin_frequency",
     "u1_5__stem_leaf_place_value_error",
@@ -818,6 +824,142 @@ def generate_u1_13_design(count: int, base_seed: int = 11300) -> List[Dict]:
     return [gen_u1_13_design_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
 
 
+
+def _p0_text(p0: float) -> str:
+    return f"{p0:.2f}".rstrip("0").rstrip(".")
+
+
+def _pct_label(p0: float) -> str:
+    return f"{int(round(100 * p0))}%"
+
+
+def _alt_phrase(direction: str) -> str:
+    if direction == ">":
+        return "greater than"
+    if direction == "<":
+        return "less than"
+    if direction == "!=":
+        return "different from"
+    raise ValueError(direction)
+
+
+def _hypothesis_pair(symbol: str, p0: float, direction: str) -> str:
+    p0s = _p0_text(p0)
+    return f"H0: {symbol} = {p0s}; Ha: {symbol} {direction} {p0s}."
+
+
+def _wrong_direction(direction: str) -> str:
+    if direction == ">":
+        return "<"
+    if direction == "<":
+        return ">"
+    if direction == "!=":
+        return ">"
+    raise ValueError(direction)
+
+
+def _population_trait_phrase(c: Dict[str, object]) -> str:
+    population = str(c["population"])
+    rel = "who" if any(word in population for word in ("seniors", "users", "residents")) else "that"
+    return f"{population} {rel} {c['trait']}"
+
+
+def _prop_hypothesis_correct_text(c: Dict[str, object]) -> str:
+    return (f"Let p be the true proportion of {_population_trait_phrase(c)}. "
+            f"{_hypothesis_pair('p', float(c['p0']), str(c['direction']))}")
+
+
+def _prop_hypothesis_distractor(tag: str, c: Dict[str, object]) -> str:
+    direction = str(c["direction"])
+    p0 = float(c["p0"])
+    p0s = _p0_text(p0)
+    phrase = _population_trait_phrase(c)
+    if tag == "u3_5__alternative_uses_equality":
+        return f"Let p be the true proportion of {phrase}. H0: p {direction} {p0s}; Ha: p = {p0s}."
+    if tag == "u3_5__sample_proportion_as_parameter":
+        return f"Let p-hat be the sample proportion with this trait. {_hypothesis_pair('p-hat', p0, direction)}"
+    if tag == "u3_5__wrong_alternative_direction":
+        wrong = _wrong_direction(direction)
+        return f"Let p be the true proportion of {phrase}. {_hypothesis_pair('p', p0, wrong)}"
+    raise ValueError(tag)
+
+
+def gen_u3_5_prop_hypothesis_instance(rng: random.Random, seed: int) -> Dict:
+    c = rng.choice(SCN.U3_5_PROP_HYPOTHESIS_CONTEXTS)
+    scenario_prov = SCN.framing("slotframe_u3_5_prop_hypotheses", c.get("domain"))
+    direction = str(c["direction"])
+    p0 = float(c["p0"])
+    prompt = (f"A researcher is setting up a one-sample z test for a population proportion. "
+              f"The research question is whether {c['claim']}. {c['sample']} "
+              f"Which pair of hypotheses is appropriate?")
+    options = [{"text": _prop_hypothesis_correct_text(c), "correct": True, "misconception": None}]
+    for tag in sorted(PROP_HYPOTHESIS_TAGS):
+        options.append({"text": _prop_hypothesis_distractor(tag, c),
+                        "correct": False, "misconception": tag,
+                        "misconception_source": MISC.provenance(tag)})
+    rng.shuffle(options)
+    correct_text = next(o["text"] for o in options if o["correct"])
+    checks = [
+        ("known_direction", direction in (">", "<", "!=")),
+        ("p0_is_proportion", 0 < p0 < 1),
+        ("correct_uses_population_parameter", "Let p be the true proportion" in correct_text),
+        ("correct_null_uses_equality", f"H0: p = {_p0_text(p0)}" in correct_text),
+        ("correct_alt_uses_research_direction", f"Ha: p {direction} {_p0_text(p0)}" in correct_text),
+        ("sample_result_present_but_not_keyed", "random sample" in prompt and "p-hat" not in correct_text),
+        ("exactly_one_correct", sum(1 for o in options if o["correct"]) == 1),
+        ("four_options", len(options) == 4),
+        ("option_texts_unique", len({o["text"] for o in options}) == 4),
+        ("all_distractors_tagged", all(o["misconception"] for o in options if not o["correct"])),
+        ("all_distractor_tags_canonical", all(o["misconception"] in MISC.CATALOG for o in options if not o["correct"])),
+        ("all_distractors_cite_source", all(o.get("misconception_source", {}).get("sources") for o in options if not o["correct"])),
+        ("scenario_framing_present", bool(scenario_prov.get("archetype")) and bool(scenario_prov.get("sources"))),
+        ("scenario_is_u3_5_hypothesis_setup", any("one-population proportion test setup" in r for r in scenario_prov.get("validity_rules", []))),
+        ("hypothesis_tags_used", {o.get("misconception") for o in options if o.get("misconception")} == PROP_HYPOTHESIS_TAGS),
+    ]
+    return {
+        "schema_version": "course-mode-generated-0.1",
+        "package_id": f"slotframe-u3_5-2e-{seed:06d}",
+        "content_key": f"apstat-u3-5-2e-prop-hypotheses-{seed:06d}",
+        "item_type": "mcq",
+        "difficulty": "Medium",
+        "exam_pack_ref": {"exam_code": "ap_statistics", "cycle": "2026-27"},
+        "taxonomy_refs": [
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "unit-3"},
+            {"scheme_key": "ap-statistics-2026-27", "node_key": "topic-3.5"},
+            {"scheme_key": "ap-statistics-skills", "node_key": "skill-2.E", "practice": 2},
+        ],
+        "cells": [{"topic": "3.5", "skill": "2.E"}],
+        "scenario_provenance": scenario_prov,
+        "prompt": prompt,
+        "mcq_form": {"options": options},
+        "parts": [{
+            "part_key": "part-a", "prompt": prompt,
+            "response_modalities": ["mcq"], "points": 1,
+            "criteria": [{
+                "criterion_key": "part-a-criterion-1", "points": 1,
+                "description": "Selects null and alternative hypotheses for a one-population proportion test.",
+                "required_evidence": f"H0: p = {_p0_text(p0)}; Ha: p {direction} {_p0_text(p0)}",
+                "deterministic_checks": [{"kind": "mcq_key", "correct_hypotheses": {"parameter": "p", "null": "=", "alternative": direction, "p0": p0}}],
+                "accepted_variants": [],
+            }],
+        }],
+        "provenance": {
+            "generator": "course_mode_stats_generator/slot_frames.py",
+            "frame_id": "FB-U3-5-2E-PROP-HYP-01",
+            "template_id": "slotframe_u3_5_prop_hypotheses",
+            "params": {"scenario_id": c["id"], "p0": p0, "p0_label": _pct_label(p0), "direction": direction},
+            "seed": seed,
+            "release_status": "unreleased_generated_pending_review",
+            "note": "Authored conceptual frame; correctness from one-proportion hypothesis setup taxonomy.",
+        },
+        "_property_checks": checks,
+    }
+
+
+def generate_u3_5_prop_hypotheses(count: int, base_seed: int = 30520) -> List[Dict]:
+    return [gen_u3_5_prop_hypothesis_instance(random.Random(base_seed + i), base_seed + i) for i in range(count)]
+
+
 # ==============================================================================
 # Frame registry + harness. Each Track B cell appends ONE entry to FRAMES below
 # (append-only) — no harness rewrite needed. (Integration lesson from batch 2.)
@@ -864,6 +1006,9 @@ FRAMES = [
     {"frame_id": "FB-U1-12-2A-BIAS-01", "cell": "1.12 x 2.A", "gen": generate_u1_12_bias,
      "base_seed": 11200, "expected_tags": set(BIAS_TAGS),
      "note": "Sampling bias classification. Coverage: Unit 1 topic 1.12."},
+    {"frame_id": "FB-U3-5-2E-PROP-HYP-01", "cell": "3.5 x 2.E", "gen": generate_u3_5_prop_hypotheses,
+     "base_seed": 30520, "expected_tags": set(PROP_HYPOTHESIS_TAGS),
+     "note": "One-population proportion hypothesis setup. Coverage: Unit 3 topic 3.5, skill 2.E."},
     {"frame_id": "FB-U1-13-2A-DESIGN-01", "cell": "1.13 x 2.A", "gen": generate_u1_13_design,
      "base_seed": 11300, "expected_tags": set(DESIGN_TAGS),
      "note": "Experimental design classification. Coverage: Unit 1 topic 1.13."},

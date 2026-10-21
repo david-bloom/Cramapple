@@ -174,6 +174,12 @@ FRAMING: Dict[str, Framing] = {
         ["realistic study-design scenario",
          "classification must distinguish imposed treatments, randomization, control/placebo/blinding, and confounding"],
         [_SEC5, _SEC6, _SEC7]),
+    "slotframe_u3_5_prop_hypotheses": Framing(
+        "slotframe_u3_5_prop_hypotheses", "Q3", "Describe", 2, "exam_aligned_digital",
+        ["one-population proportion test setup only: identify H0 and Ha",
+         "H0 uses equality to the hypothesized population proportion p0",
+         "Ha direction follows the stated research question: greater than, less than, or different from"],
+        [_SEC5, _SEC6, _SEC7]),
     "t_test_mean": Framing(
         "t_test_mean", "Q4", "Calculate", 3, "exam_aligned_digital",
         ["a random sample of a quantitative variable (population roughly Normal or n large)",
@@ -317,6 +323,35 @@ CATEGORICAL_CONTEXTS: List[Dict[str, object]] = [
     {"desc": "devices from two production lines and their inspection outcome",
      "rows": ["Line 1", "Line 2"], "cols": ["Pass", "Rework", "Fail"],
      "row_noun": "devices", "domain": "manufacturing"},
+]
+
+
+# Unit 3.5 one-proportion hypothesis contexts. Each id is cell-namespaced.
+U3_5_PROP_HYPOTHESIS_CONTEXTS: List[Dict[str, object]] = [
+    {"id": "u3_5__senior_part_time_jobs", "domain": "education",
+     "population": "seniors at a high school", "trait": "have a part-time job",
+     "claim": "more than 60% of seniors at the school have a part-time job", "p0": 0.60,
+     "direction": ">", "sample": "In a random sample of 140 seniors, 92 report having a part-time job."},
+    {"id": "u3_5__signup_abandonment", "domain": "business",
+     "population": "new users of an app", "trait": "abandon the signup process",
+     "claim": "less than 25% of new users abandon the signup process", "p0": 0.25,
+     "direction": "<", "sample": "In a random sample of 180 new users, 37 abandon the signup process."},
+    {"id": "u3_5__gluten_free_orders", "domain": "business",
+     "population": "online bakery orders", "trait": "include a gluten-free item",
+     "claim": "the proportion of orders that include a gluten-free item is different from 15%", "p0": 0.15,
+     "direction": "!=", "sample": "In a random sample of 220 orders, 42 include a gluten-free item."},
+    {"id": "u3_5__bike_lane_support", "domain": "civic",
+     "population": "residents in a city", "trait": "support adding protected bike lanes",
+     "claim": "more than 40% of city residents support adding protected bike lanes", "p0": 0.40,
+     "direction": ">", "sample": "In a random sample of 250 residents, 118 support adding protected bike lanes."},
+    {"id": "u3_5__late_package_rate", "domain": "operations",
+     "population": "packages shipped by a fulfillment center", "trait": "arrive later than promised",
+     "claim": "less than 8% of packages arrive later than promised", "p0": 0.08,
+     "direction": "<", "sample": "In a random sample of 400 packages, 24 arrive later than promised."},
+    {"id": "u3_5__online_library_renewals", "domain": "civic",
+     "population": "library-book renewals", "trait": "are completed online",
+     "claim": "the proportion of renewals completed online is different from 30%", "p0": 0.30,
+     "direction": "!=", "sample": "In a random sample of 160 renewals, 58 are completed online."},
 ]
 
 # Unit 1.9 two-distribution comparison contexts. Each id is cell-namespaced so
@@ -723,6 +758,21 @@ def validate_scenarios() -> List[str]:
             problems.append(f"categorical context missing fields: {ctx}")
         elif len(ctx["rows"]) < 2 or len(ctx["cols"]) < 2:
             problems.append(f"categorical context needs >=2 rows and cols: {ctx}")
+    seen_u3_5_ids = set()
+    for ctx in U3_5_PROP_HYPOTHESIS_CONTEXTS:
+        required = ("id", "domain", "population", "trait", "claim", "p0", "direction", "sample")
+        if not all(k in ctx for k in required):
+            problems.append(f"u3_5 hypothesis context missing fields: {ctx}")
+        if ctx.get("id") in seen_u3_5_ids:
+            problems.append(f"duplicate u3_5 hypothesis context id: {ctx.get('id')}")
+        seen_u3_5_ids.add(ctx.get("id"))
+        if not str(ctx.get("id", "")).startswith("u3_5__"):
+            problems.append(f"u3_5 hypothesis context id is not namespaced: {ctx.get('id')}")
+        if ctx.get("direction") not in (">", "<", "!="):
+            problems.append(f"u3_5 hypothesis context has bad direction: {ctx}")
+        p0 = ctx.get("p0", 0)
+        if not (0 < p0 < 1):
+            problems.append(f"u3_5 hypothesis context p0 outside (0,1): {ctx}")
     seen_compare_ids = set()
     for ctx in U1_9_COMPARE_CONTEXTS:
         required = ("id", "quantity", "unit", "group_a", "group_b", "domain", "low", "high")
@@ -837,6 +887,7 @@ if __name__ == "__main__":
             "normal": len(NORMAL_CONTEXTS),
             "mean": len(MEAN_CONTEXTS),
             "two_mean": len(TWO_MEAN_CONTEXTS),
+            "u3_5_prop_hypotheses": len(U3_5_PROP_HYPOTHESIS_CONTEXTS),
             "u1_9_compare": len(U1_9_COMPARE_CONTEXTS),
             "u1_11_sampling": len(U1_11_SAMPLING_CONTEXTS),
             "u1_2_variables": len(U1_2_VARIABLE_CONTEXTS),

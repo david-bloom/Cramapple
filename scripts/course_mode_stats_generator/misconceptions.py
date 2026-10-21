@@ -512,6 +512,29 @@ CATALOG: Dict[str, Misconception] = {m.tag: m for m in [
        [_fp("S10 Unit 1 (1.10-1.13)",
             "stratified sampling takes a random sample within every stratum; sampling all observational units in selected clusters is cluster sampling")]),
 
+
+    # --- slot-frame FB-U3-5-2E-PROP-HYP-01 (3.5 x 2.E) : one-proportion hypotheses ---
+    _M("u3_5__alternative_uses_equality",
+       "Put equality in the alternative hypothesis",
+       "Placed the equality case in the alternative hypothesis or reversed the null and alternative roles, instead of using equality in H0 and the research direction in Ha.",
+       "ced_structural", ["slotframe_u3_5_prop_hypotheses"], ["3.5"], ["2.E"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "hypothesis tests require null and alternative hypotheses; the null carries the equality case and the alternative carries the research direction")]),
+
+    _M("u3_5__sample_proportion_as_parameter",
+       "Used the sample proportion instead of the population proportion in hypotheses",
+       "Wrote hypotheses about p-hat, the statistic computed from the sample, rather than p, the population proportion being tested.",
+       "ced_structural", ["slotframe_u3_5_prop_hypotheses"], ["3.5"], ["2.E"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "one-proportion inference tests a claim about the population proportion p, while p-hat is the sample statistic used as evidence")]),
+
+    _M("u3_5__wrong_alternative_direction",
+       "Used the wrong direction for the alternative hypothesis",
+       "Selected a greater-than, less-than, or two-sided alternative that does not match the stated research question.",
+       "ced_structural", ["slotframe_u3_5_prop_hypotheses"], ["3.5"], ["2.E"],
+       [_fp("S10 Unit 3 (3.5-3.8)",
+            "the alternative hypothesis direction must match the claim being tested: greater than, less than, or different from the hypothesized proportion")]),
+
     # --- t procedures (means): 4.2 x 3.E interval, 4.5 x 3.E test statistic ----
     _M("se_divided_by_n_not_sqrt_n",
        "Used SE = s/n instead of s/sqrt(n)",
