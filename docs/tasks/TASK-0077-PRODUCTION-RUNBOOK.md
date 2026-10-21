@@ -266,10 +266,19 @@ webhooks/cron/HTTP). **`TRIAL_ADMISSION_ENABLED=true` set ~12:25 UTC — trial l
 - 6.4: charge worker 12:45:02 charged $1 off-session; `payment_intent.succeeded` **processed** 12:45:03; order `converted`;
   paid entitlement `stripe_trial_conversion_single` active, trial entitlement expired; reminder job cancelled; converted email
   to Loops 12:46:00.
+- 6.5: David refunded the $1 in Stripe; `charge.refunded` **processed**; order `refunded`; paid and trial entitlements
+  revoked 12:51:13; refunded email to Loops 12:52:00. **Step 6 complete — the full live loop works.** 6.6: admission stays on
+  (launch, D1 (a)).
 - UX findings from David (follow-up task, not launch blockers): email "Start studying" goes through code sign-in rather than
   straight to the hub; Google one-tap on `cramapple.com/login` shows "Passed nonce and nonce in id_token should either both
   exist or not" on page load; the Home "Free trial · N days left … Details" line and the Account page feel like cancel promotion
   (Account must keep a cancel path: the mandate says "Cancel any time in Account").
+- UX follow-up decisions (David, 2026-10-21): (1) keep code sign-in, **no email pre-fill** (option b: no address in URLs),
+  land on the hub (already happens via `redirect=/home`); (2) Google error appeared on clicking "Continue with Google" —
+  cause: GSI ID token carries a nonce, `signInWithIdToken` got none; fixed in marketing `GoogleSignInButton.tsx` (Lovable
+  `a4bb0577`, Supabase's hashed/raw nonce pattern), **published and live** (login bundle checked); (3) hub banner gets an
+  inline "Cancel trial" with confirmation, Account page and nav link kept (mandate wording unchanged); app Lovable
+  `4f71acbd` (4 files, 1,244 tests pass, diff reviewed) — **not yet published** at 13:0x UTC (live home chunk lacks it).
 
 ## 7. ⛔ Launch and retire the cardless trial
 
