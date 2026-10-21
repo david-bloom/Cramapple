@@ -52,6 +52,27 @@ TASK-0069 (`attempt-response` replay scoping).
 | A19 | Ledger strategy: re-baseline or row-by-row repair | Decide (David) | open | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
 | A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
 
+## 2a. Codex PR review (Fable, 2026-10-21): merge order and conditions
+
+Reviews are posted on each PR. Code PRs are David's to merge. Evidence: diffs read in full; `deno check` and every touched
+test run in throwaway worktrees at each PR head; Production and Development queried read-only where a claim depended on
+live state.
+
+| Order | PR | Row | Verdict | Condition before merge |
+| --- | --- | --- | --- | --- |
+| 1 | #524 | A10 | ready (Hard-Gate) | apply the single file with `apply_migration`/`execute_sql`, never `db push`; verify `md5(prosrc)` = `dbc35186…`/`5a71a24d…`; one real subject switch |
+| 2 | #520 | A1 | ready | merge before every other code PR; all of them edit `minimal-ci.yml` |
+| 3 | #535 | A4 | one gap | recovery stores the grade but never updates `app.attempts` (status/score), which `get_student_progress_dashboard` counts; run the attempt update in recovery or record the manual reconciliation |
+| 4 | #523 | A11 | ready (Hard-Gate) | same apply-method rule as #524 |
+| 5 | #521 | A2 | ready, re-tiered | now Hard-Gate: claims table + two RPCs; migration before both function deploys on each project (functions return 503 without it); pending claims never expire, so the packet needs a named reconciliation query; fold `TASK-0078-CAUTIOUS-BACKEND-REFACTOR.md` into this record |
+| 6 | #522 | A3 | rebase | keep only the A3 cell edit of this file |
+| 7 | #536 | A5 | rebase | conflicts with `main`; `review-decision` part lands in source only under ruling 1 |
+| 8–11 | #525, #526, #527, #528 | A16 | pure extractions | stack cut before #520's CI rewrite; rebase onto current `replay-hardening`, re-place three one-line CI inserts; #527 needs no CI change; expect a source conflict with #536 on `admin-content`, `capture-pairing`, `review-decision` |
+| 12–14 | #529, #530, #531 | A16 | pure extractions | stacked on #528; #531 must split its four doc edits (INDEX row conflicts with `main`; second TASK-0078 record) into a docs PR, and needs one student and one parent Development checkout in Stripe test mode before any Production deploy |
+
+Two TASK-0078 records now exist in the Codex stack (`TASK-0078-CAUTIOUS-BACKEND-REFACTOR.md`); this file is canonical.
+Decide: fold the Codex execution record into §2 here, or keep it as a linked handoff. Do not let both carry status.
+
 ## 3. Weekly session sweep (A9): draft migration
 
 `pg_cron` on both projects runs in UTC. Saturday 01:00 Eastern is 05:00 UTC in summer and 06:00 UTC in winter; the job
