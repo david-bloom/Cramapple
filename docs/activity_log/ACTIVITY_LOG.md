@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0063 session RPC migration applied to Production (APPROVAL-0198, 2026-10-21, owner request "Merge #544 and apply the session RPC migration to Production"): PR #544 merged (file renamed to Development's `20261021202904`); Production guards passed; both functions now carry the reviewed bodies (`dbc35186…`, `5a71a24d…`), grants unchanged, Production ledger `20261021210131`; the `active_session_blocks_subject_switch` refusal is gone from the live body, unblocking the two student accounts. #544's fixture-path edit had been left unstaged and broke the Session RPC reconciliation workflow on `main`; one-line repair in PR #547. See [`APPROVAL-0198`](APPROVAL-0198_TASK0063_SESSION_RPC_PRODUCTION_APPLY_2026_10_21.md).
+
 - TASK-0078 source integration (2026-10-21, David requested review/merge and safe branch cleanup): Fable’s conditions remediated; fresh recovery/replay QA recommended source-merge Pass. Source merge and live-release state remain separate. Canonical checklist and [integration handoff](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md) record the current checkpoint; historical refactor scope moved to a handoff rather than a second task.
 
 - PR #524 merged and its migration applied to Development (2026-10-21, owner request "Merge #524 and apply the migration to Development"): #524 was a draft based on Codex's #520 branch, so marking it ready and merging landed commit `78f2be47` on `codex/task-0078-refactor-ci`; the file reaches `main` with #520. Development apply via `apply_migration`: both guards passed, `app.start_home_learning_session_for_user` and `public.set_active_exam_pack_version` unchanged at the reviewed hashes, grants intact, ledger version `20261021202904` (rename requested on #520). Production untouched; the two blocked students wait on that approval. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) A10.
@@ -243,6 +245,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — TASK-0063 session RPC migration applied to Production (APPROVAL-0198)
+
+Owner request: "Merge #544 and apply the session RPC migration to Production."
+
+- **PR #544 merged:** the migration file is now `20261021202904_task0063_reconcile_session_rpc_bodies.sql` on `main`. The commit's edit to the fixture's `\ir` path was left unstaged (`git add` covered only `docs/` and the rename), so `Session RPC reconciliation regressions` failed on `main` with "No such file". Repaired by PR #547 (one line). Minimal CI and the two replay fixture workflows were green throughout.
+- **Production apply:** pre-apply read confirmed the July hashes (`de584bfd…`, `1363d6ea…`), security invoker, `search_path=pg_catalog`, and `exam_pack_version_is_selectable` executable by `authenticated`. Applied the single file with `apply_migration`. Post-apply: `dbc35186dc642ac15e19295f3601186b` and `5a71a24d2fc753b91f0150aa0ac2161e`, grants unchanged, live `set_active_exam_pack_version` body no longer contains `active_session_blocks_subject_switch`. Ledger row `20261021210131`. Full record: `APPROVAL-0198`.
+- **Effect:** the two student accounts holding active sessions on their current pack can switch subjects again. Still open under A10: one signed-in switch by an affected account or David as the live confirmation.
+- **Not done:** the weekly sweep (A9) and the two other unapplied migrations (`20261021152931` replay claims, `20261021153645` submit replay scoping) remain unapplied everywhere.
 
 ## 2026-10-21 — PR #524 merged; session RPC migration applied to Development
 
