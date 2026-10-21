@@ -1,3 +1,4 @@
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 // capture-pairing -- the QR capture bridge for Engine 4.
 //
 // TASK-0016 Phase D, Stage D2 ("Implement and verify the QR capture MVP"),
@@ -165,15 +166,7 @@ function asUuid(value: unknown) {
     : null;
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 function bindingOf(row: PairingRow): PairingBinding {
   return {

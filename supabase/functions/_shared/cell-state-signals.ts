@@ -1,3 +1,4 @@
+import { sha256Text as sha256Hex } from "./encoding.ts";
 // Course Mode F3 — pure signal derivation for the live cell-state write hook.
 //
 // Deliberately DEPENDENCY-FREE (imports only types from cell-state.ts): the DB
@@ -89,15 +90,7 @@ export function canonicalJson(value: unknown): string {
   return `{${entries.join(",")}}`;
 }
 
-async function sha256Hex(value: string): Promise<string> {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 /** A short, stable identity for the generated instance's params. Returns null
  *  when there is nothing to hash (so deriveChangedSurface treats it as novel). */

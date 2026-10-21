@@ -1,3 +1,4 @@
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -78,15 +79,7 @@ function asObjectArray<T extends Record<string, unknown>>(value: unknown) {
     : [];
 }
 
-async function sha256Hex(value: string) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(value),
-  );
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
+
 
 function normalizePublishedState(operation: AllowedOperation) {
   switch (operation) {

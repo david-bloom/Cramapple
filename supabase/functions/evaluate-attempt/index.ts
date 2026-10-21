@@ -1,3 +1,4 @@
+import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -216,14 +217,7 @@ function asUuid(value: unknown) {
     : null;
 }
 
-function sha256Hex(value: string) {
-  return crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)).then(
-    (digest) => {
-      const bytes = Array.from(new Uint8Array(digest));
-      return bytes.map((byte) => byte.toString(16).padStart(2, "0")).join("");
-    },
-  );
-}
+
 
 // re-QA finding 1: the idempotent-replay paths return the whole grading_results
 // row. `shadow_result` now carries the data-driven verifier's per-check verdicts,
