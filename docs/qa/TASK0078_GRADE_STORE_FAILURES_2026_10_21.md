@@ -1,6 +1,6 @@
 # TASK-0078 A4 — Grade persistence and same-key recovery
 
-Status: Ready for Review; Fable review remediated, recovery follow-up QA pending
+Status: Ready for Review; Fable review remediated, fresh independent recovery follow-up QA recommended Pass
 Date: 2026-10-21
 Branch: `codex/task-0078-grade-write-failures`
 PR: [#535](https://github.com/david-bloom/Cramapple/pull/535), depends on A1 [#520](https://github.com/david-bloom/Cramapple/pull/520)
@@ -22,6 +22,8 @@ Recovery uses the existing private JSON column and updated_at trigger; no migrat
 
 ## Evidence and release state
 
-The evaluate-attempt suite passes **38 tests**: existing 14 plus 24 new persistence/recovery cases across MCQ, LLM and shadow paths. Cases cover initial errors/zero rows/transport, success, concurrent recovery, repeated write failure, acknowledged grade with lost reply, checkpoint failure followed by stale 503, changed body, cross-user refusal and corrupt private payloads. Fake provider calls are restored in finally; tests assert no extra provider call on retries. No live model call or spend.
+The evaluate-attempt suite passes **39 tests**: existing 14 plus 25 new persistence/recovery cases across MCQ, LLM and shadow paths. Cases cover initial errors/zero rows/transport, success, concurrent recovery, repeated write failure, acknowledged grade with lost reply, checkpoint failure followed by stale 503, changed body, cross-user refusal and corrupt private payloads. Fake provider calls are restored in finally; tests assert no extra provider call on retries. No live model call or spend.
 
-A1's exact clean-environment two-step workflow passes **713 restricted + 72 exception tests, 785 total** on this PR. A fresh read-only check on both Production and Development confirms authenticated/anonymous users cannot select raw_model_response (authenticated also cannot select shadow_result), service_role can update it, and the grading_results_set_updated_at trigger is enabled. These checks inspected privileges/trigger metadata only; no learner rows were read or written. Handler type-check and request-suite lint pass. No live migration, deployment, flag change or main merge occurred. Next owner: independent reviewer/conductor. Review private-column isolation, timestamp fencing, unchanged request hashes and recovery limits before approving a Development release; Production remains separately gated.
+A1's exact clean-environment two-step workflow passes **714 restricted + 72 exception tests, 786 total** on this PR. A fresh read-only check on both Production and Development confirms authenticated/anonymous users cannot select raw_model_response (authenticated also cannot select shadow_result), service_role can update it, and the grading_results_set_updated_at trigger is enabled. These checks inspected privileges/trigger metadata only; no learner rows were read or written. Handler type-check and request-suite lint pass. No live migration, deployment, flag change or main merge occurred. Next owner: independent reviewer/conductor. Review private-column isolation, timestamp fencing, unchanged request hashes and recovery limits before approving a Development release; Production remains separately gated.
+
+Fresh read-only QA recommended source-merge Pass for the recovery follow-up. Its non-blocking fixture concern was also addressed: attempt reads are cloned, and an explicit concurrent-finalizer test exercises the zero-row CAS/readback path without overwriting the winner. Release gates remain unchanged.

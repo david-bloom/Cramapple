@@ -23,6 +23,7 @@ function gradeFixture(
   let modelCalls = 0;
   let storedWrites = 0;
   const attemptOutcomes: Outcome[] = [];
+  let finalizeBeforeAttemptWrite = false;
   const tick = () => new Date(++clock).toISOString();
   const rows: Record<string, unknown> = {
     prompt_versions: { status: "published" },
@@ -139,6 +140,10 @@ function gradeFixture(
           }
           const row = rows[table] as Record<string, unknown> | undefined;
           if (table === "attempts" && action === "update") {
+            if (finalizeBeforeAttemptWrite) {
+              finalizeBeforeAttemptWrite = false;
+              Object.assign(row!, { status: "graded", score_points: 99 });
+            }
             if (!row || Object.entries(eqs).some(([k, v]) => row[k] !== v)) return { data: null, error: null };
             const outcome = attemptOutcomes.shift() ?? "stored";
             if (outcome === "transport") throw new Error("private transport detail");
@@ -148,7 +153,7 @@ function gradeFixture(
           }
           return {
             data: single
-              ? row ?? null
+              ? structuredClone(row ?? null)
               : Array.isArray(row)
               ? row
               : row
@@ -252,6 +257,7 @@ function gradeFixture(
     writes,
     attempt: () => rows.attempts as Record<string, unknown>,
     failAttemptWrite: (outcome: Outcome) => attemptOutcomes.push(outcome),
+    finalizeDuringRecovery: () => { finalizeBeforeAttemptWrite = true; },
     row: () => grade!,
     modelCalls: () => modelCalls,
     storedWrites: () => storedWrites,
@@ -352,6 +358,13 @@ Deno.test("recovery does not overwrite a finalized attempt truth row", async () 
   assertEquals((await f.post()).status, 500);
   f.attempt().status = "graded";
   f.attempt().score_points = 99;
+  assertEquals((await f.post()).status, 200);
+  assertEquals(f.attempt().score_points, 99);
+});
+Deno.test("a concurrent finalizer winning the attempt CAS is reread without overwrite", async () => {
+  const f = gradeFixture("mcq", ["error", "stored"]);
+  assertEquals((await f.post()).status, 500);
+  f.finalizeDuringRecovery();
   assertEquals((await f.post()).status, 200);
   assertEquals(f.attempt().score_points, 99);
 });
