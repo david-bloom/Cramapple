@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 // capture-pairing -- the QR capture bridge for Engine 4.
 //
@@ -154,17 +155,9 @@ interface PairingRow {
   created_at: string;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
+
+
 
 
 

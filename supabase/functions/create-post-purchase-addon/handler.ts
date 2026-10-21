@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import {
   addonCustomerOptions,
@@ -19,9 +20,7 @@ function requireEnv(name: string) {
 
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
+
 
 export async function handlePostPurchaseAddon(req: Request) {
   const respond = (body: unknown, init: ResponseInit = {}) =>

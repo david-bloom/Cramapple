@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -160,17 +161,9 @@ const ASSISTANCE_STATES = new Set([
   "exam_practice",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" &&
-      /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-        .test(value)
-    ? value
-    : null;
-}
+
+
 
 function asRecord(value: unknown) {
   return value && typeof value === "object" && !Array.isArray(value)

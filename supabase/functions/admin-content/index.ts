@@ -1,3 +1,4 @@
+import { nonEmptyString as asString } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -61,9 +62,7 @@ function asRecord(value: unknown) {
     : null;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value : null;
-}
+
 
 function asStringArray(value: unknown) {
   return Array.isArray(value)

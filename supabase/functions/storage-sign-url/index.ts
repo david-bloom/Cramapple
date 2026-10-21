@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString, coercedInteger as asInteger } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
 import { isSafeStoragePath, ownsLearnerPath } from "../_shared/storage-paths.ts";
@@ -20,14 +21,9 @@ const allowedBuckets = new Set([
   "validation-artifacts",
 ]);
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asInteger(value: unknown) {
-  const parsed = Number(value);
-  return Number.isInteger(parsed) ? parsed : null;
-}
+
+
 
 
 

@@ -1,18 +1,13 @@
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
 
 type ReviewerRole = "tutor" | "reader";
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value);
-  if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email.toLowerCase() : null;
-}
+
+
 
 function asReviewerRole(value: unknown): ReviewerRole | null {
   const role = asString(value);

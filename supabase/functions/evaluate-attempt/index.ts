@@ -1,3 +1,4 @@
+import { stringOrNull as asString, looseUuid as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -207,15 +208,9 @@ function getBodyField(body: Record<string, unknown>, ...keys: string[]) {
   return undefined;
 }
 
-function asString(value: unknown) {
-  return typeof value === "string" ? value : null;
-}
 
-function asUuid(value: unknown) {
-  return typeof value === "string" && /^[0-9a-fA-F-]{36}$/.test(value)
-    ? value
-    : null;
-}
+
+
 
 
 
