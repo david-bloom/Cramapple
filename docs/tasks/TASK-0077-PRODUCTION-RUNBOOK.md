@@ -41,10 +41,10 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 | 0.1 | Cramapple PR #507 merged (backend + these records) | open when written |
 | 0.2 | ap-prep-blueprint PRs #38 (spelling) and #39 (recovery card-only) merged | open when written; checked to merge cleanly together |
 | 0.3 | Codex sign-off on the trial code | **done** (`43440c98`, no findings; code and local tests only) |
-| 0.4 | Stripe live: click **Save** on Public details (Terms `https://cramapple.com/terms`, Privacy `https://cramapple.com/privacy`); turn on **Radar → "Use Radar on payment methods saved for future use"** | not done |
+| 0.4 | Stripe live: click **Save** on Public details (Terms `https://cramapple.com/terms`, Privacy `https://cramapple.com/privacy`); turn on **Radar → "Use Radar on payment methods saved for future use"** | Radar: David reports active 2026-10-20; Save of Terms/Privacy not confirmed |
 | 0.5 | Production first sign-in: a brand-new account requests a code on Production, the email carries a 6-digit code and no one-browser link, and the code signs in (checklist item 9) | not done |
 | 0.6 | Lawyer review of the trial Terms section, both mandate texts (`trial-mandate-v4`) and the notice emails, or David's decision to launch without it (`DECISION-0126` item 27) | open |
-| 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | published 2026-10-20; workspace match to confirm |
+| 0.7 | Loops: the 20 trial templates (19 notices + the parent trial request) and the other parent/payment templates are published in the **same Loops workspace as Production's `LOOPS_SECRET_KEY`** (ids in `docs/email/transactional/manifest.json`) | **confirmed 2026-10-20**: same `LOOPS_SECRET_KEY` digest as Development |
 | 0.8 | Decisions D1–D5 below answered | **answered 2026-10-20** (below) |
 
 ## Decisions needed before running
@@ -133,6 +133,10 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
    `send-parent-payment-email`. Do **not** deploy or enable `send-auth-email`.
 4. Check: `deliver-transactional-email` without its secret → 401; with it → 200 and an empty summary.
 - *Rollback:* redeploy `send-parent-payment-email` from `10abfd88`; the new tables are additive and unused while the flags are off.
+
+**Run 2026-10-20 (`APPROVAL-0197`):** 2.1 done — Production versions `20261021003534` (product feedback), `20261021003602`
+(outbox), `20261021003627` (lifecycle); read-back passed (details in the approval record). 2.2 secrets file built (17 names);
+setting it was blocked by the session's permission rules, so 2.2–2.4 had not run at this point.
 
 ## 3. ⛔ Trial backend, dormant
 
