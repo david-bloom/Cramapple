@@ -1,0 +1,1319 @@
+{
+ "subject_key": "biology",
+ "source": "more-help-gap-fill-bio-phy1-2026-10-16-seeded",
+ "run_note": "more-help-gap-fill-bio-phy1-2026-10-16-seeded",
+ "items": [
+  {
+   "seed_key": "APBIO-MCQ-132",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "5.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-132",
+   "kind": "seed",
+   "pipeline_id": "biology__2.2__A__seed#r2-openai",
+   "stem": "A cell is modeled as a cube with its entire surface available for nutrient uptake.\n\nInitial side length: 2 μm\nFinal side length: 4 μm\nSurface area = 6s²; volume = s³, where s is side length.\n\nThe maximum nutrient uptake rate per unit surface area and the nutrient requirement per unit volume remain constant. After growth, how does the cell’s maximum nutrient uptake rate per unit volume change, and what does this imply about its ability to meet nutrient demand?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It doubles, increasing the ability to meet nutrient demand.",
+     "is_correct": false,
+     "rationale": "Ratio inversion: This result uses volume divided by surface area rather than surface area divided by volume. Uptake capacity depends on surface area, so uptake per unit volume decreases as the cell grows. Fix: Divide surface area by volume at each size, then compare the ratios."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It decreases to one-half its initial value, reducing the ability to meet nutrient demand.",
+     "is_correct": true,
+     "rationale": "Surface area increases from 24 to 96 μm², while volume increases from 8 to 64 μm³. Thus, surface area per unit volume falls from 3 to 1.5 μm⁻¹, halving maximum uptake per unit volume while demand per unit volume remains constant."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It increases fourfold, increasing the ability to meet nutrient demand.",
+     "is_correct": false,
+     "rationale": "Total-versus-per-volume confusion: Surface area and total uptake capacity increase fourfold, but volume increases eightfold. Ignoring volume growth overestimates the nutrient supply available per unit volume. Fix: Divide the uptake capacity’s growth factor by the volume’s growth factor."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It remains unchanged, leaving the ability to meet nutrient demand unchanged.",
+     "is_correct": false,
+     "rationale": "Equal-scaling misconception: Surface area and volume do not increase by the same factor when side length doubles. Area scales with s², while volume scales with s³, so uptake capacity does not keep pace with demand. Fix: Calculate separate growth factors using 2² for area and 2³ for volume."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 5.A 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-132",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "5.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-132-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__A__v1#r1-anthropic",
+   "stem": "A protist cell growing in a pond is modeled as a cube. It absorbs oxygen through all six faces. Its edge length grows from 2 μm to 6 μm. Use surface area = 6s² and volume = s³, where s is edge length. The maximum oxygen absorption rate per square micrometer of surface stays the same. The oxygen demand per cubic micrometer of cytoplasm also stays the same. Compared with the smaller cell, how does the larger cell's maximum oxygen uptake per unit volume change, and what does this mean for meeting its oxygen demand?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It triples, so the cell is better able to meet its oxygen demand.",
+     "is_correct": false,
+     "rationale": "Ratio inversion: dividing volume by surface area gives values that rise from 1/3 to 1 μm. Uptake depends on surface area relative to volume, and that ratio actually falls. Fix: Divide surface area by volume at each size, then compare the two ratios."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It increases ninefold, so the cell is better able to meet its oxygen demand.",
+     "is_correct": false,
+     "rationale": "Total-versus-per-volume confusion: total surface area and total uptake capacity do rise ninefold. Volume rises 27-fold, however, so uptake available per unit volume falls. Fix: Divide the surface area growth factor by the volume growth factor."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It stays the same, so the cell's ability to meet its oxygen demand is unchanged.",
+     "is_correct": false,
+     "rationale": "Equal-scaling misconception: tripling the edge length multiplies area by 3² = 9 but volume by 3³ = 27. Oxygen supply therefore cannot keep pace with demand. Fix: Compute separate growth factors, using 3² for area and 3³ for volume."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It falls to one-third of its original value, so the cell is less able to meet its oxygen demand.",
+     "is_correct": true,
+     "rationale": "Surface area rises from 24 to 216 μm², which is ninefold. Volume rises from 8 to 216 μm³, which is 27-fold. Surface area per volume therefore drops from 3 to 1 μm⁻¹, cutting uptake per unit volume to one-third while demand per unit volume stays constant."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-132 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-132 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-132",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "5.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-132-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__A__v2#r1-openai",
+   "stem": "A growing yeast cell is represented by a sphere that releases waste across its entire outer surface. Its radius increases from 3 μm to 12 μm. For this model, surface area = 4πr² and volume = 4πr³/3, with r representing radius. The maximum waste removal rate per unit surface area stays fixed, as does waste production per unit volume. How does growth affect the maximum waste removal rate per unit volume and the cell’s capacity to keep pace with waste production?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It rises fourfold, increasing the capacity to keep pace with waste production.",
+     "is_correct": false,
+     "rationale": "Ratio inversion: This prediction follows volume divided by surface area, which increases fourfold. Waste removal capacity per unit volume instead depends on surface area divided by volume. Fix: Calculate surface area divided by volume before and after growth."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It rises 16-fold, increasing the capacity to keep pace with waste production.",
+     "is_correct": false,
+     "rationale": "Total-versus-per-volume confusion: The 16-fold increase describes surface area and total removal capacity, not removal capacity per unit volume. The cell’s volume also increases, by a factor of 64. Fix: Divide the surface area growth factor by the volume growth factor."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It falls to one-quarter of its original value, reducing the capacity to keep pace with waste production.",
+     "is_correct": true,
+     "rationale": "The radius increases fourfold, so surface area increases 16-fold and volume increases 64-fold. Maximum waste removal per unit volume therefore changes by 16/64 = 1/4. Because waste production per unit volume stays constant, removal capacity relative to production decreases."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It stays constant, leaving the capacity to keep pace with waste production unchanged.",
+     "is_correct": false,
+     "rationale": "Equal-scaling misconception: This prediction assumes that surface area and volume grow proportionally. Surface area scales with radius squared, whereas volume scales with radius cubed. Fix: Compare 4² with 4³ to determine whether removal capacity keeps pace with volume."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-132 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-132 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-132",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "5.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-132-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__A__v3#r1-openai",
+   "stem": "A researcher represents a growing animal cell as a cube to examine its ability to release heat through its entire outer surface. The cube’s edge length increases from 4 μm to 20 μm. For edge length x, use surface area = 6x² and volume = x³. Assume that maximum heat release per unit surface area stays fixed and heat production per unit volume also stays fixed. How does growth change maximum heat release per unit volume and the cell’s capacity to keep pace with heat production?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It rises to five times the original value, increasing the capacity to keep pace with heat production.",
+     "is_correct": false,
+     "rationale": "Ratio inversion: The fivefold increase describes volume divided by surface area, not surface area divided by volume. Heat release capacity per unit volume depends on the latter ratio. Fix: Calculate surface area divided by volume before and after growth."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It falls to one-fifth of the original value, reducing the capacity to keep pace with heat production.",
+     "is_correct": true,
+     "rationale": "Surface area increases by a factor of 25, while volume increases by a factor of 125. Maximum heat release per unit volume therefore becomes 25/125 = 1/5 of its original value, while heat production per unit volume stays constant."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It rises to 25 times the original value, increasing the capacity to keep pace with heat production.",
+     "is_correct": false,
+     "rationale": "Total-versus-per-volume confusion: Total surface area and maximum total heat release increase 25-fold, but volume increases 125-fold. The increase in total capacity does not represent capacity per unit volume. Fix: Divide the surface-area growth factor by the volume growth factor."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It stays at the original value, leaving the capacity to keep pace with heat production unchanged.",
+     "is_correct": false,
+     "rationale": "Equal-scaling misconception: A fivefold increase in edge length does not multiply surface area and volume equally. Surface area scales with the square of edge length, whereas volume scales with its cube. Fix: Compare 5² with 5³ before deciding whether the ratio stays constant."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-132 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-132 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-133",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "6.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-133",
+   "kind": "seed",
+   "pipeline_id": "biology__2.2__B__seed#r1-openai",
+   "stem": "Researchers compare a cell with a smooth plasma membrane to a cell whose plasma membrane has many folds. All folded surfaces contact the surrounding solution.\n\nCell | Membrane surface area (μm²) | Volume (μm³)\nSmooth | 600 | 1,000\nFolded | 1,200 | 1,000\n\nBoth cells have the same maximum nutrient uptake rate per unit membrane area and the same nutrient requirement per unit volume. Which claim about the effect of membrane folding is best supported by these data?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Folding leaves maximum nutrient uptake unchanged, because cells with equal volumes have equal capacities to exchange nutrients.",
+     "is_correct": false,
+     "rationale": "The volume-only trap treats cell volume as the determinant of exchange capacity. With uptake per unit area held constant, total uptake capacity depends on membrane area, which differs between these cells. Fix: Multiply membrane area by uptake per unit area to compare total capacities."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Folding doubles maximum nutrient uptake without increasing nutrient demand, because it increases exchange surface while maintaining cell volume.",
+     "is_correct": true,
+     "rationale": "The folded cell has twice the membrane area, so its maximum nutrient uptake doubles. Its unchanged volume means nutrient demand remains constant, allowing the added exchange surface to support the same amount of cellular material."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Folding reduces maximum nutrient uptake, because a higher surface area-to-volume ratio makes nutrient exchange less efficient.",
+     "is_correct": false,
+     "rationale": "The reversed-ratio trap assigns a disadvantage to a higher surface area-to-volume ratio. More exposed membrane per unit volume provides greater exchange capacity relative to cellular demand, not less. Fix: Identify how much exchange surface is available for each unit of cell volume."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Folding doubles nutrient demand without changing maximum nutrient uptake, because demand depends on membrane area while uptake depends on volume.",
+     "is_correct": false,
+     "rationale": "The surface–volume role reversal swaps the quantities governing exchange and demand. Under the stated conditions, membrane area determines maximum uptake, while cell volume determines nutrient demand. Fix: Match exchange capacity to surface area and nutrient demand to volume before comparing cells."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 6.B 3, 6.A 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-133",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "6.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-133-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__B__v1#r1-anthropic",
+   "stem": "A biologist compares two strains of a single-celled protist that absorb glucose from the water around them. One strain has a smooth surface; the other has many fingerlike membrane projections, all exposed to the water.\n\nStrain | Membrane surface area (μm²) | Volume (μm³)\nSmooth | 900 | 1,500\nProjections | 2,700 | 1,500\n\nIn both strains, each square micrometer of membrane absorbs glucose at the same maximum rate, and each cubic micrometer of cytoplasm needs the same amount of glucose. Which claim about the membrane projections do these data best support?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The projections do not change maximum glucose uptake, because two cells of equal volume have equal ability to absorb glucose.",
+     "is_correct": false,
+     "rationale": "This is the volume-only trap, which treats cell volume as what sets exchange capacity. With uptake per unit area held constant, total uptake scales with membrane area, and the projection strain has three times more area. Fix: Multiply each strain's membrane area by uptake per unit area before comparing totals."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The projections lower maximum glucose uptake, because a larger surface area-to-volume ratio makes exchange with the environment less efficient.",
+     "is_correct": false,
+     "rationale": "This reverses the meaning of the ratio, treating a higher surface area-to-volume ratio as a disadvantage. More membrane per unit of cytoplasm means more exchange capacity relative to demand, so efficiency increases. Fix: Ask how much absorbing surface each cubic micrometer of cell volume has in each strain."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The projections triple glucose demand but leave maximum uptake unchanged, because demand depends on membrane area and uptake depends on volume.",
+     "is_correct": false,
+     "rationale": "This swaps the roles of surface and volume. Under the stated conditions, membrane area sets maximum uptake, while cytoplasm volume sets glucose demand, and volume did not change. Fix: Link uptake capacity to surface area and demand to volume before predicting any change."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The projections triple maximum glucose uptake while glucose demand stays the same, because they add absorbing surface without adding cell volume.",
+     "is_correct": true,
+     "rationale": "Maximum uptake equals membrane area times uptake per unit area, and area rises from 900 to 2,700 μm², a threefold increase. Volume stays at 1,500 μm³, so demand is unchanged, and the surface area-to-volume ratio rises from 0.6 to 1.8 per μm."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-133 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-133 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-133",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "6.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-133-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__B__v2#r1-openai",
+   "stem": "Scientists investigate whether an elongated shape improves oxygen exchange in cultured animal cells. They collect the following measurements, with all plasma membrane surfaces exposed to the surrounding liquid.\n\nCell shape | Membrane surface area (μm²) | Volume (μm³)\nRounded | 1,000 | 2,000\nElongated | 1,500 | 2,000\n\nMaximum oxygen uptake per unit membrane area is identical in both shapes, as is oxygen demand per unit cell volume. Which claim about the elongated shape is supported by these measurements?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The elongated shape leaves maximum oxygen uptake unchanged, because equal cell volumes provide equal capacities for oxygen exchange.",
+     "is_correct": false,
+     "rationale": "The volume-only trap incorrectly uses volume to predict exchange capacity. At a fixed uptake rate per unit membrane area, the larger membrane area increases total uptake capacity despite unchanged volume. Fix: Calculate total uptake capacity by multiplying membrane area by uptake per unit area."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The elongated shape increases maximum oxygen uptake by 50% while leaving oxygen demand unchanged, because it provides more membrane area at the same volume.",
+     "is_correct": true,
+     "rationale": "The elongated cell has 1.5 times as much membrane area, providing 1.5 times the maximum oxygen uptake at the stated rate per unit area. Equal volumes and equal demand per unit volume mean that total oxygen demand does not change."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The elongated shape decreases maximum oxygen uptake, because its higher surface area-to-volume ratio makes oxygen exchange less efficient.",
+     "is_correct": false,
+     "rationale": "The reversed-ratio trap treats additional exchange surface per unit volume as a disadvantage. Here, the increased ratio provides more oxygen uptake capacity relative to the same cellular demand. Fix: Divide each membrane area by its volume, then compare exchange surface per unit volume."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The elongated shape increases oxygen demand by 50% without changing maximum oxygen uptake, because demand follows membrane area while uptake follows volume.",
+     "is_correct": false,
+     "rationale": "The surface–volume role reversal assigns demand and exchange capacity to the wrong measurements. The stated conditions link total oxygen demand to volume and maximum oxygen uptake to membrane area. Fix: Label area as the uptake factor and volume as the demand factor before comparing."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-133 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-133 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-133",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Cell Size",
+   "skill": "6.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-133-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.2__B__v3#r1-openai",
+   "stem": "A laboratory compares waste removal in two bacterial strains with different cell shapes. The entire measured membrane surface is available for exchange with the environment.\n\nCell shape | Membrane surface area (μm²) | Cell volume (μm³)\nCompact | 12 | 2\nFlattened | 24 | 2\n\nThe strains have identical maximum waste-removal rates per unit membrane area and identical waste-production rates per unit cell volume. Which claim about the flattened cells is best supported by the measurements?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Flattened cells have unchanged maximum waste-removal capacity, because their volume equals that of compact cells.",
+     "is_correct": false,
+     "rationale": "The volume-only trap incorrectly uses cell volume to predict exchange capacity. With removal rate per unit area held constant, the larger membrane area increases total removal capacity despite unchanged volume. Fix: Calculate total removal capacity as membrane area multiplied by removal rate per unit area."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Flattened cells have twice the maximum waste-removal capacity but unchanged waste production, because they have twice the exchange surface and the same volume.",
+     "is_correct": true,
+     "rationale": "At the same removal rate per unit area, 24 μm² provides twice the maximum waste-removal capacity of 12 μm². Equal volumes and equal production rates per unit volume mean that both cell types produce waste at the same rate."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Flattened cells have lower maximum waste-removal capacity, because their higher surface area-to-volume ratio makes waste exchange less efficient.",
+     "is_correct": false,
+     "rationale": "The reversed-ratio trap treats additional exchange surface per unit volume as a disadvantage. Here, the higher ratio provides more waste-removal capacity relative to the amount of waste-producing cellular material. Fix: Compare the available exchange surface for equal volumes of cellular material."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Flattened cells produce twice as much waste but have unchanged maximum waste-removal capacity, because production depends on surface area and removal depends on volume.",
+     "is_correct": false,
+     "rationale": "The surface–volume role reversal assigns waste production to area and removal capacity to volume. The stated rates instead link total waste production to volume and maximum removal capacity to membrane area. Fix: Match each given rate to its corresponding area or volume before comparing totals."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-133 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-133 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-134",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-134",
+   "kind": "seed",
+   "pipeline_id": "biology__2.4__A__seed#r1-openai",
+   "stem": "A researcher constructs a membrane consisting only of a phospholipid bilayer, with no proteins. Oxygen (O₂) is a small, nonpolar molecule, and sodium (Na⁺) is a small, charged ion. Which prediction about their ability to cross this membrane is best supported by membrane structure?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both O₂ and Na⁺ cross readily because both particles are small.",
+     "is_correct": false,
+     "rationale": "Size-only trap: Small size alone does not determine membrane permeability. Na⁺ carries a charge, which prevents it from readily crossing the hydrophobic interior despite its small size. Fix: Check charge and polarity as well as size before predicting passage."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Na⁺ crosses readily, but O₂ passage is strongly restricted because the phospholipid heads are hydrophilic.",
+     "is_correct": false,
+     "rationale": "Surface-only trap: This explanation considers the hydrophilic heads but ignores the hydrophobic interior that particles must also cross. That interior restricts charged Na⁺, not small, nonpolar O₂. Fix: Trace each particle through the entire bilayer, including its hydrophobic interior."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Neither O₂ nor Na⁺ crosses readily because all substances require membrane proteins to cross.",
+     "is_correct": false,
+     "rationale": "Universal protein requirement trap: Transport proteins are not required for every substance to cross a membrane. Small, nonpolar O₂ can pass directly through the phospholipid bilayer. Fix: Classify each substance by size, polarity, and charge before deciding whether proteins are needed."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "O₂ crosses readily, but Na⁺ passage is strongly restricted because the bilayer interior is hydrophobic.",
+     "is_correct": true,
+     "rationale": "The hydrophobic interior allows small, nonpolar molecules such as O₂ to pass readily but presents a barrier to charged ions such as Na⁺. Without transport proteins, Na⁺ cannot readily cross."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 6.E 3, 1.C 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-134",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-134-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__A__v1#r1-openai",
+   "stem": "A laboratory treatment removes all proteins from an isolated patch of yeast plasma membrane without disrupting its phospholipid bilayer. Carbon dioxide (CO₂) is small and nonpolar, whereas potassium (K⁺) is a small, charged ion. After treatment, how should these substances differ in their ability to pass through the membrane patch?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "CO₂ and K⁺ can both pass readily because their small size allows passage through the bilayer.",
+     "is_correct": false,
+     "rationale": "Size-only trap: This prediction overlooks the effect of charge on permeability. Although K⁺ is small, its charge strongly limits passage through the hydrophobic core. Fix: Identify each particle’s charge and polarity before using size to predict permeability."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "CO₂ can pass readily, whereas K⁺ passage is strongly limited by the hydrophobic core.",
+     "is_correct": true,
+     "rationale": "Small, nonpolar CO₂ can enter and cross the membrane’s hydrophobic core. Charged K⁺ faces a barrier in that core, so removing membrane proteins leaves it unable to cross readily."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "K⁺ can pass readily, whereas CO₂ passage is strongly limited by the hydrophilic heads.",
+     "is_correct": false,
+     "rationale": "Surface-only trap: This prediction treats the membrane’s outer surface as the entire barrier. Crossing also requires passage through the hydrophobic core, which restricts charged K⁺ rather than small, nonpolar CO₂. Fix: Follow each substance past the heads and through the membrane’s core."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Neither CO₂ nor K⁺ can pass readily because protein removal eliminates passage for every substance.",
+     "is_correct": false,
+     "rationale": "Universal protein requirement trap: This prediction incorrectly makes proteins necessary for all membrane passage. CO₂ can cross the lipid bilayer directly because it is small and nonpolar. Fix: Check whether each substance can cross the lipid core without protein assistance."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-134 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-134 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-134",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-134-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__A__v2#r1-openai",
+   "stem": "An experimental treatment disables transport proteins in a freshwater alga’s plasma membrane but leaves its phospholipid bilayer intact. Nitrogen gas (N₂) consists of small, nonpolar molecules, whereas chloride (Cl⁻) is a small, charged ion. After treatment, which prediction about passage through this membrane is best supported?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Cl⁻ passage is strongly restricted, while N₂ crosses readily because it can pass through the hydrophobic interior.",
+     "is_correct": true,
+     "rationale": "The bilayer’s hydrophobic interior presents a barrier to charged Cl⁻ but permits small, nonpolar N₂ to pass directly. Disabling transport proteins therefore restricts chloride passage without preventing nitrogen passage."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Cl⁻ and N₂ both cross readily because their small size allows them through the bilayer.",
+     "is_correct": false,
+     "rationale": "Size-only trap: This prediction overlooks charge as a determinant of permeability. Although Cl⁻ is small, its charge strongly restricts passage through the hydrophobic interior. Fix: Check each particle’s charge and polarity before using size to predict permeability."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Cl⁻ crosses readily, while N₂ passage is strongly restricted because the membrane’s outer surfaces are hydrophilic.",
+     "is_correct": false,
+     "rationale": "Surface-only trap: This prediction treats the membrane’s surfaces as the only barrier. Particles must also traverse the hydrophobic interior, which restricts charged Cl⁻ rather than small, nonpolar N₂. Fix: Follow each particle’s path through both surfaces and the bilayer interior."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Cl⁻ and N₂ are both strongly restricted because crossing the membrane always requires functioning transport proteins.",
+     "is_correct": false,
+     "rationale": "Universal protein requirement trap: This prediction incorrectly extends the need for transport proteins to every substance. Small, nonpolar N₂ can cross the lipid bilayer without a protein pathway. Fix: Identify whether each substance can cross the hydrophobic interior directly before requiring a protein."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-134 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-134 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-134",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-134-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__A__v3#r1-openai",
+   "stem": "In a model of membrane repair, a damaged region of a fish cell’s plasma membrane is replaced with an intact phospholipid patch that contains no proteins. Carbon dioxide (CO₂) is small and nonpolar, whereas potassium (K⁺) is a small, charged ion. Which prediction best describes passage through the replacement patch?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both CO₂ and K⁺ will pass readily because their small size allows them through the patch.",
+     "is_correct": false,
+     "rationale": "Size-only trap: This prediction overlooks the effect of charge on permeability. Although K⁺ is small, its charge strongly restricts passage through the hydrophobic interior. Fix: Check each particle’s charge and polarity before using size to predict permeability."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "K⁺ will pass readily, but CO₂ passage will be strongly limited because the patch has hydrophilic outer surfaces.",
+     "is_correct": false,
+     "rationale": "Surface-only trap: The hydrophilic surfaces do not determine passage through the entire patch. Its hydrophobic interior restricts charged K⁺ while allowing small, nonpolar CO₂ through readily. Fix: Follow each particle’s path from the outer surface through the membrane interior."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Passage of both CO₂ and K⁺ will be strongly limited because neither can cross without membrane proteins.",
+     "is_correct": false,
+     "rationale": "Universal protein requirement trap: This prediction incorrectly assigns a protein requirement to every substance. Small, nonpolar CO₂ can cross the lipid portion directly, unlike charged K⁺. Fix: Identify which particles can cross the hydrophobic interior before assigning a protein requirement."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "CO₂ will pass readily, but K⁺ passage will be strongly limited by the patch’s hydrophobic interior.",
+     "is_correct": true,
+     "rationale": "Small, nonpolar CO₂ can move directly through the hydrophobic interior of the replacement patch. Charged K⁺ faces a barrier in that interior, and the patch lacks proteins that could provide a route across."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-134 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-134 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-135",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-135",
+   "kind": "seed",
+   "pipeline_id": "biology__2.4__B__seed#r1-openai",
+   "stem": "A researcher removes the cell walls from one group of plant cells without damaging their plasma membranes. A second group retains its cell walls. Both groups are then placed in conditions that cause water to enter the cells. Which prediction is best supported by the functions of these cell structures?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Cells without walls are less likely to rupture because their plasma membranes can expand without restriction.",
+     "is_correct": false,
+     "rationale": "The flexibility-as-protection error assumes that unrestricted expansion prevents rupture. Plasma membranes cannot expand indefinitely, so removing the supporting wall increases vulnerability to rupture as water enters. Fix: Check which structure physically resists expansion when water enters."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Cells without walls are more likely to rupture because they lack the walls’ structural support.",
+     "is_correct": true,
+     "rationale": "Cell walls resist expansion as water enters, protecting cells from rupture. Removing the wall leaves the plasma membrane intact but removes this mechanical protection."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Cells without walls lose selective permeability because the wall determines which molecules cross the plasma membrane.",
+     "is_correct": false,
+     "rationale": "The wall–membrane confusion assigns the plasma membrane’s selective function to the cell wall. An intact plasma membrane still restricts passage according to molecular properties after wall removal. Fix: Locate the hydrophobic barrier before predicting whether selective permeability is lost."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Both groups are equally likely to rupture because plasma membranes provide the same structural support as cell walls.",
+     "is_correct": false,
+     "rationale": "The structural-equivalence misconception treats the plasma membrane and cell wall as interchangeable supports. The membrane does not provide the wall’s rigid resistance to expansion, so retaining the wall provides additional protection. Fix: Compare each structure’s mechanical role before predicting the effect of its removal."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 6.E 3, 3.B 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-135",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-135-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__B__v1#r1-openai",
+   "stem": "A laboratory is investigating recovery in yeast cells that have intact plasma membranes but initially lack cell walls. During recovery, some cells regenerate their walls, while others remain wall-free. The cells subsequently encounter conditions that drive water into them. Which prediction best describes the effect of wall regeneration?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Cells that regenerate walls will have a higher risk of rupturing because the walls prevent unrestricted membrane expansion.",
+     "is_correct": false,
+     "rationale": "The flexibility-as-protection error treats unlimited membrane expansion as protective. A plasma membrane has limited capacity to expand, so resistance from a wall reduces rather than increases rupture risk. Fix: Identify which structure restrains expansion as water enters."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Cells that regenerate walls will have a lower risk of rupturing because the walls resist excessive expansion.",
+     "is_correct": true,
+     "rationale": "A regenerated wall provides mechanical support that limits expansion during water entry. This support protects the plasma membrane from rupture without replacing its role as a selective barrier."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Only cells that regenerate walls will selectively restrict molecular passage because walls establish selective permeability.",
+     "is_correct": false,
+     "rationale": "The wall–membrane confusion attributes molecular selectivity to the wrong structure. Both groups retain the plasma membrane’s hydrophobic interior, which restricts passage according to molecular properties. Fix: Locate the hydrophobic barrier in each group before predicting molecular passage."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Wall regeneration will leave rupture risk unchanged because plasma membranes and walls provide equivalent mechanical support.",
+     "is_correct": false,
+     "rationale": "The structural-equivalence misconception assigns equal mechanical protection to membranes and walls. A regenerated wall adds resistance to expansion that the plasma membrane alone cannot provide. Fix: Compare the mechanical protection provided by a membrane alone versus a membrane with a wall."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-135 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-135 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-135",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-135-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__B__v2#r1-openai",
+   "stem": "A laboratory develops a treatment that strengthens bacterial cell walls without changing the plasma membranes. Treated and untreated bacteria are exposed to conditions that drive water into the cells, causing some untreated bacteria to rupture. Which prediction about the treated bacteria is best supported?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "More treated bacteria will rupture because stronger walls prevent the unrestricted membrane expansion needed for protection.",
+     "is_correct": false,
+     "rationale": "The flexibility-as-protection error treats unrestricted expansion as protective. A plasma membrane cannot stretch indefinitely; resistance from the wall helps prevent rupture rather than causing it. Fix: Identify which structure limits expansion before predicting the risk of rupture."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Fewer treated bacteria will rupture because stronger walls provide greater resistance to expansion as water enters.",
+     "is_correct": true,
+     "rationale": "A cell wall mechanically opposes expansion caused by water entry. Strengthening this support increases protection against rupture even though the plasma membrane itself is unchanged."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Treated bacteria will gain different plasma-membrane selectivity because the strengthened walls determine which molecules cross the membrane.",
+     "is_correct": false,
+     "rationale": "The wall–membrane confusion assigns the plasma membrane’s selective function to the wall. Strengthening the wall does not change the unchanged membrane’s hydrophobic barrier or its molecular selectivity. Fix: Locate the selective barrier and check whether the treatment changes it."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Treated bacteria will have the same rupture risk because their plasma membranes already provide structural support equivalent to the walls.",
+     "is_correct": false,
+     "rationale": "The structural-equivalence misconception treats walls and plasma membranes as interchangeable mechanical supports. Plasma membranes do not supply the rigid resistance to expansion provided by cell walls. Fix: Compare the mechanical roles of the wall and membrane before predicting rupture."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-135 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-135 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-135",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Membrane Permeability",
+   "skill": "6.E",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-135-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.4__B__v3#r1-openai",
+   "stem": "A soil fungus encounters a chemical that makes its cell walls less rigid while leaving its plasma membranes unchanged. Following rainfall, water enters both exposed cells and unexposed cells of the same fungus. Which prediction best explains the effect of the chemical?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Exposed cells will be less vulnerable to rupture because their more flexible walls allow greater expansion.",
+     "is_correct": false,
+     "rationale": "The flexibility-as-protection error mistakes easier expansion for increased protection. Greater expansion can stretch the plasma membrane beyond its limits rather than prevent rupture. Fix: Identify which structure limits expansion as water enters."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Exposed cells will lose selective permeability because weakened walls can no longer control passage across their plasma membranes.",
+     "is_correct": false,
+     "rationale": "The wall–membrane confusion incorrectly makes membrane selectivity depend on wall rigidity. The unchanged plasma membrane retains its hydrophobic interior, which restricts passage according to molecular properties. Fix: Locate the selective barrier and check whether the chemical altered it."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Exposed cells will be more vulnerable to rupture because their weakened walls offer less resistance to expansion.",
+     "is_correct": true,
+     "rationale": "Water entering a cell increases its volume, and a rigid wall helps limit expansion. Reduced wall rigidity leaves exposed cells with less mechanical protection against rupture, even though their plasma membranes remain intact."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Exposed and unexposed cells will be equally vulnerable to rupture because their unchanged plasma membranes provide support equivalent to rigid walls.",
+     "is_correct": false,
+     "rationale": "The structural-equivalence misconception assigns identical mechanical roles to walls and membranes. A plasma membrane does not replace the rigid support lost when a wall weakens. Fix: Compare the resistance to expansion provided by each structure."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-135 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-135 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-136",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": "1.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-136",
+   "kind": "seed",
+   "pipeline_id": "biology__2.5__A__seed#r1-openai",
+   "stem": "An uncharged solute initially has a concentration of 10 mmol/L outside a cell and 2 mmol/L inside. A membrane protein allows net movement of the solute into the cell without energy input. Which statement correctly explains this transport?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The transport is active because movement through any membrane protein requires energy input.",
+     "is_correct": false,
+     "rationale": "Protein–energy confusion: a membrane protein can allow passive transport without energy input. Protein involvement alone does not distinguish active from passive transport. Fix: Check gradient direction and energy input before classifying protein-mediated transport."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The transport is active because inward movement takes the solute from lower to higher concentration.",
+     "is_correct": false,
+     "rationale": "Gradient reversal: the outside concentration is higher, so inward movement carries this solute from higher to lower concentration. Entering a cell does not necessarily mean moving against a gradient. Fix: Label the starting and destination concentrations before identifying the gradient direction."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The transport is passive because the solute moves down its concentration gradient without energy input.",
+     "is_correct": true,
+     "rationale": "The solute moves from higher concentration outside to lower concentration inside without energy input, which describes passive transport. Involvement of a membrane protein does not by itself make transport active."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The transport is passive, so solute molecules will stop moving once the concentrations become equal.",
+     "is_correct": false,
+     "rationale": "Equilibrium-as-stillness misconception: equal concentrations eliminate net movement, not molecular motion. Molecules continue crossing in both directions at equal average rates. Fix: Distinguish movement of individual molecules from net movement across the membrane."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 1.C 3, 1.B 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Easy 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-136",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": "1.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-136-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__A__v1#r1-openai",
+   "stem": "A freshwater algal cell initially contains an uncharged waste solute at 12 mmol/L, compared with 4 mmol/L in the surrounding water. The solute moves out of the cell through a membrane protein, with no energy supplied to the transport process. Which statement best explains this movement?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The movement is active transport because passage through a membrane protein always consumes energy.",
+     "is_correct": false,
+     "rationale": "Protein–energy confusion: using a protein does not establish that transport requires energy. Here, the solute moves down its gradient without an energy input. Fix: Identify the concentration change and energy requirement instead of classifying transport by protein involvement alone."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The movement is active transport because leaving the cell takes the solute from lower to higher concentration.",
+     "is_correct": false,
+     "rationale": "Gradient reversal: the solute starts at the higher concentration inside and moves toward the lower concentration outside. Outward movement is not necessarily movement against a gradient. Fix: Write the starting and destination concentrations beside an arrow showing solute movement."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The movement is passive transport, so individual solute molecules will cease crossing the membrane when concentrations become equal.",
+     "is_correct": false,
+     "rationale": "Equilibrium-as-stillness misconception: equal concentrations mean no net movement, not an end to molecular motion. Solute molecules still cross the membrane in both directions at equal average rates. Fix: Separate total crossings in each direction from the net change between compartments."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The movement is passive transport because the solute travels from higher to lower concentration without an energy input.",
+     "is_correct": true,
+     "rationale": "Outward movement carries the solute from 12 mmol/L to 4 mmol/L, down its concentration gradient. Movement down this gradient without supplied energy is passive transport, even when a protein provides the pathway."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-136 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-136 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-136",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": "1.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-136-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__A__v2#r1-anthropic",
+   "stem": "Researchers build artificial membrane vesicles that contain one type of transport protein and no ATP or other energy source. An uncharged sugar is at 1 mmol/L inside the vesicles and 9 mmol/L in the surrounding buffer. Over time, the sugar shows net movement into the vesicles. Which statement best explains this result?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The sugar enters by active transport, because a transport protein must use energy to move any solute across a membrane.",
+     "is_correct": false,
+     "rationale": "Protein–energy confusion: this assumes every protein-mediated movement uses energy. Proteins also allow passive movement down a gradient, and these vesicles contain no energy source to power active transport. Fix: Check for an energy source and the gradient direction before calling protein-mediated transport active."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The sugar enters by active transport, because moving into the vesicles carries it from lower to higher concentration.",
+     "is_correct": false,
+     "rationale": "Gradient reversal: this treats moving inward as moving against the gradient. The buffer has the higher concentration (9 mmol/L), so inward movement goes from higher to lower concentration. Fix: Write the starting and destination concentrations side by side before naming the gradient direction."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The sugar enters by passive transport, moving from the higher concentration in the buffer to the lower concentration inside without energy input.",
+     "is_correct": true,
+     "rationale": "The buffer (9 mmol/L) holds more sugar than the vesicle interior (1 mmol/L), so inward net movement runs down the concentration gradient. No ATP or other energy source is present, so this is passive transport even though a protein carries the sugar."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The sugar enters by passive transport, and sugar molecules stop crossing the membrane once the inside and outside concentrations become equal.",
+     "is_correct": false,
+     "rationale": "Equilibrium-as-stillness misconception: equal concentrations end net movement, not molecular motion. Sugar molecules keep crossing in both directions at equal average rates. Fix: Ask whether a statement describes individual molecules or net movement before judging it."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-136 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-136 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-136",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": "1.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-136-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__A__v3#r1-anthropic",
+   "stem": "A soil bacterium is grown in a medium containing an uncharged nutrient at 6 mmol/L, while its cytoplasm holds only 0.5 mmol/L of the nutrient. After a drug blocks all ATP production, net uptake of the nutrient through a transmembrane protein continues at the same rate. Which statement best explains why uptake continues?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Uptake is active because any solute that passes through a transmembrane protein must be powered by energy input.",
+     "is_correct": false,
+     "rationale": "Protein–energy confusion: this assumes protein involvement means energy use. Proteins can carry passive transport, and here uptake continues with ATP production blocked. Fix: Ask whether the solute moves with or against its gradient before linking a protein to energy use."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Uptake is active because moving the nutrient into the cell carries it from lower to higher concentration.",
+     "is_correct": false,
+     "rationale": "Gradient reversal: the outside value of 6 mmol/L is higher than the inside value of 0.5 mmol/L, so entry is high to low. Moving into a cell does not automatically mean moving against a gradient. Fix: Write the starting and destination concentrations side by side before naming the gradient direction."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Uptake is passive because the nutrient moves from higher concentration outside to lower concentration inside, which requires no energy input.",
+     "is_correct": true,
+     "rationale": "The nutrient is more concentrated outside than inside, so inward movement runs down its concentration gradient. Net movement down a gradient needs no direct energy input, which is why blocking ATP has no effect. A transport protein can carry passive movement."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Uptake is passive, so nutrient molecules will stop crossing the membrane once inside and outside concentrations are equal.",
+     "is_correct": false,
+     "rationale": "Equilibrium-as-stillness misconception: equal concentrations end net movement, not molecular motion. Molecules keep crossing in both directions at equal average rates. Fix: Check whether a statement describes net movement or the motion of individual molecules."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-136 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-136 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-137",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": null,
+   "skill_status": null,
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-137",
+   "kind": "seed",
+   "pipeline_id": "biology__2.5__B__seed#r1-openai",
+   "stem": "A researcher measures membrane events in two otherwise identical cell samples over 10 minutes. One sample has normal cellular energy availability; the other has greatly reduced energy availability.\n\nAverage events per cell:\nMembrane event | Normal energy | Reduced energy\nMembrane folds inward and engulfs large particles | 40 | 4\nVesicle fuses with plasma membrane and releases contents outside | 60 | 6\n\nWhich statement correctly describes the results and identifies the transport processes?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Reduced energy availability is associated with fewer events of both types; inward engulfment is exocytosis, and release through vesicle fusion is endocytosis.",
+     "is_correct": false,
+     "rationale": "Direction-reversal error: This statement correctly describes the decreases but swaps the process names. Endocytosis brings material into the cell, whereas exocytosis releases material outside it. Fix: Match each process name to the direction cargo crosses the cell boundary."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Only inward engulfment requires energy; release through vesicle fusion is passive because the contents move out of the cell.",
+     "is_correct": false,
+     "rationale": "Outward-means-passive misconception: Transport direction alone does not determine energy requirements. Exocytosis requires energy, and its event count also decreases under reduced energy availability. Fix: Check both event counts before deciding which processes depend on energy."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Both events are passive transport because any movement of material across the plasma membrane is diffusion.",
+     "is_correct": false,
+     "rationale": "All-transport-is-diffusion misconception: Engulfment and vesicle fusion are bulk transport processes, not diffusion. Both require energy rather than relying only on movement down a concentration gradient. Fix: Identify whether cargo crosses by diffusion or by membrane engulfment or vesicle fusion."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Reduced energy availability is associated with fewer endocytosis and exocytosis events; both processes require energy.",
+     "is_correct": true,
+     "rationale": "Inward engulfment is endocytosis, and release through vesicle fusion is exocytosis. Both event counts decrease when energy availability is reduced, consistent with the energy requirements of both processes."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.B 2, 6.D 2",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-137",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": null,
+   "skill_status": null,
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-137-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__B__v1#r1-openai",
+   "stem": "Freshwater amoebas are observed while cellular energy availability is low and again after energy availability returns to normal. The table summarizes membrane activity during equal observation periods.\n\nMean events per amoeba per 5-minute interval:\nMembrane activity | Low energy | Restored energy\nPlasma membrane surrounds food particles and draws them into the cell | 3 | 18\nVesicles join the plasma membrane and discharge material into the water | 7 | 28\n\nWhich interpretation accurately connects the observed changes with the transport processes involved?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Restoring energy availability is associated with increases in both processes; food-particle engulfment is exocytosis, and vesicle discharge is endocytosis.",
+     "is_correct": false,
+     "rationale": "Direction-reversal error: The increases are identified accurately, but the transport names are reversed. Engulfment carries material inward by endocytosis, whereas vesicle discharge carries material outward by exocytosis. Fix: Trace cargo inward or outward before assigning each transport name."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Restoring energy availability is associated with increases in both endocytosis and exocytosis; each process requires energy.",
+     "is_correct": true,
+     "rationale": "Food-particle engulfment represents endocytosis, while discharge through vesicle fusion represents exocytosis. The increases from 3 to 18 and from 7 to 28 events are consistent with both processes requiring cellular energy."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Food-particle engulfment requires energy, but vesicle discharge is passive transport because material leaves the cell.",
+     "is_correct": false,
+     "rationale": "Outward-means-passive misconception: Outward movement does not make a process passive. Vesicle discharge is energy-requiring exocytosis, and its frequency rises when energy availability is restored. Fix: Compare both rows across energy conditions before classifying outward transport as passive."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Food-particle engulfment and vesicle discharge are both passive diffusion because both move material across the cell boundary.",
+     "is_correct": false,
+     "rationale": "All-transport-is-diffusion misconception: Crossing the cell boundary does not necessarily involve diffusion. These events use membrane engulfment or vesicle fusion, both of which require energy. Fix: Identify the membrane action rather than treating every boundary crossing as diffusion."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-137 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-137 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-137",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": null,
+   "skill_status": null,
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-137-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__B__v2#r1-openai",
+   "stem": "Feeding cells in a marine sponge take in suspended bacteria and discharge cellular products into seawater. Observations are grouped by cellular energy availability, with each observation lasting 6 minutes.\n\nMean number of events per cell:\nMembrane activity | High energy availability | Low energy availability\nPlasma membrane surrounds bacteria and encloses them inside the cell | 24 | 8\nInternal vesicles merge with the plasma membrane and discharge material into seawater | 15 | 5\n\nWhich interpretation correctly connects the data to the transport mechanisms?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both activities occur less frequently during low-energy periods; bacterial uptake is exocytosis, and vesicle-mediated discharge is endocytosis.",
+     "is_correct": false,
+     "rationale": "Direction-reversal error: The decreases are identified accurately, but the transport names are reversed. Endocytosis moves material inward, while exocytosis releases material outward. Fix: Trace each cargo’s direction across the cell boundary before assigning its transport name."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Bacterial uptake requires cellular energy, but vesicle-mediated discharge is passive because its cargo leaves the cell.",
+     "is_correct": false,
+     "rationale": "Outward-means-passive misconception: Leaving the cell does not make transport passive. Vesicle-mediated discharge requires energy, and its frequency also falls during low-energy periods. Fix: Compare both rows for energy-associated changes instead of classifying transport by inward or outward movement."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Both activities are diffusion and therefore passive, since each transfers material across the cell boundary.",
+     "is_correct": false,
+     "rationale": "All-transport-is-diffusion misconception: Crossing a cell boundary does not necessarily involve diffusion. Membrane engulfment and vesicle fusion are energy-requiring transport mechanisms, not passive movement down a concentration gradient. Fix: Identify how cargo crosses the membrane before deciding whether the process is diffusion."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Both endocytosis and exocytosis occur less frequently during low-energy periods, consistent with both processes requiring cellular energy.",
+     "is_correct": true,
+     "rationale": "Enclosing bacteria inside the cell is endocytosis; discharging material through vesicle fusion is exocytosis. The counts fall from 24 to 8 and from 15 to 5 during low-energy periods, consistent with the energy requirements of both mechanisms."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-137 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-137 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-137",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Membrane Transport",
+   "skill": null,
+   "skill_status": null,
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-137-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.5__B__v3#r1-anthropic",
+   "stem": "Cultured mammalian cells were divided into two groups and observed for 15 minutes. One group was given a compound that sharply lowers ATP supply. The control group was untreated.\n\nMean events per cell in 15 minutes:\nMembrane activity | Control | Low ATP\nPlasma membrane pockets inward and encloses large external particles | 32 | 5\nInternal vesicles merge with the plasma membrane and expel their contents | 50 | 9\n\nWhich statement accurately summarizes the data and names the transport processes?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both activities decline when ATP is limited; inward enclosure is exocytosis, and vesicle merging that expels contents is endocytosis.",
+     "is_correct": false,
+     "rationale": "Direction-reversal error: the decreases are described correctly, but the process names are swapped. Endocytosis brings material into the cell, and exocytosis releases material out of it. Fix: Link each process name to whether the cargo enters or leaves the cell."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Both activities decline when ATP is limited; inward enclosure is endocytosis, vesicle merging is exocytosis, and both depend on energy.",
+     "is_correct": true,
+     "rationale": "Inward enclosure of external particles is endocytosis, and vesicle merging that expels contents is exocytosis. When ATP is limited, endocytosis falls from 32 to 5 events and exocytosis falls from 50 to 9, so both processes depend on cellular energy."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Only inward enclosure depends on energy; vesicle merging is passive because its contents leave the cell.",
+     "is_correct": false,
+     "rationale": "Outward-means-passive misconception: the direction of movement alone does not determine the energy requirement. Exocytosis also needs energy, and its count drops from 50 to 9 when ATP is limited. Fix: Compare both rows of the table before deciding which process needs energy."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Both activities are passive transport, since all material crossing the plasma membrane moves by diffusion.",
+     "is_correct": false,
+     "rationale": "All-transport-is-diffusion misconception: enclosing particles and merging vesicles are bulk transport, not diffusion down a gradient. Both counts fall sharply when ATP is limited, which shows an energy requirement. Fix: Ask whether cargo crosses by diffusion or is carried by membrane folding or vesicle fusion."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-137 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-137 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-138",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "1.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-138",
+   "kind": "seed",
+   "pipeline_id": "biology__2.9__A__seed#r1-openai",
+   "stem": "Lysosomes contain enzymes that break down macromolecules. Many macromolecules in the cytoplasm must remain intact for the cell to function. Which statement best explains how the membrane surrounding a lysosome benefits the cell?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It separates digestive reactions from the cytoplasm, reducing interactions between digestive enzymes and functional cellular macromolecules.",
+     "is_correct": true,
+     "rationale": "The lysosomal membrane establishes a compartment where digestion occurs. Separating these reactions from the cytoplasm limits potentially harmful interactions while allowing the cell to break down materials inside the lysosome."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It distributes digestive enzymes throughout the cytoplasm, allowing digestion without interfering with other cellular processes.",
+     "is_correct": false,
+     "rationale": "The uniform-mixing misconception treats unrestricted mixing as beneficial. Distributing digestive enzymes throughout the cytoplasm would remove the separation that limits their interactions with functional macromolecules. Fix: Identify which reactions the membrane separates and what unwanted interactions that separation limits."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It prevents all molecular exchange with the cytoplasm, allowing the lysosome to function independently of the cell.",
+     "is_correct": false,
+     "rationale": "The complete-isolation misconception confuses compartmentalization with a total barrier. Lysosomes exchange materials with the rest of the cell; compartment boundaries regulate interactions rather than eliminate them. Fix: Distinguish controlled exchange across a compartment boundary from complete isolation."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It increases the surface area of the plasma membrane, allowing faster nutrient uptake from the environment.",
+     "is_correct": false,
+     "rationale": "The internal-versus-external surface-area confusion treats an organelle membrane as part of the cell’s outer boundary. A lysosomal membrane provides an internal compartment, not additional plasma membrane for nutrient uptake. Fix: Locate the membrane and identify which spaces it separates before assigning its function."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 1.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 2, Easy 2. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-138",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "1.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-138-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__A__v1#r1-openai",
+   "stem": "A plant cell accumulates ions in its central vacuole. The high ion concentration inside the vacuole would disrupt metabolic reactions if that concentration also occurred in the cytoplasm. How does the vacuole membrane benefit this cell?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It makes ion concentrations equally high in the vacuole and cytoplasm, allowing reactions in both spaces to proceed without interference.",
+     "is_correct": false,
+     "rationale": "The uniform-mixing misconception assumes that equal conditions throughout a cell always benefit its reactions. Here, the vacuole’s high ion concentration would disrupt cytoplasmic reactions rather than support them. Fix: Identify which conditions must remain different to prevent interference between cellular processes."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It blocks every substance from entering or leaving the vacuole, making ion storage independent of the rest of the cell.",
+     "is_correct": false,
+     "rationale": "The complete-isolation misconception treats a compartment boundary as an absolute barrier. Vacuoles exchange materials with the cell; compartmentalization permits controlled exchange rather than complete independence. Fix: Distinguish a boundary that regulates exchange from one that prevents all exchange."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It provides a separate space for ion storage, reducing interference with metabolic reactions in the cytoplasm.",
+     "is_correct": true,
+     "rationale": "The vacuole membrane separates ion storage from cytoplasmic reactions. This compartmentalization allows the cell to maintain different conditions in the two spaces, limiting interference with reactions outside the vacuole."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It adds surface area to the plasma membrane, increasing the cell’s uptake of nutrients from its surroundings.",
+     "is_correct": false,
+     "rationale": "The internal-versus-external surface-area confusion assigns an internal membrane the role of the cell’s outer boundary. The vacuole membrane encloses an internal storage space without adding plasma membrane surface for nutrient uptake. Fix: Locate each membrane and name the spaces on its two sides."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-138 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-138 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-138",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "1.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-138-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__A__v2#r1-openai",
+   "stem": "In a yeast cell, enzymes inside a membrane-bound compartment convert substance X into substance Y. Enzymes in the cytoplasm can convert Y back into X. How does the compartment membrane benefit the production of Y?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It spreads both groups of enzymes throughout the cytoplasm so their reactions cannot interfere with one another.",
+     "is_correct": false,
+     "rationale": "The uniform-mixing misconception assumes that mixing enzymes prevents interference. Mixing these enzyme groups would instead allow cytoplasmic enzymes greater access to Y, enabling its conversion back into X. Fix: Trace what each enzyme group would do if both occupied the same space."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It blocks every exchange of molecules with the cytoplasm so the compartment operates independently of the cell.",
+     "is_correct": false,
+     "rationale": "The complete-isolation misconception treats a compartment as a sealed, independent system. Compartment membranes allow controlled exchange with the cell while maintaining separation between processes. Fix: Distinguish separating reactions from preventing all material exchange."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It enlarges the plasma membrane so the cell can absorb substances faster from its surroundings.",
+     "is_correct": false,
+     "rationale": "The internal-versus-external surface-area confusion assigns an internal membrane the role of the cell’s outer boundary. This compartment membrane does not add plasma membrane surface for uptake from the environment. Fix: Identify the spaces on each side of the membrane before assigning its benefit."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It separates the production of Y from cytoplasmic reactions that would convert Y back into X.",
+     "is_correct": true,
+     "rationale": "The compartment provides a separate space for producing Y. Its membrane limits contact between Y inside the compartment and cytoplasmic enzymes that could reverse its production, reducing interference between the reactions."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-138 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-138 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-138",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "1.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-138-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__A__v3#r1-openai",
+   "stem": "In a single-celled alga, reactions inside a membrane-bound compartment use a sugar to produce a storage carbohydrate. Reactions in the cytoplasm use the same sugar to make other products. Which statement best explains how the compartment membrane can benefit storage carbohydrate production?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "It spreads both reaction sets throughout the cytoplasm, reducing competition by mixing their components uniformly.",
+     "is_correct": false,
+     "rationale": "The uniform-mixing misconception assumes mixing removes competition. Mixing these reaction sets would instead give them access to a shared sugar supply, eliminating the benefit of spatial separation. Fix: Identify which reactions compete and how separating them limits their interactions."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "It blocks every substance from entering or leaving, making carbohydrate production independent of the rest of the cell.",
+     "is_correct": false,
+     "rationale": "The complete-isolation misconception treats an internal compartment as a sealed, independent system. Compartmentalization allows regulated exchange of materials rather than requiring all exchange to stop. Fix: Check whether the explanation allows materials to enter and products to leave."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "It enlarges the plasma membrane, increasing the cell’s surface area for absorbing sugar from its surroundings.",
+     "is_correct": false,
+     "rationale": "The internal-versus-external surface-area confusion assigns an internal membrane the role of the cell’s outer boundary. The compartment membrane does not add plasma membrane surface for uptake from the environment. Fix: Locate the membrane and name the spaces on its two sides."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "It separates the reaction sets, limiting competition for the sugar available inside the compartment.",
+     "is_correct": true,
+     "rationale": "The membrane keeps storage carbohydrate production in a distinct space from competing cytoplasmic reactions. This separation limits access by competing reactions to the compartment’s sugar supply."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-138 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-138 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-139",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-139",
+   "kind": "seed",
+   "pipeline_id": "biology__2.9__B__seed#r1-openai",
+   "stem": "A model compares two eukaryotic cells with identical cell volumes and plasma membrane surface areas. Enzymes that carry out a particular set of reactions are attached to an internal membrane.\n\nCell X: relatively flat internal membrane; total internal membrane area = 20 μm².\nCell Y: extensively folded internal membrane; total internal membrane area = 40 μm².\n\nEach unit of internal membrane area carries the same number of enzyme molecules, and reactants are abundant in both cells. Which statement best explains the functional advantage represented by Cell Y?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both cells support the same number of simultaneous reactions because their cell volumes are identical.",
+     "is_correct": false,
+     "rationale": "Volume-for-surface substitution: This treats cell volume as the measure of capacity for membrane-associated reactions. In this model, enzyme number depends on internal membrane area, which differs between the cells. Fix: Identify whether the reactions depend on membrane area or compartment volume."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Cell Y exchanges nutrients with its surroundings faster because its internal folds increase plasma membrane surface area.",
+     "is_correct": false,
+     "rationale": "Internal–external membrane confusion: Internal membrane area is not plasma membrane area. The model explicitly holds plasma membrane surface area constant, so the internal folds do not provide more surface for exchange with the surroundings. Fix: Locate the membrane separating the cell from its surroundings before predicting external exchange."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Cell Y supports fewer simultaneous reactions because folding reduces the internal membrane area available for enzymes.",
+     "is_correct": false,
+     "rationale": "Folding-means-less-area misconception: A folded membrane can pack more surface into a limited space. The model gives Cell Y twice the internal membrane area and therefore twice as many attached enzyme molecules. Fix: Compare the stated total membrane areas rather than judging area from compactness."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Cell Y can support more simultaneous reactions because its greater internal membrane area accommodates more enzyme molecules.",
+     "is_correct": true,
+     "rationale": "Internal membranes provide surfaces for enzymatic reactions. With the same enzyme density, Cell Y’s larger internal membrane area holds more enzyme molecules, allowing more reactions to occur simultaneously."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 2.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-139",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-139-v1",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__B__v1#r1-openai",
+   "stem": "A computer simulation models a membrane-bound compartment in a yeast cell. Enzymes attached to the compartment’s membrane carry out metabolic reactions. A remodeling step smooths out membrane folds, reducing total internal membrane area from 60 μm² to 30 μm². Cell volume and plasma membrane area remain unchanged. The number of attached enzymes per unit membrane area stays constant, and reactants remain abundant.\n\nWhich prediction best explains how remodeling affects the cell’s function?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The compartment can support the same number of simultaneous reactions because the cell’s volume has not changed.",
+     "is_correct": false,
+     "rationale": "Volume-for-surface substitution: This uses unchanged cell volume to infer unchanged capacity for membrane-associated reactions. Here, enzyme number depends on internal membrane area, which decreases. Fix: Determine whether enzyme number depends on membrane area or cell volume."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The cell takes up nutrients more slowly because smoothing the internal folds reduces its surface area for exchange with the surroundings.",
+     "is_correct": false,
+     "rationale": "Internal–external membrane confusion: This treats the compartment’s membrane as the cell’s external boundary. Plasma membrane area remains unchanged, so the internal area reduction does not remove surface for external exchange. Fix: Identify which membrane contacts the surroundings before predicting nutrient uptake."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The compartment can support fewer simultaneous reactions because the smaller internal membrane area accommodates fewer enzymes.",
+     "is_correct": true,
+     "rationale": "The internal membrane provides attachment surfaces for the reaction enzymes. Halving its area while maintaining the same enzyme density halves the number of attached enzymes, reducing the capacity for simultaneous reactions."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The compartment can support more simultaneous reactions because smoothing the folds increases the membrane area available for enzymes.",
+     "is_correct": false,
+     "rationale": "Folding-means-less-area misconception: This assumes that removing folds creates more membrane surface. The stated area instead decreases from 60 μm² to 30 μm², leaving room for fewer attached enzymes. Fix: Compare total membrane areas before inferring how folding affects enzyme capacity."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-139 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-139 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-139",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-139-v2",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__B__v2#r1-openai",
+   "stem": "A model of a leaf cell represents lipid synthesis by enzymes attached to the smooth endoplasmic reticulum (ER). As the ER grows, its folds become more extensive and its total membrane area increases from 15 μm² to 45 μm². Cell volume and plasma membrane area remain unchanged. Enzyme density on the ER membrane stays constant, and reactants are plentiful.\n\nWhich statement best explains the functional change represented by this model?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The cell retains the same capacity for simultaneous lipid-building reactions because its volume has not increased.",
+     "is_correct": false,
+     "rationale": "Volume-for-surface substitution: Unchanged cell volume does not imply unchanged capacity for membrane-associated reactions. In this model, enzyme number increases with ER membrane area. Fix: Determine whether enzyme number depends on cell volume or internal membrane area."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The cell gains more surface for nutrient exchange with its surroundings because the ER develops additional folds.",
+     "is_correct": false,
+     "rationale": "Internal–external membrane confusion: ER folds add internal membrane surface, not surface at the cell’s outer boundary. The model holds plasma membrane area constant. Fix: Locate the cell’s external boundary before predicting changes in nutrient exchange."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The ER supports fewer simultaneous lipid-building reactions because its extensive folds leave less membrane surface for enzymes.",
+     "is_correct": false,
+     "rationale": "Folding-means-less-area misconception: Folding can accommodate more membrane surface within a limited space. The stated ER membrane area increases, so constant enzyme density means more attached enzymes, not fewer. Fix: Compare the supplied membrane areas instead of inferring area from compactness."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The expanded ER can support more simultaneous lipid-building reactions because it provides attachment space for more enzymes.",
+     "is_correct": true,
+     "rationale": "The ER membrane provides a surface for these enzymatic reactions. Tripling that surface while maintaining enzyme density triples the number of attached enzymes, increasing the capacity for simultaneous lipid synthesis."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-139 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-139 (DECISION-0096)."
+  },
+  {
+   "seed_key": "APBIO-MCQ-139",
+   "unit": 2,
+   "topic": "2.9",
+   "title": "Cell Compartmentalization",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "APBIO-MCQ-SV-139-v3",
+   "kind": "variant",
+   "pipeline_id": "biology__2.9__B__v3#r1-openai",
+   "stem": "A classroom model represents a mitochondrion in a human heart muscle cell. Enzymes attached to the mitochondrial inner membrane participate in ATP production. Two possible membrane layouts occupy the same mitochondrial volume:\n\nLayout R: few folds, with 18 μm² of inner membrane.\nLayout S: many folds, with 54 μm² of inner membrane.\n\nThe layouts have equal numbers of enzyme molecules per unit membrane area, and reactants are plentiful. Neither cell volume nor plasma membrane area changes between layouts. Which statement best explains the functional advantage of layout S?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The layouts support equal numbers of simultaneous reactions involved in ATP production because their mitochondrial volumes are equal.",
+     "is_correct": false,
+     "rationale": "Volume-for-surface substitution: Equal compartment volumes do not imply equal capacity for membrane-associated reactions. Here, enzyme number depends on inner membrane area, not mitochondrial volume. Fix: Identify the surface carrying the enzymes before comparing reaction capacity."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Layout S allows faster nutrient exchange with the cell’s surroundings because its folds enlarge the plasma membrane.",
+     "is_correct": false,
+     "rationale": "Internal–external membrane confusion: The folds belong to a mitochondrial membrane, not the cell’s outer boundary. Plasma membrane area remains unchanged, so the model does not show increased surface for external exchange. Fix: Locate each membrane before linking its area to exchange with the surroundings."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Layout S can support more simultaneous reactions involved in ATP production because its inner membrane accommodates more enzymes.",
+     "is_correct": true,
+     "rationale": "The mitochondrial inner membrane provides a surface for these enzymatic reactions. Greater membrane area at unchanged enzyme density means more attached enzymes, increasing the number of reactions that can occur simultaneously."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Layout S supports fewer simultaneous reactions involved in ATP production because its folds leave less membrane area for enzymes.",
+     "is_correct": false,
+     "rationale": "Folding-means-less-area misconception: Folding can fit more membrane surface into an unchanged volume. Layout S has three times the stated inner membrane area and therefore more attached enzymes. Fix: Compare the given membrane areas instead of inferring area from compactness."
+    }
+   ],
+   "skill_note": "inherits seed APBIO-MCQ-139 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed APBIO-MCQ-139 (DECISION-0096)."
+  }
+ ]
+}

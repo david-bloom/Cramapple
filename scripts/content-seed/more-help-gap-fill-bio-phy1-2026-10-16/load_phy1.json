@@ -1,0 +1,827 @@
+{
+ "subject_key": "ap-physics-1",
+ "source": "more-help-gap-fill-bio-phy1-2026-10-16-seeded",
+ "run_note": "more-help-gap-fill-bio-phy1-2026-10-16-seeded",
+ "items": [
+  {
+   "seed_key": "apphy1-mcq-051",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-051",
+   "kind": "seed",
+   "pipeline_id": "ap-physics-1__1.1__A__seed#r1-openai",
+   "stem": "A cart moves 6 m to the right and then 2 m to the left along a straight track. Taking leftward as positive, what are the total distance traveled and the net displacement for these two moves?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Distance: 8 m; displacement: +4 m.",
+     "is_correct": false,
+     "rationale": "Sign-convention reversal: This assigns a positive sign to the net rightward displacement, even though leftward was defined as positive. Fix: Assign a sign to each move using the stated positive direction before adding."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Distance: 8 m; displacement: −4 m.",
+     "is_correct": true,
+     "rationale": "Distance adds the lengths traveled: 6 m + 2 m = 8 m. Displacement adds signed quantities: −6 m + 2 m = −4 m, because rightward is negative."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Distance: 4 m; displacement: −4 m.",
+     "is_correct": false,
+     "rationale": "Distance–displacement confusion: Subtracting the travel lengths incorrectly lets opposite directions cancel in the scalar distance. Distance counts both parts of the trip. Fix: Add all travel lengths without directional signs when calculating distance."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Distance: 8 m; displacement: −8 m.",
+     "is_correct": false,
+     "rationale": "Adding vector magnitudes: Adding both travel lengths and assigning a negative sign treats both moves as rightward. The leftward move must contribute positively to displacement. Fix: Write each displacement with its own sign, then add the signed values."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 2.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Easy 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apphy1-mcq-051",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-051-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__A__v1#r1-anthropic",
+   "stem": "An elevator rises 9 m and then descends 3 m along a vertical shaft. If downward is chosen as the positive direction, what are the elevator's total distance traveled and its net displacement over the two trips?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Distance: 12 m; displacement: −6 m",
+     "is_correct": true,
+     "rationale": "Distance is a scalar, so the path lengths simply add: 9 m + 3 m = 12 m. Displacement is a vector, so each trip gets a sign from the downward-positive convention: −9 m + 3 m = −6 m, meaning a net 6 m upward."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Distance: 12 m; displacement: +6 m",
+     "is_correct": false,
+     "rationale": "Sign-convention reversal: the student treats the net upward motion as positive out of habit, even though downward was defined as positive. Upward displacement must carry a negative sign here. Fix: Write the stated positive direction first, then sign each trip from it before adding."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Distance: 6 m; displacement: −6 m",
+     "is_correct": false,
+     "rationale": "Distance–displacement confusion: subtracting the trip lengths lets opposite directions cancel inside a scalar quantity. Distance counts every meter the elevator actually traveled, regardless of direction. Fix: Add all path lengths without signs when computing distance."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Distance: 12 m; displacement: −12 m",
+     "is_correct": false,
+     "rationale": "Adding magnitudes for a vector: the student sums both trip lengths and attaches one negative sign, as if both trips were upward. The downward trip is positive and partly cancels the upward one. Fix: Assign each trip its own sign, then add the signed values."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-051 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-051 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-051",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-051-v2",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__A__v2#r1-anthropic",
+   "stem": "A delivery robot rolls 15 m east down a straight hallway, stops, and then rolls 5 m west. With west chosen as the positive direction, what are the robot's total distance traveled and its net displacement for the whole trip?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Distance: 20 m; displacement: +10 m",
+     "is_correct": false,
+     "rationale": "Sign-convention reversal: the net motion is eastward, so treating it as positive ignores the stated choice that west is positive. Under this convention, eastward displacement must be negative. Fix: Write the sign of each move from the stated positive direction before adding."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Distance: 10 m; displacement: −10 m",
+     "is_correct": false,
+     "rationale": "Distance–displacement confusion: subtracting the path lengths lets the opposite moves cancel inside a scalar. Distance counts every meter traveled, regardless of direction. Fix: Add all path lengths as positive numbers when computing distance."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Distance: 20 m; displacement: −10 m",
+     "is_correct": true,
+     "rationale": "Distance is a scalar, so the path lengths simply add: 15 m + 5 m = 20 m. Displacement is a vector, so each move carries its sign. East is negative here, giving −15 m + 5 m = −10 m, a net 10 m eastward."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Distance: 20 m; displacement: −20 m",
+     "is_correct": false,
+     "rationale": "Adding vector magnitudes: combining both lengths and giving the total a negative sign treats both moves as eastward. The westward 5 m must contribute a positive value. Fix: Assign each move its own sign, then add the signed values."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-051 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-051 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-051",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "2.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-051-v3",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__A__v3#r1-anthropic",
+   "stem": "A hiker walks 12 km south along a straight trail, then turns around and walks 7 km north on the same trail. With north defined as the positive direction, what are the hiker's total distance traveled and net displacement for the whole walk?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Distance: 19 km; displacement: +5 km",
+     "is_correct": false,
+     "rationale": "Sign-convention reversal: the net displacement is 5 km south, but north was defined as positive. A southward result must therefore be negative. Fix: Write each leg's sign from the stated positive direction before adding the legs."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Distance: 19 km; displacement: −5 km",
+     "is_correct": true,
+     "rationale": "Distance is a scalar, so the lengths add with no signs: 12 km + 7 km = 19 km. Displacement is a vector, so each leg gets a sign: −12 km (south) + 7 km (north) = −5 km, meaning 5 km south of the start."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Distance: 5 km; displacement: −5 km",
+     "is_correct": false,
+     "rationale": "Distance–displacement confusion: subtracting the leg lengths lets opposite directions cancel inside a scalar. Distance counts every kilometer walked, whatever the direction. Fix: Add all path lengths without signs when computing distance."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Distance: 19 km; displacement: −19 km",
+     "is_correct": false,
+     "rationale": "Adding vector magnitudes: this adds both leg lengths and labels the total as southward, as though both legs went south. The northward leg is positive and partly cancels the southward leg. Fix: Give each leg its own sign, then add the signed values."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-051 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-051 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-052",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-052",
+   "kind": "seed",
+   "pipeline_id": "ap-physics-1__1.1__B__seed#r1-openai",
+   "stem": "A cart moves left along a straight track at a speed of 4 m/s. A student initially defines leftward as positive, then changes the coordinate convention so rightward is positive. The cart’s motion does not change. Under the new convention, what are the cart’s speed and velocity?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Speed: 4 m/s; velocity: +4 m/s.",
+     "is_correct": false,
+     "rationale": "Unchanged-sign error: Keeping the original velocity sign overlooks the changed coordinate convention. Although the motion is unchanged, leftward now corresponds to a negative velocity. Fix: Compare the motion’s direction with the newly defined positive direction before assigning the velocity sign."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Speed: −4 m/s; velocity: −4 m/s.",
+     "is_correct": false,
+     "rationale": "Signed-speed error: Applying the leftward negative sign to both quantities treats speed as a vector. Speed has magnitude only and cannot be negative. Fix: Apply the direction sign to velocity, and report speed as its nonnegative magnitude."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Speed: −4 m/s; velocity: +4 m/s.",
+     "is_correct": false,
+     "rationale": "Scalar–vector role reversal: Attaching the negative direction sign to speed instead of velocity reverses their roles. Speed cannot be negative, while leftward velocity must be negative under the new convention. Fix: Identify the scalar first, then assign the direction sign only to the vector."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Speed: 4 m/s; velocity: −4 m/s.",
+     "is_correct": true,
+     "rationale": "Speed is a scalar, so changing the positive direction does not change its value. Velocity includes direction, so leftward motion has a negative velocity when rightward is positive."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 3.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Easy 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apphy1-mcq-052",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-052-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__B__v1#r1-openai",
+   "stem": "An elevator rises vertically at a speed of 3 m/s. An observer first chooses upward as positive, then reverses the axis so downward is positive without any change in the elevator’s motion. Using the revised axis, what are the elevator’s velocity and speed, respectively?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Velocity: +3 m/s; speed: 3 m/s.",
+     "is_correct": false,
+     "rationale": "Unchanged-sign error: This retains the velocity’s original sign despite the reversed axis. Upward motion now points opposite the positive direction and therefore requires a negative velocity. Fix: Match the motion’s direction to the revised axis before choosing the velocity sign."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Velocity: −3 m/s; speed: −3 m/s.",
+     "is_correct": false,
+     "rationale": "Signed-speed error: This assigns a directional sign to speed as though it were a vector. Only the velocity is negative; speed is the nonnegative magnitude of velocity. Fix: Remove directional signs from speed and retain them for velocity."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Velocity: −3 m/s; speed: 3 m/s.",
+     "is_correct": true,
+     "rationale": "The elevator moves opposite the newly chosen positive direction, so its velocity is −3 m/s. Speed describes magnitude without direction, so it remains 3 m/s."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Velocity: +3 m/s; speed: −3 m/s.",
+     "is_correct": false,
+     "rationale": "Scalar–vector role reversal: This places the negative direction sign on speed rather than velocity. Speed cannot be negative, and upward velocity must be negative on the downward-positive axis. Fix: Identify which quantity includes direction, then assign the axis-dependent sign to that quantity."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-052 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-052 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-052",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-052-v2",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__B__v2#r1-openai",
+   "stem": "A swimmer travels south along a straight pool lane at a speed of 2 m/s. A coach initially chooses south as positive, but then switches to north as positive without any change in the swimmer’s motion. Which pair describes the swimmer’s speed and velocity using the coach’s revised convention?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Speed: 2 m/s; velocity: −2 m/s.",
+     "is_correct": true,
+     "rationale": "Speed describes magnitude alone, so reversing the coordinate convention leaves it at 2 m/s. The swimmer’s velocity is −2 m/s because south is opposite the newly chosen positive direction."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Speed: 2 m/s; velocity: +2 m/s.",
+     "is_correct": false,
+     "rationale": "Unchanged-sign error: Retaining the original positive velocity ignores the reversal of the axis. Southward motion now requires a negative velocity even though the swimmer has not changed motion. Fix: Match the motion’s direction to the revised axis before choosing the velocity sign."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Speed: −2 m/s; velocity: −2 m/s.",
+     "is_correct": false,
+     "rationale": "Signed-speed error: Giving both quantities a negative sign incorrectly assigns direction to speed. Only velocity uses the sign to indicate southward motion; speed is a nonnegative magnitude. Fix: Remove direction signs from speed, but retain the appropriate sign on velocity."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Speed: −2 m/s; velocity: +2 m/s.",
+     "is_correct": false,
+     "rationale": "Scalar–vector role reversal: Placing the negative sign on speed rather than velocity swaps their roles. Speed cannot be negative, and positive velocity would indicate northward motion under the revised convention. Fix: Classify speed as scalar and velocity as vector before assigning signs."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-052 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-052 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-052",
+   "unit": 1,
+   "topic": "1.1",
+   "title": "Scalars and Vectors in One Dimension",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-052-v3",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.1__B__v3#r1-openai",
+   "stem": "A jogger travels east along a straight road at 5 m/s. For recording this motion, a coach replaces an east-positive axis with a west-positive axis while the jogger continues moving as before. Which pair gives the jogger’s speed and velocity in the coach’s revised coordinates?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Speed: 5 m/s; velocity: −5 m/s.",
+     "is_correct": true,
+     "rationale": "Speed measures magnitude alone, so reversing the axis leaves it at 5 m/s. The jogger’s eastward motion is opposite the revised positive direction, making the velocity −5 m/s."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Speed: 5 m/s; velocity: +5 m/s.",
+     "is_correct": false,
+     "rationale": "Unchanged-sign error: Retaining the positive velocity sign ignores the reversal of the coordinate axis. The motion stays eastward, but east now corresponds to negative velocity. Fix: Compare the travel direction with the revised positive direction before choosing a sign."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Speed: −5 m/s; velocity: −5 m/s.",
+     "is_correct": false,
+     "rationale": "Signed-speed error: Giving both quantities a negative sign incorrectly assigns direction to speed. Only velocity carries a direction sign; speed is a nonnegative magnitude. Fix: Remove any direction sign from speed and assign it only to velocity."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Speed: −5 m/s; velocity: +5 m/s.",
+     "is_correct": false,
+     "rationale": "Scalar–vector role reversal: Placing the negative sign on speed instead of velocity swaps their roles. Speed cannot be negative, and eastward velocity is negative on the west-positive axis. Fix: Classify speed as scalar and velocity as vector before assigning their signs."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-052 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-052 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-053",
+   "unit": 1,
+   "topic": "1.3",
+   "title": "Representing Motion",
+   "skill": "2.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-053",
+   "kind": "seed",
+   "pipeline_id": "ap-physics-1__1.3__A__seed#r2-openai",
+   "stem": "A cart moves along a straight track. Its velocity–time graph has the following features throughout an interval from t₁ to t₂, where t₂ > t₁:\n• The velocity is positive.\n• The graph rises throughout the interval but becomes progressively less steep.\n\nHow do the cart’s speed and acceleration at t₂ compare with those at t₁?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The speed is greater at t₂, and the acceleration is greater at t₂.",
+     "is_correct": false,
+     "rationale": "The height–slope confusion treats a higher velocity graph as evidence of greater acceleration. Acceleration depends on the graph’s slope, which decreases even while its height increases. Fix: Compare graph heights for velocity and slopes for acceleration separately."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The speed is smaller at t₂, and the acceleration is smaller at t₂.",
+     "is_correct": false,
+     "rationale": "The decreasing-acceleration-means-slowing trap confuses a smaller rate of speeding up with a decrease in speed. The positive, rising velocity graph shows that the cart continues speeding up. Fix: Check whether velocity itself decreases before concluding that the cart slows down."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The speed is greater at t₂, and the acceleration is the same at both times.",
+     "is_correct": false,
+     "rationale": "The constant-acceleration assumption overlooks the graph’s changing steepness. Constant acceleration requires a constant slope on a velocity–time graph, not merely a graph that rises throughout an interval. Fix: Compare the slopes at the two times before assuming constant acceleration."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The speed is greater at t₂, and the acceleration is smaller at t₂.",
+     "is_correct": true,
+     "rationale": "The graph’s height gives velocity, so its increasing positive height means increasing speed. Its slope gives acceleration, so the decreasing positive slope means the acceleration is smaller at t₂."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 2.C 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Hard 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apphy1-mcq-053",
+   "unit": 1,
+   "topic": "1.3",
+   "title": "Representing Motion",
+   "skill": "2.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-053-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.3__A__v1#r1-openai",
+   "stem": "An elevator moves vertically, with upward defined as positive. From 2 s to 8 s, its velocity–time curve stays above the time axis and climbs continuously, while its positive slope steadily decreases.\n\nCompared with its motion at 8 s, how do the elevator’s speed and acceleration at 2 s compare?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "At 2 s, its speed is smaller and its acceleration is greater.",
+     "is_correct": true,
+     "rationale": "The curve is lower at 2 s, so the positive velocity—and therefore speed—is smaller then. The curve is steeper at 2 s, so its slope, which represents acceleration, is greater then."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "At 2 s, its speed is smaller and its acceleration is smaller.",
+     "is_correct": false,
+     "rationale": "Height–slope confusion incorrectly uses the curve’s lower height at 2 s to infer smaller acceleration. Acceleration comes from slope, and the earlier slope is greater. Fix: Use curve heights to compare velocities and tangent slopes to compare accelerations."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "At 2 s, its speed is greater and its acceleration is greater.",
+     "is_correct": false,
+     "rationale": "The decreasing-acceleration-means-slowing trap mistakes a declining acceleration for declining speed. The positive velocity continues increasing, so the elevator is faster at 8 s despite its smaller acceleration. Fix: Check whether the velocity curve rises or falls before deciding that speed decreases."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "At 2 s, its speed is smaller and its acceleration is unchanged.",
+     "is_correct": false,
+     "rationale": "The constant-acceleration assumption treats a continuously rising velocity curve as having constant slope. Its decreasing steepness instead shows that acceleration changes. Fix: Compare tangent slopes at both times before treating acceleration as constant."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-053 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-053 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-053",
+   "unit": 1,
+   "topic": "1.3",
+   "title": "Representing Motion",
+   "skill": "2.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-053-v2",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.3__A__v2#r1-anthropic",
+   "stem": "A speedboat pulls away from a dock and travels in a straight line, with its direction of travel taken as positive. Between t = 5 s and t = 15 s, its velocity–time graph stays above the time axis and keeps increasing, but the tangent line to the graph grows flatter as time goes on. How do the boat's speed and acceleration at t = 15 s compare with their values at t = 5 s?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The speed is greater at 15 s, and the acceleration is smaller at 15 s.",
+     "is_correct": true,
+     "rationale": "The height of a velocity–time graph gives velocity, so a positive, still-rising graph means the boat's speed is larger at 15 s. The slope of the tangent gives acceleration, and a flatter positive tangent means a smaller acceleration at 15 s."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The speed is greater at 15 s, and the acceleration is greater at 15 s.",
+     "is_correct": false,
+     "rationale": "This is the height–slope confusion: a higher point on the velocity graph is taken as a sign of greater acceleration. Acceleration is the tangent's slope, and that slope shrinks even as the graph's height grows. Fix: Read velocity from the graph's height and acceleration from its tangent slope, separately."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The speed is smaller at 15 s, and the acceleration is smaller at 15 s.",
+     "is_correct": false,
+     "rationale": "This trap treats a shrinking acceleration as slowing down, confusing a smaller rate of speeding up with a drop in speed. The velocity stays positive and keeps rising, so the boat is still gaining speed. Fix: Check whether the velocity values themselves decrease before concluding the object slows."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The speed is greater at 15 s, and the acceleration is the same at both times.",
+     "is_correct": false,
+     "rationale": "This is the constant-acceleration assumption, which ignores the flattening tangent. A velocity–time graph shows constant acceleration only if it is a straight line with unchanging slope, not merely a graph that keeps rising. Fix: Compare tangent slopes at both times before treating acceleration as constant."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-053 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-053 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-053",
+   "unit": 1,
+   "topic": "1.3",
+   "title": "Representing Motion",
+   "skill": "2.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-053-v3",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__1.3__A__v3#r1-openai",
+   "stem": "A train travels along a straight section of railway, with forward motion defined as positive. Between 4 s and 10 s, its velocity–time curve remains above zero and increases continuously; its slope is positive but steadily decreases.\n\nHow do the train’s speed and acceleration at 4 s compare with their values at 10 s?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "At 4 s, the speed is lower and the acceleration is smaller.",
+     "is_correct": false,
+     "rationale": "The height–slope confusion incorrectly uses the graph’s lower height at 4 s to infer smaller acceleration. Acceleration comes from slope, and the slope is greater at 4 s. Fix: Compare heights for speed and slopes for acceleration separately at the two times."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "At 4 s, the speed is higher and the acceleration is greater.",
+     "is_correct": false,
+     "rationale": "The decreasing-acceleration-means-slowing trap mistakes decreasing acceleration for decreasing speed. The velocity remains positive and increases, so the train is speeding up rather than slowing down. Fix: Check whether the positive velocity graph rises or falls before deciding how speed changes."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "At 4 s, the speed is lower and the acceleration is unchanged.",
+     "is_correct": false,
+     "rationale": "The constant-acceleration assumption treats a continuously rising velocity graph as having constant slope. Here, the decreasing steepness means acceleration changes during the interval. Fix: Compare the graph’s slopes at both times before treating acceleration as constant."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "At 4 s, the speed is lower and the acceleration is greater.",
+     "is_correct": true,
+     "rationale": "The positive velocity graph is lower at 4 s, so the train’s speed is lower then. Acceleration equals the graph’s slope, which is steeper at 4 s, so the acceleration is greater then."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-053 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-053 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-054",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apphy1-mcq-054",
+   "kind": "seed",
+   "pipeline_id": "ap-physics-1__2.2__A__seed#r1-openai",
+   "stem": "A block slides down a straight, frictionless ramp that rises toward the right. Air resistance is negligible. Which description gives a complete, correct free-body diagram for the block, with every arrow starting at the dot representing the block?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Four arrows: gravitational force vertically downward, normal force perpendicular to the ramp, and the two components of gravitational force parallel and perpendicular to the ramp.",
+     "is_correct": false,
+     "rationale": "Component double-counting: Drawing gravitational force and its components counts the same interaction twice. Components represent a force along chosen axes, not additional forces. Fix: Draw each interaction once, and resolve components separately from the free-body diagram."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force perpendicular to the ramp, away from its surface.",
+     "is_correct": true,
+     "rationale": "Earth exerts a downward gravitational force, and the frictionless ramp exerts a normal force perpendicular to its surface. These are the only forces on the block; components are not drawn as additional force arrows."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force vertically upward.",
+     "is_correct": false,
+     "rationale": "Always-up normal force misconception: The normal force is perpendicular to the contact surface, not necessarily vertical. A vertical arrow is not perpendicular to this inclined ramp. Fix: Identify the surface orientation, then draw the normal force perpendicular to it."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Three arrows: gravitational force vertically downward, normal force perpendicular to the ramp, and an additional force of motion directed down the ramp.",
+     "is_correct": false,
+     "rationale": "Motion-requires-a-force misconception: The block's motion does not create an additional force. A force arrow must represent an interaction with another object, not the block's velocity. Fix: Name the object exerting each proposed force before drawing its arrow."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 1.A 4",
+   "difficulty_note": "Four non-author model families voted; tally Easy 2, Medium 2. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apphy1-mcq-054",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apphy1-mcq-sv-054-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__A__v1#r1-openai",
+   "stem": "A small piece of ice slides upward along the curved inside surface of a bowl. At its present position, the surface rises toward the left at 30° above horizontal. The contact is frictionless, and air resistance is negligible. Which set of arrows should be drawn from the ice's dot to make its complete free-body diagram?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Four arrows: gravitational force vertically downward, normal force perpendicular to the local surface, and gravitational force components parallel and perpendicular to that surface.",
+     "is_correct": false,
+     "rationale": "Component double-counting: Including gravity together with its components represents the same interaction more than once. Components describe a force along selected axes; they are not separate interactions. Fix: Draw gravity once, then resolve its components outside the free-body diagram."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force vertically upward.",
+     "is_correct": false,
+     "rationale": "Always-up normal force misconception: A normal force follows the perpendicular to the contact surface, not a fixed upward direction. Here, a vertical arrow is not perpendicular to the tilted surface. Fix: Locate the contact surface and draw its outward perpendicular."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force perpendicular to the local surface, pointing upward and rightward.",
+     "is_correct": true,
+     "rationale": "The ice interacts with Earth through gravity and with the bowl through a normal force directed away from the local surface. With friction and air resistance absent, these two arrows represent all forces acting on the ice."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Three arrows: gravitational force vertically downward, normal force perpendicular to the local surface, and a force of motion directed upward along the surface.",
+     "is_correct": false,
+     "rationale": "Motion-requires-a-force misconception: Moving upward does not give the ice an additional force of motion. That proposed arrow describes its motion rather than an interaction with another object. Fix: Identify an interacting object for every proposed force arrow."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-054 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-054 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-054",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apphy1-mcq-sv-054-v2",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__A__v2#r1-openai",
+   "stem": "An unpowered rail car coasts rightward over the outside of a rounded hill on a frictionless track. Where the car is located, the track slopes downward toward the right at 20° below horizontal. The car remains in contact with the track, and air resistance is negligible. Which description represents the car’s complete free-body diagram, with all arrows originating at the car’s dot?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Four arrows showing gravity vertically downward, the normal force perpendicular to the track, and gravity’s components parallel and perpendicular to the track.",
+     "is_correct": false,
+     "rationale": "Component double-counting: Including gravity together with its components represents the same interaction twice. Components describe a force along selected axes; they are not additional forces. Fix: Draw gravity once, then resolve its components separately from the free-body diagram."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Two arrows showing gravity vertically downward and the normal force vertically upward.",
+     "is_correct": false,
+     "rationale": "Always-up normal force misconception: A normal force follows the perpendicular to the contact surface, not a fixed upward direction. Here, a vertical arrow is not perpendicular to the track. Fix: Identify the track’s local slope and draw the normal perpendicular to it."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Three arrows showing gravity vertically downward, the normal force perpendicular to the track, and a force of motion along the track toward the right.",
+     "is_correct": false,
+     "rationale": "Motion-requires-a-force misconception: The car’s motion is not an additional interaction that exerts a force. Its velocity therefore does not belong among the force arrows. Fix: Identify an object exerting each proposed force before adding its arrow."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Two arrows showing gravity vertically downward and the normal force perpendicular to the track, upward and toward the right.",
+     "is_correct": true,
+     "rationale": "The car interacts with Earth through gravity and with the track through the normal force. Gravity points downward, while the normal force points perpendicular to and away from the supporting surface."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-054 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-054 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-054",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apphy1-mcq-sv-054-v3",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__A__v3#r1-anthropic",
+   "stem": "A child gives a sled a brief shove, then lets go. The sled coasts up an icy, frictionless hillside that rises toward the left at 25° above horizontal. Air resistance is negligible. While the sled is still moving up the hill after the shove has ended, which description gives its complete, correct free-body diagram, with every arrow starting at the sled's dot?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Four arrows: gravitational force vertically downward, normal force perpendicular to the hillside, and the components of gravitational force along and perpendicular to the hillside.",
+     "is_correct": false,
+     "rationale": "Component double-counting: the two components are just gravitational force expressed along tilted axes, not additional interactions. Drawing both the force and its components counts Earth's pull twice. Fix: Draw each interaction once, then resolve components only in your separate Newton's law equations."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force perpendicular to the hillside, pointing away from the snow surface.",
+     "is_correct": true,
+     "rationale": "Only two objects interact with the sled: Earth pulls it straight down, and the frictionless snow surface pushes perpendicular to itself, away from the surface. The shove has ended, and components of gravity are not separate forces, so these are the only arrows."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Two arrows: gravitational force vertically downward and normal force vertically upward.",
+     "is_correct": false,
+     "rationale": "Always-up normal force misconception: a normal force is perpendicular to the contact surface, not automatically vertical. On a 25° slope, a vertical arrow is not perpendicular to the snow. Fix: Identify the contact surface's tilt, then draw the normal force perpendicular to that surface."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Three arrows: gravitational force vertically downward, normal force perpendicular to the hillside, and a force from the shove directed up the hill.",
+     "is_correct": false,
+     "rationale": "Motion-requires-a-force misconception: the sled moves uphill because of its existing velocity, not because the shove still acts. The child is no longer touching the sled, so no push force exists. Fix: For each proposed arrow, name the object currently exerting that force on the sled."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-054 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-054 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-055",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-055",
+   "kind": "seed",
+   "pipeline_id": "ap-physics-1__2.2__B__seed#r1-openai",
+   "stem": "A box is pulled by a rope across a frictionless horizontal floor. In case 1, the rope is horizontal and pulls rightward. In case 2, the rope pulls upward and rightward at an angle above horizontal. The box remains in contact with the floor in both cases, and air resistance is negligible. Comparing complete free-body diagrams for the box, how should the number of force arrows and the representation of the rope’s force change?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Three arrows in case 1 and five in case 2; the angled tension arrow is drawn along with its horizontal and vertical components.",
+     "is_correct": false,
+     "rationale": "This is the force-and-components double-counting error. The components describe the same rope force, so drawing them alongside the tension arrow counts that interaction more than once. Fix: Draw the tension once along the rope and resolve components separately."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Three arrows in case 1 and four in case 2; the angled tension arrow is replaced by horizontal and vertical component arrows.",
+     "is_correct": false,
+     "rationale": "This is the components-as-forces error. A free-body diagram shows the actual rope force along the rope, rather than replacing it with component arrows. Fix: Replace the two component arrows with one arrow along the rope."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Three arrows in each case; the rope’s force changes from rightward to upward and rightward.",
+     "is_correct": true,
+     "rationale": "The box interacts with Earth, the floor, and the rope, so each diagram contains gravitational, normal, and tension forces. Tilting the rope changes the tension arrow’s direction, not the number of forces."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Four arrows in each case, including a separate net-force arrow; the rope’s force changes from rightward to upward and rightward.",
+     "is_correct": false,
+     "rationale": "This is the net-force-as-an-extra-force error. Net force is the vector sum of the forces already shown, not an additional interaction with the box. Fix: Match each force arrow to an interaction and remove the separate net-force arrow."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 1.A 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apphy1-mcq-055",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-055-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__B__v1#r1-openai",
+   "stem": "A collar slides along a vertical pole with negligible friction. A rigid rod presses on the collar, which stays in contact with the pole. In arrangement 1, the rod’s force points leftward and downward at 30° below horizontal. In arrangement 2, its force points horizontally leftward. Ignore air resistance. Which description gives the complete free-body diagrams for the collar, with every arrow starting at the collar’s dot?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both diagrams contain three arrows; the rod-force arrow points leftward and downward in arrangement 1 and directly leftward in arrangement 2.",
+     "is_correct": true,
+     "rationale": "Each diagram shows one gravitational force from Earth, one normal force from the pole, and one applied force from the rod. Changing the rod’s direction rotates its force arrow without adding or removing an interaction."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Arrangement 1 contains five arrows and arrangement 2 contains three; the angled rod-force arrow appears together with its horizontal and vertical components.",
+     "is_correct": false,
+     "rationale": "The force-and-components double-counting error treats parts of one force as additional interactions. The component arrows represent the same push already shown by the angled arrow. Fix: Keep one arrow for the rod’s push and resolve its components outside the diagram."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Arrangement 1 contains four arrows and arrangement 2 contains three; horizontal and vertical component arrows replace the angled rod-force arrow.",
+     "is_correct": false,
+     "rationale": "The components-as-forces error substitutes mathematical components for the actual applied force. The free-body diagram must represent the rod’s push with one arrow in its actual direction. Fix: Replace the component arrows with a single arrow pointing along the applied push."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Both diagrams contain four arrows, including an additional net-force arrow; the rod-force arrow changes from leftward and downward to directly leftward.",
+     "is_correct": false,
+     "rationale": "The net-force-as-an-extra-force error adds the result of combining forces as though it were another interaction. A net-force arrow does not belong alongside the individual forces in a free-body diagram. Fix: Identify the source of each force and delete any separate net-force arrow."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-055 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-055 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-055",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-055-v2",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__B__v2#r1-openai",
+   "stem": "A glass ornament hangs from a taut cord while a rigid rod presses against it. In arrangement 1, the rod pushes horizontally leftward; in arrangement 2, it pushes downward and leftward at 45° below horizontal. Only the cord and rod touch the ornament, and air resistance is negligible. When drawing a complete free-body diagram for each arrangement, with arrows starting at the ornament’s dot, how should the arrow count and the rod-force arrow compare?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Both diagrams have three arrows; the rod-force arrow points leftward in arrangement 1 and downward and leftward in arrangement 2.",
+     "is_correct": true,
+     "rationale": "Each diagram represents three interactions: gravity from Earth, tension from the cord, and contact force from the rod. Changing the rod’s push direction rotates its force arrow without creating another interaction."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Arrangement 1 has three arrows and arrangement 2 has five; the second diagram includes the angled rod force and both of its components.",
+     "is_correct": false,
+     "rationale": "This is the force-and-components double-counting error. Adding component arrows alongside the angled force represents the same rod interaction more than once. Fix: Keep one rod-force arrow and work with its components outside the diagram."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Arrangement 1 has three arrows and arrangement 2 has four; the second diagram replaces the angled rod force with horizontal and vertical component arrows.",
+     "is_correct": false,
+     "rationale": "This is the components-as-forces error. The rod exerts one angled contact force, which the free-body diagram must show rather than substitute component arrows. Fix: Combine the component arrows into one arrow pointing along the rod’s push."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Both diagrams have four arrows, including a separate net-force arrow; the rod-force arrow changes from leftward to downward and leftward.",
+     "is_correct": false,
+     "rationale": "This is the net-force-as-an-extra-force error. A net force summarizes the vector sum of the interaction forces; it is not another force acting on the ornament. Fix: Identify the source of each force arrow and delete any separate net-force arrow."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-055 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-055 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apphy1-mcq-055",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Forces and Free-Body Diagrams",
+   "skill": "1.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apphy1-mcq-sv-055-v3",
+   "kind": "variant",
+   "pipeline_id": "ap-physics-1__2.2__B__v3#r1-openai",
+   "stem": "A steel puck slides down a frictionless inclined ramp while a rigid pushrod pushes on it. During trial 1, the pushrod’s force points directly down the ramp, parallel to its surface. During trial 2, that force points 30° away from the downhill direction, tilted toward the ramp’s surface. The puck maintains contact with the ramp, and air resistance can be ignored. With all arrows starting at the puck’s dot, which description correctly compares its complete free-body diagrams?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Trial 1 has three arrows and trial 2 has five; trial 2 includes the pushrod-force arrow plus its components parallel and perpendicular to the ramp.",
+     "is_correct": false,
+     "rationale": "This is the force-and-components double-counting error. Adding component arrows alongside the pushrod-force arrow represents the same interaction more than once. Fix: Keep one pushrod-force arrow and resolve its components outside the free-body diagram."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Trial 1 has three arrows and trial 2 has four; trial 2 replaces the pushrod-force arrow with components parallel and perpendicular to the ramp.",
+     "is_correct": false,
+     "rationale": "This is the components-as-forces error. The diagram must show the actual pushrod force, not substitute two component arrows for that force. Fix: Replace the component arrows with one arrow in the pushrod force’s actual direction."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Each diagram has three arrows; the pushrod-force arrow changes from parallel to the ramp to tilted toward its surface.",
+     "is_correct": true,
+     "rationale": "Earth, the ramp, and the pushrod exert gravitational, normal, and applied forces on the puck. Changing the pushrod’s direction rotates its force arrow without adding another interaction."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Each diagram has four arrows, including a separate net-force arrow; the pushrod-force arrow changes from parallel to the ramp to tilted toward its surface.",
+     "is_correct": false,
+     "rationale": "This is the net-force-as-an-extra-force error. The net force combines the forces acting on the puck; it is not another interaction. Fix: Identify the interaction behind each arrow and delete any separate net-force arrow."
+    }
+   ],
+   "skill_note": "inherits seed apphy1-mcq-055 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apphy1-mcq-055 (DECISION-0096)."
+  }
+ ]
+}
