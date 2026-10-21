@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** Open — rulings recorded, no slice started
+**Status:** In Progress — implementation/review state is recorded per checklist item
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)
@@ -30,7 +30,7 @@ TASK-0069 (`attempt-response` replay scoping).
 
 | # | Item | Tier | State | Notes |
 | --- | --- | --- | --- | --- |
-| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | ready for Codex | Haiku's proposed diff is in `qa/TEST_GATE_INVENTORY_2026_10_21.md` (38 files, 760 tests, 60 of 61 pass under `env -i`). Take its narrower option: keep the existing step, add a second step for the few files that need `--allow-net` (`byoq`, `capture-pairing`), `--allow-read` (`email-template-data`, `payer-email`) or unrestricted `--allow-env` (`create-post-purchase-addon/handler_test.ts`, Stripe SDK) |
+| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | Ready for Review | [PR #520](https://github.com/david-bloom/Cramapple/pull/520): all 61 inventory suites, two clean-environment steps; 689 restricted + 72 exception tests pass. No net/read/unrestricted-env on the main run. [Evidence](../qa/TASK0078_A1_TWO_STEP_CI_2026_10_21.md). |
 | A2 | Replay ownership on `session-event` and `storage-sign-url` (actor-scoped lookup, read the audit-insert error, re-sign on replay, handler extraction, tests), no hash changes | Standard | open | spec in `REFACTOR_PLAN_REVIEW_2026_10_21.md` §5 |
 | A3 | Retire `submit-response` (source directory and the Development function) | Standard | open | not on Production, no caller |
 | A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | **ruled, ready for Codex** (ruling 4) | Acceptance: both sites destructure `{ error }`; on error, log it and respond 5xx with a stable code (for example `grading_result_write_failed`) and no score in the body; decide and test what a retry with the same idempotency key does next, since today a replay finds the row at `processing` and answers 202, so either mark the row `failed` so the retry re-grades, or make the replay path re-attempt the write; the deterministic MCQ path and the model path both covered; test in `evaluate-attempt/index_test.ts` and add that file to CI (A1) |
