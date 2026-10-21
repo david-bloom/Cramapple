@@ -77,7 +77,7 @@ accepting either `mcq` (the real Home session format) or `targeted_drill` closes
 verified byte-for-byte identical to what was already running live in Production before the merge, and
 confirmed returning a real 7 FRQ + 13 MCQ mix with Biology's own path unaffected. (A separate, earlier
 attempt at this fix, `claude/task-0047-ap-statistics-mcq-serving`, used a narrower `targeted_drill`-only
-routing and was never applied to Production; that branch has been deleted.) **This smoke test can now
+routing and was never applied to Production; that branch has been deleted.) **[Corrected 2026-10-21: the Production migration ledger shows `claude/task-0047-ap-statistics-mcq-serving` was applied to Production first, at 2026-09-26 16:48 UTC, and `codex/task-0044-statistics-mcq` improved it about three hours later. See `APPROVAL-0051` in `activity_log/archive/APPROVALS_LOG-0041_to_0065.md`.]** **This smoke test can now
 proceed** — it should no longer hit the previously-diagnosed MCQ gap, but still verify the live student
 UI experience directly rather than assume the backend fix alone is sufficient.
 

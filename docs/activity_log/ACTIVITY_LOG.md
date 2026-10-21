@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- APPROVAL-0051 attribution settled by Production evidence (2026-10-21, `DECISION-0127`): the migration ledger shows `claude/task-0047-ap-statistics-mcq-serving` reached Production first (2026-09-26 16:48 UTC) and `codex/task-0044-statistics-mcq` improved it about three hours later; the approval entry and four documents citing the earlier, wrong correction are annotated.
+
 - TASK-0065 Calculus BC + Precalculus teaching-batch records recovered (2026-10-21, owner request): the provenance for 38 Production Open Hand teaching items (8 Calc BC, 30 Precalc, loaded 2026-10-09) existed only as uncommitted files in the main checkout; landed with the loader changes, reference-pack checker logs and the AP Chemistry reviewer bake-off. Verified against Production: 36/38 byte-identical, 2 differ only by the later in-place LaTeX rewrite.
 
 - Code and branch cleanup (2026-10-21, owner request): dead code removed from edge functions and `web/` (PR #511, no behaviour change, not deployed); 37 worktrees and 51 merged or superseded local branches removed (tip SHAs in the local `.git/deleted_branches_2026-10-21.txt`); stranded records recovered to `main` (this PR) and the two course-mode Stats worktrees archived to `archive/course-mode-stats-*-uncommitted-2026-08-27`. Open owner decisions listed in the entry.

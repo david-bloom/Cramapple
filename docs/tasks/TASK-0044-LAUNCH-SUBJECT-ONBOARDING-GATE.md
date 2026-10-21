@@ -194,7 +194,7 @@ was already live in Production (function body, comment, and edge-function routin
 Production now runs this `mcq`-or-`targeted_drill` routing, not the narrower `targeted_drill`-only
 version an earlier, separate attempt (`claude/task-0047-ap-statistics-mcq-serving`, since deleted) had
 built — that earlier branch's Dev-only version was never applied to Production. See
-`ACTIVITY_LOG.md`'s 2026-09-27 entry for the full correction.
+`ACTIVITY_LOG.md`'s 2026-09-27 entry for the full correction. **[Corrected 2026-10-21: the Production migration ledger shows `claude/task-0047-ap-statistics-mcq-serving` was applied to Production first, at 2026-09-26 16:48 UTC, and `codex/task-0044-statistics-mcq` improved it about three hours later. See `APPROVAL-0051` in `activity_log/archive/APPROVALS_LOG-0041_to_0065.md`.]**
 
 **Test Results:**
 - Focused handler type-check: Pass.
