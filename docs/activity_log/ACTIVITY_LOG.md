@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Read-only backend assessments 1, 3, 4 and 8 (2026-10-21, owner request; Claude Sonnet 5.5): drift register, swallowed-error audit, scheduled-work inventory and shared-module dependency map in `docs/qa/` against `main` `df39cd09`. Headlines: Production `assign-for-review` and `reviewer-invite` are ahead of `main` (source only in orphan commit `ad083b39`); 22 `must-fail` swallowed-error rows, none in payment code; `sweep_learning_sessions` and photo redaction have no scheduler. Docs-only PR, not merged; no code, migration, deployment, secret or data change.
+
 - APPROVAL-0051 attribution settled by Production evidence (2026-10-21, `DECISION-0127`): the migration ledger shows `claude/task-0047-ap-statistics-mcq-serving` reached Production first (2026-09-26 16:48 UTC) and `codex/task-0044-statistics-mcq` improved it about three hours later; the approval entry and four documents citing the earlier, wrong correction are annotated.
 
 - TASK-0065 Calculus BC + Precalculus teaching-batch records recovered (2026-10-21, owner request): the provenance for 38 Production Open Hand teaching items (8 Calc BC, 30 Precalc, loaded 2026-10-09) existed only as uncommitted files in the main checkout; landed with the loader changes, reference-pack checker logs and the AP Chemistry reviewer bake-off. Verified against Production: 36/38 byte-identical, 2 differ only by the later in-place LaTeX rewrite.
@@ -222,6 +224,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — Read-only backend assessments 1, 3, 4 and 8
+
+Owner request (session prompt `docs/handoffs/PROMPT_ASSESSMENTS_1_3_4_8_SONNET_2026_10_21.md`, from PR #519). Branch `claude/assessments-1-3-4-8-2026-10-21` from `origin/main` `df39cd09`.
+
+- **Delivered (docs only):** `docs/qa/DRIFT_REGISTER_2026_10_21.md`, `SWALLOWED_ERROR_AUDIT_2026_10_21.md`, `SCHEDULED_WORK_INVENTORY_2026_10_21.md`, `SHARED_MODULE_DEPENDENCY_MAP_2026_10_21.md`, plus four rows in `docs/INDEX.md`.
+- **Method:** Edge Function bundles downloaded from both projects into a scratch directory and diffed against `main`; read-only `SELECT` queries on both projects through the Supabase MCP (function inventory, migration ledger, `cron.job`, `cron.job_run_details`, `net._http_response`, Vault names only); the swallowed-error audit was split across four read-only sub-readers and the highest-impact findings were re-read by the author.
+- **Headlines:** Production `assign-for-review` and `reviewer-invite` contain code not on `main`; Production runs July session-RPC bodies under an August ledger (known, reproduced); 22 `must-fail` swallowed-error rows (`review-decision`, `admin-content`, `evaluate-attempt` grade writes, `capture-pairing` cancel), none in payment code; `app.sweep_learning_sessions` has no invoker (4 Production sessions active since September); three Production bundles stale on a `_shared` file.
+- **Not done / limits:** nothing deployed, migrated, applied or changed in either Supabase project or Lovable; no secret value read (Vault and `supabase secrets` names only); the broad candidate grep for scheduled work and the individual re-verification of every sub-reader row were not done and are stated as such in the documents.
+- **Next owner / action:** David reviews the "questions for David" sections; Codex candidates are the `must-fail` rows. PR open, not merged.
 
 ## 2026-10-21 — TASK-0065 Calc BC / Precalculus batch records recovered
 
