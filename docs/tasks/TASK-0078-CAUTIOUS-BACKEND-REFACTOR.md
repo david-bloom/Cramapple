@@ -34,6 +34,6 @@ Fable's review: [PR #519](https://github.com/david-bloom/Cramapple/pull/519), co
 
 - First action: CI baseline and environment-permission characterization.
 - Deployment state: no task deployment, migration application, configuration change or remote deletion performed.
-- Test Results: Pending.
+- Test Results: Expanded Minimal CI Deno command: 310 passed, 0 failed, with an explicit environment-name allowlist and no runtime network permission. Importing capture-pairing initially attempted to start a server; its entry point now uses the existing import.meta.main pattern from attempt-response and evaluate-attempt. Existing Minimal CI baseline: 255 passed.
 - QA Result: Pending independent review.
 - Next Owner: Codex, repository implementation and local verification.
