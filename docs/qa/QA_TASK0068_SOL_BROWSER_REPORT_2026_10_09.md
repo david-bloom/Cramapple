@@ -2,6 +2,8 @@
 
 Date: 2026-10-09. Reviewer: Sol. Proposed verdict: **FAIL**.
 
+Later targeted verification: [S1/S2/S3/S4/S9 rerun](QA_TASK0068_SOL_BROWSER_RERUN_2026_10_09.md). The initial observations below are preserved; see the rerun for current retry/navigation results and its completed five-record cleanup.
+
 ## Scope and tested build
 
 Observed: tested the published app at `https://app.cramapple.com/byoq`, anonymously, on 2026-10-09; final test inventory verified at approximately 12:42 UTC (08:42 EDT). Desktop viewport 1280 × 720; phone simulation 375 × 812. No real phone, sign-in, deployment, configuration change, source edit, or commit. Eight questions created; eight fixture uploads, plus two extraction retries on the degraded Statistics item.

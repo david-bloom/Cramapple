@@ -1,7 +1,7 @@
 // TASK-0065 generate-and-select pipeline for Open Hand teaching MCQs. No item is ever edited:
 // a candidate is accepted whole or dropped whole. See README.md.
 //
-//   node run.mjs run    --batch=<dir> [--subject=biology] [--topics=1.1,1.2] [--shard=k/n] [--session=<name>] [--rounds=2] [--conc=3]
+//   node run.mjs run    --batch=<dir> [--subject=biology] [--topics=1.1,1.2] [--scope=<json>] [--shard=k/n] [--session=<name>] [--rounds=2] [--conc=3]
 //   node run.mjs report --batch=<dir>
 //
 // Per topic: each round asks one Claude author and one GPT author for a fresh candidate (stateless calls; neither
@@ -356,7 +356,8 @@ async function cmdRun() {
   const batch = path.resolve(arg('batch')); if (!arg('batch')) throw new Error('--batch required');
   const session = arg('session', `${os.hostname()}-${process.pid}`);
   const rounds = Number(arg('rounds', '2')); const conc = Number(arg('conc', '3'));
-  const scope = JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/scope_u1-3.json'), 'utf8'));
+  const scopePath = arg('scope', path.join(HERE, 'inputs/scope_u1-3.json'));
+  const scope = JSON.parse(fs.readFileSync(path.resolve(scopePath), 'utf8'));
   let topics = scope.filter((t) => !arg('subject') || t.subject_key === arg('subject'))
     .filter((t) => !arg('topics') || arg('topics').split(',').includes(t.topic_code));
   if (arg('shard')) { const [k, n] = arg('shard').split('/').map(Number); topics = topics.filter((_, i) => i % n === k); }

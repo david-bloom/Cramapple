@@ -1,0 +1,2314 @@
+{
+ "topic": {
+  "subject_key": "ap-precalculus",
+  "unit_number": 2,
+  "topic_code": "2.8",
+  "topic_title": "Inverse Functions"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-precalculus__2.8#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 4838,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 4835
+    },
+    "outputTokens": 835,
+    "outputTokenDetails": {
+     "textTokens": 453,
+     "reasoningTokens": 382
+    },
+    "totalTokens": 5673,
+    "raw": {
+     "input_tokens": 4838,
+     "input_tokens_details": {
+      "cache_write_tokens": 4835,
+      "cached_tokens": 0
+     },
+     "output_tokens": 835,
+     "output_tokens_details": {
+      "reasoning_tokens": 382
+     },
+     "total_tokens": 5673
+    },
+    "reasoningTokens": 382,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Inverse Functions",
+    "stem": "Let f(x) = (x−2)² + 3, with domain x ≤ 2. Which expression and domain describe the inverse function f⁻¹?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "f⁻¹(x) = 2+√(x−3), with domain x ≥ 3",
+      "is_correct": false,
+      "rationale": "Wrong-branch error: the positive square-root branch produces outputs greater than 2 when x > 3. Those outputs are outside the original function’s domain, so this branch does not reverse its input-output pairs. Fix: Choose the square-root branch whose outputs satisfy the original domain restriction."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "f⁻¹(x) = 2−√(x−3), with domain x ≥ 3",
+      "is_correct": true,
+      "rationale": "On x ≤ 2, f is strictly decreasing, so it is one-to-one; its range is x ≥ 3. Swapping input and output gives x = (y−2)² + 3, and the original restriction y ≤ 2 requires y = 2−√(x−3)."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "f⁻¹(x) = 2−√(x−3), with domain x ≤ 2",
+      "is_correct": false,
+      "rationale": "Domain-swap error: this retains the original domain instead of using the original range. The original function’s outputs are all values at least 3, which become the inverse’s inputs. Fix: Find the original range and use it as the inverse’s domain."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "f⁻¹(x) = 1/((x−2)² + 3), with domain x ≤ 2",
+      "is_correct": false,
+      "rationale": "Inverse-versus-reciprocal confusion: taking 1/f(x) reciprocates each output rather than reversing input-output pairs. The notation f⁻¹ denotes the inverse function, not the reciprocal. Fix: Write y = f(x), swap x and y, and solve for y."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 672,
+         "inputTokenDetails": {
+          "noCacheTokens": 672,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 702,
+         "raw": {
+          "input_tokens": 672,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2456,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 380,
+         "inputTokenDetails": {
+          "noCacheTokens": 380,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 402,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 372
+         },
+         "totalTokens": 782,
+         "raw": {
+          "thoughtsTokenCount": 372,
+          "promptTokenCount": 380,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 782,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 380
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 372,
+         "cachedInputTokens": 0
+        },
+        "ms": 4717,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 442,
+         "inputTokenDetails": {
+          "noCacheTokens": 186,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 606,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 580
+         },
+         "totalTokens": 1048,
+         "raw": {
+          "prompt_tokens": 442,
+          "completion_tokens": 606,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 186,
+          "total_tokens": 1048,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 580
+          }
+         },
+         "reasoningTokens": 580,
+         "cachedInputTokens": 256
+        },
+        "ms": 7391,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 208,
+         "inputTokenDetails": {
+          "noCacheTokens": 208,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1263,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1238
+         },
+         "totalTokens": 1471,
+         "raw": {
+          "input_tokens": 208,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1263,
+          "output_tokens_details": {
+           "reasoning_tokens": 1238
+          },
+          "total_tokens": 1471
+         },
+         "reasoningTokens": 1238,
+         "cachedInputTokens": 0
+        },
+        "ms": 15960,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 9261,
+         "inputTokenDetails": {
+          "noCacheTokens": 921,
+          "cacheReadTokens": 8340,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 549,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 337
+         },
+         "totalTokens": 9810,
+         "raw": {
+          "input_tokens": 921,
+          "output_tokens": 549,
+          "output_tokens_details": {
+           "thinking_tokens": 337
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 8340,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 337,
+         "cachedInputTokens": 8340
+        },
+        "ms": 7781,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "In choice B's rationale, stating that the range of f is 'x ≥ 3' is mathematically incorrect; the range consists of output values (y ≥ 3 or f(x) ≥ 3), whereas x represents the input variable which was specified as x ≤ 2."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6149,
+         "inputTokenDetails": {
+          "noCacheTokens": 6149,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2348,
+         "outputTokenDetails": {
+          "textTokens": 321,
+          "reasoningTokens": 2027
+         },
+         "totalTokens": 8497,
+         "raw": {
+          "thoughtsTokenCount": 2027,
+          "promptTokenCount": 6149,
+          "candidatesTokenCount": 321,
+          "totalTokenCount": 8497,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 6149
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 321
+           }
+          ]
+         },
+         "reasoningTokens": 2027,
+         "cachedInputTokens": 0
+        },
+        "ms": 18637,
+        "flags": [
+         "accurate: In choice B's rationale, stating that the range of f is 'x ≥ 3' is mathematically incorrect; the range consists of output values (y ≥ 3 or f(x) ≥ 3), whereas x represents the input variable which was specified as x ≤ 2."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "In choice B's rationale, stating 'its range is x ≥ 3' is mathematically inaccurate because x is the input variable for f (defined with domain x ≤ 2); the range of f consists of output values, y ≥ 3 or f(x) ≥ 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6149,
+         "inputTokenDetails": {
+          "noCacheTokens": 2143,
+          "cacheReadTokens": 4006
+         },
+         "outputTokens": 2427,
+         "outputTokenDetails": {
+          "textTokens": 321,
+          "reasoningTokens": 2106
+         },
+         "totalTokens": 8576,
+         "raw": {
+          "cachedContentTokenCount": 4006,
+          "thoughtsTokenCount": 2106,
+          "promptTokenCount": 6149,
+          "candidatesTokenCount": 321,
+          "totalTokenCount": 8576,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 6149
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 4006
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 321
+           }
+          ]
+         },
+         "reasoningTokens": 2106,
+         "cachedInputTokens": 4006
+        },
+        "ms": 18390,
+        "flags": [
+         "accurate: In choice B's rationale, stating 'its range is x ≥ 3' is mathematically inaccurate because x is the input variable for f (defined with domain x ≤ 2); the range of f consists of output values, y ≥ 3 or f(x) ≥ 3."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5585,
+         "inputTokenDetails": {
+          "noCacheTokens": 593,
+          "cacheReadTokens": 4992
+         },
+         "outputTokens": 9023,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 8804
+         },
+         "totalTokens": 14608,
+         "raw": {
+          "prompt_tokens": 5585,
+          "completion_tokens": 9023,
+          "prompt_cache_hit_tokens": 4992,
+          "prompt_cache_miss_tokens": 593,
+          "total_tokens": 14608,
+          "prompt_tokens_details": {
+           "cached_tokens": 4992
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8804
+          }
+         },
+         "reasoningTokens": 8804,
+         "cachedInputTokens": 4992
+        },
+        "ms": 92387,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 4660,
+         "inputTokenDetails": {
+          "noCacheTokens": 4660,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 8492,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 8335
+         },
+         "totalTokens": 13152,
+         "raw": {
+          "input_tokens": 4660,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 8492,
+          "output_tokens_details": {
+           "reasoning_tokens": 8335
+          },
+          "total_tokens": 13152
+         },
+         "reasoningTokens": 8335,
+         "cachedInputTokens": 0
+        },
+        "ms": 135479,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-precalculus__2.8#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 7849,
+    "inputTokenDetails": {
+     "noCacheTokens": 534,
+     "cacheReadTokens": 7315,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 996,
+    "outputTokenDetails": {
+     "textTokens": 649,
+     "reasoningTokens": 347
+    },
+    "totalTokens": 8845,
+    "raw": {
+     "input_tokens": 534,
+     "output_tokens": 996,
+     "output_tokens_details": {
+      "thinking_tokens": 347
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 7315,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 347,
+    "cachedInputTokens": 7315
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Inverse Functions",
+    "stem": "The function f is defined by f(x) = (x − 2)² + 1 for x ≥ 2. On this restricted domain f is one-to-one. Which of the following gives the inverse function f⁻¹ together with its domain?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "f⁻¹(x) = 2 − √(x − 1), for x ≥ 1",
+      "is_correct": false,
+      "rationale": "This keeps the wrong square-root branch. Its outputs are at most 2, but the inverse's outputs must equal f's domain, x ≥ 2, so it undoes the unused left half of the parabola. Fix: After taking ±√, choose the sign whose outputs match the original function's domain."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "f⁻¹(x) = 2 + √(x − 1), for x ≥ 2",
+      "is_correct": false,
+      "rationale": "The formula is right, but the domain was copied from f instead of swapped. The inverse's domain is f's range, and since (x − 2)² ≥ 0, f's outputs are all values of at least 1. Fix: Find the original function's range and use it as the inverse's domain."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "f⁻¹(x) = 2 + √(x − 1), for x ≥ 1",
+      "is_correct": true,
+      "rationale": "Swapping x and y gives x = (y − 2)² + 1, so y − 2 = ±√(x − 1). The inverse's outputs must match f's domain, y ≥ 2, so the + sign is kept. The inverse's domain is f's range, which is x ≥ 1."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "f⁻¹(x) = 1/((x − 2)² + 1), for x ≥ 2",
+      "is_correct": false,
+      "rationale": "This confuses the inverse notation f⁻¹ with the reciprocal 1/f. The reciprocal does not reverse input-output pairs; for example, f(3) = 2, but this expression gives 1/2 at x = 2, not 3. Fix: Swap x and y and solve for y, then test that f⁻¹(f(a)) = a for one value."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 324,
+         "inputTokenDetails": {
+          "noCacheTokens": 324,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 38,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 12
+         },
+         "totalTokens": 362,
+         "raw": {
+          "input_tokens": 324,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 38,
+          "output_tokens_details": {
+           "reasoning_tokens": 12
+          },
+          "total_tokens": 362
+         },
+         "reasoningTokens": 12,
+         "cachedInputTokens": 0
+        },
+        "ms": 3150,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 400,
+         "inputTokenDetails": {
+          "noCacheTokens": 400,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 438,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 408
+         },
+         "totalTokens": 838,
+         "raw": {
+          "thoughtsTokenCount": 408,
+          "promptTokenCount": 400,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 838,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 400
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 408,
+         "cachedInputTokens": 0
+        },
+        "ms": 4213,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 460,
+         "inputTokenDetails": {
+          "noCacheTokens": 204,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 594,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 574
+         },
+         "totalTokens": 1054,
+         "raw": {
+          "prompt_tokens": 460,
+          "completion_tokens": 594,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 204,
+          "total_tokens": 1054,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 574
+          }
+         },
+         "reasoningTokens": 574,
+         "cachedInputTokens": 256
+        },
+        "ms": 7275,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 223,
+         "inputTokenDetails": {
+          "noCacheTokens": 223,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1096,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 1066
+         },
+         "totalTokens": 1319,
+         "raw": {
+          "input_tokens": 223,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1096,
+          "output_tokens_details": {
+           "reasoning_tokens": 1066
+          },
+          "total_tokens": 1319
+         },
+         "reasoningTokens": 1066,
+         "cachedInputTokens": 0
+        },
+        "ms": 9074,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale incorrectly states that its expression gives 1/2 at x = 2. Substitution gives 1/((2 − 2)² + 1) = 1. Replace '1/2 at x = 2' with '1 at x = 2'; the inverse should return 3 because f(3) = 2."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5380,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 5377
+         },
+         "outputTokens": 381,
+         "outputTokenDetails": {
+          "textTokens": 298,
+          "reasoningTokens": 83
+         },
+         "totalTokens": 5761,
+         "raw": {
+          "input_tokens": 5380,
+          "input_tokens_details": {
+           "cache_write_tokens": 5377,
+           "cached_tokens": 0
+          },
+          "output_tokens": 381,
+          "output_tokens_details": {
+           "reasoning_tokens": 83
+          },
+          "total_tokens": 5761
+         },
+         "reasoningTokens": 83,
+         "cachedInputTokens": 0
+        },
+        "ms": 8858,
+        "flags": [
+         "accurate: Choice D's rationale incorrectly states that its expression gives 1/2 at x = 2. Substitution gives 1/((2 − 2)² + 1) = 1. Replace '1/2 at x = 2' with '1 at x = 2'; the inverse should return 3 because f(3) = 2."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale incorrectly says its expression gives 1/2 at x = 2. It gives 1/((2 − 2)² + 1) = 1. Replace '1/2' with '1'; the result still fails to recover the original input 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5380,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 5377,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 422,
+         "outputTokenDetails": {
+          "textTokens": 283,
+          "reasoningTokens": 139
+         },
+         "totalTokens": 5802,
+         "raw": {
+          "input_tokens": 5380,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 5377
+          },
+          "output_tokens": 422,
+          "output_tokens_details": {
+           "reasoning_tokens": 139
+          },
+          "total_tokens": 5802
+         },
+         "reasoningTokens": 139,
+         "cachedInputTokens": 5377
+        },
+        "ms": 8604,
+        "flags": [
+         "accurate: Choice D's rationale incorrectly says its expression gives 1/2 at x = 2. It gives 1/((2 − 2)² + 1) = 1. Replace '1/2' with '1'; the result still fails to recover the original input 3."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "In choice D's rationale, the expression 1/((x − 2)² + 1) evaluated at x = 2 equals 1, not 1/2."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6221,
+         "inputTokenDetails": {
+          "noCacheTokens": 6221,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2078,
+         "outputTokenDetails": {
+          "textTokens": 300,
+          "reasoningTokens": 1778
+         },
+         "totalTokens": 8299,
+         "raw": {
+          "thoughtsTokenCount": 1778,
+          "promptTokenCount": 6221,
+          "candidatesTokenCount": 300,
+          "totalTokenCount": 8299,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 6221
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 300
+           }
+          ]
+         },
+         "reasoningTokens": 1778,
+         "cachedInputTokens": 0
+        },
+        "ms": 14856,
+        "flags": [
+         "accurate: In choice D's rationale, the expression 1/((x − 2)² + 1) evaluated at x = 2 equals 1, not 1/2."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "In choice D, the rationale states that 1/((x − 2)² + 1) evaluates to 1/2 at x = 2, but substituting x = 2 yields 1/((2 − 2)² + 1) = 1/1 = 1."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6221,
+         "inputTokenDetails": {
+          "noCacheTokens": 2214,
+          "cacheReadTokens": 4007
+         },
+         "outputTokens": 2456,
+         "outputTokenDetails": {
+          "textTokens": 324,
+          "reasoningTokens": 2132
+         },
+         "totalTokens": 8677,
+         "raw": {
+          "cachedContentTokenCount": 4007,
+          "thoughtsTokenCount": 2132,
+          "promptTokenCount": 6221,
+          "candidatesTokenCount": 324,
+          "totalTokenCount": 8677,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 6221
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 4007
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 324
+           }
+          ]
+         },
+         "reasoningTokens": 2132,
+         "cachedInputTokens": 4007
+        },
+        "ms": 24319,
+        "flags": [
+         "accurate: In choice D, the rationale states that 1/((x − 2)² + 1) evaluates to 1/2 at x = 2, but substituting x = 2 yields 1/((2 − 2)² + 1) = 1/1 = 1."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "In choice D's rationale, the example states the reciprocal expression gives 1/2 at x = 2; actually it gives 1 at x = 2, and it gives 1/2 at x = 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5649,
+         "inputTokenDetails": {
+          "noCacheTokens": 657,
+          "cacheReadTokens": 4992
+         },
+         "outputTokens": 5789,
+         "outputTokenDetails": {
+          "textTokens": 239,
+          "reasoningTokens": 5550
+         },
+         "totalTokens": 11438,
+         "raw": {
+          "prompt_tokens": 5649,
+          "completion_tokens": 5789,
+          "prompt_cache_hit_tokens": 4992,
+          "prompt_cache_miss_tokens": 657,
+          "total_tokens": 11438,
+          "prompt_tokens_details": {
+           "cached_tokens": 4992
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5550
+          }
+         },
+         "reasoningTokens": 5550,
+         "cachedInputTokens": 4992
+        },
+        "ms": 56330,
+        "flags": [
+         "accurate: In choice D's rationale, the example states the reciprocal expression gives 1/2 at x = 2; actually it gives 1 at x = 2, and it gives 1/2 at x = 3."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale says the reciprocal expression gives 1/2 at x = 2, but at x = 2 it gives 1; it gives 1/2 at x = 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5649,
+         "inputTokenDetails": {
+          "noCacheTokens": 17,
+          "cacheReadTokens": 5632
+         },
+         "outputTokens": 6503,
+         "outputTokenDetails": {
+          "textTokens": 261,
+          "reasoningTokens": 6242
+         },
+         "totalTokens": 12152,
+         "raw": {
+          "prompt_tokens": 5649,
+          "completion_tokens": 6503,
+          "prompt_cache_hit_tokens": 5632,
+          "prompt_cache_miss_tokens": 17,
+          "total_tokens": 12152,
+          "prompt_tokens_details": {
+           "cached_tokens": 5632
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6242
+          }
+         },
+         "reasoningTokens": 6242,
+         "cachedInputTokens": 5632
+        },
+        "ms": 64355,
+        "flags": [
+         "accurate: Choice D's rationale says the reciprocal expression gives 1/2 at x = 2, but at x = 2 it gives 1; it gives 1/2 at x = 3."
+        ]
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D: claims the reciprocal gives 1/2 at x = 2, but 1/((2-2)²+1) = 1, not 1/2; 1/2 occurs at x = 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 4724,
+         "inputTokenDetails": {
+          "noCacheTokens": 4724,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 6361,
+         "outputTokenDetails": {
+          "textTokens": 206,
+          "reasoningTokens": 6155
+         },
+         "totalTokens": 11085,
+         "raw": {
+          "input_tokens": 4724,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 6361,
+          "output_tokens_details": {
+           "reasoning_tokens": 6155
+          },
+          "total_tokens": 11085
+         },
+         "reasoningTokens": 6155,
+         "cachedInputTokens": 0
+        },
+        "ms": 88119,
+        "flags": [
+         "accurate: D: claims the reciprocal gives 1/2 at x = 2, but 1/((2-2)²+1) = 1, not 1/2; 1/2 occurs at x = 3."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D rationale claims the reciprocal gives 1/2 at x = 2; it gives 1 at x = 2 and 1/2 at x = 3."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 4724,
+         "inputTokenDetails": {
+          "noCacheTokens": 4724,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 5188,
+         "outputTokenDetails": {
+          "textTokens": 194,
+          "reasoningTokens": 4994
+         },
+         "totalTokens": 9912,
+         "raw": {
+          "input_tokens": 4724,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 5188,
+          "output_tokens_details": {
+           "reasoning_tokens": 4994
+          },
+          "total_tokens": 9912
+         },
+         "reasoningTokens": 4994,
+         "cachedInputTokens": 0
+        },
+        "ms": 22945,
+        "flags": [
+         "accurate: Choice D rationale claims the reciprocal gives 1/2 at x = 2; it gives 1 at x = 2 and 1/2 at x = 3."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-precalculus__2.8#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 4838,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 4835,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 766,
+    "outputTokenDetails": {
+     "textTokens": 444,
+     "reasoningTokens": 322
+    },
+    "totalTokens": 5604,
+    "raw": {
+     "input_tokens": 4838,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 4835
+     },
+     "output_tokens": 766,
+     "output_tokens_details": {
+      "reasoning_tokens": 322
+     },
+     "total_tokens": 5604
+    },
+    "reasoningTokens": 322,
+    "cachedInputTokens": 4835
+   },
+   "item": {
+    "subject_key": "ap-precalculus",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Inverse Functions",
+    "stem": "Let f(x) = (x−2)²+3 with domain x ≤ 2. Which statement correctly describes whether f has an inverse function and, if so, its formula and domain?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "f has inverse f⁻¹(x) = 2+√(x−3), with domain x ≥ 3.",
+      "is_correct": false,
+      "rationale": "Wrong square-root branch: the positive branch produces outputs greater than 2 when x > 3, outside the original domain. The inverse must return values at most 2. Fix: Choose the square-root branch whose outputs lie in the original domain."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "f has inverse f⁻¹(x) = 2−√(x−3), with domain x ≤ 2.",
+      "is_correct": false,
+      "rationale": "Domain-copying error: an inverse takes inputs from the original function’s range, not its domain. Here that range is y ≥ 3, and the proposed domain makes the square root nonreal. Fix: Find the original range and use it as the inverse’s domain."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "f has inverse f⁻¹(x) = 2−√(x−3), with domain x ≥ 3.",
+      "is_correct": true,
+      "rationale": "On x ≤ 2, f is strictly decreasing, so it is one-to-one, with range y ≥ 3. Swapping x and y gives x = (y−2)²+3; choosing y ≤ 2 gives y = 2−√(x−3), whose domain is the original range."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "f has no inverse function because quadratic functions are not one-to-one.",
+      "is_correct": false,
+      "rationale": "Ignoring the domain restriction: a quadratic is not one-to-one on all real numbers, but this function is restricted to x ≤ 2. On that domain, each output comes from exactly one input. Fix: Check one-to-one behavior only on the stated domain."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 687,
+         "inputTokenDetails": {
+          "noCacheTokens": 687,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 717,
+         "raw": {
+          "input_tokens": 687,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1689,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 389,
+         "inputTokenDetails": {
+          "noCacheTokens": 389,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 474,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 444
+         },
+         "totalTokens": 863,
+         "raw": {
+          "thoughtsTokenCount": 444,
+          "promptTokenCount": 389,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 863,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 389
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 444,
+         "cachedInputTokens": 0
+        },
+        "ms": 4056,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 446,
+         "inputTokenDetails": {
+          "noCacheTokens": 190,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 451,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 425
+         },
+         "totalTokens": 897,
+         "raw": {
+          "prompt_tokens": 446,
+          "completion_tokens": 451,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 190,
+          "total_tokens": 897,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 425
+          }
+         },
+         "reasoningTokens": 425,
+         "cachedInputTokens": 256
+        },
+        "ms": 5704,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 213,
+         "inputTokenDetails": {
+          "noCacheTokens": 213,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1358,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1333
+         },
+         "totalTokens": 1571,
+         "raw": {
+          "input_tokens": 213,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1358,
+          "output_tokens_details": {
+           "reasoning_tokens": 1333
+          },
+          "total_tokens": 1571
+         },
+         "reasoningTokens": 1333,
+         "cachedInputTokens": 0
+        },
+        "ms": 13579,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 9257,
+         "inputTokenDetails": {
+          "noCacheTokens": 917,
+          "cacheReadTokens": 8340,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 498,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 286
+         },
+         "totalTokens": 9755,
+         "raw": {
+          "input_tokens": 917,
+          "output_tokens": 498,
+          "output_tokens_details": {
+           "thinking_tokens": 286
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 8340,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 286,
+         "cachedInputTokens": 8340
+        },
+        "ms": 6862,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6149,
+         "inputTokenDetails": {
+          "noCacheTokens": 6149,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1503,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1241
+         },
+         "totalTokens": 7652,
+         "raw": {
+          "thoughtsTokenCount": 1241,
+          "promptTokenCount": 6149,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 7652,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 6149
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1241,
+         "cachedInputTokens": 0
+        },
+        "ms": 10588,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5582,
+         "inputTokenDetails": {
+          "noCacheTokens": 462,
+          "cacheReadTokens": 5120
+         },
+         "outputTokens": 6305,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6086
+         },
+         "totalTokens": 11887,
+         "raw": {
+          "prompt_tokens": 5582,
+          "completion_tokens": 6305,
+          "prompt_cache_hit_tokens": 5120,
+          "prompt_cache_miss_tokens": 462,
+          "total_tokens": 11887,
+          "prompt_tokens_details": {
+           "cached_tokens": 5120
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6086
+          }
+         },
+         "reasoningTokens": 6086,
+         "cachedInputTokens": 5120
+        },
+        "ms": 61613,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 4660,
+         "inputTokenDetails": {
+          "noCacheTokens": 4660,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4610,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 4453
+         },
+         "totalTokens": 9270,
+         "raw": {
+          "input_tokens": 4660,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 4610,
+          "output_tokens_details": {
+           "reasoning_tokens": 4453
+          },
+          "total_tokens": 9270
+         },
+         "reasoningTokens": 4453,
+         "cachedInputTokens": 0
+        },
+        "ms": 32256,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5305,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 5302
+         },
+         "outputTokens": 289,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 67
+         },
+         "totalTokens": 5594,
+         "raw": {
+          "input_tokens": 5305,
+          "input_tokens_details": {
+           "cache_write_tokens": 5302,
+           "cached_tokens": 0
+          },
+          "output_tokens": 289,
+          "output_tokens_details": {
+           "reasoning_tokens": 67
+          },
+          "total_tokens": 5594
+         },
+         "reasoningTokens": 67,
+         "cachedInputTokens": 0
+        },
+        "ms": 5957,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-precalculus__2.8#r2-openai",
+ "accepted_at": "2026-10-09T16:43:15.617Z"
+}

@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Emit a read-only SQL query that compares loaded TASK-0065 text with the
-source JSON (md5 of stem + choices). Usage: hash_check_sql.py [subject ...]"""
+source JSON (md5 of stem + choices).
+
+Usage: hash_check_sql.py [--input=<accepted.json>] [subject ...]
+"""
 import hashlib, json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from build_load_sql import SRC, EXCLUDE, PREFIX
-subs = set(sys.argv[1:]) or set(PREFIX)
+from build_load_sql import SRC, EXCLUDE, PREFIX, _arg
+src = os.path.abspath(_arg('input', SRC))
+subs = {arg for arg in sys.argv[1:] if not arg.startswith('--input=')} or set(PREFIX)
 rows = []
-for it in json.load(open(SRC)):
+for it in json.load(open(src)):
     s = it['subject_key']
     if s not in subs or it['topic_code'] in EXCLUDE.get(s, set()):
         continue

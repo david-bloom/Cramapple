@@ -31,12 +31,15 @@ EXCLUDE = {
 }
 # content_key prefix follows each subject's existing casing convention.
 PREFIX = {'biology': 'APBIO-OHT-', 'ap-statistics': 'APSTATS-OHT-',
-          'ap-chemistry': 'apchem-oht-', 'ap-calculus-ab': 'apcalcab-oht-'}
+          'ap-chemistry': 'apchem-oht-', 'ap-calculus-ab': 'apcalcab-oht-',
+          'ap-calculus-bc': 'apcalcbc-oht-', 'ap-precalculus': 'apprecalc-oht-'}
 # Taxonomy source versions are identical in Development and Production.
 TSV = {'biology': 'c676d1fc-3b58-4896-89e3-852d9bd1f81b',
        'ap-statistics': 'dae3c72e-82ca-4960-9552-1b034bd347e5',
        'ap-chemistry': 'cbe3116f-6ef5-410c-b535-e9fb711c4c2c',
-       'ap-calculus-ab': '33b4408b-0ecc-4c7a-b0b1-612db81164a1'}
+       'ap-calculus-ab': '33b4408b-0ecc-4c7a-b0b1-612db81164a1',
+       'ap-calculus-bc': 'ab088009-dc9a-4f93-8824-803e1913505b',
+       'ap-precalculus': '16383753-6775-430d-960a-544cd6ee0972'}
 OWNER = 'f5a26c6b-3566-4d58-9e97-979fbb947564'  # approved_by when the profile exists
 NOTE = 'TASK-0065 batch 2026-10-06'
 CELL_SOURCE = 'task0065_oht_generated_2026_10_06'
@@ -150,12 +153,27 @@ end
 $oht0065$;
 """
 
+def _arg(name, default):
+    prefix = f'--{name}='
+    for arg in sys.argv[1:]:
+        if arg.startswith(prefix):
+            return arg[len(prefix):]
+    return default
+
 def main():
-    items = json.load(open(SRC))
-    os.makedirs(OUT, exist_ok=True)
+    src = os.path.abspath(_arg('input', SRC))
+    out = os.path.abspath(_arg('out', OUT))
+    requested = _arg('subjects', '')
+    subjects = set(requested.split(',')) if requested else None
+    note = _arg('note', NOTE)
+    cell_source = _arg('cell-source', CELL_SOURCE)
+    items = json.load(open(src))
+    os.makedirs(out, exist_ok=True)
     by = {}
     for it in items:
         s = it['subject_key']
+        if subjects is not None and s not in subjects:
+            continue
         if it['topic_code'] in EXCLUDE.get(s, set()):
             continue
         assert len(it['choices']) == 4 and sum(c['is_correct'] for c in it['choices']) == 1
@@ -176,8 +194,8 @@ def main():
         payload = json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
         assert JTAG not in payload and '$oht0065$' not in payload
         sql = TEMPLATE.format(subject=s, n=len(rows), tsv=TSV[s], owner=OWNER, jtag=JTAG,
-                              payload=payload, cell_source=CELL_SOURCE, note=NOTE)
-        path = os.path.join(OUT, f'{s}.sql')
+                              payload=payload, cell_source=cell_source, note=note)
+        path = os.path.join(out, f'{s}.sql')
         open(path, 'w').write(sql)
         print(s, len(rows), path, len(sql))
 

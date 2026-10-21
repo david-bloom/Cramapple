@@ -1,0 +1,46 @@
+[
+ {
+  "subject_key": "ap-precalculus",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Sine and Cosine Function Graphs",
+  "stem": "Consider the graph of the parent function y = sin x on the interval 0 ≤ x ≤ 2π. Which list gives the points on this graph at x = 0, π/2, π, 3π/2, and 2π, in that order?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "(0, 1), (π/2, 0), (π, −1), (3π/2, 0), (2π, 1)",
+    "is_correct": false,
+    "rationale": "This swaps sine and cosine. These are the anchor points of y = cos x, which starts at its maximum, but sin 0 = 0, so the sine graph starts at the origin. Fix: Evaluate sin 0 first and check whether the graph starts at 0 or at 1."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "(0, 0), (π/2, −1), (π, 0), (3π/2, 1), (2π, 0)",
+    "is_correct": false,
+    "rationale": "This puts the extrema in the wrong quarter-periods, so the graph dips first. Since sin(π/2) = 1 and sin(3π/2) = −1, sine rises to its maximum before it reaches its minimum. Fix: Find the unit-circle point at π/2 and read its y-coordinate to set the first extremum."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, 1), (2π, 0)",
+    "is_correct": false,
+    "rationale": "This treats sine as never negative. On (π, 2π) the unit-circle point lies below the x-axis, so sine is negative there, and the range of sine is [−1, 1]. Fix: Check the sign of the y-coordinate at 3π/2 on the unit circle before you plot it."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "(0, 0), (π/2, 1), (π, 0), (3π/2, −1), (2π, 0)",
+    "is_correct": true,
+    "rationale": "Sine is the y-coordinate on the unit circle. It starts at 0, rises to its maximum 1 at π/2, returns to 0 at π, and falls to its minimum −1 at 3π/2. It returns to 0 at 2π, completing one period."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-precalculus__3.4#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "precalc-3-4-rerun"
+  }
+ }
+]

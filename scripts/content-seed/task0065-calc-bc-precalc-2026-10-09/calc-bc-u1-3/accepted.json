@@ -1,0 +1,354 @@
+[
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "stem": "A moving object's position at time t seconds is s(t) meters. Assume its instantaneous rate of change at t = 5 exists. Which procedure defines this instantaneous rate, rather than an average rate over a fixed interval?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Evaluate (s(5)−s(5))/(5−5).",
+    "is_correct": false,
+    "rationale": "Zero-interval substitution attempts to use an average-rate quotient at a single instant. This gives 0/0, which is undefined, not an instantaneous rate. Fix: Use nonzero time intervals and consider what their average rates approach."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Compute (s(6)−s(4))/(6−4).",
+    "is_correct": false,
+    "rationale": "Fixed-interval confusion substitutes an average rate around the instant for the instantaneous rate. This quotient describes the entire interval from 4 to 6 seconds, even if it happens to equal the instantaneous rate. Fix: Shrink the interval toward t = 5 instead of keeping its endpoints fixed."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Divide the position s(5) by the elapsed time 5.",
+    "is_correct": false,
+    "rationale": "Position-versus-change confusion treats position divided by time as an instantaneous rate. The quotient s(5)/5 does not generally measure even an average rate unless the initial position is zero. Fix: Compute position changes over shrinking time intervals, rather than dividing position by time."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Find the value approached by average rates over nonzero time intervals containing t = 5 as those intervals shrink toward t = 5.",
+    "is_correct": true,
+    "rationale": "Average rates describe position change over time intervals. The instantaneous rate is the value these average rates approach as the intervals shrink toward the single instant."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__1.1#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 1,
+  "topic_code": "1.16",
+  "topic_title": "Working with the Intermediate Value Theorem",
+  "stem": "Let f be a polynomial with f(1) = 2 and f(5) = 8. Which statement is guaranteed by the Intermediate Value Theorem?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is at least one c in (1,5) such that f(c) = 5.",
+    "is_correct": true,
+    "rationale": "Polynomials are continuous on [1,5], and 2 < 5 < 8. The Intermediate Value Theorem therefore guarantees at least one c in (1,5) with f(c) = 5."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is exactly one c in (1,5) such that f(c) = 5.",
+    "is_correct": false,
+    "rationale": "Existence-versus-uniqueness error: the theorem guarantees that f reaches 5, but a polynomial can reach that value more than once. Fix: Check whether the theorem guarantees existence or also guarantees uniqueness."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "f(3) = 5.",
+    "is_correct": false,
+    "rationale": "Midpoint interpolation error: averaging the endpoint inputs and outputs assumes a linear relationship that is not given. The theorem guarantees an input where f equals 5, not its exact location. Fix: Distinguish an existence conclusion from a claim about a specific input."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "There is at least one c in (1,5) such that f(c) = 10.",
+    "is_correct": false,
+    "rationale": "Target-value condition error: 10 lies outside [2,8], so the given endpoint values do not guarantee that f reaches 10 inside the interval. Fix: Compare the target value with both endpoint outputs before applying the theorem."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__1.16#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "stem": "The graph of f is described as follows: As x approaches 3 from the left, the graph approaches an open circle at (3, 2). As x approaches 3 from the right, the graph approaches an open circle at (3, 6). A filled point is located at (3, 4). What is lim x→3 f(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "2",
+    "is_correct": false,
+    "rationale": "Left-side-only error: This uses the value approached by the left branch but ignores the right branch, which approaches 6. Fix: Trace both branches toward the input and compare their approached values."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit does not exist.",
+    "is_correct": true,
+    "rationale": "The graph approaches 2 from the left and 6 from the right. A two-sided limit requires the same value from both sides, so the unequal one-sided limits mean this limit does not exist."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "6",
+    "is_correct": false,
+    "rationale": "Right-side-only error: This uses the value approached by the right branch but ignores the left branch, which approaches 2. Fix: Check the left-hand behavior before concluding that a two-sided limit exists."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "4",
+    "is_correct": false,
+    "rationale": "Function-value confusion: The filled point gives f(3) = 4, not the value approached nearby. The two branches approach different heights, so the filled point cannot determine this limit. Fix: Trace the nearby branches from both sides before looking at the filled point."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__1.3#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Selecting Procedures for Determining Limits",
+  "stem": "Which procedure is appropriate for determining lim x→2 |x−2|/(x−2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Replace |x−2| with x−2 on both sides of 2, then cancel to obtain a limit of 1.",
+    "is_correct": false,
+    "rationale": "Absolute-value removal error: |x−2| equals x−2 only when x ≥ 2. For x < 2, |x−2| = −(x−2), so this cancellation ignores the left-hand behavior. Fix: Write the absolute-value expression separately for x < 2 and x > 2."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Check the left-hand and right-hand limits separately, using the appropriate expression for |x−2| on each side.",
+    "is_correct": true,
+    "rationale": "The absolute value requires different expressions on the two sides of 2. For x < 2, the quotient is −1; for x > 2, it is 1, so the unequal one-sided limits show that the two-sided limit does not exist."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Use direct substitution and interpret 0/0 as a limit of 0.",
+    "is_correct": false,
+    "rationale": "Indeterminate-form error: 0/0 is not a number and does not determine the limit. Direct substitution therefore does not resolve this problem. Fix: When substitution gives 0/0, examine the expression for nearby inputs."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Use the denominator’s approach to 0 to conclude that the limit is ∞.",
+    "is_correct": false,
+    "rationale": "Zero-denominator shortcut: a denominator approaching 0 does not by itself imply an infinite limit. Here, the numerator also approaches 0, and the quotient remains either −1 or 1 for x ≠ 2. Fix: Check the numerator and simplify the quotient on each side before concluding infinite behavior."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__1.7#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "stem": "A graph of y = f(x) has an open circle at (2, 5) and a filled point at (2, 8). As x approaches 2 from either side, the graph approaches the open circle. Which limit statement matches this graphical description?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "lim x→2 f(x) = 8",
+    "is_correct": false,
+    "rationale": "Function-value confusion uses the filled point’s height as the limit. The filled point gives f(2) = 8, but nearby graph values approach 5. Fix: Follow the graph from both sides instead of using the filled point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "lim x→2 f(x) = 5",
+    "is_correct": true,
+    "rationale": "From both sides of x = 2, the graph’s y-values approach 5. Thus, the graphical description translates to: as x approaches 2, f(x) approaches 5, regardless of the filled point’s height."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "lim x→2 f(x) = 2",
+    "is_correct": false,
+    "rationale": "Input-output confusion uses the approaching x-value as the limit of f(x). Here, 2 is the input being approached, while 5 is the output being approached. Fix: Identify the approached x-coordinate and y-coordinate separately before writing the limit."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "lim x→2 f(x) does not exist",
+    "is_correct": false,
+    "rationale": "Open-circle confusion treats a hole as preventing a limit from existing. A limit describes nearby behavior, and the graph approaches the same height from both sides. Fix: Compare the approached heights on both sides before deciding whether the limit exists."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__1.9#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "stem": "A cup of tea is cooling. The table gives its temperature T(t), in degrees Celsius, at selected times t, in minutes. t: 0, 2, 5, 6, 9. T(t): 70, 64, 58, 55, 49. Using the data at the nearest table times on either side of t = 5, which is the best estimate of T′(5)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "−7/3 °C per minute",
+    "is_correct": false,
+    "rationale": "This uses the distant endpoints t = 0 and t = 9, giving (49 − 70)/9, the average rate over the whole table. Values far from t = 5 describe the overall trend, not the local rate at t = 5. Fix: Pick the table values closest to the target time on each side before computing the slope."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "−9 °C per minute",
+    "is_correct": false,
+    "rationale": "This finds the temperature change 55 − 64 but never divides by the elapsed time of 4 minutes. A change in temperature is measured in °C, not °C per minute, so it is not a rate. Fix: Divide the output change by the input change and check that the units read °C per minute."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "−2.25 °C per minute",
+    "is_correct": true,
+    "rationale": "The nearest times bracketing t = 5 are t = 2 and t = 6, so T′(5) ≈ (55 − 64)/(6 − 2) = −9/4 = −2.25. This difference quotient is a local slope estimate in °C per minute, not an exact derivative value."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "2.25 °C per minute",
+    "is_correct": false,
+    "rationale": "This is a sign error from subtracting temperatures and times in opposite orders, such as (64 − 55)/(6 − 2). The temperature is falling between t = 2 and t = 6, so the rate must be negative. Fix: Subtract outputs and inputs in the same order, then check whether the sign matches increasing or decreasing data."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__2.3#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Derivative Rules: Constant, Sum, Difference, and Constant Multiple",
+  "stem": "Let g and h be differentiable functions with g′(2) = 5 and h′(2) = −2. Define f(x) = 4g(x) − 3h(x) + 7. What is f′(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "33",
+    "is_correct": false,
+    "rationale": "Constant-retention error: adding 7 to the derivative gives 33, but the derivative of a constant is 0. Fix: Replace each constant term with 0 before evaluating the derivative."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "14",
+    "is_correct": false,
+    "rationale": "Sign error: subtracting 3h′(2) means subtracting −6, not subtracting 6. The subtraction sign in f remains when differentiating. Fix: Substitute negative derivative values in parentheses before simplifying signs."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "26",
+    "is_correct": true,
+    "rationale": "Differentiate term by term, preserving each coefficient and subtraction sign; the constant 7 has derivative 0. Thus f′(2) = 4g′(2) − 3h′(2) = 4(5) − 3(−2) = 26."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "7",
+    "is_correct": false,
+    "rationale": "Constant-multiple error: 5 − (−2) = 7 omits the coefficients 4 and 3. These coefficients must multiply the corresponding derivatives. Fix: Copy each coefficient beside its function’s derivative before substituting values."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__2.6#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-bc",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "Calculating Higher-Order Derivatives",
+  "stem": "Let f(x) = x⁴ − 3x³ + 2x. What is f″(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "12",
+    "is_correct": true,
+    "rationale": "Differentiate twice: f′(x) = 4x³ − 9x² + 2 and f″(x) = 12x² − 18x. Then f″(2) = 48 − 36 = 12."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "−2",
+    "is_correct": false,
+    "rationale": "Stopping after one derivative gives f′(2) = −2, not f″(2). The double prime requires differentiating the original function twice. Fix: Write f′(x), then differentiate it before substituting x = 2."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "30",
+    "is_correct": false,
+    "rationale": "Differentiating one time too many gives f‴(x) = 24x − 18 and f‴(2) = 30. The question asks for the second derivative, not the third. Fix: Count the primes and stop after that many differentiations."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Substituting too early gives the constant f(2) = −4, whose derivatives are zero. Differentiating this constant does not compute the derivatives of f at x = 2. Fix: Differentiate the function twice before evaluating at x = 2."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-bc__3.6#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "meta/muse-spark-1.3"
+   ],
+   "batch": "calc-bc-u1-3"
+  }
+ }
+]

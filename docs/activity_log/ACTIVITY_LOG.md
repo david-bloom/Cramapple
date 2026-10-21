@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0065 Calculus BC + Precalculus teaching-batch records recovered (2026-10-21, owner request): the provenance for 38 Production Open Hand teaching items (8 Calc BC, 30 Precalc, loaded 2026-10-09) existed only as uncommitted files in the main checkout; landed with the loader changes, reference-pack checker logs and the AP Chemistry reviewer bake-off. Verified against Production: 36/38 byte-identical, 2 differ only by the later in-place LaTeX rewrite.
+
 - Code and branch cleanup (2026-10-21, owner request): dead code removed from edge functions and `web/` (PR #511, no behaviour change, not deployed); 37 worktrees and 51 merged or superseded local branches removed (tip SHAs in the local `.git/deleted_branches_2026-10-21.txt`); stranded records recovered to `main` (this PR) and the two course-mode Stats worktrees archived to `archive/course-mode-stats-*-uncommitted-2026-08-27`. Open owner decisions listed in the entry.
 
 - TASK-0077 **launched in Production** (2026-10-20 to 2026-10-21, session closed at owner request): runbook steps 2–6 executed (email foundation, trial backend, Stripe live events, Lovable publishes, admission on ~12:25 UTC 2026-10-21); David's $1 live trial passed start → charge → convert → refund; same-day fixes live (marketing trial flag `779c7320`, Google sign-in nonce `a4bb0577`, Home inline cancel `4f71acbd`). Lawyer review waived by David. Records PR #509. Open: step 7 watch, cardless retirement, Promotions placement, checkout subjects 401. [Session close](../handoffs/SESSION_CLOSE_2026_10_21_TASK0077_LAUNCH.md).
@@ -218,6 +220,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — TASK-0065 Calc BC / Precalculus batch records recovered
+
+Owner request ("execute your recommendations") after reviewing the main checkout's uncommitted state (branch `claude/task-0067-production-records`, remote deleted).
+
+- **Recovered to `main`:** `scripts/content-seed/task0065-calc-bc-precalc-2026-10-09/` (scope, per-subject accepted sets, call logs, controls, the Precalc 3.4 rerun and both load SQL files) and the uncommitted loader changes it depends on: `task0065_load/build_load_sql.py` (Calc BC and Precalc prefixes and taxonomy source versions; optional `--input/--out/--subjects/--note/--cell-source`, defaults unchanged), `hash_check_sql.py` (`--input`), `teaching_pipeline/run.mjs` (`--scope`) and `briefs_all.json` (Precalc 3.4 brief corrected from amplitude/vertical shift to sine and cosine parent graphs, matching CED topic 3.4).
+- **Verification:** the recovered loader rebuilds both committed load files byte-identically from the recovered `accepted.json`. The repo's read-only hash check against Production: 38 expected, 38 loaded, 36 byte-identical; `apprecalc-oht-2.3` and `-2.4` differ only because their choices were later rewritten in place to LaTeX (DECISION-0119/0120 rollout), same stems and keys.
+- **Also landed:** 178 reference-pack checker logs from the 2026-10-10 runs (pipelines already on `main`), the 2026-10-09 AP Chemistry independent-reviewer bake-off (smoke test; scripts read the gateway key from `.env.local`, contain none), and a missing link from the TASK-0068 browser QA report to its rerun. Credential scan clean; nothing on `main` overwritten.
+- **Archived, not merged:** the Deep Dive prototypes (`AP_STATS_1_7_DEEP_DIVE_*`, `DEEP_DIVE_SIMPLE*`) and the uncommitted 112-line addition to `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` (sequential unit authoring, Phase 0, Phase 1 AP Statistics 1.7 website pilot) are on `archive/deep-dive-prototypes-2026-10-08`. The protocol is marked canonical and no approval of the pilot was found, so the edits were not landed as policy.
+- **Discarded:** 33 untracked files byte-identical to `main`, and `METRICS_RAW.log` (one timing line from 2026-10-02).
 
 ## 2026-10-21 — Code and branch cleanup
 
