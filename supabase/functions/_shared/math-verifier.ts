@@ -1,4 +1,4 @@
-import { detectAmbiguousTypedFormulaText, resolveFormulaActionHint, resolveFormulaRepairHint } from "./formula-notation.ts";
+import { detectAmbiguousTypedFormulaText } from "./formula-notation.ts";
 
 export type FormulaKind = "expression" | "antiderivative" | "numeric" | "conceptual";
 export type FormulaVerdict = "PASS" | "FLAG" | "ABSTAIN";
@@ -115,7 +115,6 @@ function factorial(n: number): number {
   for (let i = 2; i <= Math.round(n); i++) acc *= i;
   return acc;
 }
-const CONSTANT_NAMES = new Set(["e", "pi", "C", "c"]);
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -451,14 +450,6 @@ function makeRng(seed: number) {
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-}
-
-function finite(value: unknown): value is number {
-  return typeof value === "number" && Number.isFinite(value);
-}
-
-function isComparableValue(value: unknown) {
-  return finite(value) && Number.isFinite(value);
 }
 
 function buildSamplePoints(domain: [number, number], count: number) {
@@ -916,22 +907,6 @@ export function coerceEcfQuestion(
     parts: item.ecf_parts,
     student,
   };
-}
-
-export function detectTypedFormulaFeedback(
-  responseText: string | null,
-  canonical: string | null,
-  kind: FormulaKind,
-  variables?: string[],
-  variable?: string,
-) {
-  return checkFormulaCase({
-    kind,
-    canonical,
-    response: responseText ?? "",
-    variables,
-    var: variable,
-  });
 }
 
 const STATISTICS_ITEM_KEYS: Record<string, {

@@ -62,68 +62,6 @@ export function mergeStudentMemoryState(
   };
 }
 
-export function buildSessionMemoryState(input: {
-  currentMemoryState?: StudentMemoryState;
-  subjectId: string;
-  subjectKey: string;
-  subjectName: string;
-  examPackVersionId: string;
-  sessionId: string;
-  entryPath: string;
-  sessionMode: string;
-  availableMinutes: number;
-  sessionStatus: string;
-  startedAt?: string | null;
-  endedAt?: string | null;
-  guidanceDefaults?: StudentMemoryState;
-}) {
-  const base = input.currentMemoryState ?? {};
-  return mergeStudentMemoryState(base, {
-    subject_id: input.subjectId,
-    subject_key: input.subjectKey,
-    subject_name: input.subjectName,
-    last_exam_pack_version_id: input.examPackVersionId,
-    last_session_id: input.sessionId,
-    last_entry_path: input.entryPath,
-    last_session_mode: input.sessionMode,
-    last_available_minutes: input.availableMinutes,
-    last_session_status: input.sessionStatus,
-    last_session_started_at: input.startedAt ?? null,
-    last_session_ended_at: input.endedAt ?? null,
-    preferred_help_style:
-      asString(base.preferred_help_style) ??
-      asString(input.guidanceDefaults?.help_style) ??
-      "balanced",
-    preferred_feedback_density:
-      asString(base.preferred_feedback_density) ??
-      asString(input.guidanceDefaults?.feedback_density) ??
-      "balanced",
-    preferred_repair_style:
-      asString(base.preferred_repair_style) ??
-      asString(input.guidanceDefaults?.preferred_repair_style) ??
-      "minimum_fix",
-    preferred_representation_order:
-      base.preferred_representation_order ??
-      input.guidanceDefaults?.preferred_representation_order ??
-      [],
-    subject_specific_checks:
-      base.subject_specific_checks ??
-      input.guidanceDefaults?.subject_specific_checks ??
-      [],
-    latest_session_modes: mergeStringArrays(
-      base.latest_session_modes,
-      [input.sessionMode],
-    ),
-    latest_entry_paths: mergeStringArrays(
-      base.latest_entry_paths,
-      [input.entryPath],
-    ),
-    evidence_count: Number.isFinite(Number(base.evidence_count))
-      ? Number(base.evidence_count)
-      : 0,
-  });
-}
-
 export function buildGradingMemoryState(input: {
   currentMemoryState?: StudentMemoryState;
   subjectId: string;

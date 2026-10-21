@@ -65,8 +65,6 @@ export const ALL_QUESTIONS = TOPICS.flatMap((t) => t.questions);
  */
 export { REAL_ITEMS };
 
-export const TOTAL_QUESTIONS = ALL_QUESTIONS.length;
-
 export function getQuestion(packageId) {
   return ALL_QUESTIONS.find((q) => q.package_id === packageId)
     || REAL_ITEMS.find((q) => q.package_id === packageId)
