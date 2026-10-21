@@ -100,7 +100,7 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
 
 Codex confirmed F5 closed and found **F7 (P2):** a failed-payment event whose webhook ledger acknowledgement fails after the
 count committed is retried by Stripe and counted again (probe: 500 → 200, count 1 → 2), so the five-attempt cap can be reached
-early. Fix, migration `20261021000100_task0077_trial_qa_round5.sql` (not yet applied anywhere): new service-only table
+early. Fix, migration `20261020235937_task0077_trial_qa_round5.sql` (on Development 2026-10-20, below; not on Production): new service-only table
 `app.trial_recovery_failure_events` (Stripe event id primary key); `trial_count_recovery_failure(order, intent, event id)`
 locks the order, records the event and increments in one transaction, and returns the unchanged count for an event already
 counted. The webhook passes `event.id` and refuses (so Stripe retries) a failure event without one.
@@ -110,6 +110,14 @@ same event leaves 2, another intent counts nothing). Codex's cleanup regression 
 counter as a plain increment, so it cannot see a fix that lives in SQL; with the stub changed to the round-5 behaviour (one
 count per `p_stripe_event_id`) the same 500 → retry → 200 path leaves the count at 1, which shows the handler sends the same
 event id on the retry.
+
+**Development deploy (2026-10-20, David approved).** Before: all nine trial functions matched `cfbd59b1`; only
+`stripe-webhook` changes. The migration (recorded **`20261020235937`**, file renamed) and the webhook deploy (`--no-verify-jwt`,
+from `43440c98`) went out seconds apart, since each side can call only one signature; no webhook event was left unprocessed
+in the half hour around it. Read-back: only the three-argument function exists; the table has RLS forced; `authenticated`
+can neither read it nor call the function. After: `stripe-webhook` matches `43440c98` (17 files, 0 differ). Live database
+check on sandbox order J, then undone in the same block: count 2 → 3 (new event) → 3 (same event again) → 4 (second event);
+another intent counts nothing; restored to 2.
 
 ## QA round 4 fixes (2026-10-20, Codex review of `fb1ace39`)
 
