@@ -92,7 +92,7 @@ export default {
       { term: 'Negative residual', definition: 'the line overpredicted; the observation sits below the line.' },
       { term: 'Predicted value', definition: 'ŷ at that observation\'s x.' }
     ],
-    onTheExam: 'Formula sheet does not give residual = actual − predicted. Memorise the order.'
+    onTheExam: 'Formula sheet does not give residual = actual − predicted. Memorize the order.'
   },
 
   deepDive: {

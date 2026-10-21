@@ -40,20 +40,20 @@ export default {
       text: 'Studying one more hour per week causes final exam scores to rise by 4.1 points.',
       is_correct: false,
       rationale: 'Observational data cannot support a causal claim; the line only describes association.',
-      minimum_fix: 'Reserve “causes” for randomised experiments.'
+      minimum_fix: 'Reserve “causes” for randomized experiments.'
     },
     {
       choice_key: 'D',
       text: 'The mean final exam score for these students is 4.1 points.',
       is_correct: false,
-      rationale: 'Reads the slope as if it were a centre. 4.1 is a rate of change, not a mean score.',
+      rationale: 'Reads the slope as if it were a center. 4.1 is a rate of change, not a mean score.',
       minimum_fix: 'Slope answers “per one more x”, never “on average, y is”.'
     }
   ],
 
   habits: {
     earned: ['Read the stem before the options.', 'Name the rate, then the response.', 'Check the response is a mean.'],
-    lost: ['Picking the first plausible wording.', 'Accepting a causal verb.', 'Reading slope as a centre.']
+    lost: ['Picking the first plausible wording.', 'Accepting a causal verb.', 'Reading slope as a center.']
   },
 
   hints: [
@@ -90,7 +90,7 @@ export default {
     sections: [
       { title: 'Promising an individual', body: 'The line predicts a mean. Any sentence that tells one student what they will score has left the model behind — the residual for that student is usually bigger than the slope.' },
       { title: 'Claiming a cause', body: 'These data are observational. Hours studied is entangled with prior grades, sleep and course load; the slope describes association only.' },
-      { title: 'Confusing rate with centre', body: 'Slope answers “per one more hour”. Intercept answers “at zero hours”. Neither answers “on average, what do students score?”.' }
+      { title: 'Confusing rate with center', body: 'Slope answers “per one more hour”. Intercept answers “at zero hours”. Neither answers “on average, what do students score?”.' }
     ]
   },
 

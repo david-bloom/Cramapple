@@ -158,7 +158,7 @@ export function PracticeMcqScreen({ question, onNext }) {
                 ))}
                 {submitted && shown.length < question.choices.length && (
                   <p style={{ margin: 0, fontSize: 'var(--type-count-size)', color: 'var(--text-quiet)' }}>
-                    The {question.choices.length - shown.length} options you did not pick are explained in the Answer Key.
+                    The {question.choices.length - shown.length} options you did not pick are listed in the Answer Key.
                   </p>
                 )}
               </div>
@@ -187,7 +187,7 @@ export function PracticeMcqScreen({ question, onNext }) {
             </div>
           </PaneShell>
 
-          <ReferencePane reference={question.reference} expectedReasoning={question.expectedReasoning} />
+          <ReferencePane reference={question.reference} />
         </>
       )}
     </QuestionPlate>

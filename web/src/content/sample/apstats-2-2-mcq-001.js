@@ -44,7 +44,7 @@ export default {
       text: 'Studying more hours produces higher final exam scores.',
       is_correct: false,
       rationale: 'A correlation from observational data describes association, not production of an effect.',
-      minimum_fix: 'Say "association" until a randomised design earns you "causes".'
+      minimum_fix: 'Say "association" until a randomized design earns you "causes".'
     },
     {
       choice_key: 'D',
