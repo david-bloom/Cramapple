@@ -185,11 +185,15 @@ setting it was first blocked by the session's permission rules; David added an a
   SELECT on every new `app` table, the trial tables included; forced RLS with a service-role-only policy means it reads 0 rows.
 - 3.2 done: 24 secrets (admission `false`, charges/notices `true`, `TRIAL_TERMS_VERSION=terms-2026-10-18`, new worker secret, 19
   trial Loops ids), digest-verified; 70 names now. `CARDLESS_TRIAL_RETIRED` unset.
-- 3.3 **not done**: writing the Vault entries was blocked by the session's permission rules (secret-store write); left to David.
+- 3.3 done 2026-10-21 01:16 UTC by David (the session's permission rules block Claude's secret-store writes): four entries
+  created with `supabase db query --linked --workdir ~` from a file built out of the step-2/3 secrets, values never printed;
+  read back by name, both URLs correct. (A first attempt from a fresh link folder failed on IPv6 before writing anything.)
 - 3.4 done: all ten functions deployed (`stripe-webhook` first; `get-trial-status` JWT-verified, the rest `--no-verify-jwt`;
   `start-trial` changes from gateway-JWT to its own `requireProfile` 401 check, as the runbook specifies); each downloaded back,
   0 files differ from `3616edff`.
-- 3.5 waits on 3.3.
+- 3.5 done: `app.invoke_charge_due_trials()` → HTTP 200 (`charges_enabled: true`, sweep zeros, heartbeat 01:17:30 UTC);
+  `app.invoke_deliver_transactional_email()` → HTTP 200 (trial `claimed 0`). Scheduled: cron job 5
+  `task0077-charge-due-trials` `*/5`, job 6 `task0077-deliver-transactional-email` `*/2`, both active.
 - 3.6 done except the 24-hour check: charge worker no secret 401; cancel and recovery unknown token 404; trial status no login
   401; webhook bad signature 400; `trial_quote` → `pay_now` / `admission_off`, $39.99, `terms-2026-10-18`, `trial-mandate-v4`;
   legacy pay-now checkout returned `cs_live_b18T1A9a1jJnfUy1EeSlbnmaaIyW35fB8gnZHbmBu1AypEoWqrWw5u0od1` with a client secret.
