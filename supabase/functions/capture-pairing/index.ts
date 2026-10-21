@@ -1,3 +1,4 @@
+import { storageObjectFingerprint, attachmentBindError as mapBindError } from "../_shared/storage-primitives.ts";
 import { trimmedNonEmptyString as asString, uuidShape as asUuid } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 // capture-pairing -- the QR capture bridge for Engine 4.
@@ -463,51 +464,9 @@ async function assertAttemptStillWritable(
 }
 
 /** Same storage-fingerprint TOCTOU guard `attach_capture` uses. */
-async function storageObjectFingerprint(
-  service: Service,
-  storagePath: string,
-): Promise<string | null> {
-  const slashIndex = storagePath.lastIndexOf("/");
-  const folder = slashIndex >= 0 ? storagePath.slice(0, slashIndex) : "";
-  const fileName = slashIndex >= 0
-    ? storagePath.slice(slashIndex + 1)
-    : storagePath;
-  const { data, error } = await service.storage.from(BUCKET)
-    .list(folder, { search: fileName, limit: 100 });
-  if (error || !data) return null;
-  const entry = data.find((item) => item.name === fileName);
-  if (!entry) return null;
-  return `${entry.updated_at ?? ""}:${
-    entry.metadata?.eTag ?? entry.metadata?.size ?? ""
-  }`;
-}
 
-function mapBindError(message: string | undefined) {
-  const match = typeof message === "string"
-    ? message.match(/attach_capture:([a-z_]+)/)
-    : null;
-  if (!match) return { status: 500, code: "attach_capture_failed" };
-  switch (match[1]) {
-    case "no_current_original_to_replace":
-    case "stale_retake_target":
-    case "original_already_current":
-    case "derived_cannot_replace":
-      return { status: 409, code: `attach_capture_${match[1]}` };
-    case "response_not_writable":
-      // N7: the DB-level is_submitted/attempt-editable backstop fired (the
-      // response was submitted during the edge-function's check-then-bind
-      // window). A legitimate refusal, not our bug -> 409/blocked.
-      return { status: 409, code: "response_already_submitted" };
-    case "response_not_found":
-      // Round-4 QA S1 (same guard, other leg): the response version -- or the
-      // attempt row it points at -- is gone. A 404 is the honest answer and
-      // matches attempt-response's mapAttachCaptureError; previously this fell
-      // through to a 500 and would have been logged as a technical failure.
-      return { status: 404, code: "response_not_found" };
-    default:
-      return { status: 500, code: "attach_capture_failed" };
-  }
-}
+
+
 
 function mapClaimError(message: string | undefined) {
   const match = typeof message === "string"
