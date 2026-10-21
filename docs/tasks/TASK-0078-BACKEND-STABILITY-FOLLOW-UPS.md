@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** In Progress — implementation/review state is recorded per checklist item
+**Status:** Open — rulings recorded, no slice started
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)
@@ -23,28 +23,55 @@ TASK-0069 (`attempt-response` replay scoping).
 2. **Schedule the learning-session sweep weekly, Saturday 1 am.** Recorded as Eastern time. Draft job in §3.
 3. **The post-purchase add-on must be reachable by customers.** Today the page exists, the server returns the offer, and
    nothing shows the link; Production has never recorded an add-on checkout session. Work in §4.
+4. **Fail the request when a grade write fails** (David, 2026-10-21, "Yes, fail the request when the grade write fails").
+   Applies to A4; acceptance criteria below.
 
 ## 2. Checklist
 
 | # | Item | Tier | State | Notes |
 | --- | --- | --- | --- | --- |
-| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | open | Haiku assessment 5 produces the diff |
-| A2 | Replay ownership on `session-event` and `storage-sign-url` (actor-scoped lookup, read the audit-insert error, re-sign on replay, handler extraction, tests), no hash changes | Standard | open | spec in `REFACTOR_PLAN_REVIEW_2026_10_21.md` §5 |
-| A3 | Retire `submit-response` (source directory and the Development function) | Standard | open | not on Production, no caller |
-| A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | open | must-fail rows; student sees a score the database did not keep |
-| A5 | `review-decision`: replace the empty catch around `advanceWorkflow` with surfaced failures; `admin-content` 10 unread writes; `capture-pairing` cancel | Standard | Ready for Review | [PR #536](https://github.com/david-bloom/Cramapple/pull/536), `codex/task-0078-required-write-errors`; 322 CI-command tests pass, 67 targeted handler/helper cases. [Evidence/limits](../qa/TASK0078_REQUIRED_WRITE_FAILURES_2026_10_21.md). Unmerged/undeployed; review deployment freeze preserved. |
+| A1 | Extend the Minimal CI Deno allowlist with the `attempt-response`, `evaluate-attempt`, `capture-pairing` tests and the env names they need | Docs/CI | **Codex PR #520 open** | Haiku's proposed diff is in `qa/TEST_GATE_INVENTORY_2026_10_21.md` (38 files, 760 tests, 60 of 61 pass under `env -i`). Take its narrower option: keep the existing step, add a second step for the few files that need `--allow-net` (`byoq`, `capture-pairing`), `--allow-read` (`email-template-data`, `payer-email`) or unrestricted `--allow-env` (`create-post-purchase-addon/handler_test.ts`, Stripe SDK) |
+| A2 | Replay ownership on `session-event` and `storage-sign-url` (actor-scoped lookup, read the audit-insert error, re-sign on replay, handler extraction, tests), no hash changes | Standard | **Codex PR #521 open** | spec in `REFACTOR_PLAN_REVIEW_2026_10_21.md` §5 |
+| A3 | Retire `submit-response` (source directory and the Development function) | Standard | **Codex PR #522 open**; Development functions `submit-response`, `byoq-smoke-runner`, `byoq-ip-echo` already deleted (Opus verified Development lists 29) | not on Production, no caller |
+| A4 | Read the error on the two grade writes in `evaluate-attempt` (`:1884`, `:2627`) and fail the request when the store fails | Standard | **ruled; Codex PR #535 open** | Acceptance: both sites destructure `{ error }`; on error, log it and respond 5xx with a stable code (for example `grading_result_write_failed`) and no score in the body; decide and test what a retry with the same idempotency key does next, since today a replay finds the row at `processing` and answers 202, so either mark the row `failed` so the retry re-grades, or make the replay path re-attempt the write; the deterministic MCQ path and the model path both covered; test in `evaluate-attempt/index_test.ts` and add that file to CI (A1) |
+| A5 | `review-decision`: replace the empty catch around `advanceWorkflow` with surfaced failures; `admin-content` 10 unread writes; `capture-pairing` cancel | Standard | **Codex PR #536 open**; note ruling 1 freezes deploys of the review functions, so the review-decision part lands in source only | can wait behind A4; review functions are otherwise frozen (ruling 1) |
 | A6 | Redeploy `evaluate-attempt` and `attempt-response` from `main` (Development, verify bundle hash, then Production on approval) | Hard-Gate | open | makes the TASK-0074 control-character strip live; clears stale `grading-feedback`, `student-memory`, `growth-events`, `math-verifier` |
-| A7 | Redeploy `create-post-purchase-addon` from `main` (Development with Stripe test mode, then Production on approval) | Hard-Gate | open | prerequisite for §4; Production v8 lacks `ownsAddonSource` (`fce40d1d`) |
-| A8 | Lovable: show the add-on offer on the payment-result page | Standard (Lovable, David publishes) | open | prompt in §4; ship after A7 |
+| A7 | Redeploy `create-post-purchase-addon` from `main` (Development with Stripe test mode, then Production on approval) | Hard-Gate | **Development done 2026-10-21** (v36, `ezbr_sha256 f605bbcb…`, every bundled file byte-identical to `main` `73206cde`; unauthenticated POST returns 401); the signed-in Stripe test-mode purchase on Development is not yet run; **Production pending approval** | prerequisite for §4; Production v8 lacks `ownsAddonSource` (`fce40d1d`) |
+| A8 | Lovable: show the add-on offer on the payment-result page | Standard (Lovable, David publishes) | **Built 2026-10-21, not published**: Lovable commit `db106773` on project `61dd6602`; `PaymentResult.tsx` read at that commit and matches the prompt; new `PaymentResult.test.tsx`; Lovable reports 250 tests and type check clean; 3 credits | publish only after A7 reaches Production. One copy choice to confirm: after code sign-in, "Not now" goes to `/home?subject=…` without `welcome=1` (the prompt asked for the existing non-welcome redirect) |
 | A9 | Migration: weekly `sweep_learning_sessions` cron job | Hard-Gate | open | SQL in §3 |
-| A10 | Migration: re-apply the `20260821011843` and `20260821014327` bodies to Production after a Development rehearsal | Hard-Gate | open | removes the subject-switch refusal (TASK-0063); with a weekly sweep this is what keeps an abandoned session from blocking a student for up to a week |
-| A11 | Scope `app.submit_response` replay probes to the actor | Hard-Gate | open | can ride with A10's approval |
-| A12 | Set `GRADING_ENTITLEMENTS_ENABLED=true` on Development | Config | open | so rehearsals match Production |
+| A10 | Migration: re-apply the `20260821011843` and `20260821014327` bodies to Production after a Development rehearsal | Hard-Gate | **ESCALATED 2026-10-21: two real student accounts (created 2026-09-23 and 2026-10-06, 6 and 2 attempts) hold `active` sessions on their current pack, so Production refuses them a subject switch today.** Codex PR #524 (`20261021153710_task0063_reconcile_session_rpc_bodies.sql`, SQL tests, release packet) is the fix; success = Production hashes `5a71a24d…` and `dbc35186…` | removes the subject-switch refusal (TASK-0063); with a weekly sweep this is what keeps an abandoned session from blocking a student for up to a week |
+| A11 | Scope `app.submit_response` replay probes to the actor | Hard-Gate | **Codex PR #523 open** | can ride with A10's approval |
+| A12 | Set `GRADING_ENTITLEMENTS_ENABLED=true` on Development | Config | open | so rehearsals match Production. From `qa/ENVIRONMENT_PARITY_2026_10_21.md`: also `FRQ_PHOTO_SUBJECTS` (Development only) and `start-trial` missing on Development. The `SERVICE_ROLE_KEY` secret being absent on Development is not a gap: both fallbacks in `byoq/index.ts:289` and `_shared/public-rate-limit.ts:132` try `SUPABASE_SERVICE_ROLE_KEY` first, which Supabase injects into every function |
 | A13 | Find who invokes `trial-recovery`; check the 2 undelivered `growth_event_outbox` rows | Read-only | open | |
 | A14 | Adopt or trim the shared-module release rule | Docs | open | proposal in `SHARED_MODULE_DEPENDENCY_MAP_2026_10_21.md` §4 |
 | A15 | Run the Opus prompt (assessments 2, 7) and the Haiku prompt (5, 6) | Read-only | open | `docs/handoffs/PROMPT_ASSESSMENTS_*` |
-| A16 | Helper consolidation, one family per PR; payments pure offer extraction | Standard | open | last |
+| A16 | Helper consolidation, one family per PR; payments pure offer extraction | Standard | **Codex PRs #525 (SHA-256/Base64), #526 (input parsing), #527 (env), #528 (request IP), #529 (response envelope), #530 (storage primitives), #531 (checkout offer/promotion) open** | last; each needs byte-parity evidence in its PR body before merge |
 | — | Port `ad083b39` review code; redeploy `assign-for-review`, `reviewer-invite`, `review-decision` | — | **deferred by ruling 1** | revisit when human review is re-planned |
+| A17 | Retire the hand-drawn pilot upload path: `/hand-drawn-pilot` route, `storage-sign-url` `sign_upload`/`sign_delete`, the `hand_drawn_pilot` item mode, `public.select_hand_drawn_pilot_items` | Standard + Lovable | open, decide (David) | From `qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`. Verified 2026-10-21: Production's `learning_sessions_entry_path_check` has no `hand_drawn_pilot` value, so the page cannot start a session; `sign_upload` has never been used on Production. QR capture (DECISION-0050/0109) is untouched |
+| A18 | Two RPCs the live app calls exist on neither project: `get_chosen_distractor_rationale` (migration `20260828170000`, never applied anywhere) and `get_graded_choice_feedback` | Decide (David) | open | Verified absent on Production and Development. The caller in `use-session.ts:901` swallows the error, so students see no rationale rather than an error. Either apply the migration (after confirming the flow is live) or delete the calls |
+| A19 | Ledger strategy: re-baseline or row-by-row repair | Decide (David) | open | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
+| A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
+
+## 2a. Codex PR review (Fable, 2026-10-21): merge order and conditions
+
+Reviews are posted on each PR. Code PRs are David's to merge. Evidence: diffs read in full; `deno check` and every touched
+test run in throwaway worktrees at each PR head; Production and Development queried read-only where a claim depended on
+live state.
+
+| Order | PR | Row | Verdict | Condition before merge |
+| --- | --- | --- | --- | --- |
+| 1 | #524 | A10 | ready (Hard-Gate) | apply the single file with `apply_migration`/`execute_sql`, never `db push`; verify `md5(prosrc)` = `dbc35186…`/`5a71a24d…`; one real subject switch |
+| 2 | #520 | A1 | ready | merge before every other code PR; all of them edit `minimal-ci.yml` |
+| 3 | #535 | A4 | one gap | recovery stores the grade but never updates `app.attempts` (status/score), which `get_student_progress_dashboard` counts; run the attempt update in recovery or record the manual reconciliation |
+| 4 | #523 | A11 | ready (Hard-Gate) | same apply-method rule as #524 |
+| 5 | #521 | A2 | ready, re-tiered | now Hard-Gate: claims table + two RPCs; migration before both function deploys on each project (functions return 503 without it); pending claims never expire, so the packet needs a named reconciliation query; fold `TASK-0078-CAUTIOUS-BACKEND-REFACTOR.md` into this record |
+| 6 | #522 | A3 | rebase | keep only the A3 cell edit of this file |
+| 7 | #536 | A5 | rebase | conflicts with `main`; `review-decision` part lands in source only under ruling 1 |
+| 8–11 | #525, #526, #527, #528 | A16 | pure extractions | stack cut before #520's CI rewrite; rebase onto current `replay-hardening`, re-place three one-line CI inserts; #527 needs no CI change; expect a source conflict with #536 on `admin-content`, `capture-pairing`, `review-decision` |
+| 12–14 | #529, #530, #531 | A16 | pure extractions | stacked on #528; #531 must split its four doc edits (INDEX row conflicts with `main`; second TASK-0078 record) into a docs PR, and needs one student and one parent Development checkout in Stripe test mode before any Production deploy |
+
+Two TASK-0078 records now exist in the Codex stack (`TASK-0078-CAUTIOUS-BACKEND-REFACTOR.md`); this file is canonical.
+Decide: fold the Codex execution record into §2 here, or keep it as a linked handoff. Do not let both carry status.
 
 ## 3. Weekly session sweep (A9): draft migration
 
