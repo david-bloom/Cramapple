@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Code and branch cleanup (2026-10-21, owner request): dead code removed from edge functions and `web/` (PR #511, no behaviour change, not deployed); 37 worktrees and 51 merged or superseded local branches removed (tip SHAs in the local `.git/deleted_branches_2026-10-21.txt`); stranded records recovered to `main` (this PR) and the two course-mode Stats worktrees archived to `archive/course-mode-stats-*-uncommitted-2026-08-27`. Open owner decisions listed in the entry.
+
 - TASK-0077 **launched in Production** (2026-10-20 to 2026-10-21, session closed at owner request): runbook steps 2–6 executed (email foundation, trial backend, Stripe live events, Lovable publishes, admission on ~12:25 UTC 2026-10-21); David's $1 live trial passed start → charge → convert → refund; same-day fixes live (marketing trial flag `779c7320`, Google sign-in nonce `a4bb0577`, Home inline cancel `4f71acbd`). Lawyer review waived by David. Records PR #509. Open: step 7 watch, cardless retirement, Promotions placement, checkout subjects 401. [Session close](../handoffs/SESSION_CLOSE_2026_10_21_TASK0077_LAUNCH.md).
 
 - TASK-0077 production-readiness session closed at owner request (2026-10-19 to 2026-10-21): Production found behind `main` (no Loops email foundation); marketing trial checkout fixed (Lovable `f9a5e637`, unpublished); Development sandbox journeys (3D Secure, dispute, Account cancel, late setup, recovery count); Codex findings F1–F7 fixed across QA rounds 3–5, deployed to Development, Codex sign-off of `43440c98` with no findings; PRs #507 (release `3616edff`), app #38/#39, #508 (stranded records) merged; Production rollout runbook `docs/tasks/TASK-0077-PRODUCTION-RUNBOOK.md` written and pre-flight passed. Nothing deployed to Production. Handoff and next-session prompt: `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md`.
@@ -216,6 +218,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — Code and branch cleanup
+
+Owner request: find and remove dead code, then clean up merged branches and stale worktrees, then recover anything stranded ("I approve the recovery plan").
+
+- **Dead code:** PR #511 removes unreferenced code found by an import graph, an export scan, `deno lint` (no-unused-vars) and knip on `web/`. No behaviour change, nothing deployed. Kept on purpose: `EXAM_CODES_WITH_AUTHORED_PARTS`, `TRIAL_SOURCE`, `NORMALIZATION_POLICY_VERSION`, `StripeSessionMode`. Suspected bug left for a separate task: `review-decision` builds one identical `content_review_assignments` row per MCQ choice per tutor (`choiceKey` unused, no `choice_key` column).
+- **Worktrees and branches:** removed 41 worktrees (clean and merged, already deleted on disk, or holding only `node_modules`) and 51 local branches (ancestors of `origin/main`, patch-equivalent, or every added line verified on `main`). `claude/chem-reference-u5-u9` was safe: its migration `20261010160000_practice_topic_availability.sql` reached `main` in 401659d4.
+- **Recovered to `main` (this PR):** `docs/qa/QA_MORE_HELP_RELEASE_FINAL_2026_10_15.md` (existed only on `claude/more-help-final`); 122 uncommitted evidence files (raw call logs, gap-fill load and publish records including `load_bio.publish_prod.json` / `load_phy1.publish_prod.json`, arms-test outputs, one seed-pilot load plan) from five worktrees. Scanned for credentials before commit; none found. No file on `main` was overwritten.
+- **Archived, not merged:** course-mode Stats 3.5-2e and 3.7-3e uncommitted work (flagged 2026-09-27) is on `archive/course-mode-stats-3.5-2e-uncommitted-2026-08-27` and `archive/course-mode-stats-3.7-3e-uncommitted-2026-08-27`.
+- **Not an issue after all:** the duplicate APPROVAL-0183 was already resolved on 2026-10-17 (`LEGACY_APPROVAL_STATISTICS_MORE_HELP_LAUNCH_2026_10_16.md`).
+- **Open, owner decision:** `claude/correct-approval-0051-attribution-2026-09-27` contradicts PR #227's APPROVAL-0051 attribution; `claude/taxonomy-subject-id-link` migration (never applied in Development or Production); `codex/task-0041-payment-flow` (likely superseded); Codex worktrees `ca0b` (web edits plus `CONTENT_READINESS_AUDIT_2026_09_22.md`), `f4c9` (Deep Dive overlay redesign) and `2938` (`BYOQ_UPLOAD_POLICY_AND_DATA_LIFECYCLE_DISCUSSION_2026_09_23.md`). Kept deliberately: `archive/free-score-check-2026-08-15`, `codex/image-workflows-design-sketch` (quarantine), three `codex/recovered-scratch-*` branches.
 
 ## 2026-10-17 — Biology S-003 horizontal reframe
 

@@ -1,0 +1,2952 @@
+{
+ "topic": {
+  "subject_key": "ap-physics-c-mechanics",
+  "unit_number": 2,
+  "topic_code": "2.7",
+  "topic_title": "Kinetic and Static Friction",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.7__A__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.7",
+     "topic_title": "Kinetic and Static Friction",
+     "stem": "A block is initially at rest on a horizontal surface in each of two separate trials. The normal force is 20 N, the coefficient of static friction is 0.40, and the coefficient of kinetic friction is 0.25. A constant horizontal force directed to the right is applied in each trial:\n\nTrial 1: 3 N\nTrial 2: 6 N\n\nThe only horizontal forces on the block are the applied force and friction. What are the friction-force magnitudes in Trial 1 and Trial 2, respectively?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "3 N and 6 N",
+       "is_correct": true,
+       "rationale": "The maximum static friction is μₛF_N = 0.40(20 N) = 8 N. Neither applied force exceeds this limit, so the block remains at rest and static friction balances the applied force in each trial."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "8 N and 8 N",
+       "is_correct": false,
+       "rationale": "Maximum-static-friction error: μₛF_N gives the limit, not the friction force in every situation. Here, balancing either applied force requires less than 8 N. Fix: Calculate the friction needed for rest before comparing it with μₛF_N."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "5 N and 5 N",
+       "is_correct": false,
+       "rationale": "Kinetic-friction substitution: these values come from μₖF_N = 0.25(20 N). Neither applied force overcomes maximum static friction, so the surfaces do not slide and the kinetic-friction equation does not apply. Fix: Check whether sliding occurs before selecting the friction equation."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "0 N and 0 N",
+       "is_correct": false,
+       "rationale": "No-motion-means-no-friction misconception: static friction can act while the block is stationary. With zero friction, either nonzero applied force would be unbalanced and the block would accelerate. Fix: Find the opposing force needed to balance the applied force."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": "The maximum static friction is μs·N = 0.40 × 20 N = 8 N. Both applied forces (3 N and 6 N) are below this, so the block stays at rest and static friction balances the applied force: 3 N in Trial 1 and 6 N in Trial 2. Choice A is correct and the question is well posed; the defect field is otherwise empty."
+         },
+         "usage": {
+          "inputTokens": 707,
+          "inputTokenDetails": {
+           "noCacheTokens": 707,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 148,
+          "outputTokenDetails": {
+           "textTokens": 148,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 855,
+          "raw": {
+           "input_tokens": 707,
+           "output_tokens": 148,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 3696,
+         "flags": [
+          "defect: The maximum static friction is μs·N = 0.40 × 20 N = 8 N. Both applied forces (3 N and 6 N) are below this, so the block stays at rest and static friction balances the applied force: 3 N in Trial 1 and 6 N in Trial 2. Choice A is correct and the question is well posed; the defect field is otherwise empty."
+         ]
+        },
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 707,
+          "inputTokenDetails": {
+           "noCacheTokens": 707,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 737,
+          "raw": {
+           "input_tokens": 707,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 5404,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 401,
+          "inputTokenDetails": {
+           "noCacheTokens": 401,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 468,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 438
+          },
+          "totalTokens": 869,
+          "raw": {
+           "thoughtsTokenCount": 438,
+           "promptTokenCount": 401,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 869,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 401
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 438,
+          "cachedInputTokens": 0
+         },
+         "ms": 3561,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 460,
+          "inputTokenDetails": {
+           "noCacheTokens": 204,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 670,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 650
+          },
+          "totalTokens": 1130,
+          "raw": {
+           "prompt_tokens": 460,
+           "completion_tokens": 670,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 204,
+           "total_tokens": 1130,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 650
+           }
+          },
+          "reasoningTokens": 650,
+          "cachedInputTokens": 256
+         },
+         "ms": 8197,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 228,
+          "inputTokenDetails": {
+           "noCacheTokens": 228,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 913,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 889
+          },
+          "totalTokens": 1141,
+          "raw": {
+           "input_tokens": 228,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 913,
+           "output_tokens_details": {
+            "reasoning_tokens": 889
+           },
+           "total_tokens": 1141
+          },
+          "reasoningTokens": 889,
+          "cachedInputTokens": 0
+         },
+         "ms": 13172,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15136,
+          "inputTokenDetails": {
+           "noCacheTokens": 808,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 404,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 192
+          },
+          "totalTokens": 15540,
+          "raw": {
+           "input_tokens": 808,
+           "output_tokens": 404,
+           "output_tokens_details": {
+            "thinking_tokens": 192
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 192,
+          "cachedInputTokens": 14328
+         },
+         "ms": 5903,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9894,
+          "inputTokenDetails": {
+           "noCacheTokens": 9894,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1412,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1150
+          },
+          "totalTokens": 11306,
+          "raw": {
+           "thoughtsTokenCount": 1150,
+           "promptTokenCount": 9894,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11306,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9894
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1150,
+          "cachedInputTokens": 0
+         },
+         "ms": 8893,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9160,
+          "inputTokenDetails": {
+           "noCacheTokens": 456,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 4399,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 4180
+          },
+          "totalTokens": 13559,
+          "raw": {
+           "prompt_tokens": 9160,
+           "completion_tokens": 4399,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 456,
+           "total_tokens": 13559,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 4180
+           }
+          },
+          "reasoningTokens": 4180,
+          "cachedInputTokens": 8704
+         },
+         "ms": 42223,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8158,
+          "inputTokenDetails": {
+           "noCacheTokens": 8158,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 4271,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 4115
+          },
+          "totalTokens": 12429,
+          "raw": {
+           "input_tokens": 8158,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 4271,
+           "output_tokens_details": {
+            "reasoning_tokens": 4115
+           },
+           "total_tokens": 12429
+          },
+          "reasoningTokens": 4115,
+          "cachedInputTokens": 0
+         },
+         "ms": 23385,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8964,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8961
+          },
+          "outputTokens": 271,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 49
+          },
+          "totalTokens": 9235,
+          "raw": {
+           "input_tokens": 8964,
+           "input_tokens_details": {
+            "cache_write_tokens": 8961,
+            "cached_tokens": 0
+           },
+           "output_tokens": 271,
+           "output_tokens_details": {
+            "reasoning_tokens": 49
+           },
+           "total_tokens": 9235
+          },
+          "reasoningTokens": 49,
+          "cachedInputTokens": 0
+         },
+         "ms": 6522,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "2",
+     "skills": [
+      "2.A",
+      "2.B",
+      "2.C",
+      "2.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The student must apply the static friction model: compute the maximum static friction (8 N), see that neither applied force exceeds it, and conclude that static friction equals the applied force in each trial. This is one concept applied to a new situation, so it is Medium."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "The question requires calculating the maximum static friction threshold from normal force and coefficient of friction, comparing the applied forces to this threshold to determine that the block remains at rest, and finding the resulting static friction values."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "The question requires calculating the maximum static friction and then determining the balancing static friction force in each trial, following a quantitative computational pathway."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Hard",
+       "reason": "Requires computing max static friction mu_s*N=8 N then selecting the equilibrium pathway to calculate actual friction = applied force (3 N and 6 N) with units, which is 2.B. It combines friction-limit model with Newton's 1st law in several steps and rejects max-static and kinetic alternatives, so Hard."
+      }
+     ],
+     "skill": "2.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "2.B",
+       3
+      ],
+      [
+       "3.B",
+       1
+      ]
+     ],
+     "practice": "2",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "2",
+       3
+      ],
+      [
+       "3",
+       1
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       3
+      ],
+      [
+       "Hard",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.7__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.7",
+      "topic_title": "Kinetic and Static Friction",
+      "stem": "A block is initially at rest on a horizontal surface in each of two separate trials. The normal force is 20 N, the coefficient of static friction is 0.40, and the coefficient of kinetic friction is 0.25. A constant horizontal force directed to the right is applied in each trial:\n\nTrial 1: 3 N\nTrial 2: 6 N\n\nThe only horizontal forces on the block are the applied force and friction. What are the friction-force magnitudes in Trial 1 and Trial 2, respectively?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "3 N and 6 N",
+        "is_correct": true,
+        "rationale": "The maximum static friction is μₛF_N = 0.40(20 N) = 8 N. Neither applied force exceeds this limit, so the block remains at rest and static friction balances the applied force in each trial."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "8 N and 8 N",
+        "is_correct": false,
+        "rationale": "Maximum-static-friction error: μₛF_N gives the limit, not the friction force in every situation. Here, balancing either applied force requires less than 8 N. Fix: Calculate the friction needed for rest before comparing it with μₛF_N."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "5 N and 5 N",
+        "is_correct": false,
+        "rationale": "Kinetic-friction substitution: these values come from μₖF_N = 0.25(20 N). Neither applied force overcomes maximum static friction, so the surfaces do not slide and the kinetic-friction equation does not apply. Fix: Check whether sliding occurs before selecting the friction equation."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "0 N and 0 N",
+        "is_correct": false,
+        "rationale": "No-motion-means-no-friction misconception: static friction can act while the block is stationary. With zero friction, either nonzero applied force would be unbalanced and the block would accelerate. Fix: Find the opposing force needed to balance the applied force."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "The maximum static friction is μs·N = 0.40 × 20 N = 8 N. Both applied forces (3 N and 6 N) are below this, so the block stays at rest and static friction balances the applied force: 3 N in Trial 1 and 6 N in Trial 2. Choice A is correct and the question is well posed; the defect field is otherwise empty."
+          },
+          "usage": {
+           "inputTokens": 707,
+           "inputTokenDetails": {
+            "noCacheTokens": 707,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 148,
+           "outputTokenDetails": {
+            "textTokens": 148,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 855,
+           "raw": {
+            "input_tokens": 707,
+            "output_tokens": 148,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3696,
+          "flags": [
+           "defect: The maximum static friction is μs·N = 0.40 × 20 N = 8 N. Both applied forces (3 N and 6 N) are below this, so the block stays at rest and static friction balances the applied force: 3 N in Trial 1 and 6 N in Trial 2. Choice A is correct and the question is well posed; the defect field is otherwise empty."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 707,
+           "inputTokenDetails": {
+            "noCacheTokens": 707,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 737,
+           "raw": {
+            "input_tokens": 707,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 5404,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 401,
+           "inputTokenDetails": {
+            "noCacheTokens": 401,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 468,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 438
+           },
+           "totalTokens": 869,
+           "raw": {
+            "thoughtsTokenCount": 438,
+            "promptTokenCount": 401,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 869,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 401
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 438,
+           "cachedInputTokens": 0
+          },
+          "ms": 3561,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 460,
+           "inputTokenDetails": {
+            "noCacheTokens": 204,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 670,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 650
+           },
+           "totalTokens": 1130,
+           "raw": {
+            "prompt_tokens": 460,
+            "completion_tokens": 670,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 204,
+            "total_tokens": 1130,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 650
+            }
+           },
+           "reasoningTokens": 650,
+           "cachedInputTokens": 256
+          },
+          "ms": 8197,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 228,
+           "inputTokenDetails": {
+            "noCacheTokens": 228,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 913,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 889
+           },
+           "totalTokens": 1141,
+           "raw": {
+            "input_tokens": 228,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 913,
+            "output_tokens_details": {
+             "reasoning_tokens": 889
+            },
+            "total_tokens": 1141
+           },
+           "reasoningTokens": 889,
+           "cachedInputTokens": 0
+          },
+          "ms": 13172,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15136,
+           "inputTokenDetails": {
+            "noCacheTokens": 808,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 404,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 192
+           },
+           "totalTokens": 15540,
+           "raw": {
+            "input_tokens": 808,
+            "output_tokens": 404,
+            "output_tokens_details": {
+             "thinking_tokens": 192
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 192,
+           "cachedInputTokens": 14328
+          },
+          "ms": 5903,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9894,
+           "inputTokenDetails": {
+            "noCacheTokens": 9894,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1412,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1150
+           },
+           "totalTokens": 11306,
+           "raw": {
+            "thoughtsTokenCount": 1150,
+            "promptTokenCount": 9894,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11306,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9894
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1150,
+           "cachedInputTokens": 0
+          },
+          "ms": 8893,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9160,
+           "inputTokenDetails": {
+            "noCacheTokens": 456,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 4399,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 4180
+           },
+           "totalTokens": 13559,
+           "raw": {
+            "prompt_tokens": 9160,
+            "completion_tokens": 4399,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 456,
+            "total_tokens": 13559,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 4180
+            }
+           },
+           "reasoningTokens": 4180,
+           "cachedInputTokens": 8704
+          },
+          "ms": 42223,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8158,
+           "inputTokenDetails": {
+            "noCacheTokens": 8158,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4271,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 4115
+           },
+           "totalTokens": 12429,
+           "raw": {
+            "input_tokens": 8158,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4271,
+            "output_tokens_details": {
+             "reasoning_tokens": 4115
+            },
+            "total_tokens": 12429
+           },
+           "reasoningTokens": 4115,
+           "cachedInputTokens": 0
+          },
+          "ms": 23385,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8964,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8961
+           },
+           "outputTokens": 271,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 49
+           },
+           "totalTokens": 9235,
+           "raw": {
+            "input_tokens": 8964,
+            "input_tokens_details": {
+             "cache_write_tokens": 8961,
+             "cached_tokens": 0
+            },
+            "output_tokens": 271,
+            "output_tokens_details": {
+             "reasoning_tokens": 49
+            },
+            "total_tokens": 9235
+           },
+           "reasoningTokens": 49,
+           "cachedInputTokens": 0
+          },
+          "ms": 6522,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.7__B__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.7",
+     "topic_title": "Kinetic and Static Friction",
+     "stem": "A block is initially at rest on a rough incline. The component of the gravitational force along the incline is 10 N directed down the incline, and the normal force on the block is 17 N. The coefficient of static friction is 0.50 and the coefficient of kinetic friction is 0.30. A student applies a constant 14 N force directed up the incline, parallel to its surface. The only forces on the block are gravity, the normal force, friction, and the push. What is the friction force exerted on the block?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "8.5 N, directed down the incline",
+       "is_correct": false,
+       "rationale": "This sets static friction equal to μs·FN = 0.50 × 17 N, assuming it is always at its maximum. Static friction only supplies what is needed to prevent slipping, here 4 N, and μs·FN is just the upper limit. Fix: Solve for the friction needed for equilibrium first, then compare it to μs·FN only as a limit."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "4 N, directed down the incline",
+       "is_correct": true,
+       "rationale": "The push exceeds the 10 N gravitational component, so the block tends to slide up and friction acts down the incline. Balancing forces along the incline requires 14 − 10 = 4 N, and since 4 N ≤ μs·FN = 8.5 N, the block stays at rest with static friction of 4 N."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "4 N, directed up the incline",
+       "is_correct": false,
+       "rationale": "This assumes friction on an incline always points up the slope to oppose gravity. Here the push exceeds the gravitational component, so the tendency is to slide up and friction must point down the incline. Fix: Ask which way the block would slide without friction, then point friction opposite that tendency."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "0 N, because the block is not moving",
+       "is_correct": false,
+       "rationale": "This confuses static friction with no friction, assuming a block at rest feels none. The push and gravitational component leave a 4 N imbalance, so static friction must supply 4 N to keep the net force zero. Fix: Sum the non-friction forces along the surface; any imbalance must be cancelled by static friction."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 328,
+          "inputTokenDetails": {
+           "noCacheTokens": 328,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 165,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 139
+          },
+          "totalTokens": 493,
+          "raw": {
+           "input_tokens": 328,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 165,
+           "output_tokens_details": {
+            "reasoning_tokens": 139
+           },
+           "total_tokens": 493
+          },
+          "reasoningTokens": 139,
+          "cachedInputTokens": 0
+         },
+         "ms": 6275,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 411,
+          "inputTokenDetails": {
+           "noCacheTokens": 411,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 410,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 380
+          },
+          "totalTokens": 821,
+          "raw": {
+           "thoughtsTokenCount": 380,
+           "promptTokenCount": 411,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 821,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 411
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 380,
+          "cachedInputTokens": 0
+         },
+         "ms": 3349,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 468,
+          "inputTokenDetails": {
+           "noCacheTokens": 212,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 602,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 582
+          },
+          "totalTokens": 1070,
+          "raw": {
+           "prompt_tokens": 468,
+           "completion_tokens": 602,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 212,
+           "total_tokens": 1070,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 582
+           }
+          },
+          "reasoningTokens": 582,
+          "cachedInputTokens": 256
+         },
+         "ms": 7851,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 238,
+          "inputTokenDetails": {
+           "noCacheTokens": 238,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 2375,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 2351
+          },
+          "totalTokens": 2613,
+          "raw": {
+           "input_tokens": 238,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 2375,
+           "output_tokens_details": {
+            "reasoning_tokens": 2351
+           },
+           "total_tokens": 2613
+          },
+          "reasoningTokens": 2351,
+          "cachedInputTokens": 0
+         },
+         "ms": 37695,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9032,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9029
+          },
+          "outputTokens": 512,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 290
+          },
+          "totalTokens": 9544,
+          "raw": {
+           "input_tokens": 9032,
+           "input_tokens_details": {
+            "cache_write_tokens": 9029,
+            "cached_tokens": 0
+           },
+           "output_tokens": 512,
+           "output_tokens_details": {
+            "reasoning_tokens": 290
+           },
+           "total_tokens": 9544
+          },
+          "reasoningTokens": 290,
+          "cachedInputTokens": 0
+         },
+         "ms": 10958,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9954,
+          "inputTokenDetails": {
+           "noCacheTokens": 9954,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1457,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1195
+          },
+          "totalTokens": 11411,
+          "raw": {
+           "thoughtsTokenCount": 1195,
+           "promptTokenCount": 9954,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11411,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9954
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1195,
+          "cachedInputTokens": 0
+         },
+         "ms": 8010,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9227,
+          "inputTokenDetails": {
+           "noCacheTokens": 523,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 2489,
+          "outputTokenDetails": {
+           "textTokens": 139,
+           "reasoningTokens": 2350
+          },
+          "totalTokens": 11716,
+          "raw": {
+           "prompt_tokens": 9227,
+           "completion_tokens": 2489,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 523,
+           "total_tokens": 11716,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 2350
+           }
+          },
+          "reasoningTokens": 2350,
+          "cachedInputTokens": 8704
+         },
+         "ms": 24848,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8228,
+          "inputTokenDetails": {
+           "noCacheTokens": 8228,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3348,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 3192
+          },
+          "totalTokens": 11576,
+          "raw": {
+           "input_tokens": 8228,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3348,
+           "output_tokens_details": {
+            "reasoning_tokens": 3192
+           },
+           "total_tokens": 11576
+          },
+          "reasoningTokens": 3192,
+          "cachedInputTokens": 0
+         },
+         "ms": 18769,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.7",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15214,
+          "inputTokenDetails": {
+           "noCacheTokens": 886,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 484,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 272
+          },
+          "totalTokens": 15698,
+          "raw": {
+           "input_tokens": 886,
+           "output_tokens": 484,
+           "output_tokens_details": {
+            "thinking_tokens": 272
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 272,
+          "cachedInputTokens": 14328
+         },
+         "ms": 7496,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "3",
+     "skills": [
+      "3.B",
+      "3.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Hard",
+       "reason": "Calculate the required friction from the along-incline force balance, determine its direction, and compare it with the maximum static friction to verify that the block remains at rest."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "The question requires calculating a specific physical quantity by balancing forces along an incline, determining the maximum static friction threshold, and deducing both the magnitude and direction of the static friction force."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Medium",
+       "reason": "The question requires a short numerical calculation: determine the net non-friction force along the incline and recognize that static friction supplies the 4 N needed for equilibrium, after checking it is below the maximum static friction."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "2.B",
+       "difficulty": "Hard",
+       "reason": "Must balance forces along incline (14N up vs 10N down), determine impending motion direction, compute max static friction μs*FN=8.5N, then compare required 4N to max to confirm static equilibrium. Combines Newton's equilibrium with variable static-friction model in multi-step reasoning."
+      }
+     ],
+     "skill": "2.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "2.B",
+       4
+      ]
+     ],
+     "practice": "2",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "2",
+       4
+      ]
+     ],
+     "difficulty": "Hard",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Hard",
+       2
+      ],
+      [
+       "Medium",
+       2
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.7__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.7",
+      "topic_title": "Kinetic and Static Friction",
+      "stem": "A block is sliding to the right across a stationary, rough horizontal floor while an applied force of 3 N points to the left. The normal force on the block is 20 N. The coefficients of static and kinetic friction are 0.40 and 0.25, respectively. What friction force does the floor exert on the block at this instant?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "5 N to the right",
+        "is_correct": false,
+        "rationale": "Opposing-the-applied-force trap: Friction opposes relative sliding, not necessarily the applied force. Because the block is sliding right, kinetic friction points left even though the applied force also points left. Fix: Determine the sliding direction before assigning the friction direction."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "5 N to the left",
+        "is_correct": true,
+        "rationale": "The block slides right relative to the floor, so kinetic friction points left, opposite the sliding velocity. Its magnitude is f_k = μ_kF_N = 0.25(20 N) = 5 N."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "8 N to the left",
+        "is_correct": false,
+        "rationale": "Wrong-coefficient trap: Using μ_sF_N gives the maximum static friction, not the friction during sliding. Since the block is sliding, its friction magnitude is determined by μ_kF_N. Fix: Identify whether the surfaces slide before selecting the friction coefficient."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "3 N to the right",
+        "is_correct": false,
+        "rationale": "Static-balance trap: Matching friction to the applied force incorrectly treats the sliding block as being held at rest. Kinetic friction does not adjust to balance the applied force. Fix: Check for sliding before using force balance to determine friction."
+       }
+      ]
+     },
+     "eval": {
+      "verdict": "rejected",
+      "stage": "similarity",
+      "detail": "too similar to an earlier seed of this topic (words 0.47, 3-gram 0.04)"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.7__B__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.7",
+      "topic_title": "Kinetic and Static Friction",
+      "stem": "A block is initially at rest on a rough incline. The component of the gravitational force along the incline is 10 N directed down the incline, and the normal force on the block is 17 N. The coefficient of static friction is 0.50 and the coefficient of kinetic friction is 0.30. A student applies a constant 14 N force directed up the incline, parallel to its surface. The only forces on the block are gravity, the normal force, friction, and the push. What is the friction force exerted on the block?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "8.5 N, directed down the incline",
+        "is_correct": false,
+        "rationale": "This sets static friction equal to μs·FN = 0.50 × 17 N, assuming it is always at its maximum. Static friction only supplies what is needed to prevent slipping, here 4 N, and μs·FN is just the upper limit. Fix: Solve for the friction needed for equilibrium first, then compare it to μs·FN only as a limit."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "4 N, directed down the incline",
+        "is_correct": true,
+        "rationale": "The push exceeds the 10 N gravitational component, so the block tends to slide up and friction acts down the incline. Balancing forces along the incline requires 14 − 10 = 4 N, and since 4 N ≤ μs·FN = 8.5 N, the block stays at rest with static friction of 4 N."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "4 N, directed up the incline",
+        "is_correct": false,
+        "rationale": "This assumes friction on an incline always points up the slope to oppose gravity. Here the push exceeds the gravitational component, so the tendency is to slide up and friction must point down the incline. Fix: Ask which way the block would slide without friction, then point friction opposite that tendency."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "0 N, because the block is not moving",
+        "is_correct": false,
+        "rationale": "This confuses static friction with no friction, assuming a block at rest feels none. The push and gravitational component leave a 4 N imbalance, so static friction must supply 4 N to keep the net force zero. Fix: Sum the non-friction forces along the surface; any imbalance must be cancelled by static friction."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 328,
+           "inputTokenDetails": {
+            "noCacheTokens": 328,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 165,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 139
+           },
+           "totalTokens": 493,
+           "raw": {
+            "input_tokens": 328,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 165,
+            "output_tokens_details": {
+             "reasoning_tokens": 139
+            },
+            "total_tokens": 493
+           },
+           "reasoningTokens": 139,
+           "cachedInputTokens": 0
+          },
+          "ms": 6275,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 411,
+           "inputTokenDetails": {
+            "noCacheTokens": 411,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 410,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 380
+           },
+           "totalTokens": 821,
+           "raw": {
+            "thoughtsTokenCount": 380,
+            "promptTokenCount": 411,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 821,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 411
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 380,
+           "cachedInputTokens": 0
+          },
+          "ms": 3349,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 468,
+           "inputTokenDetails": {
+            "noCacheTokens": 212,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 602,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 582
+           },
+           "totalTokens": 1070,
+           "raw": {
+            "prompt_tokens": 468,
+            "completion_tokens": 602,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 212,
+            "total_tokens": 1070,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 582
+            }
+           },
+           "reasoningTokens": 582,
+           "cachedInputTokens": 256
+          },
+          "ms": 7851,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 238,
+           "inputTokenDetails": {
+            "noCacheTokens": 238,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 2375,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 2351
+           },
+           "totalTokens": 2613,
+           "raw": {
+            "input_tokens": 238,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 2375,
+            "output_tokens_details": {
+             "reasoning_tokens": 2351
+            },
+            "total_tokens": 2613
+           },
+           "reasoningTokens": 2351,
+           "cachedInputTokens": 0
+          },
+          "ms": 37695,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9032,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9029
+           },
+           "outputTokens": 512,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 290
+           },
+           "totalTokens": 9544,
+           "raw": {
+            "input_tokens": 9032,
+            "input_tokens_details": {
+             "cache_write_tokens": 9029,
+             "cached_tokens": 0
+            },
+            "output_tokens": 512,
+            "output_tokens_details": {
+             "reasoning_tokens": 290
+            },
+            "total_tokens": 9544
+           },
+           "reasoningTokens": 290,
+           "cachedInputTokens": 0
+          },
+          "ms": 10958,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9954,
+           "inputTokenDetails": {
+            "noCacheTokens": 9954,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1457,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1195
+           },
+           "totalTokens": 11411,
+           "raw": {
+            "thoughtsTokenCount": 1195,
+            "promptTokenCount": 9954,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11411,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9954
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1195,
+           "cachedInputTokens": 0
+          },
+          "ms": 8010,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9227,
+           "inputTokenDetails": {
+            "noCacheTokens": 523,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 2489,
+           "outputTokenDetails": {
+            "textTokens": 139,
+            "reasoningTokens": 2350
+           },
+           "totalTokens": 11716,
+           "raw": {
+            "prompt_tokens": 9227,
+            "completion_tokens": 2489,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 523,
+            "total_tokens": 11716,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 2350
+            }
+           },
+           "reasoningTokens": 2350,
+           "cachedInputTokens": 8704
+          },
+          "ms": 24848,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8228,
+           "inputTokenDetails": {
+            "noCacheTokens": 8228,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3348,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 3192
+           },
+           "totalTokens": 11576,
+           "raw": {
+            "input_tokens": 8228,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3348,
+            "output_tokens_details": {
+             "reasoning_tokens": 3192
+            },
+            "total_tokens": 11576
+           },
+           "reasoningTokens": 3192,
+           "cachedInputTokens": 0
+          },
+          "ms": 18769,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.7",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15214,
+           "inputTokenDetails": {
+            "noCacheTokens": 886,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 484,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 272
+           },
+           "totalTokens": 15698,
+           "raw": {
+            "input_tokens": 886,
+            "output_tokens": 484,
+            "output_tokens_details": {
+             "thinking_tokens": 272
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 272,
+           "cachedInputTokens": 14328
+          },
+          "ms": 7496,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  }
+ ]
+}

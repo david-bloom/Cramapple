@@ -48,11 +48,7 @@ import {
   sanitizeModelResult,
 } from "../_shared/grading-contract.ts";
 import { loadLearningRuntimeContext } from "../_shared/learning-context.ts";
-import {
-  asRecord,
-  buildGradingMemoryState,
-  recordStudentMemoryEvent,
-} from "../_shared/student-memory.ts";
+import { asRecord } from "../_shared/student-memory.ts";
 import {
   buildEvaluateAttemptResponse,
   buildEvaluateAttemptResult,
@@ -1569,7 +1565,6 @@ export async function handleEvaluateAttempt(
     normalizeResponseText(responseText),
   );
 
-  const attemptKind = attempt.attempt_mode as string;
   const promptBase = {
     operation: operation as AllowedOperation,
     promptVersion,

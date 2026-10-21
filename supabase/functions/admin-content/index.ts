@@ -431,7 +431,6 @@ async function createArtifactDraft(
     `${operation}_requested`;
 
   const artifactId = asString(artifact.artifact_id) ?? crypto.randomUUID();
-  const artifactVersionId = crypto.randomUUID();
   const versionSequence = await nextArtifactVersionSequence(
     service,
     artifactId,

@@ -1,0 +1,3085 @@
+{
+ "topic": {
+  "subject_key": "ap-physics-c-mechanics",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Newton's Third Law",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.3__A__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.3",
+     "topic_title": "Newton's Third Law",
+     "stem": "Cart A has mass m, and cart B has mass 3m. The carts collide on a horizontal track. At one instant during contact, cart A exerts a force of magnitude F > 0 to the right on cart B. How does the force exerted by cart B on cart A at that same instant compare?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "It has magnitude 3F and points left.",
+       "is_correct": false,
+       "rationale": "Mass-dominance error: The more massive cart does not exert a larger force in this interaction. Newton’s third law requires equal force magnitudes even when the masses differ. Fix: Pair “A on B” with “B on A” before comparing their magnitudes."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "It has magnitude F and points left.",
+       "is_correct": true,
+       "rationale": "The force by A on B and the force by B on A form a Newton’s third-law pair. They act on different carts with equal magnitudes and opposite directions, regardless of the carts’ masses."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "It is zero.",
+       "is_correct": false,
+       "rationale": "Internal-force cancellation error: These forces cancel in the net-force sum for the two-cart system, but they act on different carts. Their cancellation does not make either individual force zero. Fix: Identify the object receiving each force before adding forces."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "It has magnitude F and points right.",
+       "is_correct": false,
+       "rationale": "Equal-means-identical error: Third-law forces have equal magnitudes, but their directions are opposite. Since A pushes B right, B pushes A left. Fix: Reverse the force direction when exchanging the source and receiver."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 638,
+          "inputTokenDetails": {
+           "noCacheTokens": 638,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 668,
+          "raw": {
+           "input_tokens": 638,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 6277,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 353,
+          "inputTokenDetails": {
+           "noCacheTokens": 353,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 316,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 286
+          },
+          "totalTokens": 669,
+          "raw": {
+           "thoughtsTokenCount": 286,
+           "promptTokenCount": 353,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 669,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 353
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 286,
+          "cachedInputTokens": 0
+         },
+         "ms": 3488,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 412,
+          "inputTokenDetails": {
+           "noCacheTokens": 156,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 268,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 248
+          },
+          "totalTokens": 680,
+          "raw": {
+           "prompt_tokens": 412,
+           "completion_tokens": 268,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 156,
+           "total_tokens": 680,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 248
+           }
+          },
+          "reasoningTokens": 248,
+          "cachedInputTokens": 256
+         },
+         "ms": 3428,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 182,
+          "inputTokenDetails": {
+           "noCacheTokens": 182,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 866,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 842
+          },
+          "totalTokens": 1048,
+          "raw": {
+           "input_tokens": 182,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 866,
+           "output_tokens_details": {
+            "reasoning_tokens": 842
+           },
+           "total_tokens": 1048
+          },
+          "reasoningTokens": 842,
+          "cachedInputTokens": 0
+         },
+         "ms": 11761,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15030,
+          "inputTokenDetails": {
+           "noCacheTokens": 702,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 448,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 236
+          },
+          "totalTokens": 15478,
+          "raw": {
+           "input_tokens": 702,
+           "output_tokens": 448,
+           "output_tokens_details": {
+            "thinking_tokens": 236
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 236,
+          "cachedInputTokens": 14328
+         },
+         "ms": 12293,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9814,
+          "inputTokenDetails": {
+           "noCacheTokens": 9814,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1338,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1076
+          },
+          "totalTokens": 11152,
+          "raw": {
+           "thoughtsTokenCount": 1076,
+           "promptTokenCount": 9814,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11152,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9814
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1076,
+          "cachedInputTokens": 0
+         },
+         "ms": 8240,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9087,
+          "inputTokenDetails": {
+           "noCacheTokens": 383,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 3416,
+          "outputTokenDetails": {
+           "textTokens": 139,
+           "reasoningTokens": 3277
+          },
+          "totalTokens": 12503,
+          "raw": {
+           "prompt_tokens": 9087,
+           "completion_tokens": 3416,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 383,
+           "total_tokens": 12503,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3277
+           }
+          },
+          "reasoningTokens": 3277,
+          "cachedInputTokens": 8704
+         },
+         "ms": 29560,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8084,
+          "inputTokenDetails": {
+           "noCacheTokens": 8084,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3596,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 3440
+          },
+          "totalTokens": 11680,
+          "raw": {
+           "input_tokens": 8084,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3596,
+           "output_tokens_details": {
+            "reasoning_tokens": 3440
+           },
+           "total_tokens": 11680
+          },
+          "reasoningTokens": 3440,
+          "cachedInputTokens": 0
+         },
+         "ms": 33696,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8892,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8889
+          },
+          "outputTokens": 220,
+          "outputTokenDetails": {
+           "textTokens": 220,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 9112,
+          "raw": {
+           "input_tokens": 8892,
+           "input_tokens_details": {
+            "cache_write_tokens": 8889,
+            "cached_tokens": 0
+           },
+           "output_tokens": 220,
+           "output_tokens_details": {
+            "reasoning_tokens": 0
+           },
+           "total_tokens": 9112
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 5577,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "2",
+     "skills": [
+      "2.A",
+      "2.B",
+      "2.C",
+      "2.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The question directly applies Newton's third law to claim the force pair is equal in magnitude and opposite in direction. Recognizing that single law is enough, with no multi-step reasoning."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The question directly tests the application of Newton's third law to an interaction pair between two colliding bodies of unequal mass, requiring no multi-step mathematical calculation or extended reasoning."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The question directly asks the student to apply Newton’s third law to identify the force pair exerted between two carts, requiring recognition that the forces have equal magnitude and opposite direction."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "Requires applying Newton's third-law model to make a claim that the B-on-A force is equal magnitude opposite direction, ignoring mass difference; single-concept application to a new situation, not mere recall or multi-step synthesis."
+      }
+     ],
+     "skill": "3.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.B",
+       4
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Easy",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Easy",
+       3
+      ],
+      [
+       "Medium",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.3__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.3",
+      "topic_title": "Newton's Third Law",
+      "stem": "Cart A has mass m, and cart B has mass 3m. The carts collide on a horizontal track. At one instant during contact, cart A exerts a force of magnitude F > 0 to the right on cart B. How does the force exerted by cart B on cart A at that same instant compare?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "It has magnitude 3F and points left.",
+        "is_correct": false,
+        "rationale": "Mass-dominance error: The more massive cart does not exert a larger force in this interaction. Newton’s third law requires equal force magnitudes even when the masses differ. Fix: Pair “A on B” with “B on A” before comparing their magnitudes."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "It has magnitude F and points left.",
+        "is_correct": true,
+        "rationale": "The force by A on B and the force by B on A form a Newton’s third-law pair. They act on different carts with equal magnitudes and opposite directions, regardless of the carts’ masses."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "It is zero.",
+        "is_correct": false,
+        "rationale": "Internal-force cancellation error: These forces cancel in the net-force sum for the two-cart system, but they act on different carts. Their cancellation does not make either individual force zero. Fix: Identify the object receiving each force before adding forces."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "It has magnitude F and points right.",
+        "is_correct": false,
+        "rationale": "Equal-means-identical error: Third-law forces have equal magnitudes, but their directions are opposite. Since A pushes B right, B pushes A left. Fix: Reverse the force direction when exchanging the source and receiver."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 638,
+           "inputTokenDetails": {
+            "noCacheTokens": 638,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 668,
+           "raw": {
+            "input_tokens": 638,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 6277,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 353,
+           "inputTokenDetails": {
+            "noCacheTokens": 353,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 316,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 286
+           },
+           "totalTokens": 669,
+           "raw": {
+            "thoughtsTokenCount": 286,
+            "promptTokenCount": 353,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 669,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 353
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 286,
+           "cachedInputTokens": 0
+          },
+          "ms": 3488,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 412,
+           "inputTokenDetails": {
+            "noCacheTokens": 156,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 268,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 248
+           },
+           "totalTokens": 680,
+           "raw": {
+            "prompt_tokens": 412,
+            "completion_tokens": 268,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 156,
+            "total_tokens": 680,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 248
+            }
+           },
+           "reasoningTokens": 248,
+           "cachedInputTokens": 256
+          },
+          "ms": 3428,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 182,
+           "inputTokenDetails": {
+            "noCacheTokens": 182,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 866,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 842
+           },
+           "totalTokens": 1048,
+           "raw": {
+            "input_tokens": 182,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 866,
+            "output_tokens_details": {
+             "reasoning_tokens": 842
+            },
+            "total_tokens": 1048
+           },
+           "reasoningTokens": 842,
+           "cachedInputTokens": 0
+          },
+          "ms": 11761,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15030,
+           "inputTokenDetails": {
+            "noCacheTokens": 702,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 448,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 236
+           },
+           "totalTokens": 15478,
+           "raw": {
+            "input_tokens": 702,
+            "output_tokens": 448,
+            "output_tokens_details": {
+             "thinking_tokens": 236
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 236,
+           "cachedInputTokens": 14328
+          },
+          "ms": 12293,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9814,
+           "inputTokenDetails": {
+            "noCacheTokens": 9814,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1338,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1076
+           },
+           "totalTokens": 11152,
+           "raw": {
+            "thoughtsTokenCount": 1076,
+            "promptTokenCount": 9814,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11152,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9814
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1076,
+           "cachedInputTokens": 0
+          },
+          "ms": 8240,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9087,
+           "inputTokenDetails": {
+            "noCacheTokens": 383,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 3416,
+           "outputTokenDetails": {
+            "textTokens": 139,
+            "reasoningTokens": 3277
+           },
+           "totalTokens": 12503,
+           "raw": {
+            "prompt_tokens": 9087,
+            "completion_tokens": 3416,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 383,
+            "total_tokens": 12503,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3277
+            }
+           },
+           "reasoningTokens": 3277,
+           "cachedInputTokens": 8704
+          },
+          "ms": 29560,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8084,
+           "inputTokenDetails": {
+            "noCacheTokens": 8084,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3596,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 3440
+           },
+           "totalTokens": 11680,
+           "raw": {
+            "input_tokens": 8084,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3596,
+            "output_tokens_details": {
+             "reasoning_tokens": 3440
+            },
+            "total_tokens": 11680
+           },
+           "reasoningTokens": 3440,
+           "cachedInputTokens": 0
+          },
+          "ms": 33696,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8892,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8889
+           },
+           "outputTokens": 220,
+           "outputTokenDetails": {
+            "textTokens": 220,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 9112,
+           "raw": {
+            "input_tokens": 8892,
+            "input_tokens_details": {
+             "cache_write_tokens": 8889,
+             "cached_tokens": 0
+            },
+            "output_tokens": 220,
+            "output_tokens_details": {
+             "reasoning_tokens": 0
+            },
+            "total_tokens": 9112
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 5577,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.3__B__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.3",
+     "topic_title": "Newton's Third Law",
+     "stem": "A book rests motionless on a horizontal table on Earth. Consider the downward gravitational force exerted by Earth on the book. Which force is the Newton's third-law pair of this force?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "The upward gravitational force exerted by the book on Earth",
+       "is_correct": true,
+       "rationale": "A third-law pair comes from one interaction between two objects: Earth pulls on the book, so the book pulls on Earth. The pair forces are of the same type (gravitational), equal in magnitude, and opposite in direction. Because the book attracts Earth toward itself, this force on Earth points upward."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "The upward normal force exerted by the table on the book",
+       "is_correct": false,
+       "rationale": "This confuses balanced forces with a third-law pair. This force does equal the weight here, but only because the book is in equilibrium, and it acts on the same object as the weight. Fix: Check that the two forces act on different objects and come from the same interaction."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "The downward normal force exerted by the book on the table",
+       "is_correct": false,
+       "rationale": "This picks a force equal in size to the weight but from a different interaction, the book–table contact. It is the third-law partner of the table's normal force on the book, not of Earth's pull. Fix: Write the force as \"by A on B,\" then swap A and B to find its partner."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "The downward gravitational force exerted by the book on Earth",
+       "is_correct": false,
+       "rationale": "This names the correct interaction but the wrong direction. Gravity is attractive, so the book pulls Earth toward the book, which is upward, opposite to Earth's downward pull on the book. Fix: Ask which way the exerting object pulls the other, then confirm the pair forces point oppositely."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 264,
+          "inputTokenDetails": {
+           "noCacheTokens": 264,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 46,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 20
+          },
+          "totalTokens": 310,
+          "raw": {
+           "input_tokens": 264,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 46,
+           "output_tokens_details": {
+            "reasoning_tokens": 20
+           },
+           "total_tokens": 310
+          },
+          "reasoningTokens": 20,
+          "cachedInputTokens": 0
+         },
+         "ms": 2704,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 339,
+          "inputTokenDetails": {
+           "noCacheTokens": 339,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 282,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 252
+          },
+          "totalTokens": 621,
+          "raw": {
+           "thoughtsTokenCount": 252,
+           "promptTokenCount": 339,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 621,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 339
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 252,
+          "cachedInputTokens": 0
+         },
+         "ms": 2704,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 400,
+          "inputTokenDetails": {
+           "noCacheTokens": 144,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 541,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 521
+          },
+          "totalTokens": 941,
+          "raw": {
+           "prompt_tokens": 400,
+           "completion_tokens": 541,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 144,
+           "total_tokens": 941,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 521
+           }
+          },
+          "reasoningTokens": 521,
+          "cachedInputTokens": 256
+         },
+         "ms": 6724,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 169,
+          "inputTokenDetails": {
+           "noCacheTokens": 169,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 964,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 940
+          },
+          "totalTokens": 1133,
+          "raw": {
+           "input_tokens": 169,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 964,
+           "output_tokens_details": {
+            "reasoning_tokens": 940
+           },
+           "total_tokens": 1133
+          },
+          "reasoningTokens": 940,
+          "cachedInputTokens": 0
+         },
+         "ms": 10260,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8937,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8934
+          },
+          "outputTokens": 295,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 73
+          },
+          "totalTokens": 9232,
+          "raw": {
+           "input_tokens": 8937,
+           "input_tokens_details": {
+            "cache_write_tokens": 8934,
+            "cached_tokens": 0
+           },
+           "output_tokens": 295,
+           "output_tokens_details": {
+            "reasoning_tokens": 73
+           },
+           "total_tokens": 9232
+          },
+          "reasoningTokens": 73,
+          "cachedInputTokens": 0
+         },
+         "ms": 6134,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9855,
+          "inputTokenDetails": {
+           "noCacheTokens": 9855,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1295,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1033
+          },
+          "totalTokens": 11150,
+          "raw": {
+           "thoughtsTokenCount": 1033,
+           "promptTokenCount": 9855,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11150,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9855
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1033,
+          "cachedInputTokens": 0
+         },
+         "ms": 18208,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9131,
+          "inputTokenDetails": {
+           "noCacheTokens": 427,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 8583,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 8364
+          },
+          "totalTokens": 17714,
+          "raw": {
+           "prompt_tokens": 9131,
+           "completion_tokens": 8583,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 427,
+           "total_tokens": 17714,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 8364
+           }
+          },
+          "reasoningTokens": 8364,
+          "cachedInputTokens": 8704
+         },
+         "ms": 83320,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8129,
+          "inputTokenDetails": {
+           "noCacheTokens": 8129,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 5215,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 5059
+          },
+          "totalTokens": 13344,
+          "raw": {
+           "input_tokens": 8129,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 5215,
+           "output_tokens_details": {
+            "reasoning_tokens": 5059
+           },
+           "total_tokens": 13344
+          },
+          "reasoningTokens": 5059,
+          "cachedInputTokens": 0
+         },
+         "ms": 28649,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15085,
+          "inputTokenDetails": {
+           "noCacheTokens": 757,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 544,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 332
+          },
+          "totalTokens": 15629,
+          "raw": {
+           "input_tokens": 757,
+           "output_tokens": 544,
+           "output_tokens_details": {
+            "thinking_tokens": 332
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 332,
+          "cachedInputTokens": 14328
+         },
+         "ms": 7853,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "3",
+     "skills": [
+      "3.B",
+      "3.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "Identifying the force pair requires direct recognition of Newton’s third law: swap the exerting and receiving objects while keeping the same interaction and reversing the force direction."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The question requires applying Newton's third law (a single theoretical concept) to a given physical scenario to identify the action-reaction partner of the gravitational force exerted by Earth on the book."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The question requires applying Newton's third law to identify the action-reaction pair for a specific force, distinguishing it from balanced forces and contact-force pairs."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "Requires applying Newton's third-law model – same interaction, forces on different objects, same type and opposite direction – to identify book-on-Earth gravity and reject balanced-force distractors. This is application of one concept to reach a conclusion, not mere recall or multi-concept synthesis."
+      }
+     ],
+     "skill": "3.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.B",
+       4
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       3
+      ],
+      [
+       "Easy",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.3__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.3",
+      "topic_title": "Newton's Third Law",
+      "stem": "Two carts and a compressed ideal spring between them are initially held at rest on a frictionless horizontal track. The system consists of both carts and the spring. The carts are released with no external horizontal force applied. While the spring is still compressed and pushing the carts apart, which statement correctly applies Newton’s third law to this system?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Each cart has zero net horizontal force because every force has an equal and opposite reaction force.",
+        "is_correct": false,
+        "rationale": "Single-object cancellation error: a third-law pair acts on different objects, so its forces cannot cancel in one cart’s force sum. Each cart experiences a nonzero horizontal spring force. Fix: Identify the object receiving each force before adding forces on one cart."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The spring forces on the carts are external to the system because the spring is a separate object.",
+        "is_correct": false,
+        "rationale": "System-boundary error: being a separate object does not make the spring external to the chosen system. The stem explicitly includes the spring, so its interactions with the carts are internal. Fix: List all objects inside the system before classifying interactions as internal or external."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "The spring interactions are internal, so they cannot change the motion of the system’s center of mass.",
+        "is_correct": true,
+        "rationale": "Each spring–cart interaction produces equal and opposite forces within the chosen system, so these internal forces cancel in the system’s force sum. The center of mass remains at rest even though the individual carts accelerate."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "The internal spring interactions produce a nonzero net horizontal force on the system because their forces act on different objects.",
+        "is_correct": false,
+        "rationale": "System-force-sum error: forces acting on different objects can cancel when summed over the entire system. Both members of every internal third-law pair belong in that sum and add to zero. Fix: Add both forces of each internal interaction when calculating the whole system’s net force."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "The stem also states that no external horizontal force acts on the system, so the center-of-mass conclusion in C does not depend only on Newton's third law. C is still the only correct choice. A is wrong because third-law pairs act on different objects, so each cart does have a net force. B contradicts the stated system boundary. D is wrong because internal forces cancel in the system's net force."
+          },
+          "usage": {
+           "inputTokens": 726,
+           "inputTokenDetails": {
+            "noCacheTokens": 726,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 147,
+           "outputTokenDetails": {
+            "textTokens": 147,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 873,
+           "raw": {
+            "input_tokens": 726,
+            "output_tokens": 147,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3081,
+          "flags": [
+           "defect: The stem also states that no external horizontal force acts on the system, so the center-of-mass conclusion in C does not depend only on Newton's third law. C is still the only correct choice. A is wrong because third-law pairs act on different objects, so each cart does have a net force. B contradicts the stated system boundary. D is wrong because internal forces cancel in the system's net force."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "Answer C is correct. The spring forces are internal to the cart-spring system and sum to zero, so the center-of-mass velocity stays constant (zero here). A is wrong: each cart feels an unbalanced spring force, and third-law pairs act on different objects, so they do not cancel on a single cart. B is wrong: the system definition includes the spring. D is wrong: internal forces give zero net force on the system."
+          },
+          "usage": {
+           "inputTokens": 726,
+           "inputTokenDetails": {
+            "noCacheTokens": 726,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 163,
+           "outputTokenDetails": {
+            "textTokens": 163,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 889,
+           "raw": {
+            "input_tokens": 726,
+            "output_tokens": 163,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3698,
+          "flags": [
+           "defect: Answer C is correct. The spring forces are internal to the cart-spring system and sum to zero, so the center-of-mass velocity stays constant (zero here). A is wrong: each cart feels an unbalanced spring force, and third-law pairs act on different objects, so they do not cancel on a single cart. B is wrong: the system definition includes the spring. D is wrong: internal forces give zero net force on the system."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 404,
+           "inputTokenDetails": {
+            "noCacheTokens": 404,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 431,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 401
+           },
+           "totalTokens": 835,
+           "raw": {
+            "thoughtsTokenCount": 401,
+            "promptTokenCount": 404,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 835,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 404
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 401,
+           "cachedInputTokens": 0
+          },
+          "ms": 2993,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 464,
+           "inputTokenDetails": {
+            "noCacheTokens": 208,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 980,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 960
+           },
+           "totalTokens": 1444,
+           "raw": {
+            "prompt_tokens": 464,
+            "completion_tokens": 980,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 208,
+            "total_tokens": 1444,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 960
+            }
+           },
+           "reasoningTokens": 960,
+           "cachedInputTokens": 256
+          },
+          "ms": 12134,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 231,
+           "inputTokenDetails": {
+            "noCacheTokens": 231,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 983,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 959
+           },
+           "totalTokens": 1214,
+           "raw": {
+            "input_tokens": 231,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 983,
+            "output_tokens_details": {
+             "reasoning_tokens": 959
+            },
+            "total_tokens": 1214
+           },
+           "reasoningTokens": 959,
+           "cachedInputTokens": 0
+          },
+          "ms": 15608,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.3__B__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.3",
+      "topic_title": "Newton's Third Law",
+      "stem": "A book rests motionless on a horizontal table on Earth. Consider the downward gravitational force exerted by Earth on the book. Which force is the Newton's third-law pair of this force?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "The upward gravitational force exerted by the book on Earth",
+        "is_correct": true,
+        "rationale": "A third-law pair comes from one interaction between two objects: Earth pulls on the book, so the book pulls on Earth. The pair forces are of the same type (gravitational), equal in magnitude, and opposite in direction. Because the book attracts Earth toward itself, this force on Earth points upward."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The upward normal force exerted by the table on the book",
+        "is_correct": false,
+        "rationale": "This confuses balanced forces with a third-law pair. This force does equal the weight here, but only because the book is in equilibrium, and it acts on the same object as the weight. Fix: Check that the two forces act on different objects and come from the same interaction."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "The downward normal force exerted by the book on the table",
+        "is_correct": false,
+        "rationale": "This picks a force equal in size to the weight but from a different interaction, the book–table contact. It is the third-law partner of the table's normal force on the book, not of Earth's pull. Fix: Write the force as \"by A on B,\" then swap A and B to find its partner."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "The downward gravitational force exerted by the book on Earth",
+        "is_correct": false,
+        "rationale": "This names the correct interaction but the wrong direction. Gravity is attractive, so the book pulls Earth toward the book, which is upward, opposite to Earth's downward pull on the book. Fix: Ask which way the exerting object pulls the other, then confirm the pair forces point oppositely."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 264,
+           "inputTokenDetails": {
+            "noCacheTokens": 264,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 46,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 20
+           },
+           "totalTokens": 310,
+           "raw": {
+            "input_tokens": 264,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 46,
+            "output_tokens_details": {
+             "reasoning_tokens": 20
+            },
+            "total_tokens": 310
+           },
+           "reasoningTokens": 20,
+           "cachedInputTokens": 0
+          },
+          "ms": 2704,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 339,
+           "inputTokenDetails": {
+            "noCacheTokens": 339,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 282,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 252
+           },
+           "totalTokens": 621,
+           "raw": {
+            "thoughtsTokenCount": 252,
+            "promptTokenCount": 339,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 621,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 339
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 252,
+           "cachedInputTokens": 0
+          },
+          "ms": 2704,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 400,
+           "inputTokenDetails": {
+            "noCacheTokens": 144,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 541,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 521
+           },
+           "totalTokens": 941,
+           "raw": {
+            "prompt_tokens": 400,
+            "completion_tokens": 541,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 144,
+            "total_tokens": 941,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 521
+            }
+           },
+           "reasoningTokens": 521,
+           "cachedInputTokens": 256
+          },
+          "ms": 6724,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 169,
+           "inputTokenDetails": {
+            "noCacheTokens": 169,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 964,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 940
+           },
+           "totalTokens": 1133,
+           "raw": {
+            "input_tokens": 169,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 964,
+            "output_tokens_details": {
+             "reasoning_tokens": 940
+            },
+            "total_tokens": 1133
+           },
+           "reasoningTokens": 940,
+           "cachedInputTokens": 0
+          },
+          "ms": 10260,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8937,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8934
+           },
+           "outputTokens": 295,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 73
+           },
+           "totalTokens": 9232,
+           "raw": {
+            "input_tokens": 8937,
+            "input_tokens_details": {
+             "cache_write_tokens": 8934,
+             "cached_tokens": 0
+            },
+            "output_tokens": 295,
+            "output_tokens_details": {
+             "reasoning_tokens": 73
+            },
+            "total_tokens": 9232
+           },
+           "reasoningTokens": 73,
+           "cachedInputTokens": 0
+          },
+          "ms": 6134,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9855,
+           "inputTokenDetails": {
+            "noCacheTokens": 9855,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1295,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1033
+           },
+           "totalTokens": 11150,
+           "raw": {
+            "thoughtsTokenCount": 1033,
+            "promptTokenCount": 9855,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11150,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9855
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1033,
+           "cachedInputTokens": 0
+          },
+          "ms": 18208,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9131,
+           "inputTokenDetails": {
+            "noCacheTokens": 427,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 8583,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 8364
+           },
+           "totalTokens": 17714,
+           "raw": {
+            "prompt_tokens": 9131,
+            "completion_tokens": 8583,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 427,
+            "total_tokens": 17714,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 8364
+            }
+           },
+           "reasoningTokens": 8364,
+           "cachedInputTokens": 8704
+          },
+          "ms": 83320,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8129,
+           "inputTokenDetails": {
+            "noCacheTokens": 8129,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 5215,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 5059
+           },
+           "totalTokens": 13344,
+           "raw": {
+            "input_tokens": 8129,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 5215,
+            "output_tokens_details": {
+             "reasoning_tokens": 5059
+            },
+            "total_tokens": 13344
+           },
+           "reasoningTokens": 5059,
+           "cachedInputTokens": 0
+          },
+          "ms": 28649,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15085,
+           "inputTokenDetails": {
+            "noCacheTokens": 757,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 544,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 332
+           },
+           "totalTokens": 15629,
+           "raw": {
+            "input_tokens": 757,
+            "output_tokens": 544,
+            "output_tokens_details": {
+             "thinking_tokens": 332
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 332,
+           "cachedInputTokens": 14328
+          },
+          "ms": 7853,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  }
+ ]
+}

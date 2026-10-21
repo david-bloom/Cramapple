@@ -1,0 +1,3177 @@
+{
+ "topic": {
+  "subject_key": "ap-physics-c-mechanics",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Newton's First Law",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.4__A__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.4",
+     "topic_title": "Newton's First Law",
+     "stem": "A block of mass m rests on a frictionless horizontal floor. A rope pulls on the block with tension of magnitude T directed at angle θ above the horizontal, where T sin θ < mg. The block speeds up along the floor but never leaves it. Which expression gives the magnitude of the normal force exerted by the floor on the block?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "mg",
+       "is_correct": false,
+       "rationale": "This assumes the normal force always equals weight, ignoring that the rope's upward component T sin θ shares the job of supporting the block. Only the vertical forces that actually act must sum to zero. Fix: List every force with a vertical component before writing the vertical sum of forces."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "mg + T sin θ",
+       "is_correct": false,
+       "rationale": "This is a sign error: the rope's vertical component points up, the same direction as the normal force, so it reduces the floor's push rather than adding to it. Fix: Assign a sign to each component from its arrow direction before solving for N."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "mg − T sin θ",
+       "is_correct": true,
+       "rationale": "The block stays on the floor, so its vertical acceleration is zero, and Newton's first law applies along the vertical axis alone: N + T sin θ − mg = 0. Solving gives N = mg − T sin θ, even though the horizontal forces are unbalanced and the block accelerates horizontally."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "mg − T cos θ",
+       "is_correct": false,
+       "rationale": "This uses the horizontal component of tension in the vertical equation, mixing up which trig function goes with which axis. For an angle measured from the horizontal, the vertical component is T sin θ. Fix: Check which side of the angle each component lies on before choosing sine or cosine."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 265,
+          "inputTokenDetails": {
+           "noCacheTokens": 265,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 54,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 28
+          },
+          "totalTokens": 319,
+          "raw": {
+           "input_tokens": 265,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 54,
+           "output_tokens_details": {
+            "reasoning_tokens": 28
+           },
+           "total_tokens": 319
+          },
+          "reasoningTokens": 28,
+          "cachedInputTokens": 0
+         },
+         "ms": 3077,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 342,
+          "inputTokenDetails": {
+           "noCacheTokens": 342,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 190,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 160
+          },
+          "totalTokens": 532,
+          "raw": {
+           "thoughtsTokenCount": 160,
+           "promptTokenCount": 342,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 532,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 342
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 160,
+          "cachedInputTokens": 0
+         },
+         "ms": 3254,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 405,
+          "inputTokenDetails": {
+           "noCacheTokens": 149,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 187,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 161
+          },
+          "totalTokens": 592,
+          "raw": {
+           "prompt_tokens": 405,
+           "completion_tokens": 187,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 149,
+           "total_tokens": 592,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 161
+           }
+          },
+          "reasoningTokens": 161,
+          "cachedInputTokens": 256
+         },
+         "ms": 4656,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 174,
+          "inputTokenDetails": {
+           "noCacheTokens": 174,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 872,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 848
+          },
+          "totalTokens": 1046,
+          "raw": {
+           "input_tokens": 174,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 872,
+           "output_tokens_details": {
+            "reasoning_tokens": 848
+           },
+           "total_tokens": 1046
+          },
+          "reasoningTokens": 848,
+          "cachedInputTokens": 0
+         },
+         "ms": 18452,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8922,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8919
+          },
+          "outputTokens": 474,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 252
+          },
+          "totalTokens": 9396,
+          "raw": {
+           "input_tokens": 8922,
+           "input_tokens_details": {
+            "cache_write_tokens": 8919,
+            "cached_tokens": 0
+           },
+           "output_tokens": 474,
+           "output_tokens_details": {
+            "reasoning_tokens": 252
+           },
+           "total_tokens": 9396
+          },
+          "reasoningTokens": 252,
+          "cachedInputTokens": 0
+         },
+         "ms": 9309,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9839,
+          "inputTokenDetails": {
+           "noCacheTokens": 9839,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1508,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1246
+          },
+          "totalTokens": 11347,
+          "raw": {
+           "thoughtsTokenCount": 1246,
+           "promptTokenCount": 9839,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11347,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9839
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1246,
+          "cachedInputTokens": 0
+         },
+         "ms": 10439,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9116,
+          "inputTokenDetails": {
+           "noCacheTokens": 412,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 3357,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 3138
+          },
+          "totalTokens": 12473,
+          "raw": {
+           "prompt_tokens": 9116,
+           "completion_tokens": 3357,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 412,
+           "total_tokens": 12473,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3138
+           }
+          },
+          "reasoningTokens": 3138,
+          "cachedInputTokens": 8704
+         },
+         "ms": 32315,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8115,
+          "inputTokenDetails": {
+           "noCacheTokens": 8115,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 5108,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 4952
+          },
+          "totalTokens": 13223,
+          "raw": {
+           "input_tokens": 8115,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 5108,
+           "output_tokens_details": {
+            "reasoning_tokens": 4952
+           },
+           "total_tokens": 13223
+          },
+          "reasoningTokens": 4952,
+          "cachedInputTokens": 0
+         },
+         "ms": 83128,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15085,
+          "inputTokenDetails": {
+           "noCacheTokens": 757,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 447,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 235
+          },
+          "totalTokens": 15532,
+          "raw": {
+           "input_tokens": 757,
+           "output_tokens": 447,
+           "output_tokens_details": {
+            "thinking_tokens": 235
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 235,
+          "cachedInputTokens": 14328
+         },
+         "ms": 6448,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "2",
+     "skills": [
+      "2.A",
+      "2.B",
+      "2.C",
+      "2.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "Apply Newton’s second law vertically with zero vertical acceleration, recognizing that the rope’s upward component reduces the normal force: N = mg − T sin θ."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "2.A",
+       "difficulty": "Medium",
+       "reason": "The question requires deriving a symbolic expression for the normal force by resolving the tension force into components and applying Newton's second law in the vertical direction."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "2.A",
+       "difficulty": "Medium",
+       "reason": "The question requires deriving a symbolic expression for the normal force by applying vertical equilibrium and using the vertical component of tension."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "Requires applying Newton's 2nd law with ay=0 vertically (N+T sinθ-mg=0) to select the correct expression for N. This is a single-concept application to reach one conclusion, beyond Easy recall of N=mg but without Hard multi-concept chaining."
+      }
+     ],
+     "skill": "3.B",
+     "skill_status": "none",
+     "skill_tally": [
+      [
+       "3.B",
+       2
+      ],
+      [
+       "2.A",
+       2
+      ]
+     ],
+     "practice": "2",
+     "practice_status": "none",
+     "practice_tally": [
+      [
+       "2",
+       2
+      ],
+      [
+       "3",
+       2
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.4__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.4",
+      "topic_title": "Newton's First Law",
+      "stem": "A particle is observed in two separate trials in an inertial laboratory frame.\n\nTrial 1: Its horizontal velocity remains 3 m/s, and its vertical velocity remains 2 m/s.\nTrial 2: Its horizontal velocity remains 3 m/s, while its vertical velocity increases steadily from negative to positive, passing through zero at t = 0.\n\nLet Fᵧ₁ be the net vertical force during trial 1 and Fᵧ₂ be the net vertical force at t = 0 in trial 2. Which statement correctly compares these forces?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Fᵧ₁ = 0 and Fᵧ₂ = 0",
+        "is_correct": false,
+        "rationale": "Instantaneous-rest trap: Zero vertical velocity at one instant does not establish vertical equilibrium. In trial 2, the vertical velocity continues changing through that instant. Fix: Check whether vertical velocity is changing, not whether it is momentarily zero."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Fᵧ₁ ≠ 0 and Fᵧ₂ ≠ 0",
+        "is_correct": false,
+        "rationale": "Motion-requires-force trap: A nonzero vertical velocity does not require a nonzero net vertical force. Trial 1 has constant vertical velocity, so its vertical forces balance. Fix: Compare vertical velocities at successive times before deciding whether vertical forces balance."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Fᵧ₁ = 0 and Fᵧ₂ ≠ 0",
+        "is_correct": true,
+        "rationale": "In trial 1, constant vertical velocity means the vertical forces balance. In trial 2, vertical velocity is changing even as it passes through zero, so the vertical forces do not balance."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Fᵧ₁ ≠ 0 and Fᵧ₂ = 0",
+        "is_correct": false,
+        "rationale": "Velocity-as-force trap: This assigns nonzero force to nonzero vertical velocity and zero force to zero vertical velocity. Force balance depends on whether that velocity changes, not its instantaneous value. Fix: Classify each trial by changing or constant vertical velocity before assigning force balance."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "Trial 1 has constant velocity, so the vertical acceleration and the net vertical force are zero. In Trial 2 the vertical velocity increases steadily, so the vertical acceleration is nonzero and constant. That holds even at t = 0, where the vertical velocity momentarily passes through zero, so Fᵧ₂ ≠ 0. The question is well posed with exactly one correct choice, C."
+          },
+          "usage": {
+           "inputTokens": 813,
+           "inputTokenDetails": {
+            "noCacheTokens": 813,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 164,
+           "outputTokenDetails": {
+            "textTokens": 164,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 977,
+           "raw": {
+            "input_tokens": 813,
+            "output_tokens": 164,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3750,
+          "flags": [
+           "defect: Trial 1 has constant velocity, so the vertical acceleration and the net vertical force are zero. In Trial 2 the vertical velocity increases steadily, so the vertical acceleration is nonzero and constant. That holds even at t = 0, where the vertical velocity momentarily passes through zero, so Fᵧ₂ ≠ 0. The question is well posed with exactly one correct choice, C."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "Implicitly assumes the particle's mass is nonzero and constant, which is standard for this context. In Trial 1 the velocity is constant, so the vertical acceleration and net vertical force are zero. In Trial 2 the vertical velocity increases steadily, so the vertical acceleration is constant and nonzero even at t = 0, where v_y = 0. Under that assumption C is the single correct choice."
+          },
+          "usage": {
+           "inputTokens": 813,
+           "inputTokenDetails": {
+            "noCacheTokens": 813,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 162,
+           "outputTokenDetails": {
+            "textTokens": 162,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 975,
+           "raw": {
+            "input_tokens": 813,
+            "output_tokens": 162,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 7082,
+          "flags": [
+           "defect: Implicitly assumes the particle's mass is nonzero and constant, which is standard for this context. In Trial 1 the velocity is constant, so the vertical acceleration and net vertical force are zero. In Trial 2 the vertical velocity increases steadily, so the vertical acceleration is constant and nonzero even at t = 0, where v_y = 0. Under that assumption C is the single correct choice."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 446,
+           "inputTokenDetails": {
+            "noCacheTokens": 446,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 299,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 269
+           },
+           "totalTokens": 745,
+           "raw": {
+            "thoughtsTokenCount": 269,
+            "promptTokenCount": 446,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 745,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 446
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 269,
+           "cachedInputTokens": 0
+          },
+          "ms": 3401,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 504,
+           "inputTokenDetails": {
+            "noCacheTokens": 248,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 476,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 450
+           },
+           "totalTokens": 980,
+           "raw": {
+            "prompt_tokens": 504,
+            "completion_tokens": 476,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 248,
+            "total_tokens": 980,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 450
+            }
+           },
+           "reasoningTokens": 450,
+           "cachedInputTokens": 256
+          },
+          "ms": 6445,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 262,
+           "inputTokenDetails": {
+            "noCacheTokens": 262,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1062,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1038
+           },
+           "totalTokens": 1324,
+           "raw": {
+            "input_tokens": 262,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1062,
+            "output_tokens_details": {
+             "reasoning_tokens": 1038
+            },
+            "total_tokens": 1324
+           },
+           "reasoningTokens": 1038,
+           "cachedInputTokens": 0
+          },
+          "ms": 17391,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.4__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.4",
+      "topic_title": "Newton's First Law",
+      "stem": "A block of mass m rests on a frictionless horizontal floor. A rope pulls on the block with tension of magnitude T directed at angle θ above the horizontal, where T sin θ < mg. The block speeds up along the floor but never leaves it. Which expression gives the magnitude of the normal force exerted by the floor on the block?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "mg",
+        "is_correct": false,
+        "rationale": "This assumes the normal force always equals weight, ignoring that the rope's upward component T sin θ shares the job of supporting the block. Only the vertical forces that actually act must sum to zero. Fix: List every force with a vertical component before writing the vertical sum of forces."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "mg + T sin θ",
+        "is_correct": false,
+        "rationale": "This is a sign error: the rope's vertical component points up, the same direction as the normal force, so it reduces the floor's push rather than adding to it. Fix: Assign a sign to each component from its arrow direction before solving for N."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "mg − T sin θ",
+        "is_correct": true,
+        "rationale": "The block stays on the floor, so its vertical acceleration is zero, and Newton's first law applies along the vertical axis alone: N + T sin θ − mg = 0. Solving gives N = mg − T sin θ, even though the horizontal forces are unbalanced and the block accelerates horizontally."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "mg − T cos θ",
+        "is_correct": false,
+        "rationale": "This uses the horizontal component of tension in the vertical equation, mixing up which trig function goes with which axis. For an angle measured from the horizontal, the vertical component is T sin θ. Fix: Check which side of the angle each component lies on before choosing sine or cosine."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 265,
+           "inputTokenDetails": {
+            "noCacheTokens": 265,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 54,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 28
+           },
+           "totalTokens": 319,
+           "raw": {
+            "input_tokens": 265,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 54,
+            "output_tokens_details": {
+             "reasoning_tokens": 28
+            },
+            "total_tokens": 319
+           },
+           "reasoningTokens": 28,
+           "cachedInputTokens": 0
+          },
+          "ms": 3077,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 342,
+           "inputTokenDetails": {
+            "noCacheTokens": 342,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 190,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 160
+           },
+           "totalTokens": 532,
+           "raw": {
+            "thoughtsTokenCount": 160,
+            "promptTokenCount": 342,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 532,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 342
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 160,
+           "cachedInputTokens": 0
+          },
+          "ms": 3254,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 405,
+           "inputTokenDetails": {
+            "noCacheTokens": 149,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 187,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 161
+           },
+           "totalTokens": 592,
+           "raw": {
+            "prompt_tokens": 405,
+            "completion_tokens": 187,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 149,
+            "total_tokens": 592,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 161
+            }
+           },
+           "reasoningTokens": 161,
+           "cachedInputTokens": 256
+          },
+          "ms": 4656,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 174,
+           "inputTokenDetails": {
+            "noCacheTokens": 174,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 872,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 848
+           },
+           "totalTokens": 1046,
+           "raw": {
+            "input_tokens": 174,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 872,
+            "output_tokens_details": {
+             "reasoning_tokens": 848
+            },
+            "total_tokens": 1046
+           },
+           "reasoningTokens": 848,
+           "cachedInputTokens": 0
+          },
+          "ms": 18452,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8922,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8919
+           },
+           "outputTokens": 474,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 252
+           },
+           "totalTokens": 9396,
+           "raw": {
+            "input_tokens": 8922,
+            "input_tokens_details": {
+             "cache_write_tokens": 8919,
+             "cached_tokens": 0
+            },
+            "output_tokens": 474,
+            "output_tokens_details": {
+             "reasoning_tokens": 252
+            },
+            "total_tokens": 9396
+           },
+           "reasoningTokens": 252,
+           "cachedInputTokens": 0
+          },
+          "ms": 9309,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9839,
+           "inputTokenDetails": {
+            "noCacheTokens": 9839,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1508,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1246
+           },
+           "totalTokens": 11347,
+           "raw": {
+            "thoughtsTokenCount": 1246,
+            "promptTokenCount": 9839,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11347,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9839
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1246,
+           "cachedInputTokens": 0
+          },
+          "ms": 10439,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9116,
+           "inputTokenDetails": {
+            "noCacheTokens": 412,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 3357,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 3138
+           },
+           "totalTokens": 12473,
+           "raw": {
+            "prompt_tokens": 9116,
+            "completion_tokens": 3357,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 412,
+            "total_tokens": 12473,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3138
+            }
+           },
+           "reasoningTokens": 3138,
+           "cachedInputTokens": 8704
+          },
+          "ms": 32315,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8115,
+           "inputTokenDetails": {
+            "noCacheTokens": 8115,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 5108,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 4952
+           },
+           "totalTokens": 13223,
+           "raw": {
+            "input_tokens": 8115,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 5108,
+            "output_tokens_details": {
+             "reasoning_tokens": 4952
+            },
+            "total_tokens": 13223
+           },
+           "reasoningTokens": 4952,
+           "cachedInputTokens": 0
+          },
+          "ms": 83128,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15085,
+           "inputTokenDetails": {
+            "noCacheTokens": 757,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 447,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 235
+           },
+           "totalTokens": 15532,
+           "raw": {
+            "input_tokens": 757,
+            "output_tokens": 447,
+            "output_tokens_details": {
+             "thinking_tokens": 235
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 235,
+           "cachedInputTokens": 14328
+          },
+          "ms": 6448,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.4__B__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.4",
+     "topic_title": "Newton's First Law",
+     "stem": "A small object is released from rest relative to a spacecraft cabin. After release, the net force on the object is zero, and it does not touch the cabin. An observer fixed to the cabin sees the object move in a straight line toward the rear with increasing speed. Which statement correctly interprets these observations using Newton’s first law?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "The cabin frame is inertial because the net force on the object is zero.",
+       "is_correct": false,
+       "rationale": "Trap: treating zero net force as sufficient to identify an inertial frame. The defining test is whether a force-free object has constant velocity relative to that frame, which this object does not. Fix: Check whether the force-free object’s velocity stays constant in the proposed frame."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "The cabin frame is inertial because the object follows a straight path relative to the cabin.",
+       "is_correct": false,
+       "rationale": "Trap: confusing straight-line motion with constant velocity. A straight path fixes the direction of motion, but increasing speed still means the velocity changes. Fix: Check both speed and direction when deciding whether velocity is constant."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "The cabin frame is noninertial because the force-free object’s velocity changes relative to that frame.",
+       "is_correct": true,
+       "rationale": "In an inertial frame, an object with zero net force has constant velocity. The object’s increasing speed relative to the cabin therefore shows that the cabin frame is noninertial."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "The observations are impossible because zero net force requires the object to remain at rest relative to the cabin.",
+       "is_correct": false,
+       "rationale": "Trap: applying Newton’s first law in every reference frame. Remaining at rest after a force-free release is required in an inertial frame, but the cabin has not been established as inertial. Fix: Test whether the observer’s frame is inertial before using zero force to predict constant velocity."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": "Minor: describing the net force as zero mixes frame language, since a cabin observer would attribute a fictitious force. Read as zero real (interaction) force, the question is well posed and C is the only correct choice."
+         },
+         "usage": {
+          "inputTokens": 717,
+          "inputTokenDetails": {
+           "noCacheTokens": 717,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 96,
+          "outputTokenDetails": {
+           "textTokens": 96,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 813,
+          "raw": {
+           "input_tokens": 717,
+           "output_tokens": 96,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 2939,
+         "flags": [
+          "defect: Minor: describing the net force as zero mixes frame language, since a cabin observer would attribute a fictitious force. Read as zero real (interaction) force, the question is well posed and C is the only correct choice."
+         ]
+        },
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 717,
+          "inputTokenDetails": {
+           "noCacheTokens": 717,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 747,
+          "raw": {
+           "input_tokens": 717,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 1583,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 400,
+          "inputTokenDetails": {
+           "noCacheTokens": 400,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 265,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 235
+          },
+          "totalTokens": 665,
+          "raw": {
+           "thoughtsTokenCount": 235,
+           "promptTokenCount": 400,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 665,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 400
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 235,
+          "cachedInputTokens": 0
+         },
+         "ms": 3312,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 459,
+          "inputTokenDetails": {
+           "noCacheTokens": 203,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 1509,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 1489
+          },
+          "totalTokens": 1968,
+          "raw": {
+           "prompt_tokens": 459,
+           "completion_tokens": 1509,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 203,
+           "total_tokens": 1968,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 1489
+           }
+          },
+          "reasoningTokens": 1489,
+          "cachedInputTokens": 256
+         },
+         "ms": 18145,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 227,
+          "inputTokenDetails": {
+           "noCacheTokens": 227,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1623,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 1599
+          },
+          "totalTokens": 1850,
+          "raw": {
+           "input_tokens": 227,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1623,
+           "output_tokens_details": {
+            "reasoning_tokens": 1599
+           },
+           "total_tokens": 1850
+          },
+          "reasoningTokens": 1599,
+          "cachedInputTokens": 0
+         },
+         "ms": 22364,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15122,
+          "inputTokenDetails": {
+           "noCacheTokens": 794,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 502,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 290
+          },
+          "totalTokens": 15624,
+          "raw": {
+           "input_tokens": 794,
+           "output_tokens": 502,
+           "output_tokens_details": {
+            "thinking_tokens": 290
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 290,
+          "cachedInputTokens": 14328
+         },
+         "ms": 6762,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9864,
+          "inputTokenDetails": {
+           "noCacheTokens": 9864,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1490,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1228
+          },
+          "totalTokens": 11354,
+          "raw": {
+           "thoughtsTokenCount": 1228,
+           "promptTokenCount": 9864,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11354,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9864
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1228,
+          "cachedInputTokens": 0
+         },
+         "ms": 8571,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9139,
+          "inputTokenDetails": {
+           "noCacheTokens": 435,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 6286,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 6067
+          },
+          "totalTokens": 15425,
+          "raw": {
+           "prompt_tokens": 9139,
+           "completion_tokens": 6286,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 435,
+           "total_tokens": 15425,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 6067
+           }
+          },
+          "reasoningTokens": 6067,
+          "cachedInputTokens": 8704
+         },
+         "ms": 62261,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8132,
+          "inputTokenDetails": {
+           "noCacheTokens": 8132,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 5188,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 5032
+          },
+          "totalTokens": 13320,
+          "raw": {
+           "input_tokens": 8132,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 5188,
+           "output_tokens_details": {
+            "reasoning_tokens": 5032
+           },
+           "total_tokens": 13320
+          },
+          "reasoningTokens": 5032,
+          "cachedInputTokens": 0
+         },
+         "ms": 41622,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8942,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8939
+          },
+          "outputTokens": 292,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 70
+          },
+          "totalTokens": 9234,
+          "raw": {
+           "input_tokens": 8942,
+           "input_tokens_details": {
+            "cache_write_tokens": 8939,
+            "cached_tokens": 0
+           },
+           "output_tokens": 292,
+           "output_tokens_details": {
+            "reasoning_tokens": 70
+           },
+           "total_tokens": 9234
+          },
+          "reasoningTokens": 70,
+          "cachedInputTokens": 0
+         },
+         "ms": 5678,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "3",
+     "skills": [
+      "3.B",
+      "3.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The student applies Newton's first law to the observations to claim that the cabin frame is noninertial. This is a single concept used to reach a single conclusion, though the distractors require care with the difference between a straight path and constant velocity."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The question requires students to apply Newton's first law and the definition of an inertial reference frame to deduce that an accelerating, force-free object implies the reference frame is noninertial."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The question requires applying Newton’s first law and the definition of an inertial frame to interpret observations and select the correct claim, rather than recalling a single fact or performing calculations."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.C",
+       "difficulty": "Medium",
+       "reason": "Task requires using the observed velocity change of the zero-net-force object as evidence with Newton's first-law definition of inertial frame to support the claim the cabin is noninertial, which is 3.C justification. It applies one concept to a new spacecraft situation to reach a single conclusion, not mere recall and not multi-concept multi-step synthesis."
+      }
+     ],
+     "skill": "3.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.B",
+       3
+      ],
+      [
+       "3.C",
+       1
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.4__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.4",
+      "topic_title": "Newton's First Law",
+      "stem": "A small object is released from rest relative to a spacecraft cabin. After release, the net force on the object is zero, and it does not touch the cabin. An observer fixed to the cabin sees the object move in a straight line toward the rear with increasing speed. Which statement correctly interprets these observations using Newton’s first law?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "The cabin frame is inertial because the net force on the object is zero.",
+        "is_correct": false,
+        "rationale": "Trap: treating zero net force as sufficient to identify an inertial frame. The defining test is whether a force-free object has constant velocity relative to that frame, which this object does not. Fix: Check whether the force-free object’s velocity stays constant in the proposed frame."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The cabin frame is inertial because the object follows a straight path relative to the cabin.",
+        "is_correct": false,
+        "rationale": "Trap: confusing straight-line motion with constant velocity. A straight path fixes the direction of motion, but increasing speed still means the velocity changes. Fix: Check both speed and direction when deciding whether velocity is constant."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "The cabin frame is noninertial because the force-free object’s velocity changes relative to that frame.",
+        "is_correct": true,
+        "rationale": "In an inertial frame, an object with zero net force has constant velocity. The object’s increasing speed relative to the cabin therefore shows that the cabin frame is noninertial."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "The observations are impossible because zero net force requires the object to remain at rest relative to the cabin.",
+        "is_correct": false,
+        "rationale": "Trap: applying Newton’s first law in every reference frame. Remaining at rest after a force-free release is required in an inertial frame, but the cabin has not been established as inertial. Fix: Test whether the observer’s frame is inertial before using zero force to predict constant velocity."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "Minor: describing the net force as zero mixes frame language, since a cabin observer would attribute a fictitious force. Read as zero real (interaction) force, the question is well posed and C is the only correct choice."
+          },
+          "usage": {
+           "inputTokens": 717,
+           "inputTokenDetails": {
+            "noCacheTokens": 717,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 96,
+           "outputTokenDetails": {
+            "textTokens": 96,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 813,
+           "raw": {
+            "input_tokens": 717,
+            "output_tokens": 96,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 2939,
+          "flags": [
+           "defect: Minor: describing the net force as zero mixes frame language, since a cabin observer would attribute a fictitious force. Read as zero real (interaction) force, the question is well posed and C is the only correct choice."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 717,
+           "inputTokenDetails": {
+            "noCacheTokens": 717,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 747,
+           "raw": {
+            "input_tokens": 717,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1583,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 400,
+           "inputTokenDetails": {
+            "noCacheTokens": 400,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 265,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 235
+           },
+           "totalTokens": 665,
+           "raw": {
+            "thoughtsTokenCount": 235,
+            "promptTokenCount": 400,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 665,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 400
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 235,
+           "cachedInputTokens": 0
+          },
+          "ms": 3312,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 459,
+           "inputTokenDetails": {
+            "noCacheTokens": 203,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 1509,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 1489
+           },
+           "totalTokens": 1968,
+           "raw": {
+            "prompt_tokens": 459,
+            "completion_tokens": 1509,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 203,
+            "total_tokens": 1968,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 1489
+            }
+           },
+           "reasoningTokens": 1489,
+           "cachedInputTokens": 256
+          },
+          "ms": 18145,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 227,
+           "inputTokenDetails": {
+            "noCacheTokens": 227,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1623,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1599
+           },
+           "totalTokens": 1850,
+           "raw": {
+            "input_tokens": 227,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1623,
+            "output_tokens_details": {
+             "reasoning_tokens": 1599
+            },
+            "total_tokens": 1850
+           },
+           "reasoningTokens": 1599,
+           "cachedInputTokens": 0
+          },
+          "ms": 22364,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15122,
+           "inputTokenDetails": {
+            "noCacheTokens": 794,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 502,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 290
+           },
+           "totalTokens": 15624,
+           "raw": {
+            "input_tokens": 794,
+            "output_tokens": 502,
+            "output_tokens_details": {
+             "thinking_tokens": 290
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 290,
+           "cachedInputTokens": 14328
+          },
+          "ms": 6762,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9864,
+           "inputTokenDetails": {
+            "noCacheTokens": 9864,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1490,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1228
+           },
+           "totalTokens": 11354,
+           "raw": {
+            "thoughtsTokenCount": 1228,
+            "promptTokenCount": 9864,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11354,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9864
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1228,
+           "cachedInputTokens": 0
+          },
+          "ms": 8571,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9139,
+           "inputTokenDetails": {
+            "noCacheTokens": 435,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 6286,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 6067
+           },
+           "totalTokens": 15425,
+           "raw": {
+            "prompt_tokens": 9139,
+            "completion_tokens": 6286,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 435,
+            "total_tokens": 15425,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 6067
+            }
+           },
+           "reasoningTokens": 6067,
+           "cachedInputTokens": 8704
+          },
+          "ms": 62261,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8132,
+           "inputTokenDetails": {
+            "noCacheTokens": 8132,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 5188,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 5032
+           },
+           "totalTokens": 13320,
+           "raw": {
+            "input_tokens": 8132,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 5188,
+            "output_tokens_details": {
+             "reasoning_tokens": 5032
+            },
+            "total_tokens": 13320
+           },
+           "reasoningTokens": 5032,
+           "cachedInputTokens": 0
+          },
+          "ms": 41622,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8942,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8939
+           },
+           "outputTokens": 292,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 70
+           },
+           "totalTokens": 9234,
+           "raw": {
+            "input_tokens": 8942,
+            "input_tokens_details": {
+             "cache_write_tokens": 8939,
+             "cached_tokens": 0
+            },
+            "output_tokens": 292,
+            "output_tokens_details": {
+             "reasoning_tokens": 70
+            },
+            "total_tokens": 9234
+           },
+           "reasoningTokens": 70,
+           "cachedInputTokens": 0
+          },
+          "ms": 5678,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  }
+ ]
+}
