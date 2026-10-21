@@ -71,6 +71,22 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 4. Secret names unchanged from the list above (`supabase secrets list`, names only).
 5. Production's `stripe_webhook_events` has nothing stuck in `processing`/`failed` from the last day.
 
+### Pre-flight results (2026-10-20, run before the merges landed)
+
+- Step 1 (release SHA): **not run.** PRs #507, app #38 and #39 were still open and clean on GitHub when checked.
+- Step 2: all six matched functions unchanged (`stripe-webhook` 9 files, `create-checkout-session` 8,
+  `create-parent-payment-link` 9, `get-checkout-status` 8, `resolve-parent-link` 7, `send-parent-payment-email` 6; 0 differ
+  each); `start-trial/index.ts` still `f7aa0093`; none of the new functions, and not `send-auth-email`, exist.
+- Step 3: last migration `20261016000100`, none newer; no trial, outbox, lifecycle or `product_feedback` tables; 20 legacy
+  `trial_v1` rows; the outbox check still holds the 17 names; Vault and cron unchanged (4 entries, 4 jobs, none for these
+  workers).
+- Step 4: 31 secret names, identical to the list above.
+- Step 5: no webhook events in the last day. **Two older live events are `failed`:** `evt_1UNhfiLwoRHzBJ1Oq8uxoixk` and
+  `evt_1UNhjzLwoRHzBJ1OKmwEezcj`, both `checkout.session.expired` for unpaid `student_direct` pay-now sessions on 2026-10-06,
+  7 attempts each, last 2026-10-09 (`stripe_webhook_processing_failed`). An expired session grants nothing, so no customer was
+  affected; logs from that date are gone, so the cause is not known. Not a blocker; step 3.6 now checks the new webhook
+  processes an expiry.
+
 ## 2. ⛔ Email foundation (TASK-0060's tables and worker), dormant
 
 1. `apply_migration` on Production, in order: `20261006084914_loops_transactional_email_outbox.sql`,
@@ -116,6 +132,9 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
 6. Smoke tests (no money moves): worker without its secret → 401; cancel and recovery with an unknown token → 404; trial status
    without a login → 401; webhook with a bad signature → 400; `trial_quote` → `billing_mode: pay_now`, `pay_now_reason: admission_off`, with
    the live price; a legacy pay-now `create-checkout-session` still returns a client secret (an unpaid live session; let it expire).
+   **24 hours later:** that session's `checkout.session.expired` event must be `processed` in `app.stripe_webhook_events`.
+   (Production's current webhook failed both live expiry events it received on 2026-10-06, 7 attempts each; see "Pre-flight
+   results".)
 - *Rollback:* redeploy the step-1 commits listed under "What Production looks like today"; unschedule the two jobs
   (`cron.unschedule('task0077-…')`). Tables stay (additive). With admission off no trial can start, so nothing needs undoing.
 
