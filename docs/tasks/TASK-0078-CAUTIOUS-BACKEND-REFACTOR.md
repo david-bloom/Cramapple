@@ -1,11 +1,13 @@
 # TASK-0078 — Cautious backend refactoring and replay hardening
 
-**Status:** Ready for Review
-**Owner:** Fable (independent review); Codex (implementation); David Bloom (Product Owner)
+> Historical implementation scope and authorization snapshot. The current canonical checklist is [TASK-0078 backend stability follow-ups](TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md). Current A1 evidence is [the two-step CI record](../qa/TASK0078_A1_TWO_STEP_CI_2026_10_21.md); counts below describe the original checkpoint.
+
+**Status:** Superseded — historical scope snapshot
+**Owner:** Codex (implementation); David Bloom (Product Owner)
 **Tier:** Standard for repository/CI work; Hard-Gate for database, configuration, deployment or function deletion
 **Created:** 2026-10-21
-**Branch:** `codex/task-0078-checkout-helpers` (final helper stack; parallel SQL/retirement branches listed in handoff)
-**PR:** [#520–#531 execution matrix](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md); final checkpoint [#531](https://github.com/david-bloom/Cramapple/pull/531)
+**Branch:** `codex/task-0078-replay-hardening` (depends on CI slice)
+**PR:** CI [#520](https://github.com/david-bloom/Cramapple/pull/520); replay PR pending
 **Approval State:** David authorized execution in this chat on 2026-10-21: “execute the improved plan”. This authorizes preparing and testing the reviewed repository slices. Database applications, deployments, Development configuration changes and remote function deletion retain the separate, concrete approval gates in the improved plan. No Production write is authorized by this record.
 
 ## Governing evidence and scope
@@ -32,11 +34,9 @@ Fable's review: [PR #519](https://github.com/david-bloom/Cramapple/pull/519), co
 
 ## Execution record
 
-- All required repository slices are committed and pushed as twelve separate PRs; dependency order, exact scope, CI evidence and release gates are in [the execution handoff](../handoffs/TASK0078_REFACTOR_EXECUTION_2026_10_21.md). Optional prototype work is deferred.
-- Final helper stack: 336 Deno tests and 10 Python tests pass; all 30 Edge entries type-check. A clean temporary merge rehearsal with the parallel source-retirement/SQL PRs passes the same 336 tests and all 29 retained entry checks. New shared helpers lint clean.
-- Actual migration SQL passes disposable Postgres fixtures. Replay includes audit failure/completion/privilege scenarios and eight simultaneous claimants: one claimed, seven pending. Separate submission and session fixtures pass. All source PRs' GitHub Minimal CI and applicable SQL jobs are green; evidence is linked in the handoff.
-- Replay acquires a durable reservation before effects; hashes and global keys are unchanged. Pending outcomes never expire automatically. See [release packet](../qa/TASK0078_REPLAY_RELEASE_PACKET.md) for quiescence, reconciliation and containment.
-- Deployment state: no task deployment, live migration application, configuration/flag change, remote deletion or main merge/push performed. Independent review, Development verification and separate release approvals remain open. TASK-0063 remains open for its broader outcomes.
-- QA Result: Pending independent source review; no live-integration sign-off.
-- Next Owner: Fable.
-- Next Required Action: Review the exact PR artifacts and release packets, then return findings before any approved Development rehearsal/release decision. This task is not Done.
+- CI baseline: 255 tests; expanded existing-handler workflow: 310 pass. Replay slice adds 12 request-handler tests, all passing; full workflow: 322 pass. Disposable Postgres SQL/privilege/failure tests pass; eight simultaneous database claimants yield exactly one claim and seven pending outcomes.
+- Replay design and deployment/recovery gates: `docs/qa/TASK0078_REPLAY_RELEASE_PACKET.md`. The initial Edge-only suggestion is replaced with a durable database reservation because audit insertion follows the irreversible action. Pending claims never expire automatically.
+- Deployment state: no task deployment, migration application, configuration change or remote deletion performed.
+- Test Results: Expanded Minimal CI Deno command: 310 passed, 0 failed, with an explicit environment-name allowlist and no runtime network permission. Importing capture-pairing initially attempted to start a server; its entry point now uses the existing import.meta.main pattern from attempt-response and evaluate-attempt. Existing Minimal CI baseline: 255 passed.
+- QA Result: Pending independent review.
+- Next Owner: Codex, repository implementation and local verification.
