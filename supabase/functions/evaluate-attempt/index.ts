@@ -1881,7 +1881,7 @@ export async function handleEvaluateAttempt(
       student_facing_summary: summary,
     };
 
-    await service.schema("app").from("grading_results").update({
+    const { data: storedGrade, error: gradeStoreError } = await service.schema("app").from("grading_results").update({
       status: "graded",
       points_earned: finalResult.points_earned,
       points_available: finalResult.points_available,
@@ -1904,7 +1904,11 @@ export async function handleEvaluateAttempt(
       estimated_cost_usd: 0,
       latency_ms: 0,
       raw_model_response: null,
-    }).eq("request_id", idempotencyKey);
+    }).eq("request_id", idempotencyKey).select("request_id").maybeSingle();
+    if (gradeStoreError || !storedGrade) {
+      console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: "mcq_rule", code: gradeStoreError?.code ?? "missing_row" });
+      return respond({ error: "grade_store_failed" }, { status: 500 });
+    }
 
     // STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md Phase 0 item 6 finding:
     // this write was previously fire-and-forget (no error captured), and a live
@@ -2622,10 +2626,16 @@ export async function handleEvaluateAttempt(
     }
   }
 
-  await service.schema("app")
+  const { data: storedGrade, error: gradeStoreError } = await service.schema("app")
     .from("grading_results")
     .update(updatePayload)
-    .eq("request_id", idempotencyKey);
+    .eq("request_id", idempotencyKey)
+    .select("request_id")
+    .maybeSingle();
+  if (gradeStoreError || !storedGrade) {
+    console.error("evaluate-attempt:grade_store_failed", { request_id: idempotencyKey, route: routing.target, code: gradeStoreError?.code ?? "missing_row" });
+    return respond({ error: "grade_store_failed" }, { status: 500 });
+  }
 
   // Passive telemetry, best-effort: separate write so the main update above
   // keeps working against the pre-migration schema (see

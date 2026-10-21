@@ -2,6 +2,205 @@ import "./_test_setup.ts";
 import { assertEquals } from "jsr:@std/assert@1";
 import { composeMcqFeedback, handleEvaluateAttempt } from "./index.ts";
 
+async function runGradeStoreCase(
+  route: "mcq" | "shadow" | "llm",
+  outcome: "error" | "missing" | "stored",
+) {
+  const id = (n: number) =>
+    `30000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
+  const writes: string[] = [];
+  const rows: Record<string, unknown> = {
+    prompt_versions: { status: "published" },
+    attempts: {
+      id: id(2),
+      user_id: id(1),
+      exam_pack_version_id: id(5),
+      content_item_version_id: id(4),
+      attempt_mode: route === "mcq" ? "mcq" : "frq",
+      status: "submitted",
+    },
+    response_versions: {
+      id: id(3),
+      attempt_id: id(2),
+      response_text: "A",
+      response_parts: { selected_choice_key: "A" },
+      is_submitted: true,
+    },
+    content_item_versions: {
+      id: id(4),
+      content_item_id: id(6),
+      status: "published",
+      stem: "Question",
+      rubric_type: route === "mcq"
+        ? "mcq"
+        : route === "llm"
+        ? "discrete_text"
+        : "spatial",
+    },
+    content_items: {
+      id: id(6),
+      status: "published",
+      title: "Item",
+      item_type: route === "mcq" ? "mcq" : "frq",
+      content_key: "fixture",
+    },
+    exam_pack_versions: { id: id(5), exam_pack_id: id(7), status: "published" },
+    exam_packs: { id: id(7), exam_name: "AP Biology", exam_code: "ap-biology" },
+    mcq_choices: [{
+      choice_key: "A",
+      choice_text: "Correct",
+      is_correct: true,
+    }],
+    frq_criteria: route === "llm"
+      ? [{
+        criterion_key: "c1",
+        learner_facing_text: "Identify A",
+        points_possible: 1,
+      }]
+      : [],
+  };
+  const service = {
+    schema: () => ({
+      rpc: () => Promise.resolve({ data: { id: id(8) }, error: null }),
+      from: (table: string) => {
+        let action = "read";
+        let payload: Record<string, unknown> = {};
+        const result = (single: boolean) => {
+          if (action !== "read") {
+            writes.push(
+              `${table}:${action}:${payload.status ?? "other"}`,
+            );
+          }
+          const finalStore = table === "grading_results" &&
+            action === "update" && payload.status !== "processing";
+          if (finalStore) {
+            return {
+              data: outcome === "stored"
+                ? { request_id: "grade-store-key" }
+                : null,
+              error: outcome === "error"
+                ? { code: "XX000", message: "private database detail" }
+                : null,
+            };
+          }
+          const row = rows[table];
+          return {
+            data: action === "insert"
+              ? payload
+              : (single
+                ? row ?? null
+                : (Array.isArray(row) ? row : row ? [row] : [])),
+            error: null,
+            count: 1,
+          };
+        };
+        const chain = {
+          select: () => chain,
+          eq: () => chain,
+          neq: () => chain,
+          in: () => chain,
+          order: () => chain,
+          limit: () => chain,
+          insert: (p: Record<string, unknown>) => {
+            action = "insert";
+            payload = p;
+            return chain;
+          },
+          update: (p: Record<string, unknown>) => {
+            action = "update";
+            payload = p;
+            return chain;
+          },
+          maybeSingle: () => Promise.resolve(result(true)),
+          then: (resolve: (value: unknown) => unknown) =>
+            Promise.resolve(result(false)).then(resolve),
+        };
+        return chain;
+      },
+    }),
+  };
+  const originalFetch = globalThis.fetch;
+  let modelCalls = 0;
+  try {
+    if (route === "llm") {
+      globalThis.fetch = (input) => {
+        assertEquals(input, "https://api.openai.com/v1/responses");
+        modelCalls++;
+        return Promise.resolve(Response.json({
+          output_text: JSON.stringify({
+            status: "graded",
+            points_earned: 1,
+            points_available: 1,
+            confidence: "high",
+            criteria: [{
+              criterion_key: "c1",
+              status: "earned",
+              points_awarded: 1,
+              evidence_quote: "A",
+              decision_explanation: "Correct",
+              minimum_fix: null,
+            }],
+            student_facing_summary: "Correct",
+            highest_value_gap: null,
+            predicted_improvement: null,
+            uncertainty_reason: null,
+          }),
+          usage: { input_tokens: 1, output_tokens: 1 },
+        }));
+      };
+    }
+    const res = await handleEvaluateAttempt(
+      new Request("http://localhost/evaluate-attempt", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          operation: "grade_initial_attempt",
+          idempotency_key: "grade-store-key",
+          attempt_id: id(2),
+          response_version_id: id(3),
+        }),
+      }),
+      {
+        // deno-lint-ignore no-explicit-any
+        service: service as any,
+        // deno-lint-ignore no-explicit-any
+        requireProfile: (() =>
+          Promise.resolve({
+            user: { id: id(1) },
+            profile: { role: "student" },
+          })) as any,
+      },
+    );
+    if (route === "llm") assertEquals(modelCalls, 1);
+    return { res, writes };
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+}
+
+for (const route of ["mcq", "shadow", "llm"] as const) {
+  for (const outcome of ["error", "missing"] as const) {
+    Deno.test(`${route} grade store ${outcome} returns 500 without a score or downstream truth writes`, async () => {
+      const { res, writes } = await runGradeStoreCase(route, outcome);
+      assertEquals(res.status, 500);
+      assertEquals(await res.json(), { error: "grade_store_failed" });
+      assertEquals(
+        writes.some((w) => w.startsWith("grading_results:update:")),
+        true,
+      );
+      assertEquals(writes.some((w) => w.startsWith("attempts:update:")), false);
+    });
+  }
+  Deno.test(`${route} acknowledged grade store retains the normal success response`, async () => {
+    const { res } = await runGradeStoreCase(route, "stored");
+    assertEquals(res.status, route === "shadow" ? 202 : 200);
+    assertEquals(
+      (await res.json()).status,
+      route === "shadow" ? "uncertain" : "graded",
+    );
+  });
+}
+
 Deno.test("evaluate-attempt rejects an unsubmitted response before loading answer-key tables", async () => {
   const tablesQueried: string[] = [];
   const ids = {
