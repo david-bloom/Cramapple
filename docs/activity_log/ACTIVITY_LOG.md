@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- TASK-0078 A6/A7 Production deploys; A8 published; A10 confirmed live (APPROVAL-0200, 2026-10-21, owner: "Signed-in subject fix works as intended. Lovable publishing complete. Run the production deploys for A6 and A7"): `evaluate-attempt` v82, `attempt-response` v43 and `create-post-purchase-addon` v9 deployed from `main` after Development (v60/v47/v37), 41 bundled files byte-identical to `main` on both projects, 49 local tests green including forced grade-store failure and recovery; the TASK-0074 control-character strip and the add-on ownership check are live; the subject-switch fix confirmed by David signed in; the add-on offer is published on the marketing site. See [`APPROVAL-0200`](APPROVAL-0200_TASK0078_A6_A7_PRODUCTION_FUNCTION_DEPLOYS_2026_10_21.md).
+
 - TASK-0078 batch applied and deployed to Development, verified, then Production (APPROVAL-0199, 2026-10-21, owner request "apply and deploy for all three to development, then check success, then merge collectively to production"): replay-claims migration plus `session-event` v52 and `storage-sign-url` v47 (bundles byte-identical to `main` on both projects), `app.submit_response` replay probes scoped to the actor, and the weekly session sweep scheduled for Saturday 06:00 UTC. Eight-step RPC replay test passed and rolled back on both projects; Development sweep run by hand archived 76; Production sweep left to its Saturday run. Repository renames and the sweep file in PR #549. See [`APPROVAL-0199`](APPROVAL-0199_TASK0078_REPLAY_CLAIMS_SUBMIT_SCOPING_WEEKLY_SWEEP_PRODUCTION_2026_10_21.md).
 
 - All Codex TASK-0078 PRs merged; deploy gates recorded (2026-10-21, late): Codex merged #520–#531, #535, #536 (record PR #545); `main` CI green on Minimal CI and both SQL fixture workflows. Verified after merge: the #535 review gap is closed (recovery projects the grade onto `app.attempts`); the duplicate TASK-0078 record is gone; `submit-response` source is gone. Nothing deployed; migrations `20261021152931` (replay claims) and `20261021153645` (submit replay scoping) are applied nowhere, and `session-event`/`storage-sign-url` on `main` now require the first before any deploy. Gates in [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2b; rename PR #544 open.
@@ -249,6 +251,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-21 — A6/A7 deployed to Production; A8 published; A10 confirmed (APPROVAL-0200)
+
+Owner: "Signed-in subject fix works as intended. Lovable publishing complete. Run the production deploys for A6 and A7."
+
+- **A10 closed:** David confirmed a signed-in subject switch works on Production after APPROVAL-0198.
+- **A8 closed:** the marketing project with Lovable commit `db106773` (add-on offer on the payment-result page) is published by David. The offer link therefore became reachable before the Production add-on function carried the ownership check, which is why A7 went first.
+- **A7 and A6, Development then Production:** `create-post-purchase-addon` (v37 → Production v9, `11071d86…`), `evaluate-attempt` (v60 → v82, `a1336c20…`), `attempt-response` (v47 → v43, `b80d8b32…`), all from `main` `9d13a252` with `verify_jwt` kept `false`. Local suites at that commit: 49 passed, 0 failed, including the forced grade-store failure and recovery cases. Bundles downloaded from each project and diffed against `main`: 41 files, zero differences, on both. Unauthenticated POST: add-on 401, grading functions 400. Production `grading_results` has no `processing` rows, so the new stale-row and recovery logic touches nothing existing.
+- **Now live in Production from today's work:** the TASK-0074 control-character strip, the grade-store failure handling (ruling 4), the actor-scoped replay on `session-event`, `storage-sign-url` and `app.submit_response`, the helper extractions, the add-on ownership check, the weekly session sweep (first run Saturday 06:00 UTC), and the session RPC reconciliation.
+- **Still undeployed by ruling 1:** `review-decision`, `admin-content`, `assign-for-review`, `reviewer-invite`. **Not deployed today and still carrying the §2b gate:** `create-checkout-session` and `create-parent-payment-link` (one student and one parent Development checkout in Stripe test mode first).
+- **Record:** `APPROVAL-0200`.
 
 ## 2026-10-21 — TASK-0078 batch: replay claims, submission replay scoping and weekly sweep live on both projects (APPROVAL-0199)
 
