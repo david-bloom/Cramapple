@@ -97,8 +97,8 @@ async function loadProfile(req: Request) {
 //                                            schema's own MCQ-terminal ready-to-ship state;
 //                                            see app.content_item_versions_review_status_check
 //                                            and the ready_to_ship_versions_count view) and
-//                                            fan out optional tutor_answer ×4 options ×2
-//                                            tutors as non-blocking secondary QA
+//                                            fan out one optional tutor_answer per
+//                                            original tutor as non-blocking secondary QA
 //                                            FRQ: flag question_review_approved
 // reader_question, score 2 (Edit+recycle)  → flag modification_reserved
 // reader_question, score 3 (Exclude)       → flag excluded
@@ -214,7 +214,10 @@ async function advanceWorkflow(
 
     if (isApprove) {
       if (reviewKind === "mcq") {
-        // Fan out tutor_answer assignments: 4 answer options × 2 original tutors.
+        // Fan out one tutor_answer assignment per original tutor. (It once
+        // built one row per answer choice, but the table has no choice_key
+        // column and cra_unique_by_content_version collapses them to one row
+        // per tutor anyway, so the per-choice copies were never stored.)
         //
         // NOTE (2026-08-08): this fan-out is optional secondary QA, not the
         // gate for review_status. Verified against Production
@@ -254,27 +257,15 @@ async function advanceWorkflow(
         const createdBy =
           originalTutorAssignments?.[0]?.created_by ?? null;
 
-        // Fetch answer option keys for this version.
-        const { data: choices } = await service
-          .schema("app")
-          .from("mcq_choices")
-          .select("choice_key")
-          .eq("content_item_version_id", versionId)
-          .order("choice_key", { ascending: true });
-
-        const choiceKeys = (choices ?? []).map((c) => c.choice_key as string);
-
-        const answerAssignments = tutorIds.flatMap((tutorId) =>
-          choiceKeys.map((choiceKey) => ({
-            content_item_version_id: versionId,
-            reviewer_id: tutorId,
-            review_stage: "tutor_answer",
-            review_kind: "mcq",
-            blind_group_id: answerBlindGroupId,
-            status: "pending",
-            created_by: createdBy,
-          }))
-        );
+        const answerAssignments = tutorIds.map((tutorId) => ({
+          content_item_version_id: versionId,
+          reviewer_id: tutorId,
+          review_stage: "tutor_answer",
+          review_kind: "mcq",
+          blind_group_id: answerBlindGroupId,
+          status: "pending",
+          created_by: createdBy,
+        }));
 
         if (answerAssignments.length > 0) {
           await service.schema("app")
