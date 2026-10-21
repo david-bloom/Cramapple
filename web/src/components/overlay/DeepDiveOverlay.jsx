@@ -1,49 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEscapeToClose } from '../../lib/useEscapeToClose.js';
 
 export function DeepDiveOverlay({ open = false, eyebrow = 'Deep dive', title, sections = [], onClose, onCopy }) {
+  const [active, setActive] = useState(0);
   useEscapeToClose(open, onClose);
+  useEffect(() => {
+    if (open) setActive(0);
+  }, [open, title]);
   if (!open) return null;
+
+  const notes = sections.length ? sections : [{ title: 'No notes yet', body: 'This question does not have deep-dive notes yet.' }];
+  const activeNote = notes[Math.min(active, notes.length - 1)];
+
   return (
-    <div style={{ position: 'absolute', inset: 'calc(var(--masthead-height) + var(--breadcrumb-height)) 0 0 0', background: 'var(--surface-scrim)', zIndex: 30, display: 'flex' }}>
-      <div style={{
-        flex: 1, margin: 'var(--space-5) var(--gutter) var(--space-6)', background: 'var(--surface-overlay)',
-        border: '1px solid var(--rule-400)', borderTop: 'var(--border-cap) solid var(--cap-deepdive)',
-        borderRadius: 'var(--radius-all)', boxShadow: 'var(--shadow-overlay)', display: 'flex', flexDirection: 'column', minHeight: 0
-      }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-5)', padding: '18px var(--space-7) 14px', borderBottom: '1px solid var(--rule-divider)' }}>
+    <div className="deep-dive-overlay">
+      <section className="deep-dive-panel" aria-labelledby="deep-dive-title">
+        <header className="deep-dive-header">
           <div>
-            <span style={{ fontSize: 'var(--type-eyebrow-size)', fontWeight: 'var(--type-eyebrow-weight)', letterSpacing: 'var(--type-eyebrow-tracking)', textTransform: 'uppercase', color: 'var(--text-eyebrow)' }}>{eyebrow}</span>
-            <h2 style={{ margin: '4px 0 0', fontFamily: 'var(--font-display)', fontWeight: 'var(--type-overlay-title-weight)', fontSize: 'var(--type-overlay-title-size)', lineHeight: 'var(--type-overlay-title-line)' }}>{title}</h2>
+            <span className="deep-dive-eyebrow">{eyebrow}</span>
+            <h2 id="deep-dive-title" className="deep-dive-title">{title}</h2>
+            <p className="deep-dive-count">
+              Note {Math.min(active + 1, notes.length)} of {notes.length}
+            </p>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-5)' }}>
+          <div className="deep-dive-actions">
             {onCopy && (
-              <button type="button" onClick={onCopy} style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--action-quiet-bg)', border: 'var(--border-quiet)',
-                borderRadius: 'var(--radius-all)', padding: '9px 14px', cursor: 'pointer', color: 'var(--action-quiet-fg)',
-                fontSize: 'var(--type-control-size)', fontWeight: 'var(--type-control-weight)', fontFamily: 'var(--font-body)'
-              }}>
+              <button type="button" onClick={onCopy} className="deep-dive-copy">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M8.6 3.6h11.8v11.8H8.6z" /><path d="M15.4 20.4H3.6V8.6" />
                 </svg>
                 Copy deep dive
               </button>
             )}
-            <button type="button" onClick={onClose} style={{
-              background: 'none', border: 0, cursor: 'pointer', color: 'var(--action-link-fg)', fontSize: 'var(--type-control-size)',
-              fontWeight: 'var(--type-control-weight)', textDecoration: 'underline', textUnderlineOffset: 'var(--underline-offset)', textDecorationThickness: 'var(--underline-thickness)'
-            }}>Back to the question</button>
+            <button type="button" onClick={onClose} className="deep-dive-back">Back to the question</button>
           </div>
+        </header>
+
+        <div className="deep-dive-notes">
+          <nav className="deep-dive-note-list" aria-label="Deep dive notes">
+            {notes.map((s, i) => (
+              <button
+                key={`${s.title}-${i}`}
+                type="button"
+                className={`deep-dive-note-tab${i === active ? ' is-active' : ''}`}
+                aria-current={i === active ? 'true' : undefined}
+                onClick={() => setActive(i)}
+              >
+                <span className="deep-dive-note-number">{String(i + 1).padStart(2, '0')}</span>
+                <span className="deep-dive-note-label">{s.title}</span>
+              </button>
+            ))}
+          </nav>
+
+          <article className="deep-dive-note-card">
+            <div className="deep-dive-note-kicker">Deep dive note</div>
+            <h3>{activeNote.title}</h3>
+            <p>{activeNote.body}</p>
+          </article>
         </div>
-        <div style={{ flex: '1 1 auto', minHeight: 0, padding: '20px var(--space-7)', display: 'grid', gridTemplateColumns: `repeat(${Math.min(sections.length, 3) || 1}, minmax(0,1fr))`, gap: 'var(--space-7)' }}>
-          {sections.map((s, i) => (
-            <div key={i} style={{ borderLeft: 'var(--border-cap) solid var(--teal-500)', paddingLeft: 'var(--space-4)' }}>
-              <h3 style={{ margin: '0 0 8px', fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', fontWeight: 700, color: 'var(--text-body)' }}>{s.title}</h3>
-              <div style={{ fontSize: 'var(--type-body-size)', lineHeight: 'var(--type-body-line)', color: 'var(--text-secondary)' }}>{s.body}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
