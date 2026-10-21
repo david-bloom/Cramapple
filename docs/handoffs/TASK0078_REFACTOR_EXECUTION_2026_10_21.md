@@ -12,7 +12,7 @@ Authority: David requested review/merge of eligible Codex PRs and cleanup of bra
 - #523: actor-scoped submission replay and collision rollback, guarded against unexpected deployed definitions. Migration remains unapplied by this source integration.
 - #535: both grade-store failures surface without a score. Same-key recovery commits only the saved grade, then conditionally projects status/score/summary onto a submitted attempt. Projection failures surface a score-free 503 and retry without another model call; a finalized attempt is never overwritten. Fable’s progress-truth gap is closed.
 - #536: required review/admin writes and pairing cancellation surface failures. The review-decision deployment freeze remains in force.
-- #525–#531: helper integration in progress, one family per PR. Original parser/refusal/initialization differences remain explicit. Fable’s byte/parameter parity evidence is recorded in each PR body. Checkout-wide documentation was separated from #531 into this docs PR.
+- #525–#531: all seven helper source PRs merged, one family per PR. Original parser/refusal/initialization differences remain explicit. Fable’s byte/parameter parity evidence is recorded in each PR body. Checkout-wide documentation was separated from #531 into this docs PR.
 
 A fresh independent read-only QA context recommended source-merge Pass for #535’s recovery follow-up and #521’s release-packet follow-up. Its non-blocking attempt-snapshot fixture concern was then covered with cloned reads and an explicit concurrent-finalizer test (39 evaluate-attempt tests).
 
@@ -31,6 +31,6 @@ Final integrated tree at #531 head `a6551e80`: **772 restricted + 75 exception D
 
 ## Cleanup
 
-Only clean branches/worktrees whose exact commits are reachable from origin/main are eligible. GitHub deletes merged remote heads. Managed worktrees are archived through the app after verifying clean state, zero unique commits and remote preservation. Unmerged historical scratch/design branches retain unique work and are preserved. Final counts will be recorded after verification.
+Only clean branches/worktrees whose exact commits are reachable from origin/main are eligible. GitHub deletes merged remote heads. Managed worktrees are archived through the app after verifying clean state, zero unique commits and remote preservation. Unmerged historical scratch/design branches retain unique work and are preserved. Six completed managed worktrees have been archived after successful preflight; the helper and documentation worktrees are eligible after the final checkpoint merges. All fourteen original Codex PR heads are now reachable from main, including #524 via #520. GitHub has deleted their remote head branches. The final local cleanup uses only these verified merged refs, plus the new docs checkpoint. Four older scratch/design branches each retain one unique unmerged commit and are preserved.
 
 The canonical task is [BACKEND-STABILITY-FOLLOW-UPS](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md). Original execution scope and authorization remain in the [historical scope snapshot](TASK0078_REFACTOR_SCOPE_SNAPSHOT_2026_10_21.md).
