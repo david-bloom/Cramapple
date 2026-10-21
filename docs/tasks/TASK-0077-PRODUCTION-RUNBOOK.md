@@ -90,6 +90,22 @@ Every CLI call names `--project-ref` and `--workdir <repo root>` (the CLI's home
   affected; logs from that date are gone, so the cause is not known. Not a blocker; step 3.6 now checks the new webhook
   processes an expiry.
 
+### Pre-flight re-run (2026-10-20, rollout session)
+
+- Step 1: `main` is still **`3616edff`**.
+- Step 2: the six functions match their commits file for file (same file counts as above, 0 differ); `start-trial` still
+  differs only in `_shared/growth-events.ts`, `_shared/cors.ts`, `_shared/supabase.ts`. None updated since 2026-10-16.
+- Step 3: unchanged (last migration `20261016000100`, none newer; no new tables; 20 `trial_v1` rows; 17 outbox names;
+  Vault 4, cron 4, none for these workers).
+- Step 4: **differs from the record: 29 secret names, not 31.** `-o json` and the table output both give 29. Which two names
+  were in the earlier 31 was not recorded, so it cannot be shown whether two secrets were removed or the earlier count included
+  the table's header lines. Every name the release reads and Production lacks is one listed above (plus names read only by
+  non-trial code or with defaults); `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_CATALOG_JSON`,
+  `LOOPS_SECRET_KEY`, `APP_BASE_URL`, `ALLOWED_ORIGINS` are present. **Stopped here for David** per the pre-flight rule.
+- Step 5: one new event, `evt_1USLEjLwoRHzBJ1O8SKvlPTT` (`checkout.session.expired`, 2026-10-19 18:24 UTC), `processed` on the
+  first attempt, so Production's current webhook can process an expiry; the two 2026-10-06 events are still `failed`. Nothing in
+  `processing`.
+
 ## 2. ⛔ Email foundation (TASK-0060's tables and worker), dormant
 
 1. `apply_migration` on Production, in order: `20261006084914_loops_transactional_email_outbox.sql`,
