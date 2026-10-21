@@ -102,7 +102,7 @@ notice email delivery (templates not built), and a lost-webhook reconciliation.
 **Runbook:** `docs/tasks/TASK-0077-PRODUCTION-RUNBOOK.md` (2026-10-20): Production's state from read-only checks, preconditions,
 decisions D1–D5, then email foundation → trial backend dormant → Stripe live events → Lovable publish → $1 live trial → launch,
 each step with its own approval and rollback. Nothing in it has run on Production.
-**Pick-up:** `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md` (state, waiting-on list, next-session
+**Pick-up (current):** `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_LAUNCH.md`. Earlier: `docs/handoffs/SESSION_CLOSE_2026_10_21_TASK0077_PRODUCTION_READINESS.md` (state, waiting-on list, next-session
 prompt). Release commit `3616edff`; pre-flight passed 2026-10-20/21.
 **Executed 2026-10-20/21** (`APPROVAL-0197`): email foundation, trial backend, Stripe live events, both Lovable publishes,
 admission on, $1 live loop. Follow-ups shipped the same day: Google sign-in nonce fix (marketing `a4bb0577`), Home inline
