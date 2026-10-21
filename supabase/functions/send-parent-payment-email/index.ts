@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
@@ -11,14 +12,9 @@ import {
 
 const MAX_SENDS_PER_SESSION_PER_HOUR = 5;
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value)?.toLowerCase() ?? null;
-  return email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
-}
+
+
 
 async function sha256(value: string) {
   const bytes = new TextEncoder().encode(value);

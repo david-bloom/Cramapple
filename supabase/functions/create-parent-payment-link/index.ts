@@ -1,3 +1,4 @@
+import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
@@ -36,15 +37,9 @@ function requireEnv(name: string) {
 const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 const PRICE_CATALOG: PriceCatalog = loadPriceCatalog();
 
-function asString(value: unknown) {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
 
-function asEmail(value: unknown) {
-  const email = asString(value);
-  if (!email) return null;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email.toLowerCase() : null;
-}
+
+
 
 function asSubjectKeys(value: unknown) {
   if (!Array.isArray(value)) return null;
