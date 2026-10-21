@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
 - DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired, Wallets Kept, Eastern Time (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
 - DECISION-0124 — Cross-Subject Duplicate Entries Are Allowed (Handoff §3.3): No Alias, No Normalisation; Figures May Be Shared Across Subjects
@@ -51,6 +52,15 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
+
+- **Date:** 2026-10-21
+- **Decided by:** David Bloom (Product Owner), in session: "Production evidence is more important than documentation evidence."
+- **Context:** `APPROVAL-0051` was corrected twice on 2026-09-27 with contradictory attributions. PR #227 said `claude/task-0047-ap-statistics-mcq-serving` never reached Production. The never-merged branch `claude/correct-approval-0051-attribution-2026-09-27` said it deployed first, citing Production tool-call results and edge-function versions. The question sat unresolved until the 2026-10-21 branch cleanup.
+- **Decision:** When a record (activity, approval or decision log, task file, handoff, runbook) disagrees with what the live system shows, the live system's evidence governs. Examples: Production's migration ledger, deployed function versions, live query results. Correct the record by annotation: add a dated correction citing the Production evidence, and keep the superseded text.
+- **Applied:** `APPROVAL-0051`. Production's migration ledger shows `ordinary_combined_practice_selector_ap_statistics` (`claude/task-0047…`) applied 2026-09-26 16:48:53 UTC, before `task0044_stats_combined_selector_mcq_mode` (`codex/task-0044…`) at 19:51:29 UTC. Credit for the first deploy goes to `claude/task-0047…`; the improvement goes to `codex/task-0044…` / PR #227.
+- **Consistent with:** `CRAMAPPLE_SESSION_START.md` ("Never infer live state from chat memory"; verify the relevant environment).
 
 ## DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included; Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired
 
