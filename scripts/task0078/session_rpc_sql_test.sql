@@ -200,7 +200,7 @@ do $$ begin
   if sqlerrm<>'active_session_blocks_subject_switch' then raise; end if;
  end;
 end $$;
-\ir ../../supabase/migrations/20261021153710_task0063_reconcile_session_rpc_bodies.sql
+\ir ../../supabase/migrations/20261021202904_task0063_reconcile_session_rpc_bodies.sql
 do $$ declare r record; first_id uuid; begin
  perform set_config('request.jwt.claim.sub','aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',true);
  perform public.set_active_exam_pack_version('22222222-2222-4222-8222-222222222222');
