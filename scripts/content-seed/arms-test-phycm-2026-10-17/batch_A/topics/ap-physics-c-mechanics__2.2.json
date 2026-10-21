@@ -1,0 +1,5512 @@
+{
+ "topic": {
+  "subject_key": "ap-physics-c-mechanics",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Forces and Free-Body Diagrams",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "2",
+    "skills": [
+     "2.A",
+     "2.B",
+     "2.C",
+     "2.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.2__A__seed#r2-openai",
+    "kind": "seed",
+    "round": 2,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.2",
+     "topic_title": "Forces and Free-Body Diagrams",
+     "stem": "A block slides to the right on a frictionless horizontal table while being pulled by a rope. Initially, the rope is horizontal. Later, the rope points 30° above the horizontal toward the right. The block remains in contact with the table throughout. Comparing free-body diagrams of the block at these two times, which statement correctly describes the number and directions of the force arrows? Do not compare arrow lengths.",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "The first diagram has three arrows; the second has four because the rope force is replaced by horizontal and vertical component arrows.",
+       "is_correct": false,
+       "rationale": "Component-as-force error: Components describe a force relative to chosen axes, not separate interactions. The free-body diagram should show the rope force as one arrow along the rope. Fix: Draw each actual force once before resolving it into components in equations."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Each diagram has four arrows, including an additional rightward arrow representing the block’s motion.",
+       "is_correct": false,
+       "rationale": "Motion-as-force error: The block’s velocity is not an interaction exerted on it. A free-body diagram includes forces, not an extra force in the direction of motion. Fix: Identify the interacting object responsible for every proposed force arrow."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Each diagram has three arrows, and only the rope-force arrow changes direction.",
+       "is_correct": true,
+       "rationale": "The block experiences gravity downward, a normal force upward, and a force along the rope. The table remains horizontal, so the normal force remains vertical; only the rope force changes direction."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Each diagram has three arrows, and both the rope-force and normal-force arrows rotate so that they remain perpendicular to each other.",
+       "is_correct": false,
+       "rationale": "Normal-direction error: The normal force is perpendicular to the contact surface, not necessarily to the rope. Because the table stays horizontal, its normal force stays upward. Fix: Identify the contact surface and draw its normal force perpendicular to that surface."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 772,
+          "inputTokenDetails": {
+           "noCacheTokens": 772,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 802,
+          "raw": {
+           "input_tokens": 772,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 1468,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 428,
+          "inputTokenDetails": {
+           "noCacheTokens": 428,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 353,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 323
+          },
+          "totalTokens": 781,
+          "raw": {
+           "thoughtsTokenCount": 323,
+           "promptTokenCount": 428,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 781,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 428
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 323,
+          "cachedInputTokens": 0
+         },
+         "ms": 4064,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 483,
+          "inputTokenDetails": {
+           "noCacheTokens": 227,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 1202,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 1176
+          },
+          "totalTokens": 1685,
+          "raw": {
+           "prompt_tokens": 483,
+           "completion_tokens": 1202,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 227,
+           "total_tokens": 1685,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 1176
+           }
+          },
+          "reasoningTokens": 1176,
+          "cachedInputTokens": 256
+         },
+         "ms": 15468,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 251,
+          "inputTokenDetails": {
+           "noCacheTokens": 251,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1138,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 1114
+          },
+          "totalTokens": 1389,
+          "raw": {
+           "input_tokens": 251,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1138,
+           "output_tokens_details": {
+            "reasoning_tokens": 1114
+           },
+           "total_tokens": 1389
+          },
+          "reasoningTokens": 1114,
+          "cachedInputTokens": 0
+         },
+         "ms": 9013,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15172,
+          "inputTokenDetails": {
+           "noCacheTokens": 844,
+           "cacheReadTokens": 14328,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 436,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 224
+          },
+          "totalTokens": 15608,
+          "raw": {
+           "input_tokens": 844,
+           "output_tokens": 436,
+           "output_tokens_details": {
+            "thinking_tokens": 224
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14328,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 224,
+          "cachedInputTokens": 14328
+         },
+         "ms": 6323,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9887,
+          "inputTokenDetails": {
+           "noCacheTokens": 9887,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1543,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1281
+          },
+          "totalTokens": 11430,
+          "raw": {
+           "thoughtsTokenCount": 1281,
+           "promptTokenCount": 9887,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11430,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9887
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1281,
+          "cachedInputTokens": 0
+         },
+         "ms": 11142,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9154,
+          "inputTokenDetails": {
+           "noCacheTokens": 450,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 5757,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 5538
+          },
+          "totalTokens": 14911,
+          "raw": {
+           "prompt_tokens": 9154,
+           "completion_tokens": 5757,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 450,
+           "total_tokens": 14911,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 5538
+           }
+          },
+          "reasoningTokens": 5538,
+          "cachedInputTokens": 8704
+         },
+         "ms": 55677,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8153,
+          "inputTokenDetails": {
+           "noCacheTokens": 1262,
+           "cacheReadTokens": 6891
+          },
+          "outputTokens": 4274,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 4118
+          },
+          "totalTokens": 12427,
+          "raw": {
+           "input_tokens": 8153,
+           "input_tokens_details": {
+            "cached_tokens": 6891
+           },
+           "output_tokens": 4274,
+           "output_tokens_details": {
+            "reasoning_tokens": 4118
+           },
+           "total_tokens": 12427
+          },
+          "reasoningTokens": 4118,
+          "cachedInputTokens": 6891
+         },
+         "ms": 49423,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8956,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 8953
+          },
+          "outputTokens": 284,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 62
+          },
+          "totalTokens": 9240,
+          "raw": {
+           "input_tokens": 8956,
+           "input_tokens_details": {
+            "cache_write_tokens": 8953,
+            "cached_tokens": 0
+           },
+           "output_tokens": 284,
+           "output_tokens_details": {
+            "reasoning_tokens": 62
+           },
+           "total_tokens": 9240
+          },
+          "reasoningTokens": 62,
+          "cachedInputTokens": 0
+         },
+         "ms": 7372,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "2",
+     "skills": [
+      "2.A",
+      "2.B",
+      "2.C",
+      "2.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "The student has to build and compare free-body diagrams for two configurations. That means identifying the forces and their directions (gravity, normal, rope), which is the representation skill of drawing diagrams. It takes one concept applied to a new situation, but it involves no multi-step synthesis."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "The question tests the correct construction and representation of forces in a free-body diagram, requiring the student to identify actual physical interactions rather than components or motion."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "The question asks students to compare free-body diagrams and identify correct force arrows, directly exercising interpretation of physical diagrams. It requires applying free-body diagram conventions (forces only, not components or motion; normal force perpendicular to surface) to a new situation, not just recalling a single fact."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "Question most directly tests representation of forces with free-body diagrams (1.A) – number of interaction arrows and direction of normal vs rope force. It requires applying one FBD concept to a new rope-angle situation to reach a single conclusion that only the rope arrow rotates, which is Medium, not single-fact recall and not multi-concept calculation."
+      }
+     ],
+     "skill": "1.A",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "1.A",
+       4
+      ]
+     ],
+     "practice": "1",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "1",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.2__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "A cart moves rightward on a horizontal table with negligible friction in two trials. In trial 1, one horizontal cord pulls the cart rightward with force magnitude F. In trial 2, two separate horizontal cords each pull the cart rightward with force magnitude F. No other objects contact the cart. Each free-body diagram must follow AP conventions, showing individual forces rather than components or resultants. Which comparison correctly gives the number of force arrows in each complete diagram and the total rightward force on the cart?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Trial 1: three arrows and total rightward force F. Trial 2: three arrows and total rightward force 2F.",
+        "is_correct": false,
+        "rationale": "Combining separate interactions: replacing the two cord forces with one resultant gives their correct sum but does not show the individual forces required in the diagram. Fix: Draw a separate arrow for each cord's force, placing same-direction arrows side by side."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Trial 1: one arrow and total rightward force F. Trial 2: two arrows and total rightward force 2F.",
+        "is_correct": false,
+        "rationale": "Omitting vertical forces: a complete free-body diagram includes gravity and the normal force even when the question emphasizes horizontal motion. Their absence from the rightward force sum does not justify omitting them. Fix: List all objects interacting with the cart before drawing any force arrows."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Trial 1: three arrows and total rightward force F. Trial 2: four arrows and total rightward force 2F.",
+        "is_correct": true,
+        "rationale": "Each diagram includes Earth's downward gravitational force and the table's upward normal force, plus one arrow per cord. The two rightward cord forces in trial 2 are drawn side by side and add to 2F."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Trial 1: three arrows and total rightward force F. Trial 2: five arrows and total rightward force 4F.",
+        "is_correct": false,
+        "rationale": "Double-counting the resultant: adding a 2F resultant arrow alongside the two individual cord-force arrows counts the same interactions twice. The resultant summarizes those forces; it is not another force exerted on the cart. Fix: Draw individual forces only, then calculate their vector sum separately."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "The stem never explicitly names gravity and the normal force as forces to include, but a complete AP free-body diagram includes them. That gives three arrows in trial 1 (weight, normal, tension) and four in trial 2 (weight, normal, two tensions)."
+          },
+          "usage": {
+           "inputTokens": 826,
+           "inputTokenDetails": {
+            "noCacheTokens": 826,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 113,
+           "outputTokenDetails": {
+            "textTokens": 113,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 939,
+           "raw": {
+            "input_tokens": 826,
+            "output_tokens": 113,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3761,
+          "flags": [
+           "defect: The stem never explicitly names gravity and the normal force as forces to include, but a complete AP free-body diagram includes them. That gives three arrows in trial 1 (weight, normal, tension) and four in trial 2 (weight, normal, two tensions)."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "The force count assumes the table's normal force is drawn as a single arrow. That is the standard AP convention, but the stem never states it.\nTrial 1 has three forces: gravity, the normal force from the table and the one cord's tension, giving a rightward total of F.\nTrial 2 has four forces: gravity, the normal force and two separate tensions, giving a rightward total of 2F.\nThis matches choice C."
+          },
+          "usage": {
+           "inputTokens": 826,
+           "inputTokenDetails": {
+            "noCacheTokens": 826,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 165,
+           "outputTokenDetails": {
+            "textTokens": 165,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 991,
+           "raw": {
+            "input_tokens": 826,
+            "output_tokens": 165,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3880,
+          "flags": [
+           "defect: The force count assumes the table's normal force is drawn as a single arrow. That is the standard AP convention, but the stem never states it.\nTrial 1 has three forces: gravity, the normal force from the table and the one cord's tension, giving a rightward total of F.\nTrial 2 has four forces: gravity, the normal force and two separate tensions, giving a rightward total of 2F.\nThis matches choice C."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 475,
+           "inputTokenDetails": {
+            "noCacheTokens": 475,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 397,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 367
+           },
+           "totalTokens": 872,
+           "raw": {
+            "thoughtsTokenCount": 367,
+            "promptTokenCount": 475,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 872,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 475
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 367,
+           "cachedInputTokens": 0
+          },
+          "ms": 3075,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "The phrase 'No other objects contact the cart' contradicts the cart being on a horizontal table. If taken literally, the table's normal force would be omitted and no listed choice would match. Under the standard AP interpretation that the table exerts a normal force and Earth exerts gravity, C is correct."
+          },
+          "usage": {
+           "inputTokens": 533,
+           "inputTokenDetails": {
+            "noCacheTokens": 277,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 5816,
+           "outputTokenDetails": {
+            "textTokens": 85,
+            "reasoningTokens": 5731
+           },
+           "totalTokens": 6349,
+           "raw": {
+            "prompt_tokens": 533,
+            "completion_tokens": 5816,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 277,
+            "total_tokens": 6349,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5731
+            }
+           },
+           "reasoningTokens": 5731,
+           "cachedInputTokens": 256
+          },
+          "ms": 67882,
+          "flags": [
+           "defect: The phrase 'No other objects contact the cart' contradicts the cart being on a horizontal table. If taken literally, the table's normal force would be omitted and no listed choice would match. Under the standard AP interpretation that the table exerts a normal force and Earth exerts gravity, C is correct."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 533,
+           "inputTokenDetails": {
+            "noCacheTokens": 21,
+            "cacheReadTokens": 512
+           },
+           "outputTokens": 673,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 647
+           },
+           "totalTokens": 1206,
+           "raw": {
+            "prompt_tokens": 533,
+            "completion_tokens": 673,
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 21,
+            "total_tokens": 1206,
+            "prompt_tokens_details": {
+             "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 647
+            }
+           },
+           "reasoningTokens": 647,
+           "cachedInputTokens": 512
+          },
+          "ms": 7787,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 303,
+           "inputTokenDetails": {
+            "noCacheTokens": 303,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1698,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1674
+           },
+           "totalTokens": 2001,
+           "raw": {
+            "input_tokens": 303,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1698,
+            "output_tokens_details": {
+             "reasoning_tokens": 1674
+            },
+            "total_tokens": 2001
+           },
+           "reasoningTokens": 1674,
+           "cachedInputTokens": 0
+          },
+          "ms": 28117,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.2__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "A box of mass m slides across a rough horizontal floor while a student pulls it with a rope. The rope exerts a tension of magnitude T directed at an angle θ above the horizontal, and the box stays in contact with the floor. A correct free-body diagram shows four individual force arrows on the box: weight, normal force, friction, and tension. Which expression gives the magnitude of the normal force exerted by the floor on the box?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "mg",
+        "is_correct": false,
+        "rationale": "This assumes the normal force always equals the weight, ignoring that the tension arrow has an upward vertical component. That component reduces how hard the floor must push. Fix: Resolve every force arrow into components along your chosen axes before writing the vertical equation."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "mg + T sin θ",
+        "is_correct": false,
+        "rationale": "This is a sign error: the tension's vertical component was treated as pushing the box into the floor. Because the rope pulls upward at θ, its component points up and reduces the normal force. Fix: Check each component's direction against the arrow on your diagram before assigning its sign."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "mg − T sin θ",
+        "is_correct": true,
+        "rationale": "The box has no vertical acceleration, so vertical forces balance: F_N + T sin θ − mg = 0. The upward vertical component of the tension carries part of the weight, so the floor pushes up less than mg. Friction is horizontal and does not enter this equation."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "mg − T cos θ",
+        "is_correct": false,
+        "rationale": "This uses the wrong trigonometric component; T cos θ is the horizontal part of a tension measured from the horizontal. Only the vertical component, T sin θ, belongs in the vertical force balance. Fix: Ask which side of the triangle is adjacent to θ before choosing sine or cosine."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 286,
+           "inputTokenDetails": {
+            "noCacheTokens": 286,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 65,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 39
+           },
+           "totalTokens": 351,
+           "raw": {
+            "input_tokens": 286,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 65,
+            "output_tokens_details": {
+             "reasoning_tokens": 39
+            },
+            "total_tokens": 351
+           },
+           "reasoningTokens": 39,
+           "cachedInputTokens": 0
+          },
+          "ms": 3626,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 364,
+           "inputTokenDetails": {
+            "noCacheTokens": 364,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 205,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 175
+           },
+           "totalTokens": 569,
+           "raw": {
+            "thoughtsTokenCount": 175,
+            "promptTokenCount": 364,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 569,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 364
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 175,
+           "cachedInputTokens": 0
+          },
+          "ms": 2776,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 425,
+           "inputTokenDetails": {
+            "noCacheTokens": 169,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 503,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 477
+           },
+           "totalTokens": 928,
+           "raw": {
+            "prompt_tokens": 425,
+            "completion_tokens": 503,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 169,
+            "total_tokens": 928,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 477
+            }
+           },
+           "reasoningTokens": 477,
+           "cachedInputTokens": 256
+          },
+          "ms": 6864,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 195,
+           "inputTokenDetails": {
+            "noCacheTokens": 195,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1094,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1070
+           },
+           "totalTokens": 1289,
+           "raw": {
+            "input_tokens": 195,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1094,
+            "output_tokens_details": {
+             "reasoning_tokens": 1070
+            },
+            "total_tokens": 1289
+           },
+           "reasoningTokens": 1070,
+           "cachedInputTokens": 0
+          },
+          "ms": 9425,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": false,
+             "issue": "The question primarily tests topic 2.4: applying translational equilibrium in the vertical direction to calculate the normal force. Identifying the forces is already supplied, so topic 2.2 alone is insufficient."
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8940,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8937
+           },
+           "outputTokens": 457,
+           "outputTokenDetails": {
+            "textTokens": 264,
+            "reasoningTokens": 193
+           },
+           "totalTokens": 9397,
+           "raw": {
+            "input_tokens": 8940,
+            "input_tokens_details": {
+             "cache_write_tokens": 8937,
+             "cached_tokens": 0
+            },
+            "output_tokens": 457,
+            "output_tokens_details": {
+             "reasoning_tokens": 193
+            },
+            "total_tokens": 9397
+           },
+           "reasoningTokens": 193,
+           "cachedInputTokens": 0
+          },
+          "ms": 10439,
+          "flags": [
+           "topic 2.4",
+           "on_topic: The question primarily tests topic 2.4: applying translational equilibrium in the vertical direction to calculate the normal force. Identifying the forces is already supplied, so topic 2.2 alone is insufficient."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": false,
+             "issue": "The question primarily tests vertical translational equilibrium (2.4), not identifying or representing forces (2.2). The stem supplies the complete force list; finding the normal-force magnitude requires balancing vertical forces, which is later-topic content."
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8940,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 8937,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 588,
+           "outputTokenDetails": {
+            "textTokens": 269,
+            "reasoningTokens": 319
+           },
+           "totalTokens": 9528,
+           "raw": {
+            "input_tokens": 8940,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 8937
+            },
+            "output_tokens": 588,
+            "output_tokens_details": {
+             "reasoning_tokens": 319
+            },
+            "total_tokens": 9528
+           },
+           "reasoningTokens": 319,
+           "cachedInputTokens": 8937
+          },
+          "ms": 12365,
+          "flags": [
+           "topic 2.4",
+           "on_topic: The question primarily tests vertical translational equilibrium (2.4), not identifying or representing forces (2.2). The stem supplies the complete force list; finding the normal-force magnitude requires balancing vertical forces, which is later-topic content."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": false,
+             "issue": "The question gives the free-body diagram in the stem and asks for the magnitude of the normal force by balancing vertical forces (ΣF_y = 0), which tests translational equilibrium in one dimension under Newton's First Law (Topic 2.4) rather than drawing/identifying free-body diagrams (Topic 2.2). A student who has studied only through Topic 2.2 has not yet covered Newton's laws."
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9855,
+           "inputTokenDetails": {
+            "noCacheTokens": 9855,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3915,
+           "outputTokenDetails": {
+            "textTokens": 353,
+            "reasoningTokens": 3562
+           },
+           "totalTokens": 13770,
+           "raw": {
+            "thoughtsTokenCount": 3562,
+            "promptTokenCount": 9855,
+            "candidatesTokenCount": 353,
+            "totalTokenCount": 13770,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9855
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 353
+             }
+            ]
+           },
+           "reasoningTokens": 3562,
+           "cachedInputTokens": 0
+          },
+          "ms": 21056,
+          "flags": [
+           "topic 2.4",
+           "on_topic: The question gives the free-body diagram in the stem and asks for the magnitude of the normal force by balancing vertical forces (ΣF_y = 0), which tests translational equilibrium in one dimension under Newton's First Law (Topic 2.4) rather than drawing/identifying free-body diagrams (Topic 2.2). A student who has studied only through Topic 2.2 has not yet covered Newton's laws."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.4",
+           "rules": {
+            "on_topic": {
+             "pass": false,
+             "issue": "The question requires balancing vertical forces (ΣF_y = 0) to solve for the magnitude of the normal force, which directly tests Newton's first law (Topic 2.4) or second law (Topic 2.5). A student who has studied only Topic 2.2 has learned to construct and identify free-body diagrams, not to write and solve dynamic equilibrium equations."
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9855,
+           "inputTokenDetails": {
+            "noCacheTokens": 5816,
+            "cacheReadTokens": 4039
+           },
+           "outputTokens": 3626,
+           "outputTokenDetails": {
+            "textTokens": 343,
+            "reasoningTokens": 3283
+           },
+           "totalTokens": 13481,
+           "raw": {
+            "cachedContentTokenCount": 4039,
+            "thoughtsTokenCount": 3283,
+            "promptTokenCount": 9855,
+            "candidatesTokenCount": 343,
+            "totalTokenCount": 13481,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9855
+             }
+            ],
+            "cacheTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 4039
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 343
+             }
+            ]
+           },
+           "reasoningTokens": 3283,
+           "cachedInputTokens": 4039
+          },
+          "ms": 20501,
+          "flags": [
+           "topic 2.4",
+           "on_topic: The question requires balancing vertical forces (ΣF_y = 0) to solve for the magnitude of the normal force, which directly tests Newton's first law (Topic 2.4) or second law (Topic 2.5). A student who has studied only Topic 2.2 has learned to construct and identify free-body diagrams, not to write and solve dynamic equilibrium equations."
+          ]
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9134,
+           "inputTokenDetails": {
+            "noCacheTokens": 430,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 7181,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 6962
+           },
+           "totalTokens": 16315,
+           "raw": {
+            "prompt_tokens": 9134,
+            "completion_tokens": 7181,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 430,
+            "total_tokens": 16315,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 6962
+            }
+           },
+           "reasoningTokens": 6962,
+           "cachedInputTokens": 8704
+          },
+          "ms": 76286,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": false,
+             "issue": "Question requires vertical force balance with zero vertical acceleration to compute FN = mg - T sin theta, which is 2.5 Newton's Second Law, not 2.2 depiction of forces."
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8134,
+           "inputTokenDetails": {
+            "noCacheTokens": 603,
+            "cacheReadTokens": 7531
+           },
+           "outputTokens": 5791,
+           "outputTokenDetails": {
+            "textTokens": 194,
+            "reasoningTokens": 5597
+           },
+           "totalTokens": 13925,
+           "raw": {
+            "input_tokens": 8134,
+            "input_tokens_details": {
+             "cached_tokens": 7531
+            },
+            "output_tokens": 5791,
+            "output_tokens_details": {
+             "reasoning_tokens": 5597
+            },
+            "total_tokens": 13925
+           },
+           "reasoningTokens": 5597,
+           "cachedInputTokens": 7531
+          },
+          "ms": 42390,
+          "flags": [
+           "topic 2.5",
+           "on_topic: Question requires vertical force balance with zero vertical acceleration to compute FN = mg - T sin theta, which is 2.5 Newton's Second Law, not 2.2 depiction of forces."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8134,
+           "inputTokenDetails": {
+            "noCacheTokens": 8134,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 9243,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 9087
+           },
+           "totalTokens": 17377,
+           "raw": {
+            "input_tokens": 8134,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 9243,
+            "output_tokens_details": {
+             "reasoning_tokens": 9087
+            },
+            "total_tokens": 17377
+           },
+           "reasoningTokens": 9087,
+           "cachedInputTokens": 0
+          },
+          "ms": 137137,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "rejected",
+      "stage": "audit"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.2__A__seed#r2-openai",
+     "kind": "seed",
+     "round": 2,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "A block slides to the right on a frictionless horizontal table while being pulled by a rope. Initially, the rope is horizontal. Later, the rope points 30° above the horizontal toward the right. The block remains in contact with the table throughout. Comparing free-body diagrams of the block at these two times, which statement correctly describes the number and directions of the force arrows? Do not compare arrow lengths.",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "The first diagram has three arrows; the second has four because the rope force is replaced by horizontal and vertical component arrows.",
+        "is_correct": false,
+        "rationale": "Component-as-force error: Components describe a force relative to chosen axes, not separate interactions. The free-body diagram should show the rope force as one arrow along the rope. Fix: Draw each actual force once before resolving it into components in equations."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Each diagram has four arrows, including an additional rightward arrow representing the block’s motion.",
+        "is_correct": false,
+        "rationale": "Motion-as-force error: The block’s velocity is not an interaction exerted on it. A free-body diagram includes forces, not an extra force in the direction of motion. Fix: Identify the interacting object responsible for every proposed force arrow."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Each diagram has three arrows, and only the rope-force arrow changes direction.",
+        "is_correct": true,
+        "rationale": "The block experiences gravity downward, a normal force upward, and a force along the rope. The table remains horizontal, so the normal force remains vertical; only the rope force changes direction."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Each diagram has three arrows, and both the rope-force and normal-force arrows rotate so that they remain perpendicular to each other.",
+        "is_correct": false,
+        "rationale": "Normal-direction error: The normal force is perpendicular to the contact surface, not necessarily to the rope. Because the table stays horizontal, its normal force stays upward. Fix: Identify the contact surface and draw its normal force perpendicular to that surface."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 772,
+           "inputTokenDetails": {
+            "noCacheTokens": 772,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 802,
+           "raw": {
+            "input_tokens": 772,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1468,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 428,
+           "inputTokenDetails": {
+            "noCacheTokens": 428,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 353,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 323
+           },
+           "totalTokens": 781,
+           "raw": {
+            "thoughtsTokenCount": 323,
+            "promptTokenCount": 428,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 781,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 428
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 323,
+           "cachedInputTokens": 0
+          },
+          "ms": 4064,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 483,
+           "inputTokenDetails": {
+            "noCacheTokens": 227,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 1202,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 1176
+           },
+           "totalTokens": 1685,
+           "raw": {
+            "prompt_tokens": 483,
+            "completion_tokens": 1202,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 227,
+            "total_tokens": 1685,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 1176
+            }
+           },
+           "reasoningTokens": 1176,
+           "cachedInputTokens": 256
+          },
+          "ms": 15468,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 251,
+           "inputTokenDetails": {
+            "noCacheTokens": 251,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1138,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1114
+           },
+           "totalTokens": 1389,
+           "raw": {
+            "input_tokens": 251,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1138,
+            "output_tokens_details": {
+             "reasoning_tokens": 1114
+            },
+            "total_tokens": 1389
+           },
+           "reasoningTokens": 1114,
+           "cachedInputTokens": 0
+          },
+          "ms": 9013,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15172,
+           "inputTokenDetails": {
+            "noCacheTokens": 844,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 436,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 224
+           },
+           "totalTokens": 15608,
+           "raw": {
+            "input_tokens": 844,
+            "output_tokens": 436,
+            "output_tokens_details": {
+             "thinking_tokens": 224
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 224,
+           "cachedInputTokens": 14328
+          },
+          "ms": 6323,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9887,
+           "inputTokenDetails": {
+            "noCacheTokens": 9887,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1543,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1281
+           },
+           "totalTokens": 11430,
+           "raw": {
+            "thoughtsTokenCount": 1281,
+            "promptTokenCount": 9887,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11430,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9887
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1281,
+           "cachedInputTokens": 0
+          },
+          "ms": 11142,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9154,
+           "inputTokenDetails": {
+            "noCacheTokens": 450,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 5757,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 5538
+           },
+           "totalTokens": 14911,
+           "raw": {
+            "prompt_tokens": 9154,
+            "completion_tokens": 5757,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 450,
+            "total_tokens": 14911,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5538
+            }
+           },
+           "reasoningTokens": 5538,
+           "cachedInputTokens": 8704
+          },
+          "ms": 55677,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8153,
+           "inputTokenDetails": {
+            "noCacheTokens": 1262,
+            "cacheReadTokens": 6891
+           },
+           "outputTokens": 4274,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 4118
+           },
+           "totalTokens": 12427,
+           "raw": {
+            "input_tokens": 8153,
+            "input_tokens_details": {
+             "cached_tokens": 6891
+            },
+            "output_tokens": 4274,
+            "output_tokens_details": {
+             "reasoning_tokens": 4118
+            },
+            "total_tokens": 12427
+           },
+           "reasoningTokens": 4118,
+           "cachedInputTokens": 6891
+          },
+          "ms": 49423,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8956,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 8953
+           },
+           "outputTokens": 284,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 62
+           },
+           "totalTokens": 9240,
+           "raw": {
+            "input_tokens": 8956,
+            "input_tokens_details": {
+             "cache_write_tokens": 8953,
+             "cached_tokens": 0
+            },
+            "output_tokens": 284,
+            "output_tokens_details": {
+             "reasoning_tokens": 62
+            },
+            "total_tokens": 9240
+           },
+           "reasoningTokens": 62,
+           "cachedInputTokens": 0
+          },
+          "ms": 7372,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": {
+    "id": "ap-physics-c-mechanics__2.2__B__seed#r2-anthropic",
+    "kind": "seed",
+    "round": 2,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-physics-c-mechanics",
+     "unit_number": 2,
+     "topic_code": "2.2",
+     "topic_title": "Forces and Free-Body Diagrams",
+     "stem": "Block A rests on top of block B, and block B rests on a horizontal table. Both blocks are at rest, and no horizontal forces are exerted on either block. A student is asked to draw a free-body diagram for block B alone. Which set of force arrows belongs on that diagram?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Three arrows: a downward gravitational force from Earth on B, a downward gravitational force from Earth on A, and an upward normal force from the table.",
+       "is_correct": false,
+       "rationale": "This treats A's weight as acting on B. Earth's gravitational force on A is exerted on A; what A exerts on B is a contact normal force, which happens to equal A's weight here. Fix: For each arrow, name the object exerting it and check that the object receiving it is B."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Four arrows: a downward gravitational force from Earth, a downward normal force from block A, an upward normal force from the table, and an upward normal force that B exerts on A.",
+       "is_correct": false,
+       "rationale": "This mixes in a force B exerts on another object. The upward push of B on A acts on A, so it belongs on A's diagram, not B's. Fix: Phrase each force as \"force on B by ___\" and delete any arrow that is not on B."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Three arrows: a downward gravitational force from Earth, a downward normal force from block A, and an upward normal force from the table.",
+       "is_correct": true,
+       "rationale": "A free-body diagram for B includes only forces exerted on B by other objects. Earth pulls B down, A presses down on B's top surface, and the table pushes up on B's bottom surface, so three arrows start on B's dot."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Two arrows: a downward gravitational force from Earth and an upward normal force from the table.",
+       "is_correct": false,
+       "rationale": "This omits the contact force from block A, as if only B's own weight pressed on the table. A touches B's top surface, so it exerts a downward normal force on B. Fix: List every object touching B, and draw one contact-force arrow for each."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 350,
+          "inputTokenDetails": {
+           "noCacheTokens": 350,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 41,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 15
+          },
+          "totalTokens": 391,
+          "raw": {
+           "input_tokens": 350,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 41,
+           "output_tokens_details": {
+            "reasoning_tokens": 15
+           },
+           "total_tokens": 391
+          },
+          "reasoningTokens": 15,
+          "cachedInputTokens": 0
+         },
+         "ms": 3682,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 431,
+          "inputTokenDetails": {
+           "noCacheTokens": 431,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 314,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 284
+          },
+          "totalTokens": 745,
+          "raw": {
+           "thoughtsTokenCount": 284,
+           "promptTokenCount": 431,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 745,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 431
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 284,
+          "cachedInputTokens": 0
+         },
+         "ms": 4068,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 489,
+          "inputTokenDetails": {
+           "noCacheTokens": 233,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 541,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 521
+          },
+          "totalTokens": 1030,
+          "raw": {
+           "prompt_tokens": 489,
+           "completion_tokens": 541,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 233,
+           "total_tokens": 1030,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 521
+           }
+          },
+          "reasoningTokens": 521,
+          "cachedInputTokens": 256
+         },
+         "ms": 7143,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 259,
+          "inputTokenDetails": {
+           "noCacheTokens": 259,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1369,
+          "outputTokenDetails": {
+           "textTokens": 24,
+           "reasoningTokens": 1345
+          },
+          "totalTokens": 1628,
+          "raw": {
+           "input_tokens": 259,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1369,
+           "output_tokens_details": {
+            "reasoning_tokens": 1345
+           },
+           "total_tokens": 1628
+          },
+          "reasoningTokens": 1345,
+          "cachedInputTokens": 0
+         },
+         "ms": 15831,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9013,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9010
+          },
+          "outputTokens": 341,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 119
+          },
+          "totalTokens": 9354,
+          "raw": {
+           "input_tokens": 9013,
+           "input_tokens_details": {
+            "cache_write_tokens": 9010,
+            "cached_tokens": 0
+           },
+           "output_tokens": 341,
+           "output_tokens_details": {
+            "reasoning_tokens": 119
+           },
+           "total_tokens": 9354
+          },
+          "reasoningTokens": 119,
+          "cachedInputTokens": 0
+         },
+         "ms": 7915,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9938,
+          "inputTokenDetails": {
+           "noCacheTokens": 9938,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1240,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 978
+          },
+          "totalTokens": 11178,
+          "raw": {
+           "thoughtsTokenCount": 978,
+           "promptTokenCount": 9938,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11178,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 9938
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 978,
+          "cachedInputTokens": 0
+         },
+         "ms": 8106,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9205,
+          "inputTokenDetails": {
+           "noCacheTokens": 501,
+           "cacheReadTokens": 8704
+          },
+          "outputTokens": 5836,
+          "outputTokenDetails": {
+           "textTokens": 179,
+           "reasoningTokens": 5657
+          },
+          "totalTokens": 15041,
+          "raw": {
+           "prompt_tokens": 9205,
+           "completion_tokens": 5836,
+           "prompt_cache_hit_tokens": 8704,
+           "prompt_cache_miss_tokens": 501,
+           "total_tokens": 15041,
+           "prompt_tokens_details": {
+            "cached_tokens": 8704
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 5657
+           }
+          },
+          "reasoningTokens": 5657,
+          "cachedInputTokens": 8704
+         },
+         "ms": 55556,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8202,
+          "inputTokenDetails": {
+           "noCacheTokens": 8202,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3755,
+          "outputTokenDetails": {
+           "textTokens": 156,
+           "reasoningTokens": 3599
+          },
+          "totalTokens": 11957,
+          "raw": {
+           "input_tokens": 8202,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3755,
+           "output_tokens_details": {
+            "reasoning_tokens": 3599
+           },
+           "total_tokens": 11957
+          },
+          "reasoningTokens": 3599,
+          "cachedInputTokens": 0
+         },
+         "ms": 38357,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15181,
+          "inputTokenDetails": {
+           "noCacheTokens": 853,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 14328
+          },
+          "outputTokens": 405,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 193
+          },
+          "totalTokens": 15586,
+          "raw": {
+           "input_tokens": 853,
+           "output_tokens": 405,
+           "output_tokens_details": {
+            "thinking_tokens": 193
+           },
+           "cache_creation_input_tokens": 14328,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 14328,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global",
+           "speed": "standard"
+          },
+          "reasoningTokens": 193,
+          "cachedInputTokens": 0
+         },
+         "ms": 6995,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "3",
+     "skills": [
+      "3.B",
+      "3.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "The question most directly tests identifying the correct free-body representation of block B. Students must apply the rule that only forces acting on B belong on its diagram, distinguishing its weight and two contact forces from forces acting on A."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "The question asks the student to identify the correct free-body diagram representation (arrows and their physical origins) acting on an isolated object within a multi-body system, requiring the application of rules for drawing force diagrams."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Easy",
+       "reason": "The question asks the student to identify the correct free-body diagram for block B, which only requires recognizing that a free-body diagram includes forces exerted on the object, with no multi-step reasoning."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "1.A",
+       "difficulty": "Medium",
+       "reason": "Task is to represent the physical situation with a free-body diagram for B alone, matching 1.A. It requires applying the 'only forces exerted on B' definition to identify Earth-on-B gravity plus A-on-B and table-on-B normals and reject weight-of-A and B-on-A errors – applying one concept to reach a single conclusion, not mere recall and not combining multiple laws."
+      }
+     ],
+     "skill": "1.A",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "1.A",
+       4
+      ]
+     ],
+     "practice": "1",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "1",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       3
+      ],
+      [
+       "Easy",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-physics-c-mechanics__2.2__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "A block is held at rest on a frictionless ramp by a taut cord parallel to the ramp. The ramp makes an angle θ with the horizontal, where 0° < θ < 90°. Which description gives a free-body diagram of the block using one arrow for each individual force exerted on it?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Five arrows: weight vertically downward, both components of weight along and perpendicular to the ramp, normal force, and tension.",
+        "is_correct": false,
+        "rationale": "Component double-counting: the two weight components represent the same gravitational interaction as the full weight arrow. Including all three counts that interaction twice. Fix: Draw the full weight arrow, then resolve it into components only in your equations."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Four arrows: the two components of weight along and perpendicular to the ramp, normal force, and tension, with no full weight arrow.",
+        "is_correct": false,
+        "rationale": "Component substitution: components are useful for equations, but they are not separate interactions exerted on the block. This diagram does not follow the requested individual-force convention. Fix: Replace the two weight-component arrows with one vertically downward weight arrow."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Three arrows: weight vertically downward, normal force vertically upward, and tension up the ramp.",
+        "is_correct": false,
+        "rationale": "Normal-direction misconception: a normal force is perpendicular to the contact surface, not necessarily vertically upward. Because the ramp is inclined, its normal force is tilted from vertical. Fix: Identify the contact surface and draw its normal-force arrow perpendicular to it."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Three arrows: weight vertically downward, normal force perpendicular to and away from the ramp, and tension up the ramp.",
+        "is_correct": true,
+        "rationale": "Earth, the ramp, and the cord each exert one force on the block. The diagram therefore shows weight, normal force, and tension in their actual directions; resolving weight into components does not create additional forces."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 754,
+           "inputTokenDetails": {
+            "noCacheTokens": 754,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 784,
+           "raw": {
+            "input_tokens": 754,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1580,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 413,
+           "inputTokenDetails": {
+            "noCacheTokens": 413,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 442,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 412
+           },
+           "totalTokens": 855,
+           "raw": {
+            "thoughtsTokenCount": 412,
+            "promptTokenCount": 413,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 855,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 413
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 412,
+           "cachedInputTokens": 0
+          },
+          "ms": 7137,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 471,
+           "inputTokenDetails": {
+            "noCacheTokens": 215,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 399,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 373
+           },
+           "totalTokens": 870,
+           "raw": {
+            "prompt_tokens": 471,
+            "completion_tokens": 399,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 215,
+            "total_tokens": 870,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 373
+            }
+           },
+           "reasoningTokens": 373,
+           "cachedInputTokens": 256
+          },
+          "ms": 4726,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 240,
+           "inputTokenDetails": {
+            "noCacheTokens": 240,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1266,
+           "outputTokenDetails": {
+            "textTokens": 29,
+            "reasoningTokens": 1237
+           },
+           "totalTokens": 1506,
+           "raw": {
+            "input_tokens": 240,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1266,
+            "output_tokens_details": {
+             "reasoning_tokens": 1237
+            },
+            "total_tokens": 1506
+           },
+           "reasoningTokens": 1237,
+           "cachedInputTokens": 0
+          },
+          "ms": 7828,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15166,
+           "inputTokenDetails": {
+            "noCacheTokens": 838,
+            "cacheReadTokens": 14328,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 412,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 200
+           },
+           "totalTokens": 15578,
+           "raw": {
+            "input_tokens": 838,
+            "output_tokens": 412,
+            "output_tokens_details": {
+             "thinking_tokens": 200
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14328,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 200,
+           "cachedInputTokens": 14328
+          },
+          "ms": 7041,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9870,
+           "inputTokenDetails": {
+            "noCacheTokens": 9870,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 907,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 645
+           },
+           "totalTokens": 10777,
+           "raw": {
+            "thoughtsTokenCount": 645,
+            "promptTokenCount": 9870,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 10777,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9870
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 645,
+           "cachedInputTokens": 0
+          },
+          "ms": 6018,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9143,
+           "inputTokenDetails": {
+            "noCacheTokens": 439,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 7972,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 7753
+           },
+           "totalTokens": 17115,
+           "raw": {
+            "prompt_tokens": 9143,
+            "completion_tokens": 7972,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 439,
+            "total_tokens": 17115,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 7753
+            }
+           },
+           "reasoningTokens": 7753,
+           "cachedInputTokens": 8704
+          },
+          "ms": 79998,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": false,
+             "issue": "Choice B Fix only restates the right answer - Replace...with one vertically downward weight arrow - without a transferable checking action."
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8145,
+           "inputTokenDetails": {
+            "noCacheTokens": 8145,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4923,
+           "outputTokenDetails": {
+            "textTokens": 182,
+            "reasoningTokens": 4741
+           },
+           "totalTokens": 13068,
+           "raw": {
+            "input_tokens": 8145,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4923,
+            "output_tokens_details": {
+             "reasoning_tokens": 4741
+            },
+            "total_tokens": 13068
+           },
+           "reasoningTokens": 4741,
+           "cachedInputTokens": 0
+          },
+          "ms": 31724,
+          "flags": [
+           "named_trap: Choice B Fix only restates the right answer - Replace...with one vertically downward weight arrow - without a transferable checking action."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": false,
+             "issue": "Choice B Fix only restates the right answer for this item and does not give a generalizable action to take next time"
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8145,
+           "inputTokenDetails": {
+            "noCacheTokens": 8145,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 5368,
+           "outputTokenDetails": {
+            "textTokens": 181,
+            "reasoningTokens": 5187
+           },
+           "totalTokens": 13513,
+           "raw": {
+            "input_tokens": 8145,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 5368,
+            "output_tokens_details": {
+             "reasoning_tokens": 5187
+            },
+            "total_tokens": 13513
+           },
+           "reasoningTokens": 5187,
+           "cachedInputTokens": 0
+          },
+          "ms": 34075,
+          "flags": [
+           "named_trap: Choice B Fix only restates the right answer for this item and does not give a generalizable action to take next time"
+          ]
+         }
+        ]
+       }
+      },
+      "verdict": "rejected",
+      "stage": "audit"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.2__B__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "Block B rests on top of block A, which sits on a frictionless horizontal floor. A person pushes horizontally to the right on block A only, and the two blocks accelerate to the right together without B slipping on A. Which list gives exactly the forces that belong on a correct free-body diagram of block B alone?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Gravitational force from Earth (down), normal force from A (up), and the person's push (right)",
+        "is_correct": false,
+        "rationale": "This transfers the applied push onto B, assuming a force on the stack acts on each block. The person touches only A, so the push is not exerted on B, and the forward force B actually feels is friction from A. Fix: For each arrow, name the object exerting it and check that object touches B."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Gravitational force from Earth (down), normal force from A (up), static friction from A (right), and a net force mₐ (right)",
+        "is_correct": false,
+        "rationale": "This treats the net force, or ma, as an extra force acting on B. The net force is the vector sum of the real forces already drawn, not a separate interaction, so adding it double counts. Fix: Ask what physical object exerts each arrow, and delete any arrow with no source."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Gravitational force from Earth (down), normal force from A (up), and static friction from A (right)",
+        "is_correct": true,
+        "rationale": "Only Earth and block A interact with B, so every arrow must name one of them as the source. B accelerates to the right, and the only horizontal force on it is friction from A, so that friction must point right."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Gravitational force from Earth (down), normal force from A (up), static friction from A (right), and the force B exerts on A (down)",
+        "is_correct": false,
+        "rationale": "This includes a force exerted by B rather than on B, mixing up the third-law pair with the diagram's object. The force B exerts on A belongs on A's diagram only. Fix: Check that every arrow is written as a force on B by some other object."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 355,
+           "inputTokenDetails": {
+            "noCacheTokens": 355,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 49,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 23
+           },
+           "totalTokens": 404,
+           "raw": {
+            "input_tokens": 355,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 49,
+            "output_tokens_details": {
+             "reasoning_tokens": 23
+            },
+            "total_tokens": 404
+           },
+           "reasoningTokens": 23,
+           "cachedInputTokens": 0
+          },
+          "ms": 2794,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 435,
+           "inputTokenDetails": {
+            "noCacheTokens": 435,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 432,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 402
+           },
+           "totalTokens": 867,
+           "raw": {
+            "thoughtsTokenCount": 402,
+            "promptTokenCount": 435,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 867,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 435
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 402,
+           "cachedInputTokens": 0
+          },
+          "ms": 3564,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 492,
+           "inputTokenDetails": {
+            "noCacheTokens": 236,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 551,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 531
+           },
+           "totalTokens": 1043,
+           "raw": {
+            "prompt_tokens": 492,
+            "completion_tokens": 551,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 236,
+            "total_tokens": 1043,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 531
+            }
+           },
+           "reasoningTokens": 531,
+           "cachedInputTokens": 256
+          },
+          "ms": 7404,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 256,
+           "inputTokenDetails": {
+            "noCacheTokens": 256,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1466,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1442
+           },
+           "totalTokens": 1722,
+           "raw": {
+            "input_tokens": 256,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1466,
+            "output_tokens_details": {
+             "reasoning_tokens": 1442
+            },
+            "total_tokens": 1722
+           },
+           "reasoningTokens": 1442,
+           "cachedInputTokens": 0
+          },
+          "ms": 23973,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": false,
+             "issue": "A's Fix incorrectly requires the source of every force to touch B. Gravity from Earth acts without contact. Replace it with: “Fix: Name the source of each force, and require contact only for contact forces.”"
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9019,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9016
+           },
+           "outputTokens": 631,
+           "outputTokenDetails": {
+            "textTokens": 266,
+            "reasoningTokens": 365
+           },
+           "totalTokens": 9650,
+           "raw": {
+            "input_tokens": 9019,
+            "input_tokens_details": {
+             "cache_write_tokens": 9016,
+             "cached_tokens": 0
+            },
+            "output_tokens": 631,
+            "output_tokens_details": {
+             "reasoning_tokens": 365
+            },
+            "total_tokens": 9650
+           },
+           "reasoningTokens": 365,
+           "cachedInputTokens": 0
+          },
+          "ms": 16773,
+          "flags": [
+           "accurate: A's Fix incorrectly requires the source of every force to touch B. Gravity from Earth acts without contact. Replace it with: “Fix: Name the source of each force, and require contact only for contact forces.”"
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": false,
+             "issue": "A's Fix incorrectly tells students to check that the source of every force touches B. Gravity acts without contact, so this test would reject the valid gravitational-force arrow. Restrict the contact check to contact forces."
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9019,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 9016,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 740,
+           "outputTokenDetails": {
+            "textTokens": 264,
+            "reasoningTokens": 476
+           },
+           "totalTokens": 9759,
+           "raw": {
+            "input_tokens": 9019,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 9016
+            },
+            "output_tokens": 740,
+            "output_tokens_details": {
+             "reasoning_tokens": 476
+            },
+            "total_tokens": 9759
+           },
+           "reasoningTokens": 476,
+           "cachedInputTokens": 9016
+          },
+          "ms": 18831,
+          "flags": [
+           "accurate: A's Fix incorrectly tells students to check that the source of every force touches B. Gravity acts without contact, so this test would reject the valid gravitational-force arrow. Restrict the contact check to contact forces."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9933,
+           "inputTokenDetails": {
+            "noCacheTokens": 9933,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 994,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 732
+           },
+           "totalTokens": 10927,
+           "raw": {
+            "thoughtsTokenCount": 732,
+            "promptTokenCount": 9933,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 10927,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9933
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 732,
+           "cachedInputTokens": 0
+          },
+          "ms": 6719,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9207,
+           "inputTokenDetails": {
+            "noCacheTokens": 503,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 14271,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 14052
+           },
+           "totalTokens": 23478,
+           "raw": {
+            "prompt_tokens": 9207,
+            "completion_tokens": 14271,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 503,
+            "total_tokens": 23478,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 14052
+            }
+           },
+           "reasoningTokens": 14052,
+           "cachedInputTokens": 8704
+          },
+          "ms": 145918,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8202,
+           "inputTokenDetails": {
+            "noCacheTokens": 8202,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4782,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 4626
+           },
+           "totalTokens": 12984,
+           "raw": {
+            "input_tokens": 8202,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4782,
+            "output_tokens_details": {
+             "reasoning_tokens": 4626
+            },
+            "total_tokens": 12984
+           },
+           "reasoningTokens": 4626,
+           "cachedInputTokens": 0
+          },
+          "ms": 32124,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "rejected",
+      "stage": "audit"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.2__B__seed#r2-openai",
+     "kind": "seed",
+     "round": 2,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "A block on a frictionless inclined plane is pulled by a taut rope parallel to the plane. The block remains in contact with the plane. A student chooses axes parallel and perpendicular to the plane. According to AP Physics C free-body-diagram conventions, which set of arrows should be drawn from the dot representing the block?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Three arrows: the gravitational force vertically downward, the normal force perpendicular to and away from the plane, and the tension up the plane.",
+        "is_correct": true,
+        "rationale": "Earth, the plane, and the rope each exert one force on the block. The diagram represents these three interactions with individual force arrows; choosing tilted axes does not change which forces belong on it."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Four arrows: the normal force, the tension, and the two components of the gravitational force parallel and perpendicular to the plane, with no vertically downward arrow.",
+        "is_correct": false,
+        "rationale": "Component-substitution error: these components can represent gravity in equations, but AP free-body-diagram conventions require the individual gravitational force arrow rather than its component arrows. Fix: Draw each full force first, then resolve its components in separate equations."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Five arrows: the gravitational force vertically downward, the normal force, the tension, and both components of the gravitational force along the chosen axes.",
+        "is_correct": false,
+        "rationale": "Component double-counting: the gravitational force and its components describe the same interaction, not three separate forces. Including all three counts gravity more than once. Fix: Remove component arrows from the diagram and use them only in your equations."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Four arrows: the gravitational force vertically downward, the normal force, the tension, and an additional arrow representing the net force.",
+        "is_correct": false,
+        "rationale": "Net-force-as-an-extra-force error: the net force is the vector sum of the individual forces, not another interaction exerted on the block. Fix: Draw only interaction forces, then calculate their vector sum separately."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "Minor: the stem does not say which way the rope pulls along the plane, while choice A assumes the tension points up the plane. This is the conventional reading."
+          },
+          "usage": {
+           "inputTokens": 791,
+           "inputTokenDetails": {
+            "noCacheTokens": 791,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 258,
+           "outputTokenDetails": {
+            "textTokens": 78,
+            "reasoningTokens": 180
+           },
+           "totalTokens": 1049,
+           "raw": {
+            "input_tokens": 791,
+            "output_tokens": 258,
+            "output_tokens_details": {
+             "thinking_tokens": 180
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 180,
+           "cachedInputTokens": 0
+          },
+          "ms": 5509,
+          "flags": [
+           "defect: Minor: the stem does not say which way the rope pulls along the plane, while choice A assumes the tension points up the plane. This is the conventional reading."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "Minor: the stem never says the rope pulls up the incline, yet choice A puts the tension up the plane. This is the conventional reading and does not change the answer."
+          },
+          "usage": {
+           "inputTokens": 791,
+           "inputTokenDetails": {
+            "noCacheTokens": 791,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 230,
+           "outputTokenDetails": {
+            "textTokens": 81,
+            "reasoningTokens": 149
+           },
+           "totalTokens": 1021,
+           "raw": {
+            "input_tokens": 791,
+            "output_tokens": 230,
+            "output_tokens_details": {
+             "thinking_tokens": 149
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 149,
+           "cachedInputTokens": 0
+          },
+          "ms": 5222,
+          "flags": [
+           "defect: Minor: the stem never says the rope pulls up the incline, yet choice A puts the tension up the plane. This is the conventional reading and does not change the answer."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 434,
+           "inputTokenDetails": {
+            "noCacheTokens": 434,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 391,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 361
+           },
+           "totalTokens": 825,
+           "raw": {
+            "thoughtsTokenCount": 361,
+            "promptTokenCount": 434,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 825,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 434
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 361,
+           "cachedInputTokens": 0
+          },
+          "ms": 3395,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 493,
+           "inputTokenDetails": {
+            "noCacheTokens": 237,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 1035,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 1015
+           },
+           "totalTokens": 1528,
+           "raw": {
+            "prompt_tokens": 493,
+            "completion_tokens": 1035,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 237,
+            "total_tokens": 1528,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 1015
+            }
+           },
+           "reasoningTokens": 1015,
+           "cachedInputTokens": 256
+          },
+          "ms": 12604,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 262,
+           "inputTokenDetails": {
+            "noCacheTokens": 262,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 2805,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 2781
+           },
+           "totalTokens": 3067,
+           "raw": {
+            "input_tokens": 262,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 2805,
+            "output_tokens_details": {
+             "reasoning_tokens": 2781
+            },
+            "total_tokens": 3067
+           },
+           "reasoningTokens": 2781,
+           "cachedInputTokens": 0
+          },
+          "ms": 60713,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-physics-c-mechanics__2.2__B__seed#r2-anthropic",
+     "kind": "seed",
+     "round": 2,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-physics-c-mechanics",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Forces and Free-Body Diagrams",
+      "stem": "Block A rests on top of block B, and block B rests on a horizontal table. Both blocks are at rest, and no horizontal forces are exerted on either block. A student is asked to draw a free-body diagram for block B alone. Which set of force arrows belongs on that diagram?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Three arrows: a downward gravitational force from Earth on B, a downward gravitational force from Earth on A, and an upward normal force from the table.",
+        "is_correct": false,
+        "rationale": "This treats A's weight as acting on B. Earth's gravitational force on A is exerted on A; what A exerts on B is a contact normal force, which happens to equal A's weight here. Fix: For each arrow, name the object exerting it and check that the object receiving it is B."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Four arrows: a downward gravitational force from Earth, a downward normal force from block A, an upward normal force from the table, and an upward normal force that B exerts on A.",
+        "is_correct": false,
+        "rationale": "This mixes in a force B exerts on another object. The upward push of B on A acts on A, so it belongs on A's diagram, not B's. Fix: Phrase each force as \"force on B by ___\" and delete any arrow that is not on B."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Three arrows: a downward gravitational force from Earth, a downward normal force from block A, and an upward normal force from the table.",
+        "is_correct": true,
+        "rationale": "A free-body diagram for B includes only forces exerted on B by other objects. Earth pulls B down, A presses down on B's top surface, and the table pushes up on B's bottom surface, so three arrows start on B's dot."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Two arrows: a downward gravitational force from Earth and an upward normal force from the table.",
+        "is_correct": false,
+        "rationale": "This omits the contact force from block A, as if only B's own weight pressed on the table. A touches B's top surface, so it exerts a downward normal force on B. Fix: List every object touching B, and draw one contact-force arrow for each."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 350,
+           "inputTokenDetails": {
+            "noCacheTokens": 350,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 41,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 15
+           },
+           "totalTokens": 391,
+           "raw": {
+            "input_tokens": 350,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 41,
+            "output_tokens_details": {
+             "reasoning_tokens": 15
+            },
+            "total_tokens": 391
+           },
+           "reasoningTokens": 15,
+           "cachedInputTokens": 0
+          },
+          "ms": 3682,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 431,
+           "inputTokenDetails": {
+            "noCacheTokens": 431,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 314,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 284
+           },
+           "totalTokens": 745,
+           "raw": {
+            "thoughtsTokenCount": 284,
+            "promptTokenCount": 431,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 745,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 431
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 284,
+           "cachedInputTokens": 0
+          },
+          "ms": 4068,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 489,
+           "inputTokenDetails": {
+            "noCacheTokens": 233,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 541,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 521
+           },
+           "totalTokens": 1030,
+           "raw": {
+            "prompt_tokens": 489,
+            "completion_tokens": 541,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 233,
+            "total_tokens": 1030,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 521
+            }
+           },
+           "reasoningTokens": 521,
+           "cachedInputTokens": 256
+          },
+          "ms": 7143,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 259,
+           "inputTokenDetails": {
+            "noCacheTokens": 259,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1369,
+           "outputTokenDetails": {
+            "textTokens": 24,
+            "reasoningTokens": 1345
+           },
+           "totalTokens": 1628,
+           "raw": {
+            "input_tokens": 259,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1369,
+            "output_tokens_details": {
+             "reasoning_tokens": 1345
+            },
+            "total_tokens": 1628
+           },
+           "reasoningTokens": 1345,
+           "cachedInputTokens": 0
+          },
+          "ms": 15831,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9013,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9010
+           },
+           "outputTokens": 341,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 119
+           },
+           "totalTokens": 9354,
+           "raw": {
+            "input_tokens": 9013,
+            "input_tokens_details": {
+             "cache_write_tokens": 9010,
+             "cached_tokens": 0
+            },
+            "output_tokens": 341,
+            "output_tokens_details": {
+             "reasoning_tokens": 119
+            },
+            "total_tokens": 9354
+           },
+           "reasoningTokens": 119,
+           "cachedInputTokens": 0
+          },
+          "ms": 7915,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9938,
+           "inputTokenDetails": {
+            "noCacheTokens": 9938,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1240,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 978
+           },
+           "totalTokens": 11178,
+           "raw": {
+            "thoughtsTokenCount": 978,
+            "promptTokenCount": 9938,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11178,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 9938
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 978,
+           "cachedInputTokens": 0
+          },
+          "ms": 8106,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9205,
+           "inputTokenDetails": {
+            "noCacheTokens": 501,
+            "cacheReadTokens": 8704
+           },
+           "outputTokens": 5836,
+           "outputTokenDetails": {
+            "textTokens": 179,
+            "reasoningTokens": 5657
+           },
+           "totalTokens": 15041,
+           "raw": {
+            "prompt_tokens": 9205,
+            "completion_tokens": 5836,
+            "prompt_cache_hit_tokens": 8704,
+            "prompt_cache_miss_tokens": 501,
+            "total_tokens": 15041,
+            "prompt_tokens_details": {
+             "cached_tokens": 8704
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5657
+            }
+           },
+           "reasoningTokens": 5657,
+           "cachedInputTokens": 8704
+          },
+          "ms": 55556,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8202,
+           "inputTokenDetails": {
+            "noCacheTokens": 8202,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3755,
+           "outputTokenDetails": {
+            "textTokens": 156,
+            "reasoningTokens": 3599
+           },
+           "totalTokens": 11957,
+           "raw": {
+            "input_tokens": 8202,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3755,
+            "output_tokens_details": {
+             "reasoning_tokens": 3599
+            },
+            "total_tokens": 11957
+           },
+           "reasoningTokens": 3599,
+           "cachedInputTokens": 0
+          },
+          "ms": 38357,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15181,
+           "inputTokenDetails": {
+            "noCacheTokens": 853,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 14328
+           },
+           "outputTokens": 405,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 193
+           },
+           "totalTokens": 15586,
+           "raw": {
+            "input_tokens": 853,
+            "output_tokens": 405,
+            "output_tokens_details": {
+             "thinking_tokens": 193
+            },
+            "cache_creation_input_tokens": 14328,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 14328,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global",
+            "speed": "standard"
+           },
+           "reasoningTokens": 193,
+           "cachedInputTokens": 0
+          },
+          "ms": 6995,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [],
+   "done": true
+  }
+ ]
+}
