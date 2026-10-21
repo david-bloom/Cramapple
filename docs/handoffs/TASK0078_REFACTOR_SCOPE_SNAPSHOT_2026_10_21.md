@@ -1,8 +1,8 @@
-# TASK-0078 — Cautious backend refactoring and replay hardening
+# TASK-0078 — Historical refactor scope snapshot
 
-> Historical implementation scope and authorization snapshot. The current canonical checklist is [TASK-0078 backend stability follow-ups](TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md). Current A1 evidence is [the two-step CI record](../qa/TASK0078_A1_TWO_STEP_CI_2026_10_21.md); counts below describe the original checkpoint.
+> Historical implementation scope and authorization snapshot. The current canonical checklist is [TASK-0078 backend stability follow-ups](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md). Current A1 evidence is [the two-step CI record](../qa/TASK0078_A1_TWO_STEP_CI_2026_10_21.md); counts below describe the original checkpoint.
 
-**Status:** Superseded — historical scope snapshot
+**Status:** Historical — scope and authorization evidence only
 **Owner:** Codex (implementation); David Bloom (Product Owner)
 **Tier:** Standard for repository/CI work; Hard-Gate for database, configuration, deployment or function deletion
 **Created:** 2026-10-21
