@@ -254,6 +254,8 @@ After Lovable reports done, review the real diff by commit SHA (not the plan com
 
 ## 5. Evidence for this record
 
+- Session close 2026-10-22 (alignment, A16 Development deploy, branch cleanup): `handoffs/SESSION_CLOSE_2026_10_22_TASK0078_ALIGNMENT_AND_CLEANUP.md`.
+
 - Reviewer qualification: Production `assign-for-review` bundle lines 106-164 (download 2026-10-21); Production
   `select qualification_type, status, count(*) from app.validator_qualifications group by 1,2` = `grading/active 16`,
   `grading/suspended 1`; last-30-day assignments: 1,959 rows, all `owner_remediation_approval`, one creator.
