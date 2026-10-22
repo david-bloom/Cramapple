@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** In Progress — A2, A3, A6, A7, A8, A9, A10, A11 live or closed (APPROVAL-0198/0199/0200); open: A1 CI follow-through, A4/A5 source only (ruling 1 freeze on review functions), A12–A20
+**Status:** In Progress — A2, A3, A6, A7, A8, A9, A10, A11 live or closed (APPROVAL-0198/0199/0200); ruling 6 schema alignment delivered 2026-10-22 (§2d); open: A1 CI follow-through, A4/A5 source only (ruling 1 freeze on review functions), A12–A18, A19 ledger strategy, A20
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)
@@ -57,7 +57,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | — | Port `ad083b39` review code; redeploy `assign-for-review`, `reviewer-invite`, `review-decision` | — | **deferred by ruling 1** | revisit when human review is re-planned |
 | A17 | Retire the hand-drawn pilot upload path: `/hand-drawn-pilot` route, `storage-sign-url` `sign_upload`/`sign_delete`, the `hand_drawn_pilot` item mode, `public.select_hand_drawn_pilot_items` | Standard + Lovable | open, decide (David) | From `qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`. Verified 2026-10-21: Production's `learning_sessions_entry_path_check` has no `hand_drawn_pilot` value, so the page cannot start a session; `sign_upload` has never been used on Production. QR capture (DECISION-0050/0109) is untouched |
 | A18 | Two RPCs the live app calls exist on neither project: `get_chosen_distractor_rationale` (migration `20260828170000`, never applied anywhere) and `get_graded_choice_feedback` | Decide (David) | open | Verified absent on Production and Development. The caller in `use-session.ts:901` swallows the error, so students see no rationale rather than an error. Either apply the migration (after confirming the flow is live) or delete the calls |
-| A19 | Align Development to Production (ruling 6), then ledger strategy | Standard, Development first | open; drift inventory in §2d (2026-10-22) | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
+| A19 | Align Development to Production (ruling 6), then ledger strategy | Standard, Development first | **schema alignment delivered 2026-10-22** (§2d, eight Development-only migrations). Still open: ledger strategy. Development's ledger now carries 8 `task0078_align_*` rows that Production must never receive; Production still has 124 rows whose SQL no local file holds. Options unchanged: re-baseline both ledgers from `main` or repair row by row | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
 | A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
 
 ## 2b. State after the Codex merges (Fable, 2026-10-21, late): deploy gates
@@ -127,11 +127,25 @@ Views are identical (36). Everything below is Production-only unless marked.
 | Shared functions whose body or config differs | 25 | student-facing: `public.start_home_learning_session_for_user` (wrapper; the `app` body matches after APPROVAL-0198), `complete_learning_session`, `get_open_hand_item`, `get_student_progress_dashboard`, `select_student_practice_items`; plus 20 `app` internals (`check_content_review_invariants`, `claim_capture_pairing_upload`, `complete_model_usage`, `reserve_model_usage`, `enforce_content_items_frq_form`, `enforce_session_target_home_eligibility`, `home_exam_pack_is_eligible`, `invoke_trial_worker`, `prevent_profile_role_change`, `prevent_review_decision_mutation`, `progress_estimated_ap_score`, `progress_status_token`, `reserve_artifact_version_sequence`, `response_versions_guard_reserved_parts`, `revalidate_session_target_before_consumption`, `select_confirm_transfer_item`, `set_content_taxonomy_label_derived_fields`, `tg_content_pipeline_on_decision`, `tg_require_practice_format_at_publish`, `trial_record_attempt`) | **student-facing five closed 2026-10-22**: whitespace-normalised diff showed four identical and `get_student_progress_dashboard` lagging on Development (Production and `main`'s `20260821080000` null `pointsEarned` and add `pointsWithheld` for uncertain grades; Development's ledger rows `20260821153550`/`153751` predate that text). `20261022131017_task0078_align_student_rpcs.sql` applied Production's live text for all five to Development; all five `md5(prosrc)` now equal Production. **The 20 `app` internals closed 2026-10-22**: 17 differed only in whitespace or comments; 3 in substance (`enforce_content_items_frq_form` harness-plan branch, `prevent_profile_role_change` missing `current_user` guard, `tg_content_pipeline_on_decision` early single-score version) and on all three `main`'s baseline agrees with Production. `20261022132153_task0078_align_app_functions.sql` applied Production's text; 20 of 20 `md5(prosrc)` now equal Production |
 | Shared tables whose columns differ | 5 | `app.profiles`, `app.content_review_decisions`, `app.review_decisions`, `app.validation_runs`, `app.validation_suites` | **closed 2026-10-22**: `20261022131543_task0078_align_shared_table_columns.sql` added the three baseline columns Development lacked (`profiles.notification_email`, `content_review_decisions.tutor_decision`/`difficulty_action`, with Production's checks and comment) and dropped the eleven Development-only columns on three empty tables; all five column-set hashes now equal Production |
 
-**State after slice 3 (2026-10-22):** every function body, table column set, view, policy, trigger and cron job on
-Development equals Production except `qa_grade_frq` (deliberate URL). A finer layer still differs and is slice 4:
-16 function execute ACLs (mostly Development's default `anon`/`PUBLIC` execute that Production revoked), constraint
-definitions on 11 shared tables, index definitions on 6, table grants on 3, and the `force row level security` flag on
-5 tables that Production forces.
+**State after slice 4 (2026-10-22, ruling 6 delivered):** Development's schema equals Production's on every measured
+axis: function bodies and configs (one deliberate exception, `qa_grade_frq` posts to Development's own URL), table
+column sets, views, policies, triggers, cron jobs, constraints (837), indexes (358), RLS enable/force flags, table
+grants to `anon`/`authenticated`/`service_role`/`ci_servable_items_reader` (1061 rows), and effective function
+execute privileges (173 functions, compared after expanding default ACLs). Slice 4
+(`20261022135035_task0078_align_constraints_indexes_grants.sql`) brought seven check constraints up to Production's
+accepted values, added Production's four non-empty checks on `frq_criteria`/`mcq_choices` (after backfilling one
+2026-06-22 smoke-test fixture row, done as a separate statement because the slice-3 stale-label trigger leaves pending
+events that block a same-transaction ALTER), dropped one Development-only constraint and two indexes, added four
+Production-only indexes, forced RLS on five tables, fixed three table grants, and set sixteen function ACLs.
+
+**Standing rule from this work:** the eight `task0078_align_*` migration files are Development-only. Each is a no-op
+on Production except `20261022133501_task0078_align_prod_only_functions.sql`, which would overwrite Production's
+`qa_grade_frq` with the Development URL. They must never be `db push`ed or `apply_migration`ed to Production; the
+existing rule (Production changes only through `apply_migration` of a reviewed file under an APPROVAL) already
+prevents that, and A19 now records it explicitly.
+
+Not aligned by design: data (Development keeps its own rows), vault secrets (`qa_grader_*`), edge-function secrets,
+and the migration ledgers themselves (A19).
 
 Method for the apply: one migration file per bucket, written from Production's live definitions (`pg_get_functiondef`,
 `pg_get_viewdef`, `information_schema`), applied to Development with `apply_migration`, file renamed to the recorded
