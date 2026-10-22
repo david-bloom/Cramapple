@@ -25,6 +25,14 @@ TASK-0069 (`attempt-response` replay scoping).
    nothing shows the link; Production has never recorded an add-on checkout session. Work in §4.
 4. **Fail the request when a grade write fails** (David, 2026-10-21, "Yes, fail the request when the grade write fails").
    Applies to A4; acceptance criteria below.
+5. **Students may switch to any subject they hold an entitlement for** (David, 2026-10-22). Live behaviour since
+   APPROVAL-0198: `public.set_active_exam_pack_version` refuses only unpublished packs; an active session on another
+   pack no longer blocks the switch. Entitlement is enforced where it matters (the `attempts_entitled_owner_insert`
+   policy and the grading path), and the app's subject picker lists entitled subjects. Recorded as the standing rule
+   for any future change to the switch RPC.
+6. **Production and Development are to be aligned** (David, 2026-10-22). Direction: Development is brought to
+   Production's schema; Production changes only through the normal gated path. Drift inventory in §2d; this is the
+   scope for A19 and supersedes "re-baseline or row-by-row repair" as the first question.
 
 ## 2. Checklist
 
@@ -49,7 +57,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | — | Port `ad083b39` review code; redeploy `assign-for-review`, `reviewer-invite`, `review-decision` | — | **deferred by ruling 1** | revisit when human review is re-planned |
 | A17 | Retire the hand-drawn pilot upload path: `/hand-drawn-pilot` route, `storage-sign-url` `sign_upload`/`sign_delete`, the `hand_drawn_pilot` item mode, `public.select_hand_drawn_pilot_items` | Standard + Lovable | open, decide (David) | From `qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`. Verified 2026-10-21: Production's `learning_sessions_entry_path_check` has no `hand_drawn_pilot` value, so the page cannot start a session; `sign_upload` has never been used on Production. QR capture (DECISION-0050/0109) is untouched |
 | A18 | Two RPCs the live app calls exist on neither project: `get_chosen_distractor_rationale` (migration `20260828170000`, never applied anywhere) and `get_graded_choice_feedback` | Decide (David) | open | Verified absent on Production and Development. The caller in `use-session.ts:901` swallows the error, so students see no rationale rather than an error. Either apply the migration (after confirming the flow is live) or delete the calls |
-| A19 | Ledger strategy: re-baseline or row-by-row repair | Decide (David) | open | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
+| A19 | Align Development to Production (ruling 6), then ledger strategy | Standard, Development first | open; drift inventory in §2d (2026-10-22) | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
 | A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
 
 ## 2b. State after the Codex merges (Fable, 2026-10-21, late): deploy gates
@@ -102,6 +110,28 @@ select * from app.stripe_checkout_session_attempts where created_at > '2026-10-2
 Pass = one new `stripe_checkout_sessions` row at `paid` with `purchase_type = student_direct`, one new
 `parent_payment_links` row that reaches `paid`, and no new `stripe_checkout_session_attempts` error rows. Then the
 Production deploy follows the A6/A7 pattern (deploy from `main`, bundle diff, boot checks, APPROVAL file).
+
+## 2d. Production ↔ Development schema drift (Fable, 2026-10-22, read-only; scope for ruling 6 / A19)
+
+Measured from `pg_proc`, `information_schema`, `pg_policies`, `cron.job` on both projects (schemas `app`, `public`).
+Views are identical (36). Everything below is Production-only unless marked.
+
+| Bucket | Count | What | Suggested disposition |
+| --- | --- | --- | --- |
+| `pg_trgm` extension functions in `public` | 37 | `similarity`, `gtrgm_*`, `gin_*trgm*`, `set_limit`, `show_limit`, `show_trgm` | `create extension pg_trgm` on Development; one statement |
+| Gold-set reader workflow | 4 tables, 2 `app` fns, 2 seeders, 5 `public` RPCs, 1 trigger fn | `gold_set_answers`, `gold_set_elements`, `gold_set_element_marks`, `gold_set_verification_assignments`; `gold_set_access`, `gold_set_admin_overview`, `gold_set_verification_next`, `gold_set_verification_progress`, `submit_gold_set_verification` | review-side (ruling 1); replicate to Development for parity, no behaviour change |
+| Taxonomy stale-label triggers | 3 fns | `mark_content_taxonomy_labels_stale_*` | replicate; Development content work currently lacks the trigger |
+| QA / census helpers | 6 fns | `qa_grade_frq`, `verify_qa_grader_token`, `servable_items_census`, `servable_items_census_selftest`, `taxonomy_scope_selftest`, `seed_taxonomy_units` | replicate |
+| Other Production-only objects | 3 tables, 1 fn, 1 cron, 4 policies | `content_item_difficulty`, `content_taxonomy_validation_decisions`, `public.question_reports`; `public._epv_is_selectable`; cron `content-review-invariants`; their policies | replicate; `question_reports` policy ("Students can report questions") is student-facing |
+| Development-only | 1 table, 2 policies | `public.scc_rehearsal_chunks_20261006` (rehearsal scratch); `review_decisions_insert_own`/`_select_own` where Production has `deny_authenticated_all` | drop the scratch table; align `review_decisions` policies to Production (frozen area, ruling 1) |
+| Shared functions whose body or config differs | 25 | student-facing: `public.start_home_learning_session_for_user` (wrapper; the `app` body matches after APPROVAL-0198), `complete_learning_session`, `get_open_hand_item`, `get_student_progress_dashboard`, `select_student_practice_items`; plus 20 `app` internals (`check_content_review_invariants`, `claim_capture_pairing_upload`, `complete_model_usage`, `reserve_model_usage`, `enforce_content_items_frq_form`, `enforce_session_target_home_eligibility`, `home_exam_pack_is_eligible`, `invoke_trial_worker`, `prevent_profile_role_change`, `prevent_review_decision_mutation`, `progress_estimated_ap_score`, `progress_status_token`, `reserve_artifact_version_sequence`, `response_versions_guard_reserved_parts`, `revalidate_session_target_before_consumption`, `select_confirm_transfer_item`, `set_content_taxonomy_label_derived_fields`, `tg_content_pipeline_on_decision`, `tg_require_practice_format_at_publish`, `trial_record_attempt`) | per function: diff the two bodies, decide which side is current (Production is presumed current unless a merged migration on `main` says otherwise), then apply the winner to the other side; the five student-facing ones first |
+| Shared tables whose columns differ | 5 | `app.profiles`, `app.content_review_decisions`, `app.review_decisions`, `app.validation_runs`, `app.validation_suites` | column-level diff, then add the missing columns on the lagging side |
+
+Method for the apply: one migration file per bucket, written from Production's live definitions (`pg_get_functiondef`,
+`pg_get_viewdef`, `information_schema`), applied to Development with `apply_migration`, file renamed to the recorded
+version (TASK-0077 convention), ledger row added. Production receives nothing from this work except where a bucket's
+review shows Development is the newer side, and then only through an APPROVAL. Ledger strategy (A19) is decided
+afterwards against the aligned state.
 
 ## 2a. Codex PR review (Fable, 2026-10-21): merge order and conditions
 
