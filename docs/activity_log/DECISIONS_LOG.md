@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
 - DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
 - DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired, Wallets Kept, Eastern Time (`TASK-0077`)
 - DECISION-0125 — ASCII-Notation Cleanup Is Approved in Two Tiers (Answer Choices First, Then All 1,664 In-Scope Multiple-Choice Rows), in LaTeX Everywhere, Converting Exponents in Units (`TASK-0075`)
@@ -52,6 +53,15 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
+
+- **Date:** 2026-10-22
+- **Decided by:** David Bloom (Product Owner), in session: "close A19 on that basis", after the question "Do we need to rebaseline from main or is this work stream complete?"
+- **Context:** Ruling 6 of `TASK-0078` ("Production and Development should be aligned") was delivered on 2026-10-22: Development's schema equals Production's on every measured axis after four slices and eight `apply_migration` migrations (PRs #560–#563), with one deliberate exception (`app.qa_grade_frq` posts to Development's own `evaluate-attempt`). The two projects' migration ledgers still disagree with the files on `main`: Production holds 124 rows whose SQL no local file carries and lacks rows for 94 local files; Development's ledger now also carries the eight `task0078_align_*` rows that Production must never receive. The only cost of that disagreement is that the Supabase migration tooling (`supabase db push`, `migration list`) cannot be trusted on either project; it has no effect on students, edge functions or schema parity.
+- **Decision:** The ledgers are append-only history, not a source of truth, and are not re-baselined. `supabase db push` remains prohibited on both projects. Every schema change goes through `apply_migration` of a reviewed file, which is then renamed to the version the ledger recorded (`TASK-0077` convention). Environment parity is verified by catalog digests (function bodies and configs, column sets, views, policies, triggers, cron jobs, constraints, indexes, RLS enable/force flags, table grants, and function execute privileges expanded with `acldefault`), never by comparing ledgers. The eight `task0078_align_*` migration files are Development-only; `20261022133501_task0078_align_prod_only_functions.sql` would overwrite Production's `qa_grade_frq` URL if it ever ran there.
+- **Revisit trigger:** Only if the migration tooling is wanted back. Re-baselining then becomes its own task, and its first step is exporting the 124 Production-only ledger statements to files so nothing is lost.
+- **Consistent with:** `DECISION-0127` (live evidence governs), the `apply_migration`-only rule in `TASK-0078` §2b, and the parity method recorded in `TASK-0078` §2d.
 
 ## DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
 
