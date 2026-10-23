@@ -1,6 +1,6 @@
 # TASK-0078 — Backend stability follow-ups from the 2026-10-21 assessments
 
-**Status:** In Progress — A2, A3, A6, A7, A8, A9, A10, A11 live or closed (APPROVAL-0198/0199/0200); ruling 6 schema alignment delivered 2026-10-22 (§2d); open: A1 CI follow-through, A4/A5 source only (ruling 1 freeze on review functions), A12–A18, A19 ledger strategy, A20
+**Status:** In Progress — A2, A3, A6, A7, A8, A9, A10, A11 live or closed (APPROVAL-0198/0199/0200); ruling 6 schema alignment delivered 2026-10-22 (§2d); A19 closed (DECISION-0128); open: A1 CI follow-through, A4/A5 source only (ruling 1 freeze on review functions), A12–A18, A20
 **Tier:** Mixed. Edge-function and Lovable slices are Standard; anything that deploys to Production, adds a cron job or
 re-applies a migration is Hard-Gate and needs its own `APPROVAL`.
 **Owner:** TBD (Codex executing; Claude sessions reviewing)
@@ -33,6 +33,13 @@ TASK-0069 (`attempt-response` replay scoping).
 6. **Production and Development are to be aligned** (David, 2026-10-22). Direction: Development is brought to
    Production's schema; Production changes only through the normal gated path. Drift inventory in §2d; this is the
    scope for A19 and supersedes "re-baseline or row-by-row repair" as the first question.
+7. **A19 closed: the migration ledgers are history, not a source of truth** (David, 2026-10-22, "close A19 on that
+   basis"; recorded as DECISION-0128). No re-baseline. `supabase db push` stays prohibited on both projects; every
+   change goes through `apply_migration` of a reviewed file, renamed to the recorded version. Parity is verified by
+   catalog digests (function bodies, columns, views, policies, triggers, cron, constraints, indexes, RLS flags, grants,
+   effective function privileges), never by comparing ledgers. The eight `task0078_align_*` migrations are
+   Development-only. Re-baselining becomes its own task only if the migration tooling is ever wanted back, and then
+   the 124 Production-only ledger statements are exported to files first.
 
 ## 2. Checklist
 
@@ -57,7 +64,7 @@ TASK-0069 (`attempt-response` replay scoping).
 | — | Port `ad083b39` review code; redeploy `assign-for-review`, `reviewer-invite`, `review-decision` | — | **deferred by ruling 1** | revisit when human review is re-planned |
 | A17 | Retire the hand-drawn pilot upload path: `/hand-drawn-pilot` route, `storage-sign-url` `sign_upload`/`sign_delete`, the `hand_drawn_pilot` item mode, `public.select_hand_drawn_pilot_items` | Standard + Lovable | open, decide (David) | From `qa/DORMANT_SURFACE_REVIEW_2026_10_21.md`. Verified 2026-10-21: Production's `learning_sessions_entry_path_check` has no `hand_drawn_pilot` value, so the page cannot start a session; `sign_upload` has never been used on Production. QR capture (DECISION-0050/0109) is untouched |
 | A18 | Two RPCs the live app calls exist on neither project: `get_chosen_distractor_rationale` (migration `20260828170000`, never applied anywhere) and `get_graded_choice_feedback` | Decide (David) | open | Verified absent on Production and Development. The caller in `use-session.ts:901` swallows the error, so students see no rationale rather than an error. Either apply the migration (after confirming the flow is live) or delete the calls |
-| A19 | Align Development to Production (ruling 6), then ledger strategy | Standard, Development first | **schema alignment delivered 2026-10-22** (§2d, eight Development-only migrations). Still open: ledger strategy. Development's ledger now carries 8 `task0078_align_*` rows that Production must never receive; Production still has 124 rows whose SQL no local file holds. Options unchanged: re-baseline both ledgers from `main` or repair row by row | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
+| A19 | Align Development to Production (ruling 6), then ledger strategy | Standard, Development first | **closed 2026-10-22**: schema alignment delivered (§2d, eight Development-only migrations); ledger strategy decided by ruling 7 / DECISION-0128 (ledgers are history; no re-baseline; `db push` prohibited; parity by catalog digests). Development's ledger carries the 8 `task0078_align_*` rows Production must never receive; Production keeps its 124 rows whose SQL no local file holds | `qa/MIGRATION_LEDGER_RECONCILIATION_2026_10_21.md`: Production 2 listed-not-effective, 124 rows with SQL no local file holds, 32 with no SQL, 94 local files live with no row; `db push` or `migration repair` against Production is unsafe until decided. Also decide the two never-applied files (`20260827120000`, `20260828170000`, see A18) |
 | A20 | Hygiene: 11 `SECURITY DEFINER` functions in `app` are executable by `anon` on Production | Standard migration | open, low risk | Verified 2026-10-21: all 11 are trigger functions (`handle_new_user`, `tg_*`, `guard_*`, `response_versions_guard_submission`, `rollup_pre_submit_hint_count`, `servable_items_census`, `set_assistance_event_derived_fields`, `refuse_attempt_on_teaching_item`); none is in `public`, so PostgREST cannot call them, and trigger functions cannot be invoked directly. Revoke `anon`/`authenticated` execute for hygiene; not urgent |
 
 ## 2b. State after the Codex merges (Fable, 2026-10-21, late): deploy gates
@@ -246,6 +253,8 @@ to Production under an `APPROVAL`, with the bundle hash recorded on both project
 After Lovable reports done, review the real diff by commit SHA (not the plan commit), then David publishes.
 
 ## 5. Evidence for this record
+
+- Session close 2026-10-22 (alignment, A16 Development deploy, branch cleanup): `handoffs/SESSION_CLOSE_2026_10_22_TASK0078_ALIGNMENT_AND_CLEANUP.md`.
 
 - Reviewer qualification: Production `assign-for-review` bundle lines 106-164 (download 2026-10-21); Production
   `select qualification_type, status, count(*) from app.validator_qualifications group by 1,2` = `grading/active 16`,
