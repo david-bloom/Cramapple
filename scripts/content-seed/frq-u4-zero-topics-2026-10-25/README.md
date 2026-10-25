@@ -25,6 +25,11 @@ gemini-3.8-flash $0.23. Three check rounds plus Biology 4.2 reworks.
 **Rounds:** round 1 accepted 4 of 16; round 2 accepted 9; round 3 and the Biology 4.2 reruns accepted all 16. Every
 ruling is in the slot file's `arbitration` entries (`slots/*.json`). Raw calls: `calls.jsonl`.
 
+## Publishing
+`publish_frq_batch.py` (plan, preflight, rehearse, publish, verify; adapted from the Units 1-3 script) and `APPROVAL_DRAFT.md`
+(a proposed approval entry, not recorded). `plan.json` is generated locally from the accepted slots. Nothing has been run
+against Production or Development.
+
 ## Open item for the Product Owner: Biology 4.2 versus 4.3
 Five versions of a Biology 4.2 item built on a signaling cascade (second messenger, phosphorylation, amplification;
 EK 4.2.A.2 and 4.2.B.2 are 4.2 content in the CED) each got 6 of 6 topic votes for 4.3, including after the scenario was
