@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "pending_checks",
+ "status": "accepted",
  "candidates": [
   {
    "round": 1,
@@ -539,6 +539,213 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-25T14:29:53.503Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for the Mean Length of Rainbow Trout",
+    "calculator": "permitted",
+    "stimulus": "A fisheries biologist wants to estimate the mean length of rainbow trout in a large lake that holds many thousands of trout. She catches and measures a random sample of 22 trout. The sample mean length is 31.4 cm and the sample standard deviation is 4.2 cm. A dotplot of the 22 lengths is roughly symmetric, with no outliers.\n\nFor 95% confidence with 21 degrees of freedom, the critical value is t* = 2.080.",
+    "parts": [
+     {
+      "prompt": "Check the conditions for constructing a t interval for the population mean length.",
+      "criteria": [
+       {
+        "text": "States that the trout were randomly selected, which meets the random condition.",
+        "evidence": "Response states that the sample is a random sample of the trout in the lake.",
+        "fix": "Name the sampling method given in the problem and say that it meets the random sampling condition.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the 10% condition is met because the lake holds more than 10 × 22 = 220 trout.",
+        "evidence": "Response compares the population size to 10 times the sample size, 220, and concludes the 10% condition is satisfied.",
+        "fix": "Compare the population size to 10 times the sample size; if the population is larger, the 10% condition is met.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that although n = 22 is less than 30, the sample is roughly symmetric with no outliers, so the sample data condition is met.",
+        "evidence": "Response notes n is below 30 and uses the symmetric shape and absence of outliers to justify using t procedures.",
+        "fix": "When n is under 30, describe the sample's shape: no strong skewness and no outliers supports using a t interval.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Construct a 95% confidence interval for the mean length of all rainbow trout in the lake.",
+      "criteria": [
+       {
+        "text": "Sets up the interval as 31.4 ± 2.080(4.2/√22), with the sample mean, t*, s and n correctly substituted (the standard error is about 0.895 cm).",
+        "evidence": "Response shows the t interval expression with 31.4, 2.080, 4.2 and 22 correctly substituted, or an equivalent calculator setup that names the same values.",
+        "fix": "Write the interval as the sample mean plus or minus t* times s over the square root of n, then substitute each value.",
+        "accepted_variants": [
+         "SE ≈ 0.895"
+        ]
+       },
+       {
+        "text": "Gives the interval 31.4 ± 1.86, or (29.54, 33.26) cm.",
+        "evidence": "Response gives the interval as limits near 29.54 and 33.26 cm, or as 31.4 ± 1.86 cm.",
+        "fix": "Add and subtract the margin of error from the sample mean, and write both limits with units.",
+        "accepted_variants": [
+         "(29.5, 33.3)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in the context of the study.",
+      "criteria": [
+       {
+        "text": "States that we are 95% confident that the interval from 29.54 to 33.26 cm captures the true mean length of all rainbow trout in the lake.",
+        "evidence": "Response gives the confidence level, the interval, the parameter as a population mean, and the context of trout in the lake.",
+        "fix": "Use the pattern: I am 95% confident the interval from a to b contains the true mean of the population described.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Random: the 22 trout are a random sample from the lake. 10% condition: the lake holds many thousands of trout, which is more than 10 × 22 = 220, so the 10% condition is met. Sample data: n = 22 is less than 30, but the dotplot is roughly symmetric with no outliers, so it is reasonable to use a t interval.\n\n(b) Standard error = 4.2/√22 ≈ 0.895 cm. Margin of error = 2.080 × 0.895 ≈ 1.86 cm. The interval is 31.4 ± 1.86, or (29.54, 33.26) cm.\n\n(c) I am 95% confident that the interval from 29.54 cm to 33.26 cm captures the true mean length of all rainbow trout in the lake.",
+    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, xbar, s = 22, 31.4, 4.2\nassert abs(tstar(0.95, n - 1) - 2.080) < 0.001\nse = s / math.sqrt(n)\nassert abs(se - 0.895) < 0.001\nme = 2.080 * se\nassert abs(me - 1.86) < 0.01\nassert abs((xbar - me) - 29.54) < 0.01 and abs((xbar + me) - 33.26) < 0.01\nassert 10 * n == 220\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
   }
  ],
  "given": {
@@ -610,5 +817,6 @@
  "arbitration": {
   "round1": "GPT-6.1 Sol rubric_points accepted: b1 bundled standard error and margin of error. Criterion now awards the correct substituted interval setup; the endpoints are a separate criterion.",
   "round2": "Round 2, GPT-6.1 Sol rubric_points accepted: b2 evidence contradicted its own accepted variant 31.4 +/- 1.86; evidence now allows either form."
- }
+ },
+ "accepted_round": 3
 }

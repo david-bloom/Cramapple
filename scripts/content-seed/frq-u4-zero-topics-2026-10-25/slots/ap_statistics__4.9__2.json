@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 2,
- "status": "pending_checks",
+ "status": "accepted",
  "candidates": [
   {
    "round": 1,
@@ -273,6 +273,266 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-25T14:36:39.369Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test for a New Recovery Drink in a Cycling Experiment",
+    "calculator": "not_applicable",
+    "stimulus": "A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12, without matching them on any characteristic. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.",
+    "parts": [
+     {
+      "prompt": "Explain why a two-sample procedure is appropriate here instead of a matched-pairs procedure.",
+      "criteria": [
+       {
+        "text": "Explains that there is no pairing: each cyclist is in only one group and was not matched with a cyclist in the other group, so the two groups are independent.",
+        "evidence": "Response states that no individual is measured twice and no cyclists were matched across the groups, so the data are two independent samples.",
+        "fix": "Check for pairing: the same individual measured twice, or deliberately matched individuals; if neither, use a two-sample procedure.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "State the null and alternative hypotheses for the scientist's test, defining any parameters you use.",
+      "criteria": [
+       {
+        "text": "Defines the parameters in context: μ1 and μ2 as the true mean 20 km times (in minutes) after the new drink and the standard drink, or one parameter μ1 − μ2 as the true difference in mean times.",
+        "evidence": "Response defines either both population means or their difference as population parameters in context, with the order of subtraction if a difference is used.",
+        "fix": "Define each parameter as a true mean time for one treatment, or the difference of the two, in context with units.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+        "evidence": "Response writes H0 as no difference between the two true mean times.",
+        "fix": "Write H0 as the two true means being equal, which is a difference of 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the alternative hypothesis Ha: μ1 − μ2 < 0 (equivalently μ1 < μ2).",
+        "evidence": "Response writes Ha with a less-than sign, because the new drink is expected to lower the mean time.",
+        "fix": "Match Ha to the claim: a lower mean time with the new drink means the first mean is less than the second.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the conditions for using a two-sample t procedure.",
+      "criteria": [
+       {
+        "text": "States that the random condition is met because the cyclists were randomly assigned to the two groups.",
+        "evidence": "Response states that random assignment of cyclists to the two drinks satisfies the random condition.",
+        "fix": "In an experiment, the random condition is met by random assignment of subjects to treatments; state what was randomized.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that both sample sizes (12 and 12) are less than 30, but the times in each group are roughly symmetric with no outliers, so the sample data condition is met.",
+        "evidence": "Response notes both n are below 30 and uses the symmetric shape and absence of outliers in each group.",
+        "fix": "When a sample size is under 30, check each group for strong skewness and outliers before using t procedures.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Each cyclist is in only one group and drinks only one of the two drinks, so the two groups are independent and there is no pairing between them. A two-sample procedure is appropriate.\n\n(b) Let μ1 be the true mean 20 km time trial time, in minutes, for cyclists after the new recovery drink, and let μ2 be the true mean time for cyclists after the standard recovery drink. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 < 0.\n\n(c) Random: the 24 cyclists were randomly assigned to the two groups. Sample data: both sample sizes (12 and 12) are less than 30, but the times in each group are roughly symmetric with no outliers, so it is reasonable to use a two-sample t procedure.",
+    "verification_python": "assert 12 + 12 == 24\nassert 12 < 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 6,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b criterion b3 requires Ha to have a less-than sign, but the question lets students define the parameters. A reversed-label definition (e.g. μ1 = standard drink mean, μ2 = new drink mean) leads to the valid equivalent Ha: μ1 > μ2, which the criterion as written rejects."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b criterion b3 requires Ha to have a less-than sign, but the question lets students define the parameters. A reversed-label definition (e.g. μ1 = standard drink mean, μ2 = new drink mean) leads to the valid equivalent Ha: μ1 > μ2, which the criterion as written rejects."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
   }
  ],
  "given": {
@@ -339,5 +599,6 @@
  },
  "arbitration": {
   "round1": "GPT-6.1 Sol accepted in part: a1 over-generalised (matched pairs can use different, deliberately matched people), so it now cites no pairing or matching and the stem says cyclists were not matched; b1 now accepts one difference parameter. The claim that 10% is needed was not adopted (the item does not ask for it)."
- }
+ },
+ "accepted_round": 2
 }

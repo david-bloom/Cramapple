@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "pending_checks",
+ "status": "accepted",
  "candidates": [
   {
    "round": 1,
@@ -659,6 +659,271 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-25T14:29:53.606Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test About Mean Ambulance Response Time",
+    "calculator": "not_applicable",
+    "stimulus": "A city's emergency services department states that the mean response time for ambulance calls is 8.0 minutes. A resident believes the true mean response time is longer. The resident obtains the department's records of about 5,400 calls from the past year and takes a simple random sample of 36 of those calls. The sample mean response time is 8.7 minutes and the sample standard deviation is 2.9 minutes. The distribution of the 36 response times is skewed to the right, with no extreme outliers.",
+    "parts": [
+     {
+      "prompt": "State the null and alternative hypotheses for a test of the resident's belief, defining any parameter you use.",
+      "criteria": [
+       {
+        "text": "Defines μ as the true mean response time (in minutes) for ambulance calls in the city (all calls, or the calls from the past year that were sampled).",
+        "evidence": "Response defines the parameter as a population mean in context, naming ambulance calls in the city and the units of minutes; a restriction to the past year's calls is acceptable.",
+        "fix": "Define the parameter in words: name it as a population mean and say which population it describes, with units.",
+        "accepted_variants": [
+         "mean response time for the past year's ambulance calls"
+        ]
+       },
+       {
+        "text": "States the null hypothesis H0: μ = 8.0 minutes.",
+        "evidence": "Response writes H0 with equality and the claimed value 8.0.",
+        "fix": "Write H0 as the parameter equal to the value claimed by the department, 8.0 minutes.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the alternative hypothesis Ha: μ > 8.0 minutes.",
+        "evidence": "Response writes Ha with the greater-than sign, reflecting the resident's belief that the mean is longer.",
+        "fix": "Match the direction of Ha to the belief: longer than 8.0 minutes means the parameter is greater than 8.0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Name the inference procedure that is appropriate for these hypotheses.",
+      "criteria": [
+       {
+        "text": "Identifies a one-sample t-test for a population mean.",
+        "evidence": "Response names a one-sample t-test (or t-test for a mean), not a z-test and not a two-sample test.",
+        "fix": "One quantitative variable from one sample with unknown population standard deviation calls for a one-sample t-test for a mean.",
+        "accepted_variants": [
+         "t-test for a population mean"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The calls are a simple random sample. Verify the 10% condition and the sample data condition for using this procedure.",
+      "criteria": [
+       {
+        "text": "States that the 10% condition is met because the population of about 5,400 calls is more than 10 times the sample size of 36 (equivalently, 36 is less than 10% of 5,400).",
+        "evidence": "Response compares 5,400 with 10 × 36 = 360, or 36 with 10% of 5,400 = 540, and concludes the condition is met.",
+        "fix": "Compare the sample size with 10% of the population size, or the population size with 10 times the sample size, and state the conclusion.",
+        "accepted_variants": [
+         "n < 0.10N",
+         "36 < 540"
+        ]
+       },
+       {
+        "text": "Verifies the sample data condition: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
+        "evidence": "Response states that n ≥ 30 justifies approximate normality of the sampling distribution despite skewness.",
+        "fix": "Compare n with 30; when n is at least 30, skewness in the sample does not stop you from using t procedures.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Let μ be the true mean response time, in minutes, for all ambulance calls in the city. H0: μ = 8.0 minutes. Ha: μ > 8.0 minutes.\n\n(b) A one-sample t-test for a population mean is appropriate.\n\n(c) 10%: there are about 5,400 calls, which is more than 10 × 36 = 360 (equivalently, 36 is less than 10% of 5,400), so the condition is met. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
+    "verification_python": "assert 10 * 36 == 360 and 5400 > 360 and 36 < 0.10 * 5400\nassert 36 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "2": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 unnecessarily requires an explicit statement about approximate normality of the sampling distribution. 'The sample data condition is met because n = 36 ≥ 30' fully verifies the stated CED condition and should earn credit.",
+       "rubric_evidence: Part (b), criterion b1's fix states a procedural rule but gives no concrete action. Replace it with: 'Identify the procedure as a one-sample t-test because one quantitative sample is used and the population standard deviation is unknown.'",
+       "solution: The independent solution agrees with the hypotheses, procedure, and condition checks and earns all six criteria. However, c2 should also accept verification using n = 36 ≥ 30 without requiring an additional approximate-normality statement."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 unnecessarily requires an explicit statement about approximate normality of the sampling distribution. 'The sample data condition is met because n = 36 ≥ 30' fully verifies the stated CED condition and should earn credit."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (b), criterion b1's fix states a procedural rule but gives no concrete action. Replace it with: 'Identify the procedure as a one-sample t-test because one quantitative sample is used and the population standard deviation is unknown.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the hypotheses, procedure, and condition checks and earns all six criteria. However, c2 should also accept verification using n = 36 ≥ 30 without requiring an additional approximate-normality statement.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
   }
  ],
  "given": {
@@ -733,5 +998,6 @@
  "arbitration": {
   "round1": "Both checkers, rubric_points accepted: c1 bundled random and 10%. Random is now given in the stem; c1 is the 10% condition only and accepts either equivalent inequality.",
   "round2": "Round 2, GPT-6.1 Sol rubric_points/accurate accepted: a1 now allows the past-year calls as the population."
- }
+ },
+ "accepted_round": 3
 }

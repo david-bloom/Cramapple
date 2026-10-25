@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "pending_checks",
+ "status": "accepted",
  "candidates": [
   {
    "round": 1,
@@ -510,6 +510,202 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-25T14:29:53.473Z",
+   "source": "given",
+   "item": {
+    "title": "Cyclin-CDK Activity and a Drug That Stops Cells Before Mitosis",
+    "calculator": "not_applicable",
+    "stimulus": "Cyclins are proteins whose concentration changes during the cell cycle. A cyclin binds to a cyclin-dependent kinase (CDK), and a CDK is active only when it is bound to a cyclin. Researchers followed a synchronized culture of dividing cells through one cell cycle and measured the concentration of the cyclin that regulates entry into mitosis and the activity of its partner CDK. Mitosis ended near hour 11.\n\nTime (hours) | Cyclin concentration (relative units) | CDK activity (relative units)\n0 | 5 | 4\n3 | 20 | 18\n6 | 55 | 52\n9 | 90 | 88\n12 | 8 | 6\n\nThe researchers then treated a second culture with a drug that blocks the active cyclin-CDK complex needed to enter mitosis. After 24 hours they measured the DNA content of each cell. A G1 cell has the 2C amount of DNA, and a cell that has finished DNA replication has 4C. They also counted cells with visible condensed chromosomes (cells in mitosis).\n\nGroup | % of cells in G1 (2C DNA) | % of cells in S phase (between 2C and 4C) | % of cells with 4C DNA (G2 or mitosis) | % of all cells in mitosis\nControl culture | 48 | 22 | 30 | 4\nDrug-treated culture | 8 | 12 | 80 | 0.4",
+    "parts": [
+     {
+      "prompt": "Describe the relationship between cyclin concentration and CDK activity in the first table, and explain the relationship.",
+      "criteria": [
+       {
+        "text": "Describes that CDK activity rises and falls together with the cyclin concentration (both are highest at 9 hours and low at 0 and 12 hours).",
+        "evidence": "Response states that CDK activity follows the cyclin concentration over time.",
+        "fix": "Compare the two columns over time: when one rises or falls, state whether the other changes in the same direction.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains that CDK is active only when it is bound to cyclin, so CDK activity depends on the cyclin concentration.",
+        "evidence": "Response states that cyclin binding is required to activate the CDK.",
+        "fix": "Use the information given about the proteins: a CDK needs a bound cyclin to be active, so its activity tracks cyclin level.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, support your answer with values from the table, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
+      "criteria": [
+       {
+        "text": "Identifies G2 (after DNA replication and before mitosis) as the stage where most treated cells are stopped, supported by 80% of cells having 4C DNA while only 0.4% are in mitosis.",
+        "evidence": "Response names G2 (or the point just before mitosis) and cites the large share of 4C cells and the very small share of cells in mitosis.",
+        "fix": "Combine two clues: cells with 4C DNA have replicated their DNA, and few cells in mitosis means they stopped before mitosis.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains that the active cyclin-CDK complex is needed for cells to pass the checkpoint into mitosis, so blocking it keeps cells from progressing out of G2.",
+        "evidence": "Response states that the cyclin-CDK complex is required for cells to move from G2 into mitosis.",
+        "fix": "Connect the drug to the stop: if blocking the complex halts the cycle, then the active complex is required to move forward.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Cells with damaged DNA normally pause at an internal checkpoint. Explain how this pause benefits the organism.",
+      "criteria": [
+       {
+        "text": "Explains that the pause gives the cell time to repair the damaged DNA, or keeps a cell with damaged DNA from dividing, so damaged DNA is not passed to daughter cells.",
+        "evidence": "Response states that the checkpoint holds the cycle so repair can occur, or that it stops damaged cells from dividing, preventing passage of damaged DNA.",
+        "fix": "State what the pause achieves: damaged DNA is repaired, or the damaged cell does not divide, so daughter cells do not inherit it.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) CDK activity rises and falls together with cyclin concentration: both are highest at 9 hours (90 and 88) and low at 0 and 12 hours. This is because a CDK is active only when it is bound to a cyclin, so the amount of active CDK depends on the amount of cyclin.\n\n(b) Most drug-treated cells are stopped in G2. In the treated culture 80% of cells have 4C DNA, which means they have replicated their DNA, but only 0.4% are in mitosis (4% in the control). The active cyclin-CDK complex that the drug blocks is therefore needed for cells to pass the checkpoint from G2 into mitosis. Without it, cells cannot progress.\n\n(c) When DNA is damaged, the checkpoint pauses the cycle. This gives the cell time to repair the DNA before it divides, so damaged DNA is not copied and passed to the daughter cells.",
+    "verification_python": "# Biology reading check for the table values used in the rubric\ncyc = [5, 20, 55, 90, 8]\ncdk = [4, 18, 52, 88, 6]\nassert cyc.index(max(cyc)) == cdk.index(max(cdk)) == 3\ntreated = (8, 12, 80, 0.4)\ncontrol = (48, 22, 30, 4)\nassert sum(treated[:3]) == 100 and sum(control[:3]) == 100\nassert treated[2] == 80 and treated[3] < control[3]\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6 Regulation of Cell Cycle",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
   }
  ],
  "given": {
@@ -571,5 +767,6 @@
  "arbitration": {
   "round1": "GPT-6.1 Sol rubric_points accepted: b1 required evidence the part did not ask for. Prompt now asks for values from the table.",
   "round2": "Round 2, GPT-6.1 Sol rubric_points accepted: c1 now also accepts that the pause stops damaged cells dividing."
- }
+ },
+ "accepted_round": 3
 }

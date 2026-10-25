@@ -5,49 +5,42 @@ def P(prompt, *crit):
     return {"prompt": prompt, "criteria": list(crit)}
 items = []
 
-# ---------------- AP Biology 4.2 (A) ---------------- (round 2: replaced; round 1 voted 6 of 6 for 4.3)
+# ---------------- AP Biology 4.2 (A) ---------------- (round 6: replaced; the cascade versions voted 6 of 6 for 4.3 five times)
 items.append({"subject_key": "ap_biology", "topic_code": "4.2", "item": {
- "title": "Amplification in a Hormone Signal Transduction Pathway",
+ "title": "Ligand Recognition by Receptors in Three Cell Types",
  "calculator": "not_applicable",
- "stimulus": """Epinephrine is a hormone released into the blood during stress. It binds to a G protein-coupled receptor (GPCR) in the plasma membrane of liver cells. The activated receptor activates a G protein, and the G protein activates the enzyme adenylyl cyclase. Adenylyl cyclase converts ATP to the second messenger cAMP. cAMP activates protein kinase A, a protein kinase that phosphorylates and activates the next enzyme in the pathway. A series of such steps ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen to release glucose.
+ "stimulus": """A researcher studies three cell types and three signaling molecules (ligands), P, Q and R. Ligands P and R are different peptides (small proteins). Ligand Q is a small nonpolar molecule. The researcher prepared extracts containing the receptor proteins from each cell type and measured how much of each ligand bound to the receptor proteins (relative units; 100 is the maximum binding). Readings of 5 or below are background and mean that the ligand did not bind.
 
-For each step, the table gives the approximate number of activated molecules produced per single activated receptor.
-
-Step | Activated molecules per activated receptor
-1. Receptor | 1
-2. G protein | 100
-3. Adenylyl cyclase | 100
-4. cAMP | 10,000
-5. Protein kinase A | 10,000
-6. Glycogen phosphorylase | 1,000,000""",
+Cell type | Ligand P | Ligand Q | Ligand R
+Muscle cell | 92 | 0 | 3
+Liver cell | 4 | 0 | 88
+Skin cell | 2 | 85 | 1""",
  "parts": [
-  P("Identify the second messenger in this pathway, and explain how the signal can be passed into the cell even though epinephrine itself does not enter the cell.",
-    C("Identifies cAMP as the second messenger in the pathway.",
-      "Response names cAMP (cyclic AMP) as the second messenger.",
-      "Find the small molecule that adenylyl cyclase produces from ATP; that molecule relays the signal and is the second messenger.", ["cyclic AMP"]),
-    C("Explains that epinephrine binds the receptor at the cell surface, and the receptor passes the signal inside by activating a G protein and an enzyme that produces the second messenger, which relays the signal to other components in the cell.",
-      "Response states that binding at the surface receptor starts a chain of activations inside the cell, ending with a second messenger that relays the signal, so the hormone does not need to enter.",
-      "Trace the start of the pathway: ligand binds the surface receptor, the receptor activates inside components, and the second messenger relays the signal.")),
-  P("Use the table to state how many molecules of glycogen phosphorylase are activated per activated receptor, and explain how a series of steps like these can produce such a large response from a single hormone-binding event.",
-    C("States that about 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor.",
-      "Response reads the value 1,000,000 from the last row of the table.",
-      "Read the value for the final step directly from the table and state it with what it counts.", ["1 million", "10^6"]),
-    C("Explains that each activated enzyme can activate many molecules of the next component, so the number of activated molecules increases at successive steps and the signal is amplified.",
-      "Response states that each step activates multiple molecules of the next step, so the response is much larger than the original signal.",
-      "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.")),
-  P("Protein kinase A adds phosphate groups to its target proteins. Describe the effect of phosphorylation on a target protein.",
-    C("Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating an enzyme).",
-      "Response states that adding a phosphate group changes the target protein's shape or activity.",
-      "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.", ["changes conformation"]))],
- "model_answer": """(a) The second messenger is cAMP. Epinephrine binds the GPCR at the cell surface and does not enter the cell. The activated receptor activates a G protein, which activates adenylyl cyclase inside the cell. Adenylyl cyclase makes cAMP, and this second messenger relays the signal to protein kinase A and the other components of the pathway.
+  P("Identify which ligand each cell type is able to recognize, and state what the data show about the receptors of the three cell types.",
+    C("Identifies the ligand recognized by each cell type: muscle cells recognize P, liver cells recognize R, and skin cells recognize Q.",
+      "Response pairs each cell type with the one ligand that shows high binding (muscle with P, liver with R, skin with Q).",
+      "For each row, find the one ligand with high binding and pair it with that cell type."),
+    C("States that the three cell types have different receptors, and that each receptor binds only one of the ligands.",
+      "Response states that the receptors differ between cell types and that each receptor is specific to one ligand.",
+      "Compare rows: if each cell type binds a different ligand and almost no others, the receptors are different and specific.")),
+  P("Explain, in terms of receptor structure, why the receptor proteins from liver cells bind ligand R but not ligand P, even though both ligands are peptides.",
+    C("Explains that the receptor's ligand-binding domain has a specific shape that matches ligand R but not ligand P, so P cannot bind.",
+      "Response states that the ligand-binding domain recognizes a specific ligand through its shape or structure, which fits R and does not fit P.",
+      "Name the receptor feature involved: the ligand-binding domain has a specific shape that fits only its own ligand.", ["binding site is specific to its ligand"])),
+  P("A fourth cell type has no receptor for ligand P. Predict whether this cell type will respond to ligand P, and justify your prediction.",
+    C("Predicts that the cell type will not respond to ligand P, because without a receptor that recognizes P, the signal cannot be received and the signaling does not start.",
+      "Response predicts no response and states that recognition of the ligand by a receptor protein is required to begin signaling.",
+      "Link response to reception: a signal can start a response only if a receptor in the target cell recognizes the ligand."))],
+ "model_answer": """(a) Muscle cells recognize ligand P (92), liver cells recognize ligand R (88), and skin cells recognize ligand Q (85); each cell type shows almost no binding to the other two ligands. The three cell types therefore have different receptors, and each receptor is specific to only one of the ligands.
 
-(b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.
+(b) The ligand-binding domain of a receptor has a specific shape. The liver-cell receptor has a binding domain whose shape fits ligand R, so R binds (88). Ligand P is also a peptide but has a different structure that does not fit this domain, so P does not bind (4).
 
-(c) Phosphorylation changes the shape of the target protein, which changes its activity, for example by switching an enzyme on.""",
- "verification_python": """steps = [1, 100, 100, 10000, 10000, 1000000]
-assert steps[-1] == 1000000 and steps[0] == 1
-assert steps == sorted(steps)
-assert steps[-1] // steps[0] == 10**6
+(c) The cell type will not respond to ligand P. Signaling begins when a receptor protein in the target cell recognizes the ligand. Without a receptor for P, the cell cannot receive the signal, so no signal transduction occurs.""",
+ "verification_python": """table = {'muscle': (92, 0, 3), 'liver': (4, 0, 88), 'skin': (2, 85, 1)}
+best = {k: max(range(3), key=lambda i: v[i]) for k, v in table.items()}
+assert best == {'muscle': 0, 'liver': 2, 'skin': 1}
+for k, v in table.items():
+    assert sorted(v)[-1] >= 85 and sorted(v)[-2] <= 4
 print('ALL_CHECKS_PASSED')
 """}})
 

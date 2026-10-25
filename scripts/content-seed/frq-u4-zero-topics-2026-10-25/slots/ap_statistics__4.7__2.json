@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 2,
- "status": "pending_checks",
+ "status": "accepted",
  "candidates": [
   {
    "round": 1,
@@ -323,6 +323,209 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-25T14:30:05.833Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for the Difference in Mean Tomato Yield",
+    "calculator": "permitted",
+    "stimulus": "A gardener randomly assigns 26 tomato plants of the same variety to two fertilizers: 12 plants receive fertilizer A and 14 plants receive fertilizer B. After 12 weeks she records the total mass of tomatoes (in kg) harvested from each plant. Dotplots of the yields in each group are roughly symmetric with no outliers.\n\nFertilizer A: n1 = 12, mean 4.60 kg, standard deviation 0.62 kg.\nFertilizer B: n2 = 14, mean 4.15 kg, standard deviation 0.75 kg.\n\nTechnology gives about 24.0 degrees of freedom. For 90% confidence, the critical value is t* = 1.711.",
+    "parts": [
+     {
+      "prompt": "Check the conditions for constructing a two-sample t interval for μA − μB.",
+      "criteria": [
+       {
+        "text": "States that the plants were randomly assigned to the two fertilizers, so the groups are independent and the random condition is met.",
+        "evidence": "Response states that random assignment of plants to the two fertilizers satisfies the random condition and gives two independent groups.",
+        "fix": "In an experiment, the random condition is met by random assignment to treatments; state what was randomly assigned.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that both sample sizes are less than 30, but each group's yields are roughly symmetric with no outliers, so the sample data condition is met.",
+        "evidence": "Response notes that n1 and n2 are below 30 and uses the symmetric shape and absence of outliers in each group.",
+        "fix": "When either sample size is under 30, check both samples for strong skewness and outliers.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Construct a 90% confidence interval for μA − μB.",
+      "criteria": [
+       {
+        "text": "Calculates the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
+        "evidence": "Response shows a standard error near 0.269 kg computed from both sample variances and both sample sizes.",
+        "fix": "Add s1²/n1 and s2²/n2, then take the square root of the sum.",
+        "accepted_variants": [
+         "SE ≈ 0.27"
+        ]
+       },
+       {
+        "text": "Gives the interval (4.60 − 4.15) ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
+        "evidence": "Response uses 0.45 as the point estimate, in the order A minus B, and gives limits near −0.01 and 0.91 kg.",
+        "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
+        "accepted_variants": [
+         "(−0.01, 0.91)",
+         "(-0.01, 0.91)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "States that we are 90% confident that the interval from −0.01 to 0.91 kg captures the true difference in mean tomato yield per plant (fertilizer A minus fertilizer B).",
+        "evidence": "Response states the confidence level, the interval, the order of subtraction, and that the parameter is a difference in mean yield per plant.",
+        "fix": "Interpret with the confidence level, the interval, the order of subtraction, and the two fertilizers named.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Random: the 26 plants were randomly assigned to the two fertilizers, so the two groups are independent. Sample data: both sample sizes (12 and 14) are less than 30, but the yields in each group are roughly symmetric with no outliers, so it is reasonable to use a two-sample t interval.\n\n(b) Point estimate: 4.60 − 4.15 = 0.45 kg. Standard error: √(0.62²/12 + 0.75²/14) ≈ 0.269. Margin of error: 1.711(0.269) ≈ 0.46. The interval is 0.45 ± 0.46, which is approximately (−0.01, 0.91) kg.\n\n(c) I am 90% confident that the interval from −0.01 to 0.91 kg captures the true difference in mean tomato yield per plant (fertilizer A minus fertilizer B) for plants like these.",
+    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn1, m1, s1 = 12, 4.60, 0.62\nn2, m2, s2 = 14, 4.15, 0.75\ndf = welch(s1, n1, s2, n2)\nassert abs(df - 24.0) < 0.1\nassert abs(tstar(0.90, df) - 1.711) < 0.001\nse = math.sqrt(s1**2 / n1 + s2**2 / n2)\nassert abs(se - 0.269) < 0.001\ndiff = m1 - m2\nme = 1.711 * se\nassert abs(diff - 0.45) < 1e-9\nassert abs((diff - me) + 0.01) < 0.01 and abs((diff + me) - 0.91) < 0.01\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 4,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
   }
  ],
  "given": {
@@ -388,5 +591,6 @@
  },
  "arbitration": {
   "round1": "GPT-6.1 Sol rubric_points accepted: same bundling as 4.7 item 1; same fix."
- }
+ },
+ "accepted_round": 2
 }
