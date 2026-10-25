@@ -470,4 +470,51 @@ begin
     'another intent never counts against the order');
 end $$;
 
+-- ---------------------------------------------------------------------------
+-- 12. Reddit Conversions API: a conversion queues one Reddit PURCHASE only when
+--     checkout recorded a click id; a replayed conversion queues nothing more.
+-- ---------------------------------------------------------------------------
+insert into auth.users values
+  ('00000000-0000-0000-0000-0000000000c1', 'cap-a@example.com'),
+  ('00000000-0000-0000-0000-0000000000c2', 'cap-b@example.com');
+insert into app.profiles values ('00000000-0000-0000-0000-0000000000c1'), ('00000000-0000-0000-0000-0000000000c2');
+
+do $$
+declare a uuid; b uuid; r text; q app.ad_conversion_outbox;
+begin
+  a := pg_temp.new_order('cap-a@example.com');
+  update app.trial_orders set reddit_click_id = 'rdt-abc' where id = a;
+  perform app.trial_activate(a, '00000000-0000-0000-0000-0000000000c1', 'pi_cap_a', 'seti_cap_a', 'pm_cap_a',
+    'cap-a@example.com', now() - interval '7 days');
+  r := app.trial_convert(a, 'pi_cap_a', 1999, 'usd');
+  perform pg_temp.check(r = 'converted', 'conversion with a click id converts');
+  select * into q from app.ad_conversion_outbox where order_id = a;
+  perform pg_temp.check(q.platform = 'reddit' and q.event_type = 'PURCHASE' and q.click_id = 'rdt-abc'
+    and q.value_cents = 1999 and q.currency = 'usd' and q.delivered_at is null,
+    'the conversion queues one Reddit PURCHASE with the click id and amount');
+  perform pg_temp.check(app.trial_convert(a, 'pi_cap_a', 1999, 'usd') = 'already_converted'
+    and (select count(*) from app.ad_conversion_outbox where order_id = a) = 1,
+    'a replayed conversion queues nothing more');
+  perform pg_temp.check((select count(*) from app.claim_ad_conversions(10)) = 1, 'the worker claims it');
+  perform pg_temp.check((select attempt_count from app.ad_conversion_outbox where order_id = a) = 1
+    and (select leased_until from app.ad_conversion_outbox where order_id = a) > now(),
+    'the claim counts the attempt and leases the row');
+  perform pg_temp.check((select count(*) from app.claim_ad_conversions(10)) = 0,
+    'a leased row is not claimed again');
+
+  b := pg_temp.new_order('cap-b@example.com');
+  perform app.trial_activate(b, '00000000-0000-0000-0000-0000000000c2', 'pi_cap_b', 'seti_cap_b', 'pm_cap_b',
+    'cap-b@example.com', now() - interval '7 days');
+  perform app.trial_convert(b, 'pi_cap_b', 1999, 'usd');
+  perform pg_temp.check(not exists (select 1 from app.ad_conversion_outbox where order_id = b),
+    'no click id, nothing queued for Reddit');
+
+  begin
+    update app.trial_orders set reddit_click_id = 'bad id' where id = b;
+    perform pg_temp.check(false, 'a malformed click id is refused');
+  exception when check_violation then
+    perform pg_temp.check(true, 'a malformed click id is refused');
+  end;
+end $$;
+
 select 'ALL TRIAL ORDER SQL TESTS PASSED' as result;

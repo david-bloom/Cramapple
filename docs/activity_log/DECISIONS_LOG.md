@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
 - DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
 - DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
 - DECISION-0126 — Seven-Day Free Trial With a Saved Card for Every Checkout, Parent-Pay Included (Partly Revises `DECISION-0090`); Price Locked at Signup, Cancel Ends Access Now, One-Day Grace, One Trial Per Student Email, Terms Acknowledgment, Cardless Trial Retired, Wallets Kept, Eastern Time (`TASK-0077`)
@@ -53,6 +54,24 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
+
+- **Date:** 2026-10-25
+- **Decided by:** David Bloom (Product Owner), in session: "D1 trial only, D2 click id only, go ahead", answering
+  `docs/product/REDDIT_CONVERSIONS_API_DAY7_PLAN_2026_10_25.md`.
+- **Context:** The Reddit Pixel (published 2026-10-25) reports page visits, trial starts and pay-now purchases from the browser,
+  but the day-7 trial charge happens in the backend, so Reddit never learns which ads produced paying customers.
+- **Decision:**
+  1. **Scope (D1):** only day-7 trial conversions are sent server-side. Pay-now purchases stay with the pixel, so nothing is
+     counted twice.
+  2. **Matching data (D2):** only the Reddit ad click id (`rdt_cid`), plus the order id as the deduplication key, the amount
+     and the currency. No email, phone, IP address, user agent or Reddit's own browser id (`_rdt_uuid`) is collected or sent.
+  3. The checkout passes the click id only when the visitor has not opted out and the browser sends no Global Privacy
+     Control; the server stores it only when the page says ad tracking is allowed.
+- **Still open:** D3 (an opt-out made after checkout is not known to the server), D4 (California opt-in for under-16s) and
+  D5 (Privacy Policy wording) are for David and the lawyer before Production delivery is switched on.
+- **Rollback:** `REDDIT_CONVERSIONS_ENABLED=false`.
 
 ## DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
 

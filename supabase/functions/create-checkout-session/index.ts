@@ -16,6 +16,7 @@ import {
 } from "../_shared/public-rate-limit.ts";
 import {
   buildTrialQuote,
+  readRedditClickId,
   startTrialSetup,
   type TrialDeps,
   TrialError,
@@ -167,6 +168,7 @@ Deno.serve(async (req) => {
           studentName: null,
           consentIp: clientIp(req),
           consentUserAgent: req.headers.get("user-agent"),
+        redditClickId: readRedditClickId(input.ad_attribution),
           urls: {
             returnUrl:
               `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student&trial=1`,
