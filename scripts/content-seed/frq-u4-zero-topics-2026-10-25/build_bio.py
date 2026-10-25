@@ -21,13 +21,13 @@ Step | Activated molecules per activated receptor
 5. Protein kinase A | 10,000
 6. Glycogen phosphorylase | 1,000,000""",
  "parts": [
-  P("Identify the second messenger in this pathway and the cellular response that the pathway produces.",
+  P("Identify the second messenger in this pathway, and explain how the signal can be passed into the cell even though epinephrine itself does not enter the cell.",
     C("Identifies cAMP as the second messenger in the pathway.",
       "Response names cAMP (cyclic AMP) as the second messenger.",
       "Find the small molecule that adenylyl cyclase produces from ATP; that molecule relays the signal and is the second messenger.", ["cyclic AMP"]),
-    C("Identifies the cellular response as the breakdown of glycogen, releasing glucose.",
-      "Response names glycogen breakdown or glucose release as the response produced by the pathway.",
-      "Read the end of the pathway: the cellular response is what the final activated enzyme does.", ["glucose release"])),
+    C("Explains that epinephrine binds the receptor at the cell surface, and the receptor passes the signal inside by activating a G protein and an enzyme that produces the second messenger, which relays the signal to other components in the cell.",
+      "Response states that binding at the surface receptor starts a chain of activations inside the cell, ending with a second messenger that relays the signal, so the hormone does not need to enter.",
+      "Trace the start of the pathway: ligand binds the surface receptor, the receptor activates inside components, and the second messenger relays the signal.")),
   P("Use the table to state how many molecules of glycogen phosphorylase are activated per activated receptor, and explain how a series of steps like these can produce such a large response from a single hormone-binding event.",
     C("States that about 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor.",
       "Response reads the value 1,000,000 from the last row of the table.",
@@ -39,7 +39,7 @@ Step | Activated molecules per activated receptor
     C("Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating an enzyme).",
       "Response states that adding a phosphate group changes the target protein's shape or activity.",
       "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.", ["changes conformation"]))],
- "model_answer": """(a) The second messenger is cAMP. The cellular response is the breakdown of glycogen, which releases glucose.
+ "model_answer": """(a) The second messenger is cAMP. Epinephrine binds the GPCR at the cell surface and does not enter the cell. The activated receptor activates a G protein, which activates adenylyl cyclase inside the cell. Adenylyl cyclase makes cAMP, and this second messenger relays the signal to protein kinase A and the other components of the pathway.
 
 (b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.
 
@@ -132,9 +132,9 @@ Drug-treated culture | 8 | 12 | 80 | 0.4""",
       "Response states that the cyclin-CDK complex is required for cells to move from G2 into mitosis.",
       "Connect the drug to the stop: if blocking the complex halts the cycle, then the active complex is required to move forward.")),
   P("Cells with damaged DNA normally pause at an internal checkpoint. Explain how this pause benefits the organism.",
-    C("Explains that the pause gives the cell time to repair the damaged DNA, so damaged DNA is not copied or passed to daughter cells.",
-      "Response states that the checkpoint holds the cycle so repair can occur before the cell divides, preventing passage of damaged DNA.",
-      "State what the pause allows: time for DNA repair before division, so daughter cells do not inherit damaged DNA."))],
+    C("Explains that the pause gives the cell time to repair the damaged DNA, or keeps a cell with damaged DNA from dividing, so damaged DNA is not passed to daughter cells.",
+      "Response states that the checkpoint holds the cycle so repair can occur, or that it stops damaged cells from dividing, preventing passage of damaged DNA.",
+      "State what the pause achieves: damaged DNA is repaired, or the damaged cell does not divide, so daughter cells do not inherit it."))],
  "model_answer": """(a) CDK activity rises and falls together with cyclin concentration: both are highest at 9 hours (90 and 88) and low at 0 and 12 hours. This is because a CDK is active only when it is bound to a cyclin, so the amount of active CDK depends on the amount of cyclin.
 
 (b) Most drug-treated cells are stopped in G2. In the treated culture 80% of cells have 4C DNA, which means they have replicated their DNA, but only 0.4% are in mitosis (4% in the control). The active cyclin-CDK complex that the drug blocks is therefore needed for cells to pass the checkpoint from G2 into mitosis. Without it, cells cannot progress.

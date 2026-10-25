@@ -43,7 +43,7 @@
       },
       {
        "text": "Gives the interval 31.4 ± 1.86, or (29.54, 33.26) cm.",
-       "evidence": "Response gives lower and upper limits near 29.54 and 33.26 cm.",
+       "evidence": "Response gives the interval as limits near 29.54 and 33.26 cm, or as 31.4 ± 1.86 cm.",
        "fix": "Add and subtract the margin of error from the sample mean, and write both limits with units.",
        "accepted_variants": [
         "(29.5, 33.3)"
@@ -99,7 +99,7 @@
       },
       {
        "text": "Computes the interval 3.9 ± 1.771(5.1/√14), which is approximately (1.49, 6.31) points.",
-       "evidence": "Response shows the t interval formula with correct values and gives limits near 1.49 and 6.31.",
+       "evidence": "Response shows the t interval with correct values substituted, or a labeled one-sample t-interval calculation with the same inputs, and gives limits near 1.49 and 6.31.",
        "fix": "Use the mean of the differences, t*, and s divided by the square root of 14; then add and subtract the margin of error.",
        "accepted_variants": [
         "(1.5, 6.3)"
@@ -141,10 +141,12 @@
      "prompt": "State the null and alternative hypotheses for a test of the resident's belief, defining any parameter you use.",
      "criteria": [
       {
-       "text": "Defines μ as the true mean response time (in minutes) for all ambulance calls in the city.",
-       "evidence": "Response defines the parameter as a population mean in context, with the population of ambulance calls and units of minutes.",
+       "text": "Defines μ as the true mean response time (in minutes) for ambulance calls in the city (all calls, or the calls from the past year that were sampled).",
+       "evidence": "Response defines the parameter as a population mean in context, naming ambulance calls in the city and the units of minutes; a restriction to the past year's calls is acceptable.",
        "fix": "Define the parameter in words: name it as a population mean and say which population it describes, with units.",
-       "accepted_variants": []
+       "accepted_variants": [
+        "mean response time for the past year's ambulance calls"
+       ]
       },
       {
        "text": "States the null hypothesis H0: μ = 8.0 minutes.",
@@ -717,8 +719,8 @@
        ]
       },
       {
-       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
-       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30.",
+       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30, or because neither sample is strongly skewed and there are no outliers.",
+       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30, or the absence of strong skewness and outliers in both samples.",
        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
        "accepted_variants": []
       }

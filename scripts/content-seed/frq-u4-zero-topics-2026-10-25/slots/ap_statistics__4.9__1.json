@@ -330,6 +330,267 @@
     }
    ],
    "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-25T14:18:30.210Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test Comparing Mean GPA of On-Campus and Commuting Students",
+    "calculator": "not_applicable",
+    "stimulus": "A university registrar wants to know whether the mean GPA of students who live on campus differs from the mean GPA of students who commute. About 7,000 students live on campus and about 4,500 commute. She takes an independent random sample of 60 on-campus students and a separate independent random sample of 48 commuting students and records each student's GPA. The GPAs in each sample are not strongly skewed and there are no outliers.",
+    "parts": [
+     {
+      "prompt": "State the null and alternative hypotheses for the registrar's test, defining any parameters you use.",
+      "criteria": [
+       {
+        "text": "Defines μ1 as the true mean GPA of all on-campus students and μ2 as the true mean GPA of all commuting students at the university.",
+        "evidence": "Response defines both parameters as population means in context for the two groups.",
+        "fix": "Define each parameter as a population mean and name which group it describes.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+        "evidence": "Response writes H0 as no difference between the two population means.",
+        "fix": "Write H0 as the two population means being equal, which is a difference of 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the alternative hypothesis Ha: μ1 − μ2 ≠ 0 (equivalently μ1 ≠ μ2).",
+        "evidence": "Response writes a two-sided Ha, because the registrar wants to know whether the means differ.",
+        "fix": "Match Ha to the question: asking whether the means differ, with no direction, calls for a not-equal alternative.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Name the inference procedure that is appropriate for these hypotheses.",
+      "criteria": [
+       {
+        "text": "Identifies a two-sample t-test for the difference between two population means.",
+        "evidence": "Response names a two-sample t-test for μ1 − μ2, not a paired t-test and not a z-test.",
+        "fix": "Two independent samples measured on one quantitative variable call for a two-sample t-test for a difference in means.",
+        "accepted_variants": [
+         "two-sample t-test"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The samples are independent random samples. Verify the 10% condition for each group and the sample data condition for using this procedure.",
+      "criteria": [
+       {
+        "text": "States that the 10% condition is met in each group: 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+        "evidence": "Response compares each population size with 10 times the corresponding sample size (or each sample size with 10% of its population size).",
+        "fix": "Check each group separately by comparing its sample size with 10% of its population size.",
+        "accepted_variants": [
+         "60 < 700",
+         "48 < 450"
+        ]
+       },
+       {
+        "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
+        "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30.",
+        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480, so the condition is met for both groups. Sample data: both sample sizes (60 and 48) are at least 30, so the sampling distribution of the difference in sample means is approximately normal.",
+    "verification_python": "assert 10 * 60 == 600 and 7000 > 600\nassert 10 * 48 == 480 and 4500 > 480\nassert 60 >= 30 and 48 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 requires justification specifically through both sample sizes being at least 30. A valid alternative is to use the stated absence of strong skewness and outliers in both samples. Accept that sample-shape justification as well; the part does not prescribe a particular verification method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 requires justification specifically through both sample sizes being at least 30. A valid alternative is to use the stated absence of strong skewness and outliers in both samples. Accept that sample-shape justification as well; the part does not prescribe a particular verification method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 requires citing both sample sizes as at least 30, rejecting a valid alternative verification: both sample distributions are stated to be free of strong skewness and outliers. Accept that evidence as well."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 requires citing both sample sizes as at least 30, rejecting a valid alternative verification: both sample distributions are stated to be free of strong skewness and outliers. Accept that evidence as well."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
  ],
  "given": {
@@ -387,8 +648,8 @@
        ]
       },
       {
-       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
-       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30.",
+       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30, or because neither sample is strongly skewed and there are no outliers.",
+       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30, or the absence of strong skewness and outliers in both samples.",
        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
        "accepted_variants": []
       }
@@ -400,6 +661,7 @@
   }
  },
  "arbitration": {
-  "round1": "Both checkers rubric_points accepted: c1 bundled random/independent and 10%; c2 demanded shape evidence beyond n >= 30. Independence is now given in the stem; c1 is the 10% check, c2 is n >= 30 only."
+  "round1": "Both checkers rubric_points accepted: c1 bundled random/independent and 10%; c2 demanded shape evidence beyond n >= 30. Independence is now given in the stem; c1 is the 10% check, c2 is n >= 30 only.",
+  "round2": "Round 2, GPT-6.1 Sol rubric_points accepted: c2 now accepts n >= 30 for both groups or no strong skewness and no outliers (the CED sample data condition allows either)."
  }
 }

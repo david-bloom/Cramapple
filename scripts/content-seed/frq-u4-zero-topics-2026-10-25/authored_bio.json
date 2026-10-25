@@ -8,7 +8,7 @@
    "stimulus": "Epinephrine is a hormone released into the blood during stress. It binds to a G protein-coupled receptor (GPCR) in the plasma membrane of liver cells. The activated receptor activates a G protein, and the G protein activates the enzyme adenylyl cyclase. Adenylyl cyclase converts ATP to the second messenger cAMP. cAMP activates protein kinase A, a protein kinase that phosphorylates and activates the next enzyme in the pathway. A series of such steps ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen to release glucose.\n\nFor each step, the table gives the approximate number of activated molecules produced per single activated receptor.\n\nStep | Activated molecules per activated receptor\n1. Receptor | 1\n2. G protein | 100\n3. Adenylyl cyclase | 100\n4. cAMP | 10,000\n5. Protein kinase A | 10,000\n6. Glycogen phosphorylase | 1,000,000",
    "parts": [
     {
-     "prompt": "Identify the second messenger in this pathway and the cellular response that the pathway produces.",
+     "prompt": "Identify the second messenger in this pathway, and explain how the signal can be passed into the cell even though epinephrine itself does not enter the cell.",
      "criteria": [
       {
        "text": "Identifies cAMP as the second messenger in the pathway.",
@@ -19,12 +19,10 @@
        ]
       },
       {
-       "text": "Identifies the cellular response as the breakdown of glycogen, releasing glucose.",
-       "evidence": "Response names glycogen breakdown or glucose release as the response produced by the pathway.",
-       "fix": "Read the end of the pathway: the cellular response is what the final activated enzyme does.",
-       "accepted_variants": [
-        "glucose release"
-       ]
+       "text": "Explains that epinephrine binds the receptor at the cell surface, and the receptor passes the signal inside by activating a G protein and an enzyme that produces the second messenger, which relays the signal to other components in the cell.",
+       "evidence": "Response states that binding at the surface receptor starts a chain of activations inside the cell, ending with a second messenger that relays the signal, so the hormone does not need to enter.",
+       "fix": "Trace the start of the pathway: ligand binds the surface receptor, the receptor activates inside components, and the second messenger relays the signal.",
+       "accepted_variants": []
       }
      ]
     },
@@ -62,7 +60,7 @@
      ]
     }
    ],
-   "model_answer": "(a) The second messenger is cAMP. The cellular response is the breakdown of glycogen, which releases glucose.\n\n(b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.\n\n(c) Phosphorylation changes the shape of the target protein, which changes its activity, for example by switching an enzyme on.",
+   "model_answer": "(a) The second messenger is cAMP. Epinephrine binds the GPCR at the cell surface and does not enter the cell. The activated receptor activates a G protein, which activates adenylyl cyclase inside the cell. Adenylyl cyclase makes cAMP, and this second messenger relays the signal to protein kinase A and the other components of the pathway.\n\n(b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.\n\n(c) Phosphorylation changes the shape of the target protein, which changes its activity, for example by switching an enzyme on.",
    "verification_python": "steps = [1, 100, 100, 10000, 10000, 1000000]\nassert steps[-1] == 1000000 and steps[0] == 1\nassert steps == sorted(steps)\nassert steps[-1] // steps[0] == 10**6\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
@@ -172,9 +170,9 @@
      "prompt": "Cells with damaged DNA normally pause at an internal checkpoint. Explain how this pause benefits the organism.",
      "criteria": [
       {
-       "text": "Explains that the pause gives the cell time to repair the damaged DNA, so damaged DNA is not copied or passed to daughter cells.",
-       "evidence": "Response states that the checkpoint holds the cycle so repair can occur before the cell divides, preventing passage of damaged DNA.",
-       "fix": "State what the pause allows: time for DNA repair before division, so daughter cells do not inherit damaged DNA.",
+       "text": "Explains that the pause gives the cell time to repair the damaged DNA, or keeps a cell with damaged DNA from dividing, so damaged DNA is not passed to daughter cells.",
+       "evidence": "Response states that the checkpoint holds the cycle so repair can occur, or that it stops damaged cells from dividing, preventing passage of damaged DNA.",
+       "fix": "State what the pause achieves: damaged DNA is repaired, or the damaged cell does not divide, so daughter cells do not inherit it.",
        "accepted_variants": []
       }
      ]
