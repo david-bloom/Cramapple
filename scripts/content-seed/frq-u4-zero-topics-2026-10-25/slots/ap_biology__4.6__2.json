@@ -1,0 +1,312 @@
+{
+ "id": "ap_biology__4.6__2",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 4,
+  "unit_title": "Cell Communication and Cell Cycle",
+  "topic_code": "4.6",
+  "topic_title": "Regulation of Cell Cycle",
+  "existing": [],
+  "need": 2
+ },
+ "n": 2,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:48:03.109Z",
+   "source": "given",
+   "item": {
+    "title": "A Checkpoint Mutation and the Response to DNA Damage",
+    "calculator": "not_applicable",
+    "stimulus": "Cell line N is a normal line of skin cells. Cell line M has a mutation in a gene for a protein that normally detects DNA damage and stops the cell cycle before DNA replication (before S phase). Researchers exposed samples of each cell line to ultraviolet (UV) light, which damages DNA, and compared them with unexposed samples. Over the next 24 hours they measured the percentage of cells that entered S phase and the percentage of cells that underwent apoptosis (programmed cell death).\n\nCell line | UV exposure | % of cells entering S phase | % of cells undergoing apoptosis\nN | none | 30 | 2\nN | UV | 4 | 35\nM | none | 31 | 2\nM | UV | 29 | 3",
+    "parts": [
+     {
+      "prompt": "Describe how the normal cells (cell line N) responded to UV exposure, using the data to support each response you describe.",
+      "criteria": [
+       {
+        "text": "Describes that UV exposure caused cells to stop entering S phase (30% without UV, 4% with UV), consistent with a checkpoint halting the cycle.",
+        "evidence": "Response states that the percentage of cells entering S phase fell sharply after UV exposure, and gives the values.",
+        "fix": "Compare UV with no UV for the column that shows cell cycle progress, and give both values.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Describes that UV exposure caused many more cells to undergo apoptosis (2% without UV, 35% with UV).",
+        "evidence": "Response states that apoptosis increased after UV exposure, and gives the values.",
+        "fix": "Compare the apoptosis column for UV and no UV, and state the increase using both values.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the mutation in cell line M changes the way those cells respond to UV exposure.",
+      "criteria": [
+       {
+        "text": "Explains that the mutated protein does not detect DNA damage or stop the cycle, so the checkpoint fails and cells with damaged DNA keep entering S phase (29%) and rarely undergo apoptosis (3%).",
+        "evidence": "Response states that the checkpoint fails in cell line M, so cells continue through the cycle with damaged DNA and apoptosis does not rise.",
+        "fix": "State what the lost protein did in cell line N, then show that the data from M have lost that response.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict one long-term consequence for a person whose skin cells carry this mutation and are exposed to UV light repeatedly. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that damaged cells keep dividing, mutations accumulate, and uncontrolled cell division can lead to a tumor or cancer.",
+        "evidence": "Response predicts cancer or tumor formation and links it to cells dividing with damaged DNA that is not repaired or removed by apoptosis.",
+        "fix": "Connect failed checkpoints to cancer: cells divide with damaged DNA, mutations accumulate, and division can become uncontrolled.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Normal cells stopped progressing through the cell cycle after UV exposure: the percentage entering S phase fell from 30% to 4%, which fits a checkpoint halting the cycle in response to DNA damage. Normal cells also underwent apoptosis much more often after UV exposure: from 2% to 35%.\n\n(b) Cell line M has a mutation in the protein that detects DNA damage and stops the cycle, so its checkpoint does not work. After UV exposure, 29% of the M cells still entered S phase, nearly the same as without UV (31%), and only 3% underwent apoptosis. The damaged cells are neither held at the checkpoint nor removed.\n\n(c) Cells with damaged DNA would keep dividing, so mutations would build up in the daughter cells. Because the cell cycle is no longer controlled by the checkpoint, cells could divide in an uncontrolled way and form a tumor, so the person would have a higher risk of skin cancer.",
+    "verification_python": "# Biology reading check for the table values used in the rubric\nn_none, n_uv = (30, 2), (4, 35)\nm_none, m_uv = (31, 2), (29, 3)\nassert n_none[0] - n_uv[0] == 26\nassert n_uv[1] - n_none[1] == 33\nassert abs(m_uv[0] - m_none[0]) <= 2 and m_uv[1] <= 3\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires a prediction of cancer or tumor formation, although part (c) asks for any one justified long-term consequence. A prediction of increased accumulation of mutations in surviving skin cells, justified by continued replication of UV-damaged DNA, is also valid and should earn credit.",
+       "accurate: Criterion b1's evidence says apoptosis 'does not rise,' but the percentage increases from 2% to 3%. Require 'increases only slightly' or 'does not show the large increase observed in normal cells' instead.",
+       "solution: The independent solution agrees with the rubric's principal biological conclusions. However, part (b) correctly describes a small increase in mutant-cell apoptosis from 2% to 3%, contrary to b1's literal 'does not rise' requirement. Criterion c1 also unnecessarily excludes other justified long-term predictions, such as increased mutation accumulation. No model answer or existing-question comparison set was supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires a prediction of cancer or tumor formation, although part (c) asks for any one justified long-term consequence. A prediction of increased accumulation of mutations in surviving skin cells, justified by continued replication of UV-damaged DNA, is also valid and should earn credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1's evidence says apoptosis 'does not rise,' but the percentage increases from 2% to 3%. Require 'increases only slightly' or 'does not show the large increase observed in normal cells' instead."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's principal biological conclusions. However, part (b) correctly describes a small increase in mutant-cell apoptosis from 2% to 3%, contrary to b1's literal 'does not rise' requirement. Criterion c1 also unnecessarily excludes other justified long-term predictions, such as increased mutation accumulation. No model answer or existing-question comparison set was supplied.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "A Checkpoint Mutation and the Response to DNA Damage",
+   "calculator": "not_applicable",
+   "stimulus": "Cell line N is a normal line of skin cells. Cell line M has a mutation in a gene for a protein that normally detects DNA damage and stops the cell cycle before DNA replication (before S phase). Researchers exposed samples of each cell line to ultraviolet (UV) light, which damages DNA, and compared them with unexposed samples. Over the next 24 hours they measured the percentage of cells that entered S phase and the percentage of cells that underwent apoptosis (programmed cell death).\n\nCell line | UV exposure | % of cells entering S phase | % of cells undergoing apoptosis\nN | none | 30 | 2\nN | UV | 4 | 35\nM | none | 31 | 2\nM | UV | 29 | 3",
+   "parts": [
+    {
+     "prompt": "Describe how the normal cells (cell line N) responded to UV exposure, using the data to support each response you describe.",
+     "criteria": [
+      {
+       "text": "Describes that UV exposure caused cells to stop entering S phase (30% without UV, 4% with UV), consistent with a checkpoint halting the cycle.",
+       "evidence": "Response states that the percentage of cells entering S phase fell sharply after UV exposure, and gives the values.",
+       "fix": "Compare UV with no UV for the column that shows cell cycle progress, and give both values.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Describes that UV exposure caused many more cells to undergo apoptosis (2% without UV, 35% with UV).",
+       "evidence": "Response states that apoptosis increased after UV exposure, and gives the values.",
+       "fix": "Compare the apoptosis column for UV and no UV, and state the increase using both values.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how the mutation in cell line M changes the way those cells respond to UV exposure.",
+     "criteria": [
+      {
+       "text": "Explains that the mutated protein does not detect DNA damage or stop the cycle, so the checkpoint fails and cells with damaged DNA keep entering S phase (29%) and rarely undergo apoptosis (3%).",
+       "evidence": "Response states that the checkpoint fails in cell line M, so cells continue through the cycle with damaged DNA and apoptosis does not rise.",
+       "fix": "State what the lost protein did in cell line N, then show that the data from M have lost that response.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Predict one long-term consequence for a person whose skin cells carry this mutation and are exposed to UV light repeatedly. Justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that damaged cells keep dividing, mutations accumulate, and uncontrolled cell division can lead to a tumor or cancer.",
+       "evidence": "Response predicts cancer or tumor formation and links it to cells dividing with damaged DNA that is not repaired or removed by apoptosis.",
+       "fix": "Connect failed checkpoints to cancer: cells divide with damaged DNA, mutations accumulate, and division can become uncontrolled.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Normal cells stopped progressing through the cell cycle after UV exposure: the percentage entering S phase fell from 30% to 4%, which fits a checkpoint halting the cycle in response to DNA damage. Normal cells also underwent apoptosis much more often after UV exposure: from 2% to 35%.\n\n(b) Cell line M has a mutation in the protein that detects DNA damage and stops the cycle, so its checkpoint does not work. After UV exposure, 29% of the M cells still entered S phase, nearly the same as without UV (31%), and only 3% underwent apoptosis. The damaged cells are neither held at the checkpoint nor removed.\n\n(c) Cells with damaged DNA would keep dividing, so mutations would build up in the daughter cells. Because the cell cycle is no longer controlled by the checkpoint, cells could divide in an uncontrolled way and form a tumor, so the person would have a higher risk of skin cancer.",
+   "verification_python": "# Biology reading check for the table values used in the rubric\nn_none, n_uv = (30, 2), (4, 35)\nm_none, m_uv = (31, 2), (29, 3)\nassert n_none[0] - n_uv[0] == 26\nassert n_uv[1] - n_none[1] == 33\nassert abs(m_uv[0] - m_none[0]) <= 2 and m_uv[1] <= 3\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ "accepted_round": 1
+}

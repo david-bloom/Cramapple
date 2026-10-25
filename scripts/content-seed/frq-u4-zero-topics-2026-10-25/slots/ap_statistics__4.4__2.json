@@ -1,0 +1,284 @@
+{
+ "id": "ap_statistics__4.4__2",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.4",
+  "topic_title": "Setting Up a Test for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 2
+ },
+ "n": 2,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:51:00.658Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Matched-Pairs Test for Caffeine Gum and 5 km Times",
+    "calculator": "not_applicable",
+    "stimulus": "A sports scientist wants to know whether chewing caffeine gum before a 5 km run reduces the mean running time. She recruits 15 volunteer runners. Each runner completes two 5 km time trials one week apart, once after chewing caffeine gum and once after chewing placebo gum. For each runner, the order of the two conditions is assigned at random.\n\nFor each runner she records d = (time after placebo gum) − (time after caffeine gum), in seconds, so a positive d means the runner was faster with caffeine. The 15 values of d have a mean of 14 seconds and a standard deviation of 21 seconds. The distribution of the 15 values of d is roughly symmetric, with no outliers.",
+    "parts": [
+     {
+      "prompt": "Explain why a matched-pairs procedure is appropriate here instead of a two-sample procedure.",
+      "criteria": [
+       {
+        "text": "Explains that each runner is measured under both conditions, so the two sets of times are paired (dependent), and the differences d form one sample to analyze.",
+        "evidence": "Response states that the same runners appear in both conditions, so the data are paired and the differences are analyzed as one sample.",
+        "fix": "Check whether the same individuals are measured under both conditions; if so, use matched pairs on the differences.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "State the null and alternative hypotheses for the scientist's test, defining any parameter you use.",
+      "criteria": [
+       {
+        "text": "Defines μd as the true mean difference (placebo time − caffeine time) in 5 km time, in seconds, for all runners like these volunteers.",
+        "evidence": "Response defines the parameter as a population mean difference, states the order of subtraction, and states the population.",
+        "fix": "Define the parameter as the population mean of the differences, with the order of subtraction and units.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H0: μd = 0 seconds.",
+        "evidence": "Response writes H0 as the mean difference equal to 0.",
+        "fix": "Write H0 as no mean difference: the parameter equals 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States Ha: μd > 0 seconds.",
+        "evidence": "Response writes Ha as the mean difference greater than 0, consistent with d = placebo − caffeine.",
+        "fix": "Match Ha to how d is defined: caffeine reducing time means placebo minus caffeine is greater than 0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the conditions for using a matched-pairs t procedure.",
+      "criteria": [
+       {
+        "text": "Verifies the random condition: the order of the two conditions was randomly assigned for each runner.",
+        "evidence": "Response states that random assignment of the order of conditions satisfies the randomization condition.",
+        "fix": "In an experiment, the random condition is satisfied by random assignment; state what was randomized.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Verifies the sample data condition: n = 15 is less than 30, but the differences are roughly symmetric with no outliers, so the sampling distribution of the mean difference is approximately normal.",
+        "evidence": "Response notes that n is below 30 and uses the symmetric shape of d and the absence of outliers to justify using t procedures.",
+        "fix": "When the number of differences is under 30, check the differences themselves for strong skewness and outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Every runner completes the 5 km trial under both conditions, so the times with caffeine and the times with placebo are paired and are not independent. The scientist should analyze the 15 differences d as a single sample.\n\n(b) Let μd be the true mean difference (placebo time − caffeine time), in seconds, in 5 km time for all runners like these volunteers. H0: μd = 0. Ha: μd > 0.\n\n(c) Random: the order of the conditions was randomly assigned for each runner. Sample data: n = 15 is less than 30, but the differences are roughly symmetric with no outliers, so it is reasonable to use a t procedure.",
+    "verification_python": "assert 15 < 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 5,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Setting Up a Matched-Pairs Test for Caffeine Gum and 5 km Times",
+   "calculator": "not_applicable",
+   "stimulus": "A sports scientist wants to know whether chewing caffeine gum before a 5 km run reduces the mean running time. She recruits 15 volunteer runners. Each runner completes two 5 km time trials one week apart, once after chewing caffeine gum and once after chewing placebo gum. For each runner, the order of the two conditions is assigned at random.\n\nFor each runner she records d = (time after placebo gum) − (time after caffeine gum), in seconds, so a positive d means the runner was faster with caffeine. The 15 values of d have a mean of 14 seconds and a standard deviation of 21 seconds. The distribution of the 15 values of d is roughly symmetric, with no outliers.",
+   "parts": [
+    {
+     "prompt": "Explain why a matched-pairs procedure is appropriate here instead of a two-sample procedure.",
+     "criteria": [
+      {
+       "text": "Explains that each runner is measured under both conditions, so the two sets of times are paired (dependent), and the differences d form one sample to analyze.",
+       "evidence": "Response states that the same runners appear in both conditions, so the data are paired and the differences are analyzed as one sample.",
+       "fix": "Check whether the same individuals are measured under both conditions; if so, use matched pairs on the differences.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses for the scientist's test, defining any parameter you use.",
+     "criteria": [
+      {
+       "text": "Defines μd as the true mean difference (placebo time − caffeine time) in 5 km time, in seconds, for all runners like these volunteers.",
+       "evidence": "Response defines the parameter as a population mean difference, states the order of subtraction, and states the population.",
+       "fix": "Define the parameter as the population mean of the differences, with the order of subtraction and units.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H0: μd = 0 seconds.",
+       "evidence": "Response writes H0 as the mean difference equal to 0.",
+       "fix": "Write H0 as no mean difference: the parameter equals 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States Ha: μd > 0 seconds.",
+       "evidence": "Response writes Ha as the mean difference greater than 0, consistent with d = placebo − caffeine.",
+       "fix": "Match Ha to how d is defined: caffeine reducing time means placebo minus caffeine is greater than 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for using a matched-pairs t procedure.",
+     "criteria": [
+      {
+       "text": "Verifies the random condition: the order of the two conditions was randomly assigned for each runner.",
+       "evidence": "Response states that random assignment of the order of conditions satisfies the randomization condition.",
+       "fix": "In an experiment, the random condition is satisfied by random assignment; state what was randomized.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Verifies the sample data condition: n = 15 is less than 30, but the differences are roughly symmetric with no outliers, so the sampling distribution of the mean difference is approximately normal.",
+       "evidence": "Response notes that n is below 30 and uses the symmetric shape of d and the absence of outliers to justify using t procedures.",
+       "fix": "When the number of differences is under 30, check the differences themselves for strong skewness and outliers.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Every runner completes the 5 km trial under both conditions, so the times with caffeine and the times with placebo are paired and are not independent. The scientist should analyze the 15 differences d as a single sample.\n\n(b) Let μd be the true mean difference (placebo time − caffeine time), in seconds, in 5 km time for all runners like these volunteers. H0: μd = 0. Ha: μd > 0.\n\n(c) Random: the order of the conditions was randomly assigned for each runner. Sample data: n = 15 is less than 30, but the differences are roughly symmetric with no outliers, so it is reasonable to use a t procedure.",
+   "verification_python": "assert 15 < 30\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ "accepted_round": 1
+}

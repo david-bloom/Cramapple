@@ -1,0 +1,294 @@
+{
+ "id": "ap_statistics__4.6__2",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.6",
+  "topic_title": "Sampling Distributions for the Difference Between Two Sample Means",
+  "existing": [],
+  "need": 2
+ },
+ "n": 2,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:52:22.876Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of the Difference in Mean Battery Life",
+    "calculator": "permitted",
+    "stimulus": "A consumer lab compares two brands of rechargeable flashlight batteries. The battery life of Brand A is normally distributed with a mean of 18.0 hours and a standard deviation of 2.4 hours. The battery life of Brand B is normally distributed with a mean of 16.5 hours and a standard deviation of 3.0 hours.\n\nThe lab tests an independent random sample of 9 Brand A batteries and an independent random sample of 12 Brand B batteries, and computes the difference in the sample means, x̄A − x̄B.",
+    "parts": [
+     {
+      "prompt": "Find the mean of the sampling distribution of x̄A − x̄B.",
+      "criteria": [
+       {
+        "text": "States that the mean is 18.0 − 16.5 = 1.5 hours.",
+        "evidence": "Response gives the mean as 1.5 hours, found by subtracting the two population means in the order A − B.",
+        "fix": "Subtract the population means in the same order as the sample means: Brand A minus Brand B.",
+        "accepted_variants": [
+         "1.5",
+         "1.5 hours"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the standard deviation of the sampling distribution of x̄A − x̄B.",
+      "criteria": [
+       {
+        "text": "Calculates the standard deviation as √(2.4²/9 + 3.0²/12) ≈ 1.179 hours.",
+        "evidence": "Response adds the variances 2.4²/9 and 3.0²/12 before taking the square root, giving a value near 1.18 hours.",
+        "fix": "Add the two variances of the sample means, then take the square root of the sum.",
+        "accepted_variants": [
+         "1.18",
+         "1.179 hours"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the shape of the sampling distribution of x̄A − x̄B, and justify your answer even though both sample sizes are less than 30.",
+      "criteria": [
+       {
+        "text": "States that the sampling distribution of x̄A − x̄B is normal.",
+        "evidence": "Response states that the sampling distribution of the difference is normal (or approximately normal).",
+        "fix": "State the shape of the sampling distribution of the difference between the sample means.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Justifies the shape because both populations are normally distributed, so each sample mean is normal for any sample size and so is their difference.",
+        "evidence": "Response cites that both populations are normal, so small sample sizes do not matter.",
+        "fix": "If both populations are normal, the difference in sample means is normal for any sample sizes; cite that fact.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A second lab tests the same sample sizes of 9 and 12 batteries but does not know the shape of either population. Can it assume that the sampling distribution of x̄A − x̄B is approximately normal? Explain.",
+      "criteria": [
+       {
+        "text": "States that it cannot assume this, because neither sample size is at least 30 and the populations are not known to be normal.",
+        "evidence": "Response answers no and gives both reasons: sample sizes below 30 and no knowledge that the populations are normal.",
+        "fix": "To assume a normal shape you need normal populations or both sample sizes at least 30; check each before answering.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The mean is μA − μB = 18.0 − 16.5 = 1.5 hours.\n\n(b) The standard deviation is √(2.4²/9 + 3.0²/12) = √(0.64 + 0.75) = √1.39 ≈ 1.179 hours.\n\n(c) The sampling distribution of x̄A − x̄B is normal. Both populations are normally distributed, so each sample mean is normally distributed for any sample size, and the difference of two independent normal variables is also normal. The small sample sizes (9 and 12) do not matter here.\n\n(d) No. If the shapes of the populations are unknown, neither sample size is at least 30, so the central limit theorem cannot be used, and the populations are not known to be normal. The second lab cannot assume a normal sampling distribution.",
+    "verification_python": "import math\nassert abs((18.0 - 16.5) - 1.5) < 1e-9\nsd = math.sqrt(2.4**2 / 9 + 3.0**2 / 12)\nassert abs(sd - 1.179) < 0.001\nassert 9 < 30 and 12 < 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     4
+    ],
+    "unitCount": {
+     "2": 4,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Sampling Distribution of the Difference in Mean Battery Life",
+   "calculator": "permitted",
+   "stimulus": "A consumer lab compares two brands of rechargeable flashlight batteries. The battery life of Brand A is normally distributed with a mean of 18.0 hours and a standard deviation of 2.4 hours. The battery life of Brand B is normally distributed with a mean of 16.5 hours and a standard deviation of 3.0 hours.\n\nThe lab tests an independent random sample of 9 Brand A batteries and an independent random sample of 12 Brand B batteries, and computes the difference in the sample means, x̄A − x̄B.",
+   "parts": [
+    {
+     "prompt": "Find the mean of the sampling distribution of x̄A − x̄B.",
+     "criteria": [
+      {
+       "text": "States that the mean is 18.0 − 16.5 = 1.5 hours.",
+       "evidence": "Response gives the mean as 1.5 hours, found by subtracting the two population means in the order A − B.",
+       "fix": "Subtract the population means in the same order as the sample means: Brand A minus Brand B.",
+       "accepted_variants": [
+        "1.5",
+        "1.5 hours"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the standard deviation of the sampling distribution of x̄A − x̄B.",
+     "criteria": [
+      {
+       "text": "Calculates the standard deviation as √(2.4²/9 + 3.0²/12) ≈ 1.179 hours.",
+       "evidence": "Response adds the variances 2.4²/9 and 3.0²/12 before taking the square root, giving a value near 1.18 hours.",
+       "fix": "Add the two variances of the sample means, then take the square root of the sum.",
+       "accepted_variants": [
+        "1.18",
+        "1.179 hours"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the shape of the sampling distribution of x̄A − x̄B, and justify your answer even though both sample sizes are less than 30.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄A − x̄B is normal.",
+       "evidence": "Response states that the sampling distribution of the difference is normal (or approximately normal).",
+       "fix": "State the shape of the sampling distribution of the difference between the sample means.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Justifies the shape because both populations are normally distributed, so each sample mean is normal for any sample size and so is their difference.",
+       "evidence": "Response cites that both populations are normal, so small sample sizes do not matter.",
+       "fix": "If both populations are normal, the difference in sample means is normal for any sample sizes; cite that fact.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A second lab tests the same sample sizes of 9 and 12 batteries but does not know the shape of either population. Can it assume that the sampling distribution of x̄A − x̄B is approximately normal? Explain.",
+     "criteria": [
+      {
+       "text": "States that it cannot assume this, because neither sample size is at least 30 and the populations are not known to be normal.",
+       "evidence": "Response answers no and gives both reasons: sample sizes below 30 and no knowledge that the populations are normal.",
+       "fix": "To assume a normal shape you need normal populations or both sample sizes at least 30; check each before answering.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μA − μB = 18.0 − 16.5 = 1.5 hours.\n\n(b) The standard deviation is √(2.4²/9 + 3.0²/12) = √(0.64 + 0.75) = √1.39 ≈ 1.179 hours.\n\n(c) The sampling distribution of x̄A − x̄B is normal. Both populations are normally distributed, so each sample mean is normally distributed for any sample size, and the difference of two independent normal variables is also normal. The small sample sizes (9 and 12) do not matter here.\n\n(d) No. If the shapes of the populations are unknown, neither sample size is at least 30, so the central limit theorem cannot be used, and the populations are not known to be normal. The second lab cannot assume a normal sampling distribution.",
+   "verification_python": "import math\nassert abs((18.0 - 16.5) - 1.5) < 1e-9\nsd = math.sqrt(2.4**2 / 9 + 3.0**2 / 12)\nassert abs(sd - 1.179) < 0.001\nassert 9 < 30 and 12 < 30\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ "accepted_round": 1
+}

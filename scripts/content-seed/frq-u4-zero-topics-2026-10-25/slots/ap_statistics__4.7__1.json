@@ -1,0 +1,618 @@
+{
+ "id": "ap_statistics__4.7__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.7",
+  "topic_title": "Constructing a Confidence Interval for the Difference Between Two Population Means",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:51:04.021Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for the Difference in Mean Sleep Time",
+    "calculator": "permitted",
+    "stimulus": "A researcher at a large university compares the nightly sleep of students who use a phone in bed and students who do not. About 9,000 students at the university use a phone in bed and about 6,000 do not. She takes an independent random sample of 45 students from the first group and 52 students from the second group, and records each student's mean nightly sleep (in hours) over a week.\n\nGroup 1 (phone in bed): n1 = 45, mean 6.8 hours, standard deviation 1.1 hours.\nGroup 2 (no phone in bed): n2 = 52, mean 7.3 hours, standard deviation 0.9 hours.\n\nTechnology gives about 85.1 degrees of freedom. For 95% confidence, the critical value is t* = 1.988.",
+    "parts": [
+     {
+      "prompt": "Check the conditions for constructing a two-sample t interval for μ1 − μ2.",
+      "criteria": [
+       {
+        "text": "States that the two samples are independent random samples from the two groups.",
+        "evidence": "Response states that each sample is random and that the two samples are independent of each other.",
+        "fix": "Say how each sample was chosen and that the groups are independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the 10% condition is met in each group: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520.",
+        "evidence": "Response compares each group's population size to 10 times its sample size.",
+        "fix": "Check each group separately: its population size must be at least 10 times its sample size.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that both sample sizes (45 and 52) are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.",
+        "evidence": "Response cites both sample sizes being at least 30 as satisfying the sample data condition.",
+        "fix": "For two samples, check that both n1 and n2 are at least 30 before relying on approximate normality.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Construct a 95% confidence interval for μ1 − μ2.",
+      "criteria": [
+       {
+        "text": "Calculates the point estimate 6.8 − 7.3 = −0.5 and the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+        "evidence": "Response gives the difference in sample means and a standard error near 0.206 hours.",
+        "fix": "Compute the point estimate in the order of the parameter, then the standard error from both sample variances over their sample sizes.",
+        "accepted_variants": [
+         "SE ≈ 0.21"
+        ]
+       },
+       {
+        "text": "Gives the interval −0.5 ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+        "evidence": "Response gives limits near −0.91 and −0.09 hours.",
+        "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
+        "accepted_variants": [
+         "(−0.91, −0.09)",
+         "(-0.91, -0.09)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "States that we are 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (phone in bed minus no phone in bed) for the two groups of students at the university.",
+        "evidence": "Response states the confidence level, the interval, the order of subtraction, and that the parameter is a difference in population mean sleep times.",
+        "fix": "Interpret with the confidence level, the interval, the order of subtraction, and the two populations named.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Random and independent: the students in each group were chosen by random sampling, and the two samples are independent of each other. 10%: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520. Sample data: both n1 = 45 and n2 = 52 are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.\n\n(b) Point estimate: 6.8 − 7.3 = −0.5 hours. Standard error: √(1.1²/45 + 0.9²/52) ≈ 0.206. Margin of error: 1.988(0.206) ≈ 0.41. The interval is −0.5 ± 0.41, which is approximately (−0.91, −0.09) hours.\n\n(c) I am 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (students who use a phone in bed minus students who do not) among students at the university.",
+    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn1, m1, s1 = 45, 6.8, 1.1\nn2, m2, s2 = 52, 7.3, 0.9\ndf = welch(s1, n1, s2, n2)\nassert abs(df - 85.1) < 0.1\nassert abs(tstar(0.95, df) - 1.988) < 0.001\nse = math.sqrt(s1**2 / n1 + s2**2 / n2)\nassert abs(se - 0.206) < 0.001\ndiff = m1 - m2\nme = 1.988 * se\nassert abs(diff + 0.5) < 1e-9\nassert abs((diff - me) + 0.91) < 0.01 and abs((diff + me) + 0.09) < 0.01\nassert 9000 > 10 * n1 and 6000 > 10 * n2\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 3,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two separately observable calculations—the point estimate and standard error—into one point. Split these into separate one-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two separately observable calculations—the point estimate and standard error—into one point. Split these into separate one-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two separately observable calculations—the point estimate and the standard error—into one point. Split these into separate 1-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two separately observable calculations—the point estimate and the standard error—into one point. Split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 combines two separate required elements—the point estimate (−0.5 hours) and the standard error (≈0.206 hours)—in one point. Split them into separate criteria or narrow the criterion to one observable element."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 combines two separate required elements—the point estimate (−0.5 hours) and the standard error (≈0.206 hours)—in one point. Split them into separate criteria or narrow the criterion to one observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two distinct observable elements (the point estimate and the standard error) into one point; split them or make the criterion require only one."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two distinct observable elements (the point estimate and the standard error) into one point; split them or make the criterion require only one."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-25T14:14:20.975Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for the Difference in Mean Sleep Time",
+    "calculator": "permitted",
+    "stimulus": "A researcher at a large university compares the nightly sleep of students who use a phone in bed and students who do not. About 9,000 students at the university use a phone in bed and about 6,000 do not. She takes an independent random sample of 45 students from the first group and 52 students from the second group, and records each student's mean nightly sleep (in hours) over a week.\n\nGroup 1 (phone in bed): n1 = 45, mean 6.8 hours, standard deviation 1.1 hours.\nGroup 2 (no phone in bed): n2 = 52, mean 7.3 hours, standard deviation 0.9 hours.\n\nTechnology gives about 85.1 degrees of freedom. For 95% confidence, the critical value is t* = 1.988.",
+    "parts": [
+     {
+      "prompt": "Check the conditions for constructing a two-sample t interval for μ1 − μ2.",
+      "criteria": [
+       {
+        "text": "States that the two samples are independent random samples from the two groups.",
+        "evidence": "Response states that each sample is random and that the two samples are independent of each other.",
+        "fix": "Say how each sample was chosen and that the groups are independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the 10% condition is met in each group: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520.",
+        "evidence": "Response compares each group's population size to 10 times its sample size.",
+        "fix": "Check each group separately: its population size must be at least 10 times its sample size.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that both sample sizes (45 and 52) are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.",
+        "evidence": "Response cites both sample sizes being at least 30 as satisfying the sample data condition.",
+        "fix": "For two samples, check that both n1 and n2 are at least 30 before relying on approximate normality.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Construct a 95% confidence interval for μ1 − μ2.",
+      "criteria": [
+       {
+        "text": "Calculates the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+        "evidence": "Response shows a standard error near 0.206 hours computed from both sample variances and both sample sizes.",
+        "fix": "Add s1²/n1 and s2²/n2, then take the square root of the sum.",
+        "accepted_variants": [
+         "SE ≈ 0.21"
+        ]
+       },
+       {
+        "text": "Gives the interval (6.8 − 7.3) ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+        "evidence": "Response uses −0.5 as the point estimate, in the order group 1 minus group 2, and gives limits near −0.91 and −0.09 hours.",
+        "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
+        "accepted_variants": [
+         "(−0.91, −0.09)",
+         "(-0.91, -0.09)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "States that we are 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (phone in bed minus no phone in bed) for the two groups of students at the university.",
+        "evidence": "Response states the confidence level, the interval, the order of subtraction, and that the parameter is a difference in population mean sleep times.",
+        "fix": "Interpret with the confidence level, the interval, the order of subtraction, and the two populations named.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Random and independent: the students in each group were chosen by random sampling, and the two samples are independent of each other. 10%: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520. Sample data: both n1 = 45 and n2 = 52 are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.\n\n(b) Point estimate: 6.8 − 7.3 = −0.5 hours. Standard error: √(1.1²/45 + 0.9²/52) ≈ 0.206. Margin of error: 1.988(0.206) ≈ 0.41. The interval is −0.5 ± 0.41, which is approximately (−0.91, −0.09) hours.\n\n(c) I am 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (students who use a phone in bed minus students who do not) among students at the university.",
+    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn1, m1, s1 = 45, 6.8, 1.1\nn2, m2, s2 = 52, 7.3, 0.9\ndf = welch(s1, n1, s2, n2)\nassert abs(df - 85.1) < 0.1\nassert abs(tstar(0.95, df) - 1.988) < 0.001\nse = math.sqrt(s1**2 / n1 + s2**2 / n2)\nassert abs(se - 0.206) < 0.001\ndiff = m1 - m2\nme = 1.988 * se\nassert abs(diff + 0.5) < 1e-9\nassert abs((diff - me) + 0.91) < 0.01 and abs((diff + me) + 0.09) < 0.01\nassert 9000 > 10 * n1 and 6000 > 10 * n2\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "2": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Confidence Interval for the Difference in Mean Sleep Time",
+   "calculator": "permitted",
+   "stimulus": "A researcher at a large university compares the nightly sleep of students who use a phone in bed and students who do not. About 9,000 students at the university use a phone in bed and about 6,000 do not. She takes an independent random sample of 45 students from the first group and 52 students from the second group, and records each student's mean nightly sleep (in hours) over a week.\n\nGroup 1 (phone in bed): n1 = 45, mean 6.8 hours, standard deviation 1.1 hours.\nGroup 2 (no phone in bed): n2 = 52, mean 7.3 hours, standard deviation 0.9 hours.\n\nTechnology gives about 85.1 degrees of freedom. For 95% confidence, the critical value is t* = 1.988.",
+   "parts": [
+    {
+     "prompt": "Check the conditions for constructing a two-sample t interval for μ1 − μ2.",
+     "criteria": [
+      {
+       "text": "States that the two samples are independent random samples from the two groups.",
+       "evidence": "Response states that each sample is random and that the two samples are independent of each other.",
+       "fix": "Say how each sample was chosen and that the groups are independent samples.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the 10% condition is met in each group: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520.",
+       "evidence": "Response compares each group's population size to 10 times its sample size.",
+       "fix": "Check each group separately: its population size must be at least 10 times its sample size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that both sample sizes (45 and 52) are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.",
+       "evidence": "Response cites both sample sizes being at least 30 as satisfying the sample data condition.",
+       "fix": "For two samples, check that both n1 and n2 are at least 30 before relying on approximate normality.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Construct a 95% confidence interval for μ1 − μ2.",
+     "criteria": [
+      {
+       "text": "Calculates the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+       "evidence": "Response shows a standard error near 0.206 hours computed from both sample variances and both sample sizes.",
+       "fix": "Add s1²/n1 and s2²/n2, then take the square root of the sum.",
+       "accepted_variants": [
+        "SE ≈ 0.21"
+       ]
+      },
+      {
+       "text": "Gives the interval (6.8 − 7.3) ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+       "evidence": "Response uses −0.5 as the point estimate, in the order group 1 minus group 2, and gives limits near −0.91 and −0.09 hours.",
+       "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
+       "accepted_variants": [
+        "(−0.91, −0.09)",
+        "(-0.91, -0.09)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the interval in context.",
+     "criteria": [
+      {
+       "text": "States that we are 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (phone in bed minus no phone in bed) for the two groups of students at the university.",
+       "evidence": "Response states the confidence level, the interval, the order of subtraction, and that the parameter is a difference in population mean sleep times.",
+       "fix": "Interpret with the confidence level, the interval, the order of subtraction, and the two populations named.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Random and independent: the students in each group were chosen by random sampling, and the two samples are independent of each other. 10%: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520. Sample data: both n1 = 45 and n2 = 52 are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.\n\n(b) Point estimate: 6.8 − 7.3 = −0.5 hours. Standard error: √(1.1²/45 + 0.9²/52) ≈ 0.206. Margin of error: 1.988(0.206) ≈ 0.41. The interval is −0.5 ± 0.41, which is approximately (−0.91, −0.09) hours.\n\n(c) I am 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (students who use a phone in bed minus students who do not) among students at the university.",
+   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn1, m1, s1 = 45, 6.8, 1.1\nn2, m2, s2 = 52, 7.3, 0.9\ndf = welch(s1, n1, s2, n2)\nassert abs(df - 85.1) < 0.1\nassert abs(tstar(0.95, df) - 1.988) < 0.001\nse = math.sqrt(s1**2 / n1 + s2**2 / n2)\nassert abs(se - 0.206) < 0.001\ndiff = m1 - m2\nme = 1.988 * se\nassert abs(diff + 0.5) < 1e-9\nassert abs((diff - me) + 0.91) < 0.01 and abs((diff + me) + 0.09) < 0.01\nassert 9000 > 10 * n1 and 6000 > 10 * n2\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ "arbitration": {
+  "round1": "Both checkers rubric_points accepted: b1 bundled point estimate and standard error. b1 is now the standard error; the point estimate is part of the interval criterion."
+ },
+ "accepted_round": 2
+}
