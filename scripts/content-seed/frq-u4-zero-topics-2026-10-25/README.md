@@ -14,7 +14,7 @@ primary topic cell on the latest published version. Zero-FRQ topics: Biology 4.2
 | Lint (`frq_pipeline/rubric.mjs`) and exact recompute (`validate.mjs`) | 16 of 16 pass (every revision re-run) |
 | Six-vote topic probe (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol x2) | 16 of 16 on target (5 or 6 of 6) |
 | Two checkers, GPT-6.1 Sol + DeepSeek V4 Pro (blind solve, scope audit, rubric re-derivation) | 16 of 16 pass both on the accepted text |
-| Model answers graded by a third family (gemini-3.8-flash, `answers_grades.json`) | 16 of 16 full credit |
+| Model answers graded by a third family (gemini-3.8-flash, `answer_grades.json`) | 16 of 16 full credit |
 | Planted-defect controls | not re-run for this batch; the Units 1-3 run's 8 of 8 (same checker pair, same rules) is the only evidence |
 | Production grader QA (`app.qa_grade_frq`) | not run (its QA path grades published AP Biology only) |
 | Publish | not done; needs a recorded APPROVAL first |
