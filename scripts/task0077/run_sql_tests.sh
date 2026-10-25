@@ -20,7 +20,7 @@ psql -q -d "$db" -v ON_ERROR_STOP=1 \
   -f "$repo/supabase/migrations/20261020224101_task0077_trial_qa_round3.sql" \
   -f "$repo/supabase/migrations/20261020233210_task0077_trial_qa_round4.sql" \
   -f "$repo/supabase/migrations/20261020235937_task0077_trial_qa_round5.sql" \
-  -f "$repo/supabase/migrations/20261025170000_reddit_conversions_day7.sql"
+  -f "$repo/supabase/migrations/20261025155645_reddit_conversions_day7.sql"
 psql -q -d "$db" -v ON_ERROR_STOP=1 -f "$here/trial_orders_sql_test.sql" 2>&1 \
   | sed 's/^psql:[^ ]* //'
 

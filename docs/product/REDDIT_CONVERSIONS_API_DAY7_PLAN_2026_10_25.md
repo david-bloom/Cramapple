@@ -36,7 +36,7 @@ off-session. No browser is involved, so the Reddit Pixel never sees that sale: R
   Events must arrive within **7 days** (2 for deduplication). v2's `test_mode` is gone; v3 uses a `test_id` from Events
   Manager → Event Testing. **Not confirmed:** where `test_id` sits; the code puts it in `data` and slice 5 checks it against
   Reddit's Event Testing view. The click id arrives on ad clicks as the `rdt_cid` URL parameter.
-- **Built (slices 1–3):** migration `20261025170000_reddit_conversions_day7.sql` (column, outbox, claim function, the same
+- **Built (slices 1–3):** migration `20261025155645_reddit_conversions_day7.sql` (column, outbox, claim function, the same
   `trial_convert` body plus the enqueue; Production and Development `trial_convert` md5 checked equal to the repo first);
   `trial_start` reads `ad_attribution.reddit_click_id` only when `ad_attribution.ad_tracking_allowed === true`
   (`readRedditClickId`); `_shared/reddit-conversions.ts` delivers from the charge worker behind `REDDIT_CONVERSIONS_ENABLED`
