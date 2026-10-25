@@ -19,6 +19,7 @@ import {
 import { generateShortCode, shortLinkUrl } from "../_shared/parent-short-link.ts";
 import {
   buildTrialQuote,
+  readRedditClickId,
   startTrialSetup,
   TrialError,
 } from "../_shared/trial-checkout.ts";
@@ -120,6 +121,7 @@ Deno.serve(async (req) => {
         studentName,
         consentIp: clientIp(req),
         consentUserAgent: req.headers.get("user-agent"),
+        redditClickId: readRedditClickId(input.ad_attribution),
         urls: {
           successUrl:
             `${APP_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&role=parent&trial=1`,

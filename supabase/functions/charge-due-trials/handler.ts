@@ -16,6 +16,10 @@ export type ChargeDeps = {
   service: Any;
   chargesEnabled: boolean;
   log: (message: string, detail: Record<string, unknown>) => void;
+  // Reddit Conversions API delivery (reddit-conversions.ts), run after
+  // charging; absent when REDDIT_CONVERSIONS_ENABLED is off. Its failures
+  // never affect charging or the heartbeat.
+  adConversions?: () => Promise<Record<string, unknown>>;
 };
 
 type ClaimedOrder = {
@@ -162,7 +166,17 @@ export async function runChargeWorker(deps: ChargeDeps) {
     }
   }
 
-  const summary = { sweep, resettled, cleaned, charges_enabled: deps.chargesEnabled, results };
+  let ad_conversions: Record<string, unknown> | null = null;
+  if (deps.adConversions) {
+    try {
+      ad_conversions = await deps.adConversions();
+    } catch (e) {
+      deps.log("ad_conversions_failed", { error: e instanceof Error ? e.message : String(e) });
+      ad_conversions = { error: "failed" };
+    }
+  }
+
+  const summary = { sweep, resettled, cleaned, charges_enabled: deps.chargesEnabled, results, ad_conversions };
   await app.from("trial_worker_heartbeat").upsert(
     { worker: "charge", last_run_at: new Date().toISOString(), last_summary: summary },
     { onConflict: "worker" },

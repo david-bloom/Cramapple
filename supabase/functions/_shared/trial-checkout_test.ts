@@ -1,5 +1,5 @@
 import { assertEquals, assertRejects } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { buildTrialQuote, startTrialSetup, type TrialDeps, TrialError } from "./trial-checkout.ts";
+import { buildTrialQuote, readRedditClickId, startTrialSetup, type TrialDeps, TrialError } from "./trial-checkout.ts";
 
 // deno-lint-ignore no-explicit-any
 type Any = any;
@@ -299,4 +299,28 @@ Deno.test("setup sessions expire with the quote", async () => {
   await startTrialSetup(deps(service, stripe), startOf(q));
   const session = stripe.calls.find((c: Any) => c[0] === "session")[1];
   assertEquals(session.expires_at, Math.floor(new Date(service.orders[0].quote_expires_at).getTime() / 1000));
+});
+
+Deno.test("a Reddit click id is kept only when the visitor allowed ad tracking and it is well formed", () => {
+  assertEquals(readRedditClickId({ reddit_click_id: "abc-123_X.y~z", ad_tracking_allowed: true }), "abc-123_X.y~z");
+  assertEquals(readRedditClickId({ reddit_click_id: " abc ", ad_tracking_allowed: true }), "abc");
+  assertEquals(readRedditClickId({ reddit_click_id: "abc", ad_tracking_allowed: false }), null);
+  assertEquals(readRedditClickId({ reddit_click_id: "abc" }), null);
+  assertEquals(readRedditClickId({ reddit_click_id: "a b", ad_tracking_allowed: true }), null);
+  assertEquals(readRedditClickId({ reddit_click_id: "x".repeat(301), ad_tracking_allowed: true }), null);
+  assertEquals(readRedditClickId({ reddit_click_id: "<script>", ad_tracking_allowed: true }), null);
+  assertEquals(readRedditClickId(null), null);
+  assertEquals(readRedditClickId("abc"), null);
+});
+
+Deno.test("trial start stores the Reddit click id on the order, and nothing when there is none", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  await startTrialSetup(deps(service, stripe), startOf(q, { redditClickId: "rdt-1" }));
+  assertEquals(service.orders[0].reddit_click_id, "rdt-1");
+  const other = fakeService();
+  const q2 = await buildTrialQuote(deps(other, stripe), base);
+  await startTrialSetup(deps(other, stripe), startOf(q2));
+  assertEquals(other.orders[0].reddit_click_id, null);
 });
