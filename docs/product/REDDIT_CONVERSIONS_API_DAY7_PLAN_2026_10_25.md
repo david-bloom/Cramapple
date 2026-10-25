@@ -130,3 +130,11 @@ avoid double counting. (Optional later: send both with the same `conversion_id` 
 
 `REDDIT_CONVERSIONS_ENABLED=false` stops delivery at once; rows keep queueing harmlessly and can be discarded. The
 migration is additive. Nothing in conversion, charging, access or email depends on this path.
+
+## Slice 4 — marketing (sent to Lovable 2026-10-25, not published)
+
+Found in marketing `b57aeb43`: `src/lib/attribution.ts` reads `rdt_cid` into first/last touch, but `captureTouch()` is not
+called on the homepage or `/ap-biology-prep`, and no trial-start request sends it. The prompt asks Lovable to call
+`captureTouch()` once per page load in `__root.tsx`, add `adAttributionForCheckout()` to `src/lib/reddit-pixel.ts` (no click
+id when the visitor opted out or sends Global Privacy Control), and send `ad_attribution` only with the two `trial_start`
+calls. Review the commit before David publishes.
