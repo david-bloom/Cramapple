@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -287,7 +287,7 @@
      ]
     },
     {
-     "prompt": "Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
+     "prompt": "Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, support your answer with values from the table, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
      "criteria": [
       {
        "text": "Identifies G2 (after DNA replication and before mitosis) as the stage where most treated cells are stopped, supported by 80% of cells having 4C DNA while only 0.4% are in mitosis.",
@@ -318,5 +318,8 @@
    "model_answer": "(a) CDK activity rises and falls together with cyclin concentration: both are highest at 9 hours (90 and 88) and low at 0 and 12 hours. This is because a CDK is active only when it is bound to a cyclin, so the amount of active CDK depends on the amount of cyclin.\n\n(b) Most drug-treated cells are stopped in G2. In the treated culture 80% of cells have 4C DNA, which means they have replicated their DNA, but only 0.4% are in mitosis (4% in the control). The active cyclin-CDK complex that the drug blocks is therefore needed for cells to pass the checkpoint from G2 into mitosis. Without it, cells cannot progress.\n\n(c) When DNA is damaged, the checkpoint pauses the cycle. This gives the cell time to repair the DNA before it divides, so damaged DNA is not copied and passed to the daughter cells.",
    "verification_python": "# Biology reading check for the table values used in the rubric\ncyc = [5, 20, 55, 90, 8]\ncdk = [4, 18, 52, 88, 6]\nassert cyc.index(max(cyc)) == cdk.index(max(cdk)) == 3\ntreated = (8, 12, 80, 0.4)\ncontrol = (48, 22, 30, 4)\nassert sum(treated[:3]) == 100 and sum(control[:3]) == 100\nassert treated[2] == 80 and treated[3] < control[3]\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol rubric_points accepted: b1 required evidence the part did not ask for. Prompt now asks for values from the table."
  }
 }

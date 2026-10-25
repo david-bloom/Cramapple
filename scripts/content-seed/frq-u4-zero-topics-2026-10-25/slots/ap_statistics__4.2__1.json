@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -310,12 +310,11 @@
      "prompt": "Construct a 95% confidence interval for the mean length of all rainbow trout in the lake.",
      "criteria": [
       {
-       "text": "Computes the standard error as 4.2/√22 ≈ 0.895 cm and the margin of error as 2.080 × 0.895 ≈ 1.86 cm.",
-       "evidence": "Response shows a standard error near 0.895 and a margin of error near 1.86 using t* = 2.080.",
-       "fix": "Divide s by the square root of n for the standard error, then multiply by t* for the margin of error.",
+       "text": "Sets up the interval as 31.4 ± 2.080(4.2/√22), with the sample mean, t*, s and n correctly substituted (the standard error is about 0.895 cm).",
+       "evidence": "Response shows the t interval expression with 31.4, 2.080, 4.2 and 22 correctly substituted, or an equivalent calculator setup that names the same values.",
+       "fix": "Write the interval as the sample mean plus or minus t* times s over the square root of n, then substitute each value.",
        "accepted_variants": [
-        "SE ≈ 0.9",
-        "margin of error ≈ 1.9"
+        "SE ≈ 0.895"
        ]
       },
       {
@@ -343,5 +342,8 @@
    "model_answer": "(a) Random: the 22 trout are a random sample from the lake. 10% condition: the lake holds many thousands of trout, which is more than 10 × 22 = 220, so the 10% condition is met. Sample data: n = 22 is less than 30, but the dotplot is roughly symmetric with no outliers, so it is reasonable to use a t interval.\n\n(b) Standard error = 4.2/√22 ≈ 0.895 cm. Margin of error = 2.080 × 0.895 ≈ 1.86 cm. The interval is 31.4 ± 1.86, or (29.54, 33.26) cm.\n\n(c) I am 95% confident that the interval from 29.54 cm to 33.26 cm captures the true mean length of all rainbow trout in the lake.",
    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, xbar, s = 22, 31.4, 4.2\nassert abs(tstar(0.95, n - 1) - 2.080) < 0.001\nse = s / math.sqrt(n)\nassert abs(se - 0.895) < 0.001\nme = 2.080 * se\nassert abs(me - 1.86) < 0.01\nassert abs((xbar - me) - 29.54) < 0.01 and abs((xbar + me) - 33.26) < 0.01\nassert 10 * n == 220\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol rubric_points accepted: b1 bundled standard error and margin of error. Criterion now awards the correct substituted interval setup; the endpoints are a separate criterion."
  }
 }

@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -379,13 +379,16 @@
      ]
     },
     {
-     "prompt": "Verify the conditions for using this procedure.",
+     "prompt": "The calls are a simple random sample. Verify the 10% condition and the sample data condition for using this procedure.",
      "criteria": [
       {
-       "text": "Verifies the random condition and the 10% condition: the calls are a simple random sample, and 5,400 is more than 10 × 36 = 360.",
-       "evidence": "Response states that the sample is random and compares the population of about 5,400 calls with 10 times the sample size, 360.",
-       "fix": "State how the sample was selected and compare the population size with 10 times the sample size.",
-       "accepted_variants": []
+       "text": "States that the 10% condition is met because the population of about 5,400 calls is more than 10 times the sample size of 36 (equivalently, 36 is less than 10% of 5,400).",
+       "evidence": "Response compares 5,400 with 10 × 36 = 360, or 36 with 10% of 5,400 = 540, and concludes the condition is met.",
+       "fix": "Compare the sample size with 10% of the population size, or the population size with 10 times the sample size, and state the conclusion.",
+       "accepted_variants": [
+        "n < 0.10N",
+        "36 < 540"
+       ]
       },
       {
        "text": "Verifies the sample data condition: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
@@ -396,8 +399,11 @@
      ]
     }
    ],
-   "model_answer": "(a) Let μ be the true mean response time, in minutes, for all ambulance calls in the city. H0: μ = 8.0 minutes. Ha: μ > 8.0 minutes.\n\n(b) A one-sample t-test for a population mean is appropriate.\n\n(c) Random: the 36 calls are a simple random sample. 10%: there are about 5,400 calls, which is more than 10 × 36 = 360. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
-   "verification_python": "assert 10 * 36 == 360 and 5400 > 360\nassert 36 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   "model_answer": "(a) Let μ be the true mean response time, in minutes, for all ambulance calls in the city. H0: μ = 8.0 minutes. Ha: μ > 8.0 minutes.\n\n(b) A one-sample t-test for a population mean is appropriate.\n\n(c) 10%: there are about 5,400 calls, which is more than 10 × 36 = 360 (equivalently, 36 is less than 10% of 5,400), so the condition is met. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
+   "verification_python": "assert 10 * 36 == 360 and 5400 > 360 and 36 < 0.10 * 5400\nassert 36 >= 30\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "Both checkers, rubric_points accepted: c1 bundled random and 10%. Random is now given in the stem; c1 is the 10% condition only and accepts either equivalent inequality."
  }
 }

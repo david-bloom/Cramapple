@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -340,7 +340,7 @@
   "item": {
    "title": "Sampling Distribution of the Difference in Mean Bag Weights",
    "calculator": "permitted",
-   "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills far more than 360 bags in a day.",
+   "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills at least 5,000 bags in a day.",
    "parts": [
     {
      "prompt": "What is the mean of the sampling distribution of x̄1 − x̄2?",
@@ -391,16 +391,31 @@
      "prompt": "Suppose the inspector increases the sample from Machine 2 to 60 bags and keeps 36 bags from Machine 1. Calculate the new standard deviation of the sampling distribution of x̄1 − x̄2, and state whether it is smaller than, larger than, or the same as before.",
      "criteria": [
       {
-       "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g and states that it is smaller than 1.354 g.",
-       "evidence": "Response gives a new value near 1.19 g and states that increasing a sample size decreases the standard deviation.",
-       "fix": "Recalculate with the new sample size; a larger sample size gives a smaller standard deviation for the sampling distribution.",
-       "accepted_variants": []
+       "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g.",
+       "evidence": "Response gives a value near 1.19 g from the correct formula with n2 = 60.",
+       "fix": "Replace n2 with 60 in the variance of the second sample mean, add the two variances, then take the square root.",
+       "accepted_variants": [
+        "1.19",
+        "1.190 g"
+       ]
+      },
+      {
+       "text": "States that the new standard deviation is smaller than the original 1.354 g.",
+       "evidence": "Response compares the new value with 1.354 g and states that the new value is smaller.",
+       "fix": "Compare the new value with the earlier one and say which is smaller; a larger sample gives a smaller value.",
+       "accepted_variants": [
+        "smaller",
+        "decreases"
+       ]
       }
      ]
     }
    ],
    "model_answer": "(a) The mean is μ1 − μ2 = 502 − 500 = 2 g.\n\n(b) The standard deviation is √(6²/36 + 5²/30) = √(1 + 0.8333) ≈ 1.354 g.\n\n(c) The sampling distribution of x̄1 − x̄2 is approximately normal. Both sample sizes, 36 and 30, are at least 30, so the central limit theorem applies to each sample mean and the difference is approximately normal even though the shapes of the populations are not known.\n\n(d) The new standard deviation is √(6²/36 + 5²/60) = √(1 + 0.4167) ≈ 1.190 g. This is smaller than 1.354 g, because a larger sample size reduces the variability of the sample mean.",
-   "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nassert 5000 > 10 * 60\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol and DeepSeek rubric_points accepted: d1 bundled calculation and comparison, and added an unrequested explanation. Split into two criteria. GPT well_posed accepted: stem now says each machine fills at least 5,000 bags."
  }
 }

@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 1,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -287,7 +287,7 @@
      ]
     },
     {
-     "prompt": "Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean.",
+     "prompt": "Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean. Justify both answers using the interval.",
      "criteria": [
       {
        "text": "States that the interval would provide convincing evidence of a difference, because 0 is not in the interval.",
@@ -318,5 +318,8 @@
    "model_answer": "(a) No. The interval (−4.8, 1.9) contains 0, so 0 is a plausible value for the true difference in mean completion time. There is not convincing evidence of a difference between the conditions.\n\n(b) Yes. The interval (−6.2, −0.7) does not contain 0, so 0 is not a plausible value, and there would be convincing evidence of a difference. Every value in the interval is negative for music minus no music, so the mean completion time is lower with music.\n\n(c) No. The claimed value −6 is not in the interval (−4.8, 1.9), so −6 is not a plausible value for the true difference. The interval does not support the coach's claim.",
    "verification_python": "lo, hi = -4.8, 1.9\nassert lo < 0 < hi\nlo2, hi2 = -6.2, -0.7\nassert not (lo2 < 0 < hi2) and hi2 < 0\nassert not (lo < -6 < hi)\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol rubric_points accepted: part (b) criteria awarded justifications the part did not request. Prompt now says to justify both answers."
  }
 }

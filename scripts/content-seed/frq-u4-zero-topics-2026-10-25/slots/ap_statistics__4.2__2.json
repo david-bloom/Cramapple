@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 2,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -276,7 +276,7 @@
   "item": {
    "title": "Confidence Interval for a Mean Change in Quiz Scores",
    "calculator": "permitted",
-   "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 students from her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
+   "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 of the 1,150 students at her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
    "parts": [
     {
      "prompt": "Explain why the teacher should analyze the 14 differences with a one-sample t procedure instead of treating the before scores and the after scores as two independent samples.",
@@ -329,7 +329,10 @@
     }
    ],
    "model_answer": "(a) Each student takes a quiz before and after using the app, so the before and after scores for a student are paired and are not independent. The teacher should compute each student's difference and use a one-sample t interval on those 14 differences.\n\n(b) Let μd be the true mean difference (score after − score before) in quiz scores for all students at the school. The interval is 3.9 ± 1.771(5.1/√14) = 3.9 ± 2.41, which is approximately (1.49, 6.31) points.\n\n(c) I am 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school. If she repeated this process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
-   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nprint('ALL_CHECKS_PASSED')\n"
+   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nassert 1150 > 10 * n\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol well_posed accepted: no population size for the 10% condition. Stimulus now states 1,150 students."
  }
 }

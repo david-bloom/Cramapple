@@ -11,7 +11,7 @@
   "need": 2
  },
  "n": 2,
- "status": "given_flagged",
+ "status": "pending_checks",
  "candidates": [
   {
    "round": 1,
@@ -284,9 +284,9 @@
        "accepted_variants": []
       },
       {
-       "text": "Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker was present, while the response to signal X stayed about the same (85 and 83).",
-       "evidence": "Response compares treatments with and without the blocker for both signals and states that only the response to Y was lost.",
-       "fix": "Compare each signal with and without the blocker, and state which response disappeared and which stayed about the same.",
+       "text": "Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker, which acts only outside the cell, was present.",
+       "evidence": "Response cites the loss of the response to signal Y (about 90 to about 2) when the blocker was present. A comparison with signal X may be included but is not required.",
+       "fix": "Cite the values for signal Y with and without the blocker; a large drop shows its receptor is reachable by the outside-only blocker.",
        "accepted_variants": []
       }
      ]
@@ -325,5 +325,8 @@
    "model_answer": "(a) Signal Y binds a receptor on the cell surface. When the blocker, which acts only on proteins on the outer surface, was present, the response to signal Y dropped from 90 to 2, but the response to signal X stayed about the same (85 with no blocker, 83 with the blocker).\n\n(b) Signal X is small and nonpolar, so it can pass through the hydrophobic interior of the phospholipid bilayer and bind a receptor inside the cell. Signal Y is large and polar, so it cannot cross the bilayer. It must bind a receptor in the plasma membrane, and that receptor relays the signal into the cell.\n\n(c) A receptor's ligand-binding domain has a specific shape that fits its own ligand. The receptor for signal Y has a binding site that matches signal Y but not signal X, so X cannot bind to it or activate it.",
    "verification_python": "# Biology reading check for the table values used in the rubric\ny_no, y_block = 90, 2\nx_no, x_block = 85, 83\nassert y_no - y_block == 88\nassert abs(x_no - x_block) <= 2\nassert y_block < 5 and x_block > 80\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "GPT-6.1 Sol rubric_points accepted: a2 required the signal X comparison the part did not ask for. Criterion now requires only the Y blocker data."
  }
 }

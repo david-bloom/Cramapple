@@ -5,48 +5,49 @@ def P(prompt, *crit):
     return {"prompt": prompt, "criteria": list(crit)}
 items = []
 
-# ---------------- AP Biology 4.2 (A) ----------------
+# ---------------- AP Biology 4.2 (A) ---------------- (round 2: replaced; round 1 voted 6 of 6 for 4.3)
 items.append({"subject_key": "ap_biology", "topic_code": "4.2", "item": {
- "title": "Tracing a Hormone Signal Through a cAMP Pathway in Liver Cells",
+ "title": "Amplification in a Hormone Signal Transduction Pathway",
  "calculator": "not_applicable",
- "stimulus": """Hormone H is released into the blood and affects liver cells. Liver cells have a receptor protein for hormone H in the plasma membrane. When hormone H binds, the receptor activates a membrane enzyme that makes the second messenger cAMP. cAMP activates a protein kinase, and the protein kinase starts a series of phosphorylation steps that ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen.
+ "stimulus": """Epinephrine is a hormone released into the blood during stress. It binds to a G protein-coupled receptor (GPCR) in the plasma membrane of liver cells. The activated receptor activates a G protein, and the G protein activates the enzyme adenylyl cyclase. Adenylyl cyclase converts ATP to the second messenger cAMP. cAMP activates protein kinase A, a protein kinase that phosphorylates and activates the next enzyme in the pathway. A series of such steps ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen to release glucose.
 
-Researchers treated separate samples of liver cells and measured cAMP concentration and glycogen phosphorylase activity 10 minutes later.
+For each step, the table gives the approximate number of activated molecules produced per single activated receptor.
 
-Treatment | cAMP (relative units) | Enzyme activity (relative units)
-1. No hormone H | 2 | 5
-2. Hormone H added | 48 | 92
-3. Hormone H added together with a molecule that occupies the receptor's binding site but does not activate the receptor | 3 | 6
-4. A membrane-permeable form of cAMP added, no hormone H | 50 | 90""",
+Step | Activated molecules per activated receptor
+1. Receptor | 1
+2. G protein | 100
+3. Adenylyl cyclase | 100
+4. cAMP | 10,000
+5. Protein kinase A | 10,000
+6. Glycogen phosphorylase | 1,000,000""",
  "parts": [
-  P("Identify the second messenger in this pathway. Then explain what treatment 4 shows about where cAMP acts in the pathway.",
+  P("Identify the second messenger in this pathway and the cellular response that the pathway produces.",
     C("Identifies cAMP as the second messenger in the pathway.",
       "Response names cAMP (cyclic AMP) as the second messenger.",
-      "Find the small molecule that the receptor-activated enzyme produces; that molecule is the second messenger.", ["cyclic AMP"]),
-    C("Explains that in treatment 4 cAMP alone, without hormone H, produced high enzyme activity (90), so cAMP acts after the receptor and is enough to activate the rest of the pathway.",
-      "Response cites high enzyme activity with cAMP added and no hormone, and concludes cAMP acts downstream of the receptor.",
-      "Compare a treatment with no hormone to the control; if the response still occurs, the added molecule acts downstream of the receptor.")),
-  P("Explain what treatment 3 shows about the role of the receptor in starting this pathway.",
-    C("Explains that when the binding site was occupied by another molecule, cAMP (3) and enzyme activity (6) stayed near the control, so the receptor must be activated by hormone H binding for the pathway to start.",
-      "Response states that blocking hormone H from activating the receptor prevented the cAMP and enzyme responses, so receptor activation is required to start the pathway.",
-      "Link the lack of response to the receptor step: no ligand binding means the receptor stays inactive and the pathway does not start.")),
-  P("Protein kinases in this pathway add phosphate groups to other proteins. Describe how adding a phosphate group affects the target protein, and explain how a series of these steps can amplify the signal from one hormone molecule.",
-    C("Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating it).",
+      "Find the small molecule that adenylyl cyclase produces from ATP; that molecule relays the signal and is the second messenger.", ["cyclic AMP"]),
+    C("Identifies the cellular response as the breakdown of glycogen, releasing glucose.",
+      "Response names glycogen breakdown or glucose release as the response produced by the pathway.",
+      "Read the end of the pathway: the cellular response is what the final activated enzyme does.", ["glucose release"])),
+  P("Use the table to state how many molecules of glycogen phosphorylase are activated per activated receptor, and explain how a series of steps like these can produce such a large response from a single hormone-binding event.",
+    C("States that about 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor.",
+      "Response reads the value 1,000,000 from the last row of the table.",
+      "Read the value for the final step directly from the table and state it with what it counts.", ["1 million", "10^6"]),
+    C("Explains that each activated enzyme can activate many molecules of the next component, so the number of activated molecules increases at successive steps and the signal is amplified.",
+      "Response states that each step activates multiple molecules of the next step, so the response is much larger than the original signal.",
+      "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.")),
+  P("Protein kinase A adds phosphate groups to its target proteins. Describe the effect of phosphorylation on a target protein.",
+    C("Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating an enzyme).",
       "Response states that adding a phosphate group changes the target protein's shape or activity.",
-      "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.", ["changes conformation"]),
-    C("Explains that each activated enzyme can activate many molecules of the next component, so one hormone molecule leads to many activated enzymes at the end of the cascade.",
-      "Response states that each step activates multiple molecules of the next step, so the response is larger than the original signal.",
-      "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step."))],
- "model_answer": """(a) The second messenger is cAMP. In treatment 4, adding a membrane-permeable form of cAMP with no hormone H produced high enzyme activity (90), almost the same as treatment 2. So cAMP acts after the receptor in the pathway and is enough to activate the rest of the pathway without the hormone.
+      "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.", ["changes conformation"]))],
+ "model_answer": """(a) The second messenger is cAMP. The cellular response is the breakdown of glycogen, which releases glucose.
 
-(b) In treatment 3 the receptor's binding site was occupied by a molecule that does not activate it. cAMP (3) and enzyme activity (6) stayed near the no-hormone control. This shows that the receptor must be activated by hormone H binding in order to start the pathway.
+(b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.
 
-(c) Adding a phosphate group to a protein changes its shape, which changes its activity, for example by switching an enzyme on. In a cascade, each activated enzyme can activate many molecules of the next component. One hormone molecule therefore leads to many activated enzyme molecules at the end, so the signal is amplified.""",
- "verification_python": """# Biology reading check: values quoted in the rubric come from the table
-table = {1: (2, 5), 2: (48, 92), 3: (3, 6), 4: (50, 90)}
-assert table[4][1] >= 0.9 * table[2][1] - 3
-assert table[3][0] - table[1][0] <= 2 and table[3][1] - table[1][1] <= 2
-assert table[4][1] == 90 and table[3] == (3, 6)
+(c) Phosphorylation changes the shape of the target protein, which changes its activity, for example by switching an enzyme on.""",
+ "verification_python": """steps = [1, 100, 100, 10000, 10000, 1000000]
+assert steps[-1] == 1000000 and steps[0] == 1
+assert steps == sorted(steps)
+assert steps[-1] // steps[0] == 10**6
 print('ALL_CHECKS_PASSED')
 """}})
 
@@ -69,9 +70,9 @@ Treatment | Gene activation (relative units)
     C("Identifies signal Y as the signal that binds a receptor on the cell surface.",
       "Response names signal Y (not signal X) as the signal whose receptor is on the cell surface.",
       "Decide which signal's response depends on a blocker that works only outside the cell; that signal's receptor is on the surface."),
-    C("Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker was present, while the response to signal X stayed about the same (85 and 83).",
-      "Response compares treatments with and without the blocker for both signals and states that only the response to Y was lost.",
-      "Compare each signal with and without the blocker, and state which response disappeared and which stayed about the same.")),
+    C("Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker, which acts only outside the cell, was present.",
+      "Response cites the loss of the response to signal Y (about 90 to about 2) when the blocker was present. A comparison with signal X may be included but is not required.",
+      "Cite the values for signal Y with and without the blocker; a large drop shows its receptor is reachable by the outside-only blocker.")),
   P("Explain, using the structure of the plasma membrane, why signal X can reach its receptor but signal Y needs a receptor on the cell surface.",
     C("Explains that signal X is small and nonpolar, so it can pass through the hydrophobic interior of the phospholipid bilayer and bind a receptor inside the cell.",
       "Response links X being nonpolar to crossing the hydrophobic core of the membrane to reach an intracellular receptor.",
@@ -123,7 +124,7 @@ Drug-treated culture | 8 | 12 | 80 | 0.4""",
     C("Explains that CDK is active only when it is bound to cyclin, so CDK activity depends on the cyclin concentration.",
       "Response states that cyclin binding is required to activate the CDK.",
       "Use the information given about the proteins: a CDK needs a bound cyclin to be active, so its activity tracks cyclin level.")),
-  P("Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
+  P("Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, support your answer with values from the table, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
     C("Identifies G2 (after DNA replication and before mitosis) as the stage where most treated cells are stopped, supported by 80% of cells having 4C DNA while only 0.4% are in mitosis.",
       "Response names G2 (or the point just before mitosis) and cites the large share of 4C cells and the very small share of cells in mitosis.",
       "Combine two clues: cells with 4C DNA have replicated their DNA, and few cells in mitosis means they stopped before mitosis."),

@@ -3,62 +3,67 @@
   "subject_key": "ap_biology",
   "topic_code": "4.2",
   "item": {
-   "title": "Tracing a Hormone Signal Through a cAMP Pathway in Liver Cells",
+   "title": "Amplification in a Hormone Signal Transduction Pathway",
    "calculator": "not_applicable",
-   "stimulus": "Hormone H is released into the blood and affects liver cells. Liver cells have a receptor protein for hormone H in the plasma membrane. When hormone H binds, the receptor activates a membrane enzyme that makes the second messenger cAMP. cAMP activates a protein kinase, and the protein kinase starts a series of phosphorylation steps that ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen.\n\nResearchers treated separate samples of liver cells and measured cAMP concentration and glycogen phosphorylase activity 10 minutes later.\n\nTreatment | cAMP (relative units) | Enzyme activity (relative units)\n1. No hormone H | 2 | 5\n2. Hormone H added | 48 | 92\n3. Hormone H added together with a molecule that occupies the receptor's binding site but does not activate the receptor | 3 | 6\n4. A membrane-permeable form of cAMP added, no hormone H | 50 | 90",
+   "stimulus": "Epinephrine is a hormone released into the blood during stress. It binds to a G protein-coupled receptor (GPCR) in the plasma membrane of liver cells. The activated receptor activates a G protein, and the G protein activates the enzyme adenylyl cyclase. Adenylyl cyclase converts ATP to the second messenger cAMP. cAMP activates protein kinase A, a protein kinase that phosphorylates and activates the next enzyme in the pathway. A series of such steps ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen to release glucose.\n\nFor each step, the table gives the approximate number of activated molecules produced per single activated receptor.\n\nStep | Activated molecules per activated receptor\n1. Receptor | 1\n2. G protein | 100\n3. Adenylyl cyclase | 100\n4. cAMP | 10,000\n5. Protein kinase A | 10,000\n6. Glycogen phosphorylase | 1,000,000",
    "parts": [
     {
-     "prompt": "Identify the second messenger in this pathway. Then explain what treatment 4 shows about where cAMP acts in the pathway.",
+     "prompt": "Identify the second messenger in this pathway and the cellular response that the pathway produces.",
      "criteria": [
       {
        "text": "Identifies cAMP as the second messenger in the pathway.",
        "evidence": "Response names cAMP (cyclic AMP) as the second messenger.",
-       "fix": "Find the small molecule that the receptor-activated enzyme produces; that molecule is the second messenger.",
+       "fix": "Find the small molecule that adenylyl cyclase produces from ATP; that molecule relays the signal and is the second messenger.",
        "accepted_variants": [
         "cyclic AMP"
        ]
       },
       {
-       "text": "Explains that in treatment 4 cAMP alone, without hormone H, produced high enzyme activity (90), so cAMP acts after the receptor and is enough to activate the rest of the pathway.",
-       "evidence": "Response cites high enzyme activity with cAMP added and no hormone, and concludes cAMP acts downstream of the receptor.",
-       "fix": "Compare a treatment with no hormone to the control; if the response still occurs, the added molecule acts downstream of the receptor.",
+       "text": "Identifies the cellular response as the breakdown of glycogen, releasing glucose.",
+       "evidence": "Response names glycogen breakdown or glucose release as the response produced by the pathway.",
+       "fix": "Read the end of the pathway: the cellular response is what the final activated enzyme does.",
+       "accepted_variants": [
+        "glucose release"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use the table to state how many molecules of glycogen phosphorylase are activated per activated receptor, and explain how a series of steps like these can produce such a large response from a single hormone-binding event.",
+     "criteria": [
+      {
+       "text": "States that about 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor.",
+       "evidence": "Response reads the value 1,000,000 from the last row of the table.",
+       "fix": "Read the value for the final step directly from the table and state it with what it counts.",
+       "accepted_variants": [
+        "1 million",
+        "10^6"
+       ]
+      },
+      {
+       "text": "Explains that each activated enzyme can activate many molecules of the next component, so the number of activated molecules increases at successive steps and the signal is amplified.",
+       "evidence": "Response states that each step activates multiple molecules of the next step, so the response is much larger than the original signal.",
+       "fix": "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.",
        "accepted_variants": []
       }
      ]
     },
     {
-     "prompt": "Explain what treatment 3 shows about the role of the receptor in starting this pathway.",
+     "prompt": "Protein kinase A adds phosphate groups to its target proteins. Describe the effect of phosphorylation on a target protein.",
      "criteria": [
       {
-       "text": "Explains that when the binding site was occupied by another molecule, cAMP (3) and enzyme activity (6) stayed near the control, so the receptor must be activated by hormone H binding for the pathway to start.",
-       "evidence": "Response states that blocking hormone H from activating the receptor prevented the cAMP and enzyme responses, so receptor activation is required to start the pathway.",
-       "fix": "Link the lack of response to the receptor step: no ligand binding means the receptor stays inactive and the pathway does not start.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Protein kinases in this pathway add phosphate groups to other proteins. Describe how adding a phosphate group affects the target protein, and explain how a series of these steps can amplify the signal from one hormone molecule.",
-     "criteria": [
-      {
-       "text": "Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating it).",
+       "text": "Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating an enzyme).",
        "evidence": "Response states that adding a phosphate group changes the target protein's shape or activity.",
        "fix": "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.",
        "accepted_variants": [
         "changes conformation"
        ]
-      },
-      {
-       "text": "Explains that each activated enzyme can activate many molecules of the next component, so one hormone molecule leads to many activated enzymes at the end of the cascade.",
-       "evidence": "Response states that each step activates multiple molecules of the next step, so the response is larger than the original signal.",
-       "fix": "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.",
-       "accepted_variants": []
       }
      ]
     }
    ],
-   "model_answer": "(a) The second messenger is cAMP. In treatment 4, adding a membrane-permeable form of cAMP with no hormone H produced high enzyme activity (90), almost the same as treatment 2. So cAMP acts after the receptor in the pathway and is enough to activate the rest of the pathway without the hormone.\n\n(b) In treatment 3 the receptor's binding site was occupied by a molecule that does not activate it. cAMP (3) and enzyme activity (6) stayed near the no-hormone control. This shows that the receptor must be activated by hormone H binding in order to start the pathway.\n\n(c) Adding a phosphate group to a protein changes its shape, which changes its activity, for example by switching an enzyme on. In a cascade, each activated enzyme can activate many molecules of the next component. One hormone molecule therefore leads to many activated enzyme molecules at the end, so the signal is amplified.",
-   "verification_python": "# Biology reading check: values quoted in the rubric come from the table\ntable = {1: (2, 5), 2: (48, 92), 3: (3, 6), 4: (50, 90)}\nassert table[4][1] >= 0.9 * table[2][1] - 3\nassert table[3][0] - table[1][0] <= 2 and table[3][1] - table[1][1] <= 2\nassert table[4][1] == 90 and table[3] == (3, 6)\nprint('ALL_CHECKS_PASSED')\n"
+   "model_answer": "(a) The second messenger is cAMP. The cellular response is the breakdown of glycogen, which releases glucose.\n\n(b) About 1,000,000 molecules of glycogen phosphorylase are activated per activated receptor. The signal is amplified because each activated component can activate many molecules of the next component. One activated receptor activates about 100 G proteins, and later steps multiply the number of activated molecules again, so one hormone-binding event leads to a very large response.\n\n(c) Phosphorylation changes the shape of the target protein, which changes its activity, for example by switching an enzyme on.",
+   "verification_python": "steps = [1, 100, 100, 10000, 10000, 1000000]\nassert steps[-1] == 1000000 and steps[0] == 1\nassert steps == sorted(steps)\nassert steps[-1] // steps[0] == 10**6\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
  {
@@ -79,9 +84,9 @@
        "accepted_variants": []
       },
       {
-       "text": "Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker was present, while the response to signal X stayed about the same (85 and 83).",
-       "evidence": "Response compares treatments with and without the blocker for both signals and states that only the response to Y was lost.",
-       "fix": "Compare each signal with and without the blocker, and state which response disappeared and which stayed about the same.",
+       "text": "Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker, which acts only outside the cell, was present.",
+       "evidence": "Response cites the loss of the response to signal Y (about 90 to about 2) when the blocker was present. A comparison with signal X may be included but is not required.",
+       "fix": "Cite the values for signal Y with and without the blocker; a large drop shows its receptor is reachable by the outside-only blocker.",
        "accepted_variants": []
       }
      ]
@@ -147,7 +152,7 @@
      ]
     },
     {
-     "prompt": "Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
+     "prompt": "Based on the second table, identify the stage of the cell cycle at which most drug-treated cells are stopped, support your answer with values from the table, and explain what this shows about the role of the cyclin-CDK complex that the drug blocks.",
      "criteria": [
       {
        "text": "Identifies G2 (after DNA replication and before mitosis) as the stage where most treated cells are stopped, supported by 80% of cells having 4C DNA while only 0.4% are in mitosis.",
@@ -266,12 +271,11 @@
      "prompt": "Construct a 95% confidence interval for the mean length of all rainbow trout in the lake.",
      "criteria": [
       {
-       "text": "Computes the standard error as 4.2/√22 ≈ 0.895 cm and the margin of error as 2.080 × 0.895 ≈ 1.86 cm.",
-       "evidence": "Response shows a standard error near 0.895 and a margin of error near 1.86 using t* = 2.080.",
-       "fix": "Divide s by the square root of n for the standard error, then multiply by t* for the margin of error.",
+       "text": "Sets up the interval as 31.4 ± 2.080(4.2/√22), with the sample mean, t*, s and n correctly substituted (the standard error is about 0.895 cm).",
+       "evidence": "Response shows the t interval expression with 31.4, 2.080, 4.2 and 22 correctly substituted, or an equivalent calculator setup that names the same values.",
+       "fix": "Write the interval as the sample mean plus or minus t* times s over the square root of n, then substitute each value.",
        "accepted_variants": [
-        "SE ≈ 0.9",
-        "margin of error ≈ 1.9"
+        "SE ≈ 0.895"
        ]
       },
       {
@@ -306,7 +310,7 @@
   "item": {
    "title": "Confidence Interval for a Mean Change in Quiz Scores",
    "calculator": "permitted",
-   "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 students from her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
+   "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 of the 1,150 students at her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
    "parts": [
     {
      "prompt": "Explain why the teacher should analyze the 14 differences with a one-sample t procedure instead of treating the before scores and the after scores as two independent samples.",
@@ -359,7 +363,7 @@
     }
    ],
    "model_answer": "(a) Each student takes a quiz before and after using the app, so the before and after scores for a student are paired and are not independent. The teacher should compute each student's difference and use a one-sample t interval on those 14 differences.\n\n(b) Let μd be the true mean difference (score after − score before) in quiz scores for all students at the school. The interval is 3.9 ± 1.771(5.1/√14) = 3.9 ± 2.41, which is approximately (1.49, 6.31) points.\n\n(c) I am 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school. If she repeated this process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
-   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nprint('ALL_CHECKS_PASSED')\n"
+   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nassert 1150 > 10 * n\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
  {
@@ -407,13 +411,16 @@
      ]
     },
     {
-     "prompt": "Verify the conditions for using this procedure.",
+     "prompt": "The calls are a simple random sample. Verify the 10% condition and the sample data condition for using this procedure.",
      "criteria": [
       {
-       "text": "Verifies the random condition and the 10% condition: the calls are a simple random sample, and 5,400 is more than 10 × 36 = 360.",
-       "evidence": "Response states that the sample is random and compares the population of about 5,400 calls with 10 times the sample size, 360.",
-       "fix": "State how the sample was selected and compare the population size with 10 times the sample size.",
-       "accepted_variants": []
+       "text": "States that the 10% condition is met because the population of about 5,400 calls is more than 10 times the sample size of 36 (equivalently, 36 is less than 10% of 5,400).",
+       "evidence": "Response compares 5,400 with 10 × 36 = 360, or 36 with 10% of 5,400 = 540, and concludes the condition is met.",
+       "fix": "Compare the sample size with 10% of the population size, or the population size with 10 times the sample size, and state the conclusion.",
+       "accepted_variants": [
+        "n < 0.10N",
+        "36 < 540"
+       ]
       },
       {
        "text": "Verifies the sample data condition: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
@@ -424,8 +431,8 @@
      ]
     }
    ],
-   "model_answer": "(a) Let μ be the true mean response time, in minutes, for all ambulance calls in the city. H0: μ = 8.0 minutes. Ha: μ > 8.0 minutes.\n\n(b) A one-sample t-test for a population mean is appropriate.\n\n(c) Random: the 36 calls are a simple random sample. 10%: there are about 5,400 calls, which is more than 10 × 36 = 360. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
-   "verification_python": "assert 10 * 36 == 360 and 5400 > 360\nassert 36 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   "model_answer": "(a) Let μ be the true mean response time, in minutes, for all ambulance calls in the city. H0: μ = 8.0 minutes. Ha: μ > 8.0 minutes.\n\n(b) A one-sample t-test for a population mean is appropriate.\n\n(c) 10%: there are about 5,400 calls, which is more than 10 × 36 = 360 (equivalently, 36 is less than 10% of 5,400), so the condition is met. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
+   "verification_python": "assert 10 * 36 == 360 and 5400 > 360 and 36 < 0.10 * 5400\nassert 36 >= 30\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
  {
@@ -498,7 +505,7 @@
   "item": {
    "title": "Sampling Distribution of the Difference in Mean Bag Weights",
    "calculator": "permitted",
-   "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills far more than 360 bags in a day.",
+   "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills at least 5,000 bags in a day.",
    "parts": [
     {
      "prompt": "What is the mean of the sampling distribution of x̄1 − x̄2?",
@@ -549,16 +556,28 @@
      "prompt": "Suppose the inspector increases the sample from Machine 2 to 60 bags and keeps 36 bags from Machine 1. Calculate the new standard deviation of the sampling distribution of x̄1 − x̄2, and state whether it is smaller than, larger than, or the same as before.",
      "criteria": [
       {
-       "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g and states that it is smaller than 1.354 g.",
-       "evidence": "Response gives a new value near 1.19 g and states that increasing a sample size decreases the standard deviation.",
-       "fix": "Recalculate with the new sample size; a larger sample size gives a smaller standard deviation for the sampling distribution.",
-       "accepted_variants": []
+       "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g.",
+       "evidence": "Response gives a value near 1.19 g from the correct formula with n2 = 60.",
+       "fix": "Replace n2 with 60 in the variance of the second sample mean, add the two variances, then take the square root.",
+       "accepted_variants": [
+        "1.19",
+        "1.190 g"
+       ]
+      },
+      {
+       "text": "States that the new standard deviation is smaller than the original 1.354 g.",
+       "evidence": "Response compares the new value with 1.354 g and states that the new value is smaller.",
+       "fix": "Compare the new value with the earlier one and say which is smaller; a larger sample gives a smaller value.",
+       "accepted_variants": [
+        "smaller",
+        "decreases"
+       ]
       }
      ]
     }
    ],
    "model_answer": "(a) The mean is μ1 − μ2 = 502 − 500 = 2 g.\n\n(b) The standard deviation is √(6²/36 + 5²/30) = √(1 + 0.8333) ≈ 1.354 g.\n\n(c) The sampling distribution of x̄1 − x̄2 is approximately normal. Both sample sizes, 36 and 30, are at least 30, so the central limit theorem applies to each sample mean and the difference is approximately normal even though the shapes of the populations are not known.\n\n(d) The new standard deviation is √(6²/36 + 5²/60) = √(1 + 0.4167) ≈ 1.190 g. This is smaller than 1.354 g, because a larger sample size reduces the variability of the sample mean.",
-   "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nassert 5000 > 10 * 60\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
  {
@@ -665,16 +684,16 @@
      "prompt": "Construct a 95% confidence interval for μ1 − μ2.",
      "criteria": [
       {
-       "text": "Calculates the point estimate 6.8 − 7.3 = −0.5 and the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
-       "evidence": "Response gives the difference in sample means and a standard error near 0.206 hours.",
-       "fix": "Compute the point estimate in the order of the parameter, then the standard error from both sample variances over their sample sizes.",
+       "text": "Calculates the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+       "evidence": "Response shows a standard error near 0.206 hours computed from both sample variances and both sample sizes.",
+       "fix": "Add s1²/n1 and s2²/n2, then take the square root of the sum.",
        "accepted_variants": [
         "SE ≈ 0.21"
        ]
       },
       {
-       "text": "Gives the interval −0.5 ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
-       "evidence": "Response gives limits near −0.91 and −0.09 hours.",
+       "text": "Gives the interval (6.8 − 7.3) ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+       "evidence": "Response uses −0.5 as the point estimate, in the order group 1 minus group 2, and gives limits near −0.91 and −0.09 hours.",
        "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
        "accepted_variants": [
         "(−0.91, −0.09)",
@@ -728,16 +747,16 @@
      "prompt": "Construct a 90% confidence interval for μA − μB.",
      "criteria": [
       {
-       "text": "Calculates the point estimate 4.60 − 4.15 = 0.45 kg and the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
-       "evidence": "Response gives the difference in sample means and a standard error near 0.269 kg.",
-       "fix": "Compute the point estimate in the order of the parameter, then the standard error from both sample variances over their sample sizes.",
+       "text": "Calculates the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
+       "evidence": "Response shows a standard error near 0.269 kg computed from both sample variances and both sample sizes.",
+       "fix": "Add s1²/n1 and s2²/n2, then take the square root of the sum.",
        "accepted_variants": [
         "SE ≈ 0.27"
        ]
       },
       {
-       "text": "Gives the interval 0.45 ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
-       "evidence": "Response gives limits near −0.01 and 0.91 kg.",
+       "text": "Gives the interval (4.60 − 4.15) ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
+       "evidence": "Response uses 0.45 as the point estimate, in the order A minus B, and gives limits near −0.01 and 0.91 kg.",
        "fix": "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.",
        "accepted_variants": [
         "(−0.01, 0.91)",
@@ -788,7 +807,7 @@
      ]
     },
     {
-     "prompt": "Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean.",
+     "prompt": "Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean. Justify both answers using the interval.",
      "criteria": [
       {
        "text": "States that the interval would provide convincing evidence of a difference, because 0 is not in the interval.",
@@ -923,24 +942,27 @@
      ]
     },
     {
-     "prompt": "Verify the conditions for using this procedure.",
+     "prompt": "The samples are independent random samples. Verify the 10% condition for each group and the sample data condition for using this procedure.",
      "criteria": [
       {
-       "text": "States that the samples are independent random samples, and that the 10% condition is met in each group because 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
-       "evidence": "Response states random and independent samples and compares each population size with 10 times its sample size.",
-       "fix": "Check randomness and independence of the two samples, then compare each population size with 10 times its sample size.",
-       "accepted_variants": []
+       "text": "States that the 10% condition is met in each group: 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+       "evidence": "Response compares each population size with 10 times the corresponding sample size (or each sample size with 10% of its population size).",
+       "fix": "Check each group separately by comparing its sample size with 10% of its population size.",
+       "accepted_variants": [
+        "60 < 700",
+        "48 < 450"
+       ]
       },
       {
-       "text": "States that the sample data condition is met, because both sample sizes (60 and 48) are at least 30 and the samples are not strongly skewed with no outliers.",
-       "evidence": "Response cites both sample sizes being at least 30, with no strong skewness or outliers.",
+       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
+       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30.",
        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
        "accepted_variants": []
       }
      ]
     }
    ],
-   "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) Random and independent: the two samples are independent random samples from the two groups. 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480. Sample data: both sample sizes (60 and 48) are at least 30, and the samples are not strongly skewed with no outliers, so the sampling distribution of the difference in sample means is approximately normal.",
+   "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480, so the condition is met for both groups. Sample data: both sample sizes (60 and 48) are at least 30, so the sampling distribution of the difference in sample means is approximately normal.",
    "verification_python": "assert 10 * 60 == 600 and 7000 > 600\nassert 10 * 48 == 480 and 4500 > 480\nassert 60 >= 30 and 48 >= 30\nprint('ALL_CHECKS_PASSED')\n"
   }
  },
@@ -950,15 +972,15 @@
   "item": {
    "title": "Setting Up a Test for a New Recovery Drink in a Cycling Experiment",
    "calculator": "not_applicable",
-   "stimulus": "A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.",
+   "stimulus": "A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12, without matching them on any characteristic. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.",
    "parts": [
     {
      "prompt": "Explain why a two-sample procedure is appropriate here instead of a matched-pairs procedure.",
      "criteria": [
       {
-       "text": "Explains that each cyclist is in only one group and receives only one drink, so there is no pairing between the groups, and the two groups are independent.",
-       "evidence": "Response states that different cyclists are in the two groups, so the data are two independent samples, not pairs.",
-       "fix": "Check whether the same individuals receive both treatments; if each is in one group only, use a two-sample procedure.",
+       "text": "Explains that there is no pairing: each cyclist is in only one group and was not matched with a cyclist in the other group, so the two groups are independent.",
+       "evidence": "Response states that no individual is measured twice and no cyclists were matched across the groups, so the data are two independent samples.",
+       "fix": "Check for pairing: the same individual measured twice, or deliberately matched individuals; if neither, use a two-sample procedure.",
        "accepted_variants": []
       }
      ]
@@ -967,9 +989,9 @@
      "prompt": "State the null and alternative hypotheses for the scientist's test, defining any parameters you use.",
      "criteria": [
       {
-       "text": "Defines μ1 as the true mean 20 km time (in minutes) of cyclists after the new recovery drink and μ2 as the true mean time of cyclists after the standard recovery drink.",
-       "evidence": "Response defines both parameters as population means for the two treatments, in context.",
-       "fix": "Define each parameter as a true mean time for one treatment, in context, with units.",
+       "text": "Defines the parameters in context: μ1 and μ2 as the true mean 20 km times (in minutes) after the new drink and the standard drink, or one parameter μ1 − μ2 as the true difference in mean times.",
+       "evidence": "Response defines either both population means or their difference as population parameters in context, with the order of subtraction if a difference is used.",
+       "fix": "Define each parameter as a true mean time for one treatment, or the difference of the two, in context with units.",
        "accepted_variants": []
       },
       {

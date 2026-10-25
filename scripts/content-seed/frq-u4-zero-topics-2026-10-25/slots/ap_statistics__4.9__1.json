@@ -12,7 +12,326 @@
  },
  "n": 1,
  "status": "pending_checks",
- "candidates": [],
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:54:34.891Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test Comparing Mean GPA of On-Campus and Commuting Students",
+    "calculator": "not_applicable",
+    "stimulus": "A university registrar wants to know whether the mean GPA of students who live on campus differs from the mean GPA of students who commute. About 7,000 students live on campus and about 4,500 commute. She takes an independent random sample of 60 on-campus students and a separate independent random sample of 48 commuting students and records each student's GPA. The GPAs in each sample are not strongly skewed and there are no outliers.",
+    "parts": [
+     {
+      "prompt": "State the null and alternative hypotheses for the registrar's test, defining any parameters you use.",
+      "criteria": [
+       {
+        "text": "Defines μ1 as the true mean GPA of all on-campus students and μ2 as the true mean GPA of all commuting students at the university.",
+        "evidence": "Response defines both parameters as population means in context for the two groups.",
+        "fix": "Define each parameter as a population mean and name which group it describes.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+        "evidence": "Response writes H0 as no difference between the two population means.",
+        "fix": "Write H0 as the two population means being equal, which is a difference of 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States the alternative hypothesis Ha: μ1 − μ2 ≠ 0 (equivalently μ1 ≠ μ2).",
+        "evidence": "Response writes a two-sided Ha, because the registrar wants to know whether the means differ.",
+        "fix": "Match Ha to the question: asking whether the means differ, with no direction, calls for a not-equal alternative.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Name the inference procedure that is appropriate for these hypotheses.",
+      "criteria": [
+       {
+        "text": "Identifies a two-sample t-test for the difference between two population means.",
+        "evidence": "Response names a two-sample t-test for μ1 − μ2, not a paired t-test and not a z-test.",
+        "fix": "Two independent samples measured on one quantitative variable call for a two-sample t-test for a difference in means.",
+        "accepted_variants": [
+         "two-sample t-test"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the conditions for using this procedure.",
+      "criteria": [
+       {
+        "text": "States that the samples are independent random samples, and that the 10% condition is met in each group because 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+        "evidence": "Response states random and independent samples and compares each population size with 10 times its sample size.",
+        "fix": "Check randomness and independence of the two samples, then compare each population size with 10 times its sample size.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the sample data condition is met, because both sample sizes (60 and 48) are at least 30 and the samples are not strongly skewed with no outliers.",
+        "evidence": "Response cites both sample sizes being at least 30, with no strong skewness or outliers.",
+        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) Random and independent: the two samples are independent random samples from the two groups. 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480. Sample data: both sample sizes (60 and 48) are at least 30, and the samples are not strongly skewed with no outliers, so the sampling distribution of the difference in sample means is approximately normal.",
+    "verification_python": "assert 10 * 60 == 600 and 7000 > 600\nassert 10 * 48 == 480 and 4500 > 480\nassert 60 >= 30 and 48 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 bundles verification of randomization/independence and the separate 10% condition into one point rather than one specific observable element. Criterion c2 unnecessarily requires citing absence of strong skewness and outliers in addition to both sample sizes being at least 30; the sample-size justification alone satisfies the CED condition. Criterion c1 also prescribes comparing population sizes with 10 times sample sizes instead of explicitly accepting the equivalent comparison of sample sizes with 10% of population sizes.",
+       "solution: The substantive answers agree. However, c2's evidence requirement is unnecessarily restrictive: n1 = 60 ≥ 30 and n2 = 48 ≥ 30 suffice without additionally citing the sample shapes. My equivalent 10% checks, 60 < 700 and 48 < 450, should also receive credit under c1, whose evidence currently specifies the reverse comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 bundles verification of randomization/independence and the separate 10% condition into one point rather than one specific observable element. Criterion c2 unnecessarily requires citing absence of strong skewness and outliers in addition to both sample sizes being at least 30; the sample-size justification alone satisfies the CED condition. Criterion c1 also prescribes comparing population sizes with 10 times sample sizes instead of explicitly accepting the equivalent comparison of sample sizes with 10% of population sizes."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The substantive answers agree. However, c2's evidence requirement is unnecessarily restrictive: n1 = 60 ≥ 30 and n2 = 48 ≥ 30 suffice without additionally citing the sample shapes. My equivalent 10% checks, 60 < 700 and 48 < 450, should also receive credit under c1, whose evidence currently specifies the reverse comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 bundles two separately observable conditions—randomization/independence and the 10% condition—into one point. Criterion c2 unnecessarily requires both sample sizes ≥30 and absence of strong skewness/outliers; citing both sample sizes ≥30 is sufficient under the CED and should earn credit without the additional shape statement.",
+       "solution: The independent solution agrees with the hypotheses, procedure, numerical condition checks, and conclusion that the procedure is appropriate. The scoring disagreement is that c2 would reject an otherwise complete condition check citing n₁ = 60 ≥30 and n₂ = 48 ≥30 without also mentioning sample shape. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 bundles two separately observable conditions—randomization/independence and the 10% condition—into one point. Criterion c2 unnecessarily requires both sample sizes ≥30 and absence of strong skewness/outliers; citing both sample sizes ≥30 is sufficient under the CED and should earn credit without the additional shape statement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the hypotheses, procedure, numerical condition checks, and conclusion that the procedure is appropriate. The scoring disagreement is that c2 would reject an otherwise complete condition check citing n₁ = 60 ≥30 and n₂ = 48 ≥30 without also mentioning sample shape. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 combines the randomization condition and the 10% condition into a single 1-point criterion, awarding two separate condition checks under one point. Also, criterion c2 requires both n ≥ 30 and no strong skew/outliers, although n ≥ 30 alone satisfies the sample data condition; this rejects a valid alternative method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 combines the randomization condition and the 10% condition into a single 1-point criterion, awarding two separate condition checks under one point. Also, criterion c2 requires both n ≥ 30 and no strong skew/outliers, although n ≥ 30 alone satisfies the sample data condition; this rejects a valid alternative method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: one point bundles two separate CED conditions 4.9.C.1.i (random/independent samples) and 4.9.C.1.ii (10% condition) instead of awarding one specific observable element per point; each condition should have its own criterion. Part (c), criterion c2: requires citing no strong skewness/outliers in addition to both n≥30, but the sample data condition is met by n≥30 alone, so a valid response citing only the large sample sizes is rejected."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: one point bundles two separate CED conditions 4.9.C.1.i (random/independent samples) and 4.9.C.1.ii (10% condition) instead of awarding one specific observable element per point; each condition should have its own criterion. Part (c), criterion c2: requires citing no strong skewness/outliers in addition to both n≥30, but the sample data condition is met by n≥30 alone, so a valid response citing only the large sample sizes is rejected."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
  "given": {
   "item": {
    "title": "Setting Up a Test Comparing Mean GPA of On-Campus and Commuting Students",
@@ -56,25 +375,31 @@
      ]
     },
     {
-     "prompt": "Verify the conditions for using this procedure.",
+     "prompt": "The samples are independent random samples. Verify the 10% condition for each group and the sample data condition for using this procedure.",
      "criteria": [
       {
-       "text": "States that the samples are independent random samples, and that the 10% condition is met in each group because 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
-       "evidence": "Response states random and independent samples and compares each population size with 10 times its sample size.",
-       "fix": "Check randomness and independence of the two samples, then compare each population size with 10 times its sample size.",
-       "accepted_variants": []
+       "text": "States that the 10% condition is met in each group: 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+       "evidence": "Response compares each population size with 10 times the corresponding sample size (or each sample size with 10% of its population size).",
+       "fix": "Check each group separately by comparing its sample size with 10% of its population size.",
+       "accepted_variants": [
+        "60 < 700",
+        "48 < 450"
+       ]
       },
       {
-       "text": "States that the sample data condition is met, because both sample sizes (60 and 48) are at least 30 and the samples are not strongly skewed with no outliers.",
-       "evidence": "Response cites both sample sizes being at least 30, with no strong skewness or outliers.",
+       "text": "States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
+       "evidence": "Response cites both n1 = 60 and n2 = 48 being at least 30.",
        "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
        "accepted_variants": []
       }
      ]
     }
    ],
-   "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) Random and independent: the two samples are independent random samples from the two groups. 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480. Sample data: both sample sizes (60 and 48) are at least 30, and the samples are not strongly skewed with no outliers, so the sampling distribution of the difference in sample means is approximately normal.",
+   "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480, so the condition is met for both groups. Sample data: both sample sizes (60 and 48) are at least 30, so the sampling distribution of the difference in sample means is approximately normal.",
    "verification_python": "assert 10 * 60 == 600 and 7000 > 600\nassert 10 * 48 == 480 and 4500 > 480\nassert 60 >= 30 and 48 >= 30\nprint('ALL_CHECKS_PASSED')\n"
   }
+ },
+ "arbitration": {
+  "round1": "Both checkers rubric_points accepted: c1 bundled random/independent and 10%; c2 demanded shape evidence beyond n >= 30. Independence is now given in the stem; c1 is the 10% check, c2 is n >= 30 only."
  }
 }

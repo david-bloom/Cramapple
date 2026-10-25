@@ -43,9 +43,9 @@ For 95% confidence with 21 degrees of freedom, the critical value is t* = 2.080.
       "Response notes n is below 30 and uses the symmetric shape and absence of outliers to justify using t procedures.",
       "When n is under 30, describe the sample's shape: no strong skewness and no outliers supports using a t interval.")),
   P("Construct a 95% confidence interval for the mean length of all rainbow trout in the lake.",
-    C("Computes the standard error as 4.2/√22 ≈ 0.895 cm and the margin of error as 2.080 × 0.895 ≈ 1.86 cm.",
-      "Response shows a standard error near 0.895 and a margin of error near 1.86 using t* = 2.080.",
-      "Divide s by the square root of n for the standard error, then multiply by t* for the margin of error.", ["SE ≈ 0.9", "margin of error ≈ 1.9"]),
+    C("Sets up the interval as 31.4 ± 2.080(4.2/√22), with the sample mean, t*, s and n correctly substituted (the standard error is about 0.895 cm).",
+      "Response shows the t interval expression with 31.4, 2.080, 4.2 and 22 correctly substituted, or an equivalent calculator setup that names the same values.",
+      "Write the interval as the sample mean plus or minus t* times s over the square root of n, then substitute each value.", ["SE ≈ 0.895"]),
     C("Gives the interval 31.4 ± 1.86, or (29.54, 33.26) cm.",
       "Response gives lower and upper limits near 29.54 and 33.26 cm.",
       "Add and subtract the margin of error from the sample mean, and write both limits with units.", ["(29.5, 33.3)"])),
@@ -75,7 +75,7 @@ print('ALL_CHECKS_PASSED')
 add("4.2", {
  "title": "Confidence Interval for a Mean Change in Quiz Scores",
  "calculator": "permitted",
- "stimulus": """A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 students from her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).
+ "stimulus": """A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 of the 1,150 students at her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).
 
 The 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.
 
@@ -112,6 +112,7 @@ se = s / math.sqrt(n)
 me = 1.771 * se
 assert abs(me - 2.41) < 0.01
 assert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01
+assert 1150 > 10 * n
 print('ALL_CHECKS_PASSED')
 """})
 
@@ -135,10 +136,10 @@ add("4.4", {
     C("Identifies a one-sample t-test for a population mean.",
       "Response names a one-sample t-test (or t-test for a mean), not a z-test and not a two-sample test.",
       "One quantitative variable from one sample with unknown population standard deviation calls for a one-sample t-test for a mean.", ["t-test for a population mean"])),
-  P("Verify the conditions for using this procedure.",
-    C("Verifies the random condition and the 10% condition: the calls are a simple random sample, and 5,400 is more than 10 × 36 = 360.",
-      "Response states that the sample is random and compares the population of about 5,400 calls with 10 times the sample size, 360.",
-      "State how the sample was selected and compare the population size with 10 times the sample size."),
+  P("The calls are a simple random sample. Verify the 10% condition and the sample data condition for using this procedure.",
+    C("States that the 10% condition is met because the population of about 5,400 calls is more than 10 times the sample size of 36 (equivalently, 36 is less than 10% of 5,400).",
+      "Response compares 5,400 with 10 × 36 = 360, or 36 with 10% of 5,400 = 540, and concludes the condition is met.",
+      "Compare the sample size with 10% of the population size, or the population size with 10 times the sample size, and state the conclusion.", ["n < 0.10N", "36 < 540"]),
     C("Verifies the sample data condition: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
       "Response states that n ≥ 30 justifies approximate normality of the sampling distribution despite skewness.",
       "Compare n with 30; when n is at least 30, skewness in the sample does not stop you from using t procedures."))],
@@ -146,8 +147,8 @@ add("4.4", {
 
 (b) A one-sample t-test for a population mean is appropriate.
 
-(c) Random: the 36 calls are a simple random sample. 10%: there are about 5,400 calls, which is more than 10 × 36 = 360. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.""",
- "verification_python": """assert 10 * 36 == 360 and 5400 > 360
+(c) 10%: there are about 5,400 calls, which is more than 10 × 36 = 360 (equivalently, 36 is less than 10% of 5,400), so the condition is met. Sample data: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.""",
+ "verification_python": """assert 10 * 36 == 360 and 5400 > 360 and 36 < 0.10 * 5400
 assert 36 >= 30
 print('ALL_CHECKS_PASSED')
 """})
@@ -196,7 +197,7 @@ add("4.6", {
  "calculator": "permitted",
  "stimulus": """Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.
 
-An inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills far more than 360 bags in a day.""",
+An inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills at least 5,000 bags in a day.""",
  "parts": [
   P("What is the mean of the sampling distribution of x̄1 − x̄2?",
     C("States that the mean of the sampling distribution is μ1 − μ2 = 502 − 500 = 2 g.",
@@ -214,9 +215,12 @@ An inspector takes an independent random sample of n1 = 36 bags from Machine 1 a
       "Response cites both n1 = 36 and n2 = 30 being at least 30 (central limit theorem) as the reason.",
       "When population shapes are unknown, check that both sample sizes are at least 30 before claiming a normal shape.")),
   P("Suppose the inspector increases the sample from Machine 2 to 60 bags and keeps 36 bags from Machine 1. Calculate the new standard deviation of the sampling distribution of x̄1 − x̄2, and state whether it is smaller than, larger than, or the same as before.",
-    C("Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g and states that it is smaller than 1.354 g.",
-      "Response gives a new value near 1.19 g and states that increasing a sample size decreases the standard deviation.",
-      "Recalculate with the new sample size; a larger sample size gives a smaller standard deviation for the sampling distribution."))],
+    C("Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g.",
+      "Response gives a value near 1.19 g from the correct formula with n2 = 60.",
+      "Replace n2 with 60 in the variance of the second sample mean, add the two variances, then take the square root.", ["1.19", "1.190 g"]),
+    C("States that the new standard deviation is smaller than the original 1.354 g.",
+      "Response compares the new value with 1.354 g and states that the new value is smaller.",
+      "Compare the new value with the earlier one and say which is smaller; a larger sample gives a smaller value.", ["smaller", "decreases"]))],
  "model_answer": """(a) The mean is μ1 − μ2 = 502 − 500 = 2 g.
 
 (b) The standard deviation is √(6²/36 + 5²/30) = √(1 + 0.8333) ≈ 1.354 g.
@@ -231,6 +235,7 @@ assert abs(sd1 - 1.354) < 0.001
 sd2 = math.sqrt(6**2 / 36 + 5**2 / 60)
 assert abs(sd2 - 1.190) < 0.001 and sd2 < sd1
 assert 36 >= 30 and 30 >= 30
+assert 5000 > 10 * 60
 print('ALL_CHECKS_PASSED')
 """})
 
@@ -298,11 +303,11 @@ Technology gives about 85.1 degrees of freedom. For 95% confidence, the critical
       "Response cites both sample sizes being at least 30 as satisfying the sample data condition.",
       "For two samples, check that both n1 and n2 are at least 30 before relying on approximate normality.")),
   P("Construct a 95% confidence interval for μ1 − μ2.",
-    C("Calculates the point estimate 6.8 − 7.3 = −0.5 and the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
-      "Response gives the difference in sample means and a standard error near 0.206 hours.",
-      "Compute the point estimate in the order of the parameter, then the standard error from both sample variances over their sample sizes.", ["SE ≈ 0.21"]),
-    C("Gives the interval −0.5 ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
-      "Response gives limits near −0.91 and −0.09 hours.",
+    C("Calculates the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+      "Response shows a standard error near 0.206 hours computed from both sample variances and both sample sizes.",
+      "Add s1²/n1 and s2²/n2, then take the square root of the sum.", ["SE ≈ 0.21"]),
+    C("Gives the interval (6.8 − 7.3) ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+      "Response uses −0.5 as the point estimate, in the order group 1 minus group 2, and gives limits near −0.91 and −0.09 hours.",
       "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.", ["(−0.91, −0.09)", "(-0.91, -0.09)"])),
   P("Interpret the interval in context.",
     C("States that we are 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (phone in bed minus no phone in bed) for the two groups of students at the university.",
@@ -349,11 +354,11 @@ Technology gives about 24.0 degrees of freedom. For 90% confidence, the critical
       "Response notes that n1 and n2 are below 30 and uses the symmetric shape and absence of outliers in each group.",
       "When either sample size is under 30, check both samples for strong skewness and outliers.")),
   P("Construct a 90% confidence interval for μA − μB.",
-    C("Calculates the point estimate 4.60 − 4.15 = 0.45 kg and the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
-      "Response gives the difference in sample means and a standard error near 0.269 kg.",
-      "Compute the point estimate in the order of the parameter, then the standard error from both sample variances over their sample sizes.", ["SE ≈ 0.27"]),
-    C("Gives the interval 0.45 ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
-      "Response gives limits near −0.01 and 0.91 kg.",
+    C("Calculates the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
+      "Response shows a standard error near 0.269 kg computed from both sample variances and both sample sizes.",
+      "Add s1²/n1 and s2²/n2, then take the square root of the sum.", ["SE ≈ 0.27"]),
+    C("Gives the interval (4.60 − 4.15) ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
+      "Response uses 0.45 as the point estimate, in the order A minus B, and gives limits near −0.01 and 0.91 kg.",
       "Multiply t* by the standard error for the margin of error, then add and subtract it from the point estimate.", ["(−0.01, 0.91)", "(-0.01, 0.91)"])),
   P("Interpret the interval in context.",
     C("States that we are 90% confident that the interval from −0.01 to 0.91 kg captures the true difference in mean tomato yield per plant (fertilizer A minus fertilizer B).",
@@ -393,7 +398,7 @@ add("4.8", {
     C("Justifies the answer because 0 is in the interval, so 0 is a plausible value for the true difference.",
       "Response cites that the interval (−4.8, 1.9) contains 0 as the reason.",
       "Check whether 0 lies between the interval's limits; if it does, no difference is a plausible value.")),
-  P("Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean.",
+  P("Suppose that instead the interval had been (−6.2, −0.7) seconds. Would the interval provide convincing evidence of a difference in mean completion time? If so, state which condition has the lower mean. Justify both answers using the interval.",
     C("States that the interval would provide convincing evidence of a difference, because 0 is not in the interval.",
       "Response concludes there is convincing evidence of a difference and cites that 0 is not in (−6.2, −0.7).",
       "If 0 is not in the interval, 0 is not a plausible value, so there is convincing evidence of a difference."),
@@ -473,18 +478,18 @@ add("4.9", {
     C("Identifies a two-sample t-test for the difference between two population means.",
       "Response names a two-sample t-test for μ1 − μ2, not a paired t-test and not a z-test.",
       "Two independent samples measured on one quantitative variable call for a two-sample t-test for a difference in means.", ["two-sample t-test"])),
-  P("Verify the conditions for using this procedure.",
-    C("States that the samples are independent random samples, and that the 10% condition is met in each group because 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
-      "Response states random and independent samples and compares each population size with 10 times its sample size.",
-      "Check randomness and independence of the two samples, then compare each population size with 10 times its sample size."),
-    C("States that the sample data condition is met, because both sample sizes (60 and 48) are at least 30 and the samples are not strongly skewed with no outliers.",
-      "Response cites both sample sizes being at least 30, with no strong skewness or outliers.",
+  P("The samples are independent random samples. Verify the 10% condition for each group and the sample data condition for using this procedure.",
+    C("States that the 10% condition is met in each group: 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+      "Response compares each population size with 10 times the corresponding sample size (or each sample size with 10% of its population size).",
+      "Check each group separately by comparing its sample size with 10% of its population size.", ["60 < 700", "48 < 450"]),
+    C("States that the sample data condition is met because both sample sizes (60 and 48) are at least 30.",
+      "Response cites both n1 = 60 and n2 = 48 being at least 30.",
       "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal."))],
  "model_answer": """(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.
 
 (b) A two-sample t-test for the difference between two population means is appropriate.
 
-(c) Random and independent: the two samples are independent random samples from the two groups. 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480. Sample data: both sample sizes (60 and 48) are at least 30, and the samples are not strongly skewed with no outliers, so the sampling distribution of the difference in sample means is approximately normal.""",
+(c) 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480, so the condition is met for both groups. Sample data: both sample sizes (60 and 48) are at least 30, so the sampling distribution of the difference in sample means is approximately normal.""",
  "verification_python": """assert 10 * 60 == 600 and 7000 > 600
 assert 10 * 48 == 480 and 4500 > 480
 assert 60 >= 30 and 48 >= 30
@@ -495,16 +500,16 @@ print('ALL_CHECKS_PASSED')
 add("4.9", {
  "title": "Setting Up a Test for a New Recovery Drink in a Cycling Experiment",
  "calculator": "not_applicable",
- "stimulus": """A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.""",
+ "stimulus": """A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12, without matching them on any characteristic. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.""",
  "parts": [
   P("Explain why a two-sample procedure is appropriate here instead of a matched-pairs procedure.",
-    C("Explains that each cyclist is in only one group and receives only one drink, so there is no pairing between the groups, and the two groups are independent.",
-      "Response states that different cyclists are in the two groups, so the data are two independent samples, not pairs.",
-      "Check whether the same individuals receive both treatments; if each is in one group only, use a two-sample procedure.")),
+    C("Explains that there is no pairing: each cyclist is in only one group and was not matched with a cyclist in the other group, so the two groups are independent.",
+      "Response states that no individual is measured twice and no cyclists were matched across the groups, so the data are two independent samples.",
+      "Check for pairing: the same individual measured twice, or deliberately matched individuals; if neither, use a two-sample procedure.")),
   P("State the null and alternative hypotheses for the scientist's test, defining any parameters you use.",
-    C("Defines μ1 as the true mean 20 km time (in minutes) of cyclists after the new recovery drink and μ2 as the true mean time of cyclists after the standard recovery drink.",
-      "Response defines both parameters as population means for the two treatments, in context.",
-      "Define each parameter as a true mean time for one treatment, in context, with units."),
+    C("Defines the parameters in context: μ1 and μ2 as the true mean 20 km times (in minutes) after the new drink and the standard drink, or one parameter μ1 − μ2 as the true difference in mean times.",
+      "Response defines either both population means or their difference as population parameters in context, with the order of subtraction if a difference is used.",
+      "Define each parameter as a true mean time for one treatment, or the difference of the two, in context with units."),
     C("States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
       "Response writes H0 as no difference between the two true mean times.",
       "Write H0 as the two true means being equal, which is a difference of 0."),
