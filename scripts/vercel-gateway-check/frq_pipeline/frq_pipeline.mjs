@@ -38,7 +38,8 @@ function loadInputs(batch) {
     items: Object.fromEntries(seedData.items.map((x) => [x.content_key, x])), exemplars: seedData.exemplars };
 }
 const U13 = { ap_physics_2: [9, 10, 11], ap_physics_c_em: [8, 9, 10] };
-const u13 = (sk) => U13[sk] ?? [1, 2, 3];
+const MAX_UNIT = Number(arg('max-unit', '0')); // 0 = the Units 1-3 default; N = units 1..N (used for the Units 1-4 zero-topic batch)
+const u13 = (sk) => (MAX_UNIT ? Array.from({ length: MAX_UNIT }, (_, i) => i + 1) : (U13[sk] ?? [1, 2, 3]));
 function unitTopicList(IN, sk) {
   return IN.tax.filter((t) => t.sk === sk && u13(sk).includes(t.u)).map((t) => `${t.c} ${t.t} (Unit ${t.u}: ${t.ut})`).join('\n');
 }

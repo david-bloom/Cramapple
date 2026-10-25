@@ -1,0 +1,78 @@
+{
+ "id": "ap_statistics__4.9__2",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.9",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Means",
+  "existing": [],
+  "need": 2
+ },
+ "n": 2,
+ "status": "pending_checks",
+ "candidates": [],
+ "given": {
+  "item": {
+   "title": "Setting Up a Test for a New Recovery Drink in a Cycling Experiment",
+   "calculator": "not_applicable",
+   "stimulus": "A sports scientist wants to test whether a new recovery drink lowers the mean time needed to complete a 20 km cycling time trial. She randomly assigns 24 cyclists to two groups of 12. Group 1 drinks the new recovery drink and Group 2 drinks the standard recovery drink after a hard workout. The next day, each cyclist rides a 20 km time trial, and the scientist records the time in minutes. The times in each group are roughly symmetric with no outliers.",
+   "parts": [
+    {
+     "prompt": "Explain why a two-sample procedure is appropriate here instead of a matched-pairs procedure.",
+     "criteria": [
+      {
+       "text": "Explains that each cyclist is in only one group and receives only one drink, so there is no pairing between the groups, and the two groups are independent.",
+       "evidence": "Response states that different cyclists are in the two groups, so the data are two independent samples, not pairs.",
+       "fix": "Check whether the same individuals receive both treatments; if each is in one group only, use a two-sample procedure.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State the null and alternative hypotheses for the scientist's test, defining any parameters you use.",
+     "criteria": [
+      {
+       "text": "Defines μ1 as the true mean 20 km time (in minutes) of cyclists after the new recovery drink and μ2 as the true mean time of cyclists after the standard recovery drink.",
+       "evidence": "Response defines both parameters as population means for the two treatments, in context.",
+       "fix": "Define each parameter as a true mean time for one treatment, in context, with units.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+       "evidence": "Response writes H0 as no difference between the two true mean times.",
+       "fix": "Write H0 as the two true means being equal, which is a difference of 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the alternative hypothesis Ha: μ1 − μ2 < 0 (equivalently μ1 < μ2).",
+       "evidence": "Response writes Ha with a less-than sign, because the new drink is expected to lower the mean time.",
+       "fix": "Match Ha to the claim: a lower mean time with the new drink means the first mean is less than the second.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for using a two-sample t procedure.",
+     "criteria": [
+      {
+       "text": "States that the random condition is met because the cyclists were randomly assigned to the two groups.",
+       "evidence": "Response states that random assignment of cyclists to the two drinks satisfies the random condition.",
+       "fix": "In an experiment, the random condition is met by random assignment of subjects to treatments; state what was randomized.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that both sample sizes (12 and 12) are less than 30, but the times in each group are roughly symmetric with no outliers, so the sample data condition is met.",
+       "evidence": "Response notes both n are below 30 and uses the symmetric shape and absence of outliers in each group.",
+       "fix": "When a sample size is under 30, check each group for strong skewness and outliers before using t procedures.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Each cyclist is in only one group and drinks only one of the two drinks, so the two groups are independent and there is no pairing between them. A two-sample procedure is appropriate.\n\n(b) Let μ1 be the true mean 20 km time trial time, in minutes, for cyclists after the new recovery drink, and let μ2 be the true mean time for cyclists after the standard recovery drink. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 < 0.\n\n(c) Random: the 24 cyclists were randomly assigned to the two groups. Sample data: both sample sizes (12 and 12) are less than 30, but the times in each group are roughly symmetric with no outliers, so it is reasonable to use a two-sample t procedure.",
+   "verification_python": "assert 12 + 12 == 24\nassert 12 < 30\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "id": "ap_statistics__4.9__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.9",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Means",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "pending_checks",
+ "candidates": [],
+ "given": {
+  "item": {
+   "title": "Setting Up a Test Comparing Mean GPA of On-Campus and Commuting Students",
+   "calculator": "not_applicable",
+   "stimulus": "A university registrar wants to know whether the mean GPA of students who live on campus differs from the mean GPA of students who commute. About 7,000 students live on campus and about 4,500 commute. She takes an independent random sample of 60 on-campus students and a separate independent random sample of 48 commuting students and records each student's GPA. The GPAs in each sample are not strongly skewed and there are no outliers.",
+   "parts": [
+    {
+     "prompt": "State the null and alternative hypotheses for the registrar's test, defining any parameters you use.",
+     "criteria": [
+      {
+       "text": "Defines μ1 as the true mean GPA of all on-campus students and μ2 as the true mean GPA of all commuting students at the university.",
+       "evidence": "Response defines both parameters as population means in context for the two groups.",
+       "fix": "Define each parameter as a population mean and name which group it describes.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+       "evidence": "Response writes H0 as no difference between the two population means.",
+       "fix": "Write H0 as the two population means being equal, which is a difference of 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States the alternative hypothesis Ha: μ1 − μ2 ≠ 0 (equivalently μ1 ≠ μ2).",
+       "evidence": "Response writes a two-sided Ha, because the registrar wants to know whether the means differ.",
+       "fix": "Match Ha to the question: asking whether the means differ, with no direction, calls for a not-equal alternative.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Name the inference procedure that is appropriate for these hypotheses.",
+     "criteria": [
+      {
+       "text": "Identifies a two-sample t-test for the difference between two population means.",
+       "evidence": "Response names a two-sample t-test for μ1 − μ2, not a paired t-test and not a z-test.",
+       "fix": "Two independent samples measured on one quantitative variable call for a two-sample t-test for a difference in means.",
+       "accepted_variants": [
+        "two-sample t-test"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Verify the conditions for using this procedure.",
+     "criteria": [
+      {
+       "text": "States that the samples are independent random samples, and that the 10% condition is met in each group because 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+       "evidence": "Response states random and independent samples and compares each population size with 10 times its sample size.",
+       "fix": "Check randomness and independence of the two samples, then compare each population size with 10 times its sample size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the sample data condition is met, because both sample sizes (60 and 48) are at least 30 and the samples are not strongly skewed with no outliers.",
+       "evidence": "Response cites both sample sizes being at least 30, with no strong skewness or outliers.",
+       "fix": "Compare both sample sizes with 30; when both are at least 30, the sampling distribution of the difference is approximately normal.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Let μ1 be the true mean GPA of all on-campus students at the university, and let μ2 be the true mean GPA of all commuting students at the university. H0: μ1 − μ2 = 0. Ha: μ1 − μ2 ≠ 0.\n\n(b) A two-sample t-test for the difference between two population means is appropriate.\n\n(c) Random and independent: the two samples are independent random samples from the two groups. 10%: 7,000 is more than 10 × 60 = 600, and 4,500 is more than 10 × 48 = 480. Sample data: both sample sizes (60 and 48) are at least 30, and the samples are not strongly skewed with no outliers, so the sampling distribution of the difference in sample means is approximately normal.",
+   "verification_python": "assert 10 * 60 == 600 and 7000 > 600\nassert 10 * 48 == 480 and 4500 > 480\nassert 60 >= 30 and 48 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+}

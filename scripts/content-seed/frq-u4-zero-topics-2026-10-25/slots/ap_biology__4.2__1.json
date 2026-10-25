@@ -1,0 +1,160 @@
+{
+ "id": "ap_biology__4.2__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 4,
+  "unit_title": "Cell Communication and Cell Cycle",
+  "topic_code": "4.2",
+  "topic_title": "Introduction to Signal Transduction",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:44:01.954Z",
+   "source": "given",
+   "item": {
+    "title": "Tracing a Hormone Signal Through a cAMP Pathway in Liver Cells",
+    "calculator": "not_applicable",
+    "stimulus": "Hormone H is released into the blood and affects liver cells. Liver cells have a receptor protein for hormone H in the plasma membrane. When hormone H binds, the receptor activates a membrane enzyme that makes the second messenger cAMP. cAMP activates a protein kinase, and the protein kinase starts a series of phosphorylation steps that ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen.\n\nResearchers treated separate samples of liver cells and measured cAMP concentration and glycogen phosphorylase activity 10 minutes later.\n\nTreatment | cAMP (relative units) | Enzyme activity (relative units)\n1. No hormone H | 2 | 5\n2. Hormone H added | 48 | 92\n3. Hormone H added together with a molecule that occupies the receptor's binding site but does not activate the receptor | 3 | 6\n4. A membrane-permeable form of cAMP added, no hormone H | 50 | 90",
+    "parts": [
+     {
+      "prompt": "Identify the second messenger in this pathway. Then explain what treatment 4 shows about where cAMP acts in the pathway.",
+      "criteria": [
+       {
+        "text": "Identifies cAMP as the second messenger in the pathway.",
+        "evidence": "Response names cAMP (cyclic AMP) as the second messenger.",
+        "fix": "Find the small molecule that the receptor-activated enzyme produces; that molecule is the second messenger.",
+        "accepted_variants": [
+         "cyclic AMP"
+        ]
+       },
+       {
+        "text": "Explains that in treatment 4 cAMP alone, without hormone H, produced high enzyme activity (90), so cAMP acts after the receptor and is enough to activate the rest of the pathway.",
+        "evidence": "Response cites high enzyme activity with cAMP added and no hormone, and concludes cAMP acts downstream of the receptor.",
+        "fix": "Compare a treatment with no hormone to the control; if the response still occurs, the added molecule acts downstream of the receptor.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain what treatment 3 shows about the role of the receptor in starting this pathway.",
+      "criteria": [
+       {
+        "text": "Explains that when the binding site was occupied by another molecule, cAMP (3) and enzyme activity (6) stayed near the control, so the receptor must be activated by hormone H binding for the pathway to start.",
+        "evidence": "Response states that blocking hormone H from activating the receptor prevented the cAMP and enzyme responses, so receptor activation is required to start the pathway.",
+        "fix": "Link the lack of response to the receptor step: no ligand binding means the receptor stays inactive and the pathway does not start.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Protein kinases in this pathway add phosphate groups to other proteins. Describe how adding a phosphate group affects the target protein, and explain how a series of these steps can amplify the signal from one hormone molecule.",
+      "criteria": [
+       {
+        "text": "Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating it).",
+        "evidence": "Response states that adding a phosphate group changes the target protein's shape or activity.",
+        "fix": "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.",
+        "accepted_variants": [
+         "changes conformation"
+        ]
+       },
+       {
+        "text": "Explains that each activated enzyme can activate many molecules of the next component, so one hormone molecule leads to many activated enzymes at the end of the cascade.",
+        "evidence": "Response states that each step activates multiple molecules of the next step, so the response is larger than the original signal.",
+        "fix": "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The second messenger is cAMP. In treatment 4, adding a membrane-permeable form of cAMP with no hormone H produced high enzyme activity (90), almost the same as treatment 2. So cAMP acts after the receptor in the pathway and is enough to activate the rest of the pathway without the hormone.\n\n(b) In treatment 3 the receptor's binding site was occupied by a molecule that does not activate it. cAMP (3) and enzyme activity (6) stayed near the no-hormone control. This shows that the receptor must be activated by hormone H binding in order to start the pathway.\n\n(c) Adding a phosphate group to a protein changes its shape, which changes its activity, for example by switching an enzyme on. In a cascade, each activated enzyme can activate many molecules of the next component. One hormone molecule therefore leads to many activated enzyme molecules at the end, so the signal is amplified.",
+    "verification_python": "# Biology reading check: values quoted in the rubric come from the table\ntable = {1: (2, 5), 2: (48, 92), 3: (3, 6), 4: (50, 90)}\nassert table[4][1] >= 0.9 * table[2][1] - 3\nassert table[3][0] - table[1][0] <= 2 and table[3][1] - table[1][1] <= 2\nassert table[4][1] == 90 and table[3] == (3, 6)\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "4.3": 6
+    },
+    "onTarget": 0,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Tracing a Hormone Signal Through a cAMP Pathway in Liver Cells",
+   "calculator": "not_applicable",
+   "stimulus": "Hormone H is released into the blood and affects liver cells. Liver cells have a receptor protein for hormone H in the plasma membrane. When hormone H binds, the receptor activates a membrane enzyme that makes the second messenger cAMP. cAMP activates a protein kinase, and the protein kinase starts a series of phosphorylation steps that ends with the activation of glycogen phosphorylase, an enzyme that breaks down glycogen.\n\nResearchers treated separate samples of liver cells and measured cAMP concentration and glycogen phosphorylase activity 10 minutes later.\n\nTreatment | cAMP (relative units) | Enzyme activity (relative units)\n1. No hormone H | 2 | 5\n2. Hormone H added | 48 | 92\n3. Hormone H added together with a molecule that occupies the receptor's binding site but does not activate the receptor | 3 | 6\n4. A membrane-permeable form of cAMP added, no hormone H | 50 | 90",
+   "parts": [
+    {
+     "prompt": "Identify the second messenger in this pathway. Then explain what treatment 4 shows about where cAMP acts in the pathway.",
+     "criteria": [
+      {
+       "text": "Identifies cAMP as the second messenger in the pathway.",
+       "evidence": "Response names cAMP (cyclic AMP) as the second messenger.",
+       "fix": "Find the small molecule that the receptor-activated enzyme produces; that molecule is the second messenger.",
+       "accepted_variants": [
+        "cyclic AMP"
+       ]
+      },
+      {
+       "text": "Explains that in treatment 4 cAMP alone, without hormone H, produced high enzyme activity (90), so cAMP acts after the receptor and is enough to activate the rest of the pathway.",
+       "evidence": "Response cites high enzyme activity with cAMP added and no hormone, and concludes cAMP acts downstream of the receptor.",
+       "fix": "Compare a treatment with no hormone to the control; if the response still occurs, the added molecule acts downstream of the receptor.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain what treatment 3 shows about the role of the receptor in starting this pathway.",
+     "criteria": [
+      {
+       "text": "Explains that when the binding site was occupied by another molecule, cAMP (3) and enzyme activity (6) stayed near the control, so the receptor must be activated by hormone H binding for the pathway to start.",
+       "evidence": "Response states that blocking hormone H from activating the receptor prevented the cAMP and enzyme responses, so receptor activation is required to start the pathway.",
+       "fix": "Link the lack of response to the receptor step: no ligand binding means the receptor stays inactive and the pathway does not start.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Protein kinases in this pathway add phosphate groups to other proteins. Describe how adding a phosphate group affects the target protein, and explain how a series of these steps can amplify the signal from one hormone molecule.",
+     "criteria": [
+      {
+       "text": "Describes that phosphorylation changes the shape of the target protein, which changes its activity (for example, activating it).",
+       "evidence": "Response states that adding a phosphate group changes the target protein's shape or activity.",
+       "fix": "Say what phosphorylation does to the target: it changes the protein's shape, and that change switches its activity on or off.",
+       "accepted_variants": [
+        "changes conformation"
+       ]
+      },
+      {
+       "text": "Explains that each activated enzyme can activate many molecules of the next component, so one hormone molecule leads to many activated enzymes at the end of the cascade.",
+       "evidence": "Response states that each step activates multiple molecules of the next step, so the response is larger than the original signal.",
+       "fix": "Explain amplification by counting: one activated molecule at a step activates many molecules at the next step.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The second messenger is cAMP. In treatment 4, adding a membrane-permeable form of cAMP with no hormone H produced high enzyme activity (90), almost the same as treatment 2. So cAMP acts after the receptor in the pathway and is enough to activate the rest of the pathway without the hormone.\n\n(b) In treatment 3 the receptor's binding site was occupied by a molecule that does not activate it. cAMP (3) and enzyme activity (6) stayed near the no-hormone control. This shows that the receptor must be activated by hormone H binding in order to start the pathway.\n\n(c) Adding a phosphate group to a protein changes its shape, which changes its activity, for example by switching an enzyme on. In a cascade, each activated enzyme can activate many molecules of the next component. One hormone molecule therefore leads to many activated enzyme molecules at the end, so the signal is amplified.",
+   "verification_python": "# Biology reading check: values quoted in the rubric come from the table\ntable = {1: (2, 5), 2: (48, 92), 3: (3, 6), 4: (50, 90)}\nassert table[4][1] >= 0.9 * table[2][1] - 3\nassert table[3][0] - table[1][0] <= 2 and table[3][1] - table[1][1] <= 2\nassert table[4][1] == 90 and table[3] == (3, 6)\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+}

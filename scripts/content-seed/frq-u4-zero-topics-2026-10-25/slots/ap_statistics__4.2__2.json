@@ -1,0 +1,335 @@
+{
+ "id": "ap_statistics__4.2__2",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.2",
+  "topic_title": "Constructing a Confidence Interval for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 2
+ },
+ "n": 2,
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:48:04.187Z",
+   "source": "given",
+   "item": {
+    "title": "Confidence Interval for a Mean Change in Quiz Scores",
+    "calculator": "permitted",
+    "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 students from her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
+    "parts": [
+     {
+      "prompt": "Explain why the teacher should analyze the 14 differences with a one-sample t procedure instead of treating the before scores and the after scores as two independent samples.",
+      "criteria": [
+       {
+        "text": "Explains that each student provides both a before score and an after score, so the two sets of scores are paired (not independent), and analyzing the differences accounts for the pairing.",
+        "evidence": "Response states that the data are matched pairs because each student is measured twice, and that the differences are analyzed as one sample.",
+        "fix": "Check whether the same individuals appear in both sets of data; if so, the data are paired and you analyze the differences.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Define the parameter of interest and construct a 90% confidence interval for it.",
+      "criteria": [
+       {
+        "text": "Defines μd as the true mean difference (score after − score before) in quiz scores for all students at the school.",
+        "evidence": "Response defines the parameter as a population mean difference, states the order of subtraction, and states the population of students.",
+        "fix": "Define the parameter as a population mean of the differences, with the direction of subtraction and the population named.",
+        "accepted_variants": [
+         "μd = mean change in quiz score for all students at her school"
+        ]
+       },
+       {
+        "text": "Computes the interval 3.9 ± 1.771(5.1/√14), which is approximately (1.49, 6.31) points.",
+        "evidence": "Response shows the t interval formula with correct values and gives limits near 1.49 and 6.31.",
+        "fix": "Use the mean of the differences, t*, and s divided by the square root of 14; then add and subtract the margin of error.",
+        "accepted_variants": [
+         "(1.5, 6.3)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in context, and interpret the confidence level.",
+      "criteria": [
+       {
+        "text": "States that we are 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school.",
+        "evidence": "Response interprets the interval as capturing a population mean difference, in context, with the interval and 90% confidence stated.",
+        "fix": "Interpret the interval by naming the parameter in context, including the direction of the difference and its units.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Interprets the confidence level: if the teacher repeated the sampling process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
+        "evidence": "Response describes the long-run proportion of intervals from repeated samples that capture the true parameter, with a value of about 90%.",
+        "fix": "Describe the method, not one interval: in many repeated samples, about 90% of the intervals made this way capture the parameter.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Each student takes a quiz before and after using the app, so the before and after scores for a student are paired and are not independent. The teacher should compute each student's difference and use a one-sample t interval on those 14 differences.\n\n(b) Let μd be the true mean difference (score after − score before) in quiz scores for all students at the school. The interval is 3.9 ± 1.771(5.1/√14) = 3.9 ± 2.41, which is approximately (1.49, 6.31) points.\n\n(c) I am 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school. If she repeated this process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
+    "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 5,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Although 3 of 5 points assess Topic 4.2, part (c), criteria c1 and c2, tests confidence-interval and confidence-level interpretations assigned to later Topic 4.3.",
+       "well_posed: Part (b) requires a population mean confidence interval, but the school enrollment is not given. The required 10% condition cannot be verified for sampling 14 students without replacement. State that the school has at least 140 students.",
+       "solution: The independent solution agrees with the rubric's paired-data reasoning, parameter, interval calculation, and interpretations. However, the interval's justification requires assuming at least 140 students at the school; the rubric does not acknowledge this unverified condition. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The school’s enrollment is not provided, so the usual 10% condition for independence when sampling without replacement cannot be verified. The interval above assumes the school has at least 140 students.",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Although 3 of 5 points assess Topic 4.2, part (c), criteria c1 and c2, tests confidence-interval and confidence-level interpretations assigned to later Topic 4.3."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (b) requires a population mean confidence interval, but the school enrollment is not given. The required 10% condition cannot be verified for sampling 14 students without replacement. State that the school has at least 140 students."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's paired-data reasoning, parameter, interval calculation, and interpretations. However, the interval's justification requires assuming at least 140 students at the school; the rubric does not acknowledge this unverified condition. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (b): The school's enrollment is not provided, so the 10% condition cannot be verified. The stated interval requires at least 140 students when sampling 14 students without replacement; a careful AP student cannot establish that from the setup.",
+       "solution: The pairing explanation, parameter definition, numerical interval (approximately 1.49 to 6.31 points), and interpretations agree with the rubric. However, the independent solution makes the interval conditional on enrollment of at least 140 students, whereas the setup and rubric leave that necessary condition unresolved."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The school's enrollment is not provided, so the 10% condition for sampling without replacement cannot be verified. The interval assumes the school has at least 140 students and that students' differences are otherwise independent.",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (b): The school's enrollment is not provided, so the 10% condition cannot be verified. The stated interval requires at least 140 students when sampling 14 students without replacement; a careful AP student cannot establish that from the setup."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The pairing explanation, parameter definition, numerical interval (approximately 1.49 to 6.31 points), and interpretations agree with the rubric. However, the independent solution makes the interval conditional on enrollment of at least 140 students, whereas the setup and rubric leave that necessary condition unresolved.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Confidence Interval for a Mean Change in Quiz Scores",
+   "calculator": "permitted",
+   "stimulus": "A teacher wants to estimate the mean change in quiz scores when students use a review app. She randomly selects 14 students from her school. Each student takes a quiz on a topic, studies the topic with the app for a week, and then takes a different quiz of equal difficulty on the same topic. For each student she computes the difference d = (score after) − (score before).\n\nThe 14 differences have a mean of 3.9 points and a standard deviation of 5.1 points. Their distribution has no strong skewness and no outliers.\n\nFor 90% confidence with 13 degrees of freedom, the critical value is t* = 1.771.",
+   "parts": [
+    {
+     "prompt": "Explain why the teacher should analyze the 14 differences with a one-sample t procedure instead of treating the before scores and the after scores as two independent samples.",
+     "criteria": [
+      {
+       "text": "Explains that each student provides both a before score and an after score, so the two sets of scores are paired (not independent), and analyzing the differences accounts for the pairing.",
+       "evidence": "Response states that the data are matched pairs because each student is measured twice, and that the differences are analyzed as one sample.",
+       "fix": "Check whether the same individuals appear in both sets of data; if so, the data are paired and you analyze the differences.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Define the parameter of interest and construct a 90% confidence interval for it.",
+     "criteria": [
+      {
+       "text": "Defines μd as the true mean difference (score after − score before) in quiz scores for all students at the school.",
+       "evidence": "Response defines the parameter as a population mean difference, states the order of subtraction, and states the population of students.",
+       "fix": "Define the parameter as a population mean of the differences, with the direction of subtraction and the population named.",
+       "accepted_variants": [
+        "μd = mean change in quiz score for all students at her school"
+       ]
+      },
+      {
+       "text": "Computes the interval 3.9 ± 1.771(5.1/√14), which is approximately (1.49, 6.31) points.",
+       "evidence": "Response shows the t interval formula with correct values and gives limits near 1.49 and 6.31.",
+       "fix": "Use the mean of the differences, t*, and s divided by the square root of 14; then add and subtract the margin of error.",
+       "accepted_variants": [
+        "(1.5, 6.3)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the interval in context, and interpret the confidence level.",
+     "criteria": [
+      {
+       "text": "States that we are 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school.",
+       "evidence": "Response interprets the interval as capturing a population mean difference, in context, with the interval and 90% confidence stated.",
+       "fix": "Interpret the interval by naming the parameter in context, including the direction of the difference and its units.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the confidence level: if the teacher repeated the sampling process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
+       "evidence": "Response describes the long-run proportion of intervals from repeated samples that capture the true parameter, with a value of about 90%.",
+       "fix": "Describe the method, not one interval: in many repeated samples, about 90% of the intervals made this way capture the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Each student takes a quiz before and after using the app, so the before and after scores for a student are paired and are not independent. The teacher should compute each student's difference and use a one-sample t interval on those 14 differences.\n\n(b) Let μd be the true mean difference (score after − score before) in quiz scores for all students at the school. The interval is 3.9 ± 1.771(5.1/√14) = 3.9 ± 2.41, which is approximately (1.49, 6.31) points.\n\n(c) I am 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school. If she repeated this process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
+   "verification_python": "\nfrom mpmath import mp, mpf, betainc, findroot\nmp.dps = 25\ndef _cdf(t, df):\n    x = df / (df + t * t)\n    p = betainc(df / 2, mpf(1) / 2, 0, x, regularized=True) / 2\n    return 1 - p if t > 0 else p\ndef tstar(conf, df):\n    q = 1 - (1 - mpf(conf)) / 2\n    return float(findroot(lambda t: _cdf(t, df) - q, 2))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1\n    b = s2 * s2 / n2\n    return (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\n\nimport math\nn, d, s = 14, 3.9, 5.1\nassert abs(tstar(0.90, n - 1) - 1.771) < 0.001\nse = s / math.sqrt(n)\nme = 1.771 * se\nassert abs(me - 2.41) < 0.01\nassert abs((d - me) - 1.49) < 0.01 and abs((d + me) - 6.31) < 0.01\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+}

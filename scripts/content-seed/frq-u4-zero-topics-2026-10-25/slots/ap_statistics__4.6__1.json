@@ -1,0 +1,406 @@
+{
+ "id": "ap_statistics__4.6__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.6",
+  "topic_title": "Sampling Distributions for the Difference Between Two Sample Means",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "given_flagged",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-25T13:46:59.669Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of the Difference in Mean Bag Weights",
+    "calculator": "permitted",
+    "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills far more than 360 bags in a day.",
+    "parts": [
+     {
+      "prompt": "What is the mean of the sampling distribution of x̄1 − x̄2?",
+      "criteria": [
+       {
+        "text": "States that the mean of the sampling distribution is μ1 − μ2 = 502 − 500 = 2 g.",
+        "evidence": "Response gives the mean as 2 g, found by subtracting the two population means in the order x̄1 − x̄2.",
+        "fix": "The mean of the sampling distribution of x̄1 − x̄2 is the difference of the population means, taken in the same order.",
+        "accepted_variants": [
+         "2",
+         "2 g"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the standard deviation of the sampling distribution of x̄1 − x̄2.",
+      "criteria": [
+       {
+        "text": "Calculates the standard deviation as √(6²/36 + 5²/30) ≈ 1.354 g.",
+        "evidence": "Response adds the two variances of the sample means before taking the square root, and gives a value near 1.35 g.",
+        "fix": "Add σ1²/n1 and σ2²/n2 first, then take the square root; do not subtract or add standard deviations directly.",
+        "accepted_variants": [
+         "1.35",
+         "1.354 g"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the shape of the sampling distribution of x̄1 − x̄2, and justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the sampling distribution of x̄1 − x̄2 is approximately normal.",
+        "evidence": "Response states the shape is approximately normal.",
+        "fix": "State the shape of the sampling distribution of the difference, not of the population distributions.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Justifies the shape because both sample sizes (36 and 30) are at least 30, so the sampling distribution is approximately normal regardless of the population shapes.",
+        "evidence": "Response cites both n1 = 36 and n2 = 30 being at least 30 (central limit theorem) as the reason.",
+        "fix": "When population shapes are unknown, check that both sample sizes are at least 30 before claiming a normal shape.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Suppose the inspector increases the sample from Machine 2 to 60 bags and keeps 36 bags from Machine 1. Calculate the new standard deviation of the sampling distribution of x̄1 − x̄2, and state whether it is smaller than, larger than, or the same as before.",
+      "criteria": [
+       {
+        "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g and states that it is smaller than 1.354 g.",
+        "evidence": "Response gives a new value near 1.19 g and states that increasing a sample size decreases the standard deviation.",
+        "fix": "Recalculate with the new sample size; a larger sample size gives a smaller standard deviation for the sampling distribution.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The mean is μ1 − μ2 = 502 − 500 = 2 g.\n\n(b) The standard deviation is √(6²/36 + 5²/30) = √(1 + 0.8333) ≈ 1.354 g.\n\n(c) The sampling distribution of x̄1 − x̄2 is approximately normal. Both sample sizes, 36 and 30, are at least 30, so the central limit theorem applies to each sample mean and the difference is approximately normal even though the shapes of the populations are not known.\n\n(d) The new standard deviation is √(6²/36 + 5²/60) = √(1 + 0.4167) ≈ 1.190 g. This is smaller than 1.354 g, because a larger sample size reduces the variability of the sample mean.",
+    "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     4
+    ],
+    "unitCount": {
+     "2": 5,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 combines two separately observable elements—calculating the new standard deviation and comparing it with the original—into one point. Its evidence also requires stating that increasing sample size decreases standard deviation, although the part requests only a calculation and comparison, not an explanation. Score the calculation and comparison separately, and accept 'smaller than before' without requiring a general explanation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 combines two separately observable elements—calculating the new standard deviation and comparing it with the original—into one point. Its evidence also requires stating that increasing sample size decreases standard deviation, although the part requests only a calculation and comparison, not an explanation. Score the calculation and comparison separately, and accept 'smaller than before' without requiring a general explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d): If bags are sampled without replacement from daily output, n2 = 60 requires a population of at least 600 bags. 'Far more than 360' does not unambiguously guarantee this. Specify at least 600 bags per machine or explicitly state that sampled bag weights are independent.",
+       "rubric_points: Criterion d1 combines two separately observable elements: calculating the new standard deviation and comparing it with the original. Its evidence also requires explaining the effect of increasing sample size, although part (d) asks only for a calculation and comparison. Separate the calculation and comparison points, and remove the unrequested explanation requirement.",
+       "solution: The numerical answers agree: (a) 2 g; (b) √(11/6) ≈ 1.354 g; (c) approximately normal because both sample sizes are at least 30; (d) √(17/12) ≈ 1.190 g, smaller than before. However, criterion d1 requires a causal explanation beyond the requested comparison. The intended part (d) calculation also needs an unambiguous independence or 10% condition."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The intended calculations use independent bag weights, or the usual approximation for sampling a small fraction of each machine’s output. If sampling without replacement from a finite daily output, part (d) requires at least 600 bags from Machine 2 to meet the 10% condition. The phrase “far more than 360” presumably intends a sufficiently large output, but does not give that precise lower bound.",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d): If bags are sampled without replacement from daily output, n2 = 60 requires a population of at least 600 bags. 'Far more than 360' does not unambiguously guarantee this. Specify at least 600 bags per machine or explicitly state that sampled bag weights are independent."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 combines two separately observable elements: calculating the new standard deviation and comparing it with the original. Its evidence also requires explaining the effect of increasing sample size, although part (d) asks only for a calculation and comparison. Separate the calculation and comparison points, and remove the unrequested explanation requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical answers agree: (a) 2 g; (b) √(11/6) ≈ 1.354 g; (c) approximately normal because both sample sizes are at least 30; (d) √(17/12) ≈ 1.190 g, smaller than before. However, criterion d1 requires a causal explanation beyond the requested comparison. The intended part (d) calculation also needs an unambiguous independence or 10% condition.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) increases n2 to 60, so the 10% condition for sampling without replacement requires Machine 2 to produce at least 600 bags, but the setup only states each machine fills far more than 360 bags, leaving the given information insufficient."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (d) is slightly ambiguous: with n2 = 60, the usual 10% condition would require Machine 2 to produce more than 600 bags daily, but the setup says only 'far more than 360.' I assumed the population remains large enough for the standard sampling-distribution formula; otherwise a finite population correction would be needed.",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) increases n2 to 60, so the 10% condition for sampling without replacement requires Machine 2 to produce at least 600 bags, but the setup only states each machine fills far more than 360 bags, leaving the given information insufficient."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 combines two distinct observable elements (the calculated new standard deviation and the statement that it is smaller) into a single 1-point criterion. Split them into separate criteria so the calculation and the comparison each earn a point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 combines two distinct observable elements (the calculated new standard deviation and the statement that it is smaller) into a single 1-point criterion. Split them into separate criteria so the calculation and the comparison each earn a point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Sampling Distribution of the Difference in Mean Bag Weights",
+   "calculator": "permitted",
+   "stimulus": "Two machines fill bags of rice. Machine 1 fills bags with a mean weight of μ1 = 502 g and a standard deviation of σ1 = 6 g. Machine 2 fills bags with a mean weight of μ2 = 500 g and a standard deviation of σ2 = 5 g. The shapes of the two distributions of bag weights are not known.\n\nAn inspector takes an independent random sample of n1 = 36 bags from Machine 1 and an independent random sample of n2 = 30 bags from Machine 2, and computes the difference in the sample means, x̄1 − x̄2. Each machine fills far more than 360 bags in a day.",
+   "parts": [
+    {
+     "prompt": "What is the mean of the sampling distribution of x̄1 − x̄2?",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution is μ1 − μ2 = 502 − 500 = 2 g.",
+       "evidence": "Response gives the mean as 2 g, found by subtracting the two population means in the order x̄1 − x̄2.",
+       "fix": "The mean of the sampling distribution of x̄1 − x̄2 is the difference of the population means, taken in the same order.",
+       "accepted_variants": [
+        "2",
+        "2 g"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the standard deviation of the sampling distribution of x̄1 − x̄2.",
+     "criteria": [
+      {
+       "text": "Calculates the standard deviation as √(6²/36 + 5²/30) ≈ 1.354 g.",
+       "evidence": "Response adds the two variances of the sample means before taking the square root, and gives a value near 1.35 g.",
+       "fix": "Add σ1²/n1 and σ2²/n2 first, then take the square root; do not subtract or add standard deviations directly.",
+       "accepted_variants": [
+        "1.35",
+        "1.354 g"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the shape of the sampling distribution of x̄1 − x̄2, and justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄1 − x̄2 is approximately normal.",
+       "evidence": "Response states the shape is approximately normal.",
+       "fix": "State the shape of the sampling distribution of the difference, not of the population distributions.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Justifies the shape because both sample sizes (36 and 30) are at least 30, so the sampling distribution is approximately normal regardless of the population shapes.",
+       "evidence": "Response cites both n1 = 36 and n2 = 30 being at least 30 (central limit theorem) as the reason.",
+       "fix": "When population shapes are unknown, check that both sample sizes are at least 30 before claiming a normal shape.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the inspector increases the sample from Machine 2 to 60 bags and keeps 36 bags from Machine 1. Calculate the new standard deviation of the sampling distribution of x̄1 − x̄2, and state whether it is smaller than, larger than, or the same as before.",
+     "criteria": [
+      {
+       "text": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g and states that it is smaller than 1.354 g.",
+       "evidence": "Response gives a new value near 1.19 g and states that increasing a sample size decreases the standard deviation.",
+       "fix": "Recalculate with the new sample size; a larger sample size gives a smaller standard deviation for the sampling distribution.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μ1 − μ2 = 502 − 500 = 2 g.\n\n(b) The standard deviation is √(6²/36 + 5²/30) = √(1 + 0.8333) ≈ 1.354 g.\n\n(c) The sampling distribution of x̄1 − x̄2 is approximately normal. Both sample sizes, 36 and 30, are at least 30, so the central limit theorem applies to each sample mean and the difference is approximately normal even though the shapes of the populations are not known.\n\n(d) The new standard deviation is √(6²/36 + 5²/60) = √(1 + 0.4167) ≈ 1.190 g. This is smaller than 1.354 g, because a larger sample size reduces the variability of the sample mean.",
+   "verification_python": "import math\nassert 502 - 500 == 2\nsd1 = math.sqrt(6**2 / 36 + 5**2 / 30)\nassert abs(sd1 - 1.354) < 0.001\nsd2 = math.sqrt(6**2 / 36 + 5**2 / 60)\nassert abs(sd2 - 1.190) < 0.001 and sd2 < sd1\nassert 36 >= 30 and 30 >= 30\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ }
+}
