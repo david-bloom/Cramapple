@@ -1,6 +1,6 @@
 import { resolveCheckoutOffer, promotionDiscount } from "../_shared/checkout-offer.ts";
 import { clientIp } from "../_shared/request-metadata.ts";
-import { sanitizeAdAttribution } from "../_shared/trial-contract.ts";
+import { attributionMetadata, sanitizeAdAttribution } from "../_shared/trial-contract.ts";
 import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
@@ -195,6 +195,7 @@ Deno.serve(async (req) => {
         purchaser_type: "parent_share",
         student_email: studentEmail,
         ...(studentName ? { student_name: studentName } : {}),
+        ...attributionMetadata(sanitizeAdAttribution(input.ad_attribution)),
       },
     });
 

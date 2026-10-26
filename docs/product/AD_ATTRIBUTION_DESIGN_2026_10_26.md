@@ -36,7 +36,8 @@ Click ids are captured automatically when present: `rdt_cid` (Reddit), `gclid`/`
   "first_touch": {"utm_source": "...", "...": "..."}, "last_touch": {"utm_content": "ad-07", "reddit_click_id": "..."} }
 ```
 
-If the visitor opted out (stored opt-out or GPC) the order stores only `{"ad_tracking_allowed": false}`.
+If the visitor opted out (stored opt-out or GPC) the order keeps first-party fields (UTMs, referrer, landing path, creative id) but **no ad-platform click ids and no anon id** (decision A, David 2026-10-26).
+Pay-now purchases (decision C) carry the same source in Stripe session metadata (`attr_utm_*`), stamped onto `checkout_started` and `purchase_completed`.
 `app.v_trial_attribution` flattens it (last touch, first touch fills gaps) for reporting; service role only.
 `trial_converted` growth events now carry `utm_*`/`creative_id` from the order.
 
@@ -47,7 +48,7 @@ If the visitor opted out (stored opt-out or GPC) the order stores only `{"ad_tra
 | 1 | Migration `20261026120000`, `trial_start` stores sanitised `ad_attribution` (direct + parent), `trial_converted` carries source, tests | backend | **built**, Dev apply ⛔ Prod apply ⛔ |
 | 2 | Marketing: send first/last touch + anon id, capture other click ids, fix touch overwrite bugs, add UTMs to `landing_view` and checkout events | Lovable marketing | prompt drafted: `docs/handoffs/LOVABLE_PROMPT_AD_ATTRIBUTION_MARKETING_2026_10_26.md` |
 | 3 | App: activation events (first session, first answer) | Lovable app | prompt drafted: `docs/handoffs/LOVABLE_PROMPT_APP_ACTIVATION_EVENTS_2026_10_26.md` |
-| 4 | Pay-now purchases (`purchase_completed`) get the same attribution | backend + marketing | not started |
+| 4 | Pay-now purchases get the same attribution (Stripe metadata → `checkout_started`/`purchase_completed`) | backend + marketing | backend built |
 | 5 | Reporting: SQL view in use + PostHog funnel (visit → trial start by source) | Supabase / PostHog | view built; PostHog dashboard needs David |
 | 6 | Reddit Conversions API reads `ad_attribution` (see its plan) | backend | after 1–2 |
 
@@ -56,12 +57,12 @@ If the visitor opted out (stored opt-out or GPC) the order stores only `{"ad_tra
 The live marketing site already sends a flat `ad_attribution` on trial start (Lovable `ea24448b`, `9efe203c`). The old backend ignores it.
 Deploy order: **migration → functions → then publish the marketing change**. The new sanitiser still reads the flat `reddit_click_id`.
 
-## Decisions for David
+## Decisions (David, 2026-10-26)
 
-- **A — Opt-out and first-party attribution.** Currently an opted-out visitor stores no source at all (conservative, loses their attribution). Alternative: store UTMs anyway since nothing goes to an ad platform. Needs your/lawyer's call.
-- **B — Google paid vs organic.** `utm_medium=paid_search` for ads; unlabelled Google traffic is classified organic by referrer.
-- **C — Pay-now purchases** (slice 4): confirm they should be attributed too.
-- **D — PostHog dashboards** are built in the PostHog UI; no connector is available here.
+- **A — yes:** store first-party UTMs even when opted out; click ids and anon id only when allowed.
+- **B — yes:** Google ads `utm_medium=paid_search`; unlabelled Google traffic is organic by referrer.
+- **C — yes:** pay-now purchases attributed too (slice 4 built).
+- **D —** PostHog dashboards are built in the PostHog UI; no connector here.
 
 ## Rollback
 

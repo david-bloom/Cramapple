@@ -244,13 +244,15 @@ Deno.test("conversion event carries the order's ad source, last touch over first
   assertEquals("reddit_click_id" in props, false);
 });
 
-Deno.test("conversion event carries no source when ad tracking was refused", async () => {
-  const h = harness({ order: order({ ad_attribution: { ad_tracking_allowed: false } }) });
+Deno.test("conversion event keeps first-party source but not click ids when ad tracking was refused", async () => {
+  const h = harness({
+    order: order({ ad_attribution: { ad_tracking_allowed: false, last_touch: { utm_source: "reddit", utm_content: "ad-07" } } }),
+  });
   await handleTrialPaymentIntent(h.deps, "payment_intent.succeeded", {
     id: "pi_1", amount_received: 1999, currency: "usd", metadata: { kind: "trial_conversion", trial_order_id: "order-1" },
   });
   const ev = h.calls.find((c) => c[0] === "event" && c[1] === "trial_converted");
-  assertEquals("utm_source" in (ev?.[2] as Record<string, unknown>), false);
+  assertEquals((ev?.[2] as Record<string, unknown>).utm_content, "ad-07");
 });
 
 Deno.test("refunds and disputes act only on the charge's own trial order", async () => {

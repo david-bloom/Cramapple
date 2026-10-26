@@ -1,3 +1,4 @@
+import { attributionEventProperties } from "../_shared/trial-contract.ts";
 // Card-trial webhook handlers (TASK-0077 plan §6.4, §6.5, §6.7, §6.8).
 // Dependencies are injected so the handlers can be tested without Stripe or
 // Supabase.
@@ -49,23 +50,6 @@ function id(value: unknown): string | null {
     return typeof v === "string" && v ? v : null;
   }
   return null;
-}
-
-// Acquisition source for growth events: last touch, else first touch. Only
-// keys the growth-event allow-list accepts survive; empty when the visitor
-// opted out of ad tracking or arrived with no tags.
-export function attributionEventProperties(order: { ad_attribution?: unknown } | null) {
-  const a = order?.ad_attribution as
-    | { ad_tracking_allowed?: boolean; first_touch?: Record<string, string>; last_touch?: Record<string, string> }
-    | null
-    | undefined;
-  if (!a || a.ad_tracking_allowed !== true) return {};
-  const out: Record<string, string> = {};
-  for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "creative_id"]) {
-    const v = a.last_touch?.[key] ?? a.first_touch?.[key];
-    if (typeof v === "string" && v) out[key] = v;
-  }
-  return out;
 }
 
 async function loadOrder(service: Any, column: string, value: string): Promise<TrialOrder | null> {
@@ -319,7 +303,7 @@ export async function handleTrialPaymentIntent(
       properties: {
         offer: order?.offer ?? null,
         amount: intent.amount_received ?? null,
-        ...attributionEventProperties(order as Any),
+        ...attributionEventProperties((order as Any)?.ad_attribution),
       },
     });
     return;

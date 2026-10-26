@@ -1,6 +1,6 @@
 import { resolveCheckoutOffer, promotionDiscount, type OfferMode } from "../_shared/checkout-offer.ts";
 import { clientIp } from "../_shared/request-metadata.ts";
-import { sanitizeAdAttribution } from "../_shared/trial-contract.ts";
+import { attributionEventProperties, attributionMetadata, sanitizeAdAttribution } from "../_shared/trial-contract.ts";
 import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -255,6 +255,7 @@ Deno.serve(async (req) => {
         ...(purchaseType === "student_direct"
           ? { is_upsell_eligible: String(mode === "single") }
           : {}),
+        ...attributionMetadata(sanitizeAdAttribution(input.ad_attribution)),
       },
       ...(promotionCodeId
         ? { discounts: [{ promotion_code: promotionCodeId }] }
@@ -287,6 +288,7 @@ Deno.serve(async (req) => {
       properties: {
         offer: mode,
         access_tier: "paid",
+        ...attributionEventProperties(sanitizeAdAttribution(input.ad_attribution)),
       },
     });
 
