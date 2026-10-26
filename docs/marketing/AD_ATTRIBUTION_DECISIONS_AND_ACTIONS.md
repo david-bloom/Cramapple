@@ -39,6 +39,7 @@ Click ids are captured automatically: `rdt_cid`, `gclid`/`gbraid`/`wbraid`, `ttc
 
 ## Open / next
 
+- **PR #567 (Reddit Conversions API day-7, merged to `main` 2026-10-26) coexists with this work.** It stores the Reddit click id in its own `trial_orders.reddit_click_id` column and queues the Reddit conversion; this PR stores the full first/last touch in `ad_attribution`. Both fields are kept in `trial_start` (merge of `main` into this branch, no overlap in columns). Consider later whether the Reddit path should read from `ad_attribution.last_touch` and the flat column be retired.
 - Review both Lovable results **by commit SHA**; check on cramapple.com that a tagged ad URL leads to `ad_attribution` on the order and `utm_*` on `trial_converted` (no end-to-end Production `trial_start` has been run yet).
 - Deploy skew to remember: Production runs older function source than `main`; Development was deployed from `main`. Diff deployed vs repo before any edge deploy.
 - The migration was loaded with `db query`, so it is not in the migration ledger (ledgers are history, DECISION-0128).

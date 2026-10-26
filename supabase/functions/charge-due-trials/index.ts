@@ -1,6 +1,7 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 import { runChargeWorker } from "./handler.ts";
+import { deliverRedditConversions } from "../_shared/reddit-conversions.ts";
 
 // Called every 5 minutes by pg_cron through pg_net (TASK-0077 plan §6.5).
 // Deploy with --no-verify-jwt: the Bearer token is this worker's own secret.
@@ -22,13 +23,28 @@ Deno.serve(async (req) => {
     return new Response("Method not allowed", { status: 405 });
   }
   try {
+    const service = createServiceClient();
     const summary = await runChargeWorker({
       stripe,
-      service: createServiceClient(),
+      service,
       // Kill switch: off pauses charges; overdue orders get the 48-hour
       // notice and keep access instead (DECISION-0126 items 16, 20).
       chargesEnabled: Deno.env.get("TRIAL_CHARGES_ENABLED") === "true",
       log: (message, detail) => console.error(`charge-due-trials ${message}`, detail),
+      // Reddit Conversions API for day-7 charges; off unless switched on.
+      adConversions: Deno.env.get("REDDIT_CONVERSIONS_ENABLED") === "true"
+        ? () =>
+          deliverRedditConversions({
+            service,
+            fetch,
+            accessToken: Deno.env.get("REDDIT_CONVERSIONS_ACCESS_TOKEN") ?? null,
+            pixelId: Deno.env.get("REDDIT_PIXEL_ID") ?? "a2_jws6uftcrlca",
+            testId: Deno.env.get("REDDIT_CONVERSIONS_TEST_ID") ?? null,
+            isProduction: (Deno.env.get("SUPABASE_URL") ?? "").includes("pcntajvbdfqhbeewmdry"),
+            now: () => new Date(),
+            log: (message, detail) => console.error(`charge-due-trials ${message}`, detail),
+          })
+        : undefined,
     });
     return Response.json(summary);
   } catch (error) {

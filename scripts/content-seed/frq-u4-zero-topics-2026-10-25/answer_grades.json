@@ -1,0 +1,555 @@
+{
+ "ap_biology__4.2__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Identifies the ligand recognized by each cell type: muscle cells recognize P, liver cells recognize R, and skin cells recognize Q.",
+    "earned": true,
+    "reason": "The response clearly pairs each cell type with its corresponding ligand (muscle with P, liver with R, and skin with Q)."
+   },
+   {
+    "criterion": "States that the three cell types have different receptors, and that each receptor binds only one of the ligands.",
+    "earned": true,
+    "reason": "The response explicitly states that the three cell types have different receptors and that each receptor is specific to only one of the ligands."
+   },
+   {
+    "criterion": "Explains that the receptor's ligand-binding domain has a specific shape that matches ligand R but not ligand P, so P cannot bind.",
+    "earned": true,
+    "reason": "The response explains that the ligand-binding domain has a specific shape that fits ligand R but does not fit ligand P, preventing P from binding."
+   },
+   {
+    "criterion": "Predicts that the cell type will not respond to ligand P, because without a receptor that recognizes P, the signal cannot be received and the signaling does not start.",
+    "earned": true,
+    "reason": "The response predicts that the cell will not respond to ligand P and justifies this by explaining that ligand recognition by a receptor is needed to initiate signaling/signal transduction."
+   }
+  ]
+ },
+ "ap_biology__4.2__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Identifies signal Y as the signal that binds a receptor on the cell surface.",
+    "earned": true,
+    "reason": "The response clearly identifies Signal Y as the signal that binds to a receptor on the cell surface."
+   },
+   {
+    "criterion": "Supports the answer with the blocker data: the response to signal Y fell from 90 to 2 when the blocker, which acts only outside the cell, was present.",
+    "earned": true,
+    "reason": "The response cites the data showing that when the blocker was present, the response to signal Y dropped from 90 to 2."
+   },
+   {
+    "criterion": "Explains that signal X is small and nonpolar, so it can pass through the hydrophobic interior of the phospholipid bilayer and bind a receptor inside the cell.",
+    "earned": true,
+    "reason": "The response explains that signal X is small and nonpolar, allowing it to pass through the hydrophobic interior of the phospholipid bilayer to bind an intracellular receptor."
+   },
+   {
+    "criterion": "Explains that signal Y is large and polar, so it cannot cross the phospholipid bilayer and must bind a surface receptor, which then relays the signal into the cell.",
+    "earned": true,
+    "reason": "The response explains that signal Y is large and polar, so it cannot cross the bilayer and must bind a receptor on the plasma membrane that relays the signal inside."
+   },
+   {
+    "criterion": "Explains that the receptor's ligand-binding domain has a specific shape that fits signal Y but not signal X, so X cannot bind and activate it.",
+    "earned": true,
+    "reason": "The response explains that the receptor's binding site has a specific shape matching signal Y but not signal X, preventing X from binding and activating it."
+   }
+  ]
+ },
+ "ap_statistics__4.4__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Explains that each runner is measured under both conditions, so the two sets of times are paired (dependent), and the differences d form one sample to analyze.",
+    "earned": true,
+    "reason": "The response clearly explains that each runner completes the trial under both conditions, that the times are paired/dependent, and that the differences should be analyzed as a single sample."
+   },
+   {
+    "criterion": "Defines μd as the true mean difference (placebo time − caffeine time) in 5 km time, in seconds, for all runners like these volunteers.",
+    "earned": true,
+    "reason": "The response fully defines μd including the order of subtraction, units, and the reference population."
+   },
+   {
+    "criterion": "States H0: μd = 0 seconds.",
+    "earned": true,
+    "reason": "The response correctly states H0: μd = 0."
+   },
+   {
+    "criterion": "States Ha: μd > 0 seconds.",
+    "earned": true,
+    "reason": "The response correctly states Ha: μd > 0, matching the definition of d."
+   },
+   {
+    "criterion": "Verifies the random condition: the order of the two conditions was randomly assigned for each runner.",
+    "earned": true,
+    "reason": "The response notes that the order of the conditions was randomly assigned for each runner."
+   },
+   {
+    "criterion": "Verifies the sample data condition: n = 15 is less than 30, but the differences are roughly symmetric with no outliers, so the sampling distribution of the mean difference is approximately normal.",
+    "earned": true,
+    "reason": "The response points out that n = 15 is less than 30 and notes that the differences are roughly symmetric with no outliers to justify using the t procedure."
+   }
+  ]
+ },
+ "ap_statistics__4.2__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Explains that each student provides both a before score and an after score, so the two sets of scores are paired (not independent), and analyzing the differences accounts for the pairing.",
+    "earned": true,
+    "reason": "The response clearly states that the scores are paired and not independent because each student takes a quiz before and after using the app, and that a one-sample t interval on the differences should be used."
+   },
+   {
+    "criterion": "Defines μd as the true mean difference (score after − score before) in quiz scores for all students at the school.",
+    "earned": true,
+    "reason": "The parameter is correctly defined as the true mean difference (score after − score before) in quiz scores for all students at the school."
+   },
+   {
+    "criterion": "Computes the interval 3.9 ± 1.771(5.1/√14), which is approximately (1.49, 6.31) points.",
+    "earned": true,
+    "reason": "The response shows the correct formula with values substituted and correctly calculates the resulting interval as approximately (1.49, 6.31) points."
+   },
+   {
+    "criterion": "States that we are 90% confident that the interval from 1.49 to 6.31 points captures the true mean change (after − before) in quiz scores for all students at the school.",
+    "earned": true,
+    "reason": "The response correctly interprets the confidence interval in context, referencing 90% confidence, the calculated interval endpoints, and the true mean change for all students at the school."
+   },
+   {
+    "criterion": "Interprets the confidence level: if the teacher repeated the sampling process many times, about 90% of the intervals constructed this way would capture the true mean difference.",
+    "earned": true,
+    "reason": "The response correctly describes repeated sampling in the long run and states that approximately 90% of intervals constructed would capture the true mean difference."
+   }
+  ]
+ },
+ "ap_biology__4.6__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Describes that CDK activity rises and falls together with the cyclin concentration (both are highest at 9 hours and low at 0 and 12 hours).",
+    "earned": true,
+    "reason": "The student clearly stated that CDK activity rises and falls together with cyclin concentration, noting that both peak at 9 hours and are low at 0 and 12 hours."
+   },
+   {
+    "criterion": "Explains that CDK is active only when it is bound to cyclin, so CDK activity depends on the cyclin concentration.",
+    "earned": true,
+    "reason": "The student explained that CDK is active only when bound to cyclin, meaning active CDK levels depend directly on cyclin levels."
+   },
+   {
+    "criterion": "Identifies G2 (after DNA replication and before mitosis) as the stage where most treated cells are stopped, supported by 80% of cells having 4C DNA while only 0.4% are in mitosis.",
+    "earned": true,
+    "reason": "The student identified G2 as the arrest stage and supported this with the data showing 80% of cells have 4C DNA while only 0.4% are in mitosis."
+   },
+   {
+    "criterion": "Explains that the active cyclin-CDK complex is needed for cells to pass the checkpoint into mitosis, so blocking it keeps cells from progressing out of G2.",
+    "earned": true,
+    "reason": "The student explained that the cyclin-CDK complex is required to pass the checkpoint from G2 into mitosis, and blocking it stops progression."
+   },
+   {
+    "criterion": "Explains that the pause gives the cell time to repair the damaged DNA, or keeps a cell with damaged DNA from dividing, so damaged DNA is not passed to daughter cells.",
+    "earned": true,
+    "reason": "The student explained that pausing the cycle gives the cell time to repair damaged DNA before dividing so that damaged DNA is not passed to daughter cells."
+   }
+  ]
+ },
+ "ap_statistics__4.2__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the trout were randomly selected, which meets the random condition.",
+    "earned": true,
+    "reason": "The response clearly states that the 22 trout are a random sample from the lake."
+   },
+   {
+    "criterion": "States that the 10% condition is met because the lake holds more than 10 × 22 = 220 trout.",
+    "earned": true,
+    "reason": "The response notes that the lake holds many thousands of trout, which is greater than 10 × 22 = 220, satisfying the 10% condition."
+   },
+   {
+    "criterion": "States that although n = 22 is less than 30, the sample is roughly symmetric with no outliers, so the sample data condition is met.",
+    "earned": true,
+    "reason": "The response notes that n = 22 is less than 30 and justifies using a t interval because the dotplot is roughly symmetric with no outliers."
+   },
+   {
+    "criterion": "Sets up the interval as 31.4 ± 2.080(4.2/√22), with the sample mean, t*, s and n correctly substituted (the standard error is about 0.895 cm).",
+    "earned": true,
+    "reason": "The response correctly substitutes all values into the formula across its steps: standard error = 4.2/√22, margin of error = 2.080 × 0.895, and center = 31.4."
+   },
+   {
+    "criterion": "Gives the interval 31.4 ± 1.86, or (29.54, 33.26) cm.",
+    "earned": true,
+    "reason": "The response correctly provides both 31.4 ± 1.86 and (29.54, 33.26) cm."
+   },
+   {
+    "criterion": "States that we are 95% confident that the interval from 29.54 to 33.26 cm captures the true mean length of all rainbow trout in the lake.",
+    "earned": true,
+    "reason": "The response includes the confidence level (95%), the interval limits (29.54 cm to 33.26 cm), the parameter as the true mean length, and the context of all rainbow trout in the lake."
+   }
+  ]
+ },
+ "ap_statistics__4.4__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Defines μ as the true mean response time (in minutes) for ambulance calls in the city (all calls, or the calls from the past year that were sampled).",
+    "earned": true,
+    "reason": "The response defines μ in context as the true mean response time in minutes for all ambulance calls in the city."
+   },
+   {
+    "criterion": "a2. States the null hypothesis H0: μ = 8.0 minutes.",
+    "earned": true,
+    "reason": "The response correctly states H0: μ = 8.0 minutes."
+   },
+   {
+    "criterion": "a3. States the alternative hypothesis Ha: μ > 8.0 minutes.",
+    "earned": true,
+    "reason": "The response correctly states Ha: μ > 8.0 minutes."
+   },
+   {
+    "criterion": "b1. Identifies a one-sample t-test for a population mean.",
+    "earned": true,
+    "reason": "The response names a one-sample t-test for a population mean."
+   },
+   {
+    "criterion": "c1. States that the 10% condition is met because the population of about 5,400 calls is more than 10 times the sample size of 36 (equivalently, 36 is less than 10% of 5,400).",
+    "earned": true,
+    "reason": "The response compares the population size of 5,400 calls to 10 × 36 = 360 and concludes that the condition is met."
+   },
+   {
+    "criterion": "c2. Verifies the sample data condition: n = 36 is at least 30, so the sampling distribution of the sample mean is approximately normal even though the sample is skewed to the right.",
+    "earned": true,
+    "reason": "The response states that n = 36 is at least 30, which justifies approximate normality of the sampling distribution of the sample mean despite the right skewness."
+   }
+  ]
+ },
+ "ap_biology__4.6__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 4,
+  "earned": 4,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Describes that UV exposure caused cells to stop entering S phase (30% without UV, 4% with UV), consistent with a checkpoint halting the cycle.\n    Evidence required: Response states that the percentage of cells entering S phase fell sharply after UV exposure, and gives the values.",
+    "earned": true,
+    "reason": "The response correctly describes that the percentage of normal cells entering S phase decreased from 30% to 4% after UV exposure."
+   },
+   {
+    "criterion": "a2. Describes that UV exposure caused many more cells to undergo apoptosis (2% without UV, 35% with UV).\n    Evidence required: Response states that apoptosis increased after UV exposure, and gives the values.",
+    "earned": true,
+    "reason": "The response correctly identifies that apoptosis increased significantly in normal cells after UV exposure, providing the numerical values of 2% to 35%."
+   },
+   {
+    "criterion": "b1. Explains that the mutated protein does not detect DNA damage or stop the cycle, so the checkpoint fails and cells with damaged DNA keep entering S phase (29%) and rarely undergo apoptosis (3%).\n    Evidence required: Response states that the checkpoint fails in cell line M, so cells continue through the cycle with damaged DNA and apoptosis does not rise.",
+    "earned": true,
+    "reason": "The response explains that the checkpoint fails because of the mutation, noting that damaged cells continue into S phase (29%) and do not undergo apoptosis (3%)."
+   },
+   {
+    "criterion": "c1. Predicts that damaged cells keep dividing, mutations accumulate, and uncontrolled cell division can lead to a tumor or cancer.\n    Evidence required: Response predicts cancer or tumor formation and links it to cells dividing with damaged DNA that is not repaired or removed by apoptosis.",
+    "earned": true,
+    "reason": "The response predicts the formation of a tumor or skin cancer and links it to damaged cells continually dividing, accumulating mutations, and evading checkpoint control."
+   }
+  ]
+ },
+ "ap_statistics__4.6__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. States that the mean is 18.0 − 16.5 = 1.5 hours.",
+    "earned": true,
+    "reason": "The response clearly computes the mean by subtracting the population means (18.0 − 16.5) to get 1.5 hours."
+   },
+   {
+    "criterion": "b1. Calculates the standard deviation as √(2.4²/9 + 3.0²/12) ≈ 1.179 hours.",
+    "earned": true,
+    "reason": "The response shows the correct formula with variances added and yields approximately 1.179 hours."
+   },
+   {
+    "criterion": "c1. States that the sampling distribution of x̄A − x̄B is normal.",
+    "earned": true,
+    "reason": "The response explicitly states that the sampling distribution of x̄A − x̄B is normal."
+   },
+   {
+    "criterion": "c2. Justifies the shape because both populations are normally distributed, so each sample mean is normal for any sample size and so is their difference.",
+    "earned": true,
+    "reason": "The response justifies the shape by explaining that both populations are normally distributed, meaning each sample mean is normal regardless of sample size, and thus their difference is normal."
+   },
+   {
+    "criterion": "d1. States that it cannot assume this, because neither sample size is at least 30 and the populations are not known to be normal.",
+    "earned": true,
+    "reason": "The response answers 'No' and provides both required reasons: neither sample size is at least 30 and the population shapes are unknown."
+   }
+  ]
+ },
+ "ap_statistics__4.8__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the interval does not provide convincing evidence of a difference in the true mean completion times.",
+    "earned": true,
+    "reason": "The student clearly states that there is not convincing evidence of a difference between the conditions."
+   },
+   {
+    "criterion": "Justifies the answer because 0 is in the interval, so 0 is a plausible value for the true difference.",
+    "earned": true,
+    "reason": "The student states that the interval (−4.8, 1.9) contains 0, making 0 a plausible value for the true difference."
+   },
+   {
+    "criterion": "States that the interval would provide convincing evidence of a difference, because 0 is not in the interval.",
+    "earned": true,
+    "reason": "The student states that there would be convincing evidence of a difference because the interval (−6.2, −0.7) does not contain 0."
+   },
+   {
+    "criterion": "States that the mean completion time with music is lower than without music, because every value in the interval is negative.",
+    "earned": true,
+    "reason": "The student states that the mean completion time is lower with music because every value in the interval is negative for music minus no music."
+   },
+   {
+    "criterion": "States that the interval does not support the claim because −6 is not in the interval, so −6 is not a plausible value for the difference.",
+    "earned": true,
+    "reason": "The student states that the interval does not support the claim because −6 is not in the interval (−4.8, 1.9)."
+   }
+  ]
+ },
+ "ap_statistics__4.6__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the mean of the sampling distribution is μ1 − μ2 = 502 − 500 = 2 g.",
+    "earned": true,
+    "reason": "The response correctly subtracts the two population means to obtain 2 g."
+   },
+   {
+    "criterion": "Calculates the standard deviation as √(6²/36 + 5²/30) ≈ 1.354 g.",
+    "earned": true,
+    "reason": "The response correctly calculates the standard deviation using the proper formula and obtains 1.354 g."
+   },
+   {
+    "criterion": "States that the sampling distribution of x̄1 − x̄2 is approximately normal.",
+    "earned": true,
+    "reason": "The response explicitly states that the sampling distribution of x̄1 − x̄2 is approximately normal."
+   },
+   {
+    "criterion": "Justifies the shape because both sample sizes (36 and 30) are at least 30, so the sampling distribution is approximately normal regardless of the population shapes.",
+    "earned": true,
+    "reason": "The response correctly references the Central Limit Theorem and points out that both sample sizes (36 and 30) are at least 30."
+   },
+   {
+    "criterion": "Calculates the new standard deviation √(6²/36 + 5²/60) ≈ 1.190 g.",
+    "earned": true,
+    "reason": "The response correctly calculates the new standard deviation with n2 = 60 to be approximately 1.190 g."
+   },
+   {
+    "criterion": "States that the new standard deviation is smaller than the original 1.354 g.",
+    "earned": true,
+    "reason": "The response explicitly states that the new standard deviation is smaller than 1.354 g."
+   }
+  ]
+ },
+ "ap_statistics__4.9__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. Defines μ1 as the true mean GPA of all on-campus students and μ2 as the true mean GPA of all commuting students at the university.",
+    "earned": true,
+    "reason": "The response clearly defines both μ1 and μ2 as the true mean GPAs for all on-campus students and all commuting students at the university, respectively."
+   },
+   {
+    "criterion": "a2. States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+    "earned": true,
+    "reason": "The response correctly states H0: μ1 − μ2 = 0."
+   },
+   {
+    "criterion": "a3. States the alternative hypothesis Ha: μ1 − μ2 ≠ 0 (equivalently μ1 ≠ μ2).",
+    "earned": true,
+    "reason": "The response correctly states the two-sided alternative hypothesis Ha: μ1 − μ2 ≠ 0."
+   },
+   {
+    "criterion": "b1. Identifies a two-sample t-test for the difference between two population means.",
+    "earned": true,
+    "reason": "The response names a two-sample t-test for the difference between two population means."
+   },
+   {
+    "criterion": "c1. States that the 10% condition is met in each group: 7,000 is more than 10 × 60 = 600 and 4,500 is more than 10 × 48 = 480.",
+    "earned": true,
+    "reason": "The response checks the 10% condition for both groups using the correct sample and population sizes (7,000 > 600 and 4,500 > 480)."
+   },
+   {
+    "criterion": "c2. States that the sample data condition is met because both sample sizes (60 and 48) are at least 30, or because neither sample is strongly skewed and there are no outliers.",
+    "earned": true,
+    "reason": "The response correctly states that both sample sizes (60 and 48) are at least 30."
+   }
+  ]
+ },
+ "ap_statistics__4.7__1": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the two samples are independent random samples from the two groups.",
+    "earned": true,
+    "reason": "The response clearly states that each group was selected by random sampling and that the two samples are independent of each other."
+   },
+   {
+    "criterion": "States that the 10% condition is met in each group: 9,000 is more than 10 × 45 = 450 and 6,000 is more than 10 × 52 = 520.",
+    "earned": true,
+    "reason": "The response explicitly compares both population sizes to 10 times their respective sample sizes (9,000 > 450 and 6,000 > 520)."
+   },
+   {
+    "criterion": "States that both sample sizes (45 and 52) are at least 30, so the sampling distribution of x̄1 − x̄2 is approximately normal.",
+    "earned": true,
+    "reason": "The response states that both sample sizes (45 and 52) are at least 30, satisfying the condition for the sampling distribution of the difference in means to be approximately normal."
+   },
+   {
+    "criterion": "Calculates the standard error √(1.1²/45 + 0.9²/52) ≈ 0.206 hours.",
+    "earned": true,
+    "reason": "The response shows the correct formula using the sample variances and sizes and calculates the standard error as approximately 0.206."
+   },
+   {
+    "criterion": "Gives the interval (6.8 − 7.3) ± 1.988(0.206), which is approximately (−0.91, −0.09) hours.",
+    "earned": true,
+    "reason": "The response computes the point estimate as −0.5 and correctly calculates the confidence interval limits as (−0.91, −0.09) hours."
+   },
+   {
+    "criterion": "States that we are 95% confident that the interval from −0.91 to −0.09 hours captures the true difference in mean nightly sleep (phone in bed minus no phone in bed) for the two groups of students at the university.",
+    "earned": true,
+    "reason": "The response correctly interprets the interval in context, specifying the 95% confidence level, the limits (−0.91 to −0.09 hours), the parameter as the true difference in mean nightly sleep, the order of subtraction, and the population context."
+   }
+  ]
+ },
+ "ap_statistics__4.8__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "States that the interval provides convincing evidence of a difference, because 0 is not in the interval.",
+    "earned": true,
+    "reason": "The response clearly states that the interval provides convincing evidence of a difference and points out that the interval does not contain 0."
+   },
+   {
+    "criterion": "States that Method A has the higher mean score, because every value in the interval is positive for A minus B.",
+    "earned": true,
+    "reason": "The response correctly identifies Method A as having the higher mean and explains that every value in the interval for A minus B is positive."
+   },
+   {
+    "criterion": "States that the claim is consistent with the interval, because 5 is in the interval (2.1, 9.7) and so is a plausible value.",
+    "earned": true,
+    "reason": "The response states that the claim is consistent with the interval because 5 is within the interval (2.1, 9.7) and is therefore a plausible value."
+   },
+   {
+    "criterion": "States that the interval does not establish that the difference is exactly 5, because other values in the interval are also plausible.",
+    "earned": true,
+    "reason": "The response explains that the interval does not establish that the difference is exactly 5 because other values in the interval (e.g., 3 or 8) are also plausible."
+   },
+   {
+    "criterion": "States that the interval does not support the claim, because 10 is greater than every value in the interval (the upper limit is 9.7).",
+    "earned": true,
+    "reason": "The response answers no, states that the upper limit of the interval is 9.7 (so all plausible values are less than 10), and concludes that the interval does not support the claim."
+   }
+  ]
+ },
+ "ap_statistics__4.9__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 6,
+  "earned": 6,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "Explains that there is no pairing: each cyclist is in only one group and was not matched with a cyclist in the other group, so the two groups are independent.",
+    "earned": true,
+    "reason": "The student clearly states that each cyclist is in only one group, there is no pairing, and the two groups are independent."
+   },
+   {
+    "criterion": "Defines the parameters in context: μ1 and μ2 as the true mean 20 km times (in minutes) after the new drink and the standard drink, or one parameter μ1 − μ2 as the true difference in mean times.",
+    "earned": true,
+    "reason": "The student defines both μ1 and μ2 in context with units (true mean 20 km time trial time in minutes) for the new and standard recovery drinks, respectively."
+   },
+   {
+    "criterion": "States the null hypothesis H0: μ1 − μ2 = 0 (equivalently μ1 = μ2).",
+    "earned": true,
+    "reason": "The student correctly writes the null hypothesis as H0: μ1 − μ2 = 0."
+   },
+   {
+    "criterion": "States the alternative hypothesis Ha: μ1 − μ2 < 0 (equivalently μ1 < μ2).",
+    "earned": true,
+    "reason": "The student correctly writes the alternative hypothesis as Ha: μ1 − μ2 < 0."
+   },
+   {
+    "criterion": "States that the random condition is met because the cyclists were randomly assigned to the two groups.",
+    "earned": true,
+    "reason": "The student explicitly notes that the 24 cyclists were randomly assigned to the two groups."
+   },
+   {
+    "criterion": "States that both sample sizes (12 and 12) are less than 30, but the times in each group are roughly symmetric with no outliers, so the sample data condition is met.",
+    "earned": true,
+    "reason": "The student notes that both sample sizes are under 30 and references that the times in each group are roughly symmetric with no outliers."
+   }
+  ]
+ },
+ "ap_statistics__4.7__2": {
+  "grader": "google/gemini-3.8-flash",
+  "possible": 5,
+  "earned": 5,
+  "full": true,
+  "detail": [
+   {
+    "criterion": "a1. States that the plants were randomly assigned to the two fertilizers, so the groups are independent and the random condition is met.",
+    "earned": true,
+    "reason": "The response states that the 26 plants were randomly assigned to the two fertilizers and that the two groups are independent."
+   },
+   {
+    "criterion": "a2. States that both sample sizes are less than 30, but each group's yields are roughly symmetric with no outliers, so the sample data condition is met.",
+    "earned": true,
+    "reason": "The response correctly notes that both sample sizes (12 and 14) are less than 30 and refers to the symmetric distributions with no outliers in each group."
+   },
+   {
+    "criterion": "b1. Calculates the standard error √(0.62²/12 + 0.75²/14) ≈ 0.269 kg.",
+    "earned": true,
+    "reason": "The response shows the calculation of the standard error using the correct formula and values, obtaining approximately 0.269."
+   },
+   {
+    "criterion": "b2. Gives the interval (4.60 − 4.15) ± 1.711(0.269), which is approximately (−0.01, 0.91) kg.",
+    "earned": true,
+    "reason": "The response shows the point estimate of 0.45 kg (A minus B) and computes the resulting interval as approximately (−0.01, 0.91) kg."
+   },
+   {
+    "criterion": "c1. States that we are 90% confident that the interval from −0.01 to 0.91 kg captures the true difference in mean tomato yield per plant (fertilizer A minus fertilizer B).",
+    "earned": true,
+    "reason": "The response correctly interprets the interval in context, stating 90% confidence, the interval limits, the direction of subtraction, and that it is the true difference in mean tomato yield per plant."
+   }
+  ]
+ }
+}
