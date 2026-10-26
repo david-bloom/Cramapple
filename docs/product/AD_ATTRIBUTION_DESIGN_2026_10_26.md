@@ -1,6 +1,6 @@
 # Advertising attribution — design (2026-10-26)
 
-**Status:** Backend slice built on branch `claude/ad-attribution-backend`, tests green, **not applied to any database, not deployed**.
+**Status:** Backend slices 1 and 4 built (branch `claude/ad-attribution-backend`, tests green). **Applied and deployed to Development and, on David's explicit approval, to Production (2026-10-26 ~18:51 UTC).** Production functions were rebuilt from the exact source Production already ran (commit `43440c98`, verified identical by download) plus only the 6 attribution files, so the later TASK-0078 refactors on `main` were NOT shipped. Migration loaded with `db query`, so it is not in the migration ledger. Marketing/app slices are Lovable work in review.
 Marketing and app slices are Lovable prompts (not sent). **Tier:** Hard-Gate for Prod (payments data). **Scope:** paid ads only
 (Reddit, Instagram, TikTok, Google, YouTube). Referral and offline come later.
 **Related:** `REDDIT_CONVERSIONS_API_DAY7_PLAN_2026_10_25.md` (reuses this storage), `TASK-0077`.
