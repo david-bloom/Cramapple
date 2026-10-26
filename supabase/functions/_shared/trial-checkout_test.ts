@@ -178,10 +178,29 @@ Deno.test("direct start: one pending order per email, refreshed in place", async
   assertEquals([session[1].mode, session[1].ui_mode, session[1].customer, session[1].metadata.kind], ["setup", "elements", "cus_new", "trial_setup"]);
   assertEquals(session[1].wallet_options, { link: { display: "never" } });
   assertEquals(service.orders[0].student_email_norm, "kid@example.com");
+  assertEquals(service.orders[0].ad_attribution, null);
 
   const second = await startTrialSetup(deps(service, stripe), start);
   assertEquals([second.order_id, service.orders.length], [first.order_id, 1]);
   assertEquals(stripe.calls.some((c: Any) => c[0] === "expire" && c[1] === first.session_id), true);
+});
+
+Deno.test("the order stores the sanitised ad attribution it was started with", async () => {
+  const service = fakeService();
+  const stripe = fakeStripe();
+  const q = await buildTrialQuote(deps(service, stripe), base);
+  const attribution = { ad_tracking_allowed: true, last_touch: { utm_source: "reddit", utm_content: "ad-07" } };
+  await startTrialSetup(deps(service, stripe), {
+    ...base,
+    quoteVersion: q.quote_version,
+    studentAck: { version: "terms-1", source: "checkout" },
+    studentName: null,
+    consentIp: "203.0.113.5",
+    consentUserAgent: "test",
+    adAttribution: attribution,
+    urls: { returnUrl: "https://app/return" },
+  });
+  assertEquals(service.orders[0].ad_attribution, attribution);
 });
 
 Deno.test("parent start uses Stripe's hosted page with required Terms consent", async () => {

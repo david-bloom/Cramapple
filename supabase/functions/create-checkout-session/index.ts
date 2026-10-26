@@ -1,5 +1,6 @@
 import { resolveCheckoutOffer, promotionDiscount, type OfferMode } from "../_shared/checkout-offer.ts";
 import { clientIp } from "../_shared/request-metadata.ts";
+import { sanitizeAdAttribution } from "../_shared/trial-contract.ts";
 import { requireEnv } from "../_shared/env.ts";
 import { trimmedNonEmptyString as asString, emailAddress as asEmail } from "../_shared/input.ts";
 import { requireProfile } from "../_shared/auth.ts";
@@ -167,6 +168,7 @@ Deno.serve(async (req) => {
           studentName: null,
           consentIp: clientIp(req),
           consentUserAgent: req.headers.get("user-agent"),
+          adAttribution: sanitizeAdAttribution(input.ad_attribution),
           urls: {
             returnUrl:
               `${APP_BASE_URL}/checkout/return?session_id={CHECKOUT_SESSION_ID}&role=student&trial=1`,

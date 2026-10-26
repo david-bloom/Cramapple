@@ -51,6 +51,23 @@ function id(value: unknown): string | null {
   return null;
 }
 
+// Acquisition source for growth events: last touch, else first touch. Only
+// keys the growth-event allow-list accepts survive; empty when the visitor
+// opted out of ad tracking or arrived with no tags.
+export function attributionEventProperties(order: { ad_attribution?: unknown } | null) {
+  const a = order?.ad_attribution as
+    | { ad_tracking_allowed?: boolean; first_touch?: Record<string, string>; last_touch?: Record<string, string> }
+    | null
+    | undefined;
+  if (!a || a.ad_tracking_allowed !== true) return {};
+  const out: Record<string, string> = {};
+  for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "creative_id"]) {
+    const v = a.last_touch?.[key] ?? a.first_touch?.[key];
+    if (typeof v === "string" && v) out[key] = v;
+  }
+  return out;
+}
+
 async function loadOrder(service: Any, column: string, value: string): Promise<TrialOrder | null> {
   const { data, error } = await service.schema("app").from("trial_orders")
     .select("*").eq(column, value).maybeSingle();
@@ -299,7 +316,11 @@ export async function handleTrialPaymentIntent(
       eventName: "trial_converted",
       userId: (order as Any)?.user_id ?? null,
       dedupeKey: `trial_converted:${orderId}`,
-      properties: { offer: order?.offer ?? null, amount: intent.amount_received ?? null },
+      properties: {
+        offer: order?.offer ?? null,
+        amount: intent.amount_received ?? null,
+        ...attributionEventProperties(order as Any),
+      },
     });
     return;
   }
