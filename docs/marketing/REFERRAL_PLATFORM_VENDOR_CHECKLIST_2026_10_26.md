@@ -13,6 +13,9 @@
 | R3 | Payout options: gift cards or cash | Must |
 | R4 | Stripe integration: a referral is credited from a real Stripe payment | Must |
 | R8 | Payout rule (David, 2026-10-26): a reward is paid **only after the 7-day trial ends and the payment succeeds, and then only 7 days later** (day 14 from trial start, assuming the day-7 charge succeeds). A trial start, a failed charge or a cancelled trial pays nothing; a refund or dispute inside the 7 days cancels the reward | Must |
+| R9 | Referrer signup has a required **age attestation checkbox** (14 or older); signup cannot complete without it | Must |
+| R10 | **Disclosure** of the referrer's benefit on the landing page and in the share text | Must |
+| R11 | **Students' share link gives the friend $5 off automatically** (Stripe $5-off coupon / promotion code applied with no code typed) | Must |
 | R5 | **Self-serve**: anyone can register as a referrer on a website and be rewarded by automation, with no manual step or interaction from David | Must |
 | R6 | Easy to connect to Supabase, Lovable, and agent tooling (API, webhooks, no-code embed) | Nice |
 | R7 | Referral conversions appear beside ad data (referrer id stored on the order) | Nice |
@@ -91,6 +94,15 @@ Mark each: pass, fail, or unknown (ask the vendor in writing).
 - [ ] Embeddable in the Lovable marketing site without custom hosting.
 - [ ] Pricing at 100, 1,000 and 10,000 referrers (some vendors charge by referrer or by tracked revenue).
 
+### G. Age gate, disclosure and friend discount (R9-R11)
+- [ ] A **required checkbox** with our exact attestation text can be added to the signup form; the form cannot submit unchecked; the acceptance is stored with a timestamp (and ideally the text version).
+- [ ] Signup page and emails are **customisable** (our wording, our domain or an embed).
+- [ ] The **landing page message** can show the referrer's name or code, and the reward wording, from the link.
+- [ ] The **share text** (prefilled message on the referrer's phone) can be edited to our wording and includes the link.
+- [ ] The link can **auto-apply a Stripe $5-off coupon** for the friend (or passes `?promo=` to our checkout, which already applies it). Works with our card-trial quote and the day-7 charge; the coupon is not reusable without a link and cannot be stacked with another code.
+- [ ] Tutor links can be configured with **no friend discount** (or a different one).
+- [ ] Commission math: the tutor's 25% uses the **charged price**; a student link's $5-off coupon does not change the $5 student reward.
+
 ## Scoring
 
 Hard fails (any one rules a vendor out, since one vendor must serve both audiences): no auto-approval (A), cannot reward from the day-7 charge or would reward a trial start (C), no gift card or cash payout (D), refunds not handled (C), no way to restrict minors (E).
@@ -122,17 +134,37 @@ Added checks that follow from these: the vendor must support a **flat amount for
 | --- | --- |
 | D6 | The tutor's 25% is calculated on the **price actually charged** (after any discount) |
 | D7 | Paid on **every sale** to a student that tutor referred (all subjects and add-ons), not only the first |
-| D8 | The referred friend gets no automatic benefit; they get a discount only if they use a coupon |
+| D8 | ~~The referred friend gets no automatic benefit~~ **Superseded by D12** |
 | D9 | **The platform must handle tax** (forms collection and reporting for cash payouts) |
 | D11 | The student's $5 is paid **once per converted trial**, not on later sales (tutors differ: 25% on every sale, D7) |
+| D12 | **Change of plan (2026-10-27):** anyone who uses a **student** share link gets **$5 off automatically**, through a $5-off Stripe coupon. Two-sided, so the referrer ($5 gift card) and the friend ($5 off) both benefit. Tutor links: unchanged (not stated; see Q12) |
+| D13 | **Age gate:** the referrer signup page has a required checkbox attesting they are 14 or older. Wording below |
+| D14 | **Disclosure copy:** the referrer's benefit is disclosed on the landing page and in the share text. Wording below |
 | D10 | **Rewardful and FirstPromoter are out** (no gift cards). Candidates: GrowSurf, Referral Factory, Partnero, and any others found |
+
+## Consumer-facing copy (David, 2026-10-27; light edits flagged)
+
+**Age attestation checkbox (referrer signup), required:**
+> Federal privacy standards for student accounts require us to limit our referral program to people 14 and older. Do not sign up if you are not at least 14 years old.
+
+(David's wording had "limited" and "do not at least 14 years old"; corrected here. Legal accuracy of "federal privacy standards" is part of Q11.)
+
+**Landing page (friend):**
+> Your friend [Name/Code] invited you! Sign up with this link and you both get [Reward]!
+
+**Share text (referrer's phone):**
+> Use my Cramapple link so we both get [Reward]: [Link]
+
+Note for review: the two rewards differ (friend $5 off, referrer $5 gift card, D1/D12). "You both get [Reward]" is accurate only if [Reward] is stated per person, for example "you get $5 off and they get a $5 gift card" on the landing page, and "$5 off for you, a $5 gift card for me" in the share text. A tutor link has a different reward (25% cash commission), so it needs its own copy or no "you both" line. The referrer's benefit must be disclosed even when the friend never sees the referrer's name (Q13).
 
 ## Open questions
 
 | # | Question |
 | --- | --- |
 | Q10 | (Answered: D11) |
-| Q11 | **David is finding out (owner: David).** Lawyer: student referrers may be minors; sharing student data with a referral vendor; who is the payer of record for tax (Cramapple or the vendor)? |
+| Q12 | Do tutor links also give the friend $5 off, or no discount? |
+| Q13 | Does the share/landing disclosure need the referrer's name, or is "your friend" enough? (Privacy for minors; the code can stand in for the name.) |
+| Q11 | **David is finding out (owner: David).** Lawyer: also whether "federal privacy standards" is accurate wording for a 14-and-older gate, and who verifies the attestation; student referrers may be minors; sharing student data with a referral vendor; who is the payer of record for tax (Cramapple or the vendor)? |
 
 ## Next steps
 
