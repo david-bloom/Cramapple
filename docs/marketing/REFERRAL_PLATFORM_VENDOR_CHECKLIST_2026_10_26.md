@@ -71,7 +71,8 @@ Mark each: pass, fail, or unknown (ask the vendor in writing).
 ### D. Rewards and payouts (R2, R3)
 - [ ] Different reward rates per audience (student, tutor), as a flat amount or percentage.
 - [ ] **Flat $5 for students and 25% of the sale for tutors** in the same program (D1, D2).
-- [ ] Students **choose** their gift card from a catalogue (Amazon, DoorDash and similar); list the brands and the countries.
+- [ ] Students **choose** their gift card from a catalogue (Amazon, DoorDash and similar) **during signup** (D15); list the brands and the countries.
+- [ ] The chosen brand is stored on the referrer's profile, can be changed later, and can be inserted into the share text and landing page as a variable.
 - [ ] Tutors are paid **cash** (ACH, PayPal, Venmo or bank transfer); list the options.
 - [ ] Reward for the referred friend too (for example a discount), if we choose that.
 - [ ] Payout by **gift card**, by **cash** (PayPal, ACH, Venmo, prepaid card), or both; list the options.
@@ -98,7 +99,7 @@ Mark each: pass, fail, or unknown (ask the vendor in writing).
 - [ ] A **required checkbox** with our exact attestation text can be added to the signup form; the form cannot submit unchecked; the acceptance is stored with a timestamp (and ideally the text version).
 - [ ] Signup page and emails are **customisable** (our wording, our domain or an embed).
 - [ ] The **landing page message** can show the referrer's name or code, and the reward wording, from the link.
-- [ ] The **share text** (prefilled message on the referrer's phone) can be edited to our wording and includes the link.
+- [ ] The **share text** (prefilled message on the referrer's phone) can be edited to our wording, includes the link and the chosen gift card brand.
 - [ ] The link can **auto-apply a Stripe $5-off coupon** for the friend (or passes `?promo=` to our checkout, which already applies it). Works with our card-trial quote and the day-7 charge; the coupon is not reusable without a link and cannot be stacked with another code.
 - [ ] Tutor links can be configured with **no friend discount** (or a different one).
 - [ ] Commission math: the tutor's 25% uses the **charged price**; a student link's $5-off coupon does not change the $5 student reward.
@@ -138,6 +139,7 @@ Added checks that follow from these: the vendor must support a **flat amount for
 | D9 | **The platform must handle tax** (forms collection and reporting for cash payouts) |
 | D11 | The student's $5 is paid **once per converted trial**, not on later sales (tutors differ: 25% on every sale, D7) |
 | D12 | **Change of plan (2026-10-27):** anyone who uses a **student** share link gets **$5 off automatically**, through a $5-off Stripe coupon. Two-sided, so the referrer ($5 gift card) and the friend ($5 off) both benefit. Tutor links: unchanged (not stated; see Q12) |
+| D15 | The referrer **picks their gift card brand at signup**, so the brand is known for the share text and landing page; the platform must store it and let the referrer change it later |
 | D13 | **Age gate:** the referrer signup page has a required checkbox attesting they are 14 or older. Wording in the copy section (general "laws which restrict people 13 and under", not a federal-standard claim) |
 | D14 | **Disclosure copy:** the referrer's benefit is disclosed on the landing page and in the share text. Wording below |
 | D10 | **Rewardful and FirstPromoter are out** (no gift cards). Candidates: GrowSurf, Referral Factory, Partnero, and any others found |
@@ -152,10 +154,10 @@ Added checks that follow from these: the vendor must support a **flat amount for
 **Share text (referrer's phone), accurate mutual-benefit wording:**
 > Use my Cramapple link: $5 off for you and $5 from [Gift Card] for me! [Link]
 
-`[Gift Card]` is the brand the referrer will choose at payout (Amazon, DoorDash and similar). If the brand is not known when the text is generated, use "a $5 gift card" instead.
+`[Gift Card]` is the brand the referrer **chooses at signup** (Amazon, DoorDash and similar), so it is known when the text is generated (D15).
 
 **Landing page (friend):** the same facts in the friend's voice:
-> Your friend [Name/Code] invited you! Sign up with this link and you get $5 off. They get a $5 gift card.
+> Your friend [Name/Code] invited you! Sign up with this link and you get $5 off. They get a $5 [Gift Card] gift card.
 
 (David's earlier line, "you both get [Reward]", is replaced because the two rewards differ.) A tutor link has a different reward (25% cash commission), so it needs its own copy or no mutual-benefit line (Q12).
 
