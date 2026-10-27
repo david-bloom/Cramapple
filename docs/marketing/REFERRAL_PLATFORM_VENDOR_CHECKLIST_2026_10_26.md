@@ -138,24 +138,26 @@ Added checks that follow from these: the vendor must support a **flat amount for
 | D9 | **The platform must handle tax** (forms collection and reporting for cash payouts) |
 | D11 | The student's $5 is paid **once per converted trial**, not on later sales (tutors differ: 25% on every sale, D7) |
 | D12 | **Change of plan (2026-10-27):** anyone who uses a **student** share link gets **$5 off automatically**, through a $5-off Stripe coupon. Two-sided, so the referrer ($5 gift card) and the friend ($5 off) both benefit. Tutor links: unchanged (not stated; see Q12) |
-| D13 | **Age gate:** the referrer signup page has a required checkbox attesting they are 14 or older. Wording below |
+| D13 | **Age gate:** the referrer signup page has a required checkbox attesting they are 14 or older. Wording in the copy section (general "laws which restrict people 13 and under", not a federal-standard claim) |
 | D14 | **Disclosure copy:** the referrer's benefit is disclosed on the landing page and in the share text. Wording below |
 | D10 | **Rewardful and FirstPromoter are out** (no gift cards). Candidates: GrowSurf, Referral Factory, Partnero, and any others found |
 
 ## Consumer-facing copy (David, 2026-10-27; light edits flagged)
 
-**Age attestation checkbox (referrer signup), required:**
-> Federal privacy standards for student accounts require us to limit our referral program to people 14 and older. Do not sign up if you are not at least 14 years old.
+**Age attestation checkbox (referrer signup), required.** The wording is deliberately general because the legal rules vary by state:
+> There are laws which restrict people 13 and under from joining referral programs like this. Do not sign up if you are not at least 14 years old.
 
-(David's wording had "limited" and "do not at least 14 years old"; corrected here. Legal accuracy of "federal privacy standards" is part of Q11.)
+(Grammar fixed from "if you do not at least 14 years old". It no longer says "federal privacy standards", since the rules vary by state; the lawyer still confirms it, Q11.)
 
-**Landing page (friend):**
-> Your friend [Name/Code] invited you! Sign up with this link and you both get [Reward]!
+**Share text (referrer's phone), accurate mutual-benefit wording:**
+> Use my Cramapple link: $5 off for you and $5 from [Gift Card] for me! [Link]
 
-**Share text (referrer's phone):**
-> Use my Cramapple link so we both get [Reward]: [Link]
+`[Gift Card]` is the brand the referrer will choose at payout (Amazon, DoorDash and similar). If the brand is not known when the text is generated, use "a $5 gift card" instead.
 
-Note for review: the two rewards differ (friend $5 off, referrer $5 gift card, D1/D12). "You both get [Reward]" is accurate only if [Reward] is stated per person, for example "you get $5 off and they get a $5 gift card" on the landing page, and "$5 off for you, a $5 gift card for me" in the share text. A tutor link has a different reward (25% cash commission), so it needs its own copy or no "you both" line. The referrer's benefit must be disclosed even when the friend never sees the referrer's name (Q13).
+**Landing page (friend):** the same facts in the friend's voice:
+> Your friend [Name/Code] invited you! Sign up with this link and you get $5 off. They get a $5 gift card.
+
+(David's earlier line, "you both get [Reward]", is replaced because the two rewards differ.) A tutor link has a different reward (25% cash commission), so it needs its own copy or no mutual-benefit line (Q12).
 
 ## Open questions
 
@@ -164,7 +166,7 @@ Note for review: the two rewards differ (friend $5 off, referrer $5 gift card, D
 | Q10 | (Answered: D11) |
 | Q12 | Do tutor links also give the friend $5 off, or no discount? |
 | Q13 | Does the share/landing disclosure need the referrer's name, or is "your friend" enough? (Privacy for minors; the code can stand in for the name.) |
-| Q11 | **David is finding out (owner: David).** Lawyer: also whether "federal privacy standards" is accurate wording for a 14-and-older gate, and who verifies the attestation; student referrers may be minors; sharing student data with a referral vendor; who is the payer of record for tax (Cramapple or the vendor)? |
+| Q11 | **David is finding out (owner: David).** Lawyer: also whether the general "laws restrict people 13 and under" wording is sufficient for a 14-and-older gate, and who verifies the attestation; student referrers may be minors; sharing student data with a referral vendor; who is the payer of record for tax (Cramapple or the vendor)? |
 
 ## Next steps
 
