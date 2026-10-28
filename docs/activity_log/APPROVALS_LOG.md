@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 - [Precalculus publication — APPROVAL-0195 (concurrent ID collision; use full record path) — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
 
+- [APPROVAL-0201 — Publish 16 FRQs to Production for the Zero-FRQ Topics of AP Biology and AP Statistics, Units 1-4 (recorded 2026-10-28, before execution)](APPROVAL-0201_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4_PRODUCTION_PUBLICATION_2026_10_28.md)
 - [APPROVAL-0200 — TASK-0078 A6/A7: `evaluate-attempt`, `attempt-response` and `create-post-purchase-addon` deployed to Production from `main` (executed 2026-10-21; bundles identical to Development)](APPROVAL-0200_TASK0078_A6_A7_PRODUCTION_FUNCTION_DEPLOYS_2026_10_21.md)
 - [APPROVAL-0199 — TASK-0078 batch to Production: replay claims migration + `session-event`/`storage-sign-url` deploys, submission replay scoping, weekly session sweep (executed 2026-10-21 on Development and Production)](APPROVAL-0199_TASK0078_REPLAY_CLAIMS_SUBMIT_SCOPING_WEEKLY_SWEEP_PRODUCTION_2026_10_21.md)
 - [APPROVAL-0198 — Apply the TASK-0063 session RPC reconciliation migration to Production (executed 2026-10-21; subject-switch refusal removed for the two affected students)](APPROVAL-0198_TASK0063_SESSION_RPC_PRODUCTION_APPLY_2026_10_21.md)
