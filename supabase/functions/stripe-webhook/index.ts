@@ -17,6 +17,7 @@ import {
 import { isFullyRefunded } from "../_shared/checkout-access.ts";
 import { routeCheckoutSession } from "../_shared/checkout-routing.ts";
 import { resolveTrialLearner } from "../_shared/trial-learner.ts";
+import { attributionFromMetadata } from "../_shared/trial-contract.ts";
 import {
   handleDispute,
   handleTrialChargeRefunded,
@@ -429,6 +430,7 @@ async function handleCheckoutSessionCompleted(
       stripe_event_id: eventId,
       stripe_event_type: eventType,
       amount_discount: session.total_details?.amount_discount ?? 0,
+      ...attributionFromMetadata(metadata),
     },
   });
 

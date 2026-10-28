@@ -246,6 +246,8 @@ export type StartInput = QuoteInput & {
   studentName: string | null;
   consentIp: string | null;
   consentUserAgent: string | null;
+  // Sanitised by sanitizeAdAttribution; null when the client sent none.
+  adAttribution?: unknown;
   // Reddit ad click id (rdt_cid) from the checkout page, only when the visitor
   // allowed ad tracking (readRedditClickId). Reported to Reddit on conversion.
   redditClickId?: string | null;
@@ -327,6 +329,7 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
     mandate_text_version: MANDATE_TEXT_VERSION,
     consent_ip: input.consentIp,
     consent_user_agent: input.consentUserAgent?.slice(0, 500) ?? null,
+    ad_attribution: input.adAttribution ?? null,
     reddit_click_id: input.redditClickId ?? null,
     updated_at: nowIso,
   };
