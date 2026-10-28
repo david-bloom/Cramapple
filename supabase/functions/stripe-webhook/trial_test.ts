@@ -85,7 +85,7 @@ function harness(opts: { order?: Any; activate?: string; convert?: string; exist
     stripe,
     service,
     resolveLearner: () => Promise.resolve(opts.learner ?? { userId: "user-1" }),
-    recordGrowthEvent: (e) => { calls.push(["event", e.eventName]); return Promise.resolve(); },
+    recordGrowthEvent: (e) => { calls.push(["event", e.eventName, e.properties]); return Promise.resolve(); },
     log: (m) => calls.push(["log", m]),
     termsVersion: "terms-1",
   };
@@ -222,6 +222,37 @@ Deno.test("conversion records the trial_converted event", async () => {
     id: "pi_1", amount_received: 1999, currency: "usd", metadata: { kind: "trial_conversion", trial_order_id: "order-1" },
   });
   assertEquals(h.calls.some((c) => c[0] === "event" && c[1] === "trial_converted"), true);
+});
+
+Deno.test("conversion event carries the order's ad source, last touch over first", async () => {
+  const h = harness({
+    order: order({
+      ad_attribution: {
+        ad_tracking_allowed: true,
+        first_touch: { utm_source: "tiktok", utm_content: "first-ad" },
+        last_touch: { utm_source: "reddit", utm_medium: "paid_social", utm_content: "ad-07", reddit_click_id: "r1" },
+      },
+    }),
+  });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.succeeded", {
+    id: "pi_1", amount_received: 1999, currency: "usd", metadata: { kind: "trial_conversion", trial_order_id: "order-1" },
+  });
+  const ev = h.calls.find((c) => c[0] === "event" && c[1] === "trial_converted");
+  const props = ev?.[2] as Record<string, unknown>;
+  assertEquals(props.utm_source, "reddit");
+  assertEquals(props.utm_content, "ad-07");
+  assertEquals("reddit_click_id" in props, false);
+});
+
+Deno.test("conversion event keeps first-party source but not click ids when ad tracking was refused", async () => {
+  const h = harness({
+    order: order({ ad_attribution: { ad_tracking_allowed: false, last_touch: { utm_source: "reddit", utm_content: "ad-07" } } }),
+  });
+  await handleTrialPaymentIntent(h.deps, "payment_intent.succeeded", {
+    id: "pi_1", amount_received: 1999, currency: "usd", metadata: { kind: "trial_conversion", trial_order_id: "order-1" },
+  });
+  const ev = h.calls.find((c) => c[0] === "event" && c[1] === "trial_converted");
+  assertEquals((ev?.[2] as Record<string, unknown>).utm_content, "ad-07");
 });
 
 Deno.test("refunds and disputes act only on the charge's own trial order", async () => {
