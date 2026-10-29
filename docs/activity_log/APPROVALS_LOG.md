@@ -4,6 +4,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0202 — Scoped QA access for the MCQ investigation (owner approved, execution pending)](APPROVAL-0202_SCOPED_QA_ACCESS_2026_10_29.md)
+
 - [Precalculus publication — APPROVAL-0195 (concurrent ID collision; use full record path) — Publish 88 Precalculus Units 1–3 MCQs with validated skills (executed; 88 published)](APPROVAL-0195_PRECALCULUS_U1_U3_MCQ_GAP_FILL_PUBLICATION_2026_10_17.md)
 
 - [APPROVAL-0201 — Publish 16 FRQs to Production for the Zero-FRQ Topics of AP Biology and AP Statistics, Units 1-4 (recorded 2026-10-28, before execution)](APPROVAL-0201_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4_PRODUCTION_PUBLICATION_2026_10_28.md)
