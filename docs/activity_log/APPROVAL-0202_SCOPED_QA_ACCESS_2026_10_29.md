@@ -5,7 +5,7 @@
 **Decision:** Approved
 **Tier:** Hard-Gate (one scoped Production data correction)
 **Related work:** `docs/qa/MCQ_ENTITLEMENT_BLOCK_2026_10_27.md`
-**Status:** Approved; execution pending.
+**Status:** Executed; independent database read-back verified. Browser resubmission remains an owner check.
 **Branch:** `codex/qa-chemistry-access`
 
 ## Owner instruction
@@ -32,6 +32,17 @@ is approved by this record. The frontend defects remain a separate implementatio
 
 ## Verification and reversal
 
-Execution result will be appended after the write and independent read-back. If reversal is needed,
+If reversal is needed,
 revoke only the grant with this manual QA source for the privately identified account and subject.
 Do not remove historical records or change unrelated access.
+
+## Execution result (2026-10-29)
+
+The guarded correction created one active Chemistry-only QA grant, active until revoked. A separate
+post-write query confirmed exactly one matching active grant and that the profile remains a student.
+The authoritative grading authorization RPC accepted the incident attempt. A read-only check in the
+test identity's auth context returned an available topic 2.1 teaching item, resolving both access
+denials identified in the investigation. No new answer was submitted or graded during verification.
+
+The error-presentation and recovery defects in the question page remain open. This correction
+removes the access blocker for the scoped QA flow; it is not an app release or a QA pass.
