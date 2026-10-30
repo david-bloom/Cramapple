@@ -42,4 +42,10 @@ Each FRQ is a new item with `content_key like '%-frq-u4z-%'`. Retire the item an
 
 ## Execution
 
-Not yet executed when this entry was recorded. The execution result is appended below by the session that runs it.
+**Status as of 2026-10-30: not executed.**
+
+- **2026-10-28, read-only preflight (Production, through the Supabase connector):** both exam packs published; none of the 8 topics has a published FRQ; none of the 16 `frq-u4z` content keys exists.
+- **Why the publish has not run:** `publish_frq_batch.py` reaches Production with a Supabase CLI access token (`SUPABASE_ACCESS_TOKEN` or `~/.supabase/access-token`). The cloud session that recorded this approval had neither. David Bloom then added `SUPABASE_ACCESS_TOKEN` as an environment variable, but environment variables reach only sessions started afterwards, so the script's preflight in the running session stopped before sending any request. No Production or Development write has happened under this approval.
+- **Not done on purpose:** the generated SQL (about 113,000 characters) was not hand-pushed through the Supabase connector, because the in-transaction hash check does not cover model answers, titles or stored metadata.
+- **Next:** a new session (the variable now exists) runs `preflight`, `rehearse --approval APPROVAL-0201`, `publish --approval APPROVAL-0201 --confirm-production`, `verify`, and the census recount, then appends the result here. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`.
+- After a verified publish, delete the Supabase access token (it is account-wide).
