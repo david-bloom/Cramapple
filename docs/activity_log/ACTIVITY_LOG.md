@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- 16 FRQs authored and checked for the zero-FRQ Biology and Statistics Units 1-4 topics; publish approved (`APPROVAL-0201`) but not run (2026-10-25 to 2026-10-30, owner: "for each topic with zero FRQs in units 1-4, stats and biology, make 2 New FRQ authored in session", then "I approve document it and run those steps"): census of Production, 16 FRQs accepted by both checkers ($4.59), approval recorded, publish blocked on a Supabase token that the running session could not see; Biology 4.2 versus 4.3 ruling open. Handoff: `handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`.
+
 - Marketing attribution live in Production and referral program decided (2026-10-26 to 2026-10-29, owner: "Execute", then the referral requirements): ad attribution migration + three functions deployed (`APPROVAL-0203`), PRs #568/#569 merged, referral program and vendor demo guide recorded (`DECISION-0130`); handoff `handoffs/SESSION_CLOSE_2026_10_29_MARKETING_ATTRIBUTION_AND_REFERRAL.md`.
 
 - Development schema aligned to Production (TASK-0078 ruling 6, 2026-10-22, owner: "Production and Development should be aligned", "Start the alignment"): four slices, eight migrations applied to Development via `apply_migration` and committed under their recorded versions (PRs #560, #561, #562 and this one), Production untouched. Measured before: 50 Production-only functions (31 of them `pg_trgm`), 7 Production-only tables, 25 shared functions with differing bodies (3 in substance, all three where `main`'s baseline agrees with Production), 5 tables with differing columns, 1 Development-only table and 2 policies, plus a finer layer of constraints, indexes, RLS flags and grants. After: every function body, column set, view, policy, trigger, cron job, constraint, index, RLS flag, table grant and effective function privilege equals Production; the one deliberate exception is `qa_grade_frq`, whose Development copy posts to Development's own `evaluate-attempt`. Behaviour changes on Development, each to what Production and `main` already run: `get_student_progress_dashboard` reports `pointsWithheld`; `enforce_content_items_frq_form`, `prevent_profile_role_change`, `tg_content_pipeline_on_decision` on their Production bodies; seven status/enum checks accept Production's values. The eight `task0078_align_*` files are Development-only and must never reach Production. Ledger strategy (A19) remains open. See [`tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md`](../tasks/TASK-0078-BACKEND-STABILITY-FOLLOW-UPS.md) §2d.
@@ -259,6 +261,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-10-30 — 16 FRQs for the zero-FRQ Biology and Statistics Units 1-4 topics: authored, checked, approved; Production publish not yet run (APPROVAL-0201)
+
+Owner requests: "for each topic with zero FRQs in units 1-4, stats and biology, make 2 New FRQ authored in session"; "go ahead and run the checkers"; "draft the approval entry and publish script"; "I approve document it and run those steps".
+
+- **Census (Production, read-only, 2026-10-25):** zero-FRQ topics were Biology 4.2, 4.6 and Statistics 4.2, 4.4, 4.6, 4.7, 4.8, 4.9. Five more FRQs in the range are not servable (Biology 2.1 and 4.3, Statistics 1.13, 3.15, 4.1); not diagnosed.
+- **Authored and checked:** 16 FRQs (PR #566), all accepted by GPT-6.1 Sol and DeepSeek V4 Pro after three rounds, 16/16 on the topic probe, 16/16 full credit from a third family; $4.59 gateway spend. `frq_pipeline.mjs` gained `--max-unit`.
+- **Approval:** `APPROVAL-0201` recorded before any Production write (PR #571).
+- **Not done:** the publish. The script needs a Supabase CLI access token; the session had none, and the environment variable David added afterwards reaches only new sessions. No Production or Development write happened. The generated SQL was deliberately not hand-pushed through the connector.
+- **Open:** run the publish in a new session; Biology 4.2 versus 4.3 ruling (five cascade versions voted 6 of 6 for 4.3, vote not overridden); the five unservable FRQs; optional Development copy and FRQ-variant cost pilot; delete the token after the publish.
+- **Record:** `APPROVAL-0201`, handoff above.
 
 ## 2026-10-29 — Marketing attribution live in Production; referral program decided (APPROVAL-0203, DECISION-0130)
 
