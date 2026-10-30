@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
 - DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
 - DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
 - DECISION-0127 — Production Evidence Outranks Documentation Evidence When They Disagree (First Applied to `APPROVAL-0051`)
@@ -54,6 +55,21 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
+
+- **Date:** 2026-10-27
+- **Decided by:** David Bloom (Product Owner), in session, across the 2026-10-26/27 referral discussion. Full list D1–D17 in `docs/marketing/REFERRAL_PLATFORM_VENDOR_CHECKLIST_2026_10_26.md`.
+- **Context:** Owner wants phone-to-phone referral (QR code or link) for students and tutors/teachers, with automated payouts and Stripe integration. No referral platform had been chosen.
+- **Decision:**
+  1. **Buy, do not build.** One vendor serves both audiences; Stripe integration is the deciding factor; referrers register themselves and are approved and paid by automation with no manual step.
+  2. **Student referrer:** $5 gift card (brand chosen at signup), once per converted trial. **Tutor referrer:** 25% cash of the price actually charged, on every sale to a student they referred.
+  3. **Timing:** nothing for a trial start; reward created when the day-7 payment succeeds and paid 7 days later. A refund or dispute inside that window cancels it; a later refund does not claw it back.
+  4. **Friend** using a student link gets **$5 off automatically** (Stripe coupon). Tutor-link friend discount undecided (Q12).
+  5. **Age gate:** required checkbox at referrer signup, state-neutral wording ("laws which restrict people 13 and under…").
+  6. **Platform must handle tax.** Rewardful and FirstPromoter are out (no gift cards). Candidates: GrowSurf, Referral Factory, Partnero.
+- **Still open:** Q11 (lawyer: minors, data sharing, tax payer of record; owner David), Q12, Q13, and the vendor demos.
+- **Rollback:** nothing is built or bought; the record changes only the plan.
 
 ## DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
 
