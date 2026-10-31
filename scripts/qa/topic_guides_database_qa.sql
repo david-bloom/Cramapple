@@ -518,6 +518,7 @@ do $$
 declare
   v_c7                    integer;
   v_c13a_new              integer;
+  v_c13a_debt             text;
   v_c13b_pre              integer;
   v_c13b_new              integer;
   v_c13b_by_pair          text;
@@ -557,6 +558,22 @@ begin
   if v_c13a_new <> 0 then
     raise exception 'C13a: % row(s) published on/after % carry an exact brief/explainer twin (waive with overlap-waived in the explainer source_note)', v_c13a_new, v_cutoff::date;
   end if;
+
+  -- Exact-twin debt per pair (all three pairs), so pre-cutoff rows are
+  -- reported even though C7 only counts what_it_is/core_idea and C13b skips
+  -- exact matches.
+  select format('what_it_is~core_idea=%s, why_it_matters~what_students_need=%s, how_points_are_earned~how_this_becomes_points=%s',
+           count(*) filter (where x.core_idea = b.what_it_is),
+           count(*) filter (where x.what_students_need_to_understand = b.why_it_matters),
+           count(*) filter (where x.how_this_becomes_points = b.how_points_are_earned))
+  into v_c13a_debt
+  from app.topic_point_briefs b
+  join app.topic_explainers x
+    on x.subject_key=b.subject_key and x.topic_code=b.topic_code
+  where b.status='published' and x.status='published'
+    and greatest(b.published_at, x.published_at) < v_cutoff
+    and coalesce(x.source_note,'') not like '%overlap-waived%';
+  raise notice 'C13a exact-twin field pairs published before % (debt, not failed): %', v_cutoff::date, v_c13a_debt;
 
   raise notice 'QA 15b / C13b: reworded near-twins (overlap >= %), warning only', v_thr;
   with hits as (
