@@ -134,3 +134,29 @@ card are readable without zoom; no page still says "Get started" or "Try for fre
 shows the banner and its checkout links carry promo=BIOLOGY50; clicking any CTA sends landing_cta_clicked. Summarize
 every file you changed and anything from this list you could not do.
 ```
+
+---
+
+## Result (reviewed 2026-10-31, commit `695ec382`, 13.7 credits, NOT published)
+
+**Read by SHA:** `Homepage.tsx`, `ap-stem-prep.tsx`, `__root.tsx`, `posthog.ts`, `data/hero-questions.ts`, `lib/landing.ts`,
+and the 21-file diff. **Not seen:** the rendered pages; the Lovable preview needs a Lovable login, so the 375 px checks
+below are Lovable's own report, to be confirmed on the published site or in David's preview.
+
+- Five hero questions stored verbatim; correct keys match the catalog (Bio D, Chem D, Physics A, Stats A, Calc B).
+- Every CTA on the in-scope pages is "Start free trial"; proof lines use the catalog counts; `FrqDemo` is static with
+  Prev/Next; FAQ, promo banner (`BIOLOGY50` → "$19.99 after your free trial", other codes generic), subject chooser to
+  `/checkout?subjects=<key>` with `promo=` carried; STEM hero button scrolls to `#pick-subject`.
+- `posthog.ts`: `capture_pageleave: true`, `cta_position` allow-listed, `landing_cta_clicked` wired from hero, pricing,
+  benefits, chooser, band, faq. The header button also reports as `hero`.
+- Fonts: the Google Fonts request is now Bungee, Passion One, Source Sans 3, STIX Two Math only. **Wider than asked:**
+  Lovable moved the older marketing pages off Plus Jakarta Sans / JetBrains Mono / Nunito Sans / Archivo Black onto the
+  brand fonts (`styles.css`, `makeover-home.css`). Expect a visible type change on study-guide, question and `/how-it-works`
+  pages; check one before publishing.
+- Nothing under `src/components/checkout`, `trial-checkout.ts`, `purchase-*.ts` or `attribution.ts` changed.
+- Lovable's own caveats: bundle prices on `/` not reconciled with checkout; promo checkout and live PostHog delivery not
+  exercised; `/how-it-works` and `/pedagogy` still say "Get started" (out of scope).
+- Left as-is on `/ap-stem-prep`: "(You can even have your parents pay with text link)".
+
+**Before publish:** open `/`, `/ap-biology-prep?promo=BIOLOGY50` and `/ap-stem-prep` at phone width in the Lovable
+preview; then publish and confirm `landing_cta_clicked` arrives in PostHog from the live site.
