@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
 - [APPROVAL-0203 — Ad attribution: apply `ad_attribution` migration and deploy `create-checkout-session`, `create-parent-payment-link` and `stripe-webhook` to Production (executed 2026-10-26; no live tagged trial verified yet)](APPROVAL-0203_AD_ATTRIBUTION_PRODUCTION_MIGRATION_AND_DEPLOY_2026_10_26.md)
 - [APPROVAL-0202 — Scoped QA access for the MCQ investigation (executed; grading and teaching access verified)](APPROVAL-0202_SCOPED_QA_ACCESS_2026_10_29.md)
 
