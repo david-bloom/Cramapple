@@ -246,9 +246,27 @@ export type StartInput = QuoteInput & {
   studentName: string | null;
   consentIp: string | null;
   consentUserAgent: string | null;
+  // Sanitised by sanitizeAdAttribution; null when the client sent none.
+  adAttribution?: unknown;
+  // Reddit ad click id (rdt_cid) from the checkout page, only when the visitor
+  // allowed ad tracking (readRedditClickId). Reported to Reddit on conversion.
+  redditClickId?: string | null;
   // Where Stripe returns the buyer (direct) or success/cancel (parent).
   urls: { returnUrl?: string; successUrl?: string; cancelUrl?: string };
 };
+
+// The checkout page sends { ad_attribution: { reddit_click_id, ad_tracking_allowed } }.
+// Only a well-formed click id from a visitor who allowed ad tracking (no
+// stored opt-out, no Global Privacy Control) is kept; anything else is null.
+// Same pattern as the trial_orders.reddit_click_id check.
+const REDDIT_CLICK_ID = /^[A-Za-z0-9._~-]{1,300}$/;
+export function readRedditClickId(adAttribution: unknown): string | null {
+  if (!adAttribution || typeof adAttribution !== "object" || Array.isArray(adAttribution)) return null;
+  const a = adAttribution as Record<string, unknown>;
+  if (a.ad_tracking_allowed !== true) return null;
+  const id = typeof a.reddit_click_id === "string" ? a.reddit_click_id.trim() : "";
+  return REDDIT_CLICK_ID.test(id) ? id : null;
+}
 
 export type StartResult = {
   order_id: string;
@@ -311,6 +329,8 @@ export async function startTrialSetup(deps: TrialDeps, input: StartInput): Promi
     mandate_text_version: MANDATE_TEXT_VERSION,
     consent_ip: input.consentIp,
     consent_user_agent: input.consentUserAgent?.slice(0, 500) ?? null,
+    ad_attribution: input.adAttribution ?? null,
+    reddit_click_id: input.redditClickId ?? null,
     updated_at: nowIso,
   };
 

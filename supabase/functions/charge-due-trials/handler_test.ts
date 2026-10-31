@@ -173,3 +173,21 @@ Deno.test("clean-up never marks done an order a late webhook changed underneath 
   assertEquals(await cleanUpFinishedOrders(next.deps), 1);
   assertEquals(next.calls.filter((c) => c[0] === "detach").map((c) => c[1]), ["pm_late"]);
 });
+
+Deno.test("the worker runs Reddit conversion delivery after charging, and its failure changes nothing else", async () => {
+  const ok = harness(fresh, () => Promise.resolve({}));
+  let ran = 0;
+  ok.deps.adConversions = () => { ran++; return Promise.resolve({ sent: 1 }); };
+  const summary: Any = await runChargeWorker(ok.deps);
+  assertEquals([ran, summary.ad_conversions], [1, { sent: 1 }]);
+
+  const failing = harness(fresh, () => Promise.resolve({}));
+  failing.deps.adConversions = () => Promise.reject(new Error("reddit down"));
+  const s2: Any = await runChargeWorker(failing.deps);
+  assertEquals(s2.ad_conversions, { error: "failed" });
+  assertEquals(failing.calls.some((c) => c[0] === "upsert" && c[1] === "trial_worker_heartbeat"), true);
+
+  const off = harness(fresh, () => Promise.resolve({}));
+  const s3: Any = await runChargeWorker(off.deps);
+  assertEquals(s3.ad_conversions, null);
+});

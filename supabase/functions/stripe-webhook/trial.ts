@@ -1,3 +1,4 @@
+import { attributionEventProperties } from "../_shared/trial-contract.ts";
 // Card-trial webhook handlers (TASK-0077 plan §6.4, §6.5, §6.7, §6.8).
 // Dependencies are injected so the handlers can be tested without Stripe or
 // Supabase.
@@ -299,7 +300,11 @@ export async function handleTrialPaymentIntent(
       eventName: "trial_converted",
       userId: (order as Any)?.user_id ?? null,
       dedupeKey: `trial_converted:${orderId}`,
-      properties: { offer: order?.offer ?? null, amount: intent.amount_received ?? null },
+      properties: {
+        offer: order?.offer ?? null,
+        amount: intent.amount_received ?? null,
+        ...attributionEventProperties((order as Any)?.ad_attribution),
+      },
     });
     return;
   }
