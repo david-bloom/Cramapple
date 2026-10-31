@@ -189,8 +189,9 @@ explained, every FRQ scored line by line against the rubric", "Hand-drawn answer
 ```
 Across src/components/Homepage.tsx and src/routes/ap-stem-prep.tsx: (1) every CTA button reads "Start free trial"
 (aria-labels updated); (2) pricing heading "Free for 7 days, then one-time pricing"; remove the words "Buy now" and "Pay
-once for the year"; on subject pages (Homepage rendered with a subject) hide the two bundle cards and add one line "Add a
-second subject later for $30." under the single card; (3) add a <PricingFaq> accordion with four items: "What happens on
+once for the year"; on subject pages (Homepage rendered with a subject) hide the two bundle cards and add one line "You can
+add more subjects later from your account." under the single card (no price: the trial flow has no second-subject
+offer today, so do not present the bundle difference as one); (3) add a <PricingFaq> accordion with four items: "What happens on
 day 7?" (your card is charged the one-time price for your subject, the exact date is shown at checkout), "How do I
 cancel?" (from your account, any time before the trial ends, and you pay nothing), "Can a parent pay?" (yes, checkout
 has "Ask a parent to pay", which texts or emails them a link), "Refunds?" (link to the existing refund policy); (4) read
