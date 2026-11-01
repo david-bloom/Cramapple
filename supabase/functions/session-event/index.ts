@@ -1,3 +1,4 @@
+import { checkStudyPackAccess } from "../_shared/subject-access.ts";
 import { trimmedNonEmptyString as asString, looseUuid as asUuid, coercedInteger as asInteger } from "../_shared/input.ts";
 import { sha256Text as sha256Hex } from "../_shared/encoding.ts";
 import { claimReplay, completeReplay, ReplayError } from "../_shared/operation-replay.ts";
@@ -197,6 +198,9 @@ export async function handleSessionEvent(req: Request, deps: SessionEventDeps = 
         return respond({ error: "invalid_practice_format" }, { status: 400 });
       }
 
+      const denied = await checkStudyPackAccess(service, profileId, examPackVersionId);
+      if (denied) return respond({ error: denied.error }, { status: denied.status });
+
       const cached = await begin();
       if (cached) return cached;
 
@@ -346,6 +350,11 @@ export async function handleSessionEvent(req: Request, deps: SessionEventDeps = 
 
     if (session.user_id !== profileId) {
       return respond({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (operation === "session_resume") {
+      const denied = await checkStudyPackAccess(service, profileId, session.exam_pack_version_id);
+      if (denied) return respond({ error: denied.error }, { status: denied.status });
     }
 
     const cached = await begin();

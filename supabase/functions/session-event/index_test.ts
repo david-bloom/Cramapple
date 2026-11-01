@@ -4,11 +4,12 @@ import { handleSessionEvent } from "./index.ts";
 
 const user = "11111111-1111-4111-8111-111111111111";
 const pack = "22222222-2222-4222-8222-222222222222";
-const request = () =>
+const request = (operation = "session_start") =>
   new Request("https://fixture/session-event", {
     method: "POST",
     body: JSON.stringify({
-      operation: "session_start",
+      operation,
+      session_id: pack,
       exam_pack_version_id: pack,
       entry_path: "practice",
       session_mode: "learn",
@@ -17,13 +18,14 @@ const request = () =>
     }),
   });
 
-function fixture(kind: string, completionFails = false) {
+function fixture(kind: string, completionFails = false, access: boolean | null = true, operation = "session_start") {
   let mutations = 0;
   let claims = 0;
-  const result = { id: pack, user_id: user, status: "active" };
+  const result = { id: pack, user_id: user, exam_pack_version_id: pack, status: "active" };
   const service = {
     schema: () => ({
       rpc: (name: string) => {
+        if (name === "has_study_pack_access") return Promise.resolve({ data: access, error: null });
         if (name === "claim_operation_replay") {
           const outcome = claims++ > 0 && kind === "claimed" ? "pending" : kind;
           return Promise.resolve({
@@ -60,7 +62,7 @@ function fixture(kind: string, completionFails = false) {
     }),
   };
   const run = () =>
-    handleSessionEvent(request(), {
+    handleSessionEvent(request(operation), {
       // deno-lint-ignore no-explicit-any
       service: service as any,
       // deno-lint-ignore no-explicit-any
@@ -69,7 +71,7 @@ function fixture(kind: string, completionFails = false) {
           { user: { id: user }, profile: { role: "student" } } as any,
         ),
     });
-  return { run, mutations: () => mutations };
+  return { run, mutations: () => mutations, claims: () => claims };
 }
 
 for (const kind of ["conflict", "pending"]) {
@@ -100,3 +102,15 @@ Deno.test("session: simultaneous same-key requests permit only one action", asyn
   assertEquals(statuses, [200, 409]);
   assertEquals(f.mutations(), 1);
 });
+
+for (const operation of ["session_start", "session_resume"]) {
+  for (const access of [false, null]) {
+    Deno.test(`${operation}: missing/unknown access denies even a cached successful replay`, async () => {
+      const f = fixture("replay", false, access, operation);
+      const response = await f.run();
+      assertEquals(response.status, access === false ? 403 : 503);
+      assertEquals(f.claims(), 0);
+      assertEquals(f.mutations(), 0);
+    });
+  }
+}

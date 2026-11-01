@@ -1,10 +1,10 @@
 # Subject access before study entry
 
-**Status:** In Progress  
-**Tier:** Standard implementation; Production release remains Hard-Gate  
-**Owner:** Codex conductor; Product Owner David Bloom  
-**Created / approved:** 2026-10-31  
-**Branch:** `codex/work-subject-access` in Cramapple and ap-prep-blueprint  
+**Status:** Ready for Review
+**Tier:** Standard implementation; Production release remains Hard-Gate
+**Owner:** Codex conductor; Product Owner David Bloom
+**Created / approved:** 2026-10-31
+**Branch:** `codex/work-subject-access` in Cramapple and ap-prep-blueprint
 **PR:** pending
 
 ## Approval and goal
@@ -28,6 +28,21 @@ Regression tests cover authorized/denied accounts, expired/future/revoked grants
 
 ## Implementation / evidence
 
-Pending. Live baseline inspected 2026-10-31; production subject switch and question readback did not check subject entitlement, while submit did. No account identifiers or raw student data are stored in this public record.
+Implemented 2026-11-01 in paired backend/app branches. Live baseline inspected 2026-10-31; production subject switch and question readback did not check subject entitlement, while submit did. No account identifiers or raw student data are stored in this public record.
 
-**QA result:** pending. **Done decision:** not requested. **Next owner/action:** Codex implements and verifies; David approves the exact Production release when ready.
+- Backend: current-user subject/pack access RPCs, selection/onboarding checks, learning-session insert/reactivation trigger, get_question_experience gate, gated study guides, and early Edge Function start/resume/serve checks. Unknown access returns 503; missing access returns 403. Existing staff QA roles remain exempt for study entry; grading rules are unchanged.
+- App: per-account catalog/full-pack/Home/guide caches; available-subject filtering; Home and direct study links gated; denied teaching requests cannot fall through into practice; denied scoring/serving removes the question. Practice no longer preloads its key or shows an optimistic result. Transient grading retries retain the selected response and existing resumable chain.
+- BYOQ retains its existing reference endpoint; authenticated subject study uses the new gated endpoint with no fallback. This preserves the explicitly excluded identity-agnostic BYOQ behavior. Shared BC reference content checks BC access, not access to the source subject.
+- The 2026-10-31 paywall proposal is still DRAFT/unapproved and is not implemented here.
+
+Validation: app TypeScript check, 130 test files / 1,266 tests, and production build passed. Backend handler suites: 55 tests passed. Isolated PostgreSQL migration/fixtures passed: missing/active/expired/future/revoked grants, account isolation, selection, onboarding, session insert/reactivation, legacy session readback denial, requested-subject guides and function privileges. Added a dedicated SQL CI workflow. These are implementation checks, not an independent QA verdict.
+
+Local app dependencies were installed with npm without rewriting the stale npm lockfile; repository CI uses the committed Bun lockfile on Node 22 and is the release gate. Production browser verification and independent QA remain pending.
+
+**QA result:** implementation checks passed; independent QA pending. **Done decision:** not requested.
+
+**Release sequence, after review and explicit Production approval:** apply `20261031143302_subject_access_before_study.sql`, deploy `session-event` and `student-session-items` with `_shared/subject-access.ts`, then publish the paired app commit. Recheck the live definitions before migration. Exercise denied/allowed accounts and revocation end-to-end in the published app. No grants, payments, or account identities change.
+
+**Rollback:** retain the server access checks while investigating frontend regressions; revert app publication if needed. Any rollback that removes access enforcement needs explicit approval. The migration creates no entitlement data and deletes no records.
+
+**Next owner/action:** independent reviewer checks the paired PRs and CI; David approves the exact Production release once review is complete. No Production changes were made in this session.
