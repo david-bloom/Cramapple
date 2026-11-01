@@ -282,3 +282,32 @@ crops are WebP) and wired as the phone source for those two slides; 359 tests pa
 the bottom; that is in the crop itself (offset 170 px from the desktop capture). Re-crop a little narrower if it shows.
 
 **Latest marketing commit to publish: `2f325a7e`** (includes `695ec382` from 2026-10-31 and `955bebb7`).
+
+## Grader run for the demo FRQs (2026-11-01, David's ask: "run a real admin run, swap in the grader's payloads")
+
+**Blocked on OpenAI credits.** Everything up to the model call works; the model call is refused.
+
+What was done:
+- An in-app run as David needs his login, so the run uses the deployed functions directly, the way `scripts/frq_photo_smoke.mjs`
+  does. Development runs byte-identical bundles to Production for `evaluate-attempt` (sha `a1336c20…`, Dev v60 = Prod v83),
+  `attempt-response` (`b80d8b32…`) and `session-event` (`667e3f30…`), so a Development run exercises the production grader code.
+- Development had none of the twelve questions, so they were copied from Production (`content_items`, published
+  `content_item_versions`, `frq_criteria`; new UUIDs, same content keys, Dev's published exam-pack versions; `created_by` nulled).
+  Seed SQL and ids: session scratch (`seed_dev.sql`, `dev_idmap.json`). They are Development-only rows.
+- Runner `run_demo_grading.mjs` (session scratch): one smoke student (`smoke+demofrq-…@cramapple.test`, Dev user
+  `a341696c-a5d9-41f3-925c-6ef029b6ab5e`), trial entitlement per subject, `session_start` → `create_attempt` → `save_response`
+  (typed text) → `submit_response` → `evaluate-attempt grade_initial_attempt`. All twelve reached the grader (HTTP 202).
+- Every result is `uncertain`, 0 points, `uncertainty_reason = openai_http_429: You have no credits remaining …
+  credit_balance_exhausted`. Model id recorded: `gpt-5.4-mini`, prompt `v1.0.0`. The local `OPENAI_API_KEY` in `.secrets.env`
+  returns the same 429 on a one-token completion, so the organization itself is out of credit, not one key.
+- Production exposure: Production's grader uses the same provider. No Production FRQ has been model-graded since 2026-09-23
+  (every grade since is `rule-based-mcq`), so no student has hit this yet; the first typed or photographed FRQ, and BYOQ photo
+  extraction, will fail the same way until credits are added.
+
+Ready for the re-run (one command once credits exist): `run_demo_grading.mjs`, then `map_grading_to_payloads.py`
+(grader → RepairPayload: `feedback_preview` → point_summary; criterion decisions → criteria with the published learner-facing
+text as label; first unearned criterion → missing_concept; `repair_hint` → next_fix; no teaching_note), then a Lovable message
+swapping the authored sets for the grader's.
+
+Note: `apcalcab-frq-001` and `apcalcab-frq-002` carry 3 points per criterion in `frq_criteria` (9 available) while their
+`prompt_json` parts say 1 point each; the demo shows the rubric's numbers once the grader runs, so decide which is right first.
