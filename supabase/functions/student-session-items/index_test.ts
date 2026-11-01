@@ -18,6 +18,9 @@ import { extractQuestionParts, handleStudentSessionItems } from "./index.ts";
 type Row = Record<string, unknown>;
 type RpcCall = { schema: "app" | "public"; name: string; params: unknown };
 type Spec = {
+  access?: boolean | null;
+  accessError?: boolean;
+  reads?: string[];
   session?: Row | null;
   sourceVersion?: Row | null;
   transferRows?: Row[];
@@ -98,9 +101,15 @@ function makeService(spec: Spec) {
     open_hand_teaching_items: spec.teachingItems ?? [],
   };
   const appSchema = {
-    from: (t: string) =>
-      tableBuilder(singleByTable[t] ?? null, listByTable[t] ?? []),
+    from: (t: string) => {
+      spec.reads?.push(t);
+      return tableBuilder(singleByTable[t] ?? null, listByTable[t] ?? []);
+    },
     rpc: (fn: string, params: unknown) => {
+      if (fn === "has_study_pack_access") return Promise.resolve({
+        data: spec.access === undefined ? true : spec.access,
+        error: spec.accessError ? { message: "offline" } : null,
+      });
       spec.rpcCalls?.push({ schema: "app", name: fn, params });
       return Promise.resolve({
         data: fn === "select_confirm_transfer_item"
@@ -1229,3 +1238,16 @@ Deno.test("teaching_image: unauthenticated caller is refused before any lookup",
   );
   assertEquals(res.status, 401);
 });
+
+for (const branch of [{}, { current_mcq_answer: { content_item_version_id: SOURCE_VERSION_ID } }, { confirm_transfer: { source_content_item_version_id: SOURCE_VERSION_ID } }]) {
+  for (const access of [false, null]) {
+    Deno.test(`subject access ${access}: refuses ${JSON.stringify(branch)} before content/key/media lookup`, async () => {
+      const reads: string[] = [];
+      const rpcCalls: RpcCall[] = [];
+      const res = await call({ session: ACTIVE_SESSION, access, reads, rpcCalls }, { learning_session_id: SESSION_ID, ...branch });
+      assertEquals(res.status, access === false ? 403 : 503);
+      assertEquals(reads, ["learning_sessions"]);
+      assertEquals(rpcCalls, []);
+    });
+  }
+}
