@@ -5,7 +5,7 @@
 **Owner:** Codex conductor; Product Owner David Bloom
 **Created / approved:** 2026-10-31
 **Branch:** `codex/work-subject-access` in Cramapple and ap-prep-blueprint
-**PR:** pending
+**PR:** [Backend #584](https://github.com/david-bloom/Cramapple/pull/584) · [App #42](https://github.com/david-bloom/ap-prep-blueprint/pull/42)
 
 ## Approval and goal
 
