@@ -252,3 +252,33 @@ Update `src/lib/landing.test.ts` for the new chooser list and proof lines. Add t
 - **Physics 1 screenshot.** Once David has a graded Physics 1 session, re-capture with `?state=physics` pointed at it; the harness states live in `.worktrees/cramapple-app/src/dev-harness/` (uncommitted by design).
 - **Content defect found on the way:** `APSTATS-SFRQ-008` part (d) says "a positive expected value" but the stimulus gives E[X] = −1.40. Not used in the demo for that reason; needs a content fix.
 - Visual check before publishing: `/` slideshow at 375px (controls above and below), `/ap-physics-prep` course strip and chooser highlight, `/ap-calculus-prep` two-slide showcase.
+
+## Result (2026-11-01)
+
+**Round 1 — commit `955bebb7`, 11.3 credits, 359 tests passing by Lovable's report, NOT published.** Sent with 10 of the 12 images
+(Lovable's per-message limit); the biology and precalculus phone crops went in a second message (below).
+
+Reviewed by diff (9 files; nothing under checkout, trial-checkout, purchase-*, attribution; no `transition`/`animation` added
+to the CSS, no autoplay or timers in the showcase):
+
+| Ask | What landed |
+| --- | --- |
+| 1 Controls above and below | `FrqDemo` renders the Prev / counter / Next row twice, both with `aria-controls="frq-demo-examples"`; `ProductShowcase` does the same when it has more than one slide. |
+| 2 Course coverage | `prep-pages.ts`: physics drops `checkoutKey`, highlights all four physics keys, carries the `courses` strip and `priceNote: "one-time, per course"`; calculus the same; both page descriptions updated. `landing.ts`: the two per-course proof lines verbatim; chooser is the ten purchasable subjects (Lovable kept Statistics in second position instead of last; otherwise as asked). |
+| 3 FRQ demo by subject | 12 new examples keyed by subject; criterion statuses in the diff total 34 earned / 9 missing, which is exactly the authored set; the provenance comment is in place verbatim; label is built from the subject. |
+| 4 Product showcase | `src/components/landing/ProductShowcase.tsx` + `src/styles/homepage-mockup.css`; images saved as WebP at original pixel size under `src/assets/product/` (desktop 83–161 KB, crops 34–55 KB); `<picture>` switches at 639px; `aria-live="polite"`; six slides on `/`, two on calculus, one elsewhere; physics slide labelled "AP Physics C: E&M". `bio-answer-key-mobile.webp` deleted; `bio-prep-screenshot.png.asset.json` kept because `/ap-stem-prep`'s device frame still uses it. |
+| 5 Tests | `landing.test.ts`, `prep-pages.test.tsx` added/updated; `index.test.tsx` physics-link assertion replaced. |
+
+Lovable's own caveats: it saw the home slideshow controls on a phone but the first slide image had not finished loading in its
+capture, so it did not see a slide render; it checked the physics course strip wraps cleanly.
+
+Not verified by eye here: the Lovable preview needs a Lovable login. Before publishing, David should open `/` (slideshow,
+controls above and below, 375px), `/ap-physics-prep` (strip, four highlighted chooser rows, CTA to `/checkout`),
+`/ap-calculus-prep` (two-slide showcase), `/ap-chemistry-prep` (three chemistry FRQ examples, chemistry screenshot).
+
+**Round 2 — commit `2f325a7e`, 2.2 credits.** The biology and precalculus phone crops saved as PNG (142 KB, 59 KB; the other four
+crops are WebP) and wired as the phone source for those two slides; 359 tests pass; not published. Lovable checked both at
+375×812 and notes a thin sliver of the neighbouring panel at the right edge of every crop and the last biology option cut off at
+the bottom; that is in the crop itself (offset 170 px from the desktop capture). Re-crop a little narrower if it shows.
+
+**Latest marketing commit to publish: `2f325a7e`** (includes `695ec382` from 2026-10-31 and `955bebb7`).
