@@ -96,16 +96,34 @@ Every topic explainer must:
 - move the student back toward practice;
 - avoid diagnostic, cold-assessment, secure, or answer-bearing content.
 
-Recommended budgets:
+Field roles (each fact appears once; a brief field and its explainer twin must
+do different jobs, because the student page shows both):
 
-- `what_it_is`: 80-260 characters.
-- `why_it_matters`: 80-260 characters.
-- `answer_move`: 80-320 characters.
-- `core_idea`: 100-360 characters.
-- `point_attaining_answer`: 120-520 characters.
+- `what_it_is` (brief) = the definition, in one card-sized statement.
+  `core_idea` (explainer) = the mechanism or the "why it works", not a
+  restatement of the definition.
+- `why_it_matters` (brief) = the course-level payoff in one line.
+  `what_students_need_to_understand` (explainer) = the specific trap or
+  dependency to hold in mind, not the same list of later topics.
+- `how_points_are_earned` (brief) = the exam move in one line.
+  `how_this_becomes_points` (explainer) = the rubric path, step by step, using
+  the topic's own evidence.
+- `answer_move` and `common_point_loss` may be shared verbatim between brief
+  and explainer: the student page shows an identical string once.
+
+Budgets (advisory; C9). The single source is the `topic_guides_qa_budgets`
+temp table in `scripts/qa/topic_guides_database_qa.sql`, which the QA script
+reports per field. This protocol does not repeat the numbers, so the two
+cannot drift. The original five budgets are `what_it_is`, `why_it_matters`,
+`answer_move`, `core_idea` and `point_attaining_answer`. On 2026-10-31 six
+upper bounds were added for fields the page renders as paragraphs
+(`how_points_are_earned`, brief and explainer `common_point_loss`,
+`what_students_need_to_understand`, `how_this_becomes_points`,
+`practice_bridge`), set just above the Production 90th percentile measured on
+603 published pairs.
 
 Rows outside these ranges are not automatically wrong, but the reviewer must
-record why the extra length or brevity helps students.
+record why the extra length or brevity helps students. C9 never fails a run.
 
 ## Required Fields
 
@@ -503,6 +521,30 @@ the row scope.
 - C11: Anonymous users remain locked out of views and RPC execution.
 - C12: The Lovable/frontend smoke path renders a real brief and Learn More
   explainer for at least one topic in the batch.
+- C13: Brief and explainer twin fields do not restate each other (field
+  roles above). The twin pairs are `what_it_is`/`core_idea`,
+  `why_it_matters`/`what_students_need_to_understand` and
+  `how_points_are_earned`/`how_this_becomes_points`.
+  - C13a (hard for new rows; C7 is its `what_it_is`/`core_idea` case): no twin
+    pair is byte-identical on a row published on or after the cutoff in
+    `topic_guides_qa_c13_config` (currently 2026-10-31). Waive per explainer
+    row by putting `overlap-waived` in the explainer `source_note` with the
+    reason. Rows published before the cutoff are listed as debt, not failed.
+  - C13b (warning only): reworded near-twins, measured as the overlap
+    coefficient on content tokens (|A and B| / min(|A|,|B|), LaTeX and 1-2
+    character tokens removed, small stopword list, skipped when either side
+    has fewer than 8 tokens) at 0.80 or above. Measured on 603 pairs
+    2026-10-31: 105 near-twin field pairs (46 / 27 / 32 across the three
+    pairs); about three quarters of hand-labelled pairs at 0.75+ were real
+    twins, which is why this stays a warning.
+  - Known blind spot: lexical overlap does not catch paraphrased twins.
+    AP Chemistry 2.1 scores 0.24 on `what_it_is`/`core_idea` while saying the
+    same thing. Catching those belongs in the generate-select checker step
+    (ask the checker whether the explainer field adds anything the brief
+    field does not), not in this script.
+  - Negative control: `scripts/qa/topic_guides_c13_negative_control.sql` is
+    expected to fail with `EXPECTED FAILURE: C13a tripped`; run it on
+    Development when C13a changes. `CONTROL BROKEN` means C13a stopped working.
 
 ## Relationship To Content Operations
 

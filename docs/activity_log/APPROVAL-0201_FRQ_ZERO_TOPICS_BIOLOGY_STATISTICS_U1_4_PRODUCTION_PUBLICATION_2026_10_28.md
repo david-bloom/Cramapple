@@ -42,10 +42,12 @@ Each FRQ is a new item with `content_key like '%-frq-u4z-%'`. Retire the item an
 
 ## Execution
 
-**Status as of 2026-10-30: not executed.**
+Executed 2026-10-29 by Claude (Sonnet 5.5) in session, from `scripts/content-seed/frq-u4-zero-topics-2026-10-25/` on `origin/main` (post PR #571), Production (`pcntajvbdfqhbeewmdry`), with the steps in the approved order:
 
-- **2026-10-28, read-only preflight (Production, through the Supabase connector):** both exam packs published; none of the 8 topics has a published FRQ; none of the 16 `frq-u4z` content keys exists.
-- **Why the publish has not run:** `publish_frq_batch.py` reaches Production with a Supabase CLI access token (`SUPABASE_ACCESS_TOKEN` or `~/.supabase/access-token`). The cloud session that recorded this approval had neither. David Bloom then added `SUPABASE_ACCESS_TOKEN` as an environment variable, but environment variables reach only sessions started afterwards, so the script's preflight in the running session stopped before sending any request. No Production or Development write has happened under this approval.
-- **Not done on purpose:** the generated SQL (about 113,000 characters) was not hand-pushed through the Supabase connector, because the in-transaction hash check does not cover model answers, titles or stored metadata.
-- **Next:** a new session (the variable now exists) runs `preflight`, `rehearse --approval APPROVAL-0201`, `publish --approval APPROVAL-0201 --confirm-production`, `verify`, and the census recount, then appends the result here. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`.
-- After a verified publish, delete the Supabase access token (it is account-wide).
+1. `publish_frq_batch.py preflight --env prod`: `ap_biology` 4 planned, `ap_statistics` 12 planned; state absent; no planned topic already had an FRQ.
+2. `publish_frq_batch.py rehearse --env prod`: `REHEARSAL OK` for both subjects (4 and 12), rolled back.
+3. `publish_frq_batch.py publish --env prod --approval APPROVAL-0201 --confirm-production`: `ap_biology` rehearsed, committed, verified (4 FRQs); `ap_statistics` rehearsed, committed, verified (12 FRQs).
+4. `publish_frq_batch.py verify --env prod` (run again standalone): 16/16 published with matching text, a primary topic and a fresh validated label.
+5. Recount of published FRQs by primary topic (latest published version, `is_primary`, `skill_code is null`, the plan's taxonomy version per subject): Biology 4.2 and 4.6 each have exactly 2 (both `-frq-u4z-`); Statistics 4.2, 4.4, 4.6, 4.7, 4.8 and 4.9 each have exactly 2 (all `-frq-u4z-`). No Biology or Statistics topic in Units 1-4 has zero published FRQs now. The other Units 1-4 topic counts carry no `-frq-u4z-` items, so no other topic count changed from this publish (the pre-publish counts were not captured, so "unchanged" rests on that, not on a before/after diff).
+
+Outcome: as approved, 16 FRQs published, nothing beyond scope touched. No errors, retries or partial states. The Biology 4.2 versus 4.3 ruling stays open (see "Not approved by this entry"). Rollback is unchanged: retire items with `content_key like '%-frq-u4z-%'`.

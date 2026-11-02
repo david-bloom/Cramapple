@@ -1,6 +1,6 @@
 # Session Close: FRQ Census and 16 New FRQs for Zero-FRQ Topics, Biology and Statistics Units 1-4 (2026-10-25 to 2026-10-30)
 
-**STATUS:** Authored, checked and approved; **NOT published.** The Production publish (`APPROVAL-0201`) has not run.
+**STATUS:** Authored, checked and approved. **Update 2026-11-02: the Production publish (`APPROVAL-0201`) was executed 2026-10-29 (16/16 verified); see the approval record. The "not published" statements below describe the state when this handoff was written and are superseded.**
 **OWNER / PRODUCT OWNER:** David Bloom
 **BRANCH:** `claude/frqs-jjjc96` (restarted from `main` after each merge; currently equal to `main`)
 **PRs:** #566 (the 16 FRQs, batch, pipeline change, draft script and approval entry; merged 2026-10-25) and #571 (`APPROVAL-0201` recorded; merged 2026-10-28)

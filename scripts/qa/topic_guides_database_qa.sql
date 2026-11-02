@@ -26,14 +26,25 @@
 --   C4 practice_* fields         - hard assertion
 --   C5 learn_more_path format    - hard assertion
 --   C6 active app.subjects row   - hard assertion
---   C7 core_idea distinct from   - WARNING (grandfathered as of 2026-08-21;
---      the paired brief             promote to hard once the debt is cleared)
+--   C7 core_idea distinct from   - WARNING for rows published before the C13
+--      the paired brief             cutoff; hard for rows published on/after
+--                                   it (C13a). Waive with 'overlap-waived' in
+--                                   the explainer source_note.
 --   C8 no shared distinctness    - WARNING for grandfathered rows, hard for
 --      values                       new (non-grandfathered) rows
---   C9 length budgets            - WARNING with counts
+--   C9 length budgets            - ADVISORY (never fails): per-field counts
+--                                   driven by topic_guides_qa_budgets below
 --   C10 authenticated view       - hard assertion
 --       counts match app tables
 --   C11 anon locked out          - hard assertion
+--   C12 frontend smoke           - NOT covered by this script (manual/E2E)
+--   C13 brief/explainer overlap  - C13a exact twins (= C7) as above; C13b
+--                                   reworded near-twins (overlap coefficient
+--                                   >= 0.80 on content tokens) WARNING only.
+--                                   Lexical overlap cannot see paraphrased
+--                                   twins (e.g. AP Chemistry 2.1); that needs
+--                                   a model check in the generate-select
+--                                   checker step, not this script.
 
 begin;
 
@@ -48,8 +59,9 @@ grant select on topic_guides_qa_profile to authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Expectations manifest -- the single source of truth for count assertions.
--- Baseline captured against Production 2026-08-21 (365 briefs / 365
--- explainers, 10 subjects). Update this table when a batch changes counts.
+-- Baseline refreshed against Production 2026-10-31 (603 briefs / 603
+-- explainers, 10 subjects, 70 subject-unit rows); previous baseline 365 on
+-- 2026-08-21. Update this table when a batch changes counts.
 -- ---------------------------------------------------------------------------
 
 create temporary table topic_guides_qa_expectations (
@@ -62,46 +74,76 @@ create temporary table topic_guides_qa_expectations (
 ) on commit drop;
 
 insert into topic_guides_qa_expectations values
-  ('ap_biology',              'biology',        1,  7,  7),
-  ('ap_biology',              'biology',        2, 10, 10),
-  ('ap_biology',              'biology',        3,  5,  5),
-  ('ap_biology',              'biology',        4,  6,  6),
-  ('ap_biology',              'biology',        5,  5,  5),
-  ('ap_biology',              'biology',        6,  8,  8),
-  ('ap_biology',              'biology',        7, 12, 12),
-  ('ap_biology',              'biology',        8,  7,  7),
-  ('ap_calculus_ab',          'ap-calculus-ab', 1, 16, 16),
-  ('ap_calculus_ab',          'ap-calculus-ab', 2, 10, 10),
-  ('ap_calculus_ab',          'ap-calculus-ab', 3,  6,  6),
-  ('ap_calculus_ab',          'ap-calculus-ab', 4,  7,  7),
-  ('ap_calculus_ab',          'ap-calculus-ab', 5, 12, 12),
-  ('ap_calculus_ab',          'ap-calculus-ab', 6, 11, 11),
-  ('ap_calculus_ab',          'ap-calculus-ab', 7,  7,  7),
-  ('ap_calculus_ab',          'ap-calculus-ab', 8, 12, 12),
-  ('ap_calculus_bc',          'ap-calculus-bc', 1, 16, 16),
-  ('ap_calculus_bc',          'ap-calculus-bc', 2, 10, 10),
-  ('ap_calculus_bc',          'ap-calculus-bc', 3,  6,  6),
-  ('ap_calculus_bc',          'ap-calculus-bc', 4,  7,  7),
-  ('ap_calculus_bc',          'ap-calculus-bc', 5, 12, 12),
-  ('ap_calculus_bc',          'ap-calculus-bc', 6, 12, 12),
-  ('ap_calculus_bc',          'ap-calculus-bc', 7,  9,  9),
-  ('ap_calculus_bc',          'ap-calculus-bc', 8, 13, 13),
-  ('ap_chemistry',            'ap-chemistry',   1,  8,  8),
-  ('ap_chemistry',            'ap-chemistry',   2,  7,  7),
-  ('ap_chemistry',            'ap-chemistry',   3, 11, 11),
-  ('ap_physics_1',            'ap-physics-1',   1,  5,  5),
-  ('ap_physics_1',            'ap-physics-1',   3,  5,  5),
-  ('ap_physics_2',            'ap-physics-2',   9,  6,  6),
-  ('ap_physics_2',            'ap-physics-2',  11,  8,  8),
-  ('ap_physics_c_em',         'ap-physics-c-em',        8,  6,  6),
-  ('ap_physics_c_em',         'ap-physics-c-em',       10,  4,  4),
-  ('ap_physics_c_mechanics',  'ap-physics-c-mechanics', 1,  5,  5),
-  ('ap_physics_c_mechanics',  'ap-physics-c-mechanics', 3,  5,  5),
-  ('ap_precalculus',          'ap-precalculus', 1, 14, 14),
-  ('ap_precalculus',          'ap-precalculus', 3, 15, 15),
-  ('ap_statistics',           'ap-statistics',  1, 13, 13),
-  ('ap_statistics',           'ap-statistics',  2, 12, 12),
-  ('ap_statistics',           'ap-statistics',  3, 15, 15);
+  ('ap_biology', 'biology', 1, 7, 7),
+  ('ap_biology', 'biology', 2, 10, 10),
+  ('ap_biology', 'biology', 3, 5, 5),
+  ('ap_biology', 'biology', 4, 6, 6),
+  ('ap_biology', 'biology', 5, 5, 5),
+  ('ap_biology', 'biology', 6, 8, 8),
+  ('ap_biology', 'biology', 7, 12, 12),
+  ('ap_biology', 'biology', 8, 7, 7),
+  ('ap_calculus_ab', 'ap-calculus-ab', 1, 16, 16),
+  ('ap_calculus_ab', 'ap-calculus-ab', 2, 10, 10),
+  ('ap_calculus_ab', 'ap-calculus-ab', 3, 6, 6),
+  ('ap_calculus_ab', 'ap-calculus-ab', 4, 7, 7),
+  ('ap_calculus_ab', 'ap-calculus-ab', 5, 12, 12),
+  ('ap_calculus_ab', 'ap-calculus-ab', 6, 11, 11),
+  ('ap_calculus_ab', 'ap-calculus-ab', 7, 7, 7),
+  ('ap_calculus_ab', 'ap-calculus-ab', 8, 12, 12),
+  ('ap_calculus_bc', 'ap-calculus-bc', 1, 16, 16),
+  ('ap_calculus_bc', 'ap-calculus-bc', 2, 10, 10),
+  ('ap_calculus_bc', 'ap-calculus-bc', 3, 6, 6),
+  ('ap_calculus_bc', 'ap-calculus-bc', 4, 7, 7),
+  ('ap_calculus_bc', 'ap-calculus-bc', 5, 12, 12),
+  ('ap_calculus_bc', 'ap-calculus-bc', 6, 14, 14),
+  ('ap_calculus_bc', 'ap-calculus-bc', 7, 9, 9),
+  ('ap_calculus_bc', 'ap-calculus-bc', 8, 13, 13),
+  ('ap_calculus_bc', 'ap-calculus-bc', 9, 9, 9),
+  ('ap_calculus_bc', 'ap-calculus-bc', 10, 15, 15),
+  ('ap_chemistry', 'ap-chemistry', 1, 8, 8),
+  ('ap_chemistry', 'ap-chemistry', 2, 7, 7),
+  ('ap_chemistry', 'ap-chemistry', 3, 13, 13),
+  ('ap_chemistry', 'ap-chemistry', 4, 9, 9),
+  ('ap_chemistry', 'ap-chemistry', 5, 11, 11),
+  ('ap_chemistry', 'ap-chemistry', 6, 9, 9),
+  ('ap_chemistry', 'ap-chemistry', 7, 12, 12),
+  ('ap_chemistry', 'ap-chemistry', 8, 11, 11),
+  ('ap_chemistry', 'ap-chemistry', 9, 11, 11),
+  ('ap_physics_1', 'ap-physics-1', 1, 5, 5),
+  ('ap_physics_1', 'ap-physics-1', 2, 9, 9),
+  ('ap_physics_1', 'ap-physics-1', 3, 5, 5),
+  ('ap_physics_1', 'ap-physics-1', 4, 4, 4),
+  ('ap_physics_1', 'ap-physics-1', 5, 6, 6),
+  ('ap_physics_1', 'ap-physics-1', 6, 6, 6),
+  ('ap_physics_1', 'ap-physics-1', 7, 4, 4),
+  ('ap_physics_1', 'ap-physics-1', 8, 4, 4),
+  ('ap_physics_2', 'ap-physics-2', 9, 6, 6),
+  ('ap_physics_2', 'ap-physics-2', 10, 7, 7),
+  ('ap_physics_2', 'ap-physics-2', 11, 8, 8),
+  ('ap_physics_2', 'ap-physics-2', 12, 4, 4),
+  ('ap_physics_2', 'ap-physics-2', 13, 4, 4),
+  ('ap_physics_2', 'ap-physics-2', 14, 9, 9),
+  ('ap_physics_2', 'ap-physics-2', 15, 8, 8),
+  ('ap_physics_c_em', 'ap-physics-c-em', 8, 6, 6),
+  ('ap_physics_c_em', 'ap-physics-c-em', 9, 3, 3),
+  ('ap_physics_c_em', 'ap-physics-c-em', 10, 4, 4),
+  ('ap_physics_c_em', 'ap-physics-c-em', 12, 4, 4),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 1, 5, 5),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 2, 10, 10),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 3, 5, 5),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 4, 4, 4),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 5, 6, 6),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 6, 6, 6),
+  ('ap_physics_c_mechanics', 'ap-physics-c-mechanics', 7, 5, 5),
+  ('ap_precalculus', 'ap-precalculus', 1, 14, 14),
+  ('ap_precalculus', 'ap-precalculus', 2, 15, 15),
+  ('ap_precalculus', 'ap-precalculus', 3, 15, 15),
+  ('ap_precalculus', 'ap-precalculus', 4, 14, 14),
+  ('ap_statistics', 'ap-statistics', 1, 13, 13),
+  ('ap_statistics', 'ap-statistics', 2, 12, 12),
+  ('ap_statistics', 'ap-statistics', 3, 15, 15),
+  ('ap_statistics', 'ap-statistics', 4, 10, 10),
+  ('ap_statistics', 'ap-statistics', 5, 5, 5);
 
 grant select on topic_guides_qa_expectations to authenticated;
 
@@ -423,22 +465,138 @@ $$;
 -- assertions when the grandfathered set is re-authored.
 -- ---------------------------------------------------------------------------
 
+-- C9 budgets: single source for this script (the protocol cites this table).
+-- First five rows are the protocol's long-standing recommended budgets; the
+-- last six were added 2026-10-31 from the Production p90 + a margin (measured
+-- on 603 published pairs). Advisory only.
+create temporary table topic_guides_qa_budgets (
+  src       text    not null check (src in ('brief','explainer')),
+  field     text    not null,
+  min_chars integer,
+  max_chars integer not null,
+  primary key (src, field)
+) on commit drop;
+
+insert into topic_guides_qa_budgets (src, field, min_chars, max_chars) values
+  ('brief','what_it_is',80,260),
+  ('brief','why_it_matters',80,260),
+  ('brief','answer_move',80,320),
+  ('explainer','core_idea',100,360),
+  ('explainer','point_attaining_answer',120,520),
+  ('brief','how_points_are_earned',null,260),
+  ('brief','common_point_loss',null,160),
+  ('explainer','what_students_need_to_understand',null,360),
+  ('explainer','how_this_becomes_points',null,320),
+  ('explainer','common_point_loss',null,160),
+  ('explainer','practice_bridge',null,220);
+
+-- C13 cutoff: rows with published_at on/after this date are held to the hard
+-- C13a rule. All 603 rows published before 2026-08-27 are pre-cutoff debt.
+-- (Do NOT reuse the C8 'grandfathered-2026-08-21' tag: it marks only five
+-- repair batches, not the baseline.)
+create temporary table topic_guides_qa_c13_config (
+  hard_from      timestamptz not null,
+  near_threshold numeric     not null,
+  min_tokens     integer     not null
+) on commit drop;
+insert into topic_guides_qa_c13_config values ('2026-10-31', 0.80, 8);
+
+-- Overlap coefficient |A n B| / min(|A|,|B|) on distinct content tokens:
+-- lowercase, LaTeX/$..$ stripped, tokens of 1-2 chars and a small stopword
+-- list dropped. NULL when either side has fewer than min_tokens tokens.
+create or replace function pg_temp.tg_overlap(a text, b text, min_tokens integer)
+returns numeric language sql immutable as $f$
+  with sw as (select array['the','and','for','that','this','with','from','are','is','was','were','you','your','its','not','but','can','will','have','has','how','why','what','when','which','into','than','then','they','them','their','also','each','every','more','most','only','over','such','use','used','using','one','two','all','any','may','must','should','would','could','about','between','because','before','after','while','where','there','these','those','does','did','been','being','both','either','other','some','same','so','of','to','in','on','at','by','as','or','an','a','be','it'] w),
+  ta as (select array_agg(distinct x) t from unnest(regexp_split_to_array(lower(regexp_replace(regexp_replace(coalesce(a,''),'\$[^$]*\$',' ','g'),'[^a-zA-Z ]',' ','g')),'\s+')) x, sw where length(x)>2 and x<>all(sw.w)),
+  tb as (select array_agg(distinct x) t from unnest(regexp_split_to_array(lower(regexp_replace(regexp_replace(coalesce(b,''),'\$[^$]*\$',' ','g'),'[^a-zA-Z ]',' ','g')),'\s+')) x, sw where length(x)>2 and x<>all(sw.w))
+  select case when coalesce(array_length(ta.t,1),0) < min_tokens or coalesce(array_length(tb.t,1),0) < min_tokens then null
+    else (select count(*) from unnest(ta.t) x where x = any(tb.t))::numeric / least(array_length(ta.t,1), array_length(tb.t,1)) end
+  from ta, tb;
+$f$;
+
 do $$
 declare
   v_c7                    integer;
+  v_c13a_new              integer;
+  v_c13a_debt             text;
+  v_c13b_pre              integer;
+  v_c13b_new              integer;
+  v_c13b_by_pair          text;
   v_c8_grandfathered      integer;
   v_c8_new                integer;
-  v_c9_briefs_over        integer;
-  v_c9_explainers_over    integer;
+  v_c9_detail             text;
+  v_cutoff                timestamptz;
+  v_thr                   numeric;
+  v_min                   integer;
 begin
-  raise notice 'QA 15 / C7: explainer.core_idea should not equal brief.what_it_is';
+  select hard_from, near_threshold, min_tokens into v_cutoff, v_thr, v_min
+  from topic_guides_qa_c13_config;
+
+  raise notice 'QA 15 / C7 + C13a: explainer.core_idea should not equal brief.what_it_is';
   select count(*) into v_c7
   from app.topic_point_briefs b
   join app.topic_explainers x
     on x.subject_key=b.subject_key and x.topic_code=b.topic_code
   where b.status='published' and x.status='published'
     and x.core_idea = b.what_it_is;
-  raise notice 'C7 violations (grandfathered debt): %', v_c7;
+  raise notice 'C7 violations (pre-cutoff debt plus any new): %', v_c7;
+
+  -- C13a: hard for exact twins (what_it_is/core_idea, why_it_matters/
+  -- what_students_need_to_understand, how_points_are_earned/
+  -- how_this_becomes_points) on rows published on/after the cutoff.
+  select count(*) into v_c13a_new
+  from app.topic_point_briefs b
+  join app.topic_explainers x
+    on x.subject_key=b.subject_key and x.topic_code=b.topic_code
+  where b.status='published' and x.status='published'
+    and greatest(b.published_at, x.published_at) >= v_cutoff
+    and coalesce(x.source_note,'') not like '%overlap-waived%'
+    and (x.core_idea = b.what_it_is
+      or x.what_students_need_to_understand = b.why_it_matters
+      or x.how_this_becomes_points = b.how_points_are_earned);
+  raise notice 'C13a exact-twin rows published on/after % (hard): %', v_cutoff::date, v_c13a_new;
+  if v_c13a_new <> 0 then
+    raise exception 'C13a: % row(s) published on/after % carry an exact brief/explainer twin (waive with overlap-waived in the explainer source_note)', v_c13a_new, v_cutoff::date;
+  end if;
+
+  -- Exact-twin debt per pair (all three pairs), so pre-cutoff rows are
+  -- reported even though C7 only counts what_it_is/core_idea and C13b skips
+  -- exact matches.
+  select format('what_it_is~core_idea=%s, why_it_matters~what_students_need=%s, how_points_are_earned~how_this_becomes_points=%s',
+           count(*) filter (where x.core_idea = b.what_it_is),
+           count(*) filter (where x.what_students_need_to_understand = b.why_it_matters),
+           count(*) filter (where x.how_this_becomes_points = b.how_points_are_earned))
+  into v_c13a_debt
+  from app.topic_point_briefs b
+  join app.topic_explainers x
+    on x.subject_key=b.subject_key and x.topic_code=b.topic_code
+  where b.status='published' and x.status='published'
+    and greatest(b.published_at, x.published_at) < v_cutoff
+    and coalesce(x.source_note,'') not like '%overlap-waived%';
+  raise notice 'C13a exact-twin field pairs published before % (debt, not failed): %', v_cutoff::date, v_c13a_debt;
+
+  raise notice 'QA 15b / C13b: reworded near-twins (overlap >= %), warning only', v_thr;
+  with hits as (
+    select greatest(b.published_at, x.published_at) pub, f.fp
+    from app.topic_point_briefs b
+    join app.topic_explainers x
+      on x.subject_key=b.subject_key and x.topic_code=b.topic_code
+    cross join lateral (values
+      ('what_it_is~core_idea', b.what_it_is, x.core_idea),
+      ('why_it_matters~what_students_need', b.why_it_matters, x.what_students_need_to_understand),
+      ('how_points_are_earned~how_this_becomes_points', b.how_points_are_earned, x.how_this_becomes_points)
+    ) f(fp, a, c)
+    where b.status='published' and x.status='published' and f.a is distinct from f.c
+      and coalesce(x.source_note,'') not like '%overlap-waived%'
+      and pg_temp.tg_overlap(f.a, f.c, v_min) >= v_thr
+  )
+  select (select count(*) from hits where pub <  v_cutoff),
+         (select count(*) from hits where pub >= v_cutoff),
+         coalesce((select string_agg(fp||'='||n, ', ' order by fp)
+                   from (select fp, count(*) n from hits group by fp) g), '(none)')
+  into v_c13b_pre, v_c13b_new, v_c13b_by_pair;
+  raise notice 'C13b near-twin field pairs -- pre-cutoff debt: %, on/after cutoff: % (warning only; by pair: %)',
+    v_c13b_pre, v_c13b_new, v_c13b_by_pair;
 
   raise notice 'QA 16 / C8: no shared values across published explainers (excluding cross-subject duplications)';
 
@@ -483,20 +641,25 @@ begin
     raise exception 'C8: % non-grandfathered published explainer(s) share a distinctness value', v_c8_new;
   end if;
 
-  raise notice 'QA 17 / C9: content length budgets';
-  select
-    count(*) filter (where length(what_it_is)>260 or length(why_it_matters)>260
-                     or length(answer_move)>320)
-  into v_c9_briefs_over
-  from app.topic_point_briefs where status='published';
-
-  select
-    count(*) filter (where length(core_idea)>360 or length(point_attaining_answer)>520)
-  into v_c9_explainers_over
-  from app.topic_explainers where status='published';
-
-  raise notice 'C9 over-budget rows -- briefs: %, explainers: %',
-    v_c9_briefs_over, v_c9_explainers_over;
+  raise notice 'QA 17 / C9: content length budgets (advisory; counts per field)';
+  select coalesce(string_agg(lbl||'='||n, ', ' order by lbl), '(none over budget)')
+  into v_c9_detail
+  from (
+    select bu.src||'.'||bu.field lbl, c.n
+    from topic_guides_qa_budgets bu
+    cross join lateral (
+      select count(*) n from (
+        select to_jsonb(t) ->> bu.field v from app.topic_point_briefs t
+          where bu.src='brief' and t.status='published'
+        union all
+        select to_jsonb(t) ->> bu.field from app.topic_explainers t
+          where bu.src='explainer' and t.status='published'
+      ) q
+      where length(q.v) > bu.max_chars or length(q.v) < coalesce(bu.min_chars, 0)
+    ) c
+    where c.n > 0
+  ) z;
+  raise notice 'C9 over/under-budget rows by field: %', v_c9_detail;
 
   raise notice 'QA STRUCTURAL PASS';
 end;
