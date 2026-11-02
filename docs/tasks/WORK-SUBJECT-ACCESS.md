@@ -11,6 +11,8 @@
 
 David instructed: “I think just kill it. Students should not have access to subjects for which they aren't entitled”. This authorizes implementation of early subject-access enforcement and removal of the “Your answer was checked, but your progress was not saved. Try saving again” presentation. It does not grant account access or authorize Production migrations/publication.
 
+**Production approval — 2026-11-02:** David explicitly instructed “production approved” in the originating Codex session. This authorizes the paired backend migration/function release and Lovable app publication described below. It does not grant additional subject access or alter payment state. App PR #42 was already merged to `7859c0cf6761ba3d8ee0b5ca9d38c93a555de77e`; Lovable reports that exact latest commit. Backend PR #584 remains the release source. All GitHub CI checks are green. Live `set_active_exam_pack_version` and `complete_onboarding` match the pre-change definitions, and `get_question_experience` still has the expected ownership/readback insertion point.
+
 Related investigation: `docs/qa/MCQ_ENTITLEMENT_BLOCK_2026_10_27.md`. That report's access-specific retry UI proposal is superseded by this instruction: prevent entry first; handle access lost mid-session without retrying a forbidden submission.
 
 ## Scope and acceptance
