@@ -72,7 +72,7 @@ jobs:
         env:
           CRAMAPPLE_DB_URL: ${{ secrets.SERVABLE_ITEMS_CHECK_DB_URL }}
         run: |
-          out=$(psql "$CRAMAPPLE_DB_URL" -v ON_ERROR_STOP=1 -At -F ' | ' -f scripts/qa/answer_key_exposure_guard.sql)
+          out=$(psql "$CRAMAPPLE_DB_URL" -X -q -v ON_ERROR_STOP=1 -At -F ' | ' -f scripts/qa/answer_key_exposure_guard.sql)
           if [ -n "$out" ]; then
             echo "Answer-key columns are directly readable (kind | role | relation | column):"
             echo "$out"
