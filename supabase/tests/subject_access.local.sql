@@ -398,7 +398,7 @@ $function$
 ;
 
 -- A session can predate entitlement enforcement; it must be blocked on readback.
-insert into app.subjects values ('10000000-0000-4000-8000-000000000001', 'ap_calculus_ab', 'active'), ('10000000-0000-4000-8000-000000000002', 'ap_calculus_bc', 'active');
+insert into app.subjects values ('10000000-0000-4000-8000-000000000001', 'ap-calculus-ab', 'active'), ('10000000-0000-4000-8000-000000000002', 'ap-calculus-bc', 'active');
 insert into app.profiles values ('20000000-0000-4000-8000-000000000001','student',null,null), ('20000000-0000-4000-8000-000000000002','student',null,null), ('20000000-0000-4000-8000-000000000003','validator',null,null);
 insert into app.exam_packs values ('30000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001'), ('30000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000002');
 insert into app.exam_pack_versions values ('40000000-0000-4000-8000-000000000001','30000000-0000-4000-8000-000000000001'), ('40000000-0000-4000-8000-000000000002','30000000-0000-4000-8000-000000000002');
@@ -436,11 +436,12 @@ begin
   end;
   insert into app.subject_entitlements values (student,ab,'active',now() - interval '1 day',null);
   assert public.has_study_pack_access(pack), 'active perpetual grant allowed';
-  assert public.get_study_subject_keys() = '["ap_calculus_ab"]'::jsonb;
+  assert public.get_study_subject_keys() = '["ap-calculus-ab"]'::jsonb;
   assert public.set_active_exam_pack_version(pack) = pack;
   perform public.complete_onboarding(pack);
   insert into app.learning_sessions values (gen_random_uuid(),student,pack,'active');
   assert public.get_study_topic_point_guides('ap-calculus-ab',1,'1.1')->>'subject' = 'ap-calculus-ab';
+  assert public.get_study_topic_point_guides('ap_calculus_ab',1,'1.1')->>'subject' = 'ap_calculus_ab', 'canonical guide key matches live hyphenated subject';
   begin
     perform public.get_study_topic_point_guides('ap_calculus_bc',1,'1.1');
     raise exception 'AB entitlement must not unlock BC';

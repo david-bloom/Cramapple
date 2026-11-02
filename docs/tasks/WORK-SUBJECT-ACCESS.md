@@ -48,3 +48,7 @@ Local app dependencies were installed with npm without rewriting the stale npm l
 **Rollback:** retain the server access checks while investigating frontend regressions; revert app publication if needed. Any rollback that removes access enforcement needs explicit approval. The migration creates no entitlement data and deletes no records.
 
 **Next owner/action:** independent reviewer checks the paired PRs and CI; David approves the exact Production release once review is complete. No Production changes were made in this session.
+
+## Pre-release remediation — 2026-11-02
+
+The live-data review found that `app.subjects.subject_key` uses hyphenated keys (and `biology`), while the study-guide endpoint normalizes its requested key. Normalize both sides of the entitlement helper comparison. Picker output remains the stored key, matching the public catalog. The local SQL fixture now uses Production's hyphenated AB/BC keys and tests both URL and canonical guide spellings. No Production changes had been made when this was found.

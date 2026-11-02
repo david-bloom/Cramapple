@@ -10,7 +10,8 @@ as $$
     or exists (
       select 1 from app.subject_entitlements e
       join app.subjects entitled_subject on entitled_subject.id = e.subject_id
-      where e.user_id = _user_id and entitled_subject.subject_key = _subject_key
+      where e.user_id = _user_id
+        and app.normalize_student_subject_key(entitled_subject.subject_key) = app.normalize_student_subject_key(_subject_key)
         and e.status = 'active' and e.starts_at <= now()
         and (e.ends_at is null or e.ends_at > now())
     )
