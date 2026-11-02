@@ -1,3 +1,4 @@
+import { checkStudyPackAccess } from "../_shared/subject-access.ts";
 import { trimmedUuidShape as asUuid } from "../_shared/input.ts";
 // TASK-0021 — student-authorized prompt-visual delivery.
 // Task: docs/tasks/TASK-0021-BIOLOGY-PROMPT-VISUAL-STUDENT-DELIVERY.md
@@ -631,6 +632,12 @@ export async function handleStudentSessionItems(
     }
     if (session.status !== "active") {
       return respond({ error: "session_not_active" }, { status: 409 });
+    }
+
+    // Gate before questions, answer keys, transfer selection, or signed media.
+    if (!isStaffQaRole(profile.role)) {
+      const denied = await checkStudyPackAccess(service, user.id, session.exam_pack_version_id);
+      if (denied) return respond({ error: denied.error }, { status: denied.status });
     }
 
     const qaMode = isStaffQaRole(profile.role);
