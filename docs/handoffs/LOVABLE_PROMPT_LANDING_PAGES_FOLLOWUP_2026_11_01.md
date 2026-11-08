@@ -311,3 +311,47 @@ swapping the authored sets for the grader's.
 
 Note: `apcalcab-frq-001` and `apcalcab-frq-002` carry 3 points per criterion in `frq_criteria` (9 available) while their
 `prompt_json` parts say 1 point each; the demo shows the rubric's numbers once the grader runs, so decide which is right first.
+
+## Grader run completed and swapped in (2026-11-08)
+
+**Done.** The twelve demo answers were graded by the deployed grader and the grader's payloads now sit in the marketing
+project's `FrqDemo.tsx`. Not published; publishing is David's step.
+
+Timeline of the block: credits were added to the OpenAI organization that owns the key David saved to Development
+(Dev's `OPENAI_API_KEY` digest changed twice between 2026-11-02 and 2026-11-08). The first run after the fix at
+14:54 UTC still returned the 429; the retry at 14:58 UTC graded. The function reads the key once at module load, so a
+warm isolate kept the old key for a few minutes; the Dev function logs show a fresh `booted` line right before the first
+successful grade.
+
+Run facts (Development, same bundles as Production; evidence in `landing_frq_grader_run_2026_11_08/`):
+- Students `2d25d25a-c59b-4547-be6d-9455421d9aad` (main run) and the retry student recorded in `grading_run.json`
+  (`smoke+demofrq-…@cramapple.test`, Development only).
+- Model `gpt-5.4-mini`, prompt `v1.0.0`, all twelve `status = graded`, confidence `high`. Grading result ids per item are
+  in `payloads.json` under `grader`.
+- First pass: 9 graded, 3 uncertain. Two of the three (`APSTATS-SFRQ-002`, `apchem-sfrq-031`) failed because the
+  model returned malformed JSON (`Unterminated string in JSON at position 690`, `Expected ',' or '}' after property
+  value at position 1306`); the third (`apphy1-frq-024`) hit a late 429 while credits were still propagating. All three
+  graded on a second attempt. The JSON failures are a real grader defect: a student in Production would see "feedback is
+  taking longer than expected" and 0 points for that attempt.
+- Scores: chemistry 3/4, 4/4, 4/4; physics 2/3, 5/5, 3/3; statistics 4/4, 3/4, 3/4; calculus 3/4, 6/9, 8/9.
+  Criterion statuses: 36 earned, 6 missing, 1 partial (`apcalcab-frq-001` part (b), 2 of 3 points).
+- `repair_hint` from the function is templated from keyword fragments on the calculus items ("Provide the missing
+  mathematical evidence: no, not uniqueness, additional"). The demo uses the grader's per-criterion `minimum_fix` for the
+  highest-value gap instead, which is a full sentence. The templated `repair_hint` is what the app shows students today;
+  worth a look.
+- The grader's criterion `status` vocabulary includes `partially_earned` (not only `partial`); the first mapping missed it
+  and rendered that criterion as missing. Fixed in `map_grading_to_payloads.py` and in Lovable.
+
+Mapping (grader → `RepairPayload`): `feedback_preview` → point_summary; each `criterion_results[i]` → criteria with
+`frq_criteria.learner_facing_text` as label, status earned / partial (incl. `partially_earned`) / missing, evidence =
+`decision_explanation` + the quoted `evidence_quote`; first unearned criterion label → missing_concept; the grader's
+`minimum_fix` for `highest_value_gap.criterion_key` → next_fix; teaching_note null (the grader returns none).
+
+Lovable (marketing project 61dd6602): commit `f1073f7e` swapped the twelve `repair` objects and the provenance comment
+(FrqDemo.tsx only, plus a Lovable-owned `.lovable/north-star/north-star.md`); commit `d678c770` is the one-word
+`partial` fix. Lovable's own check and a read-back of the file confirm every `repair` matches `payloads.json`
+character for character and no topic, prompt or answer string changed. Tests 356/356. **Latest commit to publish:
+`d678c770`.**
+
+Still open for David: points inconsistency on `apcalcab-frq-001/002` (3 points per criterion in `frq_criteria`, 1 per part
+in `prompt_json`; the demo now shows 9 available); the two malformed-JSON grader failures; the templated `repair_hint`.
