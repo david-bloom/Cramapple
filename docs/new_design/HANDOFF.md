@@ -34,7 +34,7 @@ Always consume the semantic aliases (`--text-earned`, `--surface-hint`, `--actio
 
 Minimum viable prompt preamble if you only have room for a paragraph:
 
-> Square corners everywhere (radius 0). No motion, no transitions. Body text never below 16px. Colour is an assignment: orange #f54900 is brand chrome and the single primary action, blue #1f56a8 is rubric and points earned, green #2f9c67 is reference material only, yellow #edb90d is hints only and always costs the student something, purple #5f43ba is the student's own work, maroon #8a2f3f is points lost and incorrect, clay #8c4530 is the ↻ revisit mark. No emoji. A missed point is ↻, never ✕.
+> One system for every subject. Wordmark only, no logo. Fonts: Bungee wordmark, Passion One headings, Source Sans 3 body; equations in KaTeX. Square corners everywhere (radius 0). No motion, no transitions. Body text never below 16px. Full marks are green (#2b7a24, the full-* scale), always with a ✓ and the words "Full marks". Colour is an assignment: orange #f54900 is brand chrome and the single primary action, blue #1f56a8 is rubric and points earned, green #2f9c67 is reference material only, yellow #edb90d is hints only and always costs the student something, purple #5f43ba is the student's own work, maroon #8a2f3f is points lost and incorrect, clay #8c4530 is the ↻ revisit mark. No emoji. A missed point is ↻, never ✕.
 
 ## 3. Components — 19 React components
 

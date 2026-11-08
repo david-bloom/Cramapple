@@ -8,7 +8,7 @@
  * A BYOQ item is tagged `source: 'student'` and, by construction, never carries
  * an answer: no MCQ choice has `is_correct: true`, no FRQ has `criteria`, and no
  * hint of kind `eliminate`/`rubric` exists, because none of those can be
- * authored for a problem CramApple did not write and the submitting student has
+ * authored for a problem Cramapple did not write and the submitting student has
  * not solved. See docs/activity_log/DECISIONS_LOG.md DECISION-0057.
  */
 
@@ -69,7 +69,7 @@ export function createByoqItem(input) {
     stem: [{ type: 'text', value: input.stemText }],
 
     points: input.item_type === 'mcq' ? 1 : 4,
-    scoringNote: "This is your own question. CramApple didn't write it, so it can't be scored.",
+    scoringNote: "This is your own question. Cramapple didn't write it, so it can't be scored.",
 
     // Never authored, never populated -- see the module comment.
     habits: null,

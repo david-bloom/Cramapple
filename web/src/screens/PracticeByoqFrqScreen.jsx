@@ -9,14 +9,14 @@ import { Stem } from './parts/Stem.jsx';
 import { eyebrow, body } from './parts/text.js';
 import { useSession } from '../session/SessionProvider.jsx';
 
-const NOT_GRADABLE = "This is your own question, so there's no CramApple-authored"
+const NOT_GRADABLE = "This is your own question, so there's no Cramapple-authored"
   + ' rubric to score it against. Read back through your reasoning against the'
   + ' reference material, or ask your teacher to check this one.';
 
 /**
  * Practice for a BYOQ (bring-your-own-question) FRQ item. Deliberately not the
  * library PracticeFrqScreen: there is no `criteria` array on this item (see
- * content/byoq.js), because no rubric can be authored for a problem CramApple
+ * content/byoq.js), because no rubric can be authored for a problem Cramapple
  * did not write. No rubric hint, no deep dive, no per-criterion marks -- just
  * the student's own answer, held for their own review.
  */
@@ -53,7 +53,7 @@ export function PracticeByoqFrqScreen({ question, onNext }) {
             <div style={{ display: 'grid', gap: 16 }}>
               <p style={body}>{question.scoringNote}</p>
               <Missing heading="Not available for your own questions">
-                No rubric, hint, or deep dive exists for a question CramApple
+                No rubric, hint, or deep dive exists for a question Cramapple
                 didn't author.
               </Missing>
             </div>

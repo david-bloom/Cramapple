@@ -1,4 +1,4 @@
-// The CramApple Design System, as consumed by this app.
+// The Cramapple Master design system, as consumed by this app.
 // Source of truth for the visual rules: docs/new_design/ and .claude/skills/cramapple-design/.
 // Do not re-implement a primitive inside a screen -- add it here instead.
 

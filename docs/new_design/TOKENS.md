@@ -31,7 +31,8 @@ styles.css
 | `--orange-600` | #f54900 | Masthead ground, question-pane outline |
 | `--orange-700` | #ca3500 | The one primary action, active breadcrumb, the mark on light grounds |
 | `--blue-600` | #1f56a8 | Rubric, points earned, credited answers, ✓ |
-| `--green-500` | #2f9c67 | Reference materials |
+| `--green-500` | #2f9c67 | Reference materials (never full marks) |
+| `--full-600` | #2b7a24 | Full marks at the maximum score only (the `full-*` scale); always with a ✓ and the words "Full marks" |
 | `--yellow-500` | #edb90d | Hints — and every yellow surface costs the student something |
 | `--purple-600` | #5f43ba | The student's own work: answer field, options, feedback |
 | `--maroon-600` | #8a2f3f | Points lost, incorrect verdicts, eliminated options |

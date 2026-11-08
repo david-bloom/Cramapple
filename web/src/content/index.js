@@ -77,7 +77,7 @@ export function getTopic(code) {
 
 /**
  * A library question's reference block for a given topic, for a BYOQ item to
- * borrow. CramApple-authored and topic-general, so it carries no answer to the
+ * borrow. Cramapple-authored and topic-general, so it carries no answer to the
  * student's own submitted problem -- see content/byoq.js.
  */
 export function referenceForTopic(code) {

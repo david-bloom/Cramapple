@@ -62,7 +62,7 @@ await page.waitForTimeout(300);
 await plateFits('Home');
 await noWrappedActions('Home');
 let t = await text();
-check('Home: wordmark renders', t.includes('CramApple'));
+check('Home: wordmark renders', t.includes('Cramapple'));
 check('Home: study map lists both topics', t.includes('Scatterplots & Correlation') && t.includes('Least-Squares Regression'));
 check('Home: unit counter starts at 0 of 6', /0 of 6 questions done/.test(t));
 await page.screenshot({ path: `${OUT}/01-home.png` });

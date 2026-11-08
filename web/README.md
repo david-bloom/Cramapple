@@ -4,7 +4,7 @@ The student practice frontend: the fixed 1440×900 three-pane question plate, in
 both modes (Open Hand and Practice) and both item types (FRQ and MCQ), plus the
 home / study map screen.
 
-Built directly on the CramApple Design System — the tokens, the nineteen
+Built directly on the Cramapple Master design system — the tokens, the nineteen
 components and the product rules all come from `docs/new_design/` and
 `.claude/skills/cramapple-design/`. Nothing here restyles them.
 
