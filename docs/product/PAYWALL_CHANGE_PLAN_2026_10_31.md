@@ -4,7 +4,7 @@
 details are open. This revision records design decisions; it does not authorize implementation or release.
 **Owner:** David Bloom.
 **Tier:** Hard-Gate for implementation (access control, payments adjacency, public pages, minors' data).
-**Revision branch:** `codex/paywall-plan-revision`. Original draft merged in PR #580.
+**Revision branch:** `codex/paywall-frq-source-choice`. Original draft merged in PR #580; initial November 8 revision merged in PR #589.
 **Keeps:** the seven-day card trial exactly as decided in `DECISION-0126` / `SEVEN_DAY_CARD_TRIAL_PLAN_2026_10_18.md`
 (card saved at start, one off-session charge on day 7, one trial per student email, cancel ends access). This plan moves
 *where* that trial sits in the journey; it does not change its rules, price or mechanics.
@@ -58,16 +58,18 @@ verify that every selectable unit can deliver the promised sample and reference 
 
 ### Two different photo flows
 
-- **Photo of an answer:** the student photographs their handwritten response to a Cramapple-provided FRQ.
+- **Photo of an answer:** the student photographs their handwritten response to either a Cramapple-provided FRQ
+  or a student-uploaded FRQ.
   The free FRQ must demonstrate this flow, including transcript review/correction and grading.
   Never ask the student to photograph a question Cramapple already provides.
 - **Photo of a question (BYOQ):** when a student uploads their own question, try to identify its
   **subject, unit and topic**, and ask the student to confirm or correct that combination before proceeding.
   Do not silently treat inferred labels as confirmed or assume subject/unit are already known.
 
-The question-classification requirement is confirmed. Whether a student-uploaded question can consume the sample's
-single FRQ allowance, and how an uploaded question outside the selected subject/unit is handled, remain open.
-This revision does not silently change the existing identity-agnostic BYOQ policy.
+**Both question sources are allowed (David, 2026-11-08):** the student may choose a Cramapple-provided FRQ or upload
+their own FRQ for the sample. Both use the same single graded-FRQ allowance; this is not one allowance per source.
+Uploaded questions still require subject/unit/topic confirmation. Handling an uploaded question outside the selected
+subject/unit remains open. This sample-source choice does not change the existing identity-agnostic BYOQ policy.
 
 ## 4. The meter and expiration
 
@@ -75,7 +77,7 @@ This revision does not silently change the existing identity-agnostic BYOQ polic
 | --- | --- |
 | One subject and unit selected before the first MCQ | Other subjects/units after sample selection; switching rules remain open |
 | 8 MCQs total with complete feedback: 1 before registration + 7 afterward | 9th MCQ onward |
-| 1 graded FRQ, including a photo of the student's answer | 2nd FRQ |
+| 1 graded FRQ from either Cramapple or a student upload, including a photo of the student's answer; one shared allowance | 2nd FRQ, regardless of question source |
 | Selected unit's explainer/reference pages, read-only during the sample | Cheat sheets, progress-tracking features, More help |
 | Saved answer feedback remains read-only after expiry | New questions after the sample deadline |
 | Parent-payment handoff remains available after expiry | — |
@@ -114,8 +116,9 @@ All implementation mechanisms below are proposed until the detailed design is re
   Fix access-denial handling so expiry produces a usable upgrade/exit path, not a generic save error or blocked page.
 - Support photo-answer extraction, student confirmation and grading within the one-FRQ sample.
   Specify extraction/retake cost limits as well as grading limits; an IP cap must account for shared school networks.
-- For uploaded questions, propose subject/unit/topic and require confirmation/correction. Sample eligibility for BYOQ
-  remains open; do not expand or restrict the existing BYOQ path by implication.
+- Allow either a Cramapple-provided or student-uploaded FRQ within the same single graded-FRQ sample allowance.
+  For uploaded questions, propose subject/unit/topic and require confirmation/correction. Out-of-unit handling
+  remains open; do not change access to the existing BYOQ path outside this sample by implication.
 - Preserve attribution and promotion through anonymous use, registration, trial start and eventual conversion.
 - Keep sample eligibility separate from trial eligibility. Resolve the original "one per email" versus "one per user ID"
   inconsistency, including existing users, changed emails and prior trials, before specifying uniqueness constraints.
@@ -127,7 +130,8 @@ All implementation mechanisms below are proposed until the detailed design is re
 **App**
 - Subject/unit picker before the first MCQ; complete answer feedback before registration.
 - Registration prompt to save work and continue. After activation, show seven MCQs and one FRQ remaining.
-- Photo-answer submission, transcript confirmation and grading for the free FRQ.
+- Let the student choose a Cramapple-provided FRQ or upload their own question. For uploads, confirm subject/unit/topic.
+  Support photo-answer submission, transcript confirmation and grading with one shared FRQ allowance.
 - Distinct sample-expiry, completion-grace and saved-feedback states; show the applicable deadline.
 - One upgrade sheet and parent-payment handoff retaining the student, subject and applicable promotion.
   Offer wording and amounts must reflect authoritative eligibility/pricing; do not promise every student a
@@ -188,7 +192,8 @@ Review concerns and proposed revisions:
 
 ## 8. Decision record
 
-**Source:** David's explicit choices in the paywall-assessment chat on 2026-11-08, followed by "update the plan."
+**Source:** David's explicit choices in the paywall-assessment chat on 2026-11-08, followed by "update the plan,"
+and his subsequent confirmation: "both a Cramapple-provided question or a student-uploaded question are allowed."
 These are product choices recorded durably here, not authorization to implement, migrate, publish or send email.
 The original D1–D7 identifiers below are local to this plan, not new global `DECISION-xxxx` IDs.
 
@@ -197,7 +202,7 @@ The original D1–D7 identifiers below are local to this plan, not new global `D
 | D1 | Subject/unit | **Confirmed:** student chooses subject and unit before answering the first MCQ |
 | D2 | MCQ allowance | **Confirmed:** eight total; the anonymous first MCQ counts, leaving seven after registration |
 | D3 | Registration | **Confirmed:** one complete MCQ-and-feedback experience first; registration then saves work and unlocks the remainder |
-| D4 | Free FRQ | **Confirmed:** the free FRQ demonstrates photo submission of the student's answer; one graded FRQ in the sample |
+| D4 | Free FRQ | **Confirmed:** choose either a Cramapple-provided question or a student-uploaded question; both share the sample's single graded-FRQ allowance and support photo submission of the student's answer |
 | D5 | Sample clock | **Confirmed:** 72 hours to create urgency, beginning when registration succeeds and the first answer is saved |
 | D6 | Experiment | **Open:** allocation, metrics and stopping criteria; review concerns in §6 |
 | D7 | Nurture emails | **Open:** whether to send, schedule, content, classification and preference handling |
@@ -205,8 +210,8 @@ The original D1–D7 identifiers below are local to this plan, not new global `D
 | D9 | Uploaded question classification | **Confirmed:** try to infer subject/unit/topic and ask the student to confirm/correct; this is distinct from uploading an answer |
 | D10 | Completion grace | **Confirmed:** already-started questions/photo FRQs may finish within a further 72 hours after sample expiry; no new questions during grace |
 
-Still open: anonymous repeat/switching allowance; precise attempt-start/consumption/retry rules; BYOQ inclusion in
-the single FRQ allowance and out-of-unit uploads; identity/eligibility rules; trial-transition precedence; and
+Still open: anonymous repeat/switching allowance; precise attempt-start/consumption/retry rules;
+out-of-unit uploads; identity/eligibility rules; trial-transition precedence; and
 rollback behavior. Assistant recommendations in §§4–7 are proposed details, not confirmed owner choices.
 
 ## 9. Phases and gates
@@ -221,7 +226,8 @@ rollback behavior. Assistant recommendations in §§4–7 are proposed details, 
 
 ### Revision handoff (2026-11-08)
 
-Documentation-only revision: updated this plan and its `docs/INDEX.md` entry. No code, schema, entitlement,
+Documentation-only revision: updated this plan and its `docs/INDEX.md` entry, including David's follow-up confirmation
+that either FRQ question source is allowed within one shared allowance. No code, schema, entitlement,
 payment, email or deployment changes. Current live behavior has not been reverified in this revision.
 **Next owner:** David, with the reviewing agent. **Next action:** resolve the open rules in §8 and the experiment
 in §6 before preparing an implementation specification. Preserve the existing trial rules and BYOQ policy;
@@ -230,5 +236,6 @@ do not treat this document update as execution approval.
 ## 10. Out of scope here
 
 Pricing, bundles, changes to the card trial's rules or charge mechanics, a permanent freemium tier, and the referral
-program. BYOQ classification is recorded here, but its inclusion in the free FRQ allowance remains undecided.
+program. Both FRQ question sources are included in the sample; handling uploads outside the selected subject/unit
+remains undecided.
 If the sample proves out, a standing free tier is a separate decision with its own economics.
