@@ -48,10 +48,12 @@ scripts/           browser checks that enforce the product's layout rules
 
 These are design rules, not preferences. Breaking one is a bug.
 
-- **The plate is fixed at 1440×900 and never scrolls.** No region inside it
-  scrolls or collapses. If content does not fit, cut copy or restructure — do
-  not add a scrollbar. `npm run verify:panes` fails the build if any pane
-  overflows, in any state of any screen.
+- **Design the plate not to need scrolling (a guideline, decided 2026-11-08).**
+  If content does not fit, first try cutting copy or restructuring; if a student
+  needs the content, let it scroll, and keep the primary action and feedback
+  reachable. `npm run verify:panes` still fails on any pane overflow: it predates
+  this decision, so treat a report as a prompt to look, and relax the script
+  before relying on a scrolling plate.
 - **The feedback card sits in its own `auto` row directly above the action row**,
   never inside the pane's `minmax(0,1fr)` content track. Inside the track, a
   grown answer field or option list pushes the card and the primary action past

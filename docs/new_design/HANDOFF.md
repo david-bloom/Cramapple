@@ -45,5 +45,5 @@ Do not re-implement `Button` inside a screen; `ActionButton` already carries the
 ## Gotchas
 
 - **Fonts load from Google Fonts** (`tokens/fonts.css`). If the network is blocked the wordmark falls back to system sans. Self-host the four families for production.
-- **The plate is fixed at 1440×900 and must not scroll.** If a port introduces a scrollbar inside a plate, the port is wrong, not the content. Cut copy or restructure.
+- **Prefer a plate that does not scroll, but it may.** Not scrolling is a design guideline (decided 2026-11-08), not a rule. If a port introduces a scrollbar, first ask whether copy can be cut or the layout restructured without losing what a student needs; if not, let it scroll, and keep the primary action and the feedback reachable.
 - **Light-only, by decision.** Dark mode was retired 2026-09-21; do not invent one by inverting the tokens — the voice colours will not survive it.
