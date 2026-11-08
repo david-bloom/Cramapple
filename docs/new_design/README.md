@@ -54,6 +54,7 @@ The full system — components, UI kits, specimen cards — lives in the design-
 
 ## Decided
 
+- **Not scrolling is a guideline, not a rule** (2026-11-08, David; `DECISION-0132`). Use "the plate should not need scrolling" as a design principle, and scroll where content needs it. This replaces the fixed no-scroll rule and closes the plate-versus-page-length question.
 - **Full marks are green** (2026-11-08, David; `DECISION-0131`). Not gold, not blue. The `full-*` scale is a yellower green than the cooler reference green (`--green-500`), and the two never share a component. It appears only at the maximum score and always sits beside a ✓ and the words "Full marks", so the colour is never the only signal. Any score short of the maximum stays blue (earned) and maroon (lost). Tokens: `--full-050…700`, `--text-full-marks`, `--surface-full-marks`, `--border-full-marks`, `--chip-full-marks-bg`.
 - **Wordmark only, permanently** (2026-11-08, David). There is no logo and none is to be drawn.
 - **Type stack confirmed** (2026-11-08, David), read from the live pages cramapple.com (marketing) and app.cramapple.com (app): Bungee 400 for the wordmark, Passion One 700 for headings, Source Sans 3 400/600/700 for body and controls.
@@ -70,13 +71,4 @@ The full system — components, UI kits, specimen cards — lives in the design-
 
 ## The plate vs. page length
 
-The system's hardest rule is that a plate is fixed at 1440×900 and never scrolls: content is sized to fit, and if it does not fit, copy gets cut. That rule is doing real pedagogical work — the rubric, the question and the reference material stay simultaneously visible, which is the product's whole argument.
-
-**It is also in tension with a finding David raised: students avoid clicking, so longer scrolling pages perform better than paginated ones.** Both can be true — the finding is about navigation cost across a session, while the no-scroll rule is about a single question being apprehensible at a glance.
-
-Held as-is for now, deliberately, to see how it behaves under real AP Biology content. The failure mode to watch for is a plate that only fits because the copy was cut below what a student actually needs — at which point the rule is costing more than it earns. Two directions if that happens, neither designed yet:
-
-- **Scroll the centre pane only.** The scoring and reference panes stay pinned; the question and the student's work scroll. Cheapest change, preserves the argument, breaks the "no scrolling inside a plate" rule in exactly one place.
-- **Let the plate become a page.** The three panes reflow to a single column with the rubric pinned. This is a genuinely different design, not a tweak, and would need the fixed-frame components (`Plate`, `PlateGrid`) reworked.
-
-Revisit once Biology content exists. Do not let individual screens quietly start scrolling in the meantime — that is how a system loses a rule without deciding to.
+Decided 2026-11-08: **not scrolling is a guideline, not a rule.** The principle still does real pedagogical work: the rubric, the question and the reference material visible together is the product's whole argument, so design toward a plate that needs no scrolling. But students avoid clicking, so longer scrolling pages can perform better, and AP Biology's longer FRQs and diagrammatic stimulus will not always fit. When content needs to scroll, let it. Two cautions: do not cut copy below what a student needs just to avoid a scrollbar, and keep the primary action and the feedback reachable. If a pattern emerges (for example, the centre pane scrolling while scoring and reference stay pinned), record it here as a recommended layout.

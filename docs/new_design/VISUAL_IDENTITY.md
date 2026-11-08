@@ -6,6 +6,10 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 
 **This system applies to every subject.** AP Statistics is only the sample content the plates were validated against. A subject never gets its own hue, type or layout.
 
+> **UPDATE (2026-11-08): not scrolling is a guideline, not a rule.** Prefer a plate that is apprehensible
+> at a glance with no scrolling, and treat that as a design principle. Where content genuinely needs it
+> (long FRQs, diagrammatic stimulus, small screens), scroll. See "Scrolling" below.
+>
 > **CORRECTION (2026-09-27): the fixed no-scroll plate rule below is SUPERSEDED.**
 > David decided **go responsive** on 2026-09-26 (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
 > "DECIDED, 2026-09-26" #1). The plate is now **fluid up to 1440px, grows with its content, stacks its
@@ -16,6 +20,8 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 > Canonical current summary: `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (row D3).
 
 **The plate.** *(Frame geometry SUPERSEDED — see CORRECTION above; retained for historical reference.)* Every template was a fixed 1440×900 frame that never scrolls and never has a collapsed region. `overflow: hidden` at the frame, a 70px orange masthead, a 48px breadcrumb bar, then a three-column grid — 352px / fluid / 324px with 20px gaps inside 40px gutters — and a single 10px caption line at the bottom. **Content is sized to fit; it is never made reachable by scrolling or expanding.** If something does not fit, cut copy or restructure the layout. This was a hard rule and the most common way to break the system. *(As of 2026-09-26 this is no longer the rule: the frame is responsive and vertical scrolling is allowed.)*
+
+**Scrolling is a guideline, not a rule** *(decided 2026-11-08, David)*. Design each plate so the scoring, the question and the reference material can be seen together without scrolling, because that is the product's argument. That is a principle to design toward, not a limit to enforce. A plate may scroll when its content needs it: a long FRQ, a diagrammatic stimulus, a small screen. Two cautions keep the guideline honest. Do not cut copy below what a student needs just to avoid a scrollbar. And do not let scrolling hide the thing a student must act on: the primary action and the feedback stay reachable without hunting for them.
 
 **Corners are square.** Radius 0 on every surface — panes, cards, buttons, chips, inputs. The only round thing in the product is a radio dot. Do not introduce rounded cards.
 
