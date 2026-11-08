@@ -15,8 +15,12 @@ then Phase 2 "Development backend"). It does not authorize any Production change
 (answer-key direct reads closed); `DECISION-0126` (seven-day card trial rules); `tasks/WORK-SUBJECT-ACCESS.md`
 (subject access before study, Production 2026-11-02); `qa/MCQ_ENTITLEMENT_BLOCK_2026_10_27.md`.
 
-Every rule marked **PROPOSED** is a recommended default that needs David's confirmation; nothing marked PROPOSED
-is a decision. Rules marked **Confirmed** cite the plan's §8 record (D1–D5, D8–D10).
+**Update 2026-11-08 (later the same day):** David approved P1–P8 in chat ("I approve P1-8"), recorded as
+`DECISION-0134`. Every rule marked **PROPOSED** below is therefore **DECIDED** at its stated default; the markers are
+kept as the audit trail of what was proposed and what the implementation already followed. The one reading to
+note: P6 listed three options for uploaded-FRQ grading (§11); the approval is read as option **(a)** (ship the
+Cramapple-FRQ path first, design uploaded-FRQ grading separately, out-of-unit uploads refused), since that is the
+default the build follows. Rules marked **Confirmed** cite the plan's §8 record (D1–D5, D8–D10).
 
 ---
 
@@ -557,9 +561,12 @@ the existing privacy/counsel work before Production; this spec records what is s
 
 ---
 
-## 14. Open items for David (all PROPOSED above; summary)
+## 14. Owner items P1–P8 — DECIDED 2026-11-08 (`DECISION-0134`)
 
-| # | Item | Proposed default |
+All eight were approved at the proposed default by David in chat on 2026-11-08 ("I approve P1-8"). The table is
+kept as written when it was proposed; "Proposed default" is now the decided rule. P6 is read as option (a) of §11.
+
+| # | Item | Proposed default (now decided) |
 | --- | --- | --- |
 | P1 | Anonymous repeat/switching | one answered try per token; switch subject/unit up to 3 times while unanswered; try answerable for 24h, claimable for 7 days |
 | P2 | Attempt start / consumption | consumed at server attempt insert, once per content item; 3 grading requests and 3 extraction runs per sample FRQ |
