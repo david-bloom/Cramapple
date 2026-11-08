@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0206 — Paywall change plan approved for Development-only design and build; nothing released (granted 2026-11-08)](APPROVAL-0206_PAYWALL_PLAN_DEVELOPMENT_AUTHORITY_2026_11_08.md)
 - [APPROVAL-0205 — Subject access before study: apply migration and deploy `session-event` and `student-session-items` to Production (executed 2026-11-04; sign-in spinner incident)](APPROVAL-0205_SUBJECT_ACCESS_PRODUCTION_RELEASE_2026_11_04.md)
 - [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
 - [APPROVAL-0203 — Ad attribution: apply `ad_attribution` migration and deploy `create-checkout-session`, `create-parent-payment-link` and `stripe-webhook` to Production (executed 2026-10-26; no live tagged trial verified yet)](APPROVAL-0203_AD_ATTRIBUTION_PRODUCTION_MIGRATION_AND_DEPLOY_2026_10_26.md)
