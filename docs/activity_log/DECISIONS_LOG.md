@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
 - DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
 - DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
 - DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
@@ -58,6 +59,23 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in chat: "I approve P1-8", in the backend/entitlement session for the paywall change plan.
+- **Context:** `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` (Hard-Gate) implemented the plan's §8 open rules on Development as recommended defaults marked PROPOSED, summarised in its §14 as P1–P8, each needing the owner's confirmation before anything could be called decided. The Development build (migration `20261108201632_paywall_sample_access`, `sample-try` v1, `attempt-response` v50, `student-session-items` v48; both switches off) already follows these defaults.
+- **Decision:** P1–P8 are approved exactly as proposed in spec §14:
+  1. **P1 Anonymous repeat/switching:** one answered try per token; subject/unit switch up to 3 times while unanswered; a try is answerable for 24h and claimable for 7 days.
+  2. **P2 Attempt start / consumption:** an allowance is consumed at the server attempt insert, once per content item; at most 3 grading requests and 3 photo-extraction runs per sample FRQ.
+  3. **P3 Eligibility:** one sample per user id **and** per email hash; any prior entitlement row or consumed trial email disqualifies; students only.
+  4. **P4 Trial precedence:** any active regular entitlement supersedes the sample permanently; cancellation never revives it (`DECISION-0126` untouched).
+  5. **P5 Unit rules:** no subject/unit switch after claim; a unit is eligible only with ≥ 8 MCQs and ≥ 1 non-photo FRQ; `photo_required` and image-stimulus items are excluded from the sample.
+  6. **P6 Uploaded FRQ:** read as spec §11 option (a): the sample ships with the Cramapple-FRQ path; grading a student-uploaded FRQ is designed separately (BYOQ stays unscored, `DECISION-0057`/`0068`, identity-agnostic, `DECISION-0077`); out-of-unit uploads are refused by default. `claim_sample_frq_source` keeps raising `sample:byoq_grading_not_available`.
+  7. **P7 Rollback:** two config switches (`SAMPLE_ACCESS_ENABLED` env on `sample-try`, `app.config.sample_access_enabled`) plus the down migration; readback of a student's own graded work is never withdrawn.
+  8. **P8 Grace resume:** `session_resume` during grace stays a follow-up; the app opens the question page by `learning_session_id` from `get_sample_access_state`.
+- **Consequences:** The spec's PROPOSED markers now read as decided rules (its header and §14 say so). No code change is needed; Codex QA (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`) proceeds against the same build. This decision authorises nothing in Production: Production migrations, deploys and flag flips still need their own `APPROVAL`.
+- **Rollback:** a later DECISION revising any of P1–P8; the code paths are switch-guarded and have a down migration (spec §9).
 
 ## DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
 
