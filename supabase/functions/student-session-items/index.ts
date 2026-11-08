@@ -93,7 +93,82 @@ type StudentSessionItemsDeps = {
 // FF-15. "session_practice_format_unset" is a third, pre-existing case that
 // already carried a reason before this fix; kept out of the type so the
 // early-return literal continues to narrow correctly.
-type EmptyQueueReason = "no_matching_content" | "all_items_omitted";
+type EmptyQueueReason = "no_matching_content" | "all_items_omitted" | "sample_allowance";
+
+// Paywall sample (PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md §5.5). A
+// sample-only student is served only the grant's unit, within the remaining
+// allowance, never an already-consumed or photo_required item, so the queue
+// never shows a question the attempt gate (app.sample_gate_attempt_insert)
+// would then refuse. null = not a sample-only caller (regular entitlement,
+// staff, or no grant): serving is unchanged for them.
+export type SampleServingScope = {
+  unit_number: number;
+  phase: string;
+  mcq_remaining: number;
+  frq_remaining: number;
+  consumed_item_ids: string[];
+};
+
+export async function loadSampleServingScope(
+  // deno-lint-ignore no-explicit-any
+  service: any,
+  userId: string,
+  examPackVersionId: string,
+): Promise<{ ok: true; scope: SampleServingScope | null } | { ok: false }> {
+  const { data, error } = await service.schema("app").rpc("sample_serving_scope", {
+    p_user_id: userId,
+    p_exam_pack_version_id: examPackVersionId,
+  });
+  if (error) {
+    console.error("sample_serving_scope_failed", error.message ?? error);
+    return { ok: false };
+  }
+  if (!data || typeof data !== "object" || Array.isArray(data)) return { ok: true, scope: null };
+  const d = data as Record<string, unknown>;
+  const unit = Number(d.unit_number);
+  if (!Number.isInteger(unit)) return { ok: true, scope: null };
+  return {
+    ok: true,
+    scope: {
+      unit_number: unit,
+      phase: typeof d.phase === "string" ? d.phase : "unknown",
+      mcq_remaining: Math.max(0, Number(d.mcq_remaining) || 0),
+      frq_remaining: Math.max(0, Number(d.frq_remaining) || 0),
+      consumed_item_ids: Array.isArray(d.consumed_item_ids)
+        ? d.consumed_item_ids.filter((x): x is string => typeof x === "string")
+        : [],
+    },
+  };
+}
+
+/** Pure: keeps the rows the sample grant can still admit, in selector order. */
+export function applySampleScope(
+  rows: SelectedRow[],
+  scope: SampleServingScope,
+  unitByVersion: Map<string, number | null>,
+): { kept: SelectedRow[]; withheld: Array<{ content_key: string; reason: "sample_scope" }> } {
+  let mcqLeft = scope.mcq_remaining;
+  let frqLeft = scope.frq_remaining;
+  const kept: SelectedRow[] = [];
+  const withheld: Array<{ content_key: string; reason: "sample_scope" }> = [];
+  for (const row of rows) {
+    const unit = unitByVersion.get(row.content_item_version_id) ?? null;
+    const isMcq = row.item_type === "mcq";
+    const fits = scope.phase === "active" &&
+      unit === scope.unit_number &&
+      !scope.consumed_item_ids.includes(row.content_item_id) &&
+      deriveResponsePolicy(row) !== "photo_required" &&
+      (isMcq ? mcqLeft > 0 : frqLeft > 0);
+    if (!fits) {
+      withheld.push({ content_key: row.content_key, reason: "sample_scope" });
+      continue;
+    }
+    if (isMcq) mcqLeft -= 1;
+    else frqLeft -= 1;
+    kept.push(row);
+  }
+  return { kept, withheld };
+}
 
 // The selector caps a page at 50 (51 with the look-ahead row). Clients page
 // with `offset`; answered items never come back, so a page is always fresh.
@@ -1040,7 +1115,36 @@ export async function handleStudentSessionItems(
       : selectedRows
         .filter((r) => deriveResponsePolicy(r) === "photo_required")
         .map((r) => ({ content_key: r.content_key, reason: "photo_capture_not_enabled" as const }));
-    const delivered = await deliverRows(service, rows, qaMode);
+    // Paywall sample scope (spec §5.5). Fail closed: if the scope cannot be
+    // read, nothing is served rather than serving a sample student the pack.
+    let scopedRows = rows;
+    let sampleWithheld: Array<{ content_key: string; reason: "sample_scope" }> = [];
+    let sampleScope: SampleServingScope | null = null;
+    if (!qaMode) {
+      const scopeResult = await loadSampleServingScope(service, user.id, session.exam_pack_version_id);
+      if (!scopeResult.ok) {
+        return respond({ error: "sample_scope_lookup_failed" }, { status: 503 });
+      }
+      sampleScope = scopeResult.scope;
+      if (sampleScope) {
+        const { data: unitRows, error: unitError } = await service.schema("app")
+          .from("content_item_topic_resolution")
+          .select("content_item_version_id, unit_number")
+          .in("content_item_version_id", rows.map((r) => r.content_item_version_id));
+        if (unitError) {
+          return respond({ error: "sample_scope_lookup_failed" }, { status: 503 });
+        }
+        const unitByVersion = new Map<string, number | null>();
+        for (const u of (unitRows ?? []) as Array<{ content_item_version_id: string; unit_number: number | null }>) {
+          if (!unitByVersion.has(u.content_item_version_id)) {
+            unitByVersion.set(u.content_item_version_id, u.unit_number ?? null);
+          }
+        }
+        ({ kept: scopedRows, withheld: sampleWithheld } = applySampleScope(rows, sampleScope, unitByVersion));
+      }
+    }
+
+    const delivered = await deliverRows(service, scopedRows, qaMode);
     if (!delivered.ok) {
       return respond({ error: delivered.error }, { status: 500 });
     }
@@ -1056,6 +1160,8 @@ export async function handleStudentSessionItems(
       ? null
       : selectedRows.length === 0
       ? "no_matching_content"
+      : sampleScope && scopedRows.length === 0 && rows.length > 0
+      ? "sample_allowance"
       : "all_items_omitted";
 
     // TASK-0051 / DECISION-0086. Mark items whose answer key this student has
@@ -1106,10 +1212,19 @@ export async function handleStudentSessionItems(
         qa_mode: qaMode,
         signed_url_ttl_seconds: SIGNED_URL_TTL_SECONDS,
         items: annotatedItems,
-        omitted: [...delivered.omitted, ...photoWithheld],
+        omitted: [...delivered.omitted, ...photoWithheld, ...sampleWithheld],
         // TASK-0069: whether this caller gets the photograph-your-work control.
         photo_enabled: photoEnabled,
         reason: emptyQueueReason,
+        // Paywall sample: remaining allowance for a sample-only caller, else null.
+        sample: sampleScope
+          ? {
+            unit_number: sampleScope.unit_number,
+            phase: sampleScope.phase,
+            mcq_remaining: sampleScope.mcq_remaining,
+            frq_remaining: sampleScope.frq_remaining,
+          }
+          : null,
         // unit_gated only: paging contract for the client (2026-10-08).
         offset: ordinaryMode === "unit_gated" ? offset : null,
         has_more: hasMore,

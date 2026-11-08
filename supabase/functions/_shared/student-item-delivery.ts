@@ -100,7 +100,10 @@ export type OmissionReason =
   | "asset_sign_failed"
   | "choices_missing"
   | "required_visual_absent"
-  | "required_visual_not_approved";
+  | "required_visual_not_approved"
+  // Paywall sample (PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md §5.5): outside
+  // the grant's unit, already consumed, photo_required, or over the allowance.
+  | "sample_scope";
 
 // Reviewer judgment from app.content_visual_requirements. Only 'yes' rows
 // affect serving.

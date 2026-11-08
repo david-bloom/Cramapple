@@ -594,6 +594,20 @@ export async function handleAttemptResponse(
           "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, attempt_mode, status, assistance_state, started_at, created_at",
         )
         .maybeSingle();
+      // Paywall sample (PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md §5.1, §8):
+      // app.sample_gate_attempt_insert refused the start. Typed, never a
+      // generic save error; the state lets the app show the right deadline.
+      const sampleCode = attemptError?.message?.match(/sample:([a-z_]+)/)?.[1] ?? null;
+      if (sampleCode) {
+        const { data: sampleState } = await service.schema("app").rpc(
+          "sample_access_state",
+          { p_user_id: user.id },
+        );
+        return respond(
+          { error: `sample:${sampleCode}`, access: "sample", state: sampleState ?? null },
+          { status: 403 },
+        );
+      }
       if (attemptError?.message?.includes("open_hand_item_not_scorable")) {
         // trg_refuse_attempt_on_teaching_item: the item is in the Open Hand
         // teaching pool and must never be scored (TASK-0064).
@@ -1057,6 +1071,27 @@ export async function handleAttemptResponse(
         if (prior && prior.key === key && prior.status === "proposed" && !force && !staleConfirmation) {
           const reused = { transcript: transcriptView(prior), parts: itemParts, reused: true };
           return respond({ status: "ok", function: "attempt-response", operation, result: reused });
+        }
+
+        // Paywall sample (spec §7): bounded extraction runs per sample FRQ.
+        // 'not_sample' for everyone with a regular entitlement; a sample:*
+        // refusal is typed and final; any other failure is logged and the
+        // shared caps below still apply.
+        {
+          const { error: sampleRunError } = await service.schema("app").rpc(
+            "sample_take_photo_run",
+            { p_user_id: user.id, p_attempt_id: tAttemptId },
+          );
+          if (sampleRunError) {
+            const sampleRunCode = sampleRunError.message?.match(/sample:([a-z_]+)/)?.[1] ?? null;
+            if (sampleRunCode) {
+              return respond(
+                { error: `sample:${sampleRunCode}`, access: "sample" },
+                { status: 403 },
+              );
+            }
+            console.error("sample_photo_run_check_failed", sampleRunError.message);
+          }
         }
 
         // Caps (plan D5 defaults). Both fail closed to an "unavailable"
