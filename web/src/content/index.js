@@ -105,7 +105,7 @@ export function nextQuestion(question) {
   return i >= 0 && i < list.length - 1 ? list[i + 1] : null;
 }
 
-/** Plain text of a stem, for aria labels and the copied deep dive. */
+/** Plain text of a stem, for aria labels and the copied cheat sheet. */
 export function stemText(question) {
   return question.stem.map((n) => n.value).join('');
 }

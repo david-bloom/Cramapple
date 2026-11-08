@@ -71,7 +71,7 @@ These are design rules, not preferences. Breaking one is a bug.
   dive, which sits behind the same gate as the rubric rather than being a
   post-submit extra. How much help a student took, read against the score, is
   the mastery signal — so help that discloses silently would leave that signal
-  incomplete. After submission the deep dive is free.
+  incomplete. After submission the cheat sheet is free.
 - **Reference materials are not help.** They are what a student may look up —
   topic, skills, vocabulary — so they stay visible and ungated throughout.
 - **Body text never goes below 16px.** Chrome (breadcrumb 13, counts 12,

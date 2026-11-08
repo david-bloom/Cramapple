@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 - Paywall sample access backend built on Development (2026-11-08, owner: David approved the paywall change plan in chat on 2026-11-08; this is the plan's Phase 1 design then Phase 2 Development backend, Hard-Gate, no Production authority): design spec and RPC contract `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` (the sample is a scoped grant, not an entitlement tier; anonymous first MCQ in `app.sample_tries`; one-transaction `claim_sample_try` starts the 72h clock; fixed 72h grace; readback after expiry; trial supersedes permanently; `SAMPLE_ACCESS_ENABLED` off at both layers; all open plan rules recorded as PROPOSED P1-P8; uploaded-FRQ grading recorded as a blocker since BYOQ is unscored). Development: `main`'s `20261031143302_subject_access_before_study` was found missing and applied by hand under its file version; migration `20261108201632_paywall_sample_access` applied via `apply_migration` and the file renamed to match; `sample-try` (new), `attempt-response`, `student-session-items` deployed from the branch. Tests: 78 Deno handler tests green; Development SQL integration test `supabase/tests/sample_access.integration.sql` passed 21 checks and rolled back; Development re-verified clean afterwards (flag false, zero sample rows). QA packet for Codex `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`. Draft PR to `main`, not merged; code PRs go to David.
 
+- Paywall change plan approved in chat; Phase 0, per-unit audit and app/docs build started, Development only (APPROVAL-0206) (2026-11-08): live landing says pay nothing today while live checkout shows $39.99 due; /try is 404; only Units 1-3 per subject reliably have 8 MCQs; nothing released.
 - Student hub redesign direction (mock first) and the signed-in spinner fix (2026-11-02 to 2026-11-04, documented 2026-11-08): hub direction recorded as owner direction, not yet `DECISION`s; Production subject-access release closed the spinner (`APPROVAL-0205`, PR #585). Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_08_STUDENT_HUB_REDESIGN_AND_SIGNIN_SPINNER.md`.
 
 - 16 FRQs authored and checked for the zero-FRQ Biology and Statistics Units 1-4 topics; publish approved (`APPROVAL-0201`); this entry was written before the publish, which main records as executed 2026-10-29 (2026-10-25 to 2026-10-30, owner: "for each topic with zero FRQs in units 1-4, stats and biology, make 2 New FRQ authored in session", then "I approve document it and run those steps"): census of Production, 16 FRQs accepted by both checkers ($4.59), approval recorded, publish blocked on a Supabase token that the running session could not see; Biology 4.2 versus 4.3 ruling open. Handoff: `handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`.
@@ -268,6 +269,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-08 — Paywall change plan approved in chat (APPROVAL-0206); Phase 0 and per-unit audit; app and docs work started, Development only
+
+Owner request: approve the plan in `PAYWALL_CHANGE_PLAN_2026_10_31.md` and start the app-side and docs work; the backend is a separate session.
+
+- **Phase 0 (read-only):** marketing Lovable `d678c77` and app `b52cf2c` (= `ap-prep-blueprint` main) are the live heads. Live landing discloses the 7-day trial and $39.99; live checkout (before email) still shows "Total due today $39.99"; `/try` is 404; attribution not verified.
+- **Per-unit audit (Production, read-only):** Units 1-3 per subject pass the 8-MCQ/FRQ/explainer test; Calc BC, Chemistry 4-9, Biology 5-8 and Calc AB 7 fall short; reference pages missing for later units. Record: `docs/product/PAYWALL_PHASE0_AND_UNIT_AUDIT_2026_11_08.md`.
+- **Authority:** Development/draft only; open §8 rules, D6 and D7 remain open and are not decided here.
+- **Next:** draft analytics contract and email copy; app UI behind a disabled flag; QA packet for Codex; app build against the backend contract once it lands.
 
 ## 2026-11-08 — Student hub redesign direction (mock first) and the signed-in spinner fix (APPROVAL-0205)
 

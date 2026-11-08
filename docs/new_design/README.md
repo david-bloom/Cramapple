@@ -37,7 +37,7 @@ What v2 called for and this system deliberately does **not** have: a dark mode. 
 
 ## The system in one paragraph
 
-A student works one question at a time inside a fixed 1440×900 three-pane plate: how it is scored on the left, the question and their own work in the centre, what they may look up on the right. Every question type exists in two modes — **Open Hand** (rubric face-up and manipulable, nothing scored) and **Practice** (scoring withheld behind hints that cost something, the student's work scored). Colour is an assignment, not decoration: five voices, each owning exactly one job.
+A student works one question at a time inside a two-pane plate (fluid up to 1440px, stacking below 900px): the question and their own work on the left, filling the width, and one 440px rail on the right that holds how it is scored and what they may look up as two tabs, Rubric and Reference. The Cheat Sheet is not a tab: it is a link pinned to the foot of the rail that opens a modal. Every question type exists in two modes — **Open Hand** (rubric face-up and manipulable, nothing scored) and **Practice** (scoring withheld behind hints that cost something, the student's work scored). Colour is an assignment, not decoration: five voices, each owning exactly one job.
 
 ## Files
 
@@ -72,3 +72,7 @@ The full system — components, UI kits, specimen cards — lives in the design-
 ## The plate vs. page length
 
 Decided 2026-11-08: **not scrolling is a guideline, not a rule.** The principle still does real pedagogical work: the rubric, the question and the reference material visible together is the product's whole argument, so design toward a plate that needs no scrolling. But students avoid clicking, so longer scrolling pages can perform better, and AP Biology's longer FRQs and diagrammatic stimulus will not always fit. When content needs to scroll, let it. Two cautions: do not cut copy below what a student needs just to avoid a scrollbar, and keep the primary action and the feedback reachable. If a pattern emerges (for example, the centre pane scrolling while scoring and reference stay pinned), record it here as a recommended layout.
+
+Decided 2026-11-08: **the question screens use two panes, not three.** The 296px and 360px side columns left the task pane tall and mostly empty. The task takes the width and a single 440px rail carries **Rubric** and **Reference** as tabs (the only Tabs in the product: exactly two, square, 52px tall, a 3px underline in the open tab's voice colour; the rail's top rule changes with the tab: blue for Rubric, green for Reference). Before a question is submitted Reference opens by default, since there is no score yet; after submission Rubric opens so the student can read it against their answer. Each tab keeps its hint gate until revealed.
+
+Decided 2026-11-08: **Deep Dive is renamed Cheat Sheet, everywhere,** on student feedback. It is a cheat sheet for the unit and topic and is long by design, so it never sits inside a pane or a tab. A link pinned to the foot of the rail opens it as a modal (teal cap, 2px outline) that keeps the student's answer and tab state, scrolls inside itself, and offers Copy notes, Open in new tab and Close. Code identifiers (`DeepDiveOverlay`, `--cap-deepdive`) keep their current names until a separate rename.

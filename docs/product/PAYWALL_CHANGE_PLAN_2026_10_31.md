@@ -1,7 +1,9 @@
 # Paywall change plan — try first, then the 7-day card trial (2026-10-31)
 
-**Status:** Draft — revised 2026-11-08 with David's confirmed product choices in §8. Remaining choices and implementation
-details are open. This revision records design decisions; it does not authorize implementation or release.
+**Status:** Approved by David in chat on 2026-11-08 for **Development-only design and build** (`APPROVAL-0206`).
+Phase 0 and the per-unit audit are done; Phases 1–2 are in motion. Not approved: any Production change, publish, send
+or flag enablement (Phase 3 needs its own approvals). The open rules in §8, the experiment (§6, D6) and nurture emails
+(D7) remain **open**; work that depends on them is built behind marked placeholders, not decided.
 **Owner:** David Bloom.
 **Tier:** Hard-Gate for implementation (access control, payments adjacency, public pages, minors' data).
 **Revision branch:** `codex/paywall-frq-source-choice`. Original draft merged in PR #580; initial November 8 revision merged in PR #589.
@@ -232,6 +234,17 @@ payment, email or deployment changes. Current live behavior has not been reverif
 **Next owner:** David, with the reviewing agent. **Next action:** resolve the open rules in §8 and the experiment
 in §6 before preparing an implementation specification. Preserve the existing trial rules and BYOQ policy;
 do not treat this document update as execution approval.
+
+### Approval and execution handoff (2026-11-08)
+
+**Approval:** `APPROVAL-0206` (Development/draft only). **Phase 0 (done, read-only):** `PAYWALL_PHASE0_AND_UNIT_AUDIT_2026_11_08.md`.
+Findings that change the plan's assumptions: the live landing page discloses the trial but live checkout still shows
+"Total due today $39.99" and `/try` is 404, so the experiment control is not clean; only Units 1–3 per subject reliably
+have the promised sample, so a unit picker must read availability from the backend; the existing MCQ feedback RPC
+needs an authenticated owner, so the anonymous first MCQ needs a new reviewed contract.
+**In motion:** backend design and build (`paywall-backend` session, Development); app UI behind a disabled flag in the
+app clone; analytics contract and email copy as drafts (`PAYWALL_ANALYTICS_AND_EMAIL_DRAFTS_2026_11_08.md`); Codex QA after.
+**Still open and not decided by this work:** every item listed under §8 "Still open", D6, D7. **Not started:** Phase 3.
 
 ## 10. Out of scope here
 

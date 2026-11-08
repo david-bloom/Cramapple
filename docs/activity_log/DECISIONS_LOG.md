@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
 - DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
 - DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
 - DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
@@ -57,6 +58,18 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in session. Option A of two layout options drawn on the design canvas was approved.
+- **Context:** The three-pane plate forced 296px and 360px side columns, which left the task pane tall and mostly empty. Separately, students called the Deep Dive a cheat sheet, and it is long (a cheat sheet for the whole unit and topic), so it does not fit beside a question.
+- **Decision:**
+  1. **Two panes.** The task takes the width. One 440px rail on the right holds **Rubric** and **Reference** as tabs (exactly two; the only Tabs in the product). The rail's top rule and active-tab underline take the open tab's voice colour: blue for Rubric, green for Reference.
+  2. **Default tab.** Reference before a question is submitted (there is no score yet); Rubric after submission. Each tab keeps its hint gate until revealed.
+  3. **Deep Dive is renamed Cheat Sheet, everywhere,** in the product and the docs. It is not a tab. A link pinned to the foot of the rail opens it as a modal that keeps the student's answer and tab state, scrolls inside itself, and offers Copy notes, Open in new tab and Close.
+- **Consequences:** `docs/new_design` carries the spec (README, COMPONENT_INVENTORY, VISUAL_IDENTITY, TOKENS, `tokens/spacing.css`: `--col-rail`, two-column `--grid-columns`). User-facing text and docs say "Cheat Sheet". **Not changed:** the `web/` prototype and the live app still render three panes (the grid token in `web/src/styles/tokens/spacing.css` is unchanged on purpose); code identifiers (`DeepDiveOverlay`, `DeepDiveGate`, `--cap-deepdive`, `deepDive` keys, file names), database columns and migrations, and historical logs and task docs keep their names. The stale mirror in `.claude/skills/cramapple-design` is not updated.
+- **Rollback:** revert the PR that carries this entry.
 
 ## DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
 
