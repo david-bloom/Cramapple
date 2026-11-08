@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Student hub redesign direction (mock first) and the signed-in spinner fix (2026-11-02 to 2026-11-04, documented 2026-11-08): hub direction recorded as owner direction, not yet `DECISION`s; Production subject-access release closed the spinner (`APPROVAL-0205`, PR #585). Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_08_STUDENT_HUB_REDESIGN_AND_SIGNIN_SPINNER.md`.
+
 - 16 FRQs authored and checked for the zero-FRQ Biology and Statistics Units 1-4 topics; publish approved (`APPROVAL-0201`); this entry was written before the publish, which main records as executed 2026-10-29 (2026-10-25 to 2026-10-30, owner: "for each topic with zero FRQs in units 1-4, stats and biology, make 2 New FRQ authored in session", then "I approve document it and run those steps"): census of Production, 16 FRQs accepted by both checkers ($4.59), approval recorded, publish blocked on a Supabase token that the running session could not see; Biology 4.2 versus 4.3 ruling open. Handoff: `handoffs/SESSION_CLOSE_2026_10_30_FRQ_ZERO_TOPICS_BIOLOGY_STATISTICS_U1_4.md`.
 
 - AP Chemistry Unit 2 explainer rewrite applied to Production (2026-10-31, owner: "Approve", APPROVAL-0204): 7 rows (2.1-2.7) rewritten to the new length and field-role rules, Claude-authored, Codex-proofread (13 findings: 6 fixed, 2 adopted, 5 declined); Development applied and QA exit 0, then Production applied with hashes verified against the proposal and QA exit 0; students see it after the Lovable publish of app PR #40. Records: `docs/activity_log/APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md`, `docs/product/CHEM_UNIT2_EXPLAINER_PROD_APPROVAL_PACKET_2026_10_31.md`.
@@ -264,6 +266,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-08 — Student hub redesign direction (mock first) and the signed-in spinner fix (APPROVAL-0205)
+
+Owner requests: review the student hub for clarity and engagement; "investigate and remedy" the login spinner; "Approve release"; "document activity and end the session".
+
+- **Hub:** three Fable read-only reviews plus Codex input produced the owner direction in the handoff (two big first choices, no emphasised default, phone-first, communication layer and tour, homework-help two-pane view with a worked-example toggle, public shareable Cheat Sheet and worked examples). Lovable is building a clickable `/hub-mock` only; nothing is built for production. No `DECISION` recorded yet.
+- **Spinner:** the published app called two Production functions that did not exist (unreleased subject-access migration). Migration applied and `session-event` v54 / `student-session-items` v46 deployed to Production; David confirmed sign-in works. PR #585 merged.
+- **Open:** record the hub decisions; laptop and first-visit screenshots and click-through of the mock; real-student test; analytics events; empty-subject-list screen; independent QA of `WORK-SUBJECT-ACCESS`.
+- **Record:** `APPROVAL-0205`, `docs/handoffs/SESSION_CLOSE_2026_11_08_STUDENT_HUB_REDESIGN_AND_SIGNIN_SPINNER.md`.
 
 ## 2026-10-30 — 16 FRQs for the zero-FRQ Biology and Statistics Units 1-4 topics: authored, checked, approved; Production publish not yet run (APPROVAL-0201)
 
