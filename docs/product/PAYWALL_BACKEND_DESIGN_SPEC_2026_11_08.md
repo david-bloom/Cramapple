@@ -1,7 +1,9 @@
 # Paywall sample access: backend design spec and RPC contract (2026-11-08)
 
-**STATUS:** CURRENT (design spec; Development implementation in progress on branch
-`claude/paywall-backend-sample-access-95ac1a`). Not a release record.
+**STATUS:** CURRENT (design spec and RPC contract; implemented and tested on Development 2026-11-08 on branch
+`claude/paywall-backend-sample-access-95ac1a`: migration `20261108201632_paywall_sample_access`, `sample-try` v1,
+`attempt-response` v50, `student-session-items` v48; both switches off). Not a release record; QA by Codex pending
+(`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`).
 **Tier:** Hard-Gate (access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), from the plan David approved in chat
 on 2026-11-08.
