@@ -126,7 +126,7 @@ export function OpenHandFrqScreen({ question, onNext }) {
               <ActionRow
                 note="Nothing is scored in Open Hand"
                 primary={<ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>}
-                secondary={<ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>}
+                secondary={<ActionButton variant="link" onClick={openDeepDive}>Open the cheat sheet</ActionButton>}
               />
             </div>
           </PaneShell>

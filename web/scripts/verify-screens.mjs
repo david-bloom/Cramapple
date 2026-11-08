@@ -128,13 +128,13 @@ check('MCQ: answer key marks the picked row with revisit', t.includes('↻'));
 check('MCQ: shrinks to credited + picked row', t.includes('options you did not pick are listed'));
 await page.screenshot({ path: `${OUT}/03-mcq-feedback.png` });
 
-// Deep dive
-await page.getByRole('button', { name: 'Open the deep dive' }).click();
+// Cheat sheet
+await page.getByRole('button', { name: 'Open the cheat sheet' }).click();
 await page.waitForTimeout(150);
-check('MCQ: deep dive opens full-frame', (await text()).includes('Back to the question'));
+check('MCQ: cheat sheet opens full-frame', (await text()).includes('Back to the question'));
 await page.keyboard.press('Escape');
 await page.waitForTimeout(150);
-check('MCQ: Escape closes the deep dive', !(await text()).includes('Back to the question'));
+check('MCQ: Escape closes the cheat sheet', !(await text()).includes('Back to the question'));
 
 // ---------- Practice FRQ ----------
 await page.goto(`${BASE}/#/practice/apstats-2-3-frq-001`, { waitUntil: 'networkidle' });
@@ -205,7 +205,7 @@ await page.waitForTimeout(250);
 check('Next advances across the unit', page.url().includes('apstats-2-2-frq-001'), page.url());
 
 const appErrors = errors.filter((e) => !/ERR_CERT_AUTHORITY_INVALID|favicon|fonts\.googleapis|fonts\.gstatic|404 \(Not Found\)/i.test(e));
-// ---------- Deep dive is costed help in Practice ----------
+// ---------- Cheat sheet is costed help in Practice ----------
 {
   const ctx = await browser.newContext({ viewport: { width: 1480, height: 960 } });
   const dd = await ctx.newPage();
@@ -213,35 +213,35 @@ const appErrors = errors.filter((e) => !/ERR_CERT_AUTHORITY_INVALID|favicon|font
   await dd.waitForTimeout(300);
   let dt = await dd.evaluate(() => document.body.innerText);
 
-  check('Deep dive: offered before submitting', /show me the deep dive/i.test(dt));
-  check('Deep dive: not free before submitting', !/back to the question/i.test(dt));
+  check('Cheat sheet: offered before submitting', /show me the cheat sheet/i.test(dt));
+  check('Cheat sheet: not free before submitting', !/back to the question/i.test(dt));
 
-  await dd.getByRole('button', { name: 'Show me the deep dive' }).click();
+  await dd.getByRole('button', { name: 'Show me the cheat sheet' }).click();
   await dd.waitForTimeout(150);
   dt = await dd.evaluate(() => document.body.innerText);
-  check('Deep dive: names its cost before disclosing',
+  check('Cheat sheet: names its cost before disclosing',
     /sure you need a hint/i.test(dt) && /listed on your feedback/i.test(dt));
 
   await dd.getByRole('button', { name: 'No, keep solving' }).click();
   await dd.waitForTimeout(150);
-  check('Deep dive: backing out leaves no receipt',
-    !/deep dive/i.test((await dd.evaluate(() => document.body.innerText)).split('HINTS USED')[1] || ''));
+  check('Cheat sheet: backing out leaves no receipt',
+    !/cheat sheet/i.test((await dd.evaluate(() => document.body.innerText)).split('HINTS USED')[1] || ''));
 
-  await dd.getByRole('button', { name: 'Show me the deep dive' }).click();
+  await dd.getByRole('button', { name: 'Show me the cheat sheet' }).click();
   await dd.getByRole('button', { name: /^Yes, show me/ }).click();
   await dd.waitForTimeout(200);
-  check('Deep dive: opens on confirm', /back to the question/i.test(await dd.evaluate(() => document.body.innerText)));
+  check('Cheat sheet: opens on confirm', /back to the question/i.test(await dd.evaluate(() => document.body.innerText)));
   await dd.keyboard.press('Escape');
   await dd.waitForTimeout(150);
-  check('Deep dive: leaves a receipt once taken', /hint used/i.test(await dd.evaluate(() => document.body.innerText)));
+  check('Cheat sheet: leaves a receipt once taken', /hint used/i.test(await dd.evaluate(() => document.body.innerText)));
 
   await dd.locator('textarea').fill('For each additional hour studied per week, the predicted mean final exam score increases by 4.1 points.');
   await dd.getByRole('button', { name: 'Submit answer' }).click();
   await dd.waitForTimeout(250);
   dt = await dd.evaluate(() => document.body.innerText);
   const strip = (dt.split('HINTS USED')[1] || '').slice(0, 200);
-  check('Deep dive: help taken is carried onto the feedback card', /deep dive/i.test(strip), strip.trim().slice(0, 60));
-  check('Deep dive: full marks still scored with help taken', /4 \/ 4/.test(dt));
+  check('Cheat sheet: help taken is carried onto the feedback card', /cheat sheet/i.test(strip), strip.trim().slice(0, 60));
+  check('Cheat sheet: full marks still scored with help taken', /4 \/ 4/.test(dt));
   await ctx.close();
 }
 

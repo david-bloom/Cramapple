@@ -7,7 +7,7 @@ styles.css
 ├── tokens/fonts.css       Google Fonts import for the four families
 ├── tokens/colors.css      Raw scales — brand, voices, ink, paper, rules
 ├── tokens/typography.css  Families and every type role
-├── tokens/spacing.css     Plate frame, three-pane grid, spacing scale, pane padding
+├── tokens/spacing.css     Plate frame, two-pane grid (task and 440px rail), spacing scale, pane padding
 ├── tokens/elevation.css   Borders, accent rules, shadows, the square-corner rule
 └── tokens/semantic.css    Aliases — THIS is the contract
 ```
@@ -37,7 +37,7 @@ styles.css
 | `--purple-600` | #5f43ba | The student's own work: answer field, options, feedback |
 | `--maroon-600` | #8a2f3f | Points lost, incorrect verdicts, eliminated options |
 | `--clay-600` | #8c4530 | The ↻ revisit mark |
-| `--teal-500` | #2a8a92 | The Deep Dive — its cap, its eyebrow, and any control that opens it |
+| `--teal-500` | #2a8a92 | The Cheat Sheet — its cap, its eyebrow, and any control that opens it |
 
 Orange is never an error colour. Yellow is never decoration. Nothing else may be introduced into the warm lane.
 
