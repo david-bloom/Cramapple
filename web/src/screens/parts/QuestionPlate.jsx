@@ -11,7 +11,7 @@ import { topicProgress } from '../../session/progress.js';
  * breadcrumb, the three-column grid, and the two overlays.
  *
  * Both overlays are rendered here rather than inside a pane, because the study
- * map drops under the breadcrumb across the full width and the deep dive covers
+ * map drops under the breadcrumb across the full width and the cheat sheet covers
  * the whole frame below the breadcrumb -- neither fits inside the centre pane.
  */
 export function QuestionPlate({ question, mode, children }) {
