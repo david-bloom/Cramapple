@@ -45,8 +45,8 @@ export function QuestionPlate({ question, mode, children }) {
 
   return (
     <Plate caption={real
-      ? `CramApple · ${question.taxonomy.course} · ${topicLabel(question)} · ${modeLabel} · real package`
-      : `CramApple · ${COURSE.title} · ${UNIT.label} · ${topic} ${topicTitle} · ${modeLabel}`}>
+      ? `Cramapple · ${question.taxonomy.course} · ${topicLabel(question)} · ${modeLabel} · real package`
+      : `Cramapple · ${COURSE.title} · ${UNIT.label} · ${topic} ${topicTitle} · ${modeLabel}`}>
       <Masthead
         course={real ? question.taxonomy.course : COURSE.title}
         right={<span style={{

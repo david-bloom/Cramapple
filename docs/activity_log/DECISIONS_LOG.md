@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
 - DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
 - DECISION-0129 — Report Day-7 Trial Charges to Reddit Through the Conversions API, Trial Conversions Only, Click Id Only
 - DECISION-0128 — Migration Ledgers Are History, Not a Source of Truth: No Re-Baseline, `db push` Stays Prohibited, Parity Is Verified by Catalog Digests (Closes `TASK-0078` A19)
@@ -55,6 +56,21 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0131 — Cramapple Master Is the Design Source of Truth: Full Marks Are Green (`full-*`), Wordmark Only, Type Stack Confirmed, One System for Every Subject, Equations in KaTeX, the Name Is Written "Cramapple"
+
+- **Date:** 2026-11-08
+- **Decided by:** David Bloom (Product Owner), in session.
+- **Context:** The design system artifact was renamed "Cramapple Master" and named the source of truth. Four items were open in `docs/new_design/README.md` (gold for full marks, the logo, the type stack, subject coverage).
+- **Decision:**
+  1. **Full marks are green**, not gold and not blue: the new `full-*` colour scale (`--full-600` #2b7a24). Only at the maximum score, always with a ✓ and the words "Full marks". Reference green (`--green-500`) never stands for full marks.
+  2. **Wordmark only, permanently.** No logo is drawn.
+  3. **Type stack confirmed** from the live marketing and app pages: Bungee, Passion One 700, Source Sans 3.
+  4. **One system for every subject.** No subject-specific hue, type or layout.
+  5. **Every equation is KaTeX** (restates `DECISION-0119`); STIX Two Math is only for set-notation glyphs in prose.
+  6. **The name is written "Cramapple"**, including the app tab title `Question | Cramapple`.
+- **Consequences:** `docs/new_design/` and the three token copies (`docs/new_design/tokens`, `web/src/styles/tokens`, `.claude/skills/cramapple-design/tokens`) carry the `full-*` tokens. The live app's tab title is in `david-bloom/ap-prep-blueprint` and is changed there, not here.
+- **Rollback:** revert the PR that carries this entry.
 
 ## DECISION-0130 — Referral Program: Buy One Self-Serve Platform (Not Build); Students Earn a $5 Gift Card, Tutors 25% Cash, Both Paid 7 Days After the Day-7 Payment; Friend Gets $5 Off
 

@@ -17,6 +17,6 @@ export function Wordmark({ tone = 'on-brand', size, style }) {
       color: TONES[tone] || TONES['on-brand'],
       whiteSpace: 'nowrap',
       ...style
-    }}>CramApple</span>
+    }}>Cramapple</span>
   );
 }

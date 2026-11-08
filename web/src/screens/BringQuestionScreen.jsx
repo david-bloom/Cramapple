@@ -23,7 +23,7 @@ const textInput = {
  *
  * This only collects what content/byoq.js can actually turn into a Practice
  * item: no photo/document upload is wired up (see the AnswerField note below),
- * and no answer is ever asked for, because CramApple never grades a BYOQ item --
+ * and no answer is ever asked for, because Cramapple never grades a BYOQ item --
  * see DECISION-0057.
  */
 export function BringQuestionScreen() {
@@ -83,9 +83,9 @@ export function BringQuestionScreen() {
         <PaneShell voice="plain">
           <p style={body}>
             Type or paste a question from your own homework, an outside worksheet, or a
-            practice exam. CramApple will hold it for you to practice against, but it
+            practice exam. Cramapple will hold it for you to practice against, but it
             doesn't have an answer key for it — nothing here gets scored, and it never
-            appears in Open Hand, which only shows CramApple's own questions face-up.
+            appears in Open Hand, which only shows Cramapple's own questions face-up.
           </p>
         </PaneShell>
 
@@ -167,7 +167,7 @@ export function BringQuestionScreen() {
                   </div>
                 )}
                 <p style={{ ...count, marginTop: 8 }}>
-                  You don't need to know which one is correct — CramApple doesn't grade your
+                  You don't need to know which one is correct — Cramapple doesn't grade your
                   own questions.
                 </p>
               </div>
@@ -186,7 +186,7 @@ export function BringQuestionScreen() {
         flex: '0 0 auto', height: 'var(--caption-height)', display: 'flex', alignItems: 'center', padding: '0 var(--gutter)',
         fontSize: 'var(--type-caption-size)', lineHeight: 'var(--type-caption-line)', fontWeight: 'var(--type-caption-weight)', color: 'var(--text-quiet)'
       }}>
-        CramApple · {COURSE.title} · Bring a Question
+        Cramapple · {COURSE.title} · Bring a Question
       </div>
     </div>
   );

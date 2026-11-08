@@ -10,7 +10,7 @@ import { Stem } from './parts/Stem.jsx';
 import { body } from './parts/text.js';
 import { useSession } from '../session/SessionProvider.jsx';
 
-const NOT_GRADABLE = "This is your own question, so there's no CramApple-authored"
+const NOT_GRADABLE = "This is your own question, so there's no Cramapple-authored"
   + " answer key to score it against. Read back through your reasoning against the"
   + ' reference material, or ask your teacher to check this one.';
 
@@ -56,7 +56,7 @@ export function PracticeByoqMcqScreen({ question, onNext }) {
               <p style={body}>{question.scoringNote}</p>
               <Missing heading="Not available for your own questions">
                 No answer key, elimination hint, or deep dive exists for a question
-                CramApple didn't author.
+                Cramapple didn't author.
               </Missing>
             </div>
           </PaneShell>

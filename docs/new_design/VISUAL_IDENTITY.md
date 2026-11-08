@@ -4,6 +4,8 @@ STATUS: CURRENT except where a CORRECTION note below applies.
 
 Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. See `README.md` in this folder for what changed and why.
 
+**This system applies to every subject.** AP Statistics is only the sample content the plates were validated against. A subject never gets its own hue, type or layout.
+
 > **CORRECTION (2026-09-27): the fixed no-scroll plate rule below is SUPERSEDED.**
 > David decided **go responsive** on 2026-09-26 (`docs/product/LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`,
 > "DECIDED, 2026-09-26" #1). The plate is now **fluid up to 1440px, grows with its content, stacks its
@@ -25,9 +27,12 @@ Supersedes `docs/product/CRAMAPPLE_VISUAL_IDENTITY_BRIEF.md` and `..._v2.md`. Se
 | --- | --- |
 | Orange `--orange-600` | Masthead, active breadcrumb, the one primary button per screen. Never used for error. |
 | Blue `--blue-600` | Rubric, points earned, credited answers, ✓ marks. |
-| Green `--green-500` | Reference materials only. |
+| Green `--green-500` | Reference materials only. Never full marks. |
 | Yellow `--yellow-500` | Hints only. Every yellow surface costs the student something. |
 | Purple `--purple-600` | The student's own work: answer field, options, feedback. |
+| Full-marks green `--full-600` | Full marks, at the maximum score only. |
+
+**Full marks are green** (decided 2026-11-08; not gold, not blue). They use their own `full-*` scale — `--full-600` #2b7a24 for text and the solid chip (5.4:1 on white), `--full-050` #eaf6e6 for the surface, `--full-500` for a rule — a yellower green than reference. The rules: it appears only when the score is the maximum; it always sits beside a ✓ and the words "Full marks", because colour is never the only signal; a score below the maximum stays blue (earned) and maroon (lost); reference panes keep `--green-500` and never borrow `full-*`. Reference green and full-marks green are one family, so keep them off the same component.
 
 Maroon `--maroon-600` #8a2f3f carries points lost, incorrect verdicts and eliminated options — cool enough never to be read as the brand orange, because a lost point is a correction and not an alarm. Clay `--clay-600` #8c4530 is the ↻ revisit mark: come back to this, the point is still available. Amber is gone — the warm lane is now brand orange only. Teal `--teal-500` #2a8a92 owns the Deep Dive — its cap, its eyebrow, and any control that opens it.
 
@@ -90,6 +95,8 @@ Never: shadow it, outline it, stack it over two lines, letter-space it beyond `-
 
 ### About an actual logo
 
+**Decided 2026-11-08 (David): wordmark only, permanently.** The options below are closed; the first is the answer.
+
 There isn't one, and I won't invent it — a drawn apple, a monogram or anything else I produced would be a guess that consumers of this system would then treat as the brand. A type-set wordmark is a legitimate permanent answer (it is what ships today and it works at every size), so the decision is genuinely open:
 
 - **Keep the wordmark as the mark.** No further work; it is already tokenised for every ground.
@@ -109,4 +116,4 @@ If a genuine icon need appears, match that inline stroke style (1.9–2px, round
 
 ## Fonts
 
-Bungee, Passion One, Source Sans 3 and STIX Two Math are loaded from Google Fonts by `tokens/fonts.css`. No binaries were supplied, so no local `@font-face` rules ship with this system and the compiler reports zero bundled fonts — consumers get the families over the network. If the brand has licensed files, drop them into `assets/fonts/` and swap the `@import` for real `@font-face` rules.
+Bungee, Passion One, Source Sans 3 and STIX Two Math (set notation only; equations are KaTeX) are loaded from Google Fonts by `tokens/fonts.css`. No binaries were supplied, so no local `@font-face` rules ship with this system and the compiler reports zero bundled fonts — consumers get the families over the network. If the brand has licensed files, drop them into `assets/fonts/` and swap the `@import` for real `@font-face` rules.

@@ -26,8 +26,8 @@ v2 specified warm forest/emerald green, Plus Jakarta Sans with a JetBrains Mono 
 | --- | --- | --- |
 | Brand colour | Warm emerald green (`#1A8A4A` / `#36D47D`) | Brand orange (`#f54900`, `#ca3500` for ink) |
 | Surface | Dark-first, green-tinted near-black | Light paper plates on a warm grey desk |
-| Type | Plus Jakarta Sans + JetBrains Mono | Bungee (wordmark), Passion One (display), Source Sans 3 (all reading), STIX Two Math |
-| Full marks | Gold (`#F5B942` / `#C17A10`) | Blue `--blue-600` — the rubric voice owns every earned point |
+| Type | Plus Jakarta Sans + JetBrains Mono | Bungee (wordmark), Passion One (display), Source Sans 3 (all reading); equations render in KaTeX |
+| Full marks | Gold (`#F5B942` / `#C17A10`) | Green, the `--full-*` scale (`--full-600` `#2b7a24`), decided 2026-11-08. Blue `--blue-600` still owns every other earned point |
 | Corners | Unspecified | Square everywhere; radius 0 |
 | Motion | Unspecified | None at all |
 
@@ -54,15 +54,19 @@ The full system — components, UI kits, specimen cards — lives in the design-
 
 ## Decided
 
+- **Full marks are green** (2026-11-08, David; `DECISION-0131`). Not gold, not blue. The `full-*` scale is a yellower green than the cooler reference green (`--green-500`), and the two never share a component. It appears only at the maximum score and always sits beside a ✓ and the words "Full marks", so the colour is never the only signal. Any score short of the maximum stays blue (earned) and maroon (lost). Tokens: `--full-050…700`, `--text-full-marks`, `--surface-full-marks`, `--border-full-marks`, `--chip-full-marks-bg`.
+- **Wordmark only, permanently** (2026-11-08, David). There is no logo and none is to be drawn.
+- **Type stack confirmed** (2026-11-08, David), read from the live pages cramapple.com (marketing) and app.cramapple.com (app): Bungee 400 for the wordmark, Passion One 700 for headings, Source Sans 3 400/600/700 for body and controls.
+- **Every equation is KaTeX** (2026-11-08, David; restates the 2026-10-12 amendment, `DECISION-0119`). STIX Two Math remains only for set-notation glyphs in prose.
+- **One system for every subject** (2026-11-08, David). AP Statistics Unit 2 is the sample content the plates were validated against, not a limit on the system. A subject never gets its own hue, type or layout.
+- **The name is written "Cramapple"** (2026-11-08, David), initial capital then lower case, including the browser tab title (`Question | Cramapple`).
 - **Dark mode: retired** (2026-09-21, David). Light-only. Supersedes v2's dark-first requirement.
 - **The no-scroll plate stays for now** (2026-09-21, David) — held as-is to see how it plays out under real content, with the page-length question explicitly open. See "The plate vs. page length" below. **[SUPERSEDED 2026-09-26: go responsive — see CORRECTION at top.]**
 
 ## Open items needing a David decision
 
-1. **Gold for full marks.** v2's gold-on-full-marks rule is currently absorbed into blue. If the gold moment is worth keeping, it needs a token and a rule about how it interacts with the rubric voice.
-3. **The logo.** Still none. The wordmark is type-set and tokenised for four grounds. v2 left two mark options open (faceted polygon, abstract open ring) — neither has been drawn, and it should not be drawn by an agent.
-4. **Type stack confirmation.** Bungee / Passion One / Source Sans 3 came from the working templates, not from a brand decision. v2 specified Plus Jakarta Sans. Confirm which is real.
-4. **Subject coverage.** Everything is validated against AP Statistics Unit 2 only. The repo's primary subject is AP Biology, whose FRQs are longer and whose stimulus is diagrammatic.
+1. **Full-marks versus reference green.** They are one family, split by hue and by rule. If they read as too close in real screens, separate them further.
+2. **AP Biology.** Its FRQs are longer and its stimulus is diagrammatic; the plates have not been tested against that yet.
 
 ## The plate vs. page length
 
