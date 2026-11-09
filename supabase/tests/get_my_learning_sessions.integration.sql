@@ -20,7 +20,7 @@ begin
 
   -- three sessions for u1: two with items (one older), one empty; one session for u2
   insert into app.learning_sessions (id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at)
-  values (gen_random_uuid(), v_u1, v_pack, 'topic', 'quick', 15, 'ended', now() - interval '2 days') returning id into v_s1;
+  values (gen_random_uuid(), v_u1, v_pack, 'topic', 'quick', 15, 'completed', now() - interval '2 days') returning id into v_s1;
   insert into app.learning_sessions (id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at)
   values (gen_random_uuid(), v_u1, v_pack, 'topic', 'quick', 15, 'active', now() - interval '1 hour') returning id into v_s2;
   insert into app.learning_sessions (id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at)
