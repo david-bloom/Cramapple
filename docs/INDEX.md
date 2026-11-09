@@ -91,6 +91,7 @@ decision that was on record.
 | Paywall analytics contract and email copy (DRAFTS, 2026-11-08) | `product/PAYWALL_ANALYTICS_AND_EMAIL_DRAFTS_2026_11_08.md` | Proposed event names/properties and activation/expiry email drafts; nothing deployed or sent; D7 nurture emails still open. |
 | Paywall app UI QA packet for Codex (2026-11-08) | `handoffs/PAYWALL_APP_QA_PACKET_2026_11_08.md` | What changed in the app clone, how to run it, risk areas and states to check. |
 | Paywall owner decisions needed (2026-11-09) | `product/PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md` | N1–N11: what only David can decide, with options, recommendation and what each unblocks. |
+| Paywall app-side Development smoke record (2026-11-09) | `qa/PAYWALL_APP_DEV_SMOKE_2026_11_09.md` | Author-run (not independent) anonymous-to-claim smoke on Development, one bug found, cleanup verified. |
 | Paywall Production release plan, DRAFT (2026-11-09) | `product/PAYWALL_PRODUCTION_RELEASE_PLAN_2026_11_09.md` | Preconditions, ordered per-step approvals R1–R8, rollback criteria. Nothing authorized. |
 | Codex QA prompts for the paywall app side and release readiness (2026-11-09) | `handoffs/CODEX_QA_PROMPT_PAYWALL_APP_2026_11_09.md` | Prompt 1: static review of docs and app PRs. Prompt 2: Development end-to-end and release readiness. |
 | Lovable prompt DRAFT for marketing `/try` and checkout first paint (unsent, 2026-11-08) | `handoffs/LOVABLE_PROMPT_TRY_ROUTE_DRAFT_2026_11_08.md` | Diagnosis so far and a proposed prompt; blocked on the backend contract and David's domain choice. |

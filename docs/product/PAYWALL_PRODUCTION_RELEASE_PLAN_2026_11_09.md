@@ -10,7 +10,7 @@
 | P-1 | Owner decisions N2–N5, N12 answered (N1 settled by P6) (`PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md`) | Open |
 | P-2 | Backend independent QA passed, including the two round-2 fixes | Round 2 reported both reproduced-fixed (migration `20261109131921`); a final pass on the as-released migration set is still needed |
 | P-3 | App PR (ap-prep-blueprint #47) passed Codex QA (static) | Not started |
-| P-4 | Development end-to-end walk passed (anonymous try, claim, replay, second account, grace, expiry, read-only) | Not run; needs Dev switches on and the app pointed at Development |
+| P-4 | Development end-to-end walk passed (anonymous try, claim, replay, second account, grace, expiry, read-only) | **Partly done (author smoke, 2026-11-09, `docs/qa/PAYWALL_APP_DEV_SMOKE_2026_11_09.md`)**: anonymous try, claim, replay and readback verified; one real response-shape bug found and fixed. Not run: browser sign-in walk, questions 2–8, FRQ and grading, grace, expiry. Independent run still required |
 | P-5 | Remaining app work built and QA'd for the chosen scope (N1): Cramapple FRQ path, photo answer and transcript confirmation inside the sample, `sample_photo_check_failed` retry handling, analytics if N8 approved | Not built |
 | P-6 | Minors' data review done (N4) | Open |
 | P-7 | Dev and Prod schema/function parity checked on release day: Dev has lagged main before (`feedback_dev_lags_main_check_before_building`), and the Supabase CLI resolves to **Production** when run from the home directory (`feedback_supabase_cli_home_dir_links_prod`) | Must be rechecked |
