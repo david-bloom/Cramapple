@@ -45,6 +45,8 @@ Plan §8's old "still open" list (anonymous switching, consumption, uploads, ide
 - **Codex short recheck of app PR #48 at `bfdbce6`:** lost-claim-response fix verified; one finding open (prior-trial banner and parent-only heading still mentioned the card trial). Fixed in app PR #48 after that review (commit after `bfdbce6`); not yet re-verified by Codex.
 - **"I approve 0207":** received; scope clarification requested (see the chat): `APPROVAL-0207` step B has an undefined population and unmet preconditions 1, 3, 5, 6 and 7, and the record's §5 is the backend session's to fill. Nothing was activated on this message.
 
+- **Step B (activation): "i approve step b"** (David, in chat, 2026-11-09, after being told that the Codex recheck of app PR #49's latest head, an app-driven live walk of the later-MCQ/FRQ journey and a dark day of Production traffic were not complete). Forwarded to the backend session with the population (hidden link, small group), N12 (typed-answer FRQ), no analytics, no emails. The app publish (merge of app PR #49, Lovable publish with `VITE_SAMPLE_JOURNEY` on) is David's step and was not done by this session.
+
 ## What I will not decide for you
 
 D6, D7, the domain, the Production approvals, or whether to send any Lovable prompt or email. Until you answer, those stay as marked placeholders.

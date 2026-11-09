@@ -1,5 +1,7 @@
 # Paywall sample: Production release plan (DRAFT, 2026-11-09)
 
+**Update 2026-11-09 (late):** David approved step B in chat ("i approve step b"), with population "hidden link, small group", typed-answer FRQ (N12), no analytics or emails in the first activation. Gates NOT completed at approval time: Codex recheck of app PR #49's latest head, an app-driven live walk of the later-MCQ/FRQ journey, a dark day of traffic. Execution is the backend session's (switches) and David's (merge of PR #49, Lovable publish with `VITE_SAMPLE_JOURNEY` on); this session executed nothing in Production.
+
 **Status:** DRAFT. **The authoritative Production record is `docs/activity_log/APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`** (owned by the backend session). Step A (dark apply: migrations `20261109155919`, `20261109155941`; functions `sample-try` v1, `attempt-response` v45, `student-session-items` v47; switches off; verified dark) was approved and executed on 2026-11-09. **Step B (activation) is not approved.** This document is the app/docs-side view and must follow 0207 if they differ.
 **Tier:** Hard-Gate. **Backend facts** come from `PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` and its QA records; backend execution facts are taken from `APPROVAL-0207` §6.
 
