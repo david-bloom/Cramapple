@@ -1,7 +1,7 @@
-# APPROVAL-0207 — Paywall sample access, Phase 3: Production dark apply (step A) and activation (step B) — DRAFT, NOT GRANTED
+# APPROVAL-0207 — Paywall sample access, Phase 3: Production dark apply (step A, APPROVED and EXECUTED 2026-11-09) and activation (step B, NOT GRANTED)
 
-- **Status:** **DRAFT for David's decision.** Nothing in this file is approved until David writes his approval
-  here (or in chat, then recorded here) for each step separately. Prepared 2026-11-09 by the backend/entitlement
+- **Status:** **Step A approved by David in chat ("Approve step A", 2026-11-09) and executed the same day; see §6.**
+  **Step B is not approved**; its preconditions are in §3. Prepared 2026-11-09 by the backend/entitlement
   session at David's request ("Yes, draft it") after Codex QA round 2 closed the backend findings.
 - **Tier:** Hard-Gate (Production access control, payments adjacency, public endpoint, minors' data).
 - **Plan gate:** `docs/product/PAYWALL_CHANGE_PLAN_2026_10_31.md` §9 Phase 3: "Production changes behind
@@ -148,5 +148,51 @@ Any change to the seven-day card trial (`DECISION-0126`), BYOQ policy (`DECISION
 
 ## 5. Decision record (to be filled by David)
 
-- **Step A (dark apply):** ☐ approved / ☐ declined — date, words:
+- **Step A (dark apply):** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve step A". Execution record in §6.
 - **Step B (activation):** ☐ approved / ☐ declined — date, words, population:
+
+## 6. Step A execution record (2026-11-09, Production `pcntajvbdfqhbeewmdry`)
+
+**Authority:** David Bloom in chat, "Approve step A". Executed by the backend/entitlement session.
+
+**Pre-write checks (§1.3), all passed before the first write:** ledger had no `paywall_sample%` row; md5s
+`d4a20f88…` / `52101195…` / `6f9d56a1…` unchanged; `get_question_experience` anchor present;
+`entry_path` check pre-change; no `sample_*` objects or config keys; dependencies present
+(`record_public_endpoint_hit`, `normalize_student_subject_key`, `open_hand_teaching_items`,
+`content_item_topic_resolution`); `supabase/` on the branch identical to `origin/main`; Production function
+bundles v44/v46 differ from `main` only by the sample change. `PUBLIC_RATE_LIMIT_HMAC_KEY` is **not** set on
+Production; `sample-try` falls back to the service-role key for the IP HMAC exactly as the other six public
+endpoints do (shared `_shared/public-rate-limit.ts`), so no new secret was created.
+
+**Writes:**
+1. `apply_migration paywall_sample_access` → Production ledger `20261109155919 paywall_sample_access`
+   (file `20261108201632_paywall_sample_access.sql`, body passed without its `begin;`/`commit;`).
+2. `apply_migration paywall_sample_access_qa_fixes` → `20261109155941 paywall_sample_access_qa_fixes`
+   (file `20261109131921_…`).
+3. `supabase functions deploy` from `main` with `--project-ref pcntajvbdfqhbeewmdry --workdir <repo>`:
+   `sample-try` v1 (`--no-verify-jwt`), `attempt-response` v44→**v45**, `student-session-items` v46→**v47**.
+   No secret or config switch touched: `SAMPLE_ACCESS_ENABLED` unset, `app.config.sample_access_enabled=false`.
+
+**Verified after the writes (read-only):**
+- Ledger shows both rows; `app.config`: `sample_access_enabled=false`, `sample_access_honor_existing=true`,
+  `sample_access_prior_definitions` holds 5 keys. Four `sample_*` tables, 0 rows each, RLS enabled and forced,
+  no `anon`/`authenticated` table grants; no `anon`/`authenticated` execute on any `app.sample_*` function;
+  `authenticated` can execute the three public RPCs, `anon` cannot. Both triggers present; `entry_path` accepts
+  `'sample'`; `get_question_experience` patched to `has_study_readback_access`; the supersede trigger has no
+  `starts_at` condition.
+- **Fidelity:** every sample-related function body in Production equals Development's byte for byte except four
+  plpgsql bodies (`authorize_grading_access`, `claim_sample_try`, `sample_gate_attempt_insert`,
+  `sample_try_start`) whose only difference is inline `--` comments that Development's copy lacks; with comments
+  and whitespace stripped the md5s are identical. The down script's snapshot is the Production body.
+- **Regular students unchanged:** 33 entitled student–subject pairs are all admitted by the live
+  `has_study_subject_access`, none via the sample branch; the 4 unentitled student profiles are not admitted to
+  `ap-statistics`. `sample-try list_units` with the anon key → `503 {"error":"sample_disabled"}`;
+  `attempt-response` and `student-session-items` without a JWT → 401. Downloaded Production bundles of all three
+  functions are byte-identical to `main`.
+
+**Not verified:** no signed-in browser session was exercised after the deploy (no credentials used); David should
+confirm a normal study flow still renders. The security advisor was not re-run.
+
+**Rollback (unchanged from §1.5):** redeploy v44 / v46 (Production's own source, saved by download 2026-11-09),
+delete `sample-try`; `supabase/migrations/down/paywall_sample_access_down.sql` plus removal of the two ledger rows.
+
