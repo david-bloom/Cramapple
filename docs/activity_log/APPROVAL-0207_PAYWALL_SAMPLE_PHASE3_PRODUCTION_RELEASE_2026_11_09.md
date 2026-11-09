@@ -149,7 +149,14 @@ Any change to the seven-day card trial (`DECISION-0126`), BYOQ policy (`DECISION
 ## 5. Decision record (to be filled by David)
 
 - **Step A (dark apply):** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve step A". Execution record in §6. Step A.1 (serving alignment) approved and executed the same day, §8.
-- **Step B (activation):** ☐ approved / ☐ declined — date, words, population:
+- **Step B (activation):** ☑ **approved** — 2026-11-09, David Bloom in chat. To the app/docs session: "i approve
+  step b"; to the backend session directly (the session that holds the switches): "Approve step B, flip now".
+  Population: **"Hidden link, small group"** — flag on, no marketing or ad link; the `/sample` URL is shared with a
+  named small group first. Rulings given in the same chat: N12 approved as the **typed-answer** first activation
+  (photo flags stay off; app copy says "Type your answer") — precondition 8 option (b); N4 "sufficient and approved"
+  (Terms/Privacy notice at first answer and registration; no retention period stated — §13 retention still open);
+  N3 "I accept the 31 of 48 eligible"; analytics (D6) and nurture emails (D7) **out of the first activation**
+  (preconditions 3 and 5 explicitly deferred). Execution record in §9.
 
 ## 6. Step A execution record (2026-11-09, Production `pcntajvbdfqhbeewmdry`)
 
@@ -250,3 +257,47 @@ Unit 1 as ineligible. Re-applying the helper is one `create or replace function`
   `sample_unit_availability('ap-calculus-ab')` unit 1 → `basis:'serving', mcq_available:10, frq_available:7,
   eligible:true`; **31 eligible units** product-wide; 0 sample rows; switch false. Still dark.
 
+
+## 9. Step B execution record (2026-11-09 ~20:15 UTC, Production `pcntajvbdfqhbeewmdry`)
+
+**Authority:** David Bloom in chat to the backend session, "Approve step B, flip now" (after "i approve step b" to
+the app/docs session, which relayed it; the relay alone was not acted on). Population and rulings in §5.
+
+**Pre-flip state (read-only):** `app.config.sample_access_enabled=false`, `sample_access_honor_existing=true`,
+`SAMPLE_ACCESS_ENABLED` not among Production secrets, 0 rows in all four `app.sample_*` tables.
+
+**Writes (the two backend switches of §2.1):**
+1. `supabase secrets set SAMPLE_ACCESS_ENABLED=true --project-ref pcntajvbdfqhbeewmdry --workdir <repo>` —
+   secret now listed (value not readable back).
+2. `update app.config set config_value='true'::jsonb where config_key='sample_access_enabled'` → read back `true`;
+   `sample_access_honor_existing` left `true`.
+
+**Not done by this session:** the Lovable publish with `VITE_SAMPLE_JOURNEY` on (§2.1 item 3) is David's step after
+merging the app PR (`ap-prep-blueprint` #49). Until it is published, the live backend is reachable only by direct
+API calls; no `/sample` page exists. No start/answer smoke try was run in Production (none requested): still
+0 `sample_tries`, 0 grants, 0 consumptions, 0 consumed emails after the flip.
+
+**Verification (read-only, after the flip):**
+- `POST /functions/v1/sample-try {"operation":"list_units"}` with the anon key → `200 status:ok` for
+  `ap-calculus-ab` (unit 1 `eligible:true, mcq 10, frq 7`; unit 2 eligible; unit 3 ineligible, 0 FRQ),
+  `ap-statistics` (units 1–5 eligible), `ap-physics-2` (units 9–11 eligible); every row `basis:'serving'`.
+- `app.sample_unit_availability` over all active `app.subjects`: **31 eligible of 48 units**, basis `serving`
+  everywhere — matches David's N3 acceptance.
+- `public.get_sample_access_state()` under a simulated JWT of an entitled student →
+  `enabled:true, has_grant:false, honor_existing:true, offer_context.has_regular_entitlement:true` (regular
+  students see the flag on but are not offered a grant they do not need).
+- `supabase functions list`: `sample-try`, `attempt-response`, `student-session-items` all `ACTIVE`, last updated
+  2026-11-09 15:59–16:00 UTC = the step A deploy; nothing redeployed since. (The list shows version numbers 2/46/48
+  where the step-A deploy output reported 1/45/47 — a counting difference between the two CLI views, same bundle.)
+
+**Rollback (spec §9 / §2.2), in order of severity:**
+1. Stop admissions:
+   `update app.config set config_value='false'::jsonb where config_key='sample_access_enabled';` and
+   `supabase secrets unset SAMPLE_ACCESS_ENABLED --project-ref pcntajvbdfqhbeewmdry --workdir <repo>`
+   (students mid-sample keep their 72 h + grace readback).
+2. Also stop in-progress samples: `update app.config set config_value='false'::jsonb where
+   config_key='sample_access_honor_existing';`
+3. Remove: step A's down script (§1.4).
+
+**Watch (§2.3) starts now;** precondition 7 (a day of dark traffic) was waived by the activation approval —
+Production had carried the dark functions for ~4 h with empty traffic.
