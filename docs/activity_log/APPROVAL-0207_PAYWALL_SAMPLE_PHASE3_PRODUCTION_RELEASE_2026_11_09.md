@@ -134,6 +134,12 @@ function logs, claims per day, `sample_consumptions` per grant, `sample_grading_
 6. **Grace resume (P8)**: app opens the question page by `learning_session_id` from the state; confirm it works, or
    accept that grace students cannot resume via `session_resume`.
 7. Step A verified in Production for at least one normal day of traffic with no regressions.
+8. **Photo-answer flags decided.** The plan promises a *photo-answer* FRQ, but `FRQ_PHOTO_RESPONSES_ENABLED` and
+   `FRQ_PHOTO_SUBJECTS` are off in Production (and Development), so a sample student could not photograph their
+   answer even with every switch above on. Before step B David either (a) approves enabling the photo flow for the
+   sample subjects in Production — a separate Hard-Gate approval covering `attempt-response`'s transcript ops,
+   `capture-pairing`, the model spend caps and `DECISION-0110`/`0111` retention — or (b) accepts a typed-answer
+   FRQ for the first activation and the app copy says so. The sample caps (3 extraction runs) only matter under (a).
 
 ## 4. Explicitly not covered by this record
 
