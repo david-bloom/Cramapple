@@ -166,3 +166,31 @@ branch source: **identical**.
 
 Status after round 2: no open QA findings. Still not a release: Production needs its own APPROVAL, the two
 switches stay off, and the §6 known gaps (uploaded-FRQ blocker, grace `session_resume`, photo flags dark) stand.
+
+## 9. Development end-to-end over HTTP (2026-11-09, backend session; not independent)
+
+Real edge functions and PostgREST on Development with the switches on and a throwaway `auth.users` row, then
+reset (0 rows in all four `sample_*` tables, 0 `entry_path='sample'` sessions, user deleted, config false,
+`SAMPLE_ACCESS_ENABLED` unset). Every expected result in `CODEX_QA_PROMPT_PAYWALL_SAMPLE_PRODUCTION_2026_11_09.md`
+part B was observed, including: anonymous `start`/`answer`/replay; claim with the clock exactly +72h/+144h and an
+idempotent replay; `student-session-items` returning `sample:{unit_number:1, phase:'active', mcq_remaining:7,
+frq_remaining:1}`; `create_attempt` consuming once and refusing an out-of-unit item with the typed 403 body;
+MCQ graded through `evaluate-attempt`; `get_study_topic_point_guides` unit 3 → `sample:unit_locked`; readback via
+`get_question_experience`; `sample:already_sampled` on a second claim; FRQ consumed once in a `targeted_drill`
+session; FRQ graded by the real grader through the `'sample'` authorization path; third grading request allowed,
+fourth → `sample_grading_limit_reached`; `grade_revision` → `sample_operation_not_included`.
+
+Two findings, neither a code defect:
+1. **Development lacked `GRADING_ENTITLEMENTS_ENABLED`**, so `evaluate-attempt` and the `attempt-response` submit
+   gate skipped `authorize_grading_access` entirely on Development (a sample student's `grade_revision` was
+   graded and stored). Production has the secret set. Set `GRADING_ENTITLEMENTS_ENABLED=true` on Development
+   2026-11-09 (left on, to match Production); the cap behaviour above was then verified. Until this, the grading
+   caps had only been exercised in SQL (§2 integration test), never through the edge functions.
+2. **The sample FRQ needs its own session.** The imported first-MCQ session has `practice_format='mcq'`; a
+   `create_attempt frq` in it is refused `409 practice_format_mismatch`. The app must start a `targeted_drill`
+   session (`session-event session_start`, admitted while the grant is active) for the FRQ. Contract note for the
+   app session; spec §10 should be read with this in mind.
+
+Not exercised: photo flow (flags dark), grace/expiry over real time (covered by the SQL test's time travel), the
+Lovable app itself.
+
