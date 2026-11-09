@@ -25,6 +25,6 @@ Three throwaway Development users (password sign-in; the session was placed in t
 ## Not verified
 - A real email code sign-up (`/start` was rendered but its submit was not exercised against Auth); Production Auth settings were verified separately by the backend session.
 - Practice and grading during the trial (Development has no serving labels, so the unit-gated queue is empty there), the daily grading cap, and More help.
-- The after-day-7 readback of saved work: the backend allows it, but **the app has no entry point to it** (an ended student sees only the pay prompt). Not built.
+- The after-day-7 readback of saved work: the backend allowed it but no call listed a student's sessions. **Update:** the backend authored `get_my_learning_sessions` (migration `20261109224500`, not yet applied to Development) and the app now has a "Your saved work" list on the ended-trial `/home` built against that contract (fixtures only; **not verified live**; each entry opens `/question?session=<id>&ordinal=1&type=<first item type>`, only sessions with `readable=true` and at least one answer are shown).
 - Checkout itself, the pay-now page, the marketing "Start free trial" buttons (Lovable prompts unsent), and the card trial path.
 - Production anything.
