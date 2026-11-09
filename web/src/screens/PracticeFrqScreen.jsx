@@ -19,7 +19,7 @@ import { gradeFrq } from '../session/grade.js';
  */
 export function PracticeFrqScreen({ question, onNext }) {
   const { attempts, recordAttempt } = useSession();
-  // The deep dive is costed help in Practice, so it joins the hint list and
+  // The cheat sheet is costed help in Practice, so it joins the hint list and
   // its receipt lands on the feedback card with the rest.
   const hints = useHints(question.package_id, [...question.hints, DEEP_DIVE_HINT]);
   const attempt = attempts[question.package_id];
@@ -183,7 +183,7 @@ export function PracticeFrqScreen({ question, onNext }) {
                   ? <ActionButton variant="primary" onClick={onNext}>Next question</ActionButton>
                   : <ActionButton variant="primary" disabled={text.trim().length === 0} onClick={submit}>Submit answer</ActionButton>}
                 secondary={submitted
-                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the deep dive</ActionButton>
+                  ? <ActionButton variant="link" onClick={openDeepDive}>Open the cheat sheet</ActionButton>
                   : <ActionButton variant="link" onClick={onNext}>Skip for now</ActionButton>}
               />
             </div>

@@ -55,7 +55,7 @@ export function PracticeByoqMcqScreen({ question, onNext }) {
             <div style={{ display: 'grid', gap: 16 }}>
               <p style={body}>{question.scoringNote}</p>
               <Missing heading="Not available for your own questions">
-                No answer key, elimination hint, or deep dive exists for a question
+                No answer key, elimination hint, or cheat sheet exists for a question
                 Cramapple didn't author.
               </Missing>
             </div>

@@ -20,7 +20,7 @@ export const MISSING = {
   habits: 'How points are earned / lost — not in the package schema.',
   reference: 'Topic, skills, vocabulary, on-the-exam — not in the package schema.',
   hints: 'No hint is defined, so nothing says which distractors an elimination hint would strike.',
-  deepDive: 'Only a one-line expected_reasoning exists, not the three-section deep dive.',
+  deepDive: 'Only a one-line expected_reasoning exists, not the three-section cheat sheet.',
   choiceFix: 'Per-distractor "Fix:" line — rationales say why a choice tempts, not how to correct it.',
   coaching: 'Per-verdict coaching copy — not in the package schema.'
 };

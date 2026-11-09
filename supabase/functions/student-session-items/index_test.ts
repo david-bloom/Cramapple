@@ -9,7 +9,7 @@
 
 import "./_test_setup.ts";
 import { assert, assertEquals, assertFalse } from "jsr:@std/assert@1";
-import { extractQuestionParts, handleStudentSessionItems } from "./index.ts";
+import { applySampleScope, extractQuestionParts, handleStudentSessionItems } from "./index.ts";
 
 /* -------------------------------------------------------------------------- */
 /* Fake service client — models exactly the call chains the handler makes.    */
@@ -59,6 +59,9 @@ type Spec = {
   // collides with the other's fields.
   cellScopedParents?: Row[];
   cellScopedVersions?: Row[];
+  // Paywall sample: app.sample_serving_scope output for a sample-only caller.
+  sampleScope?: Row | null;
+  sampleScopeError?: boolean;
 };
 
 // deno-lint-ignore no-explicit-any
@@ -109,6 +112,12 @@ function makeService(spec: Spec) {
       if (fn === "has_study_pack_access") return Promise.resolve({
         data: spec.access === undefined ? true : spec.access,
         error: spec.accessError ? { message: "offline" } : null,
+      });
+      // Paywall sample scope: null for everyone unless the spec says otherwise
+      // (a regular student); not recorded, like the access check above.
+      if (fn === "sample_serving_scope") return Promise.resolve({
+        data: spec.sampleScope ?? null,
+        error: spec.sampleScopeError ? { message: "offline" } : null,
       });
       spec.rpcCalls?.push({ schema: "app", name: fn, params });
       return Promise.resolve({
@@ -1251,3 +1260,108 @@ for (const branch of [{}, { current_mcq_answer: { content_item_version_id: SOURC
     });
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Paywall sample scope (PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md §5.5)      */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("applySampleScope keeps only the grant's unit within the remaining allowance", () => {
+  const mk = (id: string, itemType: string, extra: Record<string, unknown> = {}) => ({
+    content_item_version_id: `v-${id}`,
+    content_item_id: `i-${id}`,
+    content_key: id,
+    title: null,
+    stem: "s",
+    stimulus: null,
+    stimulus_image_path: null,
+    frq_form: null,
+    practice_format: itemType === "mcq" ? "mcq" : "targeted_drill",
+    item_type: itemType,
+    ...extra,
+  });
+  const rows = [
+    mk("m1", "mcq"), mk("m2", "mcq"), mk("m3", "mcq"), mk("other-unit", "mcq"),
+    mk("consumed", "mcq"), mk("f1", "frq"), mk("f2", "frq"), mk("photo", "frq", { response_policy: "photo_required" }),
+  ];
+  const units = new Map<string, number | null>([
+    ["v-m1", 2], ["v-m2", 2], ["v-m3", 2], ["v-other-unit", 3], ["v-consumed", 2], ["v-f1", 2], ["v-f2", 2], ["v-photo", 2],
+  ]);
+  const { kept, withheld } = applySampleScope(rows as never, {
+    unit_number: 2,
+    phase: "active",
+    mcq_remaining: 2,
+    frq_remaining: 1,
+    consumed_item_ids: ["i-consumed"],
+  }, units);
+  assertEquals(kept.map((r) => r.content_key), ["m1", "m2", "f1"]);
+  assertEquals(withheld.map((w) => w.content_key), ["m3", "other-unit", "consumed", "f2", "photo"]);
+  assert(withheld.every((w) => w.reason === "sample_scope"));
+  // Nothing is served outside the active phase (grace admits no new questions).
+  const grace = applySampleScope(rows as never, {
+    unit_number: 2, phase: "grace", mcq_remaining: 8, frq_remaining: 1, consumed_item_ids: [],
+  }, units);
+  assertEquals(grace.kept.length, 0);
+});
+
+Deno.test("sample-only caller: served queue is filtered to the grant unit and the response carries the allowance", async () => {
+  const otherUnit = { ...STATISTICS_MCQ, content_item_version_id: "civ-other", content_item_id: "ci-other", content_key: "stats-other" };
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      statisticsRows: [STATISTICS_MCQ, otherUnit],
+      choices: [{
+        content_item_version_id: STATISTICS_MCQ.content_item_version_id,
+        choice_key: "A",
+        choice_text: "choice",
+        is_correct: true,
+        rationale: "hidden",
+      }, {
+        content_item_version_id: "civ-other",
+        choice_key: "A",
+        choice_text: "choice",
+        is_correct: true,
+        rationale: "hidden",
+      }],
+      topicResolution: [
+        { content_item_version_id: STATISTICS_MCQ.content_item_version_id, unit_number: 1, topic_code: "1.1", skill_code: null, topic_title: "t" },
+        { content_item_version_id: "civ-other", unit_number: 4, topic_code: "4.1", skill_code: null, topic_title: "t" },
+      ],
+      sampleScope: { unit_number: 1, phase: "active", mcq_remaining: 7, frq_remaining: 1, consumed_item_ids: [] },
+    },
+    { learning_session_id: SESSION_ID, limit: 10 },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  const items = result.items as Array<Record<string, unknown>>;
+  assertEquals(items.map((i) => i.content_item_version_id), [STATISTICS_MCQ.content_item_version_id]);
+  assertEquals(result.sample, { unit_number: 1, phase: "active", mcq_remaining: 7, frq_remaining: 1 });
+  const omitted = result.omitted as Array<Record<string, unknown>>;
+  assertEquals(omitted.filter((o) => o.reason === "sample_scope").map((o) => o.content_key), ["stats-other"]);
+});
+
+Deno.test("sample-only caller with nothing left reports sample_allowance, not a bare empty queue", async () => {
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      statisticsRows: [STATISTICS_MCQ],
+      topicResolution: [
+        { content_item_version_id: STATISTICS_MCQ.content_item_version_id, unit_number: 1, topic_code: "1.1", skill_code: null, topic_title: "t" },
+      ],
+      sampleScope: { unit_number: 1, phase: "active", mcq_remaining: 0, frq_remaining: 0, consumed_item_ids: [] },
+    },
+    { learning_session_id: SESSION_ID, limit: 10 },
+  );
+  assertEquals(status, 200);
+  const result = json.result as Record<string, unknown>;
+  assertEquals((result.items as unknown[]).length, 0);
+  assertEquals(result.reason, "sample_allowance");
+});
+
+Deno.test("sample scope lookup failure fails closed with 503", async () => {
+  const { status, json } = await call(
+    { session: ACTIVE_SESSION, statisticsRows: [STATISTICS_MCQ], sampleScopeError: true },
+    { learning_session_id: SESSION_ID, limit: 10 },
+  );
+  assertEquals(status, 503);
+  assertEquals(json.error, "sample_scope_lookup_failed");
+});
