@@ -31,3 +31,7 @@ The live `sample-try` responses nest everything under `result.try` (`{outcome, t
 ## Cleanup (verified)
 
 All rows removed: `sample_tries`, `sample_grants`, `sample_consumptions`, `sample_consumed_emails`, imported sessions, attempts, response versions, grading results, audit events and the throwaway `auth.users` row; counts are 0 and `sample_access_enabled` is false. Note for the backend session: `sample_tries` and `sample_grants` reference each other, so cleanup needs `update app.sample_tries set grant_id = null` first, and deleting the user needs `audit_events`, `response_versions.created_by`, attempts and sessions deleted beforehand (the "cascade" does not cover these).
+
+## Update after the backend session's end-to-end (2026-11-09)
+
+The sample FRQ cannot be attempted inside the imported first-MCQ session (`practice_format` is `mcq`, so `409 practice_format_mismatch`). It must start a new session via `session-event` `session_start` with `entry_path:'topic'`, `session_mode:'quick'`, `practice_format:'targeted_drill'`, admitted while the grant is active, and create the FRQ attempt there. The app's "Start my free-response question" button previously linked into the MCQ session (a guess); it is now **disabled with "Coming soon"** until the real flow is built and QA'd. Development now also has `GRADING_ENTITLEMENTS_ENABLED=true`, so grading caps (3 requests, no revision) apply there as in Production.
