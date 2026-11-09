@@ -5,7 +5,7 @@
 `attempt-response` v50, `student-session-items` v48; both switches off; Codex QA round 1 (2026-11-09) found two
 defects, both fixed on Development the same day: migration `20261109131921_paywall_sample_access_qa_fixes`,
 `attempt-response` v51/v52, integration test 22 checks; Codex round 2 verdict: both reproduced-fixed, no open QA
-findings; serving alignment `20261109171915` on Development after the app session's Round 3, awaiting Production approval). **Production: dark apply executed 2026-11-09 under `APPROVAL-0207` step A** (ledger `20261109155919`/`20261109155941`, `sample-try` v1, `attempt-response` v45, `student-session-items` v47, both switches off); activation (step B) not approved. QA record: `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8.
+findings; serving alignment `20261109171915` on Development and Production ledger `20261109174046`, APPROVAL-0207 step A.1). **Production: dark apply executed 2026-11-09 under `APPROVAL-0207` step A** (ledger `20261109155919`/`20261109155941`, `sample-try` v1, `attempt-response` v45, `student-session-items` v47, both switches off); activation (step B) not approved. QA record: `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8.
 **Tier:** Hard-Gate (access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), from the plan David approved in chat
 on 2026-11-08.

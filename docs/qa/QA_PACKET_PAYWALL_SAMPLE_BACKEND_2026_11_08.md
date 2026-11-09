@@ -198,7 +198,7 @@ Lovable app itself.
 
 Source: `docs/qa/PAYWALL_APP_DEV_SMOKE_2026_11_09.md` "Round 3" (app session). Verified read-only on Production by
 the backend session and fixed in `supabase/migrations/20261109171915_paywall_sample_serving_alignment.sql`
-(Development applied; **Production not yet** — needs approval, APPROVAL-0207 §8).
+(Development applied; Production applied 2026-11-09 as APPROVAL-0207 step A.1, ledger `20261109174046`).
 
 | # | Finding | Status |
 | --- | --- | --- |
