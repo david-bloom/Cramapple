@@ -14,3 +14,17 @@
 
 ## Checks before it is sent
 Backend contract exists; D6 (experiment) and D7 (emails) are not needed by this prompt; privacy/counsel review of the earlier collection path (plan §7) is recorded; Codex reviews by commit SHA after Lovable returns.
+
+
+---
+
+## Revision 2026-11-09 (after owner answers; still NOT SENT, needs David's go-ahead)
+
+Decisions that change this draft: **N2** the anonymous question runs in the app at `app.cramapple.com/sample` (live since 2026-11-09, hidden link, flag on), so **no `/try` implementation is built on marketing**; **population** is a hidden link, so no marketing page links to the sample yet. Backend contract, N4 and N12 are settled. Two separable prompts remain:
+
+**Prompt 1: checkout first paint (owner item N10; safe to send alone, independent of the sample).** Target: marketing project `61dd6602-6991-4561-b418-e988bb7c8a0b`. Observed live on 2026-11-09 (David): "Start free trial" leads to `/checkout` showing Pay with card / Ask a parent to pay, an Order Summary of $39.99, "1 step left: add a payment method", and Place order disabled. That is the existing card-trial checkout (`DECISION-0126`: card collected now, charge after the trial) and has not changed. The defect is the wording: the page presents $39.99 as due before any eligibility quote while the landing hero says "You pay nothing today".
+> Change `/checkout` so it never shows "Total due today $39.99" (or any amount as due today) before an eligibility quote exists. Show a neutral "Checking your offer" state, then the server-confirmed summary. When the server confirms a seven-day card trial, show the amount due today as the server states it (zero) and the later charge and date as the server states them; when it confirms pay-now, say pay now. Do not hard-code any price, trial length or date. Do not change payment, entitlement or sign-in behavior. Behind no flag; if the quote call fails show a plain error and the existing retry, never a price.
+
+**Prompt 2: entry to the sample (do NOT send until David ends the hidden-link phase).** Add a secondary link on the landing CTA area, "Try 8 free questions first", to `https://app.cramapple.com/sample?subject=<key>` carrying UTM, promo and click-id parameters, naming the 72-hour free sample and the seven-day card trial separately and stating no price. The app side does not yet forward attribution into checkout (known gap).
+
+**Checks before sending either:** David approves sending; Codex reviews the Lovable result by commit SHA; the first-paint fix is verified on a real checkout (no payment) before publish.
