@@ -91,10 +91,11 @@ Expected sequence and results:
     `superseded`, `superseded_by='paid'`; revoke it → `has_study_subject_access` false, readback still true.
 15. Anon key on `rpc/get_sample_access_state` → `401 permission denied`.
 
-**Reset:** delete the throwaway user (admin API) **after** deleting its `grading_results`, `response_versions`,
-`attempts`, `learning_session_items`, `learning_sessions`, `sample_consumptions`, `sample_grants`,
-`sample_consumed_emails`, `audit_events` rows and all `sample_tries`; `sample_grants.learning_session_id` references
-`learning_sessions`, so grants go before sessions. Then `sample_access_enabled=false` and
+**Reset, in this order** (the tables reference each other both ways): `sample_consumptions` → set
+`sample_tries.grant_id` and `claimed_by_user_id` to null → `sample_grants` → `sample_consumed_emails` →
+`grading_results` → `response_versions` (also `created_by`) → `attempts` → `learning_session_items` →
+`learning_sessions` → all `sample_tries` → `audit_events` (`subject_user_id`, `actor_user_id`, `actor_id`) → then the
+user via the admin API. Then `sample_access_enabled=false` and
 `supabase secrets unset SAMPLE_ACCESS_ENABLED`. Confirm 0 rows in all four `sample_*` tables and 0
 `learning_sessions` with `entry_path='sample'`.
 
