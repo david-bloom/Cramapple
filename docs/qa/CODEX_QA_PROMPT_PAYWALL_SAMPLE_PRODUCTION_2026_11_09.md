@@ -4,10 +4,18 @@ Paste the block below into Codex as the task. It is self-contained; the files it
 
 ---
 
-**Task: independent QA of the paywall sample-access backend in Production (dark) and its readiness for
-activation. You are the independent reviewer; the backend session that built and deployed it must not QA its
-own work. Report verified / inferred / not-reproducible for every item, with evidence, and end with a verdict on
-(A) the dark apply as executed and (B) whether the backend side is ready for activation.**
+**Task: independent QA of the paywall sample-access backend in Production and of the step B activation. You are
+the independent reviewer; the backend session that built and deployed it must not QA its own work. Report
+verified / inferred / not-reproducible for every item, with evidence, and end with a verdict on (A) the Production
+apply and activation as executed and (B) whether anything should be rolled back or fixed before the app is
+published to the hidden-link group.**
+
+**Status change 2026-11-09 ~20:15 UTC:** David approved step B ("Approve step B, flip now"); the two backend switches
+are now **ON** in Production (`SAMPLE_ACCESS_ENABLED=true` on `sample-try`, `app.config.sample_access_enabled=true`),
+population = hidden link to a small group, typed-answer FRQ (photo flags off), D6/D7 deferred. The Lovable publish
+with `VITE_SAMPLE_JOURNEY` on is David's step and may or may not have happened when you run — check. Items below
+marked *[live]* describe the post-activation expectation; where this prompt still says "dark" or "false", read
+APPROVAL-0207 §9 for the live value.
 
 **Read first (on `main`):**
 - `docs/activity_log/APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md` — step A executed
@@ -25,8 +33,9 @@ as you found it (part B lists the reset).
 ## Part A — Production dark state (read-only)
 
 1. Ledger has `paywall_sample_access` (`20261109155919`) and `paywall_sample_access_qa_fixes` (`20261109155941`);
-   `app.config`: `sample_access_enabled=false`, `sample_access_honor_existing=true`,
-   `sample_access_prior_definitions` with 5 keys. Four `app.sample_*` tables, 0 rows each, RLS enabled **and
+   `app.config`: `sample_access_enabled=true` *[live]*, `sample_access_honor_existing=true`,
+   `sample_access_prior_definitions` with 5 keys. Four `app.sample_*` tables, 0 rows each unless real hidden-link
+   students have started (report counts; rows created after 2026-11-09 20:15 UTC are real, do not delete them), RLS enabled **and
    forced**, no `anon`/`authenticated` table grants; no `anon`/`authenticated` execute on any `app.sample_*`
    function; `authenticated` can execute `public.claim_sample_try`, `public.get_sample_access_state`,
    `public.claim_sample_frq_source`; `anon` cannot.
@@ -37,16 +46,20 @@ as you found it (part B lists the reset).
    `public.claim_sample_frq_source` between Production and Development. Expected: identical except four plpgsql
    bodies that differ only by inline `--` comments (strip `--[^\n]*` and whitespace, then compare). Any other
    difference is a finding.
-4. Functions: `sample-try` v1 (`verify_jwt` false), `attempt-response` v45, `student-session-items` v47. Download
+4. Functions: `sample-try` (`verify_jwt` false), `attempt-response`, `student-session-items`, all last updated
+   2026-11-09 15:59–16:00 UTC (`supabase functions list` shows versions 2/46/48; the deploy output said 1/45/47 —
+   same bundles; a later `updated_at` is a finding). Download
    each with `supabase functions download --project-ref pcntajvbdfqhbeewmdry` and `diff` against `main`: expect
    byte-identical `index.ts`. `evaluate-attempt` is still v83 (unchanged by this release) — confirm it was not
    redeployed.
 5. Regular students unchanged: for every currently entitled student–subject pair, `app.has_study_subject_access`
    is true and `app.sample_study_access` is false; unentitled student profiles are not admitted to any subject.
-   `get_sample_access_state()` under a simulated JWT of an entitled student returns `enabled:false, has_grant:false,
-   offer_context.has_regular_entitlement:true`.
-6. Live smoke with the anon key: `POST /functions/v1/sample-try {"operation":"list_units","subject_key":"ap-statistics"}`
-   → `503 {"error":"sample_disabled"}`; `attempt-response` and `student-session-items` without a JWT → 401.
+   `get_sample_access_state()` under a simulated JWT of an entitled student returns `enabled:true` *[live]*,
+   `has_grant:false, offer_context.has_regular_entitlement:true`.
+6. Live smoke with the anon key *[live]*: `POST /functions/v1/sample-try {"operation":"list_units","subject_key":"ap-statistics"}`
+   → `200 status:ok` with units 1–5 `eligible:true`, every row `basis:'serving'`; across all active subjects
+   31 of 48 units eligible; `attempt-response` and `student-session-items` without a JWT → 401. Do **not** run
+   `start`/`answer` against Production unless David asks; if you do, delete the `sample_tries` row afterwards.
 7. Confirm `GRADING_ENTITLEMENTS_ENABLED` is **set** on Production (`supabase secrets list`; value not readable,
    so confirm by behaviour only if a safe unentitled test identity already exists — otherwise record as "set,
    value inferred from `APPROVAL-0205`/`minimal-ci` convention").
@@ -109,13 +122,16 @@ user via the admin API. Then `sample_access_enabled=false` and
 
 ## Part C — Activation readiness (judgement, read-only)
 
-For each `APPROVAL-0207` §3 precondition say met / not met / not your call, with the evidence you saw:
+David has already activated (§5/§9 record his rulings: typed-answer FRQ, D6/D7 deferred, 31/48 accepted). For each
+`APPROVAL-0207` §3 precondition say met / deferred by David / not met, with the evidence you saw, and flag anything
+a hidden-link student would hit that the rulings do not cover:
 1 Development end-to-end (part B); 2 app Cramapple-FRQ path (check `ap-prep-blueprint` `main` for an FRQ picker
 and a `targeted_drill` session start on the sample route); 3 analytics; 4 §13 minors'-data check; 5 D7; 6 P8 grace
 resume; 7 a day of dark Production traffic without regressions (query `app.attempts`/`learning_sessions` created
 after 2026-11-09 16:00 UTC and look for failures in the Supabase dashboard function logs); 8 photo flags.
 
-**Verdict format:** (A) dark apply: PASS / FAIL with findings; (B) backend ready for activation: YES / NO /
-CONDITIONAL with the exact open items. Do not flip any Production switch, deploy, or secret.
+**Verdict format:** (A) Production apply + activation: PASS / FAIL with findings; (B) roll back or fix before the
+app publish: NO / YES with the exact items. Do not flip any Production switch, deploy, or secret; if you believe a
+rollback is needed, say so and give the command (APPROVAL-0207 §9) — David runs it.
 
 ---
