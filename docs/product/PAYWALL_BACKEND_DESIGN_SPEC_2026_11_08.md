@@ -232,10 +232,36 @@ cannot be submitted to `evaluate-attempt`. It never carries email, name, or devi
 
 ## 4. Handoff to the registering student (plan §5 "secure, retry-safe handoff")
 
-### 4.1 Registration itself is unchanged
+### 4.1 Registration: the sample needs its own sign-up step (corrected 2026-11-09)
 
-The student registers through the existing code sign-in (`send-auth-email`, Supabase OTP). `handle_new_user`
-creates the `student` profile. Nothing in registration starts a clock.
+**Correction.** The 2026-11-08 text said registration was "unchanged (existing code sign-in)". That was wrong for a
+new visitor: the marketing `/login` sends codes with `signInWithOtp({ shouldCreateUser: false })` (existing accounts
+only) and its "Create an account" link goes to `/checkout`; until now accounts were created only by the Stripe
+webhook (`inviteUserByEmail` / `createUser` after payment, `DECISION-0090`, `TASK-0060`). So "Register to save" had
+no path that did not end in checkout — David hit this on the live `/sample` test. The app therefore adds an in-app
+email-code step (`ap-prep-blueprint` #52): `signInWithOtp({ email, shouldCreateUser: true })` → `verifyOtp({ type:
+'email', token })` → `claim_sample_try(p_try_token)`.
+
+**What the backend relies on, verified read-only against Production Auth config on 2026-11-09:** sign-ups enabled
+(`disable_signup=false`), email provider on, no auto-confirm, 6-digit codes valid 3600 s, the "Confirm sign up"
+template carries `{{ .Token }}` and no confirmation link, custom SMTP (Resend, sender "Cramapple"), 30 auth
+emails per hour project-wide (`rate_limit_email_sent` / `rate_limit_otp`). The Auth **send-email hook is disabled**
+and no `send-auth-email` deployment is involved; Supabase Auth sends the code itself from the dashboard templates
+(see the auth-template memory: Invite / Magic Link / Confirm sign up by account state; one email per minute per
+address). Nothing here is a backend code change: `handle_new_user` creates the `student` profile on the
+`auth.users` insert exactly as for a webhook-created user, and `claim_sample_try` only needs `auth.uid()`.
+
+**Rules that still hold.** Nothing in registration starts a clock (the grant activates on claim, §4.2). An email
+that has already consumed a sample is refused at claim (`sample:already_sampled`, §8), so a sign-up alone grants
+nothing. The 30/hour project-wide email limit is shared with trial/checkout mail — enough for the hidden-link
+group, a watch item before any wider link (plan §6).
+
+**Alternative considered, not chosen for the first activation:** a server-side registration edge function
+(service role `createUser` + `generateLink` for the code, like the webhook) would let the backend own the
+consumed-email check *before* the account exists and keep client code off the admin path, but it adds a public
+endpoint with its own rate limit and HMAC and duplicates what Supabase Auth already does. Client OTP sign-up is
+the smaller change and is what Production is configured for; revisit only if abuse (accounts created, never
+claimed) shows up in the watch list.
 
 ### 4.2 `public.claim_sample_try(p_try_token text) → jsonb` (authenticated RPC)
 
