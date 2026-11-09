@@ -1,13 +1,13 @@
 # Paywall sample: Production release plan (DRAFT, 2026-11-09)
 
-**Status:** DRAFT. **No step below is authorized.** `APPROVAL-0206` covers Development/draft only; every Production step needs its own approval entry (plan §9 Phase 3). This document prepares those requests; it does not make them.
+**Status:** DRAFT. **The authoritative Production record is `docs/activity_log/APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`** (owned by the backend session). Step A (dark apply: migrations `20261109155919`, `20261109155941`; functions `sample-try` v1, `attempt-response` v45, `student-session-items` v47; switches off; verified dark) was approved and executed on 2026-11-09. **Step B (activation) is not approved.** This document is the app/docs-side view and must follow 0207 if they differ.
 **Tier:** Hard-Gate. **Backend facts** come from `PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` and its QA records; steps marked **[backend to confirm]** are pending the `paywall-backend` session's own list.
 
 ## 1. Preconditions (all must be true before requesting Step 1)
 
 | # | Precondition | State on 2026-11-09 |
 | --- | --- | --- |
-| P-1 | Owner decisions N1–N5 answered (`PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md`) | Open |
+| P-1 | Owner decisions N2–N5, N12 answered (N1 settled by P6) (`PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md`) | Open |
 | P-2 | Backend independent QA passed, including the two round-2 fixes | Round 2 reported both reproduced-fixed (migration `20261109131921`); a final pass on the as-released migration set is still needed |
 | P-3 | App PR (ap-prep-blueprint #47) passed Codex QA (static) | Not started |
 | P-4 | Development end-to-end walk passed (anonymous try, claim, replay, second account, grace, expiry, read-only) | Not run; needs Dev switches on and the app pointed at Development |
@@ -21,9 +21,9 @@
 
 | Step | Action | Environment | Reversible by |
 | --- | --- | --- | --- |
-| R1 | Apply the sample migrations (`20261108201632_…`, `20261109131921_…`) and confirm `app.config` switches are **false**. **[backend to confirm: ordering with the Production-only `20261031143302_subject_access_before_study`, ledger drift, how to apply]** | Production | Down script (spec §9 level 3); data is empty while flags are off |
-| R2 | Deploy edge functions `sample-try`, `attempt-response`, `student-session-items` with `SAMPLE_ACCESS_ENABLED=false`. **[backend to confirm versions and secrets]** | Production | Redeploy prior versions |
-| R3 | Verify the **dark** state: `sample-try` returns `503 sample_disabled`; existing signed-in practice, trial and checkout behave exactly as before (regression pass on `get_study_subject_keys`, session items, attempt creation, grading access) | Production, read-only calls | n/a |
+| R1 | **DONE 2026-11-09 (0207 step A).** Apply the sample migrations (`20261108201632_…`, `20261109131921_…`) and confirm `app.config` switches are **false**. **[backend to confirm: ordering with the Production-only `20261031143302_subject_access_before_study`, ledger drift, how to apply]** | Production | Down script (spec §9 level 3); data is empty while flags are off |
+| R2 | **DONE 2026-11-09 (0207 step A).** Deploy edge functions `sample-try`, `attempt-response`, `student-session-items` with `SAMPLE_ACCESS_ENABLED=false`. **[backend to confirm versions and secrets]** | Production | Redeploy prior versions |
+| R3 | **Verified dark by the backend session on 2026-11-09; a normal day of traffic is still required (0207 §3 item 7).** Verify the **dark** state: `sample-try` returns `503 sample_disabled`; existing signed-in practice, trial and checkout behave exactly as before (regression pass on `get_study_subject_keys`, session items, attempt creation, grading access) | Production, read-only calls | n/a |
 | R4 | Lovable publish of the app with `VITE_SAMPLE_JOURNEY` still off: confirm `/sample` is a 404 | Production | Lovable rollback |
 | R5 | Marketing `/try` or landing link per N2, still pointing nowhere live | Production | Lovable rollback |
 | R6 | Enable for an **approved test population only**: admin/own account first, then a named small group. Both switches (`app.config` and edge env) plus the app flag. **Not** public ad traffic. | Production | Spec §9 levels 1–2, in under a minute |
