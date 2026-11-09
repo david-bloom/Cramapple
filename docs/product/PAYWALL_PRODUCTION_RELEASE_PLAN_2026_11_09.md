@@ -25,7 +25,7 @@
 | R2 | **DONE 2026-11-09 (0207 step A).** Deploy edge functions `sample-try`, `attempt-response`, `student-session-items` with `SAMPLE_ACCESS_ENABLED=false`. **[backend to confirm versions and secrets]** | Production | Redeploy prior versions |
 | R3 | **Verified dark by the backend session on 2026-11-09; a normal day of traffic is still required (0207 §3 item 7).** Verify the **dark** state: `sample-try` returns `503 sample_disabled`; existing signed-in practice, trial and checkout behave exactly as before (regression pass on `get_study_subject_keys`, session items, attempt creation, grading access) | Production, read-only calls | n/a |
 | R4 | Lovable publish of the app with `VITE_SAMPLE_JOURNEY` still off: confirm `/sample` is a 404 | Production | Lovable rollback |
-| R5 | Marketing `/try` or landing link per N2, still pointing nowhere live | Production | Lovable rollback |
+| R5 | Marketing link or redirect to the app's `/sample` (N2 decided: the app runs the anonymous question), still pointing nowhere live | Production | Lovable rollback |
 | R6 | Enable for an **approved test population only**: admin/own account first, then a named small group. Both switches (`app.config` and edge env) plus the app flag. **Not** public ad traffic. | Production | Spec §9 levels 1–2, in under a minute |
 | R7 | Watch window: grants, claims, refusals by code, grading and extraction spend, error rates; compare with rollback criteria below | Production | n/a |
 | R8 | Widen, tune or revert (separate owner decision; the experiment is N6) | Production | per level |
