@@ -1,0 +1,17 @@
+# Lovable prompts DRAFT: free trial without a card (NOT SENT, 2026-11-09)
+
+**Status:** drafts for David. **Not sent to Lovable, not published.** Authority: `APPROVAL-0208` (drafts only). Target: marketing project `61dd6602-6991-4561-b418-e988bb7c8a0b`. Context: `FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`, `DECISION-0135`. Supersedes the unsent `LOVABLE_PROMPT_TRY_ROUTE_DRAFT_2026_11_08.md` (no `/try` is built on marketing; the sample and the trial start live in the app).
+**Send order:** only after the backend `get_trial_state` / `start_subject_trial` exist in Development and the app PR (ap-prep-blueprint #53) passes QA, and only on David's explicit go-ahead. Prompt 2 can go earlier (it fixes the checkout wording for the card trial today).
+
+## Prompt 1: "Start free trial" goes to the app, not checkout
+> Change every "Start free trial" (and equivalent "Try free") button and link on the marketing site so it opens `https://app.cramapple.com/start` instead of `/checkout`. On a subject landing page (for example the AP Biology page), link to `https://app.cramapple.com/start?subject=<subject key>` using the same subject keys the checkout uses today. Preserve every existing marketing parameter on the destination URL: `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `promo`, and the Reddit click id (`rdt_cid`). Do not state a price, trial length or deadline in code or copy that is not already there. Keep the existing wording "7-day free trial, no card" only where it is true: the offer is 7 days of full access to one subject, no card needed. Do not change `/checkout`, pricing pages or any other route. Keep the old checkout links working (a direct visit to `/checkout` must behave exactly as before). Behind a single flag that defaults off; with the flag off, every button behaves exactly as today.
+
+## Prompt 2: checkout wording while the card trial is inactive (pay-now)
+**Diagnose before sending** (read `src/routes/checkout.index.tsx`, `src/components/checkout/TrialOffer.tsx`, `src/lib/trial-checkout.ts`): the backend's switch for the card trial is `TRIAL_ADMISSION_ENABLED=false`; confirm what the page shows and whether it refuses a purchase when the switch is off. The backend spec flags this as a build-time check. Observed live 2026-11-09: Order Summary shows $39.99 while the landing hero says "You pay nothing today", and the first paint shows a settled amount before an eligibility quote exists.
+> `/checkout` must never show "Total due today" or any amount as due before the server's offer quote has loaded; show "Checking your offer" until then. When the server says the seven-day card trial is not available, present a plain purchase for the chosen subject: the amount due today is the price, the button says "Pay now", and no trial, "pay nothing today" or card-saved-for-later wording appears anywhere on the page. When the server confirms a seven-day card trial (the card trial being switched back on in future), keep today's behavior. Do not hard-code any price, trial length or date. Do not change payment, entitlement, promo or sign-in behavior.
+
+## Prompt 3 (later, optional): "Try 8 free questions first" sample link
+Dropped for now: the sample stays dark (`DECISION-0135` D3).
+
+## Checks before sending any of them
+David approves sending; the backend contract is deployed where the app can reach it; Codex reviews the Lovable result by commit SHA; Prompt 1 is verified on a real device in a private window with and without the flag; Prompt 2 is verified on a real checkout without paying.
