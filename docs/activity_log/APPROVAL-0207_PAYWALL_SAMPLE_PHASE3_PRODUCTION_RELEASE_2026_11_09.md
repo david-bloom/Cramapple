@@ -21,7 +21,7 @@
 | Production backend | **Nothing applied.** 0 `sample_*` migrations, functions or tables; `app.config` has no `sample*` keys | read-only query 2026-11-09 |
 | Production anchors for the migration | **Match exactly** what the migration was built against: `app.has_study_subject_access` md5 `d4a20f88…`, `app.authorize_grading_access` `52101195…`, `public.get_study_topic_point_guides` `6f9d56a1…` equal Development's pre-change snapshots; `get_question_experience` still carries the `has_study_pack_access` anchor; `entry_path` check is the pre-change list | read-only queries, both projects |
 | Production function drift | `attempt-response` v44 and `student-session-items` v46 downloaded and diffed against `main`: **every differing line is the sample change** (plus `_shared/student-item-delivery.ts` gaining `sample_scope`). Deploying from `main` ships nothing else | `supabase functions download`, `diff` |
-| App | PR #47 wired to the contract behind `VITE_SAMPLE_JOURNEY` (off). **Never run end to end against any backend.** FRQ source choice / photo / transcript confirm **not wired**. No analytics events | PR #47 description |
+| App | PR #47 wired to the contract behind `VITE_SAMPLE_JOURNEY` (off). App session ran one anonymous→claim smoke on Development 2026-11-09 (its own report); backend-only HTTP walk done the same day (QA packet §9). Still no app-driven full walk. FRQ source choice / photo / transcript confirm **not wired**. No analytics events | PR #47 description |
 | Content | Units 1–3 reliably eligible per subject in Production; later units mostly not; the app reads availability live | plan Phase 0 audit, spec §1 |
 | Open product work | D6 experiment design, D7 nurture emails, §13 minors'-data/privacy review not performed | plan §8, spec §13 |
 
@@ -123,7 +123,7 @@ function logs, claims per day, `sample_consumptions` per grant, `sample_grading_
 
 ## 3. Preconditions David should require before approving step B
 
-1. **End-to-end run on Development** (never done): both Development switches on, app clone pointed at
+1. **End-to-end run on Development** — backend half DONE 2026-11-09 by the backend session over real HTTP (QA packet §9); the app-driven run and independent Codex QA of it are still open: both Development switches on, app clone pointed at
    Development, walk anonymous MCQ → register → `claim_sample_try` → 7 further MCQs → one Cramapple FRQ graded →
    grace → expiry → read-only feedback, then switches back off and test rows removed. Codex QA of that run.
 2. **App completes the Cramapple-FRQ path** (pick, answer, grade) so the "8 MCQs + 1 FRQ" offer is deliverable;
@@ -190,9 +190,21 @@ endpoints do (shared `_shared/public-rate-limit.ts`), so no new secret was creat
   `attempt-response` and `student-session-items` without a JWT → 401. Downloaded Production bundles of all three
   functions are byte-identical to `main`.
 
-**Not verified:** no signed-in browser session was exercised after the deploy (no credentials used); David should
-confirm a normal study flow still renders. The security advisor was not re-run.
+**Owner check:** David confirmed in chat on 2026-11-09, after the deploy, that a normal signed-in study flow still
+renders on the live app ("Confirmed, renders"). **Not verified:** the security advisor was not re-run.
 
 **Rollback (unchanged from §1.5):** redeploy v44 / v46 (Production's own source, saved by download 2026-11-09),
 delete `sample-try`; `supabase/migrations/down/paywall_sample_access_down.sql` plus removal of the two ledger rows.
+
+## 7. Post-step-A checks (2026-11-09, later the same day)
+
+- Security advisor on Production re-run: no new lint category and no ERROR; the four sample tables sit in the
+  pre-existing INFO "RLS enabled, no policy" list with the other service-role-only tables, and the three public RPCs
+  in the pre-existing WARN "authenticated can execute SECURITY DEFINER" list with every other public RPC.
+- Production traffic in the 90 minutes after the deploy: 0 attempts, 0 sessions, 0 entitlement writes — too quiet
+  to count as the "day of dark traffic" (precondition 7); nothing failed because nothing ran.
+- Development: `GRADING_ENTITLEMENTS_ENABLED` was missing (Production has it), so Development's edge functions
+  had never enforced `authorize_grading_access`; set to `true` on Development 2026-11-09. Backend end-to-end over
+  HTTP passed (QA packet §9). Codex prompt for the independent pass:
+  `docs/qa/CODEX_QA_PROMPT_PAYWALL_SAMPLE_PRODUCTION_2026_11_09.md`.
 
