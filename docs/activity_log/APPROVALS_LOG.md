@@ -4,7 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
-- [APPROVAL-0207 — Paywall sample access Phase 3: step A (Production dark apply, both switches off) approved and executed 2026-11-09; step B (activation) NOT granted](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
+- [APPROVAL-0207 — Paywall sample access Phase 3: step A (Production dark apply) and step A.1 (serving alignment) approved and executed 2026-11-09, both switches off; step B (activation) NOT granted](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
 - [APPROVAL-0206 — Paywall change plan approved for Development-only design and build; nothing released (granted 2026-11-08)](APPROVAL-0206_PAYWALL_PLAN_DEVELOPMENT_AUTHORITY_2026_11_08.md)
 - [APPROVAL-0205 — Subject access before study: apply migration and deploy `session-event` and `student-session-items` to Production (executed 2026-11-04; sign-in spinner incident)](APPROVAL-0205_SUBJECT_ACCESS_PRODUCTION_RELEASE_2026_11_04.md)
 - [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
@@ -157,7 +157,7 @@ Most recent entries (full chronological list follows below):
 
 ## APPROVAL-0207 — Paywall sample access Phase 3: step A executed 2026-11-09, step B not granted
 
-- **Step A:** approved by David in chat ("Approve step A") and executed 2026-11-09: Production ledger `20261109155919 paywall_sample_access`, `20261109155941 paywall_sample_access_qa_fixes`; `sample-try` v1, `attempt-response` v45, `student-session-items` v47; both switches off; verified dark (packet §6). **Step B:** not approved. Step A = Production dark apply of migrations `20261108201632` and `20261109131921` plus `sample-try`, `attempt-response`, `student-session-items` from `main`, switches off. Step B = activation (env + config switch + app publish), separate approval with seven preconditions. Full packet: `APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`.
+- **Step A:** approved by David in chat ("Approve step A") and executed 2026-11-09: Production ledger `20261109155919 paywall_sample_access`, `20261109155941 paywall_sample_access_qa_fixes`; `sample-try` v1, `attempt-response` v45, `student-session-items` v47; both switches off; verified dark (packet §6). **Step A.1:** serving-alignment migration approved ("Approve step A.1") and applied to Production 2026-11-09 (ledger `20261109174046`); its availability helper corrected the same day ("Approve A.1 patch": label-mirror instead of a 51-row selector page; 31 eligible units); still dark. **Step B:** not approved. Step A = Production dark apply of migrations `20261108201632` and `20261109131921` plus `sample-try`, `attempt-response`, `student-session-items` from `main`, switches off. Step B = activation (env + config switch + app publish), separate approval with seven preconditions. Full packet: `APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`.
 
 ## APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
 
