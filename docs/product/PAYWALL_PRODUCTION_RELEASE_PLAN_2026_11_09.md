@@ -1,5 +1,7 @@
 # Paywall sample: Production release plan (DRAFT, 2026-11-09)
 
+**Update 2026-11-09 (late):** David approved step B in chat ("i approve step b"), with population "hidden link, small group", typed-answer FRQ (N12), no analytics or emails in the first activation. Gates NOT completed at approval time: Codex recheck of app PR #49's latest head, an app-driven live walk of the later-MCQ/FRQ journey, a dark day of traffic. Execution is the backend session's (switches) and David's (merge of PR #49, Lovable publish with `VITE_SAMPLE_JOURNEY` on); this session executed nothing in Production.
+
 **Status:** DRAFT. **The authoritative Production record is `docs/activity_log/APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`** (owned by the backend session). Step A (dark apply: migrations `20261109155919`, `20261109155941`; functions `sample-try` v1, `attempt-response` v45, `student-session-items` v47; switches off; verified dark) was approved and executed on 2026-11-09. **Step B (activation) is not approved.** This document is the app/docs-side view and must follow 0207 if they differ.
 **Tier:** Hard-Gate. **Backend facts** come from `PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` and its QA records; backend execution facts are taken from `APPROVAL-0207` §6.
 
@@ -15,6 +17,7 @@
 | P-6 | Minors' data review done (N4) | Open |
 | P-7 | Dev and Prod schema/function parity checked on release day: Dev has lagged main before (`feedback_dev_lags_main_check_before_building`), and the Supabase CLI resolves to **Production** when run from the home directory (`feedback_supabase_cli_home_dir_links_prod`) | Must be rechecked |
 | P-8 | Per-unit availability re-audited against Production on release day (the Phase 0 table is a snapshot) | Snapshot only |
+| P-8b | **Sample serving works through the app's unit-gated path in Production**: claim sets (or serving derives) the course position for the grant unit; Physics 2 and Physics C E&M units do not error; availability counts equal what serving can deliver (Calc AB U1 is short); the imported session's format does not starve the queue. See smoke record, round 3 | **Applied to Production, still dark; paging defect patched** (migration `20261109171915_paywall_sample_serving_alignment` plus the A.1 patch, `APPROVAL-0207`). Author read-only check on Production 2026-11-09 after the patch: 48 units, all `basis:'serving'`, **31 eligible**, Calculus AB Unit 1 = 10 MCQs / 7 FRQs / eligible, switch false. The earlier "4 MCQs" was a paging artefact and is withdrawn. Not yet verified: the app's unit-gated flow end to end against the Production functions (switches are off) |
 | P-9 | Rollback rehearsed in Development (levels 1 and 2, spec §9) | Not run |
 
 ## 2. Ordered release steps (each is a separate approval request)
