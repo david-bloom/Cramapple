@@ -50,7 +50,15 @@ as you found it (part B lists the reset).
 7. Confirm `GRADING_ENTITLEMENTS_ENABLED` is **set** on Production (`supabase secrets list`; value not readable,
    so confirm by behaviour only if a safe unentitled test identity already exists — otherwise record as "set,
    value inferred from `APPROVAL-0205`/`minimal-ci` convention").
-8. Security advisor (`get_advisors security`): the four sample tables appear under the pre-existing INFO lint
+8. Serving alignment (APPROVAL-0207 §8): ledger has `paywall_sample_serving_alignment`; `app.claim_sample_try`
+   contains the `student_course_positions` upsert and inserts the imported session with `practice_format` null;
+   `app.sample_unit_availability('ap-calculus-ab')` → unit 1 `basis:'serving'`, `mcq_available:10`, `eligible:true`
+   (4/false means Production still has the first, paging form of `app.sample_serving_deliverable` — a finding);
+   `('ap-physics-2')` → units 9, 10, 11 eligible; every active subject reports `basis:'serving'`. For three units of
+   your choice page `public.select_student_practice_items(pack, N, '00000000-0000-0000-0000-000000000000', null,
+   'mcq', null, 51, offset)` to exhaustion and confirm the unit-N count (topic resolution unit = N) equals
+   `select count(*) from app.sample_serving_deliverable(pack, N, 'mcq')`.
+9. Security advisor (`get_advisors security`): the four sample tables appear under the pre-existing INFO lint
    "RLS enabled, no policy" alongside ~36 other service-role-only tables, and the three public RPCs appear under the
    pre-existing WARN "authenticated can execute SECURITY DEFINER" alongside every other public RPC. Expected: no
    **new lint category**, no ERROR-level finding. Report any that is new.

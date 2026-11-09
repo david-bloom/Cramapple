@@ -204,14 +204,14 @@ the backend session and fixed in `supabase/migrations/20261109171915_paywall_sam
 | --- | --- | --- |
 | 1 | Unit-gated serving reads `student_course_positions` (default 1); claim set none → unit-2+ grants served nothing; Physics 2 / C E&M raise `unit_not_in_subject` | Fixed: claim upserts position = grant unit, `confirmed` |
 | 2 | Imported session `practice_format='mcq'` → unit-gated selector returns 0 rows | Fixed: imported session format-less; FRQ still needs a `targeted_drill` session (app does this) |
-| 3 | Availability counted content, serving delivers less (Calculus AB U1: 4 vs 10) | Fixed: availability calls the production selector when labels exist, `basis` field says which rule applied; Production preview: 30/31 units unchanged, Calc AB U1 becomes ineligible |
+| 3 | Availability counted content, serving delivers less (reported Calculus AB U1: 4 vs 10) | Fixed: availability mirrors the production selector's filters over the labels when they exist (`basis` field says which rule applied). The reported "4" was the selector's 51-row page cutting unit-1 items off (Vercel review on PR #602); the mirror shows 10, so **all 31 units stay eligible**. Drift guard on the selector md5 |
 | 4 | Development has no serving labels → unit-gated path cannot be walked there | Not a defect; `basis:'content'` on Development; Codex verifies the serving basis read-only on Production |
 
 Integration test extended (course position row, format-less session, `basis` present): `SAMPLE_ACCESS_TESTS_PASSED
 (22 checks)` on Development after the migration; rolled back.
 
-**Codex, add to part A/B of the QA prompt:** on Production (read-only) `app.sample_unit_availability('ap-calculus-ab')`
-→ unit 1 `basis:'serving'`, `mcq_available:4`, `eligible:false`; `('ap-physics-2')` → units 9–11 eligible; on
+**Codex, add to part A/B of the QA prompt:** on Production (read-only), once the label-mirror patch is applied, `app.sample_unit_availability('ap-calculus-ab')`
+→ unit 1 `basis:'serving'`, `mcq_available:10`, `eligible:true` (before the patch Production shows 4/false — that is the paging defect, report it if still present); `('ap-physics-2')` → units 9–11 eligible; for three units of your choice, page `public.select_student_practice_items` to exhaustion (offset 0, 51, 102, …, nil user) and confirm the unit-N count equals `app.sample_serving_deliverable`; on
 Development after a claim, `student_course_positions` has the grant unit and the imported session has
 `practice_format null`.
 

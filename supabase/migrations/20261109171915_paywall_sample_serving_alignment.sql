@@ -18,10 +18,9 @@
 -- 3. sample_unit_availability counted published items with a topic
 --    resolution; serving additionally needs a validated serving label whose
 --    hash matches and the unit in app.home_release_manifest.allowed_unit_numbers.
---    Calculus AB Unit 1 counted 10 MCQs but serving delivers 4. Availability
---    now counts what public.select_student_practice_items delivers (called
---    with a nil user so nothing is excluded as answered) whenever the pack has
---    validated serving labels, and says which basis it used
+--    Availability now applies the selector's own filters (mirrored, with a
+--    drift guard on the selector's definition) whenever the pack has validated
+--    serving labels, and says which basis it used
 --    (basis = 'serving' | 'content'). Development has no serving labels and
 --    keeps the content basis, which the output makes visible rather than
 --    silent. The anonymous first MCQ (select_sample_mcq) draws from the same
@@ -47,28 +46,60 @@ returns boolean language sql stable security definer set search_path = pg_catalo
   );
 $$;
 
+-- Drift guard: this helper mirrors the filters of public.select_student_practice_items
+-- (one page of that selector is capped at 51 rows sorted by label unit, so calling
+-- it per unit both under-counts unit-N items and costs ~250 ms a page; the
+-- mirror runs in ~45 ms per unit). If the selector changes, this must be
+-- re-read: the guard stops the migration instead of silently diverging.
+do $guard$
+begin
+  if md5(pg_get_functiondef('public.select_student_practice_items(uuid,integer,uuid,text,text,text,integer,integer)'::regprocedure))
+     <> '026a108bf70acaba1317e89bee8b3773' then
+    raise exception 'paywall sample serving alignment: select_student_practice_items changed; re-check app.sample_serving_deliverable before applying';
+  end if;
+end;
+$guard$;
+
 create or replace function app.sample_serving_deliverable(p_exam_pack_version_id uuid, p_unit_number integer, p_item_type text)
 returns table (content_item_version_id uuid, content_item_id uuid)
-language plpgsql stable security definer set search_path = pg_catalog as $$
-declare v_allowed integer[];
-begin
-  select m.allowed_unit_numbers into v_allowed from app.home_release_manifest m
-  where m.exam_pack_version_id = p_exam_pack_version_id;
-  if v_allowed is null or not (p_unit_number = any (v_allowed)) then
-    return;  -- unit not servable for this pack
-  end if;
-  return query
-  select s.content_item_version_id, s.content_item_id
-  from public.select_student_practice_items(
-    p_exam_pack_version_id, p_unit_number, '00000000-0000-0000-0000-000000000000'::uuid,
-    case when p_item_type = 'frq' then 'targeted_drill' else null end,
-    p_item_type, null, 51, 0) s
-  where exists (
-    select 1 from app.content_item_topic_resolution r
-    where r.content_item_version_id = s.content_item_version_id and r.unit_number = p_unit_number
+language sql stable security definer set search_path = pg_catalog as $$
+  -- Same filters as public.select_student_practice_items for a student positioned
+  -- at p_unit_number (nil user: nothing excluded as answered/revealed), restricted
+  -- to items with a topic resolution in that unit. Mirrored filters: latest
+  -- version by version_num then published; active validated serving label whose
+  -- validated_against_taxo_hash equals app.taxonomy_relevant_hash(version);
+  -- label.max_required_unit <= position; unit in home_release_manifest; item
+  -- type mcq/quantitative or frq short/long; practice_format for FRQs; not a
+  -- teaching item.
+  with latest as (
+    select distinct on (civ.content_item_id) civ.*
+    from app.content_item_versions civ
+    join app.content_items ci on ci.id = civ.content_item_id
+    where ci.exam_pack_version_id = p_exam_pack_version_id
+    order by civ.content_item_id, civ.version_num desc
+  ), active_labels as (
+    select distinct on (ctl.content_item_id) ctl.*
+    from app.content_taxonomy_labels ctl
+    join app.content_items ci on ci.id = ctl.content_item_id
+    where ci.exam_pack_version_id = p_exam_pack_version_id
+      and ctl.label_scope = 'serving' and ctl.label_status = 'validated' and ctl.superseded_by is null
+    order by ctl.content_item_id, ctl.label_version desc
   )
-  and (p_item_type <> 'frq' or coalesce(s.response_policy, '') <> 'photo_required');
-end;
+  select civ.id, ci.id
+  from app.content_items ci
+  join latest civ on civ.content_item_id = ci.id
+  join active_labels label on label.content_item_id = ci.id
+  where exists (select 1 from app.home_release_manifest m
+                where m.exam_pack_version_id = p_exam_pack_version_id and p_unit_number = any (m.allowed_unit_numbers))
+    and ci.status = 'published' and civ.status = 'published'
+    and exists (select 1 from app.content_item_topic_resolution r
+                where r.content_item_version_id = civ.id and r.unit_number = p_unit_number)
+    and label.max_required_unit <= p_unit_number
+    and label.validated_against_taxo_hash = app.taxonomy_relevant_hash(civ.id)
+    and ((p_item_type = 'mcq' and ci.item_type in ('mcq', 'quantitative'))
+      or (p_item_type = 'frq' and ci.item_type = 'frq' and ci.frq_form in ('short', 'long')
+          and ci.practice_format = 'targeted_drill' and coalesce(ci.response_policy, '') <> 'photo_required'))
+    and not app.content_item_is_teaching(ci.id);
 $$;
 revoke all on function app.sample_pack_has_serving_labels(uuid), app.sample_serving_deliverable(uuid, integer, text) from public, anon, authenticated;
 grant execute on function app.sample_pack_has_serving_labels(uuid), app.sample_serving_deliverable(uuid, integer, text) to service_role;
