@@ -148,7 +148,7 @@ Any change to the seven-day card trial (`DECISION-0126`), BYOQ policy (`DECISION
 
 ## 5. Decision record (to be filled by David)
 
-- **Step A (dark apply):** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve step A". Execution record in §6.
+- **Step A (dark apply):** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve step A". Execution record in §6. Step A.1 (serving alignment) approved and executed the same day, §8.
 - **Step B (activation):** ☐ approved / ☐ declined — date, words, population:
 
 ## 6. Step A execution record (2026-11-09, Production `pcntajvbdfqhbeewmdry`)
@@ -207,4 +207,46 @@ delete `sample-try`; `supabase/migrations/down/paywall_sample_access_down.sql` p
   had never enforced `authorize_grading_access`; set to `true` on Development 2026-11-09. Backend end-to-end over
   HTTP passed (QA packet §9). Codex prompt for the independent pass:
   `docs/qa/CODEX_QA_PROMPT_PAYWALL_SAMPLE_PRODUCTION_2026_11_09.md`.
+
+## 8. Step A.1 — serving-alignment migration to Production (APPROVED and EXECUTED 2026-11-09)
+
+The app session's Round 3 smoke found three serving mismatches in the dark backend (QA packet §10): the claim set
+no course position (unit-2+ grants and Physics 2 / C E&M would serve nothing through the app's unit-gated entry),
+the imported session's `practice_format='mcq'` returns zero rows from the unit-gated selector, and availability
+over-counted what serving delivers (Calculus AB Unit 1: 4 vs 10). Fix: migration
+`20261109171915_paywall_sample_serving_alignment.sql` — three function bodies (`claim_sample_try`,
+`sample_unit_availability`, `select_sample_mcq`) and two helpers; no table change; applied to Development, SQL suite
+22 checks green. **Production apply needs David's words** (same pre-write checks as §1.3 plus: Production
+`select_student_practice_items` md5 unchanged since 2026-11-09, `home_release_manifest` present for every active
+pack). Still dark after apply; still no student-visible change.
+
+- **Step A.1:** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve step A.1".
+
+**Execution (2026-11-09, Production `pcntajvbdfqhbeewmdry`).** Pre-write checks: no `paywall_sample_serving_alignment`
+ledger row; `public.select_student_practice_items` md5 `026a108b…` identical on Production and Development;
+every active subject's selectable pack has a `home_release_manifest` row; `student_course_positions` primary key
+`(user_id, exam_pack_version_id)`; 0 sample rows; `sample_access_enabled=false`. Write: `apply_migration
+paywall_sample_serving_alignment` → ledger **`20261109174046`** (file `20261109171915_…`). Verified after: the five
+function bodies (`claim_sample_try`, `sample_unit_availability`, `select_sample_mcq`, `sample_pack_has_serving_labels`,
+`sample_serving_deliverable`) have comment-stripped md5s identical to Development's; no `anon`/`authenticated`
+execute on the two new helpers; `sample_unit_availability` reports `basis:'serving'` for every active subject;
+Calculus AB Unit 1 → `mcq_available 4, frq_available 7, eligible false`; Physics 2 → units 9, 10, 11 eligible;
+30 eligible units product-wide (31 before, Calc AB U1 the one removed); the first-MCQ pick for Calc AB Unit 2 is in
+the deliverable set; still 0 sample rows, switch still false. Still dark; no student-visible change.
+
+**Patch to step A.1 (APPROVED and EXECUTED 2026-11-09).** The Vercel review on PR #602 found that the first form of
+`app.sample_serving_deliverable` read one 51-row page of `select_student_practice_items`, whose sort (label unit,
+not topic unit) drops unit-N items past the page: Calculus AB Unit 1 showed 4 of its 10 deliverable MCQs and was
+wrongly ineligible, and paging to fix it would cost ~250 ms a page (3.8 s per subject). The helper now mirrors the
+selector's filters over the labels (~45 ms per unit; drift guard on the selector's md5 `026a108b…`). Development
+has the patched helper; **Production (ledger `20261109174046`) still has the paging form** and reports Calc AB
+Unit 1 as ineligible. Re-applying the helper is one `create or replace function` plus the guard, still dark.
+
+- **Step A.1 patch:** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve A.1 patch". Executed the same day on
+  Production via `execute_sql` (function body change only, no ledger row — the migration file `20261109171915_…` on
+  `main` carries the corrected helper and is what the ledger row `20261109174046` now matches in substance): the
+  drift guard passed (selector md5 `026a108b…`), `app.sample_serving_deliverable` replaced, grants re-asserted
+  (no `anon`/`authenticated` execute). Verified: comment-stripped md5 `fa4ba79a…` identical to Development;
+  `sample_unit_availability('ap-calculus-ab')` unit 1 → `basis:'serving', mcq_available:10, frq_available:7,
+  eligible:true`; **31 eligible units** product-wide; 0 sample rows; switch false. Still dark.
 

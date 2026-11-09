@@ -131,6 +131,14 @@ begin
   v_session := (v_state->'grant'->>'learning_session_id')::uuid;
   select entry_path into v_text from app.learning_sessions where id = v_session;
   if v_text <> 'sample' then raise exception 'session entry_path %', v_text; end if;
+  -- serving alignment (2026-11-09): imported session is format-less; course position = grant unit
+  if (select practice_format from app.learning_sessions where id = v_session) is not null then raise exception 'imported session must be format-less'; end if;
+  if not exists (select 1 from app.student_course_positions where user_id = v_user1 and exam_pack_version_id = v_pack and unit_id = 1 and source = 'confirmed') then
+    raise exception 'claim did not set the course position to the grant unit';
+  end if;
+  if (select x->>'basis' from jsonb_array_elements(v_avail) x where (x->>'unit_number')::int = 1) not in ('serving', 'content') then
+    raise exception 'availability rows must state their basis';
+  end if;
   select id into v_attempt from app.attempts where user_id = v_user1 and content_item_version_id = v_civ1;
   if not exists (select 1 from app.grading_results where attempt_id = v_attempt and status = 'graded' and points_earned = 0) then raise exception 'grading row missing'; end if;
   if not exists (select 1 from app.response_versions where attempt_id = v_attempt and is_submitted and response_text = v_pick) then raise exception 'response row missing'; end if;

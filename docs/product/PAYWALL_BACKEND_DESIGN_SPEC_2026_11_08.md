@@ -5,7 +5,7 @@
 `attempt-response` v50, `student-session-items` v48; both switches off; Codex QA round 1 (2026-11-09) found two
 defects, both fixed on Development the same day: migration `20261109131921_paywall_sample_access_qa_fixes`,
 `attempt-response` v51/v52, integration test 22 checks; Codex round 2 verdict: both reproduced-fixed, no open QA
-findings). **Production: dark apply executed 2026-11-09 under `APPROVAL-0207` step A** (ledger `20261109155919`/`20261109155941`, `sample-try` v1, `attempt-response` v45, `student-session-items` v47, both switches off); activation (step B) not approved. QA record: `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8.
+findings; serving alignment `20261109171915` on Development; Production ledger `20261109174046` plus the label-mirror patch applied 2026-11-09, APPROVAL-0207 §8). **Production: dark apply executed 2026-11-09 under `APPROVAL-0207` step A** (ledger `20261109155919`/`20261109155941`, `sample-try` v1, `attempt-response` v45, `student-session-items` v47, both switches off); activation (step B) not approved. QA record: `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8.
 **Tier:** Hard-Gate (access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), from the plan David approved in chat
 on 2026-11-08.
@@ -526,6 +526,39 @@ remains the checkout's `buildTrialQuote` (not duplicated here).
 Server rows that an analytics contract can read: `sample_tries` (start/answer/switch/claim with `attribution`),
 `sample_grants.activated_at`, `sample_consumptions.started_at`, `audit_events` `sample.claim`. The first MCQ is one
 row across identities (the try row links to the grant), so it is never double-counted.
+
+---
+
+## 10.6 Serving alignment (added 2026-11-09, migration `20261109171915_paywall_sample_serving_alignment`)
+
+The app session's Development smoke ("Round 3", `docs/qa/PAYWALL_APP_DEV_SMOKE_2026_11_09.md`) found that the app's
+normal practice entry serves through `student-session-items` **mode `unit_gated`**, which reads
+`app.student_course_positions` (default unit 1) and the production selector `public.select_student_practice_items`
+(validated serving labels, `home_release_manifest.allowed_unit_numbers`). Verified read-only on Production and fixed:
+
+1. **`claim_sample_try` sets the course position** to the grant unit (`source='confirmed'`, upsert on the primary
+   key). Without it a unit-2+ grant was served nothing, and Physics 2 / Physics C E&M (units start at 9 / 8) raised
+   `unit_serving:unit_not_in_subject`.
+2. **The imported first-MCQ session is format-less** (`practice_format null`, fingerprint `10:sample`). With
+   `'mcq'` the unit-gated selector returned zero rows (Statistics: 0 vs 50). FRQ attempts still need a
+   `targeted_drill` session (`create_attempt` enforces `practice_format_mismatch`); the app starts one.
+3. **`sample_unit_availability` counts what serving delivers.** When the pack has validated serving labels,
+   `app.sample_serving_deliverable` applies the **same filters as `public.select_student_practice_items`**
+   (latest version then published; active validated label whose hash matches `app.taxonomy_relevant_hash`;
+   `max_required_unit <= position`; unit in `home_release_manifest.allowed_unit_numbers`; mcq/quantitative or
+   short/long `targeted_drill` FRQ; not a teaching item) restricted to items with a topic resolution in the unit, then
+   the sample's own rules (no image stimulus, not hand-drawn, one correct choice; FRQ not `photo_required`). It is a
+   mirror, not a call: calling the selector per unit was wrong (its 51-row page sorted by label unit dropped unit-N
+   items — Calculus AB Unit 1 showed 4 of its 10) and slow (~250 ms a page, 3.8 s per subject); the mirror runs in
+   ~45 ms per unit. A migration-time **drift guard** compares the selector's definition md5 (`026a108b…`) and refuses
+   to apply if the selector changed, so the mirror cannot silently diverge; Codex also compares the two on
+   Production. Each row carries `basis: 'serving' | 'content'`; `'content'` applies only where a pack has no serving
+   labels (Development today), so the fallback is visible, never silent. Production preview 2026-11-09: **all 31
+   content-eligible units stay eligible** on the serving basis (the earlier "Calc AB Unit 1 drops to 4" was the
+   paging artefact). The anonymous first MCQ (`select_sample_mcq`) draws from the same deliverable set.
+
+Development cannot walk the unit-gated path (no serving labels there); the ordinary path and the SQL suite cover
+the sample rules, and Production is checked read-only.
 
 ---
 
