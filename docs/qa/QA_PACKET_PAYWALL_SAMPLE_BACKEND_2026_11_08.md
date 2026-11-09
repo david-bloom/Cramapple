@@ -146,3 +146,23 @@ call `propose_transcript` as an admin with a photo attached, expect `503 sample_
 `model_usage_ledger` row, then restore the grant; (e) confirm the 503 is acceptable for regular (non-sample)
 students too, since the RPC is called for everyone and `'not_sample'` is the pass value. `FRQ_PHOTO_*` remain dark
 on Development; (d) needs them set on the function for the duration of the test and reset afterwards.
+
+## 8. QA round 2 (2026-11-09): Codex verdict
+
+Codex re-tested independently against Development on branch `claude/paywall-backend-sample-access-95ac1a`
+(PR #597). Verdict as reported by Codex, recorded verbatim in substance:
+
+| Finding | Verdict | Codex's independent evidence |
+| --- | --- | --- |
+| 1. Future-start entitlement can leave a sample revivable | **Reproduced-fixed** | Migration `20261109131921` live; integration suite `SAMPLE_ACCESS_TESTS_PASSED (22 checks)`; separate rolled-back probes: a future-start `paid` insert and an inactive→active update both superseded a fresh grant; revocation did not revive access; readback remained |
+| 2. Photo-limit RPC failure lets transcription continue | **Reproduced-fixed** | With the RPC execute grant temporarily revoked, live `propose_transcript` for a temporary admin and for a non-sample student both returned `503 sample_photo_check_failed`; no model-usage row; grant restored. Focused Deno tests 81/81; `deno check` and lint pass |
+
+Backend session's post-QA re-verification of Development (not independent): 0 rows in all four `sample_*` tables,
+0 `entry_path='sample'` sessions, `sample_access_enabled=false`, `honor_existing=true`, `service_role` execute on
+`app.sample_take_photo_run` restored and no `authenticated` grant, 0 `frq_transcript` ledger rows today, 0 admin
+profiles created in the last day, no `FRQ_PHOTO_*`/`SAMPLE_ACCESS_*` function secrets set. `attempt-response` is at
+**v52** on Development (Codex redeployed during round 2); its `index.ts` was downloaded and compared with the
+branch source: **identical**.
+
+Status after round 2: no open QA findings. Still not a release: Production needs its own APPROVAL, the two
+switches stay off, and the §6 known gaps (uploaded-FRQ blocker, grace `session_resume`, photo flags dark) stand.

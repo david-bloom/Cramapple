@@ -4,8 +4,8 @@
 `claude/paywall-backend-sample-access-95ac1a`: migration `20261108201632_paywall_sample_access`, `sample-try` v1,
 `attempt-response` v50, `student-session-items` v48; both switches off; Codex QA round 1 (2026-11-09) found two
 defects, both fixed on Development the same day: migration `20261109131921_paywall_sample_access_qa_fixes`,
-`attempt-response` v51, integration test 22 checks). Not a release record; Codex re-test pending
-(`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7).
+`attempt-response` v51/v52, integration test 22 checks; Codex round 2 verdict: both reproduced-fixed, no open QA
+findings). Not a release record (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8).
 **Tier:** Hard-Gate (access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), from the plan David approved in chat
 on 2026-11-08.
