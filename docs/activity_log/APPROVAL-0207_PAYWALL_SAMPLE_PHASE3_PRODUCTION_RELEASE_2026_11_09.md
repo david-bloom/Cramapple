@@ -190,8 +190,8 @@ endpoints do (shared `_shared/public-rate-limit.ts`), so no new secret was creat
   `attempt-response` and `student-session-items` without a JWT → 401. Downloaded Production bundles of all three
   functions are byte-identical to `main`.
 
-**Not verified:** no signed-in browser session was exercised after the deploy (no credentials used); David should
-confirm a normal study flow still renders. The security advisor was not re-run.
+**Owner check:** David confirmed in chat on 2026-11-09, after the deploy, that a normal signed-in study flow still
+renders on the live app ("Confirmed, renders"). **Not verified:** the security advisor was not re-run.
 
 **Rollback (unchanged from §1.5):** redeploy v44 / v46 (Production's own source, saved by download 2026-11-09),
 delete `sample-try`; `supabase/migrations/down/paywall_sample_access_down.sql` plus removal of the two ledger rows.
