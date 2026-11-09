@@ -210,7 +210,7 @@ the backend session and fixed in `supabase/migrations/20261109171915_paywall_sam
 Integration test extended (course position row, format-less session, `basis` present): `SAMPLE_ACCESS_TESTS_PASSED
 (22 checks)` on Development after the migration; rolled back.
 
-**Codex, add to part A/B of the QA prompt:** on Production (read-only), once the label-mirror patch is applied, `app.sample_unit_availability('ap-calculus-ab')`
+**Codex, add to part A/B of the QA prompt:** on Production (read-only; the label-mirror patch was applied 2026-11-09) `app.sample_unit_availability('ap-calculus-ab')`
 → unit 1 `basis:'serving'`, `mcq_available:10`, `eligible:true` (before the patch Production shows 4/false — that is the paging defect, report it if still present); `('ap-physics-2')` → units 9–11 eligible; for three units of your choice, page `public.select_student_practice_items` to exhaustion (offset 0, 51, 102, …, nil user) and confirm the unit-N count equals `app.sample_serving_deliverable`; on
 Development after a claim, `student_course_positions` has the grant unit and the imported session has
 `practice_format null`.

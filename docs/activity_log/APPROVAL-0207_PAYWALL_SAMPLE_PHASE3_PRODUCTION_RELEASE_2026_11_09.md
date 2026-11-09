@@ -234,7 +234,7 @@ Calculus AB Unit 1 → `mcq_available 4, frq_available 7, eligible false`; Physi
 30 eligible units product-wide (31 before, Calc AB U1 the one removed); the first-MCQ pick for Calc AB Unit 2 is in
 the deliverable set; still 0 sample rows, switch still false. Still dark; no student-visible change.
 
-**Patch to step A.1 (REQUESTED, not granted).** The Vercel review on PR #602 found that the first form of
+**Patch to step A.1 (APPROVED and EXECUTED 2026-11-09).** The Vercel review on PR #602 found that the first form of
 `app.sample_serving_deliverable` read one 51-row page of `select_student_practice_items`, whose sort (label unit,
 not topic unit) drops unit-N items past the page: Calculus AB Unit 1 showed 4 of its 10 deliverable MCQs and was
 wrongly ineligible, and paging to fix it would cost ~250 ms a page (3.8 s per subject). The helper now mirrors the
@@ -242,5 +242,11 @@ selector's filters over the labels (~45 ms per unit; drift guard on the selector
 has the patched helper; **Production (ledger `20261109174046`) still has the paging form** and reports Calc AB
 Unit 1 as ineligible. Re-applying the helper is one `create or replace function` plus the guard, still dark.
 
-- **Step A.1 patch:** ☐ approved / ☐ declined — date, words:
+- **Step A.1 patch:** ☑ **approved** — 2026-11-09, David Bloom in chat: "Approve A.1 patch". Executed the same day on
+  Production via `execute_sql` (function body change only, no ledger row — the migration file `20261109171915_…` on
+  `main` carries the corrected helper and is what the ledger row `20261109174046` now matches in substance): the
+  drift guard passed (selector md5 `026a108b…`), `app.sample_serving_deliverable` replaced, grants re-asserted
+  (no `anon`/`authenticated` execute). Verified: comment-stripped md5 `fa4ba79a…` identical to Development;
+  `sample_unit_availability('ap-calculus-ab')` unit 1 → `basis:'serving', mcq_available:10, frq_available:7,
+  eligible:true`; **31 eligible units** product-wide; 0 sample rows; switch false. Still dark.
 

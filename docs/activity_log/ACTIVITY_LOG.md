@@ -4,6 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Paywall sample access: A.1 patch applied to Production, dark (2026-11-09, owner: "Approve A.1 patch", `APPROVAL-0207` §8): `app.sample_serving_deliverable` replaced with the label-mirror form after the drift guard passed; verified identical to Development, Calculus AB Unit 1 now `mcq_available 10, eligible true`, 31 eligible units, 0 sample rows, switch false.
+
 - Paywall sample access: availability helper corrected after Vercel review on PR #602 (2026-11-09, Development only): the one-page selector call under-counted unit-N items (Calc AB Unit 1: 4 shown, 10 deliverable) and paging was too slow (3.8 s per subject); `app.sample_serving_deliverable` now mirrors `select_student_practice_items`'s filters over the labels (~45 ms per unit) with a migration-time drift guard on the selector md5. Production preview: all 31 content-eligible units stay eligible on the serving basis. Development patched; Production still runs the paging form — re-apply requested as APPROVAL-0207 step A.1 patch, not granted.
 
 - Paywall sample access: step A.1 serving alignment applied to Production, dark (2026-11-09, owner: "Approve step A.1", `APPROVAL-0207` §8): migration `paywall_sample_serving_alignment` → Production ledger `20261109174046`; function bodies verified identical to Development; availability now on the serving basis for every subject (30 eligible units; Calculus AB Unit 1 ineligible at 4 deliverable MCQs; Physics 2 units 9–11 eligible); 0 sample rows, switch false. No student-visible change.
