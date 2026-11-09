@@ -450,10 +450,22 @@ Both config rows are also read by `get_sample_access_state()` so the app can hid
 Request `{operation, subject_key?, unit_number?, try_token?, choice_key?, ad_attribution?}`.
 Responses `{status:'ok', operation, result}` or `{error, ...}` with the codes in §8.
 
-- `list_units` → `result.units: [{unit_number, unit_title, mcq_available, frq_available, eligible}]`
-- `start` → `result: {try_id, try_token?, subject_key, unit_number, answer_expires_at, question}`
-- `answer` → `result: {try_id, answered_at, feedback, claim_expires_at, register_to_save: true}`
-- `status` → `result: {try_id, status, subject_key, unit_number, answered_at, claim_expires_at, feedback?}`
+Response shapes **as deployed** (corrected 2026-11-09 from the live function after the app session found the
+first draft of this list showed a flattened `result`; the app parses the shapes below):
+
+- `list_units` → `result: {subject_key, units: [{unit_number, unit_title, mcq_available, frq_available, eligible}]}`
+- `start` → `result: {outcome: 'created'|'resumed', try_token: string|null, try}` — `try_token` is a string only
+  when `outcome='created'` (a new token was issued) and `null` on `resumed`. An answered token → `409 {error:
+  'register_required', try}`; a claimed one → `409 {error:'already_claimed', try}`.
+- `answer` → `result: {outcome: 'answered'|'replayed', try, register_to_save: true}`.
+- `status` → `result: {try}`; an unknown token gives `result.try = {status:'not_found'}`.
+
+`try` is the `app.sample_try_view` object: `{try_id, status, subject_key, exam_pack_version_id, unit_number,
+served_at, answer_expires_at, answered_at, claim_expires_at, switch_count, question, feedback}`. `question`
+(`{content_item_version_id, content_item_id, title, stem, stimulus, topic:{topic_code, topic_title, unit_number},
+choices:[{choice_key, choice_text}]}`) is present only while the try is `served`; `feedback`
+(`{content_item_version_id, picked_choice_key, earned, possible, choices:[{choice_key, choice_text, is_correct,
+rationale}], explanation}`) is `null` until answered.
 
 The app keeps `try_token` in `sessionStorage`/`localStorage` and sends it to `claim_sample_try` after sign-in.
 Attribution: pass the same `ad_attribution` object the checkout already builds (`ad_tracking_allowed`,
