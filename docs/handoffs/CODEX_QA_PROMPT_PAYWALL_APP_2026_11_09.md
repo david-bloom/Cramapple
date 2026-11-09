@@ -1,5 +1,7 @@
 # Codex QA prompt: paywall app side and docs (2026-11-09)
 
+**Status note (2026-11-09 late):** app PR #47 and docs PR #593 merged at their FIRST commits; later fixes are in app PR #48 (draft) and the docs follow-up PR. Review the heads of those, not main. Production step A (dark apply) is done under APPROVAL-0207; activation is not approved. Round 1 Codex findings were all addressed except the unbuilt scope listed below.
+
 Paste everything below the line into a new Codex session. Written by the author session, which does not QA its own work.
 
 ---

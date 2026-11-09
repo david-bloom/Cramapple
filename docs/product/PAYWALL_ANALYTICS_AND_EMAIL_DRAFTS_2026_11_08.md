@@ -55,14 +55,15 @@ Anonymous start → first-answer → registration → saved → activated → 8t
 Subject: `Your 72 hours of AP {subject} practice have started`
 > You answered a {subject} question and saved it. Your free sample is open until {sample_expires_at}.
 > You have **7 more multiple-choice questions** and **1 graded free-response question** left in {unit}.
-> For the free-response question you can use one of ours or upload your own, and you can photograph your handwritten answer. Your saved answers stay in your account.
+> For the free-response question, use one of ours. {if photo_answers_enabled}You can photograph your handwritten answer.{else}Type your answer.{/if} Your saved answers stay in your account.
+> (Uploading your own question for grading is not in the first release, DECISION-0134 P6; do not promise it here.)
 > This is a short free sample. It is not the seven-day card trial, which you can start separately at any time.
 > [Keep practicing] — {app_link}
 
 ### B.2 Day-2 reminder (only if D7 adopts a nurture sequence)
 Subject: `{hours_left} hours left in your free AP {subject} sample`
 > Your free sample ends at {sample_expires_at}. You have {mcq_remaining} multiple-choice questions and {frq_remaining} graded free-response question left.
-> If you start a question before then, you will have 72 more hours after that to finish it.
+> If you start a question before then, you can finish it until {grace_ends_at}. That is a fixed 72 hours after the sample ends, not 72 hours from when you started the question.
 > [Open your sample] — {app_link}
 
 ### B.3 Expiry (new free practice has ended)
