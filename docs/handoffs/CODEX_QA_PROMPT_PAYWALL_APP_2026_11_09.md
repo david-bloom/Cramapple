@@ -10,7 +10,7 @@ You are the independent QA reviewer for the app side and docs of the Cramapple 7
 
 1. **Docs PR** (Cramapple repo, draft, PR #593, branch `claude/paywall-app-docs-cdd3b5`): `APPROVAL-0206`, `docs/product/PAYWALL_PHASE0_AND_UNIT_AUDIT_2026_11_08.md`, `docs/product/PAYWALL_ANALYTICS_AND_EMAIL_DRAFTS_2026_11_08.md`, `docs/handoffs/PAYWALL_APP_QA_PACKET_2026_11_08.md`, `docs/handoffs/LOVABLE_PROMPT_TRY_ROUTE_DRAFT_2026_11_08.md`, plan status block, `docs/INDEX.md`, log entries.
 2. **App PR** (`david-bloom/ap-prep-blueprint`, draft, PR #47, branch `claude/paywall-sample-app-wiring`): `src/lib/sample/*`, `src/screens/sample/SampleJourney.jsx`, `src/routes/sample.tsx`. (The earlier mock scaffold, PR #45, is already merged.)
-3. The contract they must match: `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` on main, §3, §4, §8, §10, §11, §14 (decided as DECISION-0134). The backend itself is reviewed separately (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`); here, check only that the app uses it correctly.
+3. The contract they must match (backend now includes `supabase/migrations/20261109131921_paywall_sample_access_qa_fixes.sql`; recheck that a superseded or revoked grant maps to the app's read-only state): `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` on main, §3, §4, §8, §10, §11, §14 (decided as DECISION-0134). The backend itself is reviewed separately (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`); here, check only that the app uses it correctly.
 
 Authority: `APPROVAL-0206` is Development/draft only. No Production deploy, Lovable publish, email or Loops send, PostHog schema change, or flag enablement is authorized. The open rules in plan §8, D6 (experiment) and D7 (nurture emails) are not decided; anything depending on them must be a marked placeholder, not a silent decision.
 
@@ -45,3 +45,19 @@ Authority: `APPROVAL-0206` is Development/draft only. No Production deploy, Lova
 ## Output
 
 A findings list ranked by severity. For each: what, where (`file:line`), how to reproduce, and whether it is a **verified** observation or an **inference**. Separate: blockers before any release request, should-fix, notes. State explicitly what you did not check. End with a one-line verdict per PR: ready for David's review / needs changes / blocked. Do not merge, publish, send, or change flags.
+
+---
+
+# Prompt 2: release-readiness and Development end-to-end (run after Prompt 1 findings are fixed)
+
+You are the independent QA reviewer for the release readiness of the Cramapple 72-hour free sample. You did not build it. Report; do not fix, merge, publish, send, or change any flag outside Development. Read `docs/product/PAYWALL_PRODUCTION_RELEASE_PLAN_2026_11_09.md` and `docs/product/PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md` first. Authority: `APPROVAL-0206` (Development only) and `DECISION-0134`. No Production write of any kind. Pin `--workdir` to the repo for every Supabase CLI call and confirm the project ref is Development (`wmgjsdkphcyhngaffbqf`) before any write; the CLI from a home directory resolves to Production.
+
+1. **Parity.** Compare Development and the repo's `main` for the sample migrations and the three functions (`sample-try`, `attempt-response`, `student-session-items`): function versions, `pg_get_functiondef` md5 for the touched functions, `app.config` switch values. Report any drift. List the Production-only migrations that the release must order around.
+2. **Development walk (flags on in Development only, then restored to off).** With a throwaway account and email: unit list; start; answer; wrong and right choice; reload mid-try; register; claim; claim replay (idempotent); double-click claim in two tabs; a second account on the same email hash (`sample:email_already_sampled`); an account with a prior entitlement; a non-student role; expired try (24h) and expired claim (7d, by time manipulation inside a rollback-only or Development-only transaction); eight-MCQ consumption and the ninth refused; FRQ allowance and photo extraction limit; grace (in-progress item finishes, no new items); read-only after grace; trial start superseding the sample; cancellation not reviving it.
+3. **Anonymous exposure.** Capture the `sample-try` network responses and confirm no `is_correct`, rationale, explanation, prompt JSON or key-table data before an answer; confirm the per-IP limit returns `429` with `Retry-After`; confirm the anonymous caller cannot read `sample_*` tables or call the SQL functions directly.
+4. **Regression for existing students.** In Development with the sample flags OFF, and then ON: a student with an active entitlement, a trial student, a no-entitlement student, a reviewer role; practice, session items, grading, `get_question_experience`, checkout and trial start behave as on `main`. Report any difference.
+5. **Rollback rehearsal.** Execute spec §9 levels 1 and 2 in Development and confirm the stated outcomes (existing grants finish or freeze; readback survives). Level 3 (down migration) only on a disposable Development branch, if one exists.
+6. **Cost and abuse.** Confirm per-sample caps (3 grading, 3 extraction) and the IP limit hold under repeated calls; estimate worst-case model spend per anonymous visitor and per registered sample.
+7. **Docs vs reality.** Every claim in the release plan's preconditions table and the audit's unit table: verify or mark unverified.
+
+Output: ranked findings (blocker / should-fix / note), each with reproduction and verified-or-inferred; a list of what you did not check; and one verdict: ready to request Production approvals / not ready.

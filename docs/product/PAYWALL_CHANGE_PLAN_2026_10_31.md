@@ -212,9 +212,9 @@ The original D1–D7 identifiers below are local to this plan, not new global `D
 | D9 | Uploaded question classification | **Confirmed:** try to infer subject/unit/topic and ask the student to confirm/correct; this is distinct from uploading an answer |
 | D10 | Completion grace | **Confirmed:** already-started questions/photo FRQs may finish within a further 72 hours after sample expiry; no new questions during grace |
 
-Still open: anonymous repeat/switching allowance; precise attempt-start/consumption/retry rules;
+Still open at 2026-11-08: anonymous repeat/switching allowance; precise attempt-start/consumption/retry rules;
 out-of-unit uploads; identity/eligibility rules; trial-transition precedence; and
-rollback behavior. Assistant recommendations in §§4–7 are proposed details, not confirmed owner choices.
+rollback behavior. **Update 2026-11-09:** these were settled as backend rules P1–P8 by `DECISION-0134`; what remains open for the owner is listed in `PAYWALL_PRODUCT_OWNER_DECISIONS_2026_11_09.md` (D6, D7, release scope, domain, minors' data review). Assistant recommendations in §§4–7 are proposed details, not confirmed owner choices.
 
 ## 9. Phases and gates
 
