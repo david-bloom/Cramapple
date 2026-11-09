@@ -41,6 +41,8 @@ Plan §8's old "still open" list (anonymous switching, consumption, uploads, ide
 - **N4:** "N4 is sufficient and approved" (the Terms/Privacy notice at the first answer and at registration is sufficient; **no retention period was stated**, so the backend's current retention applies until one is set).
 - **N5:** each Production step approved separately.
 - **N12:** "N12 approved for first activation": recorded as the recommended option (b), a typed-answer FRQ with typed-answer copy for the first activation; photo flags stay off. If a different option was meant, say so.
+- **Population for step B:** "Hidden link, small group" (David, in chat): flag on, no marketing or ad link; the /sample URL is shared with a named small group first. The switches are global, so the gate is the absence of any link.
+- **Codex short recheck of app PR #48 at `bfdbce6`:** lost-claim-response fix verified; one finding open (prior-trial banner and parent-only heading still mentioned the card trial). Fixed in app PR #48 after that review (commit after `bfdbce6`); not yet re-verified by Codex.
 - **"I approve 0207":** received; scope clarification requested (see the chat): `APPROVAL-0207` step B has an undefined population and unmet preconditions 1, 3, 5, 6 and 7, and the record's §5 is the backend session's to fill. Nothing was activated on this message.
 
 ## What I will not decide for you
