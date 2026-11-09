@@ -18,6 +18,12 @@ begin
     (v_u1, 'sessions-test-1@example.invalid', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '{}'::jsonb, now(), now()),
     (v_u2, 'sessions-test-2@example.invalid', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '{}'::jsonb, now(), now());
 
+  -- session inserts require subject access (app.require_learning_session_subject_access):
+  -- give both users a temporary paid row, create the sessions, then revoke u1's.
+  insert into app.subject_entitlements (user_id, subject_id, access_tier, status, source, starts_at, ends_at)
+  values (v_u1, v_bio, 'paid', 'active', 'test', now() - interval '1 day', null),
+         (v_u2, v_bio, 'paid', 'active', 'test', now() - interval '1 day', null);
+
   -- three sessions for u1: two with items (one older), one empty; one session for u2
   insert into app.learning_sessions (id, user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at)
   values (gen_random_uuid(), v_u1, v_pack, 'topic', 'quick', 15, 'completed', now() - interval '2 days') returning id into v_s1;
@@ -28,6 +34,7 @@ begin
   insert into app.learning_session_items (learning_session_id, ordinal, content_item_version_id) values (v_s1, 1, v_civ), (v_s2, 1, v_civ);
   insert into app.learning_sessions (user_id, exam_pack_version_id, entry_path, session_mode, available_minutes, status, started_at)
   values (v_u2, v_pack, 'topic', 'quick', 15, 'active', now());
+  update app.subject_entitlements set status = 'revoked' where user_id = v_u1 and source = 'test';
 
   -- anonymous → not_authenticated
   perform set_config('request.jwt.claims', '{}', true); perform set_config('request.jwt.claim.sub', '', true);
