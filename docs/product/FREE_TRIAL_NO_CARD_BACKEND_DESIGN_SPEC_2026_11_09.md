@@ -170,7 +170,7 @@ the hidden link closed sooner, that is one config update and one secret unset wi
 ## 10. The legacy cardless trial: retire for real
 
 `start-trial` v23 is live with `retired=false` because `CARDLESS_TRIAL_RETIRED` was never set. Proposal, in order:
-(a) **DONE 2026-11-09 (`APPROVAL-0209`; Production and Development answer 410):** `supabase secrets set CARDLESS_TRIAL_RETIRED=true` on Production and
+(a) **DONE 2026-11-09 (`APPROVAL-0209`; Production answers 410; Development never had the function deployed, 404):** `supabase secrets set CARDLESS_TRIAL_RETIRED=true` on Production and
 Development → the function answers `410 trial_retired` (no deploy; the code reads the secret at start); (b) in this
 plan's migration: drop `app.start_trial(uuid,jsonb,jsonb,boolean,text)` and replace it with `app.start_subject_trial`;
 (c) later, delete the `start-trial` function folder once the marketing repo is confirmed not to reference it. The 20
@@ -224,3 +224,16 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 3. The sample is live behind a hidden link while this plan is designed; the two coexist without code conflict (§5, §8).
 4. Nothing else conflicts: the gates, the chargers, the email-hash table and the Auth configuration all fit the design
    as they stand.
+
+## 15. Codex merge-gate QA of PR #609 (2026-11-09) and the fixes
+
+| # | Finding (Codex) | Verified | Fix (migration `cardless_trial_v2_qa_fixes`) |
+| --- | --- | --- | --- |
+| 1 | `start_subject_trial` stored caller-supplied touch JSON and any non-blank notice version | yes, by reading §3 steps 10–11 as built | `app.sanitize_trial_touch`: allow-list `utm_source, utm_medium, utm_campaign, utm_content, utm_term, promo, rdt_cid`, string values only, trimmed to 200 chars, everything else dropped; notice version must match `YYYY-MM-DD` else `trial:invalid_privacy_notice_version` (22023). The app already sends only those keys and `2026-11-09`. |
+| 2 | daily ceiling counted then inserted without a per-user lock | yes | `pg_advisory_xact_lock(hashtextextended('trial_grading:'‖user,0))` before the replay check and count; test asserts the lock is held after a counted call (a true two-connection race cannot run inside one SQL test; the lock makes the window serial by construction) |
+| 3 | paying account whose email once consumed a trial read `blocked/already_used` | yes | `trial_v2_state`: with no trial row, any active `paid`/`beta` row (any subject) → `phase:'superseded', has_regular_entitlement:true, can_start:false, blocked_reason:null` |
+| 4 | no executable down script | yes | `supabase/migrations/down/cardless_trial_v2_down.sql` (reverses the anchor patch, restores the two-clause readback body, drops objects, narrows the source check only when no `trial_v2` hashes exist), `get_my_learning_sessions_down.sql`, `cardless_trial_v2_qa_fixes_down.sql` (restores from the `cardless_trial_prior_definitions` snapshot). Rehearsal on Development: pending the owner's word, recorded in §15.1 when done. |
+| 5 | records said Development `start-trial` answers 410 | yes: Development never had the function deployed (404) | records corrected; the Development secret is inert |
+
+### 15.1 Development apply and down rehearsal
+Pending.

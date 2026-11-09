@@ -28,7 +28,7 @@ begin
   -- 1 switch off → disabled; state blocked/disabled
   update app.config set config_value = 'false'::jsonb where config_key = 'cardless_trial_enabled';
   begin
-    perform app.start_subject_trial(v_u1, 'biology', 'pn-test');
+    perform app.start_subject_trial(v_u1, 'biology', '2026-11-09');
     raise exception 'expected trial:disabled';
   exception when others then
     if sqlerrm <> 'trial:disabled' then raise; end if;
@@ -45,20 +45,31 @@ begin
 
   -- 3 unknown subject
   begin
-    perform app.start_subject_trial(v_u1, 'ap-underwater-basket-weaving', 'pn-test');
+    perform app.start_subject_trial(v_u1, 'ap-underwater-basket-weaving', '2026-11-09');
     raise exception 'expected trial:subject_unavailable';
   exception when others then
     if sqlerrm <> 'trial:subject_unavailable' then raise; end if;
   end; n := n + 1;
 
   -- 4 start → active, one row, 7 days, hash consumed, event queued
-  v_state := app.start_subject_trial(v_u1, 'biology', 'pn-test', '{"utm_source":"t"}'::jsonb, null);
+  v_state := app.start_subject_trial(v_u1, 'biology', '2026-11-09', '{"utm_source":"t"}'::jsonb, null);
   if v_state->>'phase' <> 'active' or v_state->>'subject_key' <> 'biology' or (v_state->>'days_remaining')::int <> 7
      or v_state->>'checkout_subject_key' <> 'biology' then raise exception 'start state: %', v_state; end if; n := n + 1;
   if (select count(*) from app.subject_entitlements where user_id = v_u1 and source = 'trial_v2') <> 1 then raise exception 'row count'; end if; n := n + 1;
   if (select ends_at - starts_at from app.subject_entitlements where user_id = v_u1 and source = 'trial_v2') <> interval '7 days' then raise exception 'duration'; end if; n := n + 1;
   if not app.trial_email_consumed('trial-test-1@example.invalid') then raise exception 'hash not consumed'; end if; n := n + 1;
-  if (select privacy_notice_version from app.acquisition_profiles where user_id = v_u1) <> 'pn-test' then raise exception 'acquisition profile'; end if; n := n + 1;
+  if (select privacy_notice_version from app.acquisition_profiles where user_id = v_u1) <> '2026-11-09' then raise exception 'acquisition profile'; end if; n := n + 1;
+  -- QA finding 1: touches are allow-listed (bogus key and non-string dropped, value trimmed), notice must be YYYY-MM-DD
+  if (select first_touch from app.acquisition_profiles where user_id = v_u1) <> '{"utm_source":"t"}'::jsonb then raise exception 'touch stored as-is: %', (select first_touch from app.acquisition_profiles where user_id = v_u1); end if; n := n + 1;
+  if app.sanitize_trial_touch('{"utm_source":"  r ","email":"minor@example.invalid","promo":5,"rdt_cid":"x"}'::jsonb) <> '{"utm_source":"r","rdt_cid":"x"}'::jsonb then raise exception 'sanitize'; end if; n := n + 1;
+  if length(app.sanitize_trial_touch(jsonb_build_object('utm_campaign', repeat('a', 500)))->>'utm_campaign') <> 200 then raise exception 'trim'; end if; n := n + 1;
+  if app.sanitize_trial_touch('"not an object"'::jsonb) <> '{}'::jsonb then raise exception 'non-object'; end if; n := n + 1;
+  begin
+    perform app.start_subject_trial(v_u2, 'biology', 'bogus-notice');
+    raise exception 'expected trial:invalid_privacy_notice_version';
+  exception when others then
+    if sqlerrm <> 'trial:invalid_privacy_notice_version' then raise; end if;
+  end; n := n + 1;
   if not exists (select 1 from app.growth_event_outbox where dedupe_key = 'trial_v2:' || v_u1::text and event_name = 'trial_started') then raise exception 'growth event'; end if; n := n + 1;
 
   -- 5 gates: the subject admitted, another denied; grading entitled
@@ -67,14 +78,14 @@ begin
   if not app.has_study_pack_access(v_u1, v_pack) then raise exception 'no pack access'; end if; n := n + 1;
 
   -- 6 replay same subject: same state, no second row, no second hash; other subject flagged
-  v_state := app.start_subject_trial(v_u1, 'biology', 'pn-test');
+  v_state := app.start_subject_trial(v_u1, 'biology', '2026-11-09');
   if v_state->>'phase' <> 'active' or (select count(*) from app.subject_entitlements where user_id = v_u1 and source = 'trial_v2') <> 1 then raise exception 'replay'; end if; n := n + 1;
-  v_state := app.start_subject_trial(v_u1, 'ap-statistics', 'pn-test');
+  v_state := app.start_subject_trial(v_u1, 'ap-statistics', '2026-11-09');
   if (v_state->>'replayed_other_subject')::boolean is not true or v_state->>'subject_key' <> 'biology' then raise exception 'other-subject replay: %', v_state; end if; n := n + 1;
 
   -- 7 same email, different case/whitespace, another account → already_used
   begin
-    perform app.start_subject_trial(v_u3, 'biology', 'pn-test');
+    perform app.start_subject_trial(v_u3, 'biology', '2026-11-09');
     raise exception 'expected trial:already_used';
   exception when others then
     if sqlerrm <> 'trial:already_used' then raise; end if;
@@ -85,7 +96,7 @@ begin
   -- 8 a legacy trial_v1 email counts (simulate the TASK-0077 backfill)
   insert into app.trial_consumed_emails (email_hash, source, consumed_at) values (app.trial_email_hash('trial-test-2@example.invalid'), 'trial_v1', now());
   begin
-    perform app.start_subject_trial(v_u2, 'biology', 'pn-test');
+    perform app.start_subject_trial(v_u2, 'biology', '2026-11-09');
     raise exception 'expected trial:already_used (trial_v1)';
   exception when others then
     if sqlerrm <> 'trial:already_used' then raise; end if;
@@ -94,10 +105,15 @@ begin
   -- 9 paid student of the subject → superseded, nothing consumed
   insert into app.subject_entitlements (user_id, subject_id, access_tier, status, source, starts_at, ends_at)
   values (v_u4, v_bio, 'paid', 'active', 'test', now() - interval '1 day', null);
-  v_state := app.start_subject_trial(v_u4, 'biology', 'pn-test');
+  v_state := app.start_subject_trial(v_u4, 'biology', '2026-11-09');
   if v_state->>'phase' <> 'superseded' then raise exception 'superseded: %', v_state; end if; n := n + 1;
   if app.trial_email_consumed('trial-test-4@example.invalid') then raise exception 'paid student consumed a trial'; end if; n := n + 1;
   if exists (select 1 from app.subject_entitlements where user_id = v_u4 and source = 'trial_v2') then raise exception 'trial row for paid student'; end if; n := n + 1;
+  -- QA finding 3: a paying account whose email once consumed a trial is 'superseded', never 'already_used'
+  insert into app.trial_consumed_emails (email_hash, source, consumed_at) values (app.trial_email_hash('trial-test-4@example.invalid'), 'trial_v1', now());
+  v_state := app.trial_v2_state(v_u4);
+  if v_state->>'phase' <> 'superseded' or (v_state->>'has_regular_entitlement')::boolean is not true or v_state->>'blocked_reason' is not null then raise exception 'paying account state: %', v_state; end if; n := n + 1;
+  delete from app.trial_consumed_emails where email_hash = app.trial_email_hash('trial-test-4@example.invalid');
 
   -- 10 daily ceiling: cap 3 for the test; 3 pass, 4th denied, replay of an id passes, submit_response not counted
   update app.config set config_value = '3'::jsonb where config_key = 'trial_daily_grading_cap';
@@ -105,6 +121,11 @@ begin
     if app.trial_grading_gate(v_u1, v_bio, 'grade_initial_attempt', 'req-' || v_i) <> 'entitled' then raise exception 'gate %', v_i; end if;
   end loop; n := n + 1;
   if app.trial_grading_gate(v_u1, v_bio, 'submit_response', 'req-sub') <> 'entitled' then raise exception 'submit counted'; end if; n := n + 1;
+  -- QA finding 2: the per-user advisory lock is held for the transaction after a counted call
+  if not exists (select 1 from pg_locks l where l.locktype = 'advisory' and l.pid = pg_backend_pid() and l.objsubid = 1
+                   and l.classid = ((hashtextextended('trial_grading:' || v_u1::text, 0) >> 32) & 4294967295)::oid
+                   and l.objid = (hashtextextended('trial_grading:' || v_u1::text, 0) & 4294967295)::oid) then
+    raise exception 'ceiling lock not taken'; end if; n := n + 1;
   begin
     perform app.trial_grading_gate(v_u1, v_bio, 'grade_revision', 'req-4');
     raise exception 'expected trial_daily_cap';
