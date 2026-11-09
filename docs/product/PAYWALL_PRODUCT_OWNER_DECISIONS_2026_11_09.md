@@ -33,6 +33,16 @@ Plan §8's old "still open" list (anonymous switching, consumption, uploads, ide
 | N10 | Checkout first-paint fix: live checkout shows "Total due today $39.99" while the landing page says nothing is due today (audit §1). | This makes the control clean for any experiment. A Lovable prompt is drafted and unsent; it needs your go-ahead to send. |
 | N11 | Whether the anonymous first MCQ may include image stimuli. | Backend excludes them for anonymous callers; fine for launch. |
 
+## Owner answers recorded 2026-11-09 (David, in chat)
+
+- **N1:** approved (Cramapple FRQ only for the first release; `DECISION-0134` P6 option a).
+- **N2:** app confirmed (anonymous question runs in the app at `/sample`).
+- **N3:** "I accept the 31 of 48 eligible" (31 eligible units is the launch set).
+- **N4:** "N4 is sufficient and approved" (the Terms/Privacy notice at the first answer and at registration is sufficient; **no retention period was stated**, so the backend's current retention applies until one is set).
+- **N5:** each Production step approved separately.
+- **N12:** "N12 approved for first activation": recorded as the recommended option (b), a typed-answer FRQ with typed-answer copy for the first activation; photo flags stay off. If a different option was meant, say so.
+- **"I approve 0207":** received; scope clarification requested (see the chat): `APPROVAL-0207` step B has an undefined population and unmet preconditions 1, 3, 5, 6 and 7, and the record's §5 is the backend session's to fill. Nothing was activated on this message.
+
 ## What I will not decide for you
 
 D6, D7, the domain, the Production approvals, or whether to send any Lovable prompt or email. Until you answer, those stay as marked placeholders.
