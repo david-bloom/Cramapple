@@ -116,7 +116,7 @@ begin
   if strpos(pg_get_functiondef('app.authorize_grading_access(uuid,uuid,text,text)'::regprocedure), 'trial_grading_gate') = 0 then raise exception 'authorize_grading_access not patched'; end if; n := n + 1;
 
   -- 11 day 7: gates deny, readback stays, state ended with 0 days
-  update app.subject_entitlements set ends_at = now() - interval '1 minute' where user_id = v_u1 and source = 'trial_v2';
+  update app.subject_entitlements set starts_at = now() - interval '8 days', ends_at = now() - interval '1 day' where user_id = v_u1 and source = 'trial_v2';
   if app.has_study_subject_access(v_u1, 'biology') then raise exception 'access after end'; end if; n := n + 1;
   if not app.has_study_readback_access(v_u1, v_pack) then raise exception 'readback lost after end'; end if; n := n + 1;
   v_state := app.trial_v2_state(v_u1);

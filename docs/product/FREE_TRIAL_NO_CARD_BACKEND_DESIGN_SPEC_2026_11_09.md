@@ -1,7 +1,6 @@
 # Free trial without a card: backend and entitlement design spec (DRAFT, 2026-11-09)
 
-**STATUS:** DRAFT for owner review. **Design only. Nothing here is built, applied to Development, deployed, or
-switched.** No Production setting was changed while writing this; every "today" fact below was read, not inferred.
+**STATUS:** CURRENT for Development. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), at the app/docs session's request, from
 `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md` (David's words, D1–D8 not yet answered).

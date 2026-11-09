@@ -153,7 +153,17 @@ Most recent entries (full chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
+- [APPROVAL-0209 — DECISION-0135 D11: legacy cardless `start-trial` retired in Production (`CARDLESS_TRIAL_RETIRED=true`), granted and executed 2026-11-09](#approval-0209--decision-0135-d11-legacy-cardless-start-trial-retired-in-production)
 <!-- INDEX_END -->
+
+## APPROVAL-0209 — DECISION-0135 D11: legacy cardless start-trial retired in Production
+
+- **Granted:** 2026-11-09, David Bloom in chat to the backend session: "Do both" (to the question "apply trial_v2 to Development and set CARDLESS_TRIAL_RETIRED=true in Production?"), after "I agree with D9-12" to the app/docs session (D11 = retire the legacy `start-trial` now).
+- **Why:** `DECISION-0126` item 12 said the cardless trial was switched off, but `start-trial` v23 was live in Production with its retire switch unset: any signed-in student could still obtain the old all-subjects 7-day trial by calling the function directly (found read-only 2026-11-09, spec §1/§10).
+- **Executed:** `supabase secrets set CARDLESS_TRIAL_RETIRED=true` on Production `pcntajvbdfqhbeewmdry` and Development `wmgjsdkphcyhngaffbqf` (no deploy; the function reads the secret at start). Verified: `POST /functions/v1/start-trial` on Production → `410 {"error":"trial_retired"}`. `app.start_trial` left in place (dropped by a later migration once nothing references it).
+- **Rollback:** `supabase secrets unset CARDLESS_TRIAL_RETIRED` (not wanted).
+- **Same approval, Development only:** migration `cardless_trial_v2` applied to Development (ledger `20261109215704`), 39-check integration test passed; `cardless_trial_enabled=false`. No other Production change.
+
 
 ## APPROVAL-0207 — Paywall sample access Phase 3: steps A, A.1 and B executed 2026-11-09
 

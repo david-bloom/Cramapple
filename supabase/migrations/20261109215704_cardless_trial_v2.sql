@@ -24,6 +24,13 @@ insert into app.config (config_key, config_value, is_public, description) values
    'DECISION-0135 D5: graded attempts (grade_initial_attempt + grade_revision) per rolling 24 h allowed to a trial_v2-only student before grading_access:trial_daily_cap.')
 on conflict (config_key) do nothing;
 
+-- ------------------------------------------- consumed-email source check
+-- The TASK-0077 table only allowed trial_v1 / stripe_trial_v1 sources (found by
+-- the integration test on the first Development run).
+alter table app.trial_consumed_emails drop constraint trial_consumed_emails_source_check;
+alter table app.trial_consumed_emails add constraint trial_consumed_emails_source_check
+  check (source in ('trial_v1', 'stripe_trial_v1', 'trial_v2'));
+
 -- ------------------------------------------------- grading ceiling log table
 create table if not exists app.trial_grading_log (
   request_id text primary key,
@@ -336,5 +343,7 @@ commit;
 -- drop function app.trial_v2_state(uuid);
 -- drop table app.trial_grading_log;
 -- delete from app.config where config_key in ('cardless_trial_enabled','trial_daily_grading_cap');
+-- alter table app.trial_consumed_emails drop constraint trial_consumed_emails_source_check;
+-- alter table app.trial_consumed_emails add constraint trial_consumed_emails_source_check check (source in ('trial_v1','stripe_trial_v1'));  -- only once no trial_v2 hashes remain
 -- -- trial_v2 entitlement rows and consumed-email hashes are history; leave them.
 -- commit;
