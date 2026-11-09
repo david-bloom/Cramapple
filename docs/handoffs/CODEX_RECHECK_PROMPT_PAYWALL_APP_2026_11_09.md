@@ -30,3 +30,18 @@ Not built: FRQ attempt flow (must start a new session via `session_start`, `entr
 ## Output
 
 Ranked findings (blocker / should-fix / note), each verified or inferred with reproduction, what you did not check, and one verdict per PR plus one release verdict: ready to request activation approval / not ready (with the shortest list of what remains). If not ready, separate **missing build scope** from **defects in what exists**.
+
+
+---
+
+# Addendum (2026-11-09, late): new scope since the recheck above was written
+
+Since that prompt the app (PR #48) gained: later MCQs and the FRQ via the normal practice entry (`/question?mode=practice&type=mcq|frq`, each a new session); sample refusals (`sample:*`, `grading_access:sample_*`, empty queue reason `sample_allowance`) redirect from the shared question experience to `/sample`; two claim-outcome fixes (no card-trial offer after a prior trial; honest "couldn't confirm" message when a claim response is lost). The backend gained migration `20261109171915_paywall_sample_serving_alignment` (applied to Development and, under `APPROVAL-0207` step A.1, to Production, still dark): claim sets the course position to the grant unit, the imported first-MCQ session is format-less, `sample_unit_availability` counts serving-deliverable items and adds `basis`. Production now reads 48 units, 30 eligible (Calc AB Unit 1 ineligible).
+
+Additional checks:
+1. **Shared-code safety.** Review the three small edits in `src/screens/question-experience/QuestionExperience.jsx` (imports from `src/lib/sample/refusal.ts`, `fail()`, the graded-failure branch, the end-of-queue branch). Prove they cannot trigger for a non-sample student (codes, strings), and that no existing question-experience test or behaviour changed.
+2. **Serving through the app path.** Against Production's functions, read-only (switches are off; do not enable them): for a sample grant in each of a few units (Statistics U1, U3; Physics 2 U10; Physics C E&M U9; Biology U2; Calculus BC U3), reason through or simulate in a rollback-only transaction that claim sets `student_course_positions` and that `select_student_practice_items` for the grant unit returns at least 7 further MCQs and at least one FRQ for a format-null MCQ session and a `targeted_drill` FRQ session. Report any unit where it does not.
+3. **Development walk (if you can sign in).** The author ran an API-level signed-in walk (password grant on a throwaway user, since deleted); a real browser walk is still missing. Development has no serving labels, so the unit-gated queue is empty there; say so rather than reporting it as a defect, and verify instead that the typed refusals redirect to `/sample` and `/sample` renders the right state for each phase (active, grace, expired, readonly, unavailable).
+4. Confirm the FRQ flow is not offered when `frqRemaining` is 0, that Next question is hidden at `mcqRemaining` 0, and that the upgrade and parent exits are the only unwired-attribution gaps.
+
+Output as before; end with one release verdict and the shortest remaining list. Remember Production activation is still unapproved and the owner decisions N4 (minors' data review), N12 (photo flags), and the Step B approval remain open.
