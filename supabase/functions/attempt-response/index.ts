@@ -1075,8 +1075,9 @@ export async function handleAttemptResponse(
 
         // Paywall sample (spec §7): bounded extraction runs per sample FRQ.
         // 'not_sample' for everyone with a regular entitlement; a sample:*
-        // refusal is typed and final; any other failure is logged and the
-        // shared caps below still apply.
+        // refusal is typed and final. Any other failure fails CLOSED (503):
+        // continuing would let a sample student run extraction with no cap
+        // (Codex QA finding 2, 2026-11-09). The client retries like any 503.
         {
           const { error: sampleRunError } = await service.schema("app").rpc(
             "sample_take_photo_run",
@@ -1091,6 +1092,7 @@ export async function handleAttemptResponse(
               );
             }
             console.error("sample_photo_run_check_failed", sampleRunError.message);
+            return respond({ error: "sample_photo_check_failed" }, { status: 503 });
           }
         }
 
