@@ -301,3 +301,15 @@ API calls; no `/sample` page exists. No start/answer smoke try was run in Produc
 
 **Watch (§2.3) starts now;** precondition 7 (a day of dark traffic) was waived by the activation approval —
 Production had carried the dark functions for ~4 h with empty traffic.
+
+### 9.1 App publish check (2026-11-09 ~20:45 UTC, read-only)
+
+David reported the app published (`ap-prep-blueprint` #49 merged 20:07 UTC). Check of `https://app.cramapple.com/sample`
+in a clean browser: the app's **404 page**, no `sample-try` request. The live bundle (`index-TiSEridf.js`) compiles
+the flag check `isSampleJourneyEnabled` down to `return !1` after the localStorage branch — i.e. the build ran
+**without `VITE_SAMPLE_JOURNEY=on`**, so the `/sample` route is not registered for students. With the app's own QA
+override (`localStorage cramapple.flag.sample-journey=on`) the page renders "Pick your unit" for AP Biology with units
+1–3 available and 4–8 "Not available in the free sample yet", which matches Production `sample_unit_availability('biology')`
+exactly (1–3 eligible; 4–8 at 5 MCQs each) — the app does read the live backend once the route is reachable. Override
+removed afterwards; no try started. **Open:** the Lovable build needs `VITE_SAMPLE_JOURNEY=on` set in the project env and a
+republish before the hidden-link group can use the URL. Backend unchanged (flag true, 0 tries).

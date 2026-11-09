@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Paywall sample access: app publish check after step B (2026-11-09 ~20:45 UTC): `app.cramapple.com/sample` is a 404 because the Lovable build compiled `VITE_SAMPLE_JOURNEY` off; with the app’s QA override the picker shows live Production availability (Biology 1–3). Needs env set + republish; backend unchanged (`APPROVAL-0207` §9.1).
 - Paywall sample access: step B executed — backend switches ON in Production (2026-11-09 ~20:15 UTC, owner: "Approve step B, flip now", `APPROVAL-0207` §5/§9): `SAMPLE_ACCESS_ENABLED=true` on `sample-try`, `app.config.sample_access_enabled=true`; `list_units` now 200 with 31 of 48 units eligible (basis serving), `get_sample_access_state` enabled; 0 sample rows; population hidden link / small group, typed-answer FRQ, D6/D7 deferred. App publish (`VITE_SAMPLE_JOURNEY`) is David's step after `ap-prep-blueprint` #49. Rollback = both switches false.
 - Paywall sample access: A.1 patch applied to Production, dark (2026-11-09, owner: "Approve A.1 patch", `APPROVAL-0207` §8): `app.sample_serving_deliverable` replaced with the label-mirror form after the drift guard passed; verified identical to Development, Calculus AB Unit 1 now `mcq_available 10, eligible true`, 31 eligible units, 0 sample rows, switch false.
 
