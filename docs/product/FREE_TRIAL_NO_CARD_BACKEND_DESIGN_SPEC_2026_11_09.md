@@ -121,7 +121,14 @@ re-enabled). The app reads `get_trial_state` for `/home`.
 
 At `ends_at` every gate above denies (no serving, no `create_attempt`, no grading). The plan says saved work stays
 readable: today `public.get_question_experience` checks `app.has_study_pack_access`, which would deny an ended trial.
-Proposal: extend **`app.has_study_readback_access`** (the function the sample added for exactly this) so it is also true
+**Entry point (added 2026-11-09 at the app session's request, Development ledger `20261109221340`):**
+`public.get_my_learning_sessions(p_subject_key text default null, p_limit int default 20) → jsonb[]` lists the
+caller's own sessions that have items, newest activity first: `learningSessionId, subjectKey, subjectName,
+examPackVersionId, entryPath, sessionMode, practiceFormat, status, startedAt, endedAt, itemCount, submittedCount,
+firstItemType, lastActivityAt, readable`. Not gated on subject access (readback is allowed in every phase);
+`readable` = `app.has_study_readback_access` for that session's pack, so a session of a subject the account never
+had access to is listed but flagged, and `get_question_experience` still refuses it. Limit floored at 1, capped at 50;
+only error `not_authenticated`. Proposal for the read itself: extend **`app.has_study_readback_access`** (the function the sample added for exactly this) so it is also true
 when the user has a `trial_v2` row for the pack's subject, regardless of `ends_at`; `get_question_experience` already
 consults it. Reading is the student's own `learning_sessions`/`attempts` only. No grace period (grace belongs to the card
 trial's charge retry). The pay prompt is the way forward; a later `paid` row re-opens everything.
