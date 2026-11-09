@@ -1,6 +1,6 @@
 # Free trial without a card: change plan (DRAFT, 2026-11-09)
 
-**Status:** DRAFT for owner approval. **Nothing here is built, approved for build, deployed or released.** Tier: Hard-Gate (entitlements, access control, payments adjacency, public pages, minors' data).
+**Status:** Decisions D1-D8 **approved at the recommendations** by David on 2026-11-09 (`DECISION-0135`); Development and draft build authorized by `APPROVAL-0208`. **Nothing here is built, deployed or released; no Production step is authorized.** Tier: Hard-Gate (entitlements, access control, payments adjacency, public pages, minors' data).
 **Source:** David Bloom, in chat on 2026-11-09 (words below are his).
 **Related:** `docs/tasks/TASK-0026-SEVEN-DAY-TRIAL-AND-ENGAGEMENT-PROGRAM.md` (the earlier cardless 7-day trial, retired), `DECISION-0126` (seven-day card trial; item 12 retired the cardless trial), `DECISION-0134` and `PAYWALL_CHANGE_PLAN_2026_10_31.md` (the 72-hour sample), `APPROVAL-0207`.
 
@@ -43,7 +43,7 @@ The earlier cardless trial is the precedent: one `subject_entitlements` row per 
 
 The email-code registration form and its error handling; the Terms/Privacy notice; the confirmed Production Auth facts (sign-ups allowed, 6-digit OTP, "Confirm sign up" email carries the code, **30 auth emails per hour project-wide**, shared with checkout mail); the live question-page adapter; the typed-refusal handling pattern. The sample's units, allowances and claim step are **not** reused.
 
-## 6. Decisions needed from David (recommendations given)
+## 6. Decisions D1-D8 (approved at the recommendations, 2026-11-09, `DECISION-0135`)
 
 | # | Question | Recommendation |
 | --- | --- | --- |
