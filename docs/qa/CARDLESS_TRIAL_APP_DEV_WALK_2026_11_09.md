@@ -1,6 +1,6 @@
 # Cardless trial: app-side Development walk (2026-11-09)
 
-**Author-run, NOT independent QA.** Development only (`wmgjsdkphcyhngaffbqf`). Authority: `APPROVAL-0208`. The backend migration `20261109215704` (trial_v2) was applied to Development by the backend session on David's direct word; the app build (ap-prep-blueprint draft PR #53, flag `VITE_CARDLESS_TRIAL=on`) was run locally against Development. Nothing touched Production.
+**Author-run, NOT independent QA.** Development only (`wmgjsdkphcyhngaffbqf`). Authority: `APPROVAL-0208`. The backend migration `20261109215704_cardless_trial_v2.sql` (trial_v2; the saved-work function is `20261109221340_get_my_learning_sessions.sql`) was applied to Development by the backend session on David's direct word; the app build (ap-prep-blueprint draft PR #53, flag `VITE_CARDLESS_TRIAL=on`) was run locally against Development. Nothing touched Production.
 
 ## Method and limits
 Three throwaway Development users (password sign-in; the session was placed in the browser cookie the app reads; a real email-code sign-in was NOT possible because no inbox exists for test addresses). The Development switch `cardless_trial_enabled` was turned on for the walk and **back off** afterwards; all rows were removed in the backend session's order (entitlements, grading log, acquisition profiles, consumed-email hashes, outbox, identities, users); counts verified 0.
@@ -25,7 +25,7 @@ Three throwaway Development users (password sign-in; the session was placed in t
 ## Not verified
 - A real email code sign-up (`/start` was rendered but its submit was not exercised against Auth); Production Auth settings were verified separately by the backend session.
 - Practice and grading during the trial (Development has no serving labels, so the unit-gated queue is empty there), the daily grading cap, and More help.
-- The after-day-7 readback of saved work: the backend allowed it but no call listed a student's sessions. **Update:** the backend authored `get_my_learning_sessions` (migration `20261109224500`, not yet applied to Development) and the app now has a "Your saved work" list on the ended-trial `/home` built against that contract (fixtures only; **not verified live**; each entry opens `/question?session=<id>&ordinal=1&type=<first item type>`, only sessions with `readable=true` and at least one answer are shown).
+- The after-day-7 readback of saved work: the backend allowed it but no call listed a student's sessions. **Update:** the backend authored `get_my_learning_sessions` (migration `20261109221340`, applied to Development) and the app now has a "Your saved work" list on the ended-trial `/home` built against that contract (fixtures only; **not verified live**; each entry opens `/question?session=<id>&ordinal=1&type=<first item type>`, only sessions with `readable=true` and at least one answer are shown).
 - Checkout itself, the pay-now page, the marketing "Start free trial" buttons (Lovable prompts unsent), and the card trial path.
 - Production anything.
 
