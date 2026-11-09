@@ -65,3 +65,7 @@ The email-code registration form and its error handling; the Terms/Privacy notic
 4. Production: one approval per step (migration, function deploy, switch, Lovable publish), each separately reversible; the card trial is switched off only at the last step.
 
 **Rollback:** the card-trial path stays deployable; turning the new trial off and the card trial back on restores today's behavior. Trials already granted keep their access until `ends_at`.
+
+## 8. Backend spec decisions D9-D12 (approved 2026-11-09, `DECISION-0135` addendum)
+
+David, in chat: "I agree with D9-12". D9 no subject change after confirming; D10 daily grading ceiling 40 per trial account per 24 hours; D11 retire the legacy `start-trial` now (separate Production approval, made by the backend session with David's direct confirmation); D12 a used sample does not block a trial, and the reverse. Backend spec: `FREE_TRIAL_NO_CARD_BACKEND_DESIGN_SPEC_2026_11_09.md`.
