@@ -28,3 +28,17 @@ Three throwaway Development users (password sign-in; the session was placed in t
 - The after-day-7 readback of saved work: the backend allowed it but no call listed a student's sessions. **Update:** the backend authored `get_my_learning_sessions` (migration `20261109224500`, not yet applied to Development) and the app now has a "Your saved work" list on the ended-trial `/home` built against that contract (fixtures only; **not verified live**; each entry opens `/question?session=<id>&ordinal=1&type=<first item type>`, only sessions with `readable=true` and at least one answer are shown).
 - Checkout itself, the pay-now page, the marketing "Start free trial" buttons (Lovable prompts unsent), and the card trial path.
 - Production anything.
+
+## Round 2: saved work after the trial (author-run, Development only)
+`get_my_learning_sessions` (ledger `20261109221340`) was applied to Development on David's direct word. A fourth throwaway user started a trial, began a session through the normal API (set active subject, `session_start`, `student-session-items`), submitted and graded one answer, then had its `ends_at` set into the past by SQL. Switch back off and all rows removed afterwards (counts 0).
+
+| Check | Result |
+| --- | --- |
+| `get_my_learning_sessions` | 1 session, `itemCount 3`, `submittedCount 1`, `readable true`, `firstItemType mcq`; unknown subject returns `[]` |
+| Ended user, `get_question_experience` on own session | returns the item, `mcqFeedback` and `servedItems` (readback allowed) |
+| Ended user, `student-session-items` | `entitlement_required` (serving denied) |
+| `/home`, ended | bar "has ended" + "Get access"; **"Your saved work"** list with "Multiple choice · 1 of 3 answered · Nov 9"; the generic subject card is hidden |
+| **Bug found:** opening that session on `/question` | "This subject isn't available on your account": the practice page needs an active subject and serves new questions, so it cannot open an ended trial's session |
+| Fix: new flagged read-only route `/saved-work?session=<id>` | shows the answered question with the same question view ("Your answer", "Correct answer", rationale, points), no Skip, no Submit, no More help, no reference pane; Next goes to the next answered question or home; links to checkout |
+
+Not verified: a session with several answered questions (Next/Previous across them is unit-tested only), a free-response session, a session from another subject, and a real browser sign-in.
