@@ -208,3 +208,17 @@ delete `sample-try`; `supabase/migrations/down/paywall_sample_access_down.sql` p
   HTTP passed (QA packet §9). Codex prompt for the independent pass:
   `docs/qa/CODEX_QA_PROMPT_PAYWALL_SAMPLE_PRODUCTION_2026_11_09.md`.
 
+## 8. Step A.1 — serving-alignment migration to Production (REQUESTED, not granted)
+
+The app session's Round 3 smoke found three serving mismatches in the dark backend (QA packet §10): the claim set
+no course position (unit-2+ grants and Physics 2 / C E&M would serve nothing through the app's unit-gated entry),
+the imported session's `practice_format='mcq'` returns zero rows from the unit-gated selector, and availability
+over-counted what serving delivers (Calculus AB Unit 1: 4 vs 10). Fix: migration
+`20261109171915_paywall_sample_serving_alignment.sql` — three function bodies (`claim_sample_try`,
+`sample_unit_availability`, `select_sample_mcq`) and two helpers; no table change; applied to Development, SQL suite
+22 checks green. **Production apply needs David's words** (same pre-write checks as §1.3 plus: Production
+`select_student_practice_items` md5 unchanged since 2026-11-09, `home_release_manifest` present for every active
+pack). Still dark after apply; still no student-visible change.
+
+- **Step A.1:** ☐ approved / ☐ declined — date, words:
+
