@@ -15,6 +15,7 @@
 | P-6 | Minors' data review done (N4) | Open |
 | P-7 | Dev and Prod schema/function parity checked on release day: Dev has lagged main before (`feedback_dev_lags_main_check_before_building`), and the Supabase CLI resolves to **Production** when run from the home directory (`feedback_supabase_cli_home_dir_links_prod`) | Must be rechecked |
 | P-8 | Per-unit availability re-audited against Production on release day (the Phase 0 table is a snapshot) | Snapshot only |
+| P-8b | **Sample serving works through the app's unit-gated path in Production**: claim sets (or serving derives) the course position for the grant unit; Physics 2 and Physics C E&M units do not error; availability counts equal what serving can deliver (Calc AB U1 is short); the imported session's format does not starve the queue. See smoke record, round 3 | **Open, backend decision**; found 2026-11-09 |
 | P-9 | Rollback rehearsed in Development (levels 1 and 2, spec §9) | Not run |
 
 ## 2. Ordered release steps (each is a separate approval request)
