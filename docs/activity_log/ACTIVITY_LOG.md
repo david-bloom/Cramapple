@@ -29,6 +29,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 - Paywall sample access backend built on Development (2026-11-08, owner: David approved the paywall change plan in chat on 2026-11-08; this is the plan's Phase 1 design then Phase 2 Development backend, Hard-Gate, no Production authority): design spec and RPC contract `docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md` (the sample is a scoped grant, not an entitlement tier; anonymous first MCQ in `app.sample_tries`; one-transaction `claim_sample_try` starts the 72h clock; fixed 72h grace; readback after expiry; trial supersedes permanently; `SAMPLE_ACCESS_ENABLED` off at both layers; all open plan rules recorded as PROPOSED P1-P8; uploaded-FRQ grading recorded as a blocker since BYOQ is unscored). Development: `main`'s `20261031143302_subject_access_before_study` was found missing and applied by hand under its file version; migration `20261108201632_paywall_sample_access` applied via `apply_migration` and the file renamed to match; `sample-try` (new), `attempt-response`, `student-session-items` deployed from the branch. Tests: 78 Deno handler tests green; Development SQL integration test `supabase/tests/sample_access.integration.sql` passed 21 checks and rolled back; Development re-verified clean afterwards (flag false, zero sample rows). QA packet for Codex `docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`. Draft PR to `main`, not merged; code PRs go to David.
 
+- Legacy all-subjects cardless `start-trial` retired in Production (APPROVAL-0209) (2026-11-09): `CARDLESS_TRIAL_RETIRED=true` set on the Production project; unauthenticated POST now returns 410 `trial_retired`. Nothing else changed in Production (the backend session also set the same secret on Development the same day).
+- Free trial without a card approved as the active trial (DECISION-0135, APPROVAL-0208) (2026-11-09): 7 days full access for one chosen subject, email code on landing, card trial preserved but inactive; Development and draft only.
 - Paywall change plan approved in chat; Phase 0, per-unit audit and app/docs build started, Development only (APPROVAL-0206) (2026-11-08): live landing says pay nothing today while live checkout shows $39.99 due; /try is 404; only Units 1-3 per subject reliably have 8 MCQs; nothing released.
 - Student hub redesign direction (mock first) and the signed-in spinner fix (2026-11-02 to 2026-11-04, documented 2026-11-08): hub direction recorded as owner direction, not yet `DECISION`s; Production subject-access release closed the spinner (`APPROVAL-0205`, PR #585). Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_08_STUDENT_HUB_REDESIGN_AND_SIGNIN_SPINNER.md`.
 
@@ -292,6 +294,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-09 — Legacy all-subjects `start-trial` retired in Production (APPROVAL-0209)
+
+- David told the paywall app/docs session directly: "retire the old all-subjects start-trial in Production" (decision D11). The session set `CARDLESS_TRIAL_RETIRED=true` on Production (`pcntajvbdfqhbeewmdry`) with the Supabase CLI pinned to the explicit ref and verified: before, an unauthenticated POST returned 401; after, 410 `trial_retired`. No deploy, code, migration or other secret changed; The card trial and the sample are untouched; the backend session also set the same secret on Development the same day (on David's direct word). Record: `docs/activity_log/APPROVAL-0209_RETIRE_LEGACY_CARDLESS_START_TRIAL_PRODUCTION_2026_11_09.md`.
+
+
+## 2026-11-09 — Free trial without a card approved as the active trial (DECISION-0135, APPROVAL-0208); Development and draft work only
+
+- David answered in chat: the free trial without a card is the experience (card trial preserved but inactive), 7 days of full access for one subject the student selects, email code on landing, and approved the plan's recommendations D1-D8. Recorded in `DECISION-0135`; authority is `APPROVAL-0208` (Development/draft only). Plan: `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`. The backend session was asked for a design spec only. Nothing is built, deployed or released.
+
 
 ## 2026-11-08 — Paywall change plan approved in chat (APPROVAL-0206); Phase 0 and per-unit audit; app and docs work started, Development only
 

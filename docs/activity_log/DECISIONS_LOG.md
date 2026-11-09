@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
 - DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
 - DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
 - DECISION-0132 — Not Scrolling Is a Design Guideline, Not a Rule; the Plate May Scroll When Content Needs It
@@ -59,6 +60,20 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
+
+- **Date:** 2026-11-09
+- **Decided by:** David Bloom (Product Owner), in chat, in the paywall app/docs session. His words: "the current experience is the free trial without card. We should preserve the free trial with card for possible future use but it is not active."; "7 days full access but for a specific subject the student selects."; account timing "Email code on landing"; and, to the question "Answer D1-D8, or approve the plan's recommendations?": "Approve recommendations".
+- **Context:** `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`. The earlier cardless 7-day trial (`TASK-0026`) was retired by `DECISION-0126` item 12; the 72-hour sample (`DECISION-0134`) is live behind a hidden link.
+- **Decision:**
+  1. **The active trial is the free trial without a card:** 7 days of full access to **one subject the student selects**. The card trial (`DECISION-0126`, `TASK-0077`) is **preserved but inactive** (code, tables and functions kept; unreachable from "Start free trial"). This **partly supersedes `DECISION-0126` items 1 ("every purchase gets a trial") and 12 ("retire the cardless trial")** for the active path; the rest of `DECISION-0126` stands for the day the card trial is reactivated.
+  2. **Journey:** "Start free trial" opens an email-code step on the app (no card, no checkout), then `/home`, which prompts for a subject, shows the days remaining and a pay prompt linking to checkout. A subject landing page's "Start free trial" arrives at the hub with that subject confirmed.
+  3. **Plan decisions D1-D8, approved at the plan's recommendations:** D1 the 7-day clock starts when the **subject is confirmed**; D2 at day 7 the subject locks, saved work stays readable, the pay prompt shows, no grace; D3 the live 72-hour sample stays dark and unlinked and is retired after the trial ships; D4 checkout is pay-now at the current price, per subject, while the card trial is inactive (price and any bundle to be confirmed from the backend's offer); D5 uncapped use for 7 days with an alert and a per-account daily ceiling as an abuse guard; D6 one trial per student email, and earlier `trial_v1` and card-trial emails count; D7 nurture emails and the paywall experiment stay out of the first release; D8 the minors'-data approval given for the sample (N4) is re-confirmed to cover this trial.
+- **Addendum 2026-11-09 (backend design spec decisions):** David, in chat: "I agree with D9-12". D9 no subject change after confirming (first release); D10 daily grading ceiling for trial accounts of 40 graded attempts per 24 hours; D11 retire the legacy all-subjects `start-trial` now (`CARDLESS_TRIAL_RETIRED=true`; it is still callable in Production although `DECISION-0126` item 12 only unlinked it). **The Production execution of D11 is a separate approval entry made by the backend session with David's direct confirmation; this decision does not execute it.** D12 a used sample does not block a trial and a used trial does not block a sample; a trial supersedes a sample.
+- **Not decided here:** exact copy, the price shown at checkout, whether a bundle is offered, the day-7 Reddit conversion definition (`DECISION-0129` reports card charges only), and any Production step (each needs its own approval).
+- **Authority:** Development and draft work only, see `APPROVAL-0208`.
+
 
 ## DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
 
