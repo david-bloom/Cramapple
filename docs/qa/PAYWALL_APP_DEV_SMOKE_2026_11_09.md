@@ -20,7 +20,7 @@
 
 ## Bug found and fixed by this smoke
 
-The live `sample-try` responses nest everything under `result.try` (`{outcome, try_token, try:{status, unit_number, feedback, question}}`), not the flat shape in spec §10 (`result.question`, `result.feedback`). The app's first wiring would have rendered nothing. Fixed in app PR #47 with parsers and tests that use the real shapes. **The spec should be corrected to match the function** (backend session's file; not edited here).
+The live `sample-try` responses nest everything under `result.try` (`{outcome, try_token, try:{status, unit_number, feedback, question}}`), not the flat shape in spec §10 (`result.question`, `result.feedback`). The app's first wiring would have rendered nothing. Fixed in app PR #48 (draft; the earlier merged #47 still carries the flat-shape code, dark behind the flag) with parsers and tests that use the real shapes. The spec was corrected to match the function in Cramapple PR #600 (§10.1).
 
 ## Not run
 
