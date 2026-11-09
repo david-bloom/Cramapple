@@ -1,6 +1,6 @@
 # Free trial without a card: backend and entitlement design spec (DRAFT, 2026-11-09)
 
-**STATUS:** CURRENT for Development. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
+**STATUS:** CURRENT for Development. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), at the app/docs session's request, from
 `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md` (David's words, D1–D8 not yet answered).
@@ -163,7 +163,7 @@ the hidden link closed sooner, that is one config update and one secret unset wi
 ## 10. The legacy cardless trial: retire for real
 
 `start-trial` v23 is live with `retired=false` because `CARDLESS_TRIAL_RETIRED` was never set. Proposal, in order:
-(a) **now, as its own small approval:** `supabase secrets set CARDLESS_TRIAL_RETIRED=true` on Production and
+(a) **DONE 2026-11-09 (`APPROVAL-0209`; Production and Development answer 410):** `supabase secrets set CARDLESS_TRIAL_RETIRED=true` on Production and
 Development → the function answers `410 trial_retired` (no deploy; the code reads the secret at start); (b) in this
 plan's migration: drop `app.start_trial(uuid,jsonb,jsonb,boolean,text)` and replace it with `app.start_subject_trial`;
 (c) later, delete the `start-trial` function folder once the marketing repo is confirmed not to reference it. The 20
@@ -211,7 +211,7 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 
 ## 14. Conflicts with the Production state, stated plainly
 
-1. `DECISION-0126` item 12 says the cardless trial is "switched off"; in Production it is only unlinked (§1, §10).
+1. ~~`DECISION-0126` item 12 says the cardless trial is "switched off"; in Production it was only unlinked~~ — CLOSED 2026-11-09 by `APPROVAL-0209` (§10 a).
 2. `trial_v1` rows are `status='active'` with past `ends_at`; any report or read that filters on status will overcount
    live trials. This spec's read uses `ends_at` only.
 3. The sample is live behind a hidden link while this plan is designed; the two coexist without code conflict (§5, §8).
