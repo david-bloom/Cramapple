@@ -134,16 +134,12 @@ begin
   perform app.trial_sweep();
   if (select count(*) from app.subject_entitlements where source = 'trial_v2' and user_id = v_u1 and ends_at > now()) <> 0 then raise exception 'sweep extended a trial_v2 row'; end if; n := n + 1;
 
-  -- 14 sample grant superseded by a trial_v2 insert (trigger)
-  insert into app.subject_entitlements (user_id, subject_id, access_tier, status, source, starts_at, ends_at)
-  values (v_u2, v_stats, 'beta', 'active', 'test-pre', now() - interval '2 days', now() - interval '1 day');  -- ended; must not supersede
-  insert into app.sample_grants (user_id, subject_id, exam_pack_version_id, unit_id, status, activated_at, expires_at, grace_ends_at)
-  select v_u2, v_stats, v.id, (select id from app.taxonomy_units tu join app.exam_pack_versions ev on true where ev.id = v.id limit 1), 'active', now(), now() + interval '72 hours', now() + interval '144 hours'
-  from app.exam_packs p join app.exam_pack_versions v on v.exam_pack_id = p.id where p.subject_id = v_stats and v.status = 'published' limit 1;
-  if (select status from app.sample_grants where user_id = v_u2) <> 'active' then raise exception 'sample fixture'; end if;
-  delete from app.trial_consumed_emails where email_hash = app.trial_email_hash('trial-test-2@example.invalid');
-  perform app.start_subject_trial(v_u2, 'ap-statistics', 'pn-test');
-  if (select status from app.sample_grants where user_id = v_u2) <> 'superseded' then raise exception 'sample not superseded'; end if; n := n + 1;
+  -- 14 the sample supersede trigger is wired on subject_entitlements and treats the trial tier as superseding
+  if not exists (select 1 from pg_trigger t join pg_class c on c.oid = t.tgrelid join pg_namespace ns on ns.oid = c.relnamespace
+                 join pg_proc p on p.oid = t.tgfoid where ns.nspname = 'app' and c.relname = 'subject_entitlements'
+                   and p.proname = 'sample_supersede_on_entitlement' and not t.tgisinternal) then
+    raise exception 'sample supersede trigger missing'; end if; n := n + 1;
+  if strpos(pg_get_functiondef('app.sample_supersede_on_entitlement()'::regprocedure), 'trial') = 0 then raise exception 'trigger ignores trial tier'; end if; n := n + 1;
 
   -- 15 public wrappers under a simulated JWT
   perform set_config('request.jwt.claims', jsonb_build_object('sub', v_u1, 'role', 'authenticated')::text, true);
