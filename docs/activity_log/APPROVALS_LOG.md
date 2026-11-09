@@ -5,6 +5,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 ## Index
 
 - [APPROVAL-0207 — Paywall sample access Phase 3: steps A, A.1 and B approved and executed 2026-11-09; backend switches ON in Production for a hidden-link small group (typed-answer FRQ, D6/D7 deferred); Lovable publish pending](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
+- [APPROVAL-0209 — Retire the legacy all-subjects `start-trial` in Production: `CARDLESS_TRIAL_RETIRED=true` set and verified (granted and executed 2026-11-09)](APPROVAL-0209_RETIRE_LEGACY_CARDLESS_START_TRIAL_PRODUCTION_2026_11_09.md)
 - [APPROVAL-0208 — Free trial without a card: plan approved for Development-only design and build; nothing released (granted 2026-11-09)](APPROVAL-0208_FREE_TRIAL_NO_CARD_DEVELOPMENT_AUTHORITY_2026_11_09.md)
 - [APPROVAL-0206 — Paywall change plan approved for Development-only design and build; nothing released (granted 2026-11-08)](APPROVAL-0206_PAYWALL_PLAN_DEVELOPMENT_AUTHORITY_2026_11_08.md)
 - [APPROVAL-0205 — Subject access before study: apply migration and deploy `session-event` and `student-session-items` to Production (executed 2026-11-04; sign-in spinner incident)](APPROVAL-0205_SUBJECT_ACCESS_PRODUCTION_RELEASE_2026_11_04.md)
