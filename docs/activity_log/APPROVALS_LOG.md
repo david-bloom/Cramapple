@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0207 — DRAFT, NOT GRANTED: paywall sample access Phase 3, Production dark apply (step A) and activation (step B); prepared 2026-11-09 for David's decision](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
 - [APPROVAL-0206 — Paywall change plan approved for Development-only design and build; nothing released (granted 2026-11-08)](APPROVAL-0206_PAYWALL_PLAN_DEVELOPMENT_AUTHORITY_2026_11_08.md)
 - [APPROVAL-0205 — Subject access before study: apply migration and deploy `session-event` and `student-session-items` to Production (executed 2026-11-04; sign-in spinner incident)](APPROVAL-0205_SUBJECT_ACCESS_PRODUCTION_RELEASE_2026_11_04.md)
 - [APPROVAL-0204 — Rewrite the AP Chemistry Unit 2 explainers 2.1-2.7 in Production (executed 2026-10-31)](APPROVAL-0204_CHEM_UNIT2_EXPLAINER_REWRITE_PRODUCTION_2026_10_31.md)
@@ -153,6 +154,10 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0207 — DRAFT, NOT GRANTED: paywall sample access Phase 3 (prepared 2026-11-09)
+
+- **Status:** draft packet for David; no step approved. Step A = Production dark apply of migrations `20261108201632` and `20261109131921` plus `sample-try`, `attempt-response`, `student-session-items` from `main`, switches off. Step B = activation (env + config switch + app publish), separate approval with seven preconditions. Full packet: `APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md`.
 
 ## APPROVAL-0174 — Complete Calculus AB/Chemistry Units 1–3 Visual Audit and Attach Two Follow-Up Repairs After Independent QA
 
