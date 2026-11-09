@@ -357,6 +357,23 @@ begin
   if app.sample_serving_scope(v_user2, v_pack) is not null then raise exception 'scope leaked to a non-sample user'; end if;
   n := n + 1;
 
+  -- ------------------------------ QA finding 1 (2026-11-09): future-start entitlement supersedes
+  -- user3's grant is still 'active' underneath the kill switch. A paid row that
+  -- starts tomorrow must supersede it at insert, and ending that row later must
+  -- not revive the sample.
+  update app.config set config_value = 'true'::jsonb where config_key in ('sample_access_enabled', 'sample_access_honor_existing');
+  if (select status from app.sample_grants where user_id = v_user3) <> 'active' then raise exception 'user3 grant should still be active'; end if;
+  insert into app.subject_entitlements (user_id, subject_id, access_tier, status, source, external_reference, starts_at, ends_at)
+  values (v_user3, v_subject, 'paid', 'active', 'stripe_checkout_v1', 'test-future', now() + interval '1 day', now() + interval '31 days');
+  if (select status from app.sample_grants where user_id = v_user3) <> 'superseded' then raise exception 'future-start entitlement did not supersede'; end if;
+  if (select superseded_by from app.sample_grants where user_id = v_user3) <> 'paid' then raise exception 'superseded_by should be paid'; end if;
+  update app.subject_entitlements set status = 'revoked', ends_at = greatest(now(), starts_at + interval '1 millisecond')
+  where user_id = v_user3 and external_reference = 'test-future';
+  if app.has_study_subject_access(v_user3, 'ap-statistics') then raise exception 'ended future-start entitlement revived the sample'; end if;
+  if app.sample_grant_phase((select g from app.sample_grants g where user_id = v_user3)) <> 'superseded' then raise exception 'phase should stay superseded'; end if;
+  if not app.has_study_readback_access(v_user3, v_pack) then raise exception 'superseded must keep readback (future-start)'; end if;
+  n := n + 1;
+
   raise exception 'SAMPLE_ACCESS_TESTS_PASSED (% checks)', n;
 end;
 $t$;

@@ -1,8 +1,9 @@
 # QA packet: paywall sample access backend (Development, 2026-11-08)
 
 **For:** Codex (independent QA). **Author:** Claude backend session (did not QA its own work).
-**Status:** Development implementation complete on branch `claude/paywall-backend-sample-access-95ac1a`
-(draft PR to `main`, not merged). **Tier:** Hard-Gate. **Production:** untouched; nothing here authorizes it.
+**Status:** Development implementation merged to `main` (PR #595). **QA round 1 (2026-11-09): two findings,
+both confirmed in source and fixed on Development the same day; see §7 for the fixes and the re-test scope.**
+**Tier:** Hard-Gate. **Production:** untouched; nothing here authorizes it.
 **Spec and contract:** [`docs/product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md`](../product/PAYWALL_BACKEND_DESIGN_SPEC_2026_11_08.md)
 (§10 is the API/RPC contract the app session builds against; §14 lists the PROPOSED rules awaiting David).
 
@@ -16,7 +17,8 @@
 | Edited edge functions | `attempt-response/index.ts` | `create_attempt`: `sample:<code>` trigger refusals → `403 {error, access:'sample', state}`; `propose_transcript`: `app.sample_take_photo_run` guard (3 runs per sample FRQ) |
 | | `student-session-items/index.ts`, `_shared/student-item-delivery.ts` | `app.sample_serving_scope` read (fail closed 503); queue filtered to the grant's unit/allowance; `omitted[].reason='sample_scope'`; `result.sample`; `reason='sample_allowance'` |
 | | `_shared/public-rate-limit.ts` | `PUBLIC_ENDPOINT_LIMITS.sampleTry` |
-| Tests | `supabase/tests/sample_access.integration.sql` (Development, rollback-only, 21 checks); `sample-try/index_test.ts` (13); `student-session-items/index_test.ts` (+4); `.github/workflows/minimal-ci.yml` runs the new suite | |
+| Tests | `supabase/tests/sample_access.integration.sql` (Development, rollback-only, 22 checks since 2026-11-09); `sample-try/index_test.ts` (13); `student-session-items/index_test.ts` (+4); `attempt-response/index_test.ts` (+3 `propose_transcript` sample-cap tests, 2026-11-09); `.github/workflows/minimal-ci.yml` runs the new suite | |
+| QA round 1 fixes (2026-11-09) | `supabase/migrations/20261109131921_paywall_sample_access_qa_fixes.sql`; `attempt-response/index.ts`, `_test_setup.ts` | See §7 |
 
 Development function versions after this branch's deploy are recorded in the PR description (`supabase functions list`).
 
@@ -28,7 +30,7 @@ Deterministic (no network), from the repo root — same command shape as `minima
 env -i PATH="$PATH" HOME="$HOME" deno test --allow-env=ALLOWED_ORIGINS,SUPABASE_URL,SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,SERVICE_ROLE_KEY,GRADING_ENTITLEMENTS_ENABLED,FRQ_PHOTO_RESPONSES_ENABLED,FRQ_PHOTO_SUBJECTS,FRQ_TRANSCRIPT_MODEL,OPENAI_MODEL,OPENAI_API_KEY,FRQ_TRANSCRIPT_TIMEOUT_MS,FRQ_TRANSCRIPT_RESERVED_COST_USD,OPENAI_DAILY_CAP_USD,FRQ_TRANSCRIPT_DAILY_RUNS,FRQ_PHOTO_DAILY_CAP_USD,SAMPLE_ACCESS_ENABLED,PUBLIC_RATE_LIMIT_HMAC_KEY,BYOQ_IP_HMAC_KEY supabase/functions/sample-try/index_test.ts supabase/functions/student-session-items/index_test.ts supabase/functions/attempt-response/index_test.ts supabase/functions/_shared/public-rate-limit_test.ts
 ```
 
-Expected: 78 passed, 0 failed (2026-11-08 run). `deno check` and `deno lint` on the three edited/new functions are clean.
+Expected: 81 passed, 0 failed for the four files (78 on 2026-11-08; +3 `attempt-response` tests on 2026-11-09). The full CI list in `minimal-ci.yml` gives 819 passed. `deno check` and `deno lint` on the three edited/new functions are clean.
 
 Development SQL integration test (always rolls back; the result **is** the exception text):
 
@@ -36,11 +38,11 @@ Development SQL integration test (always rolls back; the result **is** the excep
 supabase db query --linked --workdir /Users/davidbloom/Documents/Cramapple.nosync -f /Users/davidbloom/Documents/Cramapple.nosync/supabase/tests/sample_access.integration.sql
 ```
 
-Expected: `ERROR: P0001: SAMPLE_ACCESS_TESTS_PASSED (21 checks)`. Confirm the project ref is `wmgjsdkphcyhngaffbqf` (`--debug`) before running; never run against Production. The same body pasted into the Supabase MCP `execute_sql` for the Development project gives the same result. It flips `app.config.sample_access_enabled` inside the transaction only; §5 query 1 confirms it is back to `false` afterwards.
+Expected: `ERROR: P0001: SAMPLE_ACCESS_TESTS_PASSED (22 checks)` (21 before 2026-11-09). Confirm the project ref is `wmgjsdkphcyhngaffbqf` (`--debug`) before running; never run against Production. The same body pasted into the Supabase MCP `execute_sql` for the Development project gives the same result. It flips `app.config.sample_access_enabled` inside the transaction only; §5 query 1 confirms it is back to `false` afterwards.
 
 ## 3. Development state to confirm first
 
-- Ledger: versions `20261031143302` and `20261108201632` present (§5 query 0).
+- Ledger: versions `20261031143302`, `20261108201632` and (since 2026-11-09) `20261109131921` present (§5 query 0).
 - `app.config`: `sample_access_enabled=false`, `sample_access_honor_existing=true`.
 - Zero rows in all four `sample_*` tables; zero `learning_sessions.entry_path='sample'`.
 - `sample-try` deployed with `--no-verify-jwt`; `SAMPLE_ACCESS_ENABLED` **not** set on Development (so the function answers `503 sample_disabled`). To exercise it, set the env var on the function and `update app.config set config_value='true' where config_key='sample_access_enabled'` on Development, then set both back.
@@ -116,3 +118,51 @@ Expect `503 sample_disabled` while either switch is off; with both on, `start` r
 - `app.sample_pack_for_subject` picks the newest published, non-retired pack version; `ap-statistics` on Development has two published versions (a 2026-07-15 fixture and the 2026-08-23 one); the newer one carries the unit-1 content and is the one used.
 - The anonymous `start` excludes image-stimulus MCQs (PROPOSED P5).
 - All rule values (24h/7d try windows, 3 switches, 3 grading requests, 3 photo runs, per-IP 60/h) are PROPOSED defaults; verify behaviour against the spec, not against the plan's silence.
+
+## 7. QA round 1 (2026-11-09): findings, fixes, re-test scope
+
+Codex reported two source-backed findings and recommended **block release pending fixes and retesting**. Both
+were confirmed in source by the backend session and fixed on Development the same day. Neither had been
+reproduced live by QA; the integration test now reproduces finding 1 (it fails against the old trigger body) and
+the Deno suite reproduces finding 2 (the 503 test fails against the old handler).
+
+| # | Finding (Codex) | Confirmed cause | Fix | Pinned by |
+| --- | --- | --- | --- | --- |
+| 1 | A future-start regular entitlement can become active without permanently superseding the sample, so sample access may revive later | `app.sample_supersede_on_entitlement` required `new.starts_at <= now()`; a row inserted/updated with a future `starts_at` never fired the supersede, the regular path won while it was active, and the still-`active` grant revived when the row ended | Migration `20261109131921_paywall_sample_access_qa_fixes.sql`: the trigger supersedes on any `status='active'` trial/paid/beta row that has not ended, regardless of `starts_at`; one-off backfill of any `active` grant beside such a row (Development had none) | `sample_access.integration.sql` check 22 (future-start `paid` row supersedes at insert; revoking it later does not revive admission; phase stays `superseded`; readback kept) |
+| 2 | If the photo-limit RPC fails unexpectedly, transcription continues without enforcing the three-run sample cap | `propose_transcript` logged a non-`sample:*` error from `app.sample_take_photo_run` and fell through to the shared caps and the model call | `attempt-response/index.ts` returns `503 {error:'sample_photo_check_failed'}` on any non-`sample:*` error (fail closed, same posture as `student-session-items`); Development `attempt-response` v51 | `attempt-response/index_test.ts`: `sample:*` → 403 typed; unexpected error → 503 and no cap/model path reached; `'not_sample'` → continues |
+
+Verification run by the backend session (not independent QA): full CI Deno suite 819 passed / 0 failed with
+`minimal-ci.yml`'s exact `--allow-env` list; `deno check`/`deno lint` clean on `attempt-response`; Development
+integration test `SAMPLE_ACCESS_TESTS_PASSED (22 checks)` via MCP `execute_sql`, rolled back; Development afterwards:
+0 grants, 0 tries, 0 test users, `sample_access_enabled=false`, trigger body no longer contains `starts_at <= now()`.
+
+**Re-test scope for Codex:** (a) §5 query 0 shows version `20261109131921`; (b) re-run the integration test
+(expect 22 checks); (c) attack finding 1 directly: with the flag on, claim a grant for a fresh test user, insert a
+`paid` row with `starts_at = now() + interval '1 day'`, confirm `sample_grants.status='superseded'`, revoke the
+row, confirm `app.has_study_subject_access` is false and `app.sample_grant_phase` is `superseded`; also try an
+`update` that flips a `pending` row to `active` with a future start; (d) attack finding 2 on Development:
+temporarily `revoke execute on function app.sample_take_photo_run(uuid,uuid) from service_role` (or rename it),
+call `propose_transcript` as an admin with a photo attached, expect `503 sample_photo_check_failed` and no
+`model_usage_ledger` row, then restore the grant; (e) confirm the 503 is acceptable for regular (non-sample)
+students too, since the RPC is called for everyone and `'not_sample'` is the pass value. `FRQ_PHOTO_*` remain dark
+on Development; (d) needs them set on the function for the duration of the test and reset afterwards.
+
+## 8. QA round 2 (2026-11-09): Codex verdict
+
+Codex re-tested independently against Development on branch `claude/paywall-backend-sample-access-95ac1a`
+(PR #597). Verdict as reported by Codex, recorded verbatim in substance:
+
+| Finding | Verdict | Codex's independent evidence |
+| --- | --- | --- |
+| 1. Future-start entitlement can leave a sample revivable | **Reproduced-fixed** | Migration `20261109131921` live; integration suite `SAMPLE_ACCESS_TESTS_PASSED (22 checks)`; separate rolled-back probes: a future-start `paid` insert and an inactive→active update both superseded a fresh grant; revocation did not revive access; readback remained |
+| 2. Photo-limit RPC failure lets transcription continue | **Reproduced-fixed** | With the RPC execute grant temporarily revoked, live `propose_transcript` for a temporary admin and for a non-sample student both returned `503 sample_photo_check_failed`; no model-usage row; grant restored. Focused Deno tests 81/81; `deno check` and lint pass |
+
+Backend session's post-QA re-verification of Development (not independent): 0 rows in all four `sample_*` tables,
+0 `entry_path='sample'` sessions, `sample_access_enabled=false`, `honor_existing=true`, `service_role` execute on
+`app.sample_take_photo_run` restored and no `authenticated` grant, 0 `frq_transcript` ledger rows today, 0 admin
+profiles created in the last day, no `FRQ_PHOTO_*`/`SAMPLE_ACCESS_*` function secrets set. `attempt-response` is at
+**v52** on Development (Codex redeployed during round 2); its `index.ts` was downloaded and compared with the
+branch source: **identical**.
+
+Status after round 2: no open QA findings. Still not a release: Production needs its own APPROVAL, the two
+switches stay off, and the §6 known gaps (uploaded-FRQ blocker, grace `session_resume`, photo flags dark) stand.

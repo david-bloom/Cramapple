@@ -2,8 +2,10 @@
 
 **STATUS:** CURRENT (design spec and RPC contract; implemented and tested on Development 2026-11-08 on branch
 `claude/paywall-backend-sample-access-95ac1a`: migration `20261108201632_paywall_sample_access`, `sample-try` v1,
-`attempt-response` v50, `student-session-items` v48; both switches off). Not a release record; QA by Codex pending
-(`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md`).
+`attempt-response` v50, `student-session-items` v48; both switches off; Codex QA round 1 (2026-11-09) found two
+defects, both fixed on Development the same day: migration `20261109131921_paywall_sample_access_qa_fixes`,
+`attempt-response` v51/v52, integration test 22 checks; Codex round 2 verdict: both reproduced-fixed, no open QA
+findings). Not a release record (`docs/qa/QA_PACKET_PAYWALL_SAMPLE_BACKEND_2026_11_08.md` §7–§8).
 **Tier:** Hard-Gate (access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), from the plan David approved in chat
 on 2026-11-08.
@@ -389,7 +391,10 @@ units today; the app shows the list rather than assuming unit 1 only.
 - `app.sample_take_photo_run(p_user_id, p_attempt_id)` (service only): returns `'not_sample'` for regular
   entitlement holders; for a sample consumption increments `transcript_runs` and raises
   `sample:extraction_limit_reached` beyond **3** runs per sample FRQ (**PROPOSED**; a retake and one re-extraction
-  after a bad photo fit inside it). `attempt-response` calls it before `propose_transcript`.
+  after a bad photo fit inside it). `attempt-response` calls it before `propose_transcript`; a `sample:*` error is a
+  typed 403, and any other failure of the call fails **closed** with `503 sample_photo_check_failed` (the first
+  build logged and continued, which would have run extraction uncapped; Codex QA finding 2, fixed 2026-11-09,
+  `attempt-response` v51).
 - Grading runs are capped by §5.2 (3 distinct requests). Model spend stays under the existing daily caps
   (`FRQ_PHOTO_DAILY_CAP_USD`, `FRQ_TRANSCRIPT_DAILY_RUNS`, `OPENAI_DAILY_CAP_USD`).
 - IP caps: anonymous `sample-try` is per-IP (classroom-tolerant numbers above). Authenticated photo operations
@@ -538,10 +543,13 @@ BYOQ's identity-agnostic policy (D18, `DECISION-0077`) is untouched by this spec
 ## 12. Trial transition and cancellation precedence (plan §5 last bullet)
 
 - Trigger `app.sample_supersede_on_entitlement` (AFTER INSERT OR UPDATE OF status, ends_at ON
-  `subject_entitlements`): when a row for the user has `status='active'`, `starts_at <= now()`, open window, and
-  `access_tier in ('trial','paid','beta')`, mark the user's `active` sample grant `superseded`
-  (`superseded_by = access_tier`). Scope is the user, not the subject: a trial for another subject also ends the
-  sample (**PROPOSED**; a trialling student has the full product).
+  `subject_entitlements`): when a row for the user has `status='active'`, has not ended (`ends_at` null or in the
+  future), and `access_tier in ('trial','paid','beta')`, mark the user's `active` sample grant `superseded`
+  (`superseded_by = access_tier`). The start date does not matter: a scheduled (future-start) entitlement is
+  still a purchase or trial, so it supersedes at insert; the first build required `starts_at <= now()`, which let
+  the sample revive after a future-start row ended (Codex QA finding 1, fixed 2026-11-09 by migration
+  `20261109131921_paywall_sample_access_qa_fixes`). Scope is the user, not the subject: a trial for another subject
+  also ends the sample (**PROPOSED**; a trialling student has the full product).
 - `trial_activate`, `trial_cancel`, `trial_set_trial_access`, `trial_convert` are **not modified**. Cancellation
   revokes the trial rows exactly as `DECISION-0126` says; the sample grant stays `superseded` (terminal), so a
   cancelled trial never restores sample practice. Saved feedback readback (§5.4) remains.
