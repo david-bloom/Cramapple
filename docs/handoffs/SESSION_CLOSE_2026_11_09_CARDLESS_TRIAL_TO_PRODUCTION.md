@@ -17,7 +17,7 @@
 | --- | --- |
 | Docs PR #608 (Cramapple) | **Merged** 2026-11-09T22:49Z (merge `01711baf`). |
 | App PR #53 (`ap-prep-blueprint`, `claude/cardless-trial-app`) | **Merged by David** 2026-11-10T01:26:01Z (merge commit `a812100d`), including the pending-grading read-only fix (head `ede07268`). **This merge happened before the final Codex rerun passed.** `VITE_CARDLESS_TRIAL` is absent from `.env`, so the trial UI is off by default (*verified* by Codex and by me earlier). Not Lovable-published as far as I know (*unverified*; check the Lovable project `56cae479` history). |
-| Backend PR #609 (Cramapple, `claude/cardless-trial-backend-spec`) | **Open, not merged.** Head `dba743c1` (synced with main). Checks green (test, replay-sql, sql). GitHub shows mergeStateStatus BLOCKED (probably a required review or branch rule; check). Contains migrations, down scripts, tests, the backend spec (`docs/product/FREE_TRIAL_NO_CARD_BACKEND_DESIGN_SPEC_2026_11_09.md`, which is **not on main yet**, only on this branch) and spec section 15 (Codex fix log). |
+| Backend PR #609 (Cramapple) | **Merged by David** 2026-11-10T01:34:34Z at head `dca09bd6` (merge `83b5756d`), which is the Vercel review agent's head and **does not include the backend session's latest fixes**. Main therefore has the agent's in-place edit of the applied QA-fixes migration (same guard, but the file no longer matches the Development ledger) and spec §8/§11 text prescribing a `claim_sample_try` change. The fixes are in **open PR #611** (head `dba743c1`, code PR for David): the email-race migration `20261110013137`, the restored `20261110011605` text, spec §14 conflict 4 and §15.3. The backend spec is on main. |
 | Development database (`wmgjsdkphcyhngaffbqf`) | *Reported* by the backend session: all three trial migrations applied (`20261109215704`, `20261109221340`, QA-fixes ledger `20261110011605`), 46-check and 10-check suites pass, a real two-connection race passed (second grader blocked 4,658 ms on the per-user lock, denied at cap 1; script `supabase/tests/cardless_trial_race.sh`), down scripts rehearsed and re-applied, left clean (switch false, cap 40, no test rows). |
 | Production database (`pcntajvbdfqhbeewmdry`) | **No trial migration, no switch.** Codex confirmed none of the three migrations are in Production (*verified* by Codex 2026-11-09). The only trial-related Production change is `CARDLESS_TRIAL_RETIRED=true` (`APPROVAL-0209`; legacy `start-trial` returns 410 in Production; the function was never deployed to Development, which returns 404). |
 | Marketing site (Lovable `61dd6602`, no GitHub repo) | **Unchanged.** "Start free trial" still goes to `/checkout`, which shows card-trial wording and "$39.99 due today". `VITE_TRIAL_CHECKOUT_ENABLED="true"`. Prompts are drafted and **not sent**: `docs/handoffs/LOVABLE_PROMPTS_FREE_TRIAL_NO_CARD_DRAFT_2026_11_09.md`. |
@@ -38,7 +38,7 @@
 ## 4. What is left, in order (each Production step needs David's separate, explicit approval; one APPROVAL record per step)
 
 0. **Codex third pass** using section 10. Do not request any Production approval until it returns "ready" for #609 and for the merged #53 head (Codex reviews `a812100d` on main for the app).
-1. **Merge #609** (David merges; code PRs go to David). Merging Cramapple `main` runs Minimal CI, replay SQL regressions and a **Vercel Production deployment** of the repo (no migration apply, secret change or Lovable publish). Resolve the BLOCKED merge state first. After the merge the backend spec lands on main.
+1. **Merge #611** (David merges; code PR) after Codex passes. It restores the QA-fixes migration to the Development-ledger text and adds the email-race migration. Merging Cramapple `main` runs Minimal CI, replay SQL regressions and a **Vercel Production deployment** of the repo (no migration apply, secret change or Lovable publish).
 2. **Docs:** open a docs PR for this file, plus INDEX row, the plan/decision status refresh and the new APPROVAL(s). Docs-only PRs may be merged by the agent when CI is green. Check APPROVAL/DECISION numbers against main **and open PRs** first (collisions have happened). Last used here: `APPROVAL-0209`, `DECISION-0135`; others may exist.
 3. **Production migration apply** (backend session, `--workdir` pinned and `--project-ref pcntajvbdfqhbeewmdry` explicit; the CLI from a home directory resolves to Production). Four migrations in order: `20261109215704_cardless_trial_v2.sql`, `20261109221340_get_my_learning_sessions.sql`, `20261110011605_cardless_trial_v2_qa_fixes.sql` (renamed on the #609 branch to the Development ledger version; the earlier name `20261109230000_…` no longer exists), `20261110013137_cardless_trial_v2_email_race.sql` (added after the Vercel review; Development ledger name for the QA-fixes file is `20261110011605`). Down order: email_race, qa_fixes, get_my_learning_sessions, cardless_trial_v2. `apply_migration` stamps its own version, so rename the local files to the recorded versions afterwards or the next `db push` fails. Dev and Production differ in ledger and in some function bodies, so diff `pg_get_functiondef` md5 across both before and after (see section 7). Switch stays **false**. Down scripts: `supabase/migrations/down/`.
 4. **Production dark verification** with the switch false: `get_trial_state()` returns `blocked/disabled`, existing students, checkout and the sample unchanged, grading path unchanged for non-trial accounts.
@@ -86,7 +86,7 @@ David approves each step in chat in his own words ("Yes, apply to Dev", "I appro
 - Checkout price and any bundle (D4); trial conversion metric for Reddit (`DECISION-0129`); analytics and nurture emails (D6/D7 deferred).
 
 - **New owner decision, D12 conflict (spec §14 conflict 4):** the live `claim_sample_try` refuses former trial students (prior-access and prior-trial guards), contradicting the trial-then-sample half of D12. Fixing it is a Production sample-side change outside #609. Decide: change the sample, or amend D12 (recommended if the sample is being retired anyway per D3).
-- The Vercel review agent pushed commits to #609; the backend session reverted its in-place edit of an applied migration. Re-read the #609 diff before merging.
+- The Vercel review agent pushed commits to #609 and David merged at its head. #611 reverts the agent's in-place edit of the applied migration. Re-read the #611 diff before merging.
 
 ## 9. Where things live
 
@@ -104,7 +104,7 @@ David approves each step in chat in his own words ("Yes, apply to Dev", "I appro
 ```
 You are the independent QA reviewer, rerunning the merge gate for the Cramapple no-card free trial. You did not build it. Report; do not fix, merge, publish, send, or change any flag or Production setting. Tier: Hard-Gate. Start with docs/team_charter/CRAMAPPLE_SESSION_START.md and docs/INDEX.md per AGENTS.md.
 
-Heads to review (re-fetch first and report them): backend david-bloom/Cramapple PR #609 (expected head dba743c1, includes migration 20261110013137_cardless_trial_v2_email_race: also test a concurrent same-email start from two connections, expect trial:already_used for the loser); app david-bloom/ap-prep-blueprint PR #53 was MERGED at a812100d (review main at that commit; the PR head was ede07268); docs PR #608 merged.
+Heads to review (re-fetch first and report them): backend david-bloom/Cramapple PR #611 (expected head dba743c1; #609 is already merged at dca09bd6, so review #611's diff against main, includes migration 20261110013137_cardless_trial_v2_email_race: also test a concurrent same-email start from two connections, expect trial:already_used for the loser); app david-bloom/ap-prep-blueprint PR #53 was MERGED at a812100d (review main at that commit; the PR head was ede07268); docs PR #608 merged.
 
 Previous rerun found the backend fixes were not applied to Development. They are now (migration 20261110011605_cardless_trial_v2_qa_fixes.sql, Development ledger 20261110011605). The app adds a fix for your read-only pending-grading finding.
 
@@ -116,7 +116,7 @@ Check in Development only (ref wmgjsdkphcyhngaffbqf; pin --workdir; rollback-onl
 5. Run the 46-check cardless trial suite and the 10-check get_my_learning_sessions suite.
 6. App on main: tsc, vitest (author reports 1,350 passing), vite build. Confirm a submitted-but-unscored saved answer in /saved-work has no textarea and no Submit for scoring.
 7. Regression: switch false and app flag off, existing students and new routes behave as on main.
-8. Confirm nothing changes Production, secrets, Lovable, or enables a flag, and what merging #609 triggers.
+8. Confirm nothing changes Production, secrets, Lovable, or enables a flag, and what merging #611 triggers.
 
 Clean up everything you create; end with switch false and zero test users.
 
@@ -126,6 +126,6 @@ Output: ranked findings (blocker / should-fix / note), each verified or inferred
 ## 11. First moves for the new session
 
 1. Read this file, then `DECISION-0135`, the backend spec §15 and `APPROVAL-0209`.
-2. Re-fetch #609 and the app `main` heads; check `gh pr view 609` for why it is BLOCKED.
+2. Re-fetch #611 (and confirm #609 is merged) and the app `main` heads.
 3. Get David to run the section 10 prompt in Codex (or run an independent reviewer), and wait for the verdict.
 4. Only then walk David through steps 1-10 of section 4, one approval at a time, writing an APPROVAL record per step.
