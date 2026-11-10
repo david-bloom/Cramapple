@@ -1,5 +1,10 @@
 # Grading Model Assessment Protocol
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> This is still the protocol for assessing candidate LLM graders.
+> **Stale in this doc:** the "corpus and harness not yet built" status line: a harness exists at `scripts/grading-model-assessment/` (harness.ts, launch-bar.ts, gold-set-db.ts, ap-statistics gold + tests). It also refers to the harness scope as v2; the scope doc is v3.
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Plan — corpus and harness not yet built; regression suite drafted
 and ready to use as soon as a harness exists.
 **Owner:** David (Product Owner) triggers; Claude/Codex executes.

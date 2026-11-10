@@ -1,5 +1,8 @@
 # App ↔ Repo Schema Reconciliation (Option A) — 2026-07-08
 
+> **STATUS: HISTORICAL — superseded by the executed outcome (Option A) now in `supabase/migrations/20260731160000_schema_baseline.sql` and DECISION-0075 D6/D16 (reviewed 2026-11-09).**
+> This records the 2026-07-08 choice to adapt the Lovable app to the repo's `app` schema in Production `pcntajvbdfqhbeewmdry`; that work is done and the pre-2026-07-31 migration files it references were squashed into the baseline. Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Decision:** Option A — adapt the Lovable app to the repo's authoritative `app`
 schema in Supabase Production (`pcntajvbdfqhbeewmdry`), rather than rebuild the
 app's `public` schema in Production.

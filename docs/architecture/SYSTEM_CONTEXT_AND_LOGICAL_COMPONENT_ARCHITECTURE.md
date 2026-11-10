@@ -1,5 +1,10 @@
 # Cramapple System Context and Logical Component Architecture
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> Actors, trust zones and logical components remain a useful reference model.
+> **Stale in this doc:** the June 2026 deployment intent (Vercel orchestration layer), the "planning draft v0.1" framing, and any component names that predate the 30-function backend.
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Canonical planning draft | June 10, 2026 | v0.1**
 
 ## 1. Document Status

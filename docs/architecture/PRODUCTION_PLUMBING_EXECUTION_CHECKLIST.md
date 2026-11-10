@@ -1,5 +1,8 @@
 # Cramapple Production Plumbing Execution Checklist
 
+> **STATUS: HISTORICAL — superseded by TASK-0012 (task file still says In Progress) and the cutover as actually executed (reviewed 2026-11-09).**
+> A 2026-06-20 owner/Codex split of cutover steps; those steps were executed or overtaken, not individually re-verified in this review (Vercel/DNS steps in particular were not how the app shipped). Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Draft execution checklist
 **Date:** 2026-06-20
 **Project:** `pcntajvbdfqhbeewmdry`

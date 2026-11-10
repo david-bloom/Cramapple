@@ -1,5 +1,8 @@
 # Backend Consolidation QA Findings — 2026-07-09
 
+> **STATUS: HISTORICAL — superseded by the executed consolidation (see the migration plan's banner) (reviewed 2026-11-09).**
+> This is a dated QA record (TASK-0012, 2026-07-09); its open gate (live write-path verification) is not tracked here any more. Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Scope:** TASK-0012 backend consolidation QA, centered on
 `docs/architecture/BACKEND_CONSOLIDATION_MIGRATION_PLAN_2026_07_08.md` and the
 repo artifacts that validate the Vercel/Supabase migration boundary.
