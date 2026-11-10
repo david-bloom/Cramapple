@@ -153,13 +153,10 @@ More help's per-user quota and attempt limits (`more_help_quota_and_delivery_fen
 Recommendation: leave the switches as they are until the cardless trial's own Production activation step, then set
 `app.config.sample_access_enabled=false` and `supabase secrets unset SAMPLE_ACCESS_ENABLED` in the same approval
 (`sample_access_honor_existing` stays `true` so any grant that did get claimed finishes its 72 h + grace). Nothing in
-this spec depends on the sample being on or off; a `trial_v2` row supersedes a sample grant either way. D12 also
-requires an eligibility change to `app.claim_sample_try`: its `not_eligible_prior_access` guard rejects ended trial rows
-and its `not_eligible_prior_trial` guard rejects consumed trial emails. Exclude trial history from those denials while
-retaining prior paid/beta and one-sample-per-user/email restrictions. Test that a former trial user can claim a first
-sample with admission on, but cannot claim a second sample. Until this is built, used trials still block samples.
-If David wants the hidden link closed sooner, that is one config update and one secret unset with no code change
-(`APPROVAL-0207` §9).
+this spec depends on the sample being on or off; a `trial_v2` row supersedes a sample grant either way. The live
+`app.claim_sample_try` refuses former trial students (`not_eligible_prior_access`, `not_eligible_prior_trial`), which
+is the other half of D12; that is recorded as §14 conflict 4 for the owner and is not changed by this spec. If David wants
+the hidden link closed sooner, that is one config update and one secret unset with no code change (`APPROVAL-0207` §9).
 
 ## 9. The card trial: inactive, preserved
 
@@ -185,8 +182,7 @@ plan's migration: drop `app.start_trial(uuid,jsonb,jsonb,boolean,text)` and repl
 
 `paywall_cardless_trial_v2`: config keys `cardless_trial_enabled=false`, `trial_daily_grading_cap=40`;
 `app.start_subject_trial`, `public.start_subject_trial`, `public.get_trial_state`; `app.has_study_readback_access`
-extension; D12's `app.claim_sample_try` eligibility change and regression cases from §8;
-`app.authorize_grading_access` ceiling branch (drift guard: assert the current body's md5 before replacing,
+extension; `app.authorize_grading_access` ceiling branch (drift guard: assert the current body's md5 before replacing,
 as the sample migration does); drop `app.start_trial` (after (a) in §10); grants (`authenticated` on the two public RPCs
 only); down script. No table DDL: `subject_entitlements` and `trial_consumed_emails` already fit.
 
