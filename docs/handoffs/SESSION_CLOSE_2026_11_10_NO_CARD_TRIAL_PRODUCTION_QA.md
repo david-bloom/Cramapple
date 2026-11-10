@@ -1,6 +1,6 @@
 # Session close: no-card trial Production QA and migration reconciliation (2026-11-10 UTC)
 
-**Status:** Handoff. Production changes through `APPROVAL-0213` and David's real signed-out trial walk are recorded on `main` in PR #621. The checkout *page* was seen, but a live checkout after the card-trial secret change has **not** been exercised. This document supersedes the *current-status* text in the earlier [pre-release handoff](SESSION_CLOSE_2026_11_09_CARDLESS_TRIAL_TO_PRODUCTION.md); its historical QA detail remains useful. Read the [release packet](../product/NO_CARD_TRIAL_PRODUCTION_RELEASE_PACKET_2026_11_10.md) and the approval records before any further Production action.
+**Status:** Codex QA and migration-reconciliation companion to the [live Production session closeout](SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_LIVE_IN_PRODUCTION.md), which is the primary restart document. Production changes through `APPROVAL-0213` and David's real signed-out trial walk are recorded on `main` in PR #621. The checkout *page* was seen, but a live checkout after the card-trial secret change has **not** been exercised. The earlier [pre-release handoff](SESSION_CLOSE_2026_11_09_CARDLESS_TRIAL_TO_PRODUCTION.md) is historical. Read the [release packet](../product/NO_CARD_TRIAL_PRODUCTION_RELEASE_PACKET_2026_11_10.md) and approval records before any further Production action.
 
 ## 1. Current task or issue
 
@@ -60,4 +60,4 @@ Do not `db push`, rename or replay the four applied migration bodies, treat hist
 
 ## 10. Restart note
 
-Open this closeout, PR #621's real-walk record and the latest approvals; verify current switches and deployments, then verify the first real pay-now checkout and begin the live-traffic watch. Recommended next-session prompt: “Continue the no-card trial Production release from `SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_PRODUCTION_QA.md` and PR #621. Check current main and live switches, verify the first post-0213 checkout outcome, reconcile the QA record's timestamp, and document the first-traffic watch before further changes.”
+Open the [primary live-release closeout](SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_LIVE_IN_PRODUCTION.md), this companion and the latest approvals; verify current switches and deployments, watch first real traffic, then verify the first real pay-now checkout. Recommended next-session prompt: “Continue the no-card trial Production release from both 2026-11-10 closeouts. Check current main and live switches, inspect first-traffic OTP and grading signals, verify the first post-0213 checkout outcome, reconcile the real-walk QA record's timestamp, and document results before further changes.”
