@@ -1,3 +1,5 @@
+-- STATUS: HISTORICAL (reviewed 2026-11-09). Verification for the 2026-07-09 curated-interface migration, now squashed into
+-- supabase/migrations/20260731160000_schema_baseline.sql. See docs/architecture/README.md. Do not run against Production as-is.
 -- Phase 1 curated interface verification queries.
 -- Read-only checks for Dev / branch first, then rerun as an authenticated role
 -- before any Production comparison.

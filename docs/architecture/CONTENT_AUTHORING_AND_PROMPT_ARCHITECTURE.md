@@ -1,5 +1,10 @@
 # Content Authoring and Prompt Architecture
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> The abstraction-firewall and prompt-composition principles are still referenced by `docs/README.md` and content tasks.
+> **Stale in this doc:** "Proposed architecture" status and the 2026-06 authoring workflow: authoring has since moved to the generate-select pipeline (TASK-0065, DECISION-0099) and in-session authoring with gateway-only checking. Check the current pipeline protocol before using the workflow sections.
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Proposed architecture; experiment direction approved
 **Owner:** Main Conductor / Learning Quality Owner / Technical Owner
 **Product Owner:** David Bloom

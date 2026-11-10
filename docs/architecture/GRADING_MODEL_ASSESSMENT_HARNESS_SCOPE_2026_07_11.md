@@ -1,5 +1,10 @@
 # Grading Model Assessment Harness — Build Scope
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> Still the build scope behind `scripts/grading-model-assessment/` and cited from `supabase/functions/_shared/grading-contract.ts`.
+> **Stale in this doc:** the "Implementation-ready ... Not yet implemented" status line; the harness has been implemented and revised since (see `scripts/grading-model-assessment/README.md` for what actually exists).
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Implementation-ready scope (v3 — reviewed after Codex Sol's
 second review). Not yet implemented. Per Sol's v2 review: "once normalization, manifest
 granularity, clustered statistics, and the complete shared contract are

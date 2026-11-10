@@ -1,5 +1,10 @@
 # Cramapple High-Level System Architecture
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> The logical goals, trust zones and quality-control principles still frame the system and are cited by TASK-0012.
+> **Stale in this doc:** the June 2026 v0.1 deployment topology (Lovable + Vercel + Supabase). The decided current topology is DECISION-0075 D6/D16 (two Lovable projects, backend unchanged on Supabase). It also still says "planning draft".
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Canonical planning draft | June 9, 2026 | v0.1**
 
 ## 1. Document Status

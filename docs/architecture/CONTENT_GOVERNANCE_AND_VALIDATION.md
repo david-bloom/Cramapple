@@ -1,5 +1,10 @@
 # Cramapple Content Governance and Validation
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> The lifecycle, sourcing and rollback procedure remains the governing content-governance reference (cited by `docs/README.md` and TASK-0005/0012/0013).
+> **Stale in this doc:** the "Proposed for approval v0.1" header, and the human independent-review requirement, which is PAUSED (DECISION-0055, 2026-09-22; see the in-doc note near line 1354). Review-function behaviour has also changed (TASK-0078: review functions frozen pending a re-plan to a single reviewer).
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Proposed for Product Owner approval
 **Document Version:** 0.1
 **Date:** 2026-06-12

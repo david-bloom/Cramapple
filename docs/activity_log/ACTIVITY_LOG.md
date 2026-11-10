@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Architecture folder review (2026-11-09): every file in `docs/architecture` classified and bannered in place (9 current or partly stale, 10 historical incl. the .sql); added `docs/architecture/README.md`, INDEX entry. Docs-only; gaps listed as open items for David.
 - Referral vendor desk research recovered (2026-11-09): saved the uncommitted 2026-10-29 public-page comparison, price snapshot, written questions, and Q14–Q16 in the canonical marketing guide. No vendor contacted or account created; claims need rechecking before selection.
 - Cardless trial v2: same-email race fixed on Development (2026-11-10 ~01:28–01:33 UTC, owner here: "609 has a conflict which needs to be resolved"; `APPROVAL-0208`; ledger `20261110013137`): the Vercel review finding on PR #609 was real and reproduced with two connections (two `trial_v2` grants on one email, one hash); `app.start_subject_trial` now consumes the email before granting and raises `trial:already_used` on a lost conflict; re-run refused the second account; 46-check suite passed. PR #609 itself has no git conflict (mergeable; blocked only on review). The bot's other open comment (D12 vs the live `claim_sample_try` prior-access/prior-trial refusals) is recorded as spec §14 conflict 4 for the owner, no code change. The Vercel agent also pushed two commits to the branch (dca09bd6, e45a9a3a): an in-place edit of the already-applied `20261110011605` migration (reverted to the ledger text; the fix lives in `20261110013137`) and spec text prescribing a `claim_sample_try` change (replaced by the §14 conflict 4 pointer; the owner decides). Development left clean; nothing in Production.
 - Cardless trial v2: QA-fix migration applied to Development + rehearsal (2026-11-10 ~01:16–01:25 UTC, owner in the backend session: "Apply and rehearse", `APPROVAL-0208`; ledger `20261110011605`): 46-check suite passed; a real two-connection race over the Management API showed the second grader blocking 4.7 s on the per-user lock and being denied at cap 1; the three down scripts run in order land Development on Production's current bodies (readback md5 and source check identical to Production), re-apply restores every function/config/table/ledger fingerprint (only the prior-body snapshot differs, by comments: Dev's ledger holds the MCP-stripped first apply). Development left clean (switch false, cap 40, 0 rows). Nothing in Production. Spec §15.1. PR #609.
@@ -301,6 +302,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-09 — Architecture folder review: current vs legacy marked in place
+
+Owner request (via the parent session): make `docs/architecture` a clear current set with legacy visibly marked, under DECISION-0075.
+
+- **Done:** inventoried all 19 files; added a dated `STATUS:` banner to each (HISTORICAL for the June-August 2026 plumbing/consolidation/curated-interface/schema drafts and the taxonomy v3 plan; PARTIALLY STALE with the stale parts named for the governance, authoring, grading-assessment, rubric-audit, visual, high-level and system-context docs); added `docs/architecture/README.md` and an `docs/INDEX.md` row. Nothing moved or deleted.
+- **Verified against the repo:** no `vercel.json`/`.vercel`; the `202607090001` curated migration file no longer exists and the baseline `20260731160000` contains the `public` views; `supabase/functions/` has 31 directories; `scripts/grading-model-assessment/` exists; TASK-0012 still says In Progress.
+- **Not verified:** whether individual cutover/plumbing steps were executed; Production/Dev state (no live queries made).
+- **Open for David:** whether to write current docs for the gaps listed in the README; whether to formally close TASK-0012.
 
 ## 2026-11-09 — Referral vendor desk research recovered from a detached worktree
 

@@ -1,5 +1,8 @@
 # QA — Phase 1 Curated Interface Migration (live-schema validation)
 
+> **STATUS: HISTORICAL — superseded by the baseline migration (see the Notes banner) (reviewed 2026-11-09).**
+> Dated QA record (round 1 FAIL, round 2 PASS, 2026-07-09) against a migration file that has since been squashed. Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Reviewer:** Claude, 2026-07-09. **Validated against the live Production schema
 (`pcntajvbdfqhbeewmdry`) via Supabase MCP** — the step Codex could not run.
 **Target reviewed:** `supabase/migrations/202607090001_curated_public_interface.sql`

@@ -1,5 +1,8 @@
 # Backend Consolidation & Migration Plan — 2026-07-08
 
+> **STATUS: HISTORICAL — superseded by the executed consolidation + DECISION-0075 D6/D16 (App `56cae479` and Marketing `61dd6602` are Lovable projects; no Vercel config exists in this repo) (reviewed 2026-11-09).**
+> This 2026-07-08 plan to host the app at Vercel `cramapple` on Supabase Production is a completed or abandoned plan; its Vercel repointing steps were not how the app is deployed. Kept for history; do not treat as the current plan. Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075, ratified 2026-09-27) or with live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Planning / handoff. No migration executed yet. No `.env`,
 `config.toml`, OAuth, or Vercel settings changed yet.
 **Owner:** David Bloom (Product Owner).

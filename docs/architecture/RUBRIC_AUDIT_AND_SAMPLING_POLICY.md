@@ -1,5 +1,10 @@
 # Rubric Audit and Sampling Policy
 
+> **STATUS: CURRENT except where noted — PARTIALLY STALE (reviewed 2026-11-09).**
+> The sampling and drift-detection policy is not contradicted by anything newer.
+> **Stale in this doc:** the "Proposed" status. I found no scheduled job implementing it; only TASK-0005's checklist and TASK-0065's rubric audit refer to it. Treat as an unadopted policy until David says otherwise.
+> Where it conflicts with `docs/product/ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` (DECISION-0075) or live code/migrations, those win. See `docs/architecture/README.md`.
+
 **Status:** Proposed for Product Owner and Learning Quality review  
 **Owner:** Product Owner with Learning Quality Owner  
 **Purpose:** Cron-friendly audit policy for periodically sampling released
