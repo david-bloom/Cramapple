@@ -1,6 +1,7 @@
--- Down script for 20261110011605_cardless_trial_v2_qa_fixes.sql. Development only
--- unless separately approved. Restores the three 20261109215704 bodies from the
--- snapshot the up-migration stored in app.config, drops the sanitizer.
+-- Down script for cardless_trial_v2_qa_fixes (Development ledger 20261110011605;
+-- Production ledger 20261110022049). Production rollback needs separate approval.
+-- Restores the three original trial bodies from the snapshot the up-migration
+-- stored in app.config, then drops the sanitizer.
 begin;
 do $down$
 declare snap jsonb := (select config_value from app.config where config_key = 'cardless_trial_prior_definitions');

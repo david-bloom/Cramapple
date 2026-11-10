@@ -1,5 +1,7 @@
 # Session close and handover: no-card free trial, moving to Production (2026-11-09/10)
 
+> **Current status (2026-11-10 02:23 UTC):** this handover is the pre-release snapshot. Backend PR #611 and app PR #53 are merged. Independent Codex QA passed the Development SQL suites, concurrency tests, app tests/build and rolled-back four-file down/up rehearsal. David approved the Production dark apply in this chat; all four migrations are applied under `APPROVAL-0210`, with `cardless_trial_enabled=false` and no `trial_v2` grants. See `docs/product/NO_CARD_TRIAL_PRODUCTION_RELEASE_PACKET_2026_11_10.md` for the current step order and ledger mapping. App publish, trial activation, marketing and card-trial switch-off remain separate Hard Gates.
+
 **Purpose:** a new session starts from this file to take the no-card, single-subject, 7-day free trial from "built and verified in Development" to Production. Read this first, then the records in section 9. Tier: Hard-Gate (entitlements, access control, payments adjacency, public pages, minors' data).
 **Written by:** the app-and-docs session (`paywall-app-docs-cdd3b5`). The backend session (`Paywall backend & entitlement (Dev)`, id `local_ce4201ba-8e39-49c3-b1c5-c914fd1c149d`) owns migrations and edge functions and may still be addressable.
 **Status labels:** *verified* = I observed it; *reported* = another session said it and I did not re-check; *inferred* = reasoning only.

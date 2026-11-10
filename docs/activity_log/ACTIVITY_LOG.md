@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- No-card trial Production dark migration apply (`APPROVAL-0210`, 2026-11-10 02:20–02:23 UTC): David explicitly approved the four migrations with the switch off. All four applied to `pcntajvbdfqhbeewmdry`; Production ledger versions `20261110022023`, `20261110022041`, `20261110022049`, `20261110022059`. Dark state `blocked/disabled`, zero trial rows/hashes/logs, paid grading still `entitled`, sample and subject-access function digests unchanged. No flag, secret, app or marketing change. Record: `APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md`.
 - Architecture folder review (2026-11-09): every file in `docs/architecture` classified and bannered in place (9 current or partly stale, 10 historical incl. the .sql); added `docs/architecture/README.md`, INDEX entry. Docs-only; gaps listed as open items for David.
 - Referral vendor desk research recovered (2026-11-09): saved the uncommitted 2026-10-29 public-page comparison, price snapshot, written questions, and Q14–Q16 in the canonical marketing guide. No vendor contacted or account created; claims need rechecking before selection.
 - Cardless trial v2: same-email race fixed on Development (2026-11-10 ~01:28–01:33 UTC, owner here: "609 has a conflict which needs to be resolved"; `APPROVAL-0208`; ledger `20261110013137`): the Vercel review finding on PR #609 was real and reproduced with two connections (two `trial_v2` grants on one email, one hash); `app.start_subject_trial` now consumes the email before granting and raises `trial:already_used` on a lost conflict; re-run refused the second account; 46-check suite passed. PR #609 itself has no git conflict (mergeable; blocked only on review). The bot's other open comment (D12 vs the live `claim_sample_try` prior-access/prior-trial refusals) is recorded as spec §14 conflict 4 for the owner, no code change. The Vercel agent also pushed two commits to the branch (dca09bd6, e45a9a3a): an in-place edit of the already-applied `20261110011605` migration (reverted to the ledger text; the fix lives in `20261110013137`) and spec text prescribing a `claim_sample_try` change (replaced by the §14 conflict 4 pointer; the owner decides). Development left clean; nothing in Production.
@@ -302,6 +303,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-09 ET — No-card trial Production dark migration apply (APPROVAL-0210)
+
+David approved applying the four no-card trial migrations to Production with the switch kept off. Codex applied the exact repository file bodies through Supabase `apply_migration` to project `pcntajvbdfqhbeewmdry` in order; the connector stamped ledger versions `20261110022023`, `20261110022041`, `20261110022049`, `20261110022059`. The files were renamed in the follow-up PR under `DECISION-0128`.
+
+Dark checks: switch false, cap 40, state `blocked/disabled`, zero `trial_v2` grants, hashes or grading rows; existing paid grading still `entitled`; sample-claim and subject-access function digests unchanged. No app or marketing publication, secret change or activation. Full evidence and rollback order: `docs/activity_log/APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md`.
 
 ## 2026-11-09 — Architecture folder review: current vs legacy marked in place
 

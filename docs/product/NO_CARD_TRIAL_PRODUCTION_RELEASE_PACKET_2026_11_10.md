@@ -1,11 +1,11 @@
-# No-card trial: Production release packet (DRAFT, nothing approved, 2026-11-10)
+# No-card trial: Production release packet (steps 1–2 executed, 2026-11-10)
 
-**Status:** planning only. No Production, Lovable, secret or flag change has been made by this document. Every step below needs David's separate, explicit chat approval and its own APPROVAL record (claim the next free number at grant time; at drafting, `main` ends at `APPROVAL-0209` / `DECISION-0135`; check open PRs first).
+**Status:** Production dark migrations and verification executed under `APPROVAL-0210` (2026-11-10 02:20–02:23 UTC). `cardless_trial_enabled=false`; no trial access granted. App publish, switch activation, marketing, card-trial cutover and sample retirement remain separate, unapproved steps. The pre-apply table below is historical evidence; see §0a for live post-apply state. Every further step needs David's explicit chat approval and its own APPROVAL record; check main and open PRs before numbering.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, public pages, minors' data).
 **Scope:** take the no-card 7-day single-subject trial (`DECISION-0135`) from Development to Production as the default new-student experience. Companion to `handoffs/SESSION_CLOSE_2026_11_09_CARDLESS_TRIAL_TO_PRODUCTION.md` (state, traps, Codex prompt) and `product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`.
 **Labels:** *verified* = observed read-only on 2026-11-10; *reported* = from the handoff.
 
-## 0. Readiness (verified 2026-11-10)
+## 0. Pre-apply readiness (verified 2026-11-10)
 
 | Item | State |
 | --- | --- |
@@ -16,20 +16,33 @@
 | Production data context | 21 `access_tier='trial'` rows (legacy trial_v1 / card trials), 3 active paid entitlements. These are untouched; the migration only adds `trial_v2` semantics. |
 | Sample | Production `sample_access_enabled=true` (hidden link). Development false. |
 | App `main` | Trial UI behind `VITE_CARDLESS_TRIAL` (absent from `.env`, so off); `VITE_SAMPLE_JOURNEY=on`. Lovable publish state of this code: unverified. |
-| Independent QA | Codex third pass (handoff section 10) **in progress**. No step below may be requested before it returns "ready". |
+| Independent QA | Completed before `APPROVAL-0210`: 46 trial checks, 10 saved-work checks, two real concurrency races, four-file down/up rehearsal, app TypeScript, 1,350 tests and build. Full evidence in the approval record. |
+
+### 0a. Executed Production dark apply (`APPROVAL-0210`)
+
+David's words: “I approve applying the four no-card trial migrations to Production with the trial switch kept off.” Codex applied the four repository SQL file bodies via Supabase `apply_migration` to explicit Production project `pcntajvbdfqhbeewmdry`; only the outer transaction wrappers were removed for the tool. The connector stamped these Production ledger versions, and the follow-up PR renames the files accordingly:
+
+| Migration | Development ledger | Production ledger |
+| --- | --- | --- |
+| `cardless_trial_v2` | `20261109215704` | `20261110022023` |
+| `get_my_learning_sessions` | `20261109221340` | `20261110022041` |
+| `cardless_trial_v2_qa_fixes` | `20261110011605` | `20261110022049` |
+| `cardless_trial_v2_email_race` | `20261110013137` | `20261110022059` |
+
+Post-apply: switch false, cap 40, `blocked/disabled` for a fresh ID, zero `trial_v2` grants/hashes/log rows, all three RPCs present, paid grading still `entitled`. `has_study_subject_access`, `has_study_pack_access`, and `claim_sample_try` retain their pre-apply MD5s. The expected security-advisor notices and rollback order are in `APPROVAL-0210`. Development's ledger remains at its earlier versions; `DECISION-0128` prohibits `db push` on both environments and calls for catalog checks instead of ledger parity.
 
 ## 1. Order of steps, scope, checks, rollback
 
 Rule across all steps: apply backend before publishing the app (the 2026-11-04 sign-in spinner was a publish ahead of its backend). Switch stays false until step 5.
 
-### Step 1: Production dark migration apply
+### Step 1: Production dark migration apply — DONE (`APPROVAL-0210`)
 - **Does:** applies the four migrations in order via `apply_migration` (or CLI with `--workdir` pinned to the repo and `--project-ref pcntajvbdfqhbeewmdry`, confirmed with `--debug` before writing). Executed by the backend session, run the files verbatim (never retype SQL).
 - **Effect:** adds `trial_v2` functions, `app.trial_grading_log`, config rows (`cardless_trial_enabled=false`, `trial_daily_grading_cap=40`), grading gate patch. No student-visible change while the switch is false; non-trial accounts follow the old path.
 - **Pre-checks:** re-run the anchor query in section 0 immediately before; confirm ledger still lacks the four versions; record md5 of `app.authorize_grading_access`, `app.has_study_subject_access`, `app.has_study_pack_access`, `public.claim_sample_try` before.
 - **Post-checks:** ledger rows present; rename local files to the stamped versions (feedback: `apply_migration` timestamp drift) or the next `db push` fails; `get_trial_state()` as a non-trial user returns `blocked`/`disabled`; the three function md5s above unchanged except `authorize_grading_access` (intended trial-gate call); `claim_sample_try` md5 unchanged; Supabase security advisor shows no new lint; existing paid students still pass `authorize_grading_access`.
 - **Rollback:** `supabase/migrations/down/` in reverse order: `cardless_trial_v2_email_race_down`, `cardless_trial_v2_qa_fixes_down`, `get_my_learning_sessions_down`, `cardless_trial_v2_down` (rehearsed in Development by the backend; Codex re-checking). Safe while no `trial_v2` rows exist.
 
-### Step 2: Dark verification (read-only, same session as step 1)
+### Step 2: Dark verification (read-only, same session as step 1) — DONE (`APPROVAL-0210`)
 Production, switch false: state function, existing-student grading path, checkout, sample entry all behave as before. Evidence recorded in the APPROVAL record.
 
 ### Step 3: App publish (Lovable project `56cae479`, David publishes)
@@ -75,4 +88,4 @@ Retire the sample (D3); watch auth email volume, grading-cap denials and cost; d
 - Accept the notice-version rule; checkout price/bundle (D4); conversion metric.
 
 ## 5. Records
-One APPROVAL per step (Steps 1-2 may share one record; Step 3 separate because it is a Lovable publish; Step 4 and 5 may share; 6; 7), written with scope, who executed, time, evidence and rollback. Add a DECISION only if D12 is amended. Update the INDEX row and the handoff status when each step lands. Docs-only PRs may be merged by the agent when CI is green; code PRs (the `.env` flag PR in the app repo) go to David.
+Steps 1–2 share `APPROVAL-0210`. Further steps each need a separate APPROVAL (Step 3 separate because it is a Lovable publish; Steps 4 and 5 may share; 6; 7), written with scope, who executed, time, evidence and rollback. Add a DECISION only if D12 is amended. Update the INDEX row and the handoff status when each step lands. Docs-only PRs may be merged by the agent when CI is green; code PRs (the `.env` flag PR in the app repo) go to David.

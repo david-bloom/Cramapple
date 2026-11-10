@@ -1,5 +1,6 @@
--- Down script for 20261110013137_cardless_trial_v2_email_race.sql. Development only
--- unless separately approved. Run BEFORE cardless_trial_v2_qa_fixes_down.sql.
+-- Down script for cardless_trial_v2_email_race (Development ledger 20261110013137;
+-- Production ledger 20261110022059). Production rollback needs separate approval.
+-- Run BEFORE cardless_trial_v2_qa_fixes_down.sql.
 begin;
 do $down$
 declare snap jsonb := (select config_value from app.config where config_key = 'cardless_trial_email_race_prior_definitions');
