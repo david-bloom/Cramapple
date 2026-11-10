@@ -6,6 +6,8 @@
 **Written by:** the app-and-docs session (`paywall-app-docs-cdd3b5`). The backend session (`Paywall backend & entitlement (Dev)`, id `local_ce4201ba-8e39-49c3-b1c5-c914fd1c149d`) owns migrations and edge functions and may still be addressable.
 **Status labels:** *verified* = I observed it; *reported* = another session said it and I did not re-check; *inferred* = reasoning only.
 
+> **Superseded 2026-11-10:** the trial is live; start from `SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_LIVE_IN_PRODUCTION.md`. This file is history.
+>
 > **Update 2026-11-10:** `DECISION-0136` (David, relayed): the no-card trial is the new-student path; the 72-hour sample is on hold indefinitely with no claimants. This resolves the section 8 "D12 conflict" (closed as moot, `claim_sample_try` unchanged), replaces D3's "retire after launch" with "on hold", and drafts `APPROVAL-0211` to set Production `sample_access_enabled=false` (not granted). Production dark migrations were later applied under `APPROVAL-0210`; sections 2 and 4 steps 1 to 4 are history. Release packet: `docs/product/NO_CARD_TRIAL_PRODUCTION_RELEASE_PACKET_2026_11_10.md`.
 
 ## 1. What the product is (David's decisions, 2026-11-09)
