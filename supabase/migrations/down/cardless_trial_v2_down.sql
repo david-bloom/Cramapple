@@ -1,5 +1,5 @@
 -- Down script for 20261109215704_cardless_trial_v2.sql (spec §11). Development only
--- unless separately approved. Run cardless_trial_v2_qa_fixes_down.sql and
+-- unless separately approved. Run cardless_trial_v2_email_race_down.sql, then cardless_trial_v2_qa_fixes_down.sql and
 -- get_my_learning_sessions_down.sql FIRST (they depend on these objects).
 --
 -- The up-migration patched app.authorize_grading_access by anchor without a
