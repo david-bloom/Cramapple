@@ -1,13 +1,13 @@
-# Free trial without a card: backend and entitlement design spec (DRAFT, 2026-11-09)
+# Free trial without a card: backend and entitlement design spec (2026-11-09)
 
-**STATUS:** CURRENT for Development; QA fixes applied to Development 2026-11-10 (ledger `20261110011605`), suite 46 checks, real two-connection race passed, down/up rehearsed (§15.1); same-email race fixed and re-proved 2026-11-10 (ledger `20261110013137`, §15.3); §14 conflict 4 (D12 vs live sample claim) awaits the owner. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
+**STATUS (2026-11-10 02:23 UTC):** backend contract applied to Development (`APPROVAL-0208`) and dark-applied to Production (`APPROVAL-0210`); `cardless_trial_enabled=false` in both. The four Production ledger versions and post-apply checks are in `docs/product/NO_CARD_TRIAL_PRODUCTION_RELEASE_PACKET_2026_11_10.md`. Independent QA passed 46 trial checks, 10 saved-work checks, real same-email and grading-cap races, and a rolled-back four-file down/up rehearsal. The Development ledger retains its earlier versions (`20261109215704`, `20261109221340`, `20261110011605`, `20261110013137`); the repository filenames now follow Production's stamps under `DECISION-0128`. §14 conflict 4 (D12 versus live sample claim) awaits David. Trial activation and card-trial switch-off remain separate Hard Gates. Section 1 below is a dated pre-apply Production snapshot.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), at the app/docs session's request, from
-`docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md` (David's words, D1–D8 not yet answered).
+`docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`.
 **Governs:** the backend half of the plan: the single-subject trial entitlement, its one-per-email rule, the read the app
 needs, how the card trial is made inactive without removal, how the chargers and the sample's supersede logic treat the
 new rows, and the spend guards. App routes, copy and Lovable prompts are the app session's.
-**Supersedes when approved:** `DECISION-0126` items 1 (trial only at checkout) and 12 (cardless trial retired);
+**Supersedes under `DECISION-0135`:** `DECISION-0126` items 1 (trial only at checkout) and 12 (cardless trial retired);
 `TASK-0026`'s all-subjects design. Needs a new `DECISION` (next free number is `DECISION-0135` on `main`; check open PRs
 before numbering) and an `APPROVAL` for the Development build.
 
