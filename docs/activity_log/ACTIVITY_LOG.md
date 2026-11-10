@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Referral vendor desk research recovered (2026-11-09): saved the uncommitted 2026-10-29 public-page comparison, price snapshot, written questions, and Q14–Q16 in the canonical marketing guide. No vendor contacted or account created; claims need rechecking before selection.
 - Cardless trial v2: same-email race fixed on Development (2026-11-10 ~01:28–01:33 UTC, owner here: "609 has a conflict which needs to be resolved"; `APPROVAL-0208`; ledger `20261110013137`): the Vercel review finding on PR #609 was real and reproduced with two connections (two `trial_v2` grants on one email, one hash); `app.start_subject_trial` now consumes the email before granting and raises `trial:already_used` on a lost conflict; re-run refused the second account; 46-check suite passed. PR #609 itself has no git conflict (mergeable; blocked only on review). The bot's other open comment (D12 vs the live `claim_sample_try` prior-access/prior-trial refusals) is recorded as spec §14 conflict 4 for the owner, no code change. The Vercel agent also pushed two commits to the branch (dca09bd6, e45a9a3a): an in-place edit of the already-applied `20261110011605` migration (reverted to the ledger text; the fix lives in `20261110013137`) and spec text prescribing a `claim_sample_try` change (replaced by the §14 conflict 4 pointer; the owner decides). Development left clean; nothing in Production.
 - Cardless trial v2: QA-fix migration applied to Development + rehearsal (2026-11-10 ~01:16–01:25 UTC, owner in the backend session: "Apply and rehearse", `APPROVAL-0208`; ledger `20261110011605`): 46-check suite passed; a real two-connection race over the Management API showed the second grader blocking 4.7 s on the per-user lock and being denied at cap 1; the three down scripts run in order land Development on Production's current bodies (readback md5 and source check identical to Production), re-apply restores every function/config/table/ledger fingerprint (only the prior-body snapshot differs, by comments: Dev's ledger holds the MCP-stripped first apply). Development left clean (switch false, cap 40, 0 rows). Nothing in Production. Spec §15.1. PR #609.
 - Cardless trial v2: Codex merge-gate QA of PR #609 (2026-11-09): two blockers (caller-supplied touch JSON/notice version stored as-is; daily ceiling count-then-insert without a lock), one should-fix (paying account with a consumed email read as 'already_used'), one note (no executable down script). All verified against the code; fixes authored as migration `20261110011605_cardless_trial_v2_qa_fixes` (touch allow-list, YYYY-MM-DD notice, per-user advisory lock, account-wide `superseded`, prior-body snapshot) plus down scripts in `supabase/migrations/down/`; test now 46 checks. NOT applied to Development yet (owner's word pending). Nothing in Production.
@@ -300,6 +301,13 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-09 — Referral vendor desk research recovered from a detached worktree
+
+Saved the 2026-10-29 read-only research in `docs/marketing/REFERRAL_PLATFORM_VENDOR_CHECKLIST_2026_10_26.md` section 9 and updated `docs/INDEX.md`. The originating worktree held these edits uncommitted.
+
+- **Findings recorded:** evidence-labeled public-page comparison of GrowSurf, Referral Factory, and Partnero against the existing scorecard; dated price snapshot; draft written questions; open decisions Q14–Q16. No vendor was eliminated by this research.
+- **Limits:** no vendor contacted, no account created, no sandbox run, and no current vendor capability or price independently reverified in this recovery session. Recheck before selecting or paying a vendor.
 
 ## 2026-11-09 — Legacy all-subjects `start-trial` retired in Production (APPROVAL-0209)
 
