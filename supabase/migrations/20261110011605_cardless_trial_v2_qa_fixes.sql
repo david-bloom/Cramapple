@@ -199,10 +199,7 @@ begin
 
   insert into app.trial_consumed_emails (email_hash, source, consumed_at)
   values (app.trial_email_hash(v_email), 'trial_v2', v_now)
-  on conflict (email_hash) do nothing;
-  if not found then
-    raise exception 'trial:already_used' using errcode = '42501';
-  end if;
+  on conflict do nothing;
 
   insert into app.acquisition_profiles
     (user_id, marketing_email_opt_in, privacy_notice_version, consented_at, first_touch, last_touch)

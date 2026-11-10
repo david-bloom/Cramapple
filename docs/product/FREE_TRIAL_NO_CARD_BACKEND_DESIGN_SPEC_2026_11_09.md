@@ -1,6 +1,6 @@
 # Free trial without a card: backend and entitlement design spec (DRAFT, 2026-11-09)
 
-**STATUS:** CURRENT for Development; QA fixes applied to Development 2026-11-10 (ledger `20261110011605`), suite 46 checks, real two-connection race passed, down/up rehearsed (§15.1). Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
+**STATUS:** CURRENT for Development; QA fixes applied to Development 2026-11-10 (ledger `20261110011605`), suite 46 checks, real two-connection race passed, down/up rehearsed (§15.1); same-email race fixed and re-proved 2026-11-10 (ledger `20261110013137`, §15.3); §14 conflict 4 (D12 vs live sample claim) awaits the owner. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), at the app/docs session's request, from
 `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md` (David's words, D1–D8 not yet answered).
@@ -153,13 +153,10 @@ More help's per-user quota and attempt limits (`more_help_quota_and_delivery_fen
 Recommendation: leave the switches as they are until the cardless trial's own Production activation step, then set
 `app.config.sample_access_enabled=false` and `supabase secrets unset SAMPLE_ACCESS_ENABLED` in the same approval
 (`sample_access_honor_existing` stays `true` so any grant that did get claimed finishes its 72 h + grace). Nothing in
-this spec depends on the sample being on or off; a `trial_v2` row supersedes a sample grant either way. D12 also
-requires an eligibility change to `app.claim_sample_try`: its `not_eligible_prior_access` guard rejects ended trial rows
-and its `not_eligible_prior_trial` guard rejects consumed trial emails. Exclude trial history from those denials while
-retaining prior paid/beta and one-sample-per-user/email restrictions. Test that a former trial user can claim a first
-sample with admission on, but cannot claim a second sample. Until this is built, used trials still block samples.
-If David wants the hidden link closed sooner, that is one config update and one secret unset with no code change
-(`APPROVAL-0207` §9).
+this spec depends on the sample being on or off; a `trial_v2` row supersedes a sample grant either way. The live
+`app.claim_sample_try` refuses former trial students (`not_eligible_prior_access`, `not_eligible_prior_trial`), which
+is the other half of D12; that is recorded as §14 conflict 4 for the owner and is not changed by this spec. If David wants
+the hidden link closed sooner, that is one config update and one secret unset with no code change (`APPROVAL-0207` §9).
 
 ## 9. The card trial: inactive, preserved
 
@@ -185,8 +182,7 @@ plan's migration: drop `app.start_trial(uuid,jsonb,jsonb,boolean,text)` and repl
 
 `paywall_cardless_trial_v2`: config keys `cardless_trial_enabled=false`, `trial_daily_grading_cap=40`;
 `app.start_subject_trial`, `public.start_subject_trial`, `public.get_trial_state`; `app.has_study_readback_access`
-extension; D12's `app.claim_sample_try` eligibility change and regression cases from §8;
-`app.authorize_grading_access` ceiling branch (drift guard: assert the current body's md5 before replacing,
+extension; `app.authorize_grading_access` ceiling branch (drift guard: assert the current body's md5 before replacing,
 as the sample migration does); drop `app.start_trial` (after (a) in §10); grants (`authenticated` on the two public RPCs
 only); down script. No table DDL: `subject_entitlements` and `trial_consumed_emails` already fit.
 
@@ -228,6 +224,14 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 2. `trial_v1` rows are `status='active'` with past `ends_at`; any report or read that filters on status will overcount
    live trials. This spec's read uses `ends_at` only.
 3. The sample is live behind a hidden link while this plan is designed; the two coexist without code conflict (§5, §8).
+4. **D12 vs the live sample claim (raised by the Vercel review on PR #609, 2026-11-10).** `app.claim_sample_try` as
+   shipped in the sample release refuses any account holding a `subject_entitlements` row
+   (`sample:not_eligible_prior_access`) and any email in `trial_consumed_emails` (`sample:not_eligible_prior_trial`).
+   A former cardless-trial student therefore cannot claim a sample, which contradicts D12's "a used trial does not
+   block a sample". The trial-side half of D12 (a used sample does not block a trial) is built and tested. This
+   spec does not change the live sample code: the sample is on David's D3 ruling (switches untouched) and is due to go
+   dark once the trial is live (§8), after which the case is moot. **Owner's call:** amend D12 to "the live sample rule
+   stands until the sample is off", or ask for a sample-side change (its own approval; Production code).
 4. Nothing else conflicts: the gates, the chargers, the email-hash table and the Auth configuration all fit the design
    as they stand.
 
@@ -268,6 +272,21 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 6. **Suites after re-apply.** 46 checks and the `get_my_learning_sessions` 10 checks both passed (rolled back).
 7. **Development left:** `cardless_trial_enabled=false`, cap 40, 0 `trial_v2` rows, 0 log rows, 0 `trial_v2` hashes,
    0 test users. Nothing in Production (one read-only md5/constraint query only).
+
+### 15.3 Same-email race in the start RPC (Vercel review on PR #609, 2026-11-10 01:28–01:33 UTC)
+Finding (bot comment on `20261109215704` line 205): the eligibility check and the consumed-email insert were
+separated by the grant insert, and the insert used `on conflict do nothing`, so a concurrent writer of the same hash
+(a card trial via `app.trial_activate`, or a second account with the same email) let the cardless trial commit a
+second grant. **Reproduced** on Development with two Management-API connections: accounts `…221` and `…223` with the
+same email (case/whitespace variants), switch on; A started a trial and held its transaction 8 s, B started 3 s later,
+blocked 4,485 ms on A's uncommitted primary-key row, then committed: **2 `trial_v2` rows, 1 hash**. (A first attempt
+whose harness rolled B back is not the evidence.) **Fix** `20261110013137_cardless_trial_v2_email_race` (applied to
+Development under the owner's "resolve" request here; down script `down/cardless_trial_v2_email_race_down.sql`,
+snapshot `cardless_trial_email_race_prior_definitions`): the hash is inserted before the grant with
+`on conflict (email_hash) do nothing; if not found then raise 'trial:already_used'`, the same pattern
+`app.trial_activate` uses. **Re-run:** B blocked on A's row and was refused `trial:already_used`; 1 row, 1 hash,
+winner A. Suite after the fix: 46 checks. Fixture deleted, switch back to false. The down order is now
+`email_race_down → qa_fixes_down → get_my_learning_sessions_down → cardless_trial_v2_down`.
 
 ### 15.2 Second-pass items from the Codex rerun on a42384d7 ("merge after fixes")
 1. **Notice version accepts any `YYYY-MM-DD`, not only `2026-11-09`.** Intended. The value is the version of the privacy
