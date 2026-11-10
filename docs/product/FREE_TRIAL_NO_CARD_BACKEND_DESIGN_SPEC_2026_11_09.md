@@ -237,3 +237,18 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 
 ### 15.1 Development apply and down rehearsal
 Pending.
+
+### 15.2 Second-pass items from the Codex rerun on a42384d7 ("merge after fixes")
+1. **Notice version accepts any `YYYY-MM-DD`, not only `2026-11-09`.** Intended. The value is the version of the privacy
+   notice the app displayed to the student at the moment of consent, recorded for the audit trail; the app's constant is
+   the source of truth. Pinning the backend to one date would turn every notice revision into a backend release and
+   would refuse students who loaded the app before a revision shipped. The format check exists to reject arbitrary text,
+   not to decide which notice is current. Recorded here as the ruling; no code change.
+2. **Daily-ceiling test only asserts the lock is held.** Correct as stated. A single-connection SQL test cannot stage two
+   simultaneous graders. The serialisation argument is structural: every counted call takes
+   `pg_advisory_xact_lock('trial_grading:'‖user)` before it reads the count, so a second connection for the same user
+   waits for the first to commit and then sees its row. The Development rehearsal (§15.1) will add a two-connection
+   check if a second Development connection can be opened from this machine (one session holds the lock in an open
+   transaction, the other's gate call must block until commit); if it cannot, that is recorded there and the structural
+   argument stands.
+3. **PR #609 was behind `main` after #608 merged.** Synced (merge commit 210f1ff3); no conflicts.
