@@ -12,7 +12,7 @@
 **What David saw live on 2026-11-09** (Pay with card, Ask a parent to pay, Order Summary $39.99, "1 step left: add a payment method", Place order disabled) is not explained by the flag alone, since the flag is `"true"`: the likely cause is the trial quote request failing or returning `pay_now` (the page then shows a plain purchase). To confirm before relying on it: load `/checkout?subject=<key>` with the browser network panel open and read the `trial_quote` response.
 > In the marketing project's `.env`, change `VITE_TRIAL_CHECKOUT_ENABLED="true"` to `VITE_TRIAL_CHECKOUT_ENABLED="false"`. Change nothing else: do not delete or edit any trial code, copy, tests or routes. Verify that with the variable false, `/checkout` shows the plain one-time purchase, the landing offer copy is the pay-now copy, and the existing tests for both settings still pass.
 
-## Prompt 3 (later, optional): "Try 8 free questions first" sample link
+## Prompt 3: dropped (sample link)
 Dropped: the sample is on hold indefinitely (`DECISION-0136`). Do not mention the sample, "72-hour" or "8 free questions" in any prompt or public copy.
 
 ## Checks before sending any of them
