@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0212 — No-card trial: Production `cardless_trial_enabled=true`, self-test window (granted and executed 2026-11-10)](APPROVAL-0212_NO_CARD_TRIAL_SELF_TEST_SWITCH_ON_PRODUCTION_2026_11_10.md)
 - [APPROVAL-0210 — No-card trial: four Production migrations applied dark, switch false (granted and executed 2026-11-09 ET)](APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md)
 - [APPROVAL-0211 — Production: set `app.config.sample_access_enabled=false` (config row only), sample on hold per DECISION-0136 (granted and executed 2026-11-10)](APPROVAL-0211_SAMPLE_ACCESS_SWITCH_OFF_PRODUCTION_2026_11_10.md)
 - [APPROVAL-0207 — Paywall sample access Phase 3: steps A, A.1 and B approved and executed 2026-11-09; backend switches ON in Production for a hidden-link small group (typed-answer FRQ, D6/D7 deferred); Lovable publish pending](APPROVAL-0207_PAYWALL_SAMPLE_PHASE3_PRODUCTION_RELEASE_2026_11_09.md)
