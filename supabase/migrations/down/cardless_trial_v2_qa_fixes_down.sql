@@ -1,4 +1,4 @@
--- Down script for 20261109230000_cardless_trial_v2_qa_fixes.sql. Development only
+-- Down script for 20261110011605_cardless_trial_v2_qa_fixes.sql. Development only
 -- unless separately approved. Restores the three 20261109215704 bodies from the
 -- snapshot the up-migration stored in app.config, drops the sanitizer.
 begin;

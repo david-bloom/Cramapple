@@ -1,6 +1,6 @@
 # Free trial without a card: backend and entitlement design spec (DRAFT, 2026-11-09)
 
-**STATUS:** CURRENT for Development. Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
+**STATUS:** CURRENT for Development; QA fixes applied to Development 2026-11-10 (ledger `20261110011605`), suite 46 checks, real two-connection race passed, down/up rehearsed (§15.1). Approved: `DECISION-0135` (D1–D8 and the D9–D12 addendum), `APPROVAL-0208` (Development build). **Built and applied to Development 2026-11-09 ~22:00 UTC** (owner in the backend session: "Do both"): migration `20261109215704_cardless_trial_v2.sql`, integration test `supabase/tests/cardless_trial.integration.sql` = 39 checks passed (rolled back); `cardless_trial_enabled` is **false** on Development until the app session asks for its walk. **Production:** only D11 executed (`CARDLESS_TRIAL_RETIRED=true`, `APPROVAL-0209`, recorded by the app/docs session; §10 (a) and §14 conflict 1 are CLOSED); the migration, the trial switch and the card-trial switch-off are NOT in Production. First Development run found one defect in the design: `trial_consumed_emails.source` had a check allowing only `trial_v1`/`stripe_trial_v1`; the migration now widens it to `trial_v2`.
 **Tier:** Hard-Gate (entitlements, access control, payments adjacency, minors' data).
 **Owner:** David Bloom. **Author:** Claude (backend/entitlement session), at the app/docs session's request, from
 `docs/product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md` (David's words, D1–D8 not yet answered).
@@ -230,13 +230,38 @@ D4 (checkout price/bundle) and D7 (nurture emails) have no backend content here 
 | # | Finding (Codex) | Verified | Fix (migration `cardless_trial_v2_qa_fixes`) |
 | --- | --- | --- | --- |
 | 1 | `start_subject_trial` stored caller-supplied touch JSON and any non-blank notice version | yes, by reading §3 steps 10–11 as built | `app.sanitize_trial_touch`: allow-list `utm_source, utm_medium, utm_campaign, utm_content, utm_term, promo, rdt_cid`, string values only, trimmed to 200 chars, everything else dropped; notice version must match `YYYY-MM-DD` else `trial:invalid_privacy_notice_version` (22023). The app already sends only those keys and `2026-11-09`. |
-| 2 | daily ceiling counted then inserted without a per-user lock | yes | `pg_advisory_xact_lock(hashtextextended('trial_grading:'‖user,0))` before the replay check and count; test asserts the lock is held after a counted call (a true two-connection race cannot run inside one SQL test; the lock makes the window serial by construction) |
+| 2 | daily ceiling counted then inserted without a per-user lock | yes | `pg_advisory_xact_lock(hashtextextended('trial_grading:'‖user,0))` before the replay check and count; test asserts the lock is held after a counted call; a real two-connection race was then run on Development (§15.1 item 3): the second connection blocked 4.7 s on the lock and was denied at cap 1 |
 | 3 | paying account whose email once consumed a trial read `blocked/already_used` | yes | `trial_v2_state`: with no trial row, any active `paid`/`beta` row (any subject) → `phase:'superseded', has_regular_entitlement:true, can_start:false, blocked_reason:null` |
-| 4 | no executable down script | yes | `supabase/migrations/down/cardless_trial_v2_down.sql` (reverses the anchor patch, restores the two-clause readback body, drops objects, narrows the source check only when no `trial_v2` hashes exist), `get_my_learning_sessions_down.sql`, `cardless_trial_v2_qa_fixes_down.sql` (restores from the `cardless_trial_prior_definitions` snapshot). Rehearsal on Development: pending the owner's word, recorded in §15.1 when done. |
+| 4 | no executable down script | yes | `supabase/migrations/down/cardless_trial_v2_down.sql` (reverses the anchor patch, restores the two-clause readback body, drops objects, narrows the source check only when no `trial_v2` hashes exist), `get_my_learning_sessions_down.sql`, `cardless_trial_v2_qa_fixes_down.sql` (restores from the `cardless_trial_prior_definitions` snapshot). Rehearsed on Development 2026-11-10, §15.1 item 4–5: down lands on Production's current bodies; re-apply restores every fingerprint. |
 | 5 | records said Development `start-trial` answers 410 | yes: Development never had the function deployed (404) | records corrected; the Development secret is inert |
 
-### 15.1 Development apply and down rehearsal
-Pending.
+### 15.1 Development apply and down rehearsal (2026-11-10 01:16–01:25 UTC, owner here: "Apply and rehearse")
+1. **Apply.** `cardless_trial_v2_qa_fixes` applied to Development via the MCP migration tool; ledger version
+   `20261110011605` (file renamed to match). Pre-apply state checked: switch false, 0 `trial_v2` rows, sanitizer absent.
+2. **Suite.** `supabase/tests/cardless_trial.integration.sql` → `CARDLESS_TRIAL_TESTS_PASSED (46 checks)`, rolled back.
+3. **Two-connection race (real, not simulated).** Fixture committed to Development: one throwaway user with a live
+   `trial_v2` row, cap set to 1, log empty. Two Management-API connections started 0.5 s apart from the shell
+   (`supabase/tests/cardless_trial_race.sh`): A called the gate (count 0 → `entitled`, log row inserted) and held its
+   transaction open 8 s; B slept 3 s, then called the gate. B (pid 1594258) **blocked 4,658 ms** on the advisory lock,
+   returned 2 ms after A (pid 1594257) committed, read count 1 and was denied `grading_access:trial_daily_cap`.
+   Without the lock B would have read 0 and passed. An earlier attempt with two parallel MCP `execute_sql` calls did
+   not overlap (the tool runs them one after another), so it proved nothing and is not the evidence. Fixture deleted,
+   cap reset to 40.
+4. **Down rehearsal.** Fingerprints taken (md5 of every affected function, the three ledger rows, three config values,
+   the log table, the source check). Ran `cardless_trial_v2_qa_fixes_down` → `get_my_learning_sessions_down` →
+   `cardless_trial_v2_down` (bodies without `begin/commit`, one API call each; all returned clean). After: 0 trial
+   functions, no `trial_grading_log`, no trial config keys, no ledger rows, `authorize_grading_access` unpatched,
+   `has_study_readback_access` md5 `1e1070f3…` = **Production's current body**, source check back to
+   `('trial_v1','stripe_trial_v1')` = Production's. The down path therefore lands exactly on today's Production state.
+5. **Re-apply.** The three up bodies re-run from the repo files; ledger rows re-inserted verbatim from a pre-down copy.
+   18 of 19 fingerprints identical to before the rehearsal. The one difference is `cardless_trial_prior_definitions`:
+   the Development ledger's copy of `20261109215704` is the MCP-stripped text as first applied (no comments, before the
+   source-check widening was added to the file), so the snapshot of the pre-fix bodies now carries the file's inline
+   comments. Every live function, config value, table, constraint and ledger row is unchanged. Note for Production:
+   it will be applied from the files, so its snapshot will match this one.
+6. **Suites after re-apply.** 46 checks and the `get_my_learning_sessions` 10 checks both passed (rolled back).
+7. **Development left:** `cardless_trial_enabled=false`, cap 40, 0 `trial_v2` rows, 0 log rows, 0 `trial_v2` hashes,
+   0 test users. Nothing in Production (one read-only md5/constraint query only).
 
 ### 15.2 Second-pass items from the Codex rerun on a42384d7 ("merge after fixes")
 1. **Notice version accepts any `YYYY-MM-DD`, not only `2026-11-09`.** Intended. The value is the version of the privacy
@@ -247,8 +272,7 @@ Pending.
 2. **Daily-ceiling test only asserts the lock is held.** Correct as stated. A single-connection SQL test cannot stage two
    simultaneous graders. The serialisation argument is structural: every counted call takes
    `pg_advisory_xact_lock('trial_grading:'‖user)` before it reads the count, so a second connection for the same user
-   waits for the first to commit and then sees its row. The Development rehearsal (§15.1) will add a two-connection
-   check if a second Development connection can be opened from this machine (one session holds the lock in an open
-   transaction, the other's gate call must block until commit); if it cannot, that is recorded there and the structural
-   argument stands.
+   waits for the first to commit and then sees its row. Done: the Development rehearsal ran a real two-connection race
+   over the Management API (§15.1 item 3, script `supabase/tests/cardless_trial_race.sh`): the second connection blocked
+   4,658 ms on the lock and was denied at cap 1.
 3. **PR #609 was behind `main` after #608 merged.** Synced (merge commit 210f1ff3); no conflicts.
