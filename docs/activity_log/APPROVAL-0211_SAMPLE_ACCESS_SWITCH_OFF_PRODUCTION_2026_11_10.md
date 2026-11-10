@@ -16,7 +16,7 @@
 
 ## Post-checks
 1. Row reads `false`; `updated_at` moved; no other config row changed.
-2. Sample claim path dead: call the sample start/claim path (or `get_sample_access_state`) as the app does and confirm a typed disabled denial, no new rows in `sample_tries`/`sample_grants`.
+2. Sample claim path dead: as an authenticated test user in a rollback-only transaction, call `public.claim_sample_try(<any token>)` and expect `sample:disabled`; call the anonymous `sample-try` endpoint and expect `sample_try:disabled`. `get_sample_access_state()` does not raise when disabled (it returns the state with phase `disabled` only for an existing grant), so it is not a denial check. Confirm no new rows in `sample_tries`/`sample_grants`.
 3. The three function md5s unchanged.
 4. `get_trial_state()` returns the same `blocked`/`disabled` (switch `cardless_trial_enabled` still false) as before.
 5. Paid student check from pre-check 4 unchanged; checkout unaffected.
