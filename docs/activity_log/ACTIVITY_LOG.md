@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- No-card trial Production QA session close (2026-11-10): Codex's four-migration dark apply and independent QA are complete; PR #616 merged. Coordinated approvals `0211`–`0213` subsequently switched the sample off, no-card trial on and card-trial admission secret off. PR #621 records David's signed-out signup, trial, grading and saved-work walk plus cleanup. Live read at ~04:22 UTC: no-card on, sample off, cap 40, zero `trial_v2` grants/consumed emails/grading logs. Corrected full migration filename inventory: Production 370 ledger rows, main 383 root SQL files, 126 exact matches, 244 ledger-only, 257 file-only; all four trial rows match. This is not effect-level parity. First real pay-now checkout remains open. [Current handoff](../handoffs/SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_PRODUCTION_QA.md).
 - No-card trial Production dark migration apply (`APPROVAL-0210`, 2026-11-10 02:20–02:23 UTC): David explicitly approved the four migrations with the switch off. All four applied to `pcntajvbdfqhbeewmdry`; Production ledger versions `20261110022023`, `20261110022041`, `20261110022049`, `20261110022059`. Dark state `blocked/disabled`, zero trial rows/hashes/logs, paid grading still `entitled`, sample and subject-access function digests unchanged. No flag, secret, app or marketing change. Record: `APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md`.
 - Architecture folder review (2026-11-09): every file in `docs/architecture` classified and bannered in place (9 current or partly stale, 10 historical incl. the .sql); added `docs/architecture/README.md`, INDEX entry. Docs-only; gaps listed as open items for David.
 - Referral vendor desk research recovered (2026-11-09): saved the uncommitted 2026-10-29 public-page comparison, price snapshot, written questions, and Q14–Q16 in the canonical marketing guide. No vendor contacted or account created; claims need rechecking before selection.
@@ -303,6 +304,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-10 UTC — No-card trial Production QA session close and ledger comparison
+
+Codex closed the independent QA/dark-apply session at David's request. Four reviewed trial migrations were applied to Production under `APPROVAL-0210`; the trial switch remained false during that apply and the SQL files were renamed to the Production ledger stamps in merged PR #616. Later coordinated records `APPROVAL-0211`–`0213` show the sample off, no-card switch on, and card-trial admission secret off. PR #621 records David's real signed-out Production signup, trial, grading and saved-work walk and test-account cleanup. A live read at ~04:22 UTC confirmed the database switches and zero trial data. All four trial versions match `main`; the repository-wide exact filename comparison remains divergent and the corrected counts are in the [closeout](../handoffs/SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_PRODUCTION_QA.md). A live checkout after the card-trial secret change has not been exercised. David or his named tester owns that next verification; further Production writes need their own approval.
 
 ## 2026-11-09 ET — No-card trial Production dark migration apply (APPROVAL-0210)
 
