@@ -5,6 +5,8 @@
 **Scope:** take the no-card 7-day single-subject trial (`DECISION-0135`) from Development to Production as the default new-student experience. Companion to `handoffs/SESSION_CLOSE_2026_11_09_CARDLESS_TRIAL_TO_PRODUCTION.md` (state, traps, Codex prompt) and `product/FREE_TRIAL_NO_CARD_CHANGE_PLAN_2026_11_09.md`.
 **Labels:** *verified* = observed read-only on 2026-11-10; *reported* = from the handoff.
 
+> **Update 2026-11-10 (`DECISION-0136`):** David ruled (relayed) that the no-card trial is the new-student path and the 72-hour sample is **on hold indefinitely**, with no claimants. The D12 conflict below is closed as moot (`claim_sample_try` is not changed). The Production switch `sample_access_enabled` is to go false under `APPROVAL-0211` (draft, not granted, held until Codex finishes reconciling migration versions). Step 8 no longer "retires" the sample; it stays deployed and dark. Other sections still describe the state as of drafting; `APPROVAL-0210` (dark migrations) has since been executed by another session, so section 0's Production rows are stale.
+
 ## 0. Readiness (verified 2026-11-10)
 
 | Item | State |
@@ -52,7 +54,7 @@ Prompt 1 from `handoffs/LOVABLE_PROMPTS_FREE_TRIAL_NO_CARD_DRAFT_2026_11_09.md`:
 `TRIAL_ADMISSION_ENABLED=false` (backend secret). Stops checkout granting the card trial. Reversible by setting true. Last, because it removes the old path.
 
 ### Step 8: After launch
-Retire the sample (D3); watch auth email volume, grading-cap denials and cost; decide analytics (D6) and nurture (D7) separately.
+Leave the sample on hold and dark (`DECISION-0136`); watch auth email volume, grading-cap denials and cost; decide analytics (D6) and nurture (D7) separately.
 
 ## 2. Existing users and the old flow
 - Paid entitlements take precedence (`superseded`); paid students see no trial UI.
@@ -69,9 +71,9 @@ Retire the sample (D3); watch auth email volume, grading-cap denials and cost; d
 6. **Retention:** no retention period stated for trial data; current backend retention applies.
 
 ## 4. Decisions needed from David before or during the steps
-- **D12 conflict:** amend D12 (recommended, sample is being retired) or change `claim_sample_try`.
+- ~~D12 conflict~~ resolved by `DECISION-0136` (sample on hold, D12 amended, no code change).
 - Launch population/timing: all traffic via step 6, or named group first (hold step 6).
-- Keep the sample live until the trial ships (D3 says yes, then retire).
+- ~~Keep the sample live until the trial ships~~ superseded: the sample is on hold, switch to be set false (`APPROVAL-0211`).
 - Accept the notice-version rule; checkout price/bundle (D4); conversion metric.
 
 ## 5. Records
