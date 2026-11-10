@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
 - DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
 - DECISION-0134 — Paywall Sample Access Backend Rules P1–P8 Approved at Their Proposed Defaults (Anonymous Try Limits, Consumption at Attempt Insert, One Sample Per User and Per Email, Trial Supersedes Permanently, Unit Lock and Eligibility, Cramapple-FRQ Path First, Two-Switch Rollback, Grace Resume Deferred)
 - DECISION-0133 — The Question Screens Use Two Panes (Task and a 440px Rail With Rubric and Reference Tabs), and Deep Dive Is Renamed Cheat Sheet, Opened as a Modal
@@ -60,6 +61,19 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0136 — The No-Card 7-Day Trial Is the New-Student Path; the 72-Hour Sample Is on Hold Indefinitely (Amends D12 of DECISION-0135 and Supersedes Its D3 Retire-After-Launch Plan)
+
+- **Date:** 2026-11-10
+- **Decided by:** David Bloom (Product Owner). Recorded from his words as quoted by the coordinating Paywall production-deployment session (`local_5fe88b44-2793-4dae-9494-4d7237cb2e58`): "we are going with the no card 7-day trial. the 72-hour sample is indefinitely on hold." He also confirmed there are no existing sample claimants. (Relayed, not typed in the session that wrote this entry; David can correct it.)
+- **Context:** `DECISION-0135` D12 said a used sample must not block a trial and the reverse; the live `claim_sample_try` refuses former trial students (spec `FREE_TRIAL_NO_CARD_BACKEND_DESIGN_SPEC_2026_11_09.md` §14 conflict 4). D3 planned to leave the sample dark and retire it after the trial ships.
+- **Decision:**
+  1. The no-card 7-day single-subject trial is the new-student path.
+  2. The 72-hour sample is **on hold indefinitely**: not launched, not linked from marketing, no public copy mentions it ("72-hour", "8 free questions"). Its code, tables and functions stay deployed and its tests stay; it is not retired.
+  3. **D12 is amended:** because the sample is on hold and has no claimants, no sample/trial interaction needs to hold; the `claim_sample_try` conflict is closed as moot and the function is **not** changed. If the sample is ever reactivated, D12 must be revisited first.
+  4. The Production switch `app.config.sample_access_enabled` is to be set false so the claim path is dead; that Production write needs its own APPROVAL (`APPROVAL-0211`, drafted, not granted).
+- **Not decided here:** any Production step, Lovable publish or prompt send, the trial switch, or whether the sample is ever revived or deleted.
+- **Rollback:** a later DECISION reviving the sample; set `sample_access_enabled=true` again (and the edge secret if it was changed).
 
 ## DECISION-0135 — Free Trial Without a Card Is the Active Trial: 7 Days of Full Access for One Chosen Subject, Email Code on Landing, Card Trial Preserved but Inactive (Partly Supersedes DECISION-0126 Items 1 and 12; Plan Decisions D1-D8 Approved at Their Recommendations)
 
