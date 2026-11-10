@@ -125,4 +125,4 @@ Output: ranked findings (blocker / should-fix / note), each verified or inferred
 1. Read this file, then `DECISION-0135`, the backend spec §15 and `APPROVAL-0209`.
 2. Re-fetch #609 and the app `main` heads; check `gh pr view 609` for why it is BLOCKED.
 3. Get David to run the section 10 prompt in Codex (or run an independent reviewer), and wait for the verdict.
-4. Only then walk David through steps 1-9 of section 4, one approval at a time, writing an APPROVAL record per step.
+4. Only then walk David through steps 1-10 of section 4, one approval at a time, writing an APPROVAL record per step.
