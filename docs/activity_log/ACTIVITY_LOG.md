@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- No-card trial live in Production (2026-11-10, owner approvals in the paywall-to-prod session: `APPROVAL-0211` sample switch off, `0212` trial switch on, `0213` card trial off; `DECISION-0136`): David's real sign-up walk passed (4 MCQs and 1 FRQ graded, saved work opens), three app PRs (#54 to #56) answered his findings, the test account was deleted with zero orphans. Open: first-traffic watch (30/hour auth email cap), first real checkout, analytics, Reddit conversion. See `docs/handoffs/SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_LIVE_IN_PRODUCTION.md`.
 - No-card trial Production dark migration apply (`APPROVAL-0210`, 2026-11-10 02:20–02:23 UTC): David explicitly approved the four migrations with the switch off. All four applied to `pcntajvbdfqhbeewmdry`; Production ledger versions `20261110022023`, `20261110022041`, `20261110022049`, `20261110022059`. Dark state `blocked/disabled`, zero trial rows/hashes/logs, paid grading still `entitled`, sample and subject-access function digests unchanged. No flag, secret, app or marketing change. Record: `APPROVAL-0210_NO_CARD_TRIAL_PRODUCTION_DARK_MIGRATIONS_2026_11_09.md`.
 - Architecture folder review (2026-11-09): every file in `docs/architecture` classified and bannered in place (9 current or partly stale, 10 historical incl. the .sql); added `docs/architecture/README.md`, INDEX entry. Docs-only; gaps listed as open items for David.
 - Referral vendor desk research recovered (2026-11-09): saved the uncommitted 2026-10-29 public-page comparison, price snapshot, written questions, and Q14–Q16 in the canonical marketing guide. No vendor contacted or account created; claims need rechecking before selection.
@@ -303,6 +304,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-10 — No-card 7-day trial live in Production; sample on hold; card trial off (APPROVAL-0211, 0212, 0213; DECISION-0136)
+
+Paywall-to-prod session (Hard-Gate). `DECISION-0136` records that the no-card trial is the new-student path and the 72-hour sample is on hold (D12 amended). Production writes, each on David's explicit word: sample switch false 02:44 UTC (`APPROVAL-0211`), trial switch true 03:24 UTC (`APPROVAL-0212`), `TRIAL_ADMISSION_ENABLED` true to false (`APPROVAL-0213`). Read-only dark verification passed before activation; David's real email-code walk passed; app PRs #54 (/start copy), #55 (FRQ door, saved work, saved note, footer), #56 (exhausted-topic notice) were merged and published by David. Test account `david@cramapple.com` deleted on request, zero orphans. Marketing was found already switched to `/start` and pay-now checkout (sent by another session). Not verified: a real checkout after the card trial went off, day-7 end in Production, legacy-trial grading. Open items and traps: `docs/handoffs/SESSION_CLOSE_2026_11_10_NO_CARD_TRIAL_LIVE_IN_PRODUCTION.md`.
 
 ## 2026-11-09 ET — No-card trial Production dark migration apply (APPROVAL-0210)
 
