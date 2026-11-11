@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Unit 2 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, and Precalculus published (`APPROVAL-0236` to `APPROVAL-0242`, 2026-11-12): 488 new MCQs, 173 superseded items retired, all blind-solved by two models with disputed keys re-derived by hand; Physics 2 and both Physics C subjects remain on hold. Status: `docs/product/UNIT2_RELEVELING_STATUS_2026_11_12.md`.
 - Unit 4 build-out for Physics 1, Biology, Chemistry, Calculus AB and BC, and Precalculus published (`APPROVAL-0229` to `APPROVAL-0235`, 2026-11-12): 320 new MCQs, 19 superseded items retired, all blind-solved by two models plus a third on disputed items; Unit 4 was mostly unbuilt outside Statistics, so this is mainly new content. Physics 2 and Physics C remain on hold.
 - AP Statistics Unit 3 second seeds for 3.7, 3.12, 3.14 published (`APPROVAL-0228`, 2026-11-12): 12 new MCQs, none retired; blind solve 12/12 by two models. Unit 3 re-leveling is now complete for Statistics, Biology, Calculus AB and BC, Chemistry, Physics 1 and Precalculus; Physics 2 and Physics C remain on hold.
 - Unit 3 re-leveling for Biology, Calculus AB and BC, Chemistry, Physics 1 and Precalculus published (`APPROVAL-0221` to `APPROVAL-0227`, 2026-11-12): 328 new MCQs, 194 superseded items retired, all blind-solved by two models; Physics 2 and Physics C remain on hold; Statistics 3.7, 3.12, 3.14 still have one R1-leaning family each.
