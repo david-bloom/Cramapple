@@ -109,7 +109,9 @@ def main():
         jobs=[(m,r) for r in items for m in a.models.split(",") if f"{m}|{ihash(r)}" not in cache]
         print("model calls needed",len(jobs),"(cached",len(items)*len(a.models.split(","))-len(jobs),")")
         with cf.ThreadPoolExecutor(a.workers) as ex:
-            for (m,r),j in zip(jobs,ex.map(lambda mr:call(mr[0],mr[1],k),jobs)): cache[f"{m}|{ihash(r)}"]=j
+            for n,((m,r),j) in enumerate(zip(jobs,ex.map(lambda mr:call(mr[0],mr[1],k),jobs)),1):
+                cache[f"{m}|{ihash(r)}"]=j
+                if n%100==0: json.dump(cache,open(cache_p,"w")); print("progress",n,"of",len(jobs),flush=True)
         json.dump(cache,open(cache_p,"w"))
         for r in items:
             for m in a.models.split(","): res[r["content_key"]][m]=cache[f"{m}|{ihash(r)}"]
