@@ -5,7 +5,7 @@
 ## Finding: Unit 4 is mostly unbuilt, so this is new content, not re-leveling
 Published practice MCQs for Unit 4 before this batch: Statistics 78 (done under APPROVAL-0217), Biology 8 (4.1 to 4.4 only), Calculus AB 11 (4.2, 4.5, 4.6, 4.7), Chemistry 5 (4.2, 4.5, 4.6, 4.8), **Physics 1 none, Calculus BC none, Precalculus none (14 topics)**. Precalculus Unit 4 (parametric functions, vectors, matrices) is not assessed on the AP exam, so it gets one seed per topic.
 
-## Prepared, NOT executed
+## Executed 2026-11-12 (APPROVAL-0229 to 0235)
 | Subject | Topics | Package folder (`scripts/content-seed/`) | New MCQs | Retire |
 |---|---|---|---|---|
 | AP Physics 1 | 4.1-4.4 | `apphysics1-harder-seeds-u4-2026-11-12` | 32 | 0 |

@@ -5,6 +5,13 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 ## Index
 
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0230 — AP Biology Unit 4 topics 4.1 to 4.6: 48 items published, 5 retired (granted and executed 2026-11-12)](APPROVAL-0230_AP_BIOLOGY_UNIT4_4_1_TO_4_6_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0231 — AP Chemistry Unit 4 topics 4.1 to 4.9: 72 items published, 4 retired (granted and executed 2026-11-12)](APPROVAL-0231_AP_CHEMISTRY_UNIT4_4_1_TO_4_9_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0232 — AP Calculus AB Unit 4 topics 4.1 to 4.7: 56 items published, 10 retired (granted and executed 2026-11-12)](APPROVAL-0232_AP_CALCULUS_AB_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0233 — AP Calculus BC Unit 4 topics 4.1 to 4.7: 56 items published (granted and executed 2026-11-12)](APPROVAL-0233_AP_CALCULUS_BC_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0234 — AP Precalculus Unit 4 topics 4.1 to 4.7: 28 items published (granted and executed 2026-11-12)](APPROVAL-0234_AP_PRECALCULUS_UNIT4_4_1_TO_4_7_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0235 — AP Precalculus Unit 4 topics 4.8 to 4.14: 28 items published (granted and executed 2026-11-12)](APPROVAL-0235_AP_PRECALCULUS_UNIT4_4_8_TO_4_14_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0228 — AP Statistics Unit 3 second seeds for topics 3.7, 3.12 and 3.14: 12 items published (granted and executed 2026-11-12)](APPROVAL-0228_AP_STATISTICS_UNIT3_SECOND_SEEDS_3_7_3_12_3_14_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0221 — AP Biology topics 3.1 to 3.5 re-leveled: 40 items published, 11 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0221_AP_BIOLOGY_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0222 — AP Calculus AB topics 3.4 to 3.6 re-leveled: 24 items published, 4 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0222_AP_CALCULUS_AB_UNIT3_3_4_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
