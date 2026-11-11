@@ -42,7 +42,8 @@ n,bad=verify(("published","published")); print("post hash check",n-len(bad),"of"
 if bad: stop("post verify")
 topics=sorted({i["topic"] for i in items},key=lambda t:int(t.split(".")[1])); unit=3
 sel=q("select t, count(*) n, count(*) filter (where s.content_key like '"+PFX+"-%h-3.%') new_n from (values "+",".join(f"('{t}')" for t in topics)+") v(t), lateral public.select_student_practice_items('"+PK+"'::uuid, 3, gen_random_uuid(), null, 'mcq', v.t, 51, 0) s group by t order by t",True)
-exp=collections.Counter(i["topic"] for i in items); miss=[(x["t"],x["new_n"],exp[x["t"]]) for x in sel if x["new_n"]<min(exp[x["t"]],51)]
+exp=collections.Counter(i["topic"] for i in items); got={x["t"]:x["new_n"] for x in sel}
+miss=[(t,got.get(t,0),exp[t]) for t in topics if got.get(t,0)<min(exp[t],51)]   # a topic with no rows at all counts as missing
 print("selector new items per topic",{x["t"]:x["new_n"] for x in sel}, "MISSING" if miss else "ok")
 cnt=q("select c.topic_code t, count(*) n from app.content_items ci join app.content_item_versions v on v.content_item_id=ci.id and v.status='published' join app.content_item_cells c on c.content_item_version_id=v.id and c.is_primary and c.superseded_by is null where ci.exam_pack_version_id='"+PK+"' and ci.item_type='mcq' and ci.status='published' and c.topic_code in ("+",".join(f"'{t}'" for t in topics)+") group by 1",True)
 print("published MCQs per topic",{x["t"]:x["n"] for x in sorted(cnt,key=lambda x:int(x["t"].split(".")[1]))})
