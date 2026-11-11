@@ -42,10 +42,10 @@ insert into lab values
 ('apcalcab-mcq-b4-sv-h-4.5-b-v1','4.5','e442bcd789cb24c7b46a255d8309e32d'),
 ('apcalcab-mcq-b4-sv-h-4.5-b-v2','4.5','66dd854c5dddf3c127df7ce154f06b5e'),
 ('apcalcab-mcq-b4-sv-h-4.5-b-v3','4.5','0844d92047caa8c98671d3e1e505811e'),
-('apcalcab-mcq-b4-h-4.6-a','4.6','3a799683ce2ef02d9e67e28dff18218e'),
-('apcalcab-mcq-b4-sv-h-4.6-a-v1','4.6','a60ddf8578460173a4d8e4569ed763ea'),
-('apcalcab-mcq-b4-sv-h-4.6-a-v2','4.6','155c4d22c00c8fd5983385bbf77bf06d'),
-('apcalcab-mcq-b4-sv-h-4.6-a-v3','4.6','e349519c67e15600184b779f45824f08'),
+('apcalcab-mcq-b4-h-4.6-a','4.6','d092a3c48d06cb6a5397fe77a3cc18de'),
+('apcalcab-mcq-b4-sv-h-4.6-a-v1','4.6','e6f5aa9f28d92eae72c38e1b563f3c7a'),
+('apcalcab-mcq-b4-sv-h-4.6-a-v2','4.6','dacbee9abbc9f034bffad4e995669a6e'),
+('apcalcab-mcq-b4-sv-h-4.6-a-v3','4.6','3fdb3f88bf37b6604795e059225002a8'),
 ('apcalcab-mcq-b4-h-4.6-b','4.6','319d546289cf2b7dfbe1fd9cbc2a2221'),
 ('apcalcab-mcq-b4-sv-h-4.6-b-v1','4.6','5df6d50c1c80a04cad05f539ccca98bf'),
 ('apcalcab-mcq-b4-sv-h-4.6-b-v2','4.6','ef346ba64b8e07ebcceba5d95eb29b3b'),
@@ -69,7 +69,7 @@ do $$ begin
  if exists (select 1 from tgt where split_part(topic,'.',1)::int<>pu) then raise exception 'topic/unit mismatch'; end if;
  if exists (select 1 from tgt t join app.content_item_cells c on c.content_item_version_id=t.version_id) or exists (select 1 from tgt t join app.content_taxonomy_labels l on l.content_item_id=t.item_id) then raise exception 'a target already has cells or labels'; end if;
  if (select count(*) from (select t.content_key from tgt t join app.content_item_versions civ on civ.id=t.version_id join app.mcq_choices c on c.content_item_version_id=civ.id group by t.content_key, civ.stem, t.exp_hash having md5(civ.stem||'|'||string_agg(c.choice_key||':'||c.choice_text||':'||c.is_correct::text||':'||c.rationale,'|' order by c.choice_key))=t.exp_hash) z)<>56 then raise exception 'loaded text does not match the build manifest'; end if;
- if exists (select 1 from tgt t where not exists (select 1 from app.content_item_cells c join app.content_items ci2 on ci2.id=c.content_item_id where ci2.exam_pack_version_id='826c8cf1-bc1b-4f2a-bd33-61a758e1487d' and c.topic_code=t.topic and c.taxonomy_source_version=t.tsv and c.superseded_by is null)) then raise exception 'a topic code is not present in the AP Calculus AB taxonomy source version'; end if;
+ if exists (select 1 from tgt t where not exists (select 1 from app.taxonomy_topics tt where tt.taxonomy_source_version=t.tsv and tt.topic_code=t.topic)) then raise exception 'a topic code is not present in the taxonomy source version'; end if;
 end $$;
 insert into app.content_review_assignments (content_review_assignment_id, content_item_version_id, reviewer_id, review_stage, review_kind, status, assignment_purpose, created_by)
 select assignment_id, version_id, 'f5a26c6b-3566-4d58-9e97-979fbb947564'::uuid, 'tutor_question', 'mcq', 'pending', 'owner_remediation_approval', 'f5a26c6b-3566-4d58-9e97-979fbb947564'::uuid from tgt;

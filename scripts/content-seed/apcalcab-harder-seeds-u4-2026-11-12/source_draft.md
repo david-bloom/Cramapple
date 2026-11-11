@@ -500,7 +500,7 @@ Rationales: A: The magnitude is right, but both robots move toward the pillar, s
 ## Seed N-4.6-A (replaces apcalcab-mcq-033, apcalcab-mcq-np2-010 (apcalcab-mcq-010 kept)) — Topic 4.6 Approximating Values of a Function Using Local Linearity and Linearization
 **Skill:** form a tangent-line estimate and decide over or under from the trend of f′ in a table.
 
-A differentiable function f has f(4) = 7, and selected values of f′ are given in the table.
+A differentiable function f has f(4) = 7, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   4.0   4.1   4.2   4.3
 f′(x):   −2.0   −1.8   −1.5   −1.1
 The tangent line to the graph of f at x = 4 is used to approximate f(4.3). Which statement is correct?
@@ -513,7 +513,7 @@ The tangent line to the graph of f at x = 4 is used to approximate f(4.3). Which
 Check: L(4.3) = f(4) + f′(4)(4.3 − 4) = 7 + (−2.0)(0.3) = 6.4. The values of f′ are increasing, so f″ > 0, the graph is concave up, and the tangent line lies below it: 6.4 underestimates f(4.3).
 Rationales: B: The values of f′ increase from −2.0 to −1.1, so f is concave up on this interval and the tangent line lies below the graph, giving an underestimate. C: This adds 0.6 instead of subtracting it, ignoring that f′(4) = −2.0 is negative. The tangent line value is 7 + (−2.0)(0.3) = 6.4. D: This uses the slope f′(4.3) = −1.1 at the far end. The tangent line at x = 4 must use the slope f′(4) = −2.0, which gives 6.4.
 
-**N-4.6-A-v1.** A differentiable function f has f(1) = 12, and selected values of f′ are given in the table.
+**N-4.6-A-v1.** A differentiable function f has f(1) = 12, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   1.0   1.2   1.4   1.5
 f′(x):   5.0   4.2   3.1   2.4
 The tangent line to the graph of f at x = 1 is used to approximate f(1.5). Which statement is correct?
@@ -526,7 +526,7 @@ The tangent line to the graph of f at x = 1 is used to approximate f(1.5). Which
 Check: L(1.5) = f(1) + f′(1)(1.5 − 1) = 12 + 5.0(0.5) = 14.5. The values of f′ are decreasing, so f″ < 0, the graph is concave down, and the tangent line lies above it: 14.5 overestimates f(1.5).
 Rationales: A: The values of f′ decrease from 5.0 to 2.4, so f is concave down on this interval and the tangent line lies above the graph, giving an overestimate. C: This uses the slope f′(1.5) = 2.4 at the far end. The tangent line at x = 1 must use the slope f′(1) = 5.0, which gives 14.5. D: This multiplies the slope by 1.5, the new x-value, instead of by the change in x, which is 0.5.
 
-**N-4.6-A-v2.** A differentiable function f has f(6) = −2, and selected values of f′ are given in the table.
+**N-4.6-A-v2.** A differentiable function f has f(6) = −2, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   5.6   5.8   6.0
 f′(x):   2.0   2.5   3.0
 The tangent line to the graph of f at x = 6 is used to approximate f(5.8). Which statement is correct?
@@ -539,7 +539,7 @@ The tangent line to the graph of f at x = 6 is used to approximate f(5.8). Which
 Check: L(5.8) = f(6) + f′(6)(5.8 − 6) = −2 + 3(−0.2) = −2.6. The values of f′ are increasing, so f″ > 0 and the graph is concave up; the tangent line lies below it on both sides, so −2.6 underestimates f(5.8).
 Rationales: A: The values of f′ increase from 2.0 to 3.0, so f is concave up, and a tangent line to a concave up graph lies below it on both sides of the point, giving an underestimate. B: This uses x − 6 = +0.2 instead of −0.2. Moving left from x = 6 lowers the tangent line value, so L(5.8) = −2 + 3(−0.2) = −2.6. D: This uses the slope f′(5.8) = 2.5 at the point being estimated. The tangent line at x = 6 must use the slope f′(6) = 3.0.
 
-**N-4.6-A-v3.** A differentiable function f has f(3) = 5, and selected values of f′ are given in the table.
+**N-4.6-A-v3.** A differentiable function f has f(3) = 5, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   3.0   3.2   3.4
 f′(x):   −1.0   −1.4   −2.0
 The tangent line to the graph of f at x = 3 is used to approximate f(3.4). Which statement is correct?

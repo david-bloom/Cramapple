@@ -64,7 +64,7 @@ with item_ins as (
   select gen_random_uuid(), '826c8cf1-bc1b-4f2a-bd33-61a758e1487d', 'apcalcab-mcq-b4-h-4.6-a', 'mcq', 'form a tangent-line estimate and decide over or under from the trend of f′ in a table.', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A differentiable function f has f(4) = 7, and selected values of f′ are given in the table.
+  select gen_random_uuid(), id, 1, 'A differentiable function f has f(4) = 7, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   4.0   4.1   4.2   4.3
 f′(x):   −2.0   −1.8   −1.5   −1.1
 The tangent line to the graph of f at x = 4 is used to approximate f(4.3). Which statement is correct?', null, md5('apcalcab-mcq-b4-h-4.6-a'), 'draft', 'tutor_review_pending', 'C'
@@ -81,7 +81,7 @@ with item_ins as (
   select gen_random_uuid(), '826c8cf1-bc1b-4f2a-bd33-61a758e1487d', 'apcalcab-mcq-b4-sv-h-4.6-a-v1', 'mcq', 'form a tangent-line estimate and decide over or under from the trend of f′ in a table. (variant 1)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A differentiable function f has f(1) = 12, and selected values of f′ are given in the table.
+  select gen_random_uuid(), id, 1, 'A differentiable function f has f(1) = 12, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   1.0   1.2   1.4   1.5
 f′(x):   5.0   4.2   3.1   2.4
 The tangent line to the graph of f at x = 1 is used to approximate f(1.5). Which statement is correct?', null, md5('apcalcab-mcq-b4-sv-h-4.6-a-v1'), 'draft', 'tutor_review_pending', 'D'
@@ -98,7 +98,7 @@ with item_ins as (
   select gen_random_uuid(), '826c8cf1-bc1b-4f2a-bd33-61a758e1487d', 'apcalcab-mcq-b4-sv-h-4.6-a-v2', 'mcq', 'form a tangent-line estimate and decide over or under from the trend of f′ in a table. (variant 2)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A differentiable function f has f(6) = −2, and selected values of f′ are given in the table.
+  select gen_random_uuid(), id, 1, 'A differentiable function f has f(6) = −2, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   5.6   5.8   6.0
 f′(x):   2.0   2.5   3.0
 The tangent line to the graph of f at x = 6 is used to approximate f(5.8). Which statement is correct?', null, md5('apcalcab-mcq-b4-sv-h-4.6-a-v2'), 'draft', 'tutor_review_pending', 'D'
@@ -115,7 +115,7 @@ with item_ins as (
   select gen_random_uuid(), '826c8cf1-bc1b-4f2a-bd33-61a758e1487d', 'apcalcab-mcq-b4-sv-h-4.6-a-v3', 'mcq', 'form a tangent-line estimate and decide over or under from the trend of f′ in a table. (variant 3)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A differentiable function f has f(3) = 5, and selected values of f′ are given in the table.
+  select gen_random_uuid(), id, 1, 'A differentiable function f has f(3) = 5, and f″ does not change sign on the interval shown; selected values of f′ are given in the table.
 x:   3.0   3.2   3.4
 f′(x):   −1.0   −1.4   −2.0
 The tangent line to the graph of f at x = 3 is used to approximate f(3.4). Which statement is correct?', null, md5('apcalcab-mcq-b4-sv-h-4.6-a-v3'), 'draft', 'tutor_review_pending', 'B'

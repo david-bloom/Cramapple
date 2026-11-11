@@ -64,6 +64,10 @@ R=[("c9ca46b2-b529-4ed3-9741-dddea455ab9b",cfg["pack"]),("cbe3116f-6ef5-410c-b53
 for a,b in R: g=g.replace(a,b)
 i=g.index("OLD=["); j=g.index("assert len(OLD)"); k=g.index("\n",j)
 g=g[:i]+"OLD=json.load(open('superseded_keys.json'))\nNOLD=len(OLD)\nassert NOLD==len(set(OLD))"+g[k:]
+# the topic guard must test the taxonomy itself, not existing content cells (a brand-new topic has no cells yet)
+gi=g.index("if exists (select 1 from tgt t where not exists (select 1 from app.content_item_cells c join app.content_items ci2")
+gj=g.index("end if;",gi)+len("end if;")
+g=g[:gi]+"if exists (select 1 from tgt t where not exists (select 1 from app.taxonomy_topics tt where tt.taxonomy_source_version=t.tsv and tt.topic_code=t.topic)) then raise exception 'a topic code is not present in the taxonomy source version'; end if;"+g[gj:]
 g=g.replace("<>12","<>{NOLD}").replace("expected 12 published","expected {NOLD} published")
 g=g.replace("assert N==24","assert N==%d"%N).replace("<>24","<>{N}").replace("expected 24 draft","expected {N} draft")
 open(f"{folder}/gen_package.py","w").write(g)
