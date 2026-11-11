@@ -5,6 +5,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 ## Index
 
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0228 — AP Statistics Unit 3 second seeds for topics 3.7, 3.12 and 3.14: 12 items published (granted and executed 2026-11-12)](APPROVAL-0228_AP_STATISTICS_UNIT3_SECOND_SEEDS_3_7_3_12_3_14_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0221 — AP Biology topics 3.1 to 3.5 re-leveled: 40 items published, 11 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0221_AP_BIOLOGY_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0222 — AP Calculus AB topics 3.4 to 3.6 re-leveled: 24 items published, 4 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0222_AP_CALCULUS_AB_UNIT3_3_4_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0223 — AP Precalculus topics 3.4 to 3.9 re-leveled: 48 items published, 24 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0223_AP_PRECALCULUS_UNIT3_3_4_TO_3_9_RELEVELING_PRODUCTION_2026_11_12.md)

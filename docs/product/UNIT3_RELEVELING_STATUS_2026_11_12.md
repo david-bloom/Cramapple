@@ -25,4 +25,4 @@ Authoring was done in session by subagents against a strict format and a validat
 - Some seeds are strong R2 rather than R3 (Calculus procedural topics, Precalculus 3.4); the tool takes the lower of two model tiers and disagrees often, so tiers are triage only.
 - Precalculus 3.4-A and its variants are a deliberate systematic coverage set that the tool flags as duplicates of the seed.
 - A few items go slightly past core AP wording (Biology N-3.4-B, N-3.5-A-v1, Physics 1 N-3.4-B-v3 and N-3.5-B-v3, Calculus BC N-3.3-B).
-- Statistics Unit 3 topics 3.7, 3.12, 3.14 still have an R1-leaning family each; not yet re-leveled.
+- Statistics Unit 3 topics 3.7, 3.12, 3.14 got a second seed each (APPROVAL-0228); Unit 3 re-leveling is done for every subject except the Physics 2 and Physics C packs, which are on hold.
