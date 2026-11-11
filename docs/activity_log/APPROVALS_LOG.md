@@ -4,6 +4,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0219 — AP Calculus AB topics 3.1 to 3.3 harder seeds: 24 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0219_AP_CALCULUS_AB_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0217 — AP Statistics Unit 4 harder seeds and variants: 48 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0217_AP_STATISTICS_UNIT4_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0216 — AP Statistics Units 2 to 4 serving-label audit: 2 held labels validated (granted and executed 2026-11-11)](APPROVAL-0216_AP_STATISTICS_UNITS2_4_SERVING_LABEL_AUDIT_2026_11_11.md)
 - [APPROVAL-0215 — AP Statistics Unit 3 harder seeds and variants: 76 items published, 37 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0215_AP_STATISTICS_UNIT3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
