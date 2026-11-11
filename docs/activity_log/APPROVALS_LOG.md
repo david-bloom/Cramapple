@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0215 — AP Statistics Unit 3 harder seeds and variants: 76 items published, 37 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0215_AP_STATISTICS_UNIT3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0214 — AP Statistics Unit 2 harder seeds and variants: 96 items published, 33 superseded items retired (granted and executed 2026-11-10)](APPROVAL-0214_AP_STATISTICS_UNIT2_HARDER_SEEDS_PRODUCTION_2026_11_10.md)
 - [APPROVAL-0213 — Card trial off in Production: `TRIAL_ADMISSION_ENABLED=false` (granted and executed 2026-11-10)](APPROVAL-0213_CARD_TRIAL_ADMISSION_OFF_PRODUCTION_2026_11_10.md)
 - [APPROVAL-0212 — No-card trial: Production `cardless_trial_enabled=true`, self-test window (granted and executed 2026-11-10)](APPROVAL-0212_NO_CARD_TRIAL_SELF_TEST_SWITCH_ON_PRODUCTION_2026_11_10.md)
