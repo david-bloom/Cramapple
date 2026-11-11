@@ -14,18 +14,18 @@ insert into lab values
 ('apchem-mcq-sv-h-3.2-a-v1','3.2','3d941d46fc4d9acf2b04c055165a34d2'),
 ('apchem-mcq-sv-h-3.2-a-v2','3.2','5f4db63c0ae8b15539f0d9d77baa2ad1'),
 ('apchem-mcq-sv-h-3.2-a-v3','3.2','d9a2f106dd7ed82d1d3fd7da93744143'),
-('apchem-mcq-h-3.2-b','3.2','9795d4bdf7ff9cef53a7d31aef3155db'),
-('apchem-mcq-sv-h-3.2-b-v1','3.2','09ef02840510567434e8188bb869a9b4'),
-('apchem-mcq-sv-h-3.2-b-v2','3.2','6c15ce11e0355cffd1d86ab76eb835b6'),
-('apchem-mcq-sv-h-3.2-b-v3','3.2','636d01cb5bcc9bdce49b49ead6cb0d58'),
+('apchem-mcq-h-3.2-b','3.2','fa895e8c78f6f2364567a4d8a7f3e6f3'),
+('apchem-mcq-sv-h-3.2-b-v1','3.2','119ec2e9172b5bc8a1b4ec59c68fbb3e'),
+('apchem-mcq-sv-h-3.2-b-v2','3.2','0d98ceebe2e08ca91d5a43ce2c292fdd'),
+('apchem-mcq-sv-h-3.2-b-v3','3.2','67d1c463681c94ccb9214f07f19f9b20'),
 ('apchem-mcq-h-3.3-a','3.3','3e40a0dab5367944624af82cbc669dd0'),
 ('apchem-mcq-sv-h-3.3-a-v1','3.3','5788e5bf1ce0dd72faed1d76351a3566'),
 ('apchem-mcq-sv-h-3.3-a-v2','3.3','210b91338547a76f9af32e49d830bc73'),
-('apchem-mcq-sv-h-3.3-a-v3','3.3','3cb669b94263d54934fcfc845eb05347'),
+('apchem-mcq-sv-h-3.3-a-v3','3.3','cf80e09d070bb6093ebb3f8891c56925'),
 ('apchem-mcq-h-3.3-b','3.3','af6692b734cc2b8637154130cfd70b36'),
-('apchem-mcq-sv-h-3.3-b-v1','3.3','3d5d14955992b3f89e07f44d785a5c17'),
+('apchem-mcq-sv-h-3.3-b-v1','3.3','20f056bf4b9f3974c1102b35ddc89ae3'),
 ('apchem-mcq-sv-h-3.3-b-v2','3.3','67f0f670a448364e3502996a29199c91'),
-('apchem-mcq-sv-h-3.3-b-v3','3.3','97adffda92620d405bd47c48c9bcb214');
+('apchem-mcq-sv-h-3.3-b-v3','3.3','4f225b9901b15d28193e9a089a5b62a6');
 create temporary table tgt on commit drop as
 select l.*, ci.id item_id, civ.id version_id, gen_random_uuid() assignment_id, gen_random_uuid() label_id, gen_random_uuid() vd_id,
  'cbe3116f-6ef5-410c-b535-e9fb711c4c2c'::uuid tsv, array[3]::int[] req, 3 pu

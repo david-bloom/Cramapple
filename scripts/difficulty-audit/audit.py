@@ -58,6 +58,13 @@ def fetch(a):
     os.unlink(p); t=out[out.index("{\n"):]; d=json.JSONDecoder().raw_decode(t)[0]["rows"][0]["j"]
     return json.loads(d) if isinstance(d,str) else (d or [])
 
+def load_file(a):
+    out=[]
+    for r in json.load(open(a.items_file)):
+        out.append({"subject":a.subject_label,"topic":r["topic"],"content_key":r["content_key"],"stimulus":None,"stem":r["stem"],
+                    "choices":[{"k":c["label"],"t":c["text"],"c":c["is_correct"]} for c in r["choices"]]})
+    return out
+
 def fam(k):
     k2=re.sub(r"-v\d+$","",k); k2=re.sub(r"-sv-","-",k2,flags=re.I); k2=re.sub(r"-SV-","-",k2); return k2.lower()
 
@@ -93,8 +100,8 @@ def call(model,r,k):
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--subject",default="all"); ap.add_argument("--topics"); ap.add_argument("--units"); ap.add_argument("--out",required=True)
-    ap.add_argument("--workdir",default=os.path.expanduser("~/supabase")); ap.add_argument("--no-model",action="store_true"); ap.add_argument("--workers",type=int,default=16); ap.add_argument("--models",default=",".join(MODELS)); a=ap.parse_args()
-    os.makedirs(a.out,exist_ok=True); items=fetch(a); print("fetched",len(items),"published MCQs")
+    ap.add_argument("--workdir",default=os.path.expanduser("~/supabase")); ap.add_argument("--no-model",action="store_true"); ap.add_argument("--items-file",help="pre-publish check: a package items.json (stem/choices/content_key/topic) instead of the database"); ap.add_argument("--subject-label",default="Draft"); ap.add_argument("--workers",type=int,default=16); ap.add_argument("--models",default=",".join(MODELS)); a=ap.parse_args()
+    os.makedirs(a.out,exist_ok=True); items=load_file(a) if a.items_file else fetch(a); print("fetched",len(items),"published MCQs")
     json.dump(items,open(os.path.join(a.out,"items.json"),"w"),indent=1,ensure_ascii=False)
     dd=dups(items); res={r["content_key"]:{} for r in items}
     if not a.no_model:

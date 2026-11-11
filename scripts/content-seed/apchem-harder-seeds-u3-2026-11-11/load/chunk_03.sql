@@ -22,14 +22,14 @@ with item_ins as (
   select gen_random_uuid(), 'c9ca46b2-b529-4ed3-9741-dddea455ab9b', 'apchem-mcq-sv-h-3.3-a-v3', 'mcq', 'Energy during phase changes (variant 3)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'Solid water (ice) is less dense than liquid water. Which statement best explains this at the particle level?', null, md5('apchem-mcq-sv-h-3.3-a-v3'), 'draft', 'tutor_review_pending', 'C'
+  select gen_random_uuid(), id, 1, 'A pure substance is heated at a constant rate from a solid to a gas. The plateau at its boiling point lasts much longer than the plateau at its melting point. Which statement best explains this?', null, md5('apchem-mcq-sv-h-3.3-a-v3'), 'draft', 'tutor_review_pending', 'C'
   from item_ins returning id
 )
 insert into app.mcq_choices (id, content_item_version_id, choice_key, choice_text, is_correct, rationale)
-select gen_random_uuid(), id, 'A', 'The molecules in ice move faster than those in liquid water, so they take up more space.', false, 'Molecules in a solid vibrate in fixed positions and move less than those in a liquid.' from version_ins
-union all select gen_random_uuid(), id, 'B', 'Ice contains fewer molecules per mole than liquid water.', false, 'A mole is a fixed number of molecules in any phase.' from version_ins
-union all select gen_random_uuid(), id, 'C', 'The molecules in ice are held in an open, hexagonal arrangement by hydrogen bonds, which keeps them farther apart on average than in liquid water.', true, 'Correct: hydrogen bonding in ice fixes an open lattice; in liquid water the molecules pack more closely.' from version_ins
-union all select gen_random_uuid(), id, 'D', 'Hydrogen bonds in ice are weaker than those in liquid water, so the molecules sit farther apart.', false, 'Hydrogen bonds are present in both phases, and in ice each molecule is held in a fixed open network, so it is not that they are weaker.' from version_ins;
+select gen_random_uuid(), id, 'A', 'During boiling, the average kinetic energy of the particles is rising, so the temperature is not rising and the stored energy is released as heat.', false, 'The average kinetic energy is constant on a plateau because the temperature is constant, and energy is absorbed rather than released.' from version_ins
+union all select gen_random_uuid(), id, 'B', 'The covalent bonds in each molecule break during boiling but not during melting.', false, 'Neither process breaks the covalent bonds inside molecules, since both separate whole molecules from one another.' from version_ins
+union all select gen_random_uuid(), id, 'C', 'Boiling requires nearly complete separation of the particles, which means overcoming more of the intermolecular attraction than melting does, so more energy is absorbed at constant temperature.', true, 'Correct: constant heating rate means plateau length is proportional to the energy absorbed; vaporization overcomes more attraction than melting, so ΔHvap is greater than ΔHfus.' from version_ins
+union all select gen_random_uuid(), id, 'D', 'Gas particles have stronger intermolecular forces than solid particles, which takes longer to establish.', false, 'Gas particles are far apart and attract one another much less than particles in a solid.' from version_ins;
 -- apchem-mcq-h-3.3-b
 with item_ins as (
   insert into app.content_items (id, exam_pack_version_id, content_key, item_type, title, status)
@@ -50,14 +50,14 @@ with item_ins as (
   select gen_random_uuid(), 'c9ca46b2-b529-4ed3-9741-dddea455ab9b', 'apchem-mcq-sv-h-3.3-b-v1', 'mcq', 'Particle behavior of gases and liquids (variant 1)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A sample of gas is compressed into a container one tenth its original volume while temperature is held constant. A liquid, by contrast, hardly changes volume under the same pressure. Which statement best explains the difference?', null, md5('apchem-mcq-sv-h-3.3-b-v1'), 'draft', 'tutor_review_pending', 'A'
+  select gen_random_uuid(), id, 1, 'Two rigid 5.0 L containers are kept at 300 K. One holds 1.0 mol of H2 and the other holds 1.0 mol of CO2. Which statement about the pressures is correct?', null, md5('apchem-mcq-sv-h-3.3-b-v1'), 'draft', 'tutor_review_pending', 'A'
   from item_ins returning id
 )
 insert into app.mcq_choices (id, content_item_version_id, choice_key, choice_text, is_correct, rationale)
-select gen_random_uuid(), id, 'A', 'The particles of a gas are far apart with mostly empty space between them, while the particles of a liquid are nearly in contact.', true, 'Correct: gases are mostly empty space; liquid particles are in contact.' from version_ins
-union all select gen_random_uuid(), id, 'B', 'Gas particles shrink when compressed, while liquid particles do not.', false, 'The particles themselves do not change size, and only the distance between them changes.' from version_ins
-union all select gen_random_uuid(), id, 'C', 'Gas particles have no mass, so they can be squeezed.', false, 'Gas particles have mass, and it is the empty space between them that allows compression.' from version_ins
-union all select gen_random_uuid(), id, 'D', 'Liquid particles do not move, so they cannot be compressed.', false, 'Liquid particles move constantly, and they resist compression because they are already in contact.' from version_ins;
+select gen_random_uuid(), id, 'A', 'The pressures are equal, because for an ideal gas the pressure depends on the moles, volume and temperature, not on the identity of the gas.', true, 'Correct: P = nRT/V, which is the same for both containers (about 4.9 atm); the faster, lighter molecules hit more often and the heavier ones hit harder, and the two effects cancel.' from version_ins
+union all select gen_random_uuid(), id, 'B', 'The CO2 container has the higher pressure, because its heavier molecules hit the walls harder.', false, 'Heavier molecules move more slowly at the same temperature, and the two effects cancel, so mass does not change the pressure.' from version_ins
+union all select gen_random_uuid(), id, 'C', 'The H2 container has the higher pressure, because its molecules move faster.', false, 'Lighter molecules are faster, but they hit the wall with less momentum per collision, and the effects cancel.' from version_ins
+union all select gen_random_uuid(), id, 'D', 'The pressures cannot be compared without knowing the molar masses.', false, 'The ideal gas law does not involve molar mass, so the pressures can be compared directly.' from version_ins;
 -- apchem-mcq-sv-h-3.3-b-v2
 with item_ins as (
   insert into app.content_items (id, exam_pack_version_id, content_key, item_type, title, status)
@@ -78,14 +78,14 @@ with item_ins as (
   select gen_random_uuid(), 'c9ca46b2-b529-4ed3-9741-dddea455ab9b', 'apchem-mcq-sv-h-3.3-b-v3', 'mcq', 'Particle behavior of gases and liquids (variant 3)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A drop of food coloring placed in a glass of water spreads out much more slowly than a drop of perfume vapor spreads through a still room. Which statement best explains the difference?', null, md5('apchem-mcq-sv-h-3.3-b-v3'), 'draft', 'tutor_review_pending', 'B'
+  select gen_random_uuid(), id, 1, 'A sample of gas in a rigid container is heated from 300 K to 600 K. Which statement is correct?', null, md5('apchem-mcq-sv-h-3.3-b-v3'), 'draft', 'tutor_review_pending', 'B'
   from item_ins returning id
 )
 insert into app.mcq_choices (id, content_item_version_id, choice_key, choice_text, is_correct, rationale)
-select gen_random_uuid(), id, 'A', 'Gas particles move faster than liquid particles because they have a higher temperature.', false, 'Both samples are at about room temperature, so the difference is not temperature.' from version_ins
-union all select gen_random_uuid(), id, 'B', 'The particles in a gas are far apart and move freely, so they mix through the available space faster than the closely packed particles of a liquid.', true, 'Correct: gas particles have more space and fewer collisions per distance than liquid particles.' from version_ins
-union all select gen_random_uuid(), id, 'C', 'Liquid particles do not move, and so only diffuse because water currents carry them.', false, 'Liquid particles move, but frequent collisions with neighbors slow their net motion.' from version_ins
-union all select gen_random_uuid(), id, 'D', 'Perfume has stronger intermolecular forces than food coloring.', false, 'The comparison is of phase, not of the relative strength of the forces in two specific substances.' from version_ins;
+select gen_random_uuid(), id, 'A', 'The average speed of the particles doubles.', false, 'Doubling the temperature doubles the kinetic energy, and the speed rises by only the square root of 2.' from version_ins
+union all select gen_random_uuid(), id, 'B', 'The average kinetic energy of the particles doubles, and the average speed increases by a factor of √2.', true, 'Correct: average kinetic energy is proportional to the Kelvin temperature, so it doubles; KE = (1/2)mv², so speed rises by √2.' from version_ins
+union all select gen_random_uuid(), id, 'C', 'The average kinetic energy of the particles stays the same, because the number of particles is unchanged.', false, 'Average kinetic energy depends on temperature, which changed, and not on the number of particles.' from version_ins
+union all select gen_random_uuid(), id, 'D', 'The average speed of the particles increases by a factor of 4.', false, 'A factor of 4 is the change in kinetic energy if the speed doubled, which does not follow from doubling the temperature.' from version_ins;
 do $$ begin
   if (select count(*) from app.content_items where exam_pack_version_id='c9ca46b2-b529-4ed3-9741-dddea455ab9b' and content_key = any (array['apchem-mcq-sv-h-3.3-a-v2','apchem-mcq-sv-h-3.3-a-v3','apchem-mcq-h-3.3-b','apchem-mcq-sv-h-3.3-b-v1','apchem-mcq-sv-h-3.3-b-v2','apchem-mcq-sv-h-3.3-b-v3']) and status='draft')<>6 then raise exception 'chunk 3: expected 6 draft items'; end if;
   if (select count(*) from app.mcq_choices m join app.content_item_versions v on v.id=m.content_item_version_id join app.content_items ci on ci.id=v.content_item_id where ci.exam_pack_version_id='c9ca46b2-b529-4ed3-9741-dddea455ab9b' and ci.content_key = any (array['apchem-mcq-sv-h-3.3-a-v2','apchem-mcq-sv-h-3.3-a-v3','apchem-mcq-h-3.3-b','apchem-mcq-sv-h-3.3-b-v1','apchem-mcq-sv-h-3.3-b-v2','apchem-mcq-sv-h-3.3-b-v3']))<>24 then raise exception 'chunk 3: expected 24 choices'; end if;

@@ -151,47 +151,47 @@ Rationales: B: Na+ and K+ both carry a 1+ charge, so the charge product is the s
 ---
 
 ## Seed N-3.2-B (replaces oht-3.2) — Topic 3.2
-**Skill:** connect structure to conductivity and hardness in network and metallic solids.
+**Skill:** classify solids from combined property data, including conductivity in the solid and molten states.
 
-Graphite and diamond are both pure carbon. Graphite conducts electricity along its layers, but diamond does not. Which statement best explains why graphite conducts?
+Four solids were tested. W conducts electricity as a solid, melts at 1085°C, and can be hammered flat. X does not conduct as a solid but conducts when molten, melts at 801°C, and shatters when struck. Y does not conduct in either state, melts near 3500°C, and is extremely hard. Z does not conduct in either state, melts at −57°C, and is soft. Which choice correctly identifies the type of each solid in the order W, X, Y, Z?
 
-- A. Graphite contains free ions that move through the solid.
-- **B. Each carbon atom in graphite is bonded to three others in a flat layer, leaving one delocalized electron per atom that can move along the layer.**
-- C. Graphite is a metallic solid with a sea of electrons.
-- D. Graphite's atoms are held together by weak dispersion forces, which allow electrons to pass freely.
+- **A. Metallic, ionic, covalent network, molecular**
+- B. Metallic, molecular, covalent network, ionic
+- C. Covalent network, ionic, metallic, molecular
+- D. Metallic, ionic, molecular, covalent network
 
-Check: in graphite each carbon bonds to three others, leaving a delocalized p electron; in diamond each carbon bonds to four and has no mobile electrons.
-Rationales: A: graphite is made of neutral atoms, so it contains no ions. C: graphite is a covalent network solid, not a metal, although its electrons are partly delocalized. D: dispersion forces hold the layers together, but they do not carry charge; conduction is by delocalized electrons within the layers.
+Check: conducting as a solid and malleable means metallic; conducting only when molten and brittle means ionic; very hard with a very high melting point and no conduction means covalent network; low melting point, soft and no conduction means molecular.
+Rationales: B: X conducts when molten, which an ionic solid does and a molecular solid does not, and Z with a very low melting point is molecular, not ionic. C: conducting as a solid points to a metal, and an extremely hard solid with a very high melting point is a network solid. D: Y is extremely hard with a melting point near 3500°C, which fits a network solid, while Z melts at −57°C, which fits a molecular solid.
 
-**N-3.2-B-v1.** Silicon dioxide (SiO2, quartz) melts at about 1700°C, while carbon dioxide (CO2) sublimes at -78°C. Which statement best explains this large difference?
+**N-3.2-B-v1.** Solid P conducts electricity as a solid, melts above 3500°C, and is soft and flaky, with layers that slide easily. Solid Q conducts in no state, melts at 1710°C, and is hard and brittle. Which description of P is best supported?
 
-- **A. SiO2 is a network solid, so melting requires breaking covalent bonds, while CO2 is a molecular solid that needs only weak intermolecular forces overcome.**
-- B. The Si-O bond is ionic, while the C-O bond is covalent.
-- C. SiO2 has stronger dispersion forces because silicon has more electrons than carbon.
-- D. CO2 is polar and SiO2 is nonpolar, so SiO2 melts higher.
+- A. A metallic solid, because it conducts electricity in the solid state.
+- **B. A covalent network solid whose electrons are delocalized within its layers, which explains the conduction and the very high melting point.**
+- C. A molecular solid, because it is soft and flaky.
+- D. An ionic solid, because its melting point is very high.
 
-Check: quartz is a covalent network; CO2 is a molecular solid held by weak dispersion forces.
-Rationales: B: both compounds contain polar covalent bonds, and SiO2 is not ionic. C: dispersion forces are not what holds quartz together, since the covalent network is. D: CO2 is nonpolar because it is linear, and polarity is not the reason SiO2 melts higher.
+Check: P is a covalent network solid with layers (graphite): strong covalent bonds in the layers give a very high melting point, delocalized electrons carry current, and weak forces between layers make it soft.
+Rationales: A: a metal is malleable and does not flake, and a melting point above 3500°C with soft flaking layers fits graphite, a network solid. C: molecular solids have low melting points, so a melting point above 3500°C rules this out. D: ionic solids do not conduct as solids, since their ions are fixed in the lattice.
 
-**N-3.2-B-v2.** A hammer strike shatters a crystal of NaCl but only dents a piece of copper. Which statement best explains the difference?
+**N-3.2-B-v2.** A crystalline solid K melts at 2800°C and shatters when struck. It does not conduct electricity as a solid but does conduct when melted. Which statement best explains why K shatters instead of bending?
 
-- **A. In copper, layers of atoms shift while the mobile electrons keep them bonded, whereas in NaCl a shift puts like-charged ions next to each other and the crystal cracks.**
-- B. Copper has stronger bonds than NaCl, so it cannot shatter.
-- C. NaCl is a molecular solid, so weak forces let it break apart.
-- D. Copper contains ions that can rearrange, while NaCl contains neutral atoms.
+- **A. A shift of the layers places ions of the same charge next to each other, and the repulsion splits the crystal.**
+- B. Its delocalized electrons cannot move, so the layers lock together and do not slide.
+- C. Weak intermolecular forces between molecules allow the crystal to break apart easily.
+- D. Its covalent bonds are directional, so the lattice is rigid and cannot bend.
 
-Check: metals are malleable because the electron sea keeps attraction when layers slide; ionic crystals are brittle because shifting aligns like charges.
-Rationales: B: NaCl has strong ionic attractions, and brittleness comes from how the lattice responds to shifting, not from weak bonds. C: NaCl is an ionic solid, not a molecular one. D: this reverses the particles, since NaCl contains ions and copper contains neutral atoms with delocalized electrons.
+Check: K is ionic (non-conducting solid, conducting melt, high mp); displacement of a layer aligns like charges, which repel.
+Rationales: B: ionic solids contain no delocalized electrons, since their ions are held in a lattice and do not conduct as solids. C: a melting point of 2800°C is far too high for a molecular solid held by intermolecular forces. D: K conducts when molten, which a covalent network solid does not do, so K is ionic rather than covalent.
 
-**N-3.2-B-v3.** Pure iron is relatively soft, but steel, which contains small carbon atoms in the spaces between iron atoms, is much harder. Which statement best explains why steel is harder?
+**N-3.2-B-v3.** Brass (copper with zinc atoms of similar size in place of some copper atoms) and steel (iron with small carbon atoms between the iron atoms) are both harder than the pure metals. Which statement is correct?
 
-- A. Carbon atoms form ionic bonds with iron, creating a rigid ionic lattice.
-- **B. The small carbon atoms sit in spaces between the iron atoms and make it harder for the layers of iron atoms to slide past one another.**
-- C. Carbon atoms replace iron atoms of similar size, so the metallic bonding is unchanged.
-- D. Carbon is a nonmetal, so steel is a molecular solid.
+- **A. Brass is a substitutional alloy and steel is an interstitial alloy; in both, the added atoms disrupt the regular layers and make it harder for them to slide.**
+- B. Brass is an interstitial alloy and steel is a substitutional alloy, and both are harder because the bonds become ionic.
+- C. Both are substitutional alloys, since each contains more than one element in a metallic lattice.
+- D. Both are interstitial alloys, and both are harder because the added atoms form covalent molecules.
 
-Check: an interstitial alloy has small atoms in the gaps; they block layer sliding and increase hardness.
-Rationales: A: carbon and iron do not form ionic bonds here, and steel is still a metallic solid. C: replacing atoms of similar size describes a substitutional alloy, whereas steel is interstitial. D: steel is a metallic solid, and adding a nonmetal does not change it into a molecular solid.
+Check: Zn replaces Cu (similar size) in brass, so substitutional; C fits between Fe atoms in steel, so interstitial; added atoms hinder sliding of layers.
+Rationales: B: this reverses the two types, and alloys are still held by metallic bonding, not ionic bonding. C: steel's carbon atoms are small and sit in gaps, which is interstitial, so not all alloys are substitutional. D: brass's zinc atoms replace copper atoms of a similar size, and neither alloy forms covalent molecules.
 
 ---
 
@@ -228,15 +228,15 @@ Rationales: A: the temperature remains constant during melting, so the average k
 Check: same temperature means the same average kinetic energy; weaker attractions let more molecules escape.
 Rationales: A: the liquids are at the same temperature, so their average kinetic energies are equal. C: stronger intermolecular forces would make X evaporate more slowly. D: the speed of a molecule at a given temperature depends on mass, not on its vapor pressure.
 
-**N-3.3-A-v3.** Solid water (ice) is less dense than liquid water. Which statement best explains this at the particle level?
+**N-3.3-A-v3.** A pure substance is heated at a constant rate from a solid to a gas. The plateau at its boiling point lasts much longer than the plateau at its melting point. Which statement best explains this?
 
-- A. The molecules in ice move faster than those in liquid water, so they take up more space.
-- B. Ice contains fewer molecules per mole than liquid water.
-- **C. The molecules in ice are held in an open, hexagonal arrangement by hydrogen bonds, which keeps them farther apart on average than in liquid water.**
-- D. Hydrogen bonds in ice are weaker than those in liquid water, so the molecules sit farther apart.
+- A. During boiling, the average kinetic energy of the particles is rising, so the temperature is not rising and the stored energy is released as heat.
+- **B. Boiling requires nearly complete separation of the particles, which means overcoming more of the intermolecular attraction than melting does, so more energy is absorbed at constant temperature.**
+- C. The covalent bonds in each molecule break during boiling but not during melting.
+- D. Gas particles have stronger intermolecular forces than solid particles, which takes longer to establish.
 
-Check: hydrogen bonding in ice fixes an open lattice; in liquid water the molecules pack more closely.
-Rationales: A: molecules in a solid vibrate in fixed positions and move less than those in a liquid. B: a mole is a fixed number of molecules in any phase. D: hydrogen bonds are present in both phases, and in ice each molecule is held in a fixed open network, so it is not that they are weaker.
+Check: constant heating rate means plateau length is proportional to the energy absorbed; vaporization overcomes more attraction than melting, so ΔHvap is greater than ΔHfus.
+Rationales: A: the average kinetic energy is constant on a plateau because the temperature is constant, and energy is absorbed rather than released. C: neither process breaks the covalent bonds inside molecules, since both separate whole molecules from one another. D: gas particles are far apart and attract one another much less than particles in a solid.
 
 ---
 
@@ -253,15 +253,15 @@ Helium and xenon gas are each held at 300 K. Which statement about the particles
 Check: average kinetic energy depends only on temperature; with KE = (1/2)mv^2 and equal KE, the lighter atoms have the higher speed.
 Rationales: B: the average speeds differ, because equal kinetic energy with unequal mass requires unequal speeds. C: average kinetic energy does not depend on mass, only on temperature. D: lighter particles move faster, but they do not have more kinetic energy at the same temperature.
 
-**N-3.3-B-v1.** A sample of gas is compressed into a container one tenth its original volume while temperature is held constant. A liquid, by contrast, hardly changes volume under the same pressure. Which statement best explains the difference?
+**N-3.3-B-v1.** Two rigid 5.0 L containers are kept at 300 K. One holds 1.0 mol of H2 and the other holds 1.0 mol of CO2. Which statement about the pressures is correct?
 
-- **A. The particles of a gas are far apart with mostly empty space between them, while the particles of a liquid are nearly in contact.**
-- B. Gas particles shrink when compressed, while liquid particles do not.
-- C. Gas particles have no mass, so they can be squeezed.
-- D. Liquid particles do not move, so they cannot be compressed.
+- A. The CO2 container has the higher pressure, because its heavier molecules hit the walls harder.
+- B. The H2 container has the higher pressure, because its molecules move faster.
+- C. The pressures cannot be compared without knowing the molar masses.
+- **D. The pressures are equal, because for an ideal gas the pressure depends on the moles, volume and temperature, not on the identity of the gas.**
 
-Check: gases are mostly empty space; liquid particles are in contact.
-Rationales: B: the particles themselves do not change size, and only the distance between them changes. C: gas particles have mass, and it is the empty space between them that allows compression. D: liquid particles move constantly, and they resist compression because they are already in contact.
+Check: P = nRT/V, which is the same for both containers (about 4.9 atm); the faster, lighter molecules hit more often and the heavier ones hit harder, and the two effects cancel.
+Rationales: A: heavier molecules move more slowly at the same temperature, and the two effects cancel, so mass does not change the pressure. B: lighter molecules are faster, but they hit the wall with less momentum per collision, and the effects cancel. C: the ideal gas law does not involve molar mass, so the pressures can be compared directly.
 
 **N-3.3-B-v2.** Of the gases NH3 and H2, which would be expected to deviate more from ideal behavior at low temperature and high pressure, and why?
 
@@ -273,12 +273,12 @@ Rationales: B: the particles themselves do not change size, and only the distanc
 Check: NH3 hydrogen bonds and has a larger volume; at low T and high P attractions and particle volume matter more.
 Rationales: A: small molecules with weak attractions behave more ideally, and H2 is the more ideal gas. C: fast-moving particles overcome attractions more easily, so H2 stays closer to ideal. D: real gases deviate most at high pressure and low temperature, so the claim of ideal behavior is false.
 
-**N-3.3-B-v3.** A drop of food coloring placed in a glass of water spreads out much more slowly than a drop of perfume vapor spreads through a still room. Which statement best explains the difference?
+**N-3.3-B-v3.** A sample of gas in a rigid container is heated from 300 K to 600 K. Which statement is correct?
 
-- **A. The particles in a gas are far apart and move freely, so they mix through the available space faster than the closely packed particles of a liquid.**
-- B. Gas particles move faster than liquid particles because they have a higher temperature.
-- C. Liquid particles do not move, and so only diffuse because water currents carry them.
-- D. Perfume has stronger intermolecular forces than food coloring.
+- A. The average speed of the particles doubles.
+- B. The average kinetic energy of the particles stays the same, because the number of particles is unchanged.
+- C. The average speed of the particles increases by a factor of 4.
+- **D. The average kinetic energy of the particles doubles, and the average speed increases by a factor of √2.**
 
-Check: gas particles have more space and fewer collisions per distance than liquid particles.
-Rationales: B: both samples are at about room temperature, so the difference is not temperature. C: liquid particles move, but frequent collisions with neighbors slow their net motion. D: the comparison is of phase, not of the relative strength of the forces in two specific substances.
+Check: average kinetic energy is proportional to the Kelvin temperature, so it doubles; KE = (1/2)mv², so speed rises by √2.
+Rationales: A: doubling the temperature doubles the kinetic energy, and the speed rises by only the square root of 2. B: average kinetic energy depends on temperature, which changed, and not on the number of particles. C: a factor of 4 is the change in kinetic energy if the speed doubled, which does not follow from doubling the temperature.
