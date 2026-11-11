@@ -1,0 +1,1778 @@
+[
+ {
+  "src_id": "N-4.1-A",
+  "content_key": "APSTATS-MCQ-H-4.1-A",
+  "seed": null,
+  "family": "4.1-A",
+  "variant": null,
+  "topic": "4.1",
+  "title": "Standardize a sample mean",
+  "stem": "The lifetimes of a certain brand of battery have a strongly right-skewed distribution with mean 120 hours and standard deviation 24 hours. A random sample of 64 batteries is selected. What is the approximate probability that the sample mean lifetime is greater than 125 hours?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.42, using a normal model for individual lifetimes with a standard deviation of 24 hours.",
+    "is_correct": false,
+    "rationale": "This treats x-bar like a single battery and uses the population standard deviation, so the spread is far too large."
+   },
+   {
+    "label": "B",
+    "text": "Essentially 0, using a standard deviation of 24/64 = 0.375 hours for the sample mean.",
+    "is_correct": false,
+    "rationale": "Divided by n instead of the square root of n, which makes the standard deviation of x-bar too small."
+   },
+   {
+    "label": "C",
+    "text": "About 0.05, using a normal model for the sample mean with a standard deviation of 24/√64 = 3 hours.",
+    "is_correct": true,
+    "rationale": "Correct: SD of x-bar = 24/8 = 3; z = (125 - 120)/3 = 1.67; P(Z > 1.67) = 0.048. With n = 64 the Central Limit Theorem justifies the normal model."
+   },
+   {
+    "label": "D",
+    "text": "It cannot be approximated with a normal model because the population is strongly skewed.",
+    "is_correct": false,
+    "rationale": "The Central Limit Theorem makes the sampling distribution of x-bar approximately normal for a large sample even when the population is skewed."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-A-v1",
+  "seed": "APSTATS-MCQ-H-4.1-A",
+  "family": "4.1-A",
+  "variant": "1",
+  "topic": "4.1",
+  "title": "Standardize a sample mean (variant 1)",
+  "stem": "Scores on a placement test are normally distributed with mean 50 and standard deviation 9. A random sample of 9 students is selected. What is the probability that the sample mean score is below 48?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.41, using a standard deviation of 9 for the sample mean.",
+    "is_correct": false,
+    "rationale": "This uses the standard deviation of individual scores, not the standard deviation of the sample mean."
+   },
+   {
+    "label": "B",
+    "text": "About 0.02, using a standard deviation of 9/9 = 1 for the sample mean.",
+    "is_correct": false,
+    "rationale": "Divided by n instead of the square root of n, so the standard deviation of x-bar is too small."
+   },
+   {
+    "label": "C",
+    "text": "It cannot be found because the sample size is less than 30.",
+    "is_correct": false,
+    "rationale": "The sample size matters only when the population is not normal, and here the population is normal so x-bar is normal for any n."
+   },
+   {
+    "label": "D",
+    "text": "About 0.25, using a standard deviation of 9/√9 = 3 for the sample mean.",
+    "is_correct": true,
+    "rationale": "Correct: SD of x-bar = 9/3 = 3; z = (48 - 50)/3 = -0.67; P(Z < -0.67) = 0.252. The population is normal, so x-bar is exactly normal for any n."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-A-v2",
+  "seed": "APSTATS-MCQ-H-4.1-A",
+  "family": "4.1-A",
+  "variant": "2",
+  "topic": "4.1",
+  "title": "Standardize a sample mean (variant 2)",
+  "stem": "The weights of cereal boxes from a production line have mean 120 grams and standard deviation 24 grams, and the distribution is strongly skewed. A random sample of 100 boxes is selected. What is the approximate probability that the sample mean weight is between 118 and 122 grams?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.60, using a normal model with a standard deviation of 24/√100 = 2.4 grams.",
+    "is_correct": true,
+    "rationale": "Correct: SD of x-bar = 2.4; z = ±2/2.4 = ±0.83; P(-0.83 < Z < 0.83) = 0.595."
+   },
+   {
+    "label": "B",
+    "text": "About 0.07, using a standard deviation of 24 grams for the sample mean.",
+    "is_correct": false,
+    "rationale": "This uses the population standard deviation, which describes individual boxes, not the spread of sample means."
+   },
+   {
+    "label": "C",
+    "text": "About 1.00, using a standard deviation of 24/100 = 0.24 grams.",
+    "is_correct": false,
+    "rationale": "Divided by n instead of the square root of n, making the standard deviation of x-bar much too small and the probability nearly 1."
+   },
+   {
+    "label": "D",
+    "text": "About 0.68, because 118 and 122 are within one standard deviation of 120.",
+    "is_correct": false,
+    "rationale": "The 68% rule applies to one standard deviation of the sampling distribution, which is 2.4 grams, not the 24 grams of the population."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-A-v3",
+  "seed": "APSTATS-MCQ-H-4.1-A",
+  "family": "4.1-A",
+  "variant": "3",
+  "topic": "4.1",
+  "title": "Standardize a sample mean (variant 3)",
+  "stem": "The weights of cereal boxes from a production line have mean 120 grams and standard deviation 24 grams, and the distribution is strongly right-skewed. A random sample of only 20 boxes is selected. Which statement about finding P(x-bar > 125) is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.18, because x-bar is approximately normal with a standard deviation of 24/√20 = 5.4 grams.",
+    "is_correct": false,
+    "rationale": "The standard deviation of 5.4 is right, but the normal shape is not justified for n = 20 from a strongly skewed population."
+   },
+   {
+    "label": "B",
+    "text": "A normal calculation is not justified, because the sample is small and the population is strongly skewed.",
+    "is_correct": true,
+    "rationale": "Correct: with n = 20 and strong skew, the Central Limit Theorem does not yet justify a normal model, so any normal probability, including 0.18 from a standard deviation of 5.4, is not trustworthy."
+   },
+   {
+    "label": "C",
+    "text": "About 0.42, because x-bar has a standard deviation of 24 grams.",
+    "is_correct": false,
+    "rationale": "This also uses the wrong standard deviation, the population value, for the sample mean."
+   },
+   {
+    "label": "D",
+    "text": "Essentially 0, because x-bar has a standard deviation of 24/20 = 1.2 grams.",
+    "is_correct": false,
+    "rationale": "Divided by n instead of the square root of n, which gives a standard deviation far too small."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-B",
+  "content_key": "APSTATS-MCQ-H-4.1-B",
+  "seed": null,
+  "family": "4.1-B",
+  "variant": null,
+  "topic": "4.1",
+  "title": "Center and spread of the sampling distribution of x-bar",
+  "stem": "A population has mean 40 and standard deviation 12. Ana takes many random samples of size 25 and Ben takes many random samples of size 100, and each records the sample mean from every sample. Which statement is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Both sets of sample means have a standard deviation of 12, because sample means vary as much as individual values do.",
+    "is_correct": false,
+    "rationale": "The standard deviation of x-bar is the population value divided by the square root of n, so it is smaller than 12."
+   },
+   {
+    "label": "B",
+    "text": "Ben's sample means vary less: their standard deviation is 1.2, compared with 2.4 for Ana's, and both sets are centered at 40.",
+    "is_correct": true,
+    "rationale": "Correct: SD for Ana = 12/5 = 2.4; SD for Ben = 12/10 = 1.2; both sampling distributions have mean 40 because x-bar is unbiased."
+   },
+   {
+    "label": "C",
+    "text": "Ana's sample means have a standard deviation of 0.48 and Ben's have 0.12, because the standard deviation is divided by n.",
+    "is_correct": false,
+    "rationale": "Divided by n instead of the square root of n."
+   },
+   {
+    "label": "D",
+    "text": "Ben's sample means are centered closer to 40 than Ana's, because a larger sample reduces bias.",
+    "is_correct": false,
+    "rationale": "X-bar is unbiased at every sample size, so both distributions are centered at 40 and a larger n only reduces the spread."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-B-v1",
+  "seed": "APSTATS-MCQ-H-4.1-B",
+  "family": "4.1-B",
+  "variant": "1",
+  "topic": "4.1",
+  "title": "Center and spread of the sampling distribution of x-bar (variant 1)",
+  "stem": "A population has standard deviation 15. A researcher currently uses samples of size 25, so the standard deviation of the sample mean is 3. How large must the samples be to cut the standard deviation of the sample mean to 1.5?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "50",
+    "is_correct": false,
+    "rationale": "Doubling n only divides the standard deviation by √2, not by 2."
+   },
+   {
+    "label": "B",
+    "text": "100",
+    "is_correct": true,
+    "rationale": "Correct: 15/√n = 1.5 gives √n = 10, so n = 100. Halving the standard deviation requires four times the sample size."
+   },
+   {
+    "label": "C",
+    "text": "75",
+    "is_correct": false,
+    "rationale": "Tripling n does not halve the standard deviation, since the spread falls with the square root of n."
+   },
+   {
+    "label": "D",
+    "text": "625",
+    "is_correct": false,
+    "rationale": "Squared the original n, but halving the spread needs a factor of 4 on n, not n squared."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-B-v2",
+  "seed": "APSTATS-MCQ-H-4.1-B",
+  "family": "4.1-B",
+  "variant": "2",
+  "topic": "4.1",
+  "title": "Center and spread of the sampling distribution of x-bar (variant 2)",
+  "stem": "Scores on a standardized test are normally distributed with mean 50 and standard deviation 10. Compare P(one randomly chosen student scores above 54) with P(the mean of 25 randomly chosen students is above 54). Which statement is correct?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Both probabilities are about 0.34, because the mean and the individual have the same distribution.",
+    "is_correct": false,
+    "rationale": "The mean of 25 scores varies much less than one score, so extreme means are rarer than extreme individuals."
+   },
+   {
+    "label": "B",
+    "text": "The first is about 0.02 and the second is about 0.34, because larger samples make high values more likely.",
+    "is_correct": false,
+    "rationale": "This reverses the two probabilities; averaging makes a value 4 above the mean harder to reach, not easier."
+   },
+   {
+    "label": "C",
+    "text": "Both probabilities are about 0.02, because averaging only changes the center.",
+    "is_correct": false,
+    "rationale": "Averaging does not change the center, but it shrinks the spread, which changes the probability for the individual value."
+   },
+   {
+    "label": "D",
+    "text": "The first is about 0.34 and the second is about 0.02, because the sample mean has a standard deviation of 2.",
+    "is_correct": true,
+    "rationale": "Correct: individual z = 4/10 = 0.4, P = 0.345; sample mean z = 4/(10/5) = 2.0, P = 0.023."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.1-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.1-B-v3",
+  "seed": "APSTATS-MCQ-H-4.1-B",
+  "family": "4.1-B",
+  "variant": "3",
+  "topic": "4.1",
+  "title": "Center and spread of the sampling distribution of x-bar (variant 3)",
+  "stem": "Repeated random samples of size 36 are taken from a population with mean 80 and standard deviation 18. Which statement describes the sampling distribution of the sample mean?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Its mean is 80 and its standard deviation is 18.",
+    "is_correct": false,
+    "rationale": "The standard deviation of x-bar is not the population standard deviation; it is divided by the square root of n."
+   },
+   {
+    "label": "B",
+    "text": "Its mean is 13.3 and its standard deviation is 3.",
+    "is_correct": false,
+    "rationale": "The center of x-bar equals the population mean and is not divided by anything."
+   },
+   {
+    "label": "C",
+    "text": "Its mean is 80 and its standard deviation is 3.",
+    "is_correct": true,
+    "rationale": "Correct: mean of x-bar = 80; SD = 18/√36 = 3."
+   },
+   {
+    "label": "D",
+    "text": "Its mean is 80 and its standard deviation is 0.5.",
+    "is_correct": false,
+    "rationale": "Divided 18 by n = 36 instead of by its square root."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-A",
+  "content_key": "APSTATS-MCQ-H-4.2-A",
+  "seed": null,
+  "family": "4.2-A",
+  "variant": null,
+  "topic": "4.2",
+  "title": "t interval for a mean from summary statistics",
+  "stem": "A researcher measures the nightly sleep, in hours, of a random sample of 9 college students. The sample values are roughly symmetric with no outliers, and the sample has mean 6.8 hours and standard deviation 1.2 hours. For df = 8, t* = 2.306 at 95% confidence. What is the 95% confidence interval for the population mean?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(5.88, 7.72)",
+    "is_correct": true,
+    "rationale": "Correct: SE = 1.2/√9 = 0.4; margin = 2.306 x 0.4 = 0.92; interval 6.8 ± 0.92 = (5.88, 7.72)."
+   },
+   {
+    "label": "B",
+    "text": "(4.03, 9.57)",
+    "is_correct": false,
+    "rationale": "Used the standard deviation instead of the standard error, so the margin is far too wide."
+   },
+   {
+    "label": "C",
+    "text": "(6.02, 7.58)",
+    "is_correct": false,
+    "rationale": "Used z* = 1.96 in place of the t critical value, which understates the margin for a sample this small."
+   },
+   {
+    "label": "D",
+    "text": "(6.49, 7.11)",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of the square root of n when finding the standard error."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-A-v1",
+  "seed": "APSTATS-MCQ-H-4.2-A",
+  "family": "4.2-A",
+  "variant": "1",
+  "topic": "4.2",
+  "title": "t interval for a mean from summary statistics (variant 1)",
+  "stem": "A lab measures the concentration of a chemical in 6 independent water samples. The data are roughly symmetric with no outliers; the mean is 52 and the standard deviation is 8. For df = 5, t* = 2.015 at 90% confidence. What is the 90% confidence interval for the mean concentration?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(45.42, 58.58)",
+    "is_correct": true,
+    "rationale": "Correct: SE = 8/√6 = 3.266; margin = 2.015 x 3.266 = 6.58; interval (45.42, 58.58)."
+   },
+   {
+    "label": "B",
+    "text": "(46.63, 57.37)",
+    "is_correct": false,
+    "rationale": "Used z* = 1.645, which ignores the extra uncertainty from estimating the standard deviation with a sample of 6."
+   },
+   {
+    "label": "C",
+    "text": "(35.88, 68.12)",
+    "is_correct": false,
+    "rationale": "Used the standard deviation instead of the standard error, so the margin is much too large."
+   },
+   {
+    "label": "D",
+    "text": "(49.31, 54.69)",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of √n when computing the standard error."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-A-v2",
+  "seed": "APSTATS-MCQ-H-4.2-A",
+  "family": "4.2-A",
+  "variant": "2",
+  "topic": "4.2",
+  "title": "t interval for a mean from summary statistics (variant 2)",
+  "stem": "The lengths of 12 randomly selected trout from a lake have mean 14.2 inches and standard deviation 3.0 inches, and the data are roughly symmetric with no outliers. For df = 11, t* = 3.106 at 99% confidence. What is the 99% confidence interval for the mean length?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(11.97, 16.43)",
+    "is_correct": false,
+    "rationale": "Used z* = 2.576 instead of the t critical value, so the interval is too narrow."
+   },
+   {
+    "label": "B",
+    "text": "(11.51, 16.89)",
+    "is_correct": true,
+    "rationale": "Correct: SE = 3.0/√12 = 0.866; margin = 3.106 x 0.866 = 2.69; interval (11.51, 16.89)."
+   },
+   {
+    "label": "C",
+    "text": "(4.88, 23.52)",
+    "is_correct": false,
+    "rationale": "Used the standard deviation instead of the standard error."
+   },
+   {
+    "label": "D",
+    "text": "(13.42, 14.98)",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of √n, which makes the standard error much too small."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-A-v3",
+  "seed": "APSTATS-MCQ-H-4.2-A",
+  "family": "4.2-A",
+  "variant": "3",
+  "topic": "4.2",
+  "title": "t interval for a mean from summary statistics (variant 3)",
+  "stem": "A sample of 8 measurements from an approximately normal population has mean 30 and standard deviation 5. For df = 7, t* = 2.998 at 98% confidence. What is the 98% confidence interval for the population mean?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(25.89, 34.11)",
+    "is_correct": false,
+    "rationale": "Used z* = 2.326 instead of the t critical value."
+   },
+   {
+    "label": "B",
+    "text": "(28.13, 31.87)",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of √n, which makes the standard error and the margin far too small."
+   },
+   {
+    "label": "C",
+    "text": "(24.70, 35.30)",
+    "is_correct": true,
+    "rationale": "Correct: SE = 5/√8 = 1.768; margin = 2.998 x 1.768 = 5.30; interval (24.70, 35.30)."
+   },
+   {
+    "label": "D",
+    "text": "(15.01, 44.99)",
+    "is_correct": false,
+    "rationale": "Used the standard deviation in place of the standard error, so the margin is much too wide."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-B",
+  "content_key": "APSTATS-MCQ-H-4.2-B",
+  "seed": null,
+  "family": "4.2-B",
+  "variant": null,
+  "topic": "4.2",
+  "title": "Sample size and width of an interval for a mean",
+  "stem": "A researcher plans a 95% confidence interval for a population mean. A pilot study suggests the population standard deviation is about 10, and she wants a margin of error of at most 2. Using z* = 1.96 for planning, what is the smallest sample size that guarantees this margin of error?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "97",
+    "is_correct": true,
+    "rationale": "Correct: n >= (1.96 x 10 / 2)^2 = 96.04, so n = 97."
+   },
+   {
+    "label": "B",
+    "text": "25",
+    "is_correct": false,
+    "rationale": "Left out the critical value, computing (10/2)^2."
+   },
+   {
+    "label": "C",
+    "text": "10",
+    "is_correct": false,
+    "rationale": "Found 1.96 x 10/2 = 9.8 but forgot to square it."
+   },
+   {
+    "label": "D",
+    "text": "96",
+    "is_correct": false,
+    "rationale": "Rounded 96.04 down, which would give a margin slightly larger than 2."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-B-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-B-v1",
+  "seed": "APSTATS-MCQ-H-4.2-B",
+  "family": "4.2-B",
+  "variant": "1",
+  "topic": "4.2",
+  "title": "Sample size and width of an interval for a mean (variant 1)",
+  "stem": "A researcher plans a 90% confidence interval for a population mean. A pilot study suggests the population standard deviation is about 15, and she wants a margin of error of at most 3. Using z* = 1.645, what is the smallest sample size that guarantees this margin of error?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "25",
+    "is_correct": false,
+    "rationale": "Left out the critical value, computing (15/3)^2."
+   },
+   {
+    "label": "B",
+    "text": "68",
+    "is_correct": true,
+    "rationale": "Correct: n >= (1.645 x 15 / 3)^2 = 67.65, so n = 68."
+   },
+   {
+    "label": "C",
+    "text": "67",
+    "is_correct": false,
+    "rationale": "Rounded 67.65 down, which gives a margin slightly above 3."
+   },
+   {
+    "label": "D",
+    "text": "9",
+    "is_correct": false,
+    "rationale": "Computed 1.645 x 15/3 = 8.2 and rounded it up without squaring."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-B-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-B-v2",
+  "seed": "APSTATS-MCQ-H-4.2-B",
+  "family": "4.2-B",
+  "variant": "2",
+  "topic": "4.2",
+  "title": "Sample size and width of an interval for a mean (variant 2)",
+  "stem": "A 95% confidence interval for a population mean based on a random sample of 36 has a width of 6. About how large a sample is needed to get a 95% interval of width 3, assuming the sample standard deviation stays about the same?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "144",
+    "is_correct": true,
+    "rationale": "Correct: halving the width halves the margin of error, which requires four times the sample size: 36 x 4 = 144."
+   },
+   {
+    "label": "B",
+    "text": "72",
+    "is_correct": false,
+    "rationale": "Doubling n divides the margin by only √2, not 2."
+   },
+   {
+    "label": "C",
+    "text": "108",
+    "is_correct": false,
+    "rationale": "Tripling n divides the margin by √3, not 2."
+   },
+   {
+    "label": "D",
+    "text": "18",
+    "is_correct": false,
+    "rationale": "This reduces the sample size, which would widen the interval."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.2-B-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.2-B-v3",
+  "seed": "APSTATS-MCQ-H-4.2-B",
+  "family": "4.2-B",
+  "variant": "3",
+  "topic": "4.2",
+  "title": "Sample size and width of an interval for a mean (variant 3)",
+  "stem": "A 95% confidence interval for a population mean, based on a random sample of 25 from an approximately normal population, is (40, 48). Use t* = 2.064 for 95% and t* = 2.797 for 99% (df = 24). If a 99% interval is built from the same data, which interval results?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(40, 48)",
+    "is_correct": false,
+    "rationale": "The interval depends on the confidence level, so changing from 95% to 99% changes the endpoints."
+   },
+   {
+    "label": "B",
+    "text": "(41.0, 47.0)",
+    "is_correct": false,
+    "rationale": "Higher confidence needs a larger critical value and a wider interval, not a narrower one."
+   },
+   {
+    "label": "C",
+    "text": "(38.58, 49.42)",
+    "is_correct": true,
+    "rationale": "Correct: the 95% margin is 4, so SE = 4/2.064 = 1.938; the 99% margin is 2.797 x 1.938 = 5.42; interval 44 ± 5.42 = (38.58, 49.42)."
+   },
+   {
+    "label": "D",
+    "text": "(39.83, 48.17)",
+    "is_correct": false,
+    "rationale": "Scaled the margin by 99/95, but the margin scales with the ratio of critical values, 2.797/2.064."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.3-A",
+  "content_key": "APSTATS-MCQ-H-4.3-A",
+  "seed": null,
+  "family": "4.3-A",
+  "variant": null,
+  "topic": "4.3",
+  "title": "Claim from an interval for a mean",
+  "stem": "A company claims that the mean life of its batteries is 14 hours. A random sample of batteries is tested, and a 95% confidence interval for the mean life is (11.2, 13.8) hours. Which conclusion is justified?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Because 14 is not in the interval, 14 is not a plausible value for the mean life, so there is convincing evidence the mean differs from 14 hours.",
+    "is_correct": true,
+    "rationale": "Correct: 14 lies outside (11.2, 13.8), so a two-sided test at the 5% level would reject a mean of 14."
+   },
+   {
+    "label": "B",
+    "text": "The claim is still supported, because 14 is only 0.2 above the upper endpoint.",
+    "is_correct": false,
+    "rationale": "A value just outside the interval is still outside, so it is not a plausible value at this confidence level."
+   },
+   {
+    "label": "C",
+    "text": "There is a 5% chance that the claim is true.",
+    "is_correct": false,
+    "rationale": "The interval does not give a probability that a claimed value is true; the parameter is fixed."
+   },
+   {
+    "label": "D",
+    "text": "About 95% of these batteries last between 11.2 and 13.8 hours, so the claim is false.",
+    "is_correct": false,
+    "rationale": "The interval describes the population mean, not the spread of individual battery lives."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.3-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.3-A-v1",
+  "seed": "APSTATS-MCQ-H-4.3-A",
+  "family": "4.3-A",
+  "variant": "1",
+  "topic": "4.3",
+  "title": "Claim from an interval for a mean (variant 1)",
+  "stem": "A coach claims that the mean time to finish a run is 50 minutes. A 95% confidence interval for the mean time, from a random sample of runners, is (46.1, 52.7) minutes. Which conclusion is justified?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is not convincing evidence that the mean differs from 50 minutes, because 50 is a plausible value in the interval.",
+    "is_correct": true,
+    "rationale": "Correct: 50 is inside (46.1, 52.7), so it is a plausible value and the data do not contradict the claim; the data do not prove it either."
+   },
+   {
+    "label": "B",
+    "text": "The data prove the mean is 50 minutes.",
+    "is_correct": false,
+    "rationale": "An interval that contains the claimed value fails to contradict it but cannot prove it, since many other values are also plausible."
+   },
+   {
+    "label": "C",
+    "text": "The mean is more likely to be 50 than any other value, because 50 is close to the middle of the interval.",
+    "is_correct": false,
+    "rationale": "Every value in the interval is plausible, and the interval does not rank values by probability."
+   },
+   {
+    "label": "D",
+    "text": "About 95% of the runners finish between 46.1 and 52.7 minutes.",
+    "is_correct": false,
+    "rationale": "The interval is about the population mean, not the spread of individual finishing times."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.3-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.3-A-v2",
+  "seed": "APSTATS-MCQ-H-4.3-A",
+  "family": "4.3-A",
+  "variant": "2",
+  "topic": "4.3",
+  "title": "Claim from an interval for a mean (variant 2)",
+  "stem": "A 95% confidence interval for a population mean is (3.1, 4.9). A student tests H0: μ = 5 against Ha: μ ≠ 5 at the 5% significance level. Which conclusion follows from the interval?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The p-value is greater than 0.05, because 5 is close to the interval.",
+    "is_correct": false,
+    "rationale": "Closeness does not matter; any value outside the interval is rejected by the matching two-sided test."
+   },
+   {
+    "label": "B",
+    "text": "The p-value is less than 0.05, because 5 is not in the interval.",
+    "is_correct": true,
+    "rationale": "Correct: a 95% interval and a two-sided test at the 5% level agree; 5 lies outside the interval, so H0 is rejected and p < 0.05."
+   },
+   {
+    "label": "C",
+    "text": "The p-value equals 0.05, because the interval has 95% confidence.",
+    "is_correct": false,
+    "rationale": "The confidence level sets the cutoff of 0.05, but the p-value itself is below it when the value is outside the interval."
+   },
+   {
+    "label": "D",
+    "text": "Nothing can be said, because intervals and tests are unrelated.",
+    "is_correct": false,
+    "rationale": "A confidence interval and a two-sided test at the matching level give the same decision."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.3-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.3-A-v3",
+  "seed": "APSTATS-MCQ-H-4.3-A",
+  "family": "4.3-A",
+  "variant": "3",
+  "topic": "4.3",
+  "title": "Claim from an interval for a mean (variant 3)",
+  "stem": "To test whether a tutoring program changes test scores, researchers record the score difference (after - before) for each of 20 randomly chosen students. A 95% confidence interval for the population mean difference is (-3.4, 0.6) points. Which conclusion is justified?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The program lowers scores, because more of the interval is negative than positive.",
+    "is_correct": false,
+    "rationale": "The position of the center within the interval does not matter; any interval containing 0 allows no change as a plausible value."
+   },
+   {
+    "label": "B",
+    "text": "There is not convincing evidence that the program changes the mean score, because 0 is in the interval.",
+    "is_correct": true,
+    "rationale": "Correct: 0 is inside (-3.4, 0.6), so a mean difference of 0 is plausible, but the data do not prove it."
+   },
+   {
+    "label": "C",
+    "text": "The program has no effect on scores.",
+    "is_correct": false,
+    "rationale": "Failing to find evidence of an effect is not the same as proving there is no effect."
+   },
+   {
+    "label": "D",
+    "text": "About 95% of students had a change between -3.4 and 0.6 points.",
+    "is_correct": false,
+    "rationale": "The interval is about the mean difference, not individual students."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.4-A",
+  "content_key": "APSTATS-MCQ-H-4.4-A",
+  "seed": null,
+  "family": "4.4-A",
+  "variant": null,
+  "topic": "4.4",
+  "title": "Hypotheses for a mean",
+  "stem": "A cereal box states that the mean sodium per serving is 250 mg. An inspector suspects the true mean is higher and measures 30 randomly chosen servings, finding a sample mean of 262 mg. Which hypotheses should be tested, where μ is the true mean sodium per serving?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: x-bar = 250 and Ha: x-bar > 250",
+    "is_correct": false,
+    "rationale": "Hypotheses are about the population parameter, not the sample mean."
+   },
+   {
+    "label": "B",
+    "text": "H0: μ = 262 and Ha: μ > 262",
+    "is_correct": false,
+    "rationale": "The null value comes from the claim, not from the sample result."
+   },
+   {
+    "label": "C",
+    "text": "H0: μ = 250 and Ha: μ > 250",
+    "is_correct": true,
+    "rationale": "Correct: the null states the claimed value and the alternative reflects the suspicion of a higher mean, both about the parameter μ."
+   },
+   {
+    "label": "D",
+    "text": "H0: μ = 250 and Ha: μ ≠ 250",
+    "is_correct": false,
+    "rationale": "The inspector suspects the mean is higher, so a two-sided alternative does not match the question."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.4-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.4-A-v1",
+  "seed": "APSTATS-MCQ-H-4.4-A",
+  "family": "4.4-A",
+  "variant": "1",
+  "topic": "4.4",
+  "title": "Hypotheses for a mean (variant 1)",
+  "stem": "Twelve students take a test before and after a tutoring program. Let d = after - before for each student, and let μd be the population mean of these differences. The tutor believes the program improves scores. Which hypotheses should be tested?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: μd = 0 and Ha: μd < 0",
+    "is_correct": false,
+    "rationale": "This sign would describe a decrease; with d = after - before, improvement is positive."
+   },
+   {
+    "label": "B",
+    "text": "H0: μd > 0 and Ha: μd = 0",
+    "is_correct": false,
+    "rationale": "The null hypothesis must contain equality, and here it is placed on the wrong side."
+   },
+   {
+    "label": "C",
+    "text": "H0: μd = 0 and Ha: μd ≠ 0",
+    "is_correct": false,
+    "rationale": "A two-sided alternative does not match the tutor's belief that scores improve."
+   },
+   {
+    "label": "D",
+    "text": "H0: μd = 0 and Ha: μd > 0",
+    "is_correct": true,
+    "rationale": "Correct: with d = after - before, an improvement means a positive mean difference, so the alternative is μd > 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.4-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.4-A-v2",
+  "seed": "APSTATS-MCQ-H-4.4-A",
+  "family": "4.4-A",
+  "variant": "2",
+  "topic": "4.4",
+  "title": "Hypotheses for a mean (variant 2)",
+  "stem": "A coffee shop labels its cups as holding 12 oz. A regulator wants to know whether the true mean fill differs from 12 oz and finds a mean of 11.8 oz in a random sample of 40 cups. Which hypotheses should be tested?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: μ = 12 and Ha: μ < 12",
+    "is_correct": false,
+    "rationale": "The sample mean is below 12, but the question was set before seeing the data, so the alternative must be two-sided."
+   },
+   {
+    "label": "B",
+    "text": "H0: μ = 12 and Ha: μ ≠ 12",
+    "is_correct": true,
+    "rationale": "Correct: the regulator asks whether the mean differs from 12, which is two-sided, and the null uses the labeled value."
+   },
+   {
+    "label": "C",
+    "text": "H0: μ = 11.8 and Ha: μ ≠ 11.8",
+    "is_correct": false,
+    "rationale": "The null value is the labeled value, not the observed sample mean."
+   },
+   {
+    "label": "D",
+    "text": "H0: μ ≠ 12 and Ha: μ = 12",
+    "is_correct": false,
+    "rationale": "The null hypothesis must contain equality, and the alternative states the difference."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.4-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.4-A-v3",
+  "seed": "APSTATS-MCQ-H-4.4-A",
+  "family": "4.4-A",
+  "variant": "3",
+  "topic": "4.4",
+  "title": "Hypotheses for a mean (variant 3)",
+  "stem": "A battery maker states that the mean life of its batteries is 10 hours. A consumer group suspects the mean life is shorter, and a random sample of 25 batteries has mean 9.4 hours. Which hypotheses should be tested?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: μ = 10 and Ha: μ > 10",
+    "is_correct": false,
+    "rationale": "The consumer group suspects a shorter life, so the alternative points the other way here."
+   },
+   {
+    "label": "B",
+    "text": "H0: μ = 10 and Ha: μ < 10",
+    "is_correct": true,
+    "rationale": "Correct: null is the stated mean; the alternative matches the suspicion of a shorter life."
+   },
+   {
+    "label": "C",
+    "text": "H0: μ = 9.4 and Ha: μ < 9.4",
+    "is_correct": false,
+    "rationale": "The null value comes from the claim, not from the sample mean."
+   },
+   {
+    "label": "D",
+    "text": "H0: μ < 10 and Ha: μ = 10",
+    "is_correct": false,
+    "rationale": "The null must hold the equality, and the suspicion belongs in the alternative."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.5-A",
+  "content_key": "APSTATS-MCQ-H-4.5-A",
+  "seed": null,
+  "family": "4.5-A",
+  "variant": null,
+  "topic": "4.5",
+  "title": "t test for a mean: statistic, p-value, conclusion",
+  "stem": "A cereal box states that the mean sodium per serving is 250 mg. An inspector tests H0: μ = 250 versus Ha: μ > 250 using a random sample of 25 servings, which has mean 262 mg and standard deviation 30 mg. The sampling distribution is approximately normal. Which is the correct result and conclusion at the 5% level?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 0.40 and p ≈ 0.35, so there is not convincing evidence that the mean exceeds 250 mg.",
+    "is_correct": false,
+    "rationale": "Divided by s instead of the standard error, giving a t statistic far too small."
+   },
+   {
+    "label": "B",
+    "text": "t = 2.00 and p ≈ 0.06, so there is not convincing evidence that the mean exceeds 250 mg.",
+    "is_correct": false,
+    "rationale": "Doubled the p-value for a two-sided test even though the alternative is one-sided."
+   },
+   {
+    "label": "C",
+    "text": "t = 2.00 and p ≈ 0.03, so there is convincing evidence that the mean exceeds 250 mg.",
+    "is_correct": true,
+    "rationale": "Correct: SE = 30/√25 = 6; t = 12/6 = 2.00; df = 24; one-sided p = 0.0285 < 0.05, so reject H0."
+   },
+   {
+    "label": "D",
+    "text": "t = 2.00 and p ≈ 0.03, so there is about a 3% chance that the mean is 250 mg.",
+    "is_correct": false,
+    "rationale": "A p-value is the probability of data this extreme if H0 is true, not the probability that H0 is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.5-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.5-A-v1",
+  "seed": "APSTATS-MCQ-H-4.5-A",
+  "family": "4.5-A",
+  "variant": "1",
+  "topic": "4.5",
+  "title": "t test for a mean: statistic, p-value, conclusion (variant 1)",
+  "stem": "A random sample of 16 observations from an approximately normal population has mean 47.2 and standard deviation 6. To test H0: μ = 50 versus Ha: μ ≠ 50, which is the correct result and conclusion at the 5% level?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = -1.87 and p ≈ 0.08, so there is not convincing evidence that the mean differs from 50.",
+    "is_correct": true,
+    "rationale": "Correct: SE = 6/√16 = 1.5; t = -2.8/1.5 = -1.87; df = 15; two-sided p = 0.082 > 0.05, so fail to reject H0."
+   },
+   {
+    "label": "B",
+    "text": "t = -1.87 and p ≈ 0.04, so there is convincing evidence that the mean differs from 50.",
+    "is_correct": false,
+    "rationale": "Used a single tail even though the alternative is two-sided, which halves the p-value and flips the conclusion."
+   },
+   {
+    "label": "C",
+    "text": "t = -0.47 and p ≈ 0.65, so there is not convincing evidence that the mean differs from 50.",
+    "is_correct": false,
+    "rationale": "Divided the difference by s instead of the standard error."
+   },
+   {
+    "label": "D",
+    "text": "t = -7.47 and p < 0.001, so there is convincing evidence that the mean differs from 50.",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of √n, which inflates the t statistic."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.5-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.5-A-v2",
+  "seed": "APSTATS-MCQ-H-4.5-A",
+  "family": "4.5-A",
+  "variant": "2",
+  "topic": "4.5",
+  "title": "t test for a mean: statistic, p-value, conclusion (variant 2)",
+  "stem": "Ten randomly chosen students take a reading test before and after a program. The mean of the differences (after - before) is 3.1 points with a standard deviation of 4.0, and the differences are roughly symmetric with no outliers. To test H0: μd = 0 versus Ha: μd > 0, which is correct at the 5% level?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 0.78 and p ≈ 0.23, so there is not convincing evidence that the mean difference is positive.",
+    "is_correct": false,
+    "rationale": "Divided by the standard deviation instead of the standard error."
+   },
+   {
+    "label": "B",
+    "text": "t = 2.45 and p ≈ 0.04 using a two-sided p-value, so the evidence is only borderline.",
+    "is_correct": false,
+    "rationale": "The alternative is one-sided, so the p-value is not doubled."
+   },
+   {
+    "label": "C",
+    "text": "t = 2.45 with df = 9 and p ≈ 0.02, so there is convincing evidence that the mean difference is positive.",
+    "is_correct": true,
+    "rationale": "Correct: SE = 4.0/√10 = 1.265; t = 3.1/1.265 = 2.45; df = 9; one-sided p = 0.018 < 0.05."
+   },
+   {
+    "label": "D",
+    "text": "t = 2.45 and p ≈ 0.02, so there is a 2% chance that the mean difference is 0.",
+    "is_correct": false,
+    "rationale": "The p-value is not the probability that the null hypothesis is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.5-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.5-A-v3",
+  "seed": "APSTATS-MCQ-H-4.5-A",
+  "family": "4.5-A",
+  "variant": "3",
+  "topic": "4.5",
+  "title": "t test for a mean: statistic, p-value, conclusion (variant 3)",
+  "stem": "A random sample of 36 observations has mean 102.5 and standard deviation 15. To test H0: μ = 100 versus Ha: μ ≠ 100, which is the correct result and conclusion at the 5% level?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 1.00 and p ≈ 0.16, so there is convincing evidence that the mean differs from 100.",
+    "is_correct": false,
+    "rationale": "Used one tail for a two-sided alternative, and a p of 0.16 would still not be below 0.05."
+   },
+   {
+    "label": "B",
+    "text": "t = 1.00 and p ≈ 0.32, so there is not convincing evidence that the mean differs from 100.",
+    "is_correct": true,
+    "rationale": "Correct: SE = 15/√36 = 2.5; t = 2.5/2.5 = 1.00; df = 35; two-sided p = 0.324."
+   },
+   {
+    "label": "C",
+    "text": "t = 1.00 and p ≈ 0.32, so the data show that the mean equals 100.",
+    "is_correct": false,
+    "rationale": "Failing to reject does not prove the null; it only means the data are consistent with it."
+   },
+   {
+    "label": "D",
+    "text": "t = 6.00 and p < 0.001, so there is convincing evidence that the mean differs from 100.",
+    "is_correct": false,
+    "rationale": "Divided s by n instead of √n, which inflates the t statistic."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.6-A",
+  "content_key": "APSTATS-MCQ-H-4.6-A",
+  "seed": null,
+  "family": "4.6-A",
+  "variant": null,
+  "topic": "4.6",
+  "title": "Sampling distribution of a difference of sample means",
+  "stem": "Population 1 has mean 70 and standard deviation 12, and population 2 has mean 64 and standard deviation 10. An independent random sample of 36 is taken from population 1 and a random sample of 25 from population 2. What are the mean and standard deviation of the sampling distribution of x-bar1 - x-bar2?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Mean 6, standard deviation 2.83.",
+    "is_correct": true,
+    "rationale": "Correct: mean = 70 - 64 = 6; SD = sqrt(144/36 + 100/25) = sqrt(4 + 4) = 2.83."
+   },
+   {
+    "label": "B",
+    "text": "Mean 6, standard deviation 2.0.",
+    "is_correct": false,
+    "rationale": "This pools everything as if both samples were one combined group instead of adding the two variances."
+   },
+   {
+    "label": "C",
+    "text": "Mean 6, standard deviation 8.",
+    "is_correct": false,
+    "rationale": "This is the variance 4 + 4 and was never square-rooted."
+   },
+   {
+    "label": "D",
+    "text": "Mean 6, standard deviation 4.",
+    "is_correct": false,
+    "rationale": "Added the two standard errors, 2 + 2, instead of adding the variances and taking the square root."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.6-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.6-A-v1",
+  "seed": "APSTATS-MCQ-H-4.6-A",
+  "family": "4.6-A",
+  "variant": "1",
+  "topic": "4.6",
+  "title": "Sampling distribution of a difference of sample means (variant 1)",
+  "stem": "Population 1 has mean 70 and standard deviation 12, and population 2 has mean 64 and standard deviation 10. Independent random samples of 36 and 25 are taken, respectively, and both sampling distributions are approximately normal. What is the probability that the sample mean from population 1 is greater than the sample mean from population 2?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.98, because x-bar1 - x-bar2 has mean 6 and standard deviation 2.83.",
+    "is_correct": true,
+    "rationale": "Correct: P(x-bar1 - x-bar2 > 0) = P(Z > -6/2.83) = P(Z > -2.12) = 0.983."
+   },
+   {
+    "label": "B",
+    "text": "About 0.50, because the samples are the same kind of random sample.",
+    "is_correct": false,
+    "rationale": "The two means differ by 6 and the standard deviation of the difference is only 2.83, so a result above 0 is far from a coin flip."
+   },
+   {
+    "label": "C",
+    "text": "About 0.65, using the population standard deviations without dividing by the sample sizes.",
+    "is_correct": false,
+    "rationale": "This uses the spread of individual values, sqrt(144 + 100) = 15.6, instead of the spread of the sample means."
+   },
+   {
+    "label": "D",
+    "text": "About 0.02, because the difference is more likely to be negative.",
+    "is_correct": false,
+    "rationale": "This reverses the direction; the mean difference is positive, so the sample difference is likely to be positive."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.6-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.6-A-v2",
+  "seed": "APSTATS-MCQ-H-4.6-A",
+  "family": "4.6-A",
+  "variant": "2",
+  "topic": "4.6",
+  "title": "Sampling distribution of a difference of sample means (variant 2)",
+  "stem": "Two independent random samples, each of size 30, are taken from two populations. If both sample sizes are doubled to 60 and the population standard deviations stay the same, what happens to the standard deviation of x-bar1 - x-bar2?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It is cut in half.",
+    "is_correct": false,
+    "rationale": "Halving the standard deviation would require four times the sample sizes, not two times."
+   },
+   {
+    "label": "B",
+    "text": "It stays the same, since the population standard deviations did not change.",
+    "is_correct": false,
+    "rationale": "The sample sizes appear in the standard deviation of the difference, so changing them changes it."
+   },
+   {
+    "label": "C",
+    "text": "It doubles.",
+    "is_correct": false,
+    "rationale": "Larger samples reduce the spread of the difference; they do not increase it."
+   },
+   {
+    "label": "D",
+    "text": "It is multiplied by about 0.71, which is 1/√2.",
+    "is_correct": true,
+    "rationale": "Correct: SD = sqrt(σ1²/n1 + σ2²/n2); doubling both n divides the inside by 2, so SD is multiplied by 1/√2 = 0.71."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.6-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.6-A-v3",
+  "seed": "APSTATS-MCQ-H-4.6-A",
+  "family": "4.6-A",
+  "variant": "3",
+  "topic": "4.6",
+  "title": "Sampling distribution of a difference of sample means (variant 3)",
+  "stem": "Two independent random samples of sizes 12 and 14 are taken from two strongly right-skewed populations. Which statement is correct about using a normal model for x-bar1 - x-bar2?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It is justified, because the samples are independent and random.",
+    "is_correct": false,
+    "rationale": "Independence and randomness are needed, but they do not make a small sample from a skewed population approximately normal."
+   },
+   {
+    "label": "B",
+    "text": "It is justified, because the combined sample size is more than 25.",
+    "is_correct": false,
+    "rationale": "The sample sizes are checked separately for each sample; adding them does not help."
+   },
+   {
+    "label": "C",
+    "text": "It is justified, because the difference of two skewed distributions is always symmetric.",
+    "is_correct": false,
+    "rationale": "Subtracting two skewed distributions does not remove the skewness of each sample mean."
+   },
+   {
+    "label": "D",
+    "text": "It is not justified, because both samples are small and both populations are strongly skewed.",
+    "is_correct": true,
+    "rationale": "Correct: with small samples from strongly skewed populations, the Central Limit Theorem does not yet apply to either sample mean."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.7-A",
+  "content_key": "APSTATS-MCQ-H-4.7-A",
+  "seed": null,
+  "family": "4.7-A",
+  "variant": null,
+  "topic": "4.7",
+  "title": "Two-sample t interval",
+  "stem": "Independent random samples of 30 students from each of two schools give the following test scores. School 1 has mean 82 and standard deviation 10; school 2 has mean 76 and standard deviation 12. Both samples are roughly symmetric. Using t* = 2.00, which is the 95% confidence interval for μ1 - μ2?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(-2.03, 14.03)",
+    "is_correct": false,
+    "rationale": "Added the two separate standard errors, 1.83 + 2.19, instead of adding the variances and taking the square root."
+   },
+   {
+    "label": "B",
+    "text": "(-25.24, 37.24)",
+    "is_correct": false,
+    "rationale": "Forgot to divide by the sample sizes inside the square root, so the standard error is far too large."
+   },
+   {
+    "label": "C",
+    "text": "(-11.70, -0.30)",
+    "is_correct": false,
+    "rationale": "Subtracted in the wrong order; the question asks for μ1 - μ2 with school 1 first."
+   },
+   {
+    "label": "D",
+    "text": "(0.30, 11.70)",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(100/30 + 144/30) = 2.85; margin = 2.00 x 2.85 = 5.70; interval 6 ± 5.70 = (0.30, 11.70)."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.7-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.7-A-v1",
+  "seed": "APSTATS-MCQ-H-4.7-A",
+  "family": "4.7-A",
+  "variant": "1",
+  "topic": "4.7",
+  "title": "Two-sample t interval (variant 1)",
+  "stem": "Independent random samples give these results: sample 1 has n = 40, mean 15.2, standard deviation 3.0; sample 2 has n = 35, mean 13.9, standard deviation 2.4. Both are roughly symmetric. Using t* = 1.68, which is the 90% confidence interval for μ1 - μ2?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(0.65, 1.95)",
+    "is_correct": false,
+    "rationale": "Added the two variances over n but did not take the square root, so the margin is too small."
+   },
+   {
+    "label": "B",
+    "text": "(-2.35, -0.25)",
+    "is_correct": false,
+    "rationale": "Subtracted in the wrong order, giving the interval for μ2 - μ1."
+   },
+   {
+    "label": "C",
+    "text": "(0.25, 2.35)",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(9/40 + 5.76/35) = 0.624; margin = 1.68 x 0.624 = 1.05; interval 1.3 ± 1.05 = (0.25, 2.35)."
+   },
+   {
+    "label": "D",
+    "text": "(-0.18, 2.78)",
+    "is_correct": false,
+    "rationale": "Added the two standard errors instead of adding the variances first, which widens the interval across 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.7-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.7-A-v2",
+  "seed": "APSTATS-MCQ-H-4.7-A",
+  "family": "4.7-A",
+  "variant": "2",
+  "topic": "4.7",
+  "title": "Two-sample t interval (variant 2)",
+  "stem": "A 95% confidence interval for μA - μB, where μA and μB are the mean completion times in seconds for two tasks, is (2.1, 7.9). Which interpretation is correct?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 95% of individual A times are 2.1 to 7.9 seconds greater than individual B times.",
+    "is_correct": false,
+    "rationale": "The interval is about the difference in means, not about individual times."
+   },
+   {
+    "label": "B",
+    "text": "We are 95% confident that the mean time for A is greater than the mean time for B by between 2.1 and 7.9 seconds.",
+    "is_correct": true,
+    "rationale": "Correct: the interval estimates the difference in population means, μA - μB."
+   },
+   {
+    "label": "C",
+    "text": "There is a 95% probability that the difference in sample means is between 2.1 and 7.9 seconds.",
+    "is_correct": false,
+    "rationale": "The sample difference is known, and the interval is a statement about the population difference."
+   },
+   {
+    "label": "D",
+    "text": "The mean time for A is between 2.1 and 7.9 seconds.",
+    "is_correct": false,
+    "rationale": "The interval is for the difference between the two means, not for the mean of A."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.7-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.7-A-v3",
+  "seed": "APSTATS-MCQ-H-4.7-A",
+  "family": "4.7-A",
+  "variant": "3",
+  "topic": "4.7",
+  "title": "Two-sample t interval (variant 3)",
+  "stem": "A 95% confidence interval for μ1 - μ2 is (-1.2, 5.6). What are the difference in sample means and the margin of error?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Difference 2.2 and margin of error 6.8.",
+    "is_correct": false,
+    "rationale": "Used the full width of the interval as the margin of error instead of half the width."
+   },
+   {
+    "label": "B",
+    "text": "Difference 3.4 and margin of error 2.2.",
+    "is_correct": false,
+    "rationale": "Swapped the center and the half-width, treating the margin of error as the difference in sample means."
+   },
+   {
+    "label": "C",
+    "text": "Difference 2.2 and margin of error 3.4.",
+    "is_correct": true,
+    "rationale": "Correct: the center is (-1.2 + 5.6)/2 = 2.2 and the half-width is (5.6 - (-1.2))/2 = 3.4."
+   },
+   {
+    "label": "D",
+    "text": "Difference 5.6 and margin of error 1.2.",
+    "is_correct": false,
+    "rationale": "Used the endpoints as the difference and margin of error."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.8-A",
+  "content_key": "APSTATS-MCQ-H-4.8-A",
+  "seed": null,
+  "family": "4.8-A",
+  "variant": null,
+  "topic": "4.8",
+  "title": "Claim from an interval for a difference of means",
+  "stem": "In a randomized experiment, a 95% confidence interval for μtreatment - μcontrol, the difference in mean weight loss in kilograms, is (-0.4, 6.8). A manager claims the treatment increases mean weight loss. Which conclusion is justified?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The treatment increases weight loss, because most of the interval is positive.",
+    "is_correct": false,
+    "rationale": "The proportion of the interval that is positive does not matter; if 0 is in the interval, no difference is plausible."
+   },
+   {
+    "label": "B",
+    "text": "The treatment has no effect on weight loss.",
+    "is_correct": false,
+    "rationale": "Failing to find convincing evidence of a difference does not prove there is no difference."
+   },
+   {
+    "label": "C",
+    "text": "There is not convincing evidence of a difference, because 0 is in the interval.",
+    "is_correct": true,
+    "rationale": "Correct: the interval contains 0, so no difference is a plausible value and the claim of an increase is not justified at this confidence level."
+   },
+   {
+    "label": "D",
+    "text": "There is a 95% chance that the true difference is positive.",
+    "is_correct": false,
+    "rationale": "The interval does not give the probability that the true difference is positive."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.8-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.8-A-v1",
+  "seed": "APSTATS-MCQ-H-4.8-A",
+  "family": "4.8-A",
+  "variant": "1",
+  "topic": "4.8",
+  "title": "Claim from an interval for a difference of means (variant 1)",
+  "stem": "A 95% confidence interval for μA - μB, the difference in mean reaction time in milliseconds between two groups, is (1.2, 5.4). Which conclusion is justified?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The difference in the sample means is exactly 5.4 milliseconds.",
+    "is_correct": false,
+    "rationale": "The interval gives a range, and the sample difference is its midpoint, 3.3."
+   },
+   {
+    "label": "B",
+    "text": "Every individual in group A is slower than every individual in group B.",
+    "is_correct": false,
+    "rationale": "The interval concerns the difference in means, not each individual."
+   },
+   {
+    "label": "C",
+    "text": "There is no convincing evidence of a difference, because the interval is narrow.",
+    "is_correct": false,
+    "rationale": "The width of the interval does not decide the conclusion; whether it contains 0 does."
+   },
+   {
+    "label": "D",
+    "text": "There is convincing evidence that group A has a greater mean reaction time than group B.",
+    "is_correct": true,
+    "rationale": "Correct: the interval lies entirely above 0, so μA - μB > 0 at the 95% level."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.8-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.8-A-v2",
+  "seed": "APSTATS-MCQ-H-4.8-A",
+  "family": "4.8-A",
+  "variant": "2",
+  "topic": "4.8",
+  "title": "Claim from an interval for a difference of means (variant 2)",
+  "stem": "In a study of two teaching methods, a 95% confidence interval for the mean score under method 1 is (62.0, 70.0) and a 95% confidence interval for the mean score under method 2 is (68.0, 76.0). The two samples have the same size and similar variability, and the intervals overlap. A student concludes there is no convincing evidence of a difference. Which statement is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The student is correct, because overlapping intervals always mean no difference.",
+    "is_correct": false,
+    "rationale": "Overlapping separate intervals do not prove there is no difference, because the standard error of the difference is smaller than the sum of the two standard errors."
+   },
+   {
+    "label": "B",
+    "text": "The student is wrong, because method 2 has a higher mean in the samples.",
+    "is_correct": false,
+    "rationale": "A larger sample mean in one group is not enough; the decision depends on the interval for the difference."
+   },
+   {
+    "label": "C",
+    "text": "The conclusion is not justified, because the interval for the difference must be examined, and it can exclude 0 even when the separate intervals overlap.",
+    "is_correct": true,
+    "rationale": "Correct: each separate interval has margin 4, so each standard error is about 2.04; the difference in sample means is 72 - 66 = 6, and the standard error of the difference is sqrt(2.04² + 2.04²) = 2.89, so the interval for the difference is about 6 ± 1.96(2.89) = (0.3, 11.7), which excludes 0."
+   },
+   {
+    "label": "D",
+    "text": "The student is correct, because two 95% intervals together give 90% confidence.",
+    "is_correct": false,
+    "rationale": "The confidence level of the difference interval is set by its own construction, not by combining two intervals."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.8-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.8-A-v3",
+  "seed": "APSTATS-MCQ-H-4.8-A",
+  "family": "4.8-A",
+  "variant": "3",
+  "topic": "4.8",
+  "title": "Claim from an interval for a difference of means (variant 3)",
+  "stem": "A 95% confidence interval for μ1 - μ2 is (-5.1, -0.9). A researcher tests H0: μ1 - μ2 = 0 versus Ha: μ1 - μ2 ≠ 0 at the 5% level. Which conclusion follows from the interval?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, because the interval includes negative values.",
+    "is_correct": false,
+    "rationale": "Negative values are not a reason to retain H0; what matters is whether 0 is in the interval."
+   },
+   {
+    "label": "B",
+    "text": "Reject H0, and there is convincing evidence that μ1 is greater than μ2.",
+    "is_correct": false,
+    "rationale": "A negative difference μ1 - μ2 means the second mean is larger."
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H0, because the interval is entirely on one side.",
+    "is_correct": false,
+    "rationale": "An interval that lies entirely on one side of 0 is evidence against H0, not for it."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, and there is convincing evidence that μ2 is greater than μ1.",
+    "is_correct": true,
+    "rationale": "Correct: the interval excludes 0 and is entirely negative, so μ1 - μ2 < 0, which means μ2 is greater than μ1."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.9-A",
+  "content_key": "APSTATS-MCQ-H-4.9-A",
+  "seed": null,
+  "family": "4.9-A",
+  "variant": null,
+  "topic": "4.9",
+  "title": "Two-sample or paired setup and hypotheses",
+  "stem": "A researcher randomly assigns 40 volunteers to two groups of 20. One group uses a new study app and the other uses an old one, and each volunteer's weekly study time is recorded. The researcher wants to know whether the new app leads to a lower mean study time than the old app. Which setup is appropriate, where μN and μO are the true mean study times?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A paired t test, because there are two sets of study times.",
+    "is_correct": false,
+    "rationale": "A paired test requires that each observation in one group be linked to one in the other, which is not the case when volunteers are randomly split."
+   },
+   {
+    "label": "B",
+    "text": "A two-sample t test with H0: μN - μO = 0 and Ha: μN - μO > 0.",
+    "is_correct": false,
+    "rationale": "The researcher expects the new app to give a lower mean, so a greater-than alternative points the wrong way."
+   },
+   {
+    "label": "C",
+    "text": "A two-sample t test with H0: x-bar_N - x-bar_O = 0 and Ha: x-bar_N - x-bar_O < 0.",
+    "is_correct": false,
+    "rationale": "Hypotheses are about the population means, not the sample means."
+   },
+   {
+    "label": "D",
+    "text": "A two-sample t test with H0: μN - μO = 0 and Ha: μN - μO < 0.",
+    "is_correct": true,
+    "rationale": "Correct: the groups are independent, so a two-sample t test applies; \"lower\" means μN - μO < 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.9-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.9-A-v1",
+  "seed": "APSTATS-MCQ-H-4.9-A",
+  "family": "4.9-A",
+  "variant": "1",
+  "topic": "4.9",
+  "title": "Two-sample or paired setup and hypotheses (variant 1)",
+  "stem": "To compare two running shoes, 15 pairs of identical twins are used. In each pair, one twin is randomly assigned to shoe A and the other to shoe B, and each runs the same course. Which setup is appropriate?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A two-sample t test, because there are two groups of runners.",
+    "is_correct": false,
+    "rationale": "Two groups exist, but the observations are matched by pair, so they are not independent samples."
+   },
+   {
+    "label": "B",
+    "text": "A two-proportion z test comparing runners who finish.",
+    "is_correct": false,
+    "rationale": "The response is a time, which is quantitative, not a proportion."
+   },
+   {
+    "label": "C",
+    "text": "A two-sample t test, because the runners in the two groups are different people.",
+    "is_correct": false,
+    "rationale": "Different people does not mean independent; the twin pairs link the two groups."
+   },
+   {
+    "label": "D",
+    "text": "A paired t test on the 15 within-pair differences.",
+    "is_correct": true,
+    "rationale": "Correct: each twin in one group is matched to a twin in the other, so the data are paired and the analysis uses the differences."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.9-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.9-A-v2",
+  "seed": "APSTATS-MCQ-H-4.9-A",
+  "family": "4.9-A",
+  "variant": "2",
+  "topic": "4.9",
+  "title": "Two-sample or paired setup and hypotheses (variant 2)",
+  "stem": "A researcher compares the mean wait times at two clinics using independent random samples of 12 patients from one clinic and 15 from the other. Dotplots of each sample show roughly symmetric shapes with no outliers. Which statement about the conditions for a two-sample t procedure is correct?",
+  "key": "C",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The conditions are not met, because the sample sizes differ.",
+    "is_correct": false,
+    "rationale": "The two sample sizes can differ; the unpooled t procedure does not require equal sizes."
+   },
+   {
+    "label": "B",
+    "text": "The conditions are not met, because the two standard deviations are not known to be equal.",
+    "is_correct": false,
+    "rationale": "The unpooled two-sample t procedure does not require equal standard deviations."
+   },
+   {
+    "label": "C",
+    "text": "The conditions are met, because the samples are random and independent, and each sample is roughly symmetric with no outliers.",
+    "is_correct": true,
+    "rationale": "Correct: a two-sample t procedure requires random, independent samples, and each sample should not show strong skew or outliers when n is small."
+   },
+   {
+    "label": "D",
+    "text": "The conditions are met only if the combined data from both clinics look approximately normal.",
+    "is_correct": false,
+    "rationale": "Normality is checked for each sample separately, not for the combined data."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.9-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.9-A-v3",
+  "seed": "APSTATS-MCQ-H-4.9-A",
+  "family": "4.9-A",
+  "variant": "3",
+  "topic": "4.9",
+  "title": "Two-sample or paired setup and hypotheses (variant 3)",
+  "stem": "Random samples of 40 vegetarians and 40 non-vegetarians have mean cholesterol levels of 182 and 191 mg/dL. A researcher wants to know whether mean cholesterol differs between the two populations. Which hypotheses should be tested, where μV and μN are the population mean cholesterol levels?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H0: x-bar_V = x-bar_N and Ha: x-bar_V ≠ x-bar_N",
+    "is_correct": false,
+    "rationale": "Hypotheses concern the population means, not the sample means."
+   },
+   {
+    "label": "B",
+    "text": "H0: μV - μN = 0 and Ha: μV - μN < 0",
+    "is_correct": false,
+    "rationale": "The sample direction should not decide the alternative; the question asks only whether the means differ."
+   },
+   {
+    "label": "C",
+    "text": "H0: μV - μN = 9 and Ha: μV - μN ≠ 9",
+    "is_correct": false,
+    "rationale": "The null value is 0, the no-difference value, not the observed sample difference."
+   },
+   {
+    "label": "D",
+    "text": "H0: μV - μN = 0 and Ha: μV - μN ≠ 0",
+    "is_correct": true,
+    "rationale": "Correct: the question asks whether the means differ, so the alternative is two-sided and the null difference is 0."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.10-A",
+  "content_key": "APSTATS-MCQ-H-4.10-A",
+  "seed": null,
+  "family": "4.10-A",
+  "variant": null,
+  "topic": "4.10",
+  "title": "Two-sample t test: statistic, p-value, conclusion",
+  "stem": "Two independent random samples of 40 students from two schools give test scores: school 1 has mean 78 and standard deviation 10; school 2 has mean 73 and standard deviation 12. Both samples are roughly symmetric. To test H0: μ1 - μ2 = 0 versus Ha: μ1 - μ2 > 0, which is the correct result and conclusion at the 5% level?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 2.02 and p ≈ 0.02, so there is convincing evidence that the mean score at school 1 is higher.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(100/40 + 144/40) = 2.47; t = 5/2.47 = 2.02; df ≈ 76; one-sided p = 0.023."
+   },
+   {
+    "label": "B",
+    "text": "t = 0.32 and p ≈ 0.37, so there is not convincing evidence that school 1 has the higher mean.",
+    "is_correct": false,
+    "rationale": "Forgot to divide the variances by the sample sizes, so the standard error and the t value are wrong."
+   },
+   {
+    "label": "C",
+    "text": "t = 2.86 and p ≈ 0.003, using a standard error of 1.75.",
+    "is_correct": false,
+    "rationale": "Divided the combined variance by the total sample size, which understates the standard error."
+   },
+   {
+    "label": "D",
+    "text": "t = 2.02 and p ≈ 0.02, so there is a 2% chance that the two means are equal.",
+    "is_correct": false,
+    "rationale": "A p-value is not the probability that the null hypothesis is true."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.10-A-v1",
+  "content_key": "APSTATS-MCQ-SV-H-4.10-A-v1",
+  "seed": "APSTATS-MCQ-H-4.10-A",
+  "family": "4.10-A",
+  "variant": "1",
+  "topic": "4.10",
+  "title": "Two-sample t test: statistic, p-value, conclusion (variant 1)",
+  "stem": "Independent random samples give these results: sample 1 has n = 25, mean 14.1, standard deviation 3.2; sample 2 has n = 30, mean 12.9, standard deviation 2.8. Both are roughly symmetric. To test H0: μ1 - μ2 = 0 versus Ha: μ1 - μ2 ≠ 0, which is correct at the 5% level?",
+  "key": "D",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 1.47 and p ≈ 0.07, so there is convincing evidence of a difference in means.",
+    "is_correct": false,
+    "rationale": "Used one tail for a two-sided alternative, and even a p of 0.07 would not be below 0.05."
+   },
+   {
+    "label": "B",
+    "text": "t = 0.28 and p ≈ 0.78, so there is not convincing evidence of a difference in means.",
+    "is_correct": false,
+    "rationale": "Divided by the square root of the sum of the variances without dividing by the sample sizes."
+   },
+   {
+    "label": "C",
+    "text": "t = 1.47 and p ≈ 0.15, so the two means are equal.",
+    "is_correct": false,
+    "rationale": "Failing to reject does not show the means are equal; it means the data do not rule that out."
+   },
+   {
+    "label": "D",
+    "text": "t = 1.47 and p ≈ 0.15, so there is not convincing evidence of a difference in means.",
+    "is_correct": true,
+    "rationale": "Correct: SE = sqrt(3.2²/25 + 2.8²/30) = 0.819; t = 1.2/0.819 = 1.47; df ≈ 48; two-sided p = 0.149."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.10-A-v2",
+  "content_key": "APSTATS-MCQ-SV-H-4.10-A-v2",
+  "seed": "APSTATS-MCQ-H-4.10-A",
+  "family": "4.10-A",
+  "variant": "2",
+  "topic": "4.10",
+  "title": "Two-sample t test: statistic, p-value, conclusion (variant 2)",
+  "stem": "In a test of H0: μ1 - μ2 = 0 versus Ha: μ1 - μ2 < 0, a two-sample t procedure gives t = -2.31 with about 21 degrees of freedom. Which p-value is correct?",
+  "key": "A",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.016",
+    "is_correct": true,
+    "rationale": "Correct: the alternative is lower-tailed, so p = P(T < -2.31) = 0.016 with df = 21."
+   },
+   {
+    "label": "B",
+    "text": "About 0.03",
+    "is_correct": false,
+    "rationale": "This doubles the tail area, which is correct only for a two-sided alternative."
+   },
+   {
+    "label": "C",
+    "text": "About 0.98",
+    "is_correct": false,
+    "rationale": "This is the upper tail, the wrong direction for a less-than alternative."
+   },
+   {
+    "label": "D",
+    "text": "About 0.0016",
+    "is_correct": false,
+    "rationale": "This is ten times too small and does not match the t value."
+   }
+  ]
+ },
+ {
+  "src_id": "N-4.10-A-v3",
+  "content_key": "APSTATS-MCQ-SV-H-4.10-A-v3",
+  "seed": "APSTATS-MCQ-H-4.10-A",
+  "family": "4.10-A",
+  "variant": "3",
+  "topic": "4.10",
+  "title": "Two-sample t test: statistic, p-value, conclusion (variant 3)",
+  "stem": "A study of 5,000 students at each of two schools finds mean scores of 74.0 and 73.0 on a 100-point test with standard deviations near 15. A two-sample t test of H0: μ1 = μ2 versus Ha: μ1 ≠ μ2 gives t = 3.33 and p ≈ 0.001. Which conclusion is best?",
+  "key": "B",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The 1-point difference must be large, because the p-value is so small.",
+    "is_correct": false,
+    "rationale": "A small p-value reflects the large sample size, not necessarily a large difference."
+   },
+   {
+    "label": "B",
+    "text": "There is convincing evidence of a difference in population means, but a difference of about 1 point may be too small to matter in practice.",
+    "is_correct": true,
+    "rationale": "Correct: with very large samples, even a 1-point difference gives a small p-value; statistical significance does not mean practical importance."
+   },
+   {
+    "label": "C",
+    "text": "There is a 0.1% chance that the two population means are equal.",
+    "is_correct": false,
+    "rationale": "The p-value is a probability computed assuming the null hypothesis is true; it is not the probability that the null is true."
+   },
+   {
+    "label": "D",
+    "text": "The small p-value proves that school 1 causes higher scores.",
+    "is_correct": false,
+    "rationale": "Schools were not randomly assigned to students, so an association does not prove cause."
+   }
+  ]
+ }
+]
