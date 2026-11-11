@@ -18,6 +18,7 @@ def q(path_or_sql,is_sql=False,table=False):
 def stop(m): print("STOP:",m); sys.exit(1)
 print("==",os.path.basename(F),cfg["subject"],len(items),"new /",len(old),"retire")
 K=",".join("'"+k.replace("'","''")+"'" for k in old); PK=cfg["pack"]; PFX=cfg["prefix"]
+K=K or "''"
 pre=q(f"select (select count(*) from app.content_items ci join app.content_item_versions v on v.content_item_id=ci.id and v.status='published' where ci.exam_pack_version_id='{PK}' and ci.item_type='mcq' and ci.status='published' and ci.content_key in ({K})) o, (select count(*) from app.content_items where exam_pack_version_id='{PK}' and content_key like '{PFX}-%h-3.%') n",True)[0]
 print("preflight old_published",pre["o"],"new_exist",pre["n"])
 if pre["o"]!=len(old) or pre["n"]!=0: stop(f"preflight mismatch: expected {len(old)} published and 0 existing")
@@ -34,10 +35,12 @@ r=q(F+"/publish_rehearsal.sql"); print(r if isinstance(r,dict) else "no rehearsa
 if not (isinstance(r,dict) and "published="+str(len(items)) in r["rehearsal"]): stop("publish rehearsal")
 r=q(F+"/publish.sql")[0]; print("published",r)
 if r["published"]!=len(items) or r["validated_labels"]!=len(items) or r["topic_cells"]!=len(items): stop("publish counts")
-r=q(F+"/retire_old_rehearsal.sql")
-if not (isinstance(r,dict) and f"retired={len(old)}" in r["rehearsal"]): stop("retire rehearsal "+str(r))
-r=q(F+"/retire_old.sql")[0]; print("retired",r)
-if r["retired"]!=len(old): stop("retire count")
+if old:
+    r=q(F+"/retire_old_rehearsal.sql")
+    if not (isinstance(r,dict) and f"retired={len(old)}" in r["rehearsal"]): stop("retire rehearsal "+str(r))
+    r=q(F+"/retire_old.sql")[0]; print("retired",r)
+    if r["retired"]!=len(old): stop("retire count")
+else: print("no retirements in this batch")
 n,bad=verify(("published","published")); print("post hash check",n-len(bad),"of",n,"published")
 if bad: stop("post verify")
 topics=sorted({i["topic"] for i in items},key=lambda t:int(t.split(".")[1])); unit=3

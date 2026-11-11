@@ -62,9 +62,12 @@ R=[("c9ca46b2-b529-4ed3-9741-dddea455ab9b",cfg["pack"]),("cbe3116f-6ef5-410c-b53
  ("scripts/content-seed/apchem-harder-seeds-u3-2026-11-11","scripts/content-seed/"+os.path.basename(folder))]
 for a,b in R: g=g.replace(a,b)
 i=g.index("OLD=["); j=g.index("assert len(OLD)"); k=g.index("\n",j)
-g=g[:i]+"OLD=json.load(open('superseded_keys.json'))\nNOLD=len(OLD)\nassert NOLD==len(set(OLD)) and NOLD>0"+g[k:]
+g=g[:i]+"OLD=json.load(open('superseded_keys.json'))\nNOLD=len(OLD)\nassert NOLD==len(set(OLD))"+g[k:]
 g=g.replace("<>12","<>{NOLD}").replace("expected 12 published","expected {NOLD} published")
 g=g.replace("assert N==24","assert N==%d"%N).replace("<>24","<>{N}").replace("expected 24 draft","expected {N} draft")
 open(f"{folder}/gen_package.py","w").write(g)
 os.chdir(folder); os.system("python3 gen_package.py | head -2")
+if not retire:
+    for f in ("retire_old.sql","retire_old_rehearsal.sql"):
+        if os.path.exists(f): os.remove(f)
 print("package built:",N,"items,",len(retire),"retirements in",folder)
