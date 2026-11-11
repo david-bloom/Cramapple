@@ -12,7 +12,7 @@ the misconception behind each distractor (cached by item hash). (3) semantic dup
 items.csv and summary.csv. Tiers are model judgements until calibrated against a subject-matter reader.
 Needs AI_GATEWAY_API_KEY in the environment or in scripts/vercel-gateway-check/.env.local (never printed).
 """
-import argparse,csv,hashlib,json,os,re,subprocess,sys,time,collections,concurrent.futures as cf,urllib.request,tempfile
+import difflib,argparse,csv,hashlib,json,os,re,subprocess,sys,time,collections,concurrent.futures as cf,urllib.request,tempfile
 HERE=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.abspath(os.path.join(HERE,"..",".."))
 MODELS=["deepseek/deepseek-v4-pro","moonshotai/kimi-k3.1-pro"]
 RUBRIC="""You are an expert AP teacher and item reviewer. Judge the COGNITIVE DEMAND of the multiple-choice question below, for a student preparing for the AP exam named in the header. Work the problem yourself first.
@@ -81,7 +81,8 @@ def dups(items):
         for i,r in enumerate(g):
             for o in g[:i]:
                 a=re.sub(r"(what is|find|if|the|\?|,|\.)","",norm(r["stem"])); b=re.sub(r"(what is|find|if|the|\?|,|\.)","",norm(o["stem"]))
-                if sig(r)[1]==sig(o)[1] or a==b: out.setdefault(r["content_key"],o["content_key"]); break
+                # same choice set AND near-identical question text (numbers alone are not enough: different functions can share answers)
+                if a==b or difflib.SequenceMatcher(None,a,b).ratio()>=0.85: out.setdefault(r["content_key"],o["content_key"]); break
     return out
 
 def prompt(r):
@@ -106,21 +107,22 @@ def main():
     dd=dups(items); res={r["content_key"]:{} for r in items}
     if not a.no_model:
         k=key(); cache_p=os.path.join(a.out,"cache.json"); cache=json.load(open(cache_p)) if os.path.exists(cache_p) else {}
-        jobs=[(m,r) for r in items for m in a.models.split(",") if f"{m}|{ihash(r)}" not in cache]
+        jobs=[(m,r) for r in items for m in a.models.split(",") if not cache.get(f"{m}|{ihash(r)}",{}).get("tier")]
         print("model calls needed",len(jobs),"(cached",len(items)*len(a.models.split(","))-len(jobs),")")
         with cf.ThreadPoolExecutor(a.workers) as ex:
             for n,((m,r),j) in enumerate(zip(jobs,ex.map(lambda mr:call(mr[0],mr[1],k),jobs)),1):
-                cache[f"{m}|{ihash(r)}"]=j
+                if j.get("tier"): cache[f"{m}|{ihash(r)}"]=j   # never cache a failed call
                 if n%100==0: json.dump(cache,open(cache_p,"w")); print("progress",n,"of",len(jobs),flush=True)
         json.dump(cache,open(cache_p,"w"))
         for r in items:
-            for m in a.models.split(","): res[r["content_key"]][m]=cache[f"{m}|{ihash(r)}"]
+            for m in a.models.split(","): res[r["content_key"]][m]=cache.get(f"{m}|{ihash(r)}",{"tier":None,"error":"no result"})
     rows=[]
     for r in items:
         rs=res[r["content_key"]]; tiers=[v.get("tier") for v in rs.values() if v.get("tier")]
         final=min(tiers) if tiers else ""; dis=len(set(tiers))>1
         kc=[v.get("keyed_correct") for v in rs.values() if "keyed_correct" in v]
         flags=[]
+        if len(tiers)<len(a.models.split(",")) and not a.no_model: flags.append("model_missing")  # a tier from fewer models than requested is not a two-model rating
         if dis: flags.append("models_disagree")
         if any(x is False for x in kc): flags.append("key_disputed")
         if r["content_key"] in dd: flags.append("duplicate_of:"+dd[r["content_key"]])
