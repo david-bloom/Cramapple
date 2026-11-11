@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Precalculus topics 3.1 to 3.3 harder seeds published (`APPROVAL-0220`, 2026-11-11): 24 new MCQs, 11 superseded items retired; blind solve 24/24 by two models; third subject through the difficulty improvement plan.
 - AP Chemistry and Calculus AB topics 3.1 to 3.3 harder seeds published (`APPROVAL-0218`, `APPROVAL-0219`, 2026-11-11): 24 new MCQs each, 12 and 18 superseded items retired; blind solve 24/24 by two models; first subjects through the difficulty improvement plan (`docs/product/QUESTION_DIFFICULTY_IMPROVEMENT_PLAN_2026_11_11.md`).
 - AP Statistics Unit 4 harder seeds published (`APPROVAL-0217`, 2026-11-11): 48 new MCQs live (12 seeds + 36 variants, topics 4.1 to 4.10), 18 superseded items retired; blind solve 48/48 by two models; Unit 4 now 53 published MCQs, up from 23.
 - AP Statistics Units 2 to 4 serving-label audit (`APPROVAL-0216`, 2026-11-11): Units 2 and 3 MCQs clean; two held Unit 4 items (`APSTATS-MCQ-079`, `APSTATS-SFRQ-010`) validated at Unit 4; `APSTAT-MOD7-H002-INV` left open. Also drafted and packaged 48 Unit 4 harder items, not executed.

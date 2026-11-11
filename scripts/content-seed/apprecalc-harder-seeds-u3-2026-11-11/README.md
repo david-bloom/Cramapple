@@ -1,6 +1,6 @@
 # AP Precalculus topics 3.1 to 3.3: harder seeds and variants (2026-11-11)
 
-**Status: PREPARED, NOT EXECUTED.** Nothing here has been loaded into Dev or Production. Execution needs the Product Owner's go-ahead.
+**Status: EXECUTED 2026-11-11 (APPROVAL-0220).** Loaded, blind-solved, published and the superseded items retired in Production.
 Part of the question difficulty improvement plan (`docs/product/QUESTION_DIFFICULTY_IMPROVEMENT_PLAN_2026_11_11.md`). Same pipeline as the Chemistry and Calculus AB packages (APPROVAL-0218, 0219).
 
 ## Contents
