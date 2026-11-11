@@ -2,7 +2,7 @@
 """Blind-solve every item in a package's items.json with two non-Claude models and report disagreements with the key.
 Usage: python3 blind_solve.py <items.json> "<subject>" [workers]   (needs AI_GATEWAY_API_KEY or scripts/vercel-gateway-check/.env.local)"""
 import json,re,sys,urllib.request,concurrent.futures as cf,time,os,subprocess
-MODELS=["deepseek/deepseek-v4-pro","moonshotai/kimi-k3.1-pro"]
+MODELS=os.environ.get("BLIND_MODELS","deepseek/deepseek-v4-pro,moonshotai/kimi-k3.1-pro").split(",")
 ROOT=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..",".."))
 def key():
     k=os.environ.get("AI_GATEWAY_API_KEY")
@@ -14,7 +14,9 @@ def key():
         if m: return m.group(1)
     sys.exit("no key")
 def main():
-    rows=json.load(open(sys.argv[1])); subj=sys.argv[2]; workers=int(sys.argv[3]) if len(sys.argv)>3 else 16; K=key()
+    rows=json.load(open(sys.argv[1]));
+    if os.environ.get("BLIND_KEYS"): wanted=set(open(os.environ["BLIND_KEYS"]).read().split()); rows=[r for r in rows if r["content_key"] in wanted]
+    subj=sys.argv[2]; workers=int(sys.argv[3]) if len(sys.argv)>3 else 16; K=key()
     def prompt(r):
         ch="\n".join(f"{c['label']}. {c['text']}" for c in r["choices"])
         return (f"You are an expert {subj} teacher solving a multiple-choice question independently. Work it out carefully (compute numbers exactly, check every choice), then reply with ONLY a JSON object: "

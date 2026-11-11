@@ -43,21 +43,22 @@ for x,tg in zip(items,targets):
     rows.append(dict(src_id=x["id"],content_key=key,family=fam,variant=v,topic=topic,title=title,stem="\n".join(s for s in x["stem"] if s.strip()),key=tg,
         choices=[dict(label="ABCD"[i],text=c["text"],is_correct=c["ok"],rationale=c["rat"]) for i,c in enumerate(new)]))
 assert len({r["content_key"] for r in rows})==N
-for r in rows: assert r["topic"] in cfg["label_req"],("no label mapping for topic",r["topic"])
+for r in rows: assert r["topic"].split(".")[0]==str(cfg.get("unit",3)) and r["topic"] in cfg["label_req"],("no label mapping for topic",r["topic"])
 json.dump(rows,open(f"{folder}/items.json","w"),indent=1,ensure_ascii=False)
 json.dump(retire,open(f"{folder}/superseded_keys.json","w"),indent=1)
 # --- SQL package from the chemistry template
 g=open(f"{CONTENT}/apchem-harder-seeds-u3-2026-11-11/gen_package.py").read()
 reqcase="(case topic "+" ".join(f"when '{t}' then array{v}" for t,v in cfg["label_req"].items())+" end)::int[]"
+U=cfg.get("unit",3)
 tag=cfg["tag"]; stag=tag.replace("_","-"); d=cfg["date"]; dc=d.replace("-","")
 R=[("c9ca46b2-b529-4ed3-9741-dddea455ab9b",cfg["pack"]),("cbe3116f-6ef5-410c-b535-e9fb711c4c2c",cfg["tsv"]),
  ("apchem_u3_harder_topic_2026_11_11",tag+"_topic"),("apchem_u3_harder_2026_11_11",tag),("apchem_u3_harder_po_approval",tag+"_po_approval"),
  ("apchem-u3-harder-labeling-2026-11-11",stag+"-labeling"),("cramapple-apchem-u3-harder-publish-20261111",f"cramapple-{stag}-publish-{dc}"),("cramapple-apchem-u3-harder-retire-20261111",f"cramapple-{stag}-retire-{dc}"),
- ("'apchem-mcq-sv-h-3.%'",f"'{cfg['prefix']}-sv-h-3.%'"),("'apchem-mcq-h-3.%'",f"'{cfg['prefix']}-h-3.%'"),("'2026-11-11'",f"'{d}'"),("2026-11-11",d),
+ ("'apchem-mcq-sv-h-3.%'",f"'{cfg['prefix']}-sv-h-{U}.%'"),("'apchem-mcq-h-3.%'",f"'{cfg['prefix']}-h-{U}.%'"),("'2026-11-11'",f"'{d}'"),("2026-11-11",d),
  ("AP Chemistry harder seeds and variants (topics 3.1 to 3.3)",f"{cfg['subject']} Unit 3 harder seeds and variants (batch {tag})"),
  ("Chemistry Unit 3 (topics 3.x belong to unit 3; existing Unit 3 serving labels use required_units [3], primary_unit 3)",f"{cfg['subject']} Unit 3 (topics 3.x belong to unit 3; required_units set per topic from existing Unit 3 labels)"),
  ("the Chemistry taxonomy source version",f"the {cfg['subject']} taxonomy source version"),
- ("array[3]::int[] req, 3 pu",reqcase+" req, 3 pu"),
+ ("array[3]::int[] req, 3 pu",reqcase+f" req, {U} pu"),("req, 3, pu",f"req, {U}, pu"),("Unit 3 (topics 3.x","Unit "+str(U)+" (topics "+str(U)+".x"),
  ("AP Chemistry harder seeds and variants)",f"{cfg['subject']} harder seeds and variants)"),
  ("scripts/content-seed/apchem-harder-seeds-u3-2026-11-11","scripts/content-seed/"+os.path.basename(folder))]
 for a,b in R: g=g.replace(a,b)

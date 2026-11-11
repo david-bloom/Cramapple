@@ -17,9 +17,10 @@ def q(path_or_sql,is_sql=False,table=False):
     d=json.JSONDecoder().raw_decode(r.stdout[r.stdout.index("{\n"):])[0]; return d.get("rows")
 def stop(m): print("STOP:",m); sys.exit(1)
 print("==",os.path.basename(F),cfg["subject"],len(items),"new /",len(old),"retire")
+U=cfg.get("unit",3)
 K=",".join("'"+k.replace("'","''")+"'" for k in old); PK=cfg["pack"]; PFX=cfg["prefix"]
 K=K or "''"
-pre=q(f"select (select count(*) from app.content_items ci join app.content_item_versions v on v.content_item_id=ci.id and v.status='published' where ci.exam_pack_version_id='{PK}' and ci.item_type='mcq' and ci.status='published' and ci.content_key in ({K})) o, (select count(*) from app.content_items where exam_pack_version_id='{PK}' and content_key like '{PFX}-%h-3.%') n",True)[0]
+pre=q(f"select (select count(*) from app.content_items ci join app.content_item_versions v on v.content_item_id=ci.id and v.status='published' where ci.exam_pack_version_id='{PK}' and ci.item_type='mcq' and ci.status='published' and ci.content_key in ({K})) o, (select count(*) from app.content_items where exam_pack_version_id='{PK}' and content_key like '{PFX}-%h-{U}.%') n",True)[0]
 print("preflight old_published",pre["o"],"new_exist",pre["n"])
 if pre["o"]!=len(old) or pre["n"]!=0: stop(f"preflight mismatch: expected {len(old)} published and 0 existing")
 for f in sorted(os.listdir(F+"/load")):
@@ -44,7 +45,7 @@ else: print("no retirements in this batch")
 n,bad=verify(("published","published")); print("post hash check",n-len(bad),"of",n,"published")
 if bad: stop("post verify")
 topics=sorted({i["topic"] for i in items},key=lambda t:int(t.split(".")[1])); unit=3
-sel=q("select t, count(*) n, count(*) filter (where s.content_key like '"+PFX+"-%h-3.%') new_n from (values "+",".join(f"('{t}')" for t in topics)+") v(t), lateral public.select_student_practice_items('"+PK+"'::uuid, 3, gen_random_uuid(), null, 'mcq', v.t, 51, 0) s group by t order by t",True)
+sel=q("select t, count(*) n, count(*) filter (where s.content_key like '"+PFX+"-%h-"+str(U)+".%') new_n from (values "+",".join(f"('{t}')" for t in topics)+") v(t), lateral public.select_student_practice_items('"+PK+"'::uuid, "+str(U)+", gen_random_uuid(), null, 'mcq', v.t, 51, 0) s group by t order by t",True)
 exp=collections.Counter(i["topic"] for i in items); got={x["t"]:x["new_n"] for x in sel}
 miss=[(t,got.get(t,0),exp[t]) for t in topics if got.get(t,0)<min(exp[t],51)]   # a topic with no rows at all counts as missing
 print("selector new items per topic",{x["t"]:x["new_n"] for x in sel}, "MISSING" if miss else "ok")
