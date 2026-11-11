@@ -4,6 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
+- [APPROVAL-0217 — AP Statistics Unit 4 harder seeds and variants: 48 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0217_AP_STATISTICS_UNIT4_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0216 — AP Statistics Units 2 to 4 serving-label audit: 2 held labels validated (granted and executed 2026-11-11)](APPROVAL-0216_AP_STATISTICS_UNITS2_4_SERVING_LABEL_AUDIT_2026_11_11.md)
 - [APPROVAL-0215 — AP Statistics Unit 3 harder seeds and variants: 76 items published, 37 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0215_AP_STATISTICS_UNIT3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0214 — AP Statistics Unit 2 harder seeds and variants: 96 items published, 33 superseded items retired (granted and executed 2026-11-10)](APPROVAL-0214_AP_STATISTICS_UNIT2_HARDER_SEEDS_PRODUCTION_2026_11_10.md)

@@ -1,6 +1,6 @@
 # AP Statistics Unit 4: harder seeds and variants (2026-11-11)
 
-**Status: PREPARED, NOT EXECUTED.** Nothing here has been run against Dev or Production. Execution needs the Product Owner's go-ahead.
+**Status: EXECUTED 2026-11-11 (APPROVAL-0217).** Loaded, blind-solved 48/48 by both models, published, and 18 superseded items retired in Production.
 
 Rewrites the R1 seeds in Unit 4, removes duplicates and defective items, and adds seeds for the topics with no MCQs. Same method and pipeline as the Unit 2 (APPROVAL-0214) and Unit 3 (APPROVAL-0215) packages.
 
