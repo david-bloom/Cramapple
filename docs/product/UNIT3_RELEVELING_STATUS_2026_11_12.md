@@ -5,7 +5,7 @@
 ## Done and live (Production)
 - AP Statistics Unit 3 (APPROVAL-0215), Chemistry, Calculus AB and Precalculus topics 3.1 to 3.3 (APPROVAL-0218, 0219, 0220).
 
-## Prepared, NOT executed (this batch)
+## Executed 2026-11-12 (APPROVAL-0221 to 0227)
 | Subject | Topics | Package folder (`scripts/content-seed/`) | New MCQs | Retire |
 |---|---|---|---|---|
 | AP Physics 1 | 3.1-3.5 | `apphysics1-harder-seeds-u3b-2026-11-12` | 40 | 42 |
@@ -17,7 +17,7 @@
 | AP Calculus BC | 3.1-3.6 | `apcalcbc-harder-seeds-u3-2026-11-12` | 48 | 46 |
 | **Total** | | | **328** | **194** |
 
-Each package: items.json, load chunks, verify_hashes.sql, publish and retire SQL with rehearsals, `superseded_keys.json`. All new items were blind-solved by `deepseek/deepseek-v4-pro` and `moonshotai/kimi-k3.1-pro` (agreement: Physics 1, Biology, Precalculus 3.10-3.15, Chemistry*, Calculus AB and BC 100%; Precalculus 3.4-3.9 and Chemistry had one and two model misses, each re-checked by hand and the key confirmed). The difficulty tool (`scripts/difficulty-audit/`) rates every batch mostly R2/R3.
+Each package: items.json, load chunks, verify_hashes.sql, publish and retire SQL with rehearsals, `superseded_keys.json`. All new items were blind-solved by `deepseek/deepseek-v4-pro` and `moonshotai/kimi-k3.1-pro` (agreement: Physics 1, Biology, Precalculus 3.10-3.15, Chemistry*, Calculus AB and BC 100%; Precalculus 3.4-3.9 and Chemistry had one and two model misses, each re-checked by hand and the key confirmed). The difficulty tool (`scripts/difficulty-audit/`) rated every batch mostly R2/R3 before loading.
 Authoring was done in session by subagents against a strict format and a validator (`scripts/content-seed/_tools/validate_draft.py`); no checker pass on rationales, no subject-expert read.
 
 ## Known caveats

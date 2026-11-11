@@ -5,6 +5,13 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 ## Index
 
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
+- [APPROVAL-0221 — AP Biology topics 3.1 to 3.5 re-leveled: 40 items published, 11 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0221_AP_BIOLOGY_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0222 — AP Calculus AB topics 3.4 to 3.6 re-leveled: 24 items published, 4 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0222_AP_CALCULUS_AB_UNIT3_3_4_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0223 — AP Precalculus topics 3.4 to 3.9 re-leveled: 48 items published, 24 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0223_AP_PRECALCULUS_UNIT3_3_4_TO_3_9_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0224 — AP Precalculus topics 3.10 to 3.15 re-leveled: 48 items published, 26 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0224_AP_PRECALCULUS_UNIT3_3_10_TO_3_15_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0225 — AP Chemistry topics 3.4 to 3.13 re-leveled: 80 items published, 41 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0225_AP_CHEMISTRY_UNIT3_3_4_TO_3_13_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0226 — AP Calculus BC topics 3.1 to 3.6 re-leveled: 48 items published, 46 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0226_AP_CALCULUS_BC_UNIT3_3_1_TO_3_6_RELEVELING_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0227 — AP Physics 1 topics 3.1 to 3.5 re-leveled: 40 items published, 42 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0227_AP_PHYSICS_1_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0220 — AP Precalculus topics 3.1 to 3.3 harder seeds: 24 items published, 11 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0220_AP_PRECALCULUS_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0219 — AP Calculus AB topics 3.1 to 3.3 harder seeds: 24 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0219_AP_CALCULUS_AB_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0217 — AP Statistics Unit 4 harder seeds and variants: 48 items published, 18 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0217_AP_STATISTICS_UNIT4_HARDER_SEEDS_PRODUCTION_2026_11_11.md)

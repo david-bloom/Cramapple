@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Unit 3 re-leveling for Biology, Calculus AB and BC, Chemistry, Physics 1 and Precalculus published (`APPROVAL-0221` to `APPROVAL-0227`, 2026-11-12): 328 new MCQs, 194 superseded items retired, all blind-solved by two models; Physics 2 and Physics C remain on hold; Statistics 3.7, 3.12, 3.14 still have one R1-leaning family each.
 - AP Precalculus topics 3.1 to 3.3 harder seeds published (`APPROVAL-0220`, 2026-11-11): 24 new MCQs, 11 superseded items retired; blind solve 24/24 by two models; third subject through the difficulty improvement plan.
 - AP Chemistry and Calculus AB topics 3.1 to 3.3 harder seeds published (`APPROVAL-0218`, `APPROVAL-0219`, 2026-11-11): 24 new MCQs each, 12 and 18 superseded items retired; blind solve 24/24 by two models; first subjects through the difficulty improvement plan (`docs/product/QUESTION_DIFFICULTY_IMPROVEMENT_PLAN_2026_11_11.md`).
 - AP Statistics Unit 4 harder seeds published (`APPROVAL-0217`, 2026-11-11): 48 new MCQs live (12 seeds + 36 variants, topics 4.1 to 4.10), 18 superseded items retired; blind solve 48/48 by two models; Unit 4 now 53 published MCQs, up from 23.
