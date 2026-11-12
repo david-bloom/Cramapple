@@ -2,7 +2,7 @@
 """Blind-solve every item in a package's items.json with two non-Claude models and report disagreements with the key.
 Usage: python3 blind_solve.py <items.json> "<subject>" [workers]   (needs AI_GATEWAY_API_KEY or scripts/vercel-gateway-check/.env.local)"""
 import json,re,sys,urllib.request,concurrent.futures as cf,time,os,subprocess
-MODELS=os.environ.get("BLIND_MODELS","deepseek/deepseek-v4-pro,moonshotai/kimi-k3.1-pro").split(",")
+MODELS=os.environ.get("BLIND_MODELS","deepseek/deepseek-v4-pro").split(",")
 ROOT=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..",".."))
 def key():
     k=os.environ.get("AI_GATEWAY_API_KEY")
