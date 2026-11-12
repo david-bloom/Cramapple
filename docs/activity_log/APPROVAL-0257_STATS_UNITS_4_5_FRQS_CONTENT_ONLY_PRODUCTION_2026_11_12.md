@@ -9,3 +9,10 @@
 - **Tool:** `scripts/content-seed/frq-stats-u5-2026-11-12/r2/publish_frq_content_only.py` (`plan`, `preflight`, `rehearse`, `publish`, `verify`).
 - **Numbering check:** highest APPROVAL on main and all remote branches at this time was 0256.
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-12)
+- Rehearsal (rolled back): `REHEARSAL OK: ap_statistics published=30`. Commit: one transaction, 30 FRQs.
+- Independent read after commit: 30 of 30 keys `apstats-frq-u45r2-%` published; 177 criteria rows (59 per set of ten seeds, 118 for the 20 variants, as planned); stored text hashes match the local plan 30/30 with a model answer on each; 0 with a topic cell, 0 with a taxonomy label (as approved).
+- Not verified: no student-side serving or grading check (the items are unlabeled, so the selector cannot return them yet); no authenticated app check.
+- Publish record: `scripts/content-seed/frq-stats-u5-2026-11-12/r2/publish_prod.json`; plan: `r2/plan.json`.
+- **Open:** the separate labeling task must add topic cells, serving labels and difficulty. Until then the items are published but not servable by topic.

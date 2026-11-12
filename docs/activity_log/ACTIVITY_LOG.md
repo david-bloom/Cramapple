@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Statistics Units 4-5 round-2 FRQs published to Production, content only (`APPROVAL-0257`, 2026-11-12): 30 FRQs (10 seeds, 20 variants), labels out for a separate labeling task; 30/30 verified.
 - AP Statistics Unit 5 + Unit 4 (stand-in for the nonexistent Unit 6) FRQ cost-measured authoring run (2026-11-12, no approval: nothing published): 15 seeds + 15 variants accepted; gateway $5.75 measured at token level (seed $0.3191 avg, variant $0.0507 avg; Unit 5 $0.1465/$0.0279, Unit 4 $0.4054/$0.0620); 49-pattern rubric library, diff-style variant check. Record: `scripts/content-seed/frq-stats-u5-2026-11-12/README.md`. **Round 2 (2026-11-12, difficulty target added; David: Easy is too easy for AP level): 9 of 10 Easy seeds and 9 variants rewritten and accepted with no checker rating them Easy; 5.3 held; 5 split-rated r1 items not yet re-rated; r2 gateway $4.47.**
 - /question two-pane rebuild from David's MCQ/FRQ result mockups (2026-11-12): app PR `david-bloom/ap-prep-blueprint#57` implements the two-pane layout already approved as `DECISION-0133` (no new decision), per David's "approve the two-pane layout and go ahead" (the three-pane design "is getting poor reviews"). Not published to Lovable, nothing in Production.
 - Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
@@ -321,6 +322,10 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-12 — AP Statistics Units 4-5 round-2 FRQs published to Production, content only (APPROVAL-0257)
+
+David accepted 5.3 as an exception, approved publication, and chose labels out. 30 FRQs (10 seeds, 20 variants) published in one rehearsed transaction; 30/30 verified by independent read; no labels, cells or difficulty rows written (separate labeling task). Items are not servable by topic until labeled. Record: `APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md`; tool `scripts/content-seed/frq-stats-u5-2026-11-12/r2/publish_frq_content_only.py`. Five unreplaced batch-1 seeds and the superseded Easy items were not published.
 
 ## 2026-11-12 — AP Statistics Unit 5 and Unit 4 FRQ authoring run, cost measured (no publication)
 
