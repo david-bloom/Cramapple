@@ -163,3 +163,10 @@ reproducible query, and lifecycle paths are in
 No model calls, content changes, or Production writes were made in this follow-up. Resolving the
 parent/version mismatch requires a separate Production lifecycle decision before any restored
 version joins the Phase B label pass.
+
+The 14 `modification_reserved` versions were then reviewed individually against their tutor
+decisions and stored question content. Eleven draft successor repairs and a deterministic checker
+are in `scripts/content-seed/task0050-stats-phase-b-2026-11-11/review14_remedy_2026_11_12.md`;
+three need no content edit. The drafts do not clear review statuses, restore the retired versions,
+or authorize student publication. MCQ-012 had an independently found p-value/key contradiction;
+the draft corrects the counts and reported p-value together.
