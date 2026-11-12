@@ -106,6 +106,18 @@
  "ap_statistics__5.3__seed": [
   [
    {
+    "pattern": "EQ_FROM_POINTS",
+    "fills": {
+     "p1": "(4, 19.8)",
+     "p2": "(8, 12.2)",
+     "b_text": "−1.9",
+     "a_text": "27.4",
+     "eq_text": "ŷ = 27.4 − 1.9x"
+    }
+   }
+  ],
+  [
+   {
     "pattern": "PREDICT",
     "fills": {
      "eq_text": "ŷ = 27.4 − 1.9x",
@@ -164,18 +176,21 @@
      "x_units": "years"
     }
    }
-  ],
-  [
-   {
-    "pattern": "RELIABILITY_RANK",
-    "fills": {
-     "order_text": "9, then 1.5, then 12 years",
-     "reason_text": "9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data"
-    }
-   }
   ]
  ],
  "ap_statistics__5.3__variant": [
+  [
+   {
+    "pattern": "EQ_FROM_POINTS",
+    "fills": {
+     "p1": "(1, 555)",
+     "p2": "(3, 385)",
+     "b_text": "−85",
+     "a_text": "640",
+     "eq_text": "ŷ = 640 − 85x"
+    }
+   }
+  ],
   [
    {
     "pattern": "PREDICT",
@@ -234,15 +249,6 @@
      "lo": 1,
      "hi": 4,
      "x_units": "years"
-    }
-   }
-  ],
-  [
-   {
-    "pattern": "RELIABILITY_RANK",
-    "fills": {
-     "order_text": "4, then 0.5, then 6 years",
-     "reason_text": "4 years is interpolation, while 0.5 years is extrapolation only 0.5 years below the youngest laptop (1 year) and 6 years is extrapolation 2 years beyond the oldest laptop (4 years), and predictions get less reliable the further the x-value is beyond the data"
     }
    }
   ]

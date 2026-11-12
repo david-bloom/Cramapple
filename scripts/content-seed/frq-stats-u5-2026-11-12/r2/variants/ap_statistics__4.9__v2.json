@@ -1,0 +1,242 @@
+{
+ "id": "ap_statistics__4.9__v2",
+ "parent": "ap_statistics__4.9__1",
+ "parent_status": "accepted",
+ "topic_code": "4.9",
+ "item": {
+  "title": "Is a Two-Sample t-Test Appropriate? Delivery Times for Two Couriers",
+  "calculator": "not_applicable",
+  "stimulus": "A dispatcher wants to know whether two couriers have different mean delivery times. Each courier has made thousands of deliveries. The dispatcher independently and randomly selected 34 deliveries by the first courier (sample mean 41.6 minutes) and 12 deliveries by the second courier (sample mean 44.9 minutes). A dotplot of the 34 first-courier times has no strong skewness and no outliers. A dotplot of the 12 second-courier times is skewed right with one outlier.",
+  "parts": [
+   {
+    "prompt": "Let μ₁ be the mean for the first courier and μ₂ the mean for the second courier. Define the parameters of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ₁ and μ₂ as the μ₁ is the true mean delivery time, in minutes, of all deliveries by the first courier, and μ₂ is the true mean delivery time of all deliveries by the second courier.",
+      "evidence": "Response defines μ₁ and μ₂ as the μ₁ is the true mean delivery time, in minutes, of all deliveries by the first courier, and μ₂ is the true mean delivery time of all deliveries by the second courier, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ ≠ 0.",
+      "evidence": "Response writes H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ ≠ 0, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+    "criteria": [
+     {
+      "text": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+      "evidence": "Response names a two-sample t-test for a difference in population means.",
+      "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the randomization condition: the deliveries were selected by independent random samples from the two couriers' deliveries.",
+      "evidence": "Response states the randomization condition in context: the deliveries were selected by independent random samples from the two couriers' deliveries.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: each sample is less than 10% of the thousands of deliveries by its courier.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the thousands of deliveries by its courier.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: one sample (n = 12) is less than 30, so both samples must show no strong skewness or outliers, but the second courier's sample is skewed with one outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+      "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: one sample (n = 12) is less than 30, so both samples must show no strong skewness or outliers, but the second courier's sample is skewed with one outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Μ₁ is the true mean delivery time, in minutes, of all deliveries by the first courier, and μ₂ is the true mean delivery time of all deliveries by the second courier. H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ ≠ 0.\n\n(b) The procedure is a two-sample t-test for a difference in population means. Randomization: the deliveries were selected by independent random samples from the two couriers' deliveries. 10% condition: each sample is less than 10% of the thousands of deliveries by its courier. Sample-data condition: one sample (n = 12) is less than 30, so both samples must show no strong skewness or outliers, but the second courier's sample is skewed with one outlier, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+  "verification_python": "n1, n2 = 34, 12\nboth_big = min(n1, n2) >= 30\nassert both_big == False\nassert 41.6 != 44.9\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:19.203Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "PROC_ID",
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 2, variant 2. Criteria per part: parent [2,4], variant [2,4]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]\nPart a prompt changed.\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): wording and values changed\nCriterion b1 (PROC_ID): identical wording\nCriterion b2 (COND_RANDOM): wording and values changed\nCriterion b3 (COND_TEN): wording and values changed\nCriterion b4 (COND_NORMAL): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from customer onboarding setup times to delivery times for two couriers. Sample sizes change from 36 and 14 to 34 and 12, and sample means change from 21.4 and 26.8 minutes to 41.6 and 44.9 minutes. The research question changes from a reduction to any difference, so the alternative changes from μ₁ − μ₂ < 0 to μ₁ − μ₂ ≠ 0. The independent random sampling, populations numbering in the thousands, and dotplot characteristics retain the same roles.",
+     "numbers_recomputed": "For b3, 34 < 0.10N₁ requires N₁ > 340, and 12 < 0.10N₂ requires N₂ > 120; populations of thousands satisfy both inequalities, matching the rubric. For b4, 34 ≥ 30 and 12 < 30, matching the stated small-sample condition and its failure because the second sample has an outlier. The null difference remains 0, correctly representing equal population means. The sample means are supplied givens and require no recomputation; no criterion requires their difference.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "variant is easier than its parent"
+    ],
+    "out": {
+     "changes_listed": "Context changed from software onboarding setup times to courier delivery times. Sample sizes changed from n1=36, n2=14 to n1=34, n2=12. Sample means changed from 21.4 and 26.8 minutes to 41.6 and 44.9 minutes. The research question changed from one-sided (new process reduces mean time) to two-sided (couriers have different mean delivery times), so the alternative hypothesis changed from H_a: mu1 - mu2 < 0 to H_a: mu1 - mu2 != 0. Parameter definitions and condition checks were updated to courier context; criterion b1 remains identical.",
+     "numbers_recomputed": "n1 = 34 (setup) and n2 = 12 (setup) are the sample sizes used in criteria b3 and b4; n2 = 12 < 30, so the sample-data condition is triggered, matching the rubric. Sample means 41.6 and 44.9 are not used in the rubric or model answer and match the setup. No other numeric computations depend on the changed values.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "easier",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from software onboarding setup times (new vs. standard process) to courier delivery times (first vs. second courier). The sample sizes changed from n1=36, n2=14 to n1=34, n2=12, and the sample means changed from 21.4 and 26.8 minutes to 41.6 and 44.9 minutes. The alternative hypothesis changed from one-sided (<, because the company believed the new process reduces mean time) to two-sided (≠, because the dispatcher wants to know whether the couriers have different mean delivery times). The condition wording and model answer were updated to the courier context, but the procedure and condition structure remained identical.",
+     "numbers_recomputed": "Sample sizes: n1 changed from 36 to 34 and n2 from 14 to 12; the variant consistently uses 34 and 12. Sample means changed from 21.4 and 26.8 to 41.6 and 44.9; these are given values, not recomputed, and they match the variant. Alternative direction: because the setup asks whether the couriers have different mean delivery times, the alternative is Ha: μ1−μ2≠0; this matches the variant. 10% condition comparisons: 34 < 10% of thousands and 12 < 10% of thousands; both match. Sample-data condition: n2=12 is less than 30, so both samples must be free of strong skewness and outliers; the second courier's sample is skewed right with one outlier, so the condition fails; this matches the variant. No test statistic or p-value is requested, so no other numbers require recomputation.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

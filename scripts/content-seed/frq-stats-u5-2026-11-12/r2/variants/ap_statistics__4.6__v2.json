@@ -1,0 +1,194 @@
+{
+ "id": "ap_statistics__4.6__v2",
+ "parent": "ap_statistics__4.6__1",
+ "parent_status": "accepted",
+ "topic_code": "4.6",
+ "item": {
+  "title": "Direction, Probability and Sample Size for a Difference in Mean Bus Waits",
+  "calculator": "permitted",
+  "stimulus": "Waiting times (in minutes) at Line 1 stops have a mean of 18 and a standard deviation of 5. Waiting times at Line 2 stops have a mean of 15 and a standard deviation of 4. A planner takes independent random samples of 36 waits from Line 1 and 42 waits from Line 2, each far smaller than 10% of that line's waits. Let x̄₁ be the mean for Line 1 and x̄₂ the mean for Line 2.",
+  "parts": [
+   {
+    "prompt": "Find the mean and the standard deviation of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+    "criteria": [
+     {
+      "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 3 minutes.",
+      "evidence": "Response gives 3 minutes as the mean of the sampling distribution of the difference in sample means.",
+      "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(5²/36 + 4²/42) = 1.037 minutes.",
+      "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.037 minutes.",
+      "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+      "accepted_variants": [
+       "1.04"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+    "criteria": [
+     {
+      "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (36 and 42) are at least 30.",
+      "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+      "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Find the probability that the sample mean wait for Line 1 is less than the sample mean wait for Line 2.",
+    "criteria": [
+     {
+      "text": "Finds the probability that the mean wait of the Line 1 sample is less than the mean wait of the Line 2 sample: the probability is about 0.0019, using a normal distribution with mean 3 and standard deviation 1.037 (for example, z = (0 − 3)/1.037 = −2.89).",
+      "evidence": "Response uses the mean 3 and standard deviation 1.037 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0019.",
+      "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+      "accepted_variants": [
+       "0.002",
+       "0.19%"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Suppose the planner instead takes independent random samples of the same size n from each bus line. What is the smallest n for which the standard deviation of x̄₁ − x̄₂ is at most 0.45 minutes?",
+    "criteria": [
+     {
+      "text": "Solves √(5²/n + 4²/n) ≤ 0.45 for a common sample size: n ≥ 202.47, so n = 203.",
+      "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most 0.45, solves for n, and rounds up to n = 203.",
+      "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The mean is μ₁ − μ₂ = 18 − 15 = 3 minutes. The standard deviation is √(5²/36 + 4²/42) = 1.037 minutes.\n\n(b) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (36 and 42) are at least 30.\n\n(c) The mean wait of the Line 1 sample is less than the mean wait of the Line 2 sample means x̄₁ − x̄₂ is less than 0. z = (0 − 3)/1.037 = −2.89, so the probability is about 0.0019.\n\n(d) √(5²/n + 4²/n) ≤ 0.45 gives (25 + 16)/n ≤ 0.2025, so n ≥ 202.47. The smallest n is 203.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2 = 18, 5, 36, 15, 4, 42\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 3 and round(sd, 3) == 1.037\nz = (0 - md) / sd\nassert round(z, 2) == -2.89\np = ncdf(z)\nassert round(p, 4) == 0.0019\ntg = 0.45\nn_ans = math.ceil((s1 ** 2 + s2 ** 2) / tg ** 2 - 1e-9)\nassert n_ans == 203\nassert math.sqrt((s1 ** 2 + s2 ** 2) / n_ans) <= tg < math.sqrt((s1 ** 2 + s2 ** 2) / (n_ans - 1))\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.920Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]",
+  "child_order": "[[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]",
+  "child_pattern": [
+   [
+    "DIFF_MEAN",
+    "DIFF_SD"
+   ],
+   [
+    "XBAR_SHAPE"
+   ],
+   [
+    "XBAR_PROB"
+   ],
+   [
+    "SD_SOLVE_N"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [2,1,1,1], variant [2,1,1,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"DIFF_MEAN\",\"DIFF_SD\"],[\"XBAR_SHAPE\"],[\"XBAR_PROB\"],[\"SD_SOLVE_N\"]]\nCriterion a1 (DIFF_MEAN): wording and values changed\nCriterion a2 (DIFF_SD): wording and values changed; accepted variants changed\nCriterion b1 (XBAR_SHAPE): wording and values changed\nPart c prompt changed.\nCriterion c1 (XBAR_PROB): wording and values changed; accepted variants changed\nPart d prompt changed.\nCriterion d1 (SD_SOLVE_N): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from city commute times to bus-line waits. Population means change from 34 and 30 to 18 and 15 minutes; standard deviations from 8 and 6 to 5 and 4 minutes; sample sizes from 40 and 45 to 36 and 42; and the target standard deviation from 0.8 to 0.45 minutes. Part (c) rewords the same lower-tail event as Line 1's sample mean being less than Line 2's. The four-part, five-point structure is unchanged.",
+     "numbers_recomputed": "a1: 18 − 15 = 3 minutes, matching. a2: √(25/36 + 16/42) = √1.0753968254 ≈ 1.0370134 minutes, matching 1.037 and 1.04. b1: Both 36 and 42 are at least 30, matching. c1: For D = x̄₁ − x̄₂, P(D < 0) uses mean 3 and SD 1.0370134; z ≈ −2.893, matching −2.89. The lower-tail probability is approximately 0.00191, matching 0.0019, 0.002, and 0.19% at their stated precision. d1: √(41/n) ≤ 0.45 gives n ≥ 41/0.2025 = 202.4691358, matching 202.47; rounding up gives the minimum integer n = 203.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context was changed from city commute times to bus-line waiting times. Population means changed from 34/30 to 18/15, population standard deviations from 8/6 to 5/4, and sample sizes from 40/45 to 36/42. The part (c) prompt was reworded from the lower-mean city exceeding the higher-mean city to Line 1 being less than Line 2, but it still asks for x̄₁ − x̄₂ < 0. The part (d) target SD changed from 0.8 to 0.45 minutes, changing the required common n from 157 to 203.",
+     "numbers_recomputed": "Mean of x̄₁ − x̄₂ = 18 − 15 = 3 minutes; matches. SD = √(5²/36 + 4²/42) = √(25/36 + 16/42) = √(271/252) = 1.037 minutes; matches. Part (c) z = (0 − 3)/1.037 = −2.89 and lower-tail probability = 0.0019; matches. Part (d): √(25/n + 16/n) ≤ 0.45 gives 41/n ≤ 0.2025, so n ≥ 202.47 and n = 203; matches.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

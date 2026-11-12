@@ -1,0 +1,199 @@
+{
+ "id": "ap_statistics__4.4__v2",
+ "parent": "ap_statistics__4.4__1",
+ "parent_status": "accepted",
+ "topic_code": "4.4",
+ "item": {
+  "title": "Is a Matched-Pairs t-Test Appropriate? Headphones and Focus Scores",
+  "calculator": "not_applicable",
+  "stimulus": "A counselor suspects that noise-cancelling headphones improve students' focus scores. She randomly selected 14 students from a large college. Each student took a focus test once with headphones and once without, in a random order, and the counselor recorded each student's difference (score without headphones minus score with headphones) in points. The sample of 14 differences has mean −6.4 points and standard deviation 9.8 points. A dotplot of the 14 differences is strongly skewed with one outlier.",
+  "parts": [
+   {
+    "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ_d as the μ_d is the true mean difference (focus score without headphones minus focus score with headphones), in points, for all students at this college.",
+      "evidence": "Response defines μ_d as the μ_d is the true mean difference (focus score without headphones minus focus score with headphones), in points, for all students at this college, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+      "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d < 0, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "For the appropriate procedure, decide whether its conditions are met. Justify each decision.",
+    "criteria": [
+     {
+      "text": "Checks the randomization condition: the 14 students were randomly selected.",
+      "evidence": "Response states the randomization condition in context: the 14 students were randomly selected.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: 14 students are less than 10% of the students at the college.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: 14 students are less than 10% of the students at the college.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: the sample of differences has n = 14, which is less than 30, and its dotplot is strongly skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+      "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 14, which is less than 30, and its dotplot is strongly skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A classmate proposes a two-sample t-test that compares the mean focus score with headphones and the mean focus score without headphones for these students. Is that appropriate? Explain.",
+    "criteria": [
+     {
+      "text": "States that the classmate's two-sample t-test is not appropriate, because each student provided both scores, so the two sets of scores are not independent samples; the analysis should use the 14 differences (a matched-pairs, one-sample procedure).",
+      "evidence": "Response rejects the classmate's two-sample t-test and gives the reason: each student provided both scores, so the two sets of scores are not independent samples; the analysis should use the 14 differences (a matched-pairs, one-sample procedure).",
+      "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Μ_d is the true mean difference (focus score without headphones minus focus score with headphones), in points, for all students at this college. H₀: μ_d = 0 versus Hₐ: μ_d < 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 14 differences. Randomization: the 14 students were randomly selected. 10% condition: 14 students are less than 10% of the students at the college. Sample-data condition: the sample of differences has n = 14, which is less than 30, and its dotplot is strongly skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.\n\n(c) No. Each student provided both scores, so the two sets of scores are not independent samples; the analysis should use the 14 differences (a matched-pairs, one-sample procedure).",
+  "verification_python": "n_small = 14\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T23:05:18.759Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ],
+   [
+    "PROC_ERR"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,3,1], variant [2,3,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"PROC_ERR\"]]\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): identical wording\nCriterion b1 (COND_RANDOM): wording and values changed\nCriterion b2 (COND_TEN): wording and values changed\nCriterion b3 (COND_NORMAL): wording and values changed\nPart c prompt changed.\nCriterion c1 (PROC_ERR): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The setting changes from background music and puzzle times at a school to noise-cancelling headphones and focus scores at a college. The sample size changes from 15 to 14, the mean difference from −9.3 seconds to −6.4 points, and the standard deviation from 12.1 seconds to 9.8 points. Differences remain defined as without minus with. The dotplot is now described as strongly skewed rather than strongly right-skewed, still with one outlier. The paired design, random selection, randomized order, and rubric structure are unchanged.",
+     "numbers_recomputed": "The 14 students each supply one paired difference, so n = 14 for randomization, the sample-data check, and the matched-pairs analysis; all rubric references match. Since 14 < 30, strong skewness and one outlier prevent satisfying the sample-data condition, as stated. For 14 to be less than 10% of the college population, 14 < 0.10N requires N > 140, consistent with a large college. No derived mean or standard deviation is required; −6.4 and 9.8 points are supplied data. The null difference remains 0, and improvement implies without-minus-with < 0, matching the hypotheses.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The variant changes the context from background music and puzzle time for 15 high-school students to noise-cancelling headphones and focus scores for 14 college students. The response variable and parameter wording change from time without music minus time with music, in seconds, to focus score without headphones minus focus score with headphones, in points. Sample size changes from 15 to 14, sample mean from -9.3 to -6.4, and sample standard deviation from 12.1 to 9.8. The dotplot description changes from 'strongly right-skewed' to 'strongly skewed.' All rubric and model-answer wording was updated accordingly; part/criterion structure and hypotheses direction are unchanged.",
+     "numbers_recomputed": "Only the given values changed: n = 14, mean = -6.4 points, SD = 9.8 points. The rubric and model answer reference n = 14; each original 15 was replaced by 14. Since 14 < 30, the sample-data condition still fails. Since the college is described as large, 14 is still less than 10% of the population. No test statistic, p-value, or other derived number is computed in this item; the negative sample mean remains consistent with H_a: μ_d < 0.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "difficulty_vs_parent": "same",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

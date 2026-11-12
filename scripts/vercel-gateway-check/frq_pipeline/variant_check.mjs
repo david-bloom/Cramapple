@@ -116,12 +116,12 @@ const use = readJson(path.join(batch, arg('use', 'pattern_use.json')), {});
 const ced = readJson(path.join(batch, 'inputs', 'ced_topic_excerpts.json'), {});
 fs.mkdirSync(path.join(batch, 'variants'), { recursive: true });
 await Promise.all(variants.filter((v) => !only || only.has(v.topic_code)).map(async (v) => {
-  const id = `${v.subject_key}__${v.topic_code}__v1`;
+  const id = `${v.subject_key}__${v.topic_code}__${arg('vid', 'v1')}`;
   const f = path.join(batch, 'variants', `${id}.json`);
   const slot = readJson(path.join(batch, 'slots', `${v.subject_key}__${v.topic_code}__1.json`));
   const st = { id, parent: slot?.id, parent_status: slot?.status, topic_code: v.topic_code, item: v.item, at: new Date().toISOString() };
-  if (!slot || slot.status !== 'accepted') { st.status = 'blocked_parent_not_accepted'; fs.writeFileSync(f, JSON.stringify(st, null, 1)); console.log(id, st.status); return; }
-  const parent = slot.candidates.find((c) => c.stage === 'accepted').item;
+  if (!slot || (slot.status !== 'accepted' && !(process.argv.includes('--allow-held') && slot.status === 'given_flagged'))) { st.status = 'blocked_parent_not_accepted'; fs.writeFileSync(f, JSON.stringify(st, null, 1)); console.log(id, st.status); return; }
+  const parent = (slot.candidates.find((c) => c.stage === 'accepted') || slot.candidates.at(-1)).item;
   const pu = use[`${v.subject_key}__${v.topic_code}__seed`].map((p) => p.map((x) => x.pattern));
   const cu = use[`${v.subject_key}__${v.topic_code}__variant`].map((p) => p.map((x) => x.pattern));
   st.structure = { same: JSON.stringify(pu) === JSON.stringify(cu), parent_order: JSON.stringify(pu), child_order: JSON.stringify(cu), child_pattern: cu };

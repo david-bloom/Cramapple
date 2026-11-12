@@ -15,13 +15,24 @@
  "candidates": [
   {
    "round": 1,
-   "at": "2026-11-12T22:42:05.593Z",
+   "at": "2026-11-12T23:03:24.366Z",
    "source": "given",
    "item": {
     "title": "Limits of a Used-Car Price Model",
     "calculator": "permitted",
-    "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, is ŷ = 27.4 − 1.9x, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
+    "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
     "parts": [
+     {
+      "prompt": "The regression line passes through the points (4, 19.8) and (8, 12.2). Find the equation of the regression line.",
+      "criteria": [
+       {
+        "text": "Finds the equation of the line through (4, 19.8) and (8, 12.2) by any correct method: slope −1.9, y-intercept 27.4, so ŷ = 27.4 − 1.9x.",
+        "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes ŷ = 27.4 − 1.9x, by any correct method.",
+        "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+        "accepted_variants": []
+       }
+      ]
+     },
      {
       "prompt": "Use the model to predict the asking price of a car that is 16 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
       "criteria": [
@@ -63,21 +74,10 @@
         "accepted_variants": []
        }
       ]
-     },
-     {
-      "prompt": "The dealer says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
-      "criteria": [
-       {
-        "text": "Ranks the predictions from most to least reliable as 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
-        "evidence": "Response gives the order 9, then 1.5, then 12 years and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
-        "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
-        "accepted_variants": []
-       }
-      ]
      }
     ],
-    "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(b) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.\n\n(c) No. From most to least reliable: 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
-    "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\nprint(\"ALL_CHECKS_PASSED\")\n"
+    "model_answer": "(a) slope = (12.2 − 19.8)/(8 − 4) = -1.9; intercept = 19.8 − (-1.9)(4) = 27.4; so ŷ = 27.4 − 1.9x.\n\n(b) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(c) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.",
+    "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\n(p1x, p1y), (p2x, p2y) = [(4, 19.8), (8, 12.2)]\nassert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9\nprint(\"ALL_CHECKS_PASSED\")\n"
    },
    "lint": [],
    "py": {
@@ -108,7 +108,7 @@
       "flagged": false,
       "failed": [],
       "difficulty": "Medium",
-      "solve_issues": "Part (c) supports the conventional qualitative ranking based on interpolation and distance beyond the observed range. However, actual prediction reliability cannot be determined definitively from the information supplied: no prices, residual variability, or evidence about the relationship outside ages 2–9 are provided.",
+      "solve_issues": "",
       "audit": {
        "primary_topic_code": "5.3",
        "rules": {
@@ -221,8 +221,19 @@
   "item": {
    "title": "Limits of a Used-Car Price Model",
    "calculator": "permitted",
-   "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, is ŷ = 27.4 − 1.9x, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
+   "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
    "parts": [
+    {
+     "prompt": "The regression line passes through the points (4, 19.8) and (8, 12.2). Find the equation of the regression line.",
+     "criteria": [
+      {
+       "text": "Finds the equation of the line through (4, 19.8) and (8, 12.2) by any correct method: slope −1.9, y-intercept 27.4, so ŷ = 27.4 − 1.9x.",
+       "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes ŷ = 27.4 − 1.9x, by any correct method.",
+       "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+       "accepted_variants": []
+      }
+     ]
+    },
     {
      "prompt": "Use the model to predict the asking price of a car that is 16 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
      "criteria": [
@@ -264,24 +275,13 @@
        "accepted_variants": []
       }
      ]
-    },
-    {
-     "prompt": "The dealer says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
-     "criteria": [
-      {
-       "text": "Ranks the predictions from most to least reliable as 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
-       "evidence": "Response gives the order 9, then 1.5, then 12 years and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
-       "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
-       "accepted_variants": []
-      }
-     ]
     }
    ],
-   "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(b) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.\n\n(c) No. From most to least reliable: 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
-   "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   "model_answer": "(a) slope = (12.2 − 19.8)/(8 − 4) = -1.9; intercept = 19.8 − (-1.9)(4) = 27.4; so ŷ = 27.4 − 1.9x.\n\n(b) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(c) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.",
+   "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\n(p1x, p1y), (p2x, p2y) = [(4, 19.8), (8, 12.2)]\nassert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9\nprint(\"ALL_CHECKS_PASSED\")\n"
   },
-  "source": "Claude session author (build_items_r2.py), r2 patch 4",
-  "at": "2026-11-12T22:42:05.504772Z"
+  "source": "build_items_r2.py, r2 patch 6 (method-neutral equation criterion; final loop for 5.3)",
+  "at": "2026-11-12T23:03:24.152181Z"
  },
  "history_before_patch": [
   {
@@ -992,6 +992,467 @@
     }
    ],
    "stage": "difficulty"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T22:42:05.593Z",
+   "source": "given",
+   "item": {
+    "title": "Limits of a Used-Car Price Model",
+    "calculator": "permitted",
+    "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, is ŷ = 27.4 − 1.9x, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
+    "parts": [
+     {
+      "prompt": "Use the model to predict the asking price of a car that is 16 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
+      "criteria": [
+       {
+        "text": "Substitutes x = 16 into ŷ = 27.4 − 1.9x and gets a predicted value of −3.0 thousand dollars.",
+        "evidence": "Response replaces x with 16 in the regression equation and reports −3.0 thousand dollars.",
+        "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+        "accepted_variants": [
+         "−3.0"
+        ]
+       },
+       {
+        "text": "States that the predicted asking price of −3.0 thousand dollars at 16 years is impossible, which shows the linear model should not be used that far beyond the data (2 to 9 years).",
+        "evidence": "Response says a negative predicted asking price cannot occur and ties it to extrapolating beyond 2 to 9 years.",
+        "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The dealer also wants to use the model for cars that are 18 months, 9 years and 12 years old. For each age, state whether using the model is interpolation or extrapolation, and explain.",
+      "criteria": [
+       {
+        "text": "Classifies the prediction at 1.5 years as extrapolation because 1.5 is below the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says extrapolation and compares 1.5 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Classifies the prediction at 9 years as interpolation because 9 is within (at the upper end of) the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says interpolation and compares 9 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Classifies the prediction at 12 years as extrapolation because 12 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says extrapolation and compares 12 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The dealer says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
+      "criteria": [
+       {
+        "text": "Ranks the predictions from most to least reliable as 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
+        "evidence": "Response gives the order 9, then 1.5, then 12 years and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
+        "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(b) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.\n\n(c) No. From most to least reliable: 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
+    "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "Part (c) supports the conventional qualitative ranking based on interpolation and distance beyond the observed range. However, actual prediction reliability cannot be determined definitively from the information supplied: no prices, residual variability, or evidence about the relationship outside ages 2–9 are provided.",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "difficulty"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T23:00:56.040Z",
+   "source": "given",
+   "item": {
+    "title": "Limits of a Used-Car Price Model",
+    "calculator": "permitted",
+    "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
+    "parts": [
+     {
+      "prompt": "The regression line passes through the points (4, 19.8) and (8, 12.2). Find the equation of the regression line.",
+      "criteria": [
+       {
+        "text": "Uses the two points (4, 19.8) and (8, 12.2) on the line to find the slope −1.9 and the y-intercept 27.4, giving ŷ = 27.4 − 1.9x.",
+        "evidence": "Response computes the slope from the two points, then the y-intercept, and writes the regression equation ŷ = 27.4 − 1.9x.",
+        "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the model to predict the asking price of a car that is 16 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
+      "criteria": [
+       {
+        "text": "Substitutes x = 16 into ŷ = 27.4 − 1.9x and gets a predicted value of −3.0 thousand dollars.",
+        "evidence": "Response replaces x with 16 in the regression equation and reports −3.0 thousand dollars.",
+        "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+        "accepted_variants": [
+         "−3.0"
+        ]
+       },
+       {
+        "text": "States that the predicted asking price of −3.0 thousand dollars at 16 years is impossible, which shows the linear model should not be used that far beyond the data (2 to 9 years).",
+        "evidence": "Response says a negative predicted asking price cannot occur and ties it to extrapolating beyond 2 to 9 years.",
+        "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The dealer also wants to use the model for cars that are 18 months, 9 years and 12 years old. For each age, state whether using the model is interpolation or extrapolation, and explain.",
+      "criteria": [
+       {
+        "text": "Classifies the prediction at 1.5 years as extrapolation because 1.5 is below the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says extrapolation and compares 1.5 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Classifies the prediction at 9 years as interpolation because 9 is within (at the upper end of) the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says interpolation and compares 9 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Classifies the prediction at 12 years as extrapolation because 12 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+        "evidence": "Response says extrapolation and compares 12 with the fitted interval of 2 to 9 years.",
+        "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) slope = (12.2 − 19.8)/(8 − 4) = -1.9; intercept = 19.8 − (-1.9)(4) = 27.4; so ŷ = 27.4 − 1.9x.\n\n(b) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(c) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.",
+    "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\n(p1x, p1y), (p2x, p2y) = [(4, 19.8), (8, 12.2)]\nassert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 prescribes computing the slope first and then the intercept. The prompt only asks for the equation; solving the two simultaneous equations for a and b is an equally valid method. Accept any correct derivation of ŷ = 27.4 − 1.9x.",
+       "solution: The independent solution agrees with all numerical results and contextual conclusions: ŷ = 27.4 − 1.9x; the prediction at 16 years is −3.0 thousand dollars and is unreasonable extrapolation; 1.5 and 12 years require extrapolation, while 9 years is interpolation. The only disagreement is a1's unnecessarily restrictive evidence requirement concerning the method and order of calculation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 prescribes computing the slope first and then the intercept. The prompt only asks for the equation; solving the two simultaneous equations for a and b is an equally valid method. Accept any correct derivation of ŷ = 27.4 − 1.9x."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results and contextual conclusions: ŷ = 27.4 − 1.9x; the prediction at 16 years is −3.0 thousand dollars and is unreasonable extrapolation; 1.5 and 12 years require extrapolation, while 9 years is interpolation. The only disagreement is a1's unnecessarily restrictive evidence requirement concerning the method and order of calculation.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 prescribes computing the slope first and then the intercept, although the question only asks for the equation. Solving simultaneous equations using the two supplied points is also valid. Accept any correct method that produces ŷ = 27.4 − 1.9x."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 prescribes computing the slope first and then the intercept, although the question only asks for the equation. Solving simultaneous equations using the two supplied points is also valid. Accept any correct method that produces ŷ = 27.4 − 1.9x."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
   }
  ]
 }

@@ -947,6 +947,23 @@
    "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
    "accepted_variants": [],
    "round": "r2"
+  },
+  "EQ_FROM_POINTS": {
+   "topic": "5.3",
+   "ek": "5.3.A.2",
+   "shape": "calculate",
+   "slots": [
+    "p1",
+    "p2",
+    "b_text",
+    "a_text",
+    "eq_text"
+   ],
+   "text": "Finds the equation of the line through {p1} and {p2} by any correct method: slope {b_text}, y-intercept {a_text}, so {eq_text}.",
+   "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes {eq_text}, by any correct method.",
+   "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+   "accepted_variants": [],
+   "round": "r2"
   }
  }
 }

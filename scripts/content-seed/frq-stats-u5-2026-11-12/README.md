@@ -117,3 +117,63 @@ Making the Easy items harder cost about $4.47 gateway plus the authoring slice; 
 ## Needs David
 - **Decision:** re-rate the five split-rated r1 items (5.2, 4.1, 4.2, 4.8, 4.10 and variants) under the new gate (about $2.5 gateway if they behave like r2), or accept them as Medium-by-majority. And what to do with 5.3: hold, accept as a topic-ceiling exception, or merge it into a harder topic.
 - Everything under "Not done / needs approval" in the r1 section still applies (publication approval, distinctness check against published FRQs, seed-side controls not re-run).
+
+
+---
+
+# Batch 2 final (r2 + second variants): 10 re-authored seeds, 2 variants each
+
+**Request (David, via the parent session):** re-author the 10 Easy seeds toward Medium *on purpose*, add TWO variants per re-authored seed (20), keep the originals on record, cost it as a second batch. **Originals are untouched** (batch 1 = `authored/`, `slots/`, `variants/`, `cost/`; batch 2 = `r2/`). The re-authored seeds are new revisions of the same topics, so the batches compare topic by topic.
+
+**Target (stated before authoring):** Medium at AP-exam level, enforced by `--min-difficulty=Medium` (any checker rating Easy rejects) and an explicit scale in the audit prompt. The harder demands are real, not longer prompts: a condition check whose outcome is a failure (4.4, 4.9), a sign-reversed difference to reason out (4.4), critique of a student's misreading (5.1, 5.5, 4.3, 4.5, 4.4), solving for an unknown (mean of x, sample size, x-bar from the line, equation from two points), a trap in the context (all seven residual signs; a difference defined as "without minus with"; a table with conservative df), and two claims checked against data.
+
+## Difficulty labels (the two checkers' labels; majority is only defined when they agree)
+| Seed | Checker labels | Result |
+|---|---|---|
+| 5.1 | Medium, Medium | Medium |
+| 5.3 | Medium, Easy | **split: not Medium** (held) |
+| 5.4 | Medium, Medium | Medium |
+| 5.5 | Medium, Medium | Medium |
+| 4.3 | Medium, Medium | Medium |
+| 4.4 | Medium, Medium | Medium |
+| 4.5 | Medium, Medium | Medium |
+| 4.6 | Medium, Medium | Medium |
+| 4.7 | Medium, Medium | Medium |
+| 4.9 | Medium, Medium | Medium |
+
+**9 of 10 reached Medium by both checkers; 5.3 stayed split.** 5.3 took the full allowance of patch loops (equation from two points, unit conversion, boundary classification, impossible prediction; the rubric flags were accepted and fixed) and DeepSeek V4 Pro still rates it Easy while GPT-6.1 Sol rates it Medium. The topic's CED content is one calculation plus extrapolation. It is **held**, not accepted. By comparison, batch 1 had 6 Easy (both checkers), 4 split and 5 unflagged Medium among 15 seeds.
+
+## Variants (diff-style check only; pattern structure identical to the re-authored seed)
+- **Variant A (v1):** 10 of 10 accepted (5.3's was checked against the held parent with `--allow-held`; 6 first pass, 4 after a fix: 4.4 and 4.9 were flagged easier than their parent and rewritten to fail the same way; 4.6 a wording fix).
+- **Variant B (v2):** 10 of 10 accepted on the first pass (same rubric structure, new context and numbers, every trap preserved).
+- Model answers: 30 of 30 earn full credit from a third family (`r2/answer_grades.json`, `answer_grades_b.json`, plus the held 5.3 seed).
+
+## Batch 2 cost (USD; `r2/cost/`; 398 calls; gateway measured at token level)
+| | Items | Total | Average |
+|---|---|---|---|
+| Re-authored seeds | 10 | $4.1221 | **$0.4122** |
+| Variant A (v1) | 10 | $0.6505 | **$0.0651** |
+| Variant B (v2) | 10 | $0.3988 | **$0.0399** |
+| All variants | 20 | $1.0494 | **$0.0525** |
+| **Batch 2 gateway total** | | **$5.1715** | |
+
+Per seed: 4.3 $0.1520, 4.4 $0.7274, 4.5 $0.1847, 4.6 $0.1669, 4.7 $0.3283, 4.9 $0.3900, 5.1 $0.6420, 5.3 $0.7611 (held), 5.4 $0.3432, 5.5 $0.4265. By unit: Unit 5 seeds $2.1728, variants $0.2873; Unit 4 (stand-in) seeds $1.9493, variants $0.7621.
+Per variant, v1 / v2: 4.3 $0.0379 / $0.0447; 4.4 $0.1002 / $0.0383; 4.5 $0.0544 / $0.0380; 4.6 $0.0782 / $0.0353; 4.7 $0.0467 / $0.0543; 4.9 $0.1899 / $0.0442; 5.1 $0.0349 / $0.0415; 5.3 $0.0275 / $0.0318; 5.4 $0.0498 / $0.0401; 5.5 $0.0311 / $0.0306.
+A second variant costs about **$0.04** (about 10 percent of a seed) because it passes the diff check once; a first variant costs more only when it must be rewritten.
+
+**Session-slice authoring estimate (not measured; Max plan, list-price equivalents):** batch 2 about **$4.7** (plus or minus 40 percent; roughly 75 tool rounds at 465k to 560k cached context, about 65k output tokens, one new builder of about 40 KB and 12 new patterns). Marginal output only: about $0.16.
+
+## Combined with batch 1
+| | Gateway (measured) | Authoring (estimate) |
+|---|---|---|
+| Batch 1 (15 seeds + 15 variants) | $5.7535 | $4.36 whole-session slice; about $0.35 marginal |
+| Batch 2 (10 seeds + 20 variants) | $5.1715 | $4.7 whole-session slice; about $0.16 marginal |
+| **Combined** | **$10.9250** | **about $9.1 whole session; about $0.5 marginal** |
+
+Combined all-in about $11.4 (marginal) to $20.0 (whole session). Batch 2's seeds average $0.4122 against $0.3191 in batch 1: the difficulty gate raises the number of full-check runs, not the price of a run (about $0.154).
+
+## Status and what needs David
+- Nothing published; no Production or Development write. PR **#638** (same branch) carries both batches.
+- **5.3 is held** (Medium and Easy). Options: accept it as a topic-ceiling exception, fold it into a harder topic, or drop it.
+- Five batch-1 items with split ratings (5.2, 4.1, 4.2, 4.8, 4.10) are not part of this batch and were not re-rated.
+- Distinctness against published Statistics 4.x and 5.x FRQs was not checked, and a publication approval is still needed (see the batch 1 section).

@@ -69,8 +69,19 @@
   "item": {
    "title": "Limits of a Laptop Resale Model",
    "calculator": "permitted",
-   "stimulus": "An electronics reseller recorded the age, in years, of each of 15 laptops of the same model and its resale value. The ages were: 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4. The least-squares regression line, found using technology, is ŷ = 640 − 85x, where x is the age in years and ŷ is the predicted resale value in dollars.",
+   "stimulus": "An electronics reseller recorded the age, in years, of each of 15 laptops of the same model and its resale value. The ages were: 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted resale value in dollars.",
    "parts": [
+    {
+     "prompt": "The regression line passes through the points (1, 555) and (3, 385). Find the equation of the regression line.",
+     "criteria": [
+      {
+       "text": "Finds the equation of the line through (1, 555) and (3, 385) by any correct method: slope −85, y-intercept 640, so ŷ = 640 − 85x.",
+       "evidence": "Response gives the correct slope and y-intercept for the line through the two points and writes ŷ = 640 − 85x, by any correct method.",
+       "fix": "Find the slope as change in y over change in x, then substitute one point into ŷ = a + bx to find a.",
+       "accepted_variants": []
+      }
+     ]
+    },
     {
      "prompt": "Use the model to predict the resale value of a laptop that is 8 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
      "criteria": [
@@ -112,21 +123,10 @@
        "accepted_variants": []
       }
      ]
-    },
-    {
-     "prompt": "The reseller says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
-     "criteria": [
-      {
-       "text": "Ranks the predictions from most to least reliable as 4, then 0.5, then 6 years, because 4 years is interpolation, while 0.5 years is extrapolation only 0.5 years below the youngest laptop (1 year) and 6 years is extrapolation 2 years beyond the oldest laptop (4 years), and predictions get less reliable the further the x-value is beyond the data.",
-       "evidence": "Response gives the order 4, then 0.5, then 6 years and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
-       "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
-       "accepted_variants": []
-      }
-     ]
     }
    ],
-   "model_answer": "(a) ŷ = 640 − 85x with x = 8 gives ŷ = −40 dollars. A negative resale value is impossible. The ages in the data run from 1 to 4 years, so 8 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(b) 0.5 years is below the interval of ages used to fit the line (1 to 4 years), so it is extrapolation; 4 years is within (at the upper end of) the interval of ages used to fit the line (1 to 4 years), so it is interpolation; 6 years is beyond the interval of ages used to fit the line (1 to 4 years), so it is extrapolation.\n\n(c) No. From most to least reliable: 4, then 0.5, then 6 years, because 4 years is interpolation, while 0.5 years is extrapolation only 0.5 years below the youngest laptop (1 year) and 6 years is extrapolation 2 years beyond the oldest laptop (4 years), and predictions get less reliable the further the x-value is beyond the data.",
-   "verification_python": "ages = [1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]\na, b = 640, -85\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (1, 4)\nyf = a + b * 8\nassert abs(yf - -40) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [0.5, 4, 6]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [0.5, 4, 6]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   "model_answer": "(a) slope = (385 − 555)/(3 − 1) = -85; intercept = 555 − (-85)(1) = 640; so ŷ = 640 − 85x.\n\n(b) ŷ = 640 − 85x with x = 8 gives ŷ = −40 dollars. A negative resale value is impossible. The ages in the data run from 1 to 4 years, so 8 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(c) 0.5 years is below the interval of ages used to fit the line (1 to 4 years), so it is extrapolation; 4 years is within (at the upper end of) the interval of ages used to fit the line (1 to 4 years), so it is interpolation; 6 years is beyond the interval of ages used to fit the line (1 to 4 years), so it is extrapolation.",
+   "verification_python": "ages = [1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]\na, b = 640, -85\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (1, 4)\nyf = a + b * 8\nassert abs(yf - -40) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [0.5, 4, 6]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [0.5, 4, 6]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\n(p1x, p1y), (p2x, p2y) = [(1, 555), (3, 385)]\nassert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9\nprint(\"ALL_CHECKS_PASSED\")\n"
   }
  },
  {

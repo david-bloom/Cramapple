@@ -93,18 +93,19 @@ def t53(c):
         cls.append(('EXTRAP_CLASS', dict(x0=x, kind=k, where=w, x_name=c['x_name'], lo=lo, hi=hi, x_units=c['x_units'])))
     assert [k['kind'] for _, k in cls] == c['kinds']
     stim = c['stim'].format(ages=', '.join(str(x) for x in ages), n=len(ages))
+    (xp1, yp1), (xp2, yp2) = c['pts']; assert abs((yp2 - yp1) / (xp2 - xp1) - b) < 1e-9 and abs(yp1 - b * xp1 - a) < 1e-9
     parts = [
+        (f"The regression line passes through the points ({xp1}, {yp1}) and ({xp2}, {yp2}). Find the equation of the regression line.",
+         [('EQ_FROM_POINTS', dict(p1=f'({xp1}, {yp1})', p2=f'({xp2}, {yp2})', b_text=sg(b, dp if dp else 0) if False else (f'{b:g}'.replace('-', M)), a_text=f'{a:g}', eq_text=c['eq_text']))]),
         (f"Use the model to predict the {c['y_name']} of {c['case']} {xf} {c['x_units']} old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
          [('PREDICT', dict(eq_text=c['eq_text'], x0=xf, yhat_text=yt, y_units=c['y_units'], yhat_variants=[yt])),
           ('IMPLAUSIBLE', dict(x0=xf, yhat_text=yt, y_name=c['y_name'], y_units=c['y_units'], lo=lo, hi=hi, x_units=c['x_units']))]),
         (f"The {c['seller']} also wants to use the model for {c['case_pl']} that are {c['ph'][0]}, {c['ph'][1]} and {c['ph'][2]} old. For each age, state whether using the model is interpolation or extrapolation, and explain.", cls),
-        (f"The {c['seller']} says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
-         [('RELIABILITY_RANK', dict(order_text=c['order_text'], reason_text=c['reason_text']))]),
     ]
     ex = '; '.join(f"{x} {c['x_units']} is {where_kind(x, lo, hi)[0]} the interval of ages used to fit the line ({lo} to {hi} {c['x_units']}), so it is {where_kind(x, lo, hi)[1]}" for x in c['xs3'])
-    model = (f"(a) ŷ = {c['eq_plain']} with x = {xf} gives ŷ = {yt} {c['y_units']}. A negative {c['y_name']} is impossible. The ages in the data run from {lo} to {hi} {c['x_units']}, so {xf} {c['x_units']} is far beyond them, and the linear model should not be used that far outside the data.\n\n"
-             f"(b) {ex}.\n\n"
-             f"(c) No. From most to least reliable: {c['order_text']}, because {c['reason_text']}.")
+    model = (f"(a) slope = ({yp2} − {yp1})/({xp2} − {xp1}) = {b:g}; intercept = {yp1} − ({b:g})({xp1}) = {a:g}; so {c['eq_text']}.\n\n"
+             f"(b) ŷ = {c['eq_plain']} with x = {xf} gives ŷ = {yt} {c['y_units']}. A negative {c['y_name']} is impossible. The ages in the data run from {lo} to {hi} {c['x_units']}, so {xf} {c['x_units']} is far beyond them, and the linear model should not be used that far outside the data.\n\n"
+             f"(c) {ex}.")
     ver = f'''ages = {ages}
 a, b = {a}, {b}
 lo, hi = min(ages), max(ages)
@@ -116,19 +117,21 @@ def kind(x):
 assert [kind(x) for x in {c['xs3']}] == {c['kinds']}
 dist = [max(lo - x, x - hi, 0) for x in {c['xs3']}]
 assert dist[1] == 0 and 0 < dist[0] < dist[2]
+(p1x, p1y), (p2x, p2y) = {c['pts']}
+assert abs((p2y - p1y) / (p2x - p1x) - b) < 1e-9 and abs(p1y - b * p1x - a) < 1e-9
 print("ALL_CHECKS_PASSED")
 '''
     return assemble(c['title'], 'permitted', stim, parts, model, ver)
 
 
 S53 = dict(title='Limits of a Used-Car Price Model', ages=[2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9], a=27.4, b=-1.9, x_far=16, xs3=[1.5, 9, 12],
-           kinds=['extrapolation', 'interpolation', 'extrapolation'], ph=['18 months', '9 years', '12 years'], order_text='9, then 1.5, then 12 years', reason_text='9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data', x_ref=6, dp=1, eq_text='ŷ = 27.4 − 1.9x', eq_plain='27.4 − 1.9x',
+           kinds=['extrapolation', 'interpolation', 'extrapolation'], pts=[(4, 19.8), (8, 12.2)], ph=['18 months', '9 years', '12 years'], order_text='9, then 1.5, then 12 years', reason_text='9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data', x_ref=6, dp=1, eq_text='ŷ = 27.4 − 1.9x', eq_plain='27.4 − 1.9x',
            x_name='age', y_name='asking price', x_units='years', y_units='thousand dollars', case='a car that is', case_pl='cars', seller='dealer',
-           stim="A used-car dealer recorded the age, in years, of each of {n} cars of the same model and its asking price. The ages were: {ages}. The least-squares regression line, found using technology, is ŷ = 27.4 − 1.9x, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.")
+           stim="A used-car dealer recorded the age, in years, of each of {n} cars of the same model and its asking price. The ages were: {ages}. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.")
 V53 = dict(title='Limits of a Laptop Resale Model', ages=[1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4], a=640, b=-85, x_far=8, xs3=[0.5, 4, 6],
-           kinds=['extrapolation', 'interpolation', 'extrapolation'], ph=['6 months', '4 years', '6 years'], order_text='4, then 0.5, then 6 years', reason_text='4 years is interpolation, while 0.5 years is extrapolation only 0.5 years below the youngest laptop (1 year) and 6 years is extrapolation 2 years beyond the oldest laptop (4 years), and predictions get less reliable the further the x-value is beyond the data', x_ref=3, dp=0, eq_text='ŷ = 640 − 85x', eq_plain='640 − 85x',
+           kinds=['extrapolation', 'interpolation', 'extrapolation'], pts=[(1, 555), (3, 385)], ph=['6 months', '4 years', '6 years'], order_text='4, then 0.5, then 6 years', reason_text='4 years is interpolation, while 0.5 years is extrapolation only 0.5 years below the youngest laptop (1 year) and 6 years is extrapolation 2 years beyond the oldest laptop (4 years), and predictions get less reliable the further the x-value is beyond the data', x_ref=3, dp=0, eq_text='ŷ = 640 − 85x', eq_plain='640 − 85x',
            x_name='age', y_name='resale value', x_units='years', y_units='dollars', case='a laptop that is', case_pl='laptops', seller='reseller',
-           stim="An electronics reseller recorded the age, in years, of each of {n} laptops of the same model and its resale value. The ages were: {ages}. The least-squares regression line, found using technology, is ŷ = 640 − 85x, where x is the age in years and ŷ is the predicted resale value in dollars.")
+           stim="An electronics reseller recorded the age, in years, of each of {n} laptops of the same model and its resale value. The ages were: {ages}. The least-squares regression line, found using technology, has the form ŷ = a + bx, where x is the age in years and ŷ is the predicted resale value in dollars.")
 
 
 # ------------------------------------------------------------------ 5.4 (all residuals, sign pattern, curvature)
@@ -325,6 +328,9 @@ V44 = dict(title='Is a Matched-Pairs t-Test Appropriate? Sleep Aid and Time to F
            stim="A sleep researcher suspects that a sleep aid reduces the time it takes adults to fall asleep. She randomly selected 12 adults from a large city. Each adult used the sleep aid on one night and no aid on another night, in a random order, and the researcher recorded each adult's difference (time to fall asleep without the aid minus time with it) in minutes. The sample of 12 differences has mean 4.8 minutes and standard deviation 9.6 minutes. A dotplot of the 12 differences is strongly left-skewed with one outlier.")
 
 
+OP = {'<': '<', '>': '>', '≠': '!='}
+
+
 def t49(c):
     parts = [
         (f"Let μ₁ be the mean for the {c['g1']} and μ₂ the mean for the {c['g2']}. Define the parameters of interest and state the null and alternative hypotheses for the test.",
@@ -337,7 +343,7 @@ def t49(c):
     ver = f'''n1, n2 = {c['n1']}, {c['n2']}
 both_big = min(n1, n2) >= 30
 assert both_big == {c['both_big']}
-assert {c['m1']} {'<' if c['ha_sym'] == '<' else '>'} {c['m2']}
+assert {c['m1']} {OP[c['ha_sym']]} {c['m2']}
 print("ALL_CHECKS_PASSED")
 '''
     return assemble(c['title'], 'not_applicable', c['stim'], parts, model, ver)
