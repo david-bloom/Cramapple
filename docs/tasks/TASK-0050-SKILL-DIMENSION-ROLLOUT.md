@@ -123,3 +123,27 @@ Per the plan's §10: a CED-cited grid in `taxonomy_cells`; published MCQs and FR
 **non-null** `skill_code` with a recorded consensus trail; at least one cell meeting `DECISION-0074`'s
 bar verified by ID; feasibility numbers and implied ceiling recorded; `CONTENT_GAPS_RUNNING_LIST.md`
 GAP-10 updated with the subject's result.
+
+## 2026-11-11 Statistics Phase B continuation
+
+**Branch:** `codex/task-0050-statistics-phase-b`
+**Packet and run evidence:** `scripts/content-seed/task0050-stats-phase-b-2026-11-11/README.md`
+
+Current Production reads confirm the retired pilot's 203 MCQs have zero matching content keys,
+titles, or exact stems in the live pack. Its labels are tied to different content and cannot be
+transferred safely. The live pack did receive its separate 2026-09-29 Phase B migration, but the
+bank changed substantially afterward. Today 372 published MCQ item rows and 41 published FRQ item
+rows lack a skill. Of those, 8 MCQs and 15 FRQs have no published version (their latest version is
+retired), leaving 364 MCQ and 26 FRQ published versions for a direct label pass. All 390 have a
+primary topic and at least one registered skill; 99 have exactly one and need no model call.
+
+David explicitly approved this session's model calls. The three-model pass completed against the
+remaining 291 items: 247 unanimous, 44 majority-earned, 0 held; the 99 deterministic items bring
+the review package to all 390 labelable published versions. Gateway spend was $6.0790 across 873
+calls. A post-run Production read confirmed the same 390 missing version IDs. No Production label
+write is authorized by the model-call approval. On the current published-version inventory, the
+proposed labels project 12 → 49 topic × skill cells with at least two MCQs and one FRQ; this is a
+coverage projection, not a student-mastery result. The older CHECK
+constraint note above is stale: Production now permits `validated_by` **or** `model_run_id` for
+`validated`, but still requires `validated_at` and `validation_decision_id`. This run prepares
+`provisional_model` rows for a later, separately approved Production application/promotion.
