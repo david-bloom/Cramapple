@@ -1,0 +1,20 @@
+begin;
+select pg_advisory_xact_lock(hashtext('cramapple-apphysics1-u1-2026-11-12-retire-20261112'));
+create temporary table old on commit drop as
+select ci.id item_id, civ.id version_id, ci.content_key
+from app.content_items ci join app.content_item_versions civ on civ.content_item_id=ci.id and civ.status='published'
+where ci.exam_pack_version_id='29c719dc-701b-470f-9e49-fab981722d3f' and ci.item_type='mcq' and ci.status='published' and ci.content_key in ('apphy1-mcq-001','apphy1-mcq-029','apphy1-mcq-052','apphy1-mcq-sv-001-v1','apphy1-mcq-sv-001-v2','apphy1-mcq-sv-001-v3','apphy1-mcq-sv-029-v1','apphy1-mcq-sv-029-v2','apphy1-mcq-sv-029-v3','apphy1-mcq-sv-052-v1','apphy1-mcq-sv-052-v2','apphy1-mcq-sv-052-v3');
+do $$ begin
+ if (select count(*) from old)<>12 then raise exception 'expected 12 published superseded items, got %', (select count(*) from old); end if;
+ if (select count(*) from app.content_items where exam_pack_version_id='29c719dc-701b-470f-9e49-fab981722d3f' and status='published' and (content_key like 'apphysics1-mcq-b6-h-1.%' or content_key like 'apphysics1-mcq-b6-sv-h-1.%'))<>40 then raise exception 'the 40 new items are not all published; publish first'; end if;
+end $$;
+update app.content_review_assignments set status='skipped' where content_item_version_id in (select version_id from old) and assignment_purpose='subject_review' and status in ('pending','in_progress');
+update app.content_item_versions set status='retired', updated_at=now() where id in (select version_id from old);
+update app.content_items set status='retired', updated_at=now() where id in (select item_id from old);
+do $$ declare n int; begin
+ select count(*) into n from app.content_items where id in (select item_id from old) and status='retired'; if n<>12 then raise exception 'retire count %', n; end if;
+ select count(*) into n from app.content_items ci where ci.exam_pack_version_id='29c719dc-701b-470f-9e49-fab981722d3f' and ci.status='published' and not exists (select 1 from app.content_item_versions v where v.content_item_id=ci.id and v.status='published') and ci.item_type='mcq'; 
+ raise notice 'published MCQ items without a published version (pre-existing defects count too): %', n;
+end $$;
+do $$ begin raise exception 'REHEARSAL OK (rolled back): retired=%', (select count(*) from old); end $$;
+rollback;

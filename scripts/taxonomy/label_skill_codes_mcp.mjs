@@ -42,6 +42,7 @@ const arg = (name, fallback = null) => {
 
 const PACKET_FILES = (arg("packets") || "").split(",").filter(Boolean);
 const SUBJECT = arg("subject") || "ap_statistics";
+const PACK_ID = arg("pack-id") || "548f06be-ccf4-426d-b82b-b424137a4438";
 const OUT_DIR = path.resolve(arg("out-dir") || "/private/tmp/cramapple-skill-labels");
 const LIMIT = Number(arg("limit") || 0);
 const CONCURRENCY = Number(arg("concurrency") || 4);
@@ -289,28 +290,37 @@ function buildSql(results, deterministic) {
   lines.push("-- is_primary = false on every row: these items already carry a primary");
   lines.push("-- topic-only row, and content_item_cells_one_primary_per_version would");
   lines.push("-- reject a second primary. assignment_status is provisional_model, NOT");
-  lines.push("-- validated, because content_item_cells_validation_check still requires a");
-  lines.push("-- human validated_by (DECISION-0085's open item). Promotion is a later");
-  lines.push("-- UPDATE once that gate clears; the consensus outcome is recorded in");
+  lines.push("-- validated, pending a Production decision record and write approval.");
+  lines.push("-- The current CHECK accepts model_run_id as provenance but also requires");
+  lines.push("-- validated_at and validation_decision_id. The consensus outcome is in");
   lines.push("-- model_run_id so it can be promoted without re-running the subject.");
   lines.push("");
   lines.push("begin;");
   lines.push("");
-
-  for (const r of writable) {
-    const runTag = `${RUN_ID}:${r.agreement}`;
-    lines.push(
-      `insert into app.content_item_cells (content_item_id, content_item_version_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id)`,
-    );
-    lines.push(
-      `select ${sqlStr(r.content_item_id)}, ${sqlStr(r.content_item_version_id)}, tsv.taxonomy_source_version, ${sqlStr(r.topic_code)}, ${sqlStr(r.skill_code)}, false, 'provisional_model', 'skill_dimension_phase_b', ${sqlStr(runTag)}`,
-    );
-    lines.push(
-      `from app.taxonomy_source_versions tsv where tsv.subject_key = ${sqlStr(SUBJECT)}`,
-    );
-    lines.push(`on conflict do nothing;`);
-    lines.push("");
-  }
+  lines.push("do $task0050$");
+  lines.push("declare inserted_count integer;");
+  lines.push("begin");
+  lines.push("  insert into app.content_item_cells (content_item_id, content_item_version_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id)");
+  lines.push("  select ci.id, civ.id, prim.taxonomy_source_version, prim.topic_code, proposed.skill_code, false, 'provisional_model', 'skill_dimension_phase_b', proposed.run_tag");
+  lines.push("  from (values");
+  lines.push(writable.map((r) => `    (${sqlStr(r.content_key)}, ${sqlStr(r.content_item_version_id)}::uuid, ${sqlStr(r.topic_code)}, ${sqlStr(r.skill_code)}, ${sqlStr(`${RUN_ID}:${r.agreement}`)})`).join(",\n"));
+  lines.push("  ) as proposed(content_key, version_id, topic_code, skill_code, run_tag)");
+  lines.push("  join app.content_items ci on ci.content_key = proposed.content_key");
+  lines.push(`    and ci.exam_pack_version_id = ${sqlStr(PACK_ID)}::uuid and ci.status = 'published'`);
+  lines.push("  join app.content_item_versions civ on civ.id = proposed.version_id");
+  lines.push("    and civ.content_item_id = ci.id and civ.status = 'published'");
+  lines.push("  join app.content_item_cells prim on prim.content_item_version_id = civ.id");
+  lines.push("    and prim.is_primary and prim.topic_code = proposed.topic_code");
+  lines.push("  join app.taxonomy_cells tc on tc.taxonomy_source_version = prim.taxonomy_source_version");
+  lines.push("    and tc.topic_code = prim.topic_code and tc.skill_code = proposed.skill_code");
+  lines.push("  where not exists (select 1 from app.content_item_cells existing");
+  lines.push("    where existing.content_item_version_id = civ.id and existing.skill_code is not null);");
+  lines.push("  get diagnostics inserted_count = row_count;");
+  lines.push(`  if inserted_count <> ${writable.length} then`);
+  lines.push(`    raise exception 'TASK-0050 expected ${writable.length} new skill cells, inserted %', inserted_count;`);
+  lines.push("  end if;");
+  lines.push("end");
+  lines.push("$task0050$;");
 
   lines.push("commit;");
   lines.push("");
@@ -376,9 +386,10 @@ function buildReport(results, deterministic, costs) {
   l.push(`## What is NOT in this run`);
   l.push("");
   l.push(`- Nothing was applied. The SQL file is written, never executed.`);
-  l.push(`- Labels land as \`provisional_model\`, not \`validated\`: \`content_item_cells_validation_check\``);
-  l.push(`  still requires a human \`validated_by\` (\`DECISION-0085\`'s open item). The consensus tier is`);
-  l.push(`  recorded in \`model_run_id\`, so promotion is one later UPDATE and not a re-run.`);
+  l.push(`- Labels land as \`provisional_model\`, pending a Production decision record and write approval.`);
+  l.push(`  The current \`content_item_cells_validation_check\` accepts \`model_run_id\` as provenance,`);
+  l.push(`  but also requires \`validated_at\` and \`validation_decision_id\`. The consensus tier is`);
+  l.push(`  recorded in \`model_run_id\`, so promotion needs no model re-run.`);
   l.push(`- These items exist **only in Production**. Development holds different AP Statistics content`);
   l.push(`  (pack \`4e54bb4f\`, 203 MCQ, already skill-labelled), so this cannot be rehearsed in Dev.`);
   l.push(`  Applying it is therefore a Production Hard Gate, outside \`APPROVAL-0060\`.`);
@@ -433,7 +444,8 @@ async function main() {
     for (const line of fs.readFileSync(cachePath, "utf8").split("\n").filter(Boolean)) {
       try {
         const r = JSON.parse(line);
-        cached.set(r.content_item_version_id, r);
+        // A failed gateway call is retryable; it is not a no-majority vote.
+        if (r.outcome !== "retry_required") cached.set(r.content_item_version_id, r);
       } catch { /* skip a torn line */ }
     }
     console.log(`[resume] ${cached.size} results already on disk, reusing`);
@@ -451,7 +463,16 @@ async function main() {
     }
     const calls = await Promise.all(ALL_MODELS.map((m) => callModel(m, item)));
     for (const c of calls) costs += c.cost || 0;
-    const decision = decide(item, calls);
+    const decision = calls.some((c) => !c.ok)
+      ? {
+          ...item_id(item),
+          outcome: "retry_required",
+          reason: "one or more model calls failed",
+          skill_code: null,
+          agreement: null,
+          votes: voteMap(calls),
+        }
+      : decide(item, calls);
     sink.write(JSON.stringify(decision) + "\n");
     done++;
     if (done % 10 === 0) console.log(`  ... ${done}/${needModel.length}`);
@@ -468,6 +489,11 @@ async function main() {
   });
 
   sink.end();
+
+  const retryRequired = results.filter((r) => r.outcome === "retry_required");
+  if (retryRequired.length) {
+    throw new Error(`${retryRequired.length} items need gateway retries; no SQL or consensus report was written`);
+  }
 
   const sql = buildSql(results, deterministic);
   const report = buildReport(results, deterministic, costs);
