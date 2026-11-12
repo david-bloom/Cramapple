@@ -347,15 +347,15 @@ Rationales: A: This assumes the second differences stay constant at 18, which wo
 ## Seed N-1.4-B (new) — Topic 1.4 Polynomial Functions and Rates of Change
 **Skill:** combine the turning-point bound (degree at least turning points plus one) with the parity forced by end behavior to find the least possible degree.
 
-A polynomial function p has exactly 5 local extrema, and the graph of p falls without bound to the left and rises without bound to the right. What is the least possible degree of p?
+A polynomial function p has exactly 5 local extrema, and the graph of p rises without bound at both ends of the graph. What is the least possible degree of p?
 
 - A. 5
-- **B. 7**
-- C. 6
-- D. 4
+- B. 7
+- C. 4
+- **D. 6**
 
-Check: A polynomial of degree n has at most n − 1 turning points, so n ≥ 6. The end behavior makes n odd, so the least possible degree is 7.
-Rationales: A: A polynomial of degree 5 has at most 4 turning points, but this function has 5. The degree must be at least 6. C: A polynomial of degree 6 could have 5 turning points, but a degree-6 polynomial is even, so its ends would point the same way. The stated end behavior requires an odd degree. D: A polynomial of degree 4 has at most 3 turning points, but this function has 5. The degree must be at least 6.
+Check: A polynomial of degree n has at most n − 1 turning points, so n ≥ 6. Both ends rising means even degree, which also forces an odd number of turning points (5 is odd), so the least possible degree is 6.
+Rationales: A: A polynomial of degree 5 has at most 4 turning points, but this function has 5. The degree must be at least 6. B: A polynomial of degree 7 could have 5 turning points, but a degree-7 polynomial is odd, so its ends would point in opposite directions. The stated end behavior requires an even degree. C: A polynomial of degree 4 has at most 3 turning points, but this function has 5. The degree must be at least 6.
 
 **N-1.4-B-v1.** A polynomial function q has exactly 3 turning points, and its graph rises without bound at both ends of the graph. What is the least possible degree of q?
 
@@ -377,15 +377,15 @@ Rationales: A: A polynomial of degree 3 has at most 2 turning points, but this f
 Check: A polynomial of degree n has at most n − 1 turning points, so n ≥ 5. The end behavior makes n odd, so the least possible degree is 5.
 Rationales: A: A polynomial of degree 4 has at most 3 turning points, but this function has 4. The degree must be at least 5. B: A polynomial of degree 6 could have 4 turning points, but a degree-6 polynomial is even, so its ends would point the same way. The stated end behavior requires an odd degree. D: A polynomial of degree 3 has at most 2 turning points, but this function has 4. The degree must be at least 5.
 
-**N-1.4-B-v3.** A polynomial function s has exactly 2 turning points, and the graph of s rises without bound at both ends of the graph. What is the least possible degree of s?
+**N-1.4-B-v3.** A polynomial function s has exactly 2 turning points, and the graph of s falls without bound to the left and rises without bound to the right. What is the least possible degree of s?
 
-- **A. 4**
-- B. 2
-- C. 3
+- A. 2
+- **B. 3**
+- C. 4
 - D. 1
 
-Check: A polynomial of degree n has at most n − 1 turning points, so n ≥ 3. The end behavior makes n even, so the least possible degree is 4.
-Rationales: B: A polynomial of degree 2 has at most 1 turning points, but this function has 2. The degree must be at least 3. C: A polynomial of degree 3 could have 2 turning points, but a degree-3 polynomial is odd, so its ends would point in opposite directions. The stated end behavior requires an even degree. D: A polynomial of degree 1 has at most 0 turning points, but this function has 2. The degree must be at least 3.
+Check: A polynomial of degree n has at most n − 1 turning points, so n ≥ 3. The ends pointing opposite ways means odd degree, which also forces an even number of turning points (2 is even), so the least possible degree is 3.
+Rationales: A: A polynomial of degree 2 has at most 1 turning point, but this function has 2. The degree must be at least 3. C: A polynomial of degree 4 could have 2 turning points, but a degree-4 polynomial is even, so its ends would point the same way. The stated end behavior requires an odd degree. D: A polynomial of degree 1 has at most 0 turning points, but this function has 2. The degree must be at least 3.
 
 
 ---
