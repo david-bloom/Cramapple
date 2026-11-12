@@ -11,7 +11,8 @@ with stranded as (
     )
 ), latest as (
   select distinct on (v.content_item_id)
-    v.content_item_id, v.id version_id, v.version_num, v.status version_status
+    v.content_item_id, v.id version_id, v.version_num, v.status version_status,
+    v.review_status
   from app.content_item_versions v
   join stranded s on s.id = v.content_item_id
   order by v.content_item_id, v.version_num desc
@@ -24,7 +25,7 @@ with stranded as (
   order by l.content_item_id, l.label_version desc
 )
 select s.content_key, s.item_type, l.version_id, l.version_num,
-       l.version_status,
+       l.version_status, l.review_status,
        (select count(*) from app.content_item_versions v
         where v.content_item_id = s.id) version_count,
        (select count(*) from app.content_item_cells c

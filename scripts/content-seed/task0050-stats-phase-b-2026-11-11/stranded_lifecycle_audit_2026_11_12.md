@@ -8,6 +8,8 @@ No published-version skill label can be created for these items now. Each parent
 
 Twenty items have a validated *serving-unit* label; three have a held serving label. These labels do not supply a topic or skill. No model calls or Production writes were made for this audit, and no retired version was silently republished or labeled as if live.
 
+The retired versions also have open review statuses: 14 `modification_reserved`, five `ap_reader_pending`, three `difficulty_discussion`, and one `tutor_review_pending`. These flags warrant content review before any return to students, but they do not identify a particular factual or mathematical error by themselves. The database has no retirement-reason field on these versions, so the audit cannot infer why each was retired.
+
 | Group | Keys | Count | Serving-unit label |
 | --- | --- | ---: | --- |
 | FRQ | `APSTAT-MOD6-M001`, `APSTATS-SFRQ-006` | 2 | Validated |
