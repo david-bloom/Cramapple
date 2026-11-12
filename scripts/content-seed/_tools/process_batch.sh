@@ -6,7 +6,7 @@ python3 - "$F" "$SUBJ" "$PFX" "$TAG" "$DATE" "${LABEL_CFG:-$T/label_cfg.json}" "
 import json,sys
 f,subj,pfx,tag,date=sys.argv[1:6]
 c=json.load(open(sys.argv[6]))[subj]
-unit=int(sys.argv[7]); lr=dict(c["label_req_u%d"%unit] if unit in (2,4) else c["label_req"])
+unit=int(sys.argv[7]); lr=dict(c["label_req_u%d"%unit] if unit in (1,2,4) else c["label_req"])
 if unit==3:
     for t in ("3.8","3.11"): lr.setdefault(t,[3])
 json.dump({"subject":subj,"pack":c["pack"],"tsv":c["tsv"],"prefix":pfx,"tag":tag,"date":date,"label_req":lr,"unit":unit,"seed":20261201},open(f+"/cfg.json","w"),indent=1)
