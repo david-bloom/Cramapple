@@ -151,3 +151,22 @@ constraint note above is stale: Production now permits `validated_by` **or** `mo
 `validated`, but still requires `validated_at` and `validation_decision_id`. Promotion of this
 run's `provisional_model` rows and lifecycle resolution for the 23 items remain outside
 `APPROVAL-0236`.
+
+## 2026-11-12 follow-up: 23 item rows with no published version
+
+A read-only Production audit of all 23 keys found one retired version per published parent item,
+zero topic or skill cells on those versions, and zero topic-resolution rows. Twenty retain a
+validated serving-unit label and three have a held one; a unit label cannot determine a skill.
+Consequently **zero of the 23 can receive a published-version skill label today**. The exact keys,
+reproducible query, and lifecycle paths are in
+`scripts/content-seed/task0050-stats-phase-b-2026-11-11/stranded_lifecycle_audit_2026_11_12.md`.
+No model calls, content changes, or Production writes were made in this follow-up. Resolving the
+parent/version mismatch requires a separate Production lifecycle decision before any restored
+version joins the Phase B label pass.
+
+The 14 `modification_reserved` versions were then reviewed individually against their tutor
+decisions and stored question content. Eleven draft successor repairs and a deterministic checker
+are in `scripts/content-seed/task0050-stats-phase-b-2026-11-11/review14_remedy_2026_11_12.md`;
+three need no content edit. The drafts do not clear review statuses, restore the retired versions,
+or authorize student publication. MCQ-012 had an independently found p-value/key contradiction;
+the draft corrects the counts and reported p-value together.
