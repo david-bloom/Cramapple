@@ -5,7 +5,7 @@
 ## Audit (read-only)
 43 published practice MCQs before this batch (1.1: 8, 1.2: 14, 1.3: 5, 1.4: 8, 1.5: 8). 1.1 is 8 of 8 R1; 1.2 is 5 of 14 R1; no topic has more than one R3.
 
-## Package built, NOT executed (awaiting owner go-ahead)
+## Executed 2026-11-12 (APPROVAL-0254)
 `scripts/content-seed/apphycm-harder-seeds-u1-2026-11-12`: 40 new MCQs (two seeds per topic, three variants each, topics 1.1-1.5), 19 retirements (whole R1 families: 1.1 all 8, 1.2 10, 1.3 1; teaching items excluded). After the batch each topic has 8 new items; the standard minimum is not met by new items alone where the old R1 families are retired (1.1 would have 8 published).
 
 ## Checks
