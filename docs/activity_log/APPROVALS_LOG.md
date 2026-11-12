@@ -24,6 +24,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 - [APPROVAL-0252 — AP Statistics Unit 1 topics 1.1 to 1.7: 56 items published, 25 retired (granted and executed 2026-11-12)](APPROVAL-0252_STATS_A_UNIT1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0253 — AP Statistics Unit 1 topics 1.8 to 1.13: 48 items published, 24 retired (granted and executed 2026-11-12)](APPROVAL-0253_STATS_B_UNIT1_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0254 — AP Physics C: Mechanics Unit 1 topics 1.1 to 1.5: 40 items published, 19 retired (granted and executed 2026-11-12)](APPROVAL-0254_PHYSICS_C_MECH_UNIT1_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0255 — AP Precalculus topic 1.4 seed B: two published items corrected in place (granted and executed 2026-11-12)](APPROVAL-0255_PRECALCULUS_1_4B_CORRECTION_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0241 — AP Precalculus Unit 2 topics 2.1 to 2.8: 64 items published, 31 retired (granted and executed 2026-11-12)](APPROVAL-0241_PRECALCULUS_UNIT2_2_1_TO_2_8_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0240 — AP Calculus BC Unit 2 topics 2.1 to 2.10: 80 items published, 33 retired (granted and executed 2026-11-12)](APPROVAL-0240_CALCULUS_BC_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0239 — AP Calculus AB Unit 2 topics 2.1 to 2.10: 80 items published, 27 retired (granted and executed 2026-11-12)](APPROVAL-0239_CALCULUS_AB_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)

@@ -22,13 +22,13 @@ with item_ins as (
   select gen_random_uuid(), '5522b532-5e50-41f2-99a2-10144bd4e8db', 'apprecalc-mcq-b10-h-1.4-b', 'mcq', 'combine the turning-point bound (degree at least turning points plus one) with the parity forced by end behavior to find', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A polynomial function p has exactly 5 local extrema, and the graph of p falls without bound to the left and rises without bound to the right. What is the least possible degree of p?', null, md5('apprecalc-mcq-b10-h-1.4-b'), 'draft', 'tutor_review_pending', 'B'
+  select gen_random_uuid(), id, 1, 'A polynomial function p has exactly 5 local extrema, and the graph of p rises without bound at both ends of the graph. What is the least possible degree of p?', null, md5('apprecalc-mcq-b10-h-1.4-b'), 'draft', 'tutor_review_pending', 'B'
   from item_ins returning id
 )
 insert into app.mcq_choices (id, content_item_version_id, choice_key, choice_text, is_correct, rationale)
 select gen_random_uuid(), id, 'A', '5', false, 'A polynomial of degree 5 has at most 4 turning points, but this function has 5. The degree must be at least 6.' from version_ins
-union all select gen_random_uuid(), id, 'B', '7', true, 'Correct: A polynomial of degree n has at most n − 1 turning points, so n ≥ 6. The end behavior makes n odd, so the least possible degree is 7.' from version_ins
-union all select gen_random_uuid(), id, 'C', '6', false, 'A polynomial of degree 6 could have 5 turning points, but a degree-6 polynomial is even, so its ends would point the same way. The stated end behavior requires an odd degree.' from version_ins
+union all select gen_random_uuid(), id, 'B', '6', true, 'Correct: A polynomial of degree n has at most n − 1 turning points, so n ≥ 6. Both ends rising means even degree, which also forces an odd number of turning points (5 is odd), so the least possible degree is 6.' from version_ins
+union all select gen_random_uuid(), id, 'C', '7', false, 'A polynomial of degree 7 could have 5 turning points, but a degree-7 polynomial is odd, so its ends would point in opposite directions. The stated end behavior requires an even degree.' from version_ins
 union all select gen_random_uuid(), id, 'D', '4', false, 'A polynomial of degree 4 has at most 3 turning points, but this function has 5. The degree must be at least 6.' from version_ins;
 -- apprecalc-mcq-b10-sv-h-1.4-b-v1
 with item_ins as (
@@ -64,13 +64,13 @@ with item_ins as (
   select gen_random_uuid(), '5522b532-5e50-41f2-99a2-10144bd4e8db', 'apprecalc-mcq-b10-sv-h-1.4-b-v3', 'mcq', 'combine the turning-point bound (degree at least turning points plus one) with the parity forced by end behavior to find (variant 3)', 'draft' returning id
 ), version_ins as (
   insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, content_hash, status, review_status, canonical_answer_1)
-  select gen_random_uuid(), id, 1, 'A polynomial function s has exactly 2 turning points, and the graph of s rises without bound at both ends of the graph. What is the least possible degree of s?', null, md5('apprecalc-mcq-b10-sv-h-1.4-b-v3'), 'draft', 'tutor_review_pending', 'A'
+  select gen_random_uuid(), id, 1, 'A polynomial function s has exactly 2 turning points, and the graph of s falls without bound to the left and rises without bound to the right. What is the least possible degree of s?', null, md5('apprecalc-mcq-b10-sv-h-1.4-b-v3'), 'draft', 'tutor_review_pending', 'A'
   from item_ins returning id
 )
 insert into app.mcq_choices (id, content_item_version_id, choice_key, choice_text, is_correct, rationale)
-select gen_random_uuid(), id, 'A', '4', true, 'Correct: A polynomial of degree n has at most n − 1 turning points, so n ≥ 3. The end behavior makes n even, so the least possible degree is 4.' from version_ins
-union all select gen_random_uuid(), id, 'B', '2', false, 'A polynomial of degree 2 has at most 1 turning points, but this function has 2. The degree must be at least 3.' from version_ins
-union all select gen_random_uuid(), id, 'C', '3', false, 'A polynomial of degree 3 could have 2 turning points, but a degree-3 polynomial is odd, so its ends would point in opposite directions. The stated end behavior requires an even degree.' from version_ins
+select gen_random_uuid(), id, 'A', '3', true, 'Correct: A polynomial of degree n has at most n − 1 turning points, so n ≥ 3. The ends pointing opposite ways means odd degree, which also forces an even number of turning points (2 is even), so the least possible degree is 3.' from version_ins
+union all select gen_random_uuid(), id, 'B', '2', false, 'A polynomial of degree 2 has at most 1 turning point, but this function has 2. The degree must be at least 3.' from version_ins
+union all select gen_random_uuid(), id, 'C', '4', false, 'A polynomial of degree 4 could have 2 turning points, but a degree-4 polynomial is even, so its ends would point the same way. The stated end behavior requires an odd degree.' from version_ins
 union all select gen_random_uuid(), id, 'D', '1', false, 'A polynomial of degree 1 has at most 0 turning points, but this function has 2. The degree must be at least 3.' from version_ins;
 -- apprecalc-mcq-b10-h-1.5-a
 with item_ins as (
