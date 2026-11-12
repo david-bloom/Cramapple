@@ -1,5 +1,7 @@
 # AP Statistics Phase B — Skill-Code Labelling Run
 
+**Execution update (2026-11-11 ET):** The generated SQL was subsequently applied to Production under `APPROVAL-0236`; see `README.md` and the approval record for post-write verification. The "What is NOT in this run" section below describes the model runner's own behavior at generation time.
+
 **Run:** `skill-codes-ap_statistics-20261112032357` · **Started:** 2026-11-12T03:23:57.275Z
 **Governing records:** `DECISION-0085`, `APPROVAL-0060`, `TASK-0050`
 **Models:** proposers `openai/gpt-5.5`, `google/gemini-2.5-pro`; blind adjudicator `anthropic/claude-opus-5`.

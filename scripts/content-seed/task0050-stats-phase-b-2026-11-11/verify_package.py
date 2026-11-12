@@ -42,5 +42,5 @@ for guard in ("ci.status = 'published'", "civ.status = 'published'", "prim.topic
     assert guard in sql, guard
 
 print("PASS: 390 unique, allowed decisions; 291 complete three-model votes; 99 deterministic")
-print("PASS: packet IDs match post-run Production missing-set digest", ids_md5)
-print("Projected inventory-threshold cells: 12 baseline -> 49 after approved write")
+print("PASS: packet IDs match pre-write Production missing-set digest", ids_md5)
+print("Package projection: inventory-threshold cells 12 baseline -> 49 after approved write")

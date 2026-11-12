@@ -1,4 +1,5 @@
 -- TASK-0050 Phase B — AP Statistics skill codes. Run skill-codes-ap_statistics-20261112032357.
+-- APPLIED to Production under APPROVAL-0236 on 2026-11-11 ET. Do not rerun.
 -- Generated 2026-11-12T03:23:57.275Z by scripts/taxonomy/label_skill_codes_mcp.mjs.
 -- DECISION-0085: proposers openai/gpt-5.5 + google/gemini-2.5-pro, blind adjudicator anthropic/claude-opus-5;
 -- 'validated' earned by >= 2 of 3 agreeing. NOT APPLIED by the script.
