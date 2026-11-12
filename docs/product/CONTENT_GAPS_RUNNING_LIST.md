@@ -183,12 +183,25 @@ updated as work lands.
     pre-renumbering title, same finding as this GAP-10).
 - **Why it blocks:** unchanged — a cell short an FRQ (or MCQ) makes mastery permanently unreachable
   under `DECISION-0074`, not just slower.
-- **Remediation needs two content-authoring passes, neither is an engineering backfill:**
+- **AP Statistics update, 2026-11-11 ET (`APPROVAL-0236`, TASK-0050):** a full skill pass on live pack
+  `548f06be` added 390 secondary `provisional_model` cells (364 MCQ, 26 FRQ) after 99
+  deterministic decisions and a three-model consensus on 291 items. Zero published *versions*
+  remain without a skill. Labeled topic × skill cells are 102; 49 have at least two published MCQs
+  and one published FRQ (12 before this pass). Example `1.1 × 2.A`: four MCQs and one FRQ, with
+  cell IDs `46f5f55a-0e7a-4918-8679-02879695a2ab`,
+  `80f4383a-769e-44cc-9368-97b644600d4b` (MCQs) and
+  `94e4069e-4ff3-4c93-a006-0f7cf5f998d2` (FRQ). This is the content inventory bar, not a
+  student-mastery or serving-flow certification. Eight published MCQ item rows and 15 published
+  FRQ item rows have no published version (latest version retired), so their lifecycle is still
+  open; labels remain provisional pending a separate validation decision. Biology and other
+  subjects are not changed by this Statistics pass.
+- **Original 2026-09-27 remediation (Statistics step now done under `APPROVAL-0236`):**
   1. Skill-label the FRQs in both subjects (today they carry a topic only).
   2. Author Biology's `app.taxonomy_cells` topic×skill grid from scratch (currently 0 rows; every
      subject except Statistics is 0 — Statistics' own 131-row grid is the only precedent to follow).
-- **Owner:** — · **Status:** OPEN, measured twice, root cause fully diagnosed. Accepted by David as a
-  temporary gap for content authoring to close, not a rule-design flaw.
+- **Owner:** — · **Status:** OPEN across subjects. Statistics' published-version inventory now clears
+  the 2-MCQ + 1-FRQ cell bar in 49 cells; promotion and its 23 lifecycle exceptions remain.
+  Biology's skill grid/labels and the other subjects' work are separate TASK-0050 slices.
 
 ---
 
