@@ -109,8 +109,8 @@ async function checker(model, parent, child, diff, topic, ced, id) {
   return { model, pass: !second.flagged, first, second };
 }
 
-const variants = readJson(path.join(batch, 'authored', 'variants.json'), []);
-const use = readJson(path.join(batch, 'pattern_use.json'), {});
+const variants = readJson(path.join(batch, 'authored', arg('variants', 'variants.json')), []);
+const use = readJson(path.join(batch, arg('use', 'pattern_use.json')), {});
 const ced = readJson(path.join(batch, 'inputs', 'ced_topic_excerpts.json'), {});
 fs.mkdirSync(path.join(batch, 'variants'), { recursive: true });
 await Promise.all(variants.filter((v) => !only || only.has(v.topic_code)).map(async (v) => {

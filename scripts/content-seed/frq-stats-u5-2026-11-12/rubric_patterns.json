@@ -353,6 +353,351 @@
    "evidence": "Response substitutes x = {xbar} into the equation, gets {ybar_text}, and says this equals the mean response, so the line passes through the means.",
    "fix": "Substitute the mean of x into the regression equation; getting the mean of y confirms the least-squares line passes through (mean x, mean y).",
    "accepted_variants": []
+  },
+  "MEAN_XBAR": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "mu",
+    "units",
+    "n",
+    "noun"
+   ],
+   "text": "States that the mean of the sampling distribution of x̄ is μ = {mu} {units}.",
+   "evidence": "Response gives {mu} {units} as the mean of the sampling distribution of the sample mean.",
+   "fix": "The sampling distribution of x̄ is centered at the population mean, whatever the sample size; state that value with units.",
+   "accepted_variants": []
+  },
+  "SD_XBAR": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "sigma",
+    "n",
+    "sd",
+    "units",
+    "sd_variants"
+   ],
+   "text": "Calculates the standard deviation of the sampling distribution of x̄ as σ/√n = {sigma}/√{n} = {sd} {units}.",
+   "evidence": "Response divides {sigma} by √{n} and reports about {sd} {units}.",
+   "fix": "Divide the population standard deviation by the square root of the sample size, and keep the units.",
+   "accepted_variants": "{sd_variants}"
+  },
+  "XBAR_SHAPE": {
+   "topic": "4.1",
+   "ek": "4.1.B.1",
+   "shape": "justify_conditions",
+   "slots": [
+    "stat_name",
+    "why"
+   ],
+   "text": "States that the sampling distribution of {stat_name} is approximately normal because {why}.",
+   "evidence": "Response says the sampling distribution is approximately normal and gives the reason: {why_short}.",
+   "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+   "accepted_variants": []
+  },
+  "XBAR_PROB": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "calculate",
+   "slots": [
+    "event_text",
+    "cut",
+    "mu",
+    "sd",
+    "z",
+    "prob",
+    "prob_variants"
+   ],
+   "text": "Finds {event_text}: the probability is about {prob}, using a normal distribution with mean {mu} and standard deviation {sd} (for example, z = ({cut} − {mu})/{sd} = {z}).",
+   "evidence": "Response uses the mean {mu} and standard deviation {sd} of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about {prob}.",
+   "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+   "accepted_variants": "{prob_variants}"
+  },
+  "SD_CHANGE": {
+   "topic": "4.1",
+   "ek": "4.1.A.1",
+   "shape": "compare",
+   "slots": [
+    "n2",
+    "sd2",
+    "sd",
+    "units"
+   ],
+   "text": "States that with n = {n2} the standard deviation of the sampling distribution becomes {sd2} {units}, smaller than {sd} {units}, because σ/√n decreases as n increases.",
+   "evidence": "Response gives {sd2} {units} for the new sample size and says the standard deviation decreases as n increases.",
+   "fix": "Substitute the new sample size into σ/√n; larger samples give a smaller standard deviation of x̄.",
+   "accepted_variants": []
+  },
+  "PARAM_DEFINE": {
+   "topic": "4.4",
+   "ek": "4.4.A.3",
+   "shape": "define",
+   "slots": [
+    "param_sym",
+    "param_phrase"
+   ],
+   "text": "Defines {param_sym} as the {param_phrase}.",
+   "evidence": "Response defines {param_sym} as the {param_phrase}, naming the response variable and the population in context.",
+   "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+   "accepted_variants": []
+  },
+  "HYPOTHESES": {
+   "topic": "4.4",
+   "ek": "4.4.B.1-2",
+   "shape": "state",
+   "slots": [
+    "h0",
+    "ha"
+   ],
+   "text": "States H₀: {h0} and Hₐ: {ha}.",
+   "evidence": "Response writes H₀: {h0} and Hₐ: {ha}, with the alternative in the correct direction.",
+   "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+   "accepted_variants": []
+  },
+  "PROC_ID": {
+   "topic": "4.4",
+   "ek": "4.4.A.1",
+   "shape": "identify",
+   "slots": [
+    "proc",
+    "why_proc"
+   ],
+   "text": "Identifies the appropriate procedure as {proc}.",
+   "evidence": "Response names {proc}.",
+   "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+   "accepted_variants": []
+  },
+  "COND_RANDOM": {
+   "topic": "4.4",
+   "ek": "4.4.C.1",
+   "shape": "condition_check",
+   "slots": [
+    "rand_text"
+   ],
+   "text": "Checks the randomization condition: {rand_text}.",
+   "evidence": "Response states the randomization condition in context: {rand_text}.",
+   "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+   "accepted_variants": []
+  },
+  "COND_NORMAL": {
+   "topic": "4.4",
+   "ek": "4.4.C.1",
+   "shape": "condition_check",
+   "slots": [
+    "norm_text"
+   ],
+   "text": "Checks the sample-data condition: {norm_text}.",
+   "evidence": "Response states the sample-data condition and why it is met: {norm_text}.",
+   "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+   "accepted_variants": []
+  },
+  "TEST_STAT": {
+   "topic": "4.5",
+   "ek": "4.5.A.1 / 4.10.A.1",
+   "shape": "calculate",
+   "slots": [
+    "t_formula",
+    "t_text",
+    "df_text",
+    "t_variants"
+   ],
+   "text": "Calculates the test statistic {t_formula} = {t_text}.",
+   "evidence": "Response substitutes the sample values into the formula and reports t of about {t_text}.",
+   "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+   "accepted_variants": "{t_variants}"
+  },
+  "P_INTERPRET": {
+   "topic": "4.5",
+   "ek": "4.5.B.1 / 4.10.B.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "p",
+    "null_context",
+    "extreme_text"
+   ],
+   "text": "Interprets the p-value {p}: assuming {null_context}, the probability of getting {extreme_text} is about {p}.",
+   "evidence": "Response says {p} is the probability, computed assuming {null_context}, of getting {extreme_text} (an equivalent statement in terms of the test statistic is also acceptable).",
+   "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+   "accepted_variants": []
+  },
+  "P_DECISION": {
+   "topic": "4.5",
+   "ek": "4.5.C.1",
+   "shape": "decide",
+   "slots": [
+    "p",
+    "alpha",
+    "cmp",
+    "decision"
+   ],
+   "text": "Compares the p-value {p} with α = {alpha}: because the p-value is {cmp} α, {decision} H₀.",
+   "evidence": "Response compares {p} with {alpha}, and says {decision} H₀.",
+   "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+   "accepted_variants": []
+  },
+  "CONCLUDE": {
+   "topic": "4.5",
+   "ek": "4.5.C.3",
+   "shape": "conclude",
+   "slots": [
+    "concl_text",
+    "concl_short"
+   ],
+   "text": "Concludes in context: {concl_text}.",
+   "evidence": "Response states {concl_short}, in terms of Hₐ and in context.",
+   "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+   "accepted_variants": []
+  },
+  "CI_SE": {
+   "topic": "4.2",
+   "ek": "4.2.C",
+   "shape": "calculate",
+   "slots": [
+    "se_formula",
+    "se",
+    "units"
+   ],
+   "text": "Calculates the standard error {se_formula} = {se} {units}.",
+   "evidence": "Response computes the standard error from the sample statistics and reports about {se} {units}.",
+   "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+   "accepted_variants": []
+  },
+  "CI_INTERVAL": {
+   "topic": "4.2",
+   "ek": "4.2.C",
+   "shape": "calculate",
+   "slots": [
+    "formula",
+    "lo",
+    "hi",
+    "units",
+    "tstar",
+    "interval_variants"
+   ],
+   "text": "Computes the interval {formula} = {lo} to {hi} {units}, using t* = {tstar}.",
+   "evidence": "Response adds and subtracts t* times the standard error, giving an interval from {lo} to {hi} {units}.",
+   "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+   "accepted_variants": "{interval_variants}"
+  },
+  "CI_INTERPRET": {
+   "topic": "4.3",
+   "ek": "4.3.A.1-3 / 4.8.A.1-3",
+   "shape": "interpret_in_context",
+   "slots": [
+    "conf",
+    "lo",
+    "hi",
+    "units",
+    "param_phrase"
+   ],
+   "text": "Interprets the interval: we are {conf}% confident that the interval from {lo} to {hi} {units} captures the {param_phrase}.",
+   "evidence": "Response states the confidence level, the interval from {lo} to {hi} {units}, and the parameter it captures ({param_phrase}).",
+   "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+   "accepted_variants": []
+  },
+  "CI_CLAIM": {
+   "topic": "4.3",
+   "ek": "4.3.B.1 / 4.8.B.1",
+   "shape": "justify_claim",
+   "slots": [
+    "value",
+    "in_out",
+    "lo",
+    "hi",
+    "claim_concl"
+   ],
+   "text": "Because {value} is {in_out} the interval ({lo}, {hi}), {claim_concl}.",
+   "evidence": "Response compares {value} with the interval and concludes: {claim_concl}.",
+   "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+   "accepted_variants": []
+  },
+  "CI_WIDTH": {
+   "topic": "4.3",
+   "ek": "4.3.C.1",
+   "shape": "compare",
+   "slots": [
+    "conf2"
+   ],
+   "text": "States that a {conf2}% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+   "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+   "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+   "accepted_variants": []
+  },
+  "DIFF_MEAN": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "md",
+    "units"
+   ],
+   "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = {md} {units}.",
+   "evidence": "Response gives {md} {units} as the mean of the sampling distribution of the difference in sample means.",
+   "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+   "accepted_variants": []
+  },
+  "DIFF_SD": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "s1",
+    "n1",
+    "s2",
+    "n2",
+    "sdd",
+    "units",
+    "sdd_variants"
+   ],
+   "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √({s1}²/{n1} + {s2}²/{n2}) = {sdd} {units}.",
+   "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about {sdd} {units}.",
+   "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+   "accepted_variants": "{sdd_variants}"
+  },
+  "COND_TEN": {
+   "topic": "4.4",
+   "ek": "4.1.B.1.ii",
+   "shape": "condition_check",
+   "slots": [
+    "ten_text"
+   ],
+   "text": "Checks the 10% condition: {ten_text}.",
+   "evidence": "Response checks that the sample size is less than 10% of the population: {ten_text}.",
+   "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+   "accepted_variants": []
+  },
+  "T_STAR": {
+   "topic": "4.2",
+   "ek": "4.2.A.1-2",
+   "shape": "explain",
+   "slots": [
+    "ts",
+    "zs",
+    "df",
+    "conf"
+   ],
+   "text": "States that t* = {ts} is larger than the normal critical value z* = {zs} for {conf}% confidence, because the t-distribution (with {df} degrees of freedom) has heavier tails than the normal distribution.",
+   "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with {df} degrees of freedom) as the reason.",
+   "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+   "accepted_variants": []
+  },
+  "POINT_EST": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "calculate",
+   "slots": [
+    "m1",
+    "m2",
+    "d",
+    "units"
+   ],
+   "text": "States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = {m1} − {m2} = {d} {units}.",
+   "evidence": "Response states {d} {units} (or an equivalent form) as the point estimate for the difference in means.",
+   "fix": "Estimate a difference in population means with the difference in sample means, subtracting in the order the parameter is written.",
+   "accepted_variants": []
   }
  }
 }

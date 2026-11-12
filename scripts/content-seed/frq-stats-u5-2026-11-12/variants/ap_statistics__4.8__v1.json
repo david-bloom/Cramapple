@@ -1,0 +1,170 @@
+{
+ "id": "ap_statistics__4.8__v1",
+ "parent": "ap_statistics__4.8__1",
+ "parent_status": "accepted",
+ "topic_code": "4.8",
+ "item": {
+  "title": "Claims About a Difference in Mean Daily Steps",
+  "calculator": "permitted",
+  "stimulus": "A company randomly selected 42 employees who joined a wellness program and 45 who did not, and recorded each employee's mean daily steps, in thousands. Participants: mean 9.1, standard deviation 4.2. Non-participants: mean 5.9, standard deviation 3.6. Using technology, an analyst found a 95% confidence interval for μ₁ − μ₂, the difference (participant minus non-participant) in population means, of (1.53, 4.87) thousand steps.",
+  "parts": [
+   {
+    "prompt": "Interpret the interval in context.",
+    "criteria": [
+     {
+      "text": "Interprets the interval: we are 95% confident that the interval from 1.53 to 4.87 thousand steps captures the true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these.",
+      "evidence": "Response states the confidence level, the interval from 1.53 to 4.87 thousand steps, and the parameter it captures (true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these).",
+      "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The wellness manager claims that participants and non-participants have the same mean daily steps, that is, that μ₁ − μ₂ = 0. Does the interval provide convincing evidence against this claim? Explain.",
+    "criteria": [
+     {
+      "text": "Because 0 is not in the interval (1.53, 4.87), 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).",
+      "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the difference in population means, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "The wellness manager also claims that participants average at least 6 thousand more steps per day, that is, that μ₁ − μ₂ is at least 6 thousand steps. Does the interval support this claim? Explain.",
+    "criteria": [
+     {
+      "text": "Because 6 is above the interval (1.53, 4.87), 6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+      "evidence": "Response compares 6 with the interval and concludes: 6 is not a plausible value of μ₁ − μ₂ and every plausible value is below it, so the interval does not support the claim.",
+      "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Without recalculating, how would a 99% interval from the same data compare in width with this 95% interval? Explain.",
+    "criteria": [
+     {
+      "text": "States that a 99% interval from the same data would be wider, because a higher confidence level needs a larger critical value t* (a larger margin of error) to capture the parameter more often.",
+      "evidence": "Response says the interval would be wider and gives the higher confidence level (larger t*, larger margin of error, capturing the parameter more often) as the reason.",
+      "fix": "Hold the standard error fixed: higher confidence means a larger t*, so a larger margin of error and a wider interval.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) We are 95% confident that the interval from 1.53 to 4.87 thousand steps captures the true difference (participant minus non-participant) in mean daily steps, in thousands, for all employees like these.\n\n(b) Yes. Because 0 is not in the interval (1.53, 4.87), it is not a plausible value of μ₁ − μ₂, so the interval provides convincing evidence that the means differ (participants and non-participants differ in mean daily steps).\n\n(c) No. 6 is above the interval (1.53, 4.87), so it is not a plausible value and every plausible value is below it; the interval does not support the claim.\n\n(d) A 99% interval would be wider, because a higher confidence level uses a larger critical value t*, which increases the margin of error.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 42, 9.1, 4.2, 45, 5.9, 3.6, 0.95\nse, df = welch(s1, n1, s2, n2)\nts = tinv(1 - (1 - conf) / 2, round(df, 1))\nlo = (m1 - m2) - ts * se; hi = (m1 - m2) + ts * se\nassert round(lo, 2) == 1.53 and round(hi, 2) == 4.87\nassert lo > 0 and hi < 6\nassert tinv(1 - (1 - 0.99) / 2, round(df, 1)) > ts\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:59:51.842Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]",
+  "child_order": "[[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]",
+  "child_pattern": [
+   [
+    "CI_INTERPRET"
+   ],
+   [
+    "CI_CLAIM"
+   ],
+   [
+    "CI_CLAIM"
+   ],
+   [
+    "CI_WIDTH"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 4, variant 4. Criteria per part: parent [1,1,1,1], variant [1,1,1,1]. Points: parent 4, variant 4.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"CI_INTERPRET\"],[\"CI_CLAIM\"],[\"CI_CLAIM\"],[\"CI_WIDTH\"]]\nCriterion a1 (CI_INTERPRET): wording and values changed\nPart b prompt changed.\nCriterion b1 (CI_CLAIM): wording and values changed\nPart c prompt changed.\nCriterion c1 (CI_CLAIM): wording and values changed\nCriterion d1 (CI_WIDTH): identical wording",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from reading fluency after randomized group assignment to daily steps for randomly sampled wellness-program participants and non-participants. Sample sizes change from 40 and 38 to 42 and 45, means to 9.1 and 5.9, and standard deviations to 4.2 and 3.6. The stated interval becomes (1.53, 4.87) thousand steps, and the minimum-difference claim changes from 10 words per minute to 6 thousand steps. The rubric structure and confidence levels are unchanged; conclusions now concern participant/non-participant differences rather than program effects.",
+     "numbers_recomputed": "The sample mean difference is 9.1 − 5.9 = 3.2 thousand steps. SE = sqrt(4.2²/42 + 3.6²/45) = sqrt(0.708) ≈ 0.84143 thousand steps. Welch degrees of freedom ≈ 81.01, giving a 95% critical value t* ≈ 1.9897 and margin of error ≈ 1.6742. The interval is approximately (1.5258, 4.8742), which rounds to (1.53, 4.87), matching criterion a1 and the intervals cited throughout the rubric. For b1, 0 < 1.53, so zero is outside the interval, as stated. For c1, 6 > 4.87, so the entire interval is below the claimed minimum, as stated.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from reading fluency program vs comparison students to employee wellness program participants vs non-participants; sample sizes changed from 40/38 to 42/45; means changed from 61.2/56.0 words per minute to 9.1/5.9 thousand daily steps; standard deviations changed from 10.4/9.1 to 4.2/3.6; the 95% confidence interval changed from (0.80, 9.60) to (1.53, 4.87); part (c) claim threshold changed from at least 10 to at least 6; rubric criteria a1/b1/c1 were updated to the new parameter and interval values, while d1 remained identical.",
+     "numbers_recomputed": "Sample mean difference = 9.1 - 5.9 = 3.2 thousand steps, matching the center of the given interval. SE = sqrt(4.2^2/42 + 3.6^2/45) ≈ 0.841; t*≈1.990 (df≈81) gives margin ≈ 1.67, so CI ≈ (1.53, 4.87), matching the stated interval. 0 is below 1.53, so 0 is not in the interval, matching part (b). 6 is above 4.87, so 6 is not in the interval and every plausible value is below it, matching part (c). Part (d) has no changed numerical value; the 99% interval remains wider.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "d1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "None."
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}
