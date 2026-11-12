@@ -1,4 +1,9 @@
-# APPROVAL-0236 — AP Physics 1 Unit 2 topics 2.1 to 2.9: 72 items published, 40 retired (granted and executed 2026-11-12)
+# APPROVAL-0256 — AP Physics 1 Unit 2 topics 2.1 to 2.9: 72 items published, 40 retired (granted and executed 2026-11-12)
+
+**Numbering correction (2026-11-12):** This Production execution was originally recorded as
+`APPROVAL-0236` on the unmerged PR #630 branch. PR #631 merged first with `APPROVAL-0236` assigned
+to TASK-0050 Statistics Phase B. Per the later-merging-branch convention, this Physics 1 record is
+now `APPROVAL-0256`. Its authorized scope and execution evidence are unchanged.
 
 - **Status:** Granted by David in chat ("Do Unit 2 for all subjects", then "Execute all seven", 2026-11-12) and executed.
 - **Tier:** Production content write (student-facing questions).

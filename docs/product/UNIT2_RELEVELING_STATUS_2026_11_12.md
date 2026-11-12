@@ -5,7 +5,7 @@
 ## Audit of what was published (read-only, `scripts/difficulty-audit/`)
 Published practice MCQs in Unit 2 before this batch: Biology 73 (10 topics), Calculus AB 96 (10), Calculus BC 94 (10), Chemistry 44 (7), Physics 1 56 (9), Precalculus 110 (15). Every subject shows the same pattern as Units 3 and 4: almost no R3 items (zero in most topics), several R1-heavy topics (Physics 1 2.1, 2.3-2.6, 2.8 at 75-100% R1; Precalculus 2.1, 2.3, 2.5, 2.9 at 75-100%; Calculus 2.2, 2.3 and BC 2.6 at 80-88%), and thin topics (Precalculus 2.4 and 2.12 have 2 MCQs).
 
-## Executed 2026-11-12 (APPROVAL-0236 to 0242); hash checks 100% and the selector serves the new items in every topic
+## Executed 2026-11-12 (APPROVAL-0256 for Physics 1; APPROVAL-0237 to 0242 for the others); hash checks 100% and the selector serves the new items in every topic
 Two new seeds per topic with three variants each (8 new practice MCQs per topic). Retirements are the whole families whose seed the tool rated R1 (teaching items excluded).
 | Subject | Topics | Package folder (`scripts/content-seed/`) | New MCQs | Retire |
 |---|---|---|---|---|

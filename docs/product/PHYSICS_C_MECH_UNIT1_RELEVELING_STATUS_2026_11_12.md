@@ -10,7 +10,7 @@
 
 ## Checks
 - Format validator OK; package built with required_units [1].
-- Blind solve (DeepSeek only, per the new policy of one solver for keys and both models for tiers): 40 of 40 agree with the key.
+- Blind solve (DeepSeek only): 40 of 40 agree with the key. This is one solver short of the two-model check in the difficulty plan; both models were used for tier checks.
 - Tier check (both models, lower tier counts): no R1 seeds after the rewrite; one 1.1-B variant rated R1/R2; 1.2-A and 1.5-B base items were flagged `key_disputed` by the tier tool and re-derived by hand (v'(1) = -4 with v = 3 so slowing down; speed at t = 2 is sqrt(8^2 + 3^2) = 8.54 m/s): the keys are correct.
 
 ## Caveats

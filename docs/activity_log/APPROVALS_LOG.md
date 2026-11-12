@@ -31,7 +31,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 - [APPROVAL-0239 — AP Calculus AB Unit 2 topics 2.1 to 2.10: 80 items published, 27 retired (granted and executed 2026-11-12)](APPROVAL-0239_CALCULUS_AB_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0238 — AP Chemistry Unit 2 topics 2.1 to 2.7: 56 items published, 18 retired (granted and executed 2026-11-12)](APPROVAL-0238_CHEMISTRY_UNIT2_2_1_TO_2_7_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0237 — AP Biology Unit 2 topics 2.1 to 2.10: 80 items published, 4 retired (granted and executed 2026-11-12)](APPROVAL-0237_BIOLOGY_UNIT2_2_1_TO_2_10_PRODUCTION_2026_11_12.md)
-- [APPROVAL-0236 — AP Physics 1 Unit 2 topics 2.1 to 2.9: 72 items published, 40 retired (granted and executed 2026-11-12)](APPROVAL-0236_PHYSICS1_UNIT2_2_1_TO_2_9_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0256 — AP Physics 1 Unit 2 topics 2.1 to 2.9: 72 items published, 40 retired (granted and executed 2026-11-12; renumbered from the colliding 0236)](APPROVAL-0256_PHYSICS1_UNIT2_2_1_TO_2_9_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0235 — AP Precalculus Unit 4 topics 4.8 to 4.14: 28 items published (granted and executed 2026-11-12)](APPROVAL-0235_AP_PRECALCULUS_UNIT4_4_8_TO_4_14_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0228 — AP Statistics Unit 3 second seeds for topics 3.7, 3.12 and 3.14: 12 items published (granted and executed 2026-11-12)](APPROVAL-0228_AP_STATISTICS_UNIT3_SECOND_SEEDS_3_7_3_12_3_14_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0221 — AP Biology topics 3.1 to 3.5 re-leveled: 40 items published, 11 superseded items retired (granted and executed 2026-11-12)](APPROVAL-0221_AP_BIOLOGY_UNIT3_3_1_TO_3_5_RELEVELING_PRODUCTION_2026_11_12.md)
