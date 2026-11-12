@@ -3,7 +3,7 @@
 **Scope:** Unit 1 for every subject except Physics 2, Physics C: Mechanics and Physics C: E&M (on hold), including AP Statistics Unit 1 (Statistics Units 2 to 4 were done earlier). Plan: `QUESTION_DIFFICULTY_IMPROVEMENT_PLAN_2026_11_11.md`; Units 2 to 4: `UNIT2_RELEVELING_STATUS_2026_11_12.md`, `UNIT3_RELEVELING_STATUS_2026_11_12.md`, `UNIT4_BUILDOUT_STATUS_2026_11_12.md`.
 
 ## Audit of what was published (read-only, `scripts/difficulty-audit/`)
-Published practice MCQs in Unit 1 before this batch: Biology 96, Calculus AB 142, Calculus BC 137, Chemistry 53, Physics 1 36, Precalculus 119, Statistics 293. Same pattern as Units 2 to 4: almost no R3, with R1-heavy topics (Statistics 1.2 is 21 of 21 R1, 1.7 is 40 of 53, 1.11 is 26 of 28; Chemistry 1.1 is 9 of 11; Physics 1.1, 1.2 and 1.4 are 62 to 100 percent; Precalculus 1.1 and 1.6 are 75 to 78 percent; Calculus 1.1, 1.9 and 1.16 have one to three items each).
+Published practice MCQs in Unit 1 before this batch: Biology 96, Calculus AB 136, Calculus BC 127, Chemistry 51, Physics 1 36, Precalculus 108, Statistics 298. Same pattern as Units 2 to 4: almost no R3, with R1-heavy topics (Statistics 1.2 is 21 of 21 R1, 1.7 is 40 of 53, 1.11 is 26 of 28; Chemistry 1.1 is 9 of 11; Physics 1.1, 1.2 and 1.4 are 62 to 100 percent; Precalculus 1.1 and 1.6 are 75 to 78 percent; Calculus 1.1, 1.9 and 1.16 have one to three items each).
 
 ## Packages built, NOT executed (awaiting owner go-ahead)
 Two new seeds per topic with three variants each (8 new practice MCQs per topic). Retirements are whole families whose seed the tool rated R1 (teaching items excluded).
