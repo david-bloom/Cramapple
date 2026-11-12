@@ -1,0 +1,186 @@
+{
+ "id": "ap_statistics__5.3__v1",
+ "parent": "ap_statistics__5.3__1",
+ "parent_status": "accepted",
+ "topic_code": "5.3",
+ "item": {
+  "title": "Predicting Laptop Resale Value From Age",
+  "calculator": "permitted",
+  "stimulus": "An electronics reseller fit a least-squares regression line to the resale values of 15 laptops of the same model. The laptops were between 1 and 4 years old. The regression equation, found using technology, is ŷ = 640 − 85x, where x is the age of the laptop in years and ŷ is the predicted resale value in dollars.",
+  "parts": [
+   {
+    "prompt": "Use the model to predict the resale value of a laptop that is 3 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 3 into ŷ = 640 − 85x and gets a predicted value of 385 dollars.",
+      "evidence": "Response replaces x with 3 in the regression equation and reports 385 dollars.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "385",
+       "$385"
+      ]
+     },
+     {
+      "text": "Classifies the prediction at 3 years as interpolation because 3 is within the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says interpolation and compares 3 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Use the model to predict the resale value of a laptop that is 7 years old. Is this prediction an interpolation or an extrapolation? Explain.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 7 into ŷ = 640 − 85x and gets a predicted value of 45 dollars.",
+      "evidence": "Response replaces x with 7 in the regression equation and reports 45 dollars.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "45",
+       "$45"
+      ]
+     },
+     {
+      "text": "Classifies the prediction at 7 years as extrapolation because 7 is beyond the interval of age values (1 to 4 years) used to fit the line.",
+      "evidence": "Response says extrapolation and compares 7 with the fitted interval of 1 to 4 years.",
+      "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Which of your two predictions is more reliable? Explain.",
+    "criteria": [
+     {
+      "text": "States that the prediction at 3 years is more reliable than the prediction at 7 years, because 7 is extrapolation and predictions get less reliable the further age is beyond the data.",
+      "evidence": "Response chooses the interpolated prediction as more reliable and gives extrapolation beyond the observed values as the reason.",
+      "fix": "Say which prediction is inside the data range, and explain that extrapolated predictions become less reliable the farther they go beyond it.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) ŷ = 640 − 85x with x = 3 gives ŷ = 385 dollars. This is interpolation, because 3 years is within the interval of age values, 1 to 4 years, used to fit the line.\n\n(b) With x = 7, ŷ = 45 dollars. This is extrapolation, because 7 years is beyond the interval of age values, 1 to 4 years, used to fit the line.\n\n(c) The prediction at 3 years is more reliable. The prediction at 7 years is extrapolation, and predictions become less reliable the further age is beyond the data.",
+  "verification_python": "a = 640\nb = -85\nlo, hi = 1, 4\nxn, xf = 3, 7\nyn = a + b * xn\nyf = a + b * xf\nassert abs(yn - 385) < 1e-9\nassert abs(yf - 45) < 1e-9\nassert lo <= xn <= hi\nassert xf > hi\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:00.999Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]",
+  "child_order": "[[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]",
+  "child_pattern": [
+   [
+    "PREDICT",
+    "EXTRAP_CLASS"
+   ],
+   [
+    "PREDICT",
+    "EXTRAP_CLASS"
+   ],
+   [
+    "RELIABILITY"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,1], variant [2,2,1]. Points: parent 5, variant 5.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PREDICT\",\"EXTRAP_CLASS\"],[\"PREDICT\",\"EXTRAP_CLASS\"],[\"RELIABILITY\"]]\nPart a prompt changed.\nCriterion a1 (PREDICT): wording and values changed; accepted variants changed\nCriterion a2 (EXTRAP_CLASS): wording and values changed\nPart b prompt changed.\nCriterion b1 (PREDICT): wording and values changed; accepted variants changed\nCriterion b2 (EXTRAP_CLASS): wording and values changed\nCriterion c1 (RELIABILITY): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from asking prices of 20 used cars to resale values of 15 laptops. The fitted age range changes from 2–9 to 1–4 years, the equation changes from ŷ = 27.4 − 1.9x in thousands of dollars to ŷ = 640 − 85x in dollars, and the prediction ages change from 6 and 13 to 3 and 7 years. The rubric structure and point totals remain unchanged.",
+     "numbers_recomputed": "For a1, ŷ = 640 − 85(3) = 640 − 255 = $385, matching the criterion, evidence, and equivalent forms. For b1, ŷ = 640 − 85(7) = 640 − 595 = $45, matching the criterion, evidence, and equivalent forms. For a2, 1 ≤ 3 ≤ 4, confirming interpolation. For b2, 7 > 4, confirming extrapolation; 7 years is 3 years beyond the fitted upper bound. These comparisons also support c1's choice of the prediction at 3 years as more reliable.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from a used-car dealer predicting asking prices of 20 cars to an electronics reseller predicting resale values of 15 laptops. The fitted ages changed from 2-9 years to 1-4 years, the regression equation changed from ŷ = 27.4 − 1.9x thousand dollars to ŷ = 640 − 85x dollars, and the prediction ages changed from 6 and 13 years to 3 and 7 years. Rubric wording and values were updated to match the new context.",
+     "numbers_recomputed": "a1: 640 − 85(3) = 385 dollars, matches the variant criterion and model answer. b1: 640 − 85(7) = 45 dollars, matches the variant criterion and model answer. Interval checks: 3 is inside 1-4, so interpolation; 7 is outside 1-4, so extrapolation. Reliability comparison still favors the interpolated prediction at 3 years.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

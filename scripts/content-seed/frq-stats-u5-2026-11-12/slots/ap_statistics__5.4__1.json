@@ -1,0 +1,292 @@
+{
+ "id": "ap_statistics__5.4__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.4",
+  "topic_title": "Residuals",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:24:17.468Z",
+   "source": "given",
+   "item": {
+    "title": "Residuals for a Model Predicting Weekly Sales From Advertising",
+    "calculator": "permitted",
+    "stimulus": "A retailer fit a least-squares regression line to data from 24 weeks. The regression equation, found using technology, is ŷ = 38.4 + 7.2x, where x is the number of radio advertisements aired during the week and ŷ is the predicted weekly sales in thousands of dollars.",
+    "parts": [
+     {
+      "prompt": "For the week with 5 advertisements, the observed weekly sales was 80.5 thousand dollars. Calculate the residual for this week.",
+      "criteria": [
+       {
+        "text": "Substitutes x = 5 into ŷ = 38.4 + 7.2x and gets a predicted value of 74.4 thousand dollars.",
+        "evidence": "Response replaces x with 5 in the regression equation and reports 74.4 thousand dollars.",
+        "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+        "accepted_variants": [
+         "74.4"
+        ]
+       },
+       {
+        "text": "Calculates the residual as observed minus predicted: 80.5 - 74.4 = 6.1 thousand dollars.",
+        "evidence": "Response subtracts the predicted value from the observed value 80.5 and reports 6.1 thousand dollars.",
+        "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+        "accepted_variants": [
+         "6.1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the residual you calculated in context.",
+      "criteria": [
+       {
+        "text": "States that because the residual is positive, the model underpredicts the response for this observation.",
+        "evidence": "Response links the positive residual to the model underpredicts (observed value is above the predicted value).",
+        "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Interprets the size in context: for the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.",
+        "evidence": "Response states the difference of about 6.1 thousand dollars between observed and predicted weekly sales for the week with 5 advertisements.",
+        "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A residual plot of the residuals against the predicted weekly sales for the linear model shows a U-shaped pattern, with positive residuals at both ends and negative residuals in the middle. What does this pattern suggest about the linear model, and what would an appropriate residual plot look like?",
+      "criteria": [
+       {
+        "text": "States that the U-shaped pattern (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+        "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+        "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+        "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+        "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) ŷ = 38.4 + 7.2x with x = 5 gives ŷ = 74.4 thousand dollars. The residual is observed minus predicted: 80.5 − 74.4 = 6.1 thousand dollars.\n\n(b) The residual is positive, so the model underpredicts the weekly sales for this week: the observed value is above the predicted value. For the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.\n\n(c) The U-shaped pattern is curvature, which suggests the linear model is not the most appropriate model for the data. If the linear model were appropriate, the residual plot would show apparent randomness, with no pattern.",
+    "verification_python": "a = 38.4\nb = 7.2\nx0, y0 = 5, 80.5\nyh = a + b * x0\nassert abs(yh - 74.4) < 1e-9\ne = y0 - yh\nassert abs(e - 6.1) < 1e-9\nassert (e > 0) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Residuals for a Model Predicting Weekly Sales From Advertising",
+   "calculator": "permitted",
+   "stimulus": "A retailer fit a least-squares regression line to data from 24 weeks. The regression equation, found using technology, is ŷ = 38.4 + 7.2x, where x is the number of radio advertisements aired during the week and ŷ is the predicted weekly sales in thousands of dollars.",
+   "parts": [
+    {
+     "prompt": "For the week with 5 advertisements, the observed weekly sales was 80.5 thousand dollars. Calculate the residual for this week.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 5 into ŷ = 38.4 + 7.2x and gets a predicted value of 74.4 thousand dollars.",
+       "evidence": "Response replaces x with 5 in the regression equation and reports 74.4 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "74.4"
+       ]
+      },
+      {
+       "text": "Calculates the residual as observed minus predicted: 80.5 - 74.4 = 6.1 thousand dollars.",
+       "evidence": "Response subtracts the predicted value from the observed value 80.5 and reports 6.1 thousand dollars.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "6.1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the residual you calculated in context.",
+     "criteria": [
+      {
+       "text": "States that because the residual is positive, the model underpredicts the response for this observation.",
+       "evidence": "Response links the positive residual to the model underpredicts (observed value is above the predicted value).",
+       "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the size in context: for the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.",
+       "evidence": "Response states the difference of about 6.1 thousand dollars between observed and predicted weekly sales for the week with 5 advertisements.",
+       "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A residual plot of the residuals against the predicted weekly sales for the linear model shows a U-shaped pattern, with positive residuals at both ends and negative residuals in the middle. What does this pattern suggest about the linear model, and what would an appropriate residual plot look like?",
+     "criteria": [
+      {
+       "text": "States that the U-shaped pattern (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+       "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+       "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+       "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+       "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) ŷ = 38.4 + 7.2x with x = 5 gives ŷ = 74.4 thousand dollars. The residual is observed minus predicted: 80.5 − 74.4 = 6.1 thousand dollars.\n\n(b) The residual is positive, so the model underpredicts the weekly sales for this week: the observed value is above the predicted value. For the week with 5 advertisements, the observed weekly sales is about 6.1 thousand dollars above the predicted value.\n\n(c) The U-shaped pattern is curvature, which suggests the linear model is not the most appropriate model for the data. If the linear model were appropriate, the residual plot would show apparent randomness, with no pattern.",
+   "verification_python": "a = 38.4\nb = 7.2\nx0, y0 = 5, 80.5\nyh = a + b * x0\nassert abs(yh - 74.4) < 1e-9\ne = y0 - yh\nassert abs(e - 6.1) < 1e-9\nassert (e > 0) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:24:13.454182Z"
+ },
+ "accepted_round": 1
+}

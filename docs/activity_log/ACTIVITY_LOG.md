@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- AP Statistics Unit 5 FRQ cost-measured authoring run (2026-11-12, no approval: nothing published): 5 seeds + 5 variants accepted (no Unit 6 exists in the registry); gateway $1.08 measured at token level, seed $0.1465 vs variant $0.0279 average; rubric pattern library + diff-style variant check built. Record: `scripts/content-seed/frq-stats-u5-2026-11-12/README.md`.
 - Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
 - Physics C: Mechanics Unit 1 re-leveling published (`APPROVAL-0254`, 2026-11-12): 40 new MCQs, 19 retired. Status: `docs/product/PHYSICS_C_MECH_UNIT1_RELEVELING_STATUS_2026_11_12.md`.
 - Unit 1 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, Precalculus and Statistics published (`APPROVAL-0243` to `APPROVAL-0253`, 2026-11-12): 632 new MCQs, 166 superseded items retired. Statistics retirements were narrowed to served items and topics kept at 12 or more where old items existed. Status: `docs/product/UNIT1_RELEVELING_STATUS_2026_11_12.md`.
@@ -319,6 +320,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-12 — AP Statistics Unit 5 FRQ authoring run, cost measured (no publication)
+
+Side session of the 'FRQ authoring for Stats units 5-6' request. AP Statistics has five units in the registry and the approved 2027 CED fact pack, so there is no Unit 6; the parent session confirmed Unit 5 only. Claude authored 5 seeds and 5 variants in session from a 25-pattern rubric library (`rubric_patterns.json`); the gateway only checked.
+
+- **Done:** 5/5 seeds accepted by the full check (GPT-6.1 Sol + DeepSeek V4 Pro, six-vote probe); 5/5 variants accepted by the new diff-style check (`frq_pipeline/variant_check.mjs`; planted-defect control 3/3 caught); 10/10 model answers earn full credit from a third family. One real rubric defect (5.1 axis evidence) fixed once; 5.5 topic vote overruled by CED text, recorded.
+- **Cost:** gateway $1.0791 (102 calls, token-level); seed average $0.1465, variant average $0.0279; in-session authoring is an estimate (marginal seed about $0.010, variant about $0.002; whole session about $2.70, plus or minus 40 percent). Details in the batch README and `cost/`.
+- **Changed code:** `rubric.mjs` lint no longer treats the noun "plot" in "residual plot" as an instruction to draw; new `variant_check.mjs`.
+- **Not done:** no publication, no Production or Development write, no APPROVAL or DECISION numbered. Needs a Hard-Gate approval, a check against published Unit 5 FRQs (not read), and a decision on difficulty (4 of 5 seeds rated Easy).
 
 ## 2026-11-10 UTC — No-card trial Production QA session close and ledger comparison
 

@@ -1,0 +1,324 @@
+{
+ "id": "ap_statistics__5.4__v1",
+ "parent": "ap_statistics__5.4__1",
+ "parent_status": "accepted",
+ "topic_code": "5.4",
+ "item": {
+  "title": "Residuals for a Model Predicting Exam Scores From Study Time",
+  "calculator": "permitted",
+  "stimulus": "A teacher fit a least-squares regression line to data from 30 students. The regression equation, found using technology, is ŷ = 48.6 + 4.1x, where x is the number of hours a student studied for the exam and ŷ is the predicted exam score in points.",
+  "parts": [
+   {
+    "prompt": "For the student who studied 9 hours, the observed exam score was 71.0 points. Calculate the residual for this student.",
+    "criteria": [
+     {
+      "text": "Substitutes x = 8 into ŷ = 48.6 + 4.1x and gets a predicted value of 81.4 points.",
+      "evidence": "Response replaces x with 8 in the regression equation and reports 81.4 points.",
+      "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+      "accepted_variants": [
+       "81.4"
+      ]
+     },
+     {
+      "text": "Calculates the residual as observed minus predicted: 71.0 - 81.4 = −10.4 points.",
+      "evidence": "Response subtracts the predicted value from the observed value 71.0 and reports −10.4 points.",
+      "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+      "accepted_variants": [
+       "−10.4",
+       "-10.4"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "Interpret the residual you calculated in context.",
+    "criteria": [
+     {
+      "text": "States that because the residual is negative, the model overpredicts the response for this observation.",
+      "evidence": "Response links the negative residual to the model overpredicts (observed value is below the predicted value).",
+      "fix": "Link the sign: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Interprets the size in context: for the student who studied 8 hours, the observed exam score is about 10.4 points below the predicted value.",
+      "evidence": "Response states the difference of about 10.4 points between observed and predicted exam score for the student who studied 8 hours.",
+      "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "A residual plot of the residuals against the predicted exam score for the linear model shows an arch-shaped pattern, with negative residuals at both ends and positive residuals in the middle. What does this pattern suggest about the linear model, and what would an appropriate residual plot look like?",
+    "criteria": [
+     {
+      "text": "States that the arch-shaped pattern (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+      "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+      "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States that apparent randomness (no pattern) in a residual plot would indicate the linear regression model is appropriate.",
+      "evidence": "Response names no pattern or random scatter as the residual-plot evidence that the linear model is appropriate.",
+      "fix": "Say what a good residual plot looks like: points scattered randomly with no curve or other pattern, supporting the linear model.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) ŷ = 48.6 + 4.1x with x = 8 gives ŷ = 81.4 points. The residual is observed minus predicted: 71.0 − 81.4 = −10.4 points.\n\n(b) The residual is negative, so the model overpredicts the exam score for this student: the observed value is below the predicted value. For the student who studied 8 hours, the observed exam score is about 10.4 points below the predicted value.\n\n(c) The arch-shaped pattern is curvature, which suggests the linear model is not the most appropriate model for the data. If the linear model were appropriate, the residual plot would show apparent randomness, with no pattern.",
+  "verification_python": "a = 48.6\nb = 4.1\nx0, y0 = 8, 71.0\nyh = a + b * x0\nassert abs(yh - 81.4) < 1e-9\ne = y0 - yh\nassert abs(e - -10.4) < 1e-9\nassert (e > 0) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:29:45.639Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]",
+  "child_order": "[[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]",
+  "child_pattern": [
+   [
+    "PREDICT",
+    "RESID_CALC"
+   ],
+   [
+    "RESID_SIGN",
+    "RESID_MAGNITUDE"
+   ],
+   [
+    "RESID_PLOT_CURVE",
+    "RESID_PLOT_RANDOM"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [2,2,2], variant [2,2,2]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PREDICT\",\"RESID_CALC\"],[\"RESID_SIGN\",\"RESID_MAGNITUDE\"],[\"RESID_PLOT_CURVE\",\"RESID_PLOT_RANDOM\"]]\nPart a prompt changed.\nCriterion a1 (PREDICT): wording and values changed; accepted variants changed\nCriterion a2 (RESID_CALC): wording and values changed; accepted variants changed\nCriterion b1 (RESID_SIGN): wording and values changed\nCriterion b2 (RESID_MAGNITUDE): wording and values changed\nPart c prompt changed.\nCriterion c1 (RESID_PLOT_CURVE): wording and values changed\nCriterion c2 (RESID_PLOT_RANDOM): identical wording",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: For the stated 9 hours, ŷ = 48.6 + 4.1(9) = 85.5 points, not the 81.4 in a1. The residual is 71.0 − 85.5 = −14.5 points, not the −10.4 in a2. Thus b2 should describe the student who studied 9 hours scoring 14.5 points below the prediction, not 8 hours and 10.4 points below. The rubric's calculations 48.6 + 4.1(8) = 81.4 and 71.0 − 81.4 = −10.4 are internally correct but use the wrong study time.",
+     "criterion a1: Uses x = 8 instead of the prompt's x = 9; the correct prediction is 85.5 points.",
+     "criterion a2: Uses the prediction for 8 hours; the correct residual for the stated observation is −14.5 points.",
+     "criterion b2: Names the wrong student study time and magnitude. The stated student studied 9 hours and scored 14.5 points below the prediction.",
+     "conditions: The rubric no longer refers consistently to the observation specified in part (a): it uses 8 hours rather than 9. The negative-residual/overprediction interpretation remains correct, and the arch-shaped residual pattern still indicates curvature inconsistent with a linear model.",
+     "new issue: The prompt–rubric mismatch in study time propagates into a1, a2, and b2, so correct answers to the stated question do not match those criteria."
+    ],
+    "out": {
+     "changes_listed": "The context changes from weekly sales and radio advertisements for 24 weeks to exam scores and study hours for 30 students. The regression equation changes to ŷ = 48.6 + 4.1x, and the observation becomes 9 study hours with a score of 71.0 points. The rubric instead uses 8 hours. The residual changes from positive to negative, and the residual plot changes from U-shaped to arch-shaped.",
+     "numbers_recomputed": "For the stated 9 hours, ŷ = 48.6 + 4.1(9) = 85.5 points, not the 81.4 in a1. The residual is 71.0 − 85.5 = −14.5 points, not the −10.4 in a2. Thus b2 should describe the student who studied 9 hours scoring 14.5 points below the prediction, not 8 hours and 10.4 points below. The rubric's calculations 48.6 + 4.1(8) = 81.4 and 71.0 − 81.4 = −10.4 are internally correct but use the wrong study time.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": false,
+       "issue": "Uses x = 8 instead of the prompt's x = 9; the correct prediction is 85.5 points."
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "Uses the prediction for 8 hours; the correct residual for the stated observation is −14.5 points."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "Names the wrong student study time and magnitude. The stated student studied 9 hours and scored 14.5 points below the prediction."
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The rubric no longer refers consistently to the observation specified in part (a): it uses 8 hours rather than 9. The negative-residual/overprediction interpretation remains correct, and the arch-shaped residual pattern still indicates curvature inconsistent with a linear model.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The prompt–rubric mismatch in study time propagates into a1, a2, and b2, so correct answers to the stated question do not match those criteria."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: Using the prompt's x = 9, the prediction is 48.6 + 4.1(9) = 85.5 points, not the 81.4 listed in a1. The residual is 71.0 − 85.5 = −14.5 points, not the −10.4 listed in a2. Thus b2 should describe the student who studied 9 hours scoring 14.5 points below the prediction, rather than 8 hours and 10.4 points. The rubric's arithmetic is internally correct for x = 8: 48.6 + 4.1(8) = 81.4 and 71.0 − 81.4 = −10.4, but that is not the observation in the prompt.",
+     "criterion a1: Uses x = 8 instead of the given x = 9 and requires 81.4 points instead of the correct prediction of 85.5 points.",
+     "criterion a2: Requires a residual of −10.4 points; the residual for the stated observation is −14.5 points.",
+     "criterion b2: Names an 8-hour student and a 10.4-point gap. The stated student studied 9 hours and scored 14.5 points below the prediction.",
+     "conditions: The rubric does not use the observation specified in the prompt, so its prediction and residual magnitude are incorrect for that observation. The negative-residual/overprediction interpretation remains correct, and the arch-shaped pattern still indicates curvature inconsistent with an appropriate linear model.",
+     "new issue: The changed prompt specifies 9 study hours, but a1, a2, and b2 retain calculations and case descriptions for 8 hours. Align these criteria with 9 hours, a prediction of 85.5 points, and a residual of −14.5 points."
+    ],
+    "out": {
+     "changes_listed": "The context changes from weekly sales and radio advertisements for 24 weeks to exam scores and study hours for 30 students. The regression equation changes to ŷ = 48.6 + 4.1x, and the observation is 9 study hours with a score of 71.0 points. The rubric instead uses 8 hours. The residual changes from positive to negative, and the residual-plot pattern changes from U-shaped to arch-shaped.",
+     "numbers_recomputed": "Using the prompt's x = 9, the prediction is 48.6 + 4.1(9) = 85.5 points, not the 81.4 listed in a1. The residual is 71.0 − 85.5 = −14.5 points, not the −10.4 listed in a2. Thus b2 should describe the student who studied 9 hours scoring 14.5 points below the prediction, rather than 8 hours and 10.4 points. The rubric's arithmetic is internally correct for x = 8: 48.6 + 4.1(8) = 81.4 and 71.0 − 81.4 = −10.4, but that is not the observation in the prompt.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": false,
+       "issue": "Uses x = 8 instead of the given x = 9 and requires 81.4 points instead of the correct prediction of 85.5 points."
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "Requires a residual of −10.4 points; the residual for the stated observation is −14.5 points."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "Names an 8-hour student and a 10.4-point gap. The stated student studied 9 hours and scored 14.5 points below the prediction."
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The rubric does not use the observation specified in the prompt, so its prediction and residual magnitude are incorrect for that observation. The negative-residual/overprediction interpretation remains correct, and the arch-shaped pattern still indicates curvature inconsistent with an appropriate linear model.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The changed prompt specifies 9 study hours, but a1, a2, and b2 retain calculations and case descriptions for 8 hours. Align these criteria with 9 hours, a prediction of 85.5 points, and a residual of −14.5 points."
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": false,
+   "first": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: For the stated x = 9 hours: predicted = 48.6 + 4.1(9) = 85.5 points; residual = 71.0 − 85.5 = −14.5 points. The variant rubric and model answer instead use x = 8 hours: predicted = 48.6 + 4.1(8) = 81.4 points; residual = 71.0 − 81.4 = −10.4 points. Thus the rubric/model answer numbers match x = 8, not the stated x = 9.",
+     "criterion a1: Prompt says the student studied 9 hours, but this criterion substitutes x = 8 and reports 81.4 points; the correct predicted value for 9 hours is 85.5 points.",
+     "criterion a2: Criterion uses the 8-hour predicted value of 81.4 and gives 71.0 − 81.4 = −10.4; the correct residual for the stated 9 hours is 71.0 − 85.5 = −14.5.",
+     "criterion b2: Criterion and model answer refer to the student who studied 8 hours and describe a gap of about 10.4 points; the prompt says 9 hours, so the correct context is 9 hours and about 14.5 points below.",
+     "conditions: The parent rubric relied on a positive residual for the stated observation and on the specific observation being the week with 5 advertisements. In the variant, the correct residual for the stated 9-hour observation is negative, and the prompt/rubric disagree on the number of hours (9 vs 8).",
+     "new issue: The prompt states the student studied 9 hours, but criterion a1, criterion a2, the model answer, and criterion b2 all use 8 hours. This makes the predicted value, residual, and context in the rubric/model answer inconsistent with the prompt; the correct values are predicted 85.5 points and residual −14.5 points for 9 hours, not 81.4 and −10.4 for 8 hours."
+    ],
+    "out": {
+     "changes_listed": "The context changed from a retailer predicting weekly sales from radio advertisements to a teacher predicting exam scores from study time. The regression equation changed from ŷ = 38.4 + 7.2x to ŷ = 48.6 + 4.1x, sample size from 24 weeks to 30 students, and the part (a) observation changed from 5 advertisements with sales 80.5 to a stated 9 hours with score 71.0. Part (b) changed from a positive residual interpretation to a negative residual interpretation. Part (c) changed from a U-shaped pattern with positive ends and negative middle to an arch-shaped pattern with negative ends and positive middle, though the curvature conclusion remains the same.",
+     "numbers_recomputed": "For the stated x = 9 hours: predicted = 48.6 + 4.1(9) = 85.5 points; residual = 71.0 − 85.5 = −14.5 points. The variant rubric and model answer instead use x = 8 hours: predicted = 48.6 + 4.1(8) = 81.4 points; residual = 71.0 − 81.4 = −10.4 points. Thus the rubric/model answer numbers match x = 8, not the stated x = 9.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": false,
+       "issue": "Prompt says the student studied 9 hours, but this criterion substitutes x = 8 and reports 81.4 points; the correct predicted value for 9 hours is 85.5 points."
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "Criterion uses the 8-hour predicted value of 81.4 and gives 71.0 − 81.4 = −10.4; the correct residual for the stated 9 hours is 71.0 − 85.5 = −14.5."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "Criterion and model answer refer to the student who studied 8 hours and describe a gap of about 10.4 points; the prompt says 9 hours, so the correct context is 9 hours and about 14.5 points below."
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The parent rubric relied on a positive residual for the stated observation and on the specific observation being the week with 5 advertisements. In the variant, the correct residual for the stated 9-hour observation is negative, and the prompt/rubric disagree on the number of hours (9 vs 8).",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "The prompt states the student studied 9 hours, but criterion a1, criterion a2, the model answer, and criterion b2 all use 8 hours. This makes the predicted value, residual, and context in the rubric/model answer inconsistent with the prompt; the correct values are predicted 85.5 points and residual −14.5 points for 9 hours, not 81.4 and −10.4 for 8 hours."
+    }
+   },
+   "second": {
+    "ok": true,
+    "flagged": true,
+    "failed": [
+     "numbers: For the prompt's given x = 9, predicted = 48.6 + 4.1(9) = 48.6 + 36.9 = 85.5 points; residual = 71.0 - 85.5 = -14.5 points. The rubric/model answer instead use x = 8: predicted = 48.6 + 4.1(8) = 48.6 + 32.8 = 81.4 points; residual = 71.0 - 81.4 = -10.4 points. The rubric's predicted value and residual match its own x = 8 calculation but do not match the prompt's x = 9.",
+     "criterion a1: The prompt says the student studied 9 hours, but this criterion substitutes x = 8 and reports 81.4 points. The correct predicted value for x = 9 is 85.5 points.",
+     "criterion a2: The rubric expects 71.0 - 81.4 = -10.4 points, but using the prompt's given 9 hours gives 71.0 - 85.5 = -14.5 points. The expected residual is wrong relative to the question text.",
+     "criterion b2: The rubric says the student studied 8 hours and the gap is about 10.4 points below, but the prompt says 9 hours and the correct gap is 14.5 points below.",
+     "conditions: The rubric and model answer assume the student studied 8 hours, but the prompt states 9 hours. This makes the predicted value and residual in the rubric incorrect for the given observation.",
+     "new issue: Part (a) gives 9 hours, but the rubric and model answer use x = 8. The correct predicted score for 9 hours is 85.5 points, and the correct residual is -14.5 points, not 81.4 and -10.4. This also affects part (b): the contextual statement should refer to 9 hours and about 14.5 points below the predicted value, not 8 hours and 10.4 points below."
+    ],
+    "out": {
+     "changes_listed": "The variant changes the context from a retailer's weekly sales from radio ads to exam scores from study time. It changes the sample size from 24 to 30, the regression equation from ŷ = 38.4 + 7.2x to ŷ = 48.6 + 4.1x, the given explanatory value and observed response, the resulting predicted value and residual, and the residual-plot pattern from U-shaped to arch-shaped. There is a mismatch: the prompt says the student studied 9 hours, but the rubric and model answer use x = 8.",
+     "numbers_recomputed": "For the prompt's given x = 9, predicted = 48.6 + 4.1(9) = 48.6 + 36.9 = 85.5 points; residual = 71.0 - 85.5 = -14.5 points. The rubric/model answer instead use x = 8: predicted = 48.6 + 4.1(8) = 48.6 + 32.8 = 81.4 points; residual = 71.0 - 81.4 = -10.4 points. The rubric's predicted value and residual match its own x = 8 calculation but do not match the prompt's x = 9.",
+     "numbers_ok": false,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": false,
+       "issue": "The prompt says the student studied 9 hours, but this criterion substitutes x = 8 and reports 81.4 points. The correct predicted value for x = 9 is 85.5 points."
+      },
+      {
+       "criterion": "a2",
+       "holds": false,
+       "issue": "The rubric expects 71.0 - 81.4 = -10.4 points, but using the prompt's given 9 hours gives 71.0 - 85.5 = -14.5 points. The expected residual is wrong relative to the question text."
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": false,
+       "issue": "The rubric says the student studied 8 hours and the gap is about 10.4 points below, but the prompt says 9 hours and the correct gap is 14.5 points below."
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c2",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": false,
+     "conditions_issue": "The rubric and model answer assume the student studied 8 hours, but the prompt states 9 hours. This makes the predicted value and residual in the rubric incorrect for the given observation.",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": "Part (a) gives 9 hours, but the rubric and model answer use x = 8. The correct predicted score for 9 hours is 85.5 points, and the correct residual is -14.5 points, not 81.4 and -10.4. This also affects part (b): the contextual statement should refer to 9 hours and about 14.5 points below the predicted value, not 8 hours and 10.4 points below."
+    }
+   }
+  }
+ ],
+ "status": "flagged"
+}
