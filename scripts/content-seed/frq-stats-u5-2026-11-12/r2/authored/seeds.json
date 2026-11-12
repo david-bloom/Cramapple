@@ -1,0 +1,670 @@
+[
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.1",
+  "item": {
+   "title": "Study Time and Test Score: Describing a Curved Association",
+   "calculator": "not_applicable",
+   "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+   "parts": [
+    {
+     "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+     "criteria": [
+      {
+       "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+       "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+       "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+       "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+       "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+       "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+       "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+     "criteria": [
+      {
+       "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+       "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+       "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Claim 1 (principal): students who study more hours per day always score higher. Claim 2 (parent): every student who studies 5 hours or more scored lower than every student who studies from 2.5 to 4.5 hours. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+     "criteria": [
+      {
+       "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+       "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+       "evidence": "Response says Claim 2 is supported and shows every score at 5 hours or more (78, 72, 65) is below every score from 2.5 to 4.5 hours (82 or higher), for example by comparing the highest of the first group (78) with the lowest of the second (82).",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours. Claim 2: Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nassert max(y for x, y in zip(xs, ys) if x >= 5) < min(y for x, y in zip(xs, ys) if 2.5 <= x <= 4.5)\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.3",
+  "item": {
+   "title": "Limits of a Used-Car Price Model",
+   "calculator": "permitted",
+   "stimulus": "A used-car dealer recorded the age, in years, of each of 20 cars of the same model and its asking price. The ages were: 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9. The least-squares regression line, found using technology, is ŷ = 27.4 − 1.9x, where x is the age in years and ŷ is the predicted asking price in thousands of dollars.",
+   "parts": [
+    {
+     "prompt": "Use the model to predict the asking price of a car that is 16 years old. Is the predicted value reasonable? Explain, and say what this shows about using the model at this age.",
+     "criteria": [
+      {
+       "text": "Substitutes x = 16 into ŷ = 27.4 − 1.9x and gets a predicted value of −3.0 thousand dollars.",
+       "evidence": "Response replaces x with 16 in the regression equation and reports −3.0 thousand dollars.",
+       "fix": "Replace x with the given value in the regression equation, calculate carefully, and report the predicted response with its units.",
+       "accepted_variants": [
+        "−3.0"
+       ]
+      },
+      {
+       "text": "States that the predicted asking price of −3.0 thousand dollars at 16 years is impossible, which shows the linear model should not be used that far beyond the data (2 to 9 years).",
+       "evidence": "Response says a negative predicted asking price cannot occur and ties it to extrapolating beyond 2 to 9 years.",
+       "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The dealer also wants to use the model for cars that are 18 months, 9 years and 12 years old. For each age, state whether using the model is interpolation or extrapolation, and explain.",
+     "criteria": [
+      {
+       "text": "Classifies the prediction at 1.5 years as extrapolation because 1.5 is below the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says extrapolation and compares 1.5 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Classifies the prediction at 9 years as interpolation because 9 is within (at the upper end of) the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says interpolation and compares 9 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Classifies the prediction at 12 years as extrapolation because 12 is beyond the interval of age values (2 to 9 years) used to fit the line.",
+       "evidence": "Response says extrapolation and compares 12 with the fitted interval of 2 to 9 years.",
+       "fix": "Compare the x-value with the smallest and largest x-values in the data: inside is interpolation, outside is extrapolation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The dealer says, \"The line fits the data well, so all three of these predictions are equally reliable.\" Do you agree? Rank the three predictions from most to least reliable and explain.",
+     "criteria": [
+      {
+       "text": "Ranks the predictions from most to least reliable as 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
+       "evidence": "Response gives the order 9, then 1.5, then 12 years and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
+       "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) ŷ = 27.4 − 1.9x with x = 16 gives ŷ = −3.0 thousand dollars. A negative asking price is impossible. The ages in the data run from 2 to 9 years, so 16 years is far beyond them, and the linear model should not be used that far outside the data.\n\n(b) 1.5 years is below the interval of ages used to fit the line (2 to 9 years), so it is extrapolation; 9 years is within (at the upper end of) the interval of ages used to fit the line (2 to 9 years), so it is interpolation; 12 years is beyond the interval of ages used to fit the line (2 to 9 years), so it is extrapolation.\n\n(c) No. From most to least reliable: 9, then 1.5, then 12 years, because 9 years is interpolation, while 1.5 years is extrapolation only 0.5 years below the youngest car (2 years) and 12 years is extrapolation 3 years beyond the oldest car (9 years), and predictions get less reliable the further the x-value is beyond the data.",
+   "verification_python": "ages = [2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 9]\na, b = 27.4, -1.9\nlo, hi = min(ages), max(ages)\nassert (lo, hi) == (2, 9)\nyf = a + b * 16\nassert abs(yf - -3.0) < 1e-9 and yf < 0\ndef kind(x):\n    return 'interpolation' if lo <= x <= hi else 'extrapolation'\nassert [kind(x) for x in [1.5, 9, 12]] == ['extrapolation', 'interpolation', 'extrapolation']\ndist = [max(lo - x, x - hi, 0) for x in [1.5, 9, 12]]\nassert dist[1] == 0 and 0 < dist[0] < dist[2]\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.4",
+  "item": {
+   "title": "Residual Pattern for a Supplement Dose and Plant Growth Model",
+   "calculator": "permitted",
+   "stimulus": "A botanist grew seven groups of seedlings with different daily doses of a supplement and measured the mean growth of each group. The least-squares regression line, found using technology, is ŷ = 18.86 + 1.43x, where x is the dose in milligrams and ŷ is the predicted growth in millimeters. The data are shown below.\n\nDose (mg) | Growth (mm)\n1 | 14\n2 | 20\n3 | 27\n4 | 30\n5 | 32\n6 | 30\n7 | 19",
+   "parts": [
+    {
+     "prompt": "Calculate the residuals for the observations at x = 1 and x = 4.",
+     "criteria": [
+      {
+       "text": "Calculates the residual as observed minus predicted: 14 - 20.29 = −6.29 mm.",
+       "evidence": "Response subtracts the predicted value from the observed value 14 and reports −6.29 mm.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "−6.29",
+        "−6.3"
+       ]
+      },
+      {
+       "text": "Calculates the residual as observed minus predicted: 30 - 24.58 = 5.42 mm.",
+       "evidence": "Response subtracts the predicted value from the observed value 30 and reports 5.42 mm.",
+       "fix": "Compute residual = observed y minus predicted y, using the predicted value from the equation, and keep the sign.",
+       "accepted_variants": [
+        "5.42",
+        "5.4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the residual at x = 1 in context.",
+     "criteria": [
+      {
+       "text": "States that because the residual is negative, the model overpredicts the plant growth for group with x = 1 mg: the observed value is below the predicted value.",
+       "evidence": "Response links the negative residual to the model overpredicts the plant growth for group with x = 1 mg, in context.",
+       "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the size in context: for group with x = 1 mg, the observed plant growth is about 6.29 mm below the predicted value.",
+       "evidence": "Response states the difference of about 6.29 mm between observed and predicted plant growth for group with x = 1 mg.",
+       "fix": "Restate the residual as a gap between observed and predicted values, with units and the specific case named.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the sign of the residual for each of the seven observations. Describe the pattern in the signs as x increases, and state what it suggests about the linear model.",
+     "criteria": [
+      {
+       "text": "States that the signs of the residuals as x increases are negative, negative, positive, positive, positive, positive, negative, a systematic negative, positive, negative (arch-shaped) pattern rather than random scatter.",
+       "evidence": "Response gives the sign pattern negative, negative, positive, positive, positive, positive, negative for the seven observations in order of x and calls it systematic, not random.",
+       "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the arch-shaped pattern of the residuals (curvature) in the residual plot suggests the linear model is not the most appropriate model for the data.",
+       "evidence": "Response identifies the pattern as curvature and concludes the linear model is not the most appropriate.",
+       "fix": "Treat a curved pattern in the residual plot as evidence against a linear model; do not call it random scatter.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) At x = 1: ŷ = 18.86 + 1.43(1) = 20.29, so the residual is 14 − 20.29 = −6.29 mm. At x = 4: ŷ = 24.58, so the residual is 30 − 24.58 = 5.42 mm.\n\n(b) The residual at x = 1 is negative, so the model overpredicts the plant growth there: the observed value is below the predicted value, by about 6.29 mm.\n\n(c) In order of x the residuals are negative, negative, positive, positive, positive, positive, negative. This is a systematic negative, positive, negative (arch-shaped) pattern, not random scatter. It means the residual plot would show curvature, which suggests the linear model is not the most appropriate model for the data.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nxs = [1, 2, 3, 4, 5, 6, 7]\nys = [14, 20, 27, 30, 32, 30, 19]\nb, a, r, mx, my = reg(xs, ys)\na2, b2 = round(a, 2), round(b, 2)\nassert (a2, b2) == (18.86, 1.43)\nres = [y - (a2 + b2 * x) for x, y in zip(xs, ys)]\nassert min(abs(e) for e in res) >= 1.5\nsigns = ['positive' if e > 0 else 'negative' for e in res]\nassert signs == ['negative', 'negative', 'positive', 'positive', 'positive', 'positive', 'negative']\nia, ib = xs.index(1), xs.index(4)\nassert round(res[ia], 2) == -6.29 and round(res[ib], 2) == 5.42\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "5.5",
+  "item": {
+   "title": "Interpreting and Critiquing a Regression Line for Hot Chocolate Sales",
+   "calculator": "permitted",
+   "stimulus": "A café owner recorded the outdoor temperature at noon and the number of cups of hot chocolate sold that day for 40 days when the noon temperature was between 30°F and 70°F. Technology gives the least-squares regression line ŷ = 312.4 − 3.8x, where x is the noon temperature in degrees Fahrenheit and ŷ is the predicted number of cups sold, and gives r² = 0.81.",
+   "parts": [
+    {
+     "prompt": "Interpret the slope of the regression line in context.",
+     "criteria": [
+      {
+       "text": "Interprets the slope in context: for each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.",
+       "evidence": "Response says the predicted number of cups sold decreases by about 3.8 cups per one-degree Fahrenheit increase in noon temperature.",
+       "fix": "Use the pattern: for each one-unit increase in x, the predicted y increases or decreases by the slope, with units and context.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "State what the y-intercept represents, and explain whether it can be given a reasonable interpretation in this context.",
+     "criteria": [
+      {
+       "text": "States that the y-intercept 312.4 is the predicted number of cups sold when noon temperature is 0.",
+       "evidence": "Response identifies 312.4 as the predicted number of cups sold at noon temperature = 0.",
+       "fix": "Define the y-intercept as the predicted response when the explanatory variable equals 0, naming both variables.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that this intercept should not be interpreted because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit), so it is extrapolation.",
+       "evidence": "Response says the intercept has no reasonable interpretation because 0 is beyond the range 30 to 70 degrees Fahrenheit (extrapolation).",
+       "fix": "Check whether x = 0 lies inside the observed x-values; if not, the intercept comes from extrapolation and has no meaningful interpretation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A student writes, \"Since r² = 0.81, 81% of the days fall exactly on the regression line.\" Is the student's interpretation correct? Explain what r² does not measure, then give a correct interpretation of r² in context.",
+     "criteria": [
+      {
+       "text": "States that the student's interpretation that 81% of the days fall exactly on the regression line is incorrect, because r² does not count points on the line or correct predictions.",
+       "evidence": "Response rejects the student's interpretation and says r² is not a percent of points on the line or of correct predictions.",
+       "fix": "Do not read r² as a count of points or correct predictions; it describes explained variation in the response.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets r² = 0.81: about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "evidence": "Response states that about 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.",
+       "fix": "Write r² as a percent and say that share of the variation in the response is explained by the linear relationship with x.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The mean number of cups sold for the 40 days was 122.4 cups. Use the regression line to find the mean noon temperature for these days.",
+     "criteria": [
+      {
+       "text": "Uses the fact that the line passes through (x̅, ȳ): solves 122.4 = 312.4 − 3.8x̅ to get a mean noon temperature of 50 degrees Fahrenheit.",
+       "evidence": "Response substitutes the mean response 122.4 into the equation and solves for x̅, getting 50 degrees Fahrenheit.",
+       "fix": "Because the line passes through (mean x, mean y), set the predicted value equal to the mean of y and solve for x.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For each one-degree Fahrenheit increase in noon temperature, the predicted number of cups sold decreases by about 3.8 cups.\n\n(b) The y-intercept, 312.4, is the predicted number of cups sold when noon temperature is 0. It should not be interpreted, because noon temperature = 0 is outside the interval of values used to fit the line (30 to 70 degrees Fahrenheit); this would be extrapolation.\n\n(c) The student is incorrect. r² does not measure the percent of points on the line or the percent of correct predictions. About 81% of the variation in number of cups sold is explained by the linear relationship with noon temperature.\n\n(d) The line passes through (x̅, ȳ), so 122.4 = 312.4 − 3.8x̅. Solving, x̅ = 50 degrees Fahrenheit.",
+   "verification_python": "a, b = 312.4, -3.8\nlo, hi = 30, 70\nybar, r2 = 122.4, 0.81\nxbar = (ybar - a) / b\nassert abs(xbar - 50) < 1e-9\nassert round(r2 * 100) == 81 and not (lo <= 0 <= hi) and a > 0\nassert round(abs(b), 1) == 3.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.3",
+  "item": {
+   "title": "Claims and Misreadings of a Matched-Pairs Interval for 5K Times",
+   "calculator": "permitted",
+   "stimulus": "A coach recorded the 5K running times of 20 randomly selected runners before and after a 6-week training program. For each runner, the difference (before minus after) in minutes was calculated; positive differences mean the runner got faster. The differences have no strong skewness and no outliers. Using technology, the coach found a 95% confidence interval for the population mean difference μ_d of (0.37, 2.33) minutes.",
+   "parts": [
+    {
+     "prompt": "Interpret the interval in context, and interpret the confidence level.",
+     "criteria": [
+      {
+       "text": "Interprets the interval: we are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program.",
+       "evidence": "Response states the confidence level, the interval from 0.37 to 2.33 minutes, and the parameter it captures (true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program).",
+       "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Interprets the confidence level: if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true parameter.",
+       "evidence": "Response describes 95% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+       "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach makes two claims. Claim 1: the program does not change mean 5K time (μ_d = 0). Claim 2: the program improves mean 5K time by at least 2.5 minutes (μ_d ≥ 2.5). For each claim, state whether the interval supports it, and explain.",
+     "criteria": [
+      {
+       "text": "Because 0 is not in the interval (0.37, 2.33), 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+       "evidence": "Response compares 0 with the interval and concludes: 0 is not a plausible value of the population mean difference, so the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time).",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Because 2.5 is above the interval (0.37, 2.33), 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+       "evidence": "Response compares 2.5 with the interval and concludes: 2.5 is not a plausible value and every plausible value is below it, so the interval does not support Claim 2.",
+       "fix": "Check whether the claimed value lies inside the interval: a value outside it is not a plausible value of the parameter.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The coach also says, \"95% of runners improved by between 0.37 and 2.33 minutes.\" Is this a correct use of the interval? Explain.",
+     "criteria": [
+      {
+       "text": "States that the coach's statement that 95% of runners improved by between 0.37 and 2.33 minutes is not justified, because the interval estimates the population mean difference, not the range of individual values.",
+       "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+       "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the coach had used a random sample of 80 runners instead of 20, and the sample mean difference and standard deviation were the same. How would the width of the 95% interval change? Give an approximate value for the new margin of error.",
+     "criteria": [
+      {
+       "text": "States that with n = 80 instead of 20 the interval would be narrower, with a margin of error about half as large (about 0.47 minutes), because the standard error s/√n shrinks.",
+       "evidence": "Response says the interval is narrower, the margin of error is about half as large, and gives the larger sample size as the reason.",
+       "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.37 to 2.33 minutes captures the true mean improvement (before minus after) in 5K time for all runners like these after the 6-week program. The confidence level means that if many random samples of the same size were taken, about 95% of the intervals they produce would capture the true mean difference.\n\n(b) Claim 1: 0 is not in the interval (0.37, 2.33), so it is not a plausible value of μ_d, and the interval provides convincing evidence against Claim 1 (the program is associated with a change in mean 5K time). Claim 2: 2.5 is above the interval, so it is not a plausible value and every plausible value is below it; the interval does not support Claim 2.\n\n(c) No. The interval estimates the population mean difference, not the range of individual values, so it does not describe where 95% of individuals fall.\n\n(d) The interval would be narrower. The standard error s/√n would be about half as large because √80 is about twice √20, so the margin of error would be about half of 0.98, roughly 0.47 minutes.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, conf, n2 = 20, 1.35, 2.1, 0.95, 80\nts = round(tinv(1 - (1 - conf) / 2, n - 1), 3)\nme = ts * s / math.sqrt(n)\nassert round(d - me, 2) == 0.37 and round(d + me, 2) == 2.33\nassert 0.37 > 0 and 2.33 < 2.5\nme2 = round(tinv(1 - (1 - conf) / 2, n2 - 1), 3) * s / math.sqrt(n2)\nassert round(me2, 2) == 0.47\nassert 0.45 < me2 / me < 0.5\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.4",
+  "item": {
+   "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+   "calculator": "not_applicable",
+   "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time without music minus time with music) in seconds. The sample of 15 differences has mean −9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+   "parts": [
+    {
+     "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school.",
+       "evidence": "Response defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+       "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d < 0, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For the appropriate procedure, decide whether its conditions are met. Justify each decision.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the 15 students were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the 15 students were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+       "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate proposes a two-sample t-test that compares the mean time with music and the mean time without music for these students. Is that appropriate? Explain.",
+     "criteria": [
+      {
+       "text": "States that the classmate's two-sample t-test is not appropriate, because each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+       "evidence": "Response rejects the classmate's two-sample t-test and gives the reason: each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+       "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d < 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.\n\n(c) No. Each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+   "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.5",
+  "item": {
+   "title": "Test of Mean Score Gain: Conclusions and Misconceptions",
+   "calculator": "permitted",
+   "stimulus": "A teacher randomly selected 15 students from a large school and gave each a vocabulary quiz before and after a mnemonic training session. For each student, the difference (after minus before) in quiz score was calculated. The sample of differences has mean 3.4 points and standard deviation 4.6 points, with no strong skewness and no outliers. The teacher tests H₀: μ_d = 0 versus Hₐ: μ_d > 0, where μ_d is the population mean difference (after minus before). Technology gives a p-value of 0.0063.",
+   "parts": [
+    {
+     "prompt": "Calculate the test statistic.",
+     "criteria": [
+      {
+       "text": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+       "evidence": "Response substitutes the sample values into the formula and reports t of about 2.86.",
+       "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+       "accepted_variants": [
+        "2.86",
+        "2.863"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.",
+       "evidence": "Response says 0.0063 is the probability, computed assuming the mean score gain for all students after mnemonic training is 0, of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) (an equivalent statement in terms of the test statistic is also acceptable).",
+       "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A student writes, \"There is a 0.63% chance that the null hypothesis is true.\" Is the student correct? Explain.",
+     "criteria": [
+      {
+       "text": "States that the student's statement that there is a 0.63% chance that the null hypothesis is true is incorrect, because the p-value is computed assuming the null hypothesis is true; it is the probability of a result this extreme, not the probability that the null hypothesis is true.",
+       "evidence": "Response rejects the claim and gives the correct meaning: the p-value is computed assuming the null hypothesis is true; it is the probability of a result this extreme, not the probability that the null hypothesis is true.",
+       "fix": "Say what a p-value is (assuming H₀ is true, the probability of a result this extreme) and what a decision does and does not show.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the p-value to state a conclusion about the claim at significance level α = 0.05, in context. Then say whether your decision about H₀ would change at α = 0.001.",
+     "criteria": [
+      {
+       "text": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+       "evidence": "Response compares 0.0063 with 0.05, and says reject H₀.",
+       "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+       "evidence": "Response states convincing evidence for Hₐ, in terms of Hₐ and in context.",
+       "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Compares the p-value 0.0063 with α = 0.001: because the p-value is greater than α, fail to reject H₀.",
+       "evidence": "Response compares 0.0063 with 0.001, and says fail to reject H₀.",
+       "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.\n\n(b) Assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.\n\n(c) The student is incorrect, because the p-value is computed assuming the null hypothesis is true; it is the probability of a result this extreme, not the probability that the null hypothesis is true.\n\n(d) At α = 0.05: the p-value 0.0063 is less than α, so we reject H₀. There is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these. At α = 0.001: the p-value 0.0063 is greater than α, so we fail to reject H₀; the decision would change.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, a1, a2 = 15, 3.4, 4.6, 0.05, 0.001\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == 2.86\ntail = 1 - tcdf(abs(t), n - 1)\np = tail\nassert round(p, 4) == 0.0063\nassert (p < a1) == True and (p < a2) == False and ((p < a1) != (p < a2))\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.6",
+  "item": {
+   "title": "Direction, Probability and Sample Size for a Difference in Mean Commute Times",
+   "calculator": "permitted",
+   "stimulus": "Commute times (in minutes) in City A have a mean of 34 and a standard deviation of 8. Commute times in City B have a mean of 30 and a standard deviation of 6. A researcher takes independent random samples of 40 commuters from City A and 45 commuters from City B, each far smaller than 10% of the commuters in its city. Let x̄₁ be the mean for City A and x̄₂ the mean for City B.",
+   "parts": [
+    {
+     "prompt": "Find the mean and the standard deviation of the sampling distribution of x̄₁ − x̄₂, the difference between the two sample means.",
+     "criteria": [
+      {
+       "text": "States that the mean of the sampling distribution of x̄₁ − x̄₂ is μ₁ − μ₂ = 4 minutes.",
+       "evidence": "Response gives 4 minutes as the mean of the sampling distribution of the difference in sample means.",
+       "fix": "The sampling distribution of x̄₁ − x̄₂ is centered at μ₁ − μ₂; subtract the second mean from the first.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Calculates the standard deviation of x̄₁ − x̄₂ as √(σ₁²/n₁ + σ₂²/n₂) = √(8²/40 + 6²/45) = 1.549 minutes.",
+       "evidence": "Response adds the two variances divided by their sample sizes, takes the square root, and reports about 1.549 minutes.",
+       "fix": "Add the two variance-over-sample-size terms before taking the square root; do not subtract or add the standard deviations.",
+       "accepted_variants": [
+        "1.55"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is the sampling distribution of x̄₁ − x̄₂ approximately normal? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.",
+       "evidence": "Response says the sampling distribution is approximately normal and gives the reason: independent random samples and both sample sizes at least 30.",
+       "fix": "Justify normality with a normal population or with sample sizes of at least 30 (central limit theorem), and check independence.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the sample mean commute time for City B exceeds the sample mean commute time for City A.",
+     "criteria": [
+      {
+       "text": "Finds the probability that the mean commute time of the City B sample exceeds the mean commute time of the City A sample: the probability is about 0.0049, using a normal distribution with mean 4 and standard deviation 1.549 (for example, z = (0 − 4)/1.549 = −2.58).",
+       "evidence": "Response uses the mean 4 and standard deviation 1.549 of the sampling distribution (not of single values), by a z-score or a direct normal calculation, and reports about 0.0049.",
+       "fix": "Use the standard deviation of the sample mean, not of single values, then find the normal area in the stated direction.",
+       "accepted_variants": [
+        "0.005",
+        "0.49%"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Suppose the researcher instead takes independent random samples of the same size n from each city. What is the smallest n for which the standard deviation of x̄₁ − x̄₂ is at most 0.8 minutes?",
+     "criteria": [
+      {
+       "text": "Solves √(8²/n + 6²/n) ≤ 0.8 for a common sample size: n ≥ 156.25, so n = 157.",
+       "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most 0.8, solves for n, and rounds up to n = 157.",
+       "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The mean is μ₁ − μ₂ = 34 − 30 = 4 minutes. The standard deviation is √(8²/40 + 6²/45) = 1.549 minutes.\n\n(b) Yes. The sampling distribution of x̄₁ − x̄₂ is approximately normal because both samples are random and independent, and both sample sizes (40 and 45) are at least 30.\n\n(c) The mean commute time of the City B sample exceeds the mean commute time of the City A sample means x̄₁ − x̄₂ is less than 0. z = (0 − 4)/1.549 = −2.58, so the probability is about 0.0049.\n\n(d) √(8²/n + 6²/n) ≤ 0.8 gives (64 + 36)/n ≤ 0.64, so n ≥ 156.25. The smallest n is 157.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nm1, s1, n1, m2, s2, n2 = 34, 8, 40, 30, 6, 45\nmd = m1 - m2\nsd = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert md == 4 and round(sd, 3) == 1.549\nz = (0 - md) / sd\nassert round(z, 2) == -2.58\np = ncdf(z)\nassert round(p, 4) == 0.0049\ntg = 0.8\nn_ans = math.ceil((s1 ** 2 + s2 ** 2) / tg ** 2 - 1e-9)\nassert n_ans == 157\nassert math.sqrt((s1 ** 2 + s2 ** 2) / n_ans) <= tg < math.sqrt((s1 ** 2 + s2 ** 2) / (n_ans - 1))\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.7",
+  "item": {
+   "title": "Interval for a Difference in Mean Exam Scores Using a t Table",
+   "calculator": "permitted",
+   "stimulus": "A district compares a common end-of-year exam at two schools. Independent random samples were taken: 32 students from School 1 (mean 78.4, standard deviation 11.2) and 35 students from School 2 (mean 72.1, standard deviation 9.8). Each sample is less than 10% of its school's students.\n\nA t table gives these critical values:\nDegrees of freedom | t* for 95% confidence\n29 | 2.045\n30 | 2.042\n31 | 2.040\n32 | 2.037\n33 | 2.035",
+   "parts": [
+    {
+     "prompt": "Show that the conditions for the appropriate procedure for estimating the difference in mean exam score are met.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the students were selected by independent random samples from the two schools.",
+       "evidence": "Response states the randomization condition in context: the students were selected by independent random samples from the two schools.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: each sample is less than 10% of the students at its school.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the students at its school.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: both sample sizes (32 and 35) are at least 30.",
+       "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: both sample sizes (32 and 35) are at least 30.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the smaller of n₁ − 1 and n₂ − 1 as the degrees of freedom and the table to find t*. Then calculate the standard error and the 95% confidence interval for μ₁ − μ₂.",
+     "criteria": [
+      {
+       "text": "States df = smaller of (n₁ − 1, n₂ − 1) = 31 and reads t* = 2.040 from the table for 95% confidence.",
+       "evidence": "Response uses the smaller of n₁ − 1 and n₂ − 1 as df and selects t* = 2.040 from the table.",
+       "fix": "With a table, use the smaller of n₁ − 1 and n₂ − 1 for df, then read t* for the confidence level.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Computes the interval (78.4 − 72.1) ± 2.040√(11.2²/32 + 9.8²/35) = 6.3 ± 2.040(2.581) = 1.03 to 11.57 points, using t* = 2.040.",
+       "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 1.03 to 11.57 points.",
+       "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+       "accepted_variants": [
+        "(1.03, 11.57)",
+        "(1.0, 11.6)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Technology gives df ≈ 61.9 and t* = 1.999 for 95% confidence, and the interval (1.14, 11.46) points. Why is your interval from the table wider?",
+     "criteria": [
+      {
+       "text": "States that using df = 31, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* (2.040 versus 1.999) and a wider interval than technology's df of about 61.9, so the table method is conservative.",
+       "evidence": "Response says the smaller degrees of freedom gives a larger t* and a wider interval than technology's df, so the table interval is conservative.",
+       "fix": "Fewer degrees of freedom means a larger t*, so the interval from the table is wider than the one from technology.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The procedure is a two-sample t-interval for a difference in population means. Randomization: the students were selected by independent random samples from the two schools. 10% condition: each sample is less than 10% of the students at its school. Sample-data condition: both sample sizes (32 and 35) are at least 30.\n\n(b) df = smaller of (32 − 1, 35 − 1) = 31, so t* = 2.040. SE = √(11.2²/32 + 9.8²/35) = 2.581 points. The interval is (78.4 − 72.1) ± 2.040(2.581) = 1.03 to 11.57 points.\n\n(c) The smaller df (31) gives a larger t* (2.040 versus 1.999) than technology's df of about 61.9, so the table interval is wider; the table method is conservative.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 32, 78.4, 11.2, 35, 72.1, 9.8, 0.95\ndf = min(n1 - 1, n2 - 1)\nassert df == 31\nts = tinv(1 - (1 - conf) / 2, df)\nassert abs(ts - 2.04) < 0.0006\nfor k, v in [(29, 2.045), (30, 2.042), (31, 2.04), (32, 2.037), (33, 2.035)]:\n    assert abs(tinv(1 - (1 - conf) / 2, k) - v) < 0.0006\nse = math.sqrt(s1 ** 2 / n1 + s2 ** 2 / n2)\nassert round(se, 3) == 2.581\nlo = (m1 - m2) - 2.04 * se; hi = (m1 - m2) + 2.04 * se\nassert round(lo, 2) == 1.03 and round(hi, 2) == 11.57\nse2, df2 = welch(s1, n1, s2, n2)\nassert round(df2, 1) == 61.9\nt2 = tinv(1 - (1 - conf) / 2, 61.9)\nassert abs(t2 - 1.999) < 0.0006 and t2 < 2.04\nassert round((m1 - m2) - 1.999 * se, 2) == 1.14 and round((m1 - m2) + 1.999 * se, 2) == 11.46\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ },
+ {
+  "subject_key": "ap_statistics",
+  "topic_code": "4.9",
+  "item": {
+   "title": "Is a Two-Sample t-Test Appropriate? Onboarding Setup Times",
+   "calculator": "not_applicable",
+   "stimulus": "A software company believes its new onboarding process reduces the mean time customers need to finish setup. Thousands of customers use each process. The company independently and randomly selected 36 customers who used the new process (sample mean 21.4 minutes) and 14 customers who used the standard process (sample mean 26.8 minutes). A dotplot of the 36 new-process times has no strong skewness and no outliers. A dotplot of the 14 standard-process times is skewed right with one outlier.",
+   "parts": [
+    {
+     "prompt": "Let μ₁ be the mean for the new onboarding process and μ₂ the mean for the standard process. Define the parameters of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ₁ and μ₂ as the μ₁ is the true mean setup time, in minutes, of all customers who use the new onboarding process, and μ₂ is the true mean setup time of all customers who use the standard process.",
+       "evidence": "Response defines μ₁ and μ₂ as the μ₁ is the true mean setup time, in minutes, of all customers who use the new onboarding process, and μ₂ is the true mean setup time of all customers who use the standard process, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ < 0.",
+       "evidence": "Response writes H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ < 0, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+     "criteria": [
+      {
+       "text": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+       "evidence": "Response names a two-sample t-test for a difference in population means.",
+       "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the randomization condition: the customers were selected by independent random samples from the two groups of customers.",
+       "evidence": "Response states the randomization condition in context: the customers were selected by independent random samples from the two groups of customers.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: each sample is less than 10% of the thousands of customers in its group.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the thousands of customers in its group.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: one sample (n = 14) is less than 30, so both samples must show no strong skewness or outliers, but the standard-process sample has an outlier and is skewed, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+       "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: one sample (n = 14) is less than 30, so both samples must show no strong skewness or outliers, but the standard-process sample has an outlier and is skewed, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Μ₁ is the true mean setup time, in minutes, of all customers who use the new onboarding process, and μ₂ is the true mean setup time of all customers who use the standard process. H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ < 0.\n\n(b) The procedure is a two-sample t-test for a difference in population means. Randomization: the customers were selected by independent random samples from the two groups of customers. 10% condition: each sample is less than 10% of the thousands of customers in its group. Sample-data condition: one sample (n = 14) is less than 30, so both samples must show no strong skewness or outliers, but the standard-process sample has an outlier and is skewed, so the sample-data condition is not met and the two-sample t-test is not appropriate.",
+   "verification_python": "n1, n2 = 36, 14\nboth_big = min(n1, n2) >= 30\nassert both_big == False\nassert 21.4 < 26.8\nprint(\"ALL_CHECKS_PASSED\")\n"
+  }
+ }
+]

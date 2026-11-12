@@ -1,5 +1,7 @@
 # AP Statistics Units 5 and 4 FRQs: cost-measured authoring run (2026-11-12)
 
+> **ROUND 2 (difficulty rewrite) is at the end of this file and supersedes round 1 (r1) for the nine topics it covers.** Feedback on r1: anything the checkers rated Easy is too easy for AP level. r2 adds a difficulty target to the pipeline and rewrites the Easy seeds and their variants. Files: `r2/`.
+
 **Status:** 15 seeds + 15 variants authored and accepted by the checks (Unit 5: 5+5; Unit 4: 10+10). **Nothing published; no Production, Development or database write.**
 **Scope note:** the request said "Units 5 and 6". AP Statistics has five units in the registry (`20260821090000_ap_statistics_taxonomy_topics_seed.sql`) and in the approved 2027 CED fact pack (old Unit 9 slope inference removed; fact pack section 8), so there is no Unit 6. **David confirmed Unit 4 (Inference for Quantitative Data: Means, topics 4.1-4.10) as the stand-in for Unit 6.** It is labelled "Unit 4 (stand-in)" below.
 
@@ -68,3 +70,50 @@ A variant costs about **16 percent of a seed** all-in ($0.053 vs $0.328; gateway
 - **Seed-side planted-defect controls were not re-run** (they plant defects with a paid Opus call); rules and checker pair are unchanged since the 8/8 run except the pattern-level fixes above.
 - **Difficulty:** ten of fifteen seeds were rated Easy by the checkers. Given the Unit 2-4 MCQ difficulty work, consider harder seeds before publishing.
 - **Unit 4 variants 4.7 and 4.9** were turned from experiments into independent random samples so the 10% condition applies; they test the same objectives but are observational contexts.
+
+
+---
+
+# Round 2 (r2): difficulty target and rewrite of the Easy items
+
+**Trigger (David, 2026-11-12):** "whatever rated easy is too easy to qualify as AP level. Add the difficulty target and update the easy seeds and variants from r1 to r2."
+
+## What changed in the pipeline
+- **Difficulty scale in the audit prompt** (`rubric.mjs`, `DIFFICULTY_SCALE`): rated against the AP exam, not the topic. Easy = every part is one recall/identify/substitute/restate step with all inputs given; Medium = at least one part needs multi-step work, choosing or justifying a method, a condition check with a non-obvious outcome, or critiquing a statement; Hard = several of these or a subtle trap.
+- **Gate** (`frq_pipeline.mjs --min-difficulty=Medium`): an item is rejected if **any** checker rates it Easy (stage `difficulty`). r1 had used the majority with ties rounded to Medium, which hid split ratings.
+- **Variant check** (`variant_check.mjs`) now also asks `difficulty_vs_parent` and flags a variant that is easier than its parent (it did, for three of nine).
+- **Pattern library:** 61 patterns now (49 + 12 r2 patterns: critique of a student claim, impossible prediction, residual sign sequence, solve for x-bar, confidence-level and sample-size reasoning, p-value misconception, solve for n, conservative df). r1's library is kept as `cost/rubric_patterns_r1_snapshot.json`; r1 items are unchanged in `authored/`.
+
+## Which items were rewritten
+Easy by both checkers in r1: 5.1, 5.3, 5.4, 5.5 and 4.3, 4.4, 4.5, 4.6, 4.7, 4.9. How each was made harder (all still one point per criterion, at most six): 5.1 now a curved association (form, changing direction, strength of a non-linear pattern, critique of "weak because not a line", two claims checked against the data); 5.4 all seven residual signs and the pattern; 5.5 critique of an r-squared misreading and solving for the mean of x from the line; 4.3 confidence level versus a misreading about individuals, a sample-size change, two claims; 4.4 and 4.9 whether the sample-data condition is met (it is not), a sign-reversed difference, a critique of a two-sample test on paired data; 4.5 critique of a p-value statement and a second significance level; 4.6 direction of the difference and the sample size needed; 4.7 a t table with conservative df and why it is wider than technology's interval.
+
+## Results (recounted from `r2/slots/`, `r2/variants/`)
+| | r2 seeds | r2 variants | Both checkers Medium or better | Model answers full credit |
+|---|---|---|---|---|
+| Accepted | **9 of 10** | **9 of 9 attempted** | 9 and 9 | 18 of 18 |
+| Held | 5.3 (ratings Medium + Easy after four tries; no rubric flags) | not attempted (parent not accepted) | | |
+
+- First-run accepts: 4.3, 4.5, 4.6. The other six needed two to four full runs (25 full-check runs for the 10 seeds), mostly because one checker still rated the item Easy, plus real rubric flags (double-counted criteria, a criterion demanding more than the part asked, evidence saying a condition "is met" when it is not). Every flag was accepted and fixed; the 5.5 topic vote (5.3 vs 5.5) was overruled on CED text twice. All rulings: `r2/arbitration.md`.
+- **Variant diff check:** 5 of 9 accepted first pass. 4.4 and 4.9 were flagged as easier than their parent (the seed's condition fails; the first variant's held), so the variants were rewritten to fail the same way; 4.9 also needed the population described the same way as the parent ("thousands", not an exact count). 4.6 needed one wording fix. This is the difficulty check doing its job.
+- **Not yet through the new gate:** five r1 items that had a split rating (one Easy, one Medium) are unchanged and have **not** been re-rated: 5.2, 4.1, 4.2, 4.8, 4.10 (seeds and variants). Under the strict gate they would likely fail. 5.3 is the topic where the CED asks for one thing (calculate a prediction; classify extrapolation), so its ceiling is low; GPT-6.1 Sol rates it Medium, DeepSeek V4 Pro Easy.
+
+## r2 cost (`r2/cost/`; 341 calls; token-level)
+| | Items | Total | Average |
+|---|---|---|---|
+| Seeds (incl. held 5.3) | 10 | $3.8500 | **$0.3850** |
+| Variants | 9 | $0.6231 | **$0.0692** |
+| **r2 gateway total** | | **$4.4731** | |
+
+By unit: Unit 5 seeds $1.9008 (4 items), variants $0.1158 (3); Unit 4 (stand-in) seeds $1.9493 (6), variants $0.5073 (6). Per seed: 4.3 $0.152, 4.4 $0.727, 4.5 $0.185, 4.6 $0.167, 4.7 $0.328, 4.9 $0.390, 5.1 $0.642, 5.3 $0.489 (held), 5.4 $0.343, 5.5 $0.427. Per variant: 4.3 $0.038, 4.4 $0.100, 4.5 $0.054, 4.6 $0.078, 4.7 $0.047, 4.9 $0.190, 5.1 $0.035, 5.4 $0.050, 5.5 $0.031. About $0.154 per full-check run; the cost is rework rounds against the stricter gate, not run price.
+Stage split: audit $2.5784, probe $0.6249, solve $0.6063, answer grade $0.0776; variant diff check $0.5858 (re-samples $0.0698).
+
+**Authoring estimate (r2, not measured):** marginal output about $0.12 for the r2 builder and library additions (about 12k tokens); session slice about **$3.3** (context grew 399k to 532k; about 55 tool rounds at about 465k cached context; about 45k output tokens; plus or minus 40 percent).
+**Per item all-in (gateway + marginal):** r2 seed about $0.40, variant about $0.072 (variant is about 18 percent of a seed).
+
+## Whole run (r1 + r2)
+Gateway: r1 $5.7535 + r2 $4.4731 = **$10.2266** measured at token level (791 calls). Authoring estimate: marginal plus infrastructure about $0.6, whole session about $7.7 (r1 $2.70 + $1.66, r2 $3.3). Combined about **$10.8 to $17.9**.
+Making the Easy items harder cost about $4.47 gateway plus the authoring slice; it more than doubled the per-seed check cost (seed average $0.385 in r2 against $0.319 in r1 across the same topics' rework) because the stricter gate forces more full-check runs.
+
+## Needs David
+- **Decision:** re-rate the five split-rated r1 items (5.2, 4.1, 4.2, 4.8, 4.10 and variants) under the new gate (about $2.5 gateway if they behave like r2), or accept them as Medium-by-majority. And what to do with 5.3: hold, accept as a topic-ceiling exception, or merge it into a harder topic.
+- Everything under "Not done / needs approval" in the r1 section still applies (publication approval, distinctness check against published FRQs, seed-side controls not re-run).

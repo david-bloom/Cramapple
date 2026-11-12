@@ -61,12 +61,15 @@ export const SOLVE_SCHEMA = z.object({
   question_issues: z.string().describe('Empty if every part is well posed and answerable; otherwise what is ambiguous, inconsistent, insufficient or out of scope'),
 });
 
+// Difficulty target (David, 2026-11-12: anything rated Easy is too easy for AP level). Scale applied by the checkers; the
+// pipeline's --min-difficulty=Medium gate rejects an item if ANY checker rates it Easy.
+export const DIFFICULTY_SCALE = 'Rate against the AP EXAM, not against this topic alone. Easy = every part is one recall, identify, substitute-into-a-given-formula or restate-a-given step, with all inputs supplied. Medium = at least one part needs multi-step work, choosing or justifying a method, checking a condition whose outcome is not obvious, or interpreting or critiquing a statement in a new context. Hard = several such demands, or a subtle trap that a well-prepared student could miss. Be strict: if a student who has memorized the procedure could answer every part without reasoning about the situation, the item is Easy.';
 export const auditSchema = (withModelAnswer) => z.object({
   primary_topic_code: z.string().describe('The single topic code from the unit list that this question most directly tests'),
   rules: z.object(Object.fromEntries(FRQ_RULES.filter(([k]) => withModelAnswer || k !== 'model_answer')
     .map(([k]) => [k, z.object({ pass: z.boolean(), issue: z.string().describe('Empty if pass; otherwise the specific problem, naming the part and criterion') })]))),
   solution_disagreements: z.string().describe('Compare your own independent solution with the rubric and model answer. Empty if they agree; otherwise each criterion or claim your solution shows is wrong'),
-  difficulty: z.enum(['Easy', 'Medium', 'Hard']),
+  difficulty: z.enum(['Easy', 'Medium', 'Hard']).describe(DIFFICULTY_SCALE),
 });
 
 // Deterministic lint (no model). Any failure rejects the candidate.

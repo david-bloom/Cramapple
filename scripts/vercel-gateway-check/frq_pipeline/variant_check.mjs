@@ -64,6 +64,7 @@ const SCHEMA = z.object({
   criteria_still_hold: z.array(z.object({ criterion: z.string().describe('e.g. a1'), holds: z.boolean(), issue: z.string().describe('Empty if holds; otherwise what is now wrong, ambiguous or unearnable in the new context') })),
   conditions_still_hold: z.boolean().describe('true if every condition or fact the parent rubric relied on (for example the sign of a residual, whether a value is inside or outside the fitted range, that a claim is supported by the data) still holds in the new context and the rubric states it correctly'),
   conditions_issue: z.string().describe('Empty if true; otherwise the failing condition'),
+  difficulty_vs_parent: z.enum(['easier', 'same', 'harder']).describe('How hard the variant is compared with the parent for an AP student. Say easier if any step was removed, any given value was added, or the reasoning demanded is lighter.'),
   distinct: z.boolean().describe('true if the variant is not a near-copy of the parent: new context and new numbers'),
   topic_unchanged: z.boolean().describe('true if the variant still squarely tests the same topic as the parent'),
   new_issues: z.string().describe('Only problems introduced by the changed context: an ambiguity, an unrealistic number, a missing given, a contradiction. Empty if none. Do not re-audit what is unchanged and was already accepted.'),
@@ -95,6 +96,7 @@ async function checkOnce(model, parent, child, diff, topic, ced, tag) {
   for (const c of o.criteria_still_hold) if (!c.holds) failed.push(`criterion ${c.criterion}: ${c.issue}`);
   if (!o.conditions_still_hold) failed.push(`conditions: ${o.conditions_issue}`);
   if (!o.distinct) failed.push('not distinct from parent');
+  if (o.difficulty_vs_parent === 'easier') failed.push('variant is easier than its parent');
   if (!o.topic_unchanged) failed.push('topic changed');
   if (o.new_issues && o.new_issues.trim().length > 3 && !/^(none|no new issues?|n\/a)\.?$/i.test(o.new_issues.trim())) failed.push(`new issue: ${o.new_issues}`);
   return { ok: true, flagged: failed.length > 0, failed, out: o };

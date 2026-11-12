@@ -490,7 +490,7 @@
     "norm_text"
    ],
    "text": "Checks the sample-data condition: {norm_text}.",
-   "evidence": "Response states the sample-data condition and why it is met: {norm_text}.",
+   "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: {norm_text}.",
    "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
    "accepted_variants": []
   },
@@ -698,6 +698,255 @@
    "evidence": "Response states {d} {units} (or an equivalent form) as the point estimate for the difference in means.",
    "fix": "Estimate a difference in population means with the difference in sample means, subtracting in the order the parameter is written.",
    "accepted_variants": []
+  },
+  "SCATTER_DIR_MIXED": {
+   "topic": "5.1",
+   "ek": "5.1.B.3",
+   "shape": "describe_in_context",
+   "slots": [
+    "x_name",
+    "y_name",
+    "turn",
+    "first_dir",
+    "second_dir",
+    "x_units"
+   ],
+   "text": "States that the direction changes: the association is {first_dir} for {x_name} below about {turn} {x_units} and {second_dir} for larger values.",
+   "evidence": "Response says the direction changes near {turn} {x_units}, {first_dir} before and {second_dir} after, in context.",
+   "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "ERR_STRENGTH_LINE": {
+   "topic": "5.1",
+   "ek": "5.1.B.4",
+   "shape": "critique",
+   "slots": [
+    "student_claim"
+   ],
+   "text": "States that {student_claim} is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+   "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+   "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "IMPLAUSIBLE": {
+   "topic": "5.3",
+   "ek": "5.3.A.3",
+   "shape": "explain",
+   "slots": [
+    "x0",
+    "yhat_text",
+    "y_name",
+    "y_units",
+    "lo",
+    "hi",
+    "x_units"
+   ],
+   "text": "States that the predicted {y_name} of {yhat_text} {y_units} at {x0} {x_units} is impossible, which shows the linear model should not be used that far beyond the data ({lo} to {hi} {x_units}).",
+   "evidence": "Response says a negative predicted {y_name} cannot occur and ties it to extrapolating beyond {lo} to {hi} {x_units}.",
+   "fix": "Check whether a prediction is possible in context; an impossible value shows the model fails beyond the observed x-values.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RESID_SEQ": {
+   "topic": "5.4",
+   "ek": "5.4.C.2-4",
+   "shape": "interpret_pattern",
+   "slots": [
+    "seq_text",
+    "shape_word"
+   ],
+   "text": "States that the signs of the residuals as x increases are {seq_text}, a systematic {shape_word} pattern rather than random scatter.",
+   "evidence": "Response gives the sign pattern {seq_text} for the seven observations in order of x and calls it systematic, not random.",
+   "fix": "Find every residual (observed minus predicted), then read their signs in order of x and look for a repeating pattern.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "R2_ERR": {
+   "topic": "5.5",
+   "ek": "5.5.A.5",
+   "shape": "critique",
+   "slots": [
+    "student_claim"
+   ],
+   "text": "States that {student_claim} is incorrect, because r² does not count points on the line or correct predictions.",
+   "evidence": "Response rejects the student's interpretation and says r² is not a percent of points on the line or of correct predictions.",
+   "fix": "Do not read r² as a count of points or correct predictions; it describes explained variation in the response.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "SOLVE_XBAR": {
+   "topic": "5.5",
+   "ek": "5.5.A.1",
+   "shape": "calculate",
+   "slots": [
+    "ybar_text",
+    "a_text",
+    "b_text",
+    "xbar",
+    "x_units",
+    "x_name"
+   ],
+   "text": "Uses the fact that the line passes through (x̅, ȳ): solves {ybar_text} = {a_text} {b_text}x̅ to get a mean {x_name} of {xbar} {x_units}.",
+   "evidence": "Response substitutes the mean response {ybar_text} into the equation and solves for x̅, getting {xbar} {x_units}.",
+   "fix": "Because the line passes through (mean x, mean y), set the predicted value equal to the mean of y and solve for x.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_LEVEL": {
+   "topic": "4.3",
+   "ek": "4.3.A.2",
+   "shape": "interpret",
+   "slots": [
+    "conf"
+   ],
+   "text": "Interprets the confidence level: if many random samples of the same size were taken, about {conf}% of the intervals they produce would capture the true parameter.",
+   "evidence": "Response describes {conf}% as the long-run percent of intervals, from repeated random samples, that capture the true parameter.",
+   "fix": "Describe the confidence level as the success rate of the method over many samples, not the probability for one interval.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_NOT_INDIV": {
+   "topic": "4.3",
+   "ek": "4.3.A.3",
+   "shape": "critique",
+   "slots": [
+    "student_claim",
+    "param_phrase"
+   ],
+   "text": "States that {student_claim} is not justified, because the interval estimates the {param_phrase}, not the range of individual values.",
+   "evidence": "Response says the interval is for the population mean (or mean difference) and does not describe where individual values fall.",
+   "fix": "Remember a confidence interval estimates a parameter such as a mean, so it says nothing about the spread of individuals.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "CI_SAMPLE_SIZE": {
+   "topic": "4.3",
+   "ek": "4.3.C.1",
+   "shape": "compare",
+   "slots": [
+    "n_old",
+    "n_new",
+    "ratio_text",
+    "me_text",
+    "units"
+   ],
+   "text": "States that with n = {n_new} instead of {n_old} the interval would be narrower, with a margin of error about {ratio_text} as large (about {me_text} {units}), because the standard error s/√n shrinks.",
+   "evidence": "Response says the interval is narrower, the margin of error is about {ratio_text} as large, and gives the larger sample size as the reason.",
+   "fix": "Quadrupling n halves the standard error (√4 = 2), so the margin of error is about half, with t* slightly smaller.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "P_ERR": {
+   "topic": "4.5",
+   "ek": "4.5.B.1",
+   "shape": "critique",
+   "slots": [
+    "student_claim",
+    "correction"
+   ],
+   "text": "States that {student_claim} is incorrect, because {correction}.",
+   "evidence": "Response rejects the claim and gives the correct meaning: {correction}.",
+   "fix": "Say what a p-value is (assuming H₀ is true, the probability of a result this extreme) and what a decision does and does not show.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "SD_SOLVE_N": {
+   "topic": "4.6",
+   "ek": "4.6.A.1",
+   "shape": "calculate",
+   "slots": [
+    "target",
+    "n_exact",
+    "n_ans",
+    "s1",
+    "s2",
+    "units"
+   ],
+   "text": "Solves √({s1}²/n + {s2}²/n) ≤ {target} for a common sample size: n ≥ {n_exact}, so n = {n_ans}.",
+   "evidence": "Response sets the standard deviation of x̄₁ − x̄₂ at most {target}, solves for n, and rounds up to n = {n_ans}.",
+   "fix": "Write the SD formula with the same n for both samples, set it at most the target, solve for n, and round up.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "T_CONSERVATIVE": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "select",
+   "slots": [
+    "n1",
+    "n2",
+    "df",
+    "ts",
+    "conf"
+   ],
+   "text": "States df = smaller of (n₁ − 1, n₂ − 1) = {df} and reads t* = {ts} from the table for {conf}% confidence.",
+   "evidence": "Response uses the smaller of n₁ − 1 and n₂ − 1 as df and selects t* = {ts} from the table.",
+   "fix": "With a table, use the smaller of n₁ − 1 and n₂ − 1 for df, then read t* for the confidence level.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RESID_SIGN_CTX": {
+   "topic": "5.4",
+   "ek": "5.4.B.1",
+   "shape": "interpret_in_context",
+   "slots": [
+    "sign_word",
+    "model_verb",
+    "y_name",
+    "case_phrase",
+    "above_below"
+   ],
+   "text": "States that because the residual is {sign_word}, the model {model_verb} the {y_name} for {case_phrase}: the observed value is {above_below} the predicted value.",
+   "evidence": "Response links the {sign_word} residual to the model {model_verb} the {y_name} for {case_phrase}, in context.",
+   "fix": "Link the sign to the context: a positive residual means the observed value is above the prediction (underprediction); negative means overprediction.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "DF_WHY": {
+   "topic": "4.7",
+   "ek": "4.7.C.1",
+   "shape": "explain",
+   "slots": [
+    "df",
+    "df_tech",
+    "ts",
+    "ts_tech"
+   ],
+   "text": "States that using df = {df}, the smaller of n₁ − 1 and n₂ − 1, gives a larger t* ({ts} versus {ts_tech}) and a wider interval than technology's df of about {df_tech}, so the table method is conservative.",
+   "evidence": "Response says the smaller degrees of freedom gives a larger t* and a wider interval than technology's df, so the table interval is conservative.",
+   "fix": "Fewer degrees of freedom means a larger t*, so the interval from the table is wider than the one from technology.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "RELIABILITY_RANK": {
+   "topic": "5.3",
+   "ek": "5.3.A.3-4",
+   "shape": "compare_with_reason",
+   "slots": [
+    "order_text",
+    "reason_text"
+   ],
+   "text": "Ranks the predictions from most to least reliable as {order_text}, because {reason_text}.",
+   "evidence": "Response gives the order {order_text} and explains that interpolation is more reliable and extrapolation is less reliable the further it is beyond the data.",
+   "fix": "Put the interpolation first, then rank extrapolations by how far the x-value lies outside the data; farther is less reliable.",
+   "accepted_variants": [],
+   "round": "r2"
+  },
+  "PROC_ERR": {
+   "topic": "4.4",
+   "ek": "4.4.A.2",
+   "shape": "critique",
+   "slots": [
+    "proposed",
+    "why_not"
+   ],
+   "text": "States that {proposed} is not appropriate, because {why_not}.",
+   "evidence": "Response rejects {proposed} and gives the reason: {why_not}.",
+   "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+   "accepted_variants": [],
+   "round": "r2"
   }
  }
 }
