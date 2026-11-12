@@ -81,7 +81,7 @@ A variant costs about **16 percent of a seed** all-in ($0.053 vs $0.328; gateway
 ## What changed in the pipeline
 - **Difficulty scale in the audit prompt** (`rubric.mjs`, `DIFFICULTY_SCALE`): rated against the AP exam, not the topic. Easy = every part is one recall/identify/substitute/restate step with all inputs given; Medium = at least one part needs multi-step work, choosing or justifying a method, a condition check with a non-obvious outcome, or critiquing a statement; Hard = several of these or a subtle trap.
 - **Gate** (`frq_pipeline.mjs --min-difficulty=Medium`): an item is rejected if **any** checker rates it Easy (stage `difficulty`). r1 had used the majority with ties rounded to Medium, which hid split ratings.
-- **Variant check** (`variant_check.mjs`) now also asks `difficulty_vs_parent` and flags a variant that is easier than its parent (it did, for three of nine).
+- **Variant check** (`variant_check.mjs`) now also asks `difficulty_vs_parent` and flags a variant that is easier than its parent (it did, for two of nine: 4.4 and 4.9).
 - **Pattern library:** 61 patterns now (49 + 12 r2 patterns: critique of a student claim, impossible prediction, residual sign sequence, solve for x-bar, confidence-level and sample-size reasoning, p-value misconception, solve for n, conservative df). r1's library is kept as `cost/rubric_patterns_r1_snapshot.json`; r1 items are unchanged in `authored/`.
 
 ## Which items were rewritten
@@ -94,7 +94,7 @@ Easy by both checkers in r1: 5.1, 5.3, 5.4, 5.5 and 4.3, 4.4, 4.5, 4.6, 4.7, 4.9
 | Held | 5.3 (ratings Medium + Easy after four tries; no rubric flags) | not attempted (parent not accepted) | | |
 
 - First-run accepts: 4.3, 4.5, 4.6. The other six needed two to four full runs (25 full-check runs for the 10 seeds), mostly because one checker still rated the item Easy, plus real rubric flags (double-counted criteria, a criterion demanding more than the part asked, evidence saying a condition "is met" when it is not). Every flag was accepted and fixed; the 5.5 topic vote (5.3 vs 5.5) was overruled on CED text twice. All rulings: `r2/arbitration.md`.
-- **Variant diff check:** 5 of 9 accepted first pass. 4.4 and 4.9 were flagged as easier than their parent (the seed's condition fails; the first variant's held), so the variants were rewritten to fail the same way; 4.9 also needed the population described the same way as the parent ("thousands", not an exact count). 4.6 needed one wording fix. This is the difficulty check doing its job.
+- **Variant diff check:** 6 of 9 accepted first pass. 4.4 and 4.9 were flagged as easier than their parent (the seed's condition fails; the first variant's held), so the variants were rewritten to fail the same way; 4.9 also needed the population described the same way as the parent ("thousands", not an exact count). 4.6 needed one wording fix. This is the difficulty check doing its job.
 - **Not yet through the new gate:** five r1 items that had a split rating (one Easy, one Medium) are unchanged and have **not** been re-rated: 5.2, 4.1, 4.2, 4.8, 4.10 (seeds and variants). Under the strict gate they would likely fail. 5.3 is the topic where the CED asks for one thing (calculate a prediction; classify extrapolation), so its ceiling is low; GPT-6.1 Sol rates it Medium, DeepSeek V4 Pro Easy.
 
 ## r2 cost (`r2/cost/`; 341 calls; token-level)
