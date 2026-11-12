@@ -127,6 +127,7 @@ GAP-10 updated with the subject's result.
 ## 2026-11-11 Statistics Phase B continuation
 
 **Branch:** `codex/task-0050-statistics-phase-b`
+**PR:** [#631](https://github.com/david-bloom/Cramapple/pull/631) (draft; review package only)
 **Packet and run evidence:** `scripts/content-seed/task0050-stats-phase-b-2026-11-11/README.md`
 
 Current Production reads confirm the retired pilot's 203 MCQs have zero matching content keys,
