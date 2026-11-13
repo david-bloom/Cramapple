@@ -1,0 +1,348 @@
+{
+ "id": "ap_statistics__5.2__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.2",
+  "topic_title": "Correlation",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:24:17.412Z",
+   "source": "given",
+   "item": {
+    "title": "Interpreting a Correlation Between Temperature and Bike Rentals",
+    "calculator": "not_applicable",
+    "stimulus": "A bike-share company recorded, for each of 60 randomly selected days, the daily high temperature in degrees Fahrenheit and the number of bikes rented that day. Technology reports a correlation coefficient of r = 0.91 for these data.",
+    "parts": [
+     {
+      "prompt": "Interpret the value of r in context.",
+      "criteria": [
+       {
+        "text": "Interprets the sign of r = 0.91 as a positive association: as daily high temperature increases, number of bikes rented tends to increase.",
+        "evidence": "Response links the positive sign of r to the direction of the association in context.",
+        "fix": "Read the sign of r as direction, then restate it in context using both variable names.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that r = 0.91, which is close to 1, indicates a strong linear association between daily high temperature and number of bikes rented.",
+        "evidence": "Response says the linear association is strong because r is close to 1, naming the two variables.",
+        "fix": "Say how close r is to -1 or 1, call the linear association strong, moderate or weak, and name both variables.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A manager says, \"Because r = 0.91, a linear model is definitely appropriate for predicting number of bikes rented from daily high temperature.\" Explain why this reasoning is incomplete and what should be done before deciding that a linear model is appropriate.",
+      "criteria": [
+       {
+        "text": "States that a value of r as close to -1 or 1 as 0.91 does not by itself show that a linear model is appropriate.",
+        "evidence": "Response says a correlation coefficient near -1 or 1 does not necessarily mean a linear model is appropriate.",
+        "fix": "Remember r only measures linear association strength; a strong r can still come from a curved pattern, so r alone cannot justify a linear model.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that a residual plot (or scatterplot) should be examined for curvature or other pattern before concluding a linear model is appropriate.",
+        "evidence": "Response names a residual plot or a scatterplot as the check and says a pattern such as curvature would show the linear model is not appropriate.",
+        "fix": "Name the check: make a residual plot and look for curvature; a random scatter supports a linear model.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A manager also concludes that warmer temperatures cause more bikes to be rented. Is this conclusion justified by the correlation? Explain.",
+      "criteria": [
+       {
+        "text": "States that correlation does not imply causation, so the association does not show that warmer temperatures cause more bikes to be rented.",
+        "evidence": "Response says an association or correlation, even a strong one, does not show that one variable causes changes in the other.",
+        "fix": "Whenever a claim says one variable causes another, point out that a strong association does not establish causation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The analysts will also measure daily high temperature in different units, in degrees Celsius instead of degrees Fahrenheit. What value of r will they find for the new measurements? Explain.",
+      "criteria": [
+       {
+        "text": "States that r would still be 0.91 after measuring temperature in degrees Celsius instead of degrees Fahrenheit because r is unit-free.",
+        "evidence": "Response says r is unchanged and gives unit-free (not affected by the units of measurement) as the reason.",
+        "fix": "Recall that r has no units, so changing the units of either variable by a positive-slope conversion leaves r unchanged.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The correlation r = 0.91 is positive, so as daily high temperature increases, number of bikes rented tends to increase. Because r is close to 1, the linear association between daily high temperature and number of bikes rented is strong.\n\n(b) A value of r close to -1 or 1 does not necessarily mean a linear model is appropriate. The data could follow a curved pattern even when r is large. The analysts should look at a residual plot (or a scatterplot) and check for curvature or another pattern before deciding.\n\n(c) No. Correlation does not imply causation. The strong association does not show that warmer temperatures cause more bikes to be rented; other variables could account for the pattern.\n\n(d) The new r will still be 0.91. The correlation coefficient is unit-free, so changing the units of measurement (measuring temperature in degrees Celsius instead of degrees Fahrenheit) does not change r.",
+    "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nr = 0.91\nassert -1 <= r <= 1 and abs(r) > 0.8\nassert (r < 0) == False\nxs = [40, 52, 61, 70, 78, 85, 91]\nys = [210, 305, 330, 420, 515, 560, 640]\nr1 = reg(xs, ys)[2]\nr2 = reg([5/9 * x for x in xs], ys)[2]\nassert abs(r1 - r2) < 1e-12\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "1": 3,
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires an explicit explanation that r is close to 1, although the part asks only for an interpretation. A complete interpretation stating a strong, positive linear association in context should earn both points without that additional justification.",
+       "solution: The independent solution agrees with the rubric's substantive conclusions: strong positive linear association, correlation alone insufficient to establish model appropriateness or causation, and unchanged r = 0.91 under Celsius conversion. However, its complete interpretation in part (a) could lose a2 solely because it does not explicitly say that 0.91 is close to 1; that additional justification should not be required."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires an explicit explanation that r is close to 1, although the part asks only for an interpretation. A complete interpretation stating a strong, positive linear association in context should earn both points without that additional justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's substantive conclusions: strong positive linear association, correlation alone insufficient to establish model appropriateness or causation, and unchanged r = 0.91 under Celsius conversion. However, its complete interpretation in part (a) could lose a2 solely because it does not explicitly say that 0.91 is close to 1; that additional justification should not be required.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Interpreting a Correlation Between Temperature and Bike Rentals",
+   "calculator": "not_applicable",
+   "stimulus": "A bike-share company recorded, for each of 60 randomly selected days, the daily high temperature in degrees Fahrenheit and the number of bikes rented that day. Technology reports a correlation coefficient of r = 0.91 for these data.",
+   "parts": [
+    {
+     "prompt": "Interpret the value of r in context.",
+     "criteria": [
+      {
+       "text": "Interprets the sign of r = 0.91 as a positive association: as daily high temperature increases, number of bikes rented tends to increase.",
+       "evidence": "Response links the positive sign of r to the direction of the association in context.",
+       "fix": "Read the sign of r as direction, then restate it in context using both variable names.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that r = 0.91, which is close to 1, indicates a strong linear association between daily high temperature and number of bikes rented.",
+       "evidence": "Response says the linear association is strong because r is close to 1, naming the two variables.",
+       "fix": "Say how close r is to -1 or 1, call the linear association strong, moderate or weak, and name both variables.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A manager says, \"Because r = 0.91, a linear model is definitely appropriate for predicting number of bikes rented from daily high temperature.\" Explain why this reasoning is incomplete and what should be done before deciding that a linear model is appropriate.",
+     "criteria": [
+      {
+       "text": "States that a value of r as close to -1 or 1 as 0.91 does not by itself show that a linear model is appropriate.",
+       "evidence": "Response says a correlation coefficient near -1 or 1 does not necessarily mean a linear model is appropriate.",
+       "fix": "Remember r only measures linear association strength; a strong r can still come from a curved pattern, so r alone cannot justify a linear model.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that a residual plot (or scatterplot) should be examined for curvature or other pattern before concluding a linear model is appropriate.",
+       "evidence": "Response names a residual plot or a scatterplot as the check and says a pattern such as curvature would show the linear model is not appropriate.",
+       "fix": "Name the check: make a residual plot and look for curvature; a random scatter supports a linear model.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A manager also concludes that warmer temperatures cause more bikes to be rented. Is this conclusion justified by the correlation? Explain.",
+     "criteria": [
+      {
+       "text": "States that correlation does not imply causation, so the association does not show that warmer temperatures cause more bikes to be rented.",
+       "evidence": "Response says an association or correlation, even a strong one, does not show that one variable causes changes in the other.",
+       "fix": "Whenever a claim says one variable causes another, point out that a strong association does not establish causation.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The analysts will also measure daily high temperature in different units, in degrees Celsius instead of degrees Fahrenheit. What value of r will they find for the new measurements? Explain.",
+     "criteria": [
+      {
+       "text": "States that r would still be 0.91 after measuring temperature in degrees Celsius instead of degrees Fahrenheit because r is unit-free.",
+       "evidence": "Response says r is unchanged and gives unit-free (not affected by the units of measurement) as the reason.",
+       "fix": "Recall that r has no units, so changing the units of either variable by a positive-slope conversion leaves r unchanged.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The correlation r = 0.91 is positive, so as daily high temperature increases, number of bikes rented tends to increase. Because r is close to 1, the linear association between daily high temperature and number of bikes rented is strong.\n\n(b) A value of r close to -1 or 1 does not necessarily mean a linear model is appropriate. The data could follow a curved pattern even when r is large. The analysts should look at a residual plot (or a scatterplot) and check for curvature or another pattern before deciding.\n\n(c) No. Correlation does not imply causation. The strong association does not show that warmer temperatures cause more bikes to be rented; other variables could account for the pattern.\n\n(d) The new r will still be 0.91. The correlation coefficient is unit-free, so changing the units of measurement (measuring temperature in degrees Celsius instead of degrees Fahrenheit) does not change r.",
+   "verification_python": "import math\ndef reg(x, y):\n    n = len(x); mx = sum(x) / n; my = sum(y) / n\n    sxx = sum((a - mx) ** 2 for a in x); syy = sum((b - my) ** 2 for b in y)\n    sxy = sum((a - mx) * (b - my) for a, b in zip(x, y)); b = sxy / sxx\n    return b, my - b * mx, sxy / math.sqrt(sxx * syy), mx, my\nr = 0.91\nassert -1 <= r <= 1 and abs(r) > 0.8\nassert (r < 0) == False\nxs = [40, 52, 61, 70, 78, 85, 91]\nys = [210, 305, 330, 420, 515, 560, 640]\nr1 = reg(xs, ys)[2]\nr2 = reg([5/9 * x for x in xs], ys)[2]\nassert abs(r1 - r2) < 1e-12\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:24:13.453866Z"
+ },
+ "accepted_round": 1
+}

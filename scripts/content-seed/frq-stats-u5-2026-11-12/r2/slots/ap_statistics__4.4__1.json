@@ -1,0 +1,1114 @@
+{
+ "id": "ap_statistics__4.4__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.4",
+  "topic_title": "Setting Up a Test for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:37:26.031Z",
+   "source": "given",
+   "item": {
+    "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time without music minus time with music) in seconds. The sample of 15 differences has mean −9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school.",
+        "evidence": "Response defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+        "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d < 0, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "For the appropriate procedure, decide whether its conditions are met. Justify each decision.",
+      "criteria": [
+       {
+        "text": "Checks the randomization condition: the 15 students were randomly selected.",
+        "evidence": "Response states the randomization condition in context: the 15 students were randomly selected.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate proposes a two-sample t-test that compares the mean time with music and the mean time without music for these students. Is that appropriate? Explain.",
+      "criteria": [
+       {
+        "text": "States that the classmate's two-sample t-test is not appropriate, because each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+        "evidence": "Response rejects the classmate's two-sample t-test and gives the reason: each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+        "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d < 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.\n\n(c) No. Each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+    "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 requires random selection as the randomization-condition evidence, but in this matched-pairs experiment the randomization condition may also be justified by randomized treatment order; the criterion should accept random selection or randomized assignment.",
+       "model_answer: Part (a) uses capital Mu (Μ_d) once for the parameter; the parameter should be written with lowercase mu (μ_d)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 requires random selection as the randomization-condition evidence, but in this matched-pairs experiment the randomization condition may also be justified by randomized treatment order; the criterion should accept random selection or randomized assignment."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (a) uses capital Mu (Μ_d) once for the parameter; the parameter should be written with lowercase mu (μ_d)."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+   "calculator": "not_applicable",
+   "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time without music minus time with music) in seconds. The sample of 15 differences has mean −9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+   "parts": [
+    {
+     "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school.",
+       "evidence": "Response defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+       "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d < 0, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For the appropriate procedure, decide whether its conditions are met. Justify each decision.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the 15 students were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the 15 students were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+       "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate proposes a two-sample t-test that compares the mean time with music and the mean time without music for these students. Is that appropriate? Explain.",
+     "criteria": [
+      {
+       "text": "States that the classmate's two-sample t-test is not appropriate, because each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+       "evidence": "Response rejects the classmate's two-sample t-test and gives the reason: each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+       "fix": "Check whether the two measurements come from the same individuals; if so, analyze the differences with a one-sample procedure.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d < 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.\n\n(c) No. Each student provided both times, so the two sets of times are not independent samples; the analysis should use the 15 differences (a matched-pairs, one-sample procedure).",
+   "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items_r2.py), r2 patch 3",
+  "at": "2026-11-12T22:37:25.949738Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:15:41.500Z",
+   "source": "given",
+   "item": {
+    "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time with music minus time without music) in seconds. The sample of 15 differences has mean 9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ_d as the μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school.",
+        "evidence": "Response defines μ_d as the μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ_d = 0 and Hₐ: μ_d > 0.",
+        "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d > 0, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "evidence": "Response names a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the randomization condition: the 15 students were randomly selected and the order of the two conditions was randomized for each student.",
+        "evidence": "Response states the randomization condition in context: the 15 students were randomly selected and the order of the two conditions was randomized for each student.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "evidence": "Response states the sample-data condition and why it is met: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d > 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected and the order of the two conditions was randomized for each student. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 4,
+     "2": 1,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 requires both random selection and randomized condition order. Citing the random selection of students alone validly verifies the CED randomization condition; the criterion rejects that sufficient justification.",
+       "accurate: Part (b), criterion b4's Evidence says to explain why the sample-data condition 'is met,' contradicting the correct determination later in the same sentence that it is not met. Replace 'why it is met' with 'why it is not met.'",
+       "solution: The substantive answers agree: μ_d is the school population mean of music-minus-no-music times; H₀: μ_d = 0; Hₐ: μ_d > 0. The proposed matched-pairs t-test is inappropriate because the 15 differences show strong skewness and an outlier. Criterion b2 unnecessarily requires randomized order as well as random selection to verify randomization. Criterion b4's evidence incorrectly says the sample-data condition 'is met' before correctly concluding it is not met."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 requires both random selection and randomized condition order. Citing the random selection of students alone validly verifies the CED randomization condition; the criterion rejects that sufficient justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b4's Evidence says to explain why the sample-data condition 'is met,' contradicting the correct determination later in the same sentence that it is not met. Replace 'why it is met' with 'why it is not met.'"
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The substantive answers agree: μ_d is the school population mean of music-minus-no-music times; H₀: μ_d = 0; Hₐ: μ_d > 0. The proposed matched-pairs t-test is inappropriate because the 15 differences show strong skewness and an outlier. Criterion b2 unnecessarily requires randomized order as well as random selection to verify randomization. Criterion b4's evidence incorrectly says the sample-data condition 'is met' before correctly concluding it is not met.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 requires both random selection and randomized condition order. Random selection alone establishes the CED randomization condition here, so the criterion rejects a sufficient, correct justification.",
+       "rubric_evidence: Criterion b4's evidence instruction asks the response to explain why the sample-data condition 'is met,' contradicting its required conclusion that the condition is not met. Change this to 'is not met.'",
+       "solution: The substantive answers agree: H₀: μ_d = 0 versus Hₐ: μ_d > 0, with a candidate matched-pairs t-test that is inappropriate because 15 differences exhibit strong skewness and an outlier. However, b2 unnecessarily requires mentioning randomized order in addition to random selection. Also, the 10% check is reasonably inferred from 'large school,' rather than established by an explicit enrollment count."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 requires both random selection and randomized condition order. Random selection alone establishes the CED randomization condition here, so the criterion rejects a sufficient, correct justification."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion b4's evidence instruction asks the response to explain why the sample-data condition 'is met,' contradicting its required conclusion that the condition is not met. Change this to 'is not met.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The substantive answers agree: H₀: μ_d = 0 versus Hₐ: μ_d > 0, with a candidate matched-pairs t-test that is inappropriate because 15 differences exhibit strong skewness and an outlier. However, b2 unnecessarily requires mentioning randomized order in addition to random selection. Also, the 10% check is reasonably inferred from 'large school,' rather than established by an explicit enrollment count.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (b) asks whether the 10% condition is met, but the actual school population size N is never given. The rubric and model answer assert as fact that '15 students are less than 10% of the students at the school'; a careful AP student could reasonably say the condition cannot be checked from 'large school' alone.",
+       "rubric_points: Criterion b2 requires both random selection and randomized order to earn the point, but the CED randomization condition can be met by a random sample alone. A valid response that cites only the random selection of students is rejected by this criterion.",
+       "model_answer: The model answer uses capital Greek Μ_d instead of lowercase μ_d when defining the parameter in part (a); standard AP notation and the hypotheses themselves use lowercase μ_d.",
+       "solution: The model answer uses capital Greek Μ_d instead of lowercase μ_d; my solution uses lowercase μ_d. Otherwise the required solutions agree."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (b) asks whether the 10% condition is met, but the actual school population size N is never given. The rubric and model answer assert as fact that '15 students are less than 10% of the students at the school'; a careful AP student could reasonably say the condition cannot be checked from 'large school' alone."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 requires both random selection and randomized order to earn the point, but the CED randomization condition can be met by a random sample alone. A valid response that cites only the random selection of students is rejected by this criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "The model answer uses capital Greek Μ_d instead of lowercase μ_d when defining the parameter in part (a); standard AP notation and the hypotheses themselves use lowercase μ_d."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The model answer uses capital Greek Μ_d instead of lowercase μ_d; my solution uses lowercase μ_d. Otherwise the required solutions agree.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: b4 evidence says the response states the sample-data condition and 'why it is met,' but then immediately explains that the condition is not met. The evidence wording is self-contradictory and should say 'why it is not met.'"
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "b4 evidence says the response states the sample-data condition and 'why it is met,' but then immediately explains that the condition is not met. The evidence wording is self-contradictory and should say 'why it is not met.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T22:22:20.684Z",
+   "source": "given",
+   "item": {
+    "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time with music minus time without music) in seconds. The sample of 15 differences has mean 9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ_d as the μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school.",
+        "evidence": "Response defines μ_d as the μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ_d = 0 and Hₐ: μ_d > 0.",
+        "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d > 0, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "evidence": "Response names a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the randomization condition: the 15 students were randomly selected.",
+        "evidence": "Response states the randomization condition in context: the 15 students were randomly selected.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Μ_d is the true mean difference (time with music minus time without music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d > 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "difficulty"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T22:30:54.052Z",
+   "source": "given",
+   "item": {
+    "title": "Is a Matched-Pairs t-Test Appropriate? Background Music and Puzzle Time",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher suspects that background music slows students down on a puzzle task. She randomly selected 15 students from a large school. Each student completed a puzzle once with music and once without music, in a random order, and the teacher recorded each student's difference (time without music minus time with music) in seconds. The sample of 15 differences has mean −9.3 seconds and standard deviation 12.1 seconds. A dotplot of the 15 differences is strongly right-skewed with one outlier.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school.",
+        "evidence": "Response defines μ_d as the μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ_d = 0 and Hₐ: μ_d < 0.",
+        "evidence": "Response writes H₀: μ_d = 0 and Hₐ: μ_d < 0, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the appropriate procedure, and decide whether its conditions are met. Justify each decision.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "evidence": "Response names a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the randomization condition: the 15 students were randomly selected.",
+        "evidence": "Response states the randomization condition in context: the 15 students were randomly selected.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 15 students are less than 10% of the students at the school.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 15 students are less than 10% of the students at the school.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "evidence": "Response states the sample-data condition, says whether it is met, and gives the reason: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Μ_d is the true mean difference (time without music minus time with music), in seconds, for all students at this school. H₀: μ_d = 0 versus Hₐ: μ_d < 0.\n\n(b) The procedure is a one-sample t-test for a population mean difference (matched pairs), applied to the 15 differences. Randomization: the 15 students were randomly selected. 10% condition: 15 students are less than 10% of the students at the school. Sample-data condition: the sample of differences has n = 15, which is less than 30, and its dotplot is strongly right-skewed with one outlier, so the sample-data condition is not met and the t-test is not appropriate.",
+    "verification_python": "n_small = 15\nmet = False\nassert (n_small >= 30) == False\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 4,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "model_answer: Part (a) writes the parameter as capital Greek Μ_d rather than the standard lowercase μ_d used in the CED and rubric; a strong student response would use μ_d.",
+       "solution: No substantive disagreements; my solution is equivalent to the rubric and model answer, except the model answer displays Μ_d rather than the standard μ_d."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (a) writes the parameter as capital Greek Μ_d rather than the standard lowercase μ_d used in the CED and rubric; a strong student response would use μ_d."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "No substantive disagreements; my solution is equivalent to the rubric and model answer, except the model answer displays Μ_d rather than the standard μ_d.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "difficulty"
+  }
+ ],
+ "accepted_round": 1
+}

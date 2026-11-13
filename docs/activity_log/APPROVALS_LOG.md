@@ -202,6 +202,7 @@ Most recent entries (full chronological list follows below):
 
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
+- [APPROVAL-0257 — AP Statistics Units 4-5 FRQs round 2: 30 FRQs published as content only, labels out (granted 2026-11-12)](APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md)
 <!-- INDEX_END -->
 
 

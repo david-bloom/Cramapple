@@ -1,0 +1,830 @@
+{
+ "id": "ap_statistics__4.5__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.5",
+  "topic_title": "Carrying Out a Test for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:55:16.394Z",
+   "source": "given",
+   "item": {
+    "title": "Test of Mean Score Gain After Mnemonic Training",
+    "calculator": "permitted",
+    "stimulus": "A teacher randomly selected 15 students from a large school and gave each a vocabulary quiz before and after a mnemonic training session. For each student, the difference (after minus before) in quiz score was calculated. The sample of differences has mean 3.4 points and standard deviation 4.6 points, with no strong skewness and no outliers. The teacher tests H₀: μ_d = 0 versus Hₐ: μ_d > 0 at significance level α = 0.05, where μ_d is the population mean difference (after minus before). Technology gives a p-value of 0.0063.",
+    "parts": [
+     {
+      "prompt": "Calculate the test statistic.",
+      "criteria": [
+       {
+        "text": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+        "evidence": "Response substitutes the sample values into the formula and reports t of about 2.86.",
+        "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+        "accepted_variants": [
+         "2.86",
+         "2.863"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the p-value in context.",
+      "criteria": [
+       {
+        "text": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.",
+        "evidence": "Response says 0.0063 is the probability, computed assuming the mean score gain for all students after mnemonic training is 0, of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) (an equivalent statement in terms of the test statistic is also acceptable).",
+        "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+      "criteria": [
+       {
+        "text": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+        "evidence": "Response compares 0.0063 with 0.05, and says reject H₀.",
+        "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+        "evidence": "Response states convincing evidence for Hₐ, in terms of Hₐ and in context.",
+        "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86, with df = 14.\n\n(b) Assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.\n\n(c) The p-value 0.0063 is less than α = 0.05, so we reject H₀. There is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 15, 3.4, 4.6, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == 2.86\ntail = 1 - tcdf(abs(t), n - 1)\np = tail\nassert round(p, 4) == 0.0063\nassert (p < alpha) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Test of Mean Score Gain After Mnemonic Training",
+   "calculator": "permitted",
+   "stimulus": "A teacher randomly selected 15 students from a large school and gave each a vocabulary quiz before and after a mnemonic training session. For each student, the difference (after minus before) in quiz score was calculated. The sample of differences has mean 3.4 points and standard deviation 4.6 points, with no strong skewness and no outliers. The teacher tests H₀: μ_d = 0 versus Hₐ: μ_d > 0 at significance level α = 0.05, where μ_d is the population mean difference (after minus before). Technology gives a p-value of 0.0063.",
+   "parts": [
+    {
+     "prompt": "Calculate the test statistic.",
+     "criteria": [
+      {
+       "text": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+       "evidence": "Response substitutes the sample values into the formula and reports t of about 2.86.",
+       "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+       "accepted_variants": [
+        "2.86",
+        "2.863"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value in context.",
+     "criteria": [
+      {
+       "text": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.",
+       "evidence": "Response says 0.0063 is the probability, computed assuming the mean score gain for all students after mnemonic training is 0, of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) (an equivalent statement in terms of the test statistic is also acceptable).",
+       "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+     "criteria": [
+      {
+       "text": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+       "evidence": "Response compares 0.0063 with 0.05, and says reject H₀.",
+       "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+       "evidence": "Response states convincing evidence for Hₐ, in terms of Hₐ and in context.",
+       "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86, with df = 14.\n\n(b) Assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater (equivalently, a test statistic of about 2.86 or greater) is about 0.0063.\n\n(c) The p-value 0.0063 is less than α = 0.05, so we reject H₀. There is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 15, 3.4, 4.6, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == 2.86\ntail = 1 - tcdf(abs(t), n - 1)\np = tail\nassert round(p, 4) == 0.0063\nassert (p < alpha) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:55:16.183424Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:40:30.092Z",
+   "source": "given",
+   "item": {
+    "title": "Test of Mean Score Gain After Mnemonic Training",
+    "calculator": "permitted",
+    "stimulus": "A teacher randomly selected 15 students from a large school and gave each a vocabulary quiz before and after a mnemonic training session. For each student, the difference (after minus before) in quiz score was calculated. The sample of differences has mean 3.4 points and standard deviation 4.6 points, with no strong skewness and no outliers. The teacher tests H₀: μ_d = 0 versus Hₐ: μ_d > 0 at significance level α = 0.05, where μ_d is the population mean difference (after minus before). Technology gives a p-value of 0.0063.",
+    "parts": [
+     {
+      "prompt": "Calculate the test statistic and state its degrees of freedom.",
+      "criteria": [
+       {
+        "text": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86, with df = 14.",
+        "evidence": "Response substitutes the sample values into the formula and reports t of about 2.86, with df = 14.",
+        "fix": "Subtract the null value from the sample statistic, divide by the standard error, and state the degrees of freedom.",
+        "accepted_variants": [
+         "2.86",
+         "2.863"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the p-value in context.",
+      "criteria": [
+       {
+        "text": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of a test statistic as extreme as the observed mean difference of 3.4 points or more extreme (a mean gain greater than 0) is about 0.0063.",
+        "evidence": "Response says 0.0063 is the probability of a result at least as extreme as observed (a mean gain greater than 0), computed assuming the mean score gain for all students after mnemonic training is 0.",
+        "fix": "Say the p-value is the probability of a result at least this extreme, in the direction of Hₐ, assuming H₀ is true, in context.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+      "criteria": [
+       {
+        "text": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+        "evidence": "Response compares 0.0063 with 0.05, and says reject H₀.",
+        "fix": "Compare the p-value with the stated significance level: reject H₀ when the p-value is less than α, otherwise fail to reject.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+        "evidence": "Response states convincing evidence for Hₐ, in terms of Hₐ and in context.",
+        "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86, with df = 14.\n\n(b) Assuming the mean score gain for all students after mnemonic training is 0, the probability of a test statistic as extreme as the observed mean difference of 3.4 points or more extreme (a mean gain greater than 0) is about 0.0063.\n\n(c) The p-value 0.0063 is less than α = 0.05, so we reject H₀. There is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 15, 3.4, 4.6, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == 2.86\ntail = 1 - tcdf(abs(t), n - 1)\np = tail\nassert round(p, 4) == 0.0063\nassert (p < alpha) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "3": 1,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles two separately observable elements—calculating the test statistic and stating its degrees of freedom—into one point. Score these elements separately.",
+       "accurate: Part (b), criterion b1 and its evidence incorrectly describe an at-least-as-extreme result as merely 'a mean gain greater than 0' and conflate the test statistic with the observed mean difference. The relevant event is T ≥ 2.863, assuming μ_d = 0. Part (c), criterion c1's fix incorrectly says to fail to reject whenever the p-value is not less than α; rejection also applies when the p-value equals α.",
+       "solution: The independent solution agrees with t ≈ 2.863, df = 14, and rejection at α = 0.05. Unlike criterion b1, it correctly defines the p-value using a test statistic at least as large as 2.863, not merely a positive mean gain. The conclusion is most precisely about students at this school, the sampled population, rather than the rubric's vague 'all students like these.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles two separately observable elements—calculating the test statistic and stating its degrees of freedom—into one point. Score these elements separately."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 and its evidence incorrectly describe an at-least-as-extreme result as merely 'a mean gain greater than 0' and conflate the test statistic with the observed mean difference. The relevant event is T ≥ 2.863, assuming μ_d = 0. Part (c), criterion c1's fix incorrectly says to fail to reject whenever the p-value is not less than α; rejection also applies when the p-value equals α."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with t ≈ 2.863, df = 14, and rejection at α = 0.05. Unlike criterion b1, it correctly defines the p-value using a test statistic at least as large as 2.863, not merely a positive mean gain. The conclusion is most precisely about students at this school, the sampled population, rather than the rubric's vague 'all students like these.'",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 combines two separately requested, observable results—the test statistic and degrees of freedom—into one point. Separate these into individual one-point criteria.",
+       "accurate: Part (b), criterion b1 and its evidence incorrectly describe an at-least-as-extreme result as merely 'a mean gain greater than 0.' The relevant event is t ≥ approximately 2.863, not any positive gain. Part (c), criterion c1's fix incorrectly directs students to fail to reject when p = α; the decision rule is reject when p ≤ α.",
+       "solution: The independent calculation agrees with part (a): t ≈ 2.863 and df = 14. For part (b), the correct interpretation is the probability, assuming the school's population mean difference is 0, of obtaining t ≥ 2.863 in a random sample of 15 students. The rubric's parenthetical 'a mean gain greater than 0' sets the wrong extremeness threshold. The conclusion in part (c) is correct for the supplied p-value, although c1's general decision-rule fix mishandles equality."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 combines two separately requested, observable results—the test statistic and degrees of freedom—into one point. Separate these into individual one-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 and its evidence incorrectly describe an at-least-as-extreme result as merely 'a mean gain greater than 0.' The relevant event is t ≥ approximately 2.863, not any positive gain. Part (c), criterion c1's fix incorrectly directs students to fail to reject when p = α; the decision rule is reject when p ≤ α."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent calculation agrees with part (a): t ≈ 2.863 and df = 14. For part (b), the correct interpretation is the probability, assuming the school's population mean difference is 0, of obtaining t ≥ 2.863 in a random sample of 15 students. The rubric's parenthetical 'a mean gain greater than 0' sets the wrong extremeness threshold. The conclusion in part (c) is correct for the supplied p-value, although c1's general decision-rule fix mishandles equality.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (b) criterion b1 and the model answer describe the p-value event parenthetically as 'a mean gain greater than 0.' The event should be a sample mean difference of at least 3.4 points, i.e., a test statistic at least as extreme as the observed t = 2.86, not any positive mean gain.",
+       "model_answer: Part (b) repeats the same incorrect parenthetical 'a mean gain greater than 0.' A strong student should describe the event as a sample mean difference of 3.4 or more, not any positive gain.",
+       "solution: Part (b): my solution interprets the p-value as the probability of obtaining a sample mean difference of at least 3.4 points assuming the population mean difference is 0. The rubric and model answer add '(a mean gain greater than 0)' as the event, which is inaccurate. Other parts agree."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 and the model answer describe the p-value event parenthetically as 'a mean gain greater than 0.' The event should be a sample mean difference of at least 3.4 points, i.e., a test statistic at least as extreme as the observed t = 2.86, not any positive mean gain."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (b) repeats the same incorrect parenthetical 'a mean gain greater than 0.' A strong student should describe the event as a sample mean difference of 3.4 or more, not any positive gain."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (b): my solution interprets the p-value as the probability of obtaining a sample mean difference of at least 3.4 points assuming the population mean difference is 0. The rubric and model answer add '(a mean gain greater than 0)' as the event, which is inaccurate. Other parts agree.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (b), criterion b1 and model answer: 'or more extreme (a mean gain greater than 0)' misstates the extreme region for the p-value. The p-value is P(sample mean difference ≥ 3.4) under H0 (equivalently t ≥ 2.86), not the probability of any positive mean gain.",
+       "model_answer: Part (b) repeats the inaccurate extreme-region wording from criterion b1; a strong student would state the probability of a sample mean difference at least as large as 3.4 points, not 'a mean gain greater than 0'."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 and model answer: 'or more extreme (a mean gain greater than 0)' misstates the extreme region for the p-value. The p-value is P(sample mean difference ≥ 3.4) under H0 (equivalently t ≥ 2.86), not the probability of any positive mean gain."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (b) repeats the inaccurate extreme-region wording from criterion b1; a strong student would state the probability of a sample mean difference at least as large as 3.4 points, not 'a mean gain greater than 0'."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T21:48:56.528Z",
+   "source": "given",
+   "item": {
+    "title": "Test of Mean Score Gain After Mnemonic Training",
+    "calculator": "permitted",
+    "stimulus": "A teacher randomly selected 15 students from a large school and gave each a vocabulary quiz before and after a mnemonic training session. For each student, the difference (after minus before) in quiz score was calculated. The sample of differences has mean 3.4 points and standard deviation 4.6 points, with no strong skewness and no outliers. The teacher tests H₀: μ_d = 0 versus Hₐ: μ_d > 0 at significance level α = 0.05, where μ_d is the population mean difference (after minus before). Technology gives a p-value of 0.0063.",
+    "parts": [
+     {
+      "prompt": "Calculate the test statistic.",
+      "criteria": [
+       {
+        "text": "Calculates the test statistic t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86.",
+        "evidence": "Response substitutes the sample values into the formula and reports t of about 2.86.",
+        "fix": "Subtract the null value from the sample statistic and divide by the standard error computed from the sample standard deviations.",
+        "accepted_variants": [
+         "2.86",
+         "2.863"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the p-value in context.",
+      "criteria": [
+       {
+        "text": "Interprets the p-value 0.0063: assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater is about 0.0063.",
+        "evidence": "Response says 0.0063 is the probability, computed assuming the mean score gain for all students after mnemonic training is 0, of getting a sample mean difference of 3.4 points or greater.",
+        "fix": "Say the p-value is the probability of a result this extreme or more, in the direction of Hₐ, assuming H₀ is true.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the p-value and the significance level α = 0.05 to state a conclusion about the claim, in context.",
+      "criteria": [
+       {
+        "text": "Compares the p-value 0.0063 with α = 0.05: because the p-value is less than α, reject H₀.",
+        "evidence": "Response compares 0.0063 with 0.05, and says reject H₀.",
+        "fix": "Compare the p-value with α: reject H₀ when the p-value is less than or equal to α, otherwise fail to reject.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes in context: there is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+        "evidence": "Response states convincing evidence for Hₐ, in terms of Hₐ and in context.",
+        "fix": "State the conclusion in terms of Hₐ in context, using 'convincing evidence' or 'not convincing evidence'.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) t = d̄/(s_d/√n) = 3.4/(4.6/√15) = 2.86, with df = 14.\n\n(b) Assuming the mean score gain for all students after mnemonic training is 0, the probability of getting a sample mean difference of 3.4 points or greater is about 0.0063.\n\n(c) The p-value 0.0063 is less than α = 0.05, so we reject H₀. There is convincing evidence that the mean score gain after mnemonic training is greater than 0 points for all students like these.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, d, s, alpha = 15, 3.4, 4.6, 0.05\nt = d / (s / math.sqrt(n))\nassert round(t, 2) == 2.86\ntail = 1 - tcdf(abs(t), n - 1)\np = tail\nassert round(p, 4) == 0.0063\nassert (p < alpha) == True\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "3": 1,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires an interpretation using a sample mean difference of 3.4 points or greater, excluding the valid alternative of describing a t-statistic of approximately 2.863 or greater with 14 degrees of freedom. Accept either interpretation while retaining the null-assumption and population-context requirements.",
+       "solution: The numerical results and conclusion agree: t ≈ 2.863, df = 14, p ≈ 0.0063, so reject H₀ at α = 0.05. However, the independent solution's valid t-statistic-based p-value interpretation does not satisfy b1's narrowly specified sample-mean evidence requirement."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires an interpretation using a sample mean difference of 3.4 points or greater, excluding the valid alternative of describing a t-statistic of approximately 2.863 or greater with 14 degrees of freedom. Accept either interpretation while retaining the null-assumption and population-context requirements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results and conclusion agree: t ≈ 2.863, df = 14, p ≈ 0.0063, so reject H₀ at α = 0.05. However, the independent solution's valid t-statistic-based p-value interpretation does not satisfy b1's narrowly specified sample-mean evidence requirement.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires an interpretation using a sample mean difference of 3.4 or greater, excluding the equally valid interpretation using t ≥ 2.86 with 14 degrees of freedom under H₀. Accept this test-statistic interpretation as equivalent evidence.",
+       "solution: The numerical results and conclusion agree: t ≈ 2.863, df = 14, p ≈ 0.0063, and reject H₀ at α = 0.05. However, the independent solution correctly interprets the p-value through the upper tail of the t distribution; b1's evidence requirement does not accept that valid alternative. No model answer was supplied or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires an interpretation using a sample mean difference of 3.4 or greater, excluding the equally valid interpretation using t ≥ 2.86 with 14 degrees of freedom under H₀. Accept this test-statistic interpretation as equivalent evidence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results and conclusion agree: t ≈ 2.863, df = 14, p ≈ 0.0063, and reject H₀ at α = 0.05. However, the independent solution correctly interprets the p-value through the upper tail of the t distribution; b1's evidence requirement does not accept that valid alternative. No model answer was supplied or evaluated.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}

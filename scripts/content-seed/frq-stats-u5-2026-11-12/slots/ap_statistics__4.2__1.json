@@ -1,0 +1,731 @@
+{
+ "id": "ap_statistics__4.2__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.2",
+  "topic_title": "Constructing a Confidence Interval for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:48:56.240Z",
+   "source": "given",
+   "item": {
+    "title": "Estimating Mean Online Checkout Time",
+    "calculator": "permitted",
+    "stimulus": "An online store wants to estimate the mean time customers take to complete checkout. From the thousands of checkouts completed this month, an analyst selects a random sample of 25 checkouts. The sample mean is 48.2 seconds and the sample standard deviation is 9.5 seconds. A dotplot of the sample shows no strong skewness and no outliers.",
+    "parts": [
+     {
+      "prompt": "Show that the conditions for the appropriate procedure for estimating the mean checkout time are met.",
+      "criteria": [
+       {
+        "text": "Checks the randomization condition: the checkouts were randomly selected.",
+        "evidence": "Response states the randomization condition in context: the checkouts were randomly selected.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 25 checkouts are less than 10% of the thousands completed this month.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 25 checkouts are less than 10% of the thousands completed this month.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+        "evidence": "Response states the sample-data condition and why it is met: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The t critical value for 95% confidence with 24 degrees of freedom is t* = 2.064. Calculate the standard error and the interval.",
+      "criteria": [
+       {
+        "text": "Calculates the standard error s/√n = 9.5/√25 = 1.90 seconds.",
+        "evidence": "Response computes the standard error from the sample statistics and reports about 1.90 seconds.",
+        "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Computes the interval 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds, using t* = 2.064.",
+        "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 44.28 to 52.12 seconds.",
+        "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+        "accepted_variants": [
+         "(44.28, 52.12)",
+         "(44.3, 52.1)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For 95% confidence, the critical value from the standard normal distribution is z* = 1.96, which is smaller than t* = 2.064. Explain why t* is larger.",
+      "criteria": [
+       {
+        "text": "States that t* = 2.064 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 24 degrees of freedom) has heavier tails than the normal distribution.",
+        "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with 24 degrees of freedom) as the reason.",
+        "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The procedure is a one-sample t-interval for a population mean. Randomization: the checkouts were randomly selected. 10% condition: 25 checkouts are less than 10% of the thousands completed this month. Sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.\n\n(b) SE = s/√n = 9.5/√25 = 1.90 seconds. The interval is 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds.\n\n(c) The t-distribution has heavier tails than the normal distribution because s is used to estimate σ (here with 24 degrees of freedom), so t* = 2.064 is larger than z* = 1.96.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, xbar, s, conf = 25, 48.2, 9.5, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nassert abs(ts - 2.064) < 0.0006\nassert round(zstar(1 - (1 - conf) / 2), 2) == 1.96 and 2.064 > 1.96\nse = s / math.sqrt(n)\nassert round(se, 2) == 1.9\nlo = xbar - 2.064 * se; hi = xbar + 2.064 * se\nassert round(lo, 2) == 44.28 and round(hi, 2) == 52.12\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 3,
+     "2": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1's evidence additionally requires estimating σ with s and mentioning 24 degrees of freedom. A valid explanation that heavier t tails require a larger cutoff to capture the same central 95% should earn credit without those additional details. Make those details optional."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1's evidence additionally requires estimating σ with s and mentioning 24 degrees of freedom. A valid explanation that heavier t tails require a larger cutoff to capture the same central 95% should earn credit without those additional details. Make those details optional."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b2 lists (44.3, 52.1) as an accepted variant, but this is a rounded approximation, not an equivalent form of the key value 44.28 to 52.12."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b2 lists (44.3, 52.1) as an accepted variant, but this is a rounded approximation, not an equivalent form of the key value 44.28 to 52.12."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Estimating Mean Online Checkout Time",
+   "calculator": "permitted",
+   "stimulus": "An online store wants to estimate the mean time customers take to complete checkout. From the thousands of checkouts completed this month, an analyst selects a random sample of 25 checkouts. The sample mean is 48.2 seconds and the sample standard deviation is 9.5 seconds. A dotplot of the sample shows no strong skewness and no outliers.",
+   "parts": [
+    {
+     "prompt": "Show that the conditions for the appropriate procedure for estimating the mean checkout time are met.",
+     "criteria": [
+      {
+       "text": "Checks the randomization condition: the checkouts were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the checkouts were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 25 checkouts are less than 10% of the thousands completed this month.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 25 checkouts are less than 10% of the thousands completed this month.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "evidence": "Response states the sample-data condition and why it is met: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The t critical value for 95% confidence with 24 degrees of freedom is t* = 2.064. Calculate the standard error and the interval.",
+     "criteria": [
+      {
+       "text": "Calculates the standard error s/√n = 9.5/√25 = 1.90 seconds.",
+       "evidence": "Response computes the standard error from the sample statistics and reports about 1.90 seconds.",
+       "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+       "accepted_variants": []
+      },
+      {
+       "text": "Computes the interval 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds, using t* = 2.064.",
+       "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 44.28 to 52.12 seconds.",
+       "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+       "accepted_variants": [
+        "(44.28, 52.12)",
+        "(44.3, 52.1)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For 95% confidence, the critical value from the standard normal distribution is z* = 1.96, which is smaller than t* = 2.064. Explain why t* is larger.",
+     "criteria": [
+      {
+       "text": "States that t* = 2.064 is larger than the normal critical value z* = 1.96 for 95% confidence, because the t-distribution (with 24 degrees of freedom) has heavier tails than the normal distribution.",
+       "evidence": "Response says t* is larger than z* and gives heavier tails of the t-distribution (using s to estimate σ, with 24 degrees of freedom) as the reason.",
+       "fix": "Recall that t-distributions have heavier tails than the normal, so for the same confidence level t* is larger than z*, especially for small samples.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The procedure is a one-sample t-interval for a population mean. Randomization: the checkouts were randomly selected. 10% condition: 25 checkouts are less than 10% of the thousands completed this month. Sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.\n\n(b) SE = s/√n = 9.5/√25 = 1.90 seconds. The interval is 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds.\n\n(c) The t-distribution has heavier tails than the normal distribution because s is used to estimate σ (here with 24 degrees of freedom), so t* = 2.064 is larger than z* = 1.96.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, xbar, s, conf = 25, 48.2, 9.5, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nassert abs(ts - 2.064) < 0.0006\nassert round(zstar(1 - (1 - conf) / 2), 2) == 1.96 and 2.064 > 1.96\nse = s / math.sqrt(n)\nassert round(se, 2) == 1.9\nlo = xbar - 2.064 * se; hi = xbar + 2.064 * se\nassert round(lo, 2) == 44.28 and round(hi, 2) == 52.12\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:48:55.634078Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:40:29.795Z",
+   "source": "given",
+   "item": {
+    "title": "Estimating Mean Online Checkout Time",
+    "calculator": "permitted",
+    "stimulus": "An online store wants to estimate the mean time customers take to complete checkout. From the thousands of checkouts completed this month, an analyst selects a random sample of 25 checkouts. The sample mean is 48.2 seconds and the sample standard deviation is 9.5 seconds. A dotplot of the sample shows no strong skewness and no outliers.",
+    "parts": [
+     {
+      "prompt": "Identify the appropriate procedure for estimating the mean checkout time and show that its conditions are met.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-interval for a population mean, because the data are one sample of quantitative values and the population standard deviation is unknown.",
+        "evidence": "Response names a one-sample t-interval for a population mean and gives the reason: the data are one sample of quantitative values and the population standard deviation is unknown.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks randomness and independence: the checkouts were randomly selected, and 25 checkouts are less than 10% of the thousands completed this month.",
+        "evidence": "Response states the randomization condition in context and, when sampling, the 10% condition: the checkouts were randomly selected, and 25 checkouts are less than 10% of the thousands completed this month.",
+        "fix": "Check the data came from random sampling or random assignment, and for sampling that the sample is under 10% of the population.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+        "evidence": "Response states the sample-data condition and why it is met: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The t critical value for 95% confidence with 24 degrees of freedom is t* = 2.064. Calculate the standard error and the interval.",
+      "criteria": [
+       {
+        "text": "Calculates the standard error s/√n = 9.5/√25 = 1.90 seconds.",
+        "evidence": "Response computes the standard error from the sample statistics and reports about 1.90 seconds.",
+        "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Computes the interval 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds, using t* = 2.064.",
+        "evidence": "Response adds and subtracts t* times the standard error, giving an interval from 44.28 to 52.12 seconds.",
+        "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+        "accepted_variants": [
+         "(44.28, 52.12)",
+         "(44.3, 52.1)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the interval in context.",
+      "criteria": [
+       {
+        "text": "Interprets the interval: we are 95% confident that the interval from 44.28 to 52.12 seconds captures the true mean checkout time for all online checkouts at this store.",
+        "evidence": "Response states the confidence level, the interval from 44.28 to 52.12 seconds, and the parameter it captures (true mean checkout time for all online checkouts at this store).",
+        "fix": "Say 'confident the interval captures the true parameter', give the interval and confidence level, and name the parameter in context.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The procedure is a one-sample t-interval for a population mean, because the data are one sample of quantitative values and σ is unknown. Randomization and independence: the checkouts were randomly selected, and 25 checkouts are less than 10% of the thousands completed this month. Sample-data condition: n = 25 is less than 30, but the dotplot of the sample shows no strong skewness and no outliers.\n\n(b) SE = s/√n = 9.5/√25 = 1.90 seconds. The interval is 48.2 ± 2.064(1.90) = 44.28 to 52.12 seconds.\n\n(c) We are 95% confident that the interval from 44.28 to 52.12 seconds captures the true mean checkout time for all online checkouts at this store.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn, xbar, s, conf = 25, 48.2, 9.5, 0.95\nts = tinv(1 - (1 - conf) / 2, n - 1)\nassert abs(ts - 2.064) < 0.0006\nse = s / math.sqrt(n)\nassert round(se, 2) == 1.9\nlo = xbar - 2.064 * se; hi = xbar + 2.064 * se\nassert round(lo, 2) == 44.28 and round(hi, 2) == 52.12\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     4
+    ],
+    "unitCount": {
+     "1": 4,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires justification of the procedure choice, although part (a) only asks students to identify the procedure and verify its conditions. Naming the correct procedure should earn a1 without the additional explanation about quantitative data and unknown population standard deviation.",
+       "accurate: Criterion c1 interprets the interval as estimating the mean for all online checkouts at the store, omitting the restriction to this month. The random sample supports inference about checkouts completed this month, not unrestricted checkouts across time.",
+       "solution: The calculations agree: SE = 1.90 seconds and the 95% confidence interval is approximately (44.28, 52.12) seconds. The independent solution correctly limits the population in part (c) to checkouts completed this month; criterion c1 omits that necessary restriction. The independent solution also correctly identifies the procedure without supplying the additional procedure-choice justification demanded by a1, which the identification task does not require."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires justification of the procedure choice, although part (a) only asks students to identify the procedure and verify its conditions. Naming the correct procedure should earn a1 without the additional explanation about quantitative data and unknown population standard deviation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1 interprets the interval as estimating the mean for all online checkouts at the store, omitting the restriction to this month. The random sample supports inference about checkouts completed this month, not unrestricted checkouts across time."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The calculations agree: SE = 1.90 seconds and the 95% confidence interval is approximately (44.28, 52.12) seconds. The independent solution correctly limits the population in part (c) to checkouts completed this month; criterion c1 omits that necessary restriction. The independent solution also correctly identifies the procedure without supplying the additional procedure-choice justification demanded by a1, which the identification task does not require.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Although five of six points assess Topic 4.2, part (c) requires interpreting a confidence interval for a population mean, which belongs to later Topic 4.3.",
+       "rubric_points: Criterion a1 requires justification for the procedure even though part (a) asks only to identify it and verify its conditions; the CED task-verb rule prohibits requiring justification for an Identify task. Criterion a2 also bundles two independently observable condition checks—randomization and the 10% condition—into one point.",
+       "accurate: Criterion c1 describes the population as all online checkouts at this store, omitting the restriction to checkouts completed this month. The random sample supports inference about this month's completed checkouts, not an unrestricted population across time.",
+       "solution: The calculations agree: SE = 1.90 seconds and the 95% interval is (44.2784, 52.1216) seconds, approximately (44.28, 52.12). For c1, the independent solution correctly restricts the population to checkouts completed this month; the rubric omits that necessary population restriction."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Although five of six points assess Topic 4.2, part (c) requires interpreting a confidence interval for a population mean, which belongs to later Topic 4.3."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires justification for the procedure even though part (a) asks only to identify it and verify its conditions; the CED task-verb rule prohibits requiring justification for an Identify task. Criterion a2 also bundles two independently observable condition checks—randomization and the 10% condition—into one point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c1 describes the population as all online checkouts at this store, omitting the restriction to checkouts completed this month. The random sample supports inference about this month's completed checkouts, not an unrestricted population across time."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The calculations agree: SE = 1.90 seconds and the 95% interval is (44.2784, 52.1216) seconds, approximately (44.28, 52.12). For c1, the independent solution correctly restricts the population to checkouts completed this month; the rubric omits that necessary population restriction.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 awards one point for two distinct condition checks: the randomization condition and the 10% condition. Each criterion should award one specific, observable element; split these into separate criteria or reword the criterion so it does not bundle two distinct checks.",
+       "accurate: Part (c), the rubric and model answer describe the parameter as 'true mean checkout time for all online checkouts at this store', but the sample was drawn only from the checkouts completed this month. The parameter should reference the population of checkouts completed this month, not all checkouts ever at the store.",
+       "model_answer: Part (c) of the model answer omits the time frame 'this month', making the parameter description too broad. A strong student answer would state the mean checkout time for all checkouts completed this month.",
+       "solution: Numeric work agrees with the rubric and model answer. In part (c), my independent solution defines the parameter as the mean checkout time for all checkouts completed this month, while the rubric and model answer say 'all online checkouts at this store', which is broader than the sampled population."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 awards one point for two distinct condition checks: the randomization condition and the 10% condition. Each criterion should award one specific, observable element; split these into separate criteria or reword the criterion so it does not bundle two distinct checks."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), the rubric and model answer describe the parameter as 'true mean checkout time for all online checkouts at this store', but the sample was drawn only from the checkouts completed this month. The parameter should reference the population of checkouts completed this month, not all checkouts ever at the store."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c) of the model answer omits the time frame 'this month', making the parameter description too broad. A strong student answer would state the mean checkout time for all checkouts completed this month."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Numeric work agrees with the rubric and model answer. In part (c), my independent solution defines the parameter as the mean checkout time for all checkouts completed this month, while the rubric and model answer say 'all online checkouts at this store', which is broader than the sampled population.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (c) criterion and model answer say the interval captures the true mean checkout time for all online checkouts at this store. The random sample was drawn from checkouts completed this month, so the population parameter must be the true mean checkout time for checkouts completed this month at this store.",
+       "model_answer: Part (c) model answer overstates the population as all online checkouts at this store; given the sampling frame, a strong student should limit the parameter to checkouts completed this month.",
+       "solution: I agree with the rubric and model answer for parts (a) and (b). For part (c), my solution refers to the true mean checkout time for all checkouts completed this month, while the rubric and model answer refer to all online checkouts at this store. Since the sample was selected only from this month's checkouts, the population should be the checkouts completed this month, not all store checkouts."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c) criterion and model answer say the interval captures the true mean checkout time for all online checkouts at this store. The random sample was drawn from checkouts completed this month, so the population parameter must be the true mean checkout time for checkouts completed this month at this store."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c) model answer overstates the population as all online checkouts at this store; given the sampling frame, a strong student should limit the parameter to checkouts completed this month."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "I agree with the rubric and model answer for parts (a) and (b). For part (c), my solution refers to the true mean checkout time for all checkouts completed this month, while the rubric and model answer refer to all online checkouts at this store. Since the sample was selected only from this month's checkouts, the population should be the checkouts completed this month, not all store checkouts.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}

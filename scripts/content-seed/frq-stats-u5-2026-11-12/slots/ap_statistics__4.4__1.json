@@ -1,0 +1,585 @@
+{
+ "id": "ap_statistics__4.4__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 4,
+  "unit_title": "Inference for Quantitative Data: Means",
+  "topic_code": "4.4",
+  "topic_title": "Setting Up a Test for a Population Mean or Population Mean Difference",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:48:56.502Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test of a Claimed Mean Bulb Life",
+    "calculator": "not_applicable",
+    "stimulus": "A company claims that its light bulbs last a mean of 1200 hours. A consumer group suspects the true mean lifetime is less than 1200 hours. The group buys a random sample of 40 bulbs from the thousands in stores nationwide and tests each one. The sample mean lifetime is 1168 hours and the sample standard deviation is 96 hours.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ as the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide.",
+        "evidence": "Response defines μ as the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ = 1200 and Hₐ: μ < 1200.",
+        "evidence": "Response writes H₀: μ = 1200 and Hₐ: μ < 1200, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+        "evidence": "Response names a one-sample t-test for a population mean.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the randomization condition: the 40 bulbs were randomly selected.",
+        "evidence": "Response states the randomization condition in context: the 40 bulbs were randomly selected.",
+        "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the 10% condition: 40 bulbs are less than 10% of all of this company's bulbs in stores.",
+        "evidence": "Response checks that the sample size is less than 10% of the population: 40 bulbs are less than 10% of all of this company's bulbs in stores.",
+        "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+        "evidence": "Response states the sample-data condition and why it is met: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) μ is the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide. H₀: μ = 1200 versus Hₐ: μ < 1200.\n\n(b) The procedure is a one-sample t-test for a population mean, Randomization: the 40 bulbs were randomly selected. 10% condition: 40 bulbs are less than 10% of all of this company's bulbs in stores. Sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+    "verification_python": "mu0, n = 1200, 40\nassert n >= 30\nassert 1168 < mu0\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 2,
+     "2": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Setting Up a Test of a Claimed Mean Bulb Life",
+   "calculator": "not_applicable",
+   "stimulus": "A company claims that its light bulbs last a mean of 1200 hours. A consumer group suspects the true mean lifetime is less than 1200 hours. The group buys a random sample of 40 bulbs from the thousands in stores nationwide and tests each one. The sample mean lifetime is 1168 hours and the sample standard deviation is 96 hours.",
+   "parts": [
+    {
+     "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+     "criteria": [
+      {
+       "text": "Defines μ as the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide.",
+       "evidence": "Response defines μ as the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide, naming the response variable and the population in context.",
+       "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States H₀: μ = 1200 and Hₐ: μ < 1200.",
+       "evidence": "Response writes H₀: μ = 1200 and Hₐ: μ < 1200, with the alternative in the correct direction.",
+       "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+     "criteria": [
+      {
+       "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean.",
+       "evidence": "Response names a one-sample t-test for a population mean.",
+       "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the randomization condition: the 40 bulbs were randomly selected.",
+       "evidence": "Response states the randomization condition in context: the 40 bulbs were randomly selected.",
+       "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the 10% condition: 40 bulbs are less than 10% of all of this company's bulbs in stores.",
+       "evidence": "Response checks that the sample size is less than 10% of the population: 40 bulbs are less than 10% of all of this company's bulbs in stores.",
+       "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Checks the sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+       "evidence": "Response states the sample-data condition and why it is met: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+       "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) μ is the true mean lifetime, in hours, of all of this company's light bulbs sold in stores nationwide. H₀: μ = 1200 versus Hₐ: μ < 1200.\n\n(b) The procedure is a one-sample t-test for a population mean, Randomization: the 40 bulbs were randomly selected. 10% condition: 40 bulbs are less than 10% of all of this company's bulbs in stores. Sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+   "verification_python": "mu0, n = 1200, 40\nassert n >= 30\nassert 1168 < mu0\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items.py, rubric_patterns.json), 2026-11-12",
+  "at": "2026-11-12T21:48:55.635399Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T21:40:30.065Z",
+   "source": "given",
+   "item": {
+    "title": "Setting Up a Test of a Claimed Mean Bulb Life",
+    "calculator": "not_applicable",
+    "stimulus": "A company claims that its light bulbs last a mean of 1200 hours. A consumer group suspects the true mean lifetime is less than 1200 hours. The group buys a random sample of 40 bulbs from the thousands in stores nationwide and tests each one. The sample mean lifetime is 1168 hours and the sample standard deviation is 96 hours.",
+    "parts": [
+     {
+      "prompt": "Define the parameter of interest and state the null and alternative hypotheses for the test.",
+      "criteria": [
+       {
+        "text": "Defines μ as the true mean lifetime, in hours, of all light bulbs made by this company.",
+        "evidence": "Response defines μ as the true mean lifetime, in hours, of all light bulbs made by this company, naming the response variable and the population in context.",
+        "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States H₀: μ = 1200 and Hₐ: μ < 1200.",
+        "evidence": "Response writes H₀: μ = 1200 and Hₐ: μ < 1200, with the alternative in the correct direction.",
+        "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+      "criteria": [
+       {
+        "text": "Identifies the appropriate procedure as a one-sample t-test for a population mean, because the data are one sample of quantitative values compared with a claimed mean and σ is unknown.",
+        "evidence": "Response names a one-sample t-test for a population mean and gives the reason: the data are one sample of quantitative values compared with a claimed mean and σ is unknown.",
+        "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks randomness and independence: the 40 bulbs were randomly selected, and 40 bulbs are less than 10% of all bulbs in stores.",
+        "evidence": "Response states the randomization condition in context and, when sampling, the 10% condition: the 40 bulbs were randomly selected, and 40 bulbs are less than 10% of all bulbs in stores.",
+        "fix": "Check the data came from random sampling or random assignment, and for sampling that the sample is under 10% of the population.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Checks the sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+        "evidence": "Response states the sample-data condition and why it is met: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+        "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) μ is the true mean lifetime, in hours, of all light bulbs made by this company. H₀: μ = 1200 versus Hₐ: μ < 1200.\n\n(b) The procedure is a one-sample t-test for a population mean, because the data are one sample of quantitative values compared with a claimed mean and σ is unknown. Randomization and independence: the 40 bulbs were randomly selected, and 40 bulbs are less than 10% of all bulbs in stores. Sample-data condition: n = 40 is at least 30, so the sampling distribution of the sample mean is approximately normal.",
+    "verification_python": "mu0, n = 1200, 40\nassert n >= 30\nassert 1168 < mu0\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "4.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     4
+    ],
+    "unitCount": {
+     "1": 2,
+     "2": 2,
+     "4": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires an explanation of the procedure choice although part (b) only asks students to identify the procedure and verify its conditions; an Identify task must not require justification. Criterion a1 also requires 'all light bulbs made by this company' rather than accepting the defensible population of this company's bulbs in stores nationwide, from which the random sample was drawn.",
+       "solution: For a1, my solution defines μ for the company's bulbs in stores nationwide, matching the stated sampling population; the rubric instead demands all bulbs made by the company. That narrower, defensible population definition should receive credit. Otherwise, my hypotheses, procedure, and condition checks agree with the rubric. The degrees of freedom supplied in my solution are unnecessary for this setup-only question."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires an explanation of the procedure choice although part (b) only asks students to identify the procedure and verify its conditions; an Identify task must not require justification. Criterion a1 also requires 'all light bulbs made by this company' rather than accepting the defensible population of this company's bulbs in stores nationwide, from which the random sample was drawn."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "For a1, my solution defines μ for the company's bulbs in stores nationwide, matching the stated sampling population; the rubric instead demands all bulbs made by the company. That narrower, defensible population definition should receive credit. Otherwise, my hypotheses, procedure, and condition checks agree with the rubric. The degrees of freedom supplied in my solution are unnecessary for this setup-only question.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires the population to be all bulbs made by the company, rejecting the defensible population of the company’s bulbs in stores nationwide from which the sample was selected. Criterion b1 requires justification of the procedure even though part (b) asks only to identify it; explaining why its conditions hold is a separate demand. Criterion b2 combines two independently observable condition checks—randomization and the 10% condition—into one point.",
+       "solution: My parameter is the true mean lifetime of the company’s bulbs in stores nationwide, matching the stated sampling population. Criterion a1 instead requires all bulbs made by the company, a broader population not necessarily represented by that sampling frame. The hypotheses, procedure, and condition checks otherwise agree with my solution. Degrees of freedom are not requested and need not receive a scoring point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires the population to be all bulbs made by the company, rejecting the defensible population of the company’s bulbs in stores nationwide from which the sample was selected. Criterion b1 requires justification of the procedure even though part (b) asks only to identify it; explaining why its conditions hold is a separate demand. Criterion b2 combines two independently observable condition checks—randomization and the 10% condition—into one point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My parameter is the true mean lifetime of the company’s bulbs in stores nationwide, matching the stated sampling population. Criterion a1 instead requires all bulbs made by the company, a broader population not necessarily represented by that sampling frame. The hypotheses, procedure, and condition checks otherwise agree with my solution. Degrees of freedom are not requested and need not receive a scoring point.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 bundles two separate conditions from Topic 4.4.C.1 — the randomization condition and the 10% condition — into a single 1-point criterion. Each condition should be scored as its own 1-point observable element, not combined into one point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 bundles two separate conditions from Topic 4.4.C.1 — the randomization condition and the 10% condition — into a single 1-point criterion. Each condition should be scored as its own 1-point observable element, not combined into one point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b2 awards one point for two distinct CED conditions: the randomization condition and the 10% condition. Each scoring criterion should award one specific, observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "4.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b2 awards one point for two distinct CED conditions: the randomization condition and the 10% condition. Each scoring criterion should award one specific, observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "arbitration": {},
+ "accepted_round": 1
+}

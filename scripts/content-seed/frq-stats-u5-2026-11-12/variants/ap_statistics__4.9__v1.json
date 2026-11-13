@@ -1,0 +1,190 @@
+{
+ "id": "ap_statistics__4.9__v1",
+ "parent": "ap_statistics__4.9__1",
+ "parent_status": "accepted",
+ "topic_code": "4.9",
+ "item": {
+  "title": "Setting Up a Test for Two Study Methods",
+  "calculator": "not_applicable",
+  "stimulus": "A teacher believes that students who study with flashcards earn a greater mean exam score than students who study by rereading notes. At a school of 400 students, 200 study with flashcards and 200 study by rereading. A counselor independently and randomly selected 14 of the students who study with flashcards (sample mean 84.3 points, standard deviation 6.2) and 16 of the students who study by rereading (sample mean 79.8 points, standard deviation 7.0). Dotplots of both samples show no strong skewness and no outliers.",
+  "parts": [
+   {
+    "prompt": "Define the parameters of interest and state the null and alternative hypotheses for the test.",
+    "criteria": [
+     {
+      "text": "Defines μ₁ and μ₂ as the μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes.",
+      "evidence": "Response defines μ₁ and μ₂ as the μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes, naming the response variable and the population in context.",
+      "fix": "Name the parameter with its symbol and say which population mean (or mean difference) it is, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "States H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0.",
+      "evidence": "Response writes H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ > 0, with the alternative in the correct direction.",
+      "fix": "Write the null with an equals sign and take the direction of the alternative from the question being investigated.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Identify the appropriate procedure and show that its conditions are met.",
+    "criteria": [
+     {
+      "text": "Identifies the appropriate procedure as a two-sample t-test for a difference in population means.",
+      "evidence": "Response names a two-sample t-test for a difference in population means.",
+      "fix": "Name the procedure from the data design: one sample, matched pairs (analyze the differences), or two independent samples.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the randomization condition: the students were selected by independent random samples from the two groups of students.",
+      "evidence": "Response states the randomization condition in context: the students were selected by independent random samples from the two groups of students.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20).",
+      "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20).",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "evidence": "Response states the sample-data condition and why it is met: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) Μ₁ is the true mean exam score, in points, of all students at the school who study with flashcards, and μ₂ is the true mean exam score of all students at the school who study by rereading notes. H₀: μ₁ − μ₂ = 0 versus Hₐ: μ₁ − μ₂ > 0.\n\n(b) The procedure is a two-sample t-test for a difference in population means, Randomization: the students were selected by independent random samples from the two groups of students. 10% condition: each sample is less than 10% of its group of 200 students (14 and 16 are each under 20). Sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+  "verification_python": "n1, n2, m1, m2 = 14, 16, 84.3, 79.8\nassert max(n1, n2) < 30\nassert m1 > m2\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:48.694Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_order": "[[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]",
+  "child_pattern": [
+   [
+    "PARAM_DEFINE",
+    "HYPOTHESES"
+   ],
+   [
+    "PROC_ID",
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 2, variant 2. Criteria per part: parent [2,4], variant [2,4]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"PARAM_DEFINE\",\"HYPOTHESES\"],[\"PROC_ID\",\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"]]\nCriterion a1 (PARAM_DEFINE): wording and values changed\nCriterion a2 (HYPOTHESES): identical wording\nCriterion b1 (PROC_ID): identical wording\nCriterion b2 (COND_RANDOM): wording and values changed\nCriterion b3 (COND_TEN): wording and values changed\nCriterion b4 (COND_NORMAL): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from fertilizer effects on corn yield to study methods and exam scores. Population sizes change from thousands of fields per group to 200 students per group in a school of 400. Sample sizes change from 36 and 40 to 14 and 16; sample means change to 84.3 and 79.8 points, and standard deviations to 6.2 and 7.0 points. The small-sample condition is now supported by stated dotplot features rather than sample sizes of at least 30. The greater-than alternative and two-sample t-test procedure remain unchanged.",
+     "numbers_recomputed": "The population counts are consistent: 200 + 200 = 400. For each group, 10% of 200 = 20 students, matching criterion b3. The sample fractions are 14/200 = 7% and 16/200 = 8%, both below 10%; equivalently, 14 < 20 and 16 < 20. Both sample sizes, 14 and 16, are below 30, matching criterion b4. The sample means and standard deviations are supplied data, not derived quantities, and no criterion requires calculations using them.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "Context changed from corn-fertilizer fields to students' study methods. Sample sizes changed from 36 and 40 to 14 and 16; population group sizes changed from thousands to 200 each; sample means/SDs changed to 84.3/6.2 and 79.8/7.0; sample-data condition changed from both n≥30 to both n<30 with dotplots showing no strong skew/outliers.",
+     "numbers_recomputed": "10% of 200 = 20, and 14 ≤ 20 and 16 ≤ 20, so the 10% condition check is correct. Sample sizes 14 and 16 are both less than 30, so the sample-data condition correctly uses the dotplot/no strong skew/no outliers route. No other criterion/model-answer number depends on the changed givens.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b4",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}

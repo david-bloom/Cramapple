@@ -1,0 +1,1096 @@
+{
+ "id": "ap_statistics__5.1__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 5,
+  "unit_title": "Regression Analysis",
+  "topic_code": "5.1",
+  "topic_title": "Graphical Representations Between Two Quantitative Variables",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:37:26.031Z",
+   "source": "given",
+   "item": {
+    "title": "Study Time and Test Score: Describing a Curved Association",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+    "parts": [
+     {
+      "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+        "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+        "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+        "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+      "criteria": [
+       {
+        "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+        "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+        "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Claim 1 (principal): students who study more hours per day always score higher. Claim 2 (parent): every student who studies 5 hours or more scored lower than every student who studies from 2.5 to 4.5 hours. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+        "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+        "evidence": "Response says Claim 2 is supported and shows every score at 5 hours or more (78, 72, 65) is below every score from 2.5 to 4.5 hours (82 or higher), for example by comparing the highest of the first group (78) with the lowest of the second (82).",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours. Claim 2: Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nassert max(y for x, y in zip(xs, ys) if x >= 5) < min(y for x, y in zip(xs, ys) if 2.5 <= x <= 4.5)\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a3 requires an explanation linking strength to closeness to a smooth curve, although the part asks only to describe strength. A correct description identifying a strong association should earn this point without that additional justification. Remove the explanation requirement or explicitly ask students to justify their assessment of strength."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a3 requires an explanation linking strength to closeness to a smooth curve, although the part asks only to describe strength. A correct description identifying a strong association should earn this point without that additional justification. Remove the explanation requirement or explicitly ask students to justify their assessment of strength."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Study Time and Test Score: Describing a Curved Association",
+   "calculator": "not_applicable",
+   "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+   "parts": [
+    {
+     "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+     "criteria": [
+      {
+       "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+       "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+       "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+       "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+       "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+       "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+       "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+     "criteria": [
+      {
+       "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+       "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+       "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Claim 1 (principal): students who study more hours per day always score higher. Claim 2 (parent): every student who studies 5 hours or more scored lower than every student who studies from 2.5 to 4.5 hours. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+     "criteria": [
+      {
+       "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+       "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+       "evidence": "Response says Claim 2 is supported and shows every score at 5 hours or more (78, 72, 65) is below every score from 2.5 to 4.5 hours (82 or higher), for example by comparing the highest of the first group (78) with the lowest of the second (82).",
+       "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours. Claim 2: Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+   "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nassert max(y for x, y in zip(xs, ys) if x >= 5) < min(y for x, y in zip(xs, ys) if 2.5 <= x <= 4.5)\nprint(\"ALL_CHECKS_PASSED\")\n"
+  },
+  "source": "Claude session author (build_items_r2.py), r2 patch 3",
+  "at": "2026-11-12T22:37:25.946734Z"
+ },
+ "history_before_patch": [
+  {
+   "round": 1,
+   "at": "2026-11-12T22:15:41.339Z",
+   "source": "given",
+   "item": {
+    "title": "Study Time and Test Score: Describing a Curved Association",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+    "parts": [
+     {
+      "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+        "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+        "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+        "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because the points follow a single curved pattern closely.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+      "criteria": [
+       {
+        "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+        "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+        "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The principal claims that students who study more hours per day always score higher. Does the data table support this claim? Justify your answer using values from the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+        "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) No. concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a3 requires explaining why the association is strong, although part (a) asks only for a description. A correct contextual description identifying a strong, inverted-U association should earn this point without additional justification. Reserve the explanation about following a curved pattern closely for part (b), which explicitly requests it."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a3 requires explaining why the association is strong, although part (a) asks only for a description. A correct contextual description identifying a strong, inverted-U association should earn this point without additional justification. Reserve the explanation about following a curved pattern closely for part (b), which explicitly requests it."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "difficulty"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T22:22:20.684Z",
+   "source": "given",
+   "item": {
+    "title": "Study Time and Test Score: Describing a Curved Association",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+    "parts": [
+     {
+      "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+        "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+        "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+        "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because the points follow a single curved pattern closely.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+      "criteria": [
+       {
+        "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+        "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+        "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Claim 1 (principal): students who study more hours per day always score higher. Claim 2 (parent): every student who studies 5 hours or more scored lower than every student who studies from 2.5 to 4.5 hours. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+        "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes Claim 2 is supported: the three students with 5 hours or more scored 78, 72 and 65 points, all below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+        "evidence": "Response says Claim 2 is supported and compares the scores at 5 hours or more (78, 72, 65) with the lowest score from 2.5 to 4.5 hours (82).",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours. Claim 2: Concludes Claim 2 is supported: the three students with 5 hours or more scored 78, 72 and 65 points, all below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nassert max(y for x, y in zip(xs, ys) if x >= 5) < min(y for x, y in zip(xs, ys) if 2.5 <= x <= 4.5)\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 explicitly requires comparing all three scores (78, 72, 65) with 82. A complete justification can instead compare only the first group's maximum, 78, with the second group's minimum, 82. Accept this valid alternative without requiring enumeration of all three scores.",
+       "solution: The independent solution agrees with all substantive answers in the rubric: the association is strong and nonlinear, its direction changes near 3.5 hours, the classmate is incorrect, Claim 1 is unsupported, and Claim 2 is supported. Criterion c2 should also accept the sufficient comparison max(78, 72, 65) = 78 < 82 without requiring all three first-group scores to be listed."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 explicitly requires comparing all three scores (78, 72, 65) with 82. A complete justification can instead compare only the first group's maximum, 78, with the second group's minimum, 82. Accept this valid alternative without requiring enumeration of all three scores."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all substantive answers in the rubric: the association is strong and nonlinear, its direction changes near 3.5 hours, the classmate is incorrect, Claim 1 is unsupported, and Claim 2 is supported. Criterion c2 should also accept the sufficient comparison max(78, 72, 65) = 78 < 82 without requiring all three first-group scores to be listed.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a3 and b1 double-count the explanation that strength measures closeness to the general pattern, including a curve. Part (a) asks for a description, but a3 additionally requires reasoning that part (b) explicitly requests. Criterion c2 also requires listing all three scores in the higher-study-time group; comparing that group's maximum, 78, with the other group's minimum, 82, is sufficient and should earn credit without listing every score."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a3 and b1 double-count the explanation that strength measures closeness to the general pattern, including a curve. Part (a) asks for a description, but a3 additionally requires reasoning that part (b) explicitly requests. Criterion c2 also requires listing all three scores in the higher-study-time group; comparing that group's maximum, 78, with the other group's minimum, 82, is sufficient and should earn credit without listing every score."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-11-12T22:30:54.052Z",
+   "source": "given",
+   "item": {
+    "title": "Study Time and Test Score: Describing a Curved Association",
+    "calculator": "not_applicable",
+    "stimulus": "A teacher recorded the daily study time, in hours, and the score on a unit test, in points, for each of 12 students.\n\nStudy time (hours per day) | Test score (points)\n0.5 | 56\n1.0 | 65\n1.5 | 72\n2.0 | 78\n2.5 | 82\n3.0 | 84\n3.5 | 85\n4.0 | 84\n4.5 | 82\n5.0 | 78\n5.5 | 72\n6.0 | 65",
+    "parts": [
+     {
+      "prompt": "Describe the association between daily study time and test score that a scatterplot of these data would show. Address form, direction and strength, in context.",
+      "criteria": [
+       {
+        "text": "Describes the form of the association as non-linear (a curve that rises and then falls).",
+        "evidence": "Response states the form of the association as non-linear (a curve that rises and then falls).",
+        "fix": "Name the form first: decide whether the points follow a straight-line pattern (linear) or a curve (non-linear).",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the direction changes: the association is positive for daily study time below about 3.5 hours and negative for larger values.",
+        "evidence": "Response says the direction changes near 3.5 hours, positive before and negative after, in context.",
+        "fix": "Read the table from left to right and say where the response variable switches from rising to falling, or the reverse.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that the association is strong because all of the points lie close to one smooth curve.",
+        "evidence": "Response describes the strength as strong and ties it to how closely the points follow the general pattern.",
+        "fix": "Judge strength by how closely the points follow the general pattern, then say strong, moderate or weak with that reason.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate says, \"The association is weak, because the points do not stay close to a straight line.\" Is the classmate correct? Explain.",
+      "criteria": [
+       {
+        "text": "States that the claim that the association is weak because the points do not stay close to a straight line is incorrect, because strength describes how closely the points follow the general pattern, which can be curved, not only a straight line.",
+        "evidence": "Response rejects the claim and says strength is judged by how closely the points follow the overall pattern, including a curved one.",
+        "fix": "Judge strength by how closely the points follow the general pattern, whether straight or curved, not by how close they are to a line.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Claim 1 (principal): students who study more hours per day always score higher. Claim 2 (parent): every student who studies 5 hours or more scored lower than every student who studies from 2.5 to 4.5 hours. For each claim, state whether the data table supports it, and justify your answer using values from the table.",
+      "criteria": [
+       {
+        "text": "Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours.",
+        "evidence": "Response says the claim is not supported and cites values from the table, such as 85 points at 3.5 hours versus 65 points at 6 hours.",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+        "evidence": "Response says Claim 2 is supported and compares the highest score at 5 hours or more (78) with the lowest score from 2.5 to 4.5 hours (82).",
+        "fix": "Check the claim against the plotted values themselves, count or cite the relevant points, and state supported or not supported.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Form: the association is non-linear; the points follow a curve (rising then falling). Direction: it changes; the association is positive for daily study time below about 3.5 hours and negative for larger values. Strength: strong, because the points follow a single curved pattern closely.\n\n(b) No. Strength describes how closely the points follow the general pattern, which can be curved. These points follow a curve closely, so the association is strong even though it is not close to a straight line.\n\n(c) Claim 1: Concludes the claim is not supported: scores rise up to 3.5 hours of study (85 points) but fall for longer study times, for example 65 points at 6 hours. Claim 2: Concludes Claim 2 is supported: the highest score among students who studied 5 hours or more is 78 points, which is below the lowest score (82 points) among students who studied 2.5 to 4.5 hours.",
+    "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nxs = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0]\nys = [56, 65, 72, 78, 82, 84, 85, 84, 82, 78, 72, 65]\npk = 6\nf = lambda x: 85 - 3.2 * (x - 3.5) ** 2\nassert max(abs(y - f(x)) for x, y in zip(xs, ys)) <= 0.51\nassert all(ys[i] <= ys[i + 1] for i in range(pk))\nassert all(ys[i] >= ys[i + 1] for i in range(pk, len(ys) - 1))\nassert ys[11] < ys[6] and xs[11] > xs[6]\nassert max(y for x, y in zip(xs, ys) if x >= 5) < min(y for x, y in zip(xs, ys) if 2.5 <= x <= 4.5)\nprint(\"ALL_CHECKS_PASSED\")\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "5.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     5
+    ],
+    "unitCount": {
+     "5": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a3 requires an explanation of why the association is strong, although the prompt only asks students to describe its strength. A correct contextual description of a strong association should earn this point without additional justification; alternatively, explicitly ask students to justify their strength description."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a3 requires an explanation of why the association is strong, although the prompt only asks students to describe its strength. A correct contextual description of a strong association should earn this point without additional justification; alternatively, explicitly ask students to justify their strength description."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c2 requires comparing the two groups’ extrema, although the prompt permits other valid numerical justifications. Listing all scores in both groups and explaining that every score in the first group is lower also fully answers the question. Accept that evidence without requiring an explicit maximum–minimum comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2 requires comparing the two groups’ extrema, although the prompt permits other valid numerical justifications. Listing all scores in both groups and explaining that every score in the first group is lower also fully answers the question. Accept that evidence without requiring an explicit maximum–minimum comparison."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "5.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

@@ -1,0 +1,200 @@
+{
+ "id": "ap_statistics__4.7__v1",
+ "parent": "ap_statistics__4.7__1",
+ "parent_status": "accepted",
+ "topic_code": "4.7",
+ "item": {
+  "title": "Estimating a Difference in Mean Seedling Heights for Two Greenhouses",
+  "calculator": "permitted",
+  "stimulus": "A botanist compares two large greenhouses. Independent random samples of seedlings were measured: 18 seedlings from Greenhouse A (mean height 14.6 cm, standard deviation 3.1 cm) and 22 seedlings from Greenhouse B (mean height 12.9 cm, standard deviation 2.8 cm). Each greenhouse holds thousands of seedlings. Dotplots of both samples show no strong skewness and no outliers.",
+  "parts": [
+   {
+    "prompt": "Show that the conditions for the appropriate procedure for estimating the difference in mean seedling height are met.",
+    "criteria": [
+     {
+      "text": "Checks the randomization condition: the seedlings were selected by independent random samples from the two greenhouses.",
+      "evidence": "Response states the randomization condition in context: the seedlings were selected by independent random samples from the two greenhouses.",
+      "fix": "Check that the data came from random selection or random assignment, and say how, in context.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the 10% condition: each sample is less than 10% of the seedlings in its greenhouse.",
+      "evidence": "Response checks that the sample size is less than 10% of the population: each sample is less than 10% of the seedlings in its greenhouse.",
+      "fix": "When sampling without replacement, compare each sample size with 10% of its population to confirm independence.",
+      "accepted_variants": []
+     },
+     {
+      "text": "Checks the sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "evidence": "Response states the sample-data condition and why it is met: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.",
+      "fix": "State the condition that applies: sample sizes of at least 30, or samples with no strong skewness or outliers.",
+      "accepted_variants": []
+     }
+    ]
+   },
+   {
+    "prompt": "Technology gives 95% confidence with approximately 34.7 degrees of freedom, so t* = 2.031. Calculate the standard error and the interval for μ₁ − μ₂.",
+    "criteria": [
+     {
+      "text": "Calculates the standard error √(s₁²/n₁ + s₂²/n₂) = √(3.1²/18 + 2.8²/22) = 0.944 centimeters.",
+      "evidence": "Response computes the standard error from the sample statistics and reports about 0.944 centimeters.",
+      "fix": "Use the standard error formula for this procedure with the sample standard deviation(s) and sample size(s).",
+      "accepted_variants": []
+     },
+     {
+      "text": "Computes the interval (14.6 − 12.9) ± 2.031(0.944) = −0.22 to 3.62 centimeters, using t* = 2.031.",
+      "evidence": "Response adds and subtracts t* times the standard error, giving an interval from −0.22 to 3.62 centimeters.",
+      "fix": "Add and subtract t* times the standard error from the sample statistic, using the given critical value.",
+      "accepted_variants": [
+       "(−0.22, 3.62)",
+       "(−0.2, 3.6)"
+      ]
+     }
+    ]
+   },
+   {
+    "prompt": "State the point estimate for μ₁ − μ₂.",
+    "criteria": [
+     {
+      "text": "States the point estimate for μ₁ − μ₂ as x̄₁ − x̄₂ = 14.6 − 12.9 = 1.7 centimeters.",
+      "evidence": "Response states 1.7 centimeters (or an equivalent form) as the point estimate for the difference in means.",
+      "fix": "Estimate a difference in population means with the difference in sample means, subtracting in the order the parameter is written.",
+      "accepted_variants": []
+     }
+    ]
+   }
+  ],
+  "model_answer": "(a) The procedure is a two-sample t-interval for a difference in population means. Randomization: the seedlings were selected by independent random samples from the two greenhouses. 10% condition: each sample is less than 10% of the seedlings in its greenhouse. Sample-data condition: both sample sizes are less than 30, but the dotplots of both samples show no strong skewness and no outliers.\n\n(b) SE = √(3.1²/18 + 2.8²/22) = 0.944 centimeters. The interval is (14.6 − 12.9) ± 2.031(0.944) = −0.22 to 3.62 centimeters.\n\n(c) The point estimate is x̄₁ − x̄₂ = 14.6 − 12.9 = 1.7 centimeters.",
+  "verification_python": "import math\nfrom mpmath import betainc, findroot\ndef tcdf(t, df):\n    x = df / (df + t * t)\n    p = 0.5 * betainc(df / 2.0, 0.5, 0, x, regularized=True)\n    return float(1 - p if t > 0 else p)\ndef tinv(p, df):\n    return float(findroot(lambda t: tcdf(t, df) - p, 2.0))\ndef ncdf(z):\n    return 0.5 * (1 + math.erf(z / math.sqrt(2)))\ndef zstar(p):\n    return float(findroot(lambda z: ncdf(z) - p, 1.5))\ndef welch(s1, n1, s2, n2):\n    a = s1 * s1 / n1; b = s2 * s2 / n2\n    return math.sqrt(a + b), (a + b) ** 2 / (a * a / (n1 - 1) + b * b / (n2 - 1))\nn1, m1, s1, n2, m2, s2, conf = 18, 14.6, 3.1, 22, 12.9, 2.8, 0.95\nse, df = welch(s1, n1, s2, n2)\nassert round(df, 1) == 34.7\nts = tinv(1 - (1 - conf) / 2, 34.7)\nassert abs(ts - 2.031) < 0.0006\nassert round(se, 3) == 0.944\nlo = (m1 - m2) - 2.031 * se; hi = (m1 - m2) + 2.031 * se\nassert round(lo, 2) == -0.22 and round(hi, 2) == 3.62\nprint(\"ALL_CHECKS_PASSED\")\n"
+ },
+ "at": "2026-11-12T21:57:48.428Z",
+ "structure": {
+  "same": true,
+  "parent_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"POINT_EST\"]]",
+  "child_order": "[[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"POINT_EST\"]]",
+  "child_pattern": [
+   [
+    "COND_RANDOM",
+    "COND_TEN",
+    "COND_NORMAL"
+   ],
+   [
+    "CI_SE",
+    "CI_INTERVAL"
+   ],
+   [
+    "POINT_EST"
+   ]
+  ]
+ },
+ "lint": [],
+ "py": {
+  "ok": true,
+  "out": "ALL_CHECKS_PASSED\n"
+ },
+ "diff": "Part count: parent 3, variant 3. Criteria per part: parent [3,2,1], variant [3,2,1]. Points: parent 6, variant 6.\nRubric pattern order (from the pattern library), parent vs variant: IDENTICAL: [[\"COND_RANDOM\",\"COND_TEN\",\"COND_NORMAL\"],[\"CI_SE\",\"CI_INTERVAL\"],[\"POINT_EST\"]]\nPart a prompt changed.\nCriterion a1 (COND_RANDOM): wording and values changed\nCriterion a2 (COND_TEN): wording and values changed\nCriterion a3 (COND_NORMAL): wording and values changed\nPart b prompt changed.\nCriterion b1 (CI_SE): wording and values changed\nCriterion b2 (CI_INTERVAL): wording and values changed; accepted variants changed\nCriterion c1 (POINT_EST): wording and values changed",
+ "checks": [
+  {
+   "model": "openai/gpt-6.1-sol",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changes from exam scores at two schools to seedling heights in two greenhouses. Sample sizes change from 32 and 35 to 18 and 22; means become 14.6 and 12.9 cm, and standard deviations become 3.1 and 2.8 cm. Thousands of seedlings establish the 10% condition, while the stated dotplot features replace large sample sizes as justification for the sample-data condition. The degrees of freedom, critical value, standard error, interval, and point estimate are updated; the rubric structure is unchanged.",
+     "numbers_recomputed": "Both sample sizes, 18 and 22, are below 30, as stated. The 10% condition requires populations greater than 180 and 220 seedlings, respectively; thousands in each greenhouse suffice. Welch degrees of freedom are approximately 34.739, matching 34.7; the 95% critical value is approximately 2.031, matching the given value. SE = sqrt(3.1²/18 + 2.8²/22) = sqrt(0.8902525) = 0.943532 cm, matching 0.944 cm. The point estimate is 14.6 − 12.9 = 1.7 cm, matching. Using the given t* and unrounded SE, the margin of error is approximately 1.9163 cm and the interval is (−0.2163, 3.6163) cm, matching (−0.22, 3.62) and its accepted rounded form (−0.2, 3.6). Using the displayed rounded SE instead gives a margin of 1.917264 cm and the same reported endpoints.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  },
+  {
+   "model": "deepseek/deepseek-v4-pro",
+   "pass": true,
+   "first": {
+    "ok": true,
+    "flagged": false,
+    "failed": [],
+    "out": {
+     "changes_listed": "The context changed from exam scores at two schools to seedling heights at two greenhouses. Sample sizes changed from 32 and 35 to 18 and 22, means and standard deviations changed, and the 10% condition is now supported by each greenhouse holding thousands of seedlings. The sample-data condition changed from relying on both sample sizes being at least 30 to relying on dotplots showing no strong skewness or outliers because both sample sizes are less than 30. Degrees of freedom and t* changed from 61.9 and 1.999 to 34.7 and 2.031. The standard error, interval, and point estimate were recomputed.",
+     "numbers_recomputed": "SE = sqrt(3.1^2/18 + 2.8^2/22) = 0.9435, which rounds to 0.944 cm; matches. Point estimate = 14.6 - 12.9 = 1.7 cm; matches. Interval = 1.7 ± 2.031(0.944) = -0.22 to 3.62 cm; matches. Welch degrees of freedom recompute to about 34.74, matching the given approximately 34.7, and t* = 2.031 is consistent.",
+     "numbers_ok": true,
+     "criteria_still_hold": [
+      {
+       "criterion": "a1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "a3",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b1",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "b2",
+       "holds": true,
+       "issue": ""
+      },
+      {
+       "criterion": "c1",
+       "holds": true,
+       "issue": ""
+      }
+     ],
+     "conditions_still_hold": true,
+     "conditions_issue": "",
+     "distinct": true,
+     "topic_unchanged": true,
+     "new_issues": ""
+    }
+   }
+  }
+ ],
+ "status": "accepted"
+}
