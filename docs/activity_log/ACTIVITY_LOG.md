@@ -4,6 +4,10 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Calculus AB and BC Unit 5 topic 5.4 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or tier-audit key flags; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status. No Production write yet for this topic.
+- Calculus AB and BC Unit 5 topic 5.3 published under the owner-directed per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack published with validated serving labels; hashes and selector passed, with zero R1, disputed keys, or duplicates in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+- Calculus AB and BC Unit 5 topic 5.2 published to Production (`APPROVAL-0267`, 2026-11-12): 12 identical new MCQs per pack with validated serving labels, selector checks passed, zero R1, disputed keys, or duplicate flags under the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+
 - Label gap fill, Units 1-5, all ten AP subjects (`APPROVAL-0265`, `APPROVAL-0266`, 2026-11-13): 595 items given validated topic cells and serving labels (serving gaps 373 to 24); live selector 595/595 with topic match; 24 residue listed; measured gateway cost $11.20. Report: `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_REPORT_2026_11_13.md`.
 - AP Biology units 1-5 explainers (33 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0263`, 2026-11-12): four fields per topic, no schema change; Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
 - AP Statistics units 1-5 explainers (55 topics) reshaped into bullets, steps and tables and applied to Production (`APPROVAL-0262`, 2026-11-12): four fields per topic, no schema change; Biology and Chemistry still Development-only; app PR 60 must be published for students to see it rendered.
