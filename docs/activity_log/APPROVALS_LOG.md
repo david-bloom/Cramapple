@@ -215,6 +215,7 @@ Most recent entries (full chronological list follows below):
 - [APPROVAL-0263 — AP Biology units 1-5 explainers reshaped into bullets, steps and tables, applied to Production (granted 2026-11-12)](APPROVAL-0263_AP_BIOLOGY_UNITS_1_5_STRUCTURED_EXPLAINERS_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0269 — Rubric repair and labeling of 16 rubric-held FRQs, Units 1-5 (granted 2026-11-13)](APPROVAL-0269_RUBRIC_PREFLIGHT_REPAIR_AND_LABEL_16_FRQS_PRODUCTION_2026_11_13.md)
 - [APPROVAL-0270 — Author the missing prompt parts of apcalcbc-frq-u13-020, publish and label (granted 2026-11-13)](APPROVAL-0270_AUTHOR_PROMPT_PARTS_APCALCBC_FRQ_U13_020_PRODUCTION_2026_11_13.md)
+- [APPROVAL-0271 — Label five of the seven residue items, Units 1-5 label-gap audit (granted 2026-11-13)](APPROVAL-0271_LABEL_5_RESIDUE_ITEMS_UNITS_1_5_PRODUCTION_2026_11_13.md)
 <!-- INDEX_END -->
 
 

@@ -1,0 +1,21 @@
+# APPROVAL-0271 — Label five of the seven residue items (Units 1-5 label-gap audit), 2026-11-13
+
+- **Date:** 2026-11-13.
+- **Authorization:** David Bloom (Product Owner), in chat: "tackle the 7 residue items", following the standing direction to publish the missing labels (original brief) and APPROVAL-0265 to 0270.
+- **What is written (Production `pcntajvbdfqhbeewmdry`), labels only, one transaction per subject:**
+  - `apphy1-mcq-022`: validated primary topic cell 6.6 (Motion of Orbiting Satellites) + validated serving label, primary unit 6, required units [2, 6] (5 of 5 votes on 6.6).
+  - `apphycm-frq-003`: topic cell 7.2 + label, primary unit 7, required units [3, 7] (5 of 5).
+  - `apchem-frq-l-017`: topic cell 8.5 (Acid-Base Titrations) + label, primary unit 8, required units [4, 8] (5 of 5).
+  - `APSTAT-MOD4-H001-INV` and `APSTAT-MOD5-H001-INV`: **no cell change.** Each keeps its existing validated primary cell (1.13 and 5.2). A validated, hash-fresh serving label is added that matches that cell's unit: MOD4 primary unit 1, required [1, 4]; MOD5 primary unit 5, required [1, 4, 5].
+  - Existing held or provisional serving labels on these items are superseded (non-validated rows only), as in APPROVAL-0266.
+- **Why these were residue:** the votes put the topic in a different unit than the unit recorded before (the first four), or disagreed with an existing validated cell (the two Statistics items). None of the five was returned by the live selector before this change (checked), so no served item moves.
+- **Flags for the owner (not changed):**
+  - Three of the items now sit outside Units 1-5 by CED topic (Physics 1 Unit 6, Physics C Mechanics Unit 7, Chemistry Unit 8). They are labeled where the CED files them; Units 1-5 students are not served them.
+  - `APSTAT-MOD4-H001-INV`: votes put the primary topic at 4.10 (5 of 6) but the existing validated cell is 1.13; kept. `APSTAT-MOD5-H001-INV`: all six votes say 1.13 (experimental design and confounding) but the existing validated cell is 5.2 Correlation; kept. Whether those two cells should change is the owner's call (a validated cell was not touched).
+- **Left unlabeled (unchanged):** `apcalcbc-frq-u13-014` (re-voted with its parts included: 4.1 x2, 5.1, 2.3, no majority) and `apprecalc-frq-np2-010` (three unrelated sub-skills; 1.11 x2, 1.8, 1.5).
+- **NOT changed:** item text, versions, rubrics, difficulty, skills, any validated cell or label, schema, functions, edge functions, frontends.
+- **Rollback:** delete the cell rows and labels with source `label_gap_fill_u1_5_r5_2026_11_13` and clear `superseded_by` on the labels they superseded.
+- **Cost:** $0.08 measured for the 014 re-vote (`scripts/content-seed/label-gap-audit-2026-11-13/stage7/cost_ledger.jsonl`); the other votes were already paid for. Gateway cap $3 (APPROVAL-0269) total so far about $0.63.
+- **Numbering check:** highest APPROVAL on origin/main, open PRs and all remote branches was 0270 (mine); this record takes 0271.
+- **Rehearsal:** four `REHEARSAL OK` (rolled back, constraints forced immediate).
+- **Result:** see the execution record appended below.
