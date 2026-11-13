@@ -4,8 +4,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
-- Calculus AB and BC Unit 5 topic 5.5 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or key flags; all rated R2. No Production write yet for this topic. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
-- Calculus AB and BC Unit 5 topic 5.4 prepared under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or tier-audit key flags; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status. No Production write yet for this topic.
+- Calculus AB and BC Unit 5 topic 5.5 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack, zero R1 or key flags; all rated R2. AB 13/13 and BC 12/12 published/valid-serving after the release. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
+- Calculus AB and BC Unit 5 topic 5.4 published under the per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack with validated serving labels; one AB blind letter disagreed while its reasoning supported the correct key, documented in the status.
 - Calculus AB and BC Unit 5 topic 5.3 published under the owner-directed per-topic Production lane (`APPROVAL-0268`, 2026-11-13): 12 mirrored MCQs per pack published with validated serving labels; hashes and selector passed, with zero R1, disputed keys, or duplicates in the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 - Calculus AB and BC Unit 5 topic 5.2 published to Production (`APPROVAL-0267`, 2026-11-12): 12 identical new MCQs per pack with validated serving labels, selector checks passed, zero R1, disputed keys, or duplicate flags under the approved two-model checks. Status: `docs/product/CALCULUS_AB_BC_UNIT5_TOPIC_RELEASE_STATUS_2026_11_12.md`.
 
