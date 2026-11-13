@@ -1,0 +1,54 @@
+# Prompt: find and fill missing labels, Units 1-5, all subjects, and publish them
+
+Paste everything below the line into a fresh Claude Code session in the Cramapple repo (a worktree on a new branch).
+
+---
+
+You are working in the Cramapple repo (governance-heavy: activity, decisions and approvals logs, task records). Start the way the repo requires: read `AGENTS.md`, route through `docs/INDEX.md`, and do not scan `docs/research`, `prompts`, `tmp`, `output`, `.worktrees`, `.claude/worktrees` or the activity-log archive. If INDEX has no entry for something, say so instead of scanning broadly.
+
+## Goal
+Across **all ten AP subjects, registry units 1 to 5**, find every published question that is missing a required label, create the missing labels, and **publish them to Production**. The Product Owner (David Bloom) has directed publication of the labels; you still follow the Hard-Gate process below (record the approval first, rehearse, verify). Questions in scope are published MCQs and FRQs (seeds and variants). Ignore retired and draft items and never change an existing validated label.
+
+## What "label" means here (confirm each against the live schema before relying on it)
+1. **Topic cell:** `app.content_item_cells` row, `is_primary`, `skill_code is null`, `assignment_status='validated'`, on the published version. Serving selects by topic cells.
+2. **Skill cell:** same table with a `skill_code` (topic x skill). Statistics skills are nullable by design (topic-only tagging is intentional); do not treat a missing skill cell as a defect unless the subject's runbook says skills are required.
+3. **Serving label:** `app.content_taxonomy_labels` (`label_scope='serving'`, `label_status='validated'`, `validated_against_taxo_hash = app.taxonomy_relevant_hash(version_id)`, i.e. hash-fresh). A stale hash silently drops the item from serving.
+4. **Difficulty row:** `app.content_item_difficulty` (provisional: `basis='calibrated_judgement'`, `confidence='low'`; variants use basis `translated` from their seed).
+Define "missing" precisely per type in your audit, from the newest migration or script that writes each one.
+
+## Known starting facts (verify, do not trust)
+- **30 AP Statistics FRQs** `apstats-frq-u45r2-%` were published 2026-11-12 under APPROVAL-0257 as **content only: no cells, no serving labels, no difficulty rows.** Record: `docs/activity_log/APPROVAL-0257_STATS_UNITS_4_5_FRQS_CONTENT_ONLY_PRODUCTION_2026_11_12.md`. Seeds are `-s`; variants `-v1`, `-v2` inherit the seed's labels. Seed topic votes and checker difficulty labels are in each item's `prompt_json.provenance` and in `scripts/content-seed/frq-stats-u5-2026-11-12/r2/slots/`. Topic 5.3 seed has no majority difficulty (checkers split): label it from the provenance and mark it low confidence.
+- FRQ Units 1-3 topic labels were written under APPROVAL-0143/0146 (`docs/handoffs/SESSION_CLOSE_2026_10_10_FRQ_GAP_FILL_UNITS_1_3.md`). The **158 Units 4+ FRQ topic-probe labels from that audit were never written**; start from `docs/qa/evidence/frq_units13_audit_2026_10_09/` and `scripts/content-seed/frq-topic-labels-u13-2026-10-09/`.
+- Per-subject taxonomy serving-label runs exist in `docs/qa/*_TAXONOMY_SERVING_LABEL_RUN_*.md`; the Units 1-3 method, voting rules and database traps are in `docs/handoffs/UNITS_1_3_PIPELINE_RUNBOOK_AND_SESSION_CLOSE_2026_10_04.md` (START HERE for label and publish mechanics). Newer Unit 4/5 re-leveling and harder-seed batches (APPROVAL-0214 to 0256, 2026-11-10 to 11-12) published MCQs with labels; confirm what they did and did not label.
+
+## Traps that have bitten this repo (read the linked memory-style notes in the runbook; summary)
+- **Subject-key namespaces:** the registry uses hyphens (`ap-calculus-ab`, `biology`); taxonomy and guides use underscores (`ap_calculus_ab`). A mismatch matches zero rows and reads as "nothing missing". Physics 2 is registry units 9-11 and Physics C: E&M is 8-10 for their first three units; decide how "Units 1-5" maps for those two subjects, state it in the audit, and ask only if the repo does not settle it. AP Statistics has five units.
+- **Silent absence:** the serving path reports absence as normality. Never model a selector's predicate in SQL; call `select_student_practice_items` / the live function for spot checks. Content migrations come before label migrations.
+- **Dev lags Production** (ledger, functions, tables like difficulty and validation decisions). Do the audit and the write against Production; use Dev only for rehearsal logic that Dev's schema supports, and compare function md5s across environments. Dev and Production item ids differ; join on natural keys (`content_key`, topic code).
+- **Supabase CLI without `--workdir` resolves to `~/supabase` = Production.** Pin `--workdir`, confirm the project ref with `--debug` before any write. The batch scripts (`scripts/content-seed/publish_mcq_batch.py`, `frq-u13-gap-fill-2026-10-09/publish_frq_batch.py`, `frq-stats-u5-2026-11-12/r2/publish_frq_content_only.py`) use the Management API with the CLI token: `query(ref, sql)`, `ENVS`, rehearsal = full transaction that raises and rolls back.
+- **Stale-label trigger:** editing an item's text after its label was validated makes the label stale; a new label must be validated against the current version hash. Adding a column to an app table does not update its public view.
+- **Approval-number collisions:** unmerged PRs and branches claim APPROVAL/DECISION/TASK numbers. Search open PRs (`gh pr list`) and all remote branches for the highest number before you assign yours; renumber with a note if you collide; union-merge the logs.
+- **Verify counts from raw results** before reporting; recount what drives decisions.
+- `public.profiles` has no `id` column (only `user_id`); `mcq_choices` answer keys are hidden by column grants; use the `apikey` header with new secret keys, not `Authorization: Bearer`.
+- Gateway: the AI Gateway key is gitignored in the main repo (`scripts/vercel-gateway-check/.env.local`); symlink it into your worktree and `node_modules`, never print it. The key is **shared with other sessions**: balance deltas are not attribution, so price calls from token usage and keep a ledger. Check the credit balance before a paid run and stop at a spend cap you state up front.
+
+## Method (in this order; stop and report at each stage boundary)
+**Stage 1: read-only audit.** For every subject and unit 1-5: published item counts, and the count and list of items missing each label type above, split MCQ/FRQ and seed/variant. Output a table and a machine-readable file under `docs/qa/` (name it with the date). State the definition of "missing" you used, the namespace and unit mapping, and Production's exact row counts. Recount from raw query output. Flag anything surprising (items with a cell but a stale or absent serving label; cells with no topic in the taxonomy; unit mismatches; held items) as questions, not fixes.
+
+**Stage 2: plan and cost.** For each gap say which method fills it: (a) **inherit** (variant from its seed, same topic, same required units), (b) **deterministic** (already-computed votes, provenance, or a CED-text rule), (c) **model vote** (six-vote topic probe: gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol x2, accept at >= 5 of 6, required units named by >= 4 of 6, CED-text tiebreak recorded; skills: 3 of 4 votes; vote the seeds and let variants inherit; both checker families must agree to seed a topic or the item is dropped from labeling and listed). Refresh the model roster (`gateway.getAvailableModels()`) and confirm each model still exists. Estimate gateway cost per method and in total. The Product Owner is not a mathematics or science specialist: arbitrate with the CED text (`subject packs/` PDFs and the fact packs in `docs/product/*_CED_FACT_PACK.md`), not with opinion.
+
+**Stage 3: generate labels (no Production writes).** Write load-ready files and a plan per subject. Use the existing probe and write scripts as templates (`scripts/content-seed/frq-topic-labels-u13-2026-10-09/`, `write_topic_cells.py`). Record every paid call (model, input and output tokens, USD) in a ledger file as you go, and report measured gateway spend and your own session-slice estimate separately. Never hand-edit an item or a label to get a vote to pass; log rulings per item.
+
+**Stage 4: Production publish (Hard-Gate).** The Product Owner has directed publication of these labels, so you do not need to ask again unless Stage 1 or 3 uncovers something outside this brief (for example an item whose topic is genuinely contested, a cell that would change what is currently served, or a mapping you cannot resolve). Before any Production write: (1) check the highest approval number on main, every open PR and all remote branches, then write the `APPROVAL-NNNN` record (scope with exact counts, basis = David's direction in this prompt, rollback, what is not changed) and commit and push it; (2) rehearse the exact transactions in rollback form per subject; (3) publish one rehearsed transaction per subject with an advisory lock, the way `publish_frq_batch.py` does; (4) verify independently after commit. Labels are additive: do not modify or supersede an existing validated label; where one must change, stop and ask.
+
+**Stage 5: verify and report.** Recount the gap table: every in-scope published item has each required label, and the count of missing is zero or an explained, listed residue. Call the live selector (`select_student_practice_items` or the current equivalent) for a spot check per subject and unit and confirm newly labeled items are returned as topic matches (include the 30 Statistics `apstats-frq-u45r2-%` FRQs). Check that no previously served item stopped being served (compare the selector's output for a sample before and after).
+
+## Deliverables
+- The audit report and gap table (`docs/qa/`), the plan, the load files and scripts under `scripts/content-seed/<dated-folder>/`, the cost ledger and a one-page cost report (measured gateway vs session-slice estimate, per method and in total).
+- Approval and activity-log entries per repo governance; update `docs/INDEX.md`; a session-close handoff in `docs/handoffs/` with the exact next step and a "do not touch" list.
+- A branch and a PR. A PR containing scripts is for the owner to merge unless he tells you otherwise; docs-only PRs you may merge when CI is green. Update the PR description with results and open items.
+
+## Rules of engagement
+- Report faithfully: failures, skipped steps and unverified claims stated plainly; no "should work".
+- Keep the user informed in short plain updates; end with what changed, what is verified, what is not, and any single decision you need from the owner.
+- Do not publish anything other than labels, retire or edit any item, or touch the Lovable frontends, migrations or edge functions.
