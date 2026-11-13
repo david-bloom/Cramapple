@@ -20,3 +20,50 @@ The two preexisting AB items remain published but unserved; they are R2 and are 
 Checks: format validator passed for both packs; each built two load chunks. DeepSeek and Kimi independently selected the keyed answer on all 12 AB items and all 12 BC items. Both tier models returned a tier for every item: AB 0 R1, 8 R2, 4 R3; BC 0 R1, 12 R2, 0 R3. Neither audit flagged a duplicate or disputed key. The author manually checked the MVT hypotheses and endpoint arithmetic: the cubic matching-slope equations, closed/open interval restrictions, continuity and differentiability counterexamples, and signed average rates. Every distractor rationale was checked against its own premise and key. No subject-expert review is claimed.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0260` on 2026-11-12. Each executor preflight found zero old retire keys and zero new existing keys; two load chunks per course, 12/12 draft hashes, successful rolled-back publish rehearsal, 12 published/12 topic cells/12 validated labels, 12/12 post-publish hashes, and new items returned by the student selector. Independent read-only Production verification found AB 14 published topic 5.1 MCQs with 12 valid serving labels (all 12 new), and BC 12 published with 12 valid serving labels (all 12 new).
+
+## Topic 5.2 — Extreme Value Theorem, extrema, and critical points
+
+The read-only 2026-11-12 Unit 5 audit found one published AB topic 5.2 MCQ, rated R2, without a valid serving label. BC had none. The shared CED lists topic 5.2 as FUN-1.C.1–3. The author wrote three families and three variants per family (12 items) covering EVT hypotheses, the distinction between critical points and local extrema, and comparisons of local and absolute extrema. The AB and BC packages use identical stems, choices, keyed positions, and rationales. Required units are `[5]` from the verified Unit 5 taxonomy mapping and validated labels elsewhere in the unit. Neither package retires an old item.
+
+| Pack | Old published | Old valid serving | Old R1/R2/R3 | New seeds/variants | New R1/R2/R3 | Retire | Projected published | Projected valid serving |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| AB | 1 | 0 | 0/1/0 | 3/9 | 0/10/2 | 0 | 13 | 12 |
+| BC | 0 | 0 | 0/0/0 | 3/9 | 0/11/1 | 0 | 12 | 12 |
+
+The AB new family counts are one R2 seed, nine R2 variants, and two R3 seeds; including the old item, two R2 seeds remain published. BC has two R2 seeds, nine R2 variants, and one R3 seed. Tiers are uncalibrated model judgments. A cross-family and retained-old difflib comparison found zero stem pairs above 0.80.
+
+A first AB execution attempt stopped during preflight, before any Production write, because the reused `b8` key prefix was already present for topic 5.1. Both topic 5.2 packages were rebuilt under the Production-verified unused `b9` prefixes and all checks were rerun with the same results. The per-topic prefix must be unique for later releases.
+
+The format validator passed for both packs; each built two load chunks. DeepSeek and Kimi blind checks independently agreed with all 12 keys in each course. Both tier models returned all 12 tiers: AB 0 R1, 10 R2, 2 R3; BC 0 R1, 11 R2, 1 R3, with no duplicate or disputed-key flags. The author checked every example's domain, interval, derivative definition, and monotonic segment against the stated endpoint values. The wrong-choice rationales were checked against their own question premises. No subject-expert review is claimed. The one-time approved quality-gate exception applies.
+
+**Execution state:** Published to both Production packs under `APPROVAL-0267` on 2026-11-12. Each executor preflight found zero old retire keys and zero new existing keys; two load chunks per course, 12/12 draft hashes, successful rolled-back publish rehearsal, 12 published/12 topic cells/12 validated labels, 12/12 post-publish hashes, and new items returned by the student selector. Independent read-only Production verification found AB 13 published topic 5.2 MCQs with 12 valid serving labels (all 12 new), and BC 12 published with 12 valid serving labels (all 12 new).
+
+**Post-release inventory note (2026-11-13):** A separate label-gap release changed the broader Unit 5 inventory after the two topic releases. A fresh read-only count found topic 5.1 AB 14 published/14 valid-serving and BC 13/13; topic 5.2 AB 13/13 and BC 12/12. The original per-release counts above remain the execution-time evidence.
+
+## Topic 5.3 — Increasing and decreasing intervals
+
+Before write, a 2026-11-13 read-only Production query found no published AB topic 5.3 MCQ and one published/servable BC MCQ (`apcalcbc-mcq-029`, rated R2 in the prior Unit 5 audit). No R1 retirement applies. The shared CED identifies FUN-4.A.1 and derivative sign reasoning. Three new seed families with three variants each cover factored derivatives, derivative sign representations, and rational derivatives with domain gaps. The AB and BC package stems, choices, keyed positions, and rationales match 12/12.
+
+| Pack | Existing published / servable | New seeds / variants | New R1 / R2 / R3 | Retire | After published / servable |
+|---|---:|---:|---:|---:|---:|
+| AB | 0 / 0 | 3 / 9 | 0 / 8 / 4 | 0 | 12 / 12 |
+| BC | 1 / 1 | 3 / 9 | 0 / 10 / 2 | 0 | 13 / 13 |
+
+AB new tiers split into one R2 seed, seven R2 variants, two R3 seeds, and two R3 variants. BC new tiers split into two R2 seeds, eight R2 variants, one R3 seed, and one R3 variant; the existing BC R2 seed remains. Tiers are uncalibrated. Cross-family and retained-old stem similarity over 0.80: zero. Both drafts validated and built two load chunks each. DeepSeek and Kimi blind solves agreed 12/12 in each course; both tier models returned a tier for all 12, with zero R1, duplicate, disputed-key, or missing-model flags. The author checked every derivative sign interval, even-multiplicity zero, domain break, and function-value inference, and the rationale for each wrong choice. No subject-expert review is claimed. The one-time QA exception applies.
+
+**Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor preflight found zero existing new keys and zero retire keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned new items through the student selector. Independent read-only Production verification found AB 12 published/12 valid-serving, BC 13/13, with 12 new items in each pack.
+
+## Topic 5.4 — First Derivative Test
+
+Before write, a 2026-11-13 read-only Production query found AB 3 published/servable topic 5.4 MCQs and BC 2/2. The earlier tier audit rated the AB three R2, BC one R2 and one R3. No R1 retirement applies. Three compactly authored families and three variants each (12 items per pack) cover simple derivative zeros, a sign chart with a stationary non-extremum, and even-multiplicity zeros. AB and BC stems, choices, keys, and rationales match 12/12. Required units `[5]` follow the verified taxonomy and existing validated Unit 5 labels.
+
+| Pack | Existing published / servable | New seeds / variants | New R1 / R2 / R3 | Retire | After published / servable |
+|---|---:|---:|---:|---:|---:|
+| AB | 3 / 3 | 3 / 9 | 0 / 10 / 2 | 0 | 15 / 15 |
+| BC | 2 / 2 | 3 / 9 | 0 / 11 / 1 | 0 | 14 / 14 |
+
+AB new tiers: three R2 seeds, seven R2 variants, two R3 variants. BC new tiers: three R2 seeds, eight R2 variants, one R3 variant. Tiers are uncalibrated. Cross-family/retained-old similarity over 0.80: zero. Both drafts validated and built two load chunks; both tier models returned all 12 ratings with no R1, duplicate, disputed-key, or missing-model flags. Kimi's blind solve agreed 12/12 in AB and BC; DeepSeek agreed 11/12 in AB and 12/12 in BC. For AB variant `apcalcab-mcq-b11-sv-h-5.4-b-v1`, DeepSeek selected B but its written explanation says f' changes from negative to positive at x=-3 (local minimum), stays positive at x=1 (neither), and changes positive to negative at x=4 (local maximum). Those facts establish keyed A, which is text-identical to the BC item both blind solvers keyed correctly. The author checked all derivative sign patterns and rationales by hand; this is a resolved model-letter disagreement, not an unresolved key.
+
+The old AB item `apcalcab-mcq-037` was flagged `key_disputed` in the before audit. Its derivative is x³−3.2x²−1.1x+2.4. Numerical roots are -0.909654, 0.796276, 3.313378, with derivative signs −/+, +/−, −/+ around them. Thus only x=0.796 is a local maximum, matching its published B key. No correction or retirement is needed. No subject-expert review is claimed. The one-time QA exception applies.
+
+**Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero existing new keys and zero retire keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 15 published/15 valid-serving, BC 14/14.

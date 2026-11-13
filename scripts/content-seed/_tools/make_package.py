@@ -69,7 +69,8 @@ g=re.sub(r'^NOTE=.*$',
          g,flags=re.M)
 g=g.replace(f"topics {U}.x belong to unit 3; required_units set per topic from existing Unit 3 labels",
             f"topics {U}.x belong to unit {U}; required_units set per topic from verified serving labels and taxonomy mapping")
-g=g.replace("scripts/content-seed/apchem-harder-seeds-u3-2026-11-12", "scripts/content-seed/"+os.path.basename(folder))
+g=re.sub(r"scripts/content-seed/apchem-harder-seeds-u3-\d{4}-\d{2}-\d{2}",
+         "scripts/content-seed/"+os.path.basename(folder),g)
 i=g.index("OLD=["); j=g.index("assert len(OLD)"); k=g.index("\n",j)
 g=g[:i]+"OLD=json.load(open('superseded_keys.json'))\nNOLD=len(OLD)\nassert NOLD==len(set(OLD))"+g[k:]
 # the topic guard must test the taxonomy itself, not existing content cells (a brand-new topic has no cells yet)
