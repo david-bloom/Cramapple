@@ -6,9 +6,9 @@ Owner direction (2026-11-13): **serving labels and topic cells only**; difficult
 | Group | Items | Notes |
 |---|---|---|
 | No serving label at all | 213 | Stats 183 MCQ seeds with an `authored` topic cell (legacy), 20 u45r2 FRQ variants, 10 u45r2 FRQ seeds |
-| Only a non-validated serving label | 160 | provisional_model 89, held 68, legacy_unvalidated 2, stale 1 (all have a validated topic cell except 56 that also lack one) |
-| Serving ok, topic cell not validated | 246 | no cell 69 (MCQ 43 + FRQ 26), provisional_model (Calc AB) 156 (MCQ 31+FRQ 26 seeds, 100 variants incl. 85 MCQ + 15 FRQ), authored 20 |
-Held reasons on the 68 held (all held-label rows, 227 in total): model_unit_disagreement 129, rubric_preflight_failure 37, other 30, empty_required_units 17, model_call_failure 10, ab_bc_only_content 3, one exam-scoring item.
+| Only a non-validated serving label | 160 | provisional_model 89, held 68, legacy_unvalidated 2, stale 1 (66 of them also lack a validated topic cell) |
+| Serving ok, topic cell not validated | 246 | no cell 69 (MCQ 43 + FRQ 26), provisional_model (Calc AB) 157 (57 seeds: MCQ 31 + FRQ 26; 100 variants: MCQ 85 + FRQ 15), authored 20 |
+Held reasons across all 227 active held serving labels in Production (not only these 68): model_unit_disagreement 129, rubric_preflight_failure 37, other 30, empty_required_units 17, model_call_failure 10, ab_bc_only_content 3, one exam-scoring item.
 
 ## Method per group
 - **(b) Deterministic, 10 items:** the u45r2 Statistics FRQ seeds. Topic and required unit come from the stored six-vote probe and ruling in `prompt_json.provenance` and `scripts/content-seed/frq-stats-u5-2026-11-12/r2/slots/`. Topic 5.3 seed: checkers split on difficulty (not relevant to topic); topic from the votes, confidence recorded low.
@@ -17,7 +17,7 @@ Held reasons on the 68 held (all held-label rows, 227 in total): model_unit_disa
 
 ## Rules this plan applies (each is a place where I stop rather than guess)
 1. **Never change an existing validated label.** Labels are added; there are none to supersede for these 619 (every validated item already has it).
-2. **Calculus AB provisional topic cells (156 items).** The database allows one primary cell per version, so a validated cell cannot sit beside the provisional one. Plan: promote the provisional cell to validated **in place only when the vote agrees with its topic**; where the vote disagrees, leave it and list it. This changes a non-validated row only, and the served set does not change (the selector ignores provisional cells for `topic_match`). *Needs your yes before Stage 4.*
+2. **Calculus AB provisional topic cells (157 items).** The database allows one primary cell per version, so a validated cell cannot sit beside the provisional one. Plan: promote the provisional cell to validated **in place only when the vote agrees with its topic**; where the vote disagrees, leave it and list it. This changes a non-validated row only, and the served set does not change (the selector ignores provisional cells for `topic_match`). *Needs your yes before Stage 4.*
 3. **Held items (68) and provisional serving labels (89).** A new validated label is added only when the hold reason is gone: model_call_failure and empty_required_units get a fresh probe; model_unit_disagreement is released only if both families now agree at >=5 of 6; rubric_preflight_failure, ab_bc_only_content, the exam-scoring item and "other" stay held and are listed (about 68 minus those). Releasing a held item makes it newly served, so each such release goes in the approval record by key.
 4. **Statistics 183 unserved MCQ seeds** with only an `authored` cell: probe them like any seed; publish only the ones both families agree on. This makes legacy items newly served (owner Q2 is answered by your direction to label them; items that fail the vote stay dark and are listed).
 5. Hash freshness: every new serving label is validated against `taxonomy_relevant_hash(latest version)` inside the transaction; no item text is edited.
