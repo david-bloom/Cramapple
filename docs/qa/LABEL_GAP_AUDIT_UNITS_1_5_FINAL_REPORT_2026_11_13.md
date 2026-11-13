@@ -10,7 +10,7 @@ Scope (owner): serving labels and topic cells only for published MCQs and FRQs; 
 | Difficulty row (out of scope) | 2,467 | 2,467 |
 | Skill cell (out of scope) | 3,237 | 3,237 |
 
-**595 items labeled in total** (513 + 82); 349 of those received a new validated serving label (298 + 51), including 183 Statistics items that had none and 38 + 12 released holds (36 + 12).
+**595 items labeled in total** (513 + 82); 349 of those received a new validated serving label (298 + 51), including 183 Statistics items that had none and 48 released holds (36 in round 1, 12 in round 2).
 
 ## Listed residue: 24 items still not served (`docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_RESIDUE_2026_11_13.json`)
 - 17 held for `rubric_preflight_failure` (FRQ rubric defects; a label cannot fix them; need a rubric repair first).
