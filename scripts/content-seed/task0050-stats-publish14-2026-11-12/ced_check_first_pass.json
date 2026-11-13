@@ -1,0 +1,316 @@
+[
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-021",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Requirement to physically construct a graph by hand and submit it as a photograph."
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The statistical content of the question is fully in scope. Topic 2.1 in the fact pack covers 'Tabular and Graphical Representations for the Distributions of Two Categorical Variables', and the unreviewed deep-tier detail in Section 10 explicitly mentions 'segmented bar charts' as an assessed representation under this topic (EK 2.1.A.2). Topic 2.2 covers 'Summary Statistics for Two Categorical Variables,' which includes the calculation of conditional relative frequencies. The requirement to compare distributions is also central to these topics. However, the question's response modality is explicitly out of scope. Section 7 of the fact pack states the exam is 'Fully digital in Bluebook' and that questions are 'designed to minimize burdensome symbolic entry.' It further specifies that 'hand-drawn graph practice ... is tagged supplemental (`supplemental_hand_drawn`), never represented as simulating the real exam.' The question's instruction to 'Submit one photograph showing your constructed graph' directly contradicts this specification by requiring a hand-drawn response submitted via a method unavailable on the actual exam.",
+    "attempts": 4,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-021",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Criteria 3 (DISTRIBUTION_COMPARISON) and 4 (COMPARISON) overlap: a single statement comparing biking (30% vs 15%) plus one other mode could satisfy both, so the same work is double-scored and the two criteria are not independently earnable as the E/P/I-style component convention implies.",
+      "Stem asks the student to compare 'using at least two relative frequencies, including biking,' while criterion 3 is worded as comparing 'at least two transportation modes' — slightly different demands (frequencies vs. modes), which could create scoring ambiguity.",
+      "Minor structural mismatch with the fact pack's FRQ convention (4 questions at 10 points each, component-counted E/P/I); this item is a 4-point binary-criterion FRQ, and the stem requires a submitted photograph of a hand-drawn graph, which the fact pack classifies as supplemental rather than exam-aligned digital practice."
+    ],
+    "confidence": 0.86,
+    "reasoning": "All content required is within the fact pack: segmented bar charts for two categorical variables are explicitly included in Topic 2.1 (per the 2026-10-16 correction citing EK 2.1.A.2), conditional/within-group relative frequencies are covered in 2.1–2.2, and constructing tabular/graphical representations (Skill 3.A) plus describing/comparing representations (4.A/4.B) are in-scope practices. The arithmetic checks out (Freshman total 80 → bike 24/80 = 30%; Senior total 60 → bike 9/60 = 15%), so the rubric's stated values are internally correct and no out-of-scope mechanism (e.g., chi-square inference, goodness-of-fit, mosaic-specific analysis, significance testing) is required. The only concerns are rubric-design overlap between the two comparison criteria, a wording mismatch between stem and criterion 3, and the hand-drawn/photograph modality which the fact pack treats as supplemental rather than exam-aligned — none of which are content-scope violations.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-022",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Hand-drawing a graph for submission.",
+      "Submitting a response via photograph."
+    ],
+    "internal_consistency_issues": [
+      "The rubric separates the scoring for comparing distributions (`DISTRIBUTION_COMPARISON`) and the correctness of one specific comparison (`COMPARISON`) in a way that could lead to confusing scoring outcomes. For instance, a student could correctly compare only the delivery category, earning the `COMPARISON` point, while failing to meet the stimulus requirement to compare `at least two` order types and thus potentially failing the `DISTRIBUTION_COMPARISON` criterion."
+    ],
+    "confidence": 1,
+    "reasoning": "The statistical concepts tested by the question—creating a segmented bar graph from a two-way table, calculating conditional relative frequencies, and comparing distributions of categorical data—are all fully in scope per the CED fact pack (specifically Topic 2.1). However, the item's required response modality is explicitly out of scope. The stem's instruction to \"Submit one photograph showing your constructed graph\" directly contradicts the fact pack's Section 7, which states the exam is \"Fully digital in Bluebook\" and that hand-drawn graph items are \"tagged supplemental_hand_drawn, never represented as simulating the real exam.\" The exam does not involve photographic submissions. Therefore, the task as presented is not conformant with the described exam administration.",
+    "attempts": 7,
+    "mode": "text_json"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-022",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Criteria 3 (DISTRIBUTION_COMPARISON: compare at least two order types using relative frequencies) and 4 (COMPARISON: state Suburban has larger delivery relative frequency) substantially overlap — a response comparing delivery plus one other order type satisfies both, so the two points are not cleanly independent as the CED's independent-point convention expects.",
+      "Task-verb mismatch: the stem says 'Complete a segmented bar graph,' but in the CED task-verb list 'Complete' means identify parts/justify conditions/calculate an inference result, while building a graphical display is 'Construct.' The rubric criterion (SEGMENTED_BARS: 'Draws two complete segmented bars') matches 'Construct,' not 'Complete.'",
+      "Modality note: the item requires a photograph of a hand-drawn graph, which the fact pack classifies as 'supplemental_hand_drawn' (no Desmos equivalent) rather than exam-aligned digital; the stem does not label it as supplemental practice."
+    ],
+    "confidence": 0.86,
+    "reasoning": "All content required is inside the fact pack. Two-way table of two categorical variables with within-group (conditional) relative frequencies is Topic 2.1-2.2 (joint/marginal/conditional relative frequency), and the 2026-10-16 correction explicitly adds segmented bar charts to Topic 2.1 (EK 2.1.A.2). Constructing a tabular/graphical representation is Skill 3.A; describing/comparing representations and justifying a claim from the results are Skills 4.A/4.B, both tagged to Topics 2.1-2.2 and 1.3-1.4. No inference, no chi-square, no removed topic (no goodness-of-fit, no geometric distribution, no combining random variables, no slope inference, no departures-from-linearity framing) is invoked. The arithmetic is internally correct: Downtown totals 120 with delivery 30/120 = 25%; Suburban totals 80 with delivery 44/80 = 55%, matching the rubric's stated 55% versus 25%. The only issues are authoring/rubric-design concerns (overlapping independently scored points, a task verb that does not match the CED's definition, and an unlabeled hand-drawn/photograph modality that the fact pack treats as supplemental rather than exam-aligned), not out-of-scope content.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-024",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Requirement for a student to produce a hand-drawn graph as a scored response artifact."
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The statistical concepts tested by the question—interpreting a two-way table, calculating conditional proportions, and understanding the construction of a mosaic plot—are in scope. The CED fact pack explicitly includes mosaic plots as a graphical representation for two categorical variables under Topic 2.1 (§10, 2026-10-16 correction). However, the question's required response modality is out of scope. The fact pack states in §7 that the exam is fully digital and that questions requiring hand-drawn graphs are considered supplemental, \"never represented as simulating the real exam.\" The prompt's instructions to \"Draw a mosaic plot\" and \"Submit one photograph\" require a non-digital, hand-drawn response, which is inconsistent with the described format of the AP exam. Therefore, the task itself, rather than the underlying concepts, is out of scope for an item intended to simulate the exam.",
+    "attempts": 7,
+    "mode": "text_json"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-024",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Task-verb/rubric mismatch (§6 authoring rule): the stem's final demand is 'identify which department has the largest number of employees preferring in-person meetings' (Identify = name without elaboration), but criterion AREA_OR_COUNT_REASONING requires the student to 'use the counts or mosaic areas' as supporting evidence — i.e., it demands justification from an 'identify' prompt.",
+      "The item appears designed to contrast conditional proportion with raw count, but with the given data Sales has both the largest in-person conditional proportion (50/70 ≈ 0.71 vs 15/90 ≈ 0.17 and 40/115 ≈ 0.35) and the largest in-person count (50). CONDITIONAL_COMPARISON and AREA_OR_COUNT_REASONING therefore both resolve to 'Sales', so the intended proportion-vs-count discrimination is not actually exercised by the data.",
+      "Rubric structure is 4 independent binary points rather than the component-counting E/P/I structure the fact pack's conventions say multi-part FRQ-style rubrics should mirror, and the total (4 points) does not match the 10-point FRQ norm in §5 — a formatting/alignment inconsistency rather than a content error.",
+      "The stem instructs 'Submit one photograph showing your constructed graph,' which is a hand-drawn modality; per §7 this must be tagged supplemental_hand_drawn and not presented as exam-aligned (fully digital Bluebook with Desmos). The item text gives no such signal, so the modality claim is unverifiable from the question alone."
+    ],
+    "confidence": 0.84,
+    "reasoning": "Every concept the item requires is covered by the fact pack: two-way (contingency) tables of two categorical variables (Topics 2.1–2.2), conditional relative frequencies (cell/row total), and mosaic plots — which are explicitly added to Topic 2.1 scope by the approved 2026-10-16 correction citing EK 2.1.A.2 (side-by-side, segmented bar charts, and mosaic plots). Constructing the representation maps to skill 3.A, and comparing conditional distributions / justifying which department has the largest in-person count maps to 4.A/4.B, both anchored to Topic 2.1 in §3. No removed-topic content (§8) is touched: no goodness-of-fit chi-square, no slope inference, no geometric distribution, no combining random variables, no departures-from-linearity framing; indeed no inference at all is requested. Marginal totals, conditional proportions, and area-proportional reasoning in a mosaic plot are all direct consequences of the joint/marginal/conditional relative-frequency mechanics listed for 2.1–2.2, so the specific numbers and departments are illustrative context, not out-of-scope mechanisms. Remaining concerns are authoring/consistency issues (task-verb vs. criterion demand, data that fails to exercise the intended proportion-vs-count contrast, point total and rubric-structure conventions, hand-drawn modality tagging), not scope violations.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-026",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Hand-drawing a graph for submission via photograph. The CED fact pack (§7) states the exam is fully digital on Bluebook and that hand-drawn graph practice is considered 'supplemental' and 'never represented as simulating the real exam.'"
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The statistical content of the question, namely the construction and interpretation of a mosaic plot from a two-way table of categorical data, is in scope per the CED fact pack. The correction dated 2026-10-16 for Topic 2.1 explicitly adds 'mosaic plots' to the list of graphical representations for two categorical variables. The required comparison of conditional proportions is also in scope under Topic 2.2. However, the question's response modality is out of scope. Section 7 of the fact pack clearly states that the AP Statistics exam is 'Fully digital' and that any requirement for hand-drawn graphs is considered 'supplemental' and 'never represented as simulating the real exam.' The question's instruction to 'Submit one photograph showing your constructed graph' directly contravenes this by requiring a non-digital, hand-drawn submission format. Therefore, while the underlying statistics are valid, the task as presented is not aligned with the exam's specified format.",
+    "attempts": 4,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-026",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "The task directive ('Draw a mosaic plot... Then compare...') is placed in the stimulus rather than the stem; the stem itself ('Answer the following question') states no task, so a student reading only the stem has no prompt.",
+      "The stem's single task verb is implicit ('compare'/'identify'), while the rubric awards a point for construction (WIDTHS_BY_TOTAL, HEIGHTS_BY_CONDITIONAL_PROPORTION) — the construct/compare demands are not cleanly signposted per the CED task-verb authoring rule, though both demands do appear in the stimulus text."
+    ],
+    "confidence": 0.85,
+    "reasoning": "All required content maps to the fact pack. Mosaic plots for two categorical variables are explicitly in scope via the 2026-10-16 correction to Topic 2.1 (EK 2.1.A.2), and conditional relative frequencies (cell / row total) are listed under Topics 2.1-2.2. Skill 3.A (construct tabular/graphical representations) and 4.A/4.B (describe/compare representations, justify a claim) are anchored to Topic 2.1-2.2, so both the construction and the comparison/identification demands are supported. Distinguishing a conditional proportion comparison from a raw-count comparison is exactly the joint/marginal/conditional machinery in the pack; no excluded content (goodness-of-fit, geometric distribution, combining random variables, slope inference, departures from linearity, Cohen's d) is touched. The data are internally coherent: totals are 70/100/85, no-show conditional proportions are ~14.3%/35%/23.5% (South largest proportion) and South also has the largest raw no-show count (35), so the rubric's 'South clinic' answer is correct and the proportion-vs-count distinction is cleanly exercised. The photograph/hand-drawn submission modality is a tagging matter (the pack explicitly permits hand-drawn graph work as 'supplemental_hand_drawn', noting it must not be represented as simulating the fully digital exam) rather than a content-scope violation; I did not count it as out-of-scope content, though it means the item should not be tagged exam_aligned_digital.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-029",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Requirement to produce and submit a hand-drawn graph via photograph."
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "While the statistical content of the question is fully in scope, the response modality is not. The concepts of constructing a dotplot (Topic 1.5), describing the shape of a distribution (Topic 1.6), and identifying outliers (Topic 1.6) are all covered in Unit 1. However, the stem's instruction to 'Submit one photograph showing your constructed graph' requires a hand-drawn response. The fact pack's Section 7 explicitly states that the exam is 'Fully digital in Bluebook' and that 'hand-drawn graph practice remains valuable but is tagged supplemental (`supplemental_hand_drawn`), never represented as simulating the real exam.' Therefore, requiring a student to produce and submit a physical graph is an out-of-scope procedure for an item intended to be exam-aligned.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-029",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "SHAPE_DESCRIPTION requires 'left-skewed' for a dataset that is arguably better described as 'roughly symmetric/clustered 78-88 with a single low outlier at 62'; the rubric's parenthetical ('or notes the low tail') partially mitigates this, but a correct 'not clearly skewed once the outlier is set aside' response could be scored wrong.",
+      "The stem's delivery instruction ('Submit one photograph showing your constructed graph') does not match the fact pack's described digital/Bluebook response modality; this is acceptable only if the item is tagged supplemental_hand_drawn, which the item text does not indicate."
+    ],
+    "confidence": 0.86,
+    "reasoning": "All content the item requires is covered by the fact pack: constructing a dotplot for one quantitative variable (Topic 1.5, skill 3.A — construct graphical representations), describing distribution shape including skew direction and outliers/gaps/clusters (Topic 1.6, skills 4.A/4.B), and identifying an outlier (Topic 1.7 outlier rules: 1.5xIQR beyond Q1/Q3, or >2 SD from the mean). The numbers are internally consistent with those rules: Q1 = 80.5, Q3 = 85.5, IQR = 5, so the lower fence is 73 and 62 qualifies; mean ~81.7 with s ~6.8 also places 62 beyond 2 SD. No removed/excluded content appears (no goodness-of-fit, geometric distribution, combining random variables, slope inference, or 'departures from linearity' framing), and no concept outside the topic map is needed. The only reservations are rubric-rigidity on the shape descriptor and the photograph/hand-drawn modality, which the fact pack classifies as supplemental rather than exam-aligned — neither is an out-of-scope content concept.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-032",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Requiring a hand-drawn graph submitted via photograph."
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The statistical content of the question (constructing a scatterplot, sketching a trend line, and describing the association) is fully in scope per Unit 5 of the CED fact pack. However, the question stem instructs the student to \"Submit one photograph showing your constructed graph.\" Section 7 of the fact pack states the exam is \"Fully digital in Bluebook\" and that hand-drawn graph practice is \"tagged supplemental (`supplemental_hand_drawn`), never represented as simulating the real exam.\" This question's required response modality (a photographed hand-drawn graph) is therefore explicitly out of scope for an item meant to simulate the digital exam.",
+    "attempts": 5,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-032",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Rubric criterion ASSOCIATION_DESCRIPTION demands a 'strong' positive association, but the supplied data give r ≈ 0.78 (r² ≈ 0.60) with conspicuous departures (x=4, y=60 well above the pattern; x=7, y=41 well below). A defensible student answer of 'moderate' or 'moderately strong' positive linear association would be scored incorrect, so the key over-specifies strength relative to the data.",
+      "The stem's task verbs ask for direction, form, AND strength (three distinct characteristics per Topic 5.1's description template), yet all three are collapsed into a single all-or-nothing point, so a response correct on two of three earns nothing — inconsistent with the fact pack's component-counting / partial-credit (E/P/I) rubric convention in §10.",
+      "The stem ('Answer the following question') contains no question; the actual directives (construct, sketch, describe) appear only in the stimulus, which is a stem/stimulus role mismatch.",
+      "The item requires hand sketching a 'least-squares trend line' and photographing it, which per §7 can only be a supplemental (`supplemental_hand_drawn`) exercise, yet the item is presented as a standard FRQ with no such flag; also the 4-point total does not match the 10-point FRQ structure in §5."
+    ],
+    "confidence": 0.78,
+    "reasoning": "Content check: every concept the item requires is present in the fact pack — scatterplot construction with explanatory variable on the x-axis and response on the y-axis (Topic 5.1, skills 3.A/4.A), describing association by direction, form, and strength (Topic 5.1 description template), and the least-squares regression line (Topic 5.3/5.5). Nothing on §8's removal list is touched: no inference for slopes, no departures-from-linearity framing, no correlation computed by hand from raw data (the student only sketches and describes qualitatively, consistent with the CED's 'r and the LSRL are computed using technology' boundary). Hand-drawing a graph is not out-of-scope content; §7 merely requires it be labeled supplemental rather than exam-simulating, which is a tagging/consistency matter rather than a scope violation. The substantive problems are internal: the rubric's required 'strong' descriptor is not well supported by the given data (r ≈ 0.78 with two clear off-pattern points), the three requested description elements are bundled into one indivisible point contrary to the pack's component-counting rubric convention, the stem is empty of the actual prompt, and the point total/modality do not match the FRQ archetype or digital-exam conventions.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-036",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "contains_out_of_scope_content",
+    "out_of_scope_concepts": [
+      "Hand-drawing a graph for scoring: The stem requires the student to \"Submit one photograph showing your constructed graph...\". The CED fact pack (§7) states the exam is fully digital and that questions requiring hand-drawn graphs are \"tagged supplemental (`supplemental_hand_drawn`), never represented as simulating the real exam.\" This response modality is explicitly outside the scope of an exam-aligned item.",
+      "Use of the task verb 'sketch': The verb 'sketch' is used in the stimulus but does not appear on the verified list of task verbs in §6 of the fact pack."
+    ],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question assesses concepts from Unit 5, Topic 5.1 (Graphical Representations Between Two Quantitative Variables), such as constructing a scatterplot and describing its form, direction, and strength. These concepts are in scope. However, the question's required response modality is explicitly out of scope per the provided CED fact pack. Section 7 of the fact pack specifies that the exam is fully digital and that questions requiring students to hand-draw a graph for scoring are considered supplemental, not exam-aligned. The directive to \"Submit one photograph showing your constructed graph\" directly contradicts the nature of the digital exam environment described in the fact pack. Additionally, the verb 'sketch' is not one of the verified task verbs listed in the fact pack.",
+    "attempts": 7,
+    "mode": "text_json"
+  },
+  {
+    "content_key": "APSTATS-HDG-2026-GRAPH-036",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "The stem asks for a 'least-squares trend line' sketched by hand, while the rubric only requires 'a reasonable decreasing line through the point cloud'; per the fact pack the least-squares line's slope/intercept are technology-computed, so the label 'least-squares' is loose relative to what is actually scored (an eyeballed trend line). Minor terminological mismatch, not a content error.",
+      "The stem asks for direction, form, and strength, and the ASSOCIATION_DESCRIPTION criterion bundles all three (plus 'in context') into a single point, so a response that gets two of three characteristics right has no defined partial credit — slightly at odds with the component-counting (E/P/I) rubric convention described in the fact pack, though acceptable for a single-point criterion."
+    ],
+    "confidence": 0.88,
+    "reasoning": "Everything the item requires is covered by Unit 5 of the fact pack: scatterplot construction with explanatory variable on the x-axis and response on the y-axis (Topic 5.1), description of association as form + direction + strength (Topic 5.1), and a linear/least-squares trend line (Topics 5.3/5.5). No correlation-coefficient hand computation is demanded (which the pack flags as a verified absence), no inference for slope (removed per §8), no 'departures from linearity' framing, no residual analysis beyond scope. The data are internally consistent with the keyed answer: r is approximately -0.77, supporting a 'moderately strong, negative, roughly linear' description, and the stimulus's statement that more irrigation is associated with less drought stress matches the required decreasing trend line. The hand-drawn/photograph modality is not itself out of scope — the fact pack (§7) permits hand-drawn graph practice as supplemental content, and the item makes no claim of simulating the digital exam; it would simply need the supplemental tag. Only minor internal wording/rubric-granularity issues noted.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-007",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question assesses a student's understanding of independent events, a core concept in AP Statistics. The CED fact pack explicitly covers this in Unit 2, Topic 2.7, which includes the definition that for independent events A and B, P(A|B) = P(A). The stimulus clearly states that spins are independent and provides the base probability of landing on red (3 out of 10 sectors, or 0.3). The question asks for the probability of the next spin, which directly tests the definition of independence. The distractors are well-constructed to target common misconceptions, such as the gambler's fallacy (distractor A), the hot hand fallacy (distractor C), and confusing conditional probability with joint probability (distractor D). All concepts required to answer the question are present in the provided fact pack, and no excluded topics are tested.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-007",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 0.93,
+    "reasoning": "The item requires only (a) the equally-likely-outcomes probability rule P(E) = favorable outcomes / total outcomes (3 of 10 red => 0.3), explicitly in the fact pack under Topic 2.4, and (b) the meaning of independent events, i.e., that P(A|B) = P(A) so prior outcomes do not alter the next spin's probability, explicitly in Topics 2.6-2.7. Distractor D invokes multiplying probabilities for a sequence of independent trials, also covered by the multiplication rule for independent events in 2.5-2.7. The phrase 'gambler's fallacy' appears only as explanatory rationale text in option A, not as a term the student must recognize to answer; the underlying mechanism (independent events have no memory) is squarely in the fact pack, and the documented misconception about defaulting to dependence assumptions (2.7 note) supports this distractor pattern. No removed-topic content appears (no geometric distribution, no combining random variables, no goodness-of-fit, no slope inference, no departures-from-linearity). Internally, the stimulus (balanced wheel, ten equal sectors, three red, independent spins) is consistent with the keyed value 0.3, the stem asks about the single next spin which matches option B, and each distractor's rationale correctly explains why it is wrong without contradicting the stimulus.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-010",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question assesses a student's ability to check the conditions for using a normal approximation for the sampling distribution of a sample proportion. This is a core concept covered in the AP Statistics CED fact pack.\n\nSpecifically, the fact pack's section 10 (Deep-tier detail) for Unit 3 details the necessary conditions. Topic 3.2 states, \"Normality requires $np\\ge10$ and $n(1-p)\\ge10$ (large-counts condition).\" The question provides values (n=40, p=0.03) that require the student to perform this exact check. The calculation `np = 40 * 0.03 = 1.2` shows that the condition is not met because 1.2 is less than 10. The correct option (A) correctly identifies this failure and its consequence (a skewed distribution). All other concepts, such as the distinction between a parameter and a statistic (distractor C) and random sampling (distractor D), are also in scope per Unit 1 of the fact pack.\n\nThe term \"success-failure condition\" used in the question is a common textbook synonym for the \"large-counts condition\" mentioned in the fact pack. Since it refers to the identical mathematical check ($np \\ge 10$), it is considered a terminological variant and not an out-of-scope concept.",
+    "attempts": 7,
+    "mode": "text_json"
+  },
+  {
+    "content_key": "APSTATS-MCQ-010",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Option A's rationale hedges the threshold as \"at least 10 (a common threshold),\" whereas the course convention fixes the large-counts condition at np ≥ 10 and n(1-p) ≥ 10; the hedge weakens the keyed justification without changing the correct answer.",
+      "Minor terminology mismatch with course convention: the condition is referred to as the \"success-failure condition\" rather than the \"large-counts condition,\" though the option text self-defines it via np and n(1-p) ≥ 10, so no unsupported knowledge is required."
+    ],
+    "confidence": 0.88,
+    "reasoning": "The item asks why a normal approximation for the sampling distribution of p-hat is inappropriate when n = 40 and p = 0.03. This is squarely Topic 3.2 (Sampling Distributions for Sample Proportions), where the fact pack states normality requires np ≥ 10 and n(1-p) ≥ 10 (large-counts condition) alongside randomization and the 10% condition. The keyed answer computes np = 1.2 < 10 and concludes the sampling distribution is not approximately normal — exactly the mechanism in the fact pack. Distractors draw on in-scope ideas: sample-size-alone reasoning (a condition-mislabeling distractor pattern the fact pack explicitly endorses), the parameter-vs-statistic distinction (Topics 1.1-1.2), and the randomization condition (general condition-checking template). Nothing touches the §8 removals (departures from linearity, combining random variables, geometric distribution, chi-square goodness-of-fit, inference for slopes). The only quibbles are terminological/hedging rather than scope: \"success-failure condition\" is a non-CED name for the large-counts condition (but is self-defined in the option text, so the underlying mechanism is in the pack), and option A's parenthetical \"a common threshold\" is softer than the course's fixed ≥10 rule. Verdict: fully in scope.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-012",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question requires a student to make a conclusion for a two-proportion z-test based on a given p-value and significance level. This aligns with CED Topics 3.12 and 3.13. The question also correctly tests the critical distinction between association and causation, linking the conclusion to the study design (a randomized experiment), which is covered in Topic 1.13. The language in the correct option ('convincing evidence') aligns with the CED's explicit requirement for non-definitive conclusion language. All components of the question (hypothesis testing, p-value interpretation, significance levels, and implications of experimental design) are central to the AP Statistics curriculum as described in the fact pack.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-012",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 0.85,
+    "reasoning": "The item asks for the correct conclusion of a two-proportion z-test given a p-value and alpha, which maps squarely onto CED Topics 3.6 (p-values), 3.12-3.13 (setting up / carrying out a test for the difference between two population proportions) and Skills 4.F/4.G (interpret inference results, justify a claim). All required knowledge appears in the fact pack: the decision rule comparing p to alpha, the correct definition of a p-value as the probability of the observed-or-more-extreme result assuming H0 is true (the §10 convention on p-value/Type I conditional framing and the documented 'p-value as probability H0 is true' style misinterpretation), the required non-definitive 'convincing evidence' conclusion language (explicitly a course-wide authoring convention in §10), and the experiment-vs-observational-study distinction that licenses a causal conclusion from random assignment (Topic 1.13 experimental design, including random assignment and comparison of treatment groups; reinforced by EK 5.2.A.4's correlation-does-not-imply-causation boundary). Nothing in the item touches a §8 removal (no goodness-of-fit, no slope inference, no geometric distribution, no combining random variables, no Cohen's d/effect size). Distractors A, C, D are each plausible, CED-grounded misconception patterns rather than out-of-scope content.\n\nNumeric check: p-hat1 = 248/620 = 0.400, p-hat2 = 203/580 = 0.350, pooled p-hat_c = 451/1200 ≈ 0.3758, SE = sqrt(0.3758*0.6242*(1/620+1/580)) ≈ 0.0280, z ≈ 1.79, one-sided p ≈ 0.037 — consistent with the stated p-value, so the stimulus is internally coherent and matches the pooled test-statistic formula in the fact pack.\n\nOne very minor observation (not rising to an inconsistency): choice B's rationale states that 'customers were randomly assigned to see each design,' which the stimulus conveys only via the phrase 'randomized experiment' rather than spelling out random assignment; this is a reasonable reading and choice C's 'not a controlled experiment' is a deliberate, clearly wrong contradiction of the stimulus, functioning as intended as a distractor. Confidence is slightly below 1.0 only because the fact pack conveys the random-assignment-permits-causal-conclusion principle through Unit 1 experimental-design vocabulary rather than as an explicit stated inference rule.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-017",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question requires the student to interpret the slope of a least-squares regression line in context. This is a core concept explicitly covered in Unit 5 of the provided CED fact pack. Topic 5.5 specifies the required interpretation: 'slope interpretation must be in context (\\'predicted [unit] increase/decrease in y for a one-unit increase in x\\')'. The correct option (A) aligns perfectly with this template. The distractors are built on common misconceptions that are also addressed by the CED content: distractor (B) incorrectly implies causation, which is ruled out by EK 5.2.A.4 ('correlation does not imply causation'), and an exact relationship, which is contrary to the model predicting an average response; distractor (C) misinterprets the sign (direction) of the slope, a concept from Topic 5.1; and distractor (D) reverses the explanatory and response variables, a distinction established in Topic 5.1. All concepts tested are squarely within the scope outlined in the fact pack.",
+    "attempts": 3,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-017",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 0.93,
+    "reasoning": "The item asks for a contextual interpretation of a least-squares regression slope, which is squarely Topic 5.5 ('slope interpretation must be in context: predicted [unit] increase/decrease in y for a one-unit increase in x'). The distractors draw on concepts also present in the fact pack: causation vs. association (EK 5.2.A.4, 'correlation does not imply causation'), the sign/direction of the fitted relationship, and the explanatory-vs-response variable roles from Topic 5.1 (explanatory on x-axis, response on y-axis). Nothing requires inference for slopes (removed old Unit 9), confidence intervals or tests on the slope, standard error of slope, r or r-squared computation by hand, or any other excluded content; the slope value is simply given rather than computed, consistent with the CED's 'calculated using technology' note. The sample size of 45 adults and the random sample framing are illustrative context, not out-of-scope mechanisms. Internally, the stem ('Which statement correctly interprets the slope...') matches exactly one defensible key (A), and each distractor's rationale correctly explains why it is wrong (B overstates causation/exactness, C flips the sign, D reverses the variables). The 'on average' / 'predicts' hedging in A is consistent with CED slope-interpretation language, so there is no competing-key ambiguity.",
+    "attempts": 1,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-007-CAL",
+    "model": "google/gemini-2.5-pro",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [],
+    "confidence": 1,
+    "reasoning": "The question directly assesses the definition of independent events, a foundational concept covered in Unit 2, Topic 2.7 ('Independent Events and Unions of Events') of the CED fact pack. The stimulus explicitly states that the spins are independent and provides the probability of a single event. The correct answer requires applying the definition of independence: the probability of a future event is not affected by past outcomes. The distractors are based on common misconceptions about independence (e.g., the gambler's fallacy), which is a standard and appropriate way to assess a student's understanding of the concept. No out-of-scope concepts are required.",
+    "attempts": 6,
+    "mode": "generateObject"
+  },
+  {
+    "content_key": "APSTATS-MCQ-007-CAL",
+    "model": "anthropic/claude-opus-5",
+    "scope_verdict": "fully_in_scope",
+    "out_of_scope_concepts": [],
+    "internal_consistency_issues": [
+      "Minor wording tension: the wheel is described as 'balanced' while red has probability 0.3, which could invite a student to read 'balanced' as 'equally likely outcomes'; harmless here since the probability is stated explicitly, but 'balanced' adds no needed information."
+    ],
+    "confidence": 0.92,
+    "reasoning": "The item requires only the Unit 2 concept of independent events (Topic 2.7: A and B independent iff P(A|B)=P(A)), i.e., recognizing that the probability of red on the next spin is unchanged at 0.3 given the stated independence. Distractor D invokes multiplying probabilities for a sequence of independent trials (0.3^5), which is the general multiplication rule under independence, also covered in Topics 2.5-2.7. Distractors A and C encode the exact 'past outcomes change the probability' misconception, closely related to the fact pack's documented Unit 2 misconception about defaulting to dependence when independence is the correct model (2.7). The phrase 'gambler's fallacy' appears only inside the explanatory rationale, not as something the student must name or define, so it is not a required out-of-scope term. Nothing here touches any §8 removal (departures from linearity, combining random variables, geometric distribution, chi-square goodness-of-fit, inference for slopes). Rubric/choice structure is a standard single-best-answer MCQ with one unambiguously correct option (B), and the stem's task ('what is the probability') matches the answer demand. Only a trivial wording nitpick about the word 'balanced' was noted.",
+    "attempts": 1,
+    "mode": "generateObject"
+  }
+]

@@ -72,7 +72,7 @@ ${factPack}
 ---
 
 Question to check:
-${JSON.stringify({ item_type: item.item_type, stem: item.stem, stimulus: item.stimulus, criteria: item.criteria }, null, 2)}
+${JSON.stringify({ item_type: item.item_type, practice_format: item.practice_format, response_policy: item.response_policy, practice_modality: item.practice_modality, stem: item.stem, stimulus: item.stimulus, criteria: item.criteria }, null, 2)}
 
 Respond with content_key "${item.content_key}".`.trim();
 }
