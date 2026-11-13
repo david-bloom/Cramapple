@@ -1,0 +1,2267 @@
+[
+ {
+  "content_key": "apcalcab-frq-u13-006",
+  "vid": "2f5e9638-893a-42bc-8b31-8b316a216968",
+  "version_num": 2,
+  "stem": "Estimating Cooling Rates from a Temperature Table: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "The temperature T(t), in degrees Celsius, of a cooling object is measured at several times t, in minutes. Selected values are given in the table.\nTable 1: Temperature over time\nt (min) | 0 | 2 | 4 | 6 | 8\nT(t) (C) | 90 | 78 | 68 | 60 | 54",
+  "prompt_json": {
+   "unit": 2,
+   "parts": [
+    {
+     "points": 2,
+     "prompt": "Approximate T'(4) using a central difference quotient, showing your computation.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 3,
+     "prompt": "Approximate T'(0) using the most appropriate difference quotient available from the table, and explain your choice.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 4,
+     "prompt": "Using correct derivative notation, write an expression for the instantaneous rate of change of temperature at t=6, estimate its value using an appropriate difference quotient, and explain why a central difference quotient generally gives a better approximation of the derivative than a one-sided difference quotient.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-03"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-04"
+      }
+     ],
+     "part_key": "part-c"
+    }
+   ],
+   "topic": "2.3 Estimating Derivatives of a Function at a Point",
+   "modules": [
+    "calc-ab-bc-units1-3-frq-2026-08-03"
+   ],
+   "subject": "ap_calculus_ab",
+   "archetype": "Connecting Representations",
+   "calculator": "required",
+   "difficulty": "Medium",
+   "content_key": "apcalcab-frq-u13-006",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "qa_remediation": "2026-08-05 approve-with-edits remediation",
+   "content_version": 2,
+   "qa_source_decision_id": "b8c35c76-1ce3-421a-91ae-083ce89631e8"
+  },
+  "crit": [
+   {
+    "id": "58864174-23ec-4392-8fa3-2c686b166a21",
+    "minimum_fix": "Use the values at t=2 and t=6 to form the central difference quotient. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct setup using t=2 and t=6: (T(6)-T(2))/(6-2).",
+    "evidence_requirements": "Response writes the symmetric difference quotient around t=4. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "3cf898c6-882c-4fad-b0ac-1ab2ccbfd389",
+    "minimum_fix": "Compute (60-78)/4 and report -4.5 with units. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct value of -4.5 C/min.",
+    "evidence_requirements": "Response computes (60-78)/4 = -4.5. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "b20db63d-0882-4c9a-b4e6-2114eed26a44",
+    "minimum_fix": "Explain that t=0 is the left endpoint of the table, so only a forward difference quotient is possible. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct identification that only a forward difference is available since t=0 is an endpoint.",
+    "evidence_requirements": "Response notes there is no data for t<0, so a central or backward difference cannot be formed. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "f2be33bb-a49f-49a6-af99-8dace26148ce",
+    "minimum_fix": "Compute (T(2)-T(0))/2 and report -6 with units. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct computation of -6 C/min.",
+    "evidence_requirements": "Response computes (78-90)/2 = -6. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "ee4d35c5-3d02-4059-9fbf-2146289cef2f",
+    "minimum_fix": "Explain that a difference quotient reflects an average rate over an interval and only approximates the instantaneous rate. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct explanation that the result is an approximation, not an exact value.",
+    "evidence_requirements": "Response notes the forward difference uses an average rate over [0,2], not the instantaneous rate at t=0. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "58aa0b9c-ad37-4d65-ac6f-21b6846685c4",
+    "minimum_fix": "Introduce the notation T'(6) for the instantaneous rate of change. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct notation T'(6) introduced.",
+    "evidence_requirements": "Response explicitly writes T'(6) to denote the instantaneous rate of change at t=6. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "ac2a05f3-657e-49ce-9c25-13f7c13b732c",
+    "minimum_fix": "Compute the central difference quotient using t=4 and t=8, and report -3.5 with units. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct estimate of -3.5 C/min with units.",
+    "evidence_requirements": "Response computes (T(8)-T(4))/(8-4) = (54-68)/4 = -3.5. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "966dcf1b-9104-4774-b01c-a5804daf0969",
+    "minimum_fix": "Explain that the central difference uses data symmetric about t=6 rather than only one side. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct general explanation that a central difference incorporates behavior from both sides of the point.",
+    "evidence_requirements": "Response explains the central difference averages information from before and after t=6. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   },
+   {
+    "id": "82272fa1-ab94-4834-be96-17687537bc3d",
+    "minimum_fix": "Explain that since the derivative is a two-sided limit, one-sided quotients capture rate of change from only one direction and tend to be less accurate. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct comparison to one-sided quotients, referencing the two-sided nature of the derivative's limit definition.",
+    "evidence_requirements": "Response notes the derivative is defined as a two-sided limit, so a symmetric estimate tends to better match it than a one-sided estimate. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "2f5e9638-893a-42bc-8b31-8b316a216968"
+   }
+  ]
+ },
+ {
+  "content_key": "apcalcab-frq-u13-017",
+  "vid": "bb06d698-561d-40bc-a57f-f4181365b134",
+  "version_num": 1,
+  "stem": "Differentiating a Sum of Inverse Trigonometric Functions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "Let w(x) = arctan(2x) + arcsin(x/3).",
+  "prompt_json": {
+   "unit": 3,
+   "parts": [
+    {
+     "points": 3,
+     "prompt": "State the derivative formulas for arctan(u) and arcsin(u), and identify the inner function and its derivative for each term of w(x).",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-03"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 3,
+     "prompt": "Compute w'(x), simplifying the arcsin term to eliminate the fraction within the radical.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 3,
+     "prompt": "Evaluate w'(0), and state the domain restriction on x required for w'(x) to be defined, referencing the arcsin term.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-03"
+      }
+     ],
+     "part_key": "part-c"
+    }
+   ],
+   "topic": "3.4 Differentiating Inverse Trigonometric Functions",
+   "modules": [
+    "calc-ab-bc-units1-3-frq-2026-08-03"
+   ],
+   "subject": "ap_calculus_ab",
+   "archetype": "Implementing Mathematical Processes",
+   "calculator": "not_permitted",
+   "difficulty": "Hard",
+   "content_key": "apcalcab-frq-u13-017",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only."
+  },
+  "crit": [
+   {
+    "id": "8c051962-2565-4d2d-ad24-911a43d25391",
+    "minimum_fix": "State the arctan derivative formula and identify u=2x, u'=2.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct formula d/dx[arctan(u)] = u'/(1+u^2), with u=2x and u'=2 identified.",
+    "evidence_requirements": "Response states the formula and correctly identifies u and u' for the arctan term.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "eb196b89-8f9a-4fc3-ae37-af909abf50c6",
+    "minimum_fix": "State the arcsin derivative formula and identify u=x/3, u'=1/3.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct formula d/dx[arcsin(u)] = u'/sqrt(1-u^2), with u=x/3 and u'=1/3 identified.",
+    "evidence_requirements": "Response states the formula and correctly identifies u and u' for the arcsin term.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "6737f98a-3fc3-440d-adbc-0dd349894e2c",
+    "minimum_fix": "Note the domain restriction required for the arcsin(x/3) term.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly notes the domain restriction -3<x<3 needed for the arcsin term to be defined for differentiation.",
+    "evidence_requirements": "Response references that x/3 must lie strictly between -1 and 1.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "7baa37f1-a35a-4f43-a5d4-be13e2052472",
+    "minimum_fix": "Apply the arctan derivative formula to get 2/(1+4x^2).",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct arctan term: 2/(1+4x^2).",
+    "evidence_requirements": "Response applies the formula with u=2x, u'=2.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "038eff81-d373-48cf-afdb-f1450e1ab6cb",
+    "minimum_fix": "Apply the arcsin derivative formula to get (1/3)/sqrt(1-x^2/9).",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct initial (unsimplified) arcsin term: (1/3)/sqrt(1-x^2/9).",
+    "evidence_requirements": "Response applies the formula with u=x/3, u'=1/3.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "3c7724a6-78dc-4e28-a083-fc8d625b8cf4",
+    "minimum_fix": "Multiply numerator and denominator appropriately to clear the fraction inside the radical.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct simplification of the arcsin term to 1/sqrt(9-x^2), giving final w'(x)=2/(1+4x^2)+1/sqrt(9-x^2).",
+    "evidence_requirements": "Response rewrites sqrt(1-x^2/9) as sqrt(9-x^2)/3 to simplify the fraction.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "31041452-b73f-41b0-a5b1-4a62513c4b6b",
+    "minimum_fix": "Substitute x=0 into w'(x) and simplify to 7/3.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct value w'(0) = 7/3.",
+    "evidence_requirements": "Response computes 2/(1+0) + 1/sqrt(9) = 2+1/3 = 7/3.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "0db852cd-26a5-4f12-ae03-854b156f30c5",
+    "minimum_fix": "State the domain restriction -3<x<3 for w'(x).",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct domain restriction identified as -3<x<3.",
+    "evidence_requirements": "Response states the derivative is defined only for -3<x<3.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   },
+   {
+    "id": "a90e139b-26fa-4edc-a85c-497a66b8831e",
+    "minimum_fix": "Explain that the denominator sqrt(9-x^2) must be nonzero, requiring the strict inequality -3<x<3.",
+    "criterion_key": "part-c-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correct justification referencing that arcsin(x/3) requires -3<=x<=3, and the derivative requires the strict inequality since the denominator cannot be 0.",
+    "evidence_requirements": "Response explains 9-x^2 must be strictly positive to avoid division by zero.",
+    "content_item_version_id": "bb06d698-561d-40bc-a57f-f4181365b134"
+   }
+  ]
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-010",
+  "vid": "d7ea5ab1-4073-4810-beca-6f3bcc409b21",
+  "version_num": 2,
+  "stem": "Repeated Chain Rule with Logarithmic and Exponential Compositions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "Let h(x) = [ln(x^2 + 4)]^3.",
+  "prompt_json": {
+   "unit": 3,
+   "parts": [
+    {
+     "points": 4,
+     "prompt": "Find h'(x), showing each application of the chain rule.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-03"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-04"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 3,
+     "prompt": "Evaluate h'(2) exactly. Leave your answer in terms of natural logarithms; do not approximate with a decimal.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 2,
+     "prompt": "Let k(x) = sin(e^{\u22122x}). Find k'(x) using the chain rule.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      }
+     ],
+     "part_key": "part-c"
+    }
+   ],
+   "topic": "3.1 The Chain Rule",
+   "modules": [
+    "calc-ab-bc-units1-3-frq-2026-08-03"
+   ],
+   "subject": "ap_calculus_bc",
+   "archetype": "Implementing Mathematical Processes",
+   "calculator": "not_permitted",
+   "difficulty": "Medium",
+   "content_key": "apcalcbc-frq-u13-010",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "qa_remediation": "2026-08-05 approve-with-edits remediation",
+   "content_version": 2,
+   "qa_source_decision_id": "2e9ebe55-8713-4fde-943f-0a94769e4911"
+  },
+  "crit": [
+   {
+    "id": "d30606b9-4f61-4fcd-bb64-007dbc3d3215",
+    "minimum_fix": "If missing, require the outer power rule step to be shown before differentiating the inner logarithm. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the outer power function.",
+    "evidence_requirements": "Response writes d/dx{[ln(x^2+4)]^3} = 3[ln(x^2+4)]^2 \u00b7 d/dx[ln(x^2+4)]. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "6d5e4b58-d597-45a4-95ce-4ca8a29d7abd",
+    "minimum_fix": "If wrong, recheck the chain rule applied to ln(u) with u = x^2+4. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the logarithm using the chain rule.",
+    "evidence_requirements": "Response gives d/dx[ln(x^2+4)] = 2x/(x^2+4). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "f70d9ff9-bf2c-41a1-8255-022b9157a569",
+    "minimum_fix": "If missing, require the two derivative pieces to be multiplied together explicitly. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly combines the two results.",
+    "evidence_requirements": "Response writes h'(x) = 3[ln(x^2+4)]^2 \u00b7 (2x/(x^2+4)). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "a5946bce-8e3a-4eea-835e-eeed3ecc4e53",
+    "minimum_fix": "If missing, require the final simplified single-fraction form to be stated. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly simplifies to a single expression.",
+    "evidence_requirements": "Response simplifies to h'(x) = 6x[ln(x^2+4)]^2/(x^2+4). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "e56046da-3114-4900-b884-bd7a02acaa0e",
+    "minimum_fix": "If wrong, recheck the arithmetic 2^2+4. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly substitutes x = 2.",
+    "evidence_requirements": "Response computes x^2 + 4 = 8 at x = 2. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "0233027d-b6d2-4a44-803c-c74f2f5e6765",
+    "minimum_fix": "If wrong, recheck substitution of x=2 into the formula from part A. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States the correct exact expression.",
+    "evidence_requirements": "Response gives h'(2) = (3/2)[ln 8]^2 (or an equivalent exact form). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "4c059feb-a5bf-4e60-949e-7cac1a2523f7",
+    "minimum_fix": "If missing, require the coefficient simplification to be shown, not just asserted. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Shows the simplification arithmetic explicitly.",
+    "evidence_requirements": "Response shows 6(2)/8 = 3/2 as an explicit step. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "e002eafd-a9fb-44bf-9e9f-7ed5c6b7e328",
+    "minimum_fix": "If missing, require the outer derivative step to be shown before the inner one. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the outer sine function.",
+    "evidence_requirements": "Response writes k'(x) = cos(e^{\u22122x}) \u00b7 d/dx[e^{\u22122x}]. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   },
+   {
+    "id": "822985ce-072c-4dd4-96c1-6bef0c812f4e",
+    "minimum_fix": "If wrong, recheck the chain rule constant multiple \u22122 applied to e^{\u22122x}. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the inner exponential and combines.",
+    "evidence_requirements": "Response gives d/dx[e^{\u22122x}] = \u22122e^{\u22122x}, and states k'(x) = \u22122e^{\u22122x}cos(e^{\u22122x}). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "d7ea5ab1-4073-4810-beca-6f3bcc409b21"
+   }
+  ]
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-018",
+  "vid": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc",
+  "version_num": 2,
+  "stem": "Derivative of a Sum of Inverse Trigonometric Compositions: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "Let h(x) = arccos(x^2) + x\u00b7arctan(2x).",
+  "prompt_json": {
+   "unit": 3,
+   "parts": [
+    {
+     "points": 2,
+     "prompt": "State the domain restriction required for arccos(x^2) to be defined, and verify that x = 1/2 lies in the domain of h.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 4,
+     "prompt": "Find h'(x), showing each rule used: the chain rule for arccos(x^2), and the product and chain rules for x\u00b7arctan(2x).",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-04"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 3,
+     "prompt": "Evaluate h'(1/2) exactly, in simplified exact form. Do not approximate with a decimal.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-03"
+      }
+     ],
+     "part_key": "part-c"
+    }
+   ],
+   "topic": "3.4 Differentiating Inverse Trigonometric Functions",
+   "modules": [
+    "calc-ab-bc-units1-3-frq-2026-08-03"
+   ],
+   "subject": "ap_calculus_bc",
+   "archetype": "Implementing Mathematical Processes and Justification",
+   "calculator": "not_permitted",
+   "difficulty": "Very Hard",
+   "content_key": "apcalcbc-frq-u13-018",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "qa_remediation": "2026-08-05 approve-with-edits remediation",
+   "content_version": 2,
+   "qa_source_decision_id": "f0750708-fd23-430d-b01e-f8715cb7aa3e"
+  },
+  "crit": [
+   {
+    "id": "87a2387f-9f20-4a33-a245-715ec3c4a8c9",
+    "minimum_fix": "Distinguish the domain of h, [-1,1], from the interval where the derivative formula is defined, (-1,1).",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States the correct domain restriction.",
+    "evidence_requirements": "Response states the function domain is -1<=x<=1 because arccos(x^2) requires x^2<=1; the derivative formula for the arccos term is valid only for -1<x<1.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "4e680091-8d66-43a5-9791-bdb88a7150a9",
+    "minimum_fix": "If missing, require explicit substitution of x=1/2 to verify the domain condition. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly verifies x = 1/2 is in the domain.",
+    "evidence_requirements": "Response checks (1/2)^2 = 1/4 \u2264 1, confirming x = 1/2 is a valid input. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "a80041f9-4516-46b5-a93d-3e3f30ecd679",
+    "minimum_fix": "If missing, require the chain rule with u = x^2 in d/dx[arccos u] = \u2212u'/\u221a(1\u2212u^2) to be shown. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates arccos(x^2) using the chain rule.",
+    "evidence_requirements": "Response gives d/dx[arccos(x^2)] = \u2212(2x)/\u221a(1 \u2212 x^4). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "98e098b4-84e4-4625-b84f-724c86784b87",
+    "minimum_fix": "If missing, require both terms of the product rule to be shown explicitly. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly applies the product rule to x\u00b7arctan(2x).",
+    "evidence_requirements": "Response writes d/dx[x\u00b7arctan(2x)] = arctan(2x) + x\u00b7d/dx[arctan(2x)]. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "b87f0f24-da33-4a2f-988e-5c4fb0024644",
+    "minimum_fix": "If wrong, recheck the chain rule factor of 2 applied to arctan(2x). Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates arctan(2x) using the chain rule and combines.",
+    "evidence_requirements": "Response gives d/dx[arctan(2x)] = 2/(1+4x^2), and combines to arctan(2x) + 2x/(1+4x^2). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "d5eb9686-89ff-40f9-a989-49a487c8f17b",
+    "minimum_fix": "If missing, require all three terms to be combined into a single final expression for h'(x). Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-b-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States the correct fully combined h'(x).",
+    "evidence_requirements": "Response gives h'(x) = \u22122x/\u221a(1\u2212x^4) + arctan(2x) + 2x/(1+4x^2). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "3051f5d8-299f-475f-b8cd-6d486c318f5a",
+    "minimum_fix": "If missing, require substitution into each term to be shown separately. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly substitutes x = 1/2 into each term of h'(x).",
+    "evidence_requirements": "Response substitutes x=1/2 into all three terms from part B before simplifying. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "02351221-be14-416f-8b13-cf5d7a8d476e",
+    "minimum_fix": "If wrong, recheck the computation of 1 \u2212 (1/2)^4 = 15/16 and the resulting simplification. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly simplifies the arccos-derivative term.",
+    "evidence_requirements": "Response simplifies \u22122(1/2)/\u221a(1\u2212(1/2)^4) = \u22121/\u221a(15/16) to \u22124\u221a15/15 (or equivalent exact form, e.g. \u22124/\u221a15). This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   },
+   {
+    "id": "de73e1d1-e936-4a77-a05c-b9bfc05b0053",
+    "minimum_fix": "If missing, require all three exact terms to be combined into one final exact expression. Add the missing endpoint/sign/domain/theorem justification named in the reviewer note. State the exact final value pi/4 + 1/2 - 4sqrt(15)/15 or an equivalent exact form.",
+    "criterion_key": "part-c-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States the correct final combined exact expression.",
+    "evidence_requirements": "Response gives h'(1/2) = \u03c0/4 + 1/2 \u2212 4\u221a15/15 (using arctan(1) = \u03c0/4 and 2(1/2)/(1+4(1/2)^2) = 1/2), or an equivalent exact simplified form. This criterion requires the displayed expected value and enough justification to distinguish a shown argument from a bare assertion. Expected final value: pi/4 + 1/2 - 4sqrt(15)/15.",
+    "content_item_version_id": "271965d6-66bc-4b1d-9eb5-d4a324cdcdcc"
+   }
+  ]
+ },
+ {
+  "content_key": "apcalcbc-frq-u13-020",
+  "vid": "78b9c5b5-28a7-48b9-80ae-9260e376298f",
+  "version_num": 2,
+  "stem": "Second Derivative of an Implicitly Defined Curve: Answer all parts. Show your reasoning and calculations clearly, using standard calculus notation and justifying any qualitative claims.",
+  "stimulus": "Consider the curve defined by x^2 + xy + y^2 = 7. The point (1, 2) lies on this curve.",
+  "prompt_json": {},
+  "crit": [
+   {
+    "id": "5e3335ca-c60a-4713-965c-a2bae0f2df89",
+    "minimum_fix": "Show every term's derivative before collecting y' terms and solving; this is scored as one all-or-nothing step.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly and fully differentiates the entire equation implicitly and algebraically isolates dy/dx to match the given form.",
+    "evidence_requirements": "Response differentiates x^2 to 2x, applies the product rule to xy (giving y+xy'), applies the chain rule to y^2 (giving 2yy'), sets the sum equal to 0, and correctly isolates y' = -(2x+y)/(x+2y). This step is scored as a single unit -- a partially correct differentiation does not earn partial credit here.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "750e6d4c-01ce-46ef-a47b-d16609ac4e81",
+    "minimum_fix": "If wrong, recheck substitution of x=1, y=2 into the derivative formula.",
+    "criterion_key": "part-a-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly evaluates dy/dx at (1,2).",
+    "evidence_requirements": "Response substitutes to get y' = \u2212(2+2)/(1+4) = \u22124/5.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "9d7ad5fa-ade4-42b2-9927-73e50bffdbb4",
+    "minimum_fix": "If missing, require the second implicit differentiation step to be shown explicitly, including product rule on y'(x+2y).",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly differentiates the first-derivative equation again with respect to x.",
+    "evidence_requirements": "Response differentiates y'(x+2y) = \u2212(2x+y) to obtain y''(x+2y) + y'(1+2y') = \u2212(2+y').",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "1b34cec5-f373-4b81-afb2-945ef7e73a2c",
+    "minimum_fix": "If missing, require all three known values to be substituted before isolating y''.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly substitutes x=1, y=2, y'=\u22124/5 into the resulting equation.",
+    "evidence_requirements": "Response substitutes these values into the equation from the previous step before solving for y''.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "cb54795e-486f-4ea3-990c-97e7ed968594",
+    "minimum_fix": "If wrong, recheck the algebra solving for y'' after substitution, e.g. by recomputing \u22122 \u22122y' \u22122(y')^2 over (x+2y).",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly solves for y'' and states the final value.",
+    "evidence_requirements": "Response computes y'' = \u221242/125 at (1,2).",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "fa92e69b-8825-467f-845e-3daa1988fdf2",
+    "minimum_fix": "If wrong, recheck the sign of the value found in part B.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies the sign and resulting concavity.",
+    "evidence_requirements": "Response notes y'' = \u221242/125 < 0 at (1,2), so the curve is concave down near this point.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   },
+   {
+    "id": "e94ceca5-92a9-48ee-a95a-1678794510d1",
+    "minimum_fix": "If missing, require the explanation to connect the sign of y'' to the definition of concavity and note it applies locally near (1,2).",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Justifies the interpretation using the definition of concavity.",
+    "evidence_requirements": "Response explains that a negative second derivative indicates the local branch of the curve near (1,2) bends downward (is concave down), noting this describes the local behavior of the curve near this point rather than a global property.",
+    "content_item_version_id": "78b9c5b5-28a7-48b9-80ae-9260e376298f"
+   }
+  ]
+ },
+ {
+  "content_key": "apphy1-frq-035",
+  "vid": "9f159e00-a8d9-4690-945b-c255632a5429",
+  "version_num": 2,
+  "stem": "Spring launch on a rough track: Answer all mandatory subparts. Show reasoning and calculations clearly. Use standard AP Physics notation and justify qualitative claims.",
+  "stimulus": "A block of mass m is released from rest against a spring of constant k compressed a distance x. After losing contact with the spring, the block crosses a horizontal rough region of length L with kinetic-friction coefficient \u03bc and then moves up a frictionless ramp. The zero of gravitational potential energy is the horizontal track. Express answers in terms of the given symbols and g.",
+  "prompt_json": {
+   "unit": 3,
+   "parts": [
+    {
+     "points": 7,
+     "prompt": "Derive an expression for the block's maximum vertical height h above the horizontal track. Begin from a fundamental physics principle, and show the work done by friction.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-03"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-04"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-05"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-06"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-07"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 3,
+     "prompt": "A second trial uses compression 2x while all other quantities are unchanged. Determine the change in maximum height, h(2x)-h(x), and explain why doubling x does not merely double the height.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      }
+     ],
+     "part_key": "part-b"
+    }
+   ],
+   "topic": "Work, Energy, and Power",
+   "modules": [
+    "physics-full-scale-frq-structure-2026-07-25"
+   ],
+   "subject": "ap_physics_1",
+   "archetype": "Mathematical Routines",
+   "difficulty": "Hard",
+   "content_key": "apphy1-frq-035",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "content_version": 2,
+   "review_pack_key": "saood-full-scale-physics-recheck-2026-07-27",
+   "review_pack_name": "Full-scale Physics FRQ recheck",
+   "review_display_fix": "queue-expanded-structured-parts",
+   "source_fact_pack_id": "1WTHwHrJujEuBzAXsL92zQdnHXlE-cvgsArE_FOVdR1g"
+  },
+  "crit": [
+   {
+    "id": "cdf32437-638d-49a6-9e75-45908d9f11df",
+    "minimum_fix": "Write an equation of the form E_i + W_nc = E_f.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "States an energy relation connecting the initial spring energy, friction work, and final gravitational potential energy.",
+    "evidence_requirements": "The response explicitly uses energy conservation modified by nonconservative work.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "695ec923-a01e-4d41-bc14-54e613e4ea35",
+    "minimum_fix": "Use the elastic-potential expression (1/2)kx\u00b2.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Writes the initial spring energy as (1/2)kx\u00b2.",
+    "evidence_requirements": "The compression x is squared and the factor 1/2 is present.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "c2dda45b-a2ec-4389-bae5-18d44fd1bbb6",
+    "minimum_fix": "Use f_k=\u03bcN and N=mg on the horizontal track.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Determines the kinetic-friction magnitude as \u03bcmg on the horizontal region.",
+    "evidence_requirements": "The normal force is correctly identified as mg.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "e507dcec-526f-433f-b23b-53fdfac88a1c",
+    "minimum_fix": "Include the negative sign because friction removes mechanical energy.",
+    "criterion_key": "part-a-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Writes the work by friction as -\u03bcmgL.",
+    "evidence_requirements": "The work has the correct negative sign and distance L.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "97761acf-c169-4205-9373-4b99e8755112",
+    "minimum_fix": "At the maximum height set kinetic energy to zero.",
+    "criterion_key": "part-a-criterion-05",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Writes the final energy at maximum height as mgh with zero kinetic energy.",
+    "evidence_requirements": "The turning point condition v=0 is used.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "c0912467-5dfd-4c74-853d-77eebb519ce1",
+    "minimum_fix": "Isolate h and simplify both terms.",
+    "criterion_key": "part-a-criterion-06",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Solves algebraically for h=(kx\u00b2)/(2m g)-\u03bcL.",
+    "evidence_requirements": "The symbolic result follows from the correct energy equation.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "7ffead9f-ff1e-4107-ae36-9f99fdc221cb",
+    "minimum_fix": "Compare the spring energy with the energy dissipated on the rough region.",
+    "criterion_key": "part-a-criterion-07",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "States the physical condition kx\u00b2/2>\u03bcmgL for the block to reach the ramp.",
+    "evidence_requirements": "The response recognizes when the derived positive height is physically attainable.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "6dd15bfe-7e02-493b-bcf9-dbf3c63e3838",
+    "minimum_fix": "Replace x by 2x before simplifying.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Substitutes 2x into the derived height expression.",
+    "evidence_requirements": "The spring-energy term becomes proportional to (2x)\u00b2.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "0e7a542c-b23b-4d7d-a668-0b805ffca0dc",
+    "minimum_fix": "Subtract the two complete height expressions.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Obtains h(2x)-h(x)=3kx\u00b2/(2mg).",
+    "evidence_requirements": "The friction term cancels and the quadratic difference is correct.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   },
+   {
+    "id": "7ed171f5-1717-4414-80eb-22e862bd0e83",
+    "minimum_fix": "State both the x\u00b2 dependence and the constant friction loss.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Explains that spring energy is proportional to compression squared while the frictional loss is unchanged.",
+    "evidence_requirements": "The explanation connects the nonlinear result to the energy model.",
+    "content_item_version_id": "9f159e00-a8d9-4690-945b-c255632a5429"
+   }
+  ]
+ },
+ {
+  "content_key": "apphy1-frq-052",
+  "vid": "a15042a9-45bb-4ea3-95f9-02f3c208a373",
+  "version_num": 2,
+  "stem": "Answer all parts of the following question.\n\n(a) Draw free-body diagrams for both blocks, write Newton's second law for each block, state the modeling assumptions used, and calculate the acceleration of the system and the tension in the string.\n\n(b) Predict how the acceleration changes if the 5.00 kg mass is increased to 7.00 kg (the 3.00 kg mass unchanged), calculate the new acceleration, and explain the trend by comparing how the mass imbalance and the total mass each change.",
+  "stimulus": "An Atwood machine has masses of 3.00 kg and 5.00 kg connected by a light, inextensible string over a frictionless, massless pulley (g = 9.80 m/s^2).",
+  "prompt_json": {
+   "modules": [
+    "unit-2-force-and-translational-dynamics",
+    "practice-2"
+   ],
+   "subject": "ap_physics_1",
+   "frq_type": "short",
+   "archetype": "ap-physics-1-frq-translation",
+   "difficulty": "Hard",
+   "content_key": "apphy1-frq-052",
+   "total_points": 8,
+   "qa_remediation": "2026-08-09 apphy1-frq-052 repair per Ahmed Ali approve_with_edits note (protocol Sec9.4)",
+   "content_version": 2,
+   "qa_source_version_id": "8ba6a3a8-8352-41d4-a91f-75fda05996fe"
+  },
+  "crit": [
+   {
+    "id": "07960a8d-9913-47ea-83d5-280ce07d7434",
+    "minimum_fix": "Apply a=(m2-m1)g/(m1+m2) with m1=3.00 kg, m2=5.00 kg.",
+    "criterion_key": "a-accel",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the acceleration (2.45 m/s^2) using a=(m2-m1)g/(m1+m2).",
+    "evidence_requirements": "2.45 m/s^2 shown",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "fe2611f2-34bf-4173-bbca-29c0674df489",
+    "minimum_fix": "Add free-body diagrams for m1 and m2 showing mg down and T up on each.",
+    "criterion_key": "a-fbd",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Draws correct free-body diagrams for both blocks, showing weight (mg) directed downward and tension (T) directed upward on each, with vectors correctly labeled and no spurious forces.",
+    "evidence_requirements": "Two free-body diagrams, each showing weight down and tension up, correctly labeled with magnitudes/symbols.",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "2c3cb8c7-2960-4305-a5e2-1ae78c43dafb",
+    "minimum_fix": "State the massless/frictionless-pulley and light-string assumptions and their consequence (equal tension, equal-magnitude acceleration) before using them in the equations.",
+    "criterion_key": "a-modeling",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States that the string is light (massless) and inextensible and the pulley is massless and frictionless, so the tension is the same throughout the string and both blocks have the same magnitude of acceleration.",
+    "evidence_requirements": "Explicit statement that tension is equal on both sides of the pulley and that both masses share the same acceleration magnitude, justified by the massless/frictionless pulley and light/inextensible string.",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "c07bb63b-af70-46d9-94b5-74dd84c1c01c",
+    "minimum_fix": "Write m2g-T=m2a and T-m1g=m1a as separate equations, then solve simultaneously for a and T.",
+    "criterion_key": "a-newton",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Writes Newton's second law for each block separately (e.g., m2g - T = m2a for the descending block and T - m1g = m1a for the ascending block) before combining them into the acceleration expression.",
+    "evidence_requirements": "Two distinct \u03a3F=ma equations, one per mass, shown prior to solving for a.",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "49125934-d73e-4bcb-b1d4-236f7b0b1e5c",
+    "minimum_fix": "Apply T=m1(g+a) or T=m2(g-a).",
+    "criterion_key": "a-tension",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the tension (36.8 N).",
+    "evidence_requirements": "36.8 N (or 36.75 N) shown",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "69f61c8e-1e58-4c3d-b81a-b82c56947c32",
+    "minimum_fix": "Replace the vague \"grows faster\" language with the explicit comparison: imbalance 2 to 4 kg (x2) vs total 8 to 10 kg (x1.25).",
+    "criterion_key": "b-explanation",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Explains that the acceleration increases because the mass imbalance (m2-m1) doubles from 2.00 kg to 4.00 kg (a factor of 2) while the total mass (m1+m2) increases only from 8.00 kg to 10.00 kg (a factor of 1.25); since a is proportional to (m2-m1)/(m1+m2), the numerator grows faster than the denominator, so a increases.",
+    "evidence_requirements": "States both multipliers (imbalance factor 2, total-mass factor 1.25) and concludes a increases because the numerator's growth outpaces the denominator's.",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "5b05a525-df9d-4328-a4e2-40a3c0d7e770",
+    "minimum_fix": "Add a sentence evaluating the limit as m2 approaches infinity and showing a approaches g.",
+    "criterion_key": "b-limit",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States and briefly justifies the limiting case: as m2 approaches infinity (with m1 fixed), a=[(m2-m1)/(m2+m1)]g approaches g, because the m1 terms become negligible compared to m2.",
+    "evidence_requirements": "Explicit statement that a approaches g as m2 approaches infinity, with brief justification (e.g., m1 becomes negligible relative to m2).",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   },
+   {
+    "id": "7540f381-dea6-4c2b-a825-7a460b0f575a",
+    "minimum_fix": "Recompute a=(m2-m1)g/(m1+m2) with m2=7.00 kg.",
+    "criterion_key": "b-new",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the new acceleration (3.92 m/s^2) after increasing m2 to 7.00 kg.",
+    "evidence_requirements": "3.92 m/s^2 shown",
+    "content_item_version_id": "a15042a9-45bb-4ea3-95f9-02f3c208a373"
+   }
+  ]
+ },
+ {
+  "content_key": "apphy1-frq-054",
+  "vid": "4c283652-3ddd-4d93-99f7-186acbed682d",
+  "version_num": 2,
+  "stem": "Answer all parts of the following question.\n\n(a) Determine the horizontal and vertical components of the initial velocity, v0x and v0y. Before substituting any numbers, combine R = v0x t and t = 2v0y/g (with v0x = v0 cos\u03b8, v0y = v0 sin\u03b8) to derive the range symbolically as R = v0\u00b2 sin(2\u03b8)/g. Then use this relationship, together with H = v0y\u00b2/(2g), to calculate the maximum height, the total time of flight, and the horizontal range.\n\n(b) A second projectile is launched from the same location at the same initial speed, 25.0 m/s, but at 50.0\u00b0 above the horizontal instead of 40.0\u00b0. Determine the range of this second launch and compare it to the range found in part (a). Then explain, in terms of the dependence of R on sin(2\u03b8), why launching at 40\u00b0 and at 50\u00b0 (at the same speed) produces the same range.",
+  "stimulus": "A projectile is launched from level ground at 25.0 m/s at an angle of 40.0\u00b0 above the horizontal (g = 9.80 m/s^2, ignore air resistance).",
+  "prompt_json": {
+   "modules": [
+    "unit-1-kinematics",
+    "practice-4"
+   ],
+   "subject": "ap_physics_1",
+   "frq_type": "short",
+   "archetype": "ap-physics-1-frq-representation",
+   "difficulty": "Hard",
+   "content_key": "apphy1-frq-054",
+   "total_points": 6,
+   "qa_remediation": "2026-08-09 apphy1-frq-054 repair per Ahmed Ali approve_with_edits note items (i) and (ii); note (iii) [bank-vs-#6] is a meta/scheduling comment, not acted on (protocol Sec9.4)",
+   "content_version": 2,
+   "qa_source_version_id": "557ba080-3a9b-4754-ad13-8cb3c9ebbd15"
+  },
+  "crit": [
+   {
+    "id": "36eba129-aaef-4408-9db6-a84afd5cabca",
+    "minimum_fix": "Use h_max=(v0 sin\u03b8)\u00b2/(2g).",
+    "criterion_key": "a-height",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the maximum height (13.2 m).",
+    "evidence_requirements": "13.2 m shown",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   },
+   {
+    "id": "2a10b72f-5855-4f21-9d1c-d4d4979552df",
+    "minimum_fix": "Multiply the horizontal velocity component by the total time of flight.",
+    "criterion_key": "a-range",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the horizontal range (62.8 m).",
+    "evidence_requirements": "62.8 m shown",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   },
+   {
+    "id": "3294ff04-2b85-42a0-a3e4-dcc4c28573c9",
+    "minimum_fix": "Combine the horizontal-velocity and time-of-flight expressions algebraically to reach R = v0\u00b2 sin(2\u03b8)/g before substituting numbers.",
+    "criterion_key": "a-symbolic-range",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraic derivation reaching R = v0\u00b2 sin(2\u03b8)/g by a different valid route earns credit."
+    ],
+    "learner_facing_text": "Derives the range symbolically as R = v0\u00b2 sin(2\u03b8)/g by combining R = v0x t with t = 2v0y/g and v0x = v0 cos\u03b8, v0y = v0 sin\u03b8, before substituting numbers.",
+    "evidence_requirements": "Shows the algebraic combination R = v0x t, t = 2v0y/g \u2192 R = 2 v0x v0y / g = v0\u00b2 sin(2\u03b8)/g, prior to plugging in v0=25.0 m/s and \u03b8=40.0\u00b0.",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   },
+   {
+    "id": "fed4a344-1591-4df5-afb7-12813db6e0f6",
+    "minimum_fix": "Use t=2(v0 sin\u03b8)/g.",
+    "criterion_key": "a-time",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Calculates the total time of flight (3.28 s).",
+    "evidence_requirements": "3.28 s shown",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   },
+   {
+    "id": "32240ff6-fa30-495e-bb90-66c49db197f8",
+    "minimum_fix": "Substitute \u03b8=50\u00b0 into R = v0\u00b2 sin(2\u03b8)/g (or recompute v0x, v0y, t, R at 50\u00b0) and compare the result to the 40\u00b0 range.",
+    "criterion_key": "b-50deg-range",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent units earns credit."
+    ],
+    "learner_facing_text": "Determines the range for a 50.0\u00b0 launch at the same 25.0 m/s speed (R \u2248 62.8 m) and states that it equals the 40.0\u00b0 range from part (a).",
+    "evidence_requirements": "Uses R = v0\u00b2 sin(2\u03b8)/g with \u03b8=50.0\u00b0 (sin 100\u00b0 \u2248 0.985) to get \u2248 62.8 m, or recomputes v0x, v0y, t, R at 50.0\u00b0 directly, and explicitly compares the result to part (a).",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   },
+   {
+    "id": "62ef1e53-4c94-4d99-afd2-cfcbe8e5753e",
+    "minimum_fix": "Identify that 40\u00b0 and 50\u00b0 sum to 90\u00b0, so their doubled angles (80\u00b0, 100\u00b0) are supplementary and have equal sine, making the ranges equal.",
+    "criterion_key": "b-symmetry-explanation",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent units earns credit."
+    ],
+    "learner_facing_text": "Explains that the two ranges are equal because range depends on sin(2\u03b8), and 40\u00b0 and 50\u00b0 are complementary angles (sum to 90\u00b0), so 2\u00d740\u00b0=80\u00b0 and 2\u00d750\u00b0=100\u00b0 are supplementary (sum to 180\u00b0) and therefore have exactly equal sine, by sin(180\u00b0\u2212x)=sin(x).",
+    "evidence_requirements": "States or uses the sin(2\u03b8) dependence of R and identifies that \u03b8 and 90\u00b0\u2212\u03b8 give the same range because their doubled angles are supplementary, so sin(2\u03b8) is the same for both; credits recognizing the equality is exact, not merely approximate.",
+    "content_item_version_id": "4c283652-3ddd-4d93-99f7-186acbed682d"
+   }
+  ]
+ },
+ {
+  "content_key": "apphy2-frq-028",
+  "vid": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f",
+  "version_num": 4,
+  "stem": "Answer all parts of the following question.\n\n(a) Draw and label the principal axis, mirror, F, C, object, and image. Use any two valid principal rays to locate the image and show the arrow directions.\n\n(b) State the image's orientation, relative size, and whether it is real or virtual.",
+  "stimulus": "An upright object is placed on the principal axis between the focal point F and center of curvature C of an ideal spherical concave mirror. Use the paraxial-ray approximation.",
+  "prompt_json": {
+   "topic": "13.2",
+   "modules": [
+    "unit-13-geometric-optics",
+    "physics-expansion-2026-07-24"
+   ],
+   "subject": "ap_physics_2",
+   "archetype": "Translation Between Representations",
+   "difficulty": "Medium",
+   "content_key": "apphy2-frq-028",
+   "repair_class": "rubric_point_restructuring",
+   "total_points": 5,
+   "qa_remediation": "2026-08-08 owner-directed version-bump for stale-assignment blocker",
+   "content_version": 4,
+   "source_version_id": "455b4675-a1fe-42e1-96a8-a3643d92518b",
+   "source_fact_pack_id": "10jX6Pmtd6vxhg-iqKAPh56UCyjy5l4kLFZC2AOaUo84",
+   "qa_source_decision_id": "368aa30e-babb-4e5e-8143-c5c3f86cba79"
+  },
+  "crit": [
+   {
+    "id": "6d8f4087-1e47-4569-9aa2-d05ad3ec2f3e",
+    "minimum_fix": "Extend reflected rays to their actual intersection.",
+    "criterion_key": "a-location",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent units earns credit."
+    ],
+    "learner_facing_text": "Places the ray intersection beyond C in front of the mirror.",
+    "evidence_requirements": "Correct image location for F<d_o<C.",
+    "content_item_version_id": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f"
+   },
+   {
+    "id": "f79fc9a4-b799-4f20-8fb6-22fd7b2d0668",
+    "minimum_fix": "Apply two valid reflection rules at the mirror surface.",
+    "criterion_key": "a-rays",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent algebraically correct reasoning with consistent units earns credit."
+    ],
+    "learner_facing_text": "Draws any two valid principal rays correctly, such as parallel-then-through-F, through-F-then-parallel, or through-C-and-back.",
+    "evidence_requirements": "Two valid paraxial principal rays are drawn from the object and reflected according to the concave-mirror rules.",
+    "content_item_version_id": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f"
+   },
+   {
+    "id": "8f53fda6-2541-43c8-b016-9e2bbaaa8924",
+    "minimum_fix": "Compare the image orientation with the object in the ray diagram.",
+    "criterion_key": "b-orientation",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States that the image is inverted.",
+    "evidence_requirements": "States that the image is inverted.",
+    "content_item_version_id": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f"
+   },
+   {
+    "id": "1a2f2d27-bec9-4198-b675-468e304c48e6",
+    "minimum_fix": "Use actual reflected-ray convergence to classify the image.",
+    "criterion_key": "b-real",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States that the image is real because reflected rays actually converge.",
+    "evidence_requirements": "States that the image is real because the reflected rays actually converge.",
+    "content_item_version_id": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f"
+   },
+   {
+    "id": "5abbc654-c011-4925-8a10-ef22ea188641",
+    "minimum_fix": "Use the ray diagram to compare image and object heights.",
+    "criterion_key": "b-size",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "magnified"
+    ],
+    "learner_facing_text": "States that the image is enlarged or magnified relative to the object.",
+    "evidence_requirements": "States that the image is enlarged.",
+    "content_item_version_id": "fddc7ce8-ac97-4e7c-8e79-2d71d3f82b4f"
+   }
+  ]
+ },
+ {
+  "content_key": "apphycem-frq-np1-002",
+  "vid": "e1f73980-bc95-4cea-a735-17044be6c987",
+  "version_num": 2,
+  "stem": "Answer both parts of the following question.\n\n(a) Using Gauss's law, derive an expression for the magnitude of the electric field E(r) in the region a < r < b.\n\n(b) Using the result from part (a), derive an expression for the potential difference V(a) - V(b). Justify, using spherical symmetry, why the electric field is radial and constant in magnitude on the Gaussian surface you use.",
+  "stimulus": "A thin spherical shell of radius a carries charge +Q uniformly distributed on its surface. A second, larger concentric thin spherical shell of radius b carries charge -Q uniformly distributed on its surface.",
+  "prompt_json": {
+   "qa_remediation": "2026-08-09 changes_requested QA sweep Tier 3 -- wording/precision clarification",
+   "content_version": 2
+  },
+  "crit": [
+   {
+    "id": "8ef65005-ece6-404b-a125-2d0e9e6fa28b",
+    "minimum_fix": "State the equation before applying it.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "States Gauss's law, the closed-surface integral of E dot dA equals q_enc/epsilon_0.",
+    "evidence_requirements": "Response includes this equation as a starting point.",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   },
+   {
+    "id": "cadfcbd9-b6b2-4278-9098-f07f62139768",
+    "minimum_fix": "Show the Gaussian surface area explicitly.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly uses a spherical Gaussian surface area of 4*pi*r^2.",
+    "evidence_requirements": "Response identifies the flux integral evaluates to E*(4*pi*r^2).",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   },
+   {
+    "id": "b3f097a0-adc5-4ee9-862a-9f0bfe6cdbbd",
+    "minimum_fix": "Explain why only the inner shell contributes to the enclosed charge in this region.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies the enclosed charge for a<r<b as +Q (only the inner shell is enclosed; the outer shell's charge is not).",
+    "evidence_requirements": "Response states q_enc=+Q for this region.",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   },
+   {
+    "id": "7a81c300-67c0-423f-91a5-591bae60fceb",
+    "minimum_fix": "Show the final algebraic isolation of E.",
+    "criterion_key": "part-a-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly solves for E(r) = Q/(4*pi*epsilon_0*r^2), directed radially outward.",
+    "evidence_requirements": "Response combines the flux and enclosed charge to solve for E.",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   },
+   {
+    "id": "150b82a5-e8cf-43e1-a72b-a7f8d2f9dd72",
+    "minimum_fix": "Show the integral setup as its own step before evaluating.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly sets up the integral V(a)-V(b) = the definite integral from a to b of E(r) dr, using the E(r) from part (a).",
+    "evidence_requirements": "Response writes the potential-difference integral with correct limits a to b.",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   },
+   {
+    "id": "03f4542c-2f62-4979-a874-ec26b48be185",
+    "minimum_fix": "Show the antiderivative evaluation before the final expression.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly evaluates the integral to get V(a)-V(b) = (Q/(4*pi*epsilon_0))*(1/a - 1/b).",
+    "evidence_requirements": "Response evaluates the antiderivative -1/r at the limits a and b.",
+    "content_item_version_id": "e1f73980-bc95-4cea-a735-17044be6c987"
+   }
+  ]
+ },
+ {
+  "content_key": "apphycem-frq-np1-003",
+  "vid": "599dcf66-fca5-4c7d-b46b-eebdaab9316a",
+  "version_num": 2,
+  "stem": "Answer both parts of the following question.\n\n(a) Using integration, derive an expression for the magnitude of the electric field E(x) at a point on the axis of the ring, a distance x from its center.\n\n(b) Find the value of x, in terms of R, at which E(x) is maximum. Treat x as a nonnegative distance from the center; justify that the value of x found in part (b) gives a maximum using the sign of dE/dx on either side, or by comparing to E(0)=0 and the behavior of E(x) as x approaches infinity.",
+  "stimulus": "A thin ring of radius R carries a uniform positive charge Q distributed around its circumference.",
+  "prompt_json": {
+   "qa_remediation": "2026-08-09 changes_requested QA sweep Tier 3 -- wording/precision clarification",
+   "content_version": 2
+  },
+  "crit": [
+   {
+    "id": "1aed5f1d-e438-4c10-b8c0-ffb9aac2e315",
+    "minimum_fix": "Show the distance expression explicitly.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly writes the field contribution from a charge element dq as dE = k*dq/(x^2+R^2), with the distance from the element to the field point equal to the square root of (x^2+R^2).",
+    "evidence_requirements": "Response identifies the distance from any ring element to the axial point as sqrt(x^2+R^2).",
+    "content_item_version_id": "599dcf66-fca5-4c7d-b46b-eebdaab9316a"
+   },
+   {
+    "id": "dfbbedcd-8f51-4aa6-b7fa-79415a8f351d",
+    "minimum_fix": "State the symmetry argument for why only the axial component survives.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies that only the axial component of dE survives by symmetry, using the factor x/sqrt(x^2+R^2), giving dE_x = k*x*dq/(x^2+R^2)^(3/2).",
+    "evidence_requirements": "Response explains that the perpendicular (radial) components of dE cancel in pairs around the ring by symmetry, leaving only the axial component.",
+    "content_item_version_id": "599dcf66-fca5-4c7d-b46b-eebdaab9316a"
+   },
+   {
+    "id": "74abe567-ad27-49d1-b76e-64bfb9041067",
+    "minimum_fix": "Show the final integrated expression.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly integrates dq around the full ring (a constant factor since x and R do not vary) to replace the integral of dq with Q, and states the final result E(x) = k*Q*x/(x^2+R^2)^(3/2).",
+    "evidence_requirements": "Response shows the integration step replacing the sum of dq with the total charge Q.",
+    "content_item_version_id": "599dcf66-fca5-4c7d-b46b-eebdaab9316a"
+   },
+   {
+    "id": "7ca1dd84-c9d0-48c7-bab3-0e671be8b7a2",
+    "minimum_fix": "Show the differentiation and equation-solving steps.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly sets the derivative of E(x) with respect to x equal to zero and solves the resulting equation.",
+    "evidence_requirements": "Response differentiates E(x) using the quotient or product rule and sets the result to zero.",
+    "content_item_version_id": "599dcf66-fca5-4c7d-b46b-eebdaab9316a"
+   },
+   {
+    "id": "afa03165-3f03-4f1d-a76b-107149ce170b",
+    "minimum_fix": "Show the final solved value.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly finds x = R divided by the square root of 2.",
+    "evidence_requirements": "Response solves the resulting equation R^2-2x^2=0 for x.",
+    "content_item_version_id": "599dcf66-fca5-4c7d-b46b-eebdaab9316a"
+   }
+  ]
+ },
+ {
+  "content_key": "apphycem-frq-np1-010",
+  "vid": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d",
+  "version_num": 2,
+  "stem": "Answer all parts of the following question.\n\n(a) Find the capacitance C0 of the capacitor before the dielectric is inserted, in terms of A and d.\n\n(b) After the dielectric is inserted, with the charge Q0 now fixed (since the battery is disconnected), find the new capacitance C, and find the ratio of the new stored energy U to the original stored energy U0.\n\n(c) Explain, using energy conservation, why the stored energy changes as it does. Assume negligible edge effects and an ideal, linear dielectric. If the dielectric moves freely into the capacitor under the field's pull, is work done on or by the dielectric, and where does the energy go? (If instead it is inserted slowly by an external agent, describe how the work done by the field and by the agent differ.)",
+  "stimulus": "A parallel-plate capacitor with plate area A and plate separation d is charged to a potential difference V0 by a battery, and then the battery is disconnected, leaving the capacitor with a fixed charge Q0. A dielectric slab of constant kappa (kappa > 1) is then inserted, completely filling the gap between the plates.",
+  "prompt_json": {
+   "qa_remediation": "2026-08-09 changes_requested QA sweep Tier 3 -- wording/precision clarification",
+   "content_version": 2
+  },
+  "crit": [
+   {
+    "id": "2eff3c96-4190-40c1-bb22-06f350da3a7f",
+    "minimum_fix": "State the formula explicitly.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly states C0 = epsilon_0*A/d.",
+    "evidence_requirements": "Response gives the parallel-plate capacitance formula without a dielectric.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   },
+   {
+    "id": "4f359cb1-b877-448d-a1ab-f9cff72804d1",
+    "minimum_fix": "State the relationship explicitly.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly states the new capacitance C = kappa*C0.",
+    "evidence_requirements": "Response applies the dielectric relationship C=kappa*C0.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   },
+   {
+    "id": "2259a363-a583-4146-8fda-bb2bc8498122",
+    "minimum_fix": "Use the Q^2/(2C) form of the energy formula, since Q is fixed here, not V.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly derives U0 = Q0^2/(2*C0) and U = Q0^2/(2*C) = Q0^2/(2*kappa*C0), using the fixed charge Q0 (not a fixed voltage) in both expressions.",
+    "evidence_requirements": "Response uses the charge-based energy formula, consistent with charge (not voltage) being held fixed in this scenario.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   },
+   {
+    "id": "15839089-9657-4fff-a43e-be9148dc0f2a",
+    "minimum_fix": "Show the final ratio.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly concludes the ratio U/U0 = 1/kappa.",
+    "evidence_requirements": "Response simplifies the ratio of the two energy expressions.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   },
+   {
+    "id": "e3b0eb9e-b7c1-4933-82e7-7fe0d00dc8cf",
+    "minimum_fix": "State the direction of the energy change explicitly.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly states the stored energy decreases, since kappa > 1 makes the ratio U/U0 = 1/kappa less than 1.",
+    "evidence_requirements": "Response connects the numeric ratio to the direction of change.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   },
+   {
+    "id": "65cf6d12-c166-4c25-bf03-259df81e08e7",
+    "minimum_fix": "Explicitly identify that the field does positive work ON the dielectric (not the reverse), accounting for the energy decrease.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly explains that because the charge is isolated (no battery doing work) and the total energy must be conserved, the decrease in stored field energy corresponds to positive work done by the electric field on the dielectric as it is pulled into the capacitor.",
+    "evidence_requirements": "Response connects the energy decrease to the field doing positive work on the dielectric, via energy conservation.",
+    "content_item_version_id": "609a4d5a-ca55-4385-b3e1-7fe938d4b10d"
+   }
+  ]
+ },
+ {
+  "content_key": "apphycm-frq-036",
+  "vid": "d46347bb-0063-4627-b1a5-0b099ca01a71",
+  "version_num": 2,
+  "stem": "Velocity-dependent drag representations: Answer all mandatory subparts. Show reasoning and calculations clearly. Use standard AP Physics notation and justify qualitative claims.",
+  "stimulus": "A small object of mass m is released from rest at t=0 and falls vertically through a fluid. Take downward as positive. The drag force has magnitude bv, where b is a positive constant and v is the downward velocity.",
+  "prompt_json": {
+   "unit": 2,
+   "parts": [
+    {
+     "points": 3,
+     "prompt": "Draw a force diagram for the object after release and write the differential equation governing v(t). Identify the terminal speed.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-03"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 4,
+     "prompt": "Solve the differential equation for v(t) using v(0)=0. Then derive the acceleration a(t).",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-03"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-04"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 3,
+     "prompt": "Sketch v versus t and a versus t on separate labeled axes. Mark initial values, asymptotes, and concavity.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-03"
+      }
+     ],
+     "part_key": "part-c"
+    },
+    {
+     "points": 2,
+     "prompt": "A second object has the same mass but a larger drag coefficient. Compare its terminal speed and the initial slope of its velocity graph with those of the first object.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-d-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-d-criterion-02"
+      }
+     ],
+     "part_key": "part-d"
+    }
+   ],
+   "topic": "Force and Translational Dynamics",
+   "modules": [
+    "physics-full-scale-frq-structure-2026-07-25"
+   ],
+   "subject": "ap_physics_c_mechanics",
+   "archetype": "Translation Between Representations",
+   "difficulty": "Hard",
+   "content_key": "apphycm-frq-036",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "content_version": 2,
+   "review_pack_key": "saood-full-scale-physics-recheck-2026-07-27",
+   "review_pack_name": "Full-scale Physics FRQ recheck",
+   "review_display_fix": "queue-expanded-structured-parts",
+   "source_fact_pack_id": "1rc_z7A4CmhDx1Ya6zJswnKYm2wtOrLsJRK-7qBzDxG0"
+  },
+  "crit": [
+   {
+    "id": "13f5cedf-a666-4fe1-9ef6-7cf013638266",
+    "minimum_fix": "Drag opposes the downward velocity.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Shows weight mg downward and drag bv upward.",
+    "evidence_requirements": "The free-body diagram has correct forces and directions.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "209b4608-0fbc-48e4-aa37-c940c91bd46a",
+    "minimum_fix": "Sum downward-positive forces before dividing by m.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Writes m dv/dt=mg-bv with the stated sign convention.",
+    "evidence_requirements": "Newton's second law is correct.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "89c47ca0-4d47-43c4-867a-e64f3edaf6f7",
+    "minimum_fix": "Set mg-bv_T=0.",
+    "criterion_key": "part-a-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Obtains terminal speed v_T=mg/b.",
+    "evidence_requirements": "Terminal motion is found by setting acceleration to zero.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "02b862ae-31e3-49cc-8c4b-35a7f190fe94",
+    "minimum_fix": "Put the equation in separable or first-order linear form.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Separates variables or uses a valid linear-equation method on dv/dt+(b/m)v=g.",
+    "evidence_requirements": "A calculus-based solution method is shown.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "35261e7c-6141-4360-8801-f20dbddba6fd",
+    "minimum_fix": "Integrate dv/(g-bv/m)=dt.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Integrates to obtain a logarithmic or equivalent exponential relation with an integration constant.",
+    "evidence_requirements": "The integration step is mathematically valid.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "581272e6-c15a-4fd1-a908-4953b1b549db",
+    "minimum_fix": "Choose the constant so velocity begins at zero.",
+    "criterion_key": "part-b-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Applies v(0)=0 to obtain v(t)=v_T(1-e^{-bt/m}).",
+    "evidence_requirements": "The initial condition and time constant are correct.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "e4a80dfa-6d8a-4e6d-97ba-f2158293daa7",
+    "minimum_fix": "Differentiate the velocity expression with respect to time.",
+    "criterion_key": "part-b-criterion-04",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Differentiates to obtain a(t)=g e^{-bt/m}.",
+    "evidence_requirements": "The acceleration has correct initial and long-time limits.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "7770cf47-6705-40e0-b8eb-128a274cad4c",
+    "minimum_fix": "Use both v and dv/dt limits.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Shows v starting at zero, increasing concave down, and approaching v_T asymptotically.",
+    "evidence_requirements": "The velocity graph matches the solution.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "1217d275-f712-4caa-aa8d-f2ce7ce39eac",
+    "minimum_fix": "Use a=g e^{-bt/m}.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Shows a starting at g, decreasing concave up, and approaching zero.",
+    "evidence_requirements": "The acceleration graph matches the exponential solution.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "6bbd0405-ecd3-4d9f-8b2b-20c35b0b42e8",
+    "minimum_fix": "Mark \u03c4=m/b, where the exponential factor is e^{-1}.",
+    "criterion_key": "part-c-criterion-03",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "Labels the characteristic time scale m/b or a representative value at t=m/b.",
+    "evidence_requirements": "The graph includes a quantitative time feature.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "2fc62324-d8b4-402a-af79-daaf92dea595",
+    "minimum_fix": "Increase b in the terminal-speed expression.",
+    "criterion_key": "part-d-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "States that the second object's terminal speed is smaller because v_T=mg/b.",
+    "evidence_requirements": "The parameter dependence is correct.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   },
+   {
+    "id": "3d35814c-cdaa-4463-8fce-6d398ee0f9d8",
+    "minimum_fix": "At v=0, the bv term vanishes for either object.",
+    "criterion_key": "part-d-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Equivalent calculus-based reasoning with consistent signs and units earns credit."
+    ],
+    "learner_facing_text": "States that the initial slope remains g because drag is zero at release.",
+    "evidence_requirements": "The initial acceleration comparison is correct.",
+    "content_item_version_id": "d46347bb-0063-4627-b1a5-0b099ca01a71"
+   }
+  ]
+ },
+ {
+  "content_key": "apprecalc-frq-027",
+  "vid": "61071e52-d737-4683-b050-30c0fc9204f5",
+  "version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points for one cycle beginning at t=0 and state the midline.\n\n(b) Construct a cosine model d(t) for the depth.\n\n(c) On 0<t<3, state whether d is increasing or decreasing and whether its rate of change is increasing or decreasing.",
+  "stimulus": "At a pier, water depth has midline 7 meters, amplitude 3 meters, period 12 hours, and a maximum at t=0 hours.",
+  "prompt_json": {
+   "modules": [
+    "unit-3-trigonometric-and-polar-functions",
+    "topic-3.7",
+    "practice-3"
+   ],
+   "subject": "ap_precalculus",
+   "frq_type": "long",
+   "archetype": "ap-precalculus-frq-modeling-periodic",
+   "item_type": "frq",
+   "difficulty": "Easy",
+   "content_key": "apprecalc-frq-027",
+   "total_points": 6,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 3,
+    "units_rule": "Units are required when the prompt or criterion asks for contextual interpretation.",
+    "total_points": 6,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "points_per_part": 2,
+    "carry_forward_rule": "A later criterion may earn when an earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "069cab190bfa00eb20b082d6d8b5b7c31c98e164a89eb4d4fadce37a7c48137c",
+   "package_schema_version": "1.0.0"
+  },
+  "crit": [
+   {
+    "id": "5ef001e1-0d09-4c22-8dac-bd0ada3cf139",
+    "minimum_fix": "Add or correct the evidence needed to establish: The key points are (0,10),(3,7),(6,4),(9,7),(12,10).",
+    "criterion_key": "part-a-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The key points are (0,10),(3,7),(6,4),(9,7),(12,10).",
+    "evidence_requirements": "The key points are (0,10),(3,7),(6,4),(9,7),(12,10).",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   },
+   {
+    "id": "b4d881a0-41da-42fb-b315-71bed5011eaa",
+    "minimum_fix": "Add or correct the evidence needed to establish: The midline is d=7 and the points support a two-cycle sketch by repetition.",
+    "criterion_key": "part-a-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The midline is d=7 and the points support a two-cycle sketch by repetition.",
+    "evidence_requirements": "The midline is d=7 and the points support a two-cycle sketch by repetition.",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   },
+   {
+    "id": "4c81adf0-e6d7-4154-8a79-a08204678530",
+    "minimum_fix": "Add or correct the evidence needed to establish: d(t)=7+3cos((\u03c0/6)t).",
+    "criterion_key": "part-b-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "d(t)=7+3cos((\u03c0/6)t).",
+    "evidence_requirements": "d(t)=7+3cos((\u03c0/6)t).",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   },
+   {
+    "id": "de857676-98b0-40d3-b0f7-9db1d621db87",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses amplitude 3, vertical shift 7, period 12, and the maximum phase.",
+    "criterion_key": "part-b-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses amplitude 3, vertical shift 7, period 12, and the maximum phase.",
+    "evidence_requirements": "Uses amplitude 3, vertical shift 7, period 12, and the maximum phase.",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   },
+   {
+    "id": "c53a1cbd-5361-4427-926c-c15fd0f27ce8",
+    "minimum_fix": "Add or correct the evidence needed to establish: The depth is decreasing and its rate of change is decreasing on 0<t<3.",
+    "criterion_key": "part-c-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The depth is decreasing and its rate of change is decreasing on 0<t<3.",
+    "evidence_requirements": "The depth is decreasing and its rate of change is decreasing on 0<t<3.",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   },
+   {
+    "id": "d9d71f10-9b1b-4fa5-926e-e947f259d1b1",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "criterion_key": "part-c-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "evidence_requirements": "Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "content_item_version_id": "61071e52-d737-4683-b050-30c0fc9204f5"
+   }
+  ]
+ },
+ {
+  "content_key": "apprecalc-frq-029",
+  "vid": "eecf9c87-6c15-43c8-a74e-c2e83f96e090",
+  "version_num": 3,
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points for one cycle and state the midline.\n\n(b) Construct a cosine model L(t) for daylight hours.\n\n(c) On 3<t<6, state whether L is increasing or decreasing and whether its rate of change is increasing or decreasing.",
+  "stimulus": "Daylight lasts 9.5 hours at t=0 months, which is a minimum, and 14.5 hours at t=6 months, and is modeled by a sinusoidal function with a 12-month cycle.",
+  "prompt_json": {},
+  "crit": [
+   {
+    "id": "e1771673-a572-4c60-8b80-1a0473cef5d6",
+    "minimum_fix": "Add or correct the evidence needed to establish: The key points are (0,9.5),(3,12),(6,14.5),(9,12),(12,9.5).",
+    "criterion_key": "part-a-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The key points are (0,9.5),(3,12),(6,14.5),(9,12),(12,9.5).",
+    "evidence_requirements": "The key points are (0,9.5),(3,12),(6,14.5),(9,12),(12,9.5).",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   },
+   {
+    "id": "9a3b5d37-e805-44e8-8af9-bdb18ea9f1f8",
+    "minimum_fix": "Add or correct the evidence needed to establish: The midline is L=12 and the points support a sinusoidal model features by repetition.",
+    "criterion_key": "part-a-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The midline is L=12 and the points support a sinusoidal model features by repetition.",
+    "evidence_requirements": "The midline is L=12 and the points support a sinusoidal model features by repetition.",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   },
+   {
+    "id": "e2bd2aae-2bb4-4ead-b69e-02eb1cc45415",
+    "minimum_fix": "Add or correct the evidence needed to establish: L(t)=12\u22122.5cos((\u03c0/6)t).",
+    "criterion_key": "part-b-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "L(t)=12\u22122.5cos((\u03c0/6)t).",
+    "evidence_requirements": "L(t)=12\u22122.5cos((\u03c0/6)t).",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   },
+   {
+    "id": "a8d94292-fa50-49cb-9e0c-ff43e5b58536",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses amplitude 2.5, vertical shift 12, period 12, and the minimum phase.",
+    "criterion_key": "part-b-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses amplitude 2.5, vertical shift 12, period 12, and the minimum phase.",
+    "evidence_requirements": "Uses amplitude 2.5, vertical shift 12, period 12, and the minimum phase.",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   },
+   {
+    "id": "17ea6b2e-6aa6-46d3-ae8c-718e28d7720e",
+    "minimum_fix": "Add or correct the evidence needed to establish: Daylight is increasing while its rate of change is decreasing on 3<t<6.",
+    "criterion_key": "part-c-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Daylight is increasing while its rate of change is decreasing on 3<t<6.",
+    "evidence_requirements": "Daylight is increasing while its rate of change is decreasing on 3<t<6.",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   },
+   {
+    "id": "d25e18ec-e884-418c-bfd6-d48f5d1d570b",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the second quarter-cycle\u2019s upward, concave-down behavior.",
+    "criterion_key": "part-c-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses the second quarter-cycle\u2019s upward, concave-down behavior.",
+    "evidence_requirements": "Uses the second quarter-cycle\u2019s upward, concave-down behavior.",
+    "content_item_version_id": "eecf9c87-6c15-43c8-a74e-c2e83f96e090"
+   }
+  ]
+ },
+ {
+  "content_key": "apprecalc-frq-031",
+  "vid": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8",
+  "version_num": 1,
+  "stem": "Answer all parts of the following question.\n\n(a) Give five consecutive key points beginning at the maximum and state the midline.\n\n(b) Construct a cosine model x(t) for the coordinate.\n\n(c) On 1/2<t<5/4, state whether x is increasing or decreasing and whether its rate of change is increasing or decreasing.",
+  "stimulus": "A beacon\u2019s horizontal coordinate ranges from \u22125 meters to 5 meters, has period 3 seconds, and is at its maximum at t=1/2 second.",
+  "prompt_json": {
+   "modules": [
+    "unit-3-trigonometric-and-polar-functions",
+    "topic-3.7",
+    "practice-3"
+   ],
+   "subject": "ap_precalculus",
+   "frq_type": "long",
+   "archetype": "ap-precalculus-frq-modeling-periodic",
+   "item_type": "frq",
+   "difficulty": "Very Hard",
+   "content_key": "apprecalc-frq-031",
+   "total_points": 6,
+   "calculator_mode": "no-calculator",
+   "scoring_contract": {
+    "part_count": 3,
+    "units_rule": "Units are required when the prompt or criterion asks for contextual interpretation.",
+    "total_points": 6,
+    "rounding_rule": "Accept exact values or values correctly rounded to the precision requested.",
+    "ambiguity_rule": "Escalate a valid but unlisted interpretation rather than forcing a score.",
+    "calculator_mode": "no-calculator",
+    "points_per_part": 2,
+    "carry_forward_rule": "A later criterion may earn when an earlier arithmetic error is carried forward consistently and the later reasoning remains valid."
+   },
+   "source_school_year": "2026-27",
+   "package_content_sha256": "db4857a5e728e09b3382d7604e03ef5e61399001d6538c97f13fcc15082c8a36",
+   "package_schema_version": "1.0.0"
+  },
+  "crit": [
+   {
+    "id": "2d15d7aa-9c90-4f08-acd5-9f02597ca19e",
+    "minimum_fix": "Add or correct the evidence needed to establish: The key points are (1/2,5),(5/4,0),(2,\u22125),(11/4,0),(7/2,5).",
+    "criterion_key": "part-a-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The key points are (1/2,5),(5/4,0),(2,\u22125),(11/4,0),(7/2,5).",
+    "evidence_requirements": "The key points are (1/2,5),(5/4,0),(2,\u22125),(11/4,0),(7/2,5).",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   },
+   {
+    "id": "c05501c5-915c-42af-8e9a-851c9c7d9bc3",
+    "minimum_fix": "Add or correct the evidence needed to establish: The midline is x=0 and the points support a two-cycle sketch by repetition.",
+    "criterion_key": "part-a-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The midline is x=0 and the points support a two-cycle sketch by repetition.",
+    "evidence_requirements": "The midline is x=0 and the points support a two-cycle sketch by repetition.",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   },
+   {
+    "id": "8698aa2c-75ea-41ac-a9e5-4a59b7838608",
+    "minimum_fix": "Add or correct the evidence needed to establish: x(t)=5cos((2\u03c0/3)(t\u22121/2)).",
+    "criterion_key": "part-b-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "x(t)=5cos((2\u03c0/3)(t\u22121/2)).",
+    "evidence_requirements": "x(t)=5cos((2\u03c0/3)(t\u22121/2)).",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   },
+   {
+    "id": "ad6e3721-66d7-428c-ac78-a7c9f6c163f5",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses amplitude 5, period 3, and the stated maximum phase.",
+    "criterion_key": "part-b-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses amplitude 5, period 3, and the stated maximum phase.",
+    "evidence_requirements": "Uses amplitude 5, period 3, and the stated maximum phase.",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   },
+   {
+    "id": "f544e96d-74bc-4e3a-ae6b-7466e4e41269",
+    "minimum_fix": "Add or correct the evidence needed to establish: The coordinate is decreasing and its rate of change is decreasing on 1/2<t<5/4.",
+    "criterion_key": "part-c-criterion-1",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "The coordinate is decreasing and its rate of change is decreasing on 1/2<t<5/4.",
+    "evidence_requirements": "The coordinate is decreasing and its rate of change is decreasing on 1/2<t<5/4.",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   },
+   {
+    "id": "05b9a768-7e41-4518-b6ae-6b4f859e5079",
+    "minimum_fix": "Add or correct the evidence needed to establish: Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "criterion_key": "part-c-criterion-2",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [
+     "Any mathematically equivalent response with the required setup, interpretation, or justification."
+    ],
+    "learner_facing_text": "Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "evidence_requirements": "Uses the first quarter-cycle\u2019s downward, concave-down behavior.",
+    "content_item_version_id": "49a576b2-7789-44ae-9ce5-5ea2b130d2d8"
+   }
+  ]
+ },
+ {
+  "content_key": "apprecalc-frq-u12-004",
+  "vid": "d7d77cb5-9b34-49ed-97ea-2da4709b3379",
+  "version_num": 2,
+  "stem": "Maximizing Weekly Profit with a Quadratic Model: Answer all parts. Show your reasoning and calculations clearly, using standard AP notation and justifying any qualitative claims.",
+  "stimulus": "A company sells a product at a base price of $20. For a price increase of x dollars (0 \u2264 x \u2264 20), the weekly profit is modeled by P(x) = -50x^2 + 800x + 2000 dollars. A graphing calculator is permitted for this item.",
+  "prompt_json": {
+   "unit": 1,
+   "parts": [
+    {
+     "points": 2,
+     "prompt": "Use your calculator to find the price increase x that maximizes profit, and state the maximum weekly profit.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-a-criterion-02"
+      }
+     ],
+     "part_key": "part-a"
+    },
+    {
+     "points": 2,
+     "prompt": "Use your calculator to find the price increase(s) at which the weekly profit equals zero (break-even), and determine which value(s) are reasonable in context.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-b-criterion-02"
+      }
+     ],
+     "part_key": "part-b"
+    },
+    {
+     "points": 2,
+     "prompt": "State a reasonable domain for x in this context and explain the real-world restrictions that justify it.",
+     "criteria": [
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-01"
+      },
+      {
+       "points": 1,
+       "criterion_key": "part-c-criterion-02"
+      }
+     ],
+     "part_key": "part-c"
+    }
+   ],
+   "topic": "1.14 Function Model Construction and Application",
+   "modules": [
+    "stats-precalc-units1-2-frq-2026-08-03"
+   ],
+   "subject": "ap_precalculus",
+   "archetype": "Modeling a Non-Periodic Context",
+   "calculator": "required",
+   "difficulty": "Medium",
+   "content_key": "apprecalc-frq-u12-004",
+   "source_policy": "Original Cramapple authorship; CED structure and scope only.",
+   "qa_remediation": "2026-08-09 changes_requested QA sweep Tier 2 -- rubric-granularity split",
+   "content_version": 2
+  },
+  "crit": [
+   {
+    "id": "4502bcbb-5409-4283-9596-48b616166408",
+    "minimum_fix": "Use the calculator's maximum feature on the graph of P(x), or compute x = -b/(2a) = -800/(2(-50)) = 8.",
+    "criterion_key": "part-a-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies x = 8 as the price increase that maximizes profit.",
+    "evidence_requirements": "Response finds the vertex/maximum of P(x) at x = 8 using calculator graphing or maximum-finding features.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   },
+   {
+    "id": "ae976b09-e7ac-44ad-8a48-e5a9c9de1930",
+    "minimum_fix": "Substitute x = 8 into P(x) to compute the maximum profit value.",
+    "criterion_key": "part-a-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly states the maximum profit as $5200.",
+    "evidence_requirements": "Response evaluates P(8) = -50(64) + 800(8) + 2000 = 5200 and reports $5200.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   },
+   {
+    "id": "7c1b475c-116a-4566-b841-1180f54377bd",
+    "minimum_fix": "Graph P(x) and use the zero/root-finding feature, or solve the quadratic equation using the quadratic formula.",
+    "criterion_key": "part-b-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly finds both solutions of -50x^2+800x+2000=0 numerically (x \u2248 18.2 and x \u2248 -2.2).",
+    "evidence_requirements": "Response uses the calculator to solve or graph P(x)=0 and reports approximately x \u2248 18.2 and x \u2248 -2.2.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   },
+   {
+    "id": "7ae150b6-c92e-4453-9321-ff2d188e77f1",
+    "minimum_fix": "State that x represents a price increase, which cannot be negative, so only the positive break-even value applies.",
+    "criterion_key": "part-b-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly rejects the negative solution as not reasonable given the domain 0 \u2264 x \u2264 20, keeping only x \u2248 18.2.",
+    "evidence_requirements": "Response explains that a negative price increase is not meaningful in context, so only x \u2248 18.2 is valid.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   },
+   {
+    "id": "8b87f966-81f5-4584-917d-1b69e0cab779",
+    "minimum_fix": "Identify the values of x for which P(x) is actually positive, bounded above by the break-even point x\u224818.2.",
+    "criterion_key": "part-c-criterion-01",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Correctly identifies the interval where the modeled profit is positive: 0 \u2264 x < 18.2 (up to the break-even point), not simply the model's stated domain 0 \u2264 x \u2264 20.",
+    "evidence_requirements": "Response gives the profit-positive interval bounded by the break-even value x\u224818.2, distinct from the full stated domain.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   },
+   {
+    "id": "bb439fbb-8476-474d-aa9f-7dd15432455e",
+    "minimum_fix": "Explain why profit is not positive beyond x\u224818.2, distinguishing this from the model's full stated domain.",
+    "criterion_key": "part-c-criterion-02",
+    "judgement_kind": "text",
+    "points_possible": 1,
+    "accepted_variants": [],
+    "learner_facing_text": "Justifies that beyond the break-even point (x\u224818.2), modeled profit is zero or negative, so 0 \u2264 x < 18.2 is the interval where the model realistically applies -- distinct from the domain 0 \u2264 x \u2264 20 given in the stimulus.",
+    "evidence_requirements": "Response connects the upper bound to the break-even/profitability point, not merely restating the given domain.",
+    "content_item_version_id": "d7d77cb5-9b34-49ed-97ea-2da4709b3379"
+   }
+  ]
+ }
+]
