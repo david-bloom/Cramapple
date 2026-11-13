@@ -1,4 +1,4 @@
-# APPROVAL-0258 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)
+# APPROVAL-0260 — Calculus AB and BC Unit 5 topic 5.1 (granted and executed 2026-11-12)
 
 - **Authority:** David's chat instruction on 2026-11-12: “use the same new content in Calc AB and BC ... Start authoring and publishing starting with Calculus AB. Make these questions available to both AB and BC. As each topic is completed, publish it. Do not wait for the entire unit and do not wait for permission.” His earlier instruction approved a one-time exception for these Unit 5 batches to use the handoff prompt's two-model blind solve and tier audit rather than the standing four-checker/planted-control protocol. The later same-content instruction supersedes the earlier separate-authoring preference.
 - **Tier and project:** Production student-facing content write on `pcntajvbdfqhbeewmdry`. AB served pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`; BC served pack `3778d753-273a-403d-8f02-55dc64ec6a27`.

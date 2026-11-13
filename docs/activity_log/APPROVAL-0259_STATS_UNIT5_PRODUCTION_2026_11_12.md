@@ -1,4 +1,4 @@
-# APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)
+# APPROVAL-0259 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)
 
 - **Status:** Granted by David in chat: “execute the prompt starting with unit 5 for statistics, biology, Calc AB, Cal BC ... The goal is to have new questions in production for students.” This record covers the Statistics batch only; separate records will cover the other named packs.
 - **One-time quality-gate exception:** David explicitly approved using the handoff prompt's two-model blind solve and two-model tier audit for these four Unit 5 batches, instead of the approved four independent checker families and planted controls. This exception does not extend to later batches.

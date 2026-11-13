@@ -6,7 +6,7 @@ David directed execution of Unit 5 for AP Statistics, AP Biology, AP Calculus AB
 
 ## Completed and live
 
-AP Statistics Unit 5 is fully executed on Production `pcntajvbdfqhbeewmdry` (served pack `548f06be-ccf4-426d-b82b-b424137a4438`). PR #640, stacked on PR #635, contains the package and the execution record. Approval `APPROVAL-0257` and `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md` are the durable evidence. Sixty new MCQs were published with validated serving labels, 15 published R1 items retired, all 60 hashes verified, and the student selector returned new items in all five topics. Independent read-only Production counts and valid-serving counts are 12/12, 12/12, 13/13, 14/14, 12/12 for topics 5.1–5.5. Three unserved pilot R1 items remain outside the served pack; do not include their keys in a served-pack retirement package.
+AP Statistics Unit 5 is fully executed on Production `pcntajvbdfqhbeewmdry` (served pack `548f06be-ccf4-426d-b82b-b424137a4438`). PR #640, stacked on PR #635, contains the package and the execution record. Approval `APPROVAL-0259` and `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md` are the durable evidence. Sixty new MCQs were published with validated serving labels, 15 published R1 items retired, all 60 hashes verified, and the student selector returned new items in all five topics. Independent read-only Production counts and valid-serving counts are 12/12, 12/12, 13/13, 14/14, 12/12 for topics 5.1–5.5. Three unserved pilot R1 items remain outside the served pack; do not include their keys in a served-pack retirement package.
 
 ## Remaining batches
 
