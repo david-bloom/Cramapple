@@ -59,7 +59,10 @@ insert into app.content_item_versions
 select t.new_version_id,t.item_id,2,
        coalesce(t.proposed_content->>'stem',v.stem),
        case when t.proposed_content is null then v.stimulus else t.proposed_content->>'stimulus' end,
-       coalesce(t.proposed_content->'prompt_json',v.prompt_json),
+       case when t.item_type='frq' then
+         coalesce(t.proposed_content->'prompt_json',v.prompt_json) ||
+         jsonb_build_object('practice_modality','supplemental_hand_drawn')
+       else coalesce(t.proposed_content->'prompt_json',v.prompt_json) end,
        case when t.proposed_content is null then v.explanation else t.proposed_content->>'explanation' end,
        v.help_text,md5(t.new_version_id::text),'draft',
        'f5a26c6b-3566-4d58-9e97-979fbb947564'::uuid,
@@ -230,6 +233,8 @@ do $$ begin
       or (select count(*) from app.content_item_versions v where v.content_item_id=t.item_id and v.status='retired')<>1
       or (select count(*) from app.content_item_cells c where c.content_item_version_id=t.new_version_id and c.assignment_status='validated')<>2
       or (select count(*) from app.content_item_difficulty d where d.content_item_version_id=t.new_version_id)<>1
+      or (t.item_type='frq' and not exists (select 1 from app.content_item_versions v
+        where v.id=t.new_version_id and v.prompt_json->>'practice_modality'='supplemental_hand_drawn'))
       or not exists (select 1 from app.content_taxonomy_labels l where l.content_taxonomy_label_id=t.new_label_id
         and l.label_status='validated' and l.superseded_by is null
         and l.validated_against_version_id=t.new_version_id
