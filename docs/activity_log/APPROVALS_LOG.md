@@ -4,7 +4,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 ## Index
 
-- [APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted 2026-11-12)](APPROVAL-0257_STATS_UNIT5_PRODUCTION_2026_11_12.md)
+- [APPROVAL-0257 — AP Statistics Unit 5 re-leveling (granted and executed 2026-11-12)](APPROVAL-0257_STATS_UNIT5_PRODUCTION_2026_11_12.md)
 - [APPROVAL-0236 — TASK-0050 AP Statistics Phase B: 390 provisional skill cells added to Production (granted and executed 2026-11-11 ET)](APPROVAL-0236_TASK0050_STATISTICS_PHASE_B_PROVISIONAL_SKILLS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0218 — AP Chemistry topics 3.1 to 3.3 harder seeds: 24 items published, 12 superseded items retired (granted and executed 2026-11-11)](APPROVAL-0218_AP_CHEMISTRY_3_1_TO_3_3_HARDER_SEEDS_PRODUCTION_2026_11_11.md)
 - [APPROVAL-0229 — AP Physics 1 Unit 4 topics 4.1 to 4.4: 32 items published (granted and executed 2026-11-12)](APPROVAL-0229_AP_PHYSICS_1_UNIT4_4_1_TO_4_4_PRODUCTION_2026_11_12.md)

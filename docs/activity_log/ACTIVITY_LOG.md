@@ -4,7 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
-- AP Statistics Unit 5 re-leveling prepared for Production (`APPROVAL-0257`, 2026-11-12): 60 new MCQs checked by two blind solvers and two tier models under David's one-time quality-gate exception; 15 served-pack R1 items proposed for retirement. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
+- AP Statistics Unit 5 re-leveling published (`APPROVAL-0257`, 2026-11-12): 60 new MCQs with validated serving labels, 15 served-pack R1 items retired, and selector checks passed under David's one-time quality-gate exception. Status: `docs/product/STATS_UNIT5_RELEVELING_STATUS_2026_11_12.md`.
 - Precalculus 1.4-B: two published items with inconsistent turning-point counts corrected in place (`APPROVAL-0255`, 2026-11-12).
 - Physics C: Mechanics Unit 1 re-leveling published (`APPROVAL-0254`, 2026-11-12): 40 new MCQs, 19 retired. Status: `docs/product/PHYSICS_C_MECH_UNIT1_RELEVELING_STATUS_2026_11_12.md`.
 - Unit 1 re-leveling for Physics 1, Biology, Chemistry, Calculus AB and BC, Precalculus and Statistics published (`APPROVAL-0243` to `APPROVAL-0253`, 2026-11-12): 632 new MCQs, 166 superseded items retired. Statistics retirements were narrowed to served items and topics kept at 12 or more where old items existed. Status: `docs/product/UNIT1_RELEVELING_STATUS_2026_11_12.md`.
