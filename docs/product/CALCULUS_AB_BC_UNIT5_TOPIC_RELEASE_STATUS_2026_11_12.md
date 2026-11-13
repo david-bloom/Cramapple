@@ -67,3 +67,16 @@ AB new tiers: three R2 seeds, seven R2 variants, two R3 variants. BC new tiers: 
 The old AB item `apcalcab-mcq-037` was flagged `key_disputed` in the before audit. Its derivative is x³−3.2x²−1.1x+2.4. Numerical roots are -0.909654, 0.796276, 3.313378, with derivative signs −/+, +/−, −/+ around them. Thus only x=0.796 is a local maximum, matching its published B key. No correction or retirement is needed. No subject-expert review is claimed. The one-time QA exception applies.
 
 **Execution state:** Published to both Production packs under `APPROVAL-0268` on 2026-11-13. Each executor found zero existing new keys and zero retire keys, loaded two chunks, matched 12/12 draft hashes, passed a rolled-back publish rehearsal, published 12 items with 12 validated serving labels and 12 topic cells, matched 12/12 post-publish hashes, and returned all 12 new items through the student selector. Independent read-only Production verification found AB 15 published/15 valid-serving, BC 14/14.
+
+## Topic 5.5 — Candidates Test for Absolute Extrema
+
+Before write, a 2026-11-13 read-only Production count found AB one published/valid-serving topic 5.5 MCQ and BC zero. The read-only two-model audit of the AB item used `python3 -u scripts/difficulty-audit/audit.py --subject 'AP Calculus AB' --topics 5.5 --workers 2 --out /private/tmp/cramapple-calcab-u5-t5_5-before --workdir /private/tmp/cramapple-unit5-calculus`; `apcalcab-mcq-np2-003` rated R2 with no flags. No R1 family is retired. New packages `apcalcab-harder-seeds-u5-t5_5-2026-11-13` and `apcalcbc-harder-seeds-u5-t5_5-2026-11-13` each have three seeds and nine variants, with identical stems, choices, keys, and rationales in both packs. They cover polynomial candidate comparisons with ties, an interior nondifferentiable corner, and an exhaustive candidate-value table. All fit CED FUN-4.A.3 and required units `[5]`.
+
+| Pack | Retained old R2 seeds / variants | New R1 / R2 / R3 | New seeds / variants | Retire | After published / valid-serving |
+|---|---:|---:|---:|---:|---:|
+| AB | 1 / 0 | 0 / 12 / 0 | 3 / 9 | 0 | 13 / 13 expected |
+| BC | 0 / 0 | 0 / 12 / 0 | 3 / 9 | 0 | 12 / 12 expected |
+
+After release, AB will have four R2 seed families and nine R2 variants; BC will have three R2 seed families and nine R2 variants. There are no R1 or R3 items in this batch. The R3 authoring target was not achieved; all new items met the owner's R2-or-R3 replacement floor. Tiers remain uncalibrated. Both draft validators passed and both packages built two load chunks. DeepSeek and Kimi blind solves agreed 12/12 keys in each pack; both tier models rated all 12 in each pack, with no R1, duplicates, disputed keys, or missing answers. The author checked each endpoint/critical-point value, tie, corner premise, choice, and rationale by hand. Cross-family and retained-old stem similarity over 0.80: zero. No subject-expert review is claimed. The one-time QA exception applies.
+
+**Execution state:** Prepared under `APPROVAL-0268`; update after write.
