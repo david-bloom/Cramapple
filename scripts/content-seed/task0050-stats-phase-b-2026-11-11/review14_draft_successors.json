@@ -994,5 +994,86 @@
         }
       ]
     }
+  },
+  {
+    "content_key": "APSTATS-MCQ-007-CAL",
+    "source_version_id": "1a3ef4df-21ce-4d21-aaff-91bf7b826fd2",
+    "source_content_hash": "0ae99d62d483278a0139c4c289627e4428d72865acd8e15eb38075c33c52e945",
+    "reason": "Correct the distractor's exponent: five red spins have probability 0.3 to the fifth power, not the fourth power.",
+    "proposed_content": {
+      "stem": "What is the probability that the wheel lands on red on the next spin?",
+      "stimulus": "At a local carnival game, a balanced wheel is spun and lands on red with probability 0.3 on each independent spin. A player has just watched the wheel land on red four times in a row.",
+      "prompt_json": {
+        "modules": [
+          "4"
+        ],
+        "subject": "AP Statistics",
+        "subtopics": [
+          "Unit 4: Independence and the Gambler's Fallacy"
+        ],
+        "rubric_type": "mcq",
+        "evaluator_strategy": "rule_based_mcq",
+        "source_content_key": "APSTATS-MCQ-007",
+        "intended_difficulty": "Medium",
+        "collision_resolution": "renamed_with_cal_suffix_to_avoid_published_smoke_batch_collision",
+        "phase_c_publish_packet": "2026-07-11",
+        "stem": "What is the probability that the wheel lands on red on the next spin?",
+        "stimulus": "At a local carnival game, a balanced wheel is spun and lands on red with probability 0.3 on each independent spin. A player has just watched the wheel land on red four times in a row.",
+        "choices": [
+          {
+            "rationale": "This is the gambler's fallacy -- independent events have no memory, so past outcomes do not change the probability of the next spin.",
+            "choice_key": "A",
+            "is_correct": false,
+            "choice_text": "Less than 0.3, because red is \"due\" to be balanced out by other colors soon."
+          },
+          {
+            "rationale": "Since the spins are stated to be independent, the probability of red on any single spin remains 0.3 regardless of the outcomes of previous spins.",
+            "choice_key": "B",
+            "is_correct": true,
+            "choice_text": "0.3, because each spin is independent of previous spins."
+          },
+          {
+            "rationale": "This treats a run of independent outcomes as evidence of a changing probability, which contradicts the stated independence of the spins.",
+            "choice_key": "C",
+            "is_correct": false,
+            "choice_text": "Greater than 0.3, because landing on red four times in a row suggests the wheel is more likely to land on red."
+          },
+          {
+            "rationale": "This answers a different question (the probability of a specific five-spin sequence) rather than the probability of the single next spin.",
+            "choice_key": "D",
+            "is_correct": false,
+            "choice_text": "0.3 to the fifth power, because the probability of five reds in a row must be calculated."
+          }
+        ]
+      },
+      "canonical_answer_1": null,
+      "explanation": "Since the spins are stated to be independent, the probability of red on any single spin remains 0.3 regardless of the outcomes of previous spins.",
+      "choices": [
+        {
+          "rationale": "This is the gambler's fallacy -- independent events have no memory, so past outcomes do not change the probability of the next spin.",
+          "choice_key": "A",
+          "is_correct": false,
+          "choice_text": "Less than 0.3, because red is \"due\" to be balanced out by other colors soon."
+        },
+        {
+          "rationale": "Since the spins are stated to be independent, the probability of red on any single spin remains 0.3 regardless of the outcomes of previous spins.",
+          "choice_key": "B",
+          "is_correct": true,
+          "choice_text": "0.3, because each spin is independent of previous spins."
+        },
+        {
+          "rationale": "This treats a run of independent outcomes as evidence of a changing probability, which contradicts the stated independence of the spins.",
+          "choice_key": "C",
+          "is_correct": false,
+          "choice_text": "Greater than 0.3, because landing on red four times in a row suggests the wheel is more likely to land on red."
+        },
+        {
+          "rationale": "This answers a different question (the probability of a specific five-spin sequence) rather than the probability of the single next spin.",
+          "choice_key": "D",
+          "is_correct": false,
+          "choice_text": "0.3 to the fifth power, because the probability of five reds in a row must be calculated."
+        }
+      ]
+    }
   }
 ]

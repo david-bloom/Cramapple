@@ -6,7 +6,7 @@ from pathlib import Path
 
 drafts = json.loads(Path(__file__).with_name('review14_draft_successors.json').read_text())
 by_key = {d['content_key']: d['proposed_content'] for d in drafts}
-assert len(drafts) == len(by_key) == 11
+assert len(drafts) == len(by_key) == 12
 
 for d in drafts:
     p = d['proposed_content']
@@ -59,6 +59,7 @@ assert '0.037' in by_key['APSTATS-MCQ-012']['stimulus']
 assert '0.038' not in json.dumps(by_key['APSTATS-MCQ-012'])
 assert all('0.037' in c['choice_text'] for c in by_key['APSTATS-MCQ-012']['choices'])
 assert 'fifth power' in by_key['APSTATS-MCQ-007']['choices'][3]['choice_text']
+assert 'fifth power' in by_key['APSTATS-MCQ-007-CAL']['choices'][3]['choice_text']
 assert 'H0:' not in by_key['APSTATS-MCQ-017']['stimulus']
 assert 'standard error' not in by_key['APSTATS-MCQ-017']['stem'].lower()
 
