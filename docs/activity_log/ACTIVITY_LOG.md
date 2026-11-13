@@ -4,6 +4,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 ## Index
 
+- Label gap fill, Units 1-5, all ten AP subjects (`APPROVAL-0265`, `APPROVAL-0266`, 2026-11-13): 595 items given validated topic cells and serving labels (serving gaps 373 to 24); live selector 595/595 with topic match; 24 residue listed; measured gateway cost $11.20. Report: `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_REPORT_2026_11_13.md`.
 - AP Statistics Units 4-5 round-2 FRQs published to Production, content only (`APPROVAL-0257`, 2026-11-12): 30 FRQs (10 seeds, 20 variants), labels out for a separate labeling task; 30/30 verified.
 - AP Statistics Unit 5 + Unit 4 (stand-in for the nonexistent Unit 6) FRQ cost-measured authoring run (2026-11-12, no approval: nothing published): 15 seeds + 15 variants accepted; gateway $5.75 measured at token level (seed $0.3191 avg, variant $0.0507 avg; Unit 5 $0.1465/$0.0279, Unit 4 $0.4054/$0.0620); 49-pattern rubric library, diff-style variant check. Record: `scripts/content-seed/frq-stats-u5-2026-11-12/README.md`. **Round 2 (2026-11-12, difficulty target added; David: Easy is too easy for AP level): 9 of 10 Easy seeds and 9 variants rewritten and accepted with no checker rating them Easy; 5.3 held; 5 split-rated r1 items not yet re-rated; r2 gateway $4.47.**
 - /question two-pane rebuild from David's MCQ/FRQ result mockups (2026-11-12): app PR `david-bloom/ap-prep-blueprint#57` implements the two-pane layout already approved as `DECISION-0133` (no new decision), per David's "approve the two-pane layout and go ahead" (the three-pane design "is getting poor reviews"). Not published to Lovable, nothing in Production.
@@ -322,6 +323,11 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## 2026-11-13 — Label gap audit and fill, Units 1-5, all ten AP subjects (APPROVAL-0265, APPROVAL-0266)
+
+Read-only audit of Production found 373 in-scope published items not served and 525 without a validated topic cell. On the owner's direction (serving and topic only) 595 items were labeled in two rehearsed, per-subject transactions (six-vote probe, deterministic provenance, inherited variants, then owner-approved CED-text rulings and release of held labels). Independent read-back 513/513 and 82/82; live selector 595/595 with topic match. 24 items remain unserved and are listed. Measured gateway $11.20. Handoff: `docs/handoffs/SESSION_CLOSE_2026_11_13_LABEL_GAP_UNITS_1_5.md`.
+
 
 
 ## 2026-11-12 — AP Statistics Units 4-5 round-2 FRQs published to Production, content only (APPROVAL-0257)

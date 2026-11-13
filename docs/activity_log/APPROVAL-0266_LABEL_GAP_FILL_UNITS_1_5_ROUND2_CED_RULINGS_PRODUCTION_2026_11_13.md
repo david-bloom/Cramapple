@@ -12,3 +12,9 @@
 - **Numbering check:** highest APPROVAL on origin/main, open PRs and remote branches was 0265 (mine); this record takes 0266.
 - **Rehearsal:** nine subjects `REHEARSAL OK` and rolled back before commit.
 - **Result:** see the execution record appended below.
+
+## Execution record (2026-11-13)
+- Each of the nine subject transactions passed its rehearsal again immediately before commit, then committed; in-transaction post-checks (topic cells, no duplicate primary, fresh validated labels, plan hash) passed.
+- Independent read after commit (`publish_labels_r2.py verify`): 82 of 82 items have the planned topic cell and a fresh validated serving label; 0 mismatches.
+- First rehearsal found that the one-primary-cell-per-version unique index needs the old cell demoted (`is_primary=false`) before the replacement is inserted; the script does that and sets `superseded_by` afterwards.
+- Live selector check and recount: see `docs/qa/LABEL_GAP_AUDIT_UNITS_1_5_FINAL_REPORT_2026_11_13.md`.
